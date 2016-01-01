@@ -1,0 +1,154 @@
+@import (reference) 'ref.less';
+
+body,input,select,textarea {
+	.sans-font-1;
+	border-radius: 0 !important;
+	font-size: 100%;
+}
+textarea {
+	box-shadow: none !important;
+	border: none !important;
+	resize: none;
+}
+body {
+	-moz-transition: all 0.6s ease 0s;
+	-o-transition: all 0.6s ease 0s;
+	-webkit-transition: all 0.6s ease 0s;
+	transition: all 0.6s ease 0s;
+}
+ul, ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+.hidden {
+	display: none !important;
+}
+button {
+	outline: none !important;
+}
+a {
+	text-decoration: none !important;
+	color: @blue;
+}
+a:hover {
+	color: @subtextcolor;
+}
+
+
+/* dia */
+.dia-wrap {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(255,255,255,0.8);
+	z-index: 990;
+}
+.dia {
+	width: 300px;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	background: #fff;
+	position: relative;
+	cursor: default;
+	padding: 5px 10px;
+	box-shadow: 0 5px 20px 1px rgba(0,0,0,0.2);	
+}
+
+/* dia_loc */
+.dia_loc .dia {
+	padding: 5px 10px;
+}
+.dia_loc .dia ul li {
+	padding: 10px 5px;
+	text-align: center;
+	background: #ddd;
+	color: #333;
+	margin: 10px 0;
+	opacity: .6;
+}
+.dia_loc .dia ul li:nth-child(1) {
+	background: #d77e00;
+	color: #fff;
+}
+.dia_loc .dia ul li:nth-child(2) {
+	background: red;
+	color: #fff;
+}
+.dia_loc .dia ul li:active {
+	opacity: .8;
+}
+
+
+/* dia_info */
+.dia_info {
+	background: rgba(255,255,255,0.3);
+}
+.dia_info .dia {
+	padding: 15px 3px;
+	width: 150px;
+	font-size: 14px;
+	text-align: center;
+
+	/* green */
+	/*background: #8ec9af;
+	color: #264638;*/
+
+	background: #222;
+	color: #eee;
+}
+
+
+
+/* dia_loading */
+.dia_loading {
+	background: #fff;
+}
+.dia-wrap .loading {
+	width: 200px;
+	height: 100px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -50px 0 0 -100px;
+	background: url(../img/loading.gif) no-repeat center;
+	z-index: 999;
+}
+
+/* button */
+.btn-wrap {
+	cursor: default;
+	margin: 40px;
+	display: inline-block;
+}
+.btn {
+	display: inline-block;
+	cursor: default;
+	color: #fff;
+	border: none;
+	padding: 8px 15px;
+	font-size: 13px;
+	border-radius: 0;
+	background: @basecolor;
+}
+.btn:hover {
+	background: lighten(@basecolor, 20%);
+	color: #fff;
+}
+.btn.choose_file {
+	border: none;
+}
+
+
+
+/* other */
+.sep {
+	margin: 0 10px;
+	display: inline-block;
+	color: #999;
+}

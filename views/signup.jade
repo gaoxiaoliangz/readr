@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  p 加入 #{title}
+
+  form(action="newuser" method="post")
+    input(name="username" type="text" placeholder="用户名")
+    input(name="password" type="password" placeholder="密码")
+    button(type="submit") 注册

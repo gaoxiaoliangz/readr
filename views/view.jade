@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
+    <link rel="apple-touch-icon" href="../static/img/favicon.png" />
+    <link rel="shortcut icon" href="../static/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/ui.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/view.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/animate.css" />
+    title= title
+
+  body(class="view")
+    .wrapper
+      .functions(style="display:none;")
+        .container
+          span.home
+          span.clearhidden
+          span.title= title
+          span.loc NA/NA
+
+
+      .pages
+        .container
+          ul
+
+    <!-- libs -->
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/jquery.easing.1.3.js"></script>
+    <script src="../static/js/jquery.mobile.custom.min.js"></script>
+
+    <!-- js -->
+    <script src="../static/js/ui.showdia.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/view.js"></script>
+    <script src="../static/js/view.functions.js"></script>
+    script.
+      var initial_win_width = $(window).width();
+      if($(window).width() > 700){
+        var view = {
+          page_height: 910,
+          line_height: 35,
+          font_size: 16
+        }
+      }else{
+        var view = {
+          page_height: 1400,
+          line_height: 35,
+          font_size: 19
+        }
+      }
+
+      var book_id = #{book_id};
+      var book_progress = #{book_progress};
+      var cloud_progress = 0;
+      var base_url = "";
