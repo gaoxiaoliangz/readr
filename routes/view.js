@@ -15,7 +15,6 @@ var data = {
 
 var text;
 
-
 router.get('/', function(req, res) {
   // res.sendFile('view.html');
   // res.sendFile(path.join('../view.html'));
