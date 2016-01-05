@@ -3,8 +3,7 @@ extends layout
 block content
   h1 add book
 
-  form(action="addbook" method="post")
-    input(name="book_id" type="text" placeholder="book_id")
+  form(action="/api/books" method="post")
     input(name="book_name" type="text" placeholder="book_name")
     input(name="book_author" type="text" placeholder="book_author")
     input(name="book_cover" type="text" placeholder="book_cover")

@@ -1,7 +1,7 @@
 $(function(){
 	function getBook(book_id){
 		jQuery.ajax({
-			url: base_url + 'get_book_content/' + book_id,
+			url: base_url + "api/books/" + book_id + '/content/',
 			type: 'GET',
 			dataType: 'text',
 			complete: function(xhr, textStatus) {
@@ -14,20 +14,18 @@ $(function(){
 					localStorage.setItem("book-"+book_id, data_obj.text);
 					localStorage.setItem("book-"+book_id+"-2", data_obj.text2);
 				}else{
-					alert("Error");
-					location.reload();
+					alert("Error: wrong book content format! ");
 				}
 			},
 			error: function(xhr, textStatus, errorThrown) {
-				alert("Error2");
-				location.reload();
+				alert("Error: unable to get book content! ");
 			}
 		});
 	}
 
 	function setCloudProgress(book_id, progress){
 		jQuery.ajax({
-			url: base_url + 'set_progress/' + book_id + '/' + progress,
+			url: base_url + 'view/set_progress/' + book_id + '/' + progress,
 			type: 'GET',
 			dataType: 'text',
 			complete: function(xhr, textStatus) {
@@ -41,13 +39,12 @@ $(function(){
 
 	function getCloudProgress(book_id){
 		jQuery.ajax({
-			url: base_url + 'get_progress/' + book_id + '/' + progress,
+			url: base_url + 'view/get_progress/' + book_id + '/' + progress,
 			type: 'GET',
 			dataType: 'text',
 			complete: function(xhr, textStatus) {
 			},
 			success: function(data, textStatus, xhr) {
-				// alert(data);
 				cloud_progress = data;
 			},
 			error: function(xhr, textStatus, errorThrown) {
@@ -57,14 +54,12 @@ $(function(){
 
 	function handleCloudProgress(book_id, local_progress){
 		jQuery.ajax({
-			url: base_url + 'get_progress/' + book_id + '/' + progress,
+			url: base_url + 'view/get_progress/' + book_id + '/' + progress,
 			type: 'GET',
 			dataType: 'text',
 			complete: function(xhr, textStatus) {
 			},
 			success: function(data, textStatus, xhr) {
-				// alert(data);
-				// cloud_progress = data;
 				if(local_progress < data) {
 					$("body").scrollTop(data * book_layout.height);
 				}else {

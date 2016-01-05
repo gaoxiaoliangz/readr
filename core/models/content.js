@@ -1,37 +1,69 @@
-var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
-var Promise = require('bluebird');
-var url = 'mongodb://localhost:27017/readr';
+var db = require("./db");
+var db_name = 'readr';
+
+
+function genId(len){
+  return parseInt(Math.random()*Math.pow(10,len));
+}
+
+
 
 var content = {
-  get_book_content: function(book_id){
-    var text, db;
+  get_data: function(table_name, selector_id, key){
+    var text;
 
-    db = new Promise(function (resolve, reject) {
-      MongoClient.connect(url, function (err, db) {
-        if (err) {
-          console.log('Unable to connect to the mongoDB server. Error:', err);
-        } else {
-          console.log('Connection established to', url);
+    return new Promise(function(resolve,reject){
+      db.connect(db_name).then(function(db){
+        var collection = db.collection(table_name);
 
-          var collection = db.collection('books');
-
-          collection.find({book_id: book_id}).toArray(function (err, result) {
-            if (err) {
-              text = err;
-            } else if (result.length) {
-              text = result[0].book_content;
-            } else {
-              text = 'No document(s) found with defined "find" criteria!';
-            }
-            resolve(text);
-            db.close();
-          });
-        }
+        // todo: book_id
+        collection.find({book_id: selector_id}).toArray(function (err, result) {
+          if (err) {
+            text = err;
+          } else if (result.length) {
+            text = result[0][key];
+          } else {
+            text = 'No document(s) found with defined "find" criteria!';
+          }
+          resolve(text);
+          db.close();
+        });
       });
     });
-    
-    return db;
+  },
+  put_data: function(table_name, data){
+    var result = 0;
+    return new Promise(function(resolve,reject){
+      db.connect(db_name).then(function(db){
+        var collection = db.collection(table_name);
+        data._id = genId(8);
+
+        collection.insert([data], function (err, result) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('Task Completed.');
+            result = 1;
+          }
+          resolve(result);
+          db.close();
+        });
+      });
+    });
+  },
+  test: function(table_name, data){
+
+    var result = 0;
+    return new Promise(function(resolve,reject){
+      db.connect(db_name).then(function(db){
+        var collection = db.collection(table_name);
+
+        var len = collection.find();
+        console.log(len);
+        resolve(len);
+
+      });
+    });
   }
 }
 
