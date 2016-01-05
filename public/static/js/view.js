@@ -4,21 +4,23 @@ $(function(){
 			url: base_url + "api/books/" + book_id + '/content/',
 			type: 'GET',
 			dataType: 'text',
-			complete: function(xhr, textStatus) {
-				location.reload();
+			complete: function(jqXHR, textStatus) {
 			},
-			success: function(data, textStatus, xhr) {
+			success: function(data, textStatus, jqXHR) {
 				var data_obj = eval("("+data+")");
 				console.log(data_obj);
 				if(data_obj.status == 1){
 					localStorage.setItem("book-"+book_id, data_obj.text);
 					localStorage.setItem("book-"+book_id+"-2", data_obj.text2);
+					location.reload();
 				}else{
 					alert("Error: wrong book content format! ");
 				}
 			},
-			error: function(xhr, textStatus, errorThrown) {
-				alert("Error: unable to get book content! ");
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
 			}
 		});
 	}

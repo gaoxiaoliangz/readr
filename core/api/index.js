@@ -2,12 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 var books = require('./books');
-    // signin = require('./signin'),
-    // signup = require('./signup');
+    var users = require('./users');
 
 
 router.use('/books', books);
-// router.use('/signin', signin);
-// router.use('/signup', signup);
+router.use('/users', users);
+
 
 module.exports = router;

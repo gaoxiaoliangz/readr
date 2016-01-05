@@ -4,7 +4,7 @@ block content
   h1= title
   p 欢迎回来
 
-  form(action="auth" method="post")
+  form(action="/api/users/auth" method="post")
     input(name="username" type="text" placeholder="用户名")
     input(name="password" type="password" placeholder="密码")
     button(type="submit") 登录

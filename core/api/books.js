@@ -6,27 +6,36 @@ var Promise = require('bluebird');
 models.init();
 
 router.get('/:book_id/content', function(req, res, next) {
-  var book_id = req.params.book_id;
-  var result = models.get_data('books', book_id, 'book_content');
+  var book_id = parseInt(req.params.book_id);
+  var match = {
+    _id: book_id
+  };
+  var result = models.getData('books', match, 'book_content');
 
   result.then(function(val){
-    var text = val;
-    var data = {};
-    var text2 = '';
-    var status = 1;
-    var text_arr = text.split("\n");
 
-    for(var i = 0; i < text_arr.length; i++){
-      text2 = "<p>" + text_arr[text_arr.length-i-1] + "</p>" + text2;
+    if("errorCode" in val){
+      res.send(val.errorMsg);  
+    }else{
+      var text = val.result;
+      var data = {};
+      var text2 = '';
+      var status = 1;
+      var text_arr = text.split("\n");
+
+      for(var i = 0; i < text_arr.length; i++){
+        text2 = "<p>" + text_arr[text_arr.length-i-1] + "</p>" + text2;
+      }
+
+      data.text = text;
+      data.text2 = text2;
+      data.status = status;
+      data_str = JSON.stringify(data);
+
+      res.send(data_str);
     }
 
-    data.text = text;
-    data.text2 = text2;
-    data.status = status;
-    data_str = JSON.stringify(data);
-
-    res.send(data_str);
-  })
+  });
 });
 
 // testing only
@@ -55,7 +64,7 @@ router.post('/', function(req, res) {
   data.book_cover = req.body.book_cover;
   data.book_content = req.body.book_content;
 
-  var result = models.put_data('books', data);
+  var result = models.putData('books', data);
 
   result.then(function(val){
     if(val){
