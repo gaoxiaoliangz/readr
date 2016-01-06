@@ -11,13 +11,6 @@ var bodyParser = require('body-parser');
 
 var controllers = require('./core/controllers');
 var api = require('./core/api');
-// var users = require('./routes/users');
-// var signup = require('./routes/signup');
-// var signin = require('./routes/signin');
-// var auth = require('./routes/auth');
-// var newuser = require('./routes/newuser');
-// var addbook = require('./routes/addbook');
-// var view = require('./routes/view');
 
 
 
