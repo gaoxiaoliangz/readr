@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var Promise = require('bluebird');
+var session = require('express-session');
 
 models.init();
 
@@ -25,7 +26,6 @@ router.post('/new', function(req, res) {
 
       result.then(function(val){
         if(val){
-          // res.send("done");
           res.redirect('/');
         }else{
           console.log('users.js: error!');
@@ -56,7 +56,11 @@ router.post('/auth', function(req, res) {
 
   result.then(function(result){
     if(("result" in result)){
-      res.send("Hi, "+data.username);
+      var username = data.username;
+      req.session.userId = username;
+      res.send("Hi, "+req.session.userId);
+      // req.session.userId = result['_id'];
+      // res.send("Hi, "+result['_id']);
     }else{
       res.send("Not authed!");
     }

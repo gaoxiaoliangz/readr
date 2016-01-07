@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  p 欢迎回来
+  p 欢迎回来 #{username}
 
   form(action="/api/users/auth" method="post")
     input(name="username" type="text" placeholder="用户名")
