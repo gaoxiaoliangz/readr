@@ -15,10 +15,20 @@ module.exports = function(grunt) {
           "dist/test-es6.js": "test-es6.js"
         }
       }
+    },
+    "sass": {
+      options: {
+        sourcemap: 'true'
+      },
+      dist: {
+        files: {
+          "public/dist/main.css": "public/src/main.scss"
+        },
+      }
     }
   });
 
-  grunt.registerTask("default", ["babel"]);
+  grunt.registerTask("default", ["babel","sass"]);
 
 
 };
