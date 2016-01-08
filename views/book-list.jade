@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1 book list
+  ul
+    each row in data
+      li 
+        span #{row.book_name}
+        span #{row.book_author}

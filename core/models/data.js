@@ -6,9 +6,11 @@ function _genId(len){
 }
 
 var content = {
+
   getData: function(table_name, match, key){
-    var data = {};
-    data.error = {};
+    var json = {};
+    json.data = [];
+    json.error = {};
 
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
@@ -16,29 +18,31 @@ var content = {
 
         collection.find(match).toArray(function (err, result) {
           if (err) {
-            data.status = "ERROR";
-            data.error.msg = err;
-            data.error.code = 500;
+            json.status = "ERROR";
+            json.error.msg = err;
+            json.error.code = 500;
           } else if (result.length) {
             if(key){
-              data.body = result[0][key];
-              data.status = "OK";
+              for(var i = 0;i < result.length;i++){
+                json.body.push(result[i][key]);
+              }
+              json.status = "OK";
             }else{
-              data.body = result[0];
-              data.status = "OK";
+              json.data = result;
+              json.status = "OK";
             }
-            
           } else {
-            data.status = "ERROR";
-            data.error.msg = 'No document(s) found with defined "find" criteria!';
-            data.error.code = 404;
+            json.status = "ERROR";
+            json.error.msg = 'No document(s) found with defined "find" criteria!';
+            json.error.code = 404;
           }
-          resolve(data);
+          resolve(json);
           db.close();
         });
       });
     });
   },
+
   putData: function(table_name, data){
     var data = {};
     data.error = {};

@@ -5,6 +5,28 @@ var Promise = require('bluebird');
 
 models.init();
 
+router.get('/', function(req, res, next) {
+  var data = {};
+  var match = null;
+  var result = models.getData('books', match);
+
+  result.then(function(val){
+    if(val.status == "ERROR"){
+      console.log(val.error);
+      res.send(val.error);
+    }else{
+      data = val;
+
+      for(var i = 0;i < val.data.length;i++){
+        delete val.data[i]['book_content'];
+      }
+
+      res.send(data);
+    }
+  });
+});
+
+
 router.get('/:book_id/content', function(req, res, next) {
   var book_id = parseInt(req.params.book_id);
   var match = {
@@ -17,7 +39,7 @@ router.get('/:book_id/content', function(req, res, next) {
       console.log(val.error);
       res.send(val.error);
     }else{
-      var text = val.body;
+      var text = val.body[0];
       var data = {};
       var text2 = '';
       var status = 1;

@@ -19,35 +19,24 @@ var data = {
   title: 'readr'
 }
 
-// views
-// router.use(function (req, res, next) {
-//   var views = req.session.views;
-
-//   if(!views){
-//     req.session.views = 1;
-//   }else {
-//     req.session.views++;
-//   }
-//   next();
-// });
 
 
 // filter
-router.use(function (req, res, next) {
-  var excludes = ["/","/signin","/signup","/api/users/auth","/api/users/new"];
-  if (excludes.indexOf(req.path) == -1) {
-    var userId = req.session.userId;
+// router.use(function (req, res, next) {
+//   var excludes = ["/","/signin","/signup","/api/users/auth","/api/users/new"];
+//   if (excludes.indexOf(req.path) == -1) {
+//     var userId = req.session.userId;
 
-    if (!userId) {
-      res.redirect("/signin");
-    }else{
-      userId = req.session.userId;
-      next();
-    }
-  }else{
-    next();
-  }
-});
+//     if (!userId) {
+//       res.redirect("/signin");
+//     }else{
+//       userId = req.session.userId;
+//       next();
+//     }
+//   }else{
+//     next();
+//   }
+// });
 
 
 router.get('/signin', function(req, res, next) {
