@@ -1,9 +1,14 @@
+- var user = #{user}
+
 extends layout
 
 block content
   h1= title
-  p Hi, #{user}
-  a(href="signup") 注册
-  span |
-  a(href="signin") 登录
+  if user
+    p Hi, #{user} 
+      a(href="/logout") 退出
+  else
+    a(href="signup") 注册
+    span |
+    a(href="signin") 登录
 

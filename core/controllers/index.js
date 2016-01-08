@@ -3,9 +3,7 @@ var router = express.Router();
 var session = require('express-session');
 
 var home = require('./home'),
-    signin = require('./signin'),
-    signup = require('./signup');
-    view = require('./view');
+    view = require('./view'),
     books = require('./books');
 
 
@@ -15,6 +13,11 @@ router.use(
     cookie: { maxAge: 60000 }
   })
 );
+
+
+var data = {
+  title: 'readr'
+}
 
 // views
 // router.use(function (req, res, next) {
@@ -28,8 +31,10 @@ router.use(
 //   next();
 // });
 
+
+// filter
 router.use(function (req, res, next) {
-  var excludes = ["/","/signin","/signup","/api/users/auth"];
+  var excludes = ["/","/signin","/signup","/api/users/auth","/api/users/new"];
   if (excludes.indexOf(req.path) == -1) {
     var userId = req.session.userId;
 
@@ -45,9 +50,22 @@ router.use(function (req, res, next) {
 });
 
 
+router.get('/signin', function(req, res, next) {
+  res.render('signin', data);
+});
+
+router.get('/signup', function(req, res, next) {
+  res.render('signup', data);
+});
+
+router.get("/logout",function(req, res){
+  req.session.destroy();
+  res.redirect("/");
+});
+
+
+
 router.use('/', home);
-router.use('/signin', signin);
-router.use('/signup', signup);
 router.use('/view', view);
 router.use('/books', books);
 

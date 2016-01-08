@@ -21,15 +21,15 @@ router.post('/new', function(req, res) {
   var result = models.getData('users', match);
 
   result.then(function(result){
-    if(!("result" in result)){
+    if(result.status == "OK"){
       result = models.putData('users', data);
 
       result.then(function(val){
         if(val){
           res.redirect('/');
         }else{
-          console.log('users.js: error!');
-          res.send("Error!");
+          console.log('users.js: error creating user!');
+          res.send(result.error.msg);
         }
       });
     }else{
@@ -55,13 +55,12 @@ router.post('/auth', function(req, res) {
   var result = models.getData('users', match);
 
   result.then(function(result){
-    if(("result" in result)){
+    if(result.status == "OK"){
       var username = data.username;
       req.session.userId = username;
-      res.send("Hi, "+req.session.userId);
-      // req.session.userId = result['_id'];
-      // res.send("Hi, "+result['_id']);
+      res.redirect("/");
     }else{
+      res.redirect("/signin?error="+result.error.code);
       res.send("Not authed!");
     }
   });

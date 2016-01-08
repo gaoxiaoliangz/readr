@@ -8,25 +8,30 @@ function _genId(len){
 var content = {
   getData: function(table_name, match, key){
     var data = {};
-    console.log(match);
+    data.error = {};
+
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
 
         collection.find(match).toArray(function (err, result) {
           if (err) {
-            data.errorMsg = err;
-            data.errorCode = 500;
+            data.status = "ERROR";
+            data.error.msg = err;
+            data.error.code = 500;
           } else if (result.length) {
             if(key){
-              data.result = result[0][key];
+              data.body = result[0][key];
+              data.status = "OK";
             }else{
-              data.result = result[0];
+              data.body = result[0];
+              data.status = "OK";
             }
             
           } else {
-            data.errorMsg = 'No document(s) found with defined "find" criteria!';
-            data.errorCode = 404;
+            data.status = "ERROR";
+            data.error.msg = 'No document(s) found with defined "find" criteria!';
+            data.error.code = 404;
           }
           resolve(data);
           db.close();
@@ -34,36 +39,10 @@ var content = {
       });
     });
   },
-  getDataNoPromise: function(table_name, match, key){
-    var data = {};
-    console.log(match);
-
-    db = db.connect(db_name);
-    var collection = db.collection(table_name);
-
-    collection.find(match).toArray(function (err, result) {
-      if (err) {
-        data.errorMsg = err;
-        data.errorCode = 500;
-      } else if (result.length) {
-        if(key){
-          data.result = result[0][key];
-        }else{
-          data.result = result[0];
-        }
-        
-      } else {
-        data.errorMsg = 'No document(s) found with defined "find" criteria!';
-        data.errorCode = 404;
-      }
-      resolve(data);
-      db.close();
-    });
-
-
-  },
   putData: function(table_name, data){
-    var result = 0;
+    var data = {};
+    data.error = {};
+
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
@@ -72,19 +51,27 @@ var content = {
         collection.insert([data], function (err, result) {
           if (err) {
             console.log(err);
+            data.status = "ERROR";
+            data.error.msg = err;
+            data.error.code = 500;
           } else {
-            console.log('Task Completed.');
-            result = 1;
+            data.status = "OK";
           }
-          resolve(result);
+          resolve(data);
           db.close();
         });
       });
     });
   },
-  test: function(table_name, data){
 
+
+
+
+
+  // testing only
+  test: function(table_name, data){
     var result = 0;
+
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
@@ -94,6 +81,34 @@ var content = {
         resolve(len);
 
       });
+    });
+  },
+  getDataNoPromise: function(table_name, match, key){
+    var data = {};
+    data.error = {};
+
+    db = db.connect(db_name);
+    var collection = db.collection(table_name);
+
+    collection.find(match).toArray(function (err, result) {
+      if (err) {
+        data.status = "ERROR";
+        data.error.msg = err;
+        data.error.code = 500;
+      } else if (result.length) {
+        if(key){
+          data.result = result[0][key];
+        }else{
+          data.result = result[0];
+        }
+        
+      } else {
+        data.status = "ERROR";
+        data.error.msg = "No records found!";
+        data.error.code = 404;
+      }
+      resolve(data);
+      db.close();
     });
   }
 }
