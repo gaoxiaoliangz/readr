@@ -4,7 +4,8 @@ var session = require('express-session');
 
 var home = require('./home'),
     view = require('./view'),
-    books = require('./books');
+    books = require('./books'),
+    api = require('../api');
 
 
 router.use(
@@ -20,6 +21,13 @@ var data = {
 }
 
 
+var index = {
+  getAllBooks: function(req, res) {
+    api.books.getAllBooks().then(function(val){
+      res.send(val);
+    });
+  }
+}
 
 // filter
 // router.use(function (req, res, next) {
@@ -38,26 +46,28 @@ var data = {
 //   }
 // });
 
+//
+// router.get('/signin', function(req, res, next) {
+//   res.render('signin', data);
+// });
+//
+// router.get('/signup', function(req, res, next) {
+//   res.render('signup', data);
+// });
+//
+// router.get("/logout",function(req, res){
+//   req.session.destroy();
+//   res.redirect("/");
+// });
+//
+// router.get('/comments', function(req, res, next) {
+//   res.render('comments', data);
+// });
+//
+// router.use('/', home);
+// router.use('/view', view);
+// router.use('/books', books);
 
-router.get('/signin', function(req, res, next) {
-  res.render('signin', data);
-});
+// module.exports = router;
 
-router.get('/signup', function(req, res, next) {
-  res.render('signup', data);
-});
-
-router.get("/logout",function(req, res){
-  req.session.destroy();
-  res.redirect("/");
-});
-
-router.get('/comments', function(req, res, next) {
-  res.render('comments', data);
-});
-
-router.use('/', home);
-router.use('/view', view);
-router.use('/books', books);
-
-module.exports = router;
+module.exports = index;

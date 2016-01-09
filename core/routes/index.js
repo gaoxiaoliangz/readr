@@ -1,10 +1,9 @@
-var api         = require('./api'),
-    admin       = require('./admin'),
-    frontend    = require('./frontend');
+var api = require('./api');
+var frontend  = require('./frontend');
+// var admin = require('./admin');
 
 module.exports = {
-  apiBaseUri: '/ghost/api/v0.1/',
+  apiBaseUri: '/api/v0.1/',
   api: api,
-  admin: admin,
   frontend: frontend
 };

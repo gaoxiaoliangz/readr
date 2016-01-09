@@ -9,8 +9,9 @@ var bodyParser = require('body-parser');
 
 
 // routers
-var controllers = require('./core/controllers');
-var api = require('./core/api');
+// var controllers = require('./core/controllers');
+// var api = require('./core/api');
+var routes = require('./core/routes');
 
 
 // view engine setup
@@ -29,10 +30,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-app.use('/', controllers);
-app.use('/api', api);
-
+// var middleware = function(req,res,next){
+//   console.log("here");
+//   next();
+// };
+// app.use('/', controllers);
+// app.use('/api', api);
+// app.use('/', routes);
+// app.use(routes.apiBaseUri);
+app.use(routes.apiBaseUri, routes.api());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
