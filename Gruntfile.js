@@ -1,34 +1,65 @@
 module.exports = function(grunt) {
 
-
-  require("load-grunt-tasks")(grunt); // npm install --save-dev load-grunt-tasks
+  require("load-grunt-tasks")(grunt);
 
   grunt.initConfig({
-    "babel": {
-      options: {
-        sourceMap: true,
-        presets: ['es2015']
-      },
-      dist: {
+    babel: {
+      react: {
+        options: {
+          sourceMap: true,
+          presets: ['react']
+        },
         files: {
-          "dist/app.js": "app.js",
-          "dist/test-es6.js": "test-es6.js"
+          "public/dist/js/comments.js": "public/src/js/comments.js",
+          "public/dist/js/book-list.js": "public/src/js/book-list.js",
+        }
+      },
+      es2015: {
+        options: {
+          sourceMap: true,
+          presets: ['es2015']
+        },
+        files: {
         }
       }
     },
-    "sass": {
-      options: {
-        sourcemap: 'true'
-      },
+
+    sass: {
       dist: {
-        files: {
-          "public/dist/main.css": "public/src/main.scss"
+        options: {
+          style: 'expanded'
         },
+        files: {
+          "public/dist/css/main.css": "public/src/css/main.scss",
+          "public/dist/css/style.css": "public/src/css/style.scss"
+        }
+      }
+    },
+
+    watch: {
+      css: {
+        files: ['public/src/css/*.scss'],
+        tasks: ['sass'],
+        options: {
+            spawn: false
+        },
+      },
+      scripts: {
+        files: ['public/src/js/*.js'],
+        tasks: ['babel'],
+        options: {
+          spawn: false,
+        }
       }
     }
   });
 
-  grunt.registerTask("default", ["babel","sass"]);
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
+  grunt.registerTask("default", ["babel","sass"]);
+  grunt.registerTask('w',['watch']);
+  grunt.registerTask('s',['sass']);
+  grunt.registerTask('b',['babel']);
 
 };

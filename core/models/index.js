@@ -7,7 +7,8 @@ var Promise = require('bluebird'),
 exports = module.exports;
 
 models = [
-    'data'
+  'data',
+  'query'
 ];
 
 function init() {

@@ -1,0 +1,66 @@
+- var base_url = '/src/'
+doctype html
+html
+  head
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
+    <link rel="apple-touch-icon" href="#{base_url}img/favicon.png" />
+    <link rel="shortcut icon" href="#{base_url}img/favicon.png" type="image/x-icon">
+    
+    <link rel="stylesheet" type="text/css" media="all" href="/lib/animate.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/lib/normalize.css" />
+    
+    <link rel="stylesheet" type="text/css" media="all" href="#{base_url}css/style.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="#{base_url}css/ui.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="#{base_url}css/view.css" />
+    
+    title= title
+
+  body(class="view")
+    .wrapper
+      .functions(style="display:none;")
+        .container
+          span.home
+          span.clear.hidden
+          span.title= title
+          span.loc NA/NA
+
+
+      .pages
+        .container
+          ul
+            
+    <!-- libs -->
+    <script src="/lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="/lib/jquery/jquery.easing-1.3.js"></script>
+    <script src="/lib/jquery/jquery.mobile.custom.min.js"></script>
+
+    <!-- js -->
+    <script src="#{base_url}js/showdia.js"></script>
+    <script src="#{base_url}js/view.js"></script>
+    script.
+      var initial_win_width = $(window).width();
+      if($(window).width() > 700){
+        var view = {
+          page_height: 910,
+          line_height: 35,
+          font_size: 16
+        }
+      }else{
+        var view = {
+          page_height: 1400,
+          line_height: 35,
+          font_size: 19
+        }
+      }
+
+      var book_id = #{book_id};
+      var book_progress = 0;
+      var cloud_progress = 0;
+      var base_url = "/";
+      var progress = 0;
+      var book_layout;
+      var book_content;
+
+    <script src="#{base_url}js/book.js"></script>
+

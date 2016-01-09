@@ -52,7 +52,9 @@ router.get("/logout",function(req, res){
   res.redirect("/");
 });
 
-
+router.get('/comments', function(req, res, next) {
+  res.render('comments', data);
+});
 
 router.use('/', home);
 router.use('/view', view);
