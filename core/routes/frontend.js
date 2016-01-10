@@ -5,8 +5,8 @@ var express = require('express'),
 frontendRoutes = function frontendRoutes() {
   var router = express.Router();
 
-  // router.get('/posts', authenticatePublic, api.http(api.posts.browse));
 
+  return router;
 };
 
 module.exports = frontendRoutes;

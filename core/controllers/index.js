@@ -22,8 +22,14 @@ var data = {
 
 
 var index = {
-  getAllBooks: function(req, res) {
+  getAllBooks: function(req, res){
     api.books.getAllBooks().then(function(val){
+      res.send(val);
+    });
+  },
+  getBookContent: function(req, res){
+    var _id = parseInt(req.params._id);
+    api.books.getBookContent(_id).then(function(val){
       res.send(val);
     });
   }
