@@ -5,9 +5,11 @@ var express = require('express'),
 
     frontendRoutes;
 
+
 frontendRoutes = function frontendRoutes() {
   var router = express.Router();
-  var _genSecret = function(len){
+  
+  function _genSecret(len){
     return parseInt(Math.random()*Math.pow(10,len));
   }
 
@@ -50,16 +52,16 @@ frontendRoutes = function frontendRoutes() {
 
 
 
-
+  // index
   router.get('/', function(req, res) {
     var data = {
       userinfo: req.session.userinfo
     }
-    
+
     res.render('index', data);
   });
 
-
+  // site entry
   router.post('/signin', frontend.handleSignin);
 
   router.get('/signin', function(req, res) {
@@ -77,7 +79,7 @@ frontendRoutes = function frontendRoutes() {
     res.redirect("/");
   });
 
-
+  // books
   router.post('/books/new', frontend.handleAddBook);
 
   router.get('/books/new', frontend.renderAddBook);
@@ -86,6 +88,7 @@ frontendRoutes = function frontendRoutes() {
     res.render('book-list-react');
   });
 
+  // todo: opt
   router.get('/books/:book_id', function(req, res) {
     var data = {
       title: 'readr',
@@ -95,7 +98,6 @@ frontendRoutes = function frontendRoutes() {
     }
     var book_id = req.params.book_id;
     data.book_id = book_id;
-
     res.render('book', data);
   });
 

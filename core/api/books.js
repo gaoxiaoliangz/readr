@@ -9,18 +9,17 @@ var books = {
     return new Promise(function(resolve){
       var data = {};
       var match = null;
-      var result = models.getData('books', match);
 
-      result.then(function(val){
-        if(val.error){
-          data = val;
+      models.getData('books', match).then(function(result){
+        if(result.error){
+          data = result;
           console.log(data);
           resolve(data);
         }else{
-          data = val;
+          data = result;
 
-          for(var i = 0;i < val.data.length;i++){
-            delete val.data[i]['book_content'];
+          for(var i = 0;i < result.data.length;i++){
+            delete result.data[i]['book_content'];
           }
           resolve(data);
         }
@@ -35,12 +34,12 @@ var books = {
         _id: _id
       };
 
-      models.getData('books', match, 'book_content').then(function(val){
-        if(val.error){
-          console.log(val);
-          resolve(val);
+      models.getData('books', match, 'book_content').then(function(result){
+        if(result.error){
+          console.log(result);
+          resolve(result);
         }else{
-          var text = val.data[0];
+          var text = result.data[0];
           var data = {};
           var text2 = '';
           var status = 1;

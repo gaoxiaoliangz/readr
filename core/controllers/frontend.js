@@ -8,22 +8,23 @@ var express = require('express');
 
 var frontend = {
   renderAddBook: function(req,res){
-    var json = {};
-    json.title = config.siteName;
-    res.render('book-add', json);
+    var data = {};
+    data.title = config.siteName;
+    res.render('book-add', data);
   },
   handleAddBook: function(req, res){
-    var data = {};
-    data.book_name = req.body.book_name;
-    data.book_author = req.body.book_author;
-    data.book_cover = req.body.book_cover;
-    data.book_content = req.body.book_content;
+    var data = {
+      book_name: req.body.book_name,
+      book_author: req.body.book_author,
+      book_cover: req.body.book_cover,
+      book_content: req.body.book_content
+    };
 
-    api.books.addBook(data).then(function(d){
-      if(!d.error){
+    api.books.addBook(data).then(function(result){
+      if(!result.error){
         res.redirect("/books/new");
       }else{
-        res.send(d);
+        res.send(result);
       }
     });
   },

@@ -22,8 +22,8 @@ http = function http(apiMethod) {
       options = {};
     }
 
-    apiMethod(object, options).then(function(d){
-      res.send(d);
+    apiMethod(object, options).then(function(result){
+      res.send(result);
     });
   };
 };
