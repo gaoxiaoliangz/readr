@@ -1,25 +1,24 @@
 var express = require('express'),
     api = require('../api'),
     frontend = require('../controllers/frontend'),
+    session = require('express-session'),
+
     frontendRoutes;
-var session = require('express-session');
 
 frontendRoutes = function frontendRoutes() {
-
-  var data = {
-    title: 'readr'
+  var router = express.Router();
+  var _genSecret = function(len){
+    return parseInt(Math.random()*Math.pow(10,len));
   }
 
-  var router = express.Router();
-
-
-  router.use(
-    session({
-      secret: 'keyboard cat',
-      cookie: { maxAge: 60000 }
-    })
-  );
-
+  router.use(session({
+    secret: "s"+_genSecret(5),
+    cookie: { maxAge: 60000 },
+    resave: true,
+    saveUninitialized: true,
+    // store: sessionStore, // connect-mongo session store
+    // proxy: true
+  }));
 
 
   // filter
@@ -39,37 +38,38 @@ frontendRoutes = function frontendRoutes() {
   //   }
   // });
 
-  router.get('/', function(req, res, next) {
+
+  // todo: remove this
+  router.get('/view/get_progress/:book_id/:progress', function(req, res, next) {
+    res.send("0");
+  });
+
+  router.get('/view/set_progress/:book_id/:progress', function(req, res, next) {
+    res.send("0");
+  });
+
+
+
+
+  router.get('/', function(req, res) {
     var data = {
-      title: 'readr'
-    };
-    data.user = req.session.userId;
+      userinfo: req.session.userinfo
+    }
+    
     res.render('index', data);
   });
 
-  router.get('/books', function(req, res, next) {
-    var json = {
-      title: 'readr',
-    }
-    res.render('book-list-react', json);
-  });
 
-
-
-  // todo: remove this
-  router.get('/get_progress/:book_id/:progress', function(req, res, next) {
-    res.send("0");
-  });
-  router.get('/set_progress/:book_id/:progress', function(req, res, next) {
-  });
-
-  router.get('/signin', function(req, res, next) {
-    res.render('signin', data);
-  });
   router.post('/signin', frontend.handleSignin);
 
-  router.get('/signup', function(req, res, next) {
-    res.render('signup', data);
+  router.get('/signin', function(req, res) {
+    res.render('signin');
+  });
+
+  router.post('/signup', frontend.handleSignup);
+
+  router.get('/signup', function(req, res) {
+    res.render('signup');
   });
 
   router.get("/logout",function(req, res){
@@ -77,11 +77,14 @@ frontendRoutes = function frontendRoutes() {
     res.redirect("/");
   });
 
-  router.get('/comments', function(req, res, next) {
-    res.render('comments', data);
-  });
+
+  router.post('/books/new', frontend.handleAddBook);
 
   router.get('/books/new', frontend.renderAddBook);
+
+  router.get('/books', function(req, res) {
+    res.render('book-list-react');
+  });
 
   router.get('/books/:book_id', function(req, res) {
     var data = {
@@ -90,15 +93,11 @@ frontendRoutes = function frontendRoutes() {
       book_progress: 0,
       cloud_progress: 0
     }
-
     var book_id = req.params.book_id;
     data.book_id = book_id;
 
     res.render('book', data);
   });
-
-  router.post('/books/new', frontend.handleAddBook);
-  router.post('/users/new', frontend.handleAddUser);
 
   return router;
 };

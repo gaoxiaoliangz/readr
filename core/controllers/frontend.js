@@ -27,7 +27,7 @@ var frontend = {
       }
     });
   },
-  handleAddUser: function(req, res){
+  handleSignup: function(req, res){
     var data = {
       username: req.body.username,
       password: req.body.password,
@@ -38,7 +38,8 @@ var frontend = {
       if(!d.error){
         res.redirect("/");
       }else{
-        res.send(d);
+        console.log(result);
+        res.redirect("/signin?error="+result.error.code);
       }
     });
   },
@@ -50,8 +51,11 @@ var frontend = {
 
     api.auth.signin(data).then(function(result){
       if(!result.error){
-        var username = data.username;
-        req.session.userId = username;
+        var userinfo = {
+          username: data.username
+        }
+
+        req.session.userinfo = userinfo;
         res.redirect("/");
       }else{
         console.log(result);

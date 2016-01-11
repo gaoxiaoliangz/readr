@@ -3,8 +3,8 @@
 extends layouts/default
 
 block content
-  if user
-    p Hi, #{user} 
+  if userinfo
+    p Hi, #{userinfo.username} 
       a(href="/logout") 退出
   else
     a(href="signup") 注册
