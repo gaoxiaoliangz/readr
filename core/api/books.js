@@ -1,9 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var models = require('../models');
 var Promise = require('bluebird');
+var router = express.Router();
 
-models.init();
 
 var books = {
   getAllBooks:function(){
@@ -35,11 +34,10 @@ var books = {
       var match = {
         _id: _id
       };
-      var result = models.getData('books', match, 'book_content');
 
-      result.then(function(val){
+      models.getData('books', match, 'book_content').then(function(val){
         if(val.error){
-          console.log(val.error);
+          console.log(val);
           resolve(val);
         }else{
           var text = val.data[0];
@@ -62,6 +60,11 @@ var books = {
       });
     });
   },
+  addBook: function(object){
+    return models.putData('books', object);
+  },
+
+
   testApi: function(object, options){
     var abc;
     return new Promise(function(resolve){
@@ -70,26 +73,5 @@ var books = {
     });
   }
 }
-
-
-// router.post('/', function(req, res) {
-//   var data = {};
-//   data.book_name = req.body.book_name;
-//   data.book_author = req.body.book_author;
-//   data.book_cover = req.body.book_cover;
-//   data.book_content = req.body.book_content;
-//
-//   var result = models.putData('books', data);
-//
-//   result.then(function(val){
-//     if(val){
-//       res.redirect('/books/new');
-//     }else{
-//       console.log(val.error);
-//       res.send(val.error);
-//     }
-//   });
-
-
 
 module.exports = books;

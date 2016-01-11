@@ -1,14 +1,12 @@
 - var user = #{user}
 
-extends layout
+extends layouts/default
 
 block content
-  h1= title
   if user
     p Hi, #{user} 
       a(href="/logout") 退出
   else
     a(href="signup") 注册
-    span |
+    span.sep |
     a(href="signin") 登录
-

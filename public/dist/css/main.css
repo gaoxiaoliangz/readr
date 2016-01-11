@@ -1,3 +1,60 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "roboto", "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+  color: #666;
+  -webkit-font-smoothing: antialiased;
+}
+
+.no-csschunit body {
+  font-family: "Microsoft Yahei", Arial, sans-serif;
+}
+
+::selection {
+  background: rgba(47, 141, 246, 0.3);
+  color: #666;
+  text-shadow: none;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+a {
+  color: #2c65c7;
+  transition: all .2s ease-in;
+}
+a:hover {
+  color: #4c83e0;
+}
+a:active {
+  color: #4b8cff;
+  transition: all 0s;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.sep {
+  margin: 0 5px;
+  color: #ddd;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
 body {
   padding: 50px;
 }

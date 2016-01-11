@@ -1,9 +1,9 @@
-extends layout
+extends layouts/default
 
 block content
   h1 add book
 
-  form(action="/api/books" method="post")
+  form(action="/books/new" method="post")
     input(name="book_name" type="text" placeholder="book_name")
     input(name="book_author" type="text" placeholder="book_author")
     input(name="book_cover" type="text" placeholder="book_cover")

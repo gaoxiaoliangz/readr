@@ -44,7 +44,11 @@ var Book = React.createClass({
       React.createElement(
         "h2",
         { className: "book-name" },
-        this.props.name
+        React.createElement(
+          "a",
+          { href: "/books/" + this.props.id },
+          this.props.name
+        )
       ),
       React.createElement(
         "span",
@@ -61,7 +65,7 @@ var BookList = React.createClass({
 
   render: function () {
     var bookNodes = this.props.data.map(function (book) {
-      return React.createElement(Book, { author: book.book_author, name: book.book_name, key: book._id, cover: book.book_cover });
+      return React.createElement(Book, { author: book.book_author, name: book.book_name, key: book._id, id: book._id, cover: book.book_cover });
     });
     return React.createElement(
       "ul",
@@ -71,5 +75,5 @@ var BookList = React.createClass({
   }
 });
 
-ReactDOM.render(React.createElement(BookBox, { url: "/api/books" }), document.getElementById('book-box'));
+ReactDOM.render(React.createElement(BookBox, { url: "/api/v0.1/books" }), document.getElementById('book-box'));
 //# sourceMappingURL=book-list.js.map

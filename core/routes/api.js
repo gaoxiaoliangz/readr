@@ -1,5 +1,4 @@
 var express      = require('express'),
-    frontend     = require('../controllers'),
     api          = require('../api'),
 
     apiRoutes;
@@ -25,7 +24,7 @@ apiRoutes = function apiRoutes() {
   router.get('/comments', function(req, res) {
     res.send(comments);
   });
-  
+
   router.get('/books', [mw1, mw2], api.http(api.books.getAllBooks));
   router.get('/books/:_id/content', api.http(api.books.getBookContent));
 

@@ -1,6 +1,6 @@
 function getBook(book_id){
 	jQuery.ajax({
-		url: base_url + "api/books/" + book_id + '/content/',
+		url: base_url + "api/v0.1/books/" + book_id + '/content/',
 		type: 'GET',
 		dataType: 'text',
 		complete: function(jqXHR, textStatus) {
@@ -83,14 +83,14 @@ function initBook(book_id){
 
 		var book_content = localStorage.getItem("book-"+book_id);
 		book_content = book_content.split("\n");
-	
+
 
 		// calculation
 		setTimeout(function(){
 			var book_layout = {
 				p: []
 			};
-			
+
 			var h = 0, hs = 0;
 
 			$(".pages li p").each(function(index){
@@ -164,7 +164,7 @@ function handelScroll(){
 			};
 
 			clearTimeout(timer);
-			timer = setTimeout(load, 100);        
+			timer = setTimeout(load, 100);
 		});
 }
 
@@ -174,4 +174,3 @@ function showPageWithFxInModeOne(page){
 		$(".pages ul li.page_"+page).addClass("animated fadeInDown");
 	}
 }
-

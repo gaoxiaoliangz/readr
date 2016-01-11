@@ -12,7 +12,6 @@ $(function(){
   if(localStorage.getItem("book-"+book_id+"-layout") == null){
     initBook(book_id);
   }else{
-
     // content preparation
     book_layout = JSON.parse(localStorage.getItem("book-"+book_id+"-layout"));
     if(book_layout.window_width > 700){
@@ -33,7 +32,7 @@ $(function(){
     $(".pages ul").height(book_layout.height);
     book_content = localStorage.getItem("book-"+book_id);
     book_content = book_content.split("\n");
-    
+
     // progress handling
     if(book_progress){
       $("body").scrollTop(book_progress * book_layout.height);
@@ -45,7 +44,7 @@ $(function(){
       }else{
         showPageWithFxInModeOne(1);
         showPageWithFxInModeOne(2);
-      }     
+      }
     }
 
     // when resize
@@ -55,14 +54,14 @@ $(function(){
           localStorage.removeItem("book-"+book_id+"-layout");
           location.reload();
         }
-        var w_width = $(window).width();      
+        var w_width = $(window).width();
       }
     });
 
 
     // functions
     $(".functions .home").tap(function(){
-      location.href = base_url + "shelf";
+      location.href = base_url + "books";
     });
 
     $(".functions .clear").tap(function(){
@@ -89,7 +88,6 @@ $(function(){
         $(".view .functions").slideToggle("fast");
       });
     }
-
 
     // scroll
     handelScroll();

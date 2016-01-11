@@ -28,12 +28,11 @@ var BookBox = React.createClass({
   }
 });
 
-
 var Book = React.createClass({
   render: function() {
     return (
       <li className="book">
-        <h2 className="book-name">{this.props.name}</h2>
+        <h2 className="book-name"><a href={"/books/"+this.props.id} >{this.props.name}</a></h2>
         <span className="book-author">{this.props.author}</span>
         <img src={this.props.cover}/>
       </li>
@@ -41,12 +40,11 @@ var Book = React.createClass({
   }
 });
 
-
 var BookList = React.createClass({
   render: function() {
     var bookNodes = this.props.data.map(function(book) {
       return (
-        <Book author={book.book_author} name={book.book_name} key={book._id} cover={book.book_cover} />
+        <Book author={book.book_author} name={book.book_name} key={book._id} id={book._id} cover={book.book_cover} />
       );
     });
     return (
@@ -57,8 +55,7 @@ var BookList = React.createClass({
   }
 });
 
-
 ReactDOM.render(
-  <BookBox url="/api/books" />,
+  <BookBox url="/api/v0.1/books" />,
   document.getElementById('book-box')
 );
