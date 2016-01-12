@@ -35,55 +35,27 @@ var books = {
       };
 
       models.getData('books', match, 'book_content').then(function(result){
-        // if(result.error){
-        //   console.log(result);
-        //   resolve(result);
-        // }else{
-          // var text = result.data[0];
-          // var data = {};
-          // var text2 = '';
-          // var status = 1;
-          // var text_arr = text.split("\n");
-          //
-          // for(var i = 0; i < text_arr.length; i++){
-          //   text2 = "<p>" + text_arr[text_arr.length-i-1] + "</p>" + text2;
-          // }
-          //
-          // data.text = text;
-          // data.text2 = text2;
-          // data.status = status;
-          // data_str = JSON.stringify(data);
-
-          resolve(result);
-        // }
+        resolve(result);
       });
     });
   },
   addBook: function(object){
     var data = {},
-        html,
+        html = "",
         raw_arr,
         raw = object.book_content;
 
     raw_arr = raw.split("\n");
+
     for(var i = 0; i < raw_arr.length; i++){
-      html = "<p>" + raw_arr[raw_arr.length-i-1] + "</p>" + html;
+      html = html+"<p>" + raw_arr[i] + "</p>";
     }
+
     object.book_content = {
       raw: raw,
       html: html
     }
-
     return models.putData('books', object);
-  },
-
-
-  testApi: function(object, options){
-    var abc;
-    return new Promise(function(resolve){
-      abc = object;
-      resolve(abc);
-    });
   }
 }
 

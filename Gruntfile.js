@@ -10,7 +10,6 @@ module.exports = function(grunt) {
           presets: ['react']
         },
         files: {
-          "public/dist/js/comments.js": "public/src/js/comments.js",
           "public/dist/js/book-list.js": "public/src/js/book-list.js",
         }
       },
@@ -31,7 +30,8 @@ module.exports = function(grunt) {
         },
         files: {
           "public/dist/css/main.css": "public/src/css/main.scss",
-          "public/dist/css/style.css": "public/src/css/style.scss"
+          "public/dist/css/style.css": "public/src/css/style.scss",
+          "public/dist/css/book.css": "public/src/css/book.scss"
         }
       }
     },

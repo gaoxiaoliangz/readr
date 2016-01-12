@@ -1,10 +1,3 @@
-// var book_id = #{book_id};
-// var book_progress = 0;
-// var cloud_progress = 0;
-// var base_url = "/";
-// var progress = 0;
-// var book_layout;
-// var book_content;
 
 //- var initial_win_width = $(window).width();
 //- if($(window).width() > 700){
@@ -22,18 +15,6 @@
 //- }
 
 function Book(obj){
-  // this.bookId = obj.bookId,
-  // this.progress = obj.progress || 0,
-  // this.layout;
-  // this.content;
-  // this.mode = "vertical";
-  //
-  //
-  //
-  // this.bookContentRaw;
-  // this.bookContentHtml;
-
-
   this.config = {
     bookId: obj.bookId,
     progress: obj.progress || 0,
@@ -54,10 +35,7 @@ function Book(obj){
       }
     }
   }
-
   this.init();
-
-
 }
 
 Book.prototype = {
@@ -65,65 +43,70 @@ Book.prototype = {
     // get book data, lay out book and set progress
     var bookId = this.config.bookId;
     var view = this.config.view;
-    var rendering = this.config.rendering;
     var that = this;
 
-    if(!localStorage.getItem("book_"+bookId+"_raw") || !localStorage.getItem("book_"+bookId+"_html")){
-      // todo
-      $("body").append("<div class='dia-wrap dia_loading'><div class='loading'></div></div>");
-      $('.dia-wrap').height($(window).height());
-
-      this.getBookData(render);
+    if(!localStorage.getItem("book_"+bookId+"_raw") || !localStorage.getItem("book_"+bookId+"_html") || !localStorage.getItem("book_"+bookId+"_rendering")){
+      this.getBookData(this.renderBook);
     }else{
-      var rendering = this.config.rendering = JSON.parse(localStorage.getItem("book_"+bookId+"_rendering"));
-      var bookHtml = this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
-      var bookRaw = this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
+      this.config.rendering = JSON.parse(localStorage.getItem("book_"+bookId+"_rendering"));
+      this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
+      this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
 
       $(".pages ul").height(this.config.rendering.view.bookHeight);
+      that.mountPage(1);
+      that.mountPage(2);
+      that.mountPage(3);
+
+      $(window).scroll(function(){
+        that.handleScroll.call(that);
+      });
     }
+  },
+  renderBook: function(){
+    var bookId = this.config.bookId,
+        bookHtml = this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html"),
+        bookRaw = this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw"),
+        view = this.config.view;
 
-    function render(){
-      console.log(this);
-      var bookHtml = this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
-      var bookRaw = this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
-      $(".container ul").append("<li class='init'><div class='content'>"+bookHtml+"</div></li>");
+    this.showLoading();
+    $(".container ul").append("<li class='init'><div class='content'>"+bookHtml+"</div></li>");
 
-      // render book
-      setTimeout(function(){
-        rendering = {
-          elements: [],
-          view: {}
-        };
+    setTimeout(function(){
+      var rendering = {
+        elements: [],
+        view: {}
+      };
 
-        $(".pages li .content").children().each(function(index){
-          var h = $(this).height();
-          var type = $(this).prop("tagName");
-          var renderingStr;
-          rendering.elements.push({
-            type: type,
-            height: h
-          });
+      $(".pages li .content").children().each(function(index){
+        var h = $(this).height();
+        var type = $(this).prop("tagName");
+        var renderingStr;
+        rendering.elements.push({
+          type: type,
+          height: h
         });
+      });
 
-        rendering.view.bookHeight = $(".pages ul").height();
-        rendering.view.pageSum = Math.ceil($(".pages ul").height()/view.pageHeight);
-        rendering.view.windowWidth = $(window).width();
-        rendering.view.pageHeight = view.pageHeight;
+      rendering.view.bookHeight = $(".pages ul").height();
+      rendering.view.pageSum = Math.ceil($(".pages ul").height()/view.pageHeight);
+      rendering.view.windowWidth = $(window).width();
+      rendering.view.pageHeight = view.pageHeight;
 
-        renderingStr = JSON.stringify(rendering);
-
-        localStorage.setItem("book_"+bookId+"_rendering",renderingStr);
-        localStorage.setItem("book_"+bookId+"_progress", 0);
-        location.reload();
-      },1000);
+      renderingStr = JSON.stringify(rendering);
+      localStorage.setItem("book_"+bookId+"_rendering",renderingStr);
+      localStorage.setItem("book_"+bookId+"_progress", 0);
+      location.reload();
+    },1000);
+  },
+  showLoading: function(){
+    if(!$("body").hasClass("loading")){
+      $("body").append("<div class='dia-wrap dia_loading'><div class='loading'></div></div>").addClass("loading");
+      $('.dia-wrap').height($(window).height());
     }
-
-    that.mountPage(1);
-    that.mountPage(2);
-
-    $(window).scroll(function(){
-      that.handleScroll.call(that);
-    });
+  },
+  hideLoading: function(){
+    $(".dia_loading").remove();
+    $("body").removeClass("loading");
   },
   viewChanged: function(){
     // check if view is same as the rending saved, then return bool
@@ -160,18 +143,15 @@ Book.prototype = {
       }
     });
   },
-  renderBook: function(){
-    // generate book layout and store result in local storage
-  },
   renderPage: function(page){
     // return generated page html
-    var view = this.config.rendering.view;
-    var elements = this.config.bookContentRaw.split("\n");
-    var rendering = this.config.rendering;
+    var view = this.config.rendering.view,
+        elements = this.config.bookContentRaw.split("\n"),
+        rendering = this.config.rendering,
 
-    var h = 0, h2 = 0, i = 0, s = true, para = 0, para2 = 0, para_margin = 0, top = 0, para_qt = 0,
+        h = 0, h2 = 0, i = 0, s = true, para = 0, para2 = 0, para_margin = 0, top = 0, para_qt = 0,
         p_qt = rendering.elements.length,
-        page_content = null;
+        page_content = "";
 
     while (i < p_qt && h < view.pageHeight * page) {
       h = parseInt(rendering.elements[i].height) + h;
@@ -193,7 +173,7 @@ Book.prototype = {
         page_content = page_content + "<p>" + elements[i] + "</p>";
       }
     }
-    page_content = "<li class='page_"+page+"' style='top: "+top+"px;'><div class='content'>" + page_content + "</div><div class='pg_num'>"+page+"</div></li>";
+    page_content = "<li class='page_"+page+"' style='top: "+top+"px;height: "+view.pageHeight+"px;'><div class='content'>" + page_content + "</div><div class='pg_num'>"+page+"</div></li>";
 
     return page_content;
   },
