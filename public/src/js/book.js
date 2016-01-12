@@ -39,6 +39,7 @@ function Book(obj){
     progress: obj.progress || 0,
     bookContentRaw: null,
     bookContentHtml: null,
+    fx: "fadeInDown",
     view: {
       mode: "vertical",
       pageHeight: obj.view.pageHeight || 910,
@@ -62,26 +63,34 @@ function Book(obj){
 Book.prototype = {
   init: function(){
     // get book data, lay out book and set progress
-
-
-    // $("body").append("<div class='dia-wrap dia_loading'><div class='loading'></div></div>");
-    // $('.dia-wrap').height($(window).height());
     var bookId = this.config.bookId;
     var view = this.config.view;
+    var rendering = this.config.rendering;
+    var that = this;
 
     if(!localStorage.getItem("book_"+bookId+"_raw") || !localStorage.getItem("book_"+bookId+"_html")){
-      this.getBookData();
+      // todo
+      $("body").append("<div class='dia-wrap dia_loading'><div class='loading'></div></div>");
+      $('.dia-wrap').height($(window).height());
+
+      this.getBookData(render);
     }else{
+      var rendering = this.config.rendering = JSON.parse(localStorage.getItem("book_"+bookId+"_rendering"));
       var bookHtml = this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
+      var bookRaw = this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
+
+      $(".pages ul").height(this.config.rendering.view.bookHeight);
+    }
+
+    function render(){
+      console.log(this);
+      var bookHtml = this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
+      var bookRaw = this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
       $(".container ul").append("<li class='init'><div class='content'>"+bookHtml+"</div></li>");
-
-      // var book_content = localStorage.getItem("book_"+book_id+"raw_text");
-      // book_content = book_content.split("\n");
-
 
       // render book
       setTimeout(function(){
-        var rendering = {
+        rendering = {
           elements: [],
           view: {}
         };
@@ -101,16 +110,20 @@ Book.prototype = {
         rendering.view.windowWidth = $(window).width();
         rendering.view.pageHeight = view.pageHeight;
 
-        this.config.rendering = rendering;
         renderingStr = JSON.stringify(rendering);
 
         localStorage.setItem("book_"+bookId+"_rendering",renderingStr);
         localStorage.setItem("book_"+bookId+"_progress", 0);
-        // location.reload();
+        location.reload();
       },1000);
     }
 
-    $(window).scroll(this.handleScroll);
+    that.mountPage(1);
+    that.mountPage(2);
+
+    $(window).scroll(function(){
+      that.handleScroll.call(that);
+    });
   },
   viewChanged: function(){
     // check if view is same as the rending saved, then return bool
@@ -118,10 +131,11 @@ Book.prototype = {
   progress: function(p){
     // set progress when parameter is given, and get progress when not
   },
-  getBookData: function(){
+  getBookData: function(callback){
     // get book data and store it in local storage
     var bookId = this.config.bookId;
-    console.log(bookId);
+    var that = this;
+
     $.ajax({
       url: "/api/v0.1/books/" + bookId + '/content/',
       type: 'GET',
@@ -134,6 +148,7 @@ Book.prototype = {
         if(result.data){
           localStorage.setItem("book_"+bookId+"_raw", result.data[0].raw);
           localStorage.setItem("book_"+bookId+"_html", result.data[0].html);
+          callback.call(that);
         }else{
           alert("Wrong book content format!");
         }
@@ -151,7 +166,7 @@ Book.prototype = {
   renderPage: function(page){
     // return generated page html
     var view = this.config.rendering.view;
-    var elements = this.bookContentRaw.split("\n");
+    var elements = this.config.bookContentRaw.split("\n");
     var rendering = this.config.rendering;
 
     var h = 0, h2 = 0, i = 0, s = true, para = 0, para2 = 0, para_margin = 0, top = 0, para_qt = 0,
@@ -185,32 +200,42 @@ Book.prototype = {
 
   // todo
   handleScroll: function(){
-		var timer;
-		var lastScrollTop = 0;
+    var that = this;
+    var timer;
+    var lastScrollTop = 0;
+    var view = that.config.rendering.view;
+    var bookId = that.config.bookId;
 
+    // console.log(12);
+    load = function(){
+      var offset = 0;
+      var h = $("body").scrollTop();
+      var p = parseInt(h/view.pageHeight) + 1;
+      var bookId = that.config.bookId;
 
-			load = function(){
-				var offset = 0;
-				var h = $("body").scrollTop();
-				var p = parseInt(h/view.page_height) + 1;
+      that.mountPage(p);
+      that.mountPage(p+1);
+      that.mountPage(p+2);
 
-				showPageWithFxInModeOne(p);
-				showPageWithFxInModeOne(p+1);
-				showPageWithFxInModeOne(p+2);
+      // set local progress
+      var p2 = (h/view.bookHeight).toFixed(4);
+      localStorage.setItem("book_"+bookId+"_progress", p2);
 
-				// set local progress
-				var p2 = (h/book_layout.height).toFixed(4);
-				localStorage.setItem("book_"+book_id+"_progress", p2);
+      // set cloud progress
+      // setCloudProgress(bookId, p2);
 
-				// set cloud progress
-				setCloudProgress(book_id, p2);
+      // set loc display
+      $(".functions .loc").html(p+"/"+(view.bookHeight/view.pageHeight).toFixed(0));
+    };
 
-				// set loc display
-				$(".functions .loc").html(p+"/"+(book_layout.height/view.page_height).toFixed(0));
-			};
-
-			clearTimeout(timer);
-			timer = setTimeout(load, 100);
-
+    clearTimeout(timer);
+    timer = setTimeout(load, 100);
+  },
+  mountPage: function(page){
+    var fx = this.config.fx;
+    if($(".pages ul li.page_"+page).length == 0){
+      $(".pages ul").append(this.renderPage(page, 1));
+      $(".pages ul li.page_"+page).addClass("animated "+fx);
+    }
   }
 };
