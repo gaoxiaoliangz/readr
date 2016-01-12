@@ -7,6 +7,16 @@ html
     link(rel='stylesheet' href='/dist/css/main.css')
     script(src="/lib/jquery/jquery-2.2.0.min.js")
   body
-    h1.logo
-      a(href="/") readr
+    .branding
+      .container.clearfix
+        h1.logo.left
+          a(href="/") readr
+        .right
+          if userinfo
+            p Hi, #{userinfo.username} 
+              a(href="/logout") 退出
+          else
+            a(href="signup") 注册
+            span.sep |
+            a(href="signin") 登录
     block content

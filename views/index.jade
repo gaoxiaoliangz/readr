@@ -3,13 +3,6 @@
 extends layouts/default
 
 block content
-  if userinfo
-    p Hi, #{userinfo.username} 
-      a(href="/logout") 退出
-  else
-    a(href="signup") 注册
-    span.sep |
-    a(href="signin") 登录
   p
     a(href="/books") 进入书城
     

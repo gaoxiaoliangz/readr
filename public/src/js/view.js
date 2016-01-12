@@ -9,11 +9,11 @@ function getBook(book_id){
 			var data_obj = eval("("+data+")");
 			console.log(data_obj);
 			if(data_obj.status == 1){
-				localStorage.setItem("book-"+book_id, data_obj.text);
-				localStorage.setItem("book-"+book_id+"-2", data_obj.text2);
+				localStorage.setItem("book_"+book_id+"_raw_text", data_obj.text);
+				localStorage.setItem("book_"+book_id+"_html", data_obj.text2);
 				location.reload();
 			}else{
-				alert("Error: wrong book content format! ");
+				alert("Wrong book content format!");
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
@@ -81,7 +81,7 @@ function initBook(book_id){
 		var book_content = localStorage.getItem("book-"+book_id+"-2");
 		$(".container ul").append("<li class='init'><div class='content'>"+book_content+"</div></li>");
 
-		var book_content = localStorage.getItem("book-"+book_id);
+		var book_content = localStorage.getItem("book_"+book_id+"raw_text");
 		book_content = book_content.split("\n");
 
 
@@ -103,8 +103,8 @@ function initBook(book_id){
 			book_layout.page_qt = Math.ceil($(".pages ul").height()/view.page_height);
 			book_layout.window_width = $(window).width();
 			book_layout = JSON.stringify(book_layout);
-			localStorage.setItem("book-"+book_id+"-layout",book_layout);
-			localStorage.setItem("book-"+book_id+"-progress", 0);
+			localStorage.setItem("book_"+book_id+"_layout",book_layout);
+			localStorage.setItem("book_"+book_id+"_progress", 0);
 			location.reload();
 		},1000);
 	}
@@ -154,7 +154,7 @@ function handelScroll(){
 
 				// set local progress
 				var p2 = (h/book_layout.height).toFixed(4);
-				localStorage.setItem("book-"+book_id+"-progress", p2);
+				localStorage.setItem("book_"+book_id+"_progress", p2);
 
 				// set cloud progress
 				setCloudProgress(book_id, p2);
