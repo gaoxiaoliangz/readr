@@ -8,7 +8,7 @@ function _genId(len){
 var query = {
 
   getData: function(table_name, match, key){
-    var json = {};   
+    var json = {};
 
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
@@ -42,7 +42,7 @@ var query = {
 
   putData: function(table_name, data){
     var json = {};
-    
+
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
@@ -63,6 +63,34 @@ var query = {
       });
     });
   },
+  updateData: function(table_name, match, data){
+    var json = {};
+
+    return new Promise(function(resolve,reject){
+      db.connect(db_name).then(function(db){
+        var collection = db.collection(table_name);
+
+        collection.update(
+          match,
+          data,
+          {
+            upsert: true
+          },function(err, result){
+            if (err) {
+              console.log(err);
+              json.error = {};
+              json.error.msg = err;
+              json.error.code = 500;
+            } else {
+              json.data = {};
+            }
+            resolve(json);
+            db.close();
+          }
+        );
+      });
+    });
+  }
 
 }
 

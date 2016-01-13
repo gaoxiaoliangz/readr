@@ -6,10 +6,27 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./core/routes');
+var session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+
+function _genSecret(len){
+  return parseInt(Math.random()*Math.pow(10,len));
+}
+
+app.use(session({
+  secret: "s"+_genSecret(5),
+  cookie: { maxAge: 60000 },
+  resave: true,
+  saveUninitialized: true,
+  // store: sessionStore, // connect-mongo session store
+  // proxy: true
+}));
+
+
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
