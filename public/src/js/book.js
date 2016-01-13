@@ -1,28 +1,16 @@
-
-//- var initial_win_width = $(window).width();
-//- if($(window).width() > 700){
-//-   var view = {
-//-     page_height: 910,
-//-     line_height: 35,
-//-     font_size: 16
-//-   }
-//- }else{
-//-   var view = {
-//-     page_height: 1400,
-//-     line_height: 35,
-//-     font_size: 19
-//-   }
-//- }
+// book.js created by Gao Liang all rights reserved
 
 function Book(obj){
   this.config = {
-    bookId: obj.bookId,
     progress: obj.progress || 0,
+    fx: obj.fx || "fadeInDown",
+
+    bookId: obj.bookId,
     bookContentRaw: null,
     bookContentHtml: null,
-    fx: "fadeInDown",
+
     view: {
-      mode: "vertical",
+      mode: obj.view.mode || "vertical",
       pageHeight: obj.view.pageHeight || 910,
     },
     rendering: {
@@ -60,6 +48,12 @@ Book.prototype = {
       $(window).scroll(function(){
         that.handleScroll.call(that);
       });
+      $(window).resize(function(){
+        if(!that.checkView.call(that)){
+          that.removeBookRenderingData();
+          that.init();
+        }
+      });
     }
   },
   renderBook: function(){
@@ -92,11 +86,19 @@ Book.prototype = {
       rendering.view.windowWidth = $(window).width();
       rendering.view.pageHeight = view.pageHeight;
 
+      rendering.view.fontSize = $(".pages ul li .content p").css("font-size");
+      rendering.view.lineHeight = $(".pages ul li .content p").css("line-height");
+      rendering.view.pageWidth = $(".pages ul li").width();
+
       renderingStr = JSON.stringify(rendering);
       localStorage.setItem("book_"+bookId+"_rendering",renderingStr);
       localStorage.setItem("book_"+bookId+"_progress", 0);
       location.reload();
     },1000);
+  },
+  removeBookRenderingData: function(){
+    var bookId = this.config.bookId;
+    localStorage.removeItem("book_"+bookId+"_rendering");
   },
   showLoading: function(){
     if(!$("body").hasClass("loading")){
@@ -108,8 +110,20 @@ Book.prototype = {
     $(".dia_loading").remove();
     $("body").removeClass("loading");
   },
-  viewChanged: function(){
+  checkView: function(){
     // check if view is same as the rending saved, then return bool
+    var fontSize = $(".pages ul li .content p").css("font-size"),
+        lineHeight = $(".pages ul li .content p").css("line-height"),
+        view = this.config.rendering.view,
+        flag = true,
+        pageWidth = $(".pages ul li").width();
+
+    if(view.lineHeight != lineHeight ||
+      view.fontSize != fontSize ||
+      view.pageWidth != pageWidth
+    ) flag = false;
+
+    return flag;
   },
   progress: function(p){
     // set progress when parameter is given, and get progress when not
@@ -127,7 +141,6 @@ Book.prototype = {
       },
       success: function(result, textStatus, jqXHR) {
         result = eval("("+result+")");
-        console.log(result);
         if(result.data){
           localStorage.setItem("book_"+bookId+"_raw", result.data[0].raw);
           localStorage.setItem("book_"+bookId+"_html", result.data[0].html);
@@ -186,7 +199,6 @@ Book.prototype = {
     var view = that.config.rendering.view;
     var bookId = that.config.bookId;
 
-    // console.log(12);
     load = function(){
       var offset = 0;
       var h = $("body").scrollTop();
