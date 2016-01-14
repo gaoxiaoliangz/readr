@@ -21,7 +21,8 @@ var frontend = {
         book_progress: 0,
         cloud_progress: 0,
         title: config.siteName + " - "+ book_name,
-        book_id: _id
+        book_id: _id,
+        book_name: book_name
       }
       res.render('book', data);
     });

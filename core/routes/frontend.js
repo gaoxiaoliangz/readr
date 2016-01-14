@@ -43,8 +43,6 @@ frontendRoutes = function frontendRoutes() {
     res.render('index', data);
   });
 
-
-
   router.get(/^\/((signin|signup|books)\/?)$/, function(req, res){
     var page = req.path.substr(1),
         data = {
@@ -61,23 +59,6 @@ frontendRoutes = function frontendRoutes() {
     }
   });
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-  // todo: remove this
-
-
-
-  router.get('/view/get_progress/:book_id/:progress', function(req, res, next) {
-    res.send("0");
-  });
-
-  router.get('/view/set_progress/:book_id/:progress', function(req, res, next) {
-    res.send("0");
-  });
-
-
-
   // books
   router.post('/books/new', frontend.handleAddBook);
   router.get('/books/new', frontend.renderAddBook);
@@ -90,8 +71,6 @@ frontendRoutes = function frontendRoutes() {
     req.session.destroy();
     res.redirect("/");
   });
-
-
 
   return router;
 };

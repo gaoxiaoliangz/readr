@@ -17,7 +17,10 @@ apiRoutes = function apiRoutes() {
   router.get('/books', api.http(api.books.getAllBooks));
   router.get('/books/:_id/', api.http(api.books.getBookInfo));
   router.get('/books/:_id/content', api.http(api.books.getBookContent));
-  router.get('/books/:_id/progress/:progress',getUserInfo, api.http(api.books.updateReadingProgress));
+
+  router.post('/books/:_id/progress',getUserInfo, api.http(api.books.updateReadingProgress));
+  router.get('/books/:_id/progress',getUserInfo, api.http(api.books.getReadingProgress));
+
 
   return router;
 };

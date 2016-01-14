@@ -42,25 +42,6 @@ var books = {
       });
     });
   },
-  updateReadingProgress: function(object) {
-    console.log(object);
-    return new Promise(function(resolve){
-
-      var match = {
-        book_id: object._id,
-        user_id: object.context.user
-      };
-      var data = {
-        book_id: object._id,
-        user_id: object.context.user,
-        reading_progress: object.progress
-      };
-
-      models.updateData('progress',match, data).then(function(result){
-        resolve(result);
-      });
-    });
-  },
   getBookInfo: function(object) {
     var _id = parseInt(object._id);
 
@@ -102,6 +83,37 @@ var books = {
       html: html
     }
     return models.putData('books', object);
+  },
+  getReadingProgress: function(object) {
+    return new Promise(function(resolve){
+      var match = {
+        book_id: object._id,
+        user_id: object.context.user
+      };
+
+      models.getData('progress',match).then(function(result){
+        resolve(result);
+      });
+    });
+  },
+  updateReadingProgress: function(object, options) {
+    console.log(options);
+    return new Promise(function(resolve){
+
+      var match = {
+        book_id: options._id,
+        user_id: options.context.user
+      };
+      var data = {
+        book_id: options._id,
+        user_id: options.context.user,
+        reading_progress: object.reading_progress
+      };
+
+      models.updateData('progress',match, data).then(function(result){
+        resolve(result);
+      });
+    });
   }
 }
 
