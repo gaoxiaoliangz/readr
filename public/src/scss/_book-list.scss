@@ -1,0 +1,94 @@
+ul.book-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	li {
+		float: left;
+		-moz-transition: all 0.2s ease 0s;
+		-o-transition: all 0.2s ease 0s;
+		-webkit-transition: all 0.2s ease 0s;
+		transition: all 0.2s ease 0s;
+		font-size: 1.4em;
+		position: relative;
+		margin-right: 20px;
+		a {
+			display: block;
+			padding-top: 10px;
+			position: relative;
+			left: -17px;
+			.book-cover {
+				position: relative;
+				margin: 0 auto;
+				width: 134px;
+				height: 184px;
+				top: 0;
+				background: url(../img/shadow.png) no-repeat top;
+				-moz-transition: all 0.2s ease 0s;
+				-o-transition: all 0.2s ease 0s;
+				-webkit-transition: all 0.2s ease 0s;
+				transition: all 0.2s ease 0s;
+				position: relative;
+				img {
+					width: 100px;
+					height: 150px;
+					display: block;
+					position: absolute;
+					border: none;
+					left: 17px;
+					top: 7px;
+					border-radius: 4px;
+				}
+			}
+			.book-cover:hover {
+				top: -7px;
+			}
+		}
+		a:hover img {
+			opacity: .96;
+		}
+		a:active {
+			opacity: .8;
+		}
+
+		span {
+			width: 100%;
+			text-align: left;
+			display: block;
+			line-height: 1.5em;
+		}
+		span.book-author {
+			font-size: 1em;
+			color: #999;
+		}
+		span.book-name {
+			font-size: 17px;
+			width: 90%;
+		}
+		span.add-book {
+			color: #999;
+			a {
+				left: 0;
+				padding: 0;
+			}
+		}
+		span.remove-book {
+			margin-top: .5em;
+			a {
+				left: 0;
+				text-align: left;
+				width: 60%;
+				line-height: 2em;
+				padding: 0 0 0 2em;
+				// margin: 0 auto;
+				color: #e80808;
+				text-shadow: none;
+				font-size: 1em;
+				background: url(../img/delete.png) no-repeat .6em .6em;
+				border: 1px solid #e80808;
+				background-size: .85em;
+				border-radius: 3px;
+			}
+		}
+	}
+}

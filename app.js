@@ -15,7 +15,7 @@ app.set('view engine', 'jade');
 
 app.use(session({
   secret: 'key wtf',
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: 7*24*60*60*1000 },
   resave: true,
   saveUninitialized: true,
   store: new MongoStore({ url: 'mongodb://localhost:27017/readr_session' })

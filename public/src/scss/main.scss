@@ -1,5 +1,4 @@
 // variables
-
 $base_color: #b92222;
 
 $text_n: #666;
@@ -28,4 +27,8 @@ $sans_font_ie: "Microsoft Yahei",Arial,sans-serif;
 $serif_font: "Droid serif", georgia, serif;
 
 @import "base";
+@import "dia";
+@import "book-list";
+@import "book";
+
 @import "layout";

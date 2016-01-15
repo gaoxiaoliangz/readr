@@ -29,15 +29,14 @@ module.exports = function(grunt) {
           style: 'expanded'
         },
         files: {
-          "public/dist/css/main.css": "public/src/css/main.scss",
-          "public/dist/css/book.css": "public/src/css/book.scss"
+          "public/dist/css/main.css": "public/src/scss/main.scss",
         }
       }
     },
 
     watch: {
       css: {
-        files: ['public/src/css/*.scss'],
+        files: ['public/src/scss/*.scss'],
         tasks: ['sass'],
         options: {
             spawn: false

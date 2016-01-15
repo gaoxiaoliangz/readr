@@ -71,6 +71,334 @@ ul {
   color: #333;
 }
 
+/* dia */
+.dia-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 990;
+}
+
+.dia {
+  width: 300px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  background: #fff;
+  position: relative;
+  cursor: default;
+  padding: 5px 10px;
+  box-shadow: 0 5px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* dia_loc */
+.dia_loc .dia {
+  padding: 5px 10px;
+}
+
+.dia_loc .dia ul li {
+  padding: 10px 5px;
+  text-align: center;
+  background: #ddd;
+  color: #333;
+  margin: 10px 0;
+  opacity: .6;
+}
+
+.dia_loc .dia ul li:nth-child(1) {
+  background: #d77e00;
+  color: #fff;
+}
+
+.dia_loc .dia ul li:nth-child(2) {
+  background: red;
+  color: #fff;
+}
+
+.dia_loc .dia ul li:active {
+  opacity: .8;
+}
+
+/* dia_info */
+.dia_info {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.dia_info .dia {
+  padding: 15px 3px;
+  width: 150px;
+  font-size: 14px;
+  text-align: center;
+  /* green */
+  /*background: #8ec9af;
+  color: #264638;*/
+  background: #222;
+  color: #eee;
+}
+
+/* dia_loading */
+.dia_loading {
+  background: #fff;
+}
+
+.dia-wrap .loading {
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -50px 0 0 -100px;
+  background: url(../img/loading.gif) no-repeat center;
+  z-index: 999;
+}
+
+ul.book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.book-list li {
+  float: left;
+  -moz-transition: all 0.2s ease 0s;
+  -o-transition: all 0.2s ease 0s;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+  font-size: 1.4em;
+  position: relative;
+  margin-right: 20px;
+}
+ul.book-list li a {
+  display: block;
+  padding-top: 10px;
+  position: relative;
+  left: -17px;
+}
+ul.book-list li a .book-cover {
+  position: relative;
+  margin: 0 auto;
+  width: 134px;
+  height: 184px;
+  top: 0;
+  background: url(../img/shadow.png) no-repeat top;
+  -moz-transition: all 0.2s ease 0s;
+  -o-transition: all 0.2s ease 0s;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+  position: relative;
+}
+ul.book-list li a .book-cover img {
+  width: 100px;
+  height: 150px;
+  display: block;
+  position: absolute;
+  border: none;
+  left: 17px;
+  top: 7px;
+  border-radius: 4px;
+}
+ul.book-list li a .book-cover:hover {
+  top: -7px;
+}
+ul.book-list li a:hover img {
+  opacity: .96;
+}
+ul.book-list li a:active {
+  opacity: .8;
+}
+ul.book-list li span {
+  width: 100%;
+  text-align: left;
+  display: block;
+  line-height: 1.5em;
+}
+ul.book-list li span.book-author {
+  font-size: 1em;
+  color: #999;
+}
+ul.book-list li span.book-name {
+  font-size: 17px;
+  width: 90%;
+}
+ul.book-list li span.add-book {
+  color: #999;
+}
+ul.book-list li span.add-book a {
+  left: 0;
+  padding: 0;
+}
+ul.book-list li span.remove-book {
+  margin-top: .5em;
+}
+ul.book-list li span.remove-book a {
+  left: 0;
+  text-align: left;
+  width: 60%;
+  line-height: 2em;
+  padding: 0 0 0 2em;
+  color: #e80808;
+  text-shadow: none;
+  font-size: 1em;
+  background: url(../img/delete.png) no-repeat 0.6em 0.6em;
+  border: 1px solid #e80808;
+  background-size: .85em;
+  border-radius: 3px;
+}
+
+.view .wrapper {
+  width: auto;
+}
+.view .pages {
+  position: relative;
+  background: #e5e4db;
+}
+.view .pages .container {
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f6f4ec;
+  z-index: 980;
+}
+.view .pages ul {
+  position: relative;
+}
+.view .pages ul li {
+  position: absolute;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  cursor: default;
+}
+.view .pages ul li .content {
+  margin: 0 auto;
+  width: 550px;
+  position: relative;
+  overflow: hidden;
+  color: #333;
+}
+.view .pages ul li .content p {
+  font-size: 18px;
+  line-height: 1.9;
+  min-height: 25px;
+  margin: 0;
+}
+.view .pages ul li .pg_num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-top: 1px solid #ddd;
+  padding: 0 10px;
+  color: #999;
+  font-size: .8em;
+}
+.view .pages ul li.init {
+  position: relative;
+  height: auto;
+}
+.view .pages ul li.init .content {
+  height: auto;
+}
+
+/* functions */
+.functions {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  z-index: 990;
+}
+.functions .container {
+  margin: 0 auto;
+  border-bottom: 1px solid #e5e4db;
+  background: #f6f4ec;
+  text-align: left;
+  overflow: hidden;
+  text-align: center;
+}
+.functions span {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  color: #333;
+  display: inline-block;
+  opacity: .4;
+  padding: 10px;
+  margin: 10px;
+  background-repeat: no-repeat !important;
+  background-size: 30px !important;
+  float: left;
+}
+.functions span.title {
+  width: auto;
+  display: inline-block;
+  font-size: 18px;
+  border-left: 1px solid #ccc;
+  padding: 0;
+  opacity: .7 !important;
+  padding-left: 20px;
+  margin: 20px;
+  margin-left: 0;
+}
+.functions span.loc {
+  width: auto;
+  float: right;
+  opacity: .4 !important;
+}
+.functions span:active {
+  opacity: .8;
+}
+.functions .home {
+  background: url(../img/home.png) center;
+}
+.functions .sync {
+  background: url(../img/sync.png) center;
+}
+.functions .sync.dotted {
+  background: url(../img/sync.png) center, url(../img/loc.png) 20px 3px;
+}
+.functions .clear {
+  background: url(../img/clear.png) center;
+}
+
+@media (max-width: 700px) {
+  .view .pages {
+    background: #fff;
+  }
+  .view .pages .container {
+    width: 100%;
+    background: #fff;
+  }
+  .view .pages .container ul li {
+    display: block;
+  }
+  .view .pages .container ul li .content {
+    padding: 0 25px;
+    width: auto;
+    margin: 0 auto;
+  }
+  .view .pages .container ul li .pg_num {
+    padding: 0 3px;
+    font-size: 10px;
+    line-height: 2.6;
+  }
+  .view .functions .container {
+    border-bottom: 1px solid #ddd;
+    background: #f2f2f2;
+  }
+  .view .functions .container span {
+    margin: 0;
+  }
+  .view .functions .container .title {
+    margin: 10px 0;
+    border-left: 1px solid #ddd;
+    padding-left: 15px;
+  }
+}
 .branding {
   min-height: 60px;
 }
