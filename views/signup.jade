@@ -1,9 +1,14 @@
 extends layouts/default
 
 block content
-  p 加入 readr
+  .mui-container
+    h1.page-title 加入 readr
 
-  form(action="/signup" method="post")
-    input(name="username" type="text" placeholder="用户名")
-    input(name="password" type="password" placeholder="密码")
-    button.button.medium(type="submit") 注册
+    form(action="/signup" method="post")
+      .mui-textfield.mui-textfield--float-label
+        input(name="username" type="text")
+        label 用户名
+      .mui-textfield.mui-textfield--float-label
+        input(name="password" type="password")
+        label 密码
+      button.mui-btn.mui-btn--raised(type="submit") 注册

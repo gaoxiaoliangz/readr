@@ -9,21 +9,21 @@ var express = require('express'),
 frontendRoutes = function frontendRoutes() {
   var router = express.Router();
 
-  // // filter
-  // router.use(function (req, res, next) {
-  //   var excludes = ["/","/signin","/signup","/api/v0.1/users/auth","/api/v0.1/users/new"];
-  //   if (excludes.indexOf(req.path) == -1) {
-  //     var userinfo = req.session.userinfo;
-  //
-  //     if (!userinfo) {
-  //       res.redirect("/signin");
-  //     }else{
-  //       next();
-  //     }
-  //   }else{
-  //     next();
-  //   }
-  // });
+  // filter
+  router.use(function (req, res, next) {
+    var excludes = ["/signin","/signup","/api/v0.1/users/auth","/api/v0.1/users/new"];
+    if (excludes.indexOf(req.path) == -1) {
+      var userinfo = req.session.userinfo;
+
+      if (!userinfo) {
+        res.redirect("/signin");
+      }else{
+        next();
+      }
+    }else{
+      next();
+    }
+  });
 
 
   function getUserInfo(req,res,next){
@@ -40,7 +40,7 @@ frontendRoutes = function frontendRoutes() {
     var data = {
       userinfo: req.session.userinfo
     };
-    res.render('index', data);
+    res.render('book-list-react', data);
   });
 
   router.get(/^\/((signin|signup|books)\/?)$/, function(req, res){

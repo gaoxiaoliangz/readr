@@ -39,7 +39,7 @@ ul {
   list-style: none;
 }
 
-// layouting ///////////////////////////////////////////////////////////////////////////////
+// ui ///////////////////////////////////////////////////////////////////////////////
 .sep {
   margin: 0 5px;
   color: $gray_d;
@@ -49,4 +49,17 @@ ul {
 }
 .right {
   float: right;
+}
+.hidden {
+  display: none;
+}
+.clearfix:after {
+  content: " ";
+  clear: both;
+  display: table;
+}
+.page-title {
+  margin: 30px 0;
+  font-size: 25px;
+  color: $text_d;
 }

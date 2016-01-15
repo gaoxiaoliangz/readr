@@ -1,36 +1,29 @@
-var express = require('express');
-var app = express();
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var routes = require('./core/routes');
-var session = require('express-session');
+var express = require('express'),
+    app = express(),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    routes = require('./core/routes'),
+    session = require('express-session'),
+    MongoStore = require('connect-mongo')(session);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
-function _genSecret(len){
-  return parseInt(Math.random()*Math.pow(10,len));
-}
-
 app.use(session({
-  secret: "s"+_genSecret(5),
+  secret: 'key wtf',
   cookie: { maxAge: 60000 },
   resave: true,
   saveUninitialized: true,
-  // store: sessionStore, // connect-mongo session store
-  // proxy: true
+  store: new MongoStore({ url: 'mongodb://localhost:27017/readr_session' })
 }));
-
-
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
-app.use(bodyParser.json({limit: '50mb'})); // 添加 limit 参数，提高数据流传输上限
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

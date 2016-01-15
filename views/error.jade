@@ -1,6 +1,7 @@
 extends layouts/default
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .mui-container
+    h1.page-title= message
+    h2= error.status
+    pre #{error.stack}

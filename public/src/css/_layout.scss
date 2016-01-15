@@ -1,10 +1,38 @@
 body {
-  padding: 50px;
+
 }
 
 
 .book-list {
   li {
 
+  }
+}
+
+
+
+.branding {
+  $branding_height: 60px;
+  min-height: $branding_height;
+  .logo {
+    margin: 0;
+    a {
+      background: url(../img/logo.png) no-repeat left;
+      width: 90px;
+      height: $branding_height;
+      background-size: 100%;
+      text-indent: -999em;
+      display: inline-block;
+    }
+  }
+  ul {
+    margin: 0;
+    li {
+      a {
+        color: #fff;
+        height: $branding_height;
+        line-height: $branding_height;
+      }
+    }
   }
 }
