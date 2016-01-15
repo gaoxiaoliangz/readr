@@ -32,8 +32,6 @@ function Book(obj){
 }
 
 Book.prototype = {
-
-
   init: function(){
     this.getLocalBookData();
 
@@ -262,7 +260,12 @@ Book.prototype = {
       complete: function(xhr, textStatus) {
       },
       success: function(data, textStatus, xhr) {
-        var cloudProgress = data.data[0].reading_progress;
+        var cloudProgress
+        if(data.error){
+          cloudProgress = 0;
+        }else{
+          cloudProgress = data.data[0].reading_progress;
+        }
         if(localProgress && localProgress>cloudProgress){
           data = localProgress;
         }else{

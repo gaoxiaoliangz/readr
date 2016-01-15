@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           presets: ['react']
         },
         files: {
-          "public/dist/js/book-list.js": "public/src/js/book-list.js",
+          "public/dist/js/book-list-react.js": "public/src/js/book-list-react.js",
         }
       },
       es2015: {

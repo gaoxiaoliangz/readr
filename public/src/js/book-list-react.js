@@ -21,7 +21,7 @@ var BookBox = React.createClass({
   render: function() {
     return (
       <div className="book-box">
-        <h1>books</h1>
+        <h1 className="page-title">书籍列表</h1>
         <BookList data={this.state.data}/>
       </div>
     );
@@ -32,9 +32,13 @@ var Book = React.createClass({
   render: function() {
     return (
       <li className="book">
-        <h2 className="book-name"><a href={"/books/"+this.props.id} >{this.props.name}</a></h2>
-        <span className="book-author">{this.props.author}</span>
-        <img src={this.props.cover}/>
+        <a href={"/books/"+this.props.id} >
+          <div className="book-cover"><img src={this.props.cover}/></div>
+          <div className="book-meta">
+            <span title={this.props.name} className="book-name">{this.props.name}</span>
+            <span className="book-author">{this.props.author}</span>
+          </div>
+        </a>
       </li>
     );
   }
@@ -48,7 +52,7 @@ var BookList = React.createClass({
       );
     });
     return (
-      <ul className="book-list">
+      <ul className="book-list clearfix">
         {bookNodes}
       </ul>
     );

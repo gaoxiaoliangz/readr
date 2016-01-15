@@ -39,6 +39,7 @@ a:active {
 
 ul {
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
@@ -157,33 +158,28 @@ ul.book-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 ul.book-list li {
   float: left;
-  -moz-transition: all 0.2s ease 0s;
-  -o-transition: all 0.2s ease 0s;
-  -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
-  font-size: 1.4em;
   position: relative;
-  margin-right: 20px;
+  width: 150px;
+  padding: 0 10px;
 }
 ul.book-list li a {
   display: block;
   padding-top: 10px;
   position: relative;
-  left: -17px;
 }
 ul.book-list li a .book-cover {
   position: relative;
-  margin: 0 auto;
+  margin: 0;
   width: 134px;
   height: 184px;
   top: 0;
   background: url(../img/shadow.png) no-repeat top;
-  -moz-transition: all 0.2s ease 0s;
-  -o-transition: all 0.2s ease 0s;
-  -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
   position: relative;
 }
@@ -206,43 +202,19 @@ ul.book-list li a:hover img {
 ul.book-list li a:active {
   opacity: .8;
 }
-ul.book-list li span {
+ul.book-list li .book-meta span {
   width: 100%;
   text-align: left;
   display: block;
-  line-height: 1.5em;
+  line-height: 1.5;
+  margin-left: 17px;
+  width: 134px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
-ul.book-list li span.book-author {
-  font-size: 1em;
+ul.book-list li .book-meta span.book-author {
   color: #999;
-}
-ul.book-list li span.book-name {
-  font-size: 17px;
-  width: 90%;
-}
-ul.book-list li span.add-book {
-  color: #999;
-}
-ul.book-list li span.add-book a {
-  left: 0;
-  padding: 0;
-}
-ul.book-list li span.remove-book {
-  margin-top: .5em;
-}
-ul.book-list li span.remove-book a {
-  left: 0;
-  text-align: left;
-  width: 60%;
-  line-height: 2em;
-  padding: 0 0 0 2em;
-  color: #e80808;
-  text-shadow: none;
-  font-size: 1em;
-  background: url(../img/delete.png) no-repeat 0.6em 0.6em;
-  border: 1px solid #e80808;
-  background-size: .85em;
-  border-radius: 3px;
 }
 
 .view .wrapper {
@@ -409,7 +381,7 @@ ul.book-list li span.remove-book a {
   background: url(../img/logo.png) no-repeat left;
   width: 90px;
   height: 60px;
-  background-size: 100%;
+  background-size: 70px;
   text-indent: -999em;
   display: inline-block;
 }
@@ -420,6 +392,10 @@ ul.book-list li span.remove-book a {
   color: #fff;
   height: 60px;
   line-height: 60px;
+}
+
+.form-add-book textarea {
+  height: 220px;
 }
 
 /*# sourceMappingURL=main.css.map */

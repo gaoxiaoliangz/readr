@@ -20,7 +20,10 @@ $font_size_l: 40px;
 $font_size_m: 22px;
 $font_size_s: 16px;
 
-$content_width_n: 800px; // narrow
+$wide_screen: 1200px;
+$normal_screen: 900px;
+$narrow_screen: 768px;
+$mobile_screen: 400px;
 
 $sans_font: "roboto","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei",sans-serif;
 $sans_font_ie: "Microsoft Yahei",Arial,sans-serif;

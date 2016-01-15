@@ -7,7 +7,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     routes = require('./core/routes'),
     session = require('express-session'),
-    MongoStore = require('connect-mongo')(session);
+    MongoStore = require('connect-mongo')(session),
+    config = require('./config');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,7 +19,7 @@ app.use(session({
   cookie: { maxAge: 7*24*60*60*1000 },
   resave: true,
   saveUninitialized: true,
-  store: new MongoStore({ url: 'mongodb://localhost:27017/readr_session' })
+  store: new MongoStore({ url: config.dbUrl+'readr_session' })
 }));
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));

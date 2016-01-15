@@ -1,12 +1,21 @@
 extends layouts/default
 
 block content
-  h1 add book
+  .mui-container
+    h1.page-title 添加书籍
 
-  form(action="/books/new" method="post")
-    input(name="book_name" type="text" placeholder="book_name")
-    input(name="book_author" type="text" placeholder="book_author")
-    input(name="book_cover" type="text" placeholder="book_cover")
-    textarea(name="book_content" type="text" placeholder="book_content")
+    form.form-add-book(action="/books/new" method="post")
+      .mui-textfield.mui-textfield--float-label
+        input(name="book_name" type="text")
+        label 书名
+      .mui-textfield.mui-textfield--float-label
+        input(name="book_author" type="text")
+        label 作者
+      .mui-textfield.mui-textfield--float-label
+        input(name="book_cover" type="text")
+        label 封面
+      .mui-textfield.mui-textfield--float-label
+        textarea(name="book_content" type="text")
+        label 内容
 
-    button(type="submit") add
+      button.mui-btn.mui-btn--raised(type="submit") 添加

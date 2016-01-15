@@ -1,11 +1,8 @@
-var express = require('express');
-var models = require('../models');
-var Promise = require('bluebird');
-var router = express.Router();
-
-function _genSecret(len){
-  return parseInt(Math.random()*Math.pow(10,len));
-}
+var express = require('express'),
+    models = require('../models'),
+    Promise = require('bluebird'),
+    mongodb = require('mongodb'),
+    router = express.Router();
 
 var books = {
   getAllBooks:function(){
@@ -30,11 +27,9 @@ var books = {
     });
   },
   getBookContent: function(object) {
-    var _id = parseInt(object._id);
-
     return new Promise(function(resolve){
       var match = {
-        _id: _id
+        _id: mongodb.ObjectID(object._id)
       };
 
       models.getData('books', match, 'book_content').then(function(result){
@@ -43,11 +38,9 @@ var books = {
     });
   },
   getBookInfo: function(object) {
-    var _id = parseInt(object._id);
-
     return new Promise(function(resolve){
       var match = {
-        _id: _id
+        _id: mongodb.ObjectID(object._id)
       };
 
       models.getData('books', match).then(function(result){

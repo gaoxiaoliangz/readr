@@ -31,7 +31,7 @@ html
     script(src="#{base_url}js/book.js")
     script.
       var book = new Book({
-        bookId: #{book_id},
+        bookId: "#{book_id}",
         progress: .3,
         fx: "fadeIn",
         view: {

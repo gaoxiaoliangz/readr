@@ -45,10 +45,7 @@ var query = {
 
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
-        var collection = db.collection(table_name);
-        data._id = _genId(8);
-
-        collection.insert([data], function (err, result) {
+        db.collection(table_name).insert([data], function (err, result) {
           if (err) {
             console.log(err);
             json.error = {};
@@ -65,7 +62,6 @@ var query = {
   },
   updateData: function(table_name, match, data){
     var json = {};
-
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
@@ -91,7 +87,6 @@ var query = {
       });
     });
   }
-
 }
 
 module.exports = query;

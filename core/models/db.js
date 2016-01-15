@@ -1,13 +1,11 @@
-var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
-var Promise = require('bluebird');
-
-// todo: config
-var base_url = 'mongodb://localhost:27017/';
+var mongodb = require('mongodb'),
+    Promise = require('bluebird'),
+    MongoClient = mongodb.MongoClient,
+    config = require('../../config');
 
 var db = {
   connect: function(db_name){
-    var db_url = base_url + db_name;
+    var db_url = config.dbUrl + db_name;
     return new Promise(function (resolve, reject) {
       MongoClient.connect(db_url, function (err, db) {
         if (err) {
@@ -17,7 +15,7 @@ var db = {
           resolve(db);
         }
       });
-    }); 
+    });
   }
 }
 
