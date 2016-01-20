@@ -23,6 +23,20 @@ module.exports = function(grunt) {
       }
     },
 
+    uglify: {
+      options: {
+        sourceMap: true,
+        mangle: {
+        }
+      },
+      target: {
+        files: {
+          'public/dist/js/book.min.js': ['public/src/js/book.js'],
+          'public/dist/js/showdia.min.js': ['public/src/js/showdia.js']
+        }
+      }
+    },
+
     sass: {
       dist: {
         options: {
@@ -31,6 +45,30 @@ module.exports = function(grunt) {
         files: {
           "public/dist/css/main.css": "public/src/scss/main.scss",
         }
+      }
+    },
+
+    image: {
+      static: {
+        options: {
+          pngquant: true,
+          optipng: false,
+          zopflipng: true,
+          advpng: true,
+          jpegRecompress: false,
+          jpegoptim: true,
+          mozjpeg: true,
+          gifsicle: true,
+          svgo: true
+        }
+      },
+      dynamic: {
+        files: [{
+          expand: true,
+          cwd: 'public/src/',
+          src: ['**/*.{png,jpg,gif,svg}'],
+          dest: 'public/dist/'
+        }]
       }
     },
 

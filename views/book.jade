@@ -1,11 +1,8 @@
-- var base_url = '/src/'
 doctype html
 html
   head
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
-    <link rel="apple-touch-icon" href="#{base_url}img/favicon.png" />
-    <link rel="shortcut icon" href="#{base_url}img/favicon.png" type="image/x-icon">
     
     link(rel="stylesheet" href="/lib/normalize.css")
     link(rel="stylesheet" href="/lib/animate.css")
@@ -27,12 +24,12 @@ html
     script(src="/lib/jquery/jquery-2.2.0.min.js")
     script(src="/lib/jquery/jquery.easing-1.3.js")
     script(src="/lib/jquery/jquery.mobile.custom.min.js")
-    script(src="#{base_url}js/showdia.js")
-    script(src="#{base_url}js/book.js")
+    script(src="/dist/js/showdia.min.js")
+    script(src="/dist/js/book.min.js")
     script.
       var book = new Book({
         bookId: "#{book_id}",
-        progress: .3,
+        progress: 0.3,
         fx: "fadeIn",
         view: {
           pageHeight: 800
