@@ -32,7 +32,10 @@ module.exports = function(grunt) {
       target: {
         files: {
           'public/dist/js/book.min.js': ['public/src/js/book.js'],
-          'public/dist/js/showdia.min.js': ['public/src/js/showdia.js']
+          'public/dist/js/showdia.min.js': ['public/src/js/showdia.js'],
+          'public/dist/js/book-list-vue.min.js': ['public/src/js/book-list-vue.js'],
+          // 'public/dist/js/book-list-angular.min.js': ['public/src/js/book-list-angular.js']
+          'public/dist/js/book-list-backbone.min.js': ['public/src/js/book-list-backbone.js']
         }
       }
     },
@@ -40,7 +43,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          style: 'expanded'
+          style: 'compressed'
         },
         files: {
           "public/dist/css/main.css": "public/src/scss/main.scss",
@@ -72,17 +75,29 @@ module.exports = function(grunt) {
       }
     },
 
+    concat: {
+      options: {
+        separator: ';',
+        sourceMap: true,
+        style: 'compressed'
+      },
+      css: {
+        src: ['public/lib/mui/css/mui.min.css', 'public/dist/css/main.css'],
+        dest: 'public/dist/css/style.css',
+      },
+    },
+
     watch: {
       css: {
         files: ['public/src/scss/*.scss'],
-        tasks: ['sass'],
+        tasks: ['sass', 'concat'],
         options: {
             spawn: false
         },
       },
       scripts: {
         files: ['public/src/js/*.js'],
-        tasks: ['babel'],
+        tasks: ['babel','uglify'],
         options: {
           spawn: false,
         }

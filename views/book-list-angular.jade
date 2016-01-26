@@ -1,0 +1,18 @@
+extends layouts/default
+
+block content
+  .mui-container(ng-app="bookStoreApp")
+    #book-box(ng-controller="BookListController as bookList")
+      .book-box
+        h1.page-title 书籍列表
+        ul.book-list.clearfix
+          li(ng-repeat="book in bookList.books")
+            a(href="/books/{{ book._id }}")
+              .book-cover
+                img(ng-src="{{ book.book_cover }}")
+              .book-meta
+                span.title {{ book.book_name }}
+                span.book-author {{ book.book_author }}
+
+  script(src="/lib/angular/angular.js")
+  script(src="/dist/js/book-list-angular.min.js")

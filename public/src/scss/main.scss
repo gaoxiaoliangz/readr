@@ -29,9 +29,9 @@ $sans_font: "roboto","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragi
 $sans_font_ie: "Microsoft Yahei",Arial,sans-serif;
 $serif_font: "Droid serif", georgia, serif;
 
+@import "mixin";
 @import "base";
 @import "dia";
 @import "book-list";
 @import "book";
-
 @import "layout";

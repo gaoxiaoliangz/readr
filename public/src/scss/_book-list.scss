@@ -10,12 +10,6 @@ ul.book-list {
 		transition: all 0.2s ease 0s;
 		position: relative;
 		width: 150px;
-		// @media (max-width: $narrow_screen) {
-		// 	width: 33%;
-		// }
-		// @media (max-width: $mobile_screen) {
-		// 	width: 50%;
-		// }
 		padding: 0 10px;
 		a {
 			display: block;
@@ -52,7 +46,6 @@ ul.book-list {
 			opacity: .8;
 		}
 		.book-meta {
-
 			span {
 				width: 100%;
 				text-align: left;

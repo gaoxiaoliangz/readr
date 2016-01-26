@@ -2,6 +2,9 @@ var express = require('express'),
     api = require('../api'),
     frontend = require('../controllers/frontend'),
     config = require('../../config'),
+    querystring = require("querystring"),
+    url = require("url"),
+    Promise = require('bluebird'),
 
     frontendRoutes;
 
@@ -38,7 +41,8 @@ frontendRoutes = function frontendRoutes() {
   // index
   router.get('/', getUserInfo, function(req, res) {
     var data = {
-      userinfo: req.session.userinfo
+      userinfo: req.session.userinfo,
+      title: config.siteName
     };
     res.render('book-list-react', data);
   });
@@ -46,14 +50,32 @@ frontendRoutes = function frontendRoutes() {
   router.get(/^\/((signin|signup|books)\/?)$/, function(req, res){
     var page = req.path.substr(1),
         data = {
-          userinfo: req.session.userinfo
+          userinfo: req.session.userinfo,
+          title: config.siteName
         };
 
     if(page.substr(-1)=="/"){
       page = page.slice(0,-1);
     }
+
+    data.title = data.title + " - "+page;
+
     if(page == "books"){
-      res.render('book-list-react', data);
+      var objectUrl = url.parse(req.url);
+    	var queries = querystring.parse(objectUrl.query);
+      var type = queries.type;
+      if(typeof queries.type == "undefined"){
+
+        api.books.getAllBooks().then(function(result){
+          data.books = result.data;
+          res.render('book-list', data);
+        });
+
+      }else{
+        type="-"+type;
+        res.render('book-list'+type, data);
+      }
+
     }else{
       res.render(page);
     }

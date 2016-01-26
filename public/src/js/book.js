@@ -4,7 +4,6 @@ function Book(obj){
   this.config = {
     progress: obj.progress || 0,
     fx: obj.fx || "fadeIn",
-
     bookId: obj.bookId,
     bookContentRaw: null,
     bookContentHtml: null,

@@ -1,8 +1,16 @@
 extends layouts/default
 
 block content
-  ul.book-list
-    each row in data
-      li 
-        span #{row.book_name}
-        span #{row.book_author}
+  .mui-container
+    #book-box
+      .book-box
+        h1.page-title 书籍列表
+        ul.book-list.clearfix
+          each row in books
+            li
+              a(href="/books/#{row._id}")
+                .book-cover
+                  img(src="#{row.book_cover}")
+                .book-meta
+                  span.title #{row.book_name}
+                  span.book-author #{row.book_author}
