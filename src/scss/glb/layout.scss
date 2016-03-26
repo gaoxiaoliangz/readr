@@ -1,4 +1,3 @@
-
 .branding {
   $branding_height: 60px;
   min-height: $branding_height;
@@ -22,13 +21,5 @@
         line-height: $branding_height;
       }
     }
-  }
-}
-
-// book add
-.form-add-book {
-  textarea {
-    // background: red;
-    height: 220px;
   }
 }

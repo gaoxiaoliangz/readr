@@ -18,7 +18,7 @@ export default (
       <IndexRoute component={BookStore}/>
       <Route path="book/:bookname" component={BookViewer}/>
     </Route>
-    <Route path="book/:bookname" component={BookViewer}/>
+    <Route path="book/:id" component={BookViewer}/>
     <Route path="*" component={NoMatch} />
   </Route>
 )
