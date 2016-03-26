@@ -1,23 +1,40 @@
-var path = require("path");
+var path = require('path')
+var webpack = require('webpack')
+var hot = 'webpack-hot-middleware/client'
 
 module.exports = {
-    entry: "public/src/js/book-list-angular.js",
-    output: {
-        path: "public/dist/js",
-        filename: "book-list-angular.min.js"
-    },
-    devtool: 'source-map',
-    module: {
-      loaders: [
-          { test: /\.css$/, loader: "style-loader!css-loader" }
-      ]
-    },
-    resolve: {
-      root: path.resolve(__dirname),
-      alias: {
-        lib: "public/lib",
-        jQuery: "public/lib/jquery/jquery.min.js"
+  entry: {
+    index: [hot, './src/js/index']
+  },
+  output: {
+    path: path.join(__dirname, 'public/debug/js'),
+    filename: '[name].js',
+    publicPath: '/__webpack__/'
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  devtool: 'source-map',
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel'
       },
-      extensions: ['', '.js', '.jsx']
+      {
+        test: /\.css?$/,
+        loaders: [ 'style', 'raw' ]
+      }
+    ]
+  },
+  resolve: {
+    root: path.resolve('./modules'),
+    alias: {
+      vendor: path.join(__dirname, "public/vendor"),
+      css: path.join(__dirname, "public/built/css")
     },
+    extensions: ['', '.js']
+  }
 };

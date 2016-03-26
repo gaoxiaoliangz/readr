@@ -4,14 +4,18 @@ var common = require('./common')
 	, utils = require('../utils')
   , toError = require('../utils').toError
   , f = require('util').format
+	, handleCallback = require('../utils').handleCallback
   , shallowClone = utils.shallowClone
   , WriteError = common.WriteError
   , BulkWriteResult = common.BulkWriteResult
   , LegacyOp = common.LegacyOp
   , ObjectID = require('mongodb-core').BSON.ObjectID
+	, BSON = require('mongodb-core').BSON
   , Define = require('../metadata')
   , Batch = common.Batch
   , mergeBatchResults = common.mergeBatchResults;
+
+var bson = new BSON.BSONPure();
 
 /**
  * Create a FindOperatorsUnordered instance (INTERNAL TYPE, do not instantiate directly)
@@ -144,7 +148,7 @@ FindOperatorsUnordered.prototype.remove = function() {
 //
 var addToOperationsList = function(_self, docType, document) {
   // Get the bsonSize
-  var bsonSize = _self.s.bson.calculateObjectSize(document, false);
+  var bsonSize = bson.calculateObjectSize(document, false);
   // Throw error if the doc is bigger than the max BSON size
   if(bsonSize >= _self.s.maxBatchSizeBytes) throw toError("document is larger than the maximum size " + _self.s.maxBatchSizeBytes);
   // Holds the current batch
@@ -231,7 +235,7 @@ var UnorderedBulkOperation = function(topology, collection, options) {
   // Set max byte size
   var maxBatchSizeBytes = topology.isMasterDoc && topology.isMasterDoc.maxBsonObjectSize
     ? topology.isMasterDoc.maxBsonObjectSize : (1024*1025*16);
-  var maxWriteBatchSize = topology.isMasterDoc && topology.isMasterDoc.maxWriteBatchSize 
+  var maxWriteBatchSize = topology.isMasterDoc && topology.isMasterDoc.maxWriteBatchSize
     ? topology.isMasterDoc.maxWriteBatchSize : 1000;
 
   // Get the write concern
@@ -408,12 +412,12 @@ var executeBatch = function(self, batch, callback) {
   var resultHandler = function(err, result) {
 		// Error is a driver related error not a bulk op error, terminate
 		if(err && err.driver || err && err.message) {
-			return callback(err);
+			return handleCallback(callback, err);
 		}
 
     // If we have and error
     if(err) err.ok = 0;
-    callback(null, mergeBatchResults(false, batch, self.s.bulkResult, err, result));
+    handleCallback(callback, null, mergeBatchResults(false, batch, self.s.bulkResult, err, result));
   }
 
 	// Set an operationIf if provided
@@ -443,7 +447,7 @@ var executeBatch = function(self, batch, callback) {
     // Force top level error
     err.ok = 0;
     // Merge top level error and return
-    callback(null, mergeBatchResults(false, batch, self.s.bulkResult, err, null));
+    handleCallback(callback, null, mergeBatchResults(false, batch, self.s.bulkResult, err, null));
   }
 }
 
@@ -463,10 +467,10 @@ var executeBatches = function(self, callback) {
       // Execute
       if(numberOfCommandsToExecute == 0) {
 				// Driver level error
-				if(error) return callback(error);
+				if(error) return handleCallback(callback, error);
 				// Treat write errors
         var error = self.s.bulkResult.writeErrors.length > 0 ? toError(self.s.bulkResult.writeErrors[0]) : null;
-        callback(error, new BulkWriteResult(self.s.bulkResult));
+        handleCallback(callback, error, new BulkWriteResult(self.s.bulkResult));
       }
     });
   }

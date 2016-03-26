@@ -1,116 +1,122 @@
 module.exports = function(grunt) {
 
+  var webpack = require("webpack");
+	var webpackConfig = require("./webpack.config.js");
   require("load-grunt-tasks")(grunt);
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-webpack');
+
   grunt.initConfig({
-    babel: {
-      react: {
-        options: {
-          sourceMap: true,
-          presets: ['react']
-        },
-        files: {
-          "public/dist/js/book-list-react.js": "public/src/js/book-list-react.js",
-        }
-      },
-      es2015: {
-        options: {
-          sourceMap: true,
-          presets: ['es2015']
-        },
-        files: {
-        }
-      }
+    pkg: grunt.file.readJSON('package.json'),
+    path: {
+      src: "./src",
+      dist: "./public/built",
+      vendor: "./public/vendor",
+      modules: ['./node_modules', './modules']
     },
-
-    uglify: {
-      options: {
-        sourceMap: true,
-        mangle: {
-        }
-      },
-      target: {
-        files: {
-          'public/dist/js/book.min.js': ['public/src/js/book.js'],
-          'public/dist/js/showdia.min.js': ['public/src/js/showdia.js'],
-          'public/dist/js/book-list-vue.min.js': ['public/src/js/book-list-vue.js'],
-          // 'public/dist/js/book-list-angular.min.js': ['public/src/js/book-list-angular.js']
-          'public/dist/js/book-list-backbone.min.js': ['public/src/js/book-list-backbone.js']
-        }
-      }
+    webpack: {
+    	build: {
+        entry: {
+          index: ['<%=path.src%>/js/index']
+        },
+        output: {
+          path: '<%=path.dist%>/js',
+          filename: '[name].js'
+        },
+        module: webpackConfig.module,
+        resolve: webpackConfig.resolve,
+        plugins: [
+          new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"production"'
+          })
+        ]
+    	}
     },
-
     sass: {
       dist: {
+        files: [{
+          "expand": true,
+          "cwd": "<%=path.src%>/scss",
+          "src": ["*.scss"],
+          "dest": "<%=path.dist%>/css",
+          "ext": ".css"
+        }],
         options: {
-          style: 'compressed'
-        },
-        files: {
-          "public/dist/css/main.css": "public/src/scss/main.scss",
+          debugInfo: true,
+          lineNumbers: true
         }
       }
     },
-
-    image: {
-      static: {
-        options: {
-          pngquant: true,
-          optipng: false,
-          zopflipng: true,
-          advpng: true,
-          jpegRecompress: false,
-          jpegoptim: true,
-          mozjpeg: true,
-          gifsicle: true,
-          svgo: true
-        }
+    uglify: {
+      options: {
+        sourceMap: false
       },
-      dynamic: {
+      dist: {
         files: [{
           expand: true,
-          cwd: 'public/src/',
-          src: ['**/*.{png,jpg,gif,svg}'],
-          dest: 'public/dist/'
+          cwd: '<%=path.dist%>/js',
+          src: ['*.js', '!*.min.js'],
+          dest: '<%=path.dist%>/js',
+          ext: '.built.js'
         }]
       }
     },
-
-    concat: {
-      options: {
-        separator: ';',
-        sourceMap: true,
-        style: 'compressed'
+    cssmin: {
+      vendor: {
+        files: {
+          '<%=path.dist%>/css/vendor.built.css': ['<%=path.vendor%>/normalize.css','<%=path.vendor%>/mui/css/mui.css']
+        }
       },
-      css: {
-        src: ['public/lib/mui/css/mui.min.css', 'public/dist/css/main.css'],
-        dest: 'public/dist/css/style.css',
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%=path.dist%>/css',
+          src: ['*.css', '!*.min.css'],
+          dest: '<%=path.dist%>/css',
+          ext: '.built.css'
+        }]
+      }
+    },
+    copy: {
+      dist: {
+        expand: true,
+        cwd: '<%=path.src%>',
+        src: 'fonts/*',
+        dest: '<%=path.dist%>',
       },
     },
-
+    image: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%=path.src%>',
+          src: ['img/*.{png,jpg,gif,svg}'],
+          dest: '<%=path.dist%>'
+        }]
+      }
+    },
     watch: {
-      css: {
-        files: ['public/src/scss/*.scss'],
-        tasks: ['sass', 'concat'],
+      styles: {
+        files: ['<%=path.src%>/scss/**/*.scss'],
+        tasks: ['sass'],
         options: {
-            spawn: false
-        },
+          spawn: false
+        }
       },
-      scripts: {
-        files: ['public/src/js/*.js'],
-        tasks: ['babel','uglify'],
+      scripts:{
+        files:['<%=path.src%>/js/*.js', './modules/**/*.js'],
+        tasks:['webpack'],
         options: {
-          spawn: false,
+          spawn: false
         }
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-
-  grunt.registerTask("default", ["babel","sass"]);
-  grunt.registerTask('w',['watch']);
-  grunt.registerTask('s',['sass']);
-  grunt.registerTask('b',['babel']);
-
+  grunt.registerTask('build-css', ['sass','cssmin']);
+  grunt.registerTask('build-js', ['webpack','uglify']);
+  grunt.registerTask('build', ['image','sass','cssmin','copy','webpack','uglify']);
 };

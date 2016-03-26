@@ -1,14 +1,16 @@
 var express = require('express'),
     app = express(),
     path = require('path'),
-    favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     routes = require('./core/routes'),
     session = require('express-session'),
     MongoStore = require('connect-mongo')(session),
-    config = require('./config');
+    config = require('./config'),
+    env = app.get('env');
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,14 +24,44 @@ app.use(session({
   store: new MongoStore({ url: config.dbUrl+'readr_session' })
 }));
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
+
+
+
+if(env =="development"){
+  var webpack = require('webpack')
+  var webpackDevMiddleware = require('webpack-dev-middleware')
+  var webpackHotMiddleware = require('webpack-hot-middleware')
+  var config = require('./webpack.config')
+  var compiler = webpack(config)
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+  app.use(webpackHotMiddleware(compiler))
+  console.log("webpack working");
+}
+
+
+
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes.apiBaseUri, routes.api());
-app.use("/", routes.frontend());
+
+
+// app.use("/", routes.frontend());
+// todo
+// app.use("/",function(req, res){
+//   var data = {
+//     env: "development"
+//   }
+//   res.render('index', data)
+// });
+
+app.use("/", routes.frontend(env));
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
