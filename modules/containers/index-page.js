@@ -4,6 +4,11 @@ import { Link } from 'react-router'
 import utils from 'utils'
 var { vent } = utils
 
+import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
+import 'whatwg-fetch'
+
+import { Branding } from 'components/page-parts'
+
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import actions from 'actions'
@@ -34,20 +39,17 @@ var Index = React.createClass({
     var { lang, actions } = this.props
     return (
       <div className="page-home">
-        <div className="branding">
-          <div className="container-fluid"><h1 className="logo"><a href="/"><span className="icon-logo"></span></a></h1></div>
-        </div>
-        <div className="container-fluid">
+        <Branding />
+        <Container>
           <IndexContent lang={lang} actions={actions} />
-        </div>
+        </Container>
         <div className="colophon">
-        	<div className="container-fluid">
-        		<p className="info">Copyright 2015-2016 undesigned. 苏ICP备15062182号-1</p>
+        	<Container>
             <div className="social-links">
-              <a href="https://github.com/gaoxiaoliangz"><span className="icon-github"></span></a>
-              <a href="mailto:gaoxiaoliangz@gmail.com"><span className="icon-mail"></span></a>
+              <a href="https://github.com/gaoxiaoliangz"><span className="icon-github"></span>GitHub</a>
+              <a href="mailto:gaoxiaoliangz@gmail.com"><span className="icon-mail"></span>Email</a>
             </div>
-          </div>
+          </Container>
         </div>
       </div>
     )
@@ -60,13 +62,13 @@ var IndexContent = React.createClass({
     var content
     var cnContent = (
       <div>
-        <h1>欢迎</h1>
+        <h1 className="page-title">欢迎</h1>
         <Link to="/bookstore">查看书城</Link>
       </div>
     )
     var enContent = (
       <div>
-        <h1>Welcome</h1>
+        <h1 className="page-title">Welcome</h1>
         <Link to="/bookstore">visit bookstore</Link>
       </div>
     )

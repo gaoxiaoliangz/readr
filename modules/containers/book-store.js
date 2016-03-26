@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { Appbar, Button, Container } from 'muicss/react'
 import 'whatwg-fetch'
+
+import { Branding } from 'components/page-parts'
 
 var url = "/api/v0.1/books"
 
@@ -21,13 +24,18 @@ var BookStore = React.createClass({
   },
   render: function() {
     return (
-      <div className="book-box">
-        <h1 className="page-title">书籍列表</h1>
-        <BookList data={this.state.data}/>
+      <div className="page-bookstore">
+        <Branding />
+        <Container>
+          <div className="book-box">
+            <h1 className="page-title">书籍列表</h1>
+            <BookList data={this.state.data}/>
+          </div>
+        </Container>
       </div>
-    );
+    )
   }
-});
+})
 
 var Book = React.createClass({
   render: function() {

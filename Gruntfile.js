@@ -58,7 +58,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '<%=path.dist%>/js',
-          src: ['*.js', '!*.min.js'],
+          src: ['*.js','!*.min.js', '!*.built.js'],
           dest: '<%=path.dist%>/js',
           ext: '.built.js'
         }]
@@ -67,14 +67,14 @@ module.exports = function(grunt) {
     cssmin: {
       vendor: {
         files: {
-          '<%=path.dist%>/css/vendor.built.css': ['<%=path.vendor%>/normalize.css','<%=path.vendor%>/mui/css/mui.css']
+          '<%=path.dist%>/css/vendor.built.css': ['<%=path.vendor%>/normalize.css', '<%=path.vendor%>/mui/css/mui.css']
         }
       },
       dist: {
         files: [{
           expand: true,
           cwd: '<%=path.dist%>/css',
-          src: ['*.css', '!*.min.css'],
+          src: ['*.css', '!*.min.css', '!*.built.css'],
           dest: '<%=path.dist%>/css',
           ext: '.built.css'
         }]

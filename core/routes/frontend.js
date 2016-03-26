@@ -94,7 +94,7 @@ frontendRoutes = function frontendRoutes(env) {
   //   res.redirect("/");
   // });
 
-  router.get("/",function(req, res){
+  router.use("/",function(req, res){
     var data = {
       env: env
     }
