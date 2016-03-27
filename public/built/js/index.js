@@ -39312,7 +39312,7 @@
 
 	var _indexPage2 = _interopRequireDefault(_indexPage);
 
-	var _bookViewer = __webpack_require__(696);
+	var _bookViewer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"containers/book-viewer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _bookViewer2 = _interopRequireDefault(_bookViewer);
 
@@ -43920,275 +43920,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(503)(module)))
 
 /***/ },
-/* 696 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _index = __webpack_require__(504);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _index3 = __webpack_require__(510);
-
-	var _index4 = _interopRequireDefault(_index3);
-
-	var _react2 = __webpack_require__(433);
-
-	var _react3 = _interopRequireDefault(_react2);
-
-	var _index5 = __webpack_require__(511);
-
-	var _index6 = _interopRequireDefault(_index5);
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(694);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _components = {
-	  BookViewer: {
-	    displayName: 'BookViewer'
-	  },
-	  Pages: {
-	    displayName: 'Pages'
-	  },
-	  Page: {
-	    displayName: 'Page'
-	  }
-	};
-
-	var _UsersLiangDevReadrNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
-	  filename: '/Users/liang/dev/readr/modules/containers/book-viewer.js',
-	  components: _components,
-	  locals: [module],
-	  imports: [_react3.default]
-	});
-
-	var _UsersLiangDevReadrNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
-	  filename: '/Users/liang/dev/readr/modules/containers/book-viewer.js',
-	  components: _components,
-	  locals: [],
-	  imports: [_react3.default, _index2.default]
-	});
-
-	function _wrapComponent(id) {
-	  return function (Component) {
-	    return _UsersLiangDevReadrNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2(_UsersLiangDevReadrNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
-	  };
-	}
-
-	//
-	// const defaultConfig = {
-	//   progress: 0,
-	//   fx: "fadeIn",
-	//   bookId: obj.bookId,
-	//   bookContentRaw: null,
-	//   bookContentHtml: null,
-	//
-	//   view: {
-	//     mode: obj.view.mode || "vertical",
-	//     pageHeight: obj.view.pageHeight || 910,
-	//   },
-	//   rendering: {
-	//     elements: [],
-	//     view: {
-	//       pageHeight: null,
-	//       pageSum: null,
-	//       windowWidth: null,
-	//       bookHeight: null
-	//     }
-	//   }
-	// };
-	// this.status = {
-	//   progress: null,
-	//   page: null,
-	//   scrollTop: null
-	// };
-
-	var BookViewer = _wrapComponent('BookViewer')(function (_Component) {
-	  _inherits(BookViewer, _Component);
-
-	  // getLocalBookData() {
-	  //   var bookId = this.config.bookId;
-	  //
-	  //   if(!localStorage.getItem("book_"+bookId+"_raw") || !localStorage.getItem("book_"+bookId+"_html") || !localStorage.getItem("book_"+bookId+"_rendering")){
-	  //     this.getBookData(this.renderBook);
-	  //   }else{
-	  //     this.config.rendering = JSON.parse(localStorage.getItem("book_"+bookId+"_rendering"));
-	  //     this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
-	  //     this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
-	  //   }
-	  // }
-	  //
-	  // getBookData(callback) {
-	  //   // get book data and store it in local storage
-	  //   var bookId = this.config.bookId,
-	  //       that = this;
-	  //
-	  //   $.ajax({
-	  //     url: "/api/v0.1/books/" + bookId + '/content/',
-	  //     type: 'GET',
-	  //     dataType: 'json',
-	  //     complete: function(jqXHR, textStatus) {
-	  //     },
-	  //     success: function(result, textStatus, jqXHR) {
-	  //       if(result.data){
-	  //         localStorage.setItem("book_"+bookId+"_raw", result.data[0].raw);
-	  //         localStorage.setItem("book_"+bookId+"_html", result.data[0].html);
-	  //         callback.call(that);
-	  //       }else{
-	  //         alert("Wrong book content format!");
-	  //       }
-	  //     },
-	  //     error: function(jqXHR, textStatus, errorThrown) {
-	  //       console.log(jqXHR);
-	  //       console.log(textStatus);
-	  //       console.log(errorThrown);
-	  //     }
-	  //   })
-	  // }
-
-	  // getInitialState() {
-	  //   return {data: {
-	  //     html: ""
-	  //   }}
-	  // }
-
-	  function BookViewer(props) {
-	    _classCallCheck(this, BookViewer);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BookViewer).call(this, props));
-
-	    _this.state = {
-	      data: {
-	        html: ""
-	      }
-	    };
-	    return _this;
-	  }
-
-	  _createClass(BookViewer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var bookId = this.props.params.id;
-	      var url = "/api/v0.1/books/" + bookId + '/content/';
-
-	      fetch(url).then(function (res) {
-	        return res.json();
-	      }).then(function (json) {
-	        // console.log(json)
-	        this.setState({ data: json.data[0] });
-	        // console.log(json);
-	        // console.log(this.state)
-	      }.bind(this));
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react3.default.createElement(
-	        'div',
-	        { className: 'page-book-viewer' },
-	        _react3.default.createElement(
-	          'div',
-	          { className: 'functions' },
-	          _react3.default.createElement(
-	            'div',
-	            { className: 'container' },
-	            _react3.default.createElement('span', { className: 'home' }),
-	            _react3.default.createElement(
-	              'span',
-	              { className: 'title' },
-	              '奥德赛'
-	            ),
-	            _react3.default.createElement(
-	              'span',
-	              { className: 'loc' },
-	              '35/504'
-	            )
-	          )
-	        ),
-	        _react3.default.createElement(Pages, { data: this.state.data })
-	      );
-	    }
-	  }]);
-
-	  return BookViewer;
-	}(_react2.Component));
-
-	var Pages = _wrapComponent('Pages')(function (_Component2) {
-	  _inherits(Pages, _Component2);
-
-	  function Pages() {
-	    _classCallCheck(this, Pages);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Pages).apply(this, arguments));
-	  }
-
-	  _createClass(Pages, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react3.default.createElement(
-	        'div',
-	        { className: 'pages' },
-	        _react3.default.createElement(
-	          'ul',
-	          null,
-	          _react3.default.createElement(Page, { data: this.props.data })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Pages;
-	}(_react2.Component));
-
-	var Page = _wrapComponent('Page')(function (_Component3) {
-	  _inherits(Page, _Component3);
-
-	  function Page() {
-	    _classCallCheck(this, Page);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Page).apply(this, arguments));
-	  }
-
-	  _createClass(Page, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var html = this.props.data.html;
-	      console.log(html);
-	      return _react3.default.createElement(
-	        'li',
-	        null,
-	        _react3.default.createElement('div', { className: 'content', dangerouslySetInnerHTML: { __html: html } })
-	      );
-	    }
-	  }]);
-
-	  return Page;
-	}(_react2.Component));
-
-	exports.default = BookViewer;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(503)(module)))
-
-/***/ },
+/* 696 */,
 /* 697 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -44215,6 +43947,8 @@
 	var _index6 = _interopRequireDefault(_index5);
 
 	var _react4 = __webpack_require__(667);
+
+	var _reactRouter = __webpack_require__(445);
 
 	__webpack_require__(694);
 
@@ -44313,8 +44047,8 @@
 	      'li',
 	      { className: 'book' },
 	      _react3.default.createElement(
-	        'a',
-	        { href: "/book/" + book._id },
+	        _reactRouter.Link,
+	        { to: "/book/" + book._id },
 	        _react3.default.createElement(
 	          'div',
 	          { className: 'book-cover' },

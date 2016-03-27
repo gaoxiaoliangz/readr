@@ -1,124 +1,265 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import 'whatwg-fetch'
+import $ from 'jquery'
 
-//
-// const defaultConfig = {
-//   progress: 0,
-//   fx: "fadeIn",
-//   bookId: obj.bookId,
-//   bookContentRaw: null,
-//   bookContentHtml: null,
-//
-//   view: {
-//     mode: obj.view.mode || "vertical",
-//     pageHeight: obj.view.pageHeight || 910,
-//   },
-//   rendering: {
-//     elements: [],
-//     view: {
-//       pageHeight: null,
-//       pageSum: null,
-//       windowWidth: null,
-//       bookHeight: null
-//     }
-//   }
-// };
-// this.status = {
-//   progress: null,
-//   page: null,
-//   scrollTop: null
-// };
+const CONTENT_SELECTOR = ".pages li .content"
 
+const MODE = {
+  default: "VERTICAL",
+  vertical: "VERTICAL",
+  horizontal: "HORIZONTAL"
+}
+
+const defaultConfig = {
+  pageHeight: 910,
+  mode: MODE.default
+}
 
 class BookViewer extends Component {
 
-
-
-  // getLocalBookData() {
-  //   var bookId = this.config.bookId;
-  //
-  //   if(!localStorage.getItem("book_"+bookId+"_raw") || !localStorage.getItem("book_"+bookId+"_html") || !localStorage.getItem("book_"+bookId+"_rendering")){
-  //     this.getBookData(this.renderBook);
-  //   }else{
-  //     this.config.rendering = JSON.parse(localStorage.getItem("book_"+bookId+"_rendering"));
-  //     this.config.bookContentHtml = localStorage.getItem("book_"+bookId+"_html");
-  //     this.config.bookContentRaw = localStorage.getItem("book_"+bookId+"_raw");
-  //   }
-  // }
-  //
-  // getBookData(callback) {
-  //   // get book data and store it in local storage
-  //   var bookId = this.config.bookId,
-  //       that = this;
-  //
-  //   $.ajax({
-  //     url: "/api/v0.1/books/" + bookId + '/content/',
-  //     type: 'GET',
-  //     dataType: 'json',
-  //     complete: function(jqXHR, textStatus) {
-  //     },
-  //     success: function(result, textStatus, jqXHR) {
-  //       if(result.data){
-  //         localStorage.setItem("book_"+bookId+"_raw", result.data[0].raw);
-  //         localStorage.setItem("book_"+bookId+"_html", result.data[0].html);
-  //         callback.call(that);
-  //       }else{
-  //         alert("Wrong book content format!");
-  //       }
-  //     },
-  //     error: function(jqXHR, textStatus, errorThrown) {
-  //       console.log(jqXHR);
-  //       console.log(textStatus);
-  //       console.log(errorThrown);
-  //     }
-  //   })
-  // }
-
-
-
-
-  // getInitialState() {
-  //   return {data: {
-  //     html: ""
-  //   }}
-  // }
-
   constructor(props) {
     super(props)
+
+    let bookId = props.params.id
+    let config = {
+      pageHeight: 800,
+      mode: MODE.vertical
+    }
+    config = Object.assign({}, defaultConfig, config)
+
     this.state = {
-      data: {
-        html: ""
+      pages: [
+        {
+          content: ["Loading ..."]
+        }
+      ],
+      bookId: bookId,
+      config: config
+    }
+  }
+
+  genMapJSON(selector, config) {
+    let elements = [],
+        map = {}
+
+    map.view = {
+      bookHeight: $(selector).height(),
+      pageSum: Math.ceil($(selector).height()/config.pageHeight),
+      windowWidth: $(window).width(),
+      pageHeight: config.pageHeight,
+      pageWidth: $(selector).width(),
+      fontSize: $(selector).find("p").css("font-size"),
+      lineHeight: $(selector).find("p").css("line-height")
+    }
+
+    $(selector).children().each(function(index){
+      var h = $(this).height(),
+          type = $(this).prop("tagName"),
+          renderingStr
+
+      if(type !== "P") {
+        console.error("Unsupported content found!");
+      }
+
+      elements.push({
+        type: type,
+        height: h
+      })
+    })
+
+    map.elements = elements
+
+    return map
+  }
+
+  genMapAndSaveToLocal(bookContent, config) {
+    let map,
+        contentArray = [],
+        $bookContent = $(bookContent)
+
+    try {
+      for (var i = 0; i < $bookContent.length; i++) {
+        contentArray.push($bookContent[i].innerHTML)
+      }
+
+      this.setState({
+        pages: [
+          {
+            content: contentArray
+          }
+        ]
+      })
+      map = this.genMapJSON(CONTENT_SELECTOR, config)
+      this.saveToLocal("map", JSON.stringify(map))
+    } catch (e) {
+      console.error(e);
+    }
+
+    return map
+  }
+
+  loadBookContent(url, config) {
+    let book = {}
+
+    return new Promise(function(resolve){
+      if(!this.readFromLocal("content")){
+        fetch(url).then(function(res){
+          return res.json()
+        }).then(function(json){
+          console.log("Book content received, now rerendering ...")
+          book.content = json.data[0].html
+          book.map = this.genMapAndSaveToLocal(json.data[0].html, config)
+          this.saveToLocal("content", book.content)
+          resolve(book)
+        }.bind(this)).catch((err) => {
+          console.error(err)
+        })
+      }else{
+        console.log("Getting book content from local storage ...")
+        book.content = this.readFromLocal("content")
+        if(this.readFromLocal("map")){
+          console.log("Getting map from local storage ...");
+          book.map = JSON.parse(this.readFromLocal("map"))
+
+          resolve(book)
+        }else{
+          console.log("Rerendering ...")
+          book.map = this.genMapAndSaveToLocal(book.content, config)
+          resolve(book)
+        }
+      }
+    }.bind(this))
+  }
+
+  saveToLocal(key, value, type) {
+    if(typeof value !== "string") {
+      console.error("saveToLocal: Use string instead!")
+    }else{
+      if(typeof type === "undefined") {
+        type = "BOOK"
+      }
+      switch (type) {
+        case "BOOK":
+          localStorage.setItem(`book${this.state.bookId}_${key}`, value)
+          break;
+        default:
       }
     }
   }
 
+  readFromLocal(key, value, type) {
+    if(typeof type === "undefined") {
+      type = "BOOK"
+    }
+    switch (type) {
+      case "BOOK":
+        return localStorage.getItem(`book${this.state.bookId}_${key}`);
+        break;
+      default:
+    }
+  }
 
+  filterBookContentByPage(bookContent, map, page) {
+    var elements = $(bookContent),
+        pageObj,
+        h = 0, h2 = 0, i = 0, s = true, para = 0, para2 = 0, para_margin = 0, top = 0, para_qt = 0,
+        p_qt = map.elements.length,
+        page_content = [],
+        view = map.view
+
+    while (i < p_qt && h < view.pageHeight * page) {
+      h = parseInt(map.elements[i].height) + h;
+      h2 = h - parseInt(map.elements[i].height);
+      if ((h > view.pageHeight * (page - 1)) && (s == true)) {
+        para = i;
+        para_margin = h2 - view.pageHeight * (page - 1);
+        s = false;
+      }
+      para2 = i;
+      i++;
+    }
+    para_qt = para2 - para + 1;
+    top = (page - 1) * view.pageHeight;
+
+    for(i = para; i <= para2; i++){
+      switch (map.elements[i].type) {
+        case "P":
+          page_content.push(elements.eq(i).html())
+          break
+        default:
+          console.error("Unsupported content found!");
+      }
+    }
+
+    pageObj = {
+      style: {
+        marginTop: para_margin,
+        height: view.pageHeight
+      },
+      content: page_content,
+      index: page-1
+    }
+
+    return pageObj
+  }
 
   componentDidMount() {
-    var bookId = this.props.params.id
-    var url = "/api/v0.1/books/" + bookId + '/content/'
+    let bookId = this.props.params.id
+    let url = "/api/v0.1/books/" + bookId + '/content/'
+    let config = this.state.config
 
-    fetch(url).then(function(res){
-      return res.json()
-    }).then(function(json){
-      // console.log(json)
-      this.setState({data: json.data[0]})
-      // console.log(json);
-      // console.log(this.state)
-    }.bind(this))
+    this.loadBookContent(url, config).then(function(data) {
+      let pages = []
+      let startPage = 1
+
+      for (var i = 0; i < 5; i++) {
+        pages.push(this.filterBookContentByPage(data.content, data.map, startPage+i))
+      }
+
+      if(config.mode === "VERTICAL") {
+        pages = pages.map((page) => {
+          page.style.position = "absolute"
+          page.style.top = data.map.view.pageHeight * page.index
+
+          return page
+        })
+      }
+
+      this.setState({
+        pages: pages,
+        view: data.map.view
+      })
+    }.bind(this)).catch((err) => {
+      console.error(err)
+    })
+
+    // todo
+    $("body").on('mousemove', function(e){
+      var y = e.pageY - $("body").scrollTop();
+      var x = e.pageX;
+
+      if(y < 90){
+        $(".page-book-viewer .functions").slideDown();
+      }else if($(".dia-wrap").length == 0){
+        $(".page-book-viewer .functions").slideUp();
+      }
+    })
   }
 
   render() {
     return (
       <div className="page-book-viewer">
-        <div className="functions">
+        <div className="functions" style={{display: "none"}}>
           <div className="container">
-            <span className="home" />
+            <span>
+              <Link className="home" to="/bookstore"></Link>
+            </span>
             <span className="title">奥德赛</span>
             <span className="loc">35/504</span>
           </div>
         </div>
-        <Pages data={this.state.data}/>
+        <Pages config={this.state.config} pages={this.state.pages} view={this.state.view} />
       </div>
     )
   }
@@ -126,35 +267,78 @@ class BookViewer extends Component {
 
 class Pages extends Component {
 
-  componentDidMount() {
-  }
-
   render() {
+    let style = {}
+
+    if(this.props.view) {
+      if(this.props.config.mode === "VERTICAL") {
+        style = {
+          height: this.props.view.bookHeight
+        }
+      }
+    }
+
     return (
       <div className="pages">
-        <ul>
-          <Page data={this.props.data}/>
-        </ul>
+        <div className="container">
+          <ul style={style}>
+            {
+              this.props.pages.map((page, index) => {
+                return (
+                  <Page key={index} page={page} config={this.props.config} />
+                )
+              })
+            }
+          </ul>
+        </div>
       </div>
     )
   }
 }
 
 class Page extends Component {
-
-  componentDidMount() {
-  }
-
   render() {
-    var html = this.props.data.html
-    console.log(html)
+    let page = this.props.page,
+        liStyle,
+        pStyle
+
+    if(page.style){
+      if(this.props.config.mode === "VERTICAL") {
+        liStyle = {
+          top: page.style.top,
+          position: page.style.position,
+          height: page.style.height
+        }
+        pStyle = {
+          marginTop: page.style.marginTop
+        }
+      }
+    }
+
     return (
-      <li>
-        <div className="content" dangerouslySetInnerHTML={{__html: html}} />
+      <li style={liStyle}>
+        <div className="content">
+          {
+            page.content.map((ele, index) => {
+              return (
+                <p key={index} style={(index===0)?pStyle:{}}>{ele}</p>
+              )
+            })
+          }
+        </div>
       </li>
     )
   }
 }
 
+class Loading extends Component {
+  render() {
+    return (
+      <div className="loading-wrap">
+        <span className="icon icon-loading"></span>
+      </div>
+    )
+  }
+}
 
 export default BookViewer

@@ -13,9 +13,8 @@
 		}
 		ul {
 			position: relative;
-
 			li {
-				position: absolute;
+				// position: absolute;
 				display: block;
 				width: 100%;
 				overflow: hidden;
@@ -74,7 +73,7 @@
 			text-align: center;
 		}
 
-		span {
+		span, a {
 			width: 30px;
 			height: 30px;
 			line-height: 30px;

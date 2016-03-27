@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Appbar, Button, Container } from 'muicss/react'
+import { Link } from 'react-router'
 import 'whatwg-fetch'
 
 import { Branding } from 'components/page-parts'
@@ -39,9 +40,9 @@ var BookStore = React.createClass({
 
 var BookList = React.createClass({
   render: function() {
-    var bookNodes = this.props.data.map(function(book) {
+    var bookNodes = this.props.data.map(function(book, index) {
       return (
-        <Book book={book} />
+        <Book key={index} book={book} />
       );
     });
     return (
@@ -57,13 +58,13 @@ var Book = React.createClass({
     var book = this.props.book
     return (
       <li className="book">
-        <a href={"/book/"+book._id} >
+        <Link to={"/book/"+book._id} >
           <div className="book-cover"><img src={`/data/bookcovers/${book.book_cover}`}/></div>
           <div className="book-meta">
             <span title={this.props.name} className="book-name">{book.book_name}</span>
             <span className="book-author">{book.book_author}</span>
           </div>
-        </a>
+        </Link>
       </li>
     )
   }
