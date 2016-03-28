@@ -14,16 +14,10 @@
     ul {
       position: relative;
       li {
-        // position: absolute;
         display: block;
         width: 100%;
         overflow: hidden;
-        // -moz-transition: all 0.3s ease 0s;
-        // -o-transition: all 0.3s ease 0s;
-        // -webkit-transition: all 0.3s ease 0s;
-        // transition: all 0.3s ease 0s;
         cursor: default;
-
         .content {
           margin: 0 auto;
           width: 550px;
@@ -63,7 +57,8 @@
     top: 0;
     overflow: hidden;
     z-index: 990;
-
+    $height: 60px;
+    
     .container {
       margin: 0 auto;
       border-bottom: 1px solid #e5e4db;
@@ -73,32 +68,26 @@
       text-align: center;
     }
 
-    span, a {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
+    span {
+      height: $height;
+      line-height: $height;
       color: #333;
       display: inline-block;
       opacity: .4;
-      padding: 10px;
-      margin: 10px;
+      margin: 0 10px;
       background-repeat: no-repeat !important;
       background-size: 30px !important;
       float: left;
     }
     span.title {
-      width: auto;
-      display: inline-block;
       font-size: 18px;
       border-left: 1px solid #ccc;
       padding: 0;
       opacity: .7 !important;
       padding-left: 20px;
-      margin: 20px;
       margin-left: 0;
     }
     span.loc {
-      width: auto;
       float: right;
       opacity: .4 !important;
     }
@@ -106,7 +95,12 @@
       opacity: .8;
     }
     .home {
+      width: 30px;
       background: url(../img/home.png) center;
+      a {
+        display: block;
+        height: $height;
+      }
     }
     .sync {
       background: url(../img/sync.png) center;

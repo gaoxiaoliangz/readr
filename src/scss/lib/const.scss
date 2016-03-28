@@ -27,3 +27,10 @@ $mobile_screen: 400px;
 $sans_font: "roboto","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei",sans-serif;
 $sans_font_ie: "Microsoft Yahei",Arial,sans-serif;
 $serif_font: "Droid serif", georgia, serif;
+
+%transition {
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
