@@ -11,7 +11,11 @@ import { Branding } from 'components/page-parts'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import actions from 'actions'
+import { setLang } from 'actions'
+
+const actions = {
+  setLang: setLang
+}
 
 function mapStateToProps(state) {
   return {

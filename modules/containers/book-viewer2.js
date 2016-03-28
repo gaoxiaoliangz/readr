@@ -4,6 +4,16 @@ import 'whatwg-fetch'
 import $ from 'jquery'
 import Immutable from 'immutable'
 
+import configureStore from 'store/configureStore'
+const store = configureStore()
+
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { loadBook } from 'actions'
+
+const actions = {
+  loadBook: loadBook
+}
 
 class BookViewer extends Component {
 
@@ -17,6 +27,11 @@ class BookViewer extends Component {
   }
 
   componentDidMount() {
+
+    this.props.actions.loadBook().data.then(data=>{
+      console.log(data);
+    })
+
   }
 
   render() {
@@ -118,4 +133,19 @@ class Loading extends Component {
   }
 }
 
-export default BookViewer
+function mapStateToProps(state) {
+  return {
+    book: state.book
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BookViewer)
