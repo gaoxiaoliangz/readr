@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import 'whatwg-fetch'
 import $ from 'jquery'
+import Immutable from 'immutable'
 
 const CONTENT_SELECTOR = ".pages li .content"
 
@@ -15,6 +16,11 @@ const defaultConfig = {
   pageHeight: 910,
   mode: MODE.default
 }
+
+let scrollTimer
+let scrollTimeArray = []
+scrollTimeArray.push((new Date()).valueOf())
+
 
 class BookViewer extends Component {
 
@@ -204,35 +210,81 @@ class BookViewer extends Component {
     return pageObj
   }
 
-  componentDidMount() {
-    let bookId = this.props.params.id
-    let url = "/api/v0.1/books/" + bookId + '/content/'
-    let config = this.state.config
+  convertPercentageToPage(p) {
+    if(p>1) {
+      console.error("Wrong parameter!")
+      return null
+    } else {
+      return parseInt(p*this.state.view.pageSum) + 1
+    }
+  }
 
-    this.loadBookContent(url, config).then(function(data) {
-      let pages = []
-      let startPage = 1
+  handleScroll(e) {
+    var timer,
+        lastScrollTop = 0,
+        view = this.state.view,
+        bookId = this.state.bookId,
+        pageSum = view.pageSum,
+        scrollTop = $("body").scrollTop();
 
-      for (var i = 0; i < 5; i++) {
-        pages.push(this.filterBookContentByPage(data.content, data.map, startPage+i))
+    function load(){
+      var page,
+          percentage = (scrollTop/view.bookHeight).toFixed(4);
+
+      page = this.convertPercentageToPage(percentage);
+
+      this.renderPages(page, 5)
+      // this.setProgress(percentage);
+
+      // set loc display
+      // $(".functions .loc").html(page+"/"+pageSum);
+    }
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(load.bind(this), 100);
+  }
+
+  renderPages(startPage, quantity) {
+    let pages = []
+
+    if(this.state.content) {
+      for (var i = 0; i < quantity; i++) {
+        pages.push(this.filterBookContentByPage(this.state.content, this.state.map, startPage+i))
       }
 
-      if(config.mode === "VERTICAL") {
+      if(this.state.config.mode === "VERTICAL") {
         pages = pages.map((page) => {
           page.style.position = "absolute"
-          page.style.top = data.map.view.pageHeight * page.index
+          page.style.top = this.state.view.pageHeight * page.index
 
           return page
         })
       }
 
       this.setState({
-        pages: pages,
+        pages: pages
+      })
+    }
+  }
+
+  componentDidMount() {
+    let bookId = this.props.params.id
+    let url = "/api/v0.1/books/" + bookId + '/content/'
+    let config = this.state.config
+
+    this.loadBookContent(url, config).then(function(data) {
+      this.setState({
+        content: data.content,
+        map: data.map,
         view: data.map.view
       })
     }.bind(this)).catch((err) => {
       console.error(err)
     })
+
+    this.renderPages(1,5)
+
+    window.addEventListener("scroll", this.handleScroll.bind(this))
+
 
     // todo
     $("body").on('mousemove', function(e){
