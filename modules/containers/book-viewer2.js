@@ -4,21 +4,26 @@ import 'whatwg-fetch'
 import $ from 'jquery'
 import Immutable from 'immutable'
 
+import BookPage from 'components/book-page'
+
 import configureStore from 'store/configureStore'
 const store = configureStore()
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { loadBook } from 'actions'
+import { requestBook, receiveBook, fetchBook } from 'actions'
 
 const actions = {
-  loadBook: loadBook
+  requestBook,
+  receiveBook
 }
 
 class BookViewer extends Component {
 
   constructor(props) {
     super(props)
+    let bookId = props.params.id
+    this.bookId = bookId
   }
 
 
@@ -28,9 +33,36 @@ class BookViewer extends Component {
 
   componentDidMount() {
 
-    this.props.actions.loadBook().data.then(data=>{
-      console.log(data);
-    })
+    // store.dispatch(fetchBook(this.bookId)).then(() =>
+    //   console.log(store.getState())
+    // )
+
+    
+
+
+    // this.props.actions.receiveBook(this.bookId).data.then(data=>{
+    //   console.log(data)
+    //   console.log(store.getState())
+    // })
+    //
+    //
+    // var abc = fuck => you => {
+    //   console.log(fuck)
+    // }
+    //
+    // console.log(store.dispatch(fetchBook(this.bookId)).then(() =>
+    //   console.log(store.getState())
+    // ));
+
+    // console.log();
+    // abc("fuck")("haha");
+
+    // fetch("http://readrweb.com/api/v0.1/books").then(res=>{
+    //   return res.json()
+    // }).then(data=>{
+    //   console.log(data);
+    // })
+
 
   }
 
@@ -49,6 +81,7 @@ class BookViewer extends Component {
         </div>
         <div>rebuild</div>
         {/*<Pages />*/}
+        <BookPage bookId={this.bookId} />
       </div>
     )
   }
@@ -85,43 +118,6 @@ class Pages extends Component {
   }
 }
 
-class Page extends Component {
-  render() {
-    let page = this.props.page,
-        liStyle,
-        pStyle,
-        currentPage
-
-    if(page.style){
-      if(this.props.config.mode === "VERTICAL") {
-        liStyle = {
-          top: page.style.top,
-          position: page.style.position,
-          height: page.style.height
-        }
-        pStyle = {
-          marginTop: page.style.marginTop
-        }
-      }
-      currentPage = page.index + 1
-    }
-
-    return (
-      <li style={liStyle}>
-        <div className="content">
-          {
-            page.content.map((ele, index) => {
-              return (
-                <p key={index} style={(index===0)?pStyle:{}}>{ele}</p>
-              )
-            })
-          }
-        </div>
-        <div className="pg_num">{currentPage}</div>
-      </li>
-    )
-  }
-}
 
 class Loading extends Component {
   render() {
@@ -145,7 +141,12 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(BookViewer)
+
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { fetchBook }
 )(BookViewer)
