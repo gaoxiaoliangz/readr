@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { render } from 'react-dom'
 import { Link } from 'react-router'
-import utils from 'utils'
-var { vent } = utils
 
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import 'whatwg-fetch'

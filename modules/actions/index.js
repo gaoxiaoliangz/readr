@@ -1,45 +1,27 @@
+import { formatHTMLStringToArray } from 'utils'
+
 export function setLang(lang) {
   return { type: "SETLANG", lang: lang }
 }
 
+export const GEN_BOOK_MAP = 'GEN_BOOK_MAP'
+function cacheBook(bookId) {
+  return {
+    type: GEN_BOOK_MAP,
+    bookId
+  }
+}
 
-// function fetchBookData(bookId) {
-//   const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
-//
-//   return new Promise(function(resolve){
-//     fetch(fullUrl).then(function(res){
-//       return res.json()
-//     }).then(function(json){
-//       resolve(json)
-//     })
-//   })
-// }
-
-
-// export function loadBook(bookId) {
-//   return {
-//     type: "LOAD",
-//     bookId: bookId,
-//     data: fetchBookData(bookId)
-//   }
-// }
-
-
-
-
-
-export function fetchBook(bookId) {
-  const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
-  return dispatch => {
-    dispatch(requestBook(bookId))
-    return fetch(fullUrl)
-      .then(response => response.json())
-      .then(json => dispatch(receiveBook(bookId, json)))
+export const CACHE_BOOK = 'CACHE_BOOK'
+function cacheBook(bookId) {
+  return {
+    type: CACHE_BOOK,
+    bookId
   }
 }
 
 export const REQUEST_BOOK = 'REQUEST_BOOK'
-export function requestBook(bookId) {
+function requestBook(bookId) {
   return {
     type: REQUEST_BOOK,
     bookId
@@ -47,11 +29,40 @@ export function requestBook(bookId) {
 }
 
 export const RECEIVE_BOOK = 'RECEIVE_BOOK'
-export function receiveBook(bookId, json) {
+function receiveBook(bookId, content) {
   return {
     type: RECEIVE_BOOK,
     bookId,
-    book: json
-    // receivedAt: Date.now()
+    content,
+    receivedAt: Date.now()
+  }
+}
+
+function fetchBook(bookId) {
+  const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
+  return dispatch => {
+    dispatch(requestBook(bookId))
+    return fetch(fullUrl)
+      .then(response => response.json())
+      .then(json => {
+        // dispatch(receiveBook(bookId, formatHTMLStringToArray(json.data[0].html)))
+        dispatch(receiveBook(bookId, json.data[0].html))
+      })
+  }
+}
+
+function genBookMap(bookId) {
+  return (dispatch, getState) => {
+
+    dispatch(genBookMap(bookId))
+  }
+}
+
+
+export function fetchBookIfNeeded(subreddit) {
+
+  return (dispatch, getState) => {
+    console.log(getState())
+    return dispatch(fetchBook(subreddit))
   }
 }

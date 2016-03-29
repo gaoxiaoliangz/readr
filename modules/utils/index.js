@@ -1,7 +1,11 @@
-import vent from './vent'
+import $ from 'jquery'
 
-var Utils = {
-  vent: vent
+export function formatHTMLStringToArray(HTMLString) {
+  let contentArray = []
+  let $HTMLString = $(HTMLString)
+
+  for (var i = 0; i < $HTMLString.length; i++) {
+    contentArray.push($HTMLString[i].innerHTML)
+  }
+  return contentArray
 }
-
-export default Utils

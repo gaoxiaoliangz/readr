@@ -6,15 +6,27 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { requestBook, receiveBook, fetchBook } from 'actions'
 
+import { formatHTMLStringToArray } from 'utils'
+
 class BookPage extends Component {
 
-  componentDidMount() {
-    this.props.fetchBook(this.props.bookId)
+  constructor(props) {
+    super(props)
+
+
   }
+
+
+  componentDidMount() {
+    // this.props.fetchBook(this.props.bookId)
+  }
+
+
 
   render() {
 
-    // let page = this.props.page,
+    let page = this.props.page
+    // console.log(page);
     //     liStyle,
     //     pStyle,
     //     currentPage
@@ -33,27 +45,44 @@ class BookPage extends Component {
     //   currentPage = page.index + 1
     // }
 
+
+// style={(index===0)?pStyle:{}}
+
+
+
     return (
-      <div>bookpage</div>
+      <li>
+        <div className="content">
+          {
+            page.map((ele, index) => {
+              return (
+                <p key={index}>{ele}</p>
+              )
+            })
+            // page.content
+          }
+        </div>
+        <div className="pg_num"></div>
+      </li>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    book: state.book
-  }
-}
+// function mapStateToProps(state) {
+//   return {
+//     book: state.book
+//   }
+// }
 
 // export default connect(
 //   mapStateToProps,
 //   { fetchBook }
 // )(BookPage)
 
-// export default BookPage
+export default BookPage
 
 
-export default connect(
-  mapStateToProps,
-  { fetchBook }
-)(BookPage)
+// export default connect(
+//   mapStateToProps,
+//   { fetchBook }
+// )(BookPage)

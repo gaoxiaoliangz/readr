@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'reac
 import App from 'containers/app'
 import NoMatch from 'containers/no-match'
 import IndexPage from 'containers/index-page'
-import BookViewer from 'containers/book-viewer2'
+import BookViewer from 'containers/book-viewer'
 import BookStore from 'containers/book-store'
 import Signin from 'containers/signin'
 import Signup from 'containers/signup'
