@@ -275,15 +275,15 @@ ul {
         width: 550px;
         position: relative;
         overflow: hidden;
-        color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_book-viewer\.scss}line{font-family:\0000327}}
+        color: #333;
+        font-size: 18px;
+        line-height: 1.9; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_book-viewer\.scss}line{font-family:\0000329}}
         .page-book-viewer .pages ul li .content p {
-          font-size: 18px;
-          line-height: 1.9;
-          min-height: 25px;
-          margin: 0; }
+          margin: 0;
+          min-height: 25px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_book-viewer\.scss}line{font-family:\0000334}}
-      .page-book-viewer .pages ul li .pg_num {
+      .page-book-viewer .pages ul li .page-no {
         position: absolute;
         left: 0;
         top: 0;

@@ -69,8 +69,7 @@ export function setLang(lang) {
 export const FORMAT_BOOK = 'FORMAT_BOOK'
 function formatBook(bookId, contentNodes, config) {
   let content = document.querySelector(".pages ul li .content")
-  let newContentNodes = Immutable.fromJS(contentNodes)
-
+  let newContentNodes = [[]]
   let fuck = Immutable.Map(contentNodes[0][0].props)
   Array.prototype.forEach.call(content.childNodes, (node, index) => {
     if(node.tagName.toLowerCase() !== "p") {
@@ -78,24 +77,19 @@ function formatBook(bookId, contentNodes, config) {
       console.error("Unsupported content found!")
     }
 
+    let newNode = Object.assign({}, contentNodes[0][index])
 
-    // let newNode = Object.assign({}, contentNodes[0][index])
-    // newContentNodes[0][index].props.style = {}
-    // newContentNodes[0][index].props.style = {
-    //   height: node.clientHeight
-    // }
-    // newContentNodes[0].push(newNode)
-
-
-
+    newNode.props.style = {
+      height: node.clientHeight
+    }
+    newContentNodes[0].push(newNode)
   })
 
 
-  // console.log(fuck.get('children'));
+  console.log(fuck.get('children'));
 
-  // console.log(contentNodes[0][0].props.style);
-  var a= newContentNodes.get(0).get(2).get('props').set('children', "fuck")
-  console.log(a.get(0).get(2).get('props').get('children'));
+  console.log(contentNodes[0][0].props.style);
+  console.log(newContentNodes);
 
   return {
     type: FORMAT_BOOK,

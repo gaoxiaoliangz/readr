@@ -2,29 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import 'whatwg-fetch'
 
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { requestBook, receiveBook, fetchBook } from 'actions'
-
-import { formatHTMLStringToArray } from 'utils'
-
 class BookPage extends Component {
 
   constructor(props) {
     super(props)
-
-
   }
-
-
-  componentDidMount() {
-    // this.props.fetchBook(this.props.bookId)
-  }
-
-
 
   render() {
-
     let page = this.props.page
     // console.log(page);
     //     liStyle,
@@ -54,35 +38,20 @@ class BookPage extends Component {
       <li>
         <div className="content">
           {
-            page.map((ele, index) => {
+            page.map((node, index) => {
+              if (node.type !== "p") {
+                console.error("Unsupported content found!")
+              }
               return (
-                <p key={index}>{ele}</p>
+                <p key={index}>{node.props.children}</p>
               )
             })
-            // page.content
           }
         </div>
-        <div className="pg_num"></div>
+        <div className="page-no"></div>
       </li>
     )
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     book: state.book
-//   }
-// }
-
-// export default connect(
-//   mapStateToProps,
-//   { fetchBook }
-// )(BookPage)
-
 export default BookPage
-
-
-// export default connect(
-//   mapStateToProps,
-//   { fetchBook }
-// )(BookPage)

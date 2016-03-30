@@ -9,7 +9,6 @@ export default function configureStore(initialState) {
     rootReducer,
     initialState,
     applyMiddleware(thunkMiddleware, createLogger())
-    // applyMiddleware(thunkMiddleware)
   )
 
   if (module.hot) {

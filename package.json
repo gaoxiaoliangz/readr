@@ -19,6 +19,7 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "express-session": "^1.12.1",
+    "html-to-react": "^0.1.2",
     "immutable": "^3.7.6",
     "jade": "~1.11.0",
     "lodash": "^3.10.1",

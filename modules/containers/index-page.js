@@ -11,8 +11,17 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setLang } from 'actions'
 
+
 const actions = {
   setLang: setLang
+}
+
+function genHTML() {
+  var ha = (<div rel="root" style={{height: "100px", fontSize: "19px"}}>what<div><span>the ***</span></div><div></div></div>)
+  console.log(ha);
+  return (
+    <div>{ha}</div>
+  )
 }
 
 function mapStateToProps(state) {
@@ -37,11 +46,13 @@ var Index = React.createClass({
       this.props.actions.setLang("en")
     }
   },
+
   render: function(){
     var { lang, actions } = this.props
     return (
       <div className="page-home">
         <Branding />
+        {genHTML()}
         <Container>
           <IndexContent lang={lang} actions={actions} />
         </Container>

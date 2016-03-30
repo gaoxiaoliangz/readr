@@ -2,43 +2,27 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Immutable from 'immutable'
 import { connect } from 'react-redux'
-import { fetchBookIfNeeded } from 'actions'
 
 import 'whatwg-fetch'
 import $ from 'jquery'
 
 import BookPageList from 'components/book-page-list'
+import { mountBook } from 'actions'
 
-import { formatHTMLStringToArray } from 'utils'
 
 class BookViewer extends Component {
 
   constructor(props) {
     super(props)
-    let bookId = props.params.id
-    this.bookId = bookId
-  }
-
-  getFormatdData() {
-    let content = formatHTMLStringToArray(this.props.book.content)
-    return content
-  }
-
-
-  componentWillUnmount () {
+    this.bookId = props.params.id
   }
 
   componentDidMount() {
-    this.props.fetchBookIfNeeded(this.bookId)
+    this.props.mountBook(this.bookId, {})
   }
 
   render() {
-    let pages
-    pages = this.getFormatdData()
-
-    // if(this.props.book.unFormated) {
-    //   pages = this.props.book
-    // }
+    let pages = this.props.book.contentNodes
 
     return (
       <div className="page-book-viewer">
@@ -51,7 +35,7 @@ class BookViewer extends Component {
             <span className="loc"></span>
           </div>
         </div>
-        <BookPageList pages={pages} />
+        <BookPageList bookId={this.props.book.id} pages={pages} />
       </div>
     )
   }
@@ -65,5 +49,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchBookIfNeeded }
+  { mountBook }
 )(BookViewer)
