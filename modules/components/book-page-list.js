@@ -8,8 +8,12 @@ class BookPageList extends Component {
 
   render() {
     let style = styles.BOOK_HD_STYLE
-    if(this.props.config.view === "MOBILE") {
+    if(this.props.view.mode === "MOBILE") {
       style = styles.BOOK_MOBILE_STYLE
+    }
+
+    if(!this.props.isCalculated) {
+      style.height = "100%"
     }
 
     return (

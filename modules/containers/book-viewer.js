@@ -4,42 +4,22 @@ import Immutable from 'immutable'
 import { connect } from 'react-redux'
 
 import BookPageList from 'components/book-page-list'
-import { mountBook, loadPages } from 'actions'
-import { genPageList } from 'utils/filters'
+import { fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, loadBookContentFromCache, cacheBookContent, loadPages } from 'actions'
 
+import { genPageList } from 'utils/filters'
 import { convertPercentageToPage } from 'utils/book'
+import { delayStuff } from 'utils'
 
 import $ from 'jquery'
-
-let config = {
-  view: "HD"
-}
-
-
-function lazyScroll(callback, delay) {
-  return function() {
-    clearTimeout(this.__scrollTimer__)
-    this.__scrollTimer__ = setTimeout(callback.bind(this), delay)
-  }
-}
 
 class BookViewer extends Component {
 
   scrollToLoadPages() {
-    console.log(this);
-    let timer,
-        lastScrollTop = 0,
-        bookId = this.props.bookId,
-        pageSum = this.props.book.pageSum,
-        scrollTop = $("body").scrollTop(),
-        page,
-        // todo: 900
-        percentage = (scrollTop/(900*pageSum)).toFixed(4)
+    let pageSum = this.props.book.content.pageSum
+    let percentage = (document.body.scrollTop/(this.props.book.view.style.height*pageSum)).toFixed(4)
 
-    page = convertPercentageToPage(percentage, pageSum)
-    this.props.loadPages(this.bookId, page)
+    this.props.loadPages(convertPercentageToPage(percentage, pageSum))
   }
-
 
   constructor(props) {
     super(props)
@@ -47,14 +27,35 @@ class BookViewer extends Component {
   }
 
   addEventListeners() {
-    window.addEventListener("scroll", lazyScroll(this.scrollToLoadPages).bind(this))
+    window.addEventListener("scroll", delayStuff(this.scrollToLoadPages, 100).bind(this))
   }
 
   componentDidMount() {
-    this.props.mountBook(this.bookId, config, function(){
-      this.props.loadPages(this.bookId, 1)
-      this.addEventListeners.bind(this)()
-    }.bind(this))
+    let mode = "VERTICAL"
+    let screen = "HD"
+    let book = this.props.book
+
+    if($(window).width() < 768) {
+      screen = "MOBILE"
+    }
+
+    this.props.fetchBookContentIfNeeded(this.bookId, function(){
+      this.props.setViewMode(mode)
+      this.props.setViewScreen(screen)
+      this.props.calculateBookContent(this.props.book.content.nodes, this.props.book.view.style.height)
+      this.props.cacheBookContent(this.bookId, this.props.book.content)
+      this.props.loadPages(1)
+      this.addEventListeners()
+    }.bind(this), function(){
+      // todo: load view from cache
+      this.props.setViewMode(mode)
+      this.props.setViewScreen(screen)
+      // console.log(this.props.book.view.style.height);
+      console.log(this);
+      this.props.loadPages(1)
+      this.addEventListeners()
+
+    })
   }
 
   render() {
@@ -109,7 +110,7 @@ class BookViewer extends Component {
           (()=>{
             if(book.content.nodes.length) {
               return (
-                <BookPageList height={height} config={config} bookId={this.bookId} pages={pages} />
+                <BookPageList isCalculated={book.content.isCalculated} height={height} view={book.view} bookId={this.bookId} pages={pages} />
               )
             }
           })()
@@ -127,5 +128,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { mountBook, loadPages }
+  { fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, cacheBookContent, loadBookContentFromCache, loadPages }
 )(BookViewer)

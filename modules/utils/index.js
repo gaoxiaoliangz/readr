@@ -31,3 +31,11 @@ export function parseHTML(htmlString) {
   }
   return nodes
 }
+
+// todo: when multiple functins are called?
+export function delayStuff(callback, delay) {
+  return function() {
+    clearTimeout(this.__delayStuffTimer__)
+    this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay)
+  }
+}
