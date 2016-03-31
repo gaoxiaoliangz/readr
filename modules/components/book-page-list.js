@@ -11,9 +11,13 @@ class BookPageList extends Component {
           <ul>
             {
               this.props.pages.map((page, index)=>{
-                return (
-                  <BookPage bookId={this.props.bookId} key={index} page={page}></BookPage>
-                )
+                if(page.type === "page") {
+                  return (
+                    <BookPage bookId={this.props.bookId} key={index} page={page.props.children}></BookPage>
+                  )
+                }else{
+                  console.error("Not type page!");
+                }
               })
             }
           </ul>
