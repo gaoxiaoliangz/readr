@@ -41,14 +41,14 @@ export const CALCULATE_BOOK_CONTENT = 'CALCULATE_BOOK_CONTENT'
 function calculateBookContent(bookId, contentNodes, config) {
   let newContentNodes = _.cloneDeep(contentNodes)
   let content = document.querySelector(CONTENT_SELECTOR)
-  // let content = document.querySelector('.pages ul li .content')
-  // console.log(content);
+  let heightSum = 0
 
   Array.prototype.forEach.call(content.childNodes, (node, index) => {
     if(node.tagName.toLowerCase() !== "p") {
       console.error("Unsupported content found!")
     }
     let height = node.clientHeight
+    heightSum += height
     newContentNodes[index].props.style = {
       height: height
     }
@@ -58,7 +58,9 @@ function calculateBookContent(bookId, contentNodes, config) {
     type: CALCULATE_BOOK_CONTENT,
     bookId,
     contentNodes: newContentNodes,
-    config
+    config,
+    // todo: 900
+    pageSum: parseInt(heightSum/900)+1
   }
 }
 

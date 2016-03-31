@@ -7,20 +7,53 @@ import BookPageList from 'components/book-page-list'
 import { mountBook, loadPages } from 'actions'
 import { genPageList } from 'utils/filters'
 
+import { convertPercentageToPage } from 'utils/book'
+
+import $ from 'jquery'
+
 let config = {
   view: "HD"
 }
 
+
+function lazyScroll(callback, delay) {
+  return function() {
+    clearTimeout(this.__scrollTimer__)
+    this.__scrollTimer__ = setTimeout(callback.bind(this), delay)
+  }
+}
+
 class BookViewer extends Component {
+
+  scrollToLoadPages() {
+    console.log(this);
+    let timer,
+        lastScrollTop = 0,
+        bookId = this.props.bookId,
+        pageSum = this.props.book.pageSum,
+        scrollTop = $("body").scrollTop(),
+        page,
+        // todo: 900
+        percentage = (scrollTop/(900*pageSum)).toFixed(4)
+
+    page = convertPercentageToPage(percentage, pageSum)
+    this.props.loadPages(this.bookId, page)
+  }
+
 
   constructor(props) {
     super(props)
     this.bookId = props.params.id
   }
 
+  addEventListeners() {
+    window.addEventListener("scroll", lazyScroll(this.scrollToLoadPages).bind(this))
+  }
+
   componentDidMount() {
     this.props.mountBook(this.bookId, config, function(){
       this.props.loadPages(this.bookId, 1)
+      this.addEventListeners.bind(this)()
     }.bind(this))
   }
 
@@ -28,13 +61,13 @@ class BookViewer extends Component {
     let book = this.props.book
     let pages = []
     let quantity = 5
-    let startPage = 10
+    let startPage = 1
     let offset = 2
     let height = "100%"
 
     if(book.content.nodes.length) {
       if(book.isPagesLoaded) {
-        pages = genPageList(startPage, quantity, offset, book.content.nodes, {pageHeight: 900})
+        pages = genPageList(book.currentPage, quantity, offset, book.content.nodes, {pageHeight: 900})
 
         // todo: reduce
         // height = book.content.nodes.reduce((a,b)=>a.props.style.height+b.props.style.height)

@@ -21,7 +21,10 @@ class BookPage extends Component {
                 console.error("Unsupported content found!")
               }
               return (
-                <p key={index}>{node.props.children}</p>
+                <p {... node.props.style?(node.props.style.marginTop?{style: node.props.style}:{}):{}}
+                  key={index} >
+                  {node.props.children}
+                </p>
               )
             })
           }

@@ -26,7 +26,8 @@
         content: Object.assign({}, state.content, {
           nodes: action.contentNodes,
           isCalculated: true
-        })
+        }),
+        pageSum: action.pageSum
       })
 
     case "CACHE_BOOK_CONTENT":
