@@ -1,4 +1,4 @@
-export default function book(state = {content: { nodes: [] }}, action){
+  export default function book(state = {content: { nodes: [] }, config: { view: "HD" }}, action){
   switch (action.type) {
     case "REQUEST_BOOK_CONTENT":
       return Object.assign({}, state, {

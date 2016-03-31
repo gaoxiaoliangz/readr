@@ -7,6 +7,9 @@ import BookPageList from 'components/book-page-list'
 import { mountBook, loadPages } from 'actions'
 import { genPageList } from 'utils/filters'
 
+let config = {
+  view: "HD"
+}
 
 class BookViewer extends Component {
 
@@ -16,7 +19,7 @@ class BookViewer extends Component {
   }
 
   componentDidMount() {
-    this.props.mountBook(this.bookId, {}, function(){
+    this.props.mountBook(this.bookId, config, function(){
       this.props.loadPages(this.bookId, 1)
     }.bind(this))
   }
@@ -27,18 +30,35 @@ class BookViewer extends Component {
     let quantity = 5
     let startPage = 10
     let offset = 2
+    let height = "100%"
 
-    if(book.pagesLoaded) {
-      pages = genPageList(startPage, quantity, offset, book.content.nodes, book.config)
-    }else{
-      pages = [
-        {
-          props: {
-            children: book.content.nodes
-          },
-          type: "page",
+    if(book.content.nodes.length) {
+      if(book.isPagesLoaded) {
+        pages = genPageList(startPage, quantity, offset, book.content.nodes, {pageHeight: 900})
+
+        // todo: reduce
+        // height = book.content.nodes.reduce((a,b)=>a.props.style.height+b.props.style.height)
+        // height = book.content.nodes.reduce((a,b)=>{
+        //   console.log(a.props);
+        //   console.log(b.props.style.height);
+        //   return a.props.style.height+b.props.style.height
+        // })
+
+        height = 0
+        for (var i = 0; i < book.content.nodes.length; i++) {
+          height += book.content.nodes[i].props.style.height
         }
-      ]
+      }else{
+        pages = [
+          {
+            props: {
+              children: book.content.nodes,
+              pageNo: "NA"
+            },
+            type: "page",
+          }
+        ]
+      }
     }
 
     return (
@@ -52,7 +72,15 @@ class BookViewer extends Component {
             <span className="loc">{book.currentPage}</span>
           </div>
         </div>
-        <BookPageList status={book.status} bookId={this.bookId} pages={pages} />
+        {
+          (()=>{
+            if(book.content.nodes.length) {
+              return (
+                <BookPageList height={height} config={config} bookId={this.bookId} pages={pages} />
+              )
+            }
+          })()
+        }
       </div>
     )
   }

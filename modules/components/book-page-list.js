@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import * as styles from 'constants/styles'
 
 import BookPage from 'components/book-page'
 
 class BookPageList extends Component {
+
   render() {
+    let style = styles.BOOK_HD_STYLE
+    if(this.props.config.view === "MOBILE") {
+      style = styles.BOOK_MOBILE_STYLE
+    }
+
     return (
       <div className="pages">
         <div className="container">
-          <ul>
+          <ul style={{height: this.props.height}}>
             {
               this.props.pages.map((page, index)=>{
                 if(page.type === "page") {
+                  style = Object.assign({}, style, page.props.style)
                   return (
-                    <BookPage bookId={this.props.bookId} key={index} page={page.props.children}></BookPage>
+                    <BookPage style={style} bookId={this.props.bookId} key={index} page={page}></BookPage>
                   )
                 }else{
-                  console.error("Not type page!");
+                  console.error("Not type page!")
                 }
               })
             }

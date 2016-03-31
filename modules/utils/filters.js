@@ -33,13 +33,19 @@ export function filterContentNodesByPage(contentNodes, config, page) {
       top: top,
       position: "absolute"
     }
+  }else{
+    style = {
+      top: top,
+      position: "absolute"
+    }
   }
 
   pageContent[0].props.style.marginTop = eleOffset
   pageWrap = {
     props: {
       children: pageContent,
-      style: style
+      style: style,
+      pageNo: page
     },
     type: "page"
   }

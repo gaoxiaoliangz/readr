@@ -3,6 +3,8 @@ import $ from 'jquery'
 import Immutable from 'immutable'
 import _ from 'lodash'
 
+const CONTENT_SELECTOR = '.pages ul li .content'
+
 export function setLang(lang) {
   return { type: "SETLANG", lang: lang }
 }
@@ -28,27 +30,9 @@ function receiveBookContent(bookId, contentNodes) {
 
 export const SET_BOOK_STYLE = 'SET_BOOK_STYLE'
 export function setBookStyle(bookId, config) {
-  let content = document.querySelector(".pages ul li .content")
-  let defaultConfig = {
-    fontSize: "18",
-    lineHeight: "1.8",
-    fontWeight: "normal",
-    pageWidth: "700",
-    pageHeight: "900"
-  }
-  let newConfig = Object.assign({}, defaultConfig, config)
-
-  let style = {
-    fontSize: newConfig.fontSize,
-    lineHeight: newConfig.lineHeight,
-    fontWeight: newConfig.fontWeight
-  }
-  $(content).css(style)
-
   return {
     type: SET_BOOK_STYLE,
-    bookId,
-    config: newConfig
+    config
   }
 }
 
@@ -56,7 +40,9 @@ export function setBookStyle(bookId, config) {
 export const CALCULATE_BOOK_CONTENT = 'CALCULATE_BOOK_CONTENT'
 function calculateBookContent(bookId, contentNodes, config) {
   let newContentNodes = _.cloneDeep(contentNodes)
-  let content = document.querySelector(".pages ul li .content")
+  let content = document.querySelector(CONTENT_SELECTOR)
+  // let content = document.querySelector('.pages ul li .content')
+  // console.log(content);
 
   Array.prototype.forEach.call(content.childNodes, (node, index) => {
     if(node.tagName.toLowerCase() !== "p") {

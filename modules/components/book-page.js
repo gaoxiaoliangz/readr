@@ -10,35 +10,13 @@ class BookPage extends Component {
 
   render() {
     let page = this.props.page
-    // console.log(page);
-    //     liStyle,
-    //     pStyle,
-    //     currentPage
-    //
-    // if(page.style){
-    //   if(this.props.config.mode === "VERTICAL") {
-    //     liStyle = {
-    //       top: page.style.top,
-    //       position: page.style.position,
-    //       height: page.style.height
-    //     }
-    //     pStyle = {
-    //       marginTop: page.style.marginTop
-    //     }
-    //   }
-    //   currentPage = page.index + 1
-    // }
-
-
-// style={(index===0)?pStyle:{}}
-
-
+    let style = this.props.style
 
     return (
-      <li>
+      <li style={style}>
         <div className="content">
           {
-            page.map((node, index) => {
+            page.props.children.map((node, index) => {
               if (node.type !== "p") {
                 console.error("Unsupported content found!")
               }
@@ -48,7 +26,7 @@ class BookPage extends Component {
             })
           }
         </div>
-        <div className="page-no"></div>
+        <div className="page-no">{page.props.pageNo}</div>
       </li>
     )
   }
