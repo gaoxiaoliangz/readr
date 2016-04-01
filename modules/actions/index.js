@@ -96,16 +96,6 @@ export function cacheBookContent(bookId, content) {
   }
 }
 
-// export const CACHE_BOOK = 'CACHE_BOOK'
-// export function cacheBookContent(bookId, book) {
-//   localStorage.setItem(`book${bookId}_content`, JSON.stringify(book))
-//   return {
-//     type: CACHE_BOOK,
-//     bookId
-//   }
-// }
-
-// not promise
 export const LOAD_BOOK_CONTENT_FROM_CACHE = 'LOAD_BOOK_CONTENT_FROM_CACHE'
 export function loadBookContentFromCache(bookId) {
   let content = localStorage.getItem(`book${bookId}_content`)
@@ -129,32 +119,35 @@ export function loadBookContentFromCache(bookId) {
   }
 }
 
-export function loadBookContentFromCachePromise(bookId) {
-  return (dispatch, getState) => {
-    return new Promise(function(resolve) {
-      dispatch(loadBookContentFromCache(bookId))
-      resolve(getState)
-    })
+
+export const CACHE_VIEW = 'CACHE_VIEW'
+export function cacheView(bookId, view) {
+  localStorage.setItem(`book${bookId}_view`, JSON.stringify(view))
+  return {
+    type: CACHE_VIEW,
+    bookId
   }
 }
 
-// export const LOAD_BOOK_FROM_CACHE = 'LOAD_BOOK_FROM_CACHE'
-// export function loadBookContentFromCache(bookId) {
-//   let book = localStorage.getItem(`book${bookId}_book`)
-//   let cacheReadingState = 'SUCCESS'
-//   if(!book) {
-//     cacheReadingState = 'FAILURE'
-//     book = {}
-//   }else{
-//     book = JSON.parse(book)
-//   }
-//   return {
-//     type: LOAD_BOOK_FROM_CACHE,
-//     bookId,
-//     cacheReadingState,
-//     book
-//   }
-// }
+export const LOAD_VIEW_FROM_CACHE = 'LOAD_VIEW_FROM_CACHE'
+export function loadViewFromCache(bookId) {
+  let view = localStorage.getItem(`book${bookId}_view`)
+  let cacheReadingState = 'SUCCESS'
+  if(!view) {
+    cacheReadingState = 'FAILURE'
+    view = {}
+  }else{
+    view = JSON.parse(view)
+  }
+  return {
+    type: LOAD_VIEW_FROM_CACHE,
+    bookId,
+    cacheReadingState,
+    mode: view.mode,
+    screen: view.screen,
+    style: view.style
+  }
+}
 
 
 export const LOAD_PAGES = 'LOAD_PAGES'
@@ -164,34 +157,6 @@ export function loadPages(startPage) {
     currentPage: startPage
   }
 }
-
-// export function fetchBookContentIfNeeded(bookId, callbackIfNotCached, callbackIfCached) {
-//   const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
-//   return (dispatch, getState) => {
-//     dispatch(loadBookContentFromCache(bookId))
-//     if(!getState().book.content.isCached) {
-//       dispatch(requestBookContent(bookId))
-//       fetch(fullUrl).then(response => response.json()).then(json => {
-//         let contentNodes = parseHTML(json.data[0].html)
-//         dispatch(receiveBookContent(bookId, contentNodes))
-//         callbackIfNotCached()
-//       })
-//     }else{
-//       callbackIfCached()
-//     }
-//   }
-// }
-
-// export function fetchBookContentIfNeeded(bookId) {
-//   const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
-//   return (dispatch, getState) => {
-//     dispatch(new Promise(function(resolve){
-//       dispatch(requestBookContent(bookId))
-//       // resolve(dispatch(requestBookContent(bookId)))
-//       resolve(dispatch)
-//     }))
-//   }
-// }
 
 export function fetchBookContent(bookId) {
   const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
@@ -206,21 +171,6 @@ export function fetchBookContent(bookId) {
     })
   }
 }
-
-
-
-// export function fetchBookContent(bookId) {
-//   const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
-//   return (dispatch, getState) => {
-//     return dispatch(()=> {
-//       // return ()=> {
-//         // return ()=> {
-//           dispatch(requestBookContent(bookId))
-//         // }
-//       // }
-//     })
-//   }
-// }
 
 export function dispatchWrap(shellFunction) {
   return (dispatch, getState) => {

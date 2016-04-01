@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import BookPageList from 'components/book-page-list'
-// import { dispatchWrap, requestBookContent, fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, loadBookContentFromCache, cacheBookContent, loadPages } from 'actions'
 
 import * as actions from 'actions'
 
@@ -46,18 +45,28 @@ class BookViewer extends Component {
 
     actions.dispatchWrap(function(dispatch, getState){
       actions.loadBookContentFromCache(bookId)
-      if(getState().book.content.cacheReadingState === 'FAILURE') {
+
+      // check if content is cached
+      if(getState().book.content.cacheReadingState !== 'SUCCESS') {
         actions.fetchBookContent(bookId).then(getState=>{
           actions.setViewMode(mode)
           actions.setViewScreen(screen)
           actions.calculateBookContent(getState().book.content.nodes, getState().book.view.style.height)
           actions.cacheBookContent(bookId, getState().book.content)
+          actions.cacheView(bookId, getState().book.view)
           actions.loadPages(1)
           this.addEventListeners()
         })
       }else{
-        actions.setViewMode(mode)
-        actions.setViewScreen(screen)
+        actions.loadViewFromCache(bookId)
+
+        // check if view is cached
+        if(getState().book.view.cacheReadingState !== 'SUCCESS') {
+          actions.setViewMode(mode)
+          actions.setViewScreen(screen)
+          actions.cacheView(bookId, getState().book.view)
+        }
+
         actions.loadPages(1)
         this.addEventListeners()
       }
@@ -137,12 +146,6 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(actions, dispatch)
   }
 }
-
-
-// export default connect(
-//   mapStateToProps,
-//   { dispatchWrap, requestBookContent, fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, cacheBookContent, loadBookContentFromCache, loadPages }
-// )(BookViewer)
 
 export default connect(
   mapStateToProps,

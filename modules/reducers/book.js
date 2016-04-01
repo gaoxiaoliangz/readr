@@ -54,36 +54,36 @@ export default function book(state = {content: { nodes: [] }, view: {}}, action)
         })
       })
 
-    // case "CACHE_BOOK":
-    //   return Object.assign({}, state, {
-    //     content: Object.assign({}, state.content, {
-    //       isCached: true
-    //     })
-    //   })
-
     case "LOAD_BOOK_CONTENT_FROM_CACHE":
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {
           nodes: action.contentNodes,
           isFetching: false,
           isCalculated: true,
-          // isCached: action.cacheReadingState==='SUCCESS'?true:false,
+          isCached: action.cacheReadingState==='SUCCESS'?true:false,
           cacheReadingState: action.cacheReadingState,
           pageSum: action.pageSum
         })
       })
 
-    // case "LOAD_BOOK_FROM_CACHE":
-    //   return Object.assign({}, state, {
-    //     content: Object.assign({}, state.content, {
-    //       nodes: action.contentNodes,
-    //       isFetching: false,
-    //       isCalculated: true,
-    //       isCached: action.cacheReadingState==='SUCCESS'?true:false,
-    //       cacheReadingState: action.cacheReadingState
-    //     })
-    //   })
+    case "CACHE_VIEW":
+      return Object.assign({}, state, {
+        view: Object.assign({}, state.view, {
+          isCached: true
+        })
+      })
 
+    case "LOAD_VIEW_FROM_CACHE":
+      return Object.assign({}, state, {
+        view: Object.assign({}, state.view, {
+          nodes: action.contentNodes,
+          isCached: action.cacheReadingState==='SUCCESS'?true:false,
+          cacheReadingState: action.cacheReadingState,
+          mode: action.mode,
+          screen: action.screen,
+          style: action.style
+        })
+      })
 
     case "LOAD_PAGES":
       return Object.assign({}, state, {
