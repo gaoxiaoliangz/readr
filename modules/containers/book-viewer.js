@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Immutable from 'immutable'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import BookPageList from 'components/book-page-list'
-import { fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, loadBookContentFromCache, cacheBookContent, loadPages } from 'actions'
+// import { dispatchWrap, requestBookContent, fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, loadBookContentFromCache, cacheBookContent, loadPages } from 'actions'
+
+import * as actions from 'actions'
 
 import { genPageList } from 'utils/filters'
 import { convertPercentageToPage } from 'utils/book'
@@ -18,7 +21,7 @@ class BookViewer extends Component {
     let pageSum = this.props.book.content.pageSum
     let percentage = (document.body.scrollTop/(this.props.book.view.style.height*pageSum)).toFixed(4)
 
-    this.props.loadPages(convertPercentageToPage(percentage, pageSum))
+    this.props.actions.loadPages(convertPercentageToPage(percentage, pageSum))
   }
 
   constructor(props) {
@@ -33,29 +36,32 @@ class BookViewer extends Component {
   componentDidMount() {
     let mode = "VERTICAL"
     let screen = "HD"
-    let book = this.props.book
+    var book = this.props.book
+    let actions = this.props.actions
+    let bookId = this.bookId
 
     if($(window).width() < 768) {
       screen = "MOBILE"
     }
 
-    this.props.fetchBookContentIfNeeded(this.bookId, function(){
-      this.props.setViewMode(mode)
-      this.props.setViewScreen(screen)
-      this.props.calculateBookContent(this.props.book.content.nodes, this.props.book.view.style.height)
-      this.props.cacheBookContent(this.bookId, this.props.book.content)
-      this.props.loadPages(1)
-      this.addEventListeners()
-    }.bind(this), function(){
-      // todo: load view from cache
-      this.props.setViewMode(mode)
-      this.props.setViewScreen(screen)
-      // console.log(this.props.book.view.style.height);
-      console.log(this);
-      this.props.loadPages(1)
-      this.addEventListeners()
-
-    })
+    actions.dispatchWrap(function(dispatch, getState){
+      actions.loadBookContentFromCache(bookId)
+      if(getState().book.content.cacheReadingState === 'FAILURE') {
+        actions.fetchBookContent(bookId).then(getState=>{
+          actions.setViewMode(mode)
+          actions.setViewScreen(screen)
+          actions.calculateBookContent(getState().book.content.nodes, getState().book.view.style.height)
+          actions.cacheBookContent(bookId, getState().book.content)
+          actions.loadPages(1)
+          this.addEventListeners()
+        })
+      }else{
+        actions.setViewMode(mode)
+        actions.setViewScreen(screen)
+        actions.loadPages(1)
+        this.addEventListeners()
+      }
+    }.bind(this))
   }
 
   render() {
@@ -126,7 +132,19 @@ function mapStateToProps(state) {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+
+// export default connect(
+//   mapStateToProps,
+//   { dispatchWrap, requestBookContent, fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, cacheBookContent, loadBookContentFromCache, loadPages }
+// )(BookViewer)
+
 export default connect(
   mapStateToProps,
-  { fetchBookContentIfNeeded, setViewScreen, setViewMode, customizeView, calculateBookContent, cacheBookContent, loadBookContentFromCache, loadPages }
+  mapDispatchToProps
 )(BookViewer)

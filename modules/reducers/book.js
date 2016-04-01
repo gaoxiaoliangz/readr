@@ -67,7 +67,7 @@ export default function book(state = {content: { nodes: [] }, view: {}}, action)
           nodes: action.contentNodes,
           isFetching: false,
           isCalculated: true,
-          isCached: action.cacheReadingState==='SUCCESS'?true:false,
+          // isCached: action.cacheReadingState==='SUCCESS'?true:false,
           cacheReadingState: action.cacheReadingState,
           pageSum: action.pageSum
         })
