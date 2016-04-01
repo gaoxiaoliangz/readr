@@ -83,20 +83,8 @@ class BookViewer extends Component {
 
     if(book.content.nodes.length) {
       if(book.isPagesLoaded) {
-        pages = genPageList(book.currentPage, quantity, offset, book.content.nodes, {pageHeight: 900})
-
-        // todo: reduce
-        // height = book.content.nodes.reduce((a,b)=>a.props.style.height+b.props.style.height)
-        // height = book.content.nodes.reduce((a,b)=>{
-        //   console.log(a.props);
-        //   console.log(b.props.style.height);
-        //   return a.props.style.height+b.props.style.height
-        // })
-
-        height = 0
-        for (var i = 0; i < book.content.nodes.length; i++) {
-          height += book.content.nodes[i].props.style.height
-        }
+        pages = genPageList(book.currentPage, quantity, offset, book.content.nodes, {pageHeight: book.view.style.height})
+        height = book.content.pageSum * book.view.style.height
       }else{
         pages = [
           {
