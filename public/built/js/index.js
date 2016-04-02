@@ -47285,6 +47285,8 @@
 	var version = 'v0.1';
 
 	var URL_AUTH = exports.URL_AUTH = prefix + version + '/auth';
+	var URL_BOOKS = exports.URL_BOOKS = prefix + version + '/books';
+	var URL_USERS = exports.URL_USERS = prefix + version + '/users';
 
 /***/ },
 /* 560 */
@@ -65887,11 +65889,19 @@
 
 	__webpack_require__(555);
 
+	var _jquery = __webpack_require__(558);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _apiUrls = __webpack_require__(559);
+
 	var _branding = __webpack_require__(556);
 
 	var _branding2 = _interopRequireDefault(_branding);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -65902,13 +65912,49 @@
 	var Signup = function (_Component) {
 	  _inherits(Signup, _Component);
 
-	  function Signup() {
+	  function Signup(props) {
 	    _classCallCheck(this, Signup);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Signup).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Signup).call(this, props));
+
+	    _this.state = {
+	      username: "",
+	      password: "",
+	      status: ""
+	    };
+	    return _this;
 	  }
 
 	  _createClass(Signup, [{
+	    key: 'handleSignup',
+	    value: function handleSignup(event) {
+	      event.preventDefault();
+
+	      var params = {
+	        username: this.state.username,
+	        password: this.state.password
+	      };
+
+	      _jquery2.default.post(_apiUrls.URL_USERS, params, function (json) {
+	        console.log(json);
+	        if (json.data) {
+	          this.setState({
+	            status: "注册成功"
+	          });
+	          location.href = "/";
+	        } else {
+	          this.setState({
+	            status: json.error.msg
+	          });
+	        }
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'handleInputChange',
+	    value: function handleInputChange(event) {
+	      this.setState(_defineProperty({}, event.target.name, event.target.value));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -65919,18 +65965,23 @@
 	          _react3.Container,
 	          null,
 	          _react2.default.createElement(
+	            'div',
+	            { className: 'auth-status' },
+	            this.state.status
+	          ),
+	          _react2.default.createElement(
 	            _react3.Form,
-	            { className: 'content-container' },
+	            { className: 'content-container', method: 'post', action: '/signup' },
 	            _react2.default.createElement(
 	              'h1',
 	              { className: 'page-title' },
 	              '加入 Readr'
 	            ),
-	            _react2.default.createElement(_react3.Input, { label: '用户名', floatingLabel: true }),
-	            _react2.default.createElement(_react3.Input, { label: '密码', floatingLabel: true, type: 'password' }),
+	            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', label: '用户名', floatingLabel: true }),
+	            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', label: '密码', floatingLabel: true, type: 'password' }),
 	            _react2.default.createElement(
 	              _react3.Button,
-	              { variant: 'raised' },
+	              { onClick: this.handleSignup.bind(this), variant: 'raised' },
 	              '注册'
 	            ),
 	            _react2.default.createElement(
@@ -66015,15 +66066,15 @@
 	      event.preventDefault();
 
 	      var params = {
-	        bookName: this.state.bookName,
-	        author: this.state.author,
-	        cover: this.state.cover,
-	        bookContent: this.state.bookContent
+	        book_name: this.state.bookName,
+	        book_author: this.state.author,
+	        book_cover: this.state.cover,
+	        book_content: this.state.bookContent
 	      };
 
 	      console.log(params);
 
-	      _jquery2.default.post(_apiUrls.URL_AUTH, params, function (data) {
+	      _jquery2.default.post(_apiUrls.URL_BOOKS, params, function (data) {
 	        console.log(data);
 	      }.bind(this));
 	    }

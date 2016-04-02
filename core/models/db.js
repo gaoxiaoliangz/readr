@@ -1,7 +1,7 @@
 var mongodb = require('mongodb'),
     Promise = require('bluebird'),
     MongoClient = mongodb.MongoClient,
-    config = require('../../config');
+    config = require('../config');
 
 var db = {
   connect: function(db_name){

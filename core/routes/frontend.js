@@ -11,7 +11,7 @@ var frontendRoutes = function frontendRoutes(env) {
     res.redirect("/")
   })
 
-  router.use("/",function(req, res){ res.render('index', { env: env })})
+  router.get("/",function(req, res){ res.render('index', { env: env })})
 
   return router
 }

@@ -1,7 +1,27 @@
-extends layouts/default
+doctype html
+html
+  head
+    title Readr
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    base(href="/")
+    meta(name="description" content="The next generation online reading app.")
+    meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
 
-block content
-  .mui-container
-    h1.page-title= message
-    h2= error.status
-    pre #{error.stack}
+    link(type='text/css' rel='stylesheet' href='/built/css/vendor.built.css')
+
+    if env == "development"
+      link(type='text/css' rel='stylesheet' href='/built/css/index.css')
+
+    else if env == "production"
+      link(type='text/css' rel='stylesheet' href='/built/css/index.built.css')
+
+  body
+    div.branding.mui-appbar.mui--z1
+      .mui-container.clearfix
+        h1.logo.left
+          a(href="/") readr
+
+    .mui-container
+      h1.page-title= message
+      p= error.status
+      pre #{error.stack}
