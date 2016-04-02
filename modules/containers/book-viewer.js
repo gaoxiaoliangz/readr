@@ -23,13 +23,29 @@ class BookViewer extends Component {
     this.props.actions.loadPages(convertPercentageToPage(percentage, pageSum))
   }
 
+  // todo
+  toggleBookPanel(e) {
+    var y = e.pageY - $("body").scrollTop();
+    var x = e.pageX;
+
+    if(y < 90){
+      $(".page-book-viewer .functions").slideDown();
+    }else if($(".dia-wrap").length == 0){
+      $(".page-book-viewer .functions").slideUp();
+    }
+  }
+
   constructor(props) {
     super(props)
     this.bookId = props.params.id
+    this.state = {
+      bookName: "loading ..."
+    }
   }
 
   addEventListeners() {
     window.addEventListener("scroll", delayStuff(this.scrollToLoadPages, 100).bind(this))
+    window.addEventListener("mousemove", this.toggleBookPanel.bind(this))
   }
 
   componentDidMount() {
@@ -38,7 +54,20 @@ class BookViewer extends Component {
     var book = this.props.book
     let actions = this.props.actions
     let bookId = this.bookId
+    let url = "/api/v0.1/books/" + bookId
 
+    // get book info
+    fetch(url).then(function(res){
+      return res.json()
+    }).then(function(json){
+      this.setState({
+        bookName: json.data[0].book_name
+      })
+    }.bind(this)).catch((err) => {
+      console.log(err)
+    })
+
+    // todo: bug in mobile mode
     if($(window).width() < 768) {
       screen = "MOBILE"
     }
@@ -105,8 +134,16 @@ class BookViewer extends Component {
             <span className="home">
               <Link to="/bookstore"></Link>
             </span>
-            <span className="title"></span>
-            <span className="loc">{book.currentPage}</span>
+            <span className="title">{this.state.bookName}</span>
+            {
+              (()=>{
+                if(book.content.nodes.length) {
+                  return (
+                    <span className="loc">{book.currentPage+"/"+book.content.pageSum}</span>
+                  )
+                }
+              })()
+            }
           </div>
         </div>
         {

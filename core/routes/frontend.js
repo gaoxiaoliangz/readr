@@ -85,14 +85,14 @@ frontendRoutes = function frontendRoutes(env) {
   // router.post('/books/new', frontend.handleAddBook);
   // router.get('/books/new', frontend.renderAddBook);
   // router.get('/books/:_id', frontend.renderBook);
-  //
-  // router.post('/signin', frontend.handleSignin);
-  // router.post('/signup', frontend.handleSignup);
-  //
-  // router.get("/logout",function(req, res){
-  //   req.session.destroy();
-  //   res.redirect("/");
-  // });
+
+  router.post('/signin', frontend.handleSignin);
+  router.post('/signup', frontend.handleSignup);
+
+  router.get("/logout",function(req, res){
+    req.session.destroy();
+    res.redirect("/");
+  });
 
   router.use("/",function(req, res){
     var data = {

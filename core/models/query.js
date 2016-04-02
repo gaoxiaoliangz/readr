@@ -60,6 +60,7 @@ var query = {
       });
     });
   },
+
   updateData: function(table_name, match, data){
     var json = {};
     return new Promise(function(resolve,reject){
