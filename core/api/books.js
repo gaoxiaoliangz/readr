@@ -60,6 +60,7 @@ var books = {
     });
   },
   addBook: function(object){
+    // todo: add data validation
     var data = {},
         html = "",
         raw_arr,
@@ -75,6 +76,7 @@ var books = {
       raw: raw,
       html: html
     }
+
     return models.putData('books', object);
   },
   getReadingProgress: function(object) {

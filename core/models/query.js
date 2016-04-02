@@ -1,5 +1,6 @@
 var db = require("./db");
 var db_name = 'readr';
+var colors = require('colors/safe');
 
 function _genId(len){
   return parseInt(Math.random()*Math.pow(10,len));
@@ -41,20 +42,22 @@ var query = {
   },
 
   putData: function(table_name, data){
-    var json = {};
-
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         db.collection(table_name).insert([data], function (err, result) {
           if (err) {
-            console.log(err);
-            json.error = {};
-            json.error.msg = err;
-            json.error.code = 500;
+            console.log(colors.red(err));
+            resolve({
+              error: {
+                msg: err,
+                code: 500
+              }
+            })
           } else {
-            json.data = {};
+            resolve({
+              data: {}
+            })
           }
-          resolve(json);
           db.close();
         });
       });

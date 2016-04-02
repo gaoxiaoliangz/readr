@@ -3,7 +3,7 @@ import { Appbar, Button, Container } from 'muicss/react'
 import { Link } from 'react-router'
 import 'whatwg-fetch'
 
-import { Branding } from 'components/page-parts'
+import Branding from 'components/branding'
 
 var url = "/api/v0.1/books"
 

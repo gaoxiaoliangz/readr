@@ -6,7 +6,8 @@ var session = require('express-session');
 
 
 var users = {
-  addUser: function(object){
+  addUser: function(object, options, req){
+    // todo: add validation
     var match = {
       username: object.username
     }
@@ -16,26 +17,30 @@ var users = {
         if(result.error){
           // 如果用户不存在，则可以创建
           if(result.error.code == "404") {
-            models.putData('users', object).then(function(d){
-              resolve(d);
-            });
+            models.putData('users', object).then(function(data){
+
+              var userinfo = {
+                username: match.username
+              }
+              req.session.userinfo = userinfo
+
+              resolve(data)
+            })
           }else{
-            var data = {
+            resolve({
               error: {
                 code: 500,
                 msg: "Database error"
               }
-            }
-            resolve(data);
+            })
           }
         }else{
-          var data = {
+          resolve({
             error: {
-              code: 600,
+              code: 405,
               msg: "User exsits!"
             }
-          }
-          resolve(data);
+          })
         }
       });
     });

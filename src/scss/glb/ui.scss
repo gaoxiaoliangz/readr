@@ -17,7 +17,7 @@
   display: table;
 }
 .page-title {
-  margin: 30px 0;
+  margin: 30px 0 15px;
   font-size: 25px;
   color: $text_d;
 }
@@ -28,4 +28,9 @@
   font-weight: bold;
   text-align: center;
   padding: 100px 0;
+}
+
+.content-container {
+  width: $best_reading_width;
+  margin: 0 auto;
 }

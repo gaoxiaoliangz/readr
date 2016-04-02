@@ -22,7 +22,7 @@ http = function http(apiMethod) {
       options = {};
     }
 
-    console.log("in api index.js");
+    console.log("> api/index.js");
     console.log(object);
     console.log(options);
 

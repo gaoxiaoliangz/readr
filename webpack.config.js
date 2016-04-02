@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public/debug/js'),
     filename: '[name].js',
-    publicPath: '/__webpack__/'
+    publicPath: '/built/js/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),

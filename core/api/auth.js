@@ -12,13 +12,28 @@ function validataAuthInfo(object) {
 }
 
 var auth = {
+  checkStatus: function(object) {
+    return new Promise(resolve => {
+      if(object.context.user) {
+        resolve({
+          authed: true,
+          user: object.context.user
+        })
+      }else{
+        resolve({
+          authed: false
+        })
+      }
+    })
+  },
+
   basic: function(object, options, req){
     var match = {
       username: object.username,
       password: object.password
     };
 
-    console.log("in auth.js");
+    console.log("> api/auth.js");
     console.log(match);
 
     return new Promise(function(resolve){
@@ -32,15 +47,6 @@ var auth = {
                   username: match.username
                 }
                 req.session.userinfo = userinfo
-
-                console.log('in api auth.js');
-                console.log(req.session);
-
-                // var userinfo = {
-                //   id: match.username
-                // }
-                // req.session.user = userinfo
-
 
                 resolve({
                   authed: true

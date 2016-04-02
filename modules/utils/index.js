@@ -1,4 +1,15 @@
 import $ from 'jquery'
+import { URL_AUTH } from 'constants/api-urls'
+
+
+export function checkAuthStatus() {
+  return new Promise(resolve => {
+    $.get(URL_AUTH, function(data){
+      resolve(data)
+    })
+  })
+}
+
 
 export function formatHTMLStringToArray(HTMLString) {
   let contentArray = []

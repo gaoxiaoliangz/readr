@@ -68,7 +68,7 @@ ul {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000319}}
 .page-title {
-  margin: 30px 0;
+  margin: 30px 0 15px;
   font-size: 25px;
   color: #333; }
 
@@ -79,6 +79,11 @@ ul {
   font-weight: bold;
   text-align: center;
   padding: 100px 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000333}}
+.content-container {
+  width: 650px;
+  margin: 0 auto; }
 
 /* dia */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/dia\.scss}line{font-family:\000033}}
@@ -356,5 +361,14 @@ ul {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_book-viewer\.scss}line{font-family:\00003111}}
   .page-book-viewer .functions .clear {
     background: url(../img/clear.png) center; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000033}}
+.page-signin .content-container,
+.page-signup .content-container {
+  margin-top: 100px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000036}}
+.page-signin .hint,
+.page-signup .hint {
+  margin-top: 30px; }
 
 /*# sourceMappingURL=index.css.map */
