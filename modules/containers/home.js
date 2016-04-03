@@ -13,7 +13,7 @@ class Home extends Component {
         <Branding />
         <Container>
           <div>
-            <h1 className="page-title">This is home, bitch!</h1>
+            <h1 className="page-title">This is home, bitch!!!!</h1>
             <ul>
               <li>
                 <Link to="/bookstore">查看书城</Link>

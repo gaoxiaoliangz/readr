@@ -33462,7 +33462,7 @@
 	            _react2.default.createElement(
 	              'h1',
 	              { className: 'page-title' },
-	              'This is home, bitch!'
+	              'This is home, bitch!!!!'
 	            ),
 	            _react2.default.createElement(
 	              'ul',
@@ -66202,10 +66202,10 @@
 	  value: true
 	});
 	exports.default = lang;
-	function lang() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? "cn" : arguments[0];
-	  var action = arguments[1];
-
+	function lang(state, action) {
+	  if (typeof state === "undefined") {
+	    state = "cn";
+	  }
 	  switch (action.type) {
 	    case "SETLANG":
 	      return action.lang;
@@ -66224,10 +66224,10 @@
 	  value: true
 	});
 	exports.default = book;
-	function book() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? { content: { nodes: [] }, view: {} } : arguments[0];
-	  var action = arguments[1];
-
+	function book(state, action) {
+	  if (typeof state === "undefined") {
+	    state = { content: { nodes: [] }, view: {} };
+	  }
 	  switch (action.type) {
 	    case "REQUEST_BOOK_CONTENT":
 	      return Object.assign({}, state, {

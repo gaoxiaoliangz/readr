@@ -1,4 +1,7 @@
-export default function lang(state = "cn", action){
+export default function lang(state, action){
+  if(typeof state === "undefined") {
+    state = "cn"
+  }
   switch (action.type) {
     case "SETLANG":
       return action.lang

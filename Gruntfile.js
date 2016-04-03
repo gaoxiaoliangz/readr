@@ -17,6 +17,28 @@ module.exports = function(grunt) {
       vendor: "./public/vendor",
       modules: ['./node_modules', './modules']
     },
+    babel: {
+      modules: {
+        options: {
+          sourceMap: false
+        },
+        files: [{
+          "expand": true,
+          "cwd": "./modules",
+          "src": ["**/*.js"],
+          "dest": "./modules_es5",
+          "ext": ".js"
+        }]
+      },
+      app: {
+        options: {
+          sourceMap: false
+        },
+        files: {
+          './app.js': './app_es6.js'
+        }
+      }
+    },
     webpack: {
     	build: {
         entry: {
@@ -106,9 +128,16 @@ module.exports = function(grunt) {
           spawn: false
         }
       },
-      scripts:{
+      webpack:{
         files:['<%=path.src%>/js/*.js', './modules/**/*.js'],
         tasks:['webpack'],
+        options: {
+          spawn: false
+        }
+      },
+      babel:{
+        files:['app_es6.js', './modules/**/*.js'],
+        tasks:['babel'],
         options: {
           spawn: false
         }
@@ -118,5 +147,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build-css', ['sass','cssmin']);
   grunt.registerTask('build-js', ['webpack','uglify']);
+  grunt.registerTask('build-es5', ['babel']);
+  grunt.registerTask('watch-js', ['watch:babel']);
   grunt.registerTask('build', ['image','sass','cssmin','copy','webpack','uglify']);
 };

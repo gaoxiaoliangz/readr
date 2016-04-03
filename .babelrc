@@ -1,8 +1,12 @@
 {
-  "presets": ["es2015", "react"],
+  "presets": ["react"],
+  "plugins":["transform-es2015-modules-commonjs"],
   "env": {
     "development": {
       "presets": ["react-hmre"]
+    },
+    "production": {
+      "presets": ["es2015"]
     }
   }
 }

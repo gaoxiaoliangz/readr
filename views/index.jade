@@ -17,10 +17,13 @@ html
 
   body
     #root
-      .loading 加载中 ...
+      !{html}
 
     if env == "development"
       script(src="/built/js/index.js")
 
     else if env == "production"
       script(src="/built/js/index.built.js")
+      
+    script.
+      window.__INITIAL_STATE__ = '!{initialState})'
