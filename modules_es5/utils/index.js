@@ -17,7 +17,7 @@ var _apiUrls = require('constants/api-urls');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function checkAuthStatus() {
-  return new Promise(resolve => {
+  return new Promise(function (resolve) {
     _jquery2.default.get(_apiUrls.URL_AUTH, function (data) {
       resolve(data);
     });
@@ -25,8 +25,8 @@ function checkAuthStatus() {
 }
 
 function formatHTMLStringToArray(HTMLString) {
-  let contentArray = [];
-  let $HTMLString = (0, _jquery2.default)(HTMLString);
+  var contentArray = [];
+  var $HTMLString = (0, _jquery2.default)(HTMLString);
 
   for (var i = 0; i < $HTMLString.length; i++) {
     contentArray.push({
@@ -38,8 +38,8 @@ function formatHTMLStringToArray(HTMLString) {
 }
 
 function parseHTML(htmlString) {
-  let nodes = [];
-  let $html = (0, _jquery2.default)(htmlString);
+  var nodes = [];
+  var $html = (0, _jquery2.default)(htmlString);
 
   for (var i = 0; i < $html.length; i++) {
     if ($html[i].nodeType != 1) {

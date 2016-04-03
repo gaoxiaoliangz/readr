@@ -24,23 +24,22 @@ var url = "/api/v0.1/books";
 
 var BookStore = _react2.default.createClass({
   displayName: 'BookStore',
-
-  loadBooksFromServer() {
+  loadBooksFromServer: function loadBooksFromServer() {
     fetch(url).then(function (res) {
       return res.json();
     }).then(function (json) {
       this.setState({ data: json.data });
-    }.bind(this)).catch(err => {
+    }.bind(this)).catch(function (err) {
       console.error(err);
     });
   },
-  getInitialState() {
+  getInitialState: function getInitialState() {
     return { data: [] };
   },
-  componentDidMount() {
+  componentDidMount: function componentDidMount() {
     this.loadBooksFromServer();
   },
-  render() {
+  render: function render() {
     return _react2.default.createElement(
       'div',
       { className: 'page-book-store' },
@@ -66,7 +65,7 @@ var BookStore = _react2.default.createClass({
 var BookList = _react2.default.createClass({
   displayName: 'BookList',
 
-  render: function () {
+  render: function render() {
     var bookNodes = this.props.data.map(function (book, index) {
       return _react2.default.createElement(Book, { key: index, book: book });
     });
@@ -80,8 +79,7 @@ var BookList = _react2.default.createClass({
 
 var Book = _react2.default.createClass({
   displayName: 'Book',
-
-  render() {
+  render: function render() {
     var book = this.props.book;
     return _react2.default.createElement(
       'li',
@@ -92,7 +90,7 @@ var Book = _react2.default.createClass({
         _react2.default.createElement(
           'div',
           { className: 'book-cover' },
-          _react2.default.createElement('img', { src: `/data/bookcovers/${ book.book_cover }` })
+          _react2.default.createElement('img', { src: '/data/bookcovers/' + book.book_cover })
         ),
         _react2.default.createElement(
           'div',

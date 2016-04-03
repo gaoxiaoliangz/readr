@@ -78,15 +78,15 @@ function genPageList(startPage, quantity, offset, contentNodes, config) {
   if (arguments.length !== 5) {
     console.error("Wrong parameter length!");
   }
-  let pages = [];
+  var pages = [];
 
   while (startPage - offset < 0) {
     offset--;
   }
   startPage = startPage - offset;
 
-  for (let i = startPage; i < quantity + startPage; i++) {
-    let page = filterContentNodesByPage(contentNodes, config, i);
+  for (var i = startPage; i < quantity + startPage; i++) {
+    var page = filterContentNodesByPage(contentNodes, config, i);
     pages.push(page);
   }
 

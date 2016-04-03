@@ -84,18 +84,18 @@ function setLang(lang) {
 //   }
 // }
 
-const FORMAT_BOOK = exports.FORMAT_BOOK = 'FORMAT_BOOK';
+var FORMAT_BOOK = exports.FORMAT_BOOK = 'FORMAT_BOOK';
 function formatBook(bookId, contentNodes, config) {
-  let content = document.querySelector(".pages ul li .content");
-  let newContentNodes = [[]];
-  let fuck = _immutable2.default.Map(contentNodes[0][0].props);
-  Array.prototype.forEach.call(content.childNodes, (node, index) => {
+  var content = document.querySelector(".pages ul li .content");
+  var newContentNodes = [[]];
+  var fuck = _immutable2.default.Map(contentNodes[0][0].props);
+  Array.prototype.forEach.call(content.childNodes, function (node, index) {
     if (node.tagName.toLowerCase() !== "p") {
       console.log(node.tagName.toLowerCase());
       console.error("Unsupported content found!");
     }
 
-    let newNode = Object.assign({}, contentNodes[0][index]);
+    var newNode = Object.assign({}, contentNodes[0][index]);
 
     newNode.props.style = {
       height: node.clientHeight
@@ -110,67 +110,69 @@ function formatBook(bookId, contentNodes, config) {
 
   return {
     type: FORMAT_BOOK,
-    bookId,
+    bookId: bookId,
     contentNodes: newContentNodes,
-    config
+    config: config
   };
 }
 
-const STYLE_BOOK = exports.STYLE_BOOK = 'STYLE_BOOK';
+var STYLE_BOOK = exports.STYLE_BOOK = 'STYLE_BOOK';
 function styleBook(bookId, config) {
-  let content = document.querySelector(".pages ul li .content");
-  let defaultStyle = {
+  var content = document.querySelector(".pages ul li .content");
+  var defaultStyle = {
     fontSize: "18px",
     lineHeight: "1.8",
     fontWeight: "normal",
     pageWidth: "700px",
     pageHeight: "900px"
   };
-  let style = Object.assign({}, defaultStyle, config.style);
+  var style = Object.assign({}, defaultStyle, config.style);
 
   config.style = style;
   (0, _jquery2.default)(content).css(config.style);
 
   return {
     type: STYLE_BOOK,
-    bookId,
-    config
+    bookId: bookId,
+    config: config
   };
 }
 
-const CACHE_BOOK = exports.CACHE_BOOK = 'CACHE_BOOK';
+var CACHE_BOOK = exports.CACHE_BOOK = 'CACHE_BOOK';
 function cacheBook(bookId, book) {
-  localStorage.setItem(`book${ bookId }_cache`, JSON.stringify(book));
+  localStorage.setItem('book' + bookId + '_cache', JSON.stringify(book));
   return {
     type: CACHE_BOOK,
-    bookId
+    bookId: bookId
   };
 }
 
-const REQUEST_BOOK = exports.REQUEST_BOOK = 'REQUEST_BOOK';
+var REQUEST_BOOK = exports.REQUEST_BOOK = 'REQUEST_BOOK';
 function requestBook(bookId) {
   return {
     type: REQUEST_BOOK,
-    bookId
+    bookId: bookId
   };
 }
 
-const RECEIVE_BOOK = exports.RECEIVE_BOOK = 'RECEIVE_BOOK';
+var RECEIVE_BOOK = exports.RECEIVE_BOOK = 'RECEIVE_BOOK';
 function receiveBook(bookId, contentNodes) {
   return {
     type: RECEIVE_BOOK,
-    bookId,
-    contentNodes,
+    bookId: bookId,
+    contentNodes: contentNodes,
     receivedAt: Date.now()
   };
 }
 
 function mountBook(bookId, config) {
-  const fullUrl = "/api/v0.1/books/" + bookId + '/content/';
-  return (dispatch, getState) => {
+  var fullUrl = "/api/v0.1/books/" + bookId + '/content/';
+  return function (dispatch, getState) {
     dispatch(requestBook(bookId));
-    fetch(fullUrl).then(response => response.json()).then(json => {
-      let contentNodes = [(0, _utils.parseHTML)(json.data[0].html)];
+    fetch(fullUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      var contentNodes = [(0, _utils.parseHTML)(json.data[0].html)];
       dispatch(receiveBook(bookId, contentNodes));
       dispatch(styleBook(bookId, config));
       dispatch(formatBook(bookId, contentNodes, config));

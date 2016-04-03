@@ -13,10 +13,10 @@ var _local = require('./local');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const CONTENT_SELECTOR = ".pages li .content";
+var CONTENT_SELECTOR = ".pages li .content";
 
 function loadBookContent(url, config) {
-  let book = {};
+  var book = {};
 
   return new Promise(function (resolve) {
     if (!_local.readFromLocal.bind(this)("content")) {
@@ -28,7 +28,7 @@ function loadBookContent(url, config) {
         book.map = _genMapAndSaveToLocal.bind(this)(json.data[0].html, config);
         _local.saveToLocal.bind(this)("content", book.content);
         resolve(book);
-      }.bind(this)).catch(err => {
+      }.bind(this)).catch(function (err) {
         console.error(err);
       });
     } else {
@@ -101,7 +101,7 @@ function filterBookContentByPage(bookContent, map, page) {
 }
 
 function _genMapAndSaveToLocal(bookContent, config) {
-  let map,
+  var map = void 0,
       contentArray = [],
       $bookContent = (0, _jquery2.default)(bookContent);
 
@@ -124,7 +124,7 @@ function _genMapAndSaveToLocal(bookContent, config) {
 }
 
 function _genMapJSON(selector, config) {
-  let elements = [],
+  var elements = [],
       map = {};
 
   map.view = {

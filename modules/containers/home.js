@@ -1,11 +1,23 @@
 import React, { Component, PropTypes } from 'react'
 import { render } from 'react-dom'
-import { Link } from 'react-router'
+import { Link, match } from 'react-router'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import 'whatwg-fetch'
 import Branding from 'components/branding'
+import routes from 'routes'
 
 class Home extends Component {
+
+  componentDidMount() {
+
+    // console.log(routes)
+
+    // match({ routes, location: "addbooks" }, function(error, redirectLocation, renderProps) {
+    //   console.log(error)
+    //   console.log(redirectLocation)
+    //   console.log(renderProps)
+    // })
+  }
 
   render() {
     return (

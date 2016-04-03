@@ -57,6 +57,5 @@ exports.default = _react2.default.createElement(
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _bookStore2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'book/:bookname', component: _bookViewer2.default })
   ),
-  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _noMatch2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default })
 );

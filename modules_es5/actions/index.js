@@ -41,33 +41,33 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const CONTENT_SELECTOR = '.pages ul li .content';
+var CONTENT_SELECTOR = '.pages ul li .content';
 
 function setLang(lang) {
   return { type: "SETLANG", lang: lang };
 }
 
-const REQUEST_BOOK_CONTENT = exports.REQUEST_BOOK_CONTENT = 'REQUEST_BOOK_CONTENT';
+var REQUEST_BOOK_CONTENT = exports.REQUEST_BOOK_CONTENT = 'REQUEST_BOOK_CONTENT';
 function requestBookContent(bookId) {
   return {
     type: REQUEST_BOOK_CONTENT,
-    bookId
+    bookId: bookId
   };
 }
 
-const RECEIVE_BOOK_CONTENT = exports.RECEIVE_BOOK_CONTENT = 'RECEIVE_BOOK_CONTENT';
+var RECEIVE_BOOK_CONTENT = exports.RECEIVE_BOOK_CONTENT = 'RECEIVE_BOOK_CONTENT';
 function receiveBookContent(bookId, nodes) {
   return {
     type: RECEIVE_BOOK_CONTENT,
-    bookId,
-    nodes,
+    bookId: bookId,
+    nodes: nodes,
     receivedAt: Date.now()
   };
 }
 
-const SET_VIEW_SCREEN = exports.SET_VIEW_SCREEN = 'SET_VIEW_SCREEN';
+var SET_VIEW_SCREEN = exports.SET_VIEW_SCREEN = 'SET_VIEW_SCREEN';
 function setViewScreen(screen) {
-  let style;
+  var style = void 0;
 
   if (screen == "HD") {
     style = styles.BOOK_HD_STYLE;
@@ -76,38 +76,38 @@ function setViewScreen(screen) {
   }
   return {
     type: SET_VIEW_SCREEN,
-    screen,
-    style
+    screen: screen,
+    style: style
   };
 }
 
-const SET_VIEW_MODE = exports.SET_VIEW_MODE = 'SET_VIEW_MODE';
+var SET_VIEW_MODE = exports.SET_VIEW_MODE = 'SET_VIEW_MODE';
 function setViewMode(mode) {
   return {
     type: SET_VIEW_MODE,
-    mode
+    mode: mode
   };
 }
 
-const CUSTOMIZE_VIEW = exports.CUSTOMIZE_VIEW = 'CUSTOMIZE_VIEW';
+var CUSTOMIZE_VIEW = exports.CUSTOMIZE_VIEW = 'CUSTOMIZE_VIEW';
 function customizeView(customStyle) {
   return {
     type: CUSTOMIZE_VIEW,
-    customStyle
+    customStyle: customStyle
   };
 }
 
-const CALCULATE_BOOK_CONTENT = exports.CALCULATE_BOOK_CONTENT = 'CALCULATE_BOOK_CONTENT';
+var CALCULATE_BOOK_CONTENT = exports.CALCULATE_BOOK_CONTENT = 'CALCULATE_BOOK_CONTENT';
 function calculateBookContent(contentNodes, pageHeight) {
-  let newContentNodes = _lodash2.default.cloneDeep(contentNodes);
-  let content = document.querySelector(CONTENT_SELECTOR);
-  let heightSum = 0;
+  var newContentNodes = _lodash2.default.cloneDeep(contentNodes);
+  var content = document.querySelector(CONTENT_SELECTOR);
+  var heightSum = 0;
 
-  Array.prototype.forEach.call(content.childNodes, (node, index) => {
+  Array.prototype.forEach.call(content.childNodes, function (node, index) {
     if (node.tagName.toLowerCase() !== "p") {
       console.error("Unsupported content found!");
     }
-    let height = node.clientHeight;
+    var height = node.clientHeight;
     heightSum += height;
     newContentNodes[index].props.style = {
       height: height
@@ -121,21 +121,21 @@ function calculateBookContent(contentNodes, pageHeight) {
   };
 }
 
-const CACHE_BOOK_CONTENT = exports.CACHE_BOOK_CONTENT = 'CACHE_BOOK_CONTENT';
+var CACHE_BOOK_CONTENT = exports.CACHE_BOOK_CONTENT = 'CACHE_BOOK_CONTENT';
 function cacheBookContent(bookId, content) {
-  localStorage.setItem(`book${ bookId }_content`, JSON.stringify(content));
+  localStorage.setItem('book' + bookId + '_content', JSON.stringify(content));
   return {
     type: CACHE_BOOK_CONTENT,
-    bookId
+    bookId: bookId
   };
 }
 
-const LOAD_BOOK_CONTENT_FROM_CACHE = exports.LOAD_BOOK_CONTENT_FROM_CACHE = 'LOAD_BOOK_CONTENT_FROM_CACHE';
+var LOAD_BOOK_CONTENT_FROM_CACHE = exports.LOAD_BOOK_CONTENT_FROM_CACHE = 'LOAD_BOOK_CONTENT_FROM_CACHE';
 function loadBookContentFromCache(bookId) {
-  let content = localStorage.getItem(`book${ bookId }_content`);
-  let cacheReadingState = 'SUCCESS';
-  let nodes = [];
-  let pageSum = 0;
+  var content = localStorage.getItem('book' + bookId + '_content');
+  var cacheReadingState = 'SUCCESS';
+  var nodes = [];
+  var pageSum = 0;
 
   if (!content) {
     cacheReadingState = 'FAILURE';
@@ -146,26 +146,26 @@ function loadBookContentFromCache(bookId) {
   }
   return {
     type: LOAD_BOOK_CONTENT_FROM_CACHE,
-    bookId,
-    cacheReadingState,
+    bookId: bookId,
+    cacheReadingState: cacheReadingState,
     contentNodes: nodes,
     pageSum: pageSum
   };
 }
 
-const CACHE_VIEW = exports.CACHE_VIEW = 'CACHE_VIEW';
+var CACHE_VIEW = exports.CACHE_VIEW = 'CACHE_VIEW';
 function cacheView(bookId, view) {
-  localStorage.setItem(`book${ bookId }_view`, JSON.stringify(view));
+  localStorage.setItem('book' + bookId + '_view', JSON.stringify(view));
   return {
     type: CACHE_VIEW,
-    bookId
+    bookId: bookId
   };
 }
 
-const LOAD_VIEW_FROM_CACHE = exports.LOAD_VIEW_FROM_CACHE = 'LOAD_VIEW_FROM_CACHE';
+var LOAD_VIEW_FROM_CACHE = exports.LOAD_VIEW_FROM_CACHE = 'LOAD_VIEW_FROM_CACHE';
 function loadViewFromCache(bookId) {
-  let view = localStorage.getItem(`book${ bookId }_view`);
-  let cacheReadingState = 'SUCCESS';
+  var view = localStorage.getItem('book' + bookId + '_view');
+  var cacheReadingState = 'SUCCESS';
   if (!view) {
     cacheReadingState = 'FAILURE';
     view = {};
@@ -174,15 +174,15 @@ function loadViewFromCache(bookId) {
   }
   return {
     type: LOAD_VIEW_FROM_CACHE,
-    bookId,
-    cacheReadingState,
+    bookId: bookId,
+    cacheReadingState: cacheReadingState,
     mode: view.mode,
     screen: view.screen,
     style: view.style
   };
 }
 
-const LOAD_PAGES = exports.LOAD_PAGES = 'LOAD_PAGES';
+var LOAD_PAGES = exports.LOAD_PAGES = 'LOAD_PAGES';
 function loadPages(startPage) {
   return {
     type: LOAD_PAGES,
@@ -191,12 +191,14 @@ function loadPages(startPage) {
 }
 
 function fetchBookContent(bookId) {
-  const fullUrl = "/api/v0.1/books/" + bookId + '/content/';
-  return (dispatch, getState) => {
+  var fullUrl = "/api/v0.1/books/" + bookId + '/content/';
+  return function (dispatch, getState) {
     return new Promise(function (resolve) {
       dispatch(requestBookContent(bookId));
-      fetch(fullUrl).then(response => response.json()).then(json => {
-        let contentNodes = (0, _utils.parseHTML)(json.data[0].html);
+      fetch(fullUrl).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var contentNodes = (0, _utils.parseHTML)(json.data[0].html);
         dispatch(receiveBookContent(bookId, contentNodes));
         resolve(getState);
       });
@@ -205,7 +207,7 @@ function fetchBookContent(bookId) {
 }
 
 function dispatchWrap(shellFunction) {
-  return (dispatch, getState) => {
+  return function (dispatch, getState) {
     return shellFunction(dispatch, getState);
   };
 }

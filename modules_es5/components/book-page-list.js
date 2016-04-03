@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -22,39 +24,59 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class BookPageList extends _react.Component {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  render() {
-    let style = styles.BOOK_HD_STYLE;
-    if (this.props.view.mode === "MOBILE") {
-      style = styles.BOOK_MOBILE_STYLE;
-    }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    if (!this.props.isCalculated) {
-      style.height = "100%";
-    }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-    return _react2.default.createElement(
-      'div',
-      { className: 'pages' },
-      _react2.default.createElement(
-        'div',
-        { className: 'container' },
-        _react2.default.createElement(
-          'ul',
-          { style: { height: this.props.height } },
-          this.props.pages.map((page, index) => {
-            if (page.type === "page") {
-              style = Object.assign({}, style, page.props.style);
-              return _react2.default.createElement(_bookPage2.default, { style: style, bookId: this.props.bookId, key: index, page: page });
-            } else {
-              console.error("Not type page!");
-            }
-          })
-        )
-      )
-    );
+var BookPageList = function (_Component) {
+  _inherits(BookPageList, _Component);
+
+  function BookPageList() {
+    _classCallCheck(this, BookPageList);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookPageList).apply(this, arguments));
   }
-}
+
+  _createClass(BookPageList, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var style = styles.BOOK_HD_STYLE;
+      if (this.props.view.mode === "MOBILE") {
+        style = styles.BOOK_MOBILE_STYLE;
+      }
+
+      if (!this.props.isCalculated) {
+        style.height = "100%";
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'pages' },
+        _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'ul',
+            { style: { height: this.props.height } },
+            this.props.pages.map(function (page, index) {
+              if (page.type === "page") {
+                style = Object.assign({}, style, page.props.style);
+                return _react2.default.createElement(_bookPage2.default, { style: style, bookId: _this2.props.bookId, key: index, page: page });
+              } else {
+                console.error("Not type page!");
+              }
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return BookPageList;
+}(_react.Component);
 
 exports.default = BookPageList;

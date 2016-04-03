@@ -12,7 +12,7 @@ function saveToLocal(key, value, type) {
     }
     switch (type) {
       case "BOOK":
-        localStorage.setItem(`book${ this.state.bookId }_${ key }`, value);
+        localStorage.setItem("book" + this.state.bookId + "_" + key, value);
         break;
       default:
     }
@@ -25,7 +25,7 @@ function readFromLocal(key, value, type) {
   }
   switch (type) {
     case "BOOK":
-      return localStorage.getItem(`book${ this.state.bookId }_${ key }`);
+      return localStorage.getItem("book" + this.state.bookId + "_" + key);
       break;
     default:
   }

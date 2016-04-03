@@ -21,6 +21,5 @@ export default (
       <Route path="book/:bookname" component={BookViewer}/>
     </Route>
     <Route path="book/:id" component={BookViewer}/>
-    <Route path="*" component={NoMatch} />
   </Route>
 )

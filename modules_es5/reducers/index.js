@@ -16,7 +16,7 @@ var _book2 = _interopRequireDefault(_book);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const rootReducer = (0, _redux.combineReducers)({
+var rootReducer = (0, _redux.combineReducers)({
   lang: _lang2.default,
   book: _book2.default
 });

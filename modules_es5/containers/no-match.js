@@ -13,9 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var NoMatch = _react2.default.createClass({
   displayName: 'NoMatch',
 
-  componentDidMount: function () {},
-  handleClick: function () {},
-  render: function () {
+  componentDidMount: function componentDidMount() {},
+  handleClick: function handleClick() {},
+  render: function render() {
     return _react2.default.createElement(
       'h2',
       null,
