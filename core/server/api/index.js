@@ -22,9 +22,9 @@ var http = function http(apiMethod) {
       options = {};
     }
 
-    console.log("> api/index.js");
-    console.log(object);
-    console.log(options);
+    // console.log("> api/index.js");
+    // console.log(object);
+    // console.log(options);
 
     apiMethod(object, options, req).then(function(result){
       res.send(result);

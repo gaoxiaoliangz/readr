@@ -65720,7 +65720,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'book-cover' },
-	          _react2.default.createElement('img', { src: '/data/bookcovers/' + book.book_cover })
+	          _react2.default.createElement('img', { src: '/content/bookcovers/' + book.book_cover })
 	        ),
 	        _react2.default.createElement(
 	          'div',

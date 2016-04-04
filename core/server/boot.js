@@ -10,13 +10,13 @@ function boot(app, env) {
 
   server = http.createServer(app)
   server.listen(port)
-  
+
   server.on('error', onError)
   server.on('listening', function(){
     onListening(server)
   })
 
-  console.log(colors.bold.green('>> Server running in '+env+' mode, listening port '+port))
+  console.log(colors.cyan(`> Server running in ${env} (${port})`))
 }
 
 // Event listener for HTTP server error event

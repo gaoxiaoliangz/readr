@@ -6,8 +6,8 @@ function apiRoutes() {
   var router = express.Router();
 
   function getUserInfo(req,res,next){
-    console.log('> routes/api.js');
-    console.log(req.session);
+    // console.log('> routes/api.js');
+    // console.log(req.session);
 
     if(req.session.userinfo) {
       req.user = {

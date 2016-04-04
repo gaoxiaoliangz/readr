@@ -59,7 +59,7 @@ var Book = React.createClass({
     return (
       <li className="book">
         <Link to={"/book/"+book._id} >
-          <div className="book-cover"><img src={`/data/bookcovers/${book.book_cover}`}/></div>
+          <div className="book-cover"><img src={`/content/bookcovers/${book.book_cover}`}/></div>
           <div className="book-meta">
             <span title={this.props.name} className="book-name">{book.book_name}</span>
             <span className="book-author">{book.book_author}</span>

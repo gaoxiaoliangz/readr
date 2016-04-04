@@ -32,7 +32,7 @@ module.exports = {
   resolve: {
     root: path.resolve('./core/frontend'),
     alias: {
-      vendor: path.join(__dirname, "public/vendors"),
+      vendor: path.join(__dirname, "assets/vendors"),
       css: path.join(__dirname, "assets/built/css")
     },
     extensions: ['', '.js']
