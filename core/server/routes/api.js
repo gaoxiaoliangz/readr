@@ -2,7 +2,7 @@ var express = require('express'),
     api = require('../api'),
     session = require('express-session');
 
-var apiRoutes = function apiRoutes() {
+function apiRoutes() {
   var router = express.Router();
 
   function getUserInfo(req,res,next){
@@ -31,6 +31,6 @@ var apiRoutes = function apiRoutes() {
   router.get('/auth', getUserInfo, api.http(api.auth.checkStatus));
 
   return router;
-};
+}
 
 module.exports = apiRoutes;

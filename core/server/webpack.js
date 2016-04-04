@@ -3,6 +3,7 @@ var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackHotMiddleware = require('webpack-hot-middleware')
 var config = require('../../webpack.config')
 var compiler = webpack(config)
+var colors = require('colors/safe')
 
 function startWebpack(app) {
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))

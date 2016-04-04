@@ -30,7 +30,7 @@ module.exports = {
     ]
   },
   resolve: {
-    root: path.resolve('./core'),
+    root: path.resolve('./core/frontend'),
     alias: {
       vendor: path.join(__dirname, "public/vendors"),
       css: path.join(__dirname, "assets/built/css")

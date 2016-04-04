@@ -1,3 +1,5 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+
 var express = require('express')
 var app = express()
 var path = require('path')
@@ -6,23 +8,19 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session)
-
 var colors = require('colors/safe')
 var routes = require('./routes')
-var boot = require('./boot')
+var bootServer = require('./boot')
 var config = require('./config')
 var startWebpack = require('./webpack')
 
-var isWebpackEnabled = process.env.DISABLE_WEBPACK
+var isWebpackEnabled = process.env.ENABLE_WEBPACK
 var env = app.get('env')
 
 function init(basePath) {
-  // view engine setup
-  require('app-module-path').addPath(path.join(basePath, 'assets/built/js/es5'));
-  console.log(path.join(basePath, 'views'));
-
-  app.set('views', path.join(basePath, 'views'));
-  app.set('view engine', 'jade');
+  app.set('views', path.join(basePath, 'views'))
+  app.set('view engine', 'jade')
+  app.use(express.static(path.join(basePath, 'assets')))
 
   app.use(session({
     secret: 'key wtf',
@@ -30,29 +28,21 @@ function init(basePath) {
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ url: config.dbUrl+'readr_session' })
-  }));
+  }))
 
-  console.log(colors.bold.green('\n>> SERVER IS RUNNING\n'));
-  if(env =="development") {
-    if(!isWebpackEnabled){
-      startWebpack(app)
-    }else{
-      console.log(colors.red.underline("webpack dev server is disabled"));
-    }
-    console.log(colors.cyan("running in development mode"));
+  if(env =="development" && isWebpackEnabled) {
+    startWebpack(app)
   }
 
-  app.use(logger('dev'));
-  app.use(bodyParser.json({limit: '50mb'}));
-  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-  app.use(cookieParser());
-  app.use(express.static(path.join(basePath, 'assets')));
+  // app.use(bodyParser.json({limit: '50mb'}))
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
+  app.use(cookieParser())
+  app.use(logger('dev'))
 
+  app.use(routes.apiBaseUri, routes.api())
+  app.get("*", routes.frontend(env, true))
 
-  // without server rendering
-  app.get("/", routes.frontend(env));
-
-  boot(app)
+  bootServer(app, env)
 }
 
 module.exports = init
