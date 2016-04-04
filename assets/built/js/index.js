@@ -33314,8 +33314,7 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _bookStore2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'book/:bookname', component: _bookViewer2.default })
 	  ),
-	  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _noMatch2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default })
 	);
 
 /***/ },
@@ -33429,6 +33428,10 @@
 
 	var _branding2 = _interopRequireDefault(_branding);
 
+	var _routes = __webpack_require__(524);
+
+	var _routes2 = _interopRequireDefault(_routes);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33447,6 +33450,18 @@
 	  }
 
 	  _createClass(Home, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+
+	      // console.log(routes)
+
+	      // match({ routes, location: "addbooks" }, function(error, redirectLocation, renderProps) {
+	      //   console.log(error)
+	      //   console.log(redirectLocation)
+	      //   console.log(renderProps)
+	      // })
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
