@@ -1,5 +1,3 @@
-require('app-module-path').addPath('./__core__es5');
-
 var express = require('express')
 var app = express()
 var path = require('path')
@@ -20,6 +18,7 @@ var env = app.get('env')
 
 function init(basePath) {
   // view engine setup
+  require('app-module-path').addPath(path.join(basePath, 'assets/built/js/es5'));
   console.log(path.join(basePath, 'views'));
 
   app.set('views', path.join(basePath, 'views'));

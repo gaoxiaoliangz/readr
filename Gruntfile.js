@@ -15,19 +15,18 @@ module.exports = function(grunt) {
       src: "./src",
       dist: "./assets/built",
       vendor: "./assets/vendors",
-      core: "./core",
-      core_compiled: "./__core__es5"
+      core: "./core"
     },
     babel: {
-      core: {
+      es5: {
         options: {
           sourceMap: false
         },
         files: [{
           "expand": true,
-          "cwd": "<%=path.core%>",
+          "cwd": "<%=path.core%>/frontend",
           "src": ["**/*.js"],
-          "dest": "<%=path.core_compiled%>",
+          "dest": "<%=path.dist%>/js/es5",
           "ext": ".js"
         }]
       }
@@ -122,14 +121,14 @@ module.exports = function(grunt) {
         }
       },
       webpack:{
-        files:['<%=path.src%>/js/*.js', '<%=path.core%>/**/*.js'],
+        files:['<%=path.src%>/js/*.js', '<%=path.core%>/frontend/**/*.js'],
         tasks:['webpack'],
         options: {
           spawn: false
         }
       },
       babel:{
-        files:['<%=path.core%>/**/*.js'],
+        files:['<%=path.core%>/frontend/**/*.js'],
         tasks:['babel'],
         options: {
           spawn: false

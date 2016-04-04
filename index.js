@@ -1,4 +1,4 @@
 var path = require('path')
-var init = require('./__core__es5/server').default
+var init = require('./core/server').default
 
 init(path.join(__dirname))
