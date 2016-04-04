@@ -15,10 +15,8 @@ function normalizePort(val) {
     // port number
     return port;
   }
-
   return false;
 }
-
 
 function boot(app) {
   var server

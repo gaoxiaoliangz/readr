@@ -55,5 +55,4 @@ function init(basePath) {
   boot(app)
 }
 
-// module.exports = init
-export default init
+module.exports = init
