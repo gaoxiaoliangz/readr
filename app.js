@@ -63,28 +63,20 @@ var Component = require('react').Component;
 var createStore = require('redux').createStore;
 var Provider = require('react-redux').Provider;
 var renderToString = require('react-dom/server').renderToString;
-
-// import reactRoutes from 'routes'
 var reactRoutes = require('./modules_es5/routes').default;
-
-// var App = require('./modules_es5/app.js').default
-// var App = require('./modules_es5/containers/book-store.js').default
-// var App = require('./modules_es5/routes/index.js')
-var App = require('./modules_es5/containers/add-book.js').default;
-
 var configureStore = require('./modules_es5/store/configureStore').default;
+
+
 var store = configureStore();
 var initialState = store.getState();
 
-var html = renderToString(React.createElement(
-  Provider,
-  { store: store },
-  React.createElement(
-    'div',
-    null,
-    React.createElement(App, null)
-  )
-));
+// const html = renderToString(
+//   <Provider store={store}>
+//     <div>
+//       <App />
+//     </div>
+//   </Provider>
+// )
 
 app.use(routes.apiBaseUri, routes.api());
 app.get("*", function (req, res, next) {

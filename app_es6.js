@@ -56,29 +56,20 @@ var Component = require('react').Component
 var createStore = require('redux').createStore
 var Provider = require('react-redux').Provider
 var renderToString = require('react-dom/server').renderToString
-
-
-import Router, { match, RouterContext } from 'react-router'
-// import reactRoutes from 'routes'
 var reactRoutes = require('./modules_es5/routes').default
-
-
-// var App = require('./modules_es5/app.js').default
-// var App = require('./modules_es5/containers/book-store.js').default
-// var App = require('./modules_es5/routes/index.js')
-var App = require('./modules_es5/containers/add-book.js').default
-
 var configureStore = require('./modules_es5/store/configureStore').default
+import Router, { match, RouterContext } from 'react-router'
+
 const store = configureStore()
 const initialState = store.getState()
 
-const html = renderToString(
-  <Provider store={store}>
-    <div>
-      <App />
-    </div>
-  </Provider>
-)
+// const html = renderToString(
+//   <Provider store={store}>
+//     <div>
+//       <App />
+//     </div>
+//   </Provider>
+// )
 
 app.use(routes.apiBaseUri, routes.api())
 app.get("*",function(req, res, next){
@@ -91,7 +82,7 @@ app.get("*",function(req, res, next){
       })
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
-    } else if (renderProps) {    
+    } else if (renderProps) {
       res.status(200).render('index', {
         env: env,
         html: renderToString(<RouterContext {...renderProps} />),
@@ -112,5 +103,4 @@ app.get("*",function(req, res, next){
 // without server rendering
 // app.get("/", routes.frontend(env));
 
-
-module.exports = app;
+module.exports = app
