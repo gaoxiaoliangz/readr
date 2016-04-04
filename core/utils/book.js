@@ -3,6 +3,7 @@ import { saveToLocal, readFromLocal } from './local'
 
 const CONTENT_SELECTOR = ".pages li .content"
 
+
 function loadBookContent(url, config) {
   let book = {}
 

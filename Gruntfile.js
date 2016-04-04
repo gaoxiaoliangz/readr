@@ -13,30 +13,23 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     path: {
       src: "./src",
-      dist: "./public/built",
-      vendor: "./public/vendor",
-      modules: ['./node_modules', './modules']
+      dist: "./assets/built",
+      vendor: "./assets/vendors",
+      core: "./core",
+      core_compiled: "./__core__es5"
     },
     babel: {
-      modules: {
+      core: {
         options: {
           sourceMap: false
         },
         files: [{
           "expand": true,
-          "cwd": "./modules",
+          "cwd": "<%=path.core%>",
           "src": ["**/*.js"],
-          "dest": "./modules_es5",
+          "dest": "<%=path.core_compiled%>",
           "ext": ".js"
         }]
-      },
-      app: {
-        options: {
-          sourceMap: false
-        },
-        files: {
-          './app.js': './app_es6.js'
-        }
       }
     },
     webpack: {
@@ -129,14 +122,14 @@ module.exports = function(grunt) {
         }
       },
       webpack:{
-        files:['<%=path.src%>/js/*.js', './modules/**/*.js'],
+        files:['<%=path.src%>/js/*.js', '<%=path.core%>/**/*.js'],
         tasks:['webpack'],
         options: {
           spawn: false
         }
       },
       babel:{
-        files:['app_es6.js', './modules/**/*.js'],
+        files:['<%=path.core%>/**/*.js'],
         tasks:['babel'],
         options: {
           spawn: false

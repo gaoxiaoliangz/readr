@@ -7,7 +7,7 @@ module.exports = {
     index: [hot, './src/js/index']
   },
   output: {
-    path: path.join(__dirname, 'public/debug/js'),
+    path: path.join(__dirname, 'assets/built/js'),
     filename: '[name].js',
     publicPath: '/built/js/'
   },
@@ -30,10 +30,10 @@ module.exports = {
     ]
   },
   resolve: {
-    root: path.resolve('./modules'),
+    root: path.resolve('./core'),
     alias: {
-      vendor: path.join(__dirname, "public/vendor"),
-      css: path.join(__dirname, "public/built/css")
+      vendor: path.join(__dirname, "public/vendors"),
+      css: path.join(__dirname, "assets/built/css")
     },
     extensions: ['', '.js']
   }

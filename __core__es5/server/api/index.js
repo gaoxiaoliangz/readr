@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 var Promise = require('bluebird');
 var books = require('./books');
@@ -9,11 +11,11 @@ var http = function http(apiMethod) {
   return function apiHandler(req, res, next) {
     // We define 2 properties for using as arguments in API calls:
     var object = req.body,
-      options = _.extend({}, req.files, req.query, req.params, {
-        context: {
-          user: (req.user && req.user.id) ? req.user.id : null
-        }
-      });
+        options = _.extend({}, req.files, req.query, req.params, {
+      context: {
+        user: req.user && req.user.id ? req.user.id : null
+      }
+    });
 
     // If this is a GET, or a DELETE, req.body should be null, so we only have options (route and query params)
     // If this is a PUT, POST, or PATCH, req.body is an object
@@ -26,7 +28,7 @@ var http = function http(apiMethod) {
     console.log(object);
     console.log(options);
 
-    apiMethod(object, options, req).then(function(result){
+    apiMethod(object, options, req).then(function (result) {
       res.send(result);
     });
   };
