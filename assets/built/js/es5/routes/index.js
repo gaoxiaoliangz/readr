@@ -59,8 +59,7 @@ exports.default = _react2.default.createElement(
     _reactRouter.Route,
     { path: 'bookstore', component: _app2.default },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _bookStore2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'fuck', component: _addBook2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookInfo2.default })
   ),
-  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'bookstore/book/:id', component: _bookInfo2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default })
 );

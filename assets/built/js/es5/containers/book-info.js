@@ -89,7 +89,7 @@ var BookInfo = function (_Component) {
     value: function render() {
       var data = this.state.data;
       var dataFromDouban = this.state.dataFromDouban;
-      var readBtn;
+      var readBtn = void 0;
 
       if (data.id) {
         readBtn = _react2.default.createElement(
@@ -112,7 +112,7 @@ var BookInfo = function (_Component) {
           null,
           _react2.default.createElement(
             'div',
-            { className: 'book-info' },
+            { className: 'book-info content-container' },
             _react2.default.createElement(
               'h1',
               { className: 'page-title book-name' },
@@ -121,30 +121,55 @@ var BookInfo = function (_Component) {
             _react2.default.createElement(
               'div',
               { className: 'book-author' },
-              dataFromDouban.author
+              _react2.default.createElement(
+                'strong',
+                null,
+                dataFromDouban.author
+              )
             ),
-            function () {
-              if (dataFromDouban.image) {
-                return _react2.default.createElement(
-                  'div',
-                  { className: 'book-cover' },
-                  _react2.default.createElement('img', { src: dataFromDouban.image })
-                );
-              }
-            }(),
-            _react2.default.createElement(
+            dataFromDouban.image ? _react2.default.createElement(
+              'div',
+              { className: 'book-cover' },
+              _react2.default.createElement('img', { src: dataFromDouban.image })
+            ) : null,
+            readBtn ? readBtn : null,
+            dataFromDouban.author_intro ? _react2.default.createElement(
               'div',
               { className: 'book-author-intro' },
-              '作者简介：',
-              dataFromDouban.author_intro
-            ),
-            _react2.default.createElement(
+              _react2.default.createElement(
+                'h2',
+                null,
+                '作者简介'
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                dataFromDouban.author_intro
+              )
+            ) : null,
+            dataFromDouban.summary ? _react2.default.createElement(
               'div',
               { className: 'book-summary' },
-              '内容简介：',
-              dataFromDouban.summary
-            ),
-            readBtn ? readBtn : null
+              _react2.default.createElement(
+                'h2',
+                null,
+                '内容简介'
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                dataFromDouban.summary
+              )
+            ) : null,
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'a',
+                { target: '_blank', href: 'http://book.douban.com/subject/' + dataFromDouban.id },
+                '在豆瓣查看'
+              )
+            )
           )
         )
       );

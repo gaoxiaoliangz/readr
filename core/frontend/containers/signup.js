@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import 'whatwg-fetch'
 import $ from 'jquery'
 import { URL_USERS } from 'constants/api-urls'
 
 import Branding from 'components/branding'
+import Msg from 'components/msg'
 
 class Signup extends Component {
 
@@ -32,11 +33,19 @@ class Signup extends Component {
         this.setState({
           status: "注册成功"
         })
-        location.href="/"
+
+        setTimeout(function(){
+          browserHistory.push('/')
+        }, 600)
       }else{
         this.setState({
           status: json.error.msg
         })
+        setTimeout(function(){
+          this.setState({
+            status: null
+          })
+        }.bind(this), 3000)
       }
     }.bind(this))
   }
@@ -50,11 +59,11 @@ class Signup extends Component {
       <div className="page-signin">
         <Branding />
         <Container>
-          <div className="auth-status">{this.state.status}</div>
           <Form className="content-container" method="post" action="/signup">
+            <Msg content={this.state.status} />
             <h1 className="page-title">加入 Readr</h1>
-            <Input onChange={this.handleInputChange.bind(this)} value={this.state.username} name="username" label="用户名" floatingLabel={true} />
-            <Input onChange={this.handleInputChange.bind(this)} value={this.state.password} name="password" label="密码" floatingLabel={true} type="password" />
+            <Input onChange={this.handleInputChange.bind(this)} value={this.state.username} name="username" hint="用户名" />
+            <Input onChange={this.handleInputChange.bind(this)} value={this.state.password} name="password" hint="密码 "type="password" />
             <Button onClick={this.handleSignup.bind(this)} variant="raised">注册</Button>
             <p className="hint">没有账号？<Link to="/signin">登录</Link></p>
           </Form>

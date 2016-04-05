@@ -40,7 +40,7 @@ class Branding extends Component {
 
 
     return (
-      <Appbar className="mui--z1 branding">
+      <Appbar className="branding">
         <Container>
           <div>
             <h1 className="logo left">

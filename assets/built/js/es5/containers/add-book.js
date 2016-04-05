@@ -12,6 +12,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _react3 = require('muicss/react');
 
+var _reactRouter = require('react-router');
+
 var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
@@ -19,6 +21,10 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _branding = require('components/branding');
 
 var _branding2 = _interopRequireDefault(_branding);
+
+var _msg = require('components/msg');
+
+var _msg2 = _interopRequireDefault(_msg);
 
 var _apiUrls = require('constants/api-urls');
 
@@ -42,10 +48,9 @@ var AddBook = function (_Component) {
 
     _this.state = {
       bookName: "",
-      author: "",
-      cover: "",
       bookContent: "",
-      doubanItemId: ""
+      doubanItemId: "",
+      status: ""
     };
     return _this;
   }
@@ -62,8 +67,17 @@ var AddBook = function (_Component) {
       };
 
       for (var prop in params) {
+        console.log(prop);
         if (params[prop].length === 0) {
           isValid = false;
+          this.setState({
+            status: prop + ' 不能为空！'
+          });
+          setTimeout(function () {
+            this.setState({
+              status: null
+            });
+          }.bind(this), 3000);
           break;
         }
       }
@@ -71,9 +85,24 @@ var AddBook = function (_Component) {
       if (isValid) {
         _jquery2.default.post(_apiUrls.URL_BOOKS, params, function (data) {
           console.log(data);
+          if (data.data) {
+            this.setState({
+              status: '添加成功！',
+              bookName: '',
+              bookContent: '',
+              doubanItemId: '',
+              dataFromDouban: '',
+              visiableCoverIndex: -1,
+              currentBook: ''
+            });
+
+            setTimeout(function () {
+              this.setState({
+                status: ''
+              });
+            }.bind(this), 3000);
+          }
         }.bind(this));
-      } else {
-        console.log(params);
       }
     }
   }, {
@@ -136,6 +165,7 @@ var AddBook = function (_Component) {
           _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', action: '#', method: 'post' },
+            _react2.default.createElement(_msg2.default, { content: this.state.status }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },

@@ -70,9 +70,10 @@ ul {
 .page-title {
   margin: 30px 0 15px;
   font-size: 25px;
-  color: #333; }
+  color: #333;
+  font-weight: bold; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000326}}
 .loading {
   font-size: 30px;
   color: #ddd;
@@ -80,10 +81,23 @@ ul {
   text-align: center;
   padding: 100px 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000334}}
 .content-container {
-  width: 650px;
+  width: 500px;
   margin: 0 auto; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000339}}
+.msg {
+  position: fixed;
+  width: 500px;
+  margin-left: -250px;
+  top: 80px;
+  left: 50%;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  background: #fff;
+  z-index: 990; }
 
 /* dia */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/dia\.scss}line{font-family:\000033}}
@@ -365,10 +379,26 @@ ul {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000033}}
 .page-signin .content-container,
 .page-signup .content-container {
-  margin-top: 100px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000036}}
-.page-signin .hint,
-.page-signup .hint {
-  margin-top: 30px; }
+  margin-top: 100px;
+  text-align: center;
+  position: relative; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000037}}
+  .page-signin .content-container .mui-textfield,
+  .page-signup .content-container .mui-textfield {
+    padding-top: 8px;
+    margin-bottom: 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\0000311}}
+  .page-signin .content-container .mui-btn,
+  .page-signup .content-container .mui-btn {
+    margin-top: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\0000314}}
+  .page-signin .content-container .hint,
+  .page-signup .content-container .hint {
+    margin-top: 20px;
+    font-size: 16px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\0000317}}
+    .page-signin .content-container .hint a,
+    .page-signup .content-container .hint a {
+      font-weight: bold; }
 
 /*# sourceMappingURL=index.css.map */

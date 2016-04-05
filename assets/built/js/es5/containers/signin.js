@@ -22,6 +22,10 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _msg = require('components/msg');
+
+var _msg2 = _interopRequireDefault(_msg);
+
 var _branding = require('components/branding');
 
 var _branding2 = _interopRequireDefault(_branding);
@@ -68,12 +72,18 @@ var Signin = function (_Component) {
           this.setState({
             status: "登录成功"
           });
-
-          _reactRouter.browserHistory.push('/');
+          setTimeout(function () {
+            _reactRouter.browserHistory.push('/');
+          }, 600);
         } else {
           this.setState({
             status: data.error.msg
           });
+          setTimeout(function () {
+            this.setState({
+              status: null
+            });
+          }.bind(this), 3000);
         }
       }.bind(this));
     }
@@ -93,20 +103,16 @@ var Signin = function (_Component) {
           _react3.Container,
           null,
           _react2.default.createElement(
-            'div',
-            { className: 'auth-status' },
-            this.state.status
-          ),
-          _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', action: '/signin', method: 'post' },
+            _react2.default.createElement(_msg2.default, { content: this.state.status }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },
               '欢迎回来'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', label: '用户名', floatingLabel: true }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', label: '密码', floatingLabel: true, type: 'password' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', hint: '密码', type: 'password' }),
             _react2.default.createElement(
               _react3.Button,
               { onClick: this.handleSignin.bind(this), variant: 'raised' },

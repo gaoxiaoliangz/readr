@@ -69,7 +69,7 @@ var Branding = function (_Component) {
 
       return _react2.default.createElement(
         _react3.Appbar,
-        { className: 'mui--z1 branding' },
+        { className: 'branding' },
         _react2.default.createElement(
           _react3.Container,
           null,

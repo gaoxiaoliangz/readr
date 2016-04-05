@@ -138,9 +138,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build-css', ['sass','cssmin']);
-
   grunt.registerTask('watch-js', ['watch:babel']);
-  grunt.registerTask('build', ['image','sass','cssmin','copy','babel','webpack','uglify']);
   grunt.registerTask('build-js', ['babel','webpack','uglify']);
-  grunt.registerTask('build-es5', ['babel']);
+  grunt.registerTask('build', ['image','sass','cssmin','copy','babel','webpack','uglify']);
 };

@@ -20,6 +20,7 @@
   margin: 30px 0 15px;
   font-size: 25px;
   color: $text_d;
+  font-weight: bold;
 }
 
 .loading {
@@ -33,4 +34,17 @@
 .content-container {
   width: $best_reading_width;
   margin: 0 auto;
+}
+
+.msg {
+  position: fixed;
+  width: $best_reading_width;
+  margin-left: -$best_reading_width/2;
+  top: 80px;
+  left: 50%;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  background: #fff;
+  z-index: 990;
 }

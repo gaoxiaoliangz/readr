@@ -26,6 +26,10 @@ var _branding = require('components/branding');
 
 var _branding2 = _interopRequireDefault(_branding);
 
+var _msg = require('components/msg');
+
+var _msg2 = _interopRequireDefault(_msg);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -68,11 +72,19 @@ var Signup = function (_Component) {
           this.setState({
             status: "注册成功"
           });
-          location.href = "/";
+
+          setTimeout(function () {
+            _reactRouter.browserHistory.push('/');
+          }, 600);
         } else {
           this.setState({
             status: json.error.msg
           });
+          setTimeout(function () {
+            this.setState({
+              status: null
+            });
+          }.bind(this), 3000);
         }
       }.bind(this));
     }
@@ -92,20 +104,16 @@ var Signup = function (_Component) {
           _react3.Container,
           null,
           _react2.default.createElement(
-            'div',
-            { className: 'auth-status' },
-            this.state.status
-          ),
-          _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', method: 'post', action: '/signup' },
+            _react2.default.createElement(_msg2.default, { content: this.state.status }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },
               '加入 Readr'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', label: '用户名', floatingLabel: true }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', label: '密码', floatingLabel: true, type: 'password' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', hint: '密码 ', type: 'password' }),
             _react2.default.createElement(
               _react3.Button,
               { onClick: this.handleSignup.bind(this), variant: 'raised' },
