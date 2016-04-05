@@ -42,12 +42,16 @@ var _addBook = require('containers/add-book');
 
 var _addBook2 = _interopRequireDefault(_addBook);
 
+var _bookInfo = require('containers/book-info');
+
+var _bookInfo2 = _interopRequireDefault(_bookInfo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _react2.default.createElement(
-  _reactRouter.Route,
+  _reactRouter.Router,
   { path: '/', component: _app2.default },
-  _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
+  _react2.default.createElement(_reactRouter.IndexRoute, { component: _bookStore2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'Signup', component: _signup2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'addbook', component: _addBook2.default }),
@@ -55,7 +59,8 @@ exports.default = _react2.default.createElement(
     _reactRouter.Route,
     { path: 'bookstore', component: _app2.default },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _bookStore2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'book/:bookname', component: _bookViewer2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: 'fuck', component: _addBook2.default })
   ),
-  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _bookViewer2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'bookstore/book/:id', component: _bookInfo2.default })
 );

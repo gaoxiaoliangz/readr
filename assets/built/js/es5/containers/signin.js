@@ -69,7 +69,7 @@ var Signin = function (_Component) {
             status: "登录成功"
           });
 
-          location.href = "/";
+          _reactRouter.browserHistory.push('/');
         } else {
           this.setState({
             status: data.error.msg

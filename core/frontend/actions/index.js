@@ -164,6 +164,7 @@ export function fetchBookContent(bookId) {
     return new Promise(function(resolve){
       dispatch(requestBookContent(bookId))
       fetch(fullUrl).then(response => response.json()).then(json => {
+        console.log(json.data);
         let contentNodes = parseHTML(json.data[0].html)
         dispatch(receiveBookContent(bookId, contentNodes))
         resolve(getState)

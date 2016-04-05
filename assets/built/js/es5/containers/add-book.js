@@ -44,7 +44,8 @@ var AddBook = function (_Component) {
       bookName: "",
       author: "",
       cover: "",
-      bookContent: ""
+      bookContent: "",
+      doubanItemId: ""
     };
     return _this;
   }
@@ -53,28 +54,78 @@ var AddBook = function (_Component) {
     key: 'handleAddBook',
     value: function handleAddBook(event) {
       event.preventDefault();
-
+      var isValid = true;
       var params = {
         book_name: this.state.bookName,
-        book_author: this.state.author,
-        book_cover: this.state.cover,
-        book_content: this.state.bookContent
+        book_content: this.state.bookContent,
+        douban_item_id: this.state.doubanItemId
       };
 
-      console.log(params);
+      for (var prop in params) {
+        if (params[prop].length === 0) {
+          isValid = false;
+          break;
+        }
+      }
 
-      _jquery2.default.post(_apiUrls.URL_BOOKS, params, function (data) {
-        console.log(data);
-      }.bind(this));
+      if (isValid) {
+        _jquery2.default.post(_apiUrls.URL_BOOKS, params, function (data) {
+          console.log(data);
+        }.bind(this));
+      } else {
+        console.log(params);
+      }
     }
   }, {
     key: 'handleInputChange',
     value: function handleInputChange(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
+
+      if (event.target.value && event.target.name === "bookName") {
+        var url = _apiUrls.URL_DOUBAN_BOOKS + 'search?count=5&q=' + event.target.value;
+        _jquery2.default.ajax({
+          url: url,
+          dataType: "jsonp"
+        }).done(function (data) {
+          console.log(data);
+          data.books.forEach(function (item) {
+            console.log(item.title);
+          });
+          this.setState({
+            dataFromDouban: data,
+            visiableCoverIndex: -1
+          });
+        }.bind(this));
+      } else {
+        this.setState({
+          dataFromDouban: { books: [] }
+        });
+      }
+    }
+  }, {
+    key: 'conformResult',
+    value: function conformResult(item) {
+      this.setState({
+        dataFromDouban: { books: [] }
+      });
+      this.setState({
+        doubanItemId: item.id,
+        bookName: item.title,
+        currentBook: item
+      });
+    }
+  }, {
+    key: 'showBookCover',
+    value: function showBookCover(index) {
+      this.setState({
+        visiableCoverIndex: index
+      });
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'page-add-book' },
@@ -90,10 +141,61 @@ var AddBook = function (_Component) {
               { className: 'page-title' },
               '添加书籍'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.bookName, name: 'bookName', label: '书名', floatingLabel: true }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.author, name: 'author', label: '作者', floatingLabel: true }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.cover, name: 'cover', label: '封面', floatingLabel: true }),
-            _react2.default.createElement(_react3.Textarea, { style: { height: 200 }, onChange: this.handleInputChange.bind(this), value: this.state.bookContent, name: 'bookContent', label: '书籍内容', floatingLabel: true }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.bookName, name: 'bookName', label: '搜索', floatingLabel: false, hint: '现阶段，书籍信息均从豆瓣获取，输入书名或书籍相关信息以检索' }),
+            _react2.default.createElement('p', null),
+            function () {
+              if (_this2.state.dataFromDouban) {
+                return _react2.default.createElement(
+                  'div',
+                  { className: 'drop-down' },
+                  _react2.default.createElement(
+                    'ul',
+                    null,
+                    _this2.state.dataFromDouban.books.map(function (item, index) {
+                      return _react2.default.createElement(
+                        'li',
+                        { onMouseOver: _this2.showBookCover.bind(_this2, index), onClick: _this2.conformResult.bind(_this2, item), key: index },
+                        item.title,
+                        ' (',
+                        item.author,
+                        ')',
+                        function () {
+                          if (_this2.state.visiableCoverIndex === index) {
+                            return _react2.default.createElement(
+                              'div',
+                              null,
+                              _react2.default.createElement('img', { src: item.image })
+                            );
+                          }
+                        }()
+                      );
+                    })
+                  )
+                );
+              }
+            }(),
+            function () {
+              if (_this2.state.currentBook) {
+                var book = _this2.state.currentBook;
+                return _react2.default.createElement(
+                  'div',
+                  { className: 'book' },
+                  _react2.default.createElement('img', { src: book.image }),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'book-name' },
+                    book.title
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'book-author' },
+                    book.author[0]
+                  )
+                );
+              }
+            }(),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.doubanItemId, name: 'doubanItemId', label: '豆瓣条目 ID ', floatingLabel: false }),
+            _react2.default.createElement(_react3.Textarea, { style: { height: 200 }, onChange: this.handleInputChange.bind(this), value: this.state.bookContent, name: 'bookContent', label: '书籍内容', floatingLabel: false }),
             _react2.default.createElement(
               _react3.Button,
               { onClick: this.handleAddBook.bind(this), variant: 'raised' },

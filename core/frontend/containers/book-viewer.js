@@ -54,6 +54,8 @@ class BookViewer extends Component {
     var book = this.props.book
     let actions = this.props.actions
     let bookId = this.bookId
+
+    // todo
     let url = "/api/v0.1/books/" + bookId
 
     // get book info

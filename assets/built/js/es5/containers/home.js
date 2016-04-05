@@ -45,16 +45,7 @@ var Home = function (_Component) {
 
   _createClass(Home, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {
-
-      // console.log(routes)
-
-      // match({ routes, location: "addbooks" }, function(error, redirectLocation, renderProps) {
-      //   console.log(error)
-      //   console.log(redirectLocation)
-      //   console.log(renderProps)
-      // })
-    }
+    value: function componentDidMount() {}
   }, {
     key: 'render',
     value: function render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import 'whatwg-fetch'
 import { URL_AUTH } from 'constants/api-urls'
 import $ from 'jquery'
@@ -33,7 +33,7 @@ class Signin extends Component {
           status: "登录成功"
         })
 
-        location.href="/"
+        browserHistory.push('/')
       }else{
         this.setState({
           status: data.error.msg

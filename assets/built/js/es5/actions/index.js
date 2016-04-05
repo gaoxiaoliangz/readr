@@ -198,6 +198,7 @@ function fetchBookContent(bookId) {
       fetch(fullUrl).then(function (response) {
         return response.json();
       }).then(function (json) {
+        console.log(json.data);
         var contentNodes = (0, _utils.parseHTML)(json.data[0].html);
         dispatch(receiveBookContent(bookId, contentNodes));
         resolve(getState);

@@ -29,7 +29,7 @@ var books = {
   getBookContent: function(object) {
     return new Promise(function(resolve){
       var match = {
-        _id: mongodb.ObjectID(object._id)
+        id: object.id
       };
 
       models.getData('books', match, 'book_content').then(function(result){
@@ -40,7 +40,7 @@ var books = {
   getBookInfo: function(object) {
     return new Promise(function(resolve){
       var match = {
-        _id: mongodb.ObjectID(object._id)
+        id: object.id
       };
 
       models.getData('books', match).then(function(result){
@@ -82,7 +82,7 @@ var books = {
   getReadingProgress: function(object) {
     return new Promise(function(resolve){
       var match = {
-        book_id: object._id,
+        book_id: object.id,
         user_id: object.context.user
       };
 
@@ -96,7 +96,7 @@ var books = {
     return new Promise(function(resolve){
 
       var match = {
-        book_id: options._id,
+        book_id: options.id,
         user_id: options.context.user
       };
       var data = {

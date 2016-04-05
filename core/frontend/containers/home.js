@@ -9,14 +9,6 @@ import routes from 'routes'
 class Home extends Component {
 
   componentDidMount() {
-
-    // console.log(routes)
-
-    // match({ routes, location: "addbooks" }, function(error, redirectLocation, renderProps) {
-    //   console.log(error)
-    //   console.log(redirectLocation)
-    //   console.log(renderProps)
-    // })
   }
 
   render() {

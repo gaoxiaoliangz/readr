@@ -19,7 +19,7 @@ var configureStore = require('store/configureStore').default
 const store = configureStore()
 const initialState = store.getState()
 
-var frontendRoutes = function frontendRoutes(env, isServerRenderingEnabled) {
+var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
   var router = express.Router()
 
   router.get("/logout",function(req, res){
@@ -27,7 +27,7 @@ var frontendRoutes = function frontendRoutes(env, isServerRenderingEnabled) {
     res.redirect("/")
   })
 
-  if(isServerRenderingEnabled) {
+  if(isServerRoutingEnabled) {
     router.get("*",function(req, res, next){
       match({ routes: reactRoutes, location: req.url }, function(error, redirectLocation, renderProps) {
         if (error) {
@@ -41,7 +41,7 @@ var frontendRoutes = function frontendRoutes(env, isServerRenderingEnabled) {
         } else if (renderProps) {
           res.status(200).render('index', {
             env: env,
-            html: renderToString(React.createElement(RouterContext, renderProps)),
+            html: isServerRenderingEnabled?renderToString(React.createElement(RouterContext, renderProps)):"",
             initialState: JSON.stringify(initialState)
           })
         } else {

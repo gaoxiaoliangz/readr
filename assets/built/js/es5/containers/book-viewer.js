@@ -102,6 +102,8 @@ var BookViewer = function (_Component) {
       var book = this.props.book;
       var actions = this.props.actions;
       var bookId = this.bookId;
+
+      // todo
       var url = "/api/v0.1/books/" + bookId;
 
       // get book info

@@ -41,7 +41,10 @@ var query = {
     });
   },
 
-  putData: function(table_name, data){
+  putData: function(table_name, data) {
+    data.id = Math.random().toFixed(8).substr(2)
+    data.date_created = new Date().valueOf()
+
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         db.collection(table_name).insert([data], function (err, result) {
