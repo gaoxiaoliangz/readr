@@ -1,10 +1,5 @@
 import { callApi } from 'utils'
 
-// import 'isomorphic-fetch'
-import 'whatwg-fetch'
-import $ from 'jquery'
-const API_ROOT = '/api/v0.1/'
-
 export default store => next => action => {
   const CALL_API = action.CALL_API
   if (typeof CALL_API === 'undefined') {

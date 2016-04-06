@@ -5,55 +5,28 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import BookPageList from 'components/book-page-list'
-
+import Loading from 'components/loading'
+import { delayStuff } from 'utils'
+import { mountBookContent, parseHTML, convertPercentageToPage, genPageList } from 'utils/book'
 import * as actions from 'actions'
 
-import { genPageList } from 'utils/filters'
-import { convertPercentageToPage } from 'utils/book'
-import { delayStuff } from 'utils'
-import configureStore from 'store/configureStore'
-
-const store = configureStore()
 import $ from 'jquery'
 
-
-
-function loadBookContentFromCache(bookId) {
-  return localStorage.getItem(`book${bookId}_content`)
-}
-
-function cacheBookContent(bookId, content) {
-  console.log(typeof content);
-  if(typeof content !== 'string' && typeof content === 'object') {
-    content = JSON.stringify(content)
-    localStorage.setItem(`book${bookId}_content`, content)
-    return true
-  }else if(typeof content === 'string'){
-    localStorage.setItem(`book${bookId}_content`, content)
-    return true
-  }else{
-    return false
+function getNodesHeight(nodes) {
+  if(typeof nodes !== 'object') {
+    console.error('Nodes should be used instead of selector!');
   }
-}
 
+  let nodesHeight = []
 
-
-// if content not in cache, then fetched data will be cached
-function mountBookContent(bookId, actions) {
-  return new Promise(resolve => {
-    actions.dispatchWrap((dispatch, getState) => {
-      let bookContent = loadBookContentFromCache(bookId)
-      if(bookContent) {
-        actions.receiveBookContent(bookId, bookContent)
-        resolve(getState)
-      }else{
-        actions.fetchBookContent(bookId).then(getState => {
-          cacheBookContent(bookId, getState().book.content.nodes)
-          resolve(getState)
-        })
-      }
-    })
+  Array.prototype.forEach.call(nodes, (node, index) => {
+    if(node.tagName.toLowerCase() !== "p") {
+      console.error("Unsupported content found!")
+    }
+    nodesHeight.push(node.clientHeight)
   })
+
+  return nodesHeight
 }
 
 
@@ -71,11 +44,27 @@ function getUserPreference(userId) {
 
 class BookViewer extends Component {
 
-  scrollToLoadPages() {
-    let pageSum = this.props.book.content.pageSum
-    let percentage = (document.body.scrollTop/(this.props.book.view.style.height*pageSum)).toFixed(4)
+  constructor(props) {
+    super(props)
+    this.bookId = props.params.id
+    this.state = {
 
-    this.props.actions.loadPages(convertPercentageToPage(percentage, pageSum))
+    }
+  }
+
+  // scrollToLoadPages() {
+  //   let pageSum = this.props.book.content.pageSum
+  //   let percentage = (document.body.scrollTop/(this.props.book.view.style.height*pageSum)).toFixed(4)
+  //
+  //   this.props.actions.loadPages(convertPercentageToPage(percentage, pageSum))
+  // }
+
+  scrollToLoadPages() {
+    let pages = this.props.book.pages
+    let pageSum = this.props.book.pages.length
+    let percentage = (document.body.scrollTop/(900*pageSum)).toFixed(4)
+
+    this.props.actions.loadPages(convertPercentageToPage(percentage, pageSum), pages)
   }
 
   // todo
@@ -90,83 +79,119 @@ class BookViewer extends Component {
     }
   }
 
-  constructor(props) {
-    super(props)
-    this.bookId = props.params.id
-    this.state = {
-      bookName: "loading ..."
-    }
-  }
-
   addEventListeners() {
     window.addEventListener("scroll", delayStuff(this.scrollToLoadPages, 100).bind(this))
     window.addEventListener("mousemove", this.toggleBookPanel.bind(this))
   }
 
   componentDidMount() {
+
+    function groupNodesByPage(nodes, nodesHeight, pageHeight) {
+      let pages = []
+      let page = []
+      let thisPageHeight = 0
+      let pageIndex = 0
+
+      for (var i = 0; i < nodes.length; i++) {
+        thisPageHeight += nodesHeight[i]
+        page.push(nodes[i])
+        if(thisPageHeight > pageHeight) {
+
+          pages.push({
+            props: {
+              children: page,
+              style: {
+                top: pageIndex*pageHeight,
+                position: 'absolute'
+              },
+              pageNo: pageIndex
+            },
+            type: "page"
+          })
+
+          pageIndex++
+          thisPageHeight = 0
+          page = []
+        }
+      }
+
+      return pages
+    }
+
+
+
     let mode = "VERTICAL"
     let screen = "HD"
+
     var book = this.props.book
     let actions = this.props.actions
     let bookId = this.bookId
 
-    // todo
-    let url = "/api/v0.1/books/" + bookId
+    // book content is kept in this very variable
+    let nodes
+    // nodes are formated to be pages, defined here 'cause componentDidMount only trigger once
+    // this could avoid performance issues
+    let pages
 
-    // get book info
-    fetch(url).then(function(res){
-      return res.json()
-    }).then(function(json){
-      this.setState({
-        bookName: json.data[0].book_name
-      })
-    }.bind(this)).catch((err) => {
-      console.log(err)
-    })
+
+    // temp
+    let nodesHeight
+    let pageHeight = 900
+
+    // todo
+    actions.fetchBookInfo(bookId, `books/${bookId}`)
 
     // todo: bug in mobile mode
     if($(window).width() < 768) {
       screen = "MOBILE"
     }
 
-    actions.fetchBookContent3(bookId, state => {
-      return `books/${state.book.id}/content`
-    }).then(getState => {
-      console.log(getState());
+
+    mountBookContent(bookId, actions).then(getState => {
+      nodes = parseHTML(getState().book.html)
+      this.setState({
+        isReadyToCalculate: true
+      })
+      nodesHeight = getNodesHeight(document.querySelector('.pages ul>li>.content').childNodes)
+      this.setState({
+        isReadyToCalculate: false
+      })
+
+      pages = groupNodesByPage(nodes, nodesHeight, pageHeight)
+      actions.loadPages(1, pages)
+
+      this.setState({
+        isReadyToRead: true
+      })
+      // localStorage.setItem(`book${bookId}_nodes`)
     })
 
-    // mountBookContent(bookId, actions).then(getState => {
-
-    // })
+    this.addEventListeners()
   }
 
   render() {
     let book = this.props.book
-    let pages = []
-    let quantity = 5
-    let startPage = 1
-    let offset = 2
-    let height = "100%"
+    let pages = book.pages
+    let pagesToRender = []
+    let height = book.pages?book.pages.length * 900:'100%'
 
-    if(book.content.nodes.length) {
-      if(book.isPagesLoaded) {
-        pages = genPageList(book.currentPage, quantity, offset, book.content.nodes, {pageHeight: book.view.style.height})
-        height = book.content.pageSum * book.view.style.height
-      }else{
-        pages = [
-          {
-            props: {
-              children: book.content.nodes,
-              pageNo: "NA"
-            },
-            type: "page",
-          }
-        ]
-      }
+    if(book.isPagesLoaded) {
+      let currentPage = book.currentPage
+      pagesToRender = genPageList({
+        startPage: currentPage,
+        pages,
+        offset: 2,
+        quantity: 5
+      })
     }
 
     return (
       <div className="page-book-viewer">
+        {
+          !this.state.isReadyToRead?(
+            <Loading />
+          ):null
+        }
         <div className="functions" style={{display: "none"}}>
           <div className="container">
             <span className="home">
@@ -174,29 +199,37 @@ class BookViewer extends Component {
             </span>
             <span className="title">{this.state.bookName}</span>
             {
-              (()=>{
-                if(this.props.book.abc) {
-                  return (
-                    <span className="loc">{book.currentPage+"/"+book.content.pageSum}</span>
-                  )
-                }
-              })()
+              this.state.isReadyToRead?(
+                <span className="loc">{book.currentPage+"/"+book.pages.length}</span>
+              ):null
             }
           </div>
         </div>
-        <div>test</div>
         {
-          (()=>{
-            if(this.props.book.abc) {
-              return (
-                <BookPageList isCalculated={book.content.isCalculated} height={height} view={book.view} bookId={this.bookId} pages={pages} />
-              )
-            }
-          })()
+          this.state.isReadyToCalculate?(
+            <div className="pages">
+              <div className="container">
+                <ul>
+                  <li>
+                    <div className="content" dangerouslySetInnerHTML={{__html: book.html}} />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          ):null
+        }
+        {
+          this.state.isReadyToRead?(
+            <BookPageList height={height} view={book.view} bookId={this.bookId} pages={pagesToRender} />
+          ):null
         }
       </div>
     )
   }
+}
+
+BookViewer.propTypes = {
+  book: React.PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

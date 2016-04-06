@@ -42,17 +42,7 @@ export function readContentFromCache(bookId, content) {
   }
 }
 
-export const LOAD_PAGES = 'LOAD_PAGES'
-export function loadPages(pageNo, pages) {
-  return {
-    type: LOAD_PAGES,
-    currentPage: pageNo,
-    pages
-  }
-}
 
-
-// //////////// //////////// //////////// //////////// //////////// //////////// //////////
 
 
 
@@ -108,6 +98,63 @@ export function customizeView(customStyle) {
 }
 
 
+export const CALCULATE_BOOK_CONTENT = 'CALCULATE_BOOK_CONTENT'
+export function calculateBookContent(contentNodes, pageHeight) {
+  let newContentNodes = _.cloneDeep(contentNodes)
+  let content = document.querySelector(CONTENT_SELECTOR)
+  let heightSum = 0
+
+  Array.prototype.forEach.call(content.childNodes, (node, index) => {
+    if(node.tagName.toLowerCase() !== "p") {
+      console.error("Unsupported content found!")
+    }
+    let height = node.clientHeight
+    heightSum += height
+    newContentNodes[index].props.style = {
+      height: height
+    }
+  })
+
+  return {
+    type: CALCULATE_BOOK_CONTENT,
+    contentNodes: newContentNodes,
+    pageSum: parseInt(heightSum/pageHeight)+1
+  }
+}
+
+
+export const CACHE_BOOK_CONTENT = 'CACHE_BOOK_CONTENT'
+export function cacheBookContent(bookId, content) {
+  localStorage.setItem(`book${bookId}_content`, JSON.stringify(content))
+  return {
+    type: CACHE_BOOK_CONTENT,
+    bookId
+  }
+}
+
+export const LOAD_BOOK_CONTENT_FROM_CACHE = 'LOAD_BOOK_CONTENT_FROM_CACHE'
+export function loadBookContentFromCache(bookId) {
+  let content = localStorage.getItem(`book${bookId}_content`)
+  let cacheReadingState = 'SUCCESS'
+  let nodes = []
+  let pageSum = 0
+
+  if(!content) {
+    cacheReadingState = 'FAILURE'
+  }else{
+    content = JSON.parse(content)
+    nodes = content.nodes
+    pageSum = content.pageSum
+  }
+  return {
+    type: LOAD_BOOK_CONTENT_FROM_CACHE,
+    bookId,
+    cacheReadingState,
+    contentNodes: nodes,
+    pageSum: pageSum
+  }
+}
+
 
 export const CACHE_VIEW = 'CACHE_VIEW'
 export function cacheView(bookId, view) {
@@ -139,7 +186,13 @@ export function loadViewFromCache(bookId) {
 }
 
 
-
+export const LOAD_PAGES = 'LOAD_PAGES'
+export function loadPages(startPage) {
+  return {
+    type: LOAD_PAGES,
+    currentPage: startPage
+  }
+}
 
 
 

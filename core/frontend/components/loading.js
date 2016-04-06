@@ -4,7 +4,7 @@ class Loading extends Component {
   render() {
     return (
       <div className="loading-wrap">
-        <span className="icon icon-loading"></span>
+        <span className="icon icon-loading loading">加载中 ...</span>
       </div>
     )
   }

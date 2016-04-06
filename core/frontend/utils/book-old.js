@@ -141,13 +141,6 @@ function _genMapJSON(selector, config) {
   return map
 }
 
-function convertPercentageToPage(p, pageSum) {
-  if(p>1) {
-    console.error("Wrong parameter!")
-    return null
-  } else {
-    return parseInt(p*pageSum) + 1
-  }
-}
+
 
 export { convertPercentageToPage, loadBookContent, filterBookContentByPage }

@@ -1,23 +1,24 @@
 export default function book(state, action) {
   if(typeof state === "undefined") {
-    state = {content: { nodes: [] }, view: {}}
+    state = {}
   }
   switch (action.type) {
 
     case "BOOK_CONTENT_REQUEST":
       return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isFetching: true
-        }),
+        isFetching: true,
         id: action.bookId
       })
 
     case "BOOK_CONTENT_SUCCESS":
       return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isFetching: false,
-          nodes: action.response.data[0].html
-        })
+        isFetching: false,
+        html: action.response.data[0].html
+      })
+
+    case "READ_CONTENT_FROM_CACHE":
+      return Object.assign({}, state, {
+        html: action.content
       })
 
     // old
@@ -109,7 +110,8 @@ export default function book(state, action) {
     case "LOAD_PAGES":
       return Object.assign({}, state, {
         isPagesLoaded: true,
-        currentPage: action.currentPage
+        currentPage: action.currentPage,
+        pages: action.pages
       })
 
     default:

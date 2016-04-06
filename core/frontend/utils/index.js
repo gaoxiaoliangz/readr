@@ -1,11 +1,13 @@
-import $ from 'jquery'
-import { URL_AUTH } from 'constants/api-urls'
-const API_ROOT = '/api/v0.1/'
-// functions defined here must be fundamental and better be pure
+/*
+ * functions defined here must be important and better be pure
+ */
 
+import $ from 'jquery'
+import { API_ROOT } from 'constants/api-urls'
 
 export function callApi(endpoint) {
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+
   return new Promise(function(resolve, reject){
     $.ajax({
       url: fullUrl,
@@ -20,16 +22,15 @@ export function callApi(endpoint) {
 
 
 // todo: check the rest
-
 export function checkAuthStatus() {
   return new Promise(resolve => {
-    $.get(URL_AUTH, function(data){
+    $.get(`${API_ROOT}auth`, function(data){
       resolve(data)
     })
   })
 }
 
-
+// old styled
 export function formatHTMLStringToArray(HTMLString) {
   let contentArray = []
   let $HTMLString = $(HTMLString)
@@ -43,24 +44,7 @@ export function formatHTMLStringToArray(HTMLString) {
   return contentArray
 }
 
-export function parseHTML(htmlString) {
-  let nodes = []
-  let $html = $(htmlString)
 
-  for (var i = 0; i < $html.length; i++) {
-    if($html[i].nodeType != 1) {
-      continue
-    }else{
-      nodes.push({
-        type: $html[i].tagName.toLowerCase(),
-        props: {
-          children: $html[i].innerHTML
-        }
-      })
-    }
-  }
-  return nodes
-}
 
 // todo: when multiple functins are called?
 export function delayStuff(callback, delay) {

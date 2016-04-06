@@ -30,8 +30,12 @@ var http = function http(apiMethod) {
       if(result.data) {
         res.status(200).send(result)
       }else{
-        if(result.error.code === 404) {
-          res.status(404).send(result)
+        if(result.error) {
+          if(result.error.code === 404){
+            res.status(404).send(result)
+          }else{
+            res.status(500).send(result)
+          }
         }else{
           res.status(500).send(result)
         }
