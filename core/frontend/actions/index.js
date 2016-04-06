@@ -4,19 +4,31 @@ import Immutable from 'immutable'
 import _ from 'lodash'
 import * as styles from 'constants/styles'
 
+import { callApi } from 'utils'
+
 const CONTENT_SELECTOR = '.pages ul li .content'
+const API_ROOT = '/api/v0.1/'
+
+
 
 export function setLang(lang) {
   return { type: "SETLANG", lang: lang }
 }
 
 
+export function fetchBookContent(bookId, endpoint) {
+  return promisedCallApi({
+    types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+    endpoint
+  }, { bookId })
+}
 
-export function fetchBookContent2(bookId, endpoint) {
+
+export function fetchBookInfo(bookId, endpoint) {
   return {
     bookId,
     CALL_API: {
-      types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
       endpoint
     }
   }
@@ -32,11 +44,11 @@ export function requestBookContent(bookId) {
 }
 
 export const RECEIVE_BOOK_CONTENT = 'RECEIVE_BOOK_CONTENT'
-export function receiveBookContent(bookId, nodes) {
+export function receiveBookContent(bookId, content) {
   return {
     type: RECEIVE_BOOK_CONTENT,
     bookId,
-    nodes,
+    content,
     receivedAt: Date.now()
   }
 }
@@ -170,15 +182,85 @@ export function loadPages(startPage) {
   }
 }
 
+
+
+
+
+
+//
+//
+// export function promisedCallApi(endpoint, actionArray) {
+//   const [ requestAction, successAction, failureAction ] = actionArray
+//   const fullUrl = `${API_ROOT}books/${bookId}/content/`
+//
+//   return (dispatch, getState) => {
+//     return new Promise(function(resolve){
+//
+//
+//       if (typeof endpoint === 'function') {
+//         endpoint = endpoint(getState())
+//       }
+//
+//       dispatch(requestAction)
+//       fetch(fullUrl).then(response => response.json()).then(json => {
+//         dispatch(successAction(json))
+//         resolve(getState)
+//       })
+//     })
+//   }
+// }
+
+
+
+
+
+// export default store => next => action => {
+function promisedCallApi(CALL_API, actionArgObj){
+  return (dispatch, getState) => {
+    let { endpoint } = CALL_API
+    const { types } = CALL_API
+    const [ requestType, successType, failureType ] = types
+
+    function actionWith(data) {
+      const finalAction = Object.assign({}, actionArgObj, data)
+      return finalAction
+    }
+
+    dispatch(actionWith({type: requestType}))
+
+    if (typeof endpoint === 'function') {
+      endpoint = endpoint(getState())
+    }
+
+    return new Promise((resolve, reject) => {
+      callApi(endpoint).then(response => {
+        dispatch(actionWith({
+          response,
+          type: successType
+        }))
+        resolve(getState)
+      },
+      error => {
+        dispatch(actionWith({
+          type: failureType,
+          error: error.message || 'Oops!'
+        }))
+        reject(getState)
+      })
+    })
+  }
+}
+
 export function fetchBookContent(bookId) {
-  const fullUrl = "/api/v0.1/books/" + bookId + '/content/'
+  const fullUrl = `${API_ROOT}books/${bookId}/content/`
   return (dispatch, getState) => {
     return new Promise(function(resolve){
       dispatch(requestBookContent(bookId))
       fetch(fullUrl).then(response => response.json()).then(json => {
         console.log(json.data);
-        let contentNodes = parseHTML(json.data[0].html)
-        dispatch(receiveBookContent(bookId, contentNodes))
+        let content = json.data[0].html
+        // let contentNodes = parseHTML(json.data[0].html)
+        dispatch(receiveBookContent(bookId, content))
         resolve(getState)
       })
     })
@@ -190,3 +272,12 @@ export function dispatchWrap(shellFunction) {
     return shellFunction(dispatch, getState)
   }
 }
+//
+// export function dispatchWrap2(shellFunction) {
+//   return (dispatch, getState) => {
+//     return new Promise(function(resolve){
+//       shellFunction(dispatch, getState)
+//       resolve(getState)
+//     })
+//   }
+// }

@@ -1,21 +1,9 @@
+import { callApi } from 'utils'
+
 // import 'isomorphic-fetch'
 import 'whatwg-fetch'
 import $ from 'jquery'
 const API_ROOT = '/api/v0.1/'
-
-function callApi(endpoint) {
-  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
-  return new Promise(function(resolve, reject){
-    $.ajax({
-      url: fullUrl,
-      type: 'get',
-    }).done(data => {
-      resolve(data)
-    }).fail(data => {
-      reject(data)
-    })
-  })
-}
 
 export default store => next => action => {
   const CALL_API = action.CALL_API

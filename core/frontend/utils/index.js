@@ -1,6 +1,25 @@
 import $ from 'jquery'
 import { URL_AUTH } from 'constants/api-urls'
+const API_ROOT = '/api/v0.1/'
+// functions defined here must be fundamental and better be pure
 
+
+export function callApi(endpoint) {
+  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+  return new Promise(function(resolve, reject){
+    $.ajax({
+      url: fullUrl,
+      type: 'get',
+    }).done(data => {
+      resolve(data)
+    }).fail(data => {
+      reject(data)
+    })
+  })
+}
+
+
+// todo: check the rest
 
 export function checkAuthStatus() {
   return new Promise(resolve => {

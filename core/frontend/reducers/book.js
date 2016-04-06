@@ -12,6 +12,14 @@ export default function book(state, action) {
         id: action.bookId
       })
 
+    case "BOOK_CONTENT_SUCCESS":
+      return Object.assign({}, state, {
+        content: Object.assign({}, state.content, {
+          isFetching: false,
+          nodes: action.response.data[0].html
+        })
+      })
+
     // old
     case "REQUEST_BOOK_CONTENT":
       return Object.assign({}, state, {
@@ -25,7 +33,7 @@ export default function book(state, action) {
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {
           isFetching: false,
-          nodes: action.nodes
+          nodes: action.content
         })
       })
 

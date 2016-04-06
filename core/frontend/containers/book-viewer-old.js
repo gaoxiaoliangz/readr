@@ -16,59 +16,6 @@ import configureStore from 'store/configureStore'
 const store = configureStore()
 import $ from 'jquery'
 
-
-
-function loadBookContentFromCache(bookId) {
-  return localStorage.getItem(`book${bookId}_content`)
-}
-
-function cacheBookContent(bookId, content) {
-  console.log(typeof content);
-  if(typeof content !== 'string' && typeof content === 'object') {
-    content = JSON.stringify(content)
-    localStorage.setItem(`book${bookId}_content`, content)
-    return true
-  }else if(typeof content === 'string'){
-    localStorage.setItem(`book${bookId}_content`, content)
-    return true
-  }else{
-    return false
-  }
-}
-
-
-
-// if content not in cache, then fetched data will be cached
-function mountBookContent(bookId, actions) {
-  return new Promise(resolve => {
-    actions.dispatchWrap((dispatch, getState) => {
-      let bookContent = loadBookContentFromCache(bookId)
-      if(bookContent) {
-        actions.receiveBookContent(bookId, bookContent)
-        resolve(getState)
-      }else{
-        actions.fetchBookContent(bookId).then(getState => {
-          cacheBookContent(bookId, getState().book.content.nodes)
-          resolve(getState)
-        })
-      }
-    })
-  })
-}
-
-
-function getUserReadingProgress(userId) {
-  return {
-    localProgress: '',
-    cloudProgress: ''
-  }
-}
-
-function getUserPreference(userId) {
-
-}
-
-
 class BookViewer extends Component {
 
   scrollToLoadPages() {
@@ -103,6 +50,12 @@ class BookViewer extends Component {
     window.addEventListener("mousemove", this.toggleBookPanel.bind(this))
   }
 
+  handleClick() {
+    let mode = "VERTICAL"
+    console.log(22222);
+    store.dispatch(actions.setViewMode(mode))
+  }
+
   componentDidMount() {
     let mode = "VERTICAL"
     let screen = "HD"
@@ -129,18 +82,53 @@ class BookViewer extends Component {
       screen = "MOBILE"
     }
 
-    actions.fetchBookContent3(bookId, state => {
+
+    actions.fetchBookContent2(bookId, state => {
       return `books/${state.book.id}/content`
-    }).then(getState => {
-      console.log(getState());
     })
 
-    // mountBookContent(bookId, actions).then(getState => {
+    // console.log(this.props.book.content);
+    if(this.props.book.content.isFetching === false) {
+      this.props.actions.setViewMode('VERTICAL')
+    }
 
-    // })
+    // actions.dispatchWrap(function(dispatch, getState){
+    //   actions.loadBookContentFromCache(bookId)
+    //
+    //   // check if content is cached
+    //   if(getState().book.content.cacheReadingState !== 'SUCCESS') {
+    //     actions.fetchBookContent(bookId).then(getState=>{
+    //       actions.setViewMode(mode)
+    //       actions.setViewScreen(screen)
+    //       actions.calculateBookContent(getState().book.content.nodes, getState().book.view.style.height)
+    //       actions.cacheBookContent(bookId, getState().book.content)
+    //       actions.cacheView(bookId, getState().book.view)
+    //       actions.loadPages(1)
+    //       this.addEventListeners()
+    //     })
+    //   }else{
+    //     actions.loadViewFromCache(bookId)
+    //
+    //     // check if view is cached
+    //     if(getState().book.view.cacheReadingState !== 'SUCCESS') {
+    //       actions.setViewMode(mode)
+    //       actions.setViewScreen(screen)
+    //       actions.cacheView(bookId, getState().book.view)
+    //     }
+    //
+    //     actions.loadPages(1)
+    //     this.addEventListeners()
+    //   }
+    // }.bind(this))
+    //
+    //
+    //
   }
 
   render() {
+
+
+
     let book = this.props.book
     let pages = []
     let quantity = 5
@@ -166,7 +154,7 @@ class BookViewer extends Component {
     }
 
     return (
-      <div className="page-book-viewer">
+      <div onClick={this.handleClick.bind(this)} className="page-book-viewer">
         <div className="functions" style={{display: "none"}}>
           <div className="container">
             <span className="home">
