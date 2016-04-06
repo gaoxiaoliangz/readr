@@ -11,6 +11,19 @@ export function setLang(lang) {
 }
 
 
+
+export function fetchBookContent2(bookId, endpoint) {
+  return {
+    bookId,
+    CALL_API: {
+      types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+      endpoint
+    }
+  }
+}
+
+
+
 export const REQUEST_BOOK_CONTENT = 'REQUEST_BOOK_CONTENT'
 export function requestBookContent(bookId) {
   return {
