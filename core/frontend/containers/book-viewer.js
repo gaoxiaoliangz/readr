@@ -74,6 +74,14 @@ class BookViewer extends Component {
       screen = "MOBILE"
     }
 
+    // actions.fetchBookContent2(bookId, state => {
+    //   return `books/${state.book.id}/content`
+    // })
+
+
+    
+
+
     actions.dispatchWrap(function(dispatch, getState){
       actions.loadBookContentFromCache(bookId)
 

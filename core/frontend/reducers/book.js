@@ -3,6 +3,16 @@ export default function book(state, action) {
     state = {content: { nodes: [] }, view: {}}
   }
   switch (action.type) {
+
+    case "BOOK_CONTENT_REQUEST":
+      return Object.assign({}, state, {
+        content: Object.assign({}, state.content, {
+          isFetching: true
+        }),
+        id: action.bookId
+      })
+
+    // old
     case "REQUEST_BOOK_CONTENT":
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {

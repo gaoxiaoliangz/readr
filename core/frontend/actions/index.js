@@ -23,7 +23,6 @@ export function fetchBookContent2(bookId, endpoint) {
 }
 
 
-
 export const REQUEST_BOOK_CONTENT = 'REQUEST_BOOK_CONTENT'
 export function requestBookContent(bookId) {
   return {

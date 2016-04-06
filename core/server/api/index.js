@@ -1,8 +1,8 @@
-var _ = require('lodash');
-var Promise = require('bluebird');
-var books = require('./books');
-var users = require('./users');
-var auth = require('./auth');
+var _ = require('lodash')
+var Promise = require('bluebird')
+var books = require('./books')
+var users = require('./users')
+var auth = require('./auth')
 
 // 参考 ghost /server/api/index.js
 var http = function http(apiMethod) {
@@ -13,13 +13,13 @@ var http = function http(apiMethod) {
         context: {
           user: (req.user && req.user.id) ? req.user.id : null
         }
-      });
+      })
 
     // If this is a GET, or a DELETE, req.body should be null, so we only have options (route and query params)
     // If this is a PUT, POST, or PATCH, req.body is an object
     if (_.isEmpty(object)) {
-      object = options;
-      options = {};
+      object = options
+      options = {}
     }
 
     // console.log("> api/index.js");
@@ -27,14 +27,22 @@ var http = function http(apiMethod) {
     // console.log(options);
 
     apiMethod(object, options, req).then(function(result){
-      res.send(result);
-    });
-  };
-};
+      if(result.data) {
+        res.status(200).send(result)
+      }else{
+        if(result.error.code === 404) {
+          res.status(404).send(result)
+        }else{
+          res.status(500).send(result)
+        }
+      }
+    })
+  }
+}
 
 module.exports = {
   http: http,
   books: books,
   users: users,
   auth: auth
-};
+}
