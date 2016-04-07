@@ -21,7 +21,7 @@ export function callApi(endpoint) {
 }
 
 
-// todo: check the rest
+// todo: remove
 export function checkAuthStatus() {
   return new Promise(resolve => {
     $.get(`${API_ROOT}auth`, function(data){
@@ -30,21 +30,6 @@ export function checkAuthStatus() {
   })
 }
 
-// old styled
-export function formatHTMLStringToArray(HTMLString) {
-  let contentArray = []
-  let $HTMLString = $(HTMLString)
-
-  for (var i = 0; i < $HTMLString.length; i++) {
-    contentArray.push({
-      tagName: $HTMLString[i].tagName,
-      innerHTML: $HTMLString[i].innerHTML
-    })
-  }
-  return contentArray
-}
-
-
 
 // todo: when multiple functins are called?
 export function delayStuff(callback, delay) {
@@ -52,4 +37,33 @@ export function delayStuff(callback, delay) {
     clearTimeout(this.__delayStuffTimer__)
     this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay)
   }
+}
+
+
+// dom related
+export function isIE(ver){
+  if(typeof ver === 'undefined') {
+    ver = null
+  }
+  var b = document.createElement('b')
+  b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->'
+  return b.getElementsByTagName('i').length === 1
+}
+
+export function lockScroll(){
+  $("body").css({"overflow":"hidden"});
+}
+
+export function unlockScroll(){
+  $("body").css({"overflow":"visible"});
+}
+
+export function excAndExcOnResizing(func, args){
+  if(!args){
+    args = [];
+  }
+  func.apply([],args);
+  $(window).resize(function(){
+    func.apply(null,args);
+  })
 }

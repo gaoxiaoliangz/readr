@@ -17,12 +17,16 @@ var auth = {
     return new Promise(resolve => {
       if(object.context.user) {
         resolve({
-          authed: true,
-          user: object.context.user
+          data: {
+            authed: true,
+            user: object.context.user
+          }
         })
       }else{
         resolve({
-          authed: false
+          data: {
+            authed: false
+          }
         })
       }
     })

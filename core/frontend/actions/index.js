@@ -5,20 +5,12 @@ import * as styles from 'constants/styles'
 
 import { callApi } from 'utils'
 
-
-export const SET_LANG = 'SET_LANG'
-export function setLang(lang) {
-  return { type: "SET_LANG", lang: lang }
-}
-
-
 export function fetchBookContent(bookId, endpoint) {
   return promisedCallApi({
     types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
     endpoint
   }, { bookId })
 }
-
 
 export function fetchBookInfo(bookId, endpoint) {
   return {
@@ -39,6 +31,14 @@ export function readContentFromCache(bookId, content) {
   }
 }
 
+export const SET_BOOK_MODE = 'SET_BOOK_MODE'
+export function setBookMode(mode) {
+  return {
+    type: SET_BOOK_MODE,
+    mode
+  }
+}
+
 export const LOAD_PAGES = 'LOAD_PAGES'
 export function loadPages(pages) {
   return {
@@ -55,30 +55,20 @@ export function jumpTo(pageNo) {
   }
 }
 
+// user
 
-//////////// //////////// //////////// //////////// //////////// //////////// //////////
-
-
-
-
-export const REQUEST_BOOK_CONTENT = 'REQUEST_BOOK_CONTENT'
-export function requestBookContent(bookId) {
+export function fetchUserAuthInfo(endpoint) {
   return {
-    type: REQUEST_BOOK_CONTENT,
-    bookId
+    CALL_API: {
+      types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
+      endpoint
+    }
   }
 }
 
-export const RECEIVE_BOOK_CONTENT = 'RECEIVE_BOOK_CONTENT'
-export function receiveBookContent(bookId, content) {
-  return {
-    type: RECEIVE_BOOK_CONTENT,
-    bookId,
-    content,
-    receivedAt: Date.now()
-  }
-}
 
+
+// todo: to remove
 export const SET_VIEW_SCREEN = 'SET_VIEW_SCREEN'
 export function setViewScreen(screen) {
   let style
@@ -111,8 +101,6 @@ export function customizeView(customStyle) {
   }
 }
 
-
-
 export const CACHE_VIEW = 'CACHE_VIEW'
 export function cacheView(bookId, view) {
   localStorage.setItem(`book${bookId}_view`, JSON.stringify(view))
@@ -141,7 +129,7 @@ export function loadViewFromCache(bookId) {
     style: view.style
   }
 }
-
+// end of to remove
 
 
 

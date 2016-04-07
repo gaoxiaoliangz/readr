@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import lang from './lang'
 import book from './book'
+import user from './user'
 
 const rootReducer = combineReducers({
-  lang,
-  book
+  book,
+  user
 })
 
 export default rootReducer

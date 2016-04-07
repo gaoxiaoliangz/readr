@@ -6,6 +6,9 @@ import Branding from 'components/branding'
 import Msg from 'components/msg'
 import { URL_BOOKS } from 'constants/api-urls'
 import { URL_DOUBAN_BOOKS } from 'constants/api-urls'
+import { connect } from 'react-redux'
+
+import { fetchUserAuthInfo } from 'actions'
 
 class AddBook extends Component {
   constructor(props) {
@@ -16,6 +19,10 @@ class AddBook extends Component {
       doubanItemId: "",
       status: ""
     }
+  }
+
+  componentDidMount() {
+    this.props.fetchUserAuthInfo('auth')
   }
 
   handleAddBook(event) {
@@ -173,4 +180,13 @@ class AddBook extends Component {
   }
 }
 
-export default AddBook
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { fetchUserAuthInfo }
+)(AddBook)

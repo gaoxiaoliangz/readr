@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Appbar, Button, Container } from 'muicss/react'
-import { checkAuthStatus } from 'utils'
+import { checkAuthStatus, callApi } from 'utils'
 
 
 class Branding extends Component {
@@ -16,10 +16,10 @@ class Branding extends Component {
   }
 
   componentDidMount() {
-    checkAuthStatus().then(function(data) {
-      if(data.authed) {
+    checkAuthStatus().then(function(json) {
+      if(json.data.authed) {
         this.setState({
-          username: data.user,
+          username: json.data.user,
           isAuthed: true,
           loadingAuthStatus: false
         })
@@ -29,6 +29,11 @@ class Branding extends Component {
         })
       }
     }.bind(this))
+
+    // callApi('auth').then(data => {
+    //   console.log(data)
+    // })
+
   }
 
   render() {

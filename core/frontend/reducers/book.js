@@ -1,51 +1,62 @@
 export default function book(state, action) {
-  if(typeof state === "undefined") {
+  if(typeof state === 'undefined') {
     state = {}
   }
   switch (action.type) {
 
-    case "BOOK_CONTENT_REQUEST":
+    case 'BOOK_CONTENT_REQUEST':
       return Object.assign({}, state, {
-        isFetching: true,
+        isFetchingContent: true,
         id: action.bookId
       })
 
-    case "BOOK_CONTENT_SUCCESS":
+    case 'BOOK_CONTENT_SUCCESS':
       return Object.assign({}, state, {
-        isFetching: false,
+        isFetchingContent: false,
         html: action.response.data[0].html
       })
 
-    case "BOOK_INFO_REQUEST":
+    case 'BOOK_INFO_REQUEST':
       return Object.assign({}, state, {
+        isFetchingInfo: true,
         id: action.bookId
       })
 
-    case "BOOK_INFO_SUCCESS":
+    case 'BOOK_INFO_SUCCESS':
       return Object.assign({}, state, {
+        isFetchingInfo: false,
         meta: action.response.data[0]
       })
 
-    case "READ_CONTENT_FROM_CACHE":
+    case 'READ_CONTENT_FROM_CACHE':
       return Object.assign({}, state, {
         html: action.content
       })
 
-    case "LOAD_PAGES":
+    case 'LOAD_PAGES':
       return Object.assign({}, state, {
         isPagesLoaded: true,
-        pages: action.pages
+        pages: action.pages,
+        html: null
       })
 
-    case "JUMP_TO":
+    case 'SET_BOOK_MODE':
+      return Object.assign({}, state, {
+        mode: action.mode
+      })
+
+    case 'JUMP_TO':
       return Object.assign({}, state, {
         isPagesLoaded: true,
         currentPage: action.currentPage
       })
-/////////////////// /////////////////// /////////////////// /////////////////// /////////////////
 
 
-    case "SET_VIEW_SCREEN":
+
+
+  //  todo: remove
+
+    case 'SET_VIEW_SCREEN':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           screen: action.screen,
@@ -53,21 +64,21 @@ export default function book(state, action) {
         })
       })
 
-    case "SET_VIEW_MODE":
+    case 'SET_VIEW_MODE':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           mode: action.mode
         })
       })
 
-    case "CUSTOMIZE_VIEW":
+    case 'CUSTOMIZE_VIEW':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           customStyle: action.customStyle
         })
       })
 
-    case "CALCULATE_BOOK_CONTENT":
+    case 'CALCULATE_BOOK_CONTENT':
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {
           nodes: action.contentNodes,
@@ -76,21 +87,21 @@ export default function book(state, action) {
         }),
       })
 
-    case "CACHE_BOOK_CONTENT":
+    case 'CACHE_BOOK_CONTENT':
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {
           isCached: true
         })
       })
 
-    case "CACHE_VIEW":
+    case 'CACHE_VIEW':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           isCached: true
         })
       })
 
-    case "LOAD_VIEW_FROM_CACHE":
+    case 'LOAD_VIEW_FROM_CACHE':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           nodes: action.contentNodes,

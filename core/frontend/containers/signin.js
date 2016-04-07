@@ -8,6 +8,8 @@ import $ from 'jquery'
 import Msg from 'components/msg'
 import Branding from 'components/branding'
 
+import { fetchUserAuthInfo } from 'actions'
+
 class Signin extends Component {
 
   constructor(props) {
@@ -72,5 +74,7 @@ class Signin extends Component {
     )
   }
 }
+
+
 
 export default Signin
