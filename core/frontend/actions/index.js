@@ -5,13 +5,10 @@ import * as styles from 'constants/styles'
 
 import { callApi } from 'utils'
 
-const CONTENT_SELECTOR = '.pages ul li .content'
 
-
-
-
+export const SET_LANG = 'SET_LANG'
 export function setLang(lang) {
-  return { type: "SETLANG", lang: lang }
+  return { type: "SET_LANG", lang: lang }
 }
 
 
@@ -43,16 +40,23 @@ export function readContentFromCache(bookId, content) {
 }
 
 export const LOAD_PAGES = 'LOAD_PAGES'
-export function loadPages(pageNo, pages) {
+export function loadPages(pages) {
   return {
     type: LOAD_PAGES,
-    currentPage: pageNo,
     pages
   }
 }
 
+export const JUMP_TO = 'JUMP_TO'
+export function jumpTo(pageNo) {
+  return {
+    type: JUMP_TO,
+    currentPage: pageNo
+  }
+}
 
-// //////////// //////////// //////////// //////////// //////////// //////////// //////////
+
+//////////// //////////// //////////// //////////// //////////// //////////// //////////
 
 
 

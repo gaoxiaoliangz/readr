@@ -16,27 +16,34 @@ export default function book(state, action) {
         html: action.response.data[0].html
       })
 
+    case "BOOK_INFO_REQUEST":
+      return Object.assign({}, state, {
+        id: action.bookId
+      })
+
+    case "BOOK_INFO_SUCCESS":
+      return Object.assign({}, state, {
+        meta: action.response.data[0]
+      })
+
     case "READ_CONTENT_FROM_CACHE":
       return Object.assign({}, state, {
         html: action.content
       })
 
-    // old
-    case "REQUEST_BOOK_CONTENT":
+    case "LOAD_PAGES":
       return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isFetching: true
-        }),
-        id: action.bookId
+        isPagesLoaded: true,
+        pages: action.pages
       })
 
-    case "RECEIVE_BOOK_CONTENT":
+    case "JUMP_TO":
       return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isFetching: false,
-          nodes: action.content
-        })
+        isPagesLoaded: true,
+        currentPage: action.currentPage
       })
+/////////////////// /////////////////// /////////////////// /////////////////// /////////////////
+
 
     case "SET_VIEW_SCREEN":
       return Object.assign({}, state, {
@@ -76,18 +83,6 @@ export default function book(state, action) {
         })
       })
 
-    case "LOAD_BOOK_CONTENT_FROM_CACHE":
-      return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          nodes: action.contentNodes,
-          isFetching: false,
-          isCalculated: true,
-          isCached: action.cacheReadingState==='SUCCESS'?true:false,
-          cacheReadingState: action.cacheReadingState,
-          pageSum: action.pageSum
-        })
-      })
-
     case "CACHE_VIEW":
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
@@ -107,12 +102,6 @@ export default function book(state, action) {
         })
       })
 
-    case "LOAD_PAGES":
-      return Object.assign({}, state, {
-        isPagesLoaded: true,
-        currentPage: action.currentPage,
-        pages: action.pages
-      })
 
     default:
       return state

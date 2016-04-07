@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import BookPageList from 'components/book-page-list'
 import Loading from 'components/loading'
 import { delayStuff } from 'utils'
-import { groupNodesByPage, mountBookContent, parseHTML, convertPercentageToPage, genPageList } from 'utils/book'
+import { groupNodesByPage, mountBookContent, parseHTML, convertPercentageToPage, filterPages } from 'utils/book'
 import * as actions from 'actions'
 
 import $ from 'jquery'
@@ -60,11 +60,10 @@ class BookViewer extends Component {
   // }
 
   scrollToLoadPages() {
-    let pages = this.props.book.pages
     let pageSum = this.props.book.pages.length
     let percentage = (document.body.scrollTop/(900*pageSum)).toFixed(4)
 
-    this.props.actions.loadPages(convertPercentageToPage(percentage, pageSum), pages)
+    this.props.actions.jumpTo(convertPercentageToPage(percentage, pageSum))
   }
 
   // todo
@@ -102,7 +101,7 @@ class BookViewer extends Component {
     // temp
     let pageHeight = 900
 
-    // todo
+
     actions.fetchBookInfo(bookId, `books/${bookId}`)
 
     // todo: bug in mobile mode
@@ -122,7 +121,7 @@ class BookViewer extends Component {
       })
 
       pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
-      actions.loadPages(1, pages)
+      actions.loadPages(pages)
 
       this.setState({
         isReadyToRead: true
@@ -141,7 +140,8 @@ class BookViewer extends Component {
 
     if(book.isPagesLoaded) {
       let currentPage = book.currentPage
-      pagesToRender = genPageList({
+
+      pagesToRender = filterPages({
         startPage: currentPage,
         pages,
         offset: 2,
@@ -156,19 +156,19 @@ class BookViewer extends Component {
             <Loading />
           ):null
         }
-        <div className="functions" style={{display: "none"}}>
-          <div className="container">
-            <span className="home">
-              <Link to="/bookstore"></Link>
-            </span>
-            <span className="title">{this.state.bookName}</span>
-            {
-              this.state.isReadyToRead?(
+        {
+          book.meta&&this.state.isReadyToRead?(
+            <div className="functions" style={{display: "none"}}>
+              <div className="container">
+                <span className="home">
+                  <Link to="/bookstore"></Link>
+                </span>
+                <span className="title">{book.meta.book_name}</span>
                 <span className="loc">{book.currentPage+"/"+book.pages.length}</span>
-              ):null
-            }
-          </div>
-        </div>
+              </div>
+            </div>
+          ):null
+        }
         {
           this.state.isReadyToCalculate?(
             <div className="pages">

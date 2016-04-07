@@ -30,7 +30,7 @@ export function groupNodesByPage(nodes, nodeHeights, pageHeight) {
 
     let offset = getPageOffset(pageIndex, pageHeight, nodeHeights)
 
-    if(thisPageHeight + offset > pageHeight) {
+    if(thisPageHeight + offset > pageHeight || i === nodes.length - 1) {
       pages.push({
         props: {
           children: pageNodes,
@@ -123,7 +123,7 @@ export function convertPercentageToPage(p, pageSum) {
   }
 }
 
-export function genPageList(config) {
+export function filterPages(config) {
   let {startPage, quantity, offset, pages} = config
   let newPages = []
 
@@ -132,7 +132,7 @@ export function genPageList(config) {
   }
   startPage = startPage - offset
 
-  for (let i = startPage; i < quantity + startPage; i++) {
+  for (let i = startPage; i < quantity + startPage && i < pages.length; i++) {
     let page = pages[i]
     newPages.push(page)
   }

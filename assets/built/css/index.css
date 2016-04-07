@@ -73,20 +73,12 @@ ul {
   color: #333;
   font-weight: bold; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000326}}
-.loading {
-  font-size: 30px;
-  color: #ddd;
-  font-weight: bold;
-  text-align: center;
-  padding: 100px 0; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000327}}
 .content-container {
   width: 500px;
   margin: 0 auto; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000332}}
 .msg {
   position: fixed;
   width: 500px;
@@ -98,6 +90,28 @@ ul {
   text-align: center;
   background: #fff;
   z-index: 990; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000346}}
+.text-loading {
+  font-size: 30px;
+  color: #ddd;
+  font-weight: bold;
+  text-align: center;
+  padding: 100px 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000354}}
+.loading-wrap {
+  background: #fff; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000356}}
+  .loading-wrap .icon-loading {
+    width: 200px;
+    height: 100px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -50px 0 0 -100px;
+    background: url(../img/loading.gif) no-repeat center;
+    z-index: 999; }
 
 /* dia */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/dia\.scss}line{font-family:\000033}}
