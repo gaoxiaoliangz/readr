@@ -1,5 +1,65 @@
 import $ from 'jquery'
 
+// the function with the most complexed algorithm
+export function groupNodesByPage(nodes, nodeHeights, pageHeight) {
+  let pages = []
+  let pageNodes = []
+  let thisPageHeight = 0
+  let pageIndex = 0
+
+  // todo: add function cache
+  // todo: check long paragraph situation
+  function getPageOffset(pageIndex, pageHeight, nodeHeights) {
+    let offset = 0
+    if(pageIndex !== 0) {
+      let i = 0
+      let nodeHeightSum = 0
+      while(nodeHeightSum < pageHeight * pageIndex) {
+        nodeHeightSum += nodeHeights[i]
+        i++
+      }
+      offset = nodeHeightSum - nodeHeights[i-1] - pageIndex * pageHeight
+    }
+    return offset
+  }
+
+  for (var i = 0; i < nodes.length; i++) {
+    thisPageHeight += nodeHeights[i]
+    pageNodes.push(nodes[i])
+    nodes[i].props.index = i
+
+    let offset = getPageOffset(pageIndex, pageHeight, nodeHeights)
+
+    if(thisPageHeight + offset > pageHeight) {
+      pages.push({
+        props: {
+          children: pageNodes,
+          style: {
+            top: pageIndex*pageHeight,
+            position: 'absolute',
+            height: pageHeight
+          },
+          pageNo: pageIndex+1,
+          offset
+        },
+        type: "page"
+      })
+
+      pageIndex++
+      thisPageHeight = 0
+      pageNodes = []
+    }
+
+    // add prev node
+    if(pageIndex !== 0 && pageNodes.length === 0){
+      pageNodes.push(nodes[i])
+      thisPageHeight = nodeHeights[i]
+    }
+  }
+
+  return pages
+}
+
 function loadBookContentFromCache(bookId) {
   return localStorage.getItem(`book${bookId}_content`)
 }

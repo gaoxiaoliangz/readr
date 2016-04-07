@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import 'whatwg-fetch'
 
 class BookPage extends Component {
 
@@ -21,7 +20,7 @@ class BookPage extends Component {
                 console.error("Unsupported content found!")
               }
               return (
-                <p {... node.props.style?(node.props.style.marginTop?{style: node.props.style}:{}):{}}
+                <p {...index===0?{style: {marginTop: page.props.offset}}:{}}
                   key={index} >
                   {node.props.children}
                 </p>

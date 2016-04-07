@@ -7,12 +7,12 @@ import { bindActionCreators } from 'redux'
 import BookPageList from 'components/book-page-list'
 import Loading from 'components/loading'
 import { delayStuff } from 'utils'
-import { mountBookContent, parseHTML, convertPercentageToPage, genPageList } from 'utils/book'
+import { groupNodesByPage, mountBookContent, parseHTML, convertPercentageToPage, genPageList } from 'utils/book'
 import * as actions from 'actions'
 
 import $ from 'jquery'
 
-function getNodesHeight(nodes) {
+function getNodeHeights(nodes) {
   if(typeof nodes !== 'object') {
     console.error('Nodes should be used instead of selector!');
   }
@@ -85,41 +85,6 @@ class BookViewer extends Component {
   }
 
   componentDidMount() {
-
-    function groupNodesByPage(nodes, nodesHeight, pageHeight) {
-      let pages = []
-      let page = []
-      let thisPageHeight = 0
-      let pageIndex = 0
-
-      for (var i = 0; i < nodes.length; i++) {
-        thisPageHeight += nodesHeight[i]
-        page.push(nodes[i])
-        if(thisPageHeight > pageHeight) {
-
-          pages.push({
-            props: {
-              children: page,
-              style: {
-                top: pageIndex*pageHeight,
-                position: 'absolute'
-              },
-              pageNo: pageIndex
-            },
-            type: "page"
-          })
-
-          pageIndex++
-          thisPageHeight = 0
-          page = []
-        }
-      }
-
-      return pages
-    }
-
-
-
     let mode = "VERTICAL"
     let screen = "HD"
 
@@ -135,7 +100,6 @@ class BookViewer extends Component {
 
 
     // temp
-    let nodesHeight
     let pageHeight = 900
 
     // todo
@@ -152,12 +116,12 @@ class BookViewer extends Component {
       this.setState({
         isReadyToCalculate: true
       })
-      nodesHeight = getNodesHeight(document.querySelector('.pages ul>li>.content').childNodes)
+      let nodeHeights = getNodeHeights(document.querySelector('.pages ul>li>.content').childNodes)
       this.setState({
         isReadyToCalculate: false
       })
 
-      pages = groupNodesByPage(nodes, nodesHeight, pageHeight)
+      pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
       actions.loadPages(1, pages)
 
       this.setState({
