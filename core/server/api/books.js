@@ -7,8 +7,8 @@ var express = require('express'),
 var books = {
   getAllBooks:function(){
     return new Promise(function(resolve){
-      var data = {};
-      var match = null;
+      var match = null
+      var promisedbookList = []
 
       models.getData('books', match).then(function(result){
         if(result.error){
@@ -16,16 +16,18 @@ var books = {
           console.log(result)
           resolve(result)
         }else{
-          data = result
+          promisedbookList = result.data.map(item => {
+            return books.getBookInfo({id: item.id})
+          })
 
-          for(var i = 0;i < result.data.length;i++){
-            delete result.data[i]['book_content']
-          }
-          resolve(data)
+          Promise.all(promisedbookList).then(data => {
+            resolve(data)
+          })
         }
       })
     })
   },
+
   getBookContent: function(object) {
     return new Promise(function(resolve){
       var match = {
@@ -37,28 +39,39 @@ var books = {
       });
     });
   },
+
   getBookInfo: function(object) {
     return new Promise(function(resolve){
       var match = {
         id: object.id
-      };
+      }
+      var douban_book_id
 
       models.getData('books', match).then(function(result){
         if(result.error){
-          data = result;
-          console.log(data);
-          resolve(data);
-        }else{
-          data = result;
+          console.log(result)
 
-          for(var i = 0;i < result.data.length;i++){
-            delete result.data[i]['book_content'];
+          resolve(result)
+        }else{
+          // douban book data exists
+          douban_book_id = result.data[0].douban_book_id
+
+          if(typeof douban_book_id === 'undefined') {
+            delete result.data[0]['book_content']
+
+            resolve(result.data[0])
+          }else{
+            models.getData('douban_books', {book_id: douban_book_id}).then(function(result){
+              delete result.data[0]._id
+              result.data[0].id = object.id
+              resolve(result.data[0])
+            })
           }
-          resolve(data);
         }
-      });
-    });
+      })
+    })
   },
+
   addBook: function(object){
     return new Promise(resolve => {
       var data
@@ -108,6 +121,7 @@ var books = {
       })
     })
   },
+
   getReadingProgress: function(object) {
     return new Promise(function(resolve){
       var match = {
@@ -120,6 +134,7 @@ var books = {
       });
     });
   },
+
   updateReadingProgress: function(object, options) {
     console.log(options);
     return new Promise(function(resolve){
