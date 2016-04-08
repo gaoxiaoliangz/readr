@@ -11,7 +11,10 @@ import { delayStuff } from 'utils'
 import { initBook, convertPercentageToPage, filterPages } from 'utils/book'
 import { readCache, saveCache } from 'utils/cache'
 
-import * as actions from 'actions'
+import * as bookActions from 'actions/book'
+import * as userActions from 'actions/user'
+
+const actions = Object.assign({}, bookActions, userActions)
 
 // todo: remove this
 import $ from 'jquery'
@@ -161,13 +164,9 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+  })
 )(BookViewer)

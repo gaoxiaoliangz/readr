@@ -1,44 +1,45 @@
-var db = require("./db");
-var db_name = 'readr';
-var colors = require('colors/safe');
-
-function _genId(len){
-  return parseInt(Math.random()*Math.pow(10,len));
-}
+var db = require("./db")
+var db_name = 'readr'
+var colors = require('colors/safe')
 
 var query = {
-
   getData: function(table_name, match, key){
-    var json = {};
-
-    return new Promise(function(resolve,reject){
+    return new Promise(function(resolve) {
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
+        var data = []
 
         collection.find(match).toArray(function (err, result) {
           if (err) {
-            json.error = {};
-            json.error.msg = err;
-            json.error.code = 500;
+            resolve({
+              error: {
+                msg: err,
+                code: 500
+              }
+            })
           } else if (result.length) {
-            json.data = [];
             if(key){
               for(var i = 0;i < result.length;i++){
-                json.data.push(result[i][key]);
+                data.push(result[i][key])
               }
             }else{
-              json.data = result;
+              data = result
             }
+            resolve({
+              data: data
+            })
           } else {
-            json.error = {};
-            json.error.msg = 'No records found!';
-            json.error.code = 404;
+            resolve({
+              error: {
+                msg: 'No records found!',
+                code: 404
+              }
+            })
           }
-          resolve(json);
-          db.close();
-        });
-      });
-    });
+          db.close()
+        })
+      })
+    })
   },
 
   putData: function(table_name, data) {
@@ -62,13 +63,12 @@ var query = {
             })
           }
           db.close();
-        });
-      });
-    });
+        })
+      })
+    })
   },
 
   updateData: function(table_name, match, data){
-    var json = {};
     return new Promise(function(resolve,reject){
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
@@ -80,20 +80,23 @@ var query = {
             upsert: true
           },function(err, result){
             if (err) {
-              console.log(err);
-              json.error = {};
-              json.error.msg = err;
-              json.error.code = 500;
+              console.log('> models/query.js')
+              console.log(err)
+              resolve({
+                error: {
+                  msg: err,
+                  code: 500
+                }
+              })
             } else {
-              json.data = {};
+              resolve({data: {}})
             }
-            resolve(json);
-            db.close();
+            db.close()
           }
-        );
-      });
-    });
+        )
+      })
+    })
   }
 }
 
-module.exports = query;
+module.exports = query

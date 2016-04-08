@@ -5,17 +5,35 @@
 import $ from 'jquery'
 import { API_ROOT } from 'constants/api-urls'
 
-export function callApi(endpoint) {
-  const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+export function callApi(fullUrl, type, data) {
+
+  if(typeof type === 'undefined') {
+    type = 'get'
+  }
+
+  let dataType= 'json'
+
+  if(fullUrl.indexOf('http') !== -1) {
+    dataType = 'jsonp'
+  }
+
+  let config = {
+    url: fullUrl,
+    type: type,
+    dataType: dataType
+  }
+
+  if(typeof data !== 'undefined') {
+    config = Object.assign({}, config, {
+      data: data
+    })
+  }
 
   return new Promise(function(resolve, reject){
-    $.ajax({
-      url: fullUrl,
-      type: 'get',
-    }).done(data => {
-      resolve(data)
-    }).fail(data => {
-      reject(data)
+    $.ajax(config).done(response => {
+      resolve(response)
+    }).fail(response => {
+      reject(response)
     })
   })
 }

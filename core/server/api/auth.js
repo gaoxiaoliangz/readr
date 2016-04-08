@@ -1,5 +1,5 @@
-var models = require('../models');
-var Promise = require('bluebird');
+var models = require('../models')
+var Promise = require('bluebird')
 
 function validataAuthInfo(object) {
   var isValid = false
@@ -38,8 +38,8 @@ var auth = {
       password: object.password
     };
 
-    console.log("> api/auth.js");
-    console.log(match);
+    console.log("> api/auth.js")
+    console.log(match)
 
     return new Promise(function(resolve){
       if(validataAuthInfo(object)) {
@@ -54,7 +54,9 @@ var auth = {
                 req.session.userinfo = userinfo
 
                 resolve({
-                  authed: true
+                  data: {
+                    authed: true
+                  }
                 })
               }else{
                 resolve({
@@ -82,8 +84,8 @@ var auth = {
           }
         })
       }
-    });
+    })
   }
 }
 
-module.exports = auth;
+module.exports = auth

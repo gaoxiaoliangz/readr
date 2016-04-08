@@ -1,4 +1,5 @@
 import { callApi } from 'utils'
+import { API_ROOT } from 'constants/api-urls'
 
 export default store => next => action => {
   const CALL_API = action.CALL_API
@@ -6,7 +7,7 @@ export default store => next => action => {
     return next(action)
   }
 
-  let { endpoint } = CALL_API
+  let { endpoint, apiUrl } = CALL_API
   const { types } = CALL_API
   const [ requestType, successType, failureType ] = types
 
@@ -22,7 +23,13 @@ export default store => next => action => {
     endpoint = endpoint(store.getState())
   }
 
-  return callApi(endpoint).then(
+  if(typeof apiUrl === 'undefined') {
+    apiUrl = API_ROOT
+  }
+
+  const fullUrl = apiUrl + endpoint
+
+  return callApi(fullUrl).then(
     response => next(actionWith({
       response,
       type: successType

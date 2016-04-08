@@ -1,122 +1,116 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
 import $ from 'jquery'
 import Branding from 'components/branding'
 import Msg from 'components/msg'
-import { URL_BOOKS } from 'constants/api-urls'
-import { URL_DOUBAN_BOOKS } from 'constants/api-urls'
+import { API_ROOT } from 'constants/api-urls'
 import { connect } from 'react-redux'
 
-import { fetchUserAuthInfo } from 'actions'
+import { fetchUserAuthInfo } from 'actions/user'
+import { fetchDoubanBookSearchResults, clearBookSearch } from 'actions/book'
+import { callApi } from 'utils'
 
 class AddBook extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      bookName: "",
-      bookContent: "",
-      doubanItemId: "",
-      status: ""
+    this.defaultState = {
+      searchQuery: "",
+      currentBook: -1,
+      previewIndex: -1,
+      conformed: false
     }
+    this.state = this.defaultState
   }
 
   componentDidMount() {
     this.props.fetchUserAuthInfo('auth')
   }
 
-  handleAddBook(event) {
-    event.preventDefault()
-    let isValid = true
-    let params = {
-      book_name: this.state.bookName,
-      book_content: this.state.bookContent,
-      douban_item_id: this.state.doubanItemId
+  showMsg(content, t) {
+    if(typeof t === 'undefined') {
+      t = 3000
     }
-
-    for(var prop in params) {
-      console.log(prop);
-      if(params[prop].length === 0) {
-        isValid = false
-        this.setState({
-          status: `${prop} 不能为空！`
-        })
-        setTimeout(function(){
-          this.setState({
-            status: null
-          })
-        }.bind(this), 3000)
-        break
-      }
-    }
-
-    if(isValid) {
-      $.post(URL_BOOKS, params, function(data){
-        console.log(data);
-        if(data.data) {
-          this.setState({
-            status: '添加成功！',
-            bookName: '',
-            bookContent: '',
-            doubanItemId: '',
-            dataFromDouban: '',
-            visiableCoverIndex: -1,
-            currentBook: ''
-          })
-
-          setTimeout(function(){
-            this.setState({
-              status: ''
-            })
-          }.bind(this), 3000)
-        }
-      }.bind(this))
-    }
+    this.setState({
+      status: content
+    })
+    setTimeout(function(){
+      this.setState({
+        status: null
+      })
+    }.bind(this), t)
   }
 
-  handleInputChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+  handleAddBook(event) {
+    event.preventDefault()
 
-    if(event.target.value && event.target.name === "bookName") {
-      var url = URL_DOUBAN_BOOKS + 'search?count=5&q=' + event.target.value
-      $.ajax({
-        url: url,
-        dataType: "jsonp"
-      }).done(function(data){
-        console.log(data)
-        data.books.forEach((item)=>{
-          console.log(item.title)
-        })
-        this.setState({
-          dataFromDouban: data,
-          visiableCoverIndex: -1
-        })
-      }.bind(this))
-    }else{
-      this.setState({
-        dataFromDouban: {books:[]}
+    let currentBook = this.state.currentBook
+    let dataToPost = {}
+    let bookContent = ReactDOM.findDOMNode(this.refs.bookContent).childNodes[0].value
+    let isValid = false
+
+    while (true) {
+      if(currentBook !== -1) {
+        dataToPost.doubanBook = this.props.book.searchResults.books[currentBook]
+      }else{
+        this.showMsg('未选择书籍！')
+        break
+      }
+
+      if(bookContent) {
+        dataToPost.bookContent = bookContent
+      }else{
+        this.showMsg('请输入书籍内容！')
+        break
+      }
+
+      isValid = true
+      break
+    }
+
+    dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook)
+
+    if(isValid) {
+      callApi(`${API_ROOT}books`, 'post', dataToPost).then(res => {
+        this.showMsg('添加成功')
+      }).catch((err) => {
+        console.error(err)
+        this.showMsg('添加失败')
       })
     }
   }
 
-  conformResult(item) {
+  search(event) {
+    this.setState({searchQuery: event.target.value})
+    this.props.fetchDoubanBookSearchResults('search?count=5&q=' + event.target.value)
+  }
+
+  conformResult(index) {
     this.setState({
-      dataFromDouban: {books:[]}
-    })
-    this.setState({
-      doubanItemId: item.id,
-      bookName: item.title,
-      currentBook: item
+      currentBook: index,
+      conformed: true
     })
   }
 
   showBookCover(index) {
     this.setState({
-      visiableCoverIndex: index
+      previewIndex: index
     })
   }
 
+  removeResult() {
+    this.setState(this.defaultState)
+    this.props.clearBookSearch()
+  }
+
   render() {
+    let book = null
+
+    if(this.state.currentBook !== -1) {
+      book = this.props.book.searchResults.books[this.state.currentBook]
+    }
+
     return (
       <div className="page-add-book">
         <Branding />
@@ -124,54 +118,44 @@ class AddBook extends Component {
           <Form className="content-container" action="#" method="post">
             <Msg content={this.state.status} />
             <h1 className="page-title">添加书籍</h1>
-            <Input onChange={this.handleInputChange.bind(this)} value={this.state.bookName} name="bookName" label="搜索" floatingLabel={false} hint="现阶段，书籍信息均从豆瓣获取，输入书名或书籍相关信息以检索"/>
-            <p></p>
             {
-              (()=>{
-                if(this.state.dataFromDouban) {
-                  return (
-                    <div className="drop-down">
-                      <ul>
-                        {
-                          this.state.dataFromDouban.books.map((item, index)=>{
-                            return (
-                              <li onMouseOver={this.showBookCover.bind(this, index)} onClick={this.conformResult.bind(this, item)} key={index}>
-                                {item.title} ({item.author})
-                                {
-                                  (()=>{
-                                    if(this.state.visiableCoverIndex === index) {
-                                      return (
-                                        <div><img src={item.image} /></div>
-                                      )
-                                    }
-                                  })()
-                                }
-                              </li>
-                            )
-                          })
-                        }
-                      </ul>
-                    </div>
-                  )
-                }
-              })()
+              !this.state.conformed?(
+                <Input onChange={this.search.bind(this)} value={this.state.searchQuery} hint="输入书名或其他书籍相关信息"/>
+              ):null
             }
             {
-              (()=>{
-                if(this.state.currentBook) {
-                  let book = this.state.currentBook
-                  return (
-                    <div className="book">
-                      <img src={book.image} />
-                      <div className="book-name">{book.title}</div>
-                      <div className="book-author">{book.author[0]}</div>
-                    </div>
-                  )
-                }
-              })()
+              !this.state.conformed && this.props.book.searchResults?(
+                <div className="drop-down">
+                  <ul>
+                    {
+                      this.props.book.searchResults.books.map((item, index)=>{
+                        return (
+                          <li onMouseOver={this.showBookCover.bind(this, index)} onClick={this.conformResult.bind(this, index)} key={index}>
+                            {item.title} ({item.author})
+                            {
+                              this.state.previewIndex === index?(
+                                <div><img src={item.image} /></div>
+                              ):null
+                            }
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+              ):null
             }
-            <Input onChange={this.handleInputChange.bind(this)} value={this.state.doubanItemId} name="doubanItemId" label="豆瓣条目 ID " floatingLabel={false} />
-            <Textarea style={{height: 200}} onChange={this.handleInputChange.bind(this)} value={this.state.bookContent} name="bookContent" label="书籍内容" floatingLabel={false} />
+            {
+              book?(
+                <div className="book">
+                  <span onClick={this.removeResult.bind(this)} className="icon icon-close">重新选择</span>
+                  <img src={book.image} />
+                  <div className="book-name">{book.title}</div>
+                  <div className="book-author">{book.author[0]}</div>
+                </div>
+              ):null
+            }
+            <Textarea hint="粘贴书籍的全部文本内容" style={{height: 200}} name="book_content" ref="bookContent" />
             <Button onClick={this.handleAddBook.bind(this)} variant="raised">确认添加</Button>
           </Form>
         </Container>
@@ -182,11 +166,12 @@ class AddBook extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    book: state.book
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchUserAuthInfo }
+  { fetchUserAuthInfo, fetchDoubanBookSearchResults, clearBookSearch }
 )(AddBook)
