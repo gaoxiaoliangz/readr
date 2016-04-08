@@ -41,7 +41,7 @@ export function promisedCallApi(CALL_API, actionArgObj){
           type: failureType,
           error: error.message || 'Oops!'
         }))
-        reject(getState)
+        reject(error)
       })
     })
   }

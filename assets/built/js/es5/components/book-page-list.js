@@ -44,14 +44,14 @@ var BookPageList = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var style = styles.BOOK_HD_STYLE;
-      if (this.props.view.mode === "MOBILE") {
-        style = styles.BOOK_MOBILE_STYLE;
-      }
+      // let style = styles.BOOK_HD_STYLE
+      // if(this.props.view.mode === "MOBILE") {
+      //   style = styles.BOOK_MOBILE_STYLE
+      // }
 
-      if (!this.props.isCalculated) {
-        style.height = "100%";
-      }
+      // if(!this.props.isCalculated) {
+      //   style.height = "100%"
+      // }
 
       return _react2.default.createElement(
         'div',
@@ -64,8 +64,8 @@ var BookPageList = function (_Component) {
             { style: { height: this.props.height } },
             this.props.pages.map(function (page, index) {
               if (page.type === "page") {
-                style = Object.assign({}, style, page.props.style);
-                return _react2.default.createElement(_bookPage2.default, { style: style, bookId: _this2.props.bookId, key: index, page: page });
+                // style = Object.assign({}, style, page.props.style)
+                return _react2.default.createElement(_bookPage2.default, { style: page.props.style, bookId: _this2.props.bookId, key: index, page: page });
               } else {
                 console.error("Not type page!");
               }

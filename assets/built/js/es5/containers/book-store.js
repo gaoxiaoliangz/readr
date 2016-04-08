@@ -128,7 +128,7 @@ var Book = _react2.default.createClass({
           _react2.default.createElement(
             'span',
             { className: 'book-author' },
-            book.author
+            Array.isArray(book.author) ? book.author.join(' ') : book.author
           )
         )
       )

@@ -4,15 +4,39 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _react3 = require('muicss/react');
+
 var _reactRouter = require('react-router');
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _branding = require('components/branding');
+
+var _branding2 = _interopRequireDefault(_branding);
+
+var _msg = require('components/msg');
+
+var _msg2 = _interopRequireDefault(_msg);
+
+var _apiUrls = require('constants/api-urls');
+
+var _reactRedux = require('react-redux');
+
+var _user = require('actions/user');
+
+var _book = require('actions/book');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,49 +46,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BookPage = function (_Component) {
-  _inherits(BookPage, _Component);
+var App = function (_Component) {
+  _inherits(App, _Component);
 
-  function BookPage(props) {
-    _classCallCheck(this, BookPage);
+  function App(props) {
+    _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookPage).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+
+    console.log(props.params);
+    return _this;
   }
 
-  _createClass(BookPage, [{
+  _createClass(App, [{
     key: 'render',
     value: function render() {
-      var page = this.props.page;
-      var style = this.props.style;
-
       return _react2.default.createElement(
-        'li',
-        { style: style },
-        _react2.default.createElement(
-          'div',
-          { className: 'content' },
-          page.props.children.map(function (node, index) {
-            if (node.type !== "p") {
-              console.error("Unsupported content found!");
-            }
-            return _react2.default.createElement(
-              'p',
-              _extends({}, index === 0 ? { style: { marginTop: page.props.offset } } : {}, {
-                key: index }),
-              node.props.children
-            );
-          })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'page-no' },
-          page.props.pageNo
-        )
+        'div',
+        { className: 'page-' },
+        _react2.default.createElement(_branding2.default, null),
+        this.props.children
       );
     }
   }]);
 
-  return BookPage;
+  return App;
 }(_react.Component);
 
-exports.default = BookPage;
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+    book: state.book
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUserAuthInfo: _user.fetchUserAuthInfo, fetchDoubanBookSearchResults: _book.fetchDoubanBookSearchResults, clearBookSearch: _book.clearBookSearch })(App);

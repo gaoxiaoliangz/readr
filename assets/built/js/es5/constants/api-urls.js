@@ -10,3 +10,6 @@ var URL_AUTH = exports.URL_AUTH = prefix + version + '/auth/';
 var URL_BOOKS = exports.URL_BOOKS = prefix + version + '/books/';
 var URL_USERS = exports.URL_USERS = prefix + version + '/users/';
 var URL_DOUBAN_BOOKS = exports.URL_DOUBAN_BOOKS = 'https://api.douban.com/v2/book/';
+
+var API_ROOT = exports.API_ROOT = '/api/v0.1/';
+var API_DOUBAN_BOOKS = exports.API_DOUBAN_BOOKS = 'https://api.douban.com/v2/book/';

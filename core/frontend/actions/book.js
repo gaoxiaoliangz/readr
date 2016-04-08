@@ -1,6 +1,13 @@
 import { promisedCallApi } from 'actions'
 import { API_DOUBAN_BOOKS } from 'constants/api-urls'
 
+export function fetchBookList(endpoint) {
+  return promisedCallApi({
+    types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
+    endpoint
+  }, {})
+}
+
 export function fetchDoubanBookSearchResults(endpoint) {
   return promisedCallApi({
     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
@@ -23,15 +30,23 @@ export function fetchBookContent(bookId, endpoint) {
   }, { bookId })
 }
 
+
 export function fetchBookInfo(bookId, endpoint) {
-  return {
-    bookId,
-    CALL_API: {
-      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-      endpoint
-    }
-  }
+  return promisedCallApi({
+    types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
+    endpoint
+  }, { bookId })
 }
+
+// export function fetchBookInfo(bookId, endpoint) {
+//   return {
+//     bookId,
+//     CALL_API: {
+//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
+//       endpoint
+//     }
+//   }
+// }
 
 export const READ_CONTENT_FROM_CACHE = 'READ_CONTENT_FROM_CACHE'
 export function readContentFromCache(bookId, content) {

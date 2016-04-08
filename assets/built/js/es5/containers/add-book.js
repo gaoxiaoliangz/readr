@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _react3 = require('muicss/react');
 
 var _reactRouter = require('react-router');
@@ -28,9 +32,15 @@ var _msg2 = _interopRequireDefault(_msg);
 
 var _apiUrls = require('constants/api-urls');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactRedux = require('react-redux');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _user = require('actions/user');
+
+var _book = require('actions/book');
+
+var _utils = require('utils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -46,114 +56,115 @@ var AddBook = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddBook).call(this, props));
 
-    _this.state = {
-      bookName: "",
-      bookContent: "",
-      doubanItemId: "",
-      status: ""
+    _this.defaultState = {
+      searchQuery: "",
+      currentBook: -1,
+      previewIndex: -1,
+      conformed: false
     };
+    _this.state = _this.defaultState;
     return _this;
   }
 
   _createClass(AddBook, [{
-    key: 'handleAddBook',
-    value: function handleAddBook(event) {
-      event.preventDefault();
-      var isValid = true;
-      var params = {
-        book_name: this.state.bookName,
-        book_content: this.state.bookContent,
-        douban_item_id: this.state.doubanItemId
-      };
-
-      for (var prop in params) {
-        console.log(prop);
-        if (params[prop].length === 0) {
-          isValid = false;
-          this.setState({
-            status: prop + ' 不能为空！'
-          });
-          setTimeout(function () {
-            this.setState({
-              status: null
-            });
-          }.bind(this), 3000);
-          break;
-        }
-      }
-
-      if (isValid) {
-        _jquery2.default.post(_apiUrls.URL_BOOKS, params, function (data) {
-          console.log(data);
-          if (data.data) {
-            this.setState({
-              status: '添加成功！',
-              bookName: '',
-              bookContent: '',
-              doubanItemId: '',
-              dataFromDouban: '',
-              visiableCoverIndex: -1,
-              currentBook: ''
-            });
-
-            setTimeout(function () {
-              this.setState({
-                status: ''
-              });
-            }.bind(this), 3000);
-          }
-        }.bind(this));
-      }
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchUserAuthInfo('auth');
     }
   }, {
-    key: 'handleInputChange',
-    value: function handleInputChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
-
-      if (event.target.value && event.target.name === "bookName") {
-        var url = _apiUrls.URL_DOUBAN_BOOKS + 'search?count=5&q=' + event.target.value;
-        _jquery2.default.ajax({
-          url: url,
-          dataType: "jsonp"
-        }).done(function (data) {
-          console.log(data);
-          data.books.forEach(function (item) {
-            console.log(item.title);
-          });
-          this.setState({
-            dataFromDouban: data,
-            visiableCoverIndex: -1
-          });
-        }.bind(this));
-      } else {
+    key: 'showMsg',
+    value: function showMsg(content, t) {
+      if (typeof t === 'undefined') {
+        t = 3000;
+      }
+      this.setState({
+        status: content
+      });
+      setTimeout(function () {
         this.setState({
-          dataFromDouban: { books: [] }
+          status: null
+        });
+      }.bind(this), t);
+    }
+  }, {
+    key: 'handleAddBook',
+    value: function handleAddBook(event) {
+      var _this2 = this;
+
+      event.preventDefault();
+
+      var currentBook = this.state.currentBook;
+      var dataToPost = {};
+      var bookContent = _reactDom2.default.findDOMNode(this.refs.bookContent).childNodes[0].value;
+      var isValid = false;
+
+      while (true) {
+        if (currentBook !== -1) {
+          dataToPost.doubanBook = this.props.book.searchResults.books[currentBook];
+        } else {
+          this.showMsg('未选择书籍！');
+          break;
+        }
+
+        if (bookContent) {
+          dataToPost.bookContent = bookContent;
+        } else {
+          this.showMsg('请输入书籍内容！');
+          break;
+        }
+
+        isValid = true;
+        break;
+      }
+
+      dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook);
+
+      if (isValid) {
+        (0, _utils.callApi)(_apiUrls.API_ROOT + 'books', 'post', dataToPost).then(function (res) {
+          _this2.showMsg('添加成功');
+        }).catch(function (err) {
+          console.error(err);
+          _this2.showMsg('添加失败');
         });
       }
     }
   }, {
+    key: 'search',
+    value: function search(event) {
+      this.setState({ searchQuery: event.target.value });
+      this.props.fetchDoubanBookSearchResults('search?count=5&q=' + event.target.value);
+    }
+  }, {
     key: 'conformResult',
-    value: function conformResult(item) {
+    value: function conformResult(index) {
       this.setState({
-        dataFromDouban: { books: [] }
-      });
-      this.setState({
-        doubanItemId: item.id,
-        bookName: item.title,
-        currentBook: item
+        currentBook: index,
+        conformed: true
       });
     }
   }, {
     key: 'showBookCover',
     value: function showBookCover(index) {
       this.setState({
-        visiableCoverIndex: index
+        previewIndex: index
       });
+    }
+  }, {
+    key: 'removeResult',
+    value: function removeResult() {
+      this.setState(this.defaultState);
+      this.props.clearBookSearch();
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
+
+      var book = null;
+
+      if (this.state.currentBook !== -1) {
+        book = this.props.book.searchResults.books[this.state.currentBook];
+      }
 
       return _react2.default.createElement(
         'div',
@@ -171,61 +182,51 @@ var AddBook = function (_Component) {
               { className: 'page-title' },
               '添加书籍'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.bookName, name: 'bookName', label: '搜索', floatingLabel: false, hint: '现阶段，书籍信息均从豆瓣获取，输入书名或书籍相关信息以检索' }),
-            _react2.default.createElement('p', null),
-            function () {
-              if (_this2.state.dataFromDouban) {
-                return _react2.default.createElement(
-                  'div',
-                  { className: 'drop-down' },
-                  _react2.default.createElement(
-                    'ul',
-                    null,
-                    _this2.state.dataFromDouban.books.map(function (item, index) {
-                      return _react2.default.createElement(
-                        'li',
-                        { onMouseOver: _this2.showBookCover.bind(_this2, index), onClick: _this2.conformResult.bind(_this2, item), key: index },
-                        item.title,
-                        ' (',
-                        item.author,
-                        ')',
-                        function () {
-                          if (_this2.state.visiableCoverIndex === index) {
-                            return _react2.default.createElement(
-                              'div',
-                              null,
-                              _react2.default.createElement('img', { src: item.image })
-                            );
-                          }
-                        }()
-                      );
-                    })
-                  )
-                );
-              }
-            }(),
-            function () {
-              if (_this2.state.currentBook) {
-                var book = _this2.state.currentBook;
-                return _react2.default.createElement(
-                  'div',
-                  { className: 'book' },
-                  _react2.default.createElement('img', { src: book.image }),
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'book-name' },
-                    book.title
-                  ),
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'book-author' },
-                    book.author[0]
-                  )
-                );
-              }
-            }(),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.doubanItemId, name: 'doubanItemId', label: '豆瓣条目 ID ', floatingLabel: false }),
-            _react2.default.createElement(_react3.Textarea, { style: { height: 200 }, onChange: this.handleInputChange.bind(this), value: this.state.bookContent, name: 'bookContent', label: '书籍内容', floatingLabel: false }),
+            !this.state.conformed ? _react2.default.createElement(_react3.Input, { onChange: this.search.bind(this), value: this.state.searchQuery, hint: '输入书名或其他书籍相关信息' }) : null,
+            !this.state.conformed && this.props.book.searchResults ? _react2.default.createElement(
+              'div',
+              { className: 'drop-down' },
+              _react2.default.createElement(
+                'ul',
+                null,
+                this.props.book.searchResults.books.map(function (item, index) {
+                  return _react2.default.createElement(
+                    'li',
+                    { onMouseOver: _this3.showBookCover.bind(_this3, index), onClick: _this3.conformResult.bind(_this3, index), key: index },
+                    item.title,
+                    ' (',
+                    item.author,
+                    ')',
+                    _this3.state.previewIndex === index ? _react2.default.createElement(
+                      'div',
+                      null,
+                      _react2.default.createElement('img', { src: item.image })
+                    ) : null
+                  );
+                })
+              )
+            ) : null,
+            book ? _react2.default.createElement(
+              'div',
+              { className: 'book' },
+              _react2.default.createElement(
+                'span',
+                { onClick: this.removeResult.bind(this), className: 'icon icon-close' },
+                '重新选择'
+              ),
+              _react2.default.createElement('img', { src: book.image }),
+              _react2.default.createElement(
+                'div',
+                { className: 'book-name' },
+                book.title
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'book-author' },
+                book.author[0]
+              )
+            ) : null,
+            _react2.default.createElement(_react3.Textarea, { hint: '粘贴书籍的全部文本内容', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),
             _react2.default.createElement(
               _react3.Button,
               { onClick: this.handleAddBook.bind(this), variant: 'raised' },
@@ -240,4 +241,11 @@ var AddBook = function (_Component) {
   return AddBook;
 }(_react.Component);
 
-exports.default = AddBook;
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+    book: state.book
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUserAuthInfo: _user.fetchUserAuthInfo, fetchDoubanBookSearchResults: _book.fetchDoubanBookSearchResults, clearBookSearch: _book.clearBookSearch })(AddBook);

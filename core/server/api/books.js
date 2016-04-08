@@ -14,14 +14,17 @@ var books = {
         if(result.error){
           console.log('> api/books.js')
           console.log(result)
+
           resolve(result)
         }else{
           promisedbookList = result.data.map(item => {
             return books.getBookInfo({id: item.id})
           })
 
-          Promise.all(promisedbookList).then(data => {
-            resolve(data)
+          Promise.all(promisedbookList).then(result => {
+            resolve({
+              data: result.map(item => item.data)
+            })
           })
         }
       })
@@ -35,9 +38,9 @@ var books = {
       }
 
       models.getData('books', match, 'book_content').then(function(result){
-        resolve(result);
-      });
-    });
+        resolve(result)
+      })
+    })
   },
 
   getBookInfo: function(object) {
@@ -59,12 +62,17 @@ var books = {
           if(typeof douban_book_id === 'undefined') {
             delete result.data[0]['book_content']
 
-            resolve(result.data[0])
+            resolve({
+              data: result.data[0]
+            })
           }else{
             models.getData('douban_books', {book_id: douban_book_id}).then(function(result){
               delete result.data[0]._id
               result.data[0].id = object.id
-              resolve(result.data[0])
+              resolve({
+                data: result.data[0]
+                // data: result
+              })
             })
           }
         }

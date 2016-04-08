@@ -33,7 +33,7 @@ export function callApi(fullUrl, type, data) {
     $.ajax(config).done(response => {
       resolve(response)
     }).fail(response => {
-      reject(response)
+      reject(JSON.parse(response.responseText))
     })
   })
 }

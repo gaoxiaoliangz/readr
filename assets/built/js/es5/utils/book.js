@@ -3,158 +3,104 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.filterBookContentByPage = exports.loadBookContent = exports.convertPercentageToPage = undefined;
+exports.initBook = initBook;
+exports.groupNodesByPage = groupNodesByPage;
+exports.convertPercentageToPage = convertPercentageToPage;
+exports.filterPages = filterPages;
 
 var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _local = require('./local');
+var _cache = require('utils/cache');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var CONTENT_SELECTOR = ".pages li .content";
+// not pure, tell me if there's a bette way to do this
+function initBook(bookId, actions, pageHeight) {
+  return new Promise(function (resolve, reject) {
+    var pages = (0, _cache.readCache)('book' + bookId + '_pages');
 
-function loadBookContent(url, config) {
-  var book = {};
-
-  return new Promise(function (resolve) {
-    if (!_local.readFromLocal.bind(this)("content")) {
-      fetch(url).then(function (res) {
-        return res.json();
-      }).then(function (json) {
-        console.log("Book content received, now rerendering ...");
-        book.content = json.data[0].html;
-        book.map = _genMapAndSaveToLocal.bind(this)(json.data[0].html, config);
-        _local.saveToLocal.bind(this)("content", book.content);
-        resolve(book);
-      }.bind(this)).catch(function (err) {
-        console.error(err);
-      });
+    if (pages) {
+      actions.loadPages(JSON.parse(pages));
+      actions.setBookMode('vertical');
+      resolve(true);
     } else {
-      console.log("Getting book content from local storage ...");
-      book.content = _local.readFromLocal.bind(this)("content");
-      if (_local.readFromLocal.bind(this)("map")) {
-        console.log("Getting map from local storage ...");
-        book.map = JSON.parse(_local.readFromLocal.bind(this)("map"));
+      actions.fetchBookContent(bookId, 'books/' + bookId + '/content').then(function (getState) {
+        var nodes = parseHTML(getState().book.html);
+        var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
+        var pages = groupNodesByPage(nodes, nodeHeights, pageHeight);
 
-        resolve(book);
-      } else {
-        console.log("Rerendering ...");
-        book.map = _genMapAndSaveToLocal.bind(this)(book.content, config);
-        resolve(book);
-      }
+        (0, _cache.saveCache)('book' + bookId + '_pages', JSON.stringify(pages));
+        actions.loadPages(pages);
+        resolve(true);
+      }).catch(function (err) {
+        console.log(err);
+        reject(err);
+      });
     }
-  }.bind(this));
-}
-
-function filterBookContentByPage(bookContent, map, page) {
-  var elements = (0, _jquery2.default)(bookContent),
-      pageObj,
-      h = 0,
-      h2 = 0,
-      i = 0,
-      s = true,
-      para = 0,
-      para2 = 0,
-      para_margin = 0,
-      top = 0,
-      para_qt = 0,
-      p_qt = map.elements.length,
-      page_content = [],
-      view = map.view;
-
-  while (i < p_qt && h < view.pageHeight * page) {
-    h = parseInt(map.elements[i].height) + h;
-    h2 = h - parseInt(map.elements[i].height);
-    if (h > view.pageHeight * (page - 1) && s == true) {
-      para = i;
-      para_margin = h2 - view.pageHeight * (page - 1);
-      s = false;
-    }
-    para2 = i;
-    i++;
-  }
-  para_qt = para2 - para + 1;
-  top = (page - 1) * view.pageHeight;
-
-  for (i = para; i <= para2; i++) {
-    switch (map.elements[i].type) {
-      case "P":
-        page_content.push(elements.eq(i).html());
-        break;
-      default:
-        console.error("Unsupported content found!");
-    }
-  }
-
-  pageObj = {
-    style: {
-      marginTop: para_margin,
-      height: view.pageHeight
-    },
-    content: page_content,
-    index: page - 1
-  };
-
-  return pageObj;
-}
-
-function _genMapAndSaveToLocal(bookContent, config) {
-  var map = void 0,
-      contentArray = [],
-      $bookContent = (0, _jquery2.default)(bookContent);
-
-  try {
-    for (var i = 0; i < $bookContent.length; i++) {
-      contentArray.push($bookContent[i].innerHTML);
-    }
-    this.setState({
-      pages: [{
-        content: contentArray
-      }]
-    });
-    map = _genMapJSON(CONTENT_SELECTOR, config);
-    _local.saveToLocal.bind(this)("map", JSON.stringify(map));
-  } catch (e) {
-    console.error(e);
-  }
-
-  return map;
-}
-
-function _genMapJSON(selector, config) {
-  var elements = [],
-      map = {};
-
-  map.view = {
-    bookHeight: (0, _jquery2.default)(selector).height(),
-    pageSum: Math.ceil((0, _jquery2.default)(selector).height() / config.pageHeight),
-    windowWidth: (0, _jquery2.default)(window).width(),
-    pageHeight: config.pageHeight,
-    pageWidth: (0, _jquery2.default)(selector).width(),
-    fontSize: (0, _jquery2.default)(selector).find("p").css("font-size"),
-    lineHeight: (0, _jquery2.default)(selector).find("p").css("line-height")
-  };
-
-  (0, _jquery2.default)(selector).children().each(function (index) {
-    var h = (0, _jquery2.default)(this).height(),
-        type = (0, _jquery2.default)(this).prop("tagName"),
-        renderingStr;
-
-    if (type !== "P") {
-      console.error("Unsupported content found!");
-    }
-
-    elements.push({
-      type: type,
-      height: h
-    });
   });
+}
 
-  map.elements = elements;
+// the function with the most complexed algorithm
+function groupNodesByPage(nodes, nodeHeights, pageHeight) {
+  var pages = [];
+  var pageNodes = [];
+  var thisPageHeight = 0;
+  var pageIndex = 0;
 
-  return map;
+  // todos:
+  // check long paragraph situation
+  // add function cache
+  function getPageOffset(pageIndex, nodeHeights, pageHeight) {
+    var offset = 0;
+    if (pageIndex !== 0) {
+      var _i = 0;
+      var nodeHeightSum = 0;
+      while (nodeHeightSum < pageHeight * pageIndex) {
+        nodeHeightSum += nodeHeights[_i];
+        _i++;
+      }
+      offset = nodeHeightSum - nodeHeights[_i - 1] - pageIndex * pageHeight;
+    }
+    return offset;
+  }
+
+  for (var i = 0; i < nodes.length; i++) {
+    thisPageHeight += nodeHeights[i];
+    pageNodes.push(nodes[i]);
+    nodes[i].props.index = i;
+
+    var offset = getPageOffset(pageIndex, nodeHeights, pageHeight);
+
+    if (thisPageHeight + offset > pageHeight || i === nodes.length - 1) {
+      pages.push({
+        props: {
+          children: pageNodes,
+          style: {
+            top: pageIndex * pageHeight,
+            position: 'absolute',
+            height: pageHeight
+          },
+          pageNo: pageIndex + 1,
+          offset: offset
+        },
+        type: "page"
+      });
+
+      pageIndex++;
+      thisPageHeight = 0;
+      pageNodes = [];
+    }
+
+    // add prev node
+    if (pageIndex !== 0 && pageNodes.length === 0) {
+      pageNodes.push(nodes[i]);
+      thisPageHeight = nodeHeights[i];
+    }
+  }
+
+  return pages;
 }
 
 function convertPercentageToPage(p, pageSum) {
@@ -166,6 +112,64 @@ function convertPercentageToPage(p, pageSum) {
   }
 }
 
-exports.convertPercentageToPage = convertPercentageToPage;
-exports.loadBookContent = loadBookContent;
-exports.filterBookContentByPage = filterBookContentByPage;
+function filterPages(config) {
+  var startPage = config.startPage;
+  var quantity = config.quantity;
+  var offset = config.offset;
+  var pages = config.pages;
+
+  var newPages = [];
+
+  while (startPage - offset < 0) {
+    offset--;
+  }
+  startPage = startPage - offset;
+
+  for (var i = startPage; i < quantity + startPage && i < pages.length; i++) {
+    var page = pages[i];
+    newPages.push(page);
+  }
+
+  return newPages;
+}
+
+/*
+ * functions being used internally
+ */
+
+function getNodeHeights(selector, actions) {
+  actions.setBookMode('render');
+
+  var nodes = document.querySelector(selector).childNodes;
+  var nodesHeight = [];
+
+  Array.prototype.forEach.call(nodes, function (node, index) {
+    if (node.tagName.toLowerCase() !== "p") {
+      console.error("Unsupported content found!");
+    }
+    nodesHeight.push(node.clientHeight);
+  });
+
+  actions.setBookMode('vertical');
+
+  return nodesHeight;
+}
+
+function parseHTML(htmlString) {
+  var nodes = [];
+  var $html = (0, _jquery2.default)(htmlString);
+
+  for (var i = 0; i < $html.length; i++) {
+    if ($html[i].nodeType != 1) {
+      continue;
+    } else {
+      nodes.push({
+        type: $html[i].tagName.toLowerCase(),
+        props: {
+          children: $html[i].innerHTML
+        }
+      });
+    }
+  }
+  return nodes;
+}
