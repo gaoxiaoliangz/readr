@@ -27,49 +27,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Branding = function (_Component) {
   _inherits(Branding, _Component);
 
-  function Branding(props) {
+  function Branding() {
     _classCallCheck(this, Branding);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Branding).call(this, props));
-
-    _this.state = {
-      isAuthed: false,
-      username: '',
-      loadingAuthStatus: true
-    };
-    return _this;
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Branding).apply(this, arguments));
   }
 
   _createClass(Branding, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      (0, _utils.checkAuthStatus)().then(function (json) {
-        if (json.data.authed) {
-          this.setState({
-            username: json.data.user,
-            isAuthed: true,
-            loadingAuthStatus: false
-          });
-        } else {
-          this.setState({
-            loadingAuthStatus: false
-          });
-        }
-      }.bind(this));
-
-      // callApi('auth').then(data => {
-      //   console.log(data)
-      // })
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      var hidden = 'hidden';
-      if (!this.state.loadingAuthStatus) {
-        hidden = '';
-      }
+      var user = this.props.user;
 
       return _react2.default.createElement(
         _react3.Appbar,
@@ -89,55 +56,49 @@ var Branding = function (_Component) {
                 'readr'
               )
             ),
-            function () {
-              if (_this2.state.isAuthed) {
-                return _react2.default.createElement(
-                  'ul',
-                  { className: "right mui-list--inline mui--text-body2 " + hidden },
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      _reactRouter.Link,
-                      { to: '/#' },
-                      _this2.state.username
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      'a',
-                      { href: '/logout' },
-                      '退出'
-                    )
-                  )
-                );
-              } else {
-                return _react2.default.createElement(
-                  'ul',
-                  { className: "right mui-list--inline mui--text-body2 " + hidden },
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      _reactRouter.Link,
-                      { to: '/signin' },
-                      '登录'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'li',
-                    null,
-                    _react2.default.createElement(
-                      _reactRouter.Link,
-                      { to: '/signup' },
-                      '注册'
-                    )
-                  )
-                );
-              }
-            }()
+            user.authed ? _react2.default.createElement(
+              'ul',
+              { className: "right mui-list--inline mui--text-body2" },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/profile/' + user.username },
+                  user.username
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: '/logout' },
+                  '退出'
+                )
+              )
+            ) : _react2.default.createElement(
+              'ul',
+              { className: "right mui-list--inline mui--text-body2" },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/signin' },
+                  '登录'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/signup' },
+                  '注册'
+                )
+              )
+            )
           )
         )
       );
@@ -146,5 +107,9 @@ var Branding = function (_Component) {
 
   return Branding;
 }(_react.Component);
+
+Branding.propTypes = {
+  user: _react2.default.PropTypes.object.isRequired
+};
 
 exports.default = Branding;

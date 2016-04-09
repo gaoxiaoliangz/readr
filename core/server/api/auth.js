@@ -19,7 +19,7 @@ var auth = {
         resolve({
           data: {
             authed: true,
-            user: object.context.user
+            username: object.context.user
           }
         })
       }else{
@@ -36,7 +36,7 @@ var auth = {
     var match = {
       username: object.username,
       password: object.password
-    };
+    }
 
     console.log("> api/auth.js")
     console.log(match)
@@ -55,33 +55,34 @@ var auth = {
 
                 resolve({
                   data: {
-                    authed: true
+                    authed: true,
+                    username: object.username
                   }
                 })
               }else{
                 resolve({
                   error: {
-                    code: 405,
-                    msg: 'Wrong password!'
-                  }
+                    message: 'Wrong password!'
+                  },
+                  statusCode: 400
                 })
               }
             });
           }else{
             resolve({
               error: {
-                code: 404,
-                msg: 'No such user!'
-              }
+                message: 'No such user!'
+              },
+              statusCode: 404
             })
           }
         });
       }else{
         resolve({
           error: {
-            code: 406,
-            msg: 'Wrong auth info format!'
-          }
+            message: 'Wrong login credential format provided!'
+          },
+          statusCode: 400
         })
       }
     })

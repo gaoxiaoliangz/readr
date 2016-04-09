@@ -30,16 +30,15 @@ var Msg = function (_Component) {
   _createClass(Msg, [{
     key: "render",
     value: function render() {
-      var msg = this.props.content ? _react2.default.createElement(
-        "div",
-        { className: "msg mui--z1" },
-        this.props.content
-      ) : null;
 
       return _react2.default.createElement(
         "div",
         null,
-        msg
+        this.props.notification.isVisible ? _react2.default.createElement(
+          "div",
+          { className: "msg mui--z1" },
+          this.props.notification.content
+        ) : null
       );
     }
   }]);

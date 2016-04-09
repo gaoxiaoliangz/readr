@@ -14,6 +14,7 @@ import BookInfo from 'containers/BookInfo'
 export default (
   <Router path="/" component={App}>
     <IndexRoute component={BookStore}/>
+    <Route path="/bookstore" component={BookStore}/>
     <Route path="signin" component={Signin}/>
     <Route path="Signup" component={Signup}/>
     <Route path="addbook" component={AddBook}/>

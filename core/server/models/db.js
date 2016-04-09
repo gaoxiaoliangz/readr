@@ -1,7 +1,8 @@
-var mongodb = require('mongodb'),
-    Promise = require('bluebird'),
-    MongoClient = mongodb.MongoClient,
-    config = require('../config');
+var mongodb = require('mongodb')
+var Promise = require('bluebird')
+var config = require('../config')
+
+var MongoClient = mongodb.MongoClient
 
 var db = {
   connect: function(db_name){
@@ -11,7 +12,6 @@ var db = {
         if (err) {
           console.log('Unable to connect to the mongoDB server. Error:', err);
         } else {
-          console.log('Connection established to', db_url);
           resolve(db);
         }
       });

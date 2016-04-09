@@ -10,17 +10,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
 var _react3 = require('muicss/react');
 
 var _reactRouter = require('react-router');
 
-require('whatwg-fetch');
-
 var _APIS = require('constants/APIS');
 
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
+var _utils = require('utils');
 
 var _Message = require('components/Message');
 
@@ -51,9 +49,8 @@ var Signin = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Signin).call(this, props));
 
     _this.state = {
-      username: "",
-      password: "",
-      status: ""
+      username: '',
+      password: ''
     };
     return _this;
   }
@@ -61,6 +58,8 @@ var Signin = function (_Component) {
   _createClass(Signin, [{
     key: 'handleSignin',
     value: function handleSignin(event) {
+      var _this2 = this;
+
       event.preventDefault();
 
       var params = {
@@ -68,30 +67,19 @@ var Signin = function (_Component) {
         password: this.state.password
       };
 
-      _jquery2.default.post(URL_AUTH, params, function (data) {
-        console.log(data);
-        if (data.authed) {
-          this.setState({
-            status: "登录成功"
-          });
-          setTimeout(function () {
-            _reactRouter.browserHistory.push('/');
-          }, 600);
-        } else {
-          this.setState({
-            status: data.error.msg
-          });
-          setTimeout(function () {
-            this.setState({
-              status: null
-            });
-          }.bind(this), 3000);
-        }
-      }.bind(this));
+      (0, _utils.callApi)(_APIS.API_ROOT + 'auth', 'POST', params).then(function (res) {
+        _this2.props.handleNotification('登录成功！');
+        setTimeout(function () {
+          _reactRouter.browserHistory.push('/');
+        }, 600);
+      }).catch(function (err) {
+        _this2.props.handleNotification(err.message);
+      });
     }
   }, {
-    key: 'handleInputChange',
-    value: function handleInputChange(event) {
+    key: 'handleInput',
+    value: function handleInput(event) {
+      console.log(this);
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
@@ -100,21 +88,21 @@ var Signin = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-signin' },
-        _react2.default.createElement(_Branding2.default, null),
+        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
         _react2.default.createElement(
           _react3.Container,
           null,
           _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', action: '/signin', method: 'post' },
-            _react2.default.createElement(_Message2.default, { content: this.state.status }),
+            _react2.default.createElement(_Message2.default, { notification: this.props.notification }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },
               '欢迎回来'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', hint: '密码', type: 'password' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', hint: '密码', type: 'password' }),
             _react2.default.createElement(
               _react3.Button,
               { onClick: this.handleSignin.bind(this), variant: 'raised' },
@@ -139,4 +127,9 @@ var Signin = function (_Component) {
   return Signin;
 }(_react.Component);
 
-exports.default = Signin;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    notification: state.notification,
+    user: state.user
+  };
+}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Signin);

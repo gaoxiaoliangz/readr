@@ -4,6 +4,10 @@ import * as styles from 'constants/STYLES'
 import { callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
 
+export * from 'actions/book'
+export * from 'actions/notification'
+export * from 'actions/user'
+
 // todo: merge with api.js
 export function promisedCallApi(CALL_API, actionArgObj){
   return (dispatch, getState) => {

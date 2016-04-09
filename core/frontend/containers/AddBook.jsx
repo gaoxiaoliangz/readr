@@ -25,7 +25,7 @@ class AddBook extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUserAuthInfo('auth')
+    this.props.fetchUserAuthInfo()
   }
 
   showMsg(content, t) {
@@ -113,7 +113,7 @@ class AddBook extends Component {
 
     return (
       <div className="page-add-book">
-        <Branding />
+        <Branding user={this.props.user} />
         <Container>
           <Form className="content-container" action="#" method="post">
             <Msg content={this.state.status} />

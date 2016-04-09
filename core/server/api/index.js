@@ -29,13 +29,13 @@ var http = function http(apiMethod) {
     apiMethod(object, options, req).then(function(result){
       if(result.data) {
         if(req.method === 'POST') {
-          res.status(201).send(result)
+          res.status(201).send(result.data)
         }else{
-          res.status(200).send(result)
+          res.status(200).send(result.data)
         }
       }else{
         if(result.error) {
-          res.status(result.error.code).send(result)
+          res.status(result.statusCode).send(result.error)
         }else{
           res.status(500).send(result)
         }

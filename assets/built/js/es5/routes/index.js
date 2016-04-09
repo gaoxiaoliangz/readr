@@ -52,6 +52,7 @@ exports.default = _react2.default.createElement(
   _reactRouter.Router,
   { path: '/', component: _App2.default },
   _react2.default.createElement(_reactRouter.IndexRoute, { component: _BookStore2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/bookstore', component: _BookStore2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'Signup', component: _Signup2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'addbook', component: _AddBook2.default }),

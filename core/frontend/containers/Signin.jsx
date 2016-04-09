@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
-import 'whatwg-fetch'
-import { API_ROOT } from 'constants/APIS'
-import $ from 'jquery'
 
-import Msg from 'components/Message'
+import { API_ROOT } from 'constants/APIS'
+import { callApi } from 'utils'
+
+import Notification from 'components/Message'
 import Branding from 'components/Branding'
 
-import { fetchUserAuthInfo } from 'actions'
+import { fetchUserAuthInfo, handleNotification } from 'actions'
 
 class Signin extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
-      username: "",
-      password: "",
-      status: ""
+      username: '',
+      password: '',
     }
   }
 
@@ -29,43 +28,31 @@ class Signin extends Component {
       password: this.state.password
     }
 
-    $.post(URL_AUTH, params, function(data){
-      console.log(data);
-      if(data.authed) {
-        this.setState({
-          status: "登录成功"
-        })
-        setTimeout(function(){
-          browserHistory.push('/')
-        }, 600)
-
-      }else{
-        this.setState({
-          status: data.error.msg
-        })
-        setTimeout(function(){
-          this.setState({
-            status: null
-          })
-        }.bind(this), 3000)
-      }
-    }.bind(this))
+    callApi(`${API_ROOT}auth`, 'POST', params).then(res => {
+      this.props.handleNotification('登录成功！')
+      setTimeout(function(){
+        browserHistory.push('/')
+      }, 600)
+    }).catch((err) => {
+      this.props.handleNotification(err.message)
+    })
   }
 
-  handleInputChange(event) {
+  handleInput(event) {
+    console.log(this);
     this.setState({[event.target.name]: event.target.value})
   }
 
   render() {
     return (
       <div className="page-signin">
-        <Branding />
+        <Branding user={this.props.user} />
         <Container>
           <Form className="content-container" action="/signin" method="post">
-            <Msg content={this.state.status} />
+            <Notification notification={this.props.notification} />
             <h1 className="page-title">欢迎回来</h1>
-            <Input onChange={this.handleInputChange.bind(this)} value={this.state.username} name="username" hint="用户名" />
-            <Input onChange={this.handleInputChange.bind(this)} value={this.state.password} name="password" hint="密码" type="password" />
+            <Input onChange={this.handleInput.bind(this)} value={this.state.username} name="username" hint="用户名" />
+            <Input onChange={this.handleInput.bind(this)} value={this.state.password} name="password" hint="密码" type="password" />
             <Button onClick={this.handleSignin.bind(this)} variant="raised">登录</Button>
             <p className="hint">没有账号？<Link to="/signup">注册</Link></p>
           </Form>
@@ -75,6 +62,10 @@ class Signin extends Component {
   }
 }
 
-
-
-export default Signin
+export default connect(
+  state => ({
+    notification: state.notification,
+    user: state.user
+  }),
+  { handleNotification, fetchUserAuthInfo }
+)(Signin)

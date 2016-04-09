@@ -12,13 +12,14 @@ function book(state, action) {
   switch (action.type) {
     case 'USER_AUTH_INFO_REQUEST':
       return Object.assign({}, state, {
-        isFetching: true
+        isFetchingUserAuthInfo: true
       });
 
     case 'USER_AUTH_INFO_SUCCESS':
       return Object.assign({}, state, {
-        isFetching: false,
-        authed: action.response.data.authed
+        isFetchingUserAuthInfo: false,
+        authed: action.response.authed,
+        username: action.response.authed ? action.response.username : ''
       });
 
     default:

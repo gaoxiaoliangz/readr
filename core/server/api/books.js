@@ -1,8 +1,8 @@
-var express = require('express'),
-    models = require('../models'),
-    Promise = require('bluebird'),
-    mongodb = require('mongodb'),
-    router = express.Router();
+var express = require('express')
+var models = require('../models')
+var Promise = require('bluebird')
+var mongodb = require('mongodb')
+var router = express.Router()
 
 var books = {
   getAllBooks:function(){
@@ -38,7 +38,9 @@ var books = {
       }
 
       models.getData('books', match, 'book_content').then(function(result){
-        resolve(result)
+        resolve({
+          data: result.data[0]
+        })
       })
     })
   },
@@ -71,7 +73,6 @@ var books = {
               result.data[0].id = object.id
               resolve({
                 data: result.data[0]
-                // data: result
               })
             })
           }
@@ -82,8 +83,8 @@ var books = {
 
   addBook: function(object){
     return new Promise(resolve => {
-      var data
-      var html
+      var data = {}
+      var html = ''
       var raw = object.bookContent
       var paragraphs = raw.split("\n")
       var doubanBook = JSON.parse(object.doubanBook)
@@ -93,7 +94,7 @@ var books = {
       doubanBook.book_id = douban_book_id
 
       for(var i = 0; i < paragraphs.length; i++){
-        html = html+"<p>" + paragraphs[i] + "</p>"
+        html += '<p>' + paragraphs[i] + '</p>'
       }
 
       data = {
@@ -121,9 +122,9 @@ var books = {
         }else{
           resolve({
             error: {
-              msg: 'Book exsits!',
-              code: '400'
-            }
+              message: 'Book exsits!'
+            },
+            statusCode: 400
           })
         }
       })

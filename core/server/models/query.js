@@ -13,9 +13,9 @@ var query = {
           if (err) {
             resolve({
               error: {
-                msg: err,
-                code: 500
-              }
+                message: err
+              },
+              statusCode: 500
             })
           } else if (result.length) {
             if(key){
@@ -31,9 +31,9 @@ var query = {
           } else {
             resolve({
               error: {
-                msg: 'No records found!',
-                code: 404
-              }
+                message: 'No records found!'
+              },
+              statusCode: 404
             })
           }
           db.close()
@@ -53,9 +53,9 @@ var query = {
             console.log(colors.red(err));
             resolve({
               error: {
-                msg: err,
-                code: 500
-              }
+                message: err
+              },
+              statusCode: 404
             })
           } else {
             resolve({
@@ -84,9 +84,9 @@ var query = {
               console.log(err)
               resolve({
                 error: {
-                  msg: err,
-                  code: 500
-                }
+                  message: err
+                },
+                statusCode: 404
               })
             } else {
               resolve({data: {}})

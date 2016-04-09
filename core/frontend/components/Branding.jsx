@@ -5,44 +5,8 @@ import { checkAuthStatus, callApi } from 'utils'
 
 
 class Branding extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      isAuthed: false,
-      username: '',
-      loadingAuthStatus: true
-    }
-  }
-
-  componentDidMount() {
-    checkAuthStatus().then(function(json) {
-      if(json.data.authed) {
-        this.setState({
-          username: json.data.user,
-          isAuthed: true,
-          loadingAuthStatus: false
-        })
-      }else{
-        this.setState({
-          loadingAuthStatus: false
-        })
-      }
-    }.bind(this))
-
-    // callApi('auth').then(data => {
-    //   console.log(data)
-    // })
-
-  }
-
   render() {
-
-    let hidden = 'hidden'
-    if(!this.state.loadingAuthStatus) {
-      hidden = ''
-    }
-
+    let user = this.props.user
 
     return (
       <Appbar className="branding">
@@ -52,33 +16,31 @@ class Branding extends Component {
               <Link to="/">readr</Link>
             </h1>
             {
-              (()=>{
-                if(this.state.isAuthed) {
-                  return (
-                    <ul className={"right mui-list--inline mui--text-body2 "+hidden}>
-                      <li><Link to='/#'>{this.state.username}</Link></li>
-                      <li><a href='/logout'>退出</a></li>
-                    </ul>
-                  )
-                }else{
-                  return (
-                    <ul className={"right mui-list--inline mui--text-body2 "+hidden}>
-                      <li>
-                        <Link to="/signin">登录</Link>
-                      </li>
-                      <li>
-                        <Link to="/signup">注册</Link>
-                      </li>
-                    </ul>
-                  )
-                }
-              })()
-            }
+              user.authed?(
+                  <ul className={"right mui-list--inline mui--text-body2"}>
+                    <li><Link to={`/profile/${user.username}`}>{user.username}</Link></li>
+                    <li><a href='/logout'>退出</a></li>
+                  </ul>
+                ):(
+                  <ul className={"right mui-list--inline mui--text-body2"}>
+                    <li>
+                      <Link to="/signin">登录</Link>
+                    </li>
+                    <li>
+                      <Link to="/signup">注册</Link>
+                    </li>
+                  </ul>
+                )
+              }
           </div>
         </Container>
       </Appbar>
     )
   }
+}
+
+Branding.propTypes = {
+  user: React.PropTypes.object.isRequired
 }
 
 export default Branding

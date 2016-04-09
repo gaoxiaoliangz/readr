@@ -18,7 +18,7 @@ function book(state, action) {
     case 'BOOK_LIST_SUCCESS':
       return Object.assign({}, state, {
         isFetchingList: false,
-        bookList: action.response.data
+        bookList: action.response
       });
 
     case 'BOOK_CONTENT_REQUEST':
@@ -30,7 +30,7 @@ function book(state, action) {
     case 'BOOK_CONTENT_SUCCESS':
       return Object.assign({}, state, {
         isFetchingContent: false,
-        html: action.response.data[0].html
+        html: action.response.html
       });
 
     case 'BOOK_INFO_REQUEST':
@@ -42,7 +42,7 @@ function book(state, action) {
     case 'BOOK_INFO_SUCCESS':
       return Object.assign({}, state, {
         isFetchingInfo: false,
-        meta: action.response.data
+        meta: action.response
       });
 
     case 'READ_CONTENT_FROM_CACHE':

@@ -69,7 +69,7 @@ var AddBook = function (_Component) {
   _createClass(AddBook, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUserAuthInfo('auth');
+      this.props.fetchUserAuthInfo();
     }
   }, {
     key: 'showMsg',
@@ -169,7 +169,7 @@ var AddBook = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-add-book' },
-        _react2.default.createElement(_Branding2.default, null),
+        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
         _react2.default.createElement(
           _react3.Container,
           null,

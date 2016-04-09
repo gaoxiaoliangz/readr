@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 
 class Msg extends Component {
   render() {
-    let msg = this.props.content?(<div className="msg mui--z1">{this.props.content}</div>):null
+
 
     return (
-      <div>{msg}</div>
+      <div>{
+
+            this.props.notification.isVisible?(<div className="msg mui--z1">{this.props.notification.content}</div>):null
+            }
+          </div>
     )
   }
 }
