@@ -6,7 +6,7 @@ import Immutable from 'immutable'
 
 import { initBook, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff } from 'utils'
 import * as actions from 'actions'
-// import { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent } from 'actions'
+// import fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent as actions from 'actions'
 // const actions = { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent }
 
 import BookPageList from 'components/BookPageList'
@@ -38,6 +38,7 @@ class BookViewer extends Component {
     }
   }
 
+
   scrollToLoadPages() {
     let pageSum = this.props.book.pages.length
     let percentage = (document.body.scrollTop/(900*pageSum)).toFixed(4)
@@ -46,7 +47,6 @@ class BookViewer extends Component {
   }
 
   // todos:
-  // unmounting bug
   // add animation
   toggleBookPanel(event) {
     var y = event.pageY - document.body.scrollTop
@@ -60,11 +60,6 @@ class BookViewer extends Component {
         showPanel: false
       })
     }
-  }
-
-  addEventListeners() {
-    window.addEventListener("scroll", delayStuff(this.scrollToLoadPages, 100).bind(this))
-    window.addEventListener("mousemove", this.toggleBookPanel.bind(this))
   }
 
   componentDidMount() {
@@ -86,11 +81,12 @@ class BookViewer extends Component {
 
     initBook(this.bookId, actions, pageHeight).then(data => {
       if(data === true) {
+        // todo
         actions.jumpTo(1)
-        this.addEventListeners()
       }
     })
   }
+
 
   render() {
     let book = this.props.book
@@ -110,7 +106,8 @@ class BookViewer extends Component {
     }
 
     return (
-      <div className="page-book-viewer">
+      <div className="page-book-viewer"
+        onMouseMove={this.toggleBookPanel.bind(this)} >
         {
           book.isFetchingInfo||book.isFetchingContent?(
             <Loading />
@@ -118,12 +115,14 @@ class BookViewer extends Component {
         }
         {
           this.state.showPanel && book.meta && book.isPagesLoaded === true ?(
-            <div className="functions">
+            <div className="functions"
+
+              >
               <div className="container">
                 <span className="home">
                   <Link to="/bookstore"></Link>
                 </span>
-                <span className="title">{book.meta.book_name}</span>
+                <span className="title">{book.meta.title}</span>
                 <span className="loc">{book.currentPage+"/"+book.pages.length}</span>
               </div>
             </div>
@@ -144,7 +143,9 @@ class BookViewer extends Component {
         }
         {
           book.mode === 'vertical' ?(
-            <BookPageList height={height} view={book.view} bookId={this.bookId} pages={pagesToRender} />
+            <div onWheel={delayStuff(this.scrollToLoadPages, 100).bind(this)}>
+              <BookPageList height={height} view={book.view} bookId={this.bookId} pages={pagesToRender} />
+            </div>
           ):null
         }
       </div>

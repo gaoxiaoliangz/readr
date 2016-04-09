@@ -47,7 +47,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent } from 'actions'
+// import fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent as actions from 'actions'
 // const actions = { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent }
 
 // todo: remove this
@@ -89,7 +89,6 @@ var BookViewer = function (_Component) {
     }
 
     // todos:
-    // unmounting bug
     // add animation
 
   }, {
@@ -108,16 +107,8 @@ var BookViewer = function (_Component) {
       }
     }
   }, {
-    key: 'addEventListeners',
-    value: function addEventListeners() {
-      window.addEventListener("scroll", (0, _utils.delayStuff)(this.scrollToLoadPages, 100).bind(this));
-      window.addEventListener("mousemove", this.toggleBookPanel.bind(this));
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
       var actions = this.props.actions;
       // todo
       var defaultMode = "vertical";
@@ -136,8 +127,8 @@ var BookViewer = function (_Component) {
 
       (0, _utils.initBook)(this.bookId, actions, pageHeight).then(function (data) {
         if (data === true) {
+          // todo
           actions.jumpTo(1);
-          _this2.addEventListeners();
         }
       });
     }
@@ -162,11 +153,14 @@ var BookViewer = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'page-book-viewer' },
+        { className: 'page-book-viewer',
+          onMouseMove: this.toggleBookPanel.bind(this) },
         book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
         this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
           'div',
-          { className: 'functions' },
+          { className: 'functions'
+
+          },
           _react2.default.createElement(
             'div',
             { className: 'container' },
@@ -178,7 +172,7 @@ var BookViewer = function (_Component) {
             _react2.default.createElement(
               'span',
               { className: 'title' },
-              book.meta.book_name
+              book.meta.title
             ),
             _react2.default.createElement(
               'span',
@@ -204,7 +198,11 @@ var BookViewer = function (_Component) {
             )
           )
         ) : null,
-        book.mode === 'vertical' ? _react2.default.createElement(_BookPageList2.default, { height: height, view: book.view, bookId: this.bookId, pages: pagesToRender }) : null
+        book.mode === 'vertical' ? _react2.default.createElement(
+          'div',
+          { onWheel: (0, _utils.delayStuff)(this.scrollToLoadPages, 100).bind(this) },
+          _react2.default.createElement(_BookPageList2.default, { height: height, view: book.view, bookId: this.bookId, pages: pagesToRender })
+        ) : null
       );
     }
   }]);

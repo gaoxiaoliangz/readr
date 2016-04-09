@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { readCache, saveCache } from 'utils/cache'
+import { readCache, saveCache } from 'utils'
 
 
 // not pure, tell me if there's a bette way to do this

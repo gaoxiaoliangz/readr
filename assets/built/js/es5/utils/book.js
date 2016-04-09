@@ -12,14 +12,14 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _cache = require('utils/cache');
+var _utils = require('utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // not pure, tell me if there's a bette way to do this
 function initBook(bookId, actions, pageHeight) {
   return new Promise(function (resolve, reject) {
-    var pages = (0, _cache.readCache)('book' + bookId + '_pages');
+    var pages = (0, _utils.readCache)('book' + bookId + '_pages');
 
     if (pages) {
       actions.loadPages(JSON.parse(pages));
@@ -31,7 +31,7 @@ function initBook(bookId, actions, pageHeight) {
         var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
         var pages = groupNodesByPage(nodes, nodeHeights, pageHeight);
 
-        (0, _cache.saveCache)('book' + bookId + '_pages', JSON.stringify(pages));
+        (0, _utils.saveCache)('book' + bookId + '_pages', JSON.stringify(pages));
         actions.loadPages(pages);
         resolve(true);
       }).catch(function (err) {
