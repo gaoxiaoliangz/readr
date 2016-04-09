@@ -1,5 +1,3 @@
-
-
 export function fetchUserAuthInfo(endpoint) {
   return {
     CALL_API: {

@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import * as styles from 'constants/styles'
+import * as styles from 'constants/STYLES'
 
 import { callApi } from 'utils'
-import { API_ROOT } from 'constants/api-urls'
+import { API_ROOT } from 'constants/APIS'
 
 // todo: merge with api.js
 export function promisedCallApi(CALL_API, actionArgObj){
@@ -41,7 +41,7 @@ export function promisedCallApi(CALL_API, actionArgObj){
           type: failureType,
           error: error.message || 'Oops!'
         }))
-        reject(getState)
+        reject(error)
       })
     })
   }

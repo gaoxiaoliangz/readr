@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
 
-import BookPageList from 'components/book-page-list'
-import Loading from 'components/loading'
+import BookPageList from 'components/BookPageList'
+import Loading from 'components/Loading'
 
 import { delayStuff } from 'utils'
 import { initBook, convertPercentageToPage, filterPages } from 'utils/book'

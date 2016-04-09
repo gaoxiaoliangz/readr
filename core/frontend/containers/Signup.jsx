@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
 import 'whatwg-fetch'
+import { API_ROOT } from 'constants/APIS'
 import $ from 'jquery'
-import { URL_USERS } from 'constants/api-urls'
 
-import Branding from 'components/branding'
-import Msg from 'components/msg'
+import Msg from 'components/Message'
+import Branding from 'components/Branding'
 
 class Signup extends Component {
 

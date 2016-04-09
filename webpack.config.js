@@ -35,6 +35,6 @@ module.exports = {
       vendor: path.join(__dirname, "assets/vendors"),
       css: path.join(__dirname, "assets/built/css")
     },
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.jsx']
   }
 };

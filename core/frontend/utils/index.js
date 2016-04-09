@@ -3,7 +3,7 @@
  */
 
 import $ from 'jquery'
-import { API_ROOT } from 'constants/api-urls'
+import { API_ROOT } from 'constants/APIS'
 
 export function callApi(fullUrl, type, data) {
 
@@ -33,7 +33,7 @@ export function callApi(fullUrl, type, data) {
     $.ajax(config).done(response => {
       resolve(response)
     }).fail(response => {
-      reject(response)
+      reject(JSON.parse(response.responseText))
     })
   })
 }

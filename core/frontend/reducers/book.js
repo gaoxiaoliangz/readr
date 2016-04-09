@@ -4,6 +4,17 @@ export default function book(state, action) {
   }
   switch (action.type) {
 
+    case 'BOOK_LIST_REQUEST':
+      return Object.assign({}, state, {
+        isFetchingList: true
+      })
+
+    case 'BOOK_LIST_SUCCESS':
+      return Object.assign({}, state, {
+        isFetchingList: false,
+        bookList: action.response.data
+      })
+
     case 'BOOK_CONTENT_REQUEST':
       return Object.assign({}, state, {
         isFetchingContent: true,
@@ -25,7 +36,7 @@ export default function book(state, action) {
     case 'BOOK_INFO_SUCCESS':
       return Object.assign({}, state, {
         isFetchingInfo: false,
-        meta: action.response.data[0]
+        meta: action.response.data
       })
 
     case 'READ_CONTENT_FROM_CACHE':

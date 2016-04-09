@@ -5,20 +5,6 @@ var querystring = require("querystring")
 var url = require("url")
 var Promise = require('bluebird')
 
-var React = require('react')
-var Component = React.Component
-var createStore = require('redux').createStore
-var Provider = require('react-redux').Provider
-var renderToString = require('react-dom/server').renderToString
-var Router = require('react-router')
-var match = Router.match
-var RouterContext = Router.RouterContext
-var reactRoutes = require('routes').default
-var configureStore = require('store/configureStore').default
-
-const store = configureStore()
-const initialState = store.getState()
-
 var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
   var router = express.Router()
 
@@ -28,6 +14,20 @@ var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServ
   })
 
   if(isServerRoutingEnabled) {
+    var React = require('react')
+    var Component = React.Component
+    var createStore = require('redux').createStore
+    var Provider = require('react-redux').Provider
+    var renderToString = require('react-dom/server').renderToString
+    var Router = require('react-router')
+    var match = Router.match
+    var RouterContext = Router.RouterContext
+    var reactRoutes = require('routes').default
+    var configureStore = require('store/configureStore').default
+
+    const store = configureStore()
+    const initialState = store.getState()
+
     router.get("*",function(req, res, next){
       match({ routes: reactRoutes, location: req.url }, function(error, redirectLocation, renderProps) {
         if (error) {

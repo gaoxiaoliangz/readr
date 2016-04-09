@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         files: [{
           "expand": true,
           "cwd": "<%=path.core%>/frontend",
-          "src": ["**/*.js"],
+          "src": ["**/*.{js,jsx}"],
           "dest": "<%=path.dist%>/js/es5",
           "ext": ".js"
         }]
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
         }
       },
       babel:{
-        files:['<%=path.core%>/frontend/**/*.js'],
+        files:['<%=path.core%>/frontend/**/*.{js,jsx}'],
         tasks:['babel'],
         options: {
           spawn: false
