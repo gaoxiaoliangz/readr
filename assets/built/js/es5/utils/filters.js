@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.filterContentNodesByPage = filterContentNodesByPage;
-exports.genPageList = genPageList;
 
 var _lodash = require("lodash");
 
@@ -72,23 +71,4 @@ function filterContentNodesByPage(contentNodes, config, page) {
   };
 
   return pageWrap;
-}
-
-function genPageList(startPage, quantity, offset, contentNodes, config) {
-  if (arguments.length !== 5) {
-    console.error("Wrong parameter length!");
-  }
-  var pages = [];
-
-  while (startPage - offset < 0) {
-    offset--;
-  }
-  startPage = startPage - offset;
-
-  for (var i = startPage; i < quantity + startPage; i++) {
-    var page = filterContentNodesByPage(contentNodes, config, i);
-    pages.push(page);
-  }
-
-  return pages;
 }

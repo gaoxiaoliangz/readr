@@ -3,10 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.callApi = callApi;
 exports.checkAuthStatus = checkAuthStatus;
-exports.formatHTMLStringToArray = formatHTMLStringToArray;
-exports.parseHTML = parseHTML;
 exports.delayStuff = delayStuff;
+exports.isIE = isIE;
+exports.lockScroll = lockScroll;
+exports.unlockScroll = unlockScroll;
+exports.excAndExcOnResizing = excAndExcOnResizing;
 
 var _jquery = require('jquery');
 
@@ -16,44 +19,50 @@ var _apiUrls = require('constants/api-urls');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function checkAuthStatus() {
-  return new Promise(function (resolve) {
-    _jquery2.default.get(_apiUrls.URL_AUTH, function (data) {
-      resolve(data);
+/*
+ * functions defined here must be important and better be pure
+ */
+
+function callApi(fullUrl, type, data) {
+
+  if (typeof type === 'undefined') {
+    type = 'get';
+  }
+
+  var dataType = 'json';
+
+  if (fullUrl.indexOf('http') !== -1) {
+    dataType = 'jsonp';
+  }
+
+  var config = {
+    url: fullUrl,
+    type: type,
+    dataType: dataType
+  };
+
+  if (typeof data !== 'undefined') {
+    config = Object.assign({}, config, {
+      data: data
+    });
+  }
+
+  return new Promise(function (resolve, reject) {
+    _jquery2.default.ajax(config).done(function (response) {
+      resolve(response);
+    }).fail(function (response) {
+      reject(response);
     });
   });
 }
 
-function formatHTMLStringToArray(HTMLString) {
-  var contentArray = [];
-  var $HTMLString = (0, _jquery2.default)(HTMLString);
-
-  for (var i = 0; i < $HTMLString.length; i++) {
-    contentArray.push({
-      tagName: $HTMLString[i].tagName,
-      innerHTML: $HTMLString[i].innerHTML
+// todo: remove
+function checkAuthStatus() {
+  return new Promise(function (resolve) {
+    _jquery2.default.get(_apiUrls.API_ROOT + 'auth', function (data) {
+      resolve(data);
     });
-  }
-  return contentArray;
-}
-
-function parseHTML(htmlString) {
-  var nodes = [];
-  var $html = (0, _jquery2.default)(htmlString);
-
-  for (var i = 0; i < $html.length; i++) {
-    if ($html[i].nodeType != 1) {
-      continue;
-    } else {
-      nodes.push({
-        type: $html[i].tagName.toLowerCase(),
-        props: {
-          children: $html[i].innerHTML
-        }
-      });
-    }
-  }
-  return nodes;
+  });
 }
 
 // todo: when multiple functins are called?
@@ -62,4 +71,32 @@ function delayStuff(callback, delay) {
     clearTimeout(this.__delayStuffTimer__);
     this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay);
   };
+}
+
+// dom related
+function isIE(ver) {
+  if (typeof ver === 'undefined') {
+    ver = null;
+  }
+  var b = document.createElement('b');
+  b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
+  return b.getElementsByTagName('i').length === 1;
+}
+
+function lockScroll() {
+  (0, _jquery2.default)("body").css({ "overflow": "hidden" });
+}
+
+function unlockScroll() {
+  (0, _jquery2.default)("body").css({ "overflow": "visible" });
+}
+
+function excAndExcOnResizing(func, args) {
+  if (!args) {
+    args = [];
+  }
+  func.apply([], args);
+  (0, _jquery2.default)(window).resize(function () {
+    func.apply(null, args);
+  });
 }

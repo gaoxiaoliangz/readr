@@ -12,27 +12,35 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _immutable = require('immutable');
-
-var _immutable2 = _interopRequireDefault(_immutable);
-
 var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
+
+var _immutable = require('immutable');
+
+var _immutable2 = _interopRequireDefault(_immutable);
 
 var _bookPageList = require('components/book-page-list');
 
 var _bookPageList2 = _interopRequireDefault(_bookPageList);
 
-var _actions = require('actions');
+var _loading = require('components/loading');
 
-var actions = _interopRequireWildcard(_actions);
+var _loading2 = _interopRequireDefault(_loading);
 
-var _filters = require('utils/filters');
+var _utils = require('utils');
 
 var _book = require('utils/book');
 
-var _utils = require('utils');
+var _cache = require('utils/cache');
+
+var _book2 = require('actions/book');
+
+var bookActions = _interopRequireWildcard(_book2);
+
+var _user = require('actions/user');
+
+var userActions = _interopRequireWildcard(_user);
 
 var _jquery = require('jquery');
 
@@ -48,33 +56,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var actions = Object.assign({}, bookActions, userActions);
+
+// todo: remove this
+
+
+// todo
+function getUserReadingProgress(userId) {
+  return {
+    localProgress: '',
+    cloudProgress: ''
+  };
+}
+
+// todo
+function getUserPreference(userId) {}
+
 var BookViewer = function (_Component) {
   _inherits(BookViewer, _Component);
-
-  _createClass(BookViewer, [{
-    key: 'scrollToLoadPages',
-    value: function scrollToLoadPages() {
-      var pageSum = this.props.book.content.pageSum;
-      var percentage = (document.body.scrollTop / (this.props.book.view.style.height * pageSum)).toFixed(4);
-
-      this.props.actions.loadPages((0, _book.convertPercentageToPage)(percentage, pageSum));
-    }
-
-    // todo
-
-  }, {
-    key: 'toggleBookPanel',
-    value: function toggleBookPanel(e) {
-      var y = e.pageY - (0, _jquery2.default)("body").scrollTop();
-      var x = e.pageX;
-
-      if (y < 90) {
-        (0, _jquery2.default)(".page-book-viewer .functions").slideDown();
-      } else if ((0, _jquery2.default)(".dia-wrap").length == 0) {
-        (0, _jquery2.default)(".page-book-viewer .functions").slideUp();
-      }
-    }
-  }]);
 
   function BookViewer(props) {
     _classCallCheck(this, BookViewer);
@@ -83,12 +82,40 @@ var BookViewer = function (_Component) {
 
     _this.bookId = props.params.id;
     _this.state = {
-      bookName: "loading ..."
+      showPanel: false
     };
     return _this;
   }
 
   _createClass(BookViewer, [{
+    key: 'scrollToLoadPages',
+    value: function scrollToLoadPages() {
+      var pageSum = this.props.book.pages.length;
+      var percentage = (document.body.scrollTop / (900 * pageSum)).toFixed(4);
+
+      this.props.actions.jumpTo((0, _book.convertPercentageToPage)(percentage, pageSum));
+    }
+
+    // todos:
+    // unmounting bug
+    // add animation
+
+  }, {
+    key: 'toggleBookPanel',
+    value: function toggleBookPanel(event) {
+      var y = event.pageY - document.body.scrollTop;
+
+      if (y < 90) {
+        this.setState({
+          showPanel: true
+        });
+      } else {
+        this.setState({
+          showPanel: false
+        });
+      }
+    }
+  }, {
     key: 'addEventListeners',
     value: function addEventListeners() {
       window.addEventListener("scroll", (0, _utils.delayStuff)(this.scrollToLoadPages, 100).bind(this));
@@ -97,95 +124,55 @@ var BookViewer = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var mode = "VERTICAL";
-      var screen = "HD";
-      var book = this.props.book;
-      var actions = this.props.actions;
-      var bookId = this.bookId;
+      var _this2 = this;
 
       // todo
-      var url = "/api/v0.1/books/" + bookId;
+      var defaultMode = "vertical";
+      var screen = "hd";
 
-      // get book info
-      fetch(url).then(function (res) {
-        return res.json();
-      }).then(function (json) {
-        this.setState({
-          bookName: json.data[0].book_name
-        });
-      }.bind(this)).catch(function (err) {
-        console.log(err);
-      });
-
-      // todo: bug in mobile mode
+      // todo: add mobile support
       if ((0, _jquery2.default)(window).width() < 768) {
-        screen = "MOBILE";
+        screen = "mobile";
       }
 
-      actions.dispatchWrap(function (dispatch, getState) {
-        var _this2 = this;
+      // todo
+      var pageHeight = 900;
 
-        actions.loadBookContentFromCache(bookId);
+      this.props.actions.fetchBookInfo(this.bookId, 'books/' + this.bookId);
 
-        // check if content is cached
-        if (getState().book.content.cacheReadingState !== 'SUCCESS') {
-          actions.fetchBookContent(bookId).then(function (getState) {
-            actions.setViewMode(mode);
-            actions.setViewScreen(screen);
-            actions.calculateBookContent(getState().book.content.nodes, getState().book.view.style.height);
-            actions.cacheBookContent(bookId, getState().book.content);
-            actions.cacheView(bookId, getState().book.view);
-            actions.loadPages(1);
-            _this2.addEventListeners();
-          });
-        } else {
-          actions.loadViewFromCache(bookId);
-
-          // check if view is cached
-          if (getState().book.view.cacheReadingState !== 'SUCCESS') {
-            actions.setViewMode(mode);
-            actions.setViewScreen(screen);
-            actions.cacheView(bookId, getState().book.view);
-          }
-
-          actions.loadPages(1);
-          this.addEventListeners();
+      (0, _book.initBook)(this.bookId, this.props.actions, pageHeight).then(function (data) {
+        if (data === true) {
+          _this2.props.actions.jumpTo(1);
+          _this2.addEventListeners();
         }
-      }.bind(this));
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
-
       var book = this.props.book;
-      var pages = [];
-      var quantity = 5;
-      var startPage = 1;
-      var offset = 2;
-      var height = "100%";
+      var pages = book.pages;
+      var pagesToRender = [];
+      var height = book.pages ? book.pages.length * 900 : '100%';
 
-      if (book.content.nodes.length) {
-        if (book.isPagesLoaded) {
-          pages = (0, _filters.genPageList)(book.currentPage, quantity, offset, book.content.nodes, { pageHeight: book.view.style.height });
-          height = book.content.pageSum * book.view.style.height;
-        } else {
-          pages = [{
-            props: {
-              children: book.content.nodes,
-              pageNo: "NA"
-            },
-            type: "page"
-          }];
-        }
+      if (book.isPagesLoaded) {
+        var currentPage = book.currentPage;
+
+        pagesToRender = (0, _book.filterPages)({
+          startPage: currentPage,
+          offset: 2,
+          quantity: 5,
+          pages: pages
+        });
       }
 
       return _react2.default.createElement(
         'div',
         { className: 'page-book-viewer' },
-        _react2.default.createElement(
+        book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_loading2.default, null) : null,
+        this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
           'div',
-          { className: 'functions', style: { display: "none" } },
+          { className: 'functions' },
           _react2.default.createElement(
             'div',
             { className: 'container' },
@@ -197,24 +184,33 @@ var BookViewer = function (_Component) {
             _react2.default.createElement(
               'span',
               { className: 'title' },
-              this.state.bookName
+              book.meta.book_name
             ),
-            function () {
-              if (book.content.nodes.length) {
-                return _react2.default.createElement(
-                  'span',
-                  { className: 'loc' },
-                  book.currentPage + "/" + book.content.pageSum
-                );
-              }
-            }()
+            _react2.default.createElement(
+              'span',
+              { className: 'loc' },
+              book.currentPage + "/" + book.pages.length
+            )
           )
-        ),
-        function () {
-          if (book.content.nodes.length) {
-            return _react2.default.createElement(_bookPageList2.default, { isCalculated: book.content.isCalculated, height: height, view: book.view, bookId: _this3.bookId, pages: pages });
-          }
-        }()
+        ) : null,
+        book.mode === 'render' ? _react2.default.createElement(
+          'div',
+          { className: 'pages' },
+          _react2.default.createElement(
+            'div',
+            { className: 'container' },
+            _react2.default.createElement(
+              'ul',
+              null,
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement('div', { className: 'content', dangerouslySetInnerHTML: { __html: book.html } })
+              )
+            )
+          )
+        ) : null,
+        book.mode === 'vertical' ? _react2.default.createElement(_bookPageList2.default, { height: height, view: book.view, bookId: this.bookId, pages: pagesToRender }) : null
       );
     }
   }]);
@@ -222,16 +218,18 @@ var BookViewer = function (_Component) {
   return BookViewer;
 }(_react.Component);
 
+BookViewer.propTypes = {
+  book: _react2.default.PropTypes.object.isRequired
+};
+
 function mapStateToProps(state) {
   return {
     book: state.book
   };
 }
 
-function mapDispatchToProps(dispatch) {
+exports.default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
   return {
     actions: (0, _redux.bindActionCreators)(actions, dispatch)
   };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BookViewer);
+})(BookViewer);

@@ -1,31 +1,87 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = book;
 function book(state, action) {
-  if (typeof state === "undefined") {
-    state = { content: { nodes: [] }, view: {} };
+  if (typeof state === 'undefined') {
+    state = {};
   }
   switch (action.type) {
-    case "REQUEST_BOOK_CONTENT":
+
+    case 'BOOK_CONTENT_REQUEST':
       return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isFetching: true
-        }),
+        isFetchingContent: true,
         id: action.bookId
       });
 
-    case "RECEIVE_BOOK_CONTENT":
+    case 'BOOK_CONTENT_SUCCESS':
       return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isFetching: false,
-          nodes: action.nodes
-        })
+        isFetchingContent: false,
+        html: action.response.data[0].html
       });
 
-    case "SET_VIEW_SCREEN":
+    case 'BOOK_INFO_REQUEST':
+      return Object.assign({}, state, {
+        isFetchingInfo: true,
+        id: action.bookId
+      });
+
+    case 'BOOK_INFO_SUCCESS':
+      return Object.assign({}, state, {
+        isFetchingInfo: false,
+        meta: action.response.data[0]
+      });
+
+    case 'READ_CONTENT_FROM_CACHE':
+      return Object.assign({}, state, {
+        html: action.content
+      });
+
+    case 'LOAD_PAGES':
+      return Object.assign({}, state, {
+        isPagesLoaded: true,
+        pages: action.pages,
+        html: null
+      });
+
+    case 'SET_BOOK_MODE':
+      return Object.assign({}, state, {
+        mode: action.mode
+      });
+
+    case 'JUMP_TO':
+      return Object.assign({}, state, {
+        isPagesLoaded: true,
+        currentPage: action.currentPage
+      });
+
+    case 'DOUBAN_BOOK_SEARCH_REQUEST':
+      return Object.assign({}, state, {
+        isFetchingSearch: true
+      });
+
+    case 'DOUBAN_BOOK_SEARCH_SUCCESS':
+      return Object.assign({}, state, {
+        isFetchingSearch: false,
+        searchResults: action.response
+      });
+
+    case 'DOUBAN_BOOK_SEARCH_FAILURE':
+      return Object.assign({}, state, {
+        isFetchingSearch: false,
+        error: action.response
+      });
+
+    case 'CLEAR_BOOK_SEARCH':
+      return Object.assign({}, state, {
+        searchResults: null
+      });
+
+    //  todo: remove
+
+    case 'SET_VIEW_SCREEN':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           screen: action.screen,
@@ -33,21 +89,21 @@ function book(state, action) {
         })
       });
 
-    case "SET_VIEW_MODE":
+    case 'SET_VIEW_MODE':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           mode: action.mode
         })
       });
 
-    case "CUSTOMIZE_VIEW":
+    case 'CUSTOMIZE_VIEW':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           customStyle: action.customStyle
         })
       });
 
-    case "CALCULATE_BOOK_CONTENT":
+    case 'CALCULATE_BOOK_CONTENT':
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {
           nodes: action.contentNodes,
@@ -56,33 +112,21 @@ function book(state, action) {
         })
       });
 
-    case "CACHE_BOOK_CONTENT":
+    case 'CACHE_BOOK_CONTENT':
       return Object.assign({}, state, {
         content: Object.assign({}, state.content, {
           isCached: true
         })
       });
 
-    case "LOAD_BOOK_CONTENT_FROM_CACHE":
-      return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          nodes: action.contentNodes,
-          isFetching: false,
-          isCalculated: true,
-          isCached: action.cacheReadingState === 'SUCCESS' ? true : false,
-          cacheReadingState: action.cacheReadingState,
-          pageSum: action.pageSum
-        })
-      });
-
-    case "CACHE_VIEW":
+    case 'CACHE_VIEW':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           isCached: true
         })
       });
 
-    case "LOAD_VIEW_FROM_CACHE":
+    case 'LOAD_VIEW_FROM_CACHE':
       return Object.assign({}, state, {
         view: Object.assign({}, state.view, {
           nodes: action.contentNodes,
@@ -92,12 +136,6 @@ function book(state, action) {
           screen: action.screen,
           style: action.style
         })
-      });
-
-    case "LOAD_PAGES":
-      return Object.assign({}, state, {
-        isPagesLoaded: true,
-        currentPage: action.currentPage
       });
 
     default:

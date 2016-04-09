@@ -6,19 +6,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = require('redux');
 
-var _lang = require('./lang');
-
-var _lang2 = _interopRequireDefault(_lang);
-
 var _book = require('./book');
 
 var _book2 = _interopRequireDefault(_book);
 
+var _user = require('./user');
+
+var _user2 = _interopRequireDefault(_user);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-  lang: _lang2.default,
-  book: _book2.default
+  book: _book2.default,
+  user: _user2.default
 });
 
 exports.default = rootReducer;

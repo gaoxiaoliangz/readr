@@ -43,10 +43,10 @@ var Branding = function (_Component) {
   _createClass(Branding, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      (0, _utils.checkAuthStatus)().then(function (data) {
-        if (data.authed) {
+      (0, _utils.checkAuthStatus)().then(function (json) {
+        if (json.data.authed) {
           this.setState({
-            username: data.user,
+            username: json.data.user,
             isAuthed: true,
             loadingAuthStatus: false
           });
@@ -56,6 +56,10 @@ var Branding = function (_Component) {
           });
         }
       }.bind(this));
+
+      // callApi('auth').then(data => {
+      //   console.log(data)
+      // })
     }
   }, {
     key: 'render',
