@@ -1,14 +1,14 @@
 import React from 'react'
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router'
 
-import App from 'containers/app'
-import NoMatch from 'containers/no-match'
-import Home from 'containers/home'
-import BookViewer from 'containers/book-viewer'
+import App from 'containers/App'
+import NoMatch from 'containers/NoMatch'
+import Home from 'containers/Home'
+import BookViewer from 'containers/BookViewer'
 import BookStore from 'containers/BookStore'
-import Signin from 'containers/signin'
-import Signup from 'containers/signup'
-import AddBook from 'containers/add-book'
+import Signin from 'containers/Signin'
+import Signup from 'containers/Signup'
+import AddBook from 'containers/AddBook'
 import BookInfo from 'containers/BookInfo'
 
 export default (

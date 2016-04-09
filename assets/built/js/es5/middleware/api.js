@@ -8,7 +8,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _utils = require('utils');
 
-var _apiUrls = require('constants/api-urls');
+var _APIS = require('constants/APIS');
 
 exports.default = function (store) {
   return function (next) {
@@ -42,7 +42,7 @@ exports.default = function (store) {
       }
 
       if (typeof apiUrl === 'undefined') {
-        apiUrl = _apiUrls.API_ROOT;
+        apiUrl = _APIS.API_ROOT;
       }
 
       var fullUrl = apiUrl + endpoint;

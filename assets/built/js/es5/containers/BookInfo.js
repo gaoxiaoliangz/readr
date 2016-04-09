@@ -18,9 +18,9 @@ var _reactRedux = require('react-redux');
 
 var _book = require('actions/book');
 
-var _branding = require('components/branding');
+var _Branding = require('components/Branding');
 
-var _branding2 = _interopRequireDefault(_branding);
+var _Branding2 = _interopRequireDefault(_Branding);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -59,7 +59,7 @@ var BookInfo = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-book-info' },
-        _react2.default.createElement(_branding2.default, null),
+        _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(
           _react3.Container,
           null,

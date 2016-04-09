@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Appbar, Button, Container } from 'muicss/react'
 import { Link } from 'react-router'
 
-
-
-
 class BookInfo extends Component {
   loadBooksFromServer() {
     fetch(URL_BOOKS+this.bookId).then(function(res){

@@ -1,5 +1,5 @@
 import { promisedCallApi } from 'actions'
-import { API_DOUBAN_BOOKS } from 'constants/api-urls'
+import { API_DOUBAN_BOOKS } from 'constants/APIS'
 
 export function fetchBookList(endpoint) {
   return promisedCallApi({

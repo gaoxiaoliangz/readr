@@ -15,7 +15,7 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _apiUrls = require('constants/api-urls');
+var _APIS = require('constants/APIS');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -59,7 +59,7 @@ function callApi(fullUrl, type, data) {
 // todo: remove
 function checkAuthStatus() {
   return new Promise(function (resolve) {
-    _jquery2.default.get(_apiUrls.API_ROOT + 'auth', function (data) {
+    _jquery2.default.get(_APIS.API_ROOT + 'auth', function (data) {
       resolve(data);
     });
   });

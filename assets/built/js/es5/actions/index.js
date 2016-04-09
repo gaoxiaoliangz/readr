@@ -13,13 +13,13 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _styles = require('constants/styles');
+var _STYLES = require('constants/STYLES');
 
-var styles = _interopRequireWildcard(_styles);
+var styles = _interopRequireWildcard(_STYLES);
 
 var _utils = require('utils');
 
-var _apiUrls = require('constants/api-urls');
+var _APIS = require('constants/APIS');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -51,7 +51,7 @@ function promisedCallApi(CALL_API, actionArgObj) {
     }
 
     if (typeof apiUrl === 'undefined') {
-      apiUrl = _apiUrls.API_ROOT;
+      apiUrl = _APIS.API_ROOT;
     }
 
     var fullUrl = apiUrl + endpoint;

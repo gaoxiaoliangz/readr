@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,17 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _react3 = require('muicss/react');
-
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,65 +18,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Home = function (_Component) {
-  _inherits(Home, _Component);
+var Msg = function (_Component) {
+  _inherits(Msg, _Component);
 
-  function Home() {
-    _classCallCheck(this, Home);
+  function Msg() {
+    _classCallCheck(this, Msg);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Msg).apply(this, arguments));
   }
 
-  _createClass(Home, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
-    key: 'render',
+  _createClass(Msg, [{
+    key: "render",
     value: function render() {
+      var msg = this.props.content ? _react2.default.createElement(
+        "div",
+        { className: "msg mui--z1" },
+        this.props.content
+      ) : null;
+
       return _react2.default.createElement(
-        'div',
-        { className: 'page-home' },
-        _react2.default.createElement(_Branding2.default, null),
-        _react2.default.createElement(
-          _react3.Container,
-          null,
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'h1',
-              { className: 'page-title' },
-              'This is home, bitch!!!!'
-            ),
-            _react2.default.createElement(
-              'ul',
-              null,
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/bookstore' },
-                  '查看书城'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/addbook' },
-                  '添加书籍'
-                )
-              )
-            )
-          )
-        )
+        "div",
+        null,
+        msg
       );
     }
   }]);
 
-  return Home;
+  return Msg;
 }(_react.Component);
 
-exports.default = Home;
+exports.default = Msg;

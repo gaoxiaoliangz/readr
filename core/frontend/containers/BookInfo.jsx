@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
 import { fetchBookInfo } from 'actions/book'
-import Branding from 'components/branding'
+import Branding from 'components/Branding'
 
 class BookInfo extends Component {
   constructor(props) {

@@ -16,7 +16,7 @@ exports.jumpTo = jumpTo;
 
 var _actions = require('actions');
 
-var _apiUrls = require('constants/api-urls');
+var _APIS = require('constants/APIS');
 
 function fetchBookList(endpoint) {
   return (0, _actions.promisedCallApi)({
@@ -29,7 +29,7 @@ function fetchDoubanBookSearchResults(endpoint) {
   return (0, _actions.promisedCallApi)({
     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
     endpoint: endpoint,
-    apiUrl: _apiUrls.API_DOUBAN_BOOKS
+    apiUrl: _APIS.API_DOUBAN_BOOKS
   }, {});
 }
 

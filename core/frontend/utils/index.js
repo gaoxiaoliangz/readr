@@ -3,7 +3,7 @@
  */
 
 import $ from 'jquery'
-import { API_ROOT } from 'constants/api-urls'
+import { API_ROOT } from 'constants/APIS'
 
 export function callApi(fullUrl, type, data) {
 

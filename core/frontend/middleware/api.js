@@ -1,5 +1,5 @@
 import { callApi } from 'utils'
-import { API_ROOT } from 'constants/api-urls'
+import { API_ROOT } from 'constants/APIS'
 
 export default store => next => action => {
   const CALL_API = action.CALL_API

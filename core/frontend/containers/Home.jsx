@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { render } from 'react-dom'
 import { Link, match } from 'react-router'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
-import 'whatwg-fetch'
-import Branding from 'components/branding'
-import routes from 'routes'
+
+import Branding from 'components/Branding'
 
 class Home extends Component {
 

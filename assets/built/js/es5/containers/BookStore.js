@@ -16,9 +16,9 @@ var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
-var _branding = require('components/branding');
+var _Branding = require('components/Branding');
 
-var _branding2 = _interopRequireDefault(_branding);
+var _Branding2 = _interopRequireDefault(_Branding);
 
 var _BookList = require('components/BookList');
 
@@ -54,7 +54,7 @@ var BookStore = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-book-store' },
-        _react2.default.createElement(_branding2.default, null),
+        _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(_BookList2.default, { bookList: this.props.bookList })
       );
     }

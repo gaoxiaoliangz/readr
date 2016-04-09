@@ -16,19 +16,19 @@ var _reactRouter = require('react-router');
 
 require('whatwg-fetch');
 
-var _apiUrls = require('constants/api-urls');
+var _APIS = require('constants/APIS');
 
 var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _msg = require('components/msg');
+var _Message = require('components/Message');
 
-var _msg2 = _interopRequireDefault(_msg);
+var _Message2 = _interopRequireDefault(_Message);
 
-var _branding = require('components/branding');
+var _Branding = require('components/Branding');
 
-var _branding2 = _interopRequireDefault(_branding);
+var _Branding2 = _interopRequireDefault(_Branding);
 
 var _actions = require('actions');
 
@@ -68,7 +68,7 @@ var Signin = function (_Component) {
         password: this.state.password
       };
 
-      _jquery2.default.post(_apiUrls.URL_AUTH, params, function (data) {
+      _jquery2.default.post(URL_AUTH, params, function (data) {
         console.log(data);
         if (data.authed) {
           this.setState({
@@ -100,14 +100,14 @@ var Signin = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-signin' },
-        _react2.default.createElement(_branding2.default, null),
+        _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(
           _react3.Container,
           null,
           _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', action: '/signin', method: 'post' },
-            _react2.default.createElement(_msg2.default, { content: this.state.status }),
+            _react2.default.createElement(_Message2.default, { content: this.state.status }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },

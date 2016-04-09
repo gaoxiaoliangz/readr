@@ -3,7 +3,7 @@ import { Appbar, Button, Container } from 'muicss/react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import Branding from 'components/branding'
+import Branding from 'components/Branding'
 import BookList from 'components/BookList'
 import { fetchBookList } from 'actions/book'
 

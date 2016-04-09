@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
 import 'whatwg-fetch'
-import { URL_AUTH } from 'constants/api-urls'
+import { API_ROOT } from 'constants/APIS'
 import $ from 'jquery'
 
-import Msg from 'components/msg'
-import Branding from 'components/branding'
+import Msg from 'components/Message'
+import Branding from 'components/Branding'
 
 import { fetchUserAuthInfo } from 'actions'
 
