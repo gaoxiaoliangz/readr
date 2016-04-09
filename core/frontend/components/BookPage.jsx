@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 
 class BookPage extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     let page = this.props.page
     let style = this.props.style

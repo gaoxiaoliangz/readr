@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 export default class Book extends Component {
   render() {
     let book = this.props.book
+
     return (
       <li className="book">
         <Link to={"/bookstore/book/"+this.props.id} >

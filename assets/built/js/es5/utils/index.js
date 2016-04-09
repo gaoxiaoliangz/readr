@@ -3,6 +3,42 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _book = require('utils/book');
+
+Object.keys(_book).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _book[key];
+    }
+  });
+});
+
+var _cache = require('utils/cache');
+
+Object.keys(_cache).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _cache[key];
+    }
+  });
+});
+
+var _filters = require('utils/filters');
+
+Object.keys(_filters).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _filters[key];
+    }
+  });
+});
 exports.callApi = callApi;
 exports.checkAuthStatus = checkAuthStatus;
 exports.delayStuff = delayStuff;
@@ -18,10 +54,6 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _APIS = require('constants/APIS');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/*
- * functions defined here must be important and better be pure
- */
 
 function callApi(fullUrl, type, data) {
 
@@ -57,6 +89,10 @@ function callApi(fullUrl, type, data) {
 }
 
 // todo: remove
+/*
+ * functions defined here must be important and better be pure
+ */
+
 function checkAuthStatus() {
   return new Promise(function (resolve) {
     _jquery2.default.get(_APIS.API_ROOT + 'auth', function (data) {

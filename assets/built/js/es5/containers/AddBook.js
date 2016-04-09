@@ -14,31 +14,25 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _react3 = require('muicss/react');
+var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
-var _jquery = require('jquery');
+var _react3 = require('muicss/react');
 
-var _jquery2 = _interopRequireDefault(_jquery);
+var _APIS = require('constants/APIS');
+
+var _actions = require('actions');
+
+var _utils = require('utils');
 
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
 
-var _Message = require('components/Message');
+var _Notification = require('components/Notification');
 
-var _Message2 = _interopRequireDefault(_Message);
-
-var _APIS = require('constants/APIS');
-
-var _reactRedux = require('react-redux');
-
-var _user = require('actions/user');
-
-var _book = require('actions/book');
-
-var _utils = require('utils');
+var _Notification2 = _interopRequireDefault(_Notification);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72,21 +66,6 @@ var AddBook = function (_Component) {
       this.props.fetchUserAuthInfo();
     }
   }, {
-    key: 'showMsg',
-    value: function showMsg(content, t) {
-      if (typeof t === 'undefined') {
-        t = 3000;
-      }
-      this.setState({
-        status: content
-      });
-      setTimeout(function () {
-        this.setState({
-          status: null
-        });
-      }.bind(this), t);
-    }
-  }, {
     key: 'handleAddBook',
     value: function handleAddBook(event) {
       var _this2 = this;
@@ -102,14 +81,14 @@ var AddBook = function (_Component) {
         if (currentBook !== -1) {
           dataToPost.doubanBook = this.props.book.searchResults.books[currentBook];
         } else {
-          this.showMsg('未选择书籍！');
+          this.props.handleNotification('未选择书籍！');
           break;
         }
 
         if (bookContent) {
           dataToPost.bookContent = bookContent;
         } else {
-          this.showMsg('请输入书籍内容！');
+          this.props.handleNotification('请输入书籍内容！');
           break;
         }
 
@@ -121,10 +100,10 @@ var AddBook = function (_Component) {
 
       if (isValid) {
         (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'post', dataToPost).then(function (res) {
-          _this2.showMsg('添加成功');
+          _this2.props.handleNotification('添加成功');
         }).catch(function (err) {
           console.error(err);
-          _this2.showMsg('添加失败');
+          _this2.props.handleNotification(err.message);
         });
       }
     }
@@ -175,8 +154,8 @@ var AddBook = function (_Component) {
           null,
           _react2.default.createElement(
             _react3.Form,
-            { className: 'content-container', action: '#', method: 'post' },
-            _react2.default.createElement(_Message2.default, { content: this.state.status }),
+            { className: 'content-container', method: 'post' },
+            _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },
@@ -241,11 +220,10 @@ var AddBook = function (_Component) {
   return AddBook;
 }(_react.Component);
 
-function mapStateToProps(state) {
+exports.default = (0, _reactRedux.connect)(function (state) {
   return {
     user: state.user,
-    book: state.book
+    book: state.book,
+    notification: state.notification
   };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUserAuthInfo: _user.fetchUserAuthInfo, fetchDoubanBookSearchResults: _book.fetchDoubanBookSearchResults, clearBookSearch: _book.clearBookSearch })(AddBook);
+}, { fetchUserAuthInfo: _actions.fetchUserAuthInfo, fetchDoubanBookSearchResults: _actions.fetchDoubanBookSearchResults, clearBookSearch: _actions.clearBookSearch, handleNotification: _actions.handleNotification })(AddBook);

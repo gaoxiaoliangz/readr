@@ -38,6 +38,8 @@ var BookList = function (_Component) {
   _createClass(BookList, [{
     key: 'render',
     value: function render() {
+      var bookList = this.props.bookList;
+
       return _react2.default.createElement(
         _react3.Container,
         null,
@@ -52,7 +54,7 @@ var BookList = function (_Component) {
           _react2.default.createElement(
             'ul',
             { className: 'book-list clearfix' },
-            this.props.bookList ? this.props.bookList.map(function (book, index) {
+            bookList ? bookList.map(function (book, index) {
               return _react2.default.createElement(_Book2.default, { id: book.id, key: index, book: book });
             }) : null
           )

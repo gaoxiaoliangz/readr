@@ -16,6 +16,8 @@ var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
+var _actions = require('actions');
+
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
@@ -23,10 +25,6 @@ var _Branding2 = _interopRequireDefault(_Branding);
 var _BookList = require('components/BookList');
 
 var _BookList2 = _interopRequireDefault(_BookList);
-
-var _book = require('actions/book');
-
-var _user = require('actions/user');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48,8 +46,8 @@ var BookStore = function (_Component) {
   _createClass(BookStore, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookList('books');
       this.props.fetchUserAuthInfo();
+      this.props.fetchBookList('books');
     }
   }, {
     key: 'render',
@@ -71,4 +69,4 @@ exports.default = (0, _reactRedux.connect)(function (state) {
     bookList: state.book.bookList,
     user: state.user
   };
-}, { fetchBookList: _book.fetchBookList, fetchUserAuthInfo: _user.fetchUserAuthInfo })(BookStore);
+}, { fetchBookList: _actions.fetchBookList, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookStore);

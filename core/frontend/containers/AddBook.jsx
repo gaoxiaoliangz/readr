@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
-import { Link, browserHistory } from 'react-router'
-import $ from 'jquery'
-import Branding from 'components/Branding'
-import Msg from 'components/Message'
-import { API_ROOT } from 'constants/APIS'
 import { connect } from 'react-redux'
+import { Link, browserHistory } from 'react-router'
+import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 
-import { fetchUserAuthInfo } from 'actions/user'
-import { fetchDoubanBookSearchResults, clearBookSearch } from 'actions/book'
+import { API_ROOT } from 'constants/APIS'
+import { fetchDoubanBookSearchResults, clearBookSearch, fetchUserAuthInfo, handleNotification } from 'actions'
 import { callApi } from 'utils'
+
+import Branding from 'components/Branding'
+import Notification from 'components/Notification'
 
 class AddBook extends Component {
   constructor(props) {
@@ -28,20 +27,6 @@ class AddBook extends Component {
     this.props.fetchUserAuthInfo()
   }
 
-  showMsg(content, t) {
-    if(typeof t === 'undefined') {
-      t = 3000
-    }
-    this.setState({
-      status: content
-    })
-    setTimeout(function(){
-      this.setState({
-        status: null
-      })
-    }.bind(this), t)
-  }
-
   handleAddBook(event) {
     event.preventDefault()
 
@@ -54,14 +39,14 @@ class AddBook extends Component {
       if(currentBook !== -1) {
         dataToPost.doubanBook = this.props.book.searchResults.books[currentBook]
       }else{
-        this.showMsg('未选择书籍！')
+        this.props.handleNotification('未选择书籍！')
         break
       }
 
       if(bookContent) {
         dataToPost.bookContent = bookContent
       }else{
-        this.showMsg('请输入书籍内容！')
+        this.props.handleNotification('请输入书籍内容！')
         break
       }
 
@@ -73,10 +58,10 @@ class AddBook extends Component {
 
     if(isValid) {
       callApi(`${API_ROOT}books`, 'post', dataToPost).then(res => {
-        this.showMsg('添加成功')
+        this.props.handleNotification('添加成功')
       }).catch((err) => {
         console.error(err)
-        this.showMsg('添加失败')
+        this.props.handleNotification(err.message)
       })
     }
   }
@@ -115,8 +100,8 @@ class AddBook extends Component {
       <div className="page-add-book">
         <Branding user={this.props.user} />
         <Container>
-          <Form className="content-container" action="#" method="post">
-            <Msg content={this.state.status} />
+          <Form className="content-container" method="post">
+            <Notification notification={this.props.notification} />
             <h1 className="page-title">添加书籍</h1>
             {
               !this.state.conformed?(
@@ -164,14 +149,11 @@ class AddBook extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-    book: state.book
-  }
-}
-
 export default connect(
-  mapStateToProps,
-  { fetchUserAuthInfo, fetchDoubanBookSearchResults, clearBookSearch }
+  state => ({
+    user: state.user,
+    book: state.book,
+    notification: state.notification
+  }),
+  { fetchUserAuthInfo, fetchDoubanBookSearchResults, clearBookSearch, handleNotification }
 )(AddBook)

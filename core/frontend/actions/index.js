@@ -50,9 +50,3 @@ export function promisedCallApi(CALL_API, actionArgObj){
     })
   }
 }
-
-export function dispatchWrap(shellFunction) {
-  return (dispatch, getState) => {
-    return shellFunction(dispatch, getState)
-  }
-}

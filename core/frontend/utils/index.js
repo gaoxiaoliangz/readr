@@ -5,6 +5,10 @@
 import $ from 'jquery'
 import { API_ROOT } from 'constants/APIS'
 
+export * from 'utils/book'
+export * from 'utils/cache'
+export * from 'utils/filters'
+
 export function callApi(fullUrl, type, data) {
 
   if(typeof type === 'undefined') {

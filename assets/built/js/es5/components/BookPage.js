@@ -25,10 +25,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BookPage = function (_Component) {
   _inherits(BookPage, _Component);
 
-  function BookPage(props) {
+  function BookPage() {
     _classCallCheck(this, BookPage);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookPage).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookPage).apply(this, arguments));
   }
 
   _createClass(BookPage, [{

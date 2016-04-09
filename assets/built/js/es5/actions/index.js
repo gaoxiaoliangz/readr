@@ -42,7 +42,6 @@ Object.keys(_user).forEach(function (key) {
   });
 });
 exports.promisedCallApi = promisedCallApi;
-exports.dispatchWrap = dispatchWrap;
 
 var _lodash = require('lodash');
 
@@ -106,11 +105,5 @@ function promisedCallApi(CALL_API, actionArgObj) {
         reject(error);
       });
     });
-  };
-}
-
-function dispatchWrap(shellFunction) {
-  return function (dispatch, getState) {
-    return shellFunction(dispatch, getState);
   };
 }

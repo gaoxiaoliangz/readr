@@ -4,17 +4,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
 
+import { initBook, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff } from 'utils'
+import * as actions from 'actions'
+// import { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent } from 'actions'
+// const actions = { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent }
+
 import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
-
-import { delayStuff } from 'utils'
-import { initBook, convertPercentageToPage, filterPages } from 'utils/book'
-import { readCache, saveCache } from 'utils/cache'
-
-import * as bookActions from 'actions/book'
-import * as userActions from 'actions/user'
-
-const actions = Object.assign({}, bookActions, userActions)
 
 // todo: remove this
 import $ from 'jquery'
@@ -72,6 +68,7 @@ class BookViewer extends Component {
   }
 
   componentDidMount() {
+    const actions = this.props.actions
     // todo
     let defaultMode = "vertical"
     let screen = "hd"
@@ -84,11 +81,12 @@ class BookViewer extends Component {
     // todo
     let pageHeight = 900
 
-    this.props.actions.fetchBookInfo(this.bookId, `books/${this.bookId}`)
+    actions.fetchUserAuthInfo()
+    actions.fetchBookInfo(this.bookId, `books/${this.bookId}`)
 
-    initBook(this.bookId, this.props.actions, pageHeight).then(data => {
+    initBook(this.bookId, actions, pageHeight).then(data => {
       if(data === true) {
-        this.props.actions.jumpTo(1)
+        actions.jumpTo(1)
         this.addEventListeners()
       }
     })
@@ -158,14 +156,11 @@ BookViewer.propTypes = {
   book: React.PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    book: state.book
-  }
-}
-
 export default connect(
-  mapStateToProps,
+  state => ({
+    book: state.book,
+    user: state.user
+  }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
   })

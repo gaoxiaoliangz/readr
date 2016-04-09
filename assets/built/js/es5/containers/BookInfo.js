@@ -16,7 +16,7 @@ var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
 
-var _book = require('actions/book');
+var _actions = require('actions');
 
 var _Branding = require('components/Branding');
 
@@ -45,6 +45,7 @@ var BookInfo = function (_Component) {
   _createClass(BookInfo, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      this.props.fetchUserAuthInfo();
       this.props.fetchBookInfo(this.bookId, 'books/' + this.bookId).then(function (getState) {
         console.log(getState().book.meta);
       }).catch(function (error) {
@@ -59,7 +60,7 @@ var BookInfo = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-book-info' },
-        _react2.default.createElement(_Branding2.default, null),
+        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
         _react2.default.createElement(
           _react3.Container,
           null,
@@ -142,6 +143,7 @@ var BookInfo = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    bookInfo: state.book.meta
+    bookInfo: state.book.meta,
+    user: state.user
   };
-}, { fetchBookInfo: _book.fetchBookInfo })(BookInfo);
+}, { fetchBookInfo: _actions.fetchBookInfo, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookInfo);

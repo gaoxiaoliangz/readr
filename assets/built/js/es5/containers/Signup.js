@@ -10,21 +10,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
 var _react3 = require('muicss/react');
 
 var _reactRouter = require('react-router');
 
-require('whatwg-fetch');
-
 var _APIS = require('constants/APIS');
 
-var _jquery = require('jquery');
+var _utils = require('utils');
 
-var _jquery2 = _interopRequireDefault(_jquery);
+var _actions = require('actions');
 
-var _Message = require('components/Message');
+var _Notification = require('components/Notification');
 
-var _Message2 = _interopRequireDefault(_Message);
+var _Notification2 = _interopRequireDefault(_Notification);
 
 var _Branding = require('components/Branding');
 
@@ -50,8 +50,7 @@ var Signup = function (_Component) {
 
     _this.state = {
       username: "",
-      password: "",
-      status: ""
+      password: ""
     };
     return _this;
   }
@@ -59,6 +58,8 @@ var Signup = function (_Component) {
   _createClass(Signup, [{
     key: 'handleSignup',
     value: function handleSignup(event) {
+      var _this2 = this;
+
       event.preventDefault();
 
       var params = {
@@ -66,31 +67,18 @@ var Signup = function (_Component) {
         password: this.state.password
       };
 
-      _jquery2.default.post(URL_USERS, params, function (json) {
-        console.log(json);
-        if (json.data) {
-          this.setState({
-            status: "注册成功"
-          });
-
-          setTimeout(function () {
-            _reactRouter.browserHistory.push('/');
-          }, 600);
-        } else {
-          this.setState({
-            status: json.error.msg
-          });
-          setTimeout(function () {
-            this.setState({
-              status: null
-            });
-          }.bind(this), 3000);
-        }
-      }.bind(this));
+      (0, _utils.callApi)(_APIS.API_ROOT + 'users', 'POST', params).then(function (res) {
+        _this2.props.handleNotification('注册成功！');
+        setTimeout(function () {
+          _reactRouter.browserHistory.push('/');
+        }, 600);
+      }).catch(function (err) {
+        _this2.props.handleNotification(err.message);
+      });
     }
   }, {
-    key: 'handleInputChange',
-    value: function handleInputChange(event) {
+    key: 'handleInput',
+    value: function handleInput(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
@@ -98,22 +86,22 @@ var Signup = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'page-signin' },
-        _react2.default.createElement(_Branding2.default, null),
+        { className: 'page-signup' },
+        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
         _react2.default.createElement(
           _react3.Container,
           null,
           _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', method: 'post', action: '/signup' },
-            _react2.default.createElement(_Message2.default, { content: this.state.status }),
+            _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },
               '加入 Readr'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInputChange.bind(this), value: this.state.password, name: 'password', hint: '密码 ', type: 'password' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', hint: '密码 ', type: 'password' }),
             _react2.default.createElement(
               _react3.Button,
               { onClick: this.handleSignup.bind(this), variant: 'raised' },
@@ -138,4 +126,9 @@ var Signup = function (_Component) {
   return Signup;
 }(_react.Component);
 
-exports.default = Signup;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    notification: state.notification,
+    user: state.user
+  };
+}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Signup);

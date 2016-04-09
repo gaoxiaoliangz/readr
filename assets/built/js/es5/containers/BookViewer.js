@@ -20,6 +20,12 @@ var _immutable = require('immutable');
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
+var _utils = require('utils');
+
+var _actions = require('actions');
+
+var actions = _interopRequireWildcard(_actions);
+
 var _BookPageList = require('components/BookPageList');
 
 var _BookPageList2 = _interopRequireDefault(_BookPageList);
@@ -27,20 +33,6 @@ var _BookPageList2 = _interopRequireDefault(_BookPageList);
 var _Loading = require('components/Loading');
 
 var _Loading2 = _interopRequireDefault(_Loading);
-
-var _utils = require('utils');
-
-var _book = require('utils/book');
-
-var _cache = require('utils/cache');
-
-var _book2 = require('actions/book');
-
-var bookActions = _interopRequireWildcard(_book2);
-
-var _user = require('actions/user');
-
-var userActions = _interopRequireWildcard(_user);
 
 var _jquery = require('jquery');
 
@@ -55,8 +47,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var actions = Object.assign({}, bookActions, userActions);
+// import { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent } from 'actions'
+// const actions = { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent }
 
 // todo: remove this
 
@@ -93,7 +85,7 @@ var BookViewer = function (_Component) {
       var pageSum = this.props.book.pages.length;
       var percentage = (document.body.scrollTop / (900 * pageSum)).toFixed(4);
 
-      this.props.actions.jumpTo((0, _book.convertPercentageToPage)(percentage, pageSum));
+      this.props.actions.jumpTo((0, _utils.convertPercentageToPage)(percentage, pageSum));
     }
 
     // todos:
@@ -126,6 +118,7 @@ var BookViewer = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var actions = this.props.actions;
       // todo
       var defaultMode = "vertical";
       var screen = "hd";
@@ -138,11 +131,12 @@ var BookViewer = function (_Component) {
       // todo
       var pageHeight = 900;
 
-      this.props.actions.fetchBookInfo(this.bookId, 'books/' + this.bookId);
+      actions.fetchUserAuthInfo();
+      actions.fetchBookInfo(this.bookId, 'books/' + this.bookId);
 
-      (0, _book.initBook)(this.bookId, this.props.actions, pageHeight).then(function (data) {
+      (0, _utils.initBook)(this.bookId, actions, pageHeight).then(function (data) {
         if (data === true) {
-          _this2.props.actions.jumpTo(1);
+          actions.jumpTo(1);
           _this2.addEventListeners();
         }
       });
@@ -158,7 +152,7 @@ var BookViewer = function (_Component) {
       if (book.isPagesLoaded) {
         var currentPage = book.currentPage;
 
-        pagesToRender = (0, _book.filterPages)({
+        pagesToRender = (0, _utils.filterPages)({
           startPage: currentPage,
           offset: 2,
           quantity: 5,
@@ -222,13 +216,12 @@ BookViewer.propTypes = {
   book: _react2.default.PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
+exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    book: state.book
+    book: state.book,
+    user: state.user
   };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
+}, function (dispatch) {
   return {
     actions: (0, _redux.bindActionCreators)(actions, dispatch)
   };

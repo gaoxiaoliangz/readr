@@ -5,16 +5,18 @@ import Book from 'components/Book'
 
 class BookList extends Component {
   render() {
+    let bookList = this.props.bookList
+
     return (
       <Container>
         <div className="book-box">
           <h1 className="page-title">新书速递</h1>
           <ul className="book-list clearfix">
             {
-              this.props.bookList?(
-              this.props.bookList.map((book, index) =>(
-                <Book id={book.id} key={index} book={book} />
-              ))
+              bookList?(
+                bookList.map((book, index) =>(
+                  <Book id={book.id} key={index} book={book} />
+                ))
               ):null
             }
           </ul>
@@ -23,6 +25,5 @@ class BookList extends Component {
     )
   }
 }
-
 
 export default BookList

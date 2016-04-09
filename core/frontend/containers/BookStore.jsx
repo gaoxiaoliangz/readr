@@ -3,10 +3,10 @@ import { Appbar, Button, Container } from 'muicss/react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
+import { fetchUserAuthInfo, fetchBookList } from 'actions'
+
 import Branding from 'components/Branding'
 import BookList from 'components/BookList'
-import { fetchBookList } from 'actions/book'
-import { fetchUserAuthInfo } from 'actions/user'
 
 
 class BookStore extends Component {
@@ -15,8 +15,8 @@ class BookStore extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBookList('books')
     this.props.fetchUserAuthInfo()
+    this.props.fetchBookList('books')
   }
 
   render() {

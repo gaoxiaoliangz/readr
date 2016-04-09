@@ -16,7 +16,7 @@ var users = {
       models.getData('users', match).then(function(result){
         if(result.error){
           // 如果用户不存在，则可以创建
-          if(result.error.code == "404") {
+          if(result.statusCode == "404") {
             models.putData('users', object).then(function(data){
 
               var userinfo = {
@@ -27,24 +27,19 @@ var users = {
               resolve(data)
             })
           }else{
-            resolve({
-              error: {
-                code: 500,
-                msg: "Database error"
-              }
-            })
+            resolve(result)
           }
         }else{
           resolve({
             error: {
-              code: 405,
-              msg: "User exsits!"
-            }
+              message: "User exsits!"
+            },
+            statusCode: 400,
           })
         }
-      });
-    });
+      })
+    })
   }
-};
+}
 
-module.exports = users;
+module.exports = users

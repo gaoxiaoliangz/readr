@@ -20,15 +20,15 @@ var _APIS = require('constants/APIS');
 
 var _utils = require('utils');
 
-var _Message = require('components/Message');
+var _actions = require('actions');
 
-var _Message2 = _interopRequireDefault(_Message);
+var _Notification = require('components/Notification');
+
+var _Notification2 = _interopRequireDefault(_Notification);
 
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
-
-var _actions = require('actions');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79,7 +79,6 @@ var Signin = function (_Component) {
   }, {
     key: 'handleInput',
     value: function handleInput(event) {
-      console.log(this);
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
@@ -95,7 +94,7 @@ var Signin = function (_Component) {
           _react2.default.createElement(
             _react3.Form,
             { className: 'content-container', action: '/signin', method: 'post' },
-            _react2.default.createElement(_Message2.default, { notification: this.props.notification }),
+            _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
               'h1',
               { className: 'page-title' },

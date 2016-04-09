@@ -5,18 +5,17 @@ import { Link, browserHistory } from 'react-router'
 
 import { API_ROOT } from 'constants/APIS'
 import { callApi } from 'utils'
-
-import Notification from 'components/Message'
-import Branding from 'components/Branding'
-
 import { fetchUserAuthInfo, handleNotification } from 'actions'
+
+import Notification from 'components/Notification'
+import Branding from 'components/Branding'
 
 class Signin extends Component {
   constructor(props) {
     super(props)
     this.state = {
       username: '',
-      password: '',
+      password: ''
     }
   }
 
@@ -39,7 +38,6 @@ class Signin extends Component {
   }
 
   handleInput(event) {
-    console.log(this);
     this.setState({[event.target.name]: event.target.value})
   }
 

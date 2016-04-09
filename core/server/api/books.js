@@ -108,7 +108,7 @@ var books = {
       // check douban book existence
       models.getData('douban_books', { book_id: douban_book_id}).then(res => {
         if(res.error) {
-          if(res.error.code === 404) {
+          if(res.statusCode === 404) {
             models.putData('douban_books', doubanBook).then(res => {
               if(res.data) {
                 resolve(models.putData('books', data))
@@ -117,7 +117,7 @@ var books = {
               }
             })
           }else{
-            resolve(res.error)
+            resolve(res)
           }
         }else{
           resolve({

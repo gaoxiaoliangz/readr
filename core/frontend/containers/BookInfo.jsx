@@ -3,8 +3,10 @@ import { Appbar, Button, Container } from 'muicss/react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 
-import { fetchBookInfo } from 'actions/book'
+import { fetchUserAuthInfo, fetchBookInfo } from 'actions'
+
 import Branding from 'components/Branding'
+
 
 class BookInfo extends Component {
   constructor(props) {
@@ -13,6 +15,7 @@ class BookInfo extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchUserAuthInfo()
     this.props.fetchBookInfo(this.bookId, `books/${this.bookId}`).then(getState => {
       console.log(getState().book.meta);
     }).catch((error) => {
@@ -25,7 +28,7 @@ class BookInfo extends Component {
 
     return (
       <div className="page-book-info">
-        <Branding />
+        <Branding user={this.props.user} />
         <Container>
           <div className="book-info content-container">
             <h1 className="page-title book-name">{bookInfo.title}</h1>
@@ -70,7 +73,8 @@ class BookInfo extends Component {
 
 export default connect(
   state =>({
-    bookInfo: state.book.meta
+    bookInfo: state.book.meta,
+    user: state.user
   }),
-  { fetchBookInfo }
+  { fetchBookInfo, fetchUserAuthInfo }
 )(BookInfo)
