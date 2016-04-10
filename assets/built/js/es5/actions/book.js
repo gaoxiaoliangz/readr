@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.JUMP_TO = exports.LOAD_PAGES = exports.SET_BOOK_MODE = exports.READ_CONTENT_FROM_CACHE = exports.CLEAR_BOOK_SEARCH = undefined;
+exports.JUMP_TO = exports.LOAD_PAGES = exports.SET_BOOK_MODE = exports.LOAD_HTML = exports.CLEAR_BOOK_SEARCH = undefined;
 exports.fetchBookList = fetchBookList;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
 exports.clearBookSearch = clearBookSearch;
 exports.fetchBookContent = fetchBookContent;
 exports.fetchBookInfo = fetchBookInfo;
-exports.readContentFromCache = readContentFromCache;
+exports.loadHTML = loadHTML;
 exports.setBookMode = setBookMode;
 exports.loadPages = loadPages;
 exports.jumpTo = jumpTo;
@@ -64,12 +64,11 @@ function fetchBookInfo(bookId, endpoint) {
 //   }
 // }
 
-var READ_CONTENT_FROM_CACHE = exports.READ_CONTENT_FROM_CACHE = 'READ_CONTENT_FROM_CACHE';
-function readContentFromCache(bookId, content) {
+var LOAD_HTML = exports.LOAD_HTML = 'LOAD_HTML';
+function loadHTML(html) {
   return {
-    type: READ_CONTENT_FROM_CACHE,
-    bookId: bookId,
-    content: content
+    type: LOAD_HTML,
+    html: html
   };
 }
 

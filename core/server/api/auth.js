@@ -13,13 +13,13 @@ function validataAuthInfo(object) {
 
 
 var auth = {
-  checkStatus: function(object) {
+  checkStatus: function(object, options) {
     return new Promise(resolve => {
-      if(object.context.user) {
+      if(options.context.user) {
         resolve({
           data: {
             authed: true,
-            username: object.context.user
+            username: options.context.user
           }
         })
       }else{
@@ -31,6 +31,12 @@ var auth = {
       }
     })
   },
+
+  // unauth: function(object, options, req) {
+  //   return new Promise(resolve => {
+  //
+  //   })
+  // },
 
   basic: function(object, options, req){
     var match = {

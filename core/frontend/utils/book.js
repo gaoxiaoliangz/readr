@@ -1,30 +1,64 @@
 import $ from 'jquery'
-import { readCache, saveCache } from 'utils'
+import { getCache, setCache, callApi } from 'utils'
+import { API_ROOT } from 'constants/APIS'
 
+export function initBook(bookId, actions, pageHeight, screen) {
+  function htmlToPages(html) {
+    let nodes = parseHTML(html)
+    let nodeHeights = getNodeHeights('.pages ul>li>.content', actions)
+    let pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
 
-// not pure, tell me if there's a bette way to do this
-export function initBook(bookId, actions, pageHeight) {
-  return new Promise((resolve, reject) => {
-    let pages = readCache(`book${bookId}_pages`)
-
-    if(pages){
-      actions.loadPages(JSON.parse(pages))
-      actions.setBookMode('vertical')
-      resolve(true)
-    }else{
-      actions.fetchBookContent(bookId, `books/${bookId}/content`).then(getState => {
-        let nodes = parseHTML(getState().book.html)
-        let nodeHeights = getNodeHeights('.pages ul>li>.content', actions)
-        let pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
-
-        saveCache(`book${bookId}_pages`, JSON.stringify(pages))
-        actions.loadPages(pages)
-        resolve(true)
-      }).catch((err) => {
-        console.log(err)
-        reject(err)
-      })
+    return {
+      type: 'pages',
+      props: {
+        children: pages,
+        screen
+      }
     }
+  }
+
+  return new Promise((resolve, reject) => {
+    actions.wrap((dispatch, getState) => {
+      let pages = getCache(`book${bookId}_pages`)
+
+      if(pages){
+        pages = JSON.parse(pages)
+        if(pages.props.screen !== screen) {
+          let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
+          let html = parseNodes(nodes)
+
+          // loadHTML is not async, but only in this way setBookMode can work
+          // still haven't figured out why this happens
+          actions.promisedWrap((dispatch) => {
+            actions.loadHTML(html)
+          }).then(getState => {
+            pages = htmlToPages(html)
+            actions.loadPages(pages)
+            setCache(`book${bookId}_pages`, JSON.stringify(pages))
+
+            resolve({ pages })
+          })
+        }else{
+          actions.loadPages(pages)
+          actions.setBookMode('vertical')
+
+          resolve({ pages })
+        }
+      }else{
+        actions.fetchBookContent(bookId, `books/${bookId}/content`).then(getState => {
+          let pages = htmlToPages(getState().book.html)
+
+          actions.loadPages(pages)
+          setCache(`book${bookId}_pages`, JSON.stringify(pages))
+
+          resolve({ pages })
+        }).catch((err) => {
+          console.error(err)
+
+          reject(err)
+        })
+      }
+    })
   })
 }
 
@@ -116,28 +150,44 @@ export function filterPages(config) {
   return newPages
 }
 
+export function getProgress(bookId) {
+  return new Promise(resolve => {
+    callApi(`${API_ROOT}books/${bookId}/progress`).then((res) => {
+      resolve(res)
+    })
+  })
+}
+
+export function setProgress(bookId, progress) {
+  return new Promise(resolve => {
+    callApi(`${API_ROOT}books/${bookId}/progress`, 'POST', progress).then((res) => {
+      resolve(res)
+    })
+  })
+}
+
 
 /*
  * functions being used internally
  */
 
-function getNodeHeights(selector, actions) {
-  actions.setBookMode('render')
+ function getNodeHeights(selector, actions) {
+   actions.setBookMode('render')
 
-  let nodes = document.querySelector(selector).childNodes
-  let nodesHeight = []
+   let nodes = document.querySelector(selector).childNodes
+   let nodesHeight = []
 
-  Array.prototype.forEach.call(nodes, (node, index) => {
-    if(node.tagName.toLowerCase() !== "p") {
-      console.error("Unsupported content found!")
-    }
-    nodesHeight.push(node.clientHeight)
-  })
+   Array.prototype.forEach.call(nodes, (node, index) => {
+     if(node.tagName.toLowerCase() !== "p") {
+       console.error("Unsupported content found!")
+     }
+     nodesHeight.push(node.clientHeight)
+   })
 
-  actions.setBookMode('vertical')
+   actions.setBookMode('vertical')
 
-  return nodesHeight
-}
+   return nodesHeight
+ }
 
 function parseHTML(htmlString) {
   let nodes = []
@@ -156,4 +206,19 @@ function parseHTML(htmlString) {
     }
   }
   return nodes
+}
+
+function parseNodes(nodes) {
+  let html = ''
+
+  for (let i = 0; i < nodes.length; i++) {
+    if(nodes[i].type !== 'p') {
+      console.error('Unsupported node found!')
+      continue
+    }else{
+      html += `<p>${nodes[i].props.children}</p>`
+    }
+  }
+
+  return html
 }

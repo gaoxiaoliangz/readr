@@ -50,3 +50,19 @@ export function promisedCallApi(CALL_API, actionArgObj){
     })
   }
 }
+
+export function wrap(func) {
+  return (dispatch, getState) => {
+    func(dispatch, getState)
+  }
+}
+
+
+export function promisedWrap(func) {
+  return (dispatch, getState) => {
+    return new Promise(resolve => {
+      func(dispatch, getState)
+      resolve(getState)
+    })
+  }
+}

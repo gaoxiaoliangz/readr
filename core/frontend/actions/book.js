@@ -48,12 +48,11 @@ export function fetchBookInfo(bookId, endpoint) {
 //   }
 // }
 
-export const READ_CONTENT_FROM_CACHE = 'READ_CONTENT_FROM_CACHE'
-export function readContentFromCache(bookId, content) {
+export const LOAD_HTML = 'LOAD_HTML'
+export function loadHTML(html) {
   return {
-    type: READ_CONTENT_FROM_CACHE,
-    bookId,
-    content
+    type: LOAD_HTML,
+    html
   }
 }
 

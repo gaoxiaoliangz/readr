@@ -42,6 +42,8 @@ Object.keys(_user).forEach(function (key) {
   });
 });
 exports.promisedCallApi = promisedCallApi;
+exports.wrap = wrap;
+exports.promisedWrap = promisedWrap;
 
 var _lodash = require('lodash');
 
@@ -104,6 +106,21 @@ function promisedCallApi(CALL_API, actionArgObj) {
         }));
         reject(error);
       });
+    });
+  };
+}
+
+function wrap(func) {
+  return function (dispatch, getState) {
+    func(dispatch, getState);
+  };
+}
+
+function promisedWrap(func) {
+  return function (dispatch, getState) {
+    return new Promise(function (resolve) {
+      func(dispatch, getState);
+      resolve(getState);
     });
   };
 }

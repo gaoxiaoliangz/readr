@@ -131,37 +131,67 @@ var books = {
     })
   },
 
-  getReadingProgress: function(object) {
+  getReadingProgress: function(object, options) {
     return new Promise(function(resolve){
-      var match = {
-        book_id: object.id,
-        user_id: object.context.user
-      };
+      if(options.context.user) {
+        var match = {
+          book_id: object.book_id,
+          user_id: options.context.user
+        }
 
-      models.getData('progress',match).then(function(result){
-        resolve(result);
-      });
-    });
+        models.getData('reading_progress',match).then(function(result){
+          if(result.error) {
+            resolve({
+              data: {
+                message: 'This book haven\'t been read yet!'
+              }
+            })
+          }else{
+            resolve({
+              data: result.data[0]
+            })
+          }
+        })
+      } else {
+        resolve({
+          error: {
+            message: 'You have to login to do this!'
+          },
+          statusCode: 403
+        })
+      }
+    })
   },
 
   updateReadingProgress: function(object, options) {
-    console.log(options);
     return new Promise(function(resolve){
+      if(options.context.user) {
+        var match = {
+          book_id: options.book_id,
+          user_id: options.context.user
+        }
+        console.log(options);
 
-      var match = {
-        book_id: options.id,
-        user_id: options.context.user
-      };
-      var data = {
-        book_id: options._id,
-        user_id: options.context.user,
-        reading_progress: object.reading_progress
-      };
+        var data = {
+          book_id: options.book_id,
+          user_id: options.context.user,
+          percentage: object.percentage,
+          page: object.page,
+          page_sum: object.page_sum
+        }
 
-      models.updateData('progress',match, data).then(function(result){
-        resolve(result);
-      });
-    });
+        models.updateData('reading_progress', match, data).then(function(result){
+          resolve(result)
+        })
+      } else {
+        resolve({
+          error: {
+            message: 'You have to login to do this!'
+          },
+          statusCode: 403
+        })
+      }
+    })
   }
 }
 

@@ -39,16 +39,15 @@ export default function book(state, action) {
         meta: action.response
       })
 
-    case 'READ_CONTENT_FROM_CACHE':
+    case 'LOAD_HTML':
       return Object.assign({}, state, {
-        html: action.content
+        html: action.html
       })
 
     case 'LOAD_PAGES':
       return Object.assign({}, state, {
         isPagesLoaded: true,
-        pages: action.pages,
-        html: null
+        pages: action.pages
       })
 
     case 'SET_BOOK_MODE':

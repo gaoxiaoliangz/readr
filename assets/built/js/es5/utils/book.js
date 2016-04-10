@@ -7,6 +7,8 @@ exports.initBook = initBook;
 exports.groupNodesByPage = groupNodesByPage;
 exports.convertPercentageToPage = convertPercentageToPage;
 exports.filterPages = filterPages;
+exports.getProgress = getProgress;
+exports.setProgress = setProgress;
 
 var _jquery = require('jquery');
 
@@ -14,31 +16,71 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 var _utils = require('utils');
 
+var _APIS = require('constants/APIS');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// not pure, tell me if there's a bette way to do this
-function initBook(bookId, actions, pageHeight) {
+function initBook(bookId, actions, pageHeight, screen) {
+  function htmlToPages(html) {
+    var nodes = parseHTML(html);
+    var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
+    var pages = groupNodesByPage(nodes, nodeHeights, pageHeight);
+
+    return {
+      type: 'pages',
+      props: {
+        children: pages,
+        screen: screen
+      }
+    };
+  }
+
   return new Promise(function (resolve, reject) {
-    var pages = (0, _utils.readCache)('book' + bookId + '_pages');
+    actions.wrap(function (dispatch, getState) {
+      var pages = (0, _utils.getCache)('book' + bookId + '_pages');
 
-    if (pages) {
-      actions.loadPages(JSON.parse(pages));
-      actions.setBookMode('vertical');
-      resolve(true);
-    } else {
-      actions.fetchBookContent(bookId, 'books/' + bookId + '/content').then(function (getState) {
-        var nodes = parseHTML(getState().book.html);
-        var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
-        var pages = groupNodesByPage(nodes, nodeHeights, pageHeight);
+      if (pages) {
+        pages = JSON.parse(pages);
+        if (pages.props.screen !== screen) {
+          (function () {
+            var nodes = pages.props.children.reduce(function (a, b) {
+              return Array.concat(a, b.props.children);
+            }, []);
+            var html = parseNodes(nodes);
 
-        (0, _utils.saveCache)('book' + bookId + '_pages', JSON.stringify(pages));
-        actions.loadPages(pages);
-        resolve(true);
-      }).catch(function (err) {
-        console.log(err);
-        reject(err);
-      });
-    }
+            // loadHTML is not async, but only in this way setBookMode can work
+            // still haven't figured out why this happens
+            actions.promisedWrap(function (dispatch) {
+              actions.loadHTML(html);
+            }).then(function (getState) {
+              pages = htmlToPages(html);
+              actions.loadPages(pages);
+              (0, _utils.setCache)('book' + bookId + '_pages', JSON.stringify(pages));
+
+              resolve({ pages: pages });
+            });
+          })();
+        } else {
+          actions.loadPages(pages);
+          actions.setBookMode('vertical');
+
+          resolve({ pages: pages });
+        }
+      } else {
+        actions.fetchBookContent(bookId, 'books/' + bookId + '/content').then(function (getState) {
+          var pages = htmlToPages(getState().book.html);
+
+          actions.loadPages(pages);
+          (0, _utils.setCache)('book' + bookId + '_pages', JSON.stringify(pages));
+
+          resolve({ pages: pages });
+        }).catch(function (err) {
+          console.error(err);
+
+          reject(err);
+        });
+      }
+    });
   });
 }
 
@@ -133,6 +175,22 @@ function filterPages(config) {
   return newPages;
 }
 
+function getProgress(bookId) {
+  return new Promise(function (resolve) {
+    (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress').then(function (res) {
+      resolve(res);
+    });
+  });
+}
+
+function setProgress(bookId, progress) {
+  return new Promise(function (resolve) {
+    (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress', 'POST', progress).then(function (res) {
+      resolve(res);
+    });
+  });
+}
+
 /*
  * functions being used internally
  */
@@ -172,4 +230,19 @@ function parseHTML(htmlString) {
     }
   }
   return nodes;
+}
+
+function parseNodes(nodes) {
+  var html = '';
+
+  for (var i = 0; i < nodes.length; i++) {
+    if (nodes[i].type !== 'p') {
+      console.error('Unsupported node found!');
+      continue;
+    } else {
+      html += '<p>' + nodes[i].props.children + '</p>';
+    }
+  }
+
+  return html;
 }

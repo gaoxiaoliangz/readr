@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.readCache = readCache;
-exports.saveCache = saveCache;
-function readCache(name) {
+exports.getCache = getCache;
+exports.setCache = setCache;
+function getCache(name) {
   if (typeof name !== 'string') {
     console.error('Name should be string!');
   }
@@ -16,7 +16,7 @@ function readCache(name) {
   return content;
 }
 
-function saveCache(name, content) {
+function setCache(name, content) {
   if (typeof name !== 'string') {
     console.error('Name should be string!');
   }

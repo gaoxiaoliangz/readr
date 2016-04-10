@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
 
-import { initBook, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff } from 'utils'
+import { initBook, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff, callApi } from 'utils'
 import * as actions from 'actions'
+import { API_ROOT } from 'constants/APIS'
 // import fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent as actions from 'actions'
 // const actions = { fetchBookInfo, fetchUserAuthInfo, jumpTo, loadPages, setBookMode, fetchBookContent }
 
@@ -16,34 +17,28 @@ import Loading from 'components/Loading'
 import $ from 'jquery'
 
 
-// todo
-function getUserReadingProgress(userId) {
-  return {
-    localProgress: '',
-    cloudProgress: ''
-  }
-}
-
-// todo
-function getUserPreference(userId) {
-
-}
-
 class BookViewer extends Component {
   constructor(props) {
     super(props)
     this.bookId = props.params.id
     this.state = {
-      showPanel: false
+      showPanel: false,
+      pageHeight: 900,
+      screen: 'hd'
     }
   }
 
+  scrollToLoadPages(props) {
+    let pages = props.book.pages.props.children
+    let pageSum = pages.length
+    let percentage = (document.body.scrollTop/(this.state.pageHeight*pageSum)).toFixed(4)
 
-  scrollToLoadPages() {
-    let pageSum = this.props.book.pages.length
-    let percentage = (document.body.scrollTop/(900*pageSum)).toFixed(4)
-
-    this.props.actions.jumpTo(convertPercentageToPage(percentage, pageSum))
+    props.actions.jumpTo(convertPercentageToPage(percentage, pageSum))
+    setProgress(this.bookId, {
+      page: this.props.book.currentPage,
+      page_sum: pageSum,
+      percentage
+    })
   }
 
   // todos:
@@ -62,37 +57,97 @@ class BookViewer extends Component {
     }
   }
 
-  componentDidMount() {
-    const actions = this.props.actions
-    // todo
-    let defaultMode = "vertical"
-    let screen = "hd"
+  setView() {
+    this.setState(this.getView())
+  }
 
-    // todo: add mobile support
+  getView() {
     if($(window).width() < 768) {
-      screen = "mobile"
+      return {
+        screen: 'phone',
+        pageHeight: 600
+      }
+    }else{
+      return {
+        screen: 'hd',
+        pageHeight: 900
+      }
     }
+  }
 
+  handleResize() {
+    this.setView()
+
+    console.log(7878);
+    let bookId = this.bookId
+    let actions = this.props.actions
+    let pageHeight = this.getView().pageHeight
     // todo
-    let pageHeight = 900
+    initBook(bookId, actions, pageHeight, this.getView().screen).then(data => {
+      if(data.pages) {
+        getProgress(bookId).then((res) => {
+          if(!res.message) {
+            this.addEventListeners()
 
-    actions.fetchUserAuthInfo()
-    actions.fetchBookInfo(this.bookId, `books/${this.bookId}`)
-
-    initBook(this.bookId, actions, pageHeight).then(data => {
-      if(data === true) {
-        // todo
-        actions.jumpTo(1)
+            // scroll to position and this will trigger JUMP_TO
+            document.body.scrollTop = data.pages.props.children.length * pageHeight * res.percentage
+          }else{
+            actions.jumpTo(1)
+          }
+        })
       }
     })
   }
 
+  addEventListeners() {
+    this.handleScroll = delayStuff(this.scrollToLoadPages.bind(this, this.props), 100).bind(this)
+    this.handleResize2 = delayStuff(this.handleResize.bind(this), 100).bind(this)
+
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize2)
+  }
+
+  removeEventListeners() {
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  componentDidMount() {
+    this.setView()
+
+    const actions = this.props.actions
+    const bookId = this.bookId
+    const pageHeight = this.getView().pageHeight
+    const screen = this.getView().screen
+
+    actions.fetchUserAuthInfo()
+    actions.fetchBookInfo(this.bookId, `books/${this.bookId}`)
+
+    initBook(bookId, actions, pageHeight, screen).then(data => {
+      if(data.pages) {
+        getProgress(bookId).then((res) => {
+          if(!res.message) {
+            this.addEventListeners()
+
+            // scroll to position and this will trigger JUMP_TO
+            document.body.scrollTop = data.pages.props.children.length * pageHeight * res.percentage
+          }else{
+            actions.jumpTo(1)
+          }
+        })
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    this.removeEventListeners()
+  }
 
   render() {
     let book = this.props.book
-    let pages = book.pages
+    let pages = book.pages?book.pages.props.children:null
     let pagesToRender = []
-    let height = book.pages?book.pages.length * 900:'100%'
+    let height = pages?pages.length * this.state.pageHeight:'100%'
 
     if(book.isPagesLoaded) {
       let currentPage = book.currentPage
@@ -106,8 +161,8 @@ class BookViewer extends Component {
     }
 
     return (
-      <div className="page-book-viewer"
-        onMouseMove={this.toggleBookPanel.bind(this)} >
+      <div className={`page-book-viewer book-viewer--${this.state.screen}`}
+           onMouseMove={this.toggleBookPanel.bind(this)} >
         {
           book.isFetchingInfo||book.isFetchingContent?(
             <Loading />
@@ -115,15 +170,13 @@ class BookViewer extends Component {
         }
         {
           this.state.showPanel && book.meta && book.isPagesLoaded === true ?(
-            <div className="functions"
-
-              >
+            <div className="functions">
               <div className="container">
                 <span className="home">
                   <Link to="/bookstore"></Link>
                 </span>
                 <span className="title">{book.meta.title}</span>
-                <span className="loc">{book.currentPage+"/"+book.pages.length}</span>
+                <span className="loc">{book.currentPage+"/"+pages.length}</span>
               </div>
             </div>
           ):null
@@ -143,7 +196,7 @@ class BookViewer extends Component {
         }
         {
           book.mode === 'vertical' ?(
-            <div onWheel={delayStuff(this.scrollToLoadPages, 100).bind(this)}>
+            <div>
               <BookPageList height={height} view={book.view} bookId={this.bookId} pages={pagesToRender} />
             </div>
           ):null

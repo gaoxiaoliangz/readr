@@ -26,6 +26,8 @@ var _actions = require('actions');
 
 var actions = _interopRequireWildcard(_actions);
 
+var _APIS = require('constants/APIS');
+
 var _BookPageList = require('components/BookPageList');
 
 var _BookPageList2 = _interopRequireDefault(_BookPageList);
@@ -53,17 +55,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // todo: remove this
 
 
-// todo
-function getUserReadingProgress(userId) {
-  return {
-    localProgress: '',
-    cloudProgress: ''
-  };
-}
-
-// todo
-function getUserPreference(userId) {}
-
 var BookViewer = function (_Component) {
   _inherits(BookViewer, _Component);
 
@@ -74,18 +65,26 @@ var BookViewer = function (_Component) {
 
     _this.bookId = props.params.id;
     _this.state = {
-      showPanel: false
+      showPanel: false,
+      pageHeight: 900,
+      screen: 'hd'
     };
     return _this;
   }
 
   _createClass(BookViewer, [{
     key: 'scrollToLoadPages',
-    value: function scrollToLoadPages() {
-      var pageSum = this.props.book.pages.length;
-      var percentage = (document.body.scrollTop / (900 * pageSum)).toFixed(4);
+    value: function scrollToLoadPages(props) {
+      var pages = props.book.pages.props.children;
+      var pageSum = pages.length;
+      var percentage = (document.body.scrollTop / (this.state.pageHeight * pageSum)).toFixed(4);
 
-      this.props.actions.jumpTo((0, _utils.convertPercentageToPage)(percentage, pageSum));
+      props.actions.jumpTo((0, _utils.convertPercentageToPage)(percentage, pageSum));
+      (0, _utils.setProgress)(this.bookId, {
+        page: this.props.book.currentPage,
+        page_sum: pageSum,
+        percentage: percentage
+      });
     }
 
     // todos:
@@ -107,38 +106,109 @@ var BookViewer = function (_Component) {
       }
     }
   }, {
+    key: 'setView',
+    value: function setView() {
+      this.setState(this.getView());
+    }
+  }, {
+    key: 'getView',
+    value: function getView() {
+      if ((0, _jquery2.default)(window).width() < 768) {
+        return {
+          screen: 'phone',
+          pageHeight: 600
+        };
+      } else {
+        return {
+          screen: 'hd',
+          pageHeight: 900
+        };
+      }
+    }
+  }, {
+    key: 'handleResize',
+    value: function handleResize() {
+      var _this2 = this;
+
+      this.setView();
+
+      console.log(7878);
+      var bookId = this.bookId;
+      var actions = this.props.actions;
+      var pageHeight = this.getView().pageHeight;
+      // todo
+      (0, _utils.initBook)(bookId, actions, pageHeight, this.getView().screen).then(function (data) {
+        if (data.pages) {
+          (0, _utils.getProgress)(bookId).then(function (res) {
+            if (!res.message) {
+              _this2.addEventListeners();
+
+              // scroll to position and this will trigger JUMP_TO
+              document.body.scrollTop = data.pages.props.children.length * pageHeight * res.percentage;
+            } else {
+              actions.jumpTo(1);
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: 'addEventListeners',
+    value: function addEventListeners() {
+      this.handleScroll = (0, _utils.delayStuff)(this.scrollToLoadPages.bind(this, this.props), 100).bind(this);
+      this.handleResize2 = (0, _utils.delayStuff)(this.handleResize.bind(this), 100).bind(this);
+
+      window.addEventListener('scroll', this.handleScroll);
+      window.addEventListener('resize', this.handleResize2);
+    }
+  }, {
+    key: 'removeEventListeners',
+    value: function removeEventListeners() {
+      window.removeEventListener('scroll', this.handleScroll);
+      window.removeEventListener('resize', this.handleResize);
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this3 = this;
+
+      this.setView();
+
       var actions = this.props.actions;
-      // todo
-      var defaultMode = "vertical";
-      var screen = "hd";
-
-      // todo: add mobile support
-      if ((0, _jquery2.default)(window).width() < 768) {
-        screen = "mobile";
-      }
-
-      // todo
-      var pageHeight = 900;
+      var bookId = this.bookId;
+      var pageHeight = this.getView().pageHeight;
+      var screen = this.getView().screen;
 
       actions.fetchUserAuthInfo();
       actions.fetchBookInfo(this.bookId, 'books/' + this.bookId);
 
-      (0, _utils.initBook)(this.bookId, actions, pageHeight).then(function (data) {
-        if (data === true) {
-          // todo
-          actions.jumpTo(1);
+      (0, _utils.initBook)(bookId, actions, pageHeight, screen).then(function (data) {
+        if (data.pages) {
+          (0, _utils.getProgress)(bookId).then(function (res) {
+            if (!res.message) {
+              _this3.addEventListeners();
+
+              // scroll to position and this will trigger JUMP_TO
+              document.body.scrollTop = data.pages.props.children.length * pageHeight * res.percentage;
+            } else {
+              actions.jumpTo(1);
+            }
+          });
         }
       });
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.removeEventListeners();
     }
   }, {
     key: 'render',
     value: function render() {
       var book = this.props.book;
-      var pages = book.pages;
+      var pages = book.pages ? book.pages.props.children : null;
       var pagesToRender = [];
-      var height = book.pages ? book.pages.length * 900 : '100%';
+      var height = pages ? pages.length * this.state.pageHeight : '100%';
 
       if (book.isPagesLoaded) {
         var currentPage = book.currentPage;
@@ -153,14 +223,12 @@ var BookViewer = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'page-book-viewer',
+        { className: 'page-book-viewer book-viewer--' + this.state.screen,
           onMouseMove: this.toggleBookPanel.bind(this) },
         book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
         this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
           'div',
-          { className: 'functions'
-
-          },
+          { className: 'functions' },
           _react2.default.createElement(
             'div',
             { className: 'container' },
@@ -177,7 +245,7 @@ var BookViewer = function (_Component) {
             _react2.default.createElement(
               'span',
               { className: 'loc' },
-              book.currentPage + "/" + book.pages.length
+              book.currentPage + "/" + pages.length
             )
           )
         ) : null,
@@ -200,7 +268,7 @@ var BookViewer = function (_Component) {
         ) : null,
         book.mode === 'vertical' ? _react2.default.createElement(
           'div',
-          { onWheel: (0, _utils.delayStuff)(this.scrollToLoadPages, 100).bind(this) },
+          null,
           _react2.default.createElement(_BookPageList2.default, { height: height, view: book.view, bookId: this.bookId, pages: pagesToRender })
         ) : null
       );

@@ -1,4 +1,4 @@
-export function readCache(name) {
+export function getCache(name) {
   if(typeof name !== 'string') {
     console.error('Name should be string!');
   }
@@ -9,7 +9,7 @@ export function readCache(name) {
   return content
 }
 
-export function saveCache(name, content) {
+export function setCache(name, content) {
   if(typeof name !== 'string') {
     console.error('Name should be string!')
   }
