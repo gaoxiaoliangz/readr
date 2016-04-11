@@ -1,17 +1,21 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import rootReducer from '../reducers'
 import api from 'middleware/api'
 
-import thunkMiddleware from 'redux-thunk'
+import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
+
+import DevTools from 'containers/DevTools'
 
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    // applyMiddleware(thunkMiddleware, createLogger())
-    applyMiddleware(thunkMiddleware, api, createLogger())
-    // applyMiddleware(thunkMiddleware)
+    compose(
+      // applyMiddleware(thunk, api, createLogger()),
+      applyMiddleware(thunk, api),
+      DevTools.instrument()
+    )
   )
 
   if (module.hot) {

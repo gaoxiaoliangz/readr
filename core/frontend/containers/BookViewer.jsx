@@ -17,16 +17,53 @@ import Loading from 'components/Loading'
 import $ from 'jquery'
 
 
+function getView() {
+  let aspectRatio = 7/9
+
+  if($(window).width() <= 540) {
+    return {
+      screen: 'phone',
+      pageWidth: $(window).width(),
+      pageHeight: $(window).width()/aspectRatio
+    }
+  }else{
+    return {
+      screen: 'hd',
+      pageWidth: 700,
+      pageHeight: 700/aspectRatio
+    }
+  }
+}
+
+
 class BookViewer extends Component {
   constructor(props) {
     super(props)
     this.bookId = props.params.id
     this.state = {
-      showPanel: false,
-      pageHeight: 900,
-      screen: 'hd'
+      showPanel: false
     }
   }
+
+
+  prepareBook(bookId, actions, view) {
+    initBook(bookId, actions, view).then(data => {
+      if(data.pages) {
+        getProgress(bookId).then((res) => {
+          if(!res.message) {
+            this.addEventListeners()
+
+            // scroll to position and this will trigger JUMP_TO
+            document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage
+          }else{
+            this.addEventListeners()
+            actions.jumpTo(1)
+          }
+        })
+      }
+    })
+  }
+
 
   scrollToLoadPages(props) {
     let pages = props.book.pages.props.children
@@ -58,45 +95,12 @@ class BookViewer extends Component {
   }
 
   setView() {
-    this.setState(this.getView())
-  }
-
-  getView() {
-    if($(window).width() < 768) {
-      return {
-        screen: 'phone',
-        pageHeight: 600
-      }
-    }else{
-      return {
-        screen: 'hd',
-        pageHeight: 900
-      }
-    }
+    this.setState(getView())
   }
 
   handleResize() {
     this.setView()
-
-    console.log(7878);
-    let bookId = this.bookId
-    let actions = this.props.actions
-    let pageHeight = this.getView().pageHeight
-    // todo
-    initBook(bookId, actions, pageHeight, this.getView().screen).then(data => {
-      if(data.pages) {
-        getProgress(bookId).then((res) => {
-          if(!res.message) {
-            this.addEventListeners()
-
-            // scroll to position and this will trigger JUMP_TO
-            document.body.scrollTop = data.pages.props.children.length * pageHeight * res.percentage
-          }else{
-            actions.jumpTo(1)
-          }
-        })
-      }
-    })
+    this.prepareBook(this.bookId, this.props.actions, getView())
   }
 
   addEventListeners() {
@@ -117,26 +121,11 @@ class BookViewer extends Component {
 
     const actions = this.props.actions
     const bookId = this.bookId
-    const pageHeight = this.getView().pageHeight
-    const screen = this.getView().screen
 
     actions.fetchUserAuthInfo()
-    actions.fetchBookInfo(this.bookId, `books/${this.bookId}`)
+    actions.fetchBookInfo(bookId, `books/${this.bookId}`)
 
-    initBook(bookId, actions, pageHeight, screen).then(data => {
-      if(data.pages) {
-        getProgress(bookId).then((res) => {
-          if(!res.message) {
-            this.addEventListeners()
-
-            // scroll to position and this will trigger JUMP_TO
-            document.body.scrollTop = data.pages.props.children.length * pageHeight * res.percentage
-          }else{
-            actions.jumpTo(1)
-          }
-        })
-      }
-    })
+    this.prepareBook(bookId, actions, getView())
   }
 
   componentWillUnmount() {

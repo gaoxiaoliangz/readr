@@ -2,7 +2,11 @@ import $ from 'jquery'
 import { getCache, setCache, callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
 
-export function initBook(bookId, actions, pageHeight, screen) {
+export function initBook(bookId, actions, view) {
+  let pageHeight = view.pageHeight
+  let pageWidth = view.pageWidth
+  let screen = view.screen
+
   function htmlToPages(html) {
     let nodes = parseHTML(html)
     let nodeHeights = getNodeHeights('.pages ul>li>.content', actions)
@@ -12,7 +16,7 @@ export function initBook(bookId, actions, pageHeight, screen) {
       type: 'pages',
       props: {
         children: pages,
-        screen
+        view
       }
     }
   }
@@ -23,13 +27,15 @@ export function initBook(bookId, actions, pageHeight, screen) {
 
       if(pages){
         pages = JSON.parse(pages)
-        if(pages.props.screen !== screen) {
+
+        if(!compareObjects(view, pages.props.view )) {
           let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
           let html = parseNodes(nodes)
 
           // loadHTML is not async, but only in this way setBookMode can work
           // still haven't figured out why this happens
           actions.promisedWrap((dispatch) => {
+            console.log(html);
             actions.loadHTML(html)
           }).then(getState => {
             pages = htmlToPages(html)
@@ -221,4 +227,23 @@ function parseNodes(nodes) {
   }
 
   return html
+}
+
+// very rough but enough for use here
+function compareObjects(obj1, obj2) {
+  let isEqual = true
+
+  try {
+    for(let prop in obj1) {
+      if(obj1[prop] !== obj2[prop]) {
+        isEqual = false
+        break
+      }
+    }
+  } catch (e) {
+    console.error(e)
+    isEqual = false
+  }
+
+  return isEqual
 }
