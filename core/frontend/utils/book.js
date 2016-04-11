@@ -3,7 +3,6 @@ import { getCache, setCache, callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
 
 export function initBook(bookId, actions, view) {
-
   let pageHeight = view.pageHeight
   let pageWidth = view.pageWidth
   let screen = view.screen
@@ -14,7 +13,7 @@ export function initBook(bookId, actions, view) {
   function htmlToPages(html) {
     let nodes = parseHTML(html)
     let nodeHeights = getNodeHeights('.pages ul>li>.content', actions)
-    let pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
+    let pages = groupNodesByPage2(nodes, nodeHeights, pageHeight)
 
     return {
       type: 'pages',
@@ -35,7 +34,7 @@ export function initBook(bookId, actions, view) {
 
         // check if page view is the same as cached
         if(!compareObjects(view, pages.props.view )) {
-          // recaculate page 'cause view is the same
+          // recaculate page 'cause view is not the same
           let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
           let uniqueNodes = []
           let realIndex = 0
@@ -86,6 +85,99 @@ export function initBook(bookId, actions, view) {
     })
   })
 }
+
+export function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
+  let pages = []
+  let pageHeightSum = nodeHeights.reduce((a, b) => (a+b), 0)
+  let pageSum = Math.ceil(pageHeightSum/pageHeight)
+
+  nodes = nodes.map((node, index) => {
+    node.props.index = index
+    return node
+  })
+
+  // long paragraph situation doesn't seem to affect this function
+  // offset distance is always negtive or zero
+  // the index will be of the paragraph with this offset at the end
+  let getPageOffset = function(pageIndex) {
+    let offset = 0
+    let i = 0
+    let index
+
+    if(pageIndex !== 0) {
+      let nodeHeightSum = 0
+      while(nodeHeightSum <= pageHeight * pageIndex) {
+        nodeHeightSum += nodeHeights[i]
+        i++
+      }
+      offset = nodeHeightSum - nodeHeights[i-1] - pageIndex * pageHeight
+      index = i - 1
+    } else {
+      index = 0
+    }
+
+    console.log(offset);
+
+    return {
+      offset,
+      index
+    }
+  }
+
+  let getNodesOfPage = function(pageIndex) {
+    let offsetObject = getPageOffset(pageIndex)
+    let nodeStartIndex = offsetObject.index
+    let offset = offsetObject.offset
+
+
+    let i = nodeStartIndex
+    let nodeEndIndex
+    let pageNodes = []
+
+    let nodeHeightSum = offset + nodeHeights[nodeStartIndex]
+    i++
+
+    if(nodeHeightSum < pageHeight) {
+      while (nodeHeightSum <= pageHeight && i !== nodes.length) {
+        nodeHeightSum += nodeHeights[i]
+        i++
+      }
+      nodeEndIndex = i - 1
+    }else{
+      nodeEndIndex = nodeStartIndex
+    }
+
+    for(let i = nodeStartIndex; i <= nodeEndIndex && i <= nodes.length - 1; i++) {
+      pageNodes.push(nodes[i])
+    }
+
+    return [pageNodes, offset]
+  }
+
+  // finally
+  for(let i = 0; i < pageSum; i++) {
+    let array = getNodesOfPage(i)
+    let nodes = array[0]
+    let offset = array[1]
+
+    pages.push({
+      props: {
+        children: nodes,
+        style: {
+          top: i*pageHeight,
+          position: 'absolute',
+          height: pageHeight
+        },
+        pageNo: i+1,
+        offset
+      },
+      type: "page"
+    })
+  }
+  console.log(pages)
+  return pages
+}
+
 
 // the function with the most complexed algorithm
 export function groupNodesByPage(nodes, nodeHeights, pageHeight) {
@@ -146,6 +238,7 @@ export function groupNodesByPage(nodes, nodeHeights, pageHeight) {
     }
   }
 
+  console.log(pages)
   return pages
 }
 

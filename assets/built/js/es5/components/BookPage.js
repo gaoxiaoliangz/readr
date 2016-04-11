@@ -37,6 +37,8 @@ var BookPage = function (_Component) {
       var page = this.props.page;
       var style = this.props.style;
 
+      // console.log(page);
+
       return _react2.default.createElement(
         'li',
         { style: style },
@@ -44,6 +46,7 @@ var BookPage = function (_Component) {
           'div',
           { className: 'content' },
           page.props.children.map(function (node, index) {
+            // console.log(node);
             if (node.type !== "p") {
               console.error("Unsupported content found!");
             }

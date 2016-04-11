@@ -6,11 +6,14 @@ class BookPage extends Component {
     let page = this.props.page
     let style = this.props.style
 
+    // console.log(page);
+
     return (
       <li style={style}>
         <div className="content">
           {
             page.props.children.map((node, index) => {
+              // console.log(node);
               if (node.type !== "p") {
                 console.error("Unsupported content found!")
               }

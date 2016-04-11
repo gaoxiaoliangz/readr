@@ -56,6 +56,12 @@ class AddBook extends Component {
 
     dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook)
 
+    // for testing
+    // let onePara = dataToPost.bookContent.split('\n').join('')
+    // dataToPost.bookContent = onePara
+    // end
+
+
     if(isValid) {
       callApi(`${API_ROOT}books`, 'post', dataToPost).then(res => {
         this.props.handleNotification('添加成功')

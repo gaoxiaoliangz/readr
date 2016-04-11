@@ -98,6 +98,11 @@ var AddBook = function (_Component) {
 
       dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook);
 
+      // for testing
+      // let onePara = dataToPost.bookContent.split('\n').join('')
+      // dataToPost.bookContent = onePara
+      // end
+
       if (isValid) {
         (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'post', dataToPost).then(function (res) {
           _this2.props.handleNotification('添加成功');
