@@ -3,10 +3,14 @@ import { getCache, setCache, callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
 
 export function initBook(bookId, actions, view) {
+
   let pageHeight = view.pageHeight
   let pageWidth = view.pageWidth
   let screen = view.screen
 
+  actions.setView(view)
+
+  // the part I hate the most, a better approach may be applied
   function htmlToPages(html) {
     let nodes = parseHTML(html)
     let nodeHeights = getNodeHeights('.pages ul>li>.content', actions)
@@ -25,17 +29,31 @@ export function initBook(bookId, actions, view) {
     actions.wrap((dispatch, getState) => {
       let pages = getCache(`book${bookId}_pages`)
 
+      // check if pages are cached
       if(pages){
         pages = JSON.parse(pages)
 
+        // check if page view is the same as cached
         if(!compareObjects(view, pages.props.view )) {
+          // recaculate page 'cause view is the same
           let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
-          let html = parseNodes(nodes)
+          let uniqueNodes = []
+          let realIndex = 0
+
+          // remove duplicate nodes
+          for (var i = 0; i < nodes.length; i++) {
+            nodes[i]
+            if(nodes[i].props.index === realIndex) {
+              uniqueNodes.push(nodes[i])
+              realIndex++
+            }
+          }
+
+          let html = parseNodes(uniqueNodes)
 
           // loadHTML is not async, but only in this way setBookMode can work
           // still haven't figured out why this happens
           actions.promisedWrap((dispatch) => {
-            console.log(html);
             actions.loadHTML(html)
           }).then(getState => {
             pages = htmlToPages(html)
@@ -51,6 +69,7 @@ export function initBook(bookId, actions, view) {
           resolve({ pages })
         }
       }else{
+        // well, seems not, we have to fetch book content from the server then
         actions.fetchBookContent(bookId, `books/${bookId}/content`).then(getState => {
           let pages = htmlToPages(getState().book.html)
 
@@ -246,4 +265,22 @@ function compareObjects(obj1, obj2) {
   }
 
   return isEqual
+}
+
+export function getView() {
+  let aspectRatio = 7/9
+
+  if($(window).width() <= 540) {
+    return {
+      screen: 'phone',
+      pageWidth: $(window).width(),
+      pageHeight: $(window).width()/aspectRatio
+    }
+  }else{
+    return {
+      screen: 'hd',
+      pageWidth: 700,
+      pageHeight: 700/aspectRatio
+    }
+  }
 }

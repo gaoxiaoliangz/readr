@@ -8,6 +8,15 @@ export * from 'actions/book'
 export * from 'actions/notification'
 export * from 'actions/user'
 
+
+export const SET_VIEW = 'SET_VIEW'
+export function setView(view) {
+  return {
+    type: SET_VIEW,
+    view
+  }
+}
+
 // todo: merge with api.js
 export function promisedCallApi(CALL_API, actionArgObj){
   return (dispatch, getState) => {

@@ -23,14 +23,16 @@ var _reduxLogger = require('redux-logger');
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
+var _DevTools = require('containers/DevTools');
+
+var _DevTools2 = _interopRequireDefault(_DevTools);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function configureStore(initialState) {
-  var store = (0, _redux.createStore)(_reducers2.default, initialState,
-  // applyMiddleware(thunkMiddleware, createLogger())
-  (0, _redux.applyMiddleware)(_reduxThunk2.default, _api2.default, (0, _reduxLogger2.default)())
-  // applyMiddleware(thunkMiddleware)
-  );
+  var store = (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.compose)(
+  // applyMiddleware(thunk, api, createLogger()),
+  (0, _redux.applyMiddleware)(_reduxThunk2.default, _api2.default), _DevTools2.default.instrument()));
 
   if (module.hot) {
     module.hot.accept('../reducers', function () {

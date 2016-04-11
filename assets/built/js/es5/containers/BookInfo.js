@@ -46,9 +46,7 @@ var BookInfo = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUserAuthInfo();
-      this.props.fetchBookInfo(this.bookId, 'books/' + this.bookId).then(function (getState) {
-        console.log(getState().book.meta);
-      }).catch(function (error) {
+      this.props.fetchBookInfo(this.bookId, 'books/' + this.bookId).then(function (getState) {}).catch(function (error) {
         console.log(error);
       });
     }

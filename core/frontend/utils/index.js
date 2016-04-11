@@ -55,9 +55,22 @@ export function checkAuthStatus() {
 
 // todo: when multiple functins are called?
 export function delayStuff(callback, delay) {
+  console.log(this);
   return function() {
     clearTimeout(this.__delayStuffTimer__)
     this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay)
+  }
+}
+
+// not working so well
+export function lazilize(callback, t) {
+  let timers = []
+
+  return () => {
+    console.log(timers);
+    clearTimeout(timers.slice(-1)[0])
+    let timer = setTimeout(callback.bind(this), t)
+    timers.push(timer)
   }
 }
 

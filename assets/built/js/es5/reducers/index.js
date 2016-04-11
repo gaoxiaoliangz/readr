@@ -18,12 +18,17 @@ var _notification = require('./notification');
 
 var _notification2 = _interopRequireDefault(_notification);
 
+var _view = require('./view');
+
+var _view2 = _interopRequireDefault(_view);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
   book: _book2.default,
   user: _user2.default,
-  notification: _notification2.default
+  notification: _notification2.default,
+  view: _view2.default
 });
 
 exports.default = rootReducer;

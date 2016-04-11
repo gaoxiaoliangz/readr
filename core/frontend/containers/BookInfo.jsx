@@ -17,7 +17,6 @@ class BookInfo extends Component {
   componentDidMount() {
     this.props.fetchUserAuthInfo()
     this.props.fetchBookInfo(this.bookId, `books/${this.bookId}`).then(getState => {
-      console.log(getState().book.meta);
     }).catch((error) => {
       console.log(error);
     })

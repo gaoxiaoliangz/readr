@@ -18,6 +18,10 @@ var _routes2 = _interopRequireDefault(_routes);
 
 var _reactRouter = require('react-router');
 
+var _DevTools = require('containers/DevTools');
+
+var _DevTools2 = _interopRequireDefault(_DevTools);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45,7 +49,12 @@ var Root = function (_Component) {
       return _react2.default.createElement(
         _reactRedux.Provider,
         { store: store },
-        _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default })
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
+          _react2.default.createElement(_DevTools2.default, null)
+        )
       );
     }
   }]);

@@ -9,6 +9,7 @@ exports.convertPercentageToPage = convertPercentageToPage;
 exports.filterPages = filterPages;
 exports.getProgress = getProgress;
 exports.setProgress = setProgress;
+exports.getView = getView;
 
 var _jquery = require('jquery');
 
@@ -20,7 +21,15 @@ var _APIS = require('constants/APIS');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function initBook(bookId, actions, pageHeight, screen) {
+function initBook(bookId, actions, view) {
+
+  var pageHeight = view.pageHeight;
+  var pageWidth = view.pageWidth;
+  var screen = view.screen;
+
+  actions.setView(view);
+
+  // the part I hate the most, a better approach may be applied
   function htmlToPages(html) {
     var nodes = parseHTML(html);
     var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
@@ -30,7 +39,7 @@ function initBook(bookId, actions, pageHeight, screen) {
       type: 'pages',
       props: {
         children: pages,
-        screen: screen
+        view: view
       }
     };
   }
@@ -39,14 +48,32 @@ function initBook(bookId, actions, pageHeight, screen) {
     actions.wrap(function (dispatch, getState) {
       var pages = (0, _utils.getCache)('book' + bookId + '_pages');
 
+      // check if pages are cached
       if (pages) {
         pages = JSON.parse(pages);
-        if (pages.props.screen !== screen) {
+
+        // check if page view is the same as cached
+        if (!compareObjects(view, pages.props.view)) {
+          var i;
+
           (function () {
+            // recaculate page 'cause view is the same
             var nodes = pages.props.children.reduce(function (a, b) {
               return Array.concat(a, b.props.children);
             }, []);
-            var html = parseNodes(nodes);
+            var uniqueNodes = [];
+            var realIndex = 0;
+
+            // remove duplicate nodes
+            for (i = 0; i < nodes.length; i++) {
+              nodes[i];
+              if (nodes[i].props.index === realIndex) {
+                uniqueNodes.push(nodes[i]);
+                realIndex++;
+              }
+            }
+
+            var html = parseNodes(uniqueNodes);
 
             // loadHTML is not async, but only in this way setBookMode can work
             // still haven't figured out why this happens
@@ -67,6 +94,7 @@ function initBook(bookId, actions, pageHeight, screen) {
           resolve({ pages: pages });
         }
       } else {
+        // well, seems not, we have to fetch book content from the server then
         actions.fetchBookContent(bookId, 'books/' + bookId + '/content').then(function (getState) {
           var pages = htmlToPages(getState().book.html);
 
@@ -245,4 +273,41 @@ function parseNodes(nodes) {
   }
 
   return html;
+}
+
+// very rough but enough for use here
+function compareObjects(obj1, obj2) {
+  var isEqual = true;
+
+  try {
+    for (var prop in obj1) {
+      if (obj1[prop] !== obj2[prop]) {
+        isEqual = false;
+        break;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    isEqual = false;
+  }
+
+  return isEqual;
+}
+
+function getView() {
+  var aspectRatio = 7 / 9;
+
+  if ((0, _jquery2.default)(window).width() <= 540) {
+    return {
+      screen: 'phone',
+      pageWidth: (0, _jquery2.default)(window).width(),
+      pageHeight: (0, _jquery2.default)(window).width() / aspectRatio
+    };
+  } else {
+    return {
+      screen: 'hd',
+      pageWidth: 700,
+      pageHeight: 700 / aspectRatio
+    };
+  }
 }

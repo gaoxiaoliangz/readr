@@ -42,6 +42,7 @@ Object.keys(_filters).forEach(function (key) {
 exports.callApi = callApi;
 exports.checkAuthStatus = checkAuthStatus;
 exports.delayStuff = delayStuff;
+exports.lazilize = lazilize;
 exports.isIE = isIE;
 exports.lockScroll = lockScroll;
 exports.unlockScroll = unlockScroll;
@@ -103,9 +104,24 @@ function checkAuthStatus() {
 
 // todo: when multiple functins are called?
 function delayStuff(callback, delay) {
+  console.log(this);
   return function () {
     clearTimeout(this.__delayStuffTimer__);
     this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay);
+  };
+}
+
+// not working so well
+function lazilize(callback, t) {
+  var _this = this;
+
+  var timers = [];
+
+  return function () {
+    console.log(timers);
+    clearTimeout(timers.slice(-1)[0]);
+    var timer = setTimeout(callback.bind(_this), t);
+    timers.push(timer);
   };
 }
 
