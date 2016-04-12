@@ -18,12 +18,13 @@ html
   body
     #root
       !{html}
+    
+    script.
+      window.__INITIAL_STATE__ = '!{initialState})'
+      window.process = { env: { NODE_ENV: '#{env}'}}
 
     if env == "development"
       script(src="/built/js/index.js")
 
     else if env == "production"
       script(src="/built/js/index.built.js")
-      
-    script.
-      window.__INITIAL_STATE__ = '!{initialState})'

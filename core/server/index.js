@@ -40,7 +40,7 @@ function init(basePath) {
 
   // handle routing
   app.use(routes.apiBaseUri, routes.api())
-  app.get("*", routes.frontend(env, true, false))
+  app.get("*", routes.frontend(env, true, true))
 
   // error log info
   app.use(morgan('dev', {

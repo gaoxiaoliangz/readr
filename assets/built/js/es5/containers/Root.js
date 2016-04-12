@@ -49,12 +49,18 @@ var Root = function (_Component) {
       return _react2.default.createElement(
         _reactRedux.Provider,
         { store: store },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
-          _react2.default.createElement(_DevTools2.default, null)
-        )
+        function () {
+          if (process.env.NODE_ENV === 'development') {
+            return _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
+              _react2.default.createElement(_DevTools2.default, null)
+            );
+          } else if (process.env.NODE_ENV === 'production') {
+            return _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default });
+          }
+        }()
       );
     }
   }]);

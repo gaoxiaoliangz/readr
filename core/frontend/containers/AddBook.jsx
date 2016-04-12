@@ -56,12 +56,6 @@ class AddBook extends Component {
 
     dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook)
 
-    // for testing
-    // let onePara = dataToPost.bookContent.split('\n').join('')
-    // dataToPost.bookContent = onePara
-    // end
-
-
     if(isValid) {
       callApi(`${API_ROOT}books`, 'post', dataToPost).then(res => {
         this.props.handleNotification('添加成功')
@@ -139,10 +133,10 @@ class AddBook extends Component {
             {
               book?(
                 <div className="book">
-                  <span onClick={this.removeResult.bind(this)} className="icon icon-close">重新选择</span>
-                  <img src={book.image} />
-                  <div className="book-name">{book.title}</div>
-                  <div className="book-author">{book.author[0]}</div>
+                  <div><img src={book.image} /></div>
+                  <h2 className="book-name">{book.title}</h2>
+                  <div className="book-author">作者：{book.author[0]}</div>
+                  <Button onClick={this.removeResult.bind(this)} className="mui--z1">重新选择</Button>
                 </div>
               ):null
             }

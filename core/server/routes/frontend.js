@@ -41,7 +41,13 @@ var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServ
         } else if (renderProps) {
           res.status(200).render('index', {
             env: env,
-            html: isServerRenderingEnabled?renderToString(React.createElement(RouterContext, renderProps)):"",
+            html: isServerRenderingEnabled?renderToString(
+              React.createElement(
+                Provider,
+                { store: store },
+                React.createElement(RouterContext, renderProps)
+              )
+            ):null,
             initialState: JSON.stringify(initialState)
           })
         } else {

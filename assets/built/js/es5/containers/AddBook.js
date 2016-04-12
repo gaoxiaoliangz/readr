@@ -98,11 +98,6 @@ var AddBook = function (_Component) {
 
       dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook);
 
-      // for testing
-      // let onePara = dataToPost.bookContent.split('\n').join('')
-      // dataToPost.bookContent = onePara
-      // end
-
       if (isValid) {
         (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'post', dataToPost).then(function (res) {
           _this2.props.handleNotification('添加成功');
@@ -194,20 +189,25 @@ var AddBook = function (_Component) {
               'div',
               { className: 'book' },
               _react2.default.createElement(
-                'span',
-                { onClick: this.removeResult.bind(this), className: 'icon icon-close' },
-                '重新选择'
-              ),
-              _react2.default.createElement('img', { src: book.image }),
-              _react2.default.createElement(
                 'div',
+                null,
+                _react2.default.createElement('img', { src: book.image })
+              ),
+              _react2.default.createElement(
+                'h2',
                 { className: 'book-name' },
                 book.title
               ),
               _react2.default.createElement(
                 'div',
                 { className: 'book-author' },
+                '作者：',
                 book.author[0]
+              ),
+              _react2.default.createElement(
+                _react3.Button,
+                { onClick: this.removeResult.bind(this), className: 'mui--z1' },
+                '重新选择'
               )
             ) : null,
             _react2.default.createElement(_react3.Textarea, { hint: '粘贴书籍的全部文本内容', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),

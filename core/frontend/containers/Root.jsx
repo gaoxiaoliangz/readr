@@ -4,15 +4,29 @@ import routes from '../routes'
 import { Router } from 'react-router'
 import DevTools from 'containers/DevTools'
 
+
+
 export default class Root extends Component {
   render() {
     const { store, history } = this.props
     return (
       <Provider store={store}>
-        <div>
-          <Router history={history} routes={routes} />
-          <DevTools />
-        </div>
+      {
+        (() => {
+          if(process.env.NODE_ENV === 'development') {
+            return (
+              <div>
+                <Router history={history} routes={routes} />
+                <DevTools />
+              </div>
+            )
+          } else if(process.env.NODE_ENV === 'production') {
+            return (
+              <Router history={history} routes={routes} />
+            )
+          }
+        })()
+      }
       </Provider>
     )
   }

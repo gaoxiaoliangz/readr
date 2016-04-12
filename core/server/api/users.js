@@ -67,6 +67,55 @@ function validate(str, type) {
 
 
 var users = {
+  listUsers: function(object, options) {
+    return new Promise(function(resolve){
+      let role = options.context.user?options.context.user.role:'visitor'
+
+      if(role === 'admin') {
+        let match = null
+
+        models.getData('users', match).then(function(result){
+          resolve(result)
+        })
+      }else{
+        resolve({
+          error: {
+            message: 'Permission denied!'
+          },
+          statusCode: 403
+        })
+      }
+    })
+  },
+
+  changeUserRole: function(object, options) {
+    return new Promise(function(resolve){
+      let userId = options.context.user?options.context.user.id:null
+      if(userId) {
+        let match = {
+          id: userId
+        }
+
+        let data = {
+          $set: {
+            role: object.role
+          }
+        }
+
+        models.updateData('users', match, data).then(result => {
+          resolve(result)
+        })
+      }else{
+        resolve({
+          error: {
+            message: 'Permission denied!'
+          },
+          statusCode: 403
+        })
+      }
+    })
+  },
+
   addUser: function(object, options){
     return new Promise(function(resolve){
       let user = {

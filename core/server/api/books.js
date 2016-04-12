@@ -1,3 +1,5 @@
+'use strict'
+
 var express = require('express')
 var models = require('../models')
 var Promise = require('bluebird')
@@ -12,9 +14,6 @@ var books = {
 
       models.getData('books', match).then(function(result){
         if(result.error){
-          console.log('> api/books.js')
-          console.log(result)
-
           resolve(result)
         }else{
           promisedbookList = result.data.map(item => {
@@ -81,53 +80,64 @@ var books = {
     })
   },
 
-  addBook: function(object){
+  addBook: function(object, options){
     return new Promise(resolve => {
-      var data = {}
-      var html = ''
-      var raw = object.bookContent
-      var paragraphs = raw.split("\n")
-      var doubanBook = JSON.parse(object.doubanBook)
-      var douban_book_id = doubanBook.id
+      let role = options.context.user?options.context.user.role:'visitor'
 
-      // model putData will override id infoo
-      doubanBook.book_id = douban_book_id
+      if(role === 'admin') {
+        var data = {}
+        var html = ''
+        var raw = object.bookContent
+        var paragraphs = raw.split("\n")
+        var doubanBook = JSON.parse(object.doubanBook)
+        var douban_book_id = doubanBook.id
 
-      for(var i = 0; i < paragraphs.length; i++){
-        html += '<p>' + paragraphs[i] + '</p>'
-      }
+        // model putData will override id infoo
+        doubanBook.book_id = douban_book_id
 
-      data = {
-        douban_book_id: douban_book_id,
-        book_content: {
-          raw: raw,
-          html: html
+        for(var i = 0; i < paragraphs.length; i++){
+          html += '<p>' + paragraphs[i] + '</p>'
         }
-      }
 
-      // check douban book existence
-      models.getData('douban_books', { book_id: douban_book_id}).then(res => {
-        if(res.error) {
-          if(res.statusCode === 404) {
-            models.putData('douban_books', doubanBook).then(res => {
-              if(res.data) {
-                resolve(models.putData('books', data))
-              }else{
-                resolve(res.error)
-              }
-            })
-          }else{
-            resolve(res)
+        data = {
+          douban_book_id: douban_book_id,
+          book_content: {
+            raw: raw,
+            html: html
           }
-        }else{
-          resolve({
-            error: {
-              message: 'Book exsits!'
-            },
-            statusCode: 400
-          })
         }
-      })
+
+        // check douban book existence
+        models.getData('douban_books', { book_id: douban_book_id}).then(res => {
+          if(res.error) {
+            if(res.statusCode === 404) {
+              models.putData('douban_books', doubanBook).then(res => {
+                if(res.data) {
+                  resolve(models.putData('books', data))
+                }else{
+                  resolve(res.error)
+                }
+              })
+            }else{
+              resolve(res)
+            }
+          }else{
+            resolve({
+              error: {
+                message: 'Book exsits!'
+              },
+              statusCode: 400
+            })
+          }
+        })
+      }else{
+        resolve({
+          error: {
+            message: 'Permission denied!'
+          },
+          statusCode: 403
+        })
+      }
     })
   },
 

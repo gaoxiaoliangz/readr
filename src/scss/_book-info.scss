@@ -1,5 +1,51 @@
 .page-book-info {
-  .branding {
-    // display: none;
+  line-height: 1.7;
+  .book-info-header {
+    overflow: hidden;
+    margin-top: 40px;
+  }
+  .left-col {
+    float: left;
+    margin-right: 30px;
+  }
+  h1.book-name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 15px 0 5px 0;
+    color: $text_d;
+    line-height: 1.2
+  }
+  .book-author {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: $text_d;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+  section {
+    margin-bottom: 40px;
+  }
+  .book-cover {
+    margin: 0;
+    width: 134px;
+    height: 184px;
+    top: 0;
+    background: url(../img/shadow.png) no-repeat top;
+    transition: all 0.2s ease 0s;
+    position: relative;
+    img {
+      width: 100px;
+      height: 150px;
+      display: block;
+      position: absolute;
+      border: none;
+      left: 17px;
+      top: 7px;
+      border-radius: 4px;
+    }
   }
 }

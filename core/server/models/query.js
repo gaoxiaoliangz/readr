@@ -75,15 +75,10 @@ var query = {
       db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
 
-        collection.update(
-          match,
-          data,
-          {
+        collection.update(match, data, {
             upsert: true
-          },function(err, result){
+          }, function(err, result){
             if (err) {
-              console.log('> models/query.js')
-              console.log(err)
               resolve({
                 error: {
                   message: err

@@ -66,35 +66,57 @@ var BookInfo = function (_Component) {
             'div',
             { className: 'book-info content-container' },
             _react2.default.createElement(
-              'h1',
-              { className: 'page-title book-name' },
-              bookInfo.title
-            ),
-            _react2.default.createElement(
               'div',
-              { className: 'book-author' },
+              { className: 'book-info-header' },
               _react2.default.createElement(
-                'strong',
-                null,
-                bookInfo.author
+                'div',
+                { className: 'left-col' },
+                bookInfo.image ? _react2.default.createElement(
+                  'div',
+                  { className: 'book-cover' },
+                  _react2.default.createElement('img', { src: bookInfo.image })
+                ) : null
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'right-col' },
+                _react2.default.createElement(
+                  'h1',
+                  { className: 'book-name' },
+                  bookInfo.title
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'book-author' },
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '作者：',
+                    bookInfo.author
+                  )
+                ),
+                bookInfo.title ? _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/book/' + bookInfo.id },
+                  _react2.default.createElement(
+                    _react3.Button,
+                    { color: 'primary' },
+                    '阅读'
+                  )
+                ) : null,
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { target: '_blank', href: 'http://book.douban.com/subject/' + bookInfo.book_id },
+                    '在豆瓣查看'
+                  )
+                )
               )
             ),
-            bookInfo.image ? _react2.default.createElement(
-              'div',
-              { className: 'book-cover' },
-              _react2.default.createElement('img', { src: bookInfo.image })
-            ) : null,
-            bookInfo.title ? _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/book/' + bookInfo.id },
-              _react2.default.createElement(
-                _react3.Button,
-                { color: 'primary' },
-                '阅读'
-              )
-            ) : null,
             bookInfo.author_intro ? _react2.default.createElement(
-              'div',
+              'section',
               { className: 'book-author-intro' },
               _react2.default.createElement(
                 'h2',
@@ -108,7 +130,7 @@ var BookInfo = function (_Component) {
               )
             ) : null,
             bookInfo.summary ? _react2.default.createElement(
-              'div',
+              'section',
               { className: 'book-summary' },
               _react2.default.createElement(
                 'h2',
@@ -120,16 +142,7 @@ var BookInfo = function (_Component) {
                 null,
                 bookInfo.summary
               )
-            ) : null,
-            _react2.default.createElement(
-              'p',
-              null,
-              _react2.default.createElement(
-                'a',
-                { target: '_blank', href: 'http://book.douban.com/subject/' + bookInfo.book_id },
-                '在豆瓣查看'
-              )
-            )
+            ) : null
           )
         )
       );
