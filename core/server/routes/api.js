@@ -1,36 +1,30 @@
-var express = require('express'),
-    api = require('../api'),
-    session = require('express-session');
+var express = require('express')
+var api = require('../api')
+var session = require('express-session')
 
 function apiRoutes() {
-  var router = express.Router();
+  var router = express.Router()
 
   function getUserInfo(req,res,next){
-    // console.log('> routes/api.js');
-    // console.log(req.session);
-
-    if(req.session.userinfo) {
-      req.user = {
-        id: req.session.userinfo.username
-      }
+    if(req.session.user) {
+      req.user = req.session.user
     }
-
-    next();
+    next()
   }
 
-  router.get('/books', api.http(api.books.getAllBooks));
-  router.post('/books',getUserInfo, api.http(api.books.addBook));
-
-  router.get('/books/:id/', api.http(api.books.getBookInfo));
+  router.get('/books', api.http(api.books.getAllBooks))
+  router.post('/books',getUserInfo, api.http(api.books.addBook))
+  router.get('/books/:id/', api.http(api.books.getBookInfo))
   router.get('/books/:id/content', api.http(api.books.getBookContent));
-  router.post('/books/:book_id/progress',getUserInfo, api.http(api.books.updateReadingProgress));
-  router.get('/books/:book_id/progress',getUserInfo, api.http(api.books.getReadingProgress));
+  router.post('/books/:book_id/progress',getUserInfo, api.http(api.books.updateReadingProgress))
+  router.get('/books/:book_id/progress',getUserInfo, api.http(api.books.getReadingProgress))
 
-  router.post('/users', api.http(api.users.addUser));
-  router.post('/auth', api.http(api.auth.basic));
-  router.get('/auth', getUserInfo, api.http(api.auth.checkStatus));
+  router.post('/users', api.http(api.users.addUser))
 
-  return router;
+  router.post('/auth', api.http(api.auth.basic))
+  router.get('/auth', getUserInfo, api.http(api.auth.checkStatus))
+
+  return router
 }
 
-module.exports = apiRoutes;
+module.exports = apiRoutes

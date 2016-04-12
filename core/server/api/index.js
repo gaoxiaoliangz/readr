@@ -20,15 +20,21 @@ var http = function http(apiMethod) {
 
     // context is always in options
     options.context = {
-      user: (req.user && req.user.id) ? req.user.id : null
+      user: req.user?req.user:null
     }
-
-    // console.log("> api/index.js");
-    // console.log(object);
-    // console.log(options);
 
     apiMethod(object, options, req).then(function(result){
       if(result.data) {
+
+        // dont' know whether it's the right way to do this
+        // but it works anyway
+        // it has to be put before sending
+        if(result.auth) {
+          if(result.auth.isAuthed) {
+            req.session.user = result.auth.user
+          }
+        }
+
         if(req.method === 'POST') {
           res.status(201).send(result.data)
         }else{

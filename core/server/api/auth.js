@@ -1,16 +1,18 @@
+'use strict'
 var models = require('../models')
 var Promise = require('bluebird')
 
+// todo: make it global
 function validataAuthInfo(object) {
   var isValid = false
-  if(object.username && object.password) {
-    if(typeof object.username ==='string' && typeof object.password === 'string') {
+  console.log(object);
+  if(object.login && object.password) {
+    if(typeof object.login ==='string' && typeof object.password === 'string') {
       isValid = true
     }
   }
   return isValid
 }
-
 
 var auth = {
   checkStatus: function(object, options) {
@@ -19,7 +21,7 @@ var auth = {
         resolve({
           data: {
             authed: true,
-            username: options.context.user
+            user: options.context.user
           }
         })
       }else{
@@ -32,48 +34,45 @@ var auth = {
     })
   },
 
-  // unauth: function(object, options, req) {
-  //   return new Promise(resolve => {
-  //
-  //   })
-  // },
-
-  basic: function(object, options, req){
-    var match = {
-      username: object.username,
+  basic: function(object, options){
+    // add validation
+    let match = {
+      login: object.login,
       password: object.password
     }
 
-    console.log("> api/auth.js")
-    console.log(match)
-
     return new Promise(function(resolve){
       if(validataAuthInfo(object)) {
-        models.getData('users', {username: match.username}).then(function(result){
+        models.getData('users', {$or: [{username: match.login}, {email: match.login}]}).then(function(result){
           if(result.data) {
-            models.getData('users', match).then(function(result){
-              if(result.data) {
+            let user = result.data[0]
 
-                var userinfo = {
-                  username: match.username
-                }
-                req.session.userinfo = userinfo
-
-                resolve({
-                  data: {
-                    authed: true,
-                    username: object.username
-                  }
-                })
-              }else{
-                resolve({
-                  error: {
-                    message: 'Wrong password!'
-                  },
-                  statusCode: 400
-                })
+            if(user.password === match.password) {
+              let userSession = {
+                username: user.username,
+                role: user.role,
+                id: user.id
               }
-            });
+
+              resolve({
+                data: {
+                  authed: true,
+                  username: user.username,
+                  role: user.role
+                },
+                auth: {
+                  user: userSession,
+                  isAuthed: true
+                }
+              })
+            } else {
+              resolve({
+                error: {
+                  message: 'Wrong password!'
+                },
+                statusCode: 400
+              })
+            }
           }else{
             resolve({
               error: {
@@ -82,7 +81,7 @@ var auth = {
               statusCode: 404
             })
           }
-        });
+        })
       }else{
         resolve({
           error: {

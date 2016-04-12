@@ -59,7 +59,9 @@ var query = {
             })
           } else {
             resolve({
-              data: {}
+              data: {
+                id: data.id
+              }
             })
           }
           db.close();
