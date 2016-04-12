@@ -13,7 +13,8 @@ export default function book(state, action) {
       return Object.assign({}, state, {
         isFetchingUserAuthInfo: false,
         authed: action.response.authed,
-        username: action.response.authed?action.response.username:''
+        username: action.response.authed?action.response.user.username:'',
+        role: action.response.authed?action.response.user.role:'visitor'
       })
 
     default:

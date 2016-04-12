@@ -49,7 +49,7 @@ var Signin = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Signin).call(this, props));
 
     _this.state = {
-      username: '',
+      login: '',
       password: ''
     };
     return _this;
@@ -63,7 +63,7 @@ var Signin = function (_Component) {
       event.preventDefault();
 
       var params = {
-        username: this.state.username,
+        login: this.state.login,
         password: this.state.password
       };
 
@@ -100,7 +100,7 @@ var Signin = function (_Component) {
               { className: 'page-title' },
               '欢迎回来'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.login, name: 'login', hint: '用户名或邮箱' }),
             _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', hint: '密码', type: 'password' }),
             _react2.default.createElement(
               _react3.Button,

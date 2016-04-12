@@ -116,8 +116,6 @@ export function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
       index = 0
     }
 
-    console.log(offset);
-
     return {
       offset,
       index
@@ -174,7 +172,7 @@ export function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
       type: "page"
     })
   }
-  console.log(pages)
+
   return pages
 }
 

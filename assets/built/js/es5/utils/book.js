@@ -144,8 +144,6 @@ function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
       index = 0;
     }
 
-    console.log(offset);
-
     return {
       offset: offset,
       index: index
@@ -201,7 +199,7 @@ function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
       type: "page"
     });
   }
-  console.log(pages);
+
   return pages;
 }
 

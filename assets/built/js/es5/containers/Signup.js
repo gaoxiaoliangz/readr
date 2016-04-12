@@ -50,6 +50,7 @@ var Signup = function (_Component) {
 
     _this.state = {
       username: "",
+      email: "",
       password: ""
     };
     return _this;
@@ -64,6 +65,7 @@ var Signup = function (_Component) {
 
       var params = {
         username: this.state.username,
+        email: this.state.email,
         password: this.state.password
       };
 
@@ -101,6 +103,7 @@ var Signup = function (_Component) {
               '加入 Readr'
             ),
             _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
+            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.email, name: 'email', hint: '邮箱' }),
             _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', hint: '密码 ', type: 'password' }),
             _react2.default.createElement(
               _react3.Button,

@@ -14,7 +14,7 @@ class Signin extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
+      login: '',
       password: ''
     }
   }
@@ -23,7 +23,7 @@ class Signin extends Component {
     event.preventDefault()
 
     let params = {
-      username: this.state.username,
+      login: this.state.login,
       password: this.state.password
     }
 
@@ -49,7 +49,7 @@ class Signin extends Component {
           <Form className="content-container" action="/signin" method="post">
             <Notification notification={this.props.notification} />
             <h1 className="page-title">欢迎回来</h1>
-            <Input onChange={this.handleInput.bind(this)} value={this.state.username} name="username" hint="用户名" />
+            <Input onChange={this.handleInput.bind(this)} value={this.state.login} name="login" hint="用户名或邮箱" />
             <Input onChange={this.handleInput.bind(this)} value={this.state.password} name="password" hint="密码" type="password" />
             <Button onClick={this.handleSignin.bind(this)} variant="raised">登录</Button>
             <p className="hint">没有账号？<Link to="/signup">注册</Link></p>

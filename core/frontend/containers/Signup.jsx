@@ -15,6 +15,7 @@ class Signup extends Component {
     super(props)
     this.state = {
       username: "",
+      email: "",
       password: ""
     }
   }
@@ -24,6 +25,7 @@ class Signup extends Component {
 
     let params = {
       username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }
 
@@ -50,6 +52,7 @@ class Signup extends Component {
             <Notification notification={this.props.notification} />
             <h1 className="page-title">加入 Readr</h1>
             <Input onChange={this.handleInput.bind(this)} value={this.state.username} name="username" hint="用户名" />
+            <Input onChange={this.handleInput.bind(this)} value={this.state.email} name="email" hint="邮箱" />
             <Input onChange={this.handleInput.bind(this)} value={this.state.password} name="password" hint="密码 "type="password" />
             <Button onClick={this.handleSignup.bind(this)} variant="raised">注册</Button>
             <p className="hint">没有账号？<Link to="/signin">登录</Link></p>
