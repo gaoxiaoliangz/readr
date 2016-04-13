@@ -12,7 +12,10 @@ import { API_ROOT } from 'constants/APIS'
 import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
 
-let windowWidth = $(window).width()
+let windowWidth
+if(typeof window !== 'undefined') {
+  windowWidth = $(window).width()
+}
 
 class BookViewer extends Component {
   constructor(props) {
