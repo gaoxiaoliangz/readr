@@ -7,6 +7,7 @@
     "debug": "ENABLE_WEBPACK=true node index",
     "debug-server": "supervisor index",
     "watch": "BABEL_ENV=production grunt watch",
+    "build-js": "BABEL_ENV=production grunt build-js",
     "build": "BABEL_ENV=production grunt build"
   },
   "dependencies": {

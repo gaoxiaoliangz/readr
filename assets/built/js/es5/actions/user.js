@@ -13,11 +13,3 @@ function fetchUserAuthInfo() {
     endpoint: 'auth'
   }, {});
 }
-
-// export function fetchDoubanBookSearchResults(endpoint) {
-//   return promisedCallApi({
-//     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
-//     endpoint,
-//     apiUrl: API_DOUBAN_BOOKS
-//   }, {})
-// }

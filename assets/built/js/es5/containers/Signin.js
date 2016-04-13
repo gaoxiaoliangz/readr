@@ -93,7 +93,7 @@ var Signin = function (_Component) {
           null,
           _react2.default.createElement(
             _react3.Form,
-            { className: 'content-container', action: '/signin', method: 'post' },
+            { className: 'content-container', action: _APIS.API_ROOT + 'auth', method: 'post' },
             _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
               'h1',

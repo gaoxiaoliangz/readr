@@ -13,7 +13,7 @@ export function initBook(bookId, actions, view) {
   function htmlToPages(html) {
     let nodes = parseHTML(html)
     let nodeHeights = getNodeHeights('.pages ul>li>.content', actions)
-    let pages = groupNodesByPage2(nodes, nodeHeights, pageHeight)
+    let pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
 
     return {
       type: 'pages',
@@ -87,7 +87,7 @@ export function initBook(bookId, actions, view) {
   })
 }
 
-export function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
+export function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   let pages = []
   let pageHeightSum = nodeHeights.reduce((a, b) => (a+b), 0)
   let pageSum = Math.ceil(pageHeightSum/pageHeight)
@@ -177,69 +177,6 @@ export function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
   return pages
 }
 
-
-// the function with the most complexed algorithm
-export function groupNodesByPage(nodes, nodeHeights, pageHeight) {
-  let pages = []
-  let pageNodes = []
-  let thisPageHeight = 0
-  let pageIndex = 0
-
-
-  // todos:
-  // check long paragraph situation
-  // add function cache
-  function getPageOffset(pageIndex, nodeHeights, pageHeight) {
-    let offset = 0
-    if(pageIndex !== 0) {
-      let i = 0
-      let nodeHeightSum = 0
-      while(nodeHeightSum < pageHeight * pageIndex) {
-        nodeHeightSum += nodeHeights[i]
-        i++
-      }
-      offset = nodeHeightSum - nodeHeights[i-1] - pageIndex * pageHeight
-    }
-    return offset
-  }
-
-  for (var i = 0; i < nodes.length; i++) {
-    thisPageHeight += nodeHeights[i]
-    pageNodes.push(nodes[i])
-    nodes[i].props.index = i
-
-    let offset = getPageOffset(pageIndex, nodeHeights, pageHeight)
-
-    if(thisPageHeight + offset > pageHeight || i === nodes.length - 1) {
-      pages.push({
-        props: {
-          children: pageNodes,
-          style: {
-            top: pageIndex*pageHeight,
-            position: 'absolute',
-            height: pageHeight
-          },
-          pageNo: pageIndex+1,
-          offset
-        },
-        type: "page"
-      })
-
-      pageIndex++
-      thisPageHeight = 0
-      pageNodes = []
-    }
-
-    // add prev node
-    if(pageIndex !== 0 && pageNodes.length === 0){
-      pageNodes.push(nodes[i])
-      thisPageHeight = nodeHeights[i]
-    }
-  }
-
-  console.log(pages)
-  return pages
-}
 
 export function convertPercentageToPage(p, pageSum) {
   if(p>1) {

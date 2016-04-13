@@ -31764,6 +31764,8 @@
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
+	var _utils = __webpack_require__(556);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31788,21 +31790,26 @@
 	      var store = _props.store;
 	      var history = _props.history;
 
+	      var routerAndMore = void 0;
+	      var env = (0, _utils.getEnv)();
+
+	      if (env === 'development') {
+	        routerAndMore = _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
+	          _react2.default.createElement(_DevTools2.default, null)
+	        );
+	      } else if (env === 'production') {
+	        routerAndMore = _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default });
+	      } else {
+	        console.error('env is neither development nor production!');
+	      }
+
 	      return _react2.default.createElement(
 	        _reactRedux.Provider,
 	        { store: store },
-	        function () {
-	          if (false) {
-	            return _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
-	              _react2.default.createElement(_DevTools2.default, null)
-	            );
-	          } else if (true) {
-	            return _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default });
-	          }
-	        }()
+	        routerAndMore
 	      );
 	    }
 	  }]);
@@ -36986,6 +36993,7 @@
 	    }
 	  });
 	});
+	exports.getEnv = getEnv;
 	exports.callApi = callApi;
 	exports.checkAuthStatus = checkAuthStatus;
 	exports.delayStuff = delayStuff;
@@ -37003,8 +37011,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function callApi(fullUrl, type, data) {
+	function getEnv() {
+	  var env = ("production");
 
+	  if (typeof window !== 'undefined') {
+	    env = window.process.env.NODE_ENV;
+	  }
+
+	  return env;
+	} /*
+	   * functions defined here must be important and better be pure
+	   */
+
+	function callApi(fullUrl, type, data) {
 	  if (typeof type === 'undefined') {
 	    type = 'get';
 	  }
@@ -37037,10 +37056,6 @@
 	}
 
 	// todo: remove
-	/*
-	 * functions defined here must be important and better be pure
-	 */
-
 	function checkAuthStatus() {
 	  return new Promise(function (resolve) {
 	    _jquery2.default.get(_APIS.API_ROOT + 'auth', function (data) {
@@ -37110,7 +37125,6 @@
 	  value: true
 	});
 	exports.initBook = initBook;
-	exports.groupNodesByPage2 = groupNodesByPage2;
 	exports.groupNodesByPage = groupNodesByPage;
 	exports.convertPercentageToPage = convertPercentageToPage;
 	exports.filterPages = filterPages;
@@ -37139,7 +37153,7 @@
 	  function htmlToPages(html) {
 	    var nodes = parseHTML(html);
 	    var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
-	    var pages = groupNodesByPage2(nodes, nodeHeights, pageHeight);
+	    var pages = groupNodesByPage(nodes, nodeHeights, pageHeight);
 
 	    return {
 	      type: 'pages',
@@ -37219,7 +37233,7 @@
 	  });
 	}
 
-	function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
+	function groupNodesByPage(nodes, nodeHeights, pageHeight) {
 	  var pages = [];
 	  var pageHeightSum = nodeHeights.reduce(function (a, b) {
 	    return a + b;
@@ -37307,68 +37321,6 @@
 	    });
 	  }
 
-	  return pages;
-	}
-
-	// the function with the most complexed algorithm
-	function groupNodesByPage(nodes, nodeHeights, pageHeight) {
-	  var pages = [];
-	  var pageNodes = [];
-	  var thisPageHeight = 0;
-	  var pageIndex = 0;
-
-	  // todos:
-	  // check long paragraph situation
-	  // add function cache
-	  function getPageOffset(pageIndex, nodeHeights, pageHeight) {
-	    var offset = 0;
-	    if (pageIndex !== 0) {
-	      var _i2 = 0;
-	      var nodeHeightSum = 0;
-	      while (nodeHeightSum < pageHeight * pageIndex) {
-	        nodeHeightSum += nodeHeights[_i2];
-	        _i2++;
-	      }
-	      offset = nodeHeightSum - nodeHeights[_i2 - 1] - pageIndex * pageHeight;
-	    }
-	    return offset;
-	  }
-
-	  for (var i = 0; i < nodes.length; i++) {
-	    thisPageHeight += nodeHeights[i];
-	    pageNodes.push(nodes[i]);
-	    nodes[i].props.index = i;
-
-	    var offset = getPageOffset(pageIndex, nodeHeights, pageHeight);
-
-	    if (thisPageHeight + offset > pageHeight || i === nodes.length - 1) {
-	      pages.push({
-	        props: {
-	          children: pageNodes,
-	          style: {
-	            top: pageIndex * pageHeight,
-	            position: 'absolute',
-	            height: pageHeight
-	          },
-	          pageNo: pageIndex + 1,
-	          offset: offset
-	        },
-	        type: "page"
-	      });
-
-	      pageIndex++;
-	      thisPageHeight = 0;
-	      pageNodes = [];
-	    }
-
-	    // add prev node
-	    if (pageIndex !== 0 && pageNodes.length === 0) {
-	      pageNodes.push(nodes[i]);
-	      thisPageHeight = nodeHeights[i];
-	    }
-	  }
-
-	  console.log(pages);
 	  return pages;
 	}
 
@@ -47404,7 +47356,17 @@
 	  if (typeof content !== 'string') {
 	    console.error('Cache content should be string!');
 	  }
-	  localStorage.setItem(name, content);
+
+	  var success = true;
+
+	  try {
+	    localStorage.setItem(name, content);
+	  } catch (e) {
+	    console.error(e);
+	    success = false;
+	  }
+
+	  return success;
 	}
 
 /***/ },
@@ -65357,16 +65319,6 @@
 	  }, { bookId: bookId });
 	}
 
-	// export function fetchBookInfo(bookId, endpoint) {
-	//   return {
-	//     bookId,
-	//     CALL_API: {
-	//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-	//       endpoint
-	//     }
-	//   }
-	// }
-
 	var LOAD_HTML = exports.LOAD_HTML = 'LOAD_HTML';
 	function loadHTML(html) {
 	  return {
@@ -65460,14 +65412,6 @@
 	    endpoint: 'auth'
 	  }, {});
 	}
-
-	// export function fetchDoubanBookSearchResults(endpoint) {
-	//   return promisedCallApi({
-	//     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
-	//     endpoint,
-	//     apiUrl: API_DOUBAN_BOOKS
-	//   }, {})
-	// }
 
 /***/ },
 /* 570 */
@@ -66033,7 +65977,7 @@
 	          null,
 	          _react2.default.createElement(
 	            _react3.Form,
-	            { className: 'content-container', action: '/signin', method: 'post' },
+	            { className: 'content-container', action: _APIS.API_ROOT + 'auth', method: 'post' },
 	            _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
 	            _react2.default.createElement(
 	              'h1',
@@ -80144,19 +80088,11 @@
 
 	var _redux = __webpack_require__(509);
 
-	var _reducers = __webpack_require__(987);
-
-	var _reducers2 = _interopRequireDefault(_reducers);
-
-	var _api = __webpack_require__(992);
-
-	var _api2 = _interopRequireDefault(_api);
-
-	var _reduxThunk = __webpack_require__(993);
+	var _reduxThunk = __webpack_require__(987);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reduxLogger = __webpack_require__(994);
+	var _reduxLogger = __webpack_require__(988);
 
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
@@ -80164,15 +80100,21 @@
 
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 
+	var _reducers = __webpack_require__(989);
+
+	var _reducers2 = _interopRequireDefault(_reducers);
+
+	var _api = __webpack_require__(994);
+
+	var _api2 = _interopRequireDefault(_api);
+
+	var _utils = __webpack_require__(556);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function configureStore(initialState) {
 	  var store = void 0;
-	  var env = ("production");
-
-	  if (typeof window !== 'undefined') {
-	    env = window.process.env.NODE_ENV;
-	  }
+	  var env = (0, _utils.getEnv)();
 
 	  if (env === 'development') {
 	    store = (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.compose)(
@@ -80187,6 +80129,8 @@
 	        store.replaceReducer(nextRootReducer);
 	      });
 	    }
+	  } else {
+	    console.error('env is neither development nor production!');
 	  }
 
 	  return store;
@@ -80194,366 +80138,6 @@
 
 /***/ },
 /* 987 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _redux = __webpack_require__(509);
-
-	var _book = __webpack_require__(988);
-
-	var _book2 = _interopRequireDefault(_book);
-
-	var _user = __webpack_require__(989);
-
-	var _user2 = _interopRequireDefault(_user);
-
-	var _notification = __webpack_require__(990);
-
-	var _notification2 = _interopRequireDefault(_notification);
-
-	var _view = __webpack_require__(991);
-
-	var _view2 = _interopRequireDefault(_view);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var rootReducer = (0, _redux.combineReducers)({
-	  book: _book2.default,
-	  user: _user2.default,
-	  notification: _notification2.default,
-	  view: _view2.default
-	});
-
-	exports.default = rootReducer;
-
-/***/ },
-/* 988 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = book;
-	function book(state, action) {
-	  if (typeof state === 'undefined') {
-	    state = {};
-	  }
-	  switch (action.type) {
-
-	    case 'BOOK_LIST_REQUEST':
-	      return Object.assign({}, state, {
-	        isFetchingList: true
-	      });
-
-	    case 'BOOK_LIST_SUCCESS':
-	      return Object.assign({}, state, {
-	        isFetchingList: false,
-	        bookList: action.response
-	      });
-
-	    case 'BOOK_CONTENT_REQUEST':
-	      return Object.assign({}, state, {
-	        isFetchingContent: true,
-	        id: action.bookId
-	      });
-
-	    case 'BOOK_CONTENT_SUCCESS':
-	      return Object.assign({}, state, {
-	        isFetchingContent: false,
-	        html: action.response.html
-	      });
-
-	    case 'BOOK_INFO_REQUEST':
-	      return Object.assign({}, state, {
-	        isFetchingInfo: true,
-	        id: action.bookId
-	      });
-
-	    case 'BOOK_INFO_SUCCESS':
-	      return Object.assign({}, state, {
-	        isFetchingInfo: false,
-	        meta: action.response
-	      });
-
-	    case 'LOAD_HTML':
-	      return Object.assign({}, state, {
-	        html: action.html
-	      });
-
-	    case 'LOAD_PAGES':
-	      return Object.assign({}, state, {
-	        isPagesLoaded: true,
-	        pages: action.pages
-	      });
-
-	    case 'SET_BOOK_MODE':
-	      return Object.assign({}, state, {
-	        mode: action.mode
-	      });
-
-	    case 'JUMP_TO':
-	      return Object.assign({}, state, {
-	        isPagesLoaded: true,
-	        currentPage: action.currentPage
-	      });
-
-	    case 'DOUBAN_BOOK_SEARCH_REQUEST':
-	      return Object.assign({}, state, {
-	        isFetchingSearch: true
-	      });
-
-	    case 'DOUBAN_BOOK_SEARCH_SUCCESS':
-	      return Object.assign({}, state, {
-	        isFetchingSearch: false,
-	        searchResults: action.response
-	      });
-
-	    case 'DOUBAN_BOOK_SEARCH_FAILURE':
-	      return Object.assign({}, state, {
-	        isFetchingSearch: false,
-	        error: action.response
-	      });
-
-	    case 'CLEAR_BOOK_SEARCH':
-	      return Object.assign({}, state, {
-	        searchResults: null
-	      });
-
-	    //  todo: remove
-
-	    case 'SET_VIEW_SCREEN':
-	      return Object.assign({}, state, {
-	        view: Object.assign({}, state.view, {
-	          screen: action.screen,
-	          style: action.style
-	        })
-	      });
-
-	    case 'SET_VIEW_MODE':
-	      return Object.assign({}, state, {
-	        view: Object.assign({}, state.view, {
-	          mode: action.mode
-	        })
-	      });
-
-	    case 'CUSTOMIZE_VIEW':
-	      return Object.assign({}, state, {
-	        view: Object.assign({}, state.view, {
-	          customStyle: action.customStyle
-	        })
-	      });
-
-	    case 'CALCULATE_BOOK_CONTENT':
-	      return Object.assign({}, state, {
-	        content: Object.assign({}, state.content, {
-	          nodes: action.contentNodes,
-	          isCalculated: true,
-	          pageSum: action.pageSum
-	        })
-	      });
-
-	    case 'CACHE_BOOK_CONTENT':
-	      return Object.assign({}, state, {
-	        content: Object.assign({}, state.content, {
-	          isCached: true
-	        })
-	      });
-
-	    case 'CACHE_VIEW':
-	      return Object.assign({}, state, {
-	        view: Object.assign({}, state.view, {
-	          isCached: true
-	        })
-	      });
-
-	    case 'LOAD_VIEW_FROM_CACHE':
-	      return Object.assign({}, state, {
-	        view: Object.assign({}, state.view, {
-	          nodes: action.contentNodes,
-	          isCached: action.cacheReadingState === 'SUCCESS' ? true : false,
-	          cacheReadingState: action.cacheReadingState,
-	          mode: action.mode,
-	          screen: action.screen,
-	          style: action.style
-	        })
-	      });
-
-	    default:
-	      return state;
-	  }
-	}
-
-/***/ },
-/* 989 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = book;
-	function book(state, action) {
-	  if (typeof state === 'undefined') {
-	    state = {};
-	  }
-
-	  switch (action.type) {
-	    case 'USER_AUTH_INFO_REQUEST':
-	      return Object.assign({}, state, {
-	        isFetchingUserAuthInfo: true
-	      });
-
-	    case 'USER_AUTH_INFO_SUCCESS':
-	      return Object.assign({}, state, {
-	        isFetchingUserAuthInfo: false,
-	        authed: action.response.authed,
-	        username: action.response.authed ? action.response.user.username : '',
-	        role: action.response.authed ? action.response.user.role : 'visitor'
-	      });
-
-	    default:
-	      return state;
-	  }
-	}
-
-/***/ },
-/* 990 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = notification;
-	function notification(state, action) {
-	  if (typeof state === 'undefined') {
-	    state = {};
-	  }
-
-	  switch (action.type) {
-	    case 'SHOW_NOTIFICATION':
-	      return Object.assign({}, state, {
-	        content: action.content,
-	        isVisible: true
-	      });
-
-	    case 'HIDE_NOTIFICATION':
-	      return Object.assign({}, state, {
-	        isVisible: false
-	      });
-
-	    default:
-	      return state;
-	  }
-	}
-
-/***/ },
-/* 991 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = view;
-	function view(state, action) {
-	  if (typeof state === 'undefined') {
-	    state = {
-	      screen: 'hd',
-	      pageHeight: 900,
-	      pageWidth: 900
-	    };
-	  }
-
-	  switch (action.type) {
-	    case 'SET_VIEW':
-	      return Object.assign({}, state, action.view);
-
-	    default:
-	      return state;
-	  }
-	}
-
-/***/ },
-/* 992 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	var _utils = __webpack_require__(556);
-
-	var _APIS = __webpack_require__(559);
-
-	exports.default = function (store) {
-	  return function (next) {
-	    return function (action) {
-	      var CALL_API = action.CALL_API;
-	      if (typeof CALL_API === 'undefined') {
-	        return next(action);
-	      }
-
-	      var endpoint = CALL_API.endpoint;
-	      var apiUrl = CALL_API.apiUrl;
-	      var types = CALL_API.types;
-
-	      var _types = _slicedToArray(types, 3);
-
-	      var requestType = _types[0];
-	      var successType = _types[1];
-	      var failureType = _types[2];
-
-
-	      function actionWith(data) {
-	        var finalAction = Object.assign({}, action, data);
-	        delete finalAction.CALL_API;
-	        return finalAction;
-	      }
-
-	      next(actionWith({ type: requestType }));
-
-	      if (typeof endpoint === 'function') {
-	        endpoint = endpoint(store.getState());
-	      }
-
-	      if (typeof apiUrl === 'undefined') {
-	        apiUrl = _APIS.API_ROOT;
-	      }
-
-	      var fullUrl = apiUrl + endpoint;
-
-	      return (0, _utils.callApi)(fullUrl).then(function (response) {
-	        return next(actionWith({
-	          response: response,
-	          type: successType
-	        }));
-	      }, function (error) {
-	        return next(actionWith({
-	          type: failureType,
-	          error: error.message || 'Oops!'
-	        }));
-	      });
-	    };
-	  };
-	};
-
-/***/ },
-/* 993 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -80576,7 +80160,7 @@
 	}
 
 /***/ },
-/* 994 */
+/* 988 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -80807,6 +80391,307 @@
 	}
 
 	module.exports = createLogger;
+
+/***/ },
+/* 989 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _redux = __webpack_require__(509);
+
+	var _book = __webpack_require__(990);
+
+	var _book2 = _interopRequireDefault(_book);
+
+	var _user = __webpack_require__(991);
+
+	var _user2 = _interopRequireDefault(_user);
+
+	var _notification = __webpack_require__(992);
+
+	var _notification2 = _interopRequireDefault(_notification);
+
+	var _view = __webpack_require__(993);
+
+	var _view2 = _interopRequireDefault(_view);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var rootReducer = (0, _redux.combineReducers)({
+	  book: _book2.default,
+	  user: _user2.default,
+	  notification: _notification2.default,
+	  view: _view2.default
+	});
+
+	exports.default = rootReducer;
+
+/***/ },
+/* 990 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = book;
+	function book(state, action) {
+	  if (typeof state === 'undefined') {
+	    state = {};
+	  }
+	  switch (action.type) {
+
+	    case 'BOOK_LIST_REQUEST':
+	      return Object.assign({}, state, {
+	        isFetchingList: true
+	      });
+
+	    case 'BOOK_LIST_SUCCESS':
+	      return Object.assign({}, state, {
+	        isFetchingList: false,
+	        bookList: action.response
+	      });
+
+	    case 'BOOK_CONTENT_REQUEST':
+	      return Object.assign({}, state, {
+	        isFetchingContent: true,
+	        id: action.bookId
+	      });
+
+	    case 'BOOK_CONTENT_SUCCESS':
+	      return Object.assign({}, state, {
+	        isFetchingContent: false,
+	        html: action.response.html
+	      });
+
+	    case 'BOOK_INFO_REQUEST':
+	      return Object.assign({}, state, {
+	        isFetchingInfo: true,
+	        id: action.bookId
+	      });
+
+	    case 'BOOK_INFO_SUCCESS':
+	      return Object.assign({}, state, {
+	        isFetchingInfo: false,
+	        meta: action.response
+	      });
+
+	    case 'LOAD_HTML':
+	      return Object.assign({}, state, {
+	        html: action.html
+	      });
+
+	    case 'LOAD_PAGES':
+	      return Object.assign({}, state, {
+	        isPagesLoaded: true,
+	        pages: action.pages
+	      });
+
+	    case 'SET_BOOK_MODE':
+	      return Object.assign({}, state, {
+	        mode: action.mode
+	      });
+
+	    case 'JUMP_TO':
+	      return Object.assign({}, state, {
+	        isPagesLoaded: true,
+	        currentPage: action.currentPage
+	      });
+
+	    case 'DOUBAN_BOOK_SEARCH_REQUEST':
+	      return Object.assign({}, state, {
+	        isFetchingSearch: true
+	      });
+
+	    case 'DOUBAN_BOOK_SEARCH_SUCCESS':
+	      return Object.assign({}, state, {
+	        isFetchingSearch: false,
+	        searchResults: action.response
+	      });
+
+	    case 'DOUBAN_BOOK_SEARCH_FAILURE':
+	      return Object.assign({}, state, {
+	        isFetchingSearch: false,
+	        error: action.response
+	      });
+
+	    case 'CLEAR_BOOK_SEARCH':
+	      return Object.assign({}, state, {
+	        searchResults: null
+	      });
+
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 991 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = book;
+	function book(state, action) {
+	  if (typeof state === 'undefined') {
+	    state = {};
+	  }
+
+	  switch (action.type) {
+	    case 'USER_AUTH_INFO_REQUEST':
+	      return Object.assign({}, state, {
+	        isFetchingUserAuthInfo: true
+	      });
+
+	    case 'USER_AUTH_INFO_SUCCESS':
+	      return Object.assign({}, state, {
+	        isFetchingUserAuthInfo: false,
+	        authed: action.response.authed,
+	        username: action.response.authed ? action.response.user.username : '',
+	        role: action.response.authed ? action.response.user.role : 'visitor'
+	      });
+
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 992 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = notification;
+	function notification(state, action) {
+	  if (typeof state === 'undefined') {
+	    state = {};
+	  }
+
+	  switch (action.type) {
+	    case 'SHOW_NOTIFICATION':
+	      return Object.assign({}, state, {
+	        content: action.content,
+	        isVisible: true
+	      });
+
+	    case 'HIDE_NOTIFICATION':
+	      return Object.assign({}, state, {
+	        isVisible: false
+	      });
+
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 993 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = view;
+	function view(state, action) {
+	  if (typeof state === 'undefined') {
+	    state = {
+	      screen: 'hd',
+	      pageHeight: 900,
+	      pageWidth: 900
+	    };
+	  }
+
+	  switch (action.type) {
+	    case 'SET_VIEW':
+	      return Object.assign({}, state, action.view);
+
+	    default:
+	      return state;
+	  }
+	}
+
+/***/ },
+/* 994 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _utils = __webpack_require__(556);
+
+	var _APIS = __webpack_require__(559);
+
+	exports.default = function (store) {
+	  return function (next) {
+	    return function (action) {
+	      var CALL_API = action.CALL_API;
+	      if (typeof CALL_API === 'undefined') {
+	        return next(action);
+	      }
+
+	      var endpoint = CALL_API.endpoint;
+	      var apiUrl = CALL_API.apiUrl;
+	      var types = CALL_API.types;
+
+	      var _types = _slicedToArray(types, 3);
+
+	      var requestType = _types[0];
+	      var successType = _types[1];
+	      var failureType = _types[2];
+
+
+	      function actionWith(data) {
+	        var finalAction = Object.assign({}, action, data);
+	        delete finalAction.CALL_API;
+	        return finalAction;
+	      }
+
+	      next(actionWith({ type: requestType }));
+
+	      if (typeof endpoint === 'function') {
+	        endpoint = endpoint(store.getState());
+	      }
+
+	      if (typeof apiUrl === 'undefined') {
+	        apiUrl = _APIS.API_ROOT;
+	      }
+
+	      var fullUrl = apiUrl + endpoint;
+
+	      return (0, _utils.callApi)(fullUrl).then(function (response) {
+	        return next(actionWith({
+	          response: response,
+	          type: successType
+	        }));
+	      }, function (error) {
+	        return next(actionWith({
+	          type: failureType,
+	          error: error.message || 'Oops!'
+	        }));
+	      });
+	    };
+	  };
+	};
 
 /***/ }
 /******/ ]);

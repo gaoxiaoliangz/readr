@@ -46,7 +46,7 @@ class Signin extends Component {
       <div className="page-signin">
         <Branding user={this.props.user} />
         <Container>
-          <Form className="content-container" action="/signin" method="post">
+          <Form className="content-container" action={`${API_ROOT}auth`} method="post">
             <Notification notification={this.props.notification} />
             <h1 className="page-title">欢迎回来</h1>
             <Input onChange={this.handleInput.bind(this)} value={this.state.login} name="login" hint="用户名或邮箱" />

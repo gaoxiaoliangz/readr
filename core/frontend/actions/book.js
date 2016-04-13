@@ -38,16 +38,6 @@ export function fetchBookInfo(bookId, endpoint) {
   }, { bookId })
 }
 
-// export function fetchBookInfo(bookId, endpoint) {
-//   return {
-//     bookId,
-//     CALL_API: {
-//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-//       endpoint
-//     }
-//   }
-// }
-
 export const LOAD_HTML = 'LOAD_HTML'
 export function loadHTML(html) {
   return {

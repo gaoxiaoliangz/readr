@@ -39,6 +39,7 @@ Object.keys(_filters).forEach(function (key) {
     }
   });
 });
+exports.getEnv = getEnv;
 exports.callApi = callApi;
 exports.checkAuthStatus = checkAuthStatus;
 exports.delayStuff = delayStuff;
@@ -56,8 +57,19 @@ var _APIS = require('constants/APIS');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function callApi(fullUrl, type, data) {
+function getEnv() {
+  var env = process.env.NODE_ENV;
 
+  if (typeof window !== 'undefined') {
+    env = window.process.env.NODE_ENV;
+  }
+
+  return env;
+} /*
+   * functions defined here must be important and better be pure
+   */
+
+function callApi(fullUrl, type, data) {
   if (typeof type === 'undefined') {
     type = 'get';
   }
@@ -90,10 +102,6 @@ function callApi(fullUrl, type, data) {
 }
 
 // todo: remove
-/*
- * functions defined here must be important and better be pure
- */
-
 function checkAuthStatus() {
   return new Promise(function (resolve) {
     _jquery2.default.get(_APIS.API_ROOT + 'auth', function (data) {

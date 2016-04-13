@@ -23,5 +23,15 @@ function setCache(name, content) {
   if (typeof content !== 'string') {
     console.error('Cache content should be string!');
   }
-  localStorage.setItem(name, content);
+
+  var success = true;
+
+  try {
+    localStorage.setItem(name, content);
+  } catch (e) {
+    console.error(e);
+    success = false;
+  }
+
+  return success;
 }

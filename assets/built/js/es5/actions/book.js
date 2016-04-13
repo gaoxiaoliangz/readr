@@ -54,16 +54,6 @@ function fetchBookInfo(bookId, endpoint) {
   }, { bookId: bookId });
 }
 
-// export function fetchBookInfo(bookId, endpoint) {
-//   return {
-//     bookId,
-//     CALL_API: {
-//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-//       endpoint
-//     }
-//   }
-// }
-
 var LOAD_HTML = exports.LOAD_HTML = 'LOAD_HTML';
 function loadHTML(html) {
   return {

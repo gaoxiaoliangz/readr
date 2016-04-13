@@ -20,7 +20,9 @@ module.exports = function(grunt) {
     babel: {
       es5: {
         options: {
-          sourceMap: false
+          sourceMap: false,
+          babelrc: false,
+          presets: ['react', 'es2015']
         },
         files: [{
           "expand": true,
@@ -138,6 +140,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build-css', ['sass','cssmin']);
-  // grunt.registerTask('build-js', ['babel','webpack','uglify']);
+  grunt.registerTask('build-js', ['babel','webpack','uglify']);
   grunt.registerTask('build', ['image','sass','cssmin','copy','babel','webpack','uglify']);
 };

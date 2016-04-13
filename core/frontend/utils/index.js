@@ -9,8 +9,18 @@ export * from 'utils/book'
 export * from 'utils/cache'
 export * from 'utils/filters'
 
-export function callApi(fullUrl, type, data) {
 
+export function getEnv() {
+  let env = process.env.NODE_ENV
+
+  if(typeof window !== 'undefined') {
+    env = window.process.env.NODE_ENV
+  }
+
+  return env
+}
+
+export function callApi(fullUrl, type, data) {
   if(typeof type === 'undefined') {
     type = 'get'
   }

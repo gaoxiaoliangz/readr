@@ -25,6 +25,8 @@ var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServ
     var reactRoutes = require('routes').default
     var configureStore = require('store/configureStore').default
 
+    const DevTools = require('containers/DevTools').default
+
     const store = configureStore()
     const initialState = store.getState()
 
@@ -39,15 +41,32 @@ var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServ
         } else if (redirectLocation) {
           res.redirect(302, redirectLocation.pathname + redirectLocation.search)
         } else if (renderProps) {
+          let html
+
+          if(env === 'production') {
+            html = React.createElement(
+              Provider,
+              { store: store },
+              React.createElement(RouterContext, renderProps)
+            )
+          } else if(env === 'development') {
+            html = React.createElement(
+              Provider,
+              { store: store },
+              React.createElement(
+                'div',
+                null,
+                React.createElement(RouterContext, renderProps),
+                React.createElement(DevTools, null)
+              )
+            )
+          } else {
+            console.log('env is not development nor production!')
+          }
+
           res.status(200).render('index', {
             env: env,
-            html: isServerRenderingEnabled?renderToString(
-              React.createElement(
-                Provider,
-                { store: store },
-                React.createElement(RouterContext, renderProps)
-              )
-            ):null,
+            html: isServerRenderingEnabled?renderToString(html):null,
             initialState: JSON.stringify(initialState)
           })
         } else {

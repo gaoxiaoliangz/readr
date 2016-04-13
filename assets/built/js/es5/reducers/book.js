@@ -89,65 +89,6 @@ function book(state, action) {
         searchResults: null
       });
 
-    //  todo: remove
-
-    case 'SET_VIEW_SCREEN':
-      return Object.assign({}, state, {
-        view: Object.assign({}, state.view, {
-          screen: action.screen,
-          style: action.style
-        })
-      });
-
-    case 'SET_VIEW_MODE':
-      return Object.assign({}, state, {
-        view: Object.assign({}, state.view, {
-          mode: action.mode
-        })
-      });
-
-    case 'CUSTOMIZE_VIEW':
-      return Object.assign({}, state, {
-        view: Object.assign({}, state.view, {
-          customStyle: action.customStyle
-        })
-      });
-
-    case 'CALCULATE_BOOK_CONTENT':
-      return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          nodes: action.contentNodes,
-          isCalculated: true,
-          pageSum: action.pageSum
-        })
-      });
-
-    case 'CACHE_BOOK_CONTENT':
-      return Object.assign({}, state, {
-        content: Object.assign({}, state.content, {
-          isCached: true
-        })
-      });
-
-    case 'CACHE_VIEW':
-      return Object.assign({}, state, {
-        view: Object.assign({}, state.view, {
-          isCached: true
-        })
-      });
-
-    case 'LOAD_VIEW_FROM_CACHE':
-      return Object.assign({}, state, {
-        view: Object.assign({}, state.view, {
-          nodes: action.contentNodes,
-          isCached: action.cacheReadingState === 'SUCCESS' ? true : false,
-          cacheReadingState: action.cacheReadingState,
-          mode: action.mode,
-          screen: action.screen,
-          style: action.style
-        })
-      });
-
     default:
       return state;
   }

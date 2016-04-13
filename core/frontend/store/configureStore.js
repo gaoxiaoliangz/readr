@@ -1,19 +1,16 @@
 import { createStore, compose, applyMiddleware } from 'redux'
-import rootReducer from '../reducers'
-import api from 'middleware/api'
-
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import DevTools from 'containers/DevTools'
 
+import rootReducer from '../reducers'
+import api from 'middleware/api'
+import { getEnv } from 'utils'
+
 
 export default function configureStore(initialState) {
   let store
-  let env = process.env.NODE_ENV
-
-  if(typeof window !== 'undefined') {
-    env = window.process.env.NODE_ENV
-  }
+  let env = getEnv()
 
   if(env === 'development') {
     store = createStore(
@@ -38,6 +35,8 @@ export default function configureStore(initialState) {
         store.replaceReducer(nextRootReducer)
       })
     }
+  } else {
+    console.error('env is neither development nor production!')
   }
 
   return store

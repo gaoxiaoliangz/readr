@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.initBook = initBook;
-exports.groupNodesByPage2 = groupNodesByPage2;
 exports.groupNodesByPage = groupNodesByPage;
 exports.convertPercentageToPage = convertPercentageToPage;
 exports.filterPages = filterPages;
@@ -33,7 +32,7 @@ function initBook(bookId, actions, view) {
   function htmlToPages(html) {
     var nodes = parseHTML(html);
     var nodeHeights = getNodeHeights('.pages ul>li>.content', actions);
-    var pages = groupNodesByPage2(nodes, nodeHeights, pageHeight);
+    var pages = groupNodesByPage(nodes, nodeHeights, pageHeight);
 
     return {
       type: 'pages',
@@ -113,7 +112,7 @@ function initBook(bookId, actions, view) {
   });
 }
 
-function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
+function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   var pages = [];
   var pageHeightSum = nodeHeights.reduce(function (a, b) {
     return a + b;
@@ -201,68 +200,6 @@ function groupNodesByPage2(nodes, nodeHeights, pageHeight) {
     });
   }
 
-  return pages;
-}
-
-// the function with the most complexed algorithm
-function groupNodesByPage(nodes, nodeHeights, pageHeight) {
-  var pages = [];
-  var pageNodes = [];
-  var thisPageHeight = 0;
-  var pageIndex = 0;
-
-  // todos:
-  // check long paragraph situation
-  // add function cache
-  function getPageOffset(pageIndex, nodeHeights, pageHeight) {
-    var offset = 0;
-    if (pageIndex !== 0) {
-      var _i2 = 0;
-      var nodeHeightSum = 0;
-      while (nodeHeightSum < pageHeight * pageIndex) {
-        nodeHeightSum += nodeHeights[_i2];
-        _i2++;
-      }
-      offset = nodeHeightSum - nodeHeights[_i2 - 1] - pageIndex * pageHeight;
-    }
-    return offset;
-  }
-
-  for (var i = 0; i < nodes.length; i++) {
-    thisPageHeight += nodeHeights[i];
-    pageNodes.push(nodes[i]);
-    nodes[i].props.index = i;
-
-    var offset = getPageOffset(pageIndex, nodeHeights, pageHeight);
-
-    if (thisPageHeight + offset > pageHeight || i === nodes.length - 1) {
-      pages.push({
-        props: {
-          children: pageNodes,
-          style: {
-            top: pageIndex * pageHeight,
-            position: 'absolute',
-            height: pageHeight
-          },
-          pageNo: pageIndex + 1,
-          offset: offset
-        },
-        type: "page"
-      });
-
-      pageIndex++;
-      thisPageHeight = 0;
-      pageNodes = [];
-    }
-
-    // add prev node
-    if (pageIndex !== 0 && pageNodes.length === 0) {
-      pageNodes.push(nodes[i]);
-      thisPageHeight = nodeHeights[i];
-    }
-  }
-
-  console.log(pages);
   return pages;
 }
 
