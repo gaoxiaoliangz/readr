@@ -37164,8 +37164,9 @@
 
 	          (function () {
 	            // recaculate page 'cause view is not the same
+	            // let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
 	            var nodes = pages.props.children.reduce(function (a, b) {
-	              return Array.concat(a, b.props.children);
+	              return a.concat(b.props.children);
 	            }, []);
 	            var uniqueNodes = [];
 	            var realIndex = 0;
@@ -37402,9 +37403,11 @@
 	}
 
 	function getProgress(bookId) {
-	  return new Promise(function (resolve) {
+	  return new Promise(function (resolve, reject) {
 	    (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress').then(function (res) {
 	      resolve(res);
+	    }).catch(function (err) {
+	      reject(err);
 	    });
 	  });
 	}
@@ -59883,6 +59886,10 @@
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
+	var _jquery = __webpack_require__(558);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
 	var _utils = __webpack_require__(556);
 
 	var _actions = __webpack_require__(566);
@@ -59908,6 +59915,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var windowWidth = (0, _jquery2.default)(window).width();
 
 	var BookViewer = function (_Component) {
 	  _inherits(BookViewer, _Component);
@@ -59939,31 +59948,50 @@
 	      var page = (0, _utils.convertPercentageToPage)(percentage, pageSum);
 
 	      props.actions.jumpTo(page);
-
-	      (0, _utils.setProgress)(props.book.id, {
-	        page: page,
-	        page_sum: pageSum,
-	        percentage: percentage
-	      });
+	      if (this.props.user.authed) {
+	        (0, _utils.setProgress)(props.book.id, {
+	          page: page,
+	          page_sum: pageSum,
+	          percentage: percentage
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'prepareBook',
-	    value: function prepareBook(bookId, actions, view) {
+	    value: function prepareBook(bookId, props, view) {
 	      var _this2 = this;
+
+	      var actions = props.actions;
+	      var user = props.user;
 
 	      (0, _utils.initBook)(bookId, actions, view).then(function (data) {
 	        if (data.pages) {
-	          (0, _utils.getProgress)(bookId).then(function (res) {
-	            if (!res.message) {
-	              actions.jumpTo(res.page);
-	              document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
-	            } else {
+	          if (user.authed) {
+	            (0, _utils.getProgress)(bookId).then(function (res) {
+	              if (!res.message) {
+	                actions.jumpTo(res.page);
+	                document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
+	              } else {
+	                actions.jumpTo(1);
+	              }
+	              _this2.setState({
+	                isLoading: false
+	              });
+	            }).catch(function (err) {
+	              _this2.setState({
+	                isLoading: false
+	              });
 	              actions.jumpTo(1);
-	            }
+	            });
+	          } else {
 	            _this2.setState({
 	              isLoading: false
 	            });
-	          });
+	            actions.jumpTo(1);
+	            // this is a bad fix
+	            // localstorage solution is recommended
+	            document.body.scrollTop = document.body.scrollTop + 1;
+	          }
 	        }
 	      });
 	    }
@@ -59987,11 +60015,14 @@
 	      this.handleResize = function () {
 	        var view = (0, _utils.getView)();
 
-	        this.setState({
-	          isLoading: true
-	        });
+	        if ((0, _jquery2.default)(window).width() !== windowWidth) {
+	          this.setState({
+	            isLoading: true
+	          });
 
-	        lazilize(this.prepareBook.bind(this, this.bookId, this.props.actions, view), 500)();
+	          windowWidth = (0, _jquery2.default)(window).width();
+	          lazilize(this.prepareBook.bind(this, this.bookId, this.props, view), 500)();
+	        }
 	      }.bind(this);
 
 	      window.addEventListener('scroll', this.handleScroll);
@@ -60025,13 +60056,16 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this4 = this;
+
 	      var actions = this.props.actions;
 	      var bookId = this.bookId;
 
 	      actions.fetchUserAuthInfo();
-	      actions.fetchBookInfo(bookId, 'books/' + this.bookId);
+	      actions.fetchBookInfo(bookId, 'books/' + this.bookId).then(function (getState) {
+	        _this4.prepareBook(bookId, Object.assign({}, { actions: actions }, getState()), (0, _utils.getView)());
+	      });
 
-	      this.prepareBook(bookId, actions, (0, _utils.getView)());
 	      this.addEventListeners();
 	    }
 	  }, {
@@ -65406,7 +65440,7 @@
 
 /***/ },
 /* 569 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -65414,14 +65448,23 @@
 	  value: true
 	});
 	exports.fetchUserAuthInfo = fetchUserAuthInfo;
+
+	var _actions = __webpack_require__(566);
+
 	function fetchUserAuthInfo() {
-	  return {
-	    CALL_API: {
-	      types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
-	      endpoint: 'auth'
-	    }
-	  };
+	  return (0, _actions.promisedCallApi)({
+	    types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
+	    endpoint: 'auth'
+	  }, {});
 	}
+
+	// export function fetchDoubanBookSearchResults(endpoint) {
+	//   return promisedCallApi({
+	//     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
+	//     endpoint,
+	//     apiUrl: API_DOUBAN_BOOKS
+	//   }, {})
+	// }
 
 /***/ },
 /* 570 */

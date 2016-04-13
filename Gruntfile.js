@@ -121,7 +121,7 @@ module.exports = function(grunt) {
         }
       },
       webpack:{
-        files:['<%=path.src%>/js/*.js', '<%=path.core%>/frontend/**/*.js'],
+        files:['<%=path.src%>/js/*.js', '<%=path.core%>/frontend/**/*.{js,jsx}'],
         tasks:['webpack'],
         options: {
           spawn: false
@@ -138,7 +138,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build-css', ['sass','cssmin']);
-  grunt.registerTask('watch-js', ['watch:babel']);
-  grunt.registerTask('build-js', ['babel','webpack','uglify']);
+  // grunt.registerTask('build-js', ['babel','webpack','uglify']);
   grunt.registerTask('build', ['image','sass','cssmin','copy','babel','webpack','uglify']);
 };

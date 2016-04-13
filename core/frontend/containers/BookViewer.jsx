@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
+import $ from 'jquery'
 
 import { lazilize, initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff, callApi } from 'utils'
 import * as actions from 'actions'
@@ -11,6 +12,7 @@ import { API_ROOT } from 'constants/APIS'
 import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
 
+let windowWidth = $(window).width()
 
 class BookViewer extends Component {
   constructor(props) {
@@ -33,28 +35,47 @@ class BookViewer extends Component {
     let page = convertPercentageToPage(percentage, pageSum)
 
     props.actions.jumpTo(page)
-
-    setProgress(props.book.id, {
-      page: page,
-      page_sum: pageSum,
-      percentage
-    })
+    if(this.props.user.authed) {
+      setProgress(props.book.id, {
+        page: page,
+        page_sum: pageSum,
+        percentage
+      })
+    }
   }
 
-  prepareBook(bookId, actions, view) {
+  prepareBook(bookId, props, view) {
+    let actions = props.actions
+    let user = props.user
+
     initBook(bookId, actions, view).then(data => {
       if(data.pages) {
-        getProgress(bookId).then((res) => {
-          if(!res.message) {
-            actions.jumpTo(res.page)
-            document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage
-          }else{
+        if(user.authed) {
+          getProgress(bookId).then((res) => {
+            if(!res.message) {
+              actions.jumpTo(res.page)
+              document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage
+            }else{
+              actions.jumpTo(1)
+            }
+            this.setState({
+              isLoading: false
+            })
+          }).catch((err) => {
+            this.setState({
+              isLoading: false
+            })
             actions.jumpTo(1)
-          }
+          })
+        }else{
           this.setState({
             isLoading: false
           })
-        })
+          actions.jumpTo(1)
+          // this is a bad fix
+          // localstorage solution is recommended
+          document.body.scrollTop = document.body.scrollTop + 1
+        }
       }
     })
   }
@@ -75,11 +96,14 @@ class BookViewer extends Component {
     this.handleResize = function() {
       let view = getView()
 
-      this.setState({
-        isLoading: true
-      })
+      if($(window).width() !== windowWidth) {
+        this.setState({
+          isLoading: true
+        })
 
-      lazilize(this.prepareBook.bind(this, this.bookId, this.props.actions, view), 500)()
+        windowWidth = $(window).width()
+        lazilize(this.prepareBook.bind(this, this.bookId, this.props, view), 500)()
+      }
     }.bind(this)
 
     window.addEventListener('scroll', this.handleScroll)
@@ -113,9 +137,10 @@ class BookViewer extends Component {
     const bookId = this.bookId
 
     actions.fetchUserAuthInfo()
-    actions.fetchBookInfo(bookId, `books/${this.bookId}`)
+    actions.fetchBookInfo(bookId, `books/${this.bookId}`).then(getState => {
+      this.prepareBook(bookId, Object.assign({}, { actions }, getState()), getView())
+    })
 
-    this.prepareBook(bookId, actions, getView())
     this.addEventListeners()
   }
 

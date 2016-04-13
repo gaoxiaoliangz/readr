@@ -58,8 +58,9 @@ function initBook(bookId, actions, view) {
 
           (function () {
             // recaculate page 'cause view is not the same
+            // let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
             var nodes = pages.props.children.reduce(function (a, b) {
-              return Array.concat(a, b.props.children);
+              return a.concat(b.props.children);
             }, []);
             var uniqueNodes = [];
             var realIndex = 0;
@@ -296,9 +297,11 @@ function filterPages(config) {
 }
 
 function getProgress(bookId) {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress').then(function (res) {
       resolve(res);
+    }).catch(function (err) {
+      reject(err);
     });
   });
 }

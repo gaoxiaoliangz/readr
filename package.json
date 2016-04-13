@@ -6,10 +6,7 @@
     "start": "NODE_ENV=production supervisor index",
     "debug": "ENABLE_WEBPACK=true node index",
     "debug-server": "supervisor index",
-    "debug-server-rendering": "ENABLE_WEBPACK=true supervisor index",
-    "watch-js": "BABEL_ENV=production grunt watch-js",
-    "build-js": "BABEL_ENV=production grunt build-js",
-    "build-es5": "BABEL_ENV=production grunt babel",
+    "watch": "BABEL_ENV=production grunt watch",
     "build": "BABEL_ENV=production grunt build"
   },
   "dependencies": {

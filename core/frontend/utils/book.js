@@ -35,7 +35,8 @@ export function initBook(bookId, actions, view) {
         // check if page view is the same as cached
         if(!compareObjects(view, pages.props.view )) {
           // recaculate page 'cause view is not the same
-          let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
+          // let nodes = pages.props.children.reduce((a, b) => (Array.concat(a, b.props.children)),[])
+          let nodes = pages.props.children.reduce((a, b) => (a.concat(b.props.children)),[])
           let uniqueNodes = []
           let realIndex = 0
 
@@ -267,9 +268,11 @@ export function filterPages(config) {
 }
 
 export function getProgress(bookId) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     callApi(`${API_ROOT}books/${bookId}/progress`).then((res) => {
       resolve(res)
+    }).catch((err) => {
+      reject(err)
     })
   })
 }
