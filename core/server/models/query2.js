@@ -1,20 +1,40 @@
-'use strict'
-
 var db = require("./db")
-var dbName = 'readr'
+var db_name = 'readr'
 var colors = require('colors/safe')
 
 var query = {
-  getData(tableName, match) {
-    return new Promise(function(resolve, reject) {
-      db.connect(dbName).then(function(db){
-        const collection = db.collection(tableName)
+  getData: function(table_name, match, key){
+    return new Promise(function(resolve) {
+      db.connect(db_name).then(function(db){
+        var collection = db.collection(table_name);
+        var data = []
 
-        collection.find(match).toArray(function (error, result) {
-          if (error) {
-            reject(error)
+        collection.find(match).toArray(function (err, result) {
+          if (err) {
+            resolve({
+              error: {
+                message: err
+              },
+              statusCode: 500
+            })
+          } else if (result.length) {
+            if(key){
+              for(var i = 0;i < result.length;i++){
+                data.push(result[i][key])
+              }
+            }else{
+              data = result
+            }
+            resolve({
+              data: data
+            })
           } else {
-            resolve(result)
+            resolve({
+              error: {
+                message: 'No records found!'
+              },
+              statusCode: 404
+            })
           }
           db.close()
         })
@@ -27,7 +47,7 @@ var query = {
     data.date_created = new Date().valueOf()
 
     return new Promise(function(resolve,reject){
-      db.connect(dbName).then(function(db){
+      db.connect(db_name).then(function(db){
         db.collection(table_name).insert([data], function (err, result) {
           if (err) {
             console.log(colors.red(err));
@@ -52,7 +72,7 @@ var query = {
 
   updateData: function(table_name, match, data){
     return new Promise(function(resolve,reject){
-      db.connect(dbName).then(function(db){
+      db.connect(db_name).then(function(db){
         var collection = db.collection(table_name);
 
         collection.update(match, data, {

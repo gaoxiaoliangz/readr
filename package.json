@@ -1,11 +1,11 @@
 {
   "name": "readr",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production supervisor index",
     "debug": "ENABLE_WEBPACK=true node index",
-    "debug-server": "supervisor index",
+    "debug-server": "nodemon index",
     "watch": "BABEL_ENV=production grunt watch",
     "build-js": "BABEL_ENV=production grunt build-js",
     "build": "BABEL_ENV=production grunt build"

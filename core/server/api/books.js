@@ -1,86 +1,148 @@
 'use strict'
 
-var express = require('express')
-var models = require('../models')
-var Promise = require('bluebird')
-var mongodb = require('mongodb')
-var router = express.Router()
+const models = require('../models')
+const Promise = require('bluebird')
+const mongodb = require('mongodb')
+// const pipeline = require('../utils/pipeline')
+const utils = require('../utils')
+const _ = require('lodash')
+const errors = require('../errors')
+// const i18n = require('../utils/i18n')
 
-var books = {
-  getAllBooks:function(){
-    return new Promise(function(resolve){
-      var match = null
-      var promisedbookList = []
 
-      models.getData('books', match).then(function(result){
-        if(result.error){
-          resolve(result)
-        }else{
-          promisedbookList = result.data.map(item => {
-            return books.getBookInfo({id: item.id})
-          })
+function handleAdminPermissions(options) {
+  let role = options.context.user?options.context.user.role:'visitor'
 
-          Promise.all(promisedbookList).then(result => {
-            resolve({
-              data: result.map(item => item.data)
-            })
-          })
-        }
-      })
-    })
+  if(role === 'admin') {
+    return options
+  } else {
+    return Promise.reject(new Error('Access denied!'))
+  }
+}
+
+const books = {
+
+  deleteBook(options) {
+    function doQuery(options) {
+      console.log(options);
+      // return Promise.resolve('doQuery result!')
+      return 'doQuery result!'
+    }
+
+    let tasks = [
+      handleAdminPermissions,
+      doQuery
+    ]
+
+    let result = pipeline(tasks, options)
+    // return pipeline(tasks, options)
+    console.log(result);
+    return result
+    // return pipeline(tasks, options).then(result => {
+    //   return {
+    //     data: {
+    //       result: result
+    //     }
+    //   }
+    // }, error => {
+    //   return Promise.reject(error)
+    // })
   },
 
-  getBookContent: function(object) {
-    return new Promise(function(resolve){
-      var match = {
-        id: object.id
-      }
+  getAllBooks(){
+    // return new Promise(function(resolve){
 
-      models.getData('books', match, 'book_content').then(function(result){
-        resolve({
-          data: result.data[0]
+    var match = null
+    var promisedbookList = []
+
+    return models.getData('books', match).then(result => {
+        // if(result.error){
+        //   resolve(result)
+        // }else{
+        console.log(result.length);
+
+        promisedbookList = result.map(item => {
+          return books.getBookInfo({id: item.id})
         })
+
+        // Promise.all(promisedbookList).then(result => {
+        //   return Promise.resolve(result.map(item => item.data))
+        // })
+
+        return Promise.resolve(promisedbookList)
+        // }
+      }, error => {
+        return Promise.reject(error)
       })
-    })
+    // })
   },
 
-  getBookInfo: function(object) {
-    return new Promise(function(resolve){
-      var match = {
-        id: object.id
-      }
-      var douban_book_id
+  getBookContent(options) {
+    const permittedOptions = ['id']
 
-      models.getData('books', match).then(function(result){
-        if(result.error){
-          console.log(result)
-
-          resolve(result)
+    const doQuery = (options) => {
+      return models.getData('books', {id: options.id}).then(function(result){
+        if(result.length !== 0) {
+          return Promise.resolve(result[0])
         }else{
-          // douban book data exists
-          douban_book_id = result.data[0].douban_book_id
-
-          if(typeof douban_book_id === 'undefined') {
-            delete result.data[0]['book_content']
-
-            resolve({
-              data: result.data[0]
-            })
-          }else{
-            models.getData('douban_books', {book_id: douban_book_id}).then(function(result){
-              delete result.data[0]._id
-              result.data[0].id = object.id
-              resolve({
-                data: result.data[0]
-              })
-            })
-          }
+          return Promise.reject(new errors.NotFoundError(utils.i18n('errors.api.books.bookNotFound')))
         }
+      }, error => {
+        return Promise.reject(error)
       })
-    })
+    }
+
+    const tasks = [
+      utils.validate(permittedOptions),
+      doQuery
+    ]
+
+    return utils.pipeline(tasks, options)
   },
 
-  addBook: function(object, options){
+  getBookInfo(options) {
+    const permittedOptions = ['id']
+
+    const doQuery = (options) => {
+      return models.getData('books', {id: options.id}).then(result => {
+        if(result.length === 0) {
+          return Promise.reject(new errors.NotFoundError('book not found'))
+        }
+
+        const douban_book_id = result[0].douban_book_id
+
+        // check douban book data existence
+        if(typeof douban_book_id === 'undefined') {
+          delete result[0]['book_content']
+
+          return Promise.resolve(result[0])
+        }else{
+          return models.getData('douban_books', {book_id: douban_book_id}).then(result => {
+            if(result.length === 0) {
+              return Promise.reject(new errors.NotFoundError('douban book info not found'))
+            }
+            delete result[0]._id
+            result[0].id = options.id
+
+            return Promise.resolve(result[0])
+          }, error => {
+            return Promise.reject(error)
+          })
+        }
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(permittedOptions),
+      doQuery
+    ]
+
+    return utils.pipeline(tasks, options)
+  },
+
+  addBook(object, options){
     return new Promise(resolve => {
       let role = options.context.user?options.context.user.role:'visitor'
 
@@ -141,7 +203,7 @@ var books = {
     })
   },
 
-  getReadingProgress: function(object, options) {
+  getReadingProgress(object, options) {
     return new Promise(function(resolve){
       if(options.context.user) {
         var match = {
@@ -173,7 +235,7 @@ var books = {
     })
   },
 
-  updateReadingProgress: function(object, options) {
+  updateReadingProgress(object, options) {
     return new Promise(function(resolve){
       if(options.context.user) {
         var match = {

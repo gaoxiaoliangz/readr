@@ -6,64 +6,6 @@ var Promise = require('bluebird')
 var session = require('express-session')
 
 
-function validate(str, type) {
-  var isValid = true
-  var msg = ''
-
-  while (true) {
-    if(typeof str === 'undefined') {
-      isValid = false
-      msg = 'Input is not defined!'
-      break
-    }
-    if(str === '') {
-      isValid = false
-      msg = 'Input cannot be empty!'
-      break
-    }
-    if(typeof str !== 'string'){
-      isValid = false
-      msg = 'Input must be string!'
-      break
-    }
-    if(typeof str.length > 20){
-      isValid = false
-      msg = 'Input is too long!'
-      break
-    }
-
-    switch (type) {
-      case 'email':
-        if(str.length < 6) {
-          msg = 'Wrong email format!'
-          isValid = false
-        }
-        break
-      case 'username':
-        break
-      case 'password':
-        if(str.length < 6) {
-          msg = 'Passwords must be at least 6 charactors long!'
-          isValid = false
-        }
-        break
-      default:
-        return;
-    }
-    break
-  }
-
-  if(isValid) {
-    return {
-      isValid: isValid
-    }
-  } else {
-    return {
-      isValid: isValid,
-      message: msg
-    }
-  }
-}
 
 
 var users = {
