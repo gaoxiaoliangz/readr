@@ -1,9 +1,9 @@
 'use strict'
 
-module.exports = class NotFoundError {
+module.exports = class EmailError {
   constructor(message) {
-    this.name = 'NotFoundError'
-    this.statusCode = 404
+    this.name = 'EmailError'
+    this.statusCode = 500
     this.message = message
     this.stack = new Error().stack
     this.errorType = this.name
