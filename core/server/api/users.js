@@ -5,127 +5,100 @@ var models = require('../models')
 var Promise = require('bluebird')
 var session = require('express-session')
 
+const utils = require('./utils')
+const _ = require('lodash')
+const errors = require('../errors')
+const i18n = require('../utils/i18n')
+const pipeline = require('../utils/pipeline')
+
 
 var users = {
-  listUsers: function(object, options) {
-    return new Promise(function(resolve){
-      let role = options.context.user?options.context.user.role:'visitor'
+  listUsers(options) {
+    const permittedOptions = []
 
-      if(role === 'admin') {
-        let match = null
+    function doQuery(options) {
+      return models.getData('users', null).then(result => {
+        return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
 
-        models.getData('users', match).then(function(result){
-          resolve(result)
-        })
-      }else{
-        resolve({
-          error: {
-            message: 'Permission denied!'
-          },
-          statusCode: 403
-        })
-      }
-    })
+    const tasks = [
+      utils.validate(permittedOptions),
+      utils.checkAdminPermissions,
+      doQuery
+    ]
+
+    return pipeline(tasks, options)
   },
 
-  changeUserRole: function(object, options) {
-    return new Promise(function(resolve){
-      let userId = options.context.user?options.context.user.id:null
-      if(userId) {
-        let match = {
-          id: userId
-        }
+  setUserRole(object, options) {
+    const permittedOptions = ['id']
 
-        let data = {
-          $set: {
-            role: object.role
-          }
-        }
-
-        models.updateData('users', match, data).then(result => {
-          resolve(result)
-        })
-      }else{
-        resolve({
-          error: {
-            message: 'Permission denied!'
-          },
-          statusCode: 403
-        })
+    function doQuery(options) {
+      const data = {
+        role: options.data.role
       }
-    })
+
+      return models.updateData('users', {id: options.id}, data).then(result => {
+        return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(permittedOptions),
+      utils.checkAdminPermissions,
+      doQuery
+    ]
+
+    return pipeline(tasks, object, options)
   },
 
   addUser: function(object, options){
-    return new Promise(function(resolve){
-      let user = {
-        username: object.username,
-        email: object.email,
-        password: object.password,
-        role: 'user'
+    const permittedOptions = []
+
+    function doQuery(options) {
+      const data = {
+        role: options.data.role
       }
 
-      var errorMsg = []
-      var isValid = true
+      return models.getData('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then((result, error) => {
+        if(result.length === 0) {
+          let user = Object.assign({}, options.data, { role: 'user' })
 
-      for (var prop in user) {
-        if(['username', 'emial', 'password'].indexOf(prop) !== -1) {
-          var result = validate(user[prop], prop)
+          return models.putData('users', user).then((result, error) => {
+            user.id = result.id
 
-          if(!result.isValid) {
-            isValid = false
-            errorMsg.push(prop+': '+result.message)
-          }
+            delete user.password
+            delete user._id
+            delete user.date_created
+
+            result.hook = {
+              action: 'auth',
+              data: user
+            }
+
+            return Promise.resolve(result)
+          }, error => {
+            return Promise.reject(error)
+          })
+        } else {
+          return Promise.reject(new errors.ValidationError('user exists'))
         }
-      }
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
 
-      if(isValid) {
-        models.getData('users', {$or: [{email: object.email}, {username: object.username}]}).then(function(matchResult){
-          if(matchResult.error){
-            // 如果用户不存在，则可以创建
-            if(matchResult.statusCode == "404") {
-              models.putData('users', user).then(function(result){
-                var userSession = {
-                  username: user.username,
-                  role: user.role,
-                  id: result.data.id
-                }
+    const tasks = [
+      utils.validate(permittedOptions),
+      doQuery
+    ]
 
-                result.auth ={
-                  user: userSession,
-                  isAuthed: true
-                }
-
-                resolve(result)
-              })
-            }else{
-              resolve(matchResult)
-            }
-          }else{
-            let message
-
-            if(matchResult.data[0].username == user.username) {
-              message = 'Username exsits!'
-            }else if(matchResult.data[0].email == user.email){
-              message = 'Email used!'
-            }
-            resolve({
-              error: {
-                message: message
-              },
-              statusCode: 400
-            })
-          }
-        })
-      }else{
-        resolve({
-          error: {
-            message: errorMsg
-          },
-          statusCode: 400
-        })
-      }
-    })
+    return pipeline(tasks, object, options)
   }
 }
 

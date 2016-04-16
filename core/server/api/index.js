@@ -27,6 +27,15 @@ const http = function http(apiMethod) {
 
     // still a simple one
     apiMethod(object, options).then(result => {
+      // handle req stuff
+      if(result.hook) {
+        if(result.hook.action === 'auth') {
+          req.session.user = result.hook.data
+        }
+
+        delete result.hook
+      }
+
       if(req.method === 'POST') {
         res.status(201).send(result)
       }else{

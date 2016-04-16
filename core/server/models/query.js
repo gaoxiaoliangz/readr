@@ -22,7 +22,7 @@ var query = {
 
   putData(tableName, data) {
     data.id = Math.random().toFixed(8).substr(2)
-    data.date_created = new Date().valueOf()
+    data.date_created = new Date().toString()
 
     return new Promise(function(resolve, reject){
       db.connect(dbName).then(function(db){
@@ -38,16 +38,22 @@ var query = {
     })
   },
 
-  updateData(tableName, match, data) {
-    return new Promise(function(resolve,reject){
+  updateData(tableName, match, data, isUpsertEnabled) {
+    data.date_updated = new Date().toString()
+
+    if(typeof isUpsertEnabled === 'undefined') {
+      isUpsertEnabled = false
+    }
+
+    return new Promise(function(resolve, reject){
       db.connect(dbName).then(function(db){
-        db.collection(tableName).update(match, data, {
-            upsert: true
+        db.collection(tableName).update(match, {$set: data}, {
+            upsert: isUpsertEnabled
           }, function(error, result){
             if (error) {
               resolve(error)
             } else {
-              resolve({})
+              resolve(result)
             }
             db.close()
           }
@@ -63,7 +69,7 @@ var query = {
             if (error) {
               resolve(error)
             } else {
-              resolve({})
+              resolve(result)
             }
             db.close()
           }

@@ -31,10 +31,11 @@ const books = {
     return pipeline(tasks, options)
   },
 
-  getAllBooks() {
+  getAllBooks(options) {
     return models.getData('books', null).then(result => {
       return Promise.all(result.map(item => {
-        return books.getBookInfo({id: item.id})
+        let infoOptions = Object.assign({}, options, {id: item.id})
+        return books.getBookInfo(infoOptions)
       }))
     }, error => {
       return Promise.reject(error)
@@ -42,6 +43,7 @@ const books = {
   },
 
   getBookContent(options) {
+    console.log(options);
     const permittedOptions = ['id']
 
     const doQuery = (options) => {
