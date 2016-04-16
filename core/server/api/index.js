@@ -5,6 +5,8 @@ const Promise = require('bluebird')
 const books = require('./books')
 const users = require('./users')
 const auth = require('./auth')
+const errors = require('../errors')
+const i18n = require('../utils/i18n')
 
 // 参考 ghost /server/api/index.js
 const http = function http(apiMethod) {
@@ -48,7 +50,7 @@ const http = function http(apiMethod) {
 
       if (Error.prototype.isPrototypeOf(error)) {
         error = {
-          message: error.message || 'Unknow error occurred',
+          message: error.message || i18n('errors.unknownErrorOccurred'),
           errorType: error.name
         }
       }

@@ -1,7 +1,8 @@
 'use strict'
-const i18n = require('../utils/i18n')
+
 const _ = require('lodash')
 const errors = require('../errors')
+const i18n = require('../utils/i18n')
 const validator = require('../utils/validator')
 
 const utils = {
@@ -14,7 +15,7 @@ const utils = {
     if(role === 'admin') {
       return options
     } else {
-      return Promise.reject(new Error('Access denied!'))
+      return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.needAdminPermission')))
     }
   },
 
@@ -25,7 +26,7 @@ const utils = {
       return options
     }
 
-    return Promise.reject(new Error('Login is required'))
+    return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
   },
 
   validate(permittedOptions) {
@@ -51,11 +52,11 @@ const utils = {
         options = _.pick(options, permittedOptions)
 
         if(_.isEmpty(options)) {
-          return Promise.reject(new errors.BadRequestError('Empty options'))
+          return Promise.reject(new errors.BadRequestError(i18n('errors.api.validation.inputEmpty')))
         }
 
         if(_.size(options) !== permittedOptions.length) {
-          return Promise.reject(new errors.BadRequestError('Wrong option quantity!'))
+          return Promise.reject(new errors.BadRequestError(i18n('errors.validation.unmatchedOptionQuantity')))
         }
 
         let validationErrors = utils.validateOptions(options)
@@ -91,7 +92,6 @@ const utils = {
         let validateResult = validator(options[prop], prop)
 
         if (validateResult.isValid === false) {
-          // return Promise.reject(new errors.ValidationError(validateResult.message, prop))
           errors.push(prop+': '+validateResult.message)
           break
         }

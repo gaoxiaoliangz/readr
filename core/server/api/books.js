@@ -71,7 +71,7 @@ const books = {
     const doQuery = (options) => {
       return models.getData('books', {id: options.id}).then(result => {
         if(result.length === 0) {
-          return Promise.reject(new errors.NotFoundError('book not found'))
+          return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }
 
         const douban_book_id = result[0].douban_book_id
@@ -84,7 +84,7 @@ const books = {
         }else{
           return models.getData('douban_books', {book_id: douban_book_id}).then(result => {
             if(result.length === 0) {
-              return Promise.reject(new errors.NotFoundError('douban book info not found'))
+              return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.doubanInfoNotFound')))
             }
             delete result[0]._id
             result[0].id = options.id
@@ -152,8 +152,7 @@ const books = {
             return Promise.reject(error)
           })
         }else{
-          // TODO
-          return Promise.reject(new Error('book exists'))
+          return Promise.reject(new errors.ValidationError(i18n('errors.api.books.bookExists')))
         }
       }, error => {
         return Promise.reject(error)
@@ -175,7 +174,7 @@ const books = {
     function doQuery(options) {
       return models.getData('reading_progress', {book_id: options.id}).then(result => {
         if(result.length === 0) {
-          return Promise.reject(new errors.NotFoundError('progress not found'))
+          return Promise.reject(new errors.NotFoundError(i18n('errors.notFound')))
         } else {
           return Promise.resolve(result[0])
         }

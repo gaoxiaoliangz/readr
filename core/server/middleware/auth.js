@@ -20,6 +20,8 @@ const auth = {
         } else if (options.password === result[0].password){
           delete result[0].password
           return result[0]
+        } else {
+          return Promise.reject(new errors.ValidationError(i18n('errors.middleware.auth.wrongPassword')))
         }
       }, error => {
         return Promise.reject(error)

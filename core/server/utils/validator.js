@@ -1,7 +1,8 @@
 'use strict'
-const i18n = require('./i18n')
-const _ = require('lodash')
 
+const i18n = require('./i18n')
+const errors = require('../errors')
+const _ = require('lodash')
 
 function validator (input, type) {
   let isValid = true
@@ -13,22 +14,22 @@ function validator (input, type) {
     if(type !== 'doubanBook') {
       if(typeof input === 'undefined') {
         isValid = false
-        message = 'Input is not defined!'
+        message = i18n('errors.validation.inputUndefined')
         break
       }
       if(input === '') {
         isValid = false
-        message = 'Input cannot be empty!'
+        message = i18n('errors.validation.inputEmpty')
         break
       }
-      if(typeof input !== 'string' && typeof input !== 'number'){
+      if(typeof input !== 'string'){
         isValid = false
-        message = 'Input must be string or number!'
+        message = i18n('errors.validation.inputTypeInvalid')
         break
       }
       if(typeof input.length > 20){
         isValid = false
-        message = 'Input is too long!'
+        message = i18n('errors.validation.inputTooLong')
         break
       }
     }
@@ -36,42 +37,42 @@ function validator (input, type) {
     const switchTypes = {
       email() {
         if(input.length < 6) {
-          message = 'Wrong email format!'
+          message = i18n('errors.validation.emailInvalid')
           isValid = false
         }
       },
       bookContent() {
         if(input.length <1) {
-          message = 'wrong input'
+          message = i18n('errors.validation.invalidFormat')
           isValid = false
         }
       },
       doubanBook() {
         if(typeof input === 'undefined') {
-          message = 'Wrong douban book format'
+          message = i18n('errors.validation.invalidFormat')
           isValid = false
         }
       },
       id() {
         if(input.length !== 8) {
-          message = 'Wrong id format!'
+          message = i18n('errors.validation.invalidFormat')
           isValid = false
         }
       },
       login() {
         if(input.length < 5) {
-          message = 'Wrong login format!'
+          message = i18n('errors.validation.invalidFormat')
           isValid = false
         }
       },
       password() {
         if(input.length < 6) {
-          message = 'Passwords must be at least 6 charactors long!'
+          message = i18n('errors.validation.passwordLength')
           isValid = false
         }
       },
       default() {
-        message = 'Undefined type found!'
+        message = i18n('errors.validation.unsupportedInputFound')
         isValid = false
       }
     }

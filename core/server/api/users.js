@@ -86,7 +86,7 @@ var users = {
             return Promise.reject(error)
           })
         } else {
-          return Promise.reject(new errors.ValidationError('user exists'))
+          return Promise.reject(new errors.ValidationError(i18n('errors.api.users.usernameOrEmailUnavailable')))
         }
       }, error => {
         return Promise.reject(error)
