@@ -3,25 +3,14 @@
 const models = require('../models')
 const Promise = require('bluebird')
 const mongodb = require('mongodb')
-// const pipeline = require('../utils/pipeline')
-const utils = require('../utils')
+const utils = require('./utils')
 const _ = require('lodash')
 const errors = require('../errors')
-// const i18n = require('../utils/i18n')
+const i18n = require('../utils/i18n')
+const pipeline = require('../utils/pipeline')
 
-
-function handleAdminPermissions(options) {
-  let role = options.context.user?options.context.user.role:'visitor'
-
-  if(role === 'admin') {
-    return options
-  } else {
-    return Promise.reject(new Error('Access denied!'))
-  }
-}
 
 const books = {
-
   deleteBook(options) {
     function doQuery(options) {
       console.log(options);
@@ -30,7 +19,7 @@ const books = {
     }
 
     let tasks = [
-      handleAdminPermissions,
+      checkAdminPermissions,
       doQuery
     ]
 
@@ -49,32 +38,14 @@ const books = {
     // })
   },
 
-  getAllBooks(){
-    // return new Promise(function(resolve){
-
-    var match = null
-    var promisedbookList = []
-
-    return models.getData('books', match).then(result => {
-        // if(result.error){
-        //   resolve(result)
-        // }else{
-        console.log(result.length);
-
-        promisedbookList = result.map(item => {
-          return books.getBookInfo({id: item.id})
-        })
-
-        // Promise.all(promisedbookList).then(result => {
-        //   return Promise.resolve(result.map(item => item.data))
-        // })
-
-        return Promise.resolve(promisedbookList)
-        // }
-      }, error => {
-        return Promise.reject(error)
-      })
-    // })
+  getAllBooks() {
+    return models.getData('books', null).then(result => {
+      return Promise.all(result.map(item => {
+        return books.getBookInfo({id: item.id})
+      }))
+    }, error => {
+      return Promise.reject(error)
+    })
   },
 
   getBookContent(options) {
@@ -85,7 +56,7 @@ const books = {
         if(result.length !== 0) {
           return Promise.resolve(result[0])
         }else{
-          return Promise.reject(new errors.NotFoundError(utils.i18n('errors.api.books.bookNotFound')))
+          return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }
       }, error => {
         return Promise.reject(error)
@@ -97,7 +68,7 @@ const books = {
       doQuery
     ]
 
-    return utils.pipeline(tasks, options)
+    return pipeline(tasks, options)
   },
 
   getBookInfo(options) {
@@ -139,68 +110,69 @@ const books = {
       doQuery
     ]
 
-    return utils.pipeline(tasks, options)
+    return pipeline(tasks, options)
   },
 
-  addBook(object, options){
-    return new Promise(resolve => {
-      let role = options.context.user?options.context.user.role:'visitor'
+  addBook(object, options) {
+    let permittedOptions = []
 
-      if(role === 'admin') {
-        var data = {}
-        var html = ''
-        var raw = object.bookContent
-        var paragraphs = raw.split("\n")
-        var doubanBook = JSON.parse(object.doubanBook)
-        var douban_book_id = doubanBook.id
+    function parseTextToHtml(str) {
+      let html = ''
+      let paragraphs = str.split("\n")
 
-        // model putData will override id infoo
-        doubanBook.book_id = douban_book_id
-
-        for(var i = 0; i < paragraphs.length; i++){
-          html += '<p>' + paragraphs[i] + '</p>'
-        }
-
-        data = {
-          douban_book_id: douban_book_id,
-          book_content: {
-            raw: raw,
-            html: html
-          }
-        }
-
-        // check douban book existence
-        models.getData('douban_books', { book_id: douban_book_id}).then(res => {
-          if(res.error) {
-            if(res.statusCode === 404) {
-              models.putData('douban_books', doubanBook).then(res => {
-                if(res.data) {
-                  resolve(models.putData('books', data))
-                }else{
-                  resolve(res.error)
-                }
-              })
-            }else{
-              resolve(res)
-            }
-          }else{
-            resolve({
-              error: {
-                message: 'Book exsits!'
-              },
-              statusCode: 400
-            })
-          }
-        })
-      }else{
-        resolve({
-          error: {
-            message: 'Permission denied!'
-          },
-          statusCode: 403
-        })
+      for(let i = 0; i < paragraphs.length; i++){
+        html += '<p>' + paragraphs[i] + '</p>'
       }
-    })
+
+      return html
+    }
+
+    function processDataAndDoQuery(options) {
+      const raw = options.data.bookContent
+      const html = parseTextToHtml(raw)
+
+      let doubanBook = JSON.parse(options.data.doubanBook)
+      const doubanBookId = doubanBook.id
+
+      // model putData will override id infoo
+      doubanBook.book_id = doubanBookId
+      delete doubanBook.id
+
+      const bookData = {
+        douban_book_id: doubanBookId,
+        book_content: {
+          raw: raw,
+          html: html
+        }
+      }
+
+      return models.getData('douban_books', { book_id: doubanBookId}).then(result => {
+        if(result.length === 0) {
+          return models.putData('douban_books', doubanBook).then(result => {
+            return models.putData('books', bookData).then(result => {
+              return Promise.resolve(result)
+            }, error => {
+              return Promise.reject(error)
+            })
+          }, error => {
+            return Promise.reject(error)
+          })
+        }else{
+          // TODO
+          return Promise.reject(new Error('book exists'))
+        }
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(permittedOptions),
+      utils.checkAdminPermissions,
+      processDataAndDoQuery
+    ]
+
+    return pipeline(tasks, object, options)
   },
 
   getReadingProgress(object, options) {

@@ -6,8 +6,6 @@ var Promise = require('bluebird')
 var session = require('express-session')
 
 
-
-
 var users = {
   listUsers: function(object, options) {
     return new Promise(function(resolve){

@@ -27,15 +27,15 @@ const http = function http(apiMethod) {
 
     // still a simple one
     apiMethod(object, options).then(result => {
-      console.log(result);
       if(req.method === 'POST') {
         res.status(201).send(result)
       }else{
-
         res.status(200).send(result)
       }
     }, error => {
       let statusCode = error.statusCode || 500
+
+      console.log(error.stack)
 
       if (Error.prototype.isPrototypeOf(error)) {
         error = {
@@ -46,6 +46,7 @@ const http = function http(apiMethod) {
 
       delete error.statusCode
       delete error.name
+
       res.status(statusCode).send(error)
     })
   }
