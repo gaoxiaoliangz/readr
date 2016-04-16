@@ -5,7 +5,8 @@ const errors = require('../errors')
 const validator = require('../utils/validator')
 
 const utils = {
-  globalDefaultOptions: ['context', 'data'],
+  globalDefaultOptions: ['context'],
+  dataDefaultOptions: ['data'],
 
   checkAdminPermissions(options) {
     let role = options.context.user?options.context.user.role:'visitor'
@@ -15,6 +16,16 @@ const utils = {
     } else {
       return Promise.reject(new Error('Access denied!'))
     }
+  },
+
+  checkUserPermissions(options) {
+    let user = options.context.user?options.context.user:null
+
+    if(user) {
+      return options
+    }
+
+    return Promise.reject(new Error('Login is required'))
   },
 
   validate(permittedOptions) {
@@ -32,6 +43,10 @@ const utils = {
 
       permittedOptions = permittedOptions.concat(utils.globalDefaultOptions)
 
+      if(object) {
+        permittedOptions = permittedOptions.concat(utils.dataDefaultOptions)
+      }
+
       // console.log(permittedOptions);
 
       function checkOptions(options) {
@@ -40,7 +55,10 @@ const utils = {
         if(_.isEmpty(options)) {
           return Promise.reject(new errors.BadRequestError('Empty options'))
         }
-
+        console.log(permittedOptions.length);
+        console.log(_.size(options));
+        console.log(options);
+        console.log(object);
         if(_.size(options) !== permittedOptions.length) {
           return Promise.reject(new errors.BadRequestError('Wrong option quantity!'))
         }

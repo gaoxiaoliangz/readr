@@ -175,67 +175,61 @@ const books = {
     return pipeline(tasks, object, options)
   },
 
-  getReadingProgress(object, options) {
-    return new Promise(function(resolve){
-      if(options.context.user) {
-        var match = {
-          book_id: object.book_id,
-          user_id: options.context.user
-        }
+  getReadingProgress(options) {
+    const permittedOptions = ['id']
 
-        models.getData('reading_progress',match).then(function(result){
-          if(result.error) {
-            resolve({
-              data: {
-                message: 'This book haven\'t been read yet!'
-              }
-            })
-          }else{
-            resolve({
-              data: result.data[0]
-            })
-          }
-        })
-      } else {
-        resolve({
-          error: {
-            message: 'You have to login to do this!'
-          },
-          statusCode: 403
-        })
-      }
-    })
+    function doQuery(options) {
+      return models.getData('reading_progress', {book_id: options.bookId}).then(result => {
+        if(result.length === 0) {
+          return Promise.resolve({isRead: false})
+        } else {
+          return Promise.resolve(result[0])
+        }
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(permittedOptions),
+      utils.checkUserPermissions,
+      doQuery
+    ]
+
+    return pipeline(tasks, options)
   },
 
   updateReadingProgress(object, options) {
-    return new Promise(function(resolve){
-      if(options.context.user) {
-        var match = {
-          book_id: options.book_id,
-          user_id: options.context.user
-        }
-        console.log(options);
+    const permittedOptions = ['id']
 
-        var data = {
-          book_id: options.book_id,
-          user_id: options.context.user,
-          percentage: object.percentage,
-          page: object.page,
-          page_sum: object.page_sum
-        }
-
-        models.updateData('reading_progress', match, data).then(function(result){
-          resolve(result)
-        })
-      } else {
-        resolve({
-          error: {
-            message: 'You have to login to do this!'
-          },
-          statusCode: 403
-        })
+    function doQuery(options) {
+      var match = {
+        book_id: options.bookId,
+        user_id: options.context.user.id
       }
-    })
+
+      var data = {
+        book_id: options.bookId,
+        user_id: options.context.user.id,
+        percentage: object.percentage,
+        page: object.page,
+        page_sum: object.page_sum
+      }
+
+      return models.updateData('reading_progress', match, data).then(result => {
+        return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(permittedOptions),
+      utils.checkUserPermissions,
+      doQuery
+    ]
+
+    return pipeline(tasks, object, options)
   }
 }
 

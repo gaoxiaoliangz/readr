@@ -20,8 +20,8 @@ function apiRoutes() {
   router.get('/books/:id/', api.http(api.books.getBookInfo))
   router.delete('/books/:id/', getUserInfo, api.http(api.books.deleteBook))
   router.get('/books/:id/content', api.http(api.books.getBookContent));
-  router.post('/books/:book_id/progress',getUserInfo, api.http(api.books.updateReadingProgress))
-  router.get('/books/:book_id/progress',getUserInfo, api.http(api.books.getReadingProgress))
+  router.post('/books/:id/progress',getUserInfo, api.http(api.books.updateReadingProgress))
+  router.get('/books/:id/progress',getUserInfo, api.http(api.books.getReadingProgress))
 
   router.post('/users', api.http(api.users.addUser))
   router.get('/users', getUserInfo, api.http(api.users.listUsers))
