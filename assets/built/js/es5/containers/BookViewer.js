@@ -88,7 +88,7 @@ var BookViewer = function (_Component) {
       if (this.props.user.authed) {
         (0, _utils.setProgress)(props.book.id, {
           page: page,
-          page_sum: pageSum,
+          pageSum: pageSum,
           percentage: percentage
         });
       }
@@ -105,16 +105,12 @@ var BookViewer = function (_Component) {
         if (data.pages) {
           if (user.authed) {
             (0, _utils.getProgress)(bookId).then(function (res) {
-              if (!res.message) {
-                actions.jumpTo(res.page);
-                document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
-              } else {
-                actions.jumpTo(1);
-              }
+              actions.jumpTo(res.page);
+              document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
               _this2.setState({
                 isLoading: false
               });
-            }).catch(function (err) {
+            }, function (err) {
               _this2.setState({
                 isLoading: false
               });

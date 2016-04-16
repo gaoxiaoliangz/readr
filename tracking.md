@@ -1,6 +1,10 @@
 # tracking
 - 使用 pipeline.js 来处理任务流水
 - 使用 nodemon 代替 supervisor，自动重启服务
+- 修复了 jade 语法警告
+- 重构了服务端 API
+- 添加了自定义错误类
+- 添加了语言国际化标准支持
 
 
 
@@ -10,6 +14,11 @@
 
 
 ## todo list
+- 补全所有错误类
+- 补全错误信息提示
+- 检查 promise
+
+
 ### 添加 API
 - 删除书籍
 - 修改用户资料

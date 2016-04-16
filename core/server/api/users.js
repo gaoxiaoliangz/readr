@@ -65,11 +65,11 @@ var users = {
         role: options.data.role
       }
 
-      return models.getData('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then((result, error) => {
+      return models.getData('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then(result => {
         if(result.length === 0) {
           let user = Object.assign({}, options.data, { role: 'user' })
 
-          return models.putData('users', user).then((result, error) => {
+          return models.putData('users', user).then(result => {
             user.id = result.id
 
             delete user.password

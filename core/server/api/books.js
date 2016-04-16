@@ -43,13 +43,12 @@ const books = {
   },
 
   getBookContent(options) {
-    console.log(options);
     const permittedOptions = ['id']
 
     const doQuery = (options) => {
       return models.getData('books', {id: options.id}).then(function(result){
         if(result.length !== 0) {
-          return Promise.resolve(result[0])
+          return Promise.resolve({html: result[0].book_content.html})
         }else{
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }
@@ -174,9 +173,9 @@ const books = {
     const permittedOptions = ['id']
 
     function doQuery(options) {
-      return models.getData('reading_progress', {book_id: options.bookId}).then(result => {
+      return models.getData('reading_progress', {book_id: options.id}).then(result => {
         if(result.length === 0) {
-          return Promise.resolve({isRead: false})
+          return Promise.reject(new errors.NotFoundError('progress not found'))
         } else {
           return Promise.resolve(result[0])
         }
@@ -199,19 +198,19 @@ const books = {
 
     function doQuery(options) {
       const match = {
-        book_id: options.bookId,
+        book_id: options.id,
         user_id: options.context.user.id
       }
 
       const data = {
-        book_id: options.bookId,
+        book_id: options.id,
         user_id: options.context.user.id,
         percentage: object.percentage,
         page: object.page,
         page_sum: object.pageSum
       }
 
-      return models.updateData('reading_progress', match, data).then(result => {
+      return models.updateData('reading_progress', match, data, true).then(result => {
         return Promise.resolve(result)
       }, error => {
         return Promise.reject(error)

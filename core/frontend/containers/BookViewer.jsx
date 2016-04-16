@@ -41,7 +41,7 @@ class BookViewer extends Component {
     if(this.props.user.authed) {
       setProgress(props.book.id, {
         page: page,
-        page_sum: pageSum,
+        pageSum: pageSum,
         percentage
       })
     }
@@ -54,17 +54,13 @@ class BookViewer extends Component {
     initBook(bookId, actions, view).then(data => {
       if(data.pages) {
         if(user.authed) {
-          getProgress(bookId).then((res) => {
-            if(!res.message) {
-              actions.jumpTo(res.page)
-              document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage
-            }else{
-              actions.jumpTo(1)
-            }
+          getProgress(bookId).then(res => {
+            actions.jumpTo(res.page)
+            document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage
             this.setState({
               isLoading: false
             })
-          }).catch((err) => {
+          }, err => {
             this.setState({
               isLoading: false
             })

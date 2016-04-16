@@ -235,10 +235,10 @@ function filterPages(config) {
 
 function getProgress(bookId) {
   return new Promise(function (resolve, reject) {
-    (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
+    (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress').then(function (result) {
+      resolve(result);
+    }, function (error) {
+      reject(error);
     });
   });
 }

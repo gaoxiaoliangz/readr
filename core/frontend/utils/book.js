@@ -206,10 +206,10 @@ export function filterPages(config) {
 
 export function getProgress(bookId) {
   return new Promise((resolve, reject) => {
-    callApi(`${API_ROOT}books/${bookId}/progress`).then((res) => {
-      resolve(res)
-    }).catch((err) => {
-      reject(err)
+    callApi(`${API_ROOT}books/${bookId}/progress`).then(result => {
+      resolve(result)
+    }, error => {
+      reject(error)
     })
   })
 }
