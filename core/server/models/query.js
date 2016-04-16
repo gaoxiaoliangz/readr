@@ -8,9 +8,7 @@ var query = {
   getData(tableName, match) {
     return new Promise(function(resolve, reject) {
       db.connect(dbName).then(function(db){
-        const collection = db.collection(tableName)
-
-        collection.find(match).toArray(function (error, result) {
+        db.collection(tableName).find(match).toArray(function (error, result) {
           if (error) {
             reject(error)
           } else {
@@ -22,27 +20,17 @@ var query = {
     })
   },
 
-  putData: function(table_name, data) {
+  putData(tableName, data) {
     data.id = Math.random().toFixed(8).substr(2)
     data.date_created = new Date().valueOf()
 
-    return new Promise(function(resolve,reject){
+    return new Promise(function(resolve, reject){
       db.connect(dbName).then(function(db){
-        db.collection(table_name).insert([data], function (err, result) {
-          if (err) {
-            console.log(colors.red(err));
-            resolve({
-              error: {
-                message: err
-              },
-              statusCode: 404
-            })
+        db.collection(tableName).insert([data], function (error, result) {
+          if (error) {
+            resolve(error)
           } else {
-            resolve({
-              data: {
-                id: data.id
-              }
-            })
+            resolve({ id: data.id })
           }
           db.close();
         })
@@ -50,23 +38,32 @@ var query = {
     })
   },
 
-  updateData: function(table_name, match, data){
+  updateData(tableName, match, data) {
     return new Promise(function(resolve,reject){
       db.connect(dbName).then(function(db){
-        var collection = db.collection(table_name);
-
-        collection.update(match, data, {
+        db.collection(tableName).update(match, data, {
             upsert: true
-          }, function(err, result){
-            if (err) {
-              resolve({
-                error: {
-                  message: err
-                },
-                statusCode: 404
-              })
+          }, function(error, result){
+            if (error) {
+              resolve(error)
             } else {
-              resolve({data: {}})
+              resolve({})
+            }
+            db.close()
+          }
+        )
+      })
+    })
+  },
+
+  deleteData(tableName, match) {
+    return new Promise(function(resolve,reject){
+      db.connect(dbName).then(function(db){
+        db.collection(tableName).remove(match, function(error, result){
+            if (error) {
+              resolve(error)
+            } else {
+              resolve({})
             }
             db.close()
           }

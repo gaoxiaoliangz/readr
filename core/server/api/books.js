@@ -12,30 +12,23 @@ const pipeline = require('../utils/pipeline')
 
 const books = {
   deleteBook(options) {
+    const permittedOptions = ['id']
+
     function doQuery(options) {
-      console.log(options);
-      // return Promise.resolve('doQuery result!')
-      return 'doQuery result!'
+      return models.deleteData('books', {id: options.id}).then(result => {
+        return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
     }
 
-    let tasks = [
-      checkAdminPermissions,
+    const tasks = [
+      utils.validate(permittedOptions),
+      utils.checkAdminPermissions,
       doQuery
     ]
 
-    let result = pipeline(tasks, options)
-    // return pipeline(tasks, options)
-    console.log(result);
-    return result
-    // return pipeline(tasks, options).then(result => {
-    //   return {
-    //     data: {
-    //       result: result
-    //     }
-    //   }
-    // }, error => {
-    //   return Promise.reject(error)
-    // })
+    return pipeline(tasks, options)
   },
 
   getAllBooks() {
@@ -203,17 +196,17 @@ const books = {
     const permittedOptions = ['id']
 
     function doQuery(options) {
-      var match = {
+      const match = {
         book_id: options.bookId,
         user_id: options.context.user.id
       }
 
-      var data = {
+      const data = {
         book_id: options.bookId,
         user_id: options.context.user.id,
         percentage: object.percentage,
         page: object.page,
-        page_sum: object.page_sum
+        page_sum: object.pageSum
       }
 
       return models.updateData('reading_progress', match, data).then(result => {

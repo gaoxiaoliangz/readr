@@ -47,18 +47,13 @@ const utils = {
         permittedOptions = permittedOptions.concat(utils.dataDefaultOptions)
       }
 
-      // console.log(permittedOptions);
-
       function checkOptions(options) {
         options = _.pick(options, permittedOptions)
 
         if(_.isEmpty(options)) {
           return Promise.reject(new errors.BadRequestError('Empty options'))
         }
-        console.log(permittedOptions.length);
-        console.log(_.size(options));
-        console.log(options);
-        console.log(object);
+
         if(_.size(options) !== permittedOptions.length) {
           return Promise.reject(new errors.BadRequestError('Wrong option quantity!'))
         }
