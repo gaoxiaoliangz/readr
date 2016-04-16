@@ -12,7 +12,7 @@ const pipeline = require('../utils/pipeline')
 
 const books = {
   deleteBook(options) {
-    const permittedOptions = ['id']
+    const requiredOptions = ['id']
 
     function doQuery(options) {
       return models.deleteData('books', {id: options.id}).then(result => {
@@ -23,7 +23,7 @@ const books = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       utils.checkAdminPermissions,
       doQuery
     ]
@@ -43,7 +43,7 @@ const books = {
   },
 
   getBookContent(options) {
-    const permittedOptions = ['id']
+    const requiredOptions = ['id']
 
     const doQuery = (options) => {
       return models.getData('books', {id: options.id}).then(function(result){
@@ -58,7 +58,7 @@ const books = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       doQuery
     ]
 
@@ -66,7 +66,7 @@ const books = {
   },
 
   getBookInfo(options) {
-    const permittedOptions = ['id']
+    const requiredOptions = ['id']
 
     const doQuery = (options) => {
       return models.getData('books', {id: options.id}).then(result => {
@@ -100,7 +100,7 @@ const books = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       doQuery
     ]
 
@@ -108,7 +108,7 @@ const books = {
   },
 
   addBook(object, options) {
-    let permittedOptions = []
+    let requiredOptions = ['bookContent', 'doubanBook']
 
     function parseTextToHtml(str) {
       let html = ''
@@ -160,7 +160,7 @@ const books = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       utils.checkAdminPermissions,
       processDataAndDoQuery
     ]
@@ -169,7 +169,7 @@ const books = {
   },
 
   getReadingProgress(options) {
-    const permittedOptions = ['id']
+    const requiredOptions = ['id']
 
     function doQuery(options) {
       return models.getData('reading_progress', {book_id: options.id}).then(result => {
@@ -184,7 +184,7 @@ const books = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       utils.checkUserPermissions,
       doQuery
     ]
@@ -193,7 +193,7 @@ const books = {
   },
 
   updateReadingProgress(object, options) {
-    const permittedOptions = ['id']
+    const requiredOptions = ['id', 'percentage', 'page', 'pageSum']
 
     function doQuery(options) {
       const match = {
@@ -201,13 +201,10 @@ const books = {
         user_id: options.context.user.id
       }
 
-      const data = {
+      const data = Object.assign({}, options.data, {
         book_id: options.id,
-        user_id: options.context.user.id,
-        percentage: object.percentage,
-        page: object.page,
-        page_sum: object.pageSum
-      }
+        user_id: options.context.user.id
+      })
 
       return models.updateData('reading_progress', match, data, true).then(result => {
         return Promise.resolve(result)
@@ -217,7 +214,7 @@ const books = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       utils.checkUserPermissions,
       doQuery
     ]

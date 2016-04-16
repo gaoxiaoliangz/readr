@@ -14,7 +14,7 @@ const pipeline = require('../utils/pipeline')
 
 var users = {
   listUsers(options) {
-    const permittedOptions = []
+    const requiredOptions = []
 
     function doQuery(options) {
       return models.getData('users', null).then(result => {
@@ -25,7 +25,7 @@ var users = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       utils.checkAdminPermissions,
       doQuery
     ]
@@ -34,7 +34,7 @@ var users = {
   },
 
   setUserRole(object, options) {
-    const permittedOptions = ['id']
+    const requiredOptions = ['id', 'role']
 
     function doQuery(options) {
       const data = {
@@ -49,7 +49,7 @@ var users = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       utils.checkAdminPermissions,
       doQuery
     ]
@@ -58,13 +58,9 @@ var users = {
   },
 
   addUser: function(object, options){
-    const permittedOptions = []
+    const requiredOptions = ['username', 'password', 'email']
 
     function doQuery(options) {
-      const data = {
-        role: options.data.role
-      }
-
       return models.getData('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then(result => {
         if(result.length === 0) {
           let user = Object.assign({}, options.data, { role: 'user' })
@@ -94,7 +90,7 @@ var users = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       doQuery
     ]
 

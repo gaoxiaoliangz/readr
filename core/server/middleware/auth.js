@@ -11,7 +11,7 @@ const utils = require('../api/utils')
 
 const auth = {
   basic(req, res, next){
-    const permittedOptions = ['login', 'password']
+    const requiredOptions = ['login', 'password']
 
     function doQuery(options) {
       return models.getData('users', {$or: [{username: options.login}, {email: options.login}]}).then(result => {
@@ -29,7 +29,7 @@ const auth = {
     }
 
     const tasks = [
-      utils.validate(permittedOptions),
+      utils.validate(requiredOptions),
       doQuery
     ]
 

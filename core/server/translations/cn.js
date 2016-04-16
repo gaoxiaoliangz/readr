@@ -4,12 +4,12 @@ const cn = {
   errors: {
     validation: {
       unmatchedOptionQuantity: '提供的参数数目有误',
-      inputEmpty: '输入不能为空',
+      inputEmpty: '{value}输入不能为空',
       inputUndefined: '输入不能为未定义',
       inputTypeInvalid: '输入项类型只能为字符串',
       inputTooLong: '输入项太长',
       emailInvalid: '邮箱格式不对',
-      invalidFormat: '格式不对',
+      invalidFormat: '{value}格式不对',
       passwordLength: '密码必须 6 个字符以上',
       unsupportedInputFound: '发现不支持的输入项'
     },

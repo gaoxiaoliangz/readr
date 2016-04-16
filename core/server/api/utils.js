@@ -7,7 +7,6 @@ const validator = require('../utils/validator')
 
 const utils = {
   globalDefaultOptions: ['context'],
-  dataDefaultOptions: ['data'],
 
   checkAdminPermissions(options) {
     let role = options.context.user?options.context.user.role:'visitor'
@@ -29,58 +28,46 @@ const utils = {
     return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
   },
 
-  validate(permittedOptions) {
+  validate(requiredOptions) {
     return function() {
       let object, options
 
       if (arguments.length === 2) {
-          object = arguments[0];
-          options = _.clone(arguments[1]) || {};
+        object = arguments[0];
+        options = _.clone(arguments[1]) || {};
       } else if (arguments.length === 1) {
-          options = _.clone(arguments[0]) || {};
+        options = _.clone(arguments[0]) || {};
       } else {
-          options = {};
+        options = {};
       }
 
-      permittedOptions = permittedOptions.concat(utils.globalDefaultOptions)
-
-      if(object) {
-        permittedOptions = permittedOptions.concat(utils.dataDefaultOptions)
-      }
+      requiredOptions = requiredOptions.concat(utils.globalDefaultOptions)
 
       function checkOptions(options) {
-        options = _.pick(options, permittedOptions)
+        object =  _.pick(object, requiredOptions)
+        options = _.pick(options, requiredOptions)
 
-        if(_.isEmpty(options)) {
+        const dataToCheck = Object.assign({}, options, object)
+
+        if(_.isEmpty(dataToCheck)) {
           return Promise.reject(new errors.BadRequestError(i18n('errors.api.validation.inputEmpty')))
         }
 
-        if(_.size(options) !== permittedOptions.length) {
+        if(_.size(dataToCheck) !== requiredOptions.length) {
           return Promise.reject(new errors.BadRequestError(i18n('errors.validation.unmatchedOptionQuantity')))
         }
 
-        let validationErrors = utils.validateOptions(options)
+        let validationErrors = utils.validateOptions(dataToCheck)
 
         if(validationErrors.length === 0) {
-          return Promise.resolve(options)
+          return Promise.resolve(Object.assign({}, options, {data: object}))
         }
 
         return Promise.reject(new errors.ValidationError(validationErrors[0]))
       }
 
-      if(object) {
-        options.data = utils.checkObject(object)
-        return checkOptions(options)
-      }
-
       return checkOptions(options)
     }
-  },
-
-  checkObject(object) {
-    // TODO
-    console.log('objects are checked');
-    return object
   },
 
   validateOptions(options) {
@@ -91,8 +78,8 @@ const utils = {
       if (noValidation.indexOf(prop) === -1) {
         let validateResult = validator(options[prop], prop)
 
-        if (validateResult.isValid === false) {
-          errors.push(prop+': '+validateResult.message)
+        if (validateResult !== true) {
+          errors.push(validateResult)
           break
         }
       }
