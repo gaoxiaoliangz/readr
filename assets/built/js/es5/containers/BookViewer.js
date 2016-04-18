@@ -24,6 +24,10 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _utils = require('utils');
 
 var _actions = require('actions');
@@ -39,6 +43,10 @@ var _BookPageList2 = _interopRequireDefault(_BookPageList);
 var _Loading = require('components/Loading');
 
 var _Loading2 = _interopRequireDefault(_Loading);
+
+var _Confirm = require('components/Confirm');
+
+var _Confirm2 = _interopRequireDefault(_Confirm);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -86,10 +94,29 @@ var BookViewer = function (_Component) {
 
       props.actions.jumpTo(page);
       if (this.props.user.authed) {
-        (0, _utils.setProgress)(props.book.id, {
-          page: page,
-          pageSum: pageSum,
-          percentage: percentage
+
+        (0, _utils.getProgress)(props.book.id).then(function (res) {
+          if (_lodash2.default.isEmpty(res)) {
+            (0, _utils.setProgress)(props.book.id, {
+              pageNo: page,
+              pageSum: pageSum,
+              percentage: percentage
+            });
+          } else {
+            console.log(percentage);
+            console.log(res.percentage);
+
+            if (percentage >= res.percentage) {
+              console.log('set');
+              (0, _utils.setProgress)(props.book.id, {
+                pageNo: page,
+                pageSum: pageSum,
+                percentage: percentage
+              });
+            } else {
+              props.actions.showConfirm('是否跳转到最新进度？');
+            }
+          }
         });
       }
     }
@@ -105,7 +132,7 @@ var BookViewer = function (_Component) {
         if (data.pages) {
           if (user.authed) {
             (0, _utils.getProgress)(bookId).then(function (res) {
-              actions.jumpTo(res.page);
+              actions.jumpTo(res.page_no);
               document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
               _this2.setState({
                 isLoading: false
@@ -230,6 +257,7 @@ var BookViewer = function (_Component) {
         'div',
         { className: 'page-book-viewer book-viewer--' + view.screen,
           onMouseMove: this.toggleBookPanel.bind(this) },
+        _react2.default.createElement(_Confirm2.default, { confirm: this.props.confirm }),
         this.state.isLoading || book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
         this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
           'div',
@@ -291,7 +319,8 @@ exports.default = (0, _reactRedux.connect)(function (state) {
   return {
     book: state.book,
     user: state.user,
-    view: state.view
+    view: state.view,
+    confirm: state.confirm
   };
 }, function (dispatch) {
   return {

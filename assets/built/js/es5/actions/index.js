@@ -42,6 +42,18 @@ Object.keys(_user).forEach(function (key) {
     }
   });
 });
+
+var _confirm = require('actions/confirm');
+
+Object.keys(_confirm).forEach(function (key) {
+  if (key === "default") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _confirm[key];
+    }
+  });
+});
 exports.setView = setView;
 exports.promisedCallApi = promisedCallApi;
 exports.wrap = wrap;

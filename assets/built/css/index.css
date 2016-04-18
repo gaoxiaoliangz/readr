@@ -78,7 +78,7 @@ ul {
   width: 500px;
   margin: 0 auto; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000333}}
 .msg {
   position: fixed;
   width: 500px;
@@ -91,7 +91,7 @@ ul {
   background: #fff;
   z-index: 990; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000347}}
 .text-loading {
   font-size: 30px;
   color: #ddd;
@@ -99,10 +99,10 @@ ul {
   text-align: center;
   padding: 100px 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000355}}
 .loading-wrap {
   background: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000357}}
   .loading-wrap .icon-loading {
     width: 200px;
     height: 100px;
@@ -112,6 +112,23 @@ ul {
     margin: -50px 0 0 -100px;
     background: url(../img/loading.gif) no-repeat center;
     z-index: 999; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000371}}
+.confirm-dialog {
+  position: fixed;
+  width: 500px;
+  margin-left: -250px;
+  top: 80px;
+  left: 50%;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  background: #fff;
+  z-index: 990; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\0000382}}
+  .confirm-dialog .content {
+    font-size: 2rem;
+    padding: 20px 0; }
 
 /* dia */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/dia\.scss}line{font-family:\000033}}
@@ -309,7 +326,7 @@ ul {
         position: relative;
         overflow: hidden;
         color: #333;
-        font-size: 18px;
+        font-size: 1.8rem;
         line-height: 1.9; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_book-viewer\.scss}line{font-family:\0000329}}
         .page-book-viewer .pages ul li .content p {

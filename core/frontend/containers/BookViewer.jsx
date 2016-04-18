@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
 import $ from 'jquery'
+import _ from 'lodash'
 
 import { lazilize, initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff, callApi } from 'utils'
 import * as actions from 'actions'
@@ -11,11 +12,16 @@ import { API_ROOT } from 'constants/APIS'
 
 import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
+import Confirm from 'components/Confirm'
 
 let windowWidth
 if(typeof window !== 'undefined') {
   windowWidth = $(window).width()
 }
+
+let latestProgress = {}
+let currentProgress = {}
+let isResolvingProgressRejection = false
 
 class BookViewer extends Component {
   constructor(props) {
@@ -34,16 +40,44 @@ class BookViewer extends Component {
     let props = this.props
     let pages = props.book.pages.props.children
     let pageSum = pages.length
-    let percentage = (document.body.scrollTop/(props.book.pages.props.view.pageHeight*pageSum)).toFixed(4)
+    let percentage = Number((document.body.scrollTop/(props.book.pages.props.view.pageHeight*pageSum)).toFixed(4))
     let page = convertPercentageToPage(percentage, pageSum)
+    let tolerance = 2
+    let progress = {
+      pageNo: page,
+      pageSum: pageSum,
+      percentage
+    }
+    currentProgress = progress
 
     props.actions.jumpTo(page)
     if(this.props.user.authed) {
-      setProgress(props.book.id, {
-        page: page,
-        pageSum: pageSum,
-        percentage
+      getProgress(props.book.id).then(res => {
+        if(_.isEmpty(res)) {
+          setProgress(props.book.id, progress)
+        } else {
+          latestProgress = res
+
+          if(percentage + tolerance/pageSum <= res.percentage && !isResolvingProgressRejection) {
+            props.actions.showConfirm('是否跳转到最新进度？')
+          } else {
+            setProgress(props.book.id, progress)
+            isResolvingProgressRejection = false
+          }
+        }
       })
+    }
+  }
+
+  scrollTo(position) {
+    let props = this.props
+
+    if(position < 1) {
+      props.actions.jumpTo(convertPercentageToPage(position, props.book.pages.props.children.length))
+      document.body.scrollTop = props.book.pages.props.children.length * props.book.pages.props.view.pageHeight * position
+    }else{
+      props.actions.jumpTo(position)
+      document.body.scrollTop = props.book.pages.props.view.pageHeight * position
     }
   }
 
@@ -51,25 +85,18 @@ class BookViewer extends Component {
     let actions = props.actions
     let user = props.user
 
-    initBook(bookId, actions, view).then(data => {
-      if(data.pages) {
+    initBook(bookId, actions, view).then(book => {
+      if(book.pages) {
         if(user.authed) {
           getProgress(bookId).then(res => {
-            actions.jumpTo(res.page)
-            document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage
-            this.setState({
-              isLoading: false
-            })
+            this.scrollTo(res.percentage)
+            this.setState({ isLoading: false })
           }, err => {
-            this.setState({
-              isLoading: false
-            })
+            this.setState({ isLoading: false })
             actions.jumpTo(1)
           })
         }else{
-          this.setState({
-            isLoading: false
-          })
+          this.setState({ isLoading: false })
           actions.jumpTo(1)
           // this is a bad fix
           // localstorage solution is recommended
@@ -118,16 +145,38 @@ class BookViewer extends Component {
   // todos:
   // add animation
   toggleBookPanel(event) {
-    var y = event.pageY - document.body.scrollTop
+    if(this.props.book.pages.props.view.screen === 'hd') {
+      var y = event.pageY - document.body.scrollTop
 
-    if(y < 90){
+      if(y < 90){
+        this.setState({
+          showPanel: true
+        })
+      }else{
+        this.setState({
+          showPanel: false
+        })
+      }
+    }
+  }
+
+  clickToToggleBookPanel() {
+    if(this.props.book.pages.props.view.screen === 'phone') {
       this.setState({
-        showPanel: true
+        showPanel: !this.state.showPanel
       })
-    }else{
-      this.setState({
-        showPanel: false
-      })
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.confirm.isVisible === true) {
+      if(nextProps.confirm.result === 'yes') {
+        this.scrollTo(latestProgress.percentage)
+      }
+      if(nextProps.confirm.result === 'no') {
+        isResolvingProgressRejection = true
+        this.scrollTo(currentProgress.percentage)
+      }
     }
   }
 
@@ -168,6 +217,7 @@ class BookViewer extends Component {
     return (
       <div className={`page-book-viewer book-viewer--${view.screen}`}
            onMouseMove={this.toggleBookPanel.bind(this)} >
+        <Confirm confirm={this.props.confirm} />
         {
           this.state.isLoading || book.isFetchingInfo || book.isFetchingContent?(
             <Loading />
@@ -201,7 +251,7 @@ class BookViewer extends Component {
         }
         {
           book.mode === 'vertical' ?(
-            <div>
+            <div onClick={this.clickToToggleBookPanel.bind(this)}>
               <BookPageList height={height} view={book.view} bookId={this.bookId} pages={pagesToRender} />
             </div>
           ):null
@@ -219,7 +269,8 @@ export default connect(
   state => ({
     book: state.book,
     user: state.user,
-    view: state.view
+    view: state.view,
+    confirm: state.confirm
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)

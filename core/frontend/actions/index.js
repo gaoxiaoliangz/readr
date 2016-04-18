@@ -7,7 +7,7 @@ import { API_ROOT } from 'constants/APIS'
 export * from 'actions/book'
 export * from 'actions/notification'
 export * from 'actions/user'
-
+export * from 'actions/confirm'
 
 export const SET_VIEW = 'SET_VIEW'
 export function setView(view) {

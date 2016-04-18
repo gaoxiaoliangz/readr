@@ -79,7 +79,7 @@ var AddBook = function (_Component) {
 
       while (true) {
         if (currentBook !== -1) {
-          dataToPost.doubanBook = this.props.book.searchResults.books[currentBook];
+          dataToPost.bookInfo = this.props.book.searchResults.books[currentBook];
         } else {
           this.props.handleNotification('未选择书籍！');
           break;
@@ -96,7 +96,7 @@ var AddBook = function (_Component) {
         break;
       }
 
-      dataToPost.doubanBook = JSON.stringify(dataToPost.doubanBook);
+      dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo);
 
       if (isValid) {
         (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'post', dataToPost).then(function (res) {

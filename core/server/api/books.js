@@ -74,15 +74,15 @@ const books = {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }
 
-        const douban_book_id = result[0].douban_book_id
+        const book_info_id = result[0].book_info_id
 
         // check douban book data existence
-        if(typeof douban_book_id === 'undefined') {
+        if(typeof book_info_id === 'undefined') {
           delete result[0]['book_content']
 
           return Promise.resolve(result[0])
         }else{
-          return models.getData('douban_books', {book_id: douban_book_id}).then(result => {
+          return models.getData('book_info', {book_id: book_info_id}).then(result => {
             if(result.length === 0) {
               return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.doubanInfoNotFound')))
             }
@@ -108,7 +108,7 @@ const books = {
   },
 
   addBook(object, options) {
-    let requiredOptions = ['bookContent', 'doubanBook']
+    let requiredOptions = ['bookContent', 'bookInfo']
 
     function parseTextToHtml(str) {
       let html = ''
@@ -125,24 +125,24 @@ const books = {
       const raw = options.data.bookContent
       const html = parseTextToHtml(raw)
 
-      let doubanBook = JSON.parse(options.data.doubanBook)
-      const doubanBookId = doubanBook.id
+      let bookInfo = JSON.parse(options.data.bookInfo)
+      const bookInfoId = bookInfo.id
 
       // model putData will override id infoo
-      doubanBook.book_id = doubanBookId
-      delete doubanBook.id
+      bookInfo.book_id = bookInfoId
+      delete bookInfo.id
 
       const bookData = {
-        douban_book_id: doubanBookId,
+        book_info_id: bookInfoId,
         book_content: {
           raw: raw,
           html: html
         }
       }
 
-      return models.getData('douban_books', { book_id: doubanBookId}).then(result => {
+      return models.getData('book_info', { book_id: bookInfoId}).then(result => {
         if(result.length === 0) {
-          return models.putData('douban_books', doubanBook).then(result => {
+          return models.putData('book_info', bookInfo).then(result => {
             return models.putData('books', bookData).then(result => {
               return Promise.resolve(result)
             }, error => {
@@ -174,7 +174,7 @@ const books = {
     function doQuery(options) {
       return models.getData('reading_progress', {book_id: options.id}).then(result => {
         if(result.length === 0) {
-          return Promise.reject(new errors.NotFoundError(i18n('errors.general.notFound')))
+          return {}
         } else {
           return Promise.resolve(result[0])
         }

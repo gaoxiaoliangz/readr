@@ -6,7 +6,7 @@ const _ = require('lodash')
 
 const validator = {
   numberTypes: ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo'],
-  stringifiedJSONTypes: ['doubanBook'],
+  stringifiedJSONTypes: ['bookInfo'],
   stringTypes: ['email', 'password', 'login', 'username', 'role', 'bookContent'],
   longStringTypes: ['bookContent'],
 
@@ -98,6 +98,7 @@ const validator = {
         }
       }
     }
+
     let preCheckResult = preCheck()
 
     if(preCheckResult) {
@@ -111,7 +112,7 @@ const validator = {
         if(isDefined) {
           valid = true
         }else{
-          message = i18n('errors.validation.unsupportedInput')
+          message = i18n('errors.validation.inputUnsupported')
         }
       }
     }

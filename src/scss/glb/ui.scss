@@ -29,6 +29,7 @@
   margin: 0 auto;
 }
 
+// notification
 .msg {
   position: fixed;
   width: $best_reading_width;
@@ -42,7 +43,7 @@
   z-index: 990;
 }
 
-
+// loading
 .text-loading {
   font-size: 30px;
   color: #ddd;
@@ -62,5 +63,24 @@
   	margin: -50px 0 0 -100px;
   	background: url(../img/loading.gif) no-repeat center;
   	z-index: 999;
+  }
+}
+
+
+// confirm
+.confirm-dialog {
+  position: fixed;
+  width: $best_reading_width;
+  margin-left: -$best_reading_width/2;
+  top: 80px;
+  left: 50%;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  background: #fff;
+  z-index: 990;
+  .content {
+    font-size: 2rem;
+    padding: 20px 0;
   }
 }
