@@ -7,6 +7,7 @@ const validator = require('../utils/validator')
 
 const utils = {
   globalDefaultOptions: ['context'],
+  noTrimTypes: ['password'],
 
   checkAdminPermissions(options) {
     let role = options.context.user?options.context.user.role:'visitor'
@@ -21,11 +22,7 @@ const utils = {
   checkUserPermissions(options) {
     let user = options.context.user?options.context.user:null
 
-    if(user) {
-      return options
-    }
-
-    return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
+    return user?options: Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
   },
 
   validate(requiredOptions) {
@@ -44,8 +41,8 @@ const utils = {
       requiredOptions = requiredOptions.concat(utils.globalDefaultOptions)
 
       function checkOptions(options) {
-        object =  _.pick(object, requiredOptions)
-        options = _.pick(options, requiredOptions)
+        object =  utils.trimOptions(_.pick(object, requiredOptions))
+        options = utils.trimOptions(_.pick(options, requiredOptions))
 
         const dataToCheck = Object.assign({}, options, object)
 
@@ -70,13 +67,28 @@ const utils = {
     }
   },
 
+  trimOptions(options) {
+    const longStringTypes = validator.longStringTypes
+    const stringTypes = validator.stringTypes
+
+    // trim short string inputs
+    // and we dont't trim password
+    for (var prop in options) {
+      if(longStringTypes.indexOf(prop) === -1 && stringTypes.indexOf(prop) !== -1 && utils.noTrimTypes.indexOf(prop) === -1) {
+        options[prop] = options[prop].trim()
+      }
+    }
+
+    return options
+  },
+
   validateOptions(options) {
     const noValidation = ['data', 'context']
     let errors = []
 
     for (let prop in options) {
       if (noValidation.indexOf(prop) === -1) {
-        let validateResult = validator(options[prop], prop)
+        let validateResult = validator.doValidate(options[prop], prop)
 
         if (validateResult !== true) {
           errors.push(validateResult)
@@ -87,7 +99,6 @@ const utils = {
 
     return errors
   }
-
 }
 
 module.exports = utils

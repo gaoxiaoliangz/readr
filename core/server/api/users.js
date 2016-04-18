@@ -63,7 +63,15 @@ var users = {
     function doQuery(options) {
       return models.getData('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then(result => {
         if(result.length === 0) {
-          let user = Object.assign({}, options.data, { role: 'user' })
+          // TODO
+          // camel to snake
+          let user = {
+            username: options.data.username,
+            email: options.data.email.toLowerCase(),
+            password: options.data.password,
+            role: 'user',
+            slug: options.data.username.toLowerCase()
+          }
 
           return models.putData('users', user).then(result => {
             user.id = result.id

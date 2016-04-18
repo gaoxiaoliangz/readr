@@ -4,142 +4,120 @@ const i18n = require('./i18n')
 const errors = require('../errors')
 const _ = require('lodash')
 
-function validator (input, type) {
-  let isDefined = false
-  let numberTypes = ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo']
-  let stringifiedJSONTypes = ['doubanBook']
-  let stringTypes = ['email', 'password', 'login', 'username', 'role']
+const validator = {
+  numberTypes: ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo'],
+  stringifiedJSONTypes: ['doubanBook'],
+  stringTypes: ['email', 'password', 'login', 'username', 'role', 'bookContent'],
+  longStringTypes: ['bookContent'],
 
-  if(numberTypes.indexOf(type) !== -1) {
-    isDefined = true
+  getSupportedTypes() {
+    return Array.prototype.concat(validator.numberTypes, validator.stringifiedJSONTypes, validator.stringTypes)
+  },
 
-    if(isNaN(parseInt(input))) {
-      return i18n('errors.validation.invalidFormat', type)
+  doValidate (input, type) {
+    let isDefined = false
+    let valid = false
+    let message
+
+    const numberTypes = validator.numberTypes
+    const stringifiedJSONTypes = validator.stringifiedJSONTypes
+    const stringTypes = validator.stringTypes
+    const longStringTypes = validator.longStringTypes
+
+    function preCheck() {
+      if(numberTypes.indexOf(type) !== -1) {
+        isDefined = true
+
+        if(isNaN(input)) {
+          return i18n('errors.validation.invalidFormat', type)
+        }
+      }
+
+      if(stringTypes.indexOf(type) !== -1) {
+        isDefined = true
+
+        if(typeof input !== 'string') {
+          return i18n('errors.validation.invalidFormat', type)
+        }
+        if(input.length === 0) {
+          return i18n('errors.validation.inputEmpty', type)
+        }
+        if(longStringTypes.indexOf(type) === -1 && input.length >60) {
+          return i18n('errors.validation.maxLengthExceed', type)
+        }
+      }
+
+      if(stringifiedJSONTypes.indexOf(type) !== -1) {
+        isDefined = true
+
+        try {
+          JSON.parse(input)
+        } catch (e) {
+          return 'error parsing json'
+        }
+      }
+
+      return false
     }
-  }
 
-  if(stringTypes.indexOf(type) !== -1) {
-    isDefined = true
+    const switchTypes = {
+      email() {
+        let emailReg = /^([a-zA-Z0-9_-_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/i
 
-    if(typeof input !== 'string') {
-      // return i18n('errors.validation.invalidFormat', { from: type, to: 'common.types'})
-      return i18n('errors.validation.invalidFormat')
-    }
-    if(input.length === 0) {
-      return i18n('errors.validation.inputEmpty', type)
-    }
-    if(type === 'email') {
-      let emailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
-
-      if(!emailReg.test(input)){
-        return i18n('errors.validation.emailInvalid')
+        if(!emailReg.test(input)){
+          return i18n('errors.validation.invalidFormat', type)
+        }
+      },
+      id() {
+        if(input.length !== 8) {
+          return i18n('errors.validation.invalidFormat', type)
+        }
+      },
+      percentage() {
+        if(input >= 1) {
+          return i18n('errors.validation.invalidFormat', type)
+        }
+      },
+      username() {
+        if(input.length < 5) {
+          return i18n('errors.validation.minLength', type)
+        }
+        if(!input[0].match(/[a-zA-Z]/)) {
+          return i18n('errors.validation.username.onlyStartWithLetters')
+        }
+        if(!input.match(/^([a-zA-Z0-9_-_.])+$/i)) {
+          return i18n('errors.validation.username.allowedChars')
+        }
+      },
+      password() {
+        if(input.length < 6) {
+          return i18n('errors.validation.minLength', type)
+        }
+        if(!isNaN(input)) {
+          return i18n('errors.validation.password.pureNumber')
+        }
       }
     }
-    if(type === 'password') {
-      if(input.length <= 6) {
-        return i18n('errors.validation.passwordLength')
+    let preCheckResult = preCheck()
+
+    if(preCheckResult) {
+      message = preCheckResult
+    }else{
+      let typeCheckResult = switchTypes[type]?switchTypes[type]():null
+
+      if(typeCheckResult) {
+        message = typeCheckResult
+      }else{
+        if(isDefined) {
+          valid = true
+        }else{
+          message = i18n('errors.validation.unsupportedInput')
+        }
       }
     }
+
+    return valid?true:message
   }
-
-  if(isDefined) {
-    return true
-  }else{
-    return i18n('errors.validation.unsupportedInputFound')
-  }
-
-
-
-
-
-
-
-
-
-  // while (true) {
-  //   // doubanBook should be object
-  //   if(type !== 'doubanBook') {
-  //     if(typeof input === 'undefined') {
-  //       isValid = false
-  //       message = i18n('errors.validation.inputUndefined')
-  //       break
-  //     }
-  //     if(input === '') {
-  //       isValid = false
-  //       message = i18n('errors.validation.inputEmpty')
-  //       break
-  //     }
-  //     if(typeof input !== 'string'){
-  //       isValid = false
-  //       message = i18n('errors.validation.inputTypeInvalid')
-  //       break
-  //     }
-  //     if(typeof input.length > 20){
-  //       isValid = false
-  //       message = i18n('errors.validation.inputTooLong')
-  //       break
-  //     }
-  //   }
-  //
-  //   const switchTypes = {
-  //     email() {
-  //       if(input.length < 6) {
-  //         message = i18n('errors.validation.emailInvalid')
-  //         isValid = false
-  //       }
-  //     },
-  //     bookContent() {
-  //       if(input.length <1) {
-  //         message = i18n('errors.validation.invalidFormat')
-  //         isValid = false
-  //       }
-  //     },
-  //     doubanBook() {
-  //       if(typeof input === 'undefined') {
-  //         message = i18n('errors.validation.invalidFormat')
-  //         isValid = false
-  //       }
-  //     },
-  //     id() {
-  //       if(input.length !== 8) {
-  //         message = i18n('errors.validation.invalidFormat')
-  //         isValid = false
-  //       }
-  //     },
-  //     login() {
-  //       if(input.length < 5) {
-  //         message = i18n('errors.validation.invalidFormat')
-  //         isValid = false
-  //       }
-  //     },
-  //     username() {
-  //       if(input.length < 5) {
-  //         message = i18n('errors.validation.invalidFormat')
-  //         isValid = false
-  //       }
-  //     },
-  //     password() {
-  //       if(input.length < 6) {
-  //         message = i18n('errors.validation.passwordLength')
-  //         isValid = false
-  //       }
-  //     },
-  //     default() {
-  //       message = i18n('errors.validation.unsupportedInputFound')
-  //       isValid = false
-  //     }
-  //   }
-  //   switchTypes[type]?switchTypes[type]():switchTypes.default()
-  //
-  //   break
-  // }
-  //
-  // if(!isValid) {
-  //   result.message = message
-  // }
-  // result.isValid = isValid
-  //
-  // return result
 }
 
 module.exports = validator

@@ -50,7 +50,7 @@ const http = function http(apiMethod) {
 
       if (Error.prototype.isPrototypeOf(error)) {
         error = {
-          message: error.message || i18n('errors.unknownErrorOccurred'),
+          message: error.message || i18n('errors.general.unknownErrorOccurred'),
           errorType: error.name
         }
       }

@@ -5,26 +5,42 @@
  * and I used js to store local translations instead of json
  */
 
-const cn = require('../translations/cn')
+const cnTranslations = require('../translations/cn')
 const _ = require('lodash')
 
-module.exports = function i18n(msgPath, object) {
-
-  // TODO
-  // object translations
-
-  let matchingString = cn
-  const path = msgPath.split('.')
-
-
-  for (let i = 0; i < path.length; i++) {
-    if(matchingString[path[i]]) {
-      matchingString = matchingString[path[i]]
-    }else{
-      matchingString = null
-      break
+function addPaddingRight(str) {
+  if(str) {
+    if(escape(str.substr(-1)).indexOf("%u") !== 0) {
+      str = str + ' '
     }
+  }else{
+    str = ''
   }
+
+  return str
+}
+
+
+module.exports = function i18n(msgPath, value) {
+
+  function getMatchingString(msgPath) {
+    let matchingString = cnTranslations
+    const path = msgPath.split('.')
+
+    for (let i = 0; i < path.length; i++) {
+      if(matchingString[path[i]]) {
+        matchingString = matchingString[path[i]]
+      }else{
+        matchingString = null
+        break
+      }
+    }
+
+    return matchingString
+  }
+
+  let matchingString = getMatchingString(msgPath)
+  let matchingValue = getMatchingString(`common.terms.${value}`)
 
   if (_.isNull(matchingString)) {
     console.error('Unable to find matching path [' + msgPath + '] in locale file.\n')
@@ -36,16 +52,12 @@ module.exports = function i18n(msgPath, object) {
       let before = matchingString.substring(0, placeholderIndex)
       let after = matchingString.substr(placeholderIndex + 7)
 
-      if(object) {
-        if(escape(object).indexOf("%u") !== 0) {
-          object = object + ' '
-        }
-      }else{
-        object = ''
+      if(_.isNull(matchingValue)) {
+        matchingValue = value
       }
 
-      // TODO
-      matchingString = before + object + after
+      matchingValue = addPaddingRight(matchingValue)
+      matchingString = before + matchingValue + after
     }
   }
 

@@ -1,5 +1,12 @@
 const cn = {
   common: {
+    terms: {
+      id: 'ID',
+      username: '用户名',
+      password: '密码',
+      percentage: '进度百分比',
+      email: '邮箱'
+    }
   },
   errors: {
     validation: {
@@ -7,11 +14,17 @@ const cn = {
       inputEmpty: '{value}输入不能为空',
       inputUndefined: '输入不能为未定义',
       inputTypeInvalid: '输入项类型只能为字符串',
-      inputTooLong: '输入项太长',
-      emailInvalid: '邮箱格式不对',
       invalidFormat: '{value}格式不对',
-      passwordLength: '密码必须 6 个字符以上',
-      unsupportedInputFound: '发现不支持的输入项'
+      inputUnsupported: '发现不支持的输入项',
+      minLength: '{value}长度不足',
+      maxLength: '{value}超出最大长度',
+      password: {
+        pureNumber: '密码不能为纯数字'
+      },
+      username: {
+        onlyStartWithLetters: '用户名只能以字母开头',
+        allowedChars: '用户名只能包含字母，数字及以下字符 "-","_"'
+      }
     },
     api: {
       auth: {
@@ -55,7 +68,7 @@ const cn = {
       users: {
       }
     },
-    errors: {
+    general: {
       anErrorOccurred: '发生错误',
       unknownErrorOccurred: '发生未知错误',
       notFound: '未找到'

@@ -174,7 +174,7 @@ const books = {
     function doQuery(options) {
       return models.getData('reading_progress', {book_id: options.id}).then(result => {
         if(result.length === 0) {
-          return Promise.reject(new errors.NotFoundError(i18n('errors.notFound')))
+          return Promise.reject(new errors.NotFoundError(i18n('errors.general.notFound')))
         } else {
           return Promise.resolve(result[0])
         }
@@ -193,7 +193,7 @@ const books = {
   },
 
   updateReadingProgress(object, options) {
-    const requiredOptions = ['id', 'percentage', 'page', 'pageSum']
+    const requiredOptions = ['id', 'percentage', 'pageNo', 'pageSum']
 
     function doQuery(options) {
       const match = {
@@ -201,10 +201,13 @@ const books = {
         user_id: options.context.user.id
       }
 
-      const data = Object.assign({}, options.data, {
+      const data = {
         book_id: options.id,
-        user_id: options.context.user.id
-      })
+        user_id: options.context.user.id,
+        page_no: options.data.pageNo,
+        page_sum: options.data.pageSum,
+        percentage: options.data.percentage
+      }
 
       return models.updateData('reading_progress', match, data, true).then(result => {
         return Promise.resolve(result)
