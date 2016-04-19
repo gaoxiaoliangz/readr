@@ -2,7 +2,8 @@
  * functions defined here must be important and better be pure
  */
 
-import $ from 'jquery'
+// import $ from 'jquery'
+// import 'whatwg-fetch'
 import { API_ROOT } from 'constants/APIS'
 
 export * from 'utils/book'
@@ -43,23 +44,31 @@ export function callApi(fullUrl, type, data) {
     })
   }
 
-  return new Promise(function(resolve, reject){
-    $.ajax(config).done(response => {
-      resolve(response)
-    }).fail(response => {
-      reject(JSON.parse(response.responseText))
-    })
-  })
-}
+  // return new Promise(function(resolve, reject){
+  //   $.ajax(config).done(response => {
+  //     resolve(response)
+  //   }).fail(response => {
+  //     reject(JSON.parse(response.responseText))
+  //   })
+  // })
 
+    return new Promise(function(resolve, reject){
+      // $.ajax(config).done(response => {
+      //   resolve(response)
+      // }).fail(response => {
+      //   reject(JSON.parse(response.responseText))
+      // })
 
-// todo: remove
-export function checkAuthStatus() {
-  return new Promise(resolve => {
-    $.get(`${API_ROOT}auth`, function(data){
-      resolve(data)
+      fetch(config.url).then(response => {
+        console.log(response);
+        return response.json()
+      }).then(json => {
+        console.log(json);
+        resolve(json)
+      }).catch((error) => {
+        reject(error)
+      })
     })
-  })
 }
 
 
@@ -95,20 +104,20 @@ export function isIE(ver){
   return b.getElementsByTagName('i').length === 1
 }
 
-export function lockScroll(){
-  $("body").css({"overflow":"hidden"});
-}
+// export function lockScroll(){
+//   $("body").css({"overflow":"hidden"});
+// }
+//
+// export function unlockScroll(){
+//   $("body").css({"overflow":"visible"});
+// }
 
-export function unlockScroll(){
-  $("body").css({"overflow":"visible"});
-}
-
-export function excAndExcOnResizing(func, args){
-  if(!args){
-    args = [];
-  }
-  func.apply([],args);
-  $(window).resize(function(){
-    func.apply(null,args);
-  })
-}
+// export function excAndExcOnResizing(func, args){
+//   if(!args){
+//     args = [];
+//   }
+//   func.apply([],args);
+//   $(window).resize(function(){
+//     func.apply(null,args);
+//   })
+// }

@@ -41,22 +41,18 @@ Object.keys(_filters).forEach(function (key) {
 });
 exports.getEnv = getEnv;
 exports.callApi = callApi;
-exports.checkAuthStatus = checkAuthStatus;
 exports.delayStuff = delayStuff;
 exports.lazilize = lazilize;
 exports.isIE = isIE;
-exports.lockScroll = lockScroll;
-exports.unlockScroll = unlockScroll;
-exports.excAndExcOnResizing = excAndExcOnResizing;
-
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
 
 var _APIS = require('constants/APIS');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+/*
+ * functions defined here must be important and better be pure
+ */
 
+// import $ from 'jquery'
+// import 'whatwg-fetch'
 function getEnv() {
   var env = process.env.NODE_ENV;
 
@@ -65,9 +61,7 @@ function getEnv() {
   }
 
   return env;
-} /*
-   * functions defined here must be important and better be pure
-   */
+}
 
 function callApi(fullUrl, type, data) {
   if (typeof type === 'undefined') {
@@ -92,20 +86,29 @@ function callApi(fullUrl, type, data) {
     });
   }
 
-  return new Promise(function (resolve, reject) {
-    _jquery2.default.ajax(config).done(function (response) {
-      resolve(response);
-    }).fail(function (response) {
-      reject(JSON.parse(response.responseText));
-    });
-  });
-}
+  // return new Promise(function(resolve, reject){
+  //   $.ajax(config).done(response => {
+  //     resolve(response)
+  //   }).fail(response => {
+  //     reject(JSON.parse(response.responseText))
+  //   })
+  // })
 
-// todo: remove
-function checkAuthStatus() {
-  return new Promise(function (resolve) {
-    _jquery2.default.get(_APIS.API_ROOT + 'auth', function (data) {
-      resolve(data);
+  return new Promise(function (resolve, reject) {
+    // $.ajax(config).done(response => {
+    //   resolve(response)
+    // }).fail(response => {
+    //   reject(JSON.parse(response.responseText))
+    // })
+
+    fetch(config.url).then(function (response) {
+      console.log(response);
+      return response.json();
+    }).then(function (json) {
+      console.log(json);
+      resolve(json);
+    }).catch(function (error) {
+      reject(error);
     });
   });
 }
@@ -143,20 +146,20 @@ function isIE(ver) {
   return b.getElementsByTagName('i').length === 1;
 }
 
-function lockScroll() {
-  (0, _jquery2.default)("body").css({ "overflow": "hidden" });
-}
+// export function lockScroll(){
+//   $("body").css({"overflow":"hidden"});
+// }
+//
+// export function unlockScroll(){
+//   $("body").css({"overflow":"visible"});
+// }
 
-function unlockScroll() {
-  (0, _jquery2.default)("body").css({ "overflow": "visible" });
-}
-
-function excAndExcOnResizing(func, args) {
-  if (!args) {
-    args = [];
-  }
-  func.apply([], args);
-  (0, _jquery2.default)(window).resize(function () {
-    func.apply(null, args);
-  });
-}
+// export function excAndExcOnResizing(func, args){
+//   if(!args){
+//     args = [];
+//   }
+//   func.apply([],args);
+//   $(window).resize(function(){
+//     func.apply(null,args);
+//   })
+// }

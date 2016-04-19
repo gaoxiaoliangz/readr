@@ -36,7 +36,10 @@ module.exports = function(grunt) {
     webpack: {
     	build: {
         entry: {
-          index: ['<%=path.src%>/js/index']
+          index: ['<%=path.src%>/js/index'],
+          // vendor: ['jquery'],
+          // polyfill: ['bluebird'],
+          'vendor': ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'lodash', 'muicss/react', 'redux-thunk', 'immutable']
         },
         output: {
           path: '<%=path.dist%>/js',
@@ -44,10 +47,22 @@ module.exports = function(grunt) {
         },
         module: webpackConfig.module,
         resolve: webpackConfig.resolve,
+        // externals: webpackConfig.externals,
         plugins: [
           new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
-          })
+          }),
+          // new webpack.optimize.CommonsChunkPlugin({
+          //   names: ['vendor', 'polyfill', 'react-kit'],
+          //   minChunks: Infinity
+          // })
+          // new webpack.optimize.CommonsChunkPlugin({
+          //   names: ['polyfill', 'react-kit'],
+          //   // names: ['react-kit'],
+          //   // minChunks: Infinity
+          // })
+          new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
+          // new webpack.optimize.CommonsChunkPlugin('react-kit', 'react-kit.js', Infinity)
         ]
     	}
     },

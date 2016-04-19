@@ -37,8 +37,6 @@ var BookPage = function (_Component) {
       var page = this.props.page;
       var style = this.props.style;
 
-      // console.log(page);
-
       return _react2.default.createElement(
         'li',
         { style: style },

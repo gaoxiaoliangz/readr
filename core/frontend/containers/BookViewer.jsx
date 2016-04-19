@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
-import $ from 'jquery'
+// import $ from 'jquery'
 import _ from 'lodash'
 
 import { lazilize, initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff, callApi } from 'utils'
@@ -16,7 +16,8 @@ import Confirm from 'components/Confirm'
 
 let windowWidth
 if(typeof window !== 'undefined') {
-  windowWidth = $(window).width()
+  // windowWidth = $(window).width()
+  windowWidth = window.innerWidth
 }
 
 let latestProgress = {}
@@ -122,12 +123,12 @@ class BookViewer extends Component {
     this.handleResize = function() {
       let view = getView()
 
-      if($(window).width() !== windowWidth) {
+      if(window.innerWidth !== windowWidth) {
         this.setState({
           isLoading: true
         })
 
-        windowWidth = $(window).width()
+        windowWidth = window.innerWidth
         lazilize(this.prepareBook.bind(this, this.bookId, this.props, view), 500)()
       }
     }.bind(this)

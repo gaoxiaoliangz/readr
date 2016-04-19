@@ -1,4 +1,4 @@
-import $ from 'jquery'
+// import $ from 'jquery'
 import { getCache, setCache, callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
 
@@ -247,7 +247,10 @@ export function setProgress(bookId, progress) {
 
 function parseHTML(htmlString) {
   let nodes = []
-  let $html = $(htmlString)
+  let $html = document.createElement("div")
+
+  $html.innerHTML = htmlString
+  $html = $html.childNodes
 
   for (var i = 0; i < $html.length; i++) {
     if($html[i].nodeType != 1) {
@@ -301,11 +304,11 @@ function compareObjects(obj1, obj2) {
 export function getView() {
   let aspectRatio = 7/9
 
-  if($(window).width() <= 540) {
+  if(window.innerWidth <= 540) {
     return {
       screen: 'phone',
-      pageWidth: $(window).width(),
-      pageHeight: $(window).width()/aspectRatio
+      pageWidth: window.innerWidth,
+      pageHeight: window.innerWidth/aspectRatio
     }
   }else{
     return {

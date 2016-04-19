@@ -6,8 +6,6 @@ class BookPage extends Component {
     let page = this.props.page
     let style = this.props.style
 
-    // console.log(page);
-
     return (
       <li style={style}>
         <div className="content">

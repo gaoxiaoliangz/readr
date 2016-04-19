@@ -4,7 +4,8 @@ var hot = 'webpack-hot-middleware/client'
 
 module.exports = {
   entry: {
-    index: [hot, './src/js/index']
+    index: [hot, './src/js/index'],
+    // 'vendor': [hot, 'react', 'react-dom', 'react-router', 'redux', 'react-redux', 'lodash', 'muicss/react', 'redux-thunk', 'immutable']
   },
   output: {
     path: path.join(__dirname, 'assets/built/js'),
@@ -13,7 +14,8 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
   ],
   devtool: 'source-map',
   module: {
@@ -36,5 +38,10 @@ module.exports = {
       css: path.join(__dirname, "assets/built/css")
     },
     extensions: ['', '.js', '.jsx']
-  }
+  },
+  // externals: {
+  //   'jquery': 'jQuery',
+  //   'lodash': '_'
+  // },
+  // externals: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'lodash', 'muicss/react', 'redux-thunk', 'immutable']
 };

@@ -58,7 +58,7 @@
 - 修复了写入 localStorage 异常导致页面无法显示的问题
 
 ### v0.3.0
-- 使用 pipeline.js 来处理任务流水
+- 使用 pipeline.js 来处理任务流
 - 使用 nodemon 代替 supervisor，自动重启服务
 - 修复了 jade 语法警告
 - 解决了不同模式下服务端渲染和客户端渲染 dom 不一致的问题

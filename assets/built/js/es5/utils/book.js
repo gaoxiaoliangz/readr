@@ -11,16 +11,11 @@ exports.getProgress = getProgress;
 exports.setProgress = setProgress;
 exports.getView = getView;
 
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
 var _utils = require('utils');
 
 var _APIS = require('constants/APIS');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+// import $ from 'jquery'
 function initBook(bookId, actions, view) {
   var pageHeight = view.pageHeight;
   var pageWidth = view.pageWidth;
@@ -275,7 +270,10 @@ function getNodeHeights(selector, actions) {
 
 function parseHTML(htmlString) {
   var nodes = [];
-  var $html = (0, _jquery2.default)(htmlString);
+  var $html = document.createElement("div");
+
+  $html.innerHTML = htmlString;
+  $html = $html.childNodes;
 
   for (var i = 0; i < $html.length; i++) {
     if ($html[i].nodeType != 1) {
@@ -329,11 +327,11 @@ function compareObjects(obj1, obj2) {
 function getView() {
   var aspectRatio = 7 / 9;
 
-  if ((0, _jquery2.default)(window).width() <= 540) {
+  if (window.innerWidth <= 540) {
     return {
       screen: 'phone',
-      pageWidth: (0, _jquery2.default)(window).width(),
-      pageHeight: (0, _jquery2.default)(window).width() / aspectRatio
+      pageWidth: window.innerWidth,
+      pageHeight: window.innerWidth / aspectRatio
     };
   } else {
     return {

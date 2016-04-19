@@ -24,7 +24,13 @@ html
       window.process = { env: { NODE_ENV: '#{env}'}}
 
     if env == "development"
+      script(src="/built/js/vendor.js")
+      
+      //- script(src="/vendors/babel/polyfill.min.js")
+      //- script(src="/vendors/jquery/jquery-1.12.0.min.js")
+      //- script(src="/vendors/lodash/lodash.core.min.js")
+      
       script(src="/built/js/index.js")
-
     else if env == "production"
+      script(src="/built/js/vendor.built.js")
       script(src="/built/js/index.built.js")

@@ -18,11 +18,11 @@ var _routes2 = _interopRequireDefault(_routes);
 
 var _reactRouter = require('react-router');
 
+var _utils = require('utils');
+
 var _DevTools = require('containers/DevTools');
 
 var _DevTools2 = _interopRequireDefault(_DevTools);
-
-var _utils = require('utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48,26 +48,16 @@ var Root = function (_Component) {
       var store = _props.store;
       var history = _props.history;
 
-      var routerAndMore = void 0;
-      var env = (0, _utils.getEnv)();
-
-      if (env === 'development') {
-        routerAndMore = _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
-          _react2.default.createElement(_DevTools2.default, null)
-        );
-      } else if (env === 'production') {
-        routerAndMore = _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default });
-      } else {
-        console.error('env is neither development nor production!');
-      }
 
       return _react2.default.createElement(
         _reactRedux.Provider,
         { store: store },
-        routerAndMore
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_reactRouter.Router, { history: history, routes: _routes2.default }),
+          _react2.default.createElement(_DevTools2.default, null)
+        )
       );
     }
   }]);
