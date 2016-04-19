@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 import { fetchUserAuthInfo, fetchBookList } from 'actions'
 
 import Branding from 'components/Branding'
+import Colophon from 'components/Colophon'
 import BookList from 'components/BookList'
 
 
@@ -24,6 +25,7 @@ class BookStore extends Component {
       <div className="page-book-store">
         <Branding user={this.props.user} />
         <BookList bookList={this.props.bookList} />
+        <Colophon />
       </div>
     )
   }

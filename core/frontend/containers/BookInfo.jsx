@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { fetchUserAuthInfo, fetchBookInfo } from 'actions'
 
 import Branding from 'components/Branding'
-
+import Colophon from 'components/Colophon'
 
 class BookInfo extends Component {
   constructor(props) {
@@ -29,8 +29,8 @@ class BookInfo extends Component {
       <div className="page-book-info">
         <Branding user={this.props.user} />
         <Container>
-          <div className="book-info content-container">
-            <div className="book-info-header">
+          <article className="book-info content-container">
+            <header className="book-info-header">
               <div className="left-col">
               {
                 bookInfo.image?(
@@ -52,25 +52,26 @@ class BookInfo extends Component {
                 }
                 <p><a target="_blank" href={`http://book.douban.com/subject/${bookInfo.book_id}`}>在豆瓣查看</a></p>
               </div>
-            </div>
+            </header>
             {
               bookInfo.author_intro?(
-                <section className="book-author-intro">
+                <div>
                   <h2>作者简介</h2>
                   <p>{bookInfo.author_intro}</p>
-                </section>
+                </div>
               ):null
             }
             {
               bookInfo.summary?(
-                <section className="book-summary">
+                <div>
                   <h2>内容简介</h2>
                   <p>{bookInfo.summary}</p>
-                </section>
+                </div>
               ):null
             }
-          </div>
+          </article>
         </Container>
+        <Colophon />
       </div>
     )
   }

@@ -239,6 +239,14 @@ ul {
       height: 60px;
       line-height: 60px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/layout\.scss}line{font-family:\0000327}}
+.colophon {
+  margin-top: 50px;
+  border-top: 1px solid #ddd;
+  font-size: 1.4rem;
+  padding: 30px 0;
+  color: #999; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_book-store\.scss}line{font-family:\000032}}
 .page-book-store ul.book-list {
   list-style: none;

@@ -9,6 +9,7 @@ import { fetchDoubanBookSearchResults, clearBookSearch, fetchUserAuthInfo, handl
 import { callApi } from 'utils'
 
 import Branding from 'components/Branding'
+import Colophon from 'components/Colophon'
 import Notification from 'components/Notification'
 
 class AddBook extends Component {
@@ -144,6 +145,7 @@ class AddBook extends Component {
             <Button onClick={this.handleAddBook.bind(this)} variant="raised">确认添加</Button>
           </Form>
         </Container>
+        <Colophon />
       </div>
     )
   }

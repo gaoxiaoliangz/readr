@@ -30,6 +30,10 @@ var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
 
+var _Colophon = require('components/Colophon');
+
+var _Colophon2 = _interopRequireDefault(_Colophon);
+
 var _Notification = require('components/Notification');
 
 var _Notification2 = _interopRequireDefault(_Notification);
@@ -217,7 +221,8 @@ var AddBook = function (_Component) {
               '确认添加'
             )
           )
-        )
+        ),
+        _react2.default.createElement(_Colophon2.default, null)
       );
     }
   }]);

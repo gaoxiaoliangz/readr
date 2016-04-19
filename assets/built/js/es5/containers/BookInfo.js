@@ -22,6 +22,10 @@ var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
 
+var _Colophon = require('components/Colophon');
+
+var _Colophon2 = _interopRequireDefault(_Colophon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -63,10 +67,10 @@ var BookInfo = function (_Component) {
           _react3.Container,
           null,
           _react2.default.createElement(
-            'div',
+            'article',
             { className: 'book-info content-container' },
             _react2.default.createElement(
-              'div',
+              'header',
               { className: 'book-info-header' },
               _react2.default.createElement(
                 'div',
@@ -116,8 +120,8 @@ var BookInfo = function (_Component) {
               )
             ),
             bookInfo.author_intro ? _react2.default.createElement(
-              'section',
-              { className: 'book-author-intro' },
+              'div',
+              null,
               _react2.default.createElement(
                 'h2',
                 null,
@@ -130,8 +134,8 @@ var BookInfo = function (_Component) {
               )
             ) : null,
             bookInfo.summary ? _react2.default.createElement(
-              'section',
-              { className: 'book-summary' },
+              'div',
+              null,
               _react2.default.createElement(
                 'h2',
                 null,
@@ -144,7 +148,8 @@ var BookInfo = function (_Component) {
               )
             ) : null
           )
-        )
+        ),
+        _react2.default.createElement(_Colophon2.default, null)
       );
     }
   }]);
