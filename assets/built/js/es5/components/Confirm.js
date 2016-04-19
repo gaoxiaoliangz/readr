@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,9 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _react3 = require('muicss/react');
+
+var _confirm = require('actions/confirm');
+
+var actions = _interopRequireWildcard(_confirm);
+
+var _redux = require('redux');
+
+var _reactRedux = require('react-redux');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25,28 +37,34 @@ var Confirm = function (_Component) {
     _classCallCheck(this, Confirm);
 
     return _possibleConstructorReturn(this, Object.getPrototypeOf(Confirm).call(this, props));
-    // this.state = {
-    //   isVisible: true
-    // }
   }
 
   _createClass(Confirm, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       var confirm = this.props.confirm;
-      var actionYes = this.props.actionYes;
-      var actionNo = this.props.actionNo;
+      var actions = this.props.actions;
 
       return _react2.default.createElement(
-        "div",
+        'div',
         null,
         confirm.isVisible ? _react2.default.createElement(
-          "div",
-          { className: "confirm-dialog mui--z1" },
+          'div',
+          { className: 'confirm-dialog mui--z1' },
           _react2.default.createElement(
-            "div",
-            { className: "confirm-content" },
+            'div',
+            { className: 'content' },
             confirm.content
+          ),
+          _react2.default.createElement(
+            _react3.Button,
+            { onClick: actions.confirmYes.bind(this), color: 'primary', className: 'mui--z1' },
+            '是'
+          ),
+          _react2.default.createElement(
+            _react3.Button,
+            { onClick: actions.confirmNo.bind(this) },
+            '否'
           )
         ) : null
       );
@@ -56,4 +74,12 @@ var Confirm = function (_Component) {
   return Confirm;
 }(_react.Component);
 
-exports.default = Confirm;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    confirm: state.confirm
+  };
+}, function (dispatch) {
+  return {
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+  };
+})(Confirm);

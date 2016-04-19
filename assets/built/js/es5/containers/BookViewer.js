@@ -63,6 +63,10 @@ if (typeof window !== 'undefined') {
   windowWidth = (0, _jquery2.default)(window).width();
 }
 
+var latestProgress = {};
+var currentProgress = {};
+var isResolvingProgressRejection = false;
+
 var BookViewer = function (_Component) {
   _inherits(BookViewer, _Component);
 
@@ -89,35 +93,45 @@ var BookViewer = function (_Component) {
       var props = this.props;
       var pages = props.book.pages.props.children;
       var pageSum = pages.length;
-      var percentage = (document.body.scrollTop / (props.book.pages.props.view.pageHeight * pageSum)).toFixed(4);
+      var percentage = Number((document.body.scrollTop / (props.book.pages.props.view.pageHeight * pageSum)).toFixed(4));
       var page = (0, _utils.convertPercentageToPage)(percentage, pageSum);
+      var tolerance = 2;
+      var progress = {
+        pageNo: page,
+        pageSum: pageSum,
+        percentage: percentage
+      };
+      currentProgress = progress;
 
       props.actions.jumpTo(page);
       if (this.props.user.authed) {
-
         (0, _utils.getProgress)(props.book.id).then(function (res) {
           if (_lodash2.default.isEmpty(res)) {
-            (0, _utils.setProgress)(props.book.id, {
-              pageNo: page,
-              pageSum: pageSum,
-              percentage: percentage
-            });
+            (0, _utils.setProgress)(props.book.id, progress);
           } else {
-            console.log(percentage);
-            console.log(res.percentage);
+            latestProgress = res;
 
-            if (percentage >= res.percentage) {
-              console.log('set');
-              (0, _utils.setProgress)(props.book.id, {
-                pageNo: page,
-                pageSum: pageSum,
-                percentage: percentage
-              });
-            } else {
+            if (percentage + tolerance / pageSum <= res.percentage && !isResolvingProgressRejection) {
               props.actions.showConfirm('是否跳转到最新进度？');
+            } else {
+              (0, _utils.setProgress)(props.book.id, progress);
+              isResolvingProgressRejection = false;
             }
           }
         });
+      }
+    }
+  }, {
+    key: 'scrollTo',
+    value: function scrollTo(position) {
+      var props = this.props;
+
+      if (position < 1) {
+        props.actions.jumpTo((0, _utils.convertPercentageToPage)(position, props.book.pages.props.children.length));
+        document.body.scrollTop = props.book.pages.props.children.length * props.book.pages.props.view.pageHeight * position;
+      } else {
+        props.actions.jumpTo(position);
+        document.body.scrollTop = props.book.pages.props.view.pageHeight * position;
       }
     }
   }, {
@@ -128,25 +142,18 @@ var BookViewer = function (_Component) {
       var actions = props.actions;
       var user = props.user;
 
-      (0, _utils.initBook)(bookId, actions, view).then(function (data) {
-        if (data.pages) {
+      (0, _utils.initBook)(bookId, actions, view).then(function (book) {
+        if (book.pages) {
           if (user.authed) {
             (0, _utils.getProgress)(bookId).then(function (res) {
-              actions.jumpTo(res.page_no);
-              document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
-              _this2.setState({
-                isLoading: false
-              });
+              _this2.scrollTo(res.percentage);
+              _this2.setState({ isLoading: false });
             }, function (err) {
-              _this2.setState({
-                isLoading: false
-              });
+              _this2.setState({ isLoading: false });
               actions.jumpTo(1);
             });
           } else {
-            _this2.setState({
-              isLoading: false
-            });
+            _this2.setState({ isLoading: false });
             actions.jumpTo(1);
             // this is a bad fix
             // localstorage solution is recommended
@@ -201,16 +208,40 @@ var BookViewer = function (_Component) {
   }, {
     key: 'toggleBookPanel',
     value: function toggleBookPanel(event) {
-      var y = event.pageY - document.body.scrollTop;
+      if (this.props.book.pages.props.view.screen === 'hd') {
+        var y = event.pageY - document.body.scrollTop;
 
-      if (y < 90) {
+        if (y < 90) {
+          this.setState({
+            showPanel: true
+          });
+        } else {
+          this.setState({
+            showPanel: false
+          });
+        }
+      }
+    }
+  }, {
+    key: 'clickToToggleBookPanel',
+    value: function clickToToggleBookPanel() {
+      if (this.props.book.pages.props.view.screen === 'phone') {
         this.setState({
-          showPanel: true
+          showPanel: !this.state.showPanel
         });
-      } else {
-        this.setState({
-          showPanel: false
-        });
+      }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.confirm.isVisible === true) {
+        if (nextProps.confirm.result === 'yes') {
+          this.scrollTo(latestProgress.percentage);
+        }
+        if (nextProps.confirm.result === 'no') {
+          isResolvingProgressRejection = true;
+          this.scrollTo(currentProgress.percentage);
+        }
       }
     }
   }, {
@@ -301,7 +332,7 @@ var BookViewer = function (_Component) {
         ) : null,
         book.mode === 'vertical' ? _react2.default.createElement(
           'div',
-          null,
+          { onClick: this.clickToToggleBookPanel.bind(this) },
           _react2.default.createElement(_BookPageList2.default, { height: height, view: book.view, bookId: this.bookId, pages: pagesToRender })
         ) : null
       );

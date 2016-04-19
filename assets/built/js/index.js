@@ -52186,6 +52186,10 @@
 	  windowWidth = (0, _jquery2.default)(window).width();
 	}
 
+	var latestProgress = {};
+	var currentProgress = {};
+	var isResolvingProgressRejection = false;
+
 	var BookViewer = function (_Component) {
 	  _inherits(BookViewer, _Component);
 
@@ -52212,35 +52216,45 @@
 	      var props = this.props;
 	      var pages = props.book.pages.props.children;
 	      var pageSum = pages.length;
-	      var percentage = (document.body.scrollTop / (props.book.pages.props.view.pageHeight * pageSum)).toFixed(4);
+	      var percentage = Number((document.body.scrollTop / (props.book.pages.props.view.pageHeight * pageSum)).toFixed(4));
 	      var page = (0, _utils.convertPercentageToPage)(percentage, pageSum);
+	      var tolerance = 2;
+	      var progress = {
+	        pageNo: page,
+	        pageSum: pageSum,
+	        percentage: percentage
+	      };
+	      currentProgress = progress;
 
 	      props.actions.jumpTo(page);
 	      if (this.props.user.authed) {
-
 	        (0, _utils.getProgress)(props.book.id).then(function (res) {
 	          if (_lodash2.default.isEmpty(res)) {
-	            (0, _utils.setProgress)(props.book.id, {
-	              pageNo: page,
-	              pageSum: pageSum,
-	              percentage: percentage
-	            });
+	            (0, _utils.setProgress)(props.book.id, progress);
 	          } else {
-	            console.log(percentage);
-	            console.log(res.percentage);
+	            latestProgress = res;
 
-	            if (percentage >= res.percentage) {
-	              console.log('set');
-	              (0, _utils.setProgress)(props.book.id, {
-	                pageNo: page,
-	                pageSum: pageSum,
-	                percentage: percentage
-	              });
-	            } else {
+	            if (percentage + tolerance / pageSum <= res.percentage && !isResolvingProgressRejection) {
 	              props.actions.showConfirm('是否跳转到最新进度？');
+	            } else {
+	              (0, _utils.setProgress)(props.book.id, progress);
+	              isResolvingProgressRejection = false;
 	            }
 	          }
 	        });
+	      }
+	    }
+	  }, {
+	    key: 'scrollTo',
+	    value: function scrollTo(position) {
+	      var props = this.props;
+
+	      if (position < 1) {
+	        props.actions.jumpTo((0, _utils.convertPercentageToPage)(position, props.book.pages.props.children.length));
+	        document.body.scrollTop = props.book.pages.props.children.length * props.book.pages.props.view.pageHeight * position;
+	      } else {
+	        props.actions.jumpTo(position);
+	        document.body.scrollTop = props.book.pages.props.view.pageHeight * position;
 	      }
 	    }
 	  }, {
@@ -52251,25 +52265,18 @@
 	      var actions = props.actions;
 	      var user = props.user;
 
-	      (0, _utils.initBook)(bookId, actions, view).then(function (data) {
-	        if (data.pages) {
+	      (0, _utils.initBook)(bookId, actions, view).then(function (book) {
+	        if (book.pages) {
 	          if (user.authed) {
 	            (0, _utils.getProgress)(bookId).then(function (res) {
-	              actions.jumpTo(res.page_no);
-	              document.body.scrollTop = data.pages.props.children.length * view.pageHeight * res.percentage;
-	              _this2.setState({
-	                isLoading: false
-	              });
+	              _this2.scrollTo(res.percentage);
+	              _this2.setState({ isLoading: false });
 	            }, function (err) {
-	              _this2.setState({
-	                isLoading: false
-	              });
+	              _this2.setState({ isLoading: false });
 	              actions.jumpTo(1);
 	            });
 	          } else {
-	            _this2.setState({
-	              isLoading: false
-	            });
+	            _this2.setState({ isLoading: false });
 	            actions.jumpTo(1);
 	            // this is a bad fix
 	            // localstorage solution is recommended
@@ -52324,16 +52331,40 @@
 	  }, {
 	    key: 'toggleBookPanel',
 	    value: function toggleBookPanel(event) {
-	      var y = event.pageY - document.body.scrollTop;
+	      if (this.props.book.pages.props.view.screen === 'hd') {
+	        var y = event.pageY - document.body.scrollTop;
 
-	      if (y < 90) {
+	        if (y < 90) {
+	          this.setState({
+	            showPanel: true
+	          });
+	        } else {
+	          this.setState({
+	            showPanel: false
+	          });
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'clickToToggleBookPanel',
+	    value: function clickToToggleBookPanel() {
+	      if (this.props.book.pages.props.view.screen === 'phone') {
 	        this.setState({
-	          showPanel: true
+	          showPanel: !this.state.showPanel
 	        });
-	      } else {
-	        this.setState({
-	          showPanel: false
-	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.confirm.isVisible === true) {
+	        if (nextProps.confirm.result === 'yes') {
+	          this.scrollTo(latestProgress.percentage);
+	        }
+	        if (nextProps.confirm.result === 'no') {
+	          isResolvingProgressRejection = true;
+	          this.scrollTo(currentProgress.percentage);
+	        }
 	      }
 	    }
 	  }, {
@@ -52424,7 +52455,7 @@
 	        ) : null,
 	        book.mode === 'vertical' ? _react2.default.createElement(
 	          'div',
-	          null,
+	          { onClick: this.clickToToggleBookPanel.bind(this) },
 	          _react2.default.createElement(_BookPageList2.default, { height: height, view: book.view, bookId: this.bookId, pages: pagesToRender })
 	        ) : null
 	      );
@@ -57756,6 +57787,8 @@
 	});
 	exports.showConfirm = showConfirm;
 	exports.hideConfirm = hideConfirm;
+	exports.confirmYes = confirmYes;
+	exports.confirmNo = confirmNo;
 	var SHOW_CONFIRM = exports.SHOW_CONFIRM = 'SHOW_CONFIRM';
 	function showConfirm(content) {
 	  return {
@@ -57770,6 +57803,24 @@
 	  return {
 	    type: HIDE_CONFIRM,
 	    isVisible: false
+	  };
+	}
+
+	var CONFIRM_YES = exports.CONFIRM_YES = 'CONFIRM_YES';
+	function confirmYes() {
+	  return {
+	    type: CONFIRM_YES,
+	    isVisible: false,
+	    result: 'yes'
+	  };
+	}
+
+	var CONFIRM_NO = exports.CONFIRM_NO = 'CONFIRM_NO';
+	function confirmNo() {
+	  return {
+	    type: CONFIRM_NO,
+	    isVisible: false,
+	    result: 'no'
 	  };
 	}
 
@@ -58014,7 +58065,7 @@
 /* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -58025,6 +58076,18 @@
 	var _react = __webpack_require__(143);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _react3 = __webpack_require__(238);
+
+	var _confirm = __webpack_require__(280);
+
+	var actions = _interopRequireWildcard(_confirm);
+
+	var _redux = __webpack_require__(219);
+
+	var _reactRedux = __webpack_require__(213);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58041,28 +58104,34 @@
 	    _classCallCheck(this, Confirm);
 
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Confirm).call(this, props));
-	    // this.state = {
-	    //   isVisible: true
-	    // }
 	  }
 
 	  _createClass(Confirm, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      var confirm = this.props.confirm;
-	      var actionYes = this.props.actionYes;
-	      var actionNo = this.props.actionNo;
+	      var actions = this.props.actions;
 
 	      return _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        confirm.isVisible ? _react2.default.createElement(
-	          "div",
-	          { className: "confirm-dialog mui--z1" },
+	          'div',
+	          { className: 'confirm-dialog mui--z1' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "confirm-content" },
+	            'div',
+	            { className: 'content' },
 	            confirm.content
+	          ),
+	          _react2.default.createElement(
+	            _react3.Button,
+	            { onClick: actions.confirmYes.bind(this), color: 'primary', className: 'mui--z1' },
+	            '是'
+	          ),
+	          _react2.default.createElement(
+	            _react3.Button,
+	            { onClick: actions.confirmNo.bind(this) },
+	            '否'
 	          )
 	        ) : null
 	      );
@@ -58072,7 +58141,15 @@
 	  return Confirm;
 	}(_react.Component);
 
-	exports.default = Confirm;
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	  return {
+	    confirm: state.confirm
+	  };
+	}, function (dispatch) {
+	  return {
+	    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+	  };
+	})(Confirm);
 
 /***/ },
 /* 286 */
@@ -73038,7 +73115,10 @@
 	exports.default = notification;
 	function notification(state, action) {
 	  if (typeof state === 'undefined') {
-	    state = { isVisible: false };
+	    state = {
+	      isVisible: false,
+	      result: 'unsettled'
+	    };
 	  }
 
 	  switch (action.type) {
@@ -73051,6 +73131,18 @@
 	    case 'HIDE_CONFIRM':
 	      return Object.assign({}, state, {
 	        isVisible: false
+	      });
+
+	    case 'CONFIRM_YES':
+	      return Object.assign({}, state, {
+	        isVisible: false,
+	        result: 'yes'
+	      });
+
+	    case 'CONFIRM_NO':
+	      return Object.assign({}, state, {
+	        isVisible: false,
+	        result: 'no'
 	      });
 
 	    default:

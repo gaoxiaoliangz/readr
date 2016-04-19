@@ -6,7 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = notification;
 function notification(state, action) {
   if (typeof state === 'undefined') {
-    state = { isVisible: false };
+    state = {
+      isVisible: false,
+      result: 'unsettled'
+    };
   }
 
   switch (action.type) {
@@ -19,6 +22,18 @@ function notification(state, action) {
     case 'HIDE_CONFIRM':
       return Object.assign({}, state, {
         isVisible: false
+      });
+
+    case 'CONFIRM_YES':
+      return Object.assign({}, state, {
+        isVisible: false,
+        result: 'yes'
+      });
+
+    case 'CONFIRM_NO':
+      return Object.assign({}, state, {
+        isVisible: false,
+        result: 'no'
       });
 
     default:
