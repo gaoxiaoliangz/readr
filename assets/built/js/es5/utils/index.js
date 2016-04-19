@@ -51,8 +51,6 @@ var _APIS = require('constants/APIS');
  * functions defined here must be important and better be pure
  */
 
-// import $ from 'jquery'
-// import 'whatwg-fetch'
 function getEnv() {
   var env = process.env.NODE_ENV;
 
@@ -152,14 +150,4 @@ function isIE(ver) {
 //
 // export function unlockScroll(){
 //   $("body").css({"overflow":"visible"});
-// }
-
-// export function excAndExcOnResizing(func, args){
-//   if(!args){
-//     args = [];
-//   }
-//   func.apply([],args);
-//   $(window).resize(function(){
-//     func.apply(null,args);
-//   })
 // }

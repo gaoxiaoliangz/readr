@@ -30,6 +30,13 @@ var _api2 = _interopRequireDefault(_api);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function configureStore(initialState) {
+  if (module.hot) {
+    module.hot.accept('../reducers', function () {
+      var nextRootReducer = require('../reducers').default;
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
   return (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.compose)(
   // applyMiddleware(thunk, api, createLogger()),
   (0, _redux.applyMiddleware)(_reduxThunk2.default, _api2.default), _DevTools2.default.instrument()));

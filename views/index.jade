@@ -13,7 +13,7 @@ html
     if env == "development"
       link(type='text/css' rel='stylesheet' href='/built/css/index.css')
 
-    else if env == "production"
+    else
       link(type='text/css' rel='stylesheet' href='/built/css/index.built.css')
 
   body
@@ -23,14 +23,12 @@ html
       window.__INITIAL_STATE__ = '!{initialState})'
       window.process = { env: { NODE_ENV: '#{env}'}}
 
+    script(src="/vendors/polyfills/babel-polyfill.min.js")
+    script(src="/vendors/polyfills/fetch.js")
+    script(src="/vendors/lodash/lodash.core.min.js")
+
     if env == "development"
-      script(src="/built/js/vendor.js")
-      
-      //- script(src="/vendors/babel/polyfill.min.js")
-      //- script(src="/vendors/jquery/jquery-1.12.0.min.js")
-      //- script(src="/vendors/lodash/lodash.core.min.js")
-      
       script(src="/built/js/index.js")
-    else if env == "production"
-      script(src="/built/js/vendor.built.js")
+
+    else
       script(src="/built/js/index.built.js")

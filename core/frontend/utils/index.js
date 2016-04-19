@@ -2,14 +2,11 @@
  * functions defined here must be important and better be pure
  */
 
-// import $ from 'jquery'
-// import 'whatwg-fetch'
 import { API_ROOT } from 'constants/APIS'
 
 export * from 'utils/book'
 export * from 'utils/cache'
 export * from 'utils/filters'
-
 
 export function getEnv() {
   let env = process.env.NODE_ENV
@@ -110,14 +107,4 @@ export function isIE(ver){
 //
 // export function unlockScroll(){
 //   $("body").css({"overflow":"visible"});
-// }
-
-// export function excAndExcOnResizing(func, args){
-//   if(!args){
-//     args = [];
-//   }
-//   func.apply([],args);
-//   $(window).resize(function(){
-//     func.apply(null,args);
-//   })
 // }

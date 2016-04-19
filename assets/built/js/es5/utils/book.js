@@ -15,7 +15,6 @@ var _utils = require('utils');
 
 var _APIS = require('constants/APIS');
 
-// import $ from 'jquery'
 function initBook(bookId, actions, view) {
   var pageHeight = view.pageHeight;
   var pageWidth = view.pageWidth;

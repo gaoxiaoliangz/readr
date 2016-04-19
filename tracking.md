@@ -1,5 +1,5 @@
 # tracking
-
+- 从 chunk 分离了 polyfill(babel-polyfill, fetch)
 
 ##bugs
 
@@ -7,6 +7,8 @@
 ## todo list
 - react 动画
 - 进度跳转
+
+- 生产环境不输出 dev tools
 
 ### 添加 API
 - 删除书籍
@@ -25,8 +27,8 @@
 - 添加前后端数据验证
 - API 添加权限控制模块
 - 路由添加权限判断
-- 分离 polyfill(babel-polyfill)
 - API 返回的 book content 比纯文本大了好几倍
+- 使用 hash 作为文件名
 
 ### 规范
 - 添加单元测试

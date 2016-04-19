@@ -1,4 +1,3 @@
-// import $ from 'jquery'
 import { getCache, setCache, callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
 

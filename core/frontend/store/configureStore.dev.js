@@ -6,6 +6,13 @@ import rootReducer from '../reducers'
 import api from 'middleware/api'
 
 export default function configureStore(initialState) {
+  if(module.hot) {
+    module.hot.accept('../reducers', () => {
+      const nextRootReducer = require('../reducers').default
+      store.replaceReducer(nextRootReducer)
+    })
+  }
+  
   return createStore(
     rootReducer,
     initialState,
