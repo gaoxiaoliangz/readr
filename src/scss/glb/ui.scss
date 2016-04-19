@@ -27,6 +27,9 @@
 .content-container {
   width: $best_reading_width;
   margin: 0 auto;
+  @include phone {
+    width: 100%;
+  }
 }
 
 // notification

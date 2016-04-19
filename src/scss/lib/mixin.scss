@@ -1,26 +1,39 @@
+// iPhone 4 960×640 (580x320)
+// iPhone 5 1136x640 (568x320)
+// iPhone 6 1334 x 750 (667x375)
+// iPhone 6 Plus 1920 x 1080 (960x540)
+// iPad 2048x1536 (1024x768)
+
+$phone-width: 540px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
 $hd-width: 1600px;
 
+@mixin phone {
+  @media (max-width: #{$phone-width}) {
+    @content;
+  }
+}
+
 @mixin tablet {
-  @media (max-width: #{$tablet-width - 1px}) {
+  @media (max-width: #{$tablet-width}) {
     @content;
   }
 }
 
 @mixin tablet_only {
-  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+  @media (min-width: #{$phone-width}) and (max-width: #{$tablet-width}) {
     @content;
   }
 }
 
 @mixin desktop_only {
-  @media (min-width: #{$desktop-width}) and (max-width: #{$hd-width - 1px}) {
+  @media (min-width: #{$desktop-width}) and (max-width: #{$hd-width}) {
     @content;
   }
 }
 
-@mixin hd_only {
+@mixin hd {
   @media (min-width: #{$hd-width}) {
     @content;
   }
