@@ -30,11 +30,12 @@ class Signup extends Component {
     }
 
     callApi(`${API_ROOT}users`, 'POST', params).then(res => {
+      console.log(res);
       this.props.handleNotification('注册成功！')
       setTimeout(function(){
         browserHistory.push('/')
       }, 600)
-    }).catch((err) => {
+    }, err => {
       this.props.handleNotification(err.message)
     })
   }

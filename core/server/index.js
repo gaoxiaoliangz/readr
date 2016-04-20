@@ -15,13 +15,16 @@ var config = require('./config')
 var startWebpack = require('./webpack')
 
 var app = express()
-var isWebpackEnabled = process.env.ENABLE_WEBPACK
+var isWebpackEnabled = process.argv.indexOf('--webpack') !== -1?true:false
 var env = app.get('env')
 
 function init(basePath) {
   app.use(session({
     secret: 'key wtf',
-    cookie: { maxAge: 7*24*60*60*1000 },
+    cookie: {
+      maxAge: 7*24*60*60*1000,
+      expires: new Date(Date.now() + 7*24*60*60*1000)
+    },
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ url: config.dbUrl+'readr_session' })
@@ -32,6 +35,7 @@ function init(basePath) {
   }
 
   app.use(bodyParser.urlencoded({limit: '5mb', extended: false}))
+  app.use(bodyParser.json({limit: '5mb'}))
   app.use(cookieParser())
 
   app.set('views', path.join(basePath, 'views'))

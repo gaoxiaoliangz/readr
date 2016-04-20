@@ -70,11 +70,12 @@ var Signup = function (_Component) {
       };
 
       (0, _utils.callApi)(_APIS.API_ROOT + 'users', 'POST', params).then(function (res) {
+        console.log(res);
         _this2.props.handleNotification('注册成功！');
         setTimeout(function () {
           _reactRouter.browserHistory.push('/');
         }, 600);
-      }).catch(function (err) {
+      }, function (err) {
         _this2.props.handleNotification(err.message);
       });
     }

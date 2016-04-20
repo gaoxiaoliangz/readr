@@ -1,14 +1,14 @@
 # tracking
-- 从 chunk 分离了 polyfill(babel-polyfill, fetch)
+
+
 
 ##bugs
-
+- windows 下字体问题
 
 ## todo list
 - react 动画
 - 进度跳转
 
-- 生产环境不输出 dev tools
 
 ### 添加 API
 - 删除书籍
@@ -27,7 +27,6 @@
 - 添加前后端数据验证
 - API 添加权限控制模块
 - 路由添加权限判断
-- API 返回的 book content 比纯文本大了好几倍
 - 使用 hash 作为文件名
 
 ### 规范
@@ -75,3 +74,9 @@
 - 优化了多终端进度同步，现在会提示是否跳转到最新进度
 - 移动端点击页面可显示 panel
 - 移动端页面适配
+
+### v0.3.2
+- 从 chunk 分离了 polyfill(babel-polyfill, fetch)
+- 移除了 babelrc: false 选项，定义了 hmr babel 环境
+- 移除了 jQuery，使用 fetch，和定制的 jsonp
+- 配置了 webpack，生产环境不输出 dev tools

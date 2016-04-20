@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /*
+                                                                                                                                                                                                                                                   * functions defined here must be important and better be pure
+                                                                                                                                                                                                                                                   */
+
 var _book = require('utils/book');
 
 Object.keys(_book).forEach(function (key) {
@@ -39,29 +43,83 @@ Object.keys(_filters).forEach(function (key) {
     }
   });
 });
-exports.getEnv = getEnv;
 exports.callApi = callApi;
+exports.$callApi = $callApi;
+exports.isIE = isIE;
+exports.lockScroll = lockScroll;
+exports.unlockScroll = unlockScroll;
 exports.delayStuff = delayStuff;
 exports.lazilize = lazilize;
-exports.isIE = isIE;
 
 var _APIS = require('constants/APIS');
 
-/*
- * functions defined here must be important and better be pure
- */
+function callApi(fullUrl, type, data) {
+  var config = {
+    credentials: 'include'
+  };
 
-function getEnv() {
-  var env = process.env.NODE_ENV;
-
-  if (typeof window !== 'undefined') {
-    env = window.process.env.NODE_ENV;
+  if (typeof type === 'undefined') {
+    type = 'get';
+  } else if (type === 'POST') {
+    config = {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
   }
 
-  return env;
+  if (fullUrl.indexOf('http') !== -1) {
+    config = {};
+  }
+
+  // use jsonp
+  if (fullUrl.indexOf('douban') !== -1) {
+    var _ret = function () {
+      var jsonpID = new Date().valueOf();
+
+      window['__jsonp_callback__' + jsonpID] = function (data) {
+        console.log(jsonpID);
+        window.__jsonp_data__ = data;
+      };
+
+      var script = document.createElement('script');
+
+      script.setAttribute('src', fullUrl + '&callback=__jsonp_callback__' + jsonpID);
+      script.setAttribute('id', 'jsonp-' + jsonpID);
+      document.body.appendChild(script);
+
+      script.onload = function () {
+        document.body.removeChild(document.getElementById('jsonp-' + jsonpID));
+      };
+
+      return {
+        v: Promise.resolve(window.__jsonp_data__)
+      };
+    }();
+
+    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+  }
+
+  return fetch(fullUrl, config).then(function (response) {
+    var josn = response.json();
+
+    if (response.ok) {
+      return josn;
+    } else {
+      return josn.then(function (json) {
+        return Promise.reject(json);
+      });
+    }
+  }).catch(function (error) {
+    return Promise.reject(error);
+  });
 }
 
-function callApi(fullUrl, type, data) {
+function $callApi(fullUrl, type, data) {
   if (typeof type === 'undefined') {
     type = 'get';
   }
@@ -84,54 +142,13 @@ function callApi(fullUrl, type, data) {
     });
   }
 
-  // return new Promise(function(resolve, reject){
-  //   $.ajax(config).done(response => {
-  //     resolve(response)
-  //   }).fail(response => {
-  //     reject(JSON.parse(response.responseText))
-  //   })
-  // })
-
   return new Promise(function (resolve, reject) {
-    // $.ajax(config).done(response => {
-    //   resolve(response)
-    // }).fail(response => {
-    //   reject(JSON.parse(response.responseText))
-    // })
-
-    fetch(config.url).then(function (response) {
-      console.log(response);
-      return response.json();
-    }).then(function (json) {
-      console.log(json);
-      resolve(json);
-    }).catch(function (error) {
-      reject(error);
+    $.ajax(config).done(function (response) {
+      resolve(response);
+    }).fail(function (response) {
+      reject(JSON.parse(response.responseText));
     });
   });
-}
-
-// todo: when multiple functins are called?
-function delayStuff(callback, delay) {
-  console.log(this);
-  return function () {
-    clearTimeout(this.__delayStuffTimer__);
-    this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay);
-  };
-}
-
-// not working so well
-function lazilize(callback, t) {
-  var _this = this;
-
-  var timers = [];
-
-  return function () {
-    console.log(timers);
-    clearTimeout(timers.slice(-1)[0]);
-    var timer = setTimeout(callback.bind(_this), t);
-    timers.push(timer);
-  };
 }
 
 // dom related
@@ -144,10 +161,34 @@ function isIE(ver) {
   return b.getElementsByTagName('i').length === 1;
 }
 
-// export function lockScroll(){
-//   $("body").css({"overflow":"hidden"});
-// }
-//
-// export function unlockScroll(){
-//   $("body").css({"overflow":"visible"});
-// }
+function lockScroll() {
+  document.body.style.overflow = 'hidden';
+}
+
+function unlockScroll() {
+  document.body.style.overflow = 'visible';
+}
+
+// a better solution?
+
+// todo: when multiple functins are called?
+function delayStuff(callback, delay) {
+  console.log(this);
+  return function () {
+    clearTimeout(this.__delayStuffTimer__);
+    this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay);
+  };
+}
+
+function lazilize(callback, t) {
+  var _this = this;
+
+  var timers = [];
+
+  return function () {
+    console.log(timers);
+    clearTimeout(timers.slice(-1)[0]);
+    var timer = setTimeout(callback.bind(_this), t);
+    timers.push(timer);
+  };
+}

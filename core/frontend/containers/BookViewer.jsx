@@ -6,7 +6,7 @@ import Immutable from 'immutable'
 // import $ from 'jquery'
 import _ from 'lodash'
 
-import { lazilize, initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, delayStuff, callApi } from 'utils'
+import { initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, callApi } from 'utils'
 import * as actions from 'actions'
 import { API_ROOT } from 'constants/APIS'
 

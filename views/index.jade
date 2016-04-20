@@ -21,10 +21,9 @@ html
     
     script.
       window.__INITIAL_STATE__ = '!{initialState})'
-      window.process = { env: { NODE_ENV: '#{env}'}}
 
-    script(src="/vendors/polyfills/babel-polyfill.min.js")
     script(src="/vendors/polyfills/fetch.js")
+    script(src="/vendors/polyfills/babel-polyfill.min.js")
     script(src="/vendors/lodash/lodash.core.min.js")
 
     if env == "development"

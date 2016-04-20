@@ -1,12 +1,12 @@
 'use strict'
-var path = require('path')
-var express = require('express')
-var querystring = require("querystring")
-var url = require("url")
-var Promise = require('bluebird')
+const path = require('path')
+const express = require('express')
+const querystring = require("querystring")
+const url = require("url")
+const Promise = require('bluebird')
 
-var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
-  var router = express.Router()
+const frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
+  const router = express.Router()
 
   router.get("/logout",function(req, res){
     req.session.destroy()
@@ -14,16 +14,16 @@ var frontendRoutes = function frontendRoutes(env, isServerRoutingEnabled, isServ
   })
 
   if(isServerRoutingEnabled) {
-    var React = require('react')
-    var Component = React.Component
-    var createStore = require('redux').createStore
-    var Provider = require('react-redux').Provider
-    var renderToString = require('react-dom/server').renderToString
-    var Router = require('react-router')
-    var match = Router.match
-    var RouterContext = Router.RouterContext
-    var reactRoutes = require('routes').default
-    var configureStore = require('store/configureStore').default
+    const React = require('react')
+    const Component = React.Component
+    const createStore = require('redux').createStore
+    const Provider = require('react-redux').Provider
+    const renderToString = require('react-dom/server').renderToString
+    const Router = require('react-router')
+    const match = Router.match
+    const RouterContext = Router.RouterContext
+    const reactRoutes = require('routes').default
+    const configureStore = require('store/configureStore').default
 
     const DevTools = require('containers/DevTools').default
 
