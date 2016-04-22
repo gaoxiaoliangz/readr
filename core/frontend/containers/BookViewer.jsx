@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import _ from 'lodash'
 
 import { initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, callApi } from 'utils'
@@ -249,19 +250,26 @@ class BookViewer extends Component {
             <Loading />
           ):null
         }
-        {
-          this.state.showPanel && book.meta && book.isPagesLoaded === true ?(
-            <div className="functions">
-              <div className="container">
-                <span className="home">
-                  <Link to="/bookstore"></Link>
-                </span>
-                <span className="title">{book.meta.title}</span>
-                <span className="loc">{book.currentPage+"/"+pages.length}</span>
+        <ReactCSSTransitionGroup
+          component="div"
+          transitionName="slide"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
+          {
+            this.state.showPanel && book.meta && book.isPagesLoaded === true ?(
+              <div className="functions">
+                <div className="container">
+                  <span className="home">
+                    <Link to="/bookstore"></Link>
+                  </span>
+                  <span className="title">{book.meta.title}</span>
+                  <span className="loc">{book.currentPage+"/"+pages.length}</span>
+                </div>
               </div>
-            </div>
-          ):null
-        }
+            ):null
+          }
+        </ReactCSSTransitionGroup>
         {
           book.mode === 'render' ?(
             <div className="pages">

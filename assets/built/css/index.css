@@ -43,6 +43,46 @@ ul {
   margin: 0;
   list-style: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\000031}}
+.fade-enter {
+  opacity: 0.01;
+  transition: opacity .3s ease-in; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\000036}}
+.fade-enter.fade-enter-active {
+  opacity: 1; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\0000310}}
+.fade-leave {
+  opacity: 1;
+  transition: opacity .3s ease-in; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\0000315}}
+.fade-leave.fade-leave-active {
+  opacity: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\0000319}}
+.slide-enter {
+  transform: translateY(-100%);
+  opacity: 0.01;
+  transition: all .3s; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\0000325}}
+.slide-enter.slide-enter-active {
+  transform: translateY(0);
+  opacity: 1; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\0000330}}
+.slide-leave {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all .3s; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/animation\.scss}line{font-family:\0000336}}
+.slide-leave.slide-leave-active {
+  transform: translateY(-100%);
+  opacity: 0; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/glb\/ui\.scss}line{font-family:\000031}}
 .sep {
   margin: 0 5px;

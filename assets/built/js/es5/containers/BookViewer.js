@@ -20,6 +20,10 @@ var _immutable = require('immutable');
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
+var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
+
+var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
@@ -312,29 +316,38 @@ var BookViewer = function (_Component) {
           onMouseMove: this.toggleBookPanel.bind(this) },
         _react2.default.createElement(_Confirm2.default, { confirm: this.props.confirm }),
         this.state.isLoading || book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
-        this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
-          'div',
-          { className: 'functions' },
-          _react2.default.createElement(
+        _react2.default.createElement(
+          _reactAddonsCssTransitionGroup2.default,
+          {
+            component: 'div',
+            transitionName: 'slide',
+            transitionEnterTimeout: 300,
+            transitionLeaveTimeout: 300
+          },
+          this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
             'div',
-            { className: 'container' },
+            { className: 'functions' },
             _react2.default.createElement(
-              'span',
-              { className: 'home' },
-              _react2.default.createElement(_reactRouter.Link, { to: '/bookstore' })
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'title' },
-              book.meta.title
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'loc' },
-              book.currentPage + "/" + pages.length
+              'div',
+              { className: 'container' },
+              _react2.default.createElement(
+                'span',
+                { className: 'home' },
+                _react2.default.createElement(_reactRouter.Link, { to: '/bookstore' })
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'title' },
+                book.meta.title
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'loc' },
+                book.currentPage + "/" + pages.length
+              )
             )
-          )
-        ) : null,
+          ) : null
+        ),
         book.mode === 'render' ? _react2.default.createElement(
           'div',
           { className: 'pages' },
