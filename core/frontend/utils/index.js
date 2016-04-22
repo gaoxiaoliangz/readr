@@ -3,12 +3,14 @@
  */
 
 import { API_ROOT } from 'constants/APIS'
+import 'isomorphic-fetch'
 
 export * from 'utils/book'
 export * from 'utils/cache'
 export * from 'utils/filters'
 
 export function callApi(fullUrl, type, data) {
+
   let config = {
     credentials: 'include'
   }
@@ -36,7 +38,6 @@ export function callApi(fullUrl, type, data) {
     let jsonpID = new Date().valueOf()
 
     window['__jsonp_callback__'+jsonpID] = function(data) {
-      console.log(jsonpID);
       window.__jsonp_data__ = data
     }
 
@@ -53,8 +54,18 @@ export function callApi(fullUrl, type, data) {
     return Promise.resolve(window.__jsonp_data__)
   }
 
+  if(fullUrl.indexOf('http') === -1) {
+    // if(typeof document === 'undefined') {
+    //
+    // } else {
+    //   fullUrl = document.location.host + fullUrl
+    // }
+    fullUrl = 'http://localhost:3000' + fullUrl
+  }
+
   return fetch(fullUrl, config)
     .then(response => {
+      // console.log(response)
       let josn = response.json()
 
       if(response.ok) {

@@ -5,10 +5,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.JUMP_TO = exports.LOAD_PAGES = exports.SET_BOOK_MODE = exports.LOAD_HTML = exports.CLEAR_BOOK_SEARCH = undefined;
 exports.fetchBookList = fetchBookList;
+exports.fetchBookList00 = fetchBookList00;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
 exports.clearBookSearch = clearBookSearch;
 exports.fetchBookContent = fetchBookContent;
 exports.fetchBookInfo = fetchBookInfo;
+exports.fetchBookInfo00 = fetchBookInfo00;
 exports.loadHTML = loadHTML;
 exports.setBookMode = setBookMode;
 exports.loadPages = loadPages;
@@ -18,7 +20,17 @@ var _actions = require('actions');
 
 var _APIS = require('constants/APIS');
 
-function fetchBookList(endpoint) {
+function fetchBookList() {
+  return {
+    CALL_API: {
+      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
+      endpoint: 'books'
+    }
+  };
+}
+
+// TODO
+function fetchBookList00(endpoint) {
   return (0, _actions.promisedCallApi)({
     types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
     endpoint: endpoint
@@ -47,7 +59,17 @@ function fetchBookContent(bookId, endpoint) {
   }, { bookId: bookId });
 }
 
-function fetchBookInfo(bookId, endpoint) {
+function fetchBookInfo(bookId) {
+  return {
+    CALL_API: {
+      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
+      endpoint: 'books/' + bookId
+    }
+  };
+}
+
+// TODO
+function fetchBookInfo00(bookId, endpoint) {
   return (0, _actions.promisedCallApi)({
     types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
     endpoint: endpoint

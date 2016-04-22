@@ -53,12 +53,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import $ from 'jquery'
-
 
 var windowWidth = void 0;
 if (typeof window !== 'undefined') {
-  // windowWidth = $(window).width()
   windowWidth = window.innerWidth;
 }
 
@@ -89,6 +86,8 @@ var BookViewer = function (_Component) {
   _createClass(BookViewer, [{
     key: 'scrollToLoadPages',
     value: function scrollToLoadPages() {
+      var _this2 = this;
+
       var props = this.props;
       var pages = props.book.pages.props.children;
       var pageSum = pages.length;
@@ -104,7 +103,7 @@ var BookViewer = function (_Component) {
 
       props.actions.jumpTo(page);
       if (this.props.user.authed) {
-        (0, _utils.getProgress)(props.book.id).then(function (res) {
+        (0, _utils.getProgress)(this.bookId).then(function (res) {
           if (_lodash2.default.isEmpty(res)) {
             (0, _utils.setProgress)(props.book.id, progress);
           } else {
@@ -113,7 +112,7 @@ var BookViewer = function (_Component) {
             if (percentage + tolerance / pageSum <= res.percentage && !isResolvingProgressRejection) {
               props.actions.showConfirm('是否跳转到最新进度？');
             } else {
-              (0, _utils.setProgress)(props.book.id, progress);
+              (0, _utils.setProgress)(_this2.bookId, progress);
               isResolvingProgressRejection = false;
             }
           }
@@ -136,7 +135,7 @@ var BookViewer = function (_Component) {
   }, {
     key: 'prepareBook',
     value: function prepareBook(bookId, props, view) {
-      var _this2 = this;
+      var _this3 = this;
 
       var actions = props.actions;
       var user = props.user;
@@ -145,14 +144,14 @@ var BookViewer = function (_Component) {
         if (book.pages) {
           if (user.authed) {
             (0, _utils.getProgress)(bookId).then(function (res) {
-              _this2.scrollTo(res.percentage);
-              _this2.setState({ isLoading: false });
+              _this3.scrollTo(res.percentage);
+              _this3.setState({ isLoading: false });
             }, function (err) {
-              _this2.setState({ isLoading: false });
+              _this3.setState({ isLoading: false });
               actions.jumpTo(1);
             });
           } else {
-            _this2.setState({ isLoading: false });
+            _this3.setState({ isLoading: false });
             actions.jumpTo(1);
             // this is a bad fix
             // localstorage solution is recommended
@@ -164,15 +163,17 @@ var BookViewer = function (_Component) {
   }, {
     key: 'addEventListeners',
     value: function addEventListeners() {
+      var _this5 = this;
+
       var timers = [];
 
       function lazilize(callback, t) {
-        var _this3 = this;
+        var _this4 = this;
 
         return function () {
           clearTimeout(timers.slice(-1)[0]);
 
-          var timer = setTimeout(callback.bind(_this3), t);
+          var timer = setTimeout(callback.bind(_this4), t);
           timers.push(timer);
         };
       }
@@ -182,14 +183,24 @@ var BookViewer = function (_Component) {
         var view = (0, _utils.getView)();
 
         if (window.innerWidth !== windowWidth) {
-          this.setState({
+          _this5.setState({
             isLoading: true
           });
 
           windowWidth = window.innerWidth;
-          lazilize(this.prepareBook.bind(this, this.bookId, this.props, view), 500)();
+          lazilize(_this5.prepareBook.bind(_this5, _this5.bookId, _this5.props, view), 500)();
         }
-      }.bind(this);
+      };
+
+      // window.addEventListener('scroll', () => {
+      //   this.setState({
+      //     scrollTop: document.body.scrollTop
+      //   })
+      //
+      //   getProgress(this.props.book.id).then(res => {
+      //     latestProgress = res.page_no
+      //   })
+      // })
 
       window.addEventListener('scroll', this.handleScroll);
       window.addEventListener('resize', this.handleResize);
@@ -242,21 +253,29 @@ var BookViewer = function (_Component) {
           this.scrollTo(currentProgress.percentage);
         }
       }
+
+      if (nextProps.book.pages && !this.props.book.pages) {
+        this.setState({
+          pagesLoaded: true
+        });
+      }
     }
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this4 = this;
-
       var actions = this.props.actions;
       var bookId = this.bookId;
 
       actions.fetchUserAuthInfo();
-      actions.fetchBookInfo(bookId, 'books/' + this.bookId).then(function (getState) {
-        _this4.prepareBook(bookId, Object.assign({}, { actions: actions }, getState()), (0, _utils.getView)());
-      });
+      actions.fetchBookInfo(bookId);
+      // this.prepareBook(bookId, Object.assign({}, { actions }, this.props, getView()))
+      this.prepareBook(bookId, this.props, (0, _utils.getView)());
 
       this.addEventListeners();
+
+      if (this.state.pagesLoaded) {
+        console.log('yes they did');
+      }
     }
   }, {
     key: 'componentWillUnmount',
@@ -271,6 +290,10 @@ var BookViewer = function (_Component) {
       var pagesToRender = [];
       var view = this.props.view;
       var height = pages ? pages.length * view.pageHeight : '100%';
+
+      if (this.state.scrollTop > 500) {
+        // this.props.actions.showConfirm('是否跳转到最新进度？')
+      }
 
       if (book.isPagesLoaded) {
         var currentPage = book.currentPage;

@@ -10,25 +10,21 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = require('react-router');
+
 var _react3 = require('muicss/react');
 
 var _reactRedux = require('react-redux');
-
-var _reactRouter = require('react-router');
-
-var _actions = require('actions');
 
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
 
-var _Colophon = require('components/Colophon');
+var _actions = require('actions');
 
-var _Colophon2 = _interopRequireDefault(_Colophon);
+var _utils = require('utils');
 
-var _BookList = require('components/BookList');
-
-var _BookList2 = _interopRequireDefault(_BookList);
+var _APIS = require('constants/APIS');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,49 +34,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BookStore = function (_Component) {
-  _inherits(BookStore, _Component);
+var Template = function (_Component) {
+  _inherits(Template, _Component);
 
-  _createClass(BookStore, null, [{
-    key: 'fetchData',
-    value: function fetchData(_ref) {
-      var store = _ref.store;
+  function Template() {
+    _classCallCheck(this, Template);
 
-      return [store.dispatch((0, _actions.fetchBookList)()), store.dispatch((0, _actions.fetchUserAuthInfo)())];
-    }
-  }]);
-
-  function BookStore(props) {
-    _classCallCheck(this, BookStore);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookStore).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Template).apply(this, arguments));
   }
 
-  _createClass(BookStore, [{
+  _createClass(Template, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUserAuthInfo();
-      this.props.fetchBookList();
     }
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'page-book-store' },
+        { className: 'page-home' },
         _react2.default.createElement(_Branding2.default, { user: this.props.user }),
-        _react2.default.createElement(_BookList2.default, { bookList: this.props.bookList }),
-        _react2.default.createElement(_Colophon2.default, null)
+        _react2.default.createElement(
+          _react3.Container,
+          null,
+          this.props.children
+        )
       );
     }
   }]);
 
-  return BookStore;
+  return Template;
 }(_react.Component);
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    bookList: state.book.bookList,
+    notification: state.notification,
     user: state.user
   };
-}, { fetchBookList: _actions.fetchBookList, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookStore);
+}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Template);

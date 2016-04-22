@@ -10,14 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = require('react-router');
-
-var _react3 = require('muicss/react');
-
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,16 +18,19 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Home = function (_Component) {
-  _inherits(Home, _Component);
+var ManageBooks = function (_Component) {
+  _inherits(ManageBooks, _Component);
 
-  function Home() {
-    _classCallCheck(this, Home);
+  function ManageBooks(props) {
+    _classCallCheck(this, ManageBooks);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ManageBooks).call(this, props));
+
+    console.log(_this);
+    return _this;
   }
 
-  _createClass(Home, [{
+  _createClass(ManageBooks, [{
     key: 'componentDidMount',
     value: function componentDidMount() {}
   }, {
@@ -43,48 +38,13 @@ var Home = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'page-home' },
-        _react2.default.createElement(_Branding2.default, null),
-        _react2.default.createElement(
-          _react3.Container,
-          null,
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'h1',
-              { className: 'page-title' },
-              'This is home, bitch!!!!'
-            ),
-            _react2.default.createElement(
-              'ul',
-              null,
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/bookstore' },
-                  '查看书城'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/addbook' },
-                  '添加书籍'
-                )
-              )
-            )
-          )
-        )
+        null,
+        'this is b'
       );
     }
   }]);
 
-  return Home;
+  return ManageBooks;
 }(_react.Component);
 
-exports.default = Home;
+exports.default = ManageBooks;

@@ -37,6 +37,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BookInfo = function (_Component) {
   _inherits(BookInfo, _Component);
 
+  _createClass(BookInfo, null, [{
+    key: 'fetchData',
+    value: function fetchData(_ref) {
+      var store = _ref.store;
+      var params = _ref.params;
+
+      return store.dispatch((0, _actions.fetchBookInfo)(params.id));
+    }
+  }]);
+
   function BookInfo(props) {
     _classCallCheck(this, BookInfo);
 
@@ -50,9 +60,7 @@ var BookInfo = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUserAuthInfo();
-      this.props.fetchBookInfo(this.bookId, 'books/' + this.bookId).then(function (getState) {}).catch(function (error) {
-        console.log(error);
-      });
+      this.props.fetchBookInfo(this.bookId);
     }
   }, {
     key: 'render',

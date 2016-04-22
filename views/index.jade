@@ -10,24 +10,24 @@ html
     link(rel="shortcut icon" href="/built/img/favicon.png")
     link(type='text/css' rel='stylesheet' href='/built/css/vendor.built.css')
 
-    if env == "development"
-      link(type='text/css' rel='stylesheet' href='/built/css/index.css')
+    if env == "production"
+      link(type='text/css' rel='stylesheet' href='/built/css/index.built.css')
 
     else
-      link(type='text/css' rel='stylesheet' href='/built/css/index.built.css')
+      link(type='text/css' rel='stylesheet' href='/built/css/index.css')
 
   body
     #root !{html}
     
     script.
-      window.__INITIAL_STATE__ = '!{initialState})'
+      var __INITIAL_STATE__ = '!{initialState}'
 
-    script(src="/vendors/polyfills/fetch.js")
-    script(src="/vendors/polyfills/babel-polyfill.min.js")
     script(src="/vendors/lodash/lodash.core.min.js")
 
-    if env == "development"
-      script(src="/built/js/index.js")
+    if env == "production"
+      script(src="/vendors/polyfills/fetch.js")
+      script(src="/vendors/polyfills/babel-polyfill.min.js")
+      script(src="/built/js/index.built.js")
 
     else
-      script(src="/built/js/index.built.js")
+      script(src="/built/js/index.js")

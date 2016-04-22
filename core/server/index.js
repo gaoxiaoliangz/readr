@@ -48,7 +48,7 @@ function init(basePath) {
   if(env === 'production') {
     app.get("*", routes.frontend(env, true, true))
   }else if(env === 'development') {
-    app.get("*", routes.frontend(env, true, false))
+    app.get("*", routes.frontend(env, true, true))
   }else{
     console.error('env is neither development nor production!')
   }

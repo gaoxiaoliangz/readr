@@ -53,7 +53,10 @@ exports.lazilize = lazilize;
 
 var _APIS = require('constants/APIS');
 
+require('isomorphic-fetch');
+
 function callApi(fullUrl, type, data) {
+
   var config = {
     credentials: 'include'
   };
@@ -82,7 +85,6 @@ function callApi(fullUrl, type, data) {
       var jsonpID = new Date().valueOf();
 
       window['__jsonp_callback__' + jsonpID] = function (data) {
-        console.log(jsonpID);
         window.__jsonp_data__ = data;
       };
 
@@ -104,7 +106,17 @@ function callApi(fullUrl, type, data) {
     if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
   }
 
+  if (fullUrl.indexOf('http') === -1) {
+    // if(typeof document === 'undefined') {
+    //
+    // } else {
+    //   fullUrl = document.location.host + fullUrl
+    // }
+    fullUrl = 'http://localhost:3000' + fullUrl;
+  }
+
   return fetch(fullUrl, config).then(function (response) {
+    // console.log(response)
     var josn = response.json();
 
     if (response.ok) {

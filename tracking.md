@@ -9,6 +9,9 @@
 - react 动画
 - 进度跳转
 
+- remove promisedApi calls
+- map scrollTop to state
+
 
 ### 添加 API
 - 删除书籍

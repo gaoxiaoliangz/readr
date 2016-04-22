@@ -9,6 +9,11 @@ import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
 
 class BookInfo extends Component {
+
+  static fetchData({store, params}) {
+    return store.dispatch(fetchBookInfo(params.id))
+  }
+
   constructor(props) {
     super(props)
     this.bookId = props.params.id
@@ -16,10 +21,7 @@ class BookInfo extends Component {
 
   componentDidMount() {
     this.props.fetchUserAuthInfo()
-    this.props.fetchBookInfo(this.bookId, `books/${this.bookId}`).then(getState => {
-    }).catch((error) => {
-      console.log(error);
-    })
+    this.props.fetchBookInfo(this.bookId)
   }
 
   render() {

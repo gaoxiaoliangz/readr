@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
-// import $ from 'jquery'
 import _ from 'lodash'
 
 import { initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, callApi } from 'utils'
@@ -16,7 +15,6 @@ import Confirm from 'components/Confirm'
 
 let windowWidth
 if(typeof window !== 'undefined') {
-  // windowWidth = $(window).width()
   windowWidth = window.innerWidth
 }
 
@@ -25,6 +23,7 @@ let currentProgress = {}
 let isResolvingProgressRejection = false
 
 class BookViewer extends Component {
+
   constructor(props) {
     super(props)
 
@@ -53,7 +52,7 @@ class BookViewer extends Component {
 
     props.actions.jumpTo(page)
     if(this.props.user.authed) {
-      getProgress(props.book.id).then(res => {
+      getProgress(this.bookId).then(res => {
         if(_.isEmpty(res)) {
           setProgress(props.book.id, progress)
         } else {
@@ -62,7 +61,7 @@ class BookViewer extends Component {
           if(percentage + tolerance/pageSum <= res.percentage && !isResolvingProgressRejection) {
             props.actions.showConfirm('是否跳转到最新进度？')
           } else {
-            setProgress(props.book.id, progress)
+            setProgress(this.bookId, progress)
             isResolvingProgressRejection = false
           }
         }
@@ -120,7 +119,7 @@ class BookViewer extends Component {
     }
 
     this.handleScroll = lazilize(this.scrollToLoadPages.bind(this), 100)
-    this.handleResize = function() {
+    this.handleResize = () => {
       let view = getView()
 
       if(window.innerWidth !== windowWidth) {
@@ -131,7 +130,17 @@ class BookViewer extends Component {
         windowWidth = window.innerWidth
         lazilize(this.prepareBook.bind(this, this.bookId, this.props, view), 500)()
       }
-    }.bind(this)
+    }
+
+    // window.addEventListener('scroll', () => {
+    //   this.setState({
+    //     scrollTop: document.body.scrollTop
+    //   })
+    //
+    //   getProgress(this.props.book.id).then(res => {
+    //     latestProgress = res.page_no
+    //   })
+    // })
 
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
@@ -169,6 +178,8 @@ class BookViewer extends Component {
     }
   }
 
+
+
   componentWillReceiveProps(nextProps) {
     if(this.props.confirm.isVisible === true) {
       if(nextProps.confirm.result === 'yes') {
@@ -179,6 +190,12 @@ class BookViewer extends Component {
         this.scrollTo(currentProgress.percentage)
       }
     }
+
+    if(nextProps.book.pages && !this.props.book.pages ) {
+      this.setState({
+        pagesLoaded: true
+      })
+    }
   }
 
   componentDidMount() {
@@ -186,11 +203,15 @@ class BookViewer extends Component {
     const bookId = this.bookId
 
     actions.fetchUserAuthInfo()
-    actions.fetchBookInfo(bookId, `books/${this.bookId}`).then(getState => {
-      this.prepareBook(bookId, Object.assign({}, { actions }, getState()), getView())
-    })
+    actions.fetchBookInfo(bookId)
+    // this.prepareBook(bookId, Object.assign({}, { actions }, this.props, getView()))
+    this.prepareBook(bookId, this.props, getView())
 
     this.addEventListeners()
+
+    if(this.state.pagesLoaded) {
+      console.log('yes they did');
+    }
   }
 
   componentWillUnmount() {
@@ -203,6 +224,10 @@ class BookViewer extends Component {
     let pagesToRender = []
     let view = this.props.view
     let height = pages?pages.length * view.pageHeight:'100%'
+
+    if(this.state.scrollTop > 500) {
+      // this.props.actions.showConfirm('是否跳转到最新进度？')
+    }
 
     if(book.isPagesLoaded) {
       let currentPage = book.currentPage

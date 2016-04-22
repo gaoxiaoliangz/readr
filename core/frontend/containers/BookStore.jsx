@@ -2,22 +2,24 @@ import React, { Component } from 'react'
 import { Appbar, Button, Container } from 'muicss/react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-
 import { fetchUserAuthInfo, fetchBookList } from 'actions'
-
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
 import BookList from 'components/BookList'
 
-
 class BookStore extends Component {
+
+  static fetchData({store}) {
+    return [store.dispatch(fetchBookList()), store.dispatch(fetchUserAuthInfo())]
+  }
+
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
     this.props.fetchUserAuthInfo()
-    this.props.fetchBookList('books')
+    this.props.fetchBookList()
   }
 
   render() {

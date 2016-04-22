@@ -1,7 +1,18 @@
 import { promisedCallApi } from 'actions'
 import { API_DOUBAN_BOOKS } from 'constants/APIS'
 
-export function fetchBookList(endpoint) {
+
+export function fetchBookList() {
+  return {
+    CALL_API: {
+      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
+      endpoint: 'books'
+    }
+  }
+}
+
+// TODO
+export function fetchBookList00(endpoint) {
   return promisedCallApi({
     types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
     endpoint
@@ -31,7 +42,17 @@ export function fetchBookContent(bookId, endpoint) {
 }
 
 
-export function fetchBookInfo(bookId, endpoint) {
+export function fetchBookInfo(bookId) {
+  return {
+    CALL_API:{
+      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
+      endpoint: `books/${bookId}`
+    }
+  }
+}
+
+// TODO
+export function fetchBookInfo00(bookId, endpoint) {
   return promisedCallApi({
     types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
     endpoint
