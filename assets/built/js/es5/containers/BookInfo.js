@@ -18,6 +18,10 @@ var _reactRedux = require('react-redux');
 
 var _actions = require('actions');
 
+var _Loading = require('components/Loading');
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
@@ -65,11 +69,12 @@ var BookInfo = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var bookInfo = this.props.bookInfo ? this.props.bookInfo : {};
+      var bookInfo = this.props.book.meta ? this.props.book.meta : {};
 
       return _react2.default.createElement(
         'div',
         { className: 'page-book-info' },
+        this.props.book.isFetchingInfo ? _react2.default.createElement(_Loading2.default, null) : null,
         _react2.default.createElement(_Branding2.default, { user: this.props.user }),
         _react2.default.createElement(
           _react3.Container,
@@ -167,7 +172,7 @@ var BookInfo = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    bookInfo: state.book.meta,
+    book: state.book,
     user: state.user
   };
 }, { fetchBookInfo: _actions.fetchBookInfo, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookInfo);

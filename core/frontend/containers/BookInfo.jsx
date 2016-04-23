@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { Appbar, Button, Container } from 'muicss/react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-
 import { fetchUserAuthInfo, fetchBookInfo } from 'actions'
-
+import Loading from 'components/Loading'
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
 
@@ -25,10 +24,15 @@ class BookInfo extends Component {
   }
 
   render() {
-    let bookInfo = this.props.bookInfo?this.props.bookInfo:{}
+    let bookInfo = this.props.book.meta?this.props.book.meta:{}
 
     return (
       <div className="page-book-info">
+        {
+          this.props.book.isFetchingInfo?(
+            <Loading />
+          ):null
+        }
         <Branding user={this.props.user} />
         <Container>
           <article className="book-info content-container">
@@ -81,7 +85,7 @@ class BookInfo extends Component {
 
 export default connect(
   state =>({
-    bookInfo: state.book.meta,
+    book: state.book,
     user: state.user
   }),
   { fetchBookInfo, fetchUserAuthInfo }

@@ -6,6 +6,7 @@ import { fetchUserAuthInfo, fetchBookList } from 'actions'
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
 import BookList from 'components/BookList'
+import Loading from 'components/Loading'
 
 class BookStore extends Component {
 
@@ -25,8 +26,13 @@ class BookStore extends Component {
   render() {
     return (
       <div className="page-book-store">
+        {
+          this.props.book.isFetchingList?(
+            <Loading />
+          ):null
+        }
         <Branding user={this.props.user} />
-        <BookList bookList={this.props.bookList} />
+        <BookList bookList={this.props.book.bookList} />
         <Colophon />
       </div>
     )
@@ -36,7 +42,7 @@ class BookStore extends Component {
 
 export default connect(
   state => ({
-    bookList: state.book.bookList,
+    book: state.book,
     user: state.user
   }),
   { fetchBookList, fetchUserAuthInfo }

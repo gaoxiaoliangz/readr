@@ -26,6 +26,7 @@ exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createEleme
     toggleVisibilityKey: 'ctrl-h',
     changePositionKey: 'ctrl-p',
     defaultPosition: 'bottom',
-    defaultIsVisible: false },
+    defaultIsVisible: false,
+    defaultSize: 0.5 },
   _react2.default.createElement(_reduxDevtoolsLogMonitor2.default, null)
 ));

@@ -1,20 +1,22 @@
 # tracking
-
-
+- 添加了 react 动画
+- 服务端渲染现在能获取异步数据后输出相应 dom
+- 添加了页面加载图标
+- node 更新至 5.11.0, npm 更新至 3.8.6, react, react-dom, webpack 等 package 更新至最新版
 
 ##bugs
 - windows 下字体问题
 
 ## todo list
-- react 动画
 - 进度跳转
 
 - remove promisedApi calls
 - map scrollTop to state
 
+- callapi 补全 url
+
 
 ### 添加 API
-- 删除书籍
 - 修改用户资料
 - 重置密码
 - 发送邮件
@@ -28,7 +30,6 @@
 
 ### 优化
 - 添加前后端数据验证
-- API 添加权限控制模块
 - 路由添加权限判断
 - 使用 hash 作为文件名
 

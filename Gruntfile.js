@@ -33,11 +33,7 @@ module.exports = function(grunt) {
     },
     webpack: {
     	build: {
-        options: {
-          sourceMap: false,
-          babelrc: false,
-          presets: ['react', 'es2015']
-        },
+        devtool: 'source-map',
         entry: {
           index: ['<%=path.src%>/js/index'],
           // 'vendor': ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'lodash', 'muicss/react', 'redux-thunk', 'immutable']

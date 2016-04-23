@@ -29,9 +29,9 @@ export function callApi(fullUrl, type, data) {
     }
   }
 
-  if(fullUrl.indexOf('http') !== -1) {
-    config = {}
-  }
+  // if(fullUrl.indexOf('http') !== -1) {
+  //   config = {}
+  // }
 
   // use jsonp
   if(fullUrl.indexOf('douban') !== -1) {
@@ -54,18 +54,21 @@ export function callApi(fullUrl, type, data) {
     return Promise.resolve(window.__jsonp_data__)
   }
 
-  if(fullUrl.indexOf('http') === -1) {
-    // if(typeof document === 'undefined') {
-    //
-    // } else {
-    //   fullUrl = document.location.host + fullUrl
-    // }
-    fullUrl = 'http://localhost:3000' + fullUrl
-  }
+  // if(fullUrl.indexOf('http') === -1) {
+  //   // if(typeof document === 'undefined') {
+  //   //
+  //   // } else {
+  //   //   fullUrl = document.location.host + fullUrl
+  //   // }
+  //   fullUrl = 'http://localhost:3000' + fullUrl
+  //
+  //   // if(typeof window === 'undefined') {
+  //   //   fullUrl = 'http://read'
+  //   // }
+  // }
 
   return fetch(fullUrl, config)
     .then(response => {
-      // console.log(response)
       let josn = response.json()
 
       if(response.ok) {

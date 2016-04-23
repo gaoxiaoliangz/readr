@@ -30,6 +30,10 @@ var _BookList = require('components/BookList');
 
 var _BookList2 = _interopRequireDefault(_BookList);
 
+var _Loading = require('components/Loading');
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68,8 +72,9 @@ var BookStore = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-book-store' },
+        this.props.book.isFetchingList ? _react2.default.createElement(_Loading2.default, null) : null,
         _react2.default.createElement(_Branding2.default, { user: this.props.user }),
-        _react2.default.createElement(_BookList2.default, { bookList: this.props.bookList }),
+        _react2.default.createElement(_BookList2.default, { bookList: this.props.book.bookList }),
         _react2.default.createElement(_Colophon2.default, null)
       );
     }
@@ -80,7 +85,7 @@ var BookStore = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    bookList: state.book.bookList,
+    book: state.book,
     user: state.user
   };
 }, { fetchBookList: _actions.fetchBookList, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookStore);

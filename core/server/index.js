@@ -1,22 +1,22 @@
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+// process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
-var express = require('express')
-var path = require('path')
-var morgan = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var session = require('express-session')
-var MongoStore = require('connect-mongo')(session)
-var colors = require('colors/safe')
+const express = require('express')
+const path = require('path')
+const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const colors = require('colors/safe')
 
-var routes = require('./routes')
-var bootServer = require('./boot')
-var config = require('./config')
-var startWebpack = require('./webpack')
+const routes = require('./routes')
+const bootServer = require('./boot')
+const config = require('./config')
+const startWebpack = require('./webpack')
 
-var app = express()
-var isWebpackEnabled = process.argv.indexOf('--webpack') !== -1?true:false
-var env = app.get('env')
+const app = express()
+const isWebpackEnabled = process.argv.indexOf('--webpack') !== -1?true:false
+const env = app.get('env')
 
 function init(basePath) {
   app.use(session({

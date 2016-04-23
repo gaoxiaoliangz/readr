@@ -5,11 +5,9 @@ import { bindActionCreators } from 'redux'
 import Immutable from 'immutable'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import _ from 'lodash'
-
 import { initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, callApi } from 'utils'
 import * as actions from 'actions'
 import { API_ROOT } from 'constants/APIS'
-
 import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
 import Confirm from 'components/Confirm'
