@@ -1,8 +1,5 @@
 # tracking
-- 添加了 react 动画
-- 服务端渲染现在能获取异步数据后输出相应 dom
-- 添加了页面加载图标
-- node 更新至 5.11.0, npm 更新至 3.8.6, react, react-dom, webpack 等 package 更新至最新版
+
 
 ##bugs
 - windows 下字体问题
@@ -83,4 +80,10 @@
 - 从 chunk 分离了 polyfill(babel-polyfill, fetch)
 - 移除了 babelrc: false 选项，定义了 hmr babel 环境
 - 移除了 jQuery，使用 fetch，和定制的 jsonp
-- 配置了 webpack，生产环境不输出 dev tools
+- 修改了 webpack 配置，生产环境不输出 dev tools
+
+### v0.3.3
+- 添加了 react 动画
+- 服务端渲染现在能获取异步数据后输出相应 dom
+- 添加了页面加载图标
+- node 更新至 5.11.0, npm 更新至 3.8.6, react, react-dom, webpack 等 package 更新至最新版
