@@ -7,8 +7,9 @@ import { checkAuthStatus, callApi } from 'utils'
 class Branding extends Component {
   render() {
     let user = this.props.user
-    let isAdmin = this.props.isAdmin?isAdmin:'false'
+    let isAdmin = this.props.isAdmin?this.props.isAdmin:'false'
 
+    console.log(isAdmin)
     return (
       <Appbar className="branding">
         <Container>
@@ -20,8 +21,8 @@ class Branding extends Component {
               user.authed?(
                 <ul className={"right mui-list--inline mui--text-body2"}>
                   {
-                    isAdmin?(
-                      <li><a href="/console">Admin console</a></li>
+                    isAdmin === true?(
+                      <li><a href="/console">Console</a></li>
                     ):null
                   }
                   <li><Link to={`/profile/${user.username}`}>{user.username}</Link></li>

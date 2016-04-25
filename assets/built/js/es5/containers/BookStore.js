@@ -69,11 +69,13 @@ var BookStore = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
+
       return _react2.default.createElement(
         'div',
         { className: 'page-book-store' },
         this.props.book.isFetchingList ? _react2.default.createElement(_Loading2.default, null) : null,
-        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
+        _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, user: this.props.user }),
         _react2.default.createElement(_BookList2.default, { bookList: this.props.book.bookList }),
         _react2.default.createElement(_Colophon2.default, null)
       );

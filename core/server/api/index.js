@@ -8,7 +8,7 @@ const auth = require('./auth')
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
 
-// 参考 ghost /server/api/index.js
+// referenced ghost /server/api/index.js
 const http = function http(apiMethod) {
   return function apiHandler(req, res, next) {
     // We define 2 properties for using as arguments in API calls:

@@ -25,7 +25,6 @@ function requireAdminPermission(nextState, replace) {
   }
 }
 
-
 export default (
   <Router path="/" component={App}>
     <IndexRoute component={BookStore} onEnter={handleEnter.bind(this)} />

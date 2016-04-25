@@ -24,6 +24,8 @@ class BookStore extends Component {
   }
 
   render() {
+    let isAdmin = this.props.user.role?(this.props.user.role === 'admin'?true:false):false
+    
     return (
       <div className="page-book-store">
         {
@@ -31,7 +33,7 @@ class BookStore extends Component {
             <Loading />
           ):null
         }
-        <Branding user={this.props.user} />
+        <Branding isAdmin={isAdmin} user={this.props.user} />
         <BookList bookList={this.props.book.bookList} />
         <Colophon />
       </div>

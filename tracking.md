@@ -1,5 +1,6 @@
 # tracking
-- 添加了后台管理页面
+
+
 
 ##bugs
 - windows 下字体问题
@@ -10,6 +11,7 @@
 - map scrollTop to state
 - 修改主题
 - 修改字体大小
+- 页面错误处理 500，404
 
 ### 添加 API
 - 修改用户资料
@@ -83,3 +85,6 @@
 - 服务端渲染现在能获取异步数据后输出相应 dom
 - 添加了页面加载图标
 - node 更新至 5.11.0, npm 更新至 3.8.6, react, react-dom, webpack 等 package 更新至最新版
+
+### v0.3.4
+- 添加了后台管理页面

@@ -31408,8 +31408,9 @@
 	    key: 'render',
 	    value: function render() {
 	      var user = this.props.user;
-	      var isAdmin = this.props.isAdmin ? isAdmin : 'false';
+	      var isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false';
 	
+	      console.log(isAdmin);
 	      return _react2.default.createElement(
 	        _react3.Appbar,
 	        { className: 'branding' },
@@ -31431,13 +31432,13 @@
 	            user.authed ? _react2.default.createElement(
 	              'ul',
 	              { className: "right mui-list--inline mui--text-body2" },
-	              isAdmin ? _react2.default.createElement(
+	              isAdmin === true ? _react2.default.createElement(
 	                'li',
 	                null,
 	                _react2.default.createElement(
 	                  'a',
 	                  { href: '/console' },
-	                  'Admin console'
+	                  'Console'
 	                )
 	              ) : null,
 	              _react2.default.createElement(
@@ -47452,29 +47453,13 @@
 	  function ManageBooks(props) {
 	    _classCallCheck(this, ManageBooks);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ManageBooks).call(this, props));
-	
-	    _this.state = {
-	      open: false
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ManageBooks).call(this, props));
 	  }
 	
 	  _createClass(ManageBooks, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.props.fetchBookList();
-	    }
-	  }, {
-	    key: 'handleOpen',
-	    value: function handleOpen() {
-	      this.setState({ open: true });
-	      console.log(34);
-	    }
-	  }, {
-	    key: 'handleClose',
-	    value: function handleClose() {
-	      this.setState({ open: false });
 	    }
 	  }, {
 	    key: 'render',

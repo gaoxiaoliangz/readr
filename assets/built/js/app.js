@@ -26597,8 +26597,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// import Template from 'containers/Template'
-	// import ManageBooks from 'containers/ManageBooks'
-	// import ManageUsers from 'containers/ManageUsers'
 	
 	function handleEnter(a, b) {
 	  // console.log(a);
@@ -37721,11 +37719,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'page-book-store' },
 	        this.props.book.isFetchingList ? _react2.default.createElement(_Loading2.default, null) : null,
-	        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
+	        _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, user: this.props.user }),
 	        _react2.default.createElement(_BookList2.default, { bookList: this.props.book.bookList }),
 	        _react2.default.createElement(_Colophon2.default, null)
 	      );
@@ -37785,8 +37785,9 @@
 	    key: 'render',
 	    value: function render() {
 	      var user = this.props.user;
-	      var isAdmin = this.props.isAdmin ? isAdmin : 'false';
+	      var isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false';
 	
+	      console.log(isAdmin);
 	      return _react2.default.createElement(
 	        _react3.Appbar,
 	        { className: 'branding' },
@@ -37808,13 +37809,13 @@
 	            user.authed ? _react2.default.createElement(
 	              'ul',
 	              { className: "right mui-list--inline mui--text-body2" },
-	              isAdmin ? _react2.default.createElement(
+	              isAdmin === true ? _react2.default.createElement(
 	                'li',
 	                null,
 	                _react2.default.createElement(
 	                  'a',
 	                  { href: '/console' },
-	                  'Admin console'
+	                  'Console'
 	                )
 	              ) : null,
 	              _react2.default.createElement(
