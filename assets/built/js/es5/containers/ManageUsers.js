@@ -10,11 +10,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = require('react-router');
+var _reactRedux = require('react-redux');
 
-var _react3 = require('muicss/react');
+var _actions = require('actions');
 
-var _utils = require('utils');
+var _lib = require('material-ui/lib');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,102 +24,87 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Branding = function (_Component) {
-  _inherits(Branding, _Component);
+var ManageBooks = function (_Component) {
+  _inherits(ManageBooks, _Component);
 
-  function Branding() {
-    _classCallCheck(this, Branding);
+  function ManageBooks(props) {
+    _classCallCheck(this, ManageBooks);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Branding).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ManageBooks).call(this, props));
   }
 
-  _createClass(Branding, [{
+  _createClass(ManageBooks, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchUserList();
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var user = this.props.user;
-      var isAdmin = this.props.isAdmin ? isAdmin : 'false';
-
       return _react2.default.createElement(
-        _react3.Appbar,
-        { className: 'branding' },
+        _lib.Paper,
+        { zDepth: 1 },
         _react2.default.createElement(
-          _react3.Container,
+          _lib.Table,
           null,
           _react2.default.createElement(
-            'div',
+            _lib.TableHeader,
             null,
             _react2.default.createElement(
-              'h1',
-              { className: 'logo left' },
+              _lib.TableRow,
+              null,
               _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/' },
-                'readr'
-              )
-            ),
-            user.authed ? _react2.default.createElement(
-              'ul',
-              { className: "right mui-list--inline mui--text-body2" },
-              isAdmin ? _react2.default.createElement(
-                'li',
+                _lib.TableHeaderColumn,
                 null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '/console' },
-                  'Admin console'
-                )
-              ) : null,
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/profile/' + user.username },
-                  user.username
-                )
+                'ID'
               ),
               _react2.default.createElement(
-                'li',
+                _lib.TableHeaderColumn,
                 null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '/logout' },
-                  '退出'
-                )
-              )
-            ) : _react2.default.createElement(
-              'ul',
-              { className: "right mui-list--inline mui--text-body2" },
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/signin' },
-                  '登录'
-                )
+                'Username'
               ),
               _react2.default.createElement(
-                'li',
+                _lib.TableHeaderColumn,
                 null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/signup' },
-                  '注册'
-                )
+                'Date created'
               )
             )
+          ),
+          _react2.default.createElement(
+            _lib.TableBody,
+            null,
+            this.props.user.userList ? this.props.user.userList.map(function (user, index) {
+              return _react2.default.createElement(
+                _lib.TableRow,
+                { key: index },
+                _react2.default.createElement(
+                  _lib.TableRowColumn,
+                  null,
+                  user.id
+                ),
+                _react2.default.createElement(
+                  _lib.TableRowColumn,
+                  null,
+                  user.username
+                ),
+                _react2.default.createElement(
+                  _lib.TableRowColumn,
+                  null,
+                  user.date_created
+                )
+              );
+            }) : null
           )
         )
       );
     }
   }]);
 
-  return Branding;
+  return ManageBooks;
 }(_react.Component);
 
-Branding.propTypes = {
-  // user: React.PropTypes.object.isRequired
-};
-
-exports.default = Branding;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    user: state.user
+  };
+}, { fetchUserList: _actions.fetchUserList })(ManageBooks);

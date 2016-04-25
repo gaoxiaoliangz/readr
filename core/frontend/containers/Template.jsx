@@ -7,6 +7,11 @@ import Branding from 'components/Branding'
 import { fetchUserAuthInfo, handleNotification } from 'actions'
 import { callApi } from 'utils'
 import { API_ROOT } from 'constants/APIS'
+import LeftNav from 'material-ui/lib/left-nav'
+import MenuItem from 'material-ui/lib/menus/menu-item'
+import RaisedButton from 'material-ui/lib/raised-button'
+import AppBar from 'material-ui/lib/app-bar'
+
 
 class Template extends Component {
 
@@ -15,10 +20,32 @@ class Template extends Component {
   }
 
   render() {
+    const spanStyle = {color: "white", marginTop: 12, marginRight: 20, fontSize: "16px", display: "inline-block"}
+
     return (
       <div className="page-home">
-        <Branding user={this.props.user} />
-        <Container>
+        <AppBar
+          title={"readr console"}
+          zDepth={0}
+          style={{position: "fixed", top: 0, zIndex: 9999, background: "black"}}
+          iconElementRight={
+            <div>
+              <span style={spanStyle}>Admin</span>
+              <span style={spanStyle}><a href="/">Back to readr</a></span>
+            </div>
+          }
+          iconElementLeft={<div></div>}
+        />
+
+        <LeftNav docked={true} open={true} style={{zIndex: 9990, top: 64}}>
+          <Link to="/console/books"><MenuItem>Books</MenuItem></Link>
+          <Link to="/console/users"><MenuItem>Users</MenuItem></Link>
+          <MenuItem>Database</MenuItem>
+          <MenuItem>BookLists</MenuItem>
+          <MenuItem>Statistics</MenuItem>
+        </LeftNav>
+
+        <Container style={{width: "100%", paddingLeft: "276px", paddingTop: 84, paddingBottom: 30, paddingRight: 30, boxSizing: "border-box"}}>
           {this.props.children}
         </Container>
       </div>

@@ -23,6 +23,17 @@ function book(state, action) {
         role: action.response.authed ? action.response.user.role : 'visitor'
       });
 
+    case 'USER_LIST_REQUEST':
+      return Object.assign({}, state, {
+        isFetchingList: true
+      });
+
+    case 'USER_LIST_SUCCESS':
+      return Object.assign({}, state, {
+        isFetchingList: false,
+        userList: action.response
+      });
+
     default:
       return state;
   }

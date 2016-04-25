@@ -4,7 +4,8 @@ var hot = 'webpack-hot-middleware/client'
 
 module.exports = {
   entry: {
-    index: [hot, './src/js/index']
+    app: [hot, './src/js/app.dev'],
+    console: [hot, './src/js/console.dev']
   },
   output: {
     path: path.join(__dirname, 'assets/built/js'),
@@ -16,7 +17,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"'
-    }),
+    })
   ],
   devtool: 'source-map',
   module: {
@@ -43,4 +44,4 @@ module.exports = {
   externals: {
     'lodash': '_'
   }
-};
+}

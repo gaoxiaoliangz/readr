@@ -34,10 +34,6 @@ var _Signup = require('containers/Signup');
 
 var _Signup2 = _interopRequireDefault(_Signup);
 
-var _AddBook = require('containers/AddBook');
-
-var _AddBook2 = _interopRequireDefault(_AddBook);
-
 var _BookInfo = require('containers/BookInfo');
 
 var _BookInfo2 = _interopRequireDefault(_BookInfo);
@@ -45,8 +41,6 @@ var _BookInfo2 = _interopRequireDefault(_BookInfo);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import Template from 'containers/Template'
-// import ManageBooks from 'containers/ManageBooks'
-// import ManageUsers from 'containers/ManageUsers'
 
 function handleEnter(a, b) {
   // console.log(a);

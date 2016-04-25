@@ -29,6 +29,7 @@ export function callApi(fullUrl, type, data) {
     }
   }
 
+  // access public apis without credentials
   // if(fullUrl.indexOf('http') !== -1) {
   //   config = {}
   // }
@@ -53,19 +54,6 @@ export function callApi(fullUrl, type, data) {
 
     return Promise.resolve(window.__jsonp_data__)
   }
-
-  // if(fullUrl.indexOf('http') === -1) {
-  //   // if(typeof document === 'undefined') {
-  //   //
-  //   // } else {
-  //   //   fullUrl = document.location.host + fullUrl
-  //   // }
-  //   fullUrl = 'http://localhost:3000' + fullUrl
-  //
-  //   // if(typeof window === 'undefined') {
-  //   //   fullUrl = 'http://read'
-  //   // }
-  // }
 
   return fetch(fullUrl, config)
     .then(response => {

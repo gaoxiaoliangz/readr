@@ -18,8 +18,6 @@ var _routes2 = _interopRequireDefault(_routes);
 
 var _reactRouter = require('react-router');
 
-var _utils = require('utils');
-
 var _DevTools = require('containers/DevTools');
 
 var _DevTools2 = _interopRequireDefault(_DevTools);

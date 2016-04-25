@@ -7,6 +7,7 @@ import { checkAuthStatus, callApi } from 'utils'
 class Branding extends Component {
   render() {
     let user = this.props.user
+    let isAdmin = this.props.isAdmin?isAdmin:'false'
 
     return (
       <Appbar className="branding">
@@ -17,21 +18,26 @@ class Branding extends Component {
             </h1>
             {
               user.authed?(
-                  <ul className={"right mui-list--inline mui--text-body2"}>
-                    <li><Link to={`/profile/${user.username}`}>{user.username}</Link></li>
-                    <li><a href='/logout'>退出</a></li>
-                  </ul>
-                ):(
-                  <ul className={"right mui-list--inline mui--text-body2"}>
-                    <li>
-                      <Link to="/signin">登录</Link>
-                    </li>
-                    <li>
-                      <Link to="/signup">注册</Link>
-                    </li>
-                  </ul>
-                )
-              }
+                <ul className={"right mui-list--inline mui--text-body2"}>
+                  {
+                    isAdmin?(
+                      <li><a href="/console">Admin console</a></li>
+                    ):null
+                  }
+                  <li><Link to={`/profile/${user.username}`}>{user.username}</Link></li>
+                  <li><a href='/logout'>退出</a></li>
+                </ul>
+              ):(
+                <ul className={"right mui-list--inline mui--text-body2"}>
+                  <li>
+                    <Link to="/signin">登录</Link>
+                  </li>
+                  <li>
+                    <Link to="/signup">注册</Link>
+                  </li>
+                </ul>
+              )
+            }
           </div>
         </Container>
       </Appbar>
@@ -40,7 +46,7 @@ class Branding extends Component {
 }
 
 Branding.propTypes = {
-  user: React.PropTypes.object.isRequired
+  // user: React.PropTypes.object.isRequired
 }
 
 export default Branding

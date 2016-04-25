@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production nodemon index",
-    "dev": "BABEL_ENV=hmr node index --webpack"
+    "dev": "BABEL_ENV=hmr node index --webpack & grunt watch:sass & grunt watch:babel",
+    "dev-server": "nodemon index & grunt watch:sass & grunt watch:babel"
   },
   "dependencies": {
     "app-module-path": "^1.0.6",
@@ -22,6 +23,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jade": "~1.11.0",
     "lodash": "^3.10.1",
+    "material-ui": "^0.14.4",
     "mongodb": "^2.1.2",
     "mongoose": "^4.3.5",
     "morgan": "~1.6.1",

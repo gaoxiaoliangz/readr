@@ -7,10 +7,8 @@ import BookViewer from 'containers/BookViewer'
 import BookStore from 'containers/BookStore'
 import Signin from 'containers/Signin'
 import Signup from 'containers/Signup'
-import AddBook from 'containers/AddBook'
 import BookInfo from 'containers/BookInfo'
-import Template from 'containers/Template'
-import ManageBooks from 'containers/ManageBooks'
+// import Template from 'containers/Template'
 
 
 function handleEnter(a, b) {
@@ -30,16 +28,11 @@ function requireAdminPermission(nextState, replace) {
 
 export default (
   <Router path="/" component={App}>
-    <IndexRoute component={BookStore} onEnter={handleEnter.bind(this)}/>
-    <Route path="/template" component={Template}/>
-    <Route path="/bookstore" component={BookStore}/>
-    <Route path="signin" component={Signin}/>
-    <Route path="Signup" component={Signup}/>
-    <Route path="addbook" component={AddBook}/>
-    <Route path="bookstore/book/:id" component={BookInfo}/>
-    <Route path="book/:id" component={BookViewer}/>
-    <Router path="/admin" component={Template} haha="yessss">
-      <Route path="books" component={ManageBooks} fuck="you" onEnter={requireAdminPermission}/>
-    </Router>
+    <IndexRoute component={BookStore} onEnter={handleEnter.bind(this)} />
+    <Route path="/bookstore" component={BookStore} />
+    <Route path="signin" component={Signin} />
+    <Route path="Signup" component={Signup} />
+    <Route path="bookstore/book/:id" component={BookInfo} />
+    <Route path="book/:id" component={BookViewer} />
   </Router>
 )

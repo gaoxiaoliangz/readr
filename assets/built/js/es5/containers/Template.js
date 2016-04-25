@@ -26,6 +26,22 @@ var _utils = require('utils');
 
 var _APIS = require('constants/APIS');
 
+var _leftNav = require('material-ui/lib/left-nav');
+
+var _leftNav2 = _interopRequireDefault(_leftNav);
+
+var _menuItem = require('material-ui/lib/menus/menu-item');
+
+var _menuItem2 = _interopRequireDefault(_menuItem);
+
+var _raisedButton = require('material-ui/lib/raised-button');
+
+var _raisedButton2 = _interopRequireDefault(_raisedButton);
+
+var _appBar = require('material-ui/lib/app-bar');
+
+var _appBar2 = _interopRequireDefault(_appBar);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51,13 +67,75 @@ var Template = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var spanStyle = { color: "white", marginTop: 12, marginRight: 20, fontSize: "16px", display: "inline-block" };
+
       return _react2.default.createElement(
         'div',
         { className: 'page-home' },
-        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
+        _react2.default.createElement(_appBar2.default, {
+          title: "readr console",
+          zDepth: 0,
+          style: { position: "fixed", top: 0, zIndex: 9999, background: "black" },
+          iconElementRight: _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'span',
+              { style: spanStyle },
+              'Admin'
+            ),
+            _react2.default.createElement(
+              'span',
+              { style: spanStyle },
+              _react2.default.createElement(
+                'a',
+                { href: '/' },
+                'Back to readr'
+              )
+            )
+          ),
+          iconElementLeft: _react2.default.createElement('div', null)
+        }),
+        _react2.default.createElement(
+          _leftNav2.default,
+          { docked: true, open: true, style: { zIndex: 9990, top: 64 } },
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/console/books' },
+            _react2.default.createElement(
+              _menuItem2.default,
+              null,
+              'Books'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/console/users' },
+            _react2.default.createElement(
+              _menuItem2.default,
+              null,
+              'Users'
+            )
+          ),
+          _react2.default.createElement(
+            _menuItem2.default,
+            null,
+            'Database'
+          ),
+          _react2.default.createElement(
+            _menuItem2.default,
+            null,
+            'BookLists'
+          ),
+          _react2.default.createElement(
+            _menuItem2.default,
+            null,
+            'Statistics'
+          )
+        ),
         _react2.default.createElement(
           _react3.Container,
-          null,
+          { style: { width: "100%", paddingLeft: "276px", paddingTop: 84, paddingBottom: 30, paddingRight: 30, boxSizing: "border-box" } },
           this.props.children
         )
       );

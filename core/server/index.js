@@ -1,5 +1,3 @@
-// process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-
 const express = require('express')
 const path = require('path')
 const morgan = require('morgan')
@@ -8,12 +6,10 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const colors = require('colors/safe')
-
 const routes = require('./routes')
 const bootServer = require('./boot')
 const config = require('./config')
 const startWebpack = require('./webpack')
-
 const app = express()
 const isWebpackEnabled = process.argv.indexOf('--webpack') !== -1?true:false
 const env = app.get('env')
@@ -37,7 +33,6 @@ function init(basePath) {
   app.use(bodyParser.urlencoded({limit: '5mb', extended: false}))
   app.use(bodyParser.json({limit: '5mb'}))
   app.use(cookieParser())
-
   app.set('views', path.join(basePath, 'views'))
   app.set('view engine', 'jade')
   app.use(express.static(path.join(basePath, 'assets')))
@@ -47,10 +42,8 @@ function init(basePath) {
 
   if(env === 'production') {
     app.get("*", routes.frontend(env, true, true))
-  }else if(env === 'development') {
-    app.get("*", routes.frontend(env, true, true))
   }else{
-    console.error('env is neither development nor production!')
+    app.get("*", routes.frontend(env, true, false))
   }
 
   // error log info

@@ -1,17 +1,15 @@
 # tracking
-
+- 添加了后台管理页面
 
 ##bugs
 - windows 下字体问题
 
 ## todo list
 - 进度跳转
-
 - remove promisedApi calls
 - map scrollTop to state
-
-- callapi 补全 url
-
+- 修改主题
+- 修改字体大小
 
 ### 添加 API
 - 修改用户资料
@@ -23,7 +21,6 @@
 - 收藏书籍
 - 获取收藏
 - 移除收藏
-
 
 ### 优化
 - 添加前后端数据验证
@@ -40,7 +37,6 @@
 
 ### 用户体验
 - "在豆瓣查看" 和阅读按钮距离太近
-- 页面添加加载图标
 - addbook 添加完成后提示不自动消失，内容清除
 
 

@@ -75,6 +75,7 @@ function callApi(fullUrl, type, data) {
     };
   }
 
+  // access public apis without credentials
   // if(fullUrl.indexOf('http') !== -1) {
   //   config = {}
   // }
@@ -105,19 +106,6 @@ function callApi(fullUrl, type, data) {
 
     if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
   }
-
-  // if(fullUrl.indexOf('http') === -1) {
-  //   // if(typeof document === 'undefined') {
-  //   //
-  //   // } else {
-  //   //   fullUrl = document.location.host + fullUrl
-  //   // }
-  //   fullUrl = 'http://localhost:3000' + fullUrl
-  //
-  //   // if(typeof window === 'undefined') {
-  //   //   fullUrl = 'http://read'
-  //   // }
-  // }
 
   return fetch(fullUrl, config).then(function (response) {
     var josn = response.json();

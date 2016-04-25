@@ -20,7 +20,9 @@ module.exports = function(grunt) {
     babel: {
       es5: {
         options: {
-          sourceMap: false
+          sourceMap: false,
+          babelrc: false,
+          presets: ['react', 'es2015']
         },
         files: [{
           "expand": true,
@@ -35,7 +37,8 @@ module.exports = function(grunt) {
     	build: {
         devtool: 'source-map',
         entry: {
-          index: ['<%=path.src%>/js/index'],
+          app: ['<%=path.src%>/js/app'],
+          console: ['<%=path.src%>/js/console']
           // 'vendor': ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'lodash', 'muicss/react', 'redux-thunk', 'immutable']
         },
         output: {
@@ -120,7 +123,7 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      styles: {
+      sass: {
         files: ['<%=path.src%>/scss/**/*.scss'],
         tasks: ['sass'],
         options: {
