@@ -1,15 +1,23 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+// var NoMatch = React.createClass({
+//   componentDidMount: function(){
+//   },
+//   handleClick: function(){
+//   },
+//   render: function(){
+//     return (
+//       <h2>404</h2>
+//     )
+//   }
+// })
 
-var NoMatch = React.createClass({
-  componentDidMount: function(){
-  },
-  handleClick: function(){
-  },
-  render: function(){
+class NoMatch extends Component {
+
+  render() {
     return (
-      <h2>404</h2>
+      <h1>404</h1>
     )
   }
-})
+}
 
 export default NoMatch

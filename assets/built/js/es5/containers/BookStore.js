@@ -18,14 +18,6 @@ var _reactRouter = require('react-router');
 
 var _actions = require('actions');
 
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _Colophon = require('components/Colophon');
-
-var _Colophon2 = _interopRequireDefault(_Colophon);
-
 var _BookList = require('components/BookList');
 
 var _BookList2 = _interopRequireDefault(_BookList);
@@ -50,7 +42,7 @@ var BookStore = function (_Component) {
     value: function fetchData(_ref) {
       var store = _ref.store;
 
-      return [store.dispatch((0, _actions.fetchBookList)()), store.dispatch((0, _actions.fetchUserAuthInfo)())];
+      return store.dispatch((0, _actions.fetchBookList)());
     }
   }]);
 
@@ -63,21 +55,16 @@ var BookStore = function (_Component) {
   _createClass(BookStore, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
       this.props.fetchBookList();
     }
   }, {
     key: 'render',
     value: function render() {
-      var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
-
       return _react2.default.createElement(
         'div',
         { className: 'page-book-store' },
         this.props.book.isFetchingList ? _react2.default.createElement(_Loading2.default, null) : null,
-        _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, user: this.props.user }),
-        _react2.default.createElement(_BookList2.default, { bookList: this.props.book.bookList }),
-        _react2.default.createElement(_Colophon2.default, null)
+        _react2.default.createElement(_BookList2.default, { bookList: this.props.book.bookList })
       );
     }
   }]);
@@ -87,7 +74,6 @@ var BookStore = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    book: state.book,
-    user: state.user
+    book: state.book
   };
-}, { fetchBookList: _actions.fetchBookList, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookStore);
+}, { fetchBookList: _actions.fetchBookList })(BookStore);

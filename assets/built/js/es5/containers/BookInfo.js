@@ -72,97 +72,87 @@ var BookInfo = function (_Component) {
       var bookInfo = this.props.book.meta ? this.props.book.meta : {};
 
       return _react2.default.createElement(
-        'div',
-        { className: 'page-book-info' },
+        'article',
+        { className: 'book-info content-container' },
         this.props.book.isFetchingInfo ? _react2.default.createElement(_Loading2.default, null) : null,
-        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
         _react2.default.createElement(
-          _react3.Container,
-          null,
+          'header',
+          { className: 'book-info-header' },
           _react2.default.createElement(
-            'article',
-            { className: 'book-info content-container' },
+            'div',
+            { className: 'left-col' },
+            bookInfo.image ? _react2.default.createElement(
+              'div',
+              { className: 'book-cover' },
+              _react2.default.createElement('img', { src: bookInfo.image })
+            ) : null
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'right-col' },
             _react2.default.createElement(
-              'header',
-              { className: 'book-info-header' },
+              'h1',
+              { className: 'book-name' },
+              bookInfo.title
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'book-author' },
               _react2.default.createElement(
-                'div',
-                { className: 'left-col' },
-                bookInfo.image ? _react2.default.createElement(
-                  'div',
-                  { className: 'book-cover' },
-                  _react2.default.createElement('img', { src: bookInfo.image })
-                ) : null
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'right-col' },
-                _react2.default.createElement(
-                  'h1',
-                  { className: 'book-name' },
-                  bookInfo.title
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'book-author' },
-                  _react2.default.createElement(
-                    'strong',
-                    null,
-                    '作者：',
-                    bookInfo.author
-                  )
-                ),
-                bookInfo.title ? _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/book/' + bookInfo.id },
-                  _react2.default.createElement(
-                    _react3.Button,
-                    { color: 'primary' },
-                    '阅读'
-                  )
-                ) : null,
-                _react2.default.createElement(
-                  'p',
-                  null,
-                  _react2.default.createElement(
-                    'a',
-                    { target: '_blank', href: 'http://book.douban.com/subject/' + bookInfo.book_id },
-                    '在豆瓣查看'
-                  )
-                )
+                'strong',
+                null,
+                '作者：',
+                bookInfo.author
               )
             ),
-            bookInfo.author_intro ? _react2.default.createElement(
-              'div',
-              null,
+            bookInfo.title ? _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/viewer/book/' + bookInfo.id },
               _react2.default.createElement(
-                'h2',
-                null,
-                '作者简介'
-              ),
-              _react2.default.createElement(
-                'p',
-                null,
-                bookInfo.author_intro
+                _react3.Button,
+                { color: 'primary' },
+                '阅读'
               )
             ) : null,
-            bookInfo.summary ? _react2.default.createElement(
-              'div',
+            _react2.default.createElement(
+              'p',
               null,
               _react2.default.createElement(
-                'h2',
-                null,
-                '内容简介'
-              ),
-              _react2.default.createElement(
-                'p',
-                null,
-                bookInfo.summary
+                'a',
+                { target: '_blank', href: 'http://book.douban.com/subject/' + bookInfo.book_id },
+                '在豆瓣查看'
               )
-            ) : null
+            )
           )
         ),
-        _react2.default.createElement(_Colophon2.default, null)
+        bookInfo.author_intro ? _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            '作者简介'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            bookInfo.author_intro
+          )
+        ) : null,
+        bookInfo.summary ? _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            '内容简介'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            bookInfo.summary
+          )
+        ) : null
       );
     }
   }]);

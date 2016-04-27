@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,13 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _react3 = require('muicss/react');
-
-var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,51 +18,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Book = function (_Component) {
-  _inherits(Book, _Component);
+var Container = function (_Component) {
+  _inherits(Container, _Component);
 
-  function Book() {
-    _classCallCheck(this, Book);
+  function Container() {
+    _classCallCheck(this, Container);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Book).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Container).apply(this, arguments));
   }
 
-  _createClass(Book, [{
-    key: 'render',
+  _createClass(Container, [{
+    key: "render",
     value: function render() {
-      var book = this.props.book;
-
       return _react2.default.createElement(
-        'li',
-        { className: 'book' },
-        _react2.default.createElement(
-          _reactRouter.Link,
-          { to: "/book/" + this.props.id },
-          _react2.default.createElement(
-            'div',
-            { className: 'book-cover' },
-            _react2.default.createElement('img', { src: book.image })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'book-meta' },
-            _react2.default.createElement(
-              'span',
-              { title: book.title, className: 'book-name' },
-              book.title
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'book-author' },
-              Array.isArray(book.author) ? book.author.join(' ') : book.author
-            )
-          )
-        )
+        "div",
+        { className: "container" },
+        " "
       );
     }
   }]);
 
-  return Book;
+  return Container;
 }(_react.Component);
 
-exports.default = Book;
+exports.default = Container;

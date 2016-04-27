@@ -39,7 +39,7 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
       if(req.url.indexOf('console') !== -1) {
         if(req.user && req.user.role === 'admin') {
           entry = 'console'
-          routes = consoleRoutes     
+          routes = consoleRoutes
         }else{
           // permission check
           res.redirect("/")
@@ -47,7 +47,7 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
         }
       }
 
-      function renderPage(renderProps) {
+      function renderPage(renderProps, status) {
         let html
         const initialState = store.getState()
 
@@ -70,7 +70,7 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
           )
         }
 
-        res.status(200).render(entry, {
+        res.status(status).render(entry, {
           env: env,
           html: isServerRenderingEnabled?renderToString(html):null,
           initialState: encodeURIComponent(JSON.stringify(initialState))
@@ -80,23 +80,30 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
       function handleMatchedRoute(renderProps) {
         let query = renderProps.location.query
         let params = renderProps.params
-        let fetchData = renderProps.components.slice(-1)[0].WrappedComponent.fetchData
+        let status = 200
+        let WrappedComponent = renderProps.components.slice(-1)[0].WrappedComponent?renderProps.components.slice(-1)[0].WrappedComponent:null
 
-        if(fetchData) {
-          let result = fetchData({ store: store, params: params })
+        if(WrappedComponent) {
+          if(WrappedComponent.fetchData) {
+            let result = WrappedComponent.fetchData({ store: store, params: params })
 
-          if(Array.isArray(result)) {
-            Promise.all(result).then(res => {
-              renderPage(renderProps)
-            })
-          }else{
-            result.then(res => {
-              renderPage(renderProps)
-            })
+            if(Array.isArray(result)) {
+              Promise.all(result).then(res => {
+                renderPage(renderProps)
+              })
+            }else{
+              result.then(res => {
+                renderPage(renderProps, status)
+              })
+            }
+
+            return false
           }
-        }else{
-          renderPage(renderProps)
+        } else {
+          status = 404
         }
+
+        renderPage(renderProps, status)
       }
 
       function handle500Error(error) {
@@ -125,6 +132,7 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
         } else if (renderProps) {
           handleMatchedRoute(renderProps)
         } else {
+          // now 404 page is included in router too, keep it here just in case
           handle404Error()
         }
       }

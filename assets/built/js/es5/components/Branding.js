@@ -12,9 +12,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _react3 = require('muicss/react');
-
 var _utils = require('utils');
+
+var _Container = require('elements/Container');
+
+var _Container2 = _interopRequireDefault(_Container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,16 +38,15 @@ var Branding = function (_Component) {
   _createClass(Branding, [{
     key: 'render',
     value: function render() {
-      var user = this.props.user;
+      var username = this.props.username;
       var isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false';
 
-      console.log(isAdmin);
       return _react2.default.createElement(
-        _react3.Appbar,
+        'div',
         { className: 'branding' },
         _react2.default.createElement(
-          _react3.Container,
-          null,
+          _Container2.default,
+          { className: 'clearfix' },
           _react2.default.createElement(
             'div',
             null,
@@ -58,55 +59,73 @@ var Branding = function (_Component) {
                 'readr'
               )
             ),
-            user.authed ? _react2.default.createElement(
-              'ul',
-              { className: "right mui-list--inline mui--text-body2" },
-              isAdmin === true ? _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { href: '/console' },
-                  'Console'
-                )
-              ) : null,
+            username ? _react2.default.createElement(
+              'div',
+              { className: 'nav right' },
               _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/profile/' + user.username },
-                  user.username
-                )
+                'span',
+                { className: 'username' },
+                username,
+                isAdmin ? _react2.default.createElement(
+                  'span',
+                  { className: 'badge-dark' },
+                  'Admin'
+                ) : null
               ),
               _react2.default.createElement(
-                'li',
-                null,
+                'ul',
+                { className: 'dropdown-menu' },
                 _react2.default.createElement(
-                  'a',
-                  { href: '/logout' },
-                  '退出'
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/profile/' + username },
+                    '我的账号'
+                  )
+                ),
+                isAdmin === true ? _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { href: '/console' },
+                    'Console'
+                  )
+                ) : null,
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { href: '/logout' },
+                    '退出'
+                  )
                 )
               )
             ) : _react2.default.createElement(
-              'ul',
-              { className: "right mui-list--inline mui--text-body2" },
+              'div',
+              { className: 'nav right' },
               _react2.default.createElement(
-                'li',
-                null,
+                'ul',
+                { className: 'nav-links' },
                 _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/signin' },
-                  '登录'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/signin' },
+                    '登录'
+                  )
+                ),
                 _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/signup' },
-                  '注册'
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/signup' },
+                    '注册'
+                  )
                 )
               )
             )
@@ -118,9 +137,5 @@ var Branding = function (_Component) {
 
   return Branding;
 }(_react.Component);
-
-Branding.propTypes = {
-  // user: React.PropTypes.object.isRequired
-};
 
 exports.default = Branding;

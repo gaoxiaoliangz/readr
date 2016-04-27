@@ -6,7 +6,7 @@ var port = 3000
 function boot(app, env) {
   var server
 
-  app.set('port', port);
+  app.set('port', port)
 
   server = http.createServer(app)
   server.listen(port)
@@ -22,12 +22,12 @@ function boot(app, env) {
 // Event listener for HTTP server error event
 function onError(error) {
   if (error.syscall !== 'listen') {
-    throw error;
+    throw error
   }
 
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
-    : 'Port ' + port;
+    : 'Port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -40,16 +40,14 @@ function onError(error) {
       process.exit(1)
       break
     default:
-      throw error;
+      throw error
   }
 }
 
 // Event listener for HTTP server listening event
 function onListening(server) {
   var addr = server.address()
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
 }
 

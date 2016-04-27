@@ -8,7 +8,7 @@ export default class Book extends Component {
 
     return (
       <li className="book">
-        <Link to={"/bookstore/book/"+this.props.id} >
+        <Link to={"/book/"+this.props.id} >
           <div className="book-cover"><img src={book.image}/></div>
           <div className="book-meta">
             <span title={book.title} className="book-name">{book.title}</span>

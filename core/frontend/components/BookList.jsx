@@ -14,9 +14,9 @@ class BookList extends Component {
           <ul className="book-list clearfix">
             {
               bookList?(
-                bookList.map((book, index) =>(
-                  <Book id={book.id} key={index} book={book} />
-                ))
+              bookList.map((book, index) =>(
+                <Book id={book.id} key={index} book={book} />
+              ))
               ):null
             }
           </ul>
