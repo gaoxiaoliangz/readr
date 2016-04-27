@@ -87,7 +87,7 @@ var Signin = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-signin' },
-        _react2.default.createElement(_Branding2.default, { user: this.props.user }),
+        _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(
           _react3.Container,
           null,

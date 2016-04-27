@@ -16,7 +16,6 @@ export default (
       <IndexRoute component={BookStore} />
       <Route path="book/:id" component={BookInfo} />
     </Router>
-    <Route path="bookstore" component={BookStore} />
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />
     <Route path="viewer/book/:id" component={BookViewer} />

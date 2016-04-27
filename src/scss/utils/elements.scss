@@ -8,12 +8,20 @@
   padding: 0 10px;
   margin: 0 auto;
   box-sizing: border-box;
+  // position: relative;
   @include tablet_landscape {
     width: 750px;
   }
   @include tablet {
     width: 100%;
   }
+}
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
 }
 .content-container {
   width: $best_reading_width;
@@ -78,13 +86,12 @@
  }
 
  .badge-dark {
-   background: darken($app_base_color, 10%);
-   border: 1px solid lighten($super_power, 30%);
-   background: $super_power;
+   background: lighten($super_power, 40%);
    border-radius: 3px;
    padding: 3px 4px;
    font-size: 1.2rem;
    color: lighten($super_power, 50%);
+   color: $super_power;
    margin: 0 5px;
  }
 

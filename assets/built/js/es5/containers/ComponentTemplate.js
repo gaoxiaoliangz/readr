@@ -18,30 +18,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Container = function (_Component) {
-  _inherits(Container, _Component);
+var App = function (_Component) {
+  _inherits(App, _Component);
 
-  function Container() {
-    _classCallCheck(this, Container);
+  function App(props) {
+    _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Container).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
   }
 
-  _createClass(Container, [{
+  _createClass(App, [{
     key: 'render',
     value: function render() {
-      var className = this.props.className ? this.props.className : null;
-      var containerClass = this.props.fluid ? 'container-fluid' : 'container';
-
       return _react2.default.createElement(
         'div',
-        { className: containerClass + ' ' + className },
+        null,
         this.props.children
       );
     }
   }]);
 
-  return Container;
+  return App;
 }(_react.Component);
 
-exports.default = Container;
+exports.default = App;

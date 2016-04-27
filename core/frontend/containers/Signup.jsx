@@ -47,7 +47,7 @@ class Signup extends Component {
   render() {
     return (
       <div className="page-signup">
-        <Branding user={this.props.user} />
+        <Branding />
         <Container>
           <Form className="content-container" method="post" action="/signup">
             <Notification notification={this.props.notification} />

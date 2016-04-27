@@ -1,12 +1,16 @@
+// branding
 .branding {
   $branding_height: 60px;
   min-height: $branding_height;
   background: $app_base_color;
   .logo {
     margin: 0;
+    line-height: $branding_height;
+    color: #fff;
+    font-size: 2rem;
     a {
       background: url(../img/logo.png) no-repeat left;
-      width: 90px;
+      width: 70px;
       height: $branding_height;
       background-size: 70px;
       text-indent: -999em;
@@ -45,11 +49,36 @@
     }
   }
 }
+.console-branding {
+  background: $super_power;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  .sep {
+    margin: 0 20px;
+    opacity: .6;
+  }
+  .sub {
+    opacity: .8;
+  }
+}
 
+// colophon
 .colophon {
   margin-top: 50px;
   border-top: 1px solid #ddd;
   font-size: 1.4rem;
   padding: 30px 0;
   color: $text_l;
+}
+
+// console left sidebar
+.sidebar-left {
+  position: fixed;
+  left: 0;
+  top: $branding_height;
+  height: 100%;
+  width: $sidebar_width;
 }

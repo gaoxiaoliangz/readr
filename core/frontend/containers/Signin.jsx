@@ -44,7 +44,7 @@ class Signin extends Component {
   render() {
     return (
       <div className="page-signin">
-        <Branding user={this.props.user} />
+        <Branding />
         <Container>
           <Form className="content-container" action={`${API_ROOT}auth`} method="post">
             <Notification notification={this.props.notification} />

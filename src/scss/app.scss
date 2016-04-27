@@ -1,9 +1,9 @@
-@import "lib/constants";
-@import "lib/mixin";
-@import "lib/base";
-@import "glb/animation";
-@import "glb/elements";
-@import "glb/components";
+@import "utils/constants";
+@import "utils/mixin";
+@import "utils/base";
+@import "utils/animation";
+@import "utils/elements";
+@import "utils/components";
 @import "book-store";
 @import "book-viewer";
 @import "book-info";
