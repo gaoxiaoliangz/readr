@@ -27,12 +27,18 @@
     .nav-side-root {
       width: $nav_root_width;
       background: $super_power2;
+      li.current {
+        background: $super_power;
+      }
     }
     .nav-side-sub {
       width: $sidebar_width - $nav_root_width;
       left: $nav_root_width;
       li {
         background: #D8D8D8;
+      }
+      li.current {
+        background: #fff;
       }
     }
   }

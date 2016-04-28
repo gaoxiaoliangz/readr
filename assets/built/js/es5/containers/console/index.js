@@ -18,6 +18,10 @@ var _Container = require('elements/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _Icon = require('elements/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
 var _ConsoleBranding = require('components/ConsoleBranding');
 
 var _ConsoleBranding2 = _interopRequireDefault(_ConsoleBranding);
@@ -47,18 +51,109 @@ var Console = function (_Component) {
       this.props.fetchUserAuthInfo();
     }
   }, {
+    key: 'renderMenu',
+    value: function renderMenu(currentPath) {
+      var menuMapping = [{
+        component: 'books',
+        displayName: '',
+        path: '/console/managebooks',
+        children: [{
+          component: 'addbook',
+          displayName: 'Add book',
+          path: '/console/addbook'
+        }, {
+          component: 'managebooks',
+          displayName: 'Manage books',
+          path: '/console/managebooks'
+        }]
+      }, {
+        component: 'users',
+        displayName: '',
+        path: '/console/manageusers',
+        children: [{
+          component: 'manageusers',
+          displayName: 'Manage users',
+          path: '/console/manageusers'
+        }]
+      }];
+
+      var currentMenu = {};
+
+      menuMapping.filter(function (item, rootIndex) {
+        var subIndex = void 0;
+
+        var result = item.children.filter(function (item, index) {
+          if (item.component === currentPath) {
+            subIndex = index;
+            return true;
+          }
+        });
+
+        if (result.length > 0) {
+          currentMenu.rootIndex = rootIndex;
+          currentMenu.subIndex = subIndex;
+          return true;
+        }
+      });
+
+      var rootMenu = _react2.default.createElement(
+        'ul',
+        { className: 'nav-side nav-side-root' },
+        menuMapping.map(function (menu, index) {
+          var className = 'menu-' + menu.component;
+
+          if (index === currentMenu.rootIndex) {
+            className += ' current';
+          }
+
+          return _react2.default.createElement(
+            'li',
+            { key: index, className: className },
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: menu.path },
+              _react2.default.createElement(_Icon2.default, { name: menu.component })
+            )
+          );
+        })
+      );
+
+      var subMenu = _react2.default.createElement(
+        'ul',
+        { className: 'nav-side nav-side-sub' },
+        menuMapping[currentMenu.rootIndex].children.map(function (menu, index) {
+          var className = 'menu-' + menu.component;
+
+          if (index === currentMenu.subIndex) {
+            className += ' current';
+          }
+
+          return _react2.default.createElement(
+            'li',
+            { key: index, className: className },
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: menu.path },
+              menu.displayName
+            )
+          );
+        })
+      );
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'sidebar-left' },
+        rootMenu,
+        subMenu
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
       var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
       var username = this.props.user.username;
-
-      // TODO: getCurrentComponentDisplayName
-      console.log(this.props);
       var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : '404';
-      // let pageName = "test"
 
-      console.log(this.props.children.props.route.component);
-      // console.log(this.props.children.props);
       return _react2.default.createElement(
         'div',
         { className: "page-" + pageName },
@@ -66,54 +161,7 @@ var Console = function (_Component) {
         _react2.default.createElement(
           _Container2.default,
           null,
-          _react2.default.createElement(
-            'div',
-            { className: 'sidebar-left' },
-            _react2.default.createElement(
-              'ul',
-              { className: 'nav-side nav-side-root' },
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/console/books' },
-                  'Books'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/console/users' },
-                  'Users'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'ul',
-              { className: 'nav-side nav-side-sub' },
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/console/books' },
-                  'Books'
-                )
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/console/users' },
-                  'Users'
-                )
-              )
-            )
-          ),
+          this.renderMenu(pageName),
           _react2.default.createElement(
             'div',
             { className: 'content' },
@@ -130,6 +178,7 @@ var Console = function (_Component) {
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
     notification: state.notification,
-    user: state.user
+    user: state.user,
+    routing: state.routing
   };
 }, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Console);

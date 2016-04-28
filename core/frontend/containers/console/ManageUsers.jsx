@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchUserList } from 'actions'
 import { Paper, Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn } from 'material-ui/lib'
 
-class ManageBooks extends Component {
+class ManageUsers extends Component {
 
   constructor(props) {
     super(props)
@@ -46,4 +46,4 @@ export default connect(
     user: state.user,
   }),
   { fetchUserList }
-)(ManageBooks)
+)(ManageUsers)

@@ -6,14 +6,16 @@ import routes from 'routes/app'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
 import DevTools from 'containers/DevTools'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 const initialState = JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
 const store = configureStore(initialState)
+const history = syncHistoryWithStore(browserHistory, store)
 
 render(
   <Provider store={store}>
     <div>
-      <Router history={browserHistory} routes={routes} />
+      <Router history={history} routes={routes} />
       <DevTools />
     </div>
   </Provider>,

@@ -24,16 +24,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ManageBooks = function (_Component) {
-  _inherits(ManageBooks, _Component);
+var ManageUsers = function (_Component) {
+  _inherits(ManageUsers, _Component);
 
-  function ManageBooks(props) {
-    _classCallCheck(this, ManageBooks);
+  function ManageUsers(props) {
+    _classCallCheck(this, ManageUsers);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(ManageBooks).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ManageUsers).call(this, props));
   }
 
-  _createClass(ManageBooks, [{
+  _createClass(ManageUsers, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchUserList();
@@ -100,11 +100,11 @@ var ManageBooks = function (_Component) {
     }
   }]);
 
-  return ManageBooks;
+  return ManageUsers;
 }(_react.Component);
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
     user: state.user
   };
-}, { fetchUserList: _actions.fetchUserList })(ManageBooks);
+}, { fetchUserList: _actions.fetchUserList })(ManageUsers);

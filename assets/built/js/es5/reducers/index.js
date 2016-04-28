@@ -26,6 +26,8 @@ var _view = require('./view');
 
 var _view2 = _interopRequireDefault(_view);
 
+var _reactRouterRedux = require('react-router-redux');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
@@ -33,7 +35,8 @@ var rootReducer = (0, _redux.combineReducers)({
   user: _user2.default,
   notification: _notification2.default,
   view: _view2.default,
-  confirm: _confirm2.default
+  confirm: _confirm2.default,
+  routing: _reactRouterRedux.routerReducer
 });
 
 exports.default = rootReducer;

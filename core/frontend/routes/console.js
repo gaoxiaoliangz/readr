@@ -7,12 +7,13 @@ import AddBook from 'containers/console/AddBook'
 import NoMatch from 'containers/NoMatch'
 
 export default (
-  <Router path="/">
-    <Router path="console" component={Console}>
-      <Route path="books" component={ManageBooks} />
-      <Route path="users" component={ManageUsers} />
+  <Router>
+    <Route path="/console" component={Console}>
+      <IndexRoute component={ManageBooks} />
+      <Route path="managebooks" component={ManageBooks} />
+      <Route path="manageusers" component={ManageUsers} />
       <Route path="addbook" component={AddBook} />
-    </Router>
+    </Route>
     <Route path="*" component={NoMatch} />
   </Router>
 )

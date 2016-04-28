@@ -34,12 +34,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = _react2.default.createElement(
   _reactRouter.Router,
-  { path: '/' },
+  null,
   _react2.default.createElement(
-    _reactRouter.Router,
-    { path: 'console', component: _console2.default },
-    _react2.default.createElement(_reactRouter.Route, { path: 'books', component: _ManageBooks2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'users', component: _ManageUsers2.default }),
+    _reactRouter.Route,
+    { path: '/console', component: _console2.default },
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _ManageBooks2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'managebooks', component: _ManageBooks2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'manageusers', component: _ManageUsers2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'addbook', component: _AddBook2.default })
   ),
   _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NoMatch2.default })
