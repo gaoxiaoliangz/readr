@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchUserList } from 'actions'
-import { Paper, Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn } from 'material-ui/lib'
 
 class ManageUsers extends Component {
 
@@ -15,28 +14,28 @@ class ManageUsers extends Component {
 
   render() {
     return (
-      <Paper zDepth={1}>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
-              <TableHeaderColumn>Username</TableHeaderColumn>
-              <TableHeaderColumn>Date created</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <td>ID</td>
+              <td>Name</td>
+              <td>Date created</td>
+              <td>Actions</td>
+            </tr>
             {this.props.user.userList?this.props.user.userList.map((user, index) => {
               return (
-                <TableRow key={index}>
-                  <TableRowColumn>{user.id}</TableRowColumn>
-                  <TableRowColumn>{user.username}</TableRowColumn>
-                  <TableRowColumn>{user.date_created}</TableRowColumn>
-                </TableRow>
+                <tr key={index}>
+                  <td>{user.id}</td>
+                  <td>{user.username}</td>
+                  <td>{user.date_created}</td>
+                  <td><a href="#">Delete</a></td>
+                </tr>
               )
             }):null}
-          </TableBody>
-        </Table>
-      </Paper>
+          </tbody>
+        </table>
+      </div>
     )
   }
 }

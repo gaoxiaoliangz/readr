@@ -9,10 +9,11 @@ class Input extends Component{
     let className = this.props.className?this.props.className:null
     let placeholder = this.props.placeholder
     let value = this.props.value
+    let onChange = this.props.onChange
 
     return (
       <div className={`input ${className}`}>
-        <input {...value?{value: value}:{}} placeholder={placeholder} />
+        <input onChange={onChange} value={value} placeholder={placeholder} />
       </div>
     )
   }

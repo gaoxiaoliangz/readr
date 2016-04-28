@@ -18,8 +18,6 @@ var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
-var _react3 = require('muicss/react');
-
 var _APIS = require('constants/APIS');
 
 var _actions = require('actions');
@@ -29,6 +27,10 @@ var _utils = require('utils');
 var _Notification = require('components/Notification');
 
 var _Notification2 = _interopRequireDefault(_Notification);
+
+var _Input = require('elements/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70,7 +72,8 @@ var AddBook = function (_Component) {
 
       var currentBook = this.state.currentBook;
       var dataToPost = {};
-      var bookContent = _reactDom2.default.findDOMNode(this.refs.bookContent).childNodes[0].value;
+      var bookContent = _reactDom2.default.findDOMNode(this.refs.bookContent).value;
+      console.log(bookContent);
       var isValid = false;
 
       while (true) {
@@ -95,7 +98,7 @@ var AddBook = function (_Component) {
       dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo);
 
       if (isValid) {
-        (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'post', dataToPost).then(function (res) {
+        (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'POST', dataToPost).then(function (res) {
           _this2.props.handleNotification('添加成功');
         }).catch(function (err) {
           console.error(err);
@@ -142,15 +145,15 @@ var AddBook = function (_Component) {
       }
 
       return _react2.default.createElement(
-        _react3.Form,
-        { className: 'content-container', method: 'post' },
+        'form',
+        null,
         _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
         _react2.default.createElement(
           'h1',
           { className: 'page-title' },
-          '添加书籍'
+          'Add book'
         ),
-        !this.state.conformed ? _react2.default.createElement(_react3.Input, { onChange: this.search.bind(this), value: this.state.searchQuery, hint: '输入书名或其他书籍相关信息' }) : null,
+        !this.state.conformed ? _react2.default.createElement(_Input2.default, { onChange: this.search.bind(this), value: this.state.searchQuery, placeholder: 'Type something to match book info' }) : null,
         !this.state.conformed && this.props.book.searchResults ? _react2.default.createElement(
           'div',
           { className: 'drop-down' },
@@ -194,16 +197,16 @@ var AddBook = function (_Component) {
             book.author[0]
           ),
           _react2.default.createElement(
-            _react3.Button,
-            { onClick: this.removeResult.bind(this), className: 'mui--z1' },
-            '重新选择'
+            'button',
+            { className: 'btn', onClick: this.removeResult.bind(this) },
+            'Reselect'
           )
         ) : null,
-        _react2.default.createElement(_react3.Textarea, { hint: '粘贴书籍的全部文本内容', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),
+        _react2.default.createElement('textarea', { placeholder: 'Paste book content here', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),
         _react2.default.createElement(
-          _react3.Button,
-          { onClick: this.handleAddBook.bind(this), variant: 'raised' },
-          '确认添加'
+          'button',
+          { className: 'btn', onClick: this.handleAddBook.bind(this) },
+          'Add'
         )
       );
     }

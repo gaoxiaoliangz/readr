@@ -39,14 +39,14 @@ var ConsoleBranding = function (_Component) {
     key: 'render',
     value: function render() {
       var username = this.props.username;
-      var isAdmin = this.props.admin ? this.props.admin : 'false';
+      var isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false';
 
       return _react2.default.createElement(
         'div',
         { className: 'branding console-branding' },
         _react2.default.createElement(
           _Container2.default,
-          { fluid: true, className: 'clearfix' },
+          { isFluid: true, className: 'clearfix' },
           _react2.default.createElement(
             'div',
             null,

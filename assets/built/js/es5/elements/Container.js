@@ -30,12 +30,11 @@ var Container = function (_Component) {
   _createClass(Container, [{
     key: 'render',
     value: function render() {
-      var className = this.props.className ? this.props.className : null;
-      var containerClass = this.props.fluid ? 'container-fluid' : 'container';
+      var className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ' ' + this.props.className : '');
 
       return _react2.default.createElement(
         'div',
-        { className: containerClass + ' ' + className },
+        { className: className },
         this.props.children
       );
     }

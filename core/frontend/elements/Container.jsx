@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 
 class Container extends Component {
   render() {
-    let className = this.props.className?this.props.className:null
-    let containerClass = this.props.fluid?'container-fluid':'container'
+    let className = (this.props.isFluid?'container-fluid':'container') + (this.props.className?` ${this.props.className}`:'')
 
     return (
-      <div className={`${containerClass} ${className}`}>
+      <div className={className}>
         {this.props.children}
       </div>
     )

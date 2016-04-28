@@ -6,11 +6,11 @@ import Container from 'elements/Container'
 class ConsoleBranding extends Component {
   render() {
     let username = this.props.username
-    let isAdmin = this.props.admin?this.props.admin:'false'
+    let isAdmin = this.props.isAdmin?this.props.isAdmin:'false'
 
     return (
       <div className="branding console-branding">
-        <Container fluid={true} className="clearfix">
+        <Container isFluid={true} className="clearfix">
           <div>
             <h1 className="logo left">
               <Link to="/console">readr</Link>

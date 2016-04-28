@@ -133,8 +133,8 @@ class Console extends Component {
 
     return (
       <div className={"page-"+pageName}>
-        <ConsoleBranding fluid={true} admin={isAdmin} username={username} />
-        <Container>
+        <ConsoleBranding isAdmin={isAdmin} username={username} />
+        <Container isFluid={true}>
           {this.renderMenu(pageName)}
           <div className="content">
             {this.props.children}

@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { API_ROOT } from 'constants/APIS'
 import { fetchDoubanBookSearchResults, clearBookSearch, fetchUserAuthInfo, handleNotification } from 'actions'
 import { callApi } from 'utils'
 import Notification from 'components/Notification'
+import Input from 'elements/Input'
 
 class AddBook extends Component {
   constructor(props) {
@@ -29,7 +29,8 @@ class AddBook extends Component {
 
     let currentBook = this.state.currentBook
     let dataToPost = {}
-    let bookContent = ReactDOM.findDOMNode(this.refs.bookContent).childNodes[0].value
+    let bookContent = ReactDOM.findDOMNode(this.refs.bookContent).value
+    console.log(bookContent);
     let isValid = false
 
     while (true) {
@@ -54,7 +55,7 @@ class AddBook extends Component {
     dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo)
 
     if(isValid) {
-      callApi(`${API_ROOT}books`, 'post', dataToPost).then(res => {
+      callApi(`${API_ROOT}books`, 'POST', dataToPost).then(res => {
         this.props.handleNotification('添加成功')
       }).catch((err) => {
         console.error(err)
@@ -94,12 +95,12 @@ class AddBook extends Component {
     }
 
     return (
-      <Form className="content-container" method="post">
+      <form>
         <Notification notification={this.props.notification} />
-        <h1 className="page-title">添加书籍</h1>
+        <h1 className="page-title">Add book</h1>
         {
           !this.state.conformed?(
-            <Input onChange={this.search.bind(this)} value={this.state.searchQuery} hint="输入书名或其他书籍相关信息"/>
+            <Input onChange={this.search.bind(this)} value={this.state.searchQuery} placeholder="Type something to match book info"/>
           ):null
         }
         {
@@ -130,13 +131,13 @@ class AddBook extends Component {
               <div><img src={book.image} /></div>
               <h2 className="book-name">{book.title}</h2>
               <div className="book-author">作者：{book.author[0]}</div>
-              <Button onClick={this.removeResult.bind(this)} className="mui--z1">重新选择</Button>
+              <button className="btn" onClick={this.removeResult.bind(this)}>Reselect</button>
             </div>
           ):null
         }
-        <Textarea hint="粘贴书籍的全部文本内容" style={{height: 200}} name="book_content" ref="bookContent" />
-        <Button onClick={this.handleAddBook.bind(this)} variant="raised">确认添加</Button>
-      </Form>
+        <textarea placeholder="Paste book content here" style={{height: 200}} name="book_content" ref="bookContent" />
+        <button className="btn" onClick={this.handleAddBook.bind(this)}>Add</button>
+      </form>
     )
   }
 }

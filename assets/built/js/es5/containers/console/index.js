@@ -171,10 +171,10 @@ var Console = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: "page-" + pageName },
-        _react2.default.createElement(_ConsoleBranding2.default, { fluid: true, admin: isAdmin, username: username }),
+        _react2.default.createElement(_ConsoleBranding2.default, { isAdmin: isAdmin, username: username }),
         _react2.default.createElement(
           _Container2.default,
-          null,
+          { isFluid: true },
           this.renderMenu(pageName),
           _react2.default.createElement(
             'div',

@@ -535,10 +535,24 @@ textarea {
         color: #1B267F; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000357}}
 #root.console .content {
-  margin-left: 300px;
+  margin-left: 320px;
   padding-top: 60px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000360}}
   #root.console .content form {
     width: 500px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000363}}
+  #root.console .content table {
+    margin-top: 10px;
+    width: 100%;
+    line-height: 2.5;
+    font-size: 1.5rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000369}}
+    #root.console .content table > tbody > tr:first-child {
+      border-bottom: 2px solid #666;
+      font-weight: bold;
+      line-height: 2.5; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000374}}
+    #root.console .content table > tbody > tr {
+      border-bottom: 1px solid #ddd; }
 
 /*# sourceMappingURL=console.css.map */

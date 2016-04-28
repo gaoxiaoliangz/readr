@@ -14,29 +14,7 @@ var _reactRedux = require('react-redux');
 
 var _actions = require('actions');
 
-var _lib = require('material-ui/lib');
-
-var _floatingActionButton = require('material-ui/lib/floating-action-button');
-
-var _floatingActionButton2 = _interopRequireDefault(_floatingActionButton);
-
-var _add = require('material-ui/lib/svg-icons/content/add');
-
-var _add2 = _interopRequireDefault(_add);
-
 var _reactRouter = require('react-router');
-
-var _dialog = require('material-ui/lib/dialog');
-
-var _dialog2 = _interopRequireDefault(_dialog);
-
-var _flatButton = require('material-ui/lib/flat-button');
-
-var _flatButton2 = _interopRequireDefault(_flatButton);
-
-var _raisedButton = require('material-ui/lib/raised-button');
-
-var _raisedButton2 = _interopRequireDefault(_raisedButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64,64 +42,65 @@ var ManageBooks = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        _lib.Paper,
-        { zDepth: 1 },
+        'div',
+        null,
         _react2.default.createElement(
-          _reactRouter.Link,
-          { to: '/console/addbook' },
-          _react2.default.createElement(
-            _floatingActionButton2.default,
-            { style: { position: "fixed", bottom: 30, right: 30 } },
-            _react2.default.createElement(_add2.default, null)
-          )
-        ),
-        _react2.default.createElement(
-          _lib.Table,
+          'table',
           null,
           _react2.default.createElement(
-            _lib.TableHeader,
+            'tbody',
             null,
             _react2.default.createElement(
-              _lib.TableRow,
+              'tr',
               null,
               _react2.default.createElement(
-                _lib.TableHeaderColumn,
+                'td',
                 null,
                 'ID'
               ),
               _react2.default.createElement(
-                _lib.TableHeaderColumn,
+                'td',
                 null,
                 'Name'
               ),
               _react2.default.createElement(
-                _lib.TableHeaderColumn,
+                'td',
                 null,
                 'Date created'
+              ),
+              _react2.default.createElement(
+                'td',
+                null,
+                'Actions'
               )
-            )
-          ),
-          _react2.default.createElement(
-            _lib.TableBody,
-            null,
+            ),
             this.props.book.bookList ? this.props.book.bookList.map(function (book, index) {
               return _react2.default.createElement(
-                _lib.TableRow,
+                'tr',
                 { key: index },
                 _react2.default.createElement(
-                  _lib.TableRowColumn,
+                  'td',
                   null,
                   book.id
                 ),
                 _react2.default.createElement(
-                  _lib.TableRowColumn,
+                  'td',
                   null,
                   book.title
                 ),
                 _react2.default.createElement(
-                  _lib.TableRowColumn,
+                  'td',
                   null,
                   book.date_created
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    'Delete'
+                  )
                 )
               );
             }) : null

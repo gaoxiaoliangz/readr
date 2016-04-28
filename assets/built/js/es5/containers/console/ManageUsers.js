@@ -14,8 +14,6 @@ var _reactRedux = require('react-redux');
 
 var _actions = require('actions');
 
-var _lib = require('material-ui/lib');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,55 +40,65 @@ var ManageUsers = function (_Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        _lib.Paper,
-        { zDepth: 1 },
+        'div',
+        null,
         _react2.default.createElement(
-          _lib.Table,
+          'table',
           null,
           _react2.default.createElement(
-            _lib.TableHeader,
+            'tbody',
             null,
             _react2.default.createElement(
-              _lib.TableRow,
+              'tr',
               null,
               _react2.default.createElement(
-                _lib.TableHeaderColumn,
+                'td',
                 null,
                 'ID'
               ),
               _react2.default.createElement(
-                _lib.TableHeaderColumn,
+                'td',
                 null,
-                'Username'
+                'Name'
               ),
               _react2.default.createElement(
-                _lib.TableHeaderColumn,
+                'td',
                 null,
                 'Date created'
+              ),
+              _react2.default.createElement(
+                'td',
+                null,
+                'Actions'
               )
-            )
-          ),
-          _react2.default.createElement(
-            _lib.TableBody,
-            null,
+            ),
             this.props.user.userList ? this.props.user.userList.map(function (user, index) {
               return _react2.default.createElement(
-                _lib.TableRow,
+                'tr',
                 { key: index },
                 _react2.default.createElement(
-                  _lib.TableRowColumn,
+                  'td',
                   null,
                   user.id
                 ),
                 _react2.default.createElement(
-                  _lib.TableRowColumn,
+                  'td',
                   null,
                   user.username
                 ),
                 _react2.default.createElement(
-                  _lib.TableRowColumn,
+                  'td',
                   null,
                   user.date_created
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    'Delete'
+                  )
                 )
               );
             }) : null
