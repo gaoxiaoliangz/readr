@@ -85,6 +85,15 @@ var ConsoleBranding = function (_Component) {
               _react2.default.createElement(
                 'ul',
                 { className: 'dropdown-menu' },
+                isAdmin === true ? _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { href: '/' },
+                    'Back to readr'
+                  )
+                ) : null,
                 _react2.default.createElement(
                   'li',
                   null,
@@ -94,15 +103,6 @@ var ConsoleBranding = function (_Component) {
                     '我的账号'
                   )
                 ),
-                isAdmin === true ? _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    'a',
-                    { href: '/console' },
-                    'Console'
-                  )
-                ) : null,
                 _react2.default.createElement(
                   'li',
                   null,

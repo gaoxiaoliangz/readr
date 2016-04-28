@@ -1,4 +1,4 @@
-$app_base_color: #2F2F2F;
+$app_base_color: #1b1b1b;
 $super_power: #1B267F;
 $super_power2: #04082E;
 
@@ -30,8 +30,23 @@ $mobile_screen: 400px;
 $branding_height: 60px;
 $sidebar_width: 300px;
 
-$sans_font: "roboto","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei",sans-serif;
-$sans_font_ie: "Microsoft Yahei",Arial,sans-serif;
+$btn_normal: #f6f6f6;
+$btn_hover: #f9f9f9;
+$btn_active: #fff;
+$btn_focus: #fff;
+$btn_outline: #1d5ad0;
+$btn_hover_outline: #999;
+$btn_text: #666;
+$btn_hover_text: #222;
+$btn_shadow: 0 1px 5px rgba(0,0,0,0.1);
+
+$border_radius: 3px;
+$input_line_height: 25px;
+$input_padding: 5px;
+
+// $sans_font: "roboto","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei",sans-serif;
+$sans_font: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+$sans_font_ie: "Microsoft Yahei", Arial, sans-serif;
 $serif_font: "Droid serif", georgia, serif;
 
 %transition {

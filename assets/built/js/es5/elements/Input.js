@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -18,27 +20,35 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Icon = function (_Component) {
-  _inherits(Icon, _Component);
+var Input = function (_Component) {
+  _inherits(Input, _Component);
 
-  function Icon(props) {
-    _classCallCheck(this, Icon);
+  function Input(props) {
+    _classCallCheck(this, Input);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Icon).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Input).call(this, props));
   }
 
-  _createClass(Icon, [{
+  _createClass(Input, [{
     key: 'render',
     value: function render() {
-      var name = this.props.name;
-      var method = this.props.onClick;
-      var size = this.props.size;
+      var className = this.props.className ? this.props.className : null;
+      var placeholder = this.props.placeholder;
+      var value = this.props.value;
 
-      return _react2.default.createElement('span', { className: 'icon icon-' + name + ' ' + size, onClick: method });
+      return _react2.default.createElement(
+        'div',
+        { className: 'input ' + className },
+        _react2.default.createElement('input', _extends({}, value ? { value: value } : {}, { placeholder: placeholder }))
+      );
     }
   }]);
 
-  return Icon;
+  return Input;
 }(_react.Component);
 
-exports.default = Icon;
+Input.propTypes = {
+  placeholder: _react2.default.PropTypes.string.isRequired
+};
+
+exports.default = Input;

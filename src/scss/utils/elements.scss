@@ -96,6 +96,18 @@
    margin: 0 5px;
  }
 
+ .tag {
+   background: $super_power;
+   border-radius: 3px;
+   padding: 3px 5px;
+   margin: 0 5px 5px 0;
+   color: #fff;
+   display: inline-block;
+   .icon {
+     margin: 0 5px;
+   }
+ }
+
 // notification
 .msg {
   position: fixed;
@@ -196,15 +208,139 @@ ul.dropdown-menu {
  * icons
  * -------------------------------------------------------------------------------------
 **/
-
+$icons_size: 30px;
+$icons_size_small: 10px;
 .icon {
- width: 30px;
- height: 30px;
+ width: $icons_size;
+ height: $icons_size;
  display: inline-block;
 }
+.icon.small {
+  width: $icons_size_small;
+  height: $icons_size_small;
+  background-size: $icons_size_small !important;
+}
+.icon-close-light {
+ background: url(../img/icons/close-light.png) no-repeat center;
+ background-size: $icons_size;
+ cursor: pointer;
+}
 .icon-books {
- background: red;
+ background: url(../img/icons/books.png) no-repeat center;
+ background-size: $icons_size;
 }
 .icon-users {
- background: yellow;
+  background: url(../img/icons/users.png) no-repeat center;
+  background-size: $icons_size;
+}
+.icon-statistics {
+  background: url(../img/icons/statistics.png) no-repeat center;
+  background-size: $icons_size;
+}
+.icon-database {
+  background: url(../img/icons/database.png) no-repeat center;
+  background-size: $icons_size;
+}
+
+
+/*
+ * form elements
+ * -------------------------------------------------------------------------------------
+**/
+input {
+  margin: 0;
+  padding: 0;
+}
+
+.input {
+  margin: 10px 0;
+  input {
+    width: 100%;
+    padding: $input_padding 5px;
+    border: 1px solid $gray_d;
+    transition: border-color .3s;
+    line-height: $input_line_height;
+    outline: none;
+    &:focus {
+      border-color: $super_power;
+    }
+  }
+}
+
+.input-addtags {
+  min-width: 300px;
+  border: 1px solid $gray_d;
+  margin: 10px 0;
+  box-sizing: border-box;
+  padding: $input_padding 5px ($input_padding - 5);
+  transition: border-color .3s;
+  cursor: text;
+  input {
+    border: none;
+    outline: none;
+    line-height: $input_line_height;
+    margin-bottom: 5px;
+  }
+  .tag {
+  }
+  ul.query-results {
+    margin-bottom: 5px;
+    li {
+      padding: 0 3px;
+      line-height: 2;
+      cursor: pointer;
+      &:hover {
+        background: $gray_l;
+      }
+    }
+  }
+  &.focus {
+    border-color: $super_power;
+  }
+  &.empty {
+    // padding-bottom: $input_padding;
+  }
+}
+
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid $gray_d;
+  outline: none;
+  height: 100px;
+  transition: border-color .3s;
+  &:focus {
+    border-color: $super_power;
+  }
+}
+
+.btn {
+  display: inline-block;
+  background: $btn_normal;
+  padding: $input_padding 15px;
+  line-height: $input_line_height;
+  font-size: 1.6rem;
+  color: $btn_text;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  font-family: $sans_font;
+  border-radius: $border_radius;
+  border: 1px solid transparent;
+  margin: 5px 0;
+  &:hover {
+    background: $btn_hover;
+    color: $btn_hover_text;
+    border: 1px solid $btn_hover_outline;
+    box-shadow: $btn_shadow;
+  }
+  &:active {
+    background: $btn_active;
+    border: 1px solid $btn_outline;
+  }
+  &:focus {
+    background: $btn_focus;
+    border: 1px solid $btn_outline;
+  }
 }

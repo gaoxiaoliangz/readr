@@ -75,15 +75,6 @@ var Branding = function (_Component) {
               _react2.default.createElement(
                 'ul',
                 { className: 'dropdown-menu' },
-                _react2.default.createElement(
-                  'li',
-                  null,
-                  _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: '/profile/' + username },
-                    '我的账号'
-                  )
-                ),
                 isAdmin === true ? _react2.default.createElement(
                   'li',
                   null,
@@ -93,6 +84,15 @@ var Branding = function (_Component) {
                     'Console'
                   )
                 ) : null,
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/profile/' + username },
+                    '我的账号'
+                  )
+                ),
                 _react2.default.createElement(
                   'li',
                   null,

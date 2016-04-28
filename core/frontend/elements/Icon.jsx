@@ -7,9 +7,11 @@ class Icon extends Component{
 
   render(){
     let name = this.props.name
+    let method = this.props.onClick
+    let size = this.props.size
 
     return (
-      <span className={"icon icon-"+name}></span>
+      <span className={`icon icon-${name} ${size}`} onClick={method}></span>
     )
   }
 }

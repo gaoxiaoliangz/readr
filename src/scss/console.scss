@@ -27,6 +27,12 @@
     .nav-side-root {
       width: $nav_root_width;
       background: $super_power2;
+      li {
+        .icon {
+          width: 100%;
+          height: $item_line_height;
+        }
+      }
       li.current {
         background: $super_power;
       }
@@ -36,14 +42,23 @@
       left: $nav_root_width;
       li {
         background: #D8D8D8;
+        a {
+          color: $text_n;
+        }
       }
       li.current {
         background: #fff;
+        a {
+          color: $super_power;
+        }
       }
     }
   }
   .content {
     margin-left: $sidebar_width;
     padding-top: $branding_height;
+    form {
+      width: $best_reading_width;
+    }
   }
 }

@@ -26,14 +26,6 @@ var _actions = require('actions');
 
 var _utils = require('utils');
 
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _Colophon = require('components/Colophon');
-
-var _Colophon2 = _interopRequireDefault(_Colophon);
-
 var _Notification = require('components/Notification');
 
 var _Notification2 = _interopRequireDefault(_Notification);
@@ -150,72 +142,68 @@ var AddBook = function (_Component) {
       }
 
       return _react2.default.createElement(
-        'div',
-        { className: 'page-add-book' },
+        _react3.Form,
+        { className: 'content-container', method: 'post' },
+        _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
         _react2.default.createElement(
-          _react3.Form,
-          { className: 'content-container', method: 'post' },
-          _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
+          'h1',
+          { className: 'page-title' },
+          '添加书籍'
+        ),
+        !this.state.conformed ? _react2.default.createElement(_react3.Input, { onChange: this.search.bind(this), value: this.state.searchQuery, hint: '输入书名或其他书籍相关信息' }) : null,
+        !this.state.conformed && this.props.book.searchResults ? _react2.default.createElement(
+          'div',
+          { className: 'drop-down' },
           _react2.default.createElement(
-            'h1',
-            { className: 'page-title' },
-            '添加书籍'
+            'ul',
+            null,
+            this.props.book.searchResults.books.map(function (item, index) {
+              return _react2.default.createElement(
+                'li',
+                { onMouseOver: _this3.showBookCover.bind(_this3, index), onClick: _this3.conformResult.bind(_this3, index), key: index },
+                item.title,
+                ' (',
+                item.author,
+                ')',
+                _this3.state.previewIndex === index ? _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement('img', { src: item.image })
+                ) : null
+              );
+            })
+          )
+        ) : null,
+        book ? _react2.default.createElement(
+          'div',
+          { className: 'book' },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement('img', { src: book.image })
           ),
-          !this.state.conformed ? _react2.default.createElement(_react3.Input, { onChange: this.search.bind(this), value: this.state.searchQuery, hint: '输入书名或其他书籍相关信息' }) : null,
-          !this.state.conformed && this.props.book.searchResults ? _react2.default.createElement(
+          _react2.default.createElement(
+            'h2',
+            { className: 'book-name' },
+            book.title
+          ),
+          _react2.default.createElement(
             'div',
-            { className: 'drop-down' },
-            _react2.default.createElement(
-              'ul',
-              null,
-              this.props.book.searchResults.books.map(function (item, index) {
-                return _react2.default.createElement(
-                  'li',
-                  { onMouseOver: _this3.showBookCover.bind(_this3, index), onClick: _this3.conformResult.bind(_this3, index), key: index },
-                  item.title,
-                  ' (',
-                  item.author,
-                  ')',
-                  _this3.state.previewIndex === index ? _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement('img', { src: item.image })
-                  ) : null
-                );
-              })
-            )
-          ) : null,
-          book ? _react2.default.createElement(
-            'div',
-            { className: 'book' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement('img', { src: book.image })
-            ),
-            _react2.default.createElement(
-              'h2',
-              { className: 'book-name' },
-              book.title
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'book-author' },
-              '作者：',
-              book.author[0]
-            ),
-            _react2.default.createElement(
-              _react3.Button,
-              { onClick: this.removeResult.bind(this), className: 'mui--z1' },
-              '重新选择'
-            )
-          ) : null,
-          _react2.default.createElement(_react3.Textarea, { hint: '粘贴书籍的全部文本内容', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),
+            { className: 'book-author' },
+            '作者：',
+            book.author[0]
+          ),
           _react2.default.createElement(
             _react3.Button,
-            { onClick: this.handleAddBook.bind(this), variant: 'raised' },
-            '确认添加'
+            { onClick: this.removeResult.bind(this), className: 'mui--z1' },
+            '重新选择'
           )
+        ) : null,
+        _react2.default.createElement(_react3.Textarea, { hint: '粘贴书籍的全部文本内容', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),
+        _react2.default.createElement(
+          _react3.Button,
+          { onClick: this.handleAddBook.bind(this), variant: 'raised' },
+          '确认添加'
         )
       );
     }

@@ -58,13 +58,17 @@ var Console = function (_Component) {
         displayName: '',
         path: '/console/managebooks',
         children: [{
+          component: 'managebooks',
+          displayName: 'Manage books',
+          path: '/console/managebooks'
+        }, {
           component: 'addbook',
           displayName: 'Add book',
           path: '/console/addbook'
         }, {
-          component: 'managebooks',
-          displayName: 'Manage books',
-          path: '/console/managebooks'
+          component: 'addbooklist',
+          displayName: 'Add book list',
+          path: '/console/addbooklist'
         }]
       }, {
         component: 'users',
@@ -75,6 +79,16 @@ var Console = function (_Component) {
           displayName: 'Manage users',
           path: '/console/manageusers'
         }]
+      }, {
+        component: 'database',
+        displayName: '',
+        path: '/console/managebooks',
+        children: []
+      }, {
+        component: 'statistics',
+        displayName: '',
+        path: '/console/managebooks',
+        children: []
       }];
 
       var currentMenu = {};

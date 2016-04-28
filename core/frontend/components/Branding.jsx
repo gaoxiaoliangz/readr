@@ -20,12 +20,12 @@ class Branding extends Component {
                 <div className="nav right">
                   <span className="username">{username}{isAdmin?(<span className="badge-dark">Admin</span>):null}</span>
                   <ul className="dropdown-menu">
-                    <li><Link to={`/profile/${username}`}>我的账号</Link></li>
                     {
                       isAdmin === true?(
                         <li><a href="/console">Console</a></li>
                       ):null
                     }
+                    <li><Link to={`/profile/${username}`}>我的账号</Link></li>
                     <li><a href='/logout'>退出</a></li>
                   </ul>
                 </div>
