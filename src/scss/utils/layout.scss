@@ -1,0 +1,49 @@
+/*
+ * layout
+ * ------------------------------------------------------------------------------------
+**/
+// bootstrap-grid has it
+// .container {
+//   width: 1060px;
+//   padding: 0 10px;
+//   margin: 0 auto;
+//   box-sizing: border-box;
+//   @include tablet_landscape {
+//     width: 750px;
+//   }
+//   @include tablet {
+//     width: 100%;
+//   }
+// }
+// .container-fluid {
+//   width: 100%;
+//   padding: 0 10px;
+//   box-sizing: border-box;
+//   margin: 0 auto;
+//   position: relative;
+// }
+.content-container {
+  width: $best_reading_width;
+  margin: 0 auto;
+  @include phone {
+    width: 100%;
+  }
+}
+.sep {
+  margin: 0 5px;
+  color: $gray_d;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.hidden {
+  display: none;
+}
+.clearfix:after {
+  content: " ";
+  clear: both;
+  display: table;
+}

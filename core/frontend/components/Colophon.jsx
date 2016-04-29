@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import { Appbar, Button, Container } from 'muicss/react'
+import Container from 'elements/Container'
 
 
 class Colophon extends Component {

@@ -1,3 +1,5 @@
+// colors
+
 $app_base_color: #1b1b1b;
 $super_power: #1B267F;
 $super_power2: #04082E;
@@ -13,13 +15,9 @@ $link_a: #4b8cff;
 $gray_l: #f2f2f2;
 $gray_d: #ddd;
 
-$spacing_l: 100px;
-$spacing_m: 50px;
-$spacing_s: 25px;
+// layout
 
-$font_size_l: 40px;
-$font_size_m: 22px;
-$font_size_s: 16px;
+$grid_gutter: 10px;
 
 $best_reading_width: 500px;
 $wide_screen: 1200px;
@@ -29,6 +27,22 @@ $mobile_screen: 400px;
 
 $branding_height: 60px;
 $sidebar_width: 300px;
+
+$spacing_l: 100px;
+$spacing_m: 50px;
+$spacing_s: 25px;
+
+$font_size_l: 40px;
+$font_size_m: 22px;
+$font_size_s: 16px;
+
+$font_size_root: 16px;
+
+$border_radius: 3px;
+$input_line_height: 25px;
+$input_padding: 5px;
+
+// btn
 
 $btn_normal: #f6f6f6;
 $btn_hover: #f9f9f9;
@@ -40,9 +54,7 @@ $btn_text: #666;
 $btn_hover_text: #222;
 $btn_shadow: 0 1px 5px rgba(0,0,0,0.1);
 
-$border_radius: 3px;
-$input_line_height: 25px;
-$input_padding: 5px;
+
 
 // $sans_font: "roboto","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft Yahei",sans-serif;
 $sans_font: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;

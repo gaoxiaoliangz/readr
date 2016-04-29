@@ -39,13 +39,10 @@
     }
 
     .dropdown-menu {
-      display: none;
-    }
-
-    &:hover {
-      .dropdown-menu {
-        display: block;
-      }
+      position: absolute;;
+      top: 60px;
+      right: 0;
+      z-index: 999;
     }
   }
 }
@@ -81,4 +78,73 @@
   top: $branding_height;
   height: 100%;
   width: $sidebar_width;
+}
+
+// book list
+$width: 134px;
+ul.book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: -10px;
+  margin-right: -10px;
+  li {
+    float: left;
+    transition: all 0.2s ease 0s;
+    position: relative;
+    width: 150px;
+    padding: 0 10px;
+    a {
+      display: block;
+      padding-top: 10px;
+      position: relative;
+    }
+    a:hover img {
+      opacity: .96;
+    }
+    a:active {
+      opacity: .8;
+    }
+    .book-meta {
+      span {
+        width: 100%;
+        text-align: left;
+        display: block;
+        line-height: 1.5;
+        margin-left: 17px;
+        width: $width;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      span.book-author {
+        color: $text_l;
+      }
+      span.book-name {
+      }
+    }
+  }
+}
+.book-cover {
+  position: relative;
+  margin: 0;
+  width: $width;
+  height: 184px;
+  top: 0;
+  background: url(../img/shadow.png) no-repeat top;
+  transition: all 0.2s ease 0s;
+  position: relative;
+  img {
+    width: 100px;
+    height: 150px;
+    display: block;
+    position: absolute;
+    border: none;
+    left: 17px;
+    top: 7px;
+    border-radius: 4px;
+  }
+  &:hover {
+    top: -7px;
+  }
 }

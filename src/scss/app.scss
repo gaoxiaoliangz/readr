@@ -1,9 +1,15 @@
+@import "bootstrap-grid/index";
+
+// bootstrap's variables are not accessiable in my utils, don't know why
 @import "utils/constants";
 @import "utils/mixin";
 @import "utils/base";
+@import "utils/icons";
 @import "utils/animation";
 @import "utils/elements";
 @import "utils/components";
+@import "utils/layout";
+
 @import "book-store";
 @import "book-viewer";
 @import "book-info";

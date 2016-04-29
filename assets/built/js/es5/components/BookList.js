@@ -10,8 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _react3 = require('muicss/react');
-
 var _reactRouter = require('react-router');
 
 var _Book = require('components/Book');
@@ -41,24 +39,11 @@ var BookList = function (_Component) {
       var bookList = this.props.bookList;
 
       return _react2.default.createElement(
-        _react3.Container,
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'book-box' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'page-title' },
-            '新书速递'
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'book-list clearfix' },
-            bookList ? bookList.map(function (book, index) {
-              return _react2.default.createElement(_Book2.default, { id: book.id, key: index, book: book });
-            }) : null
-          )
-        )
+        'ul',
+        { className: 'book-list clearfix' },
+        bookList ? bookList.map(function (book, index) {
+          return _react2.default.createElement(_Book2.default, { id: book.id, key: index, book: book });
+        }) : null
       );
     }
   }]);

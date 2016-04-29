@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Appbar, Button, Container } from 'muicss/react'
 import { Link } from 'react-router'
 
 export default class Book extends Component {

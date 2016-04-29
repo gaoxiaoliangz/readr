@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Appbar, Button, Container } from 'muicss/react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { fetchUserAuthInfo, fetchBookList } from 'actions'
-import BookList from 'components/BookList'
+import BookListSection from 'components/BookListSection'
 import Loading from 'components/Loading'
 
-class BookStore extends Component {
+class Home extends Component {
 
   static fetchData({store}) {
     return store.dispatch(fetchBookList())
@@ -21,14 +20,17 @@ class BookStore extends Component {
   }
 
   render() {
+    let bookList = this.props.book.bookList
+
     return (
-      <div className="page-book-store">
-        {
-          this.props.book.isFetchingList?(
-            <Loading />
-          ):null
-        }
-        <BookList bookList={this.props.book.bookList} />
+      <div>
+        <div className="row">
+          <div className="col-md-8">
+            <BookListSection bookList={bookList} title="新书速递" moreLink="/"/>
+            <BookListSection bookList={bookList} title="近期热门" />
+          </div>
+          <div className="col-md-4">right</div>
+        </div>
       </div>
     )
   }
@@ -39,4 +41,4 @@ export default connect(
     book: state.book
   }),
   { fetchBookList }
-)(BookStore)
+)(Home)

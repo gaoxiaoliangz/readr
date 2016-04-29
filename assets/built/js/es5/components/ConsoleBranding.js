@@ -29,13 +29,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ConsoleBranding = function (_Component) {
   _inherits(ConsoleBranding, _Component);
 
-  function ConsoleBranding() {
+  function ConsoleBranding(props) {
     _classCallCheck(this, ConsoleBranding);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(ConsoleBranding).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ConsoleBranding).call(this, props));
+
+    _this.state = {
+      isDropdownMenuVisible: false
+    };
+    return _this;
   }
 
   _createClass(ConsoleBranding, [{
+    key: 'toggleDropdownMenu',
+    value: function toggleDropdownMenu() {
+      this.setState({
+        isDropdownMenuVisible: !this.state.isDropdownMenuVisible
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var username = this.props.username;
@@ -71,7 +83,7 @@ var ConsoleBranding = function (_Component) {
             ),
             username ? _react2.default.createElement(
               'div',
-              { className: 'nav right' },
+              { onMouseLeave: this.toggleDropdownMenu.bind(this), onMouseEnter: this.toggleDropdownMenu.bind(this), className: 'nav right' },
               _react2.default.createElement(
                 'span',
                 { className: 'username' },
@@ -82,7 +94,7 @@ var ConsoleBranding = function (_Component) {
                   'Admin'
                 ) : null
               ),
-              _react2.default.createElement(
+              this.state.isDropdownMenuVisible ? _react2.default.createElement(
                 'ul',
                 { className: 'dropdown-menu' },
                 isAdmin === true ? _react2.default.createElement(
@@ -112,7 +124,7 @@ var ConsoleBranding = function (_Component) {
                     '退出'
                   )
                 )
-              )
+              ) : null
             ) : _react2.default.createElement(
               'div',
               { className: 'nav right' },

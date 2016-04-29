@@ -12,7 +12,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _react3 = require('muicss/react');
+var _Container = require('elements/Container');
+
+var _Container2 = _interopRequireDefault(_Container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,7 +40,7 @@ var Colophon = function (_Component) {
         'div',
         { className: 'colophon' },
         _react2.default.createElement(
-          _react3.Container,
+          _Container2.default,
           null,
           _react2.default.createElement(
             'p',

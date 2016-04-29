@@ -16,17 +16,9 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _immutable = require('immutable');
-
-var _immutable2 = _interopRequireDefault(_immutable);
-
 var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
 
 var _utils = require('utils');
 
@@ -108,7 +100,7 @@ var BookViewer = function (_Component) {
       props.actions.jumpTo(page);
       if (this.props.user.authed) {
         (0, _utils.getProgress)(this.bookId).then(function (res) {
-          if (_lodash2.default.isEmpty(res)) {
+          if (_.isEmpty(res)) {
             (0, _utils.setProgress)(props.book.id, progress);
           } else {
             latestProgress = res;

@@ -10,6 +10,20 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
+var _reactRouter = require('react-router');
+
+var _actions = require('actions');
+
+var _BookListSection = require('components/BookListSection');
+
+var _BookListSection2 = _interopRequireDefault(_BookListSection);
+
+var _Loading = require('components/Loading');
+
+var _Loading2 = _interopRequireDefault(_Loading);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18,27 +32,61 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var NoMatch = function (_Component) {
-  _inherits(NoMatch, _Component);
+var Home = function (_Component) {
+  _inherits(Home, _Component);
 
-  function NoMatch() {
-    _classCallCheck(this, NoMatch);
+  _createClass(Home, null, [{
+    key: 'fetchData',
+    value: function fetchData(_ref) {
+      var store = _ref.store;
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(NoMatch).apply(this, arguments));
+      return store.dispatch((0, _actions.fetchBookList)());
+    }
+  }]);
+
+  function Home(props) {
+    _classCallCheck(this, Home);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
   }
 
-  _createClass(NoMatch, [{
+  _createClass(Home, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchBookList();
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var bookList = this.props.book.bookList;
+
       return _react2.default.createElement(
-        'h1',
+        'div',
         null,
-        '404'
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-8' },
+            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '新书速递', moreLink: '/' }),
+            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '近期热门' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-4' },
+            'right'
+          )
+        )
       );
     }
   }]);
 
-  return NoMatch;
+  return Home;
 }(_react.Component);
 
-exports.default = NoMatch;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    book: state.book
+  };
+}, { fetchBookList: _actions.fetchBookList })(Home);

@@ -29,13 +29,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Branding = function (_Component) {
   _inherits(Branding, _Component);
 
-  function Branding() {
+  function Branding(props) {
     _classCallCheck(this, Branding);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Branding).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Branding).call(this, props));
+
+    _this.state = {
+      isDropdownMenuVisible: false
+    };
+    return _this;
   }
 
   _createClass(Branding, [{
+    key: 'toggleDropdownMenu',
+    value: function toggleDropdownMenu() {
+      this.setState({
+        isDropdownMenuVisible: !this.state.isDropdownMenuVisible
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var username = this.props.username;
@@ -61,7 +73,7 @@ var Branding = function (_Component) {
             ),
             username ? _react2.default.createElement(
               'div',
-              { className: 'nav right' },
+              { onMouseLeave: this.toggleDropdownMenu.bind(this), onMouseEnter: this.toggleDropdownMenu.bind(this), className: 'nav right' },
               _react2.default.createElement(
                 'span',
                 { className: 'username' },
@@ -72,7 +84,7 @@ var Branding = function (_Component) {
                   'Admin'
                 ) : null
               ),
-              _react2.default.createElement(
+              this.state.isDropdownMenuVisible ? _react2.default.createElement(
                 'ul',
                 { className: 'dropdown-menu' },
                 isAdmin === true ? _react2.default.createElement(
@@ -102,7 +114,7 @@ var Branding = function (_Component) {
                     '退出'
                   )
                 )
-              )
+              ) : null
             ) : _react2.default.createElement(
               'div',
               { className: 'nav right' },

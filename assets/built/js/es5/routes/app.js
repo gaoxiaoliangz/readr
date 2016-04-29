@@ -18,10 +18,6 @@ var _BookViewer = require('containers/BookViewer');
 
 var _BookViewer2 = _interopRequireDefault(_BookViewer);
 
-var _BookStore = require('containers/BookStore');
-
-var _BookStore2 = _interopRequireDefault(_BookStore);
-
 var _Signin = require('containers/Signin');
 
 var _Signin2 = _interopRequireDefault(_Signin);
@@ -38,6 +34,10 @@ var _App = require('containers/App');
 
 var _App2 = _interopRequireDefault(_App);
 
+var _Home = require('containers/Home');
+
+var _Home2 = _interopRequireDefault(_Home);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _react2.default.createElement(
@@ -46,7 +46,7 @@ exports.default = _react2.default.createElement(
   _react2.default.createElement(
     _reactRouter.Route,
     { path: '/', component: _App2.default },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _BookStore2.default }),
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _BookInfo2.default })
   ),
   _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default }),
