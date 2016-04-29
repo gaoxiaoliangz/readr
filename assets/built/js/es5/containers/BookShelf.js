@@ -10,23 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = require('react-router');
-
 var _reactRedux = require('react-redux');
 
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _Container = require('elements/Container');
-
-var _Container2 = _interopRequireDefault(_Container);
-
-var _Colophon = require('components/Colophon');
-
-var _Colophon2 = _interopRequireDefault(_Colophon);
-
-var _actions = require('actions');
+var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,49 +22,71 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_Component) {
-  _inherits(App, _Component);
+// import { someAction } from 'actions'
 
-  function App(props) {
-    _classCallCheck(this, App);
+var BookShelf = function (_Component) {
+  _inherits(BookShelf, _Component);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+  // static fetchData({store, params}) {
+  //   return store.dispatch(fetch())
+  // }
+
+  function BookShelf(props) {
+    _classCallCheck(this, BookShelf);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookShelf).call(this, props));
   }
 
-  _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
-    }
-  }, {
+  _createClass(BookShelf, [{
     key: 'render',
     value: function render() {
-      var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
-      var username = this.props.user.username;
-      var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : this.props.children.props.route.component.displayName.toLowerCase();
-
-      console.log(this.props.children.props.route);
 
       return _react2.default.createElement(
         'div',
-        { className: "page-" + pageName },
-        _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, username: username }),
+        null,
         _react2.default.createElement(
-          _Container2.default,
+          'ul',
           null,
-          this.props.children
-        ),
-        _react2.default.createElement(_Colophon2.default, null)
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: 'book-name' },
+              'abc'
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'progress' },
+              '已阅读 50%'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: 'book-name' },
+              'abc'
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'progress' },
+              '已阅读 50%'
+            )
+          )
+        )
       );
     }
   }]);
 
-  return App;
+  return BookShelf;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    notification: state.notification,
-    user: state.user
-  };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(App);
+exports.default = BookShelf;
+// export default connect(
+//   state => ({
+//     data: state.data,
+//   }),
+//   { someAction }
+// )(Comp)

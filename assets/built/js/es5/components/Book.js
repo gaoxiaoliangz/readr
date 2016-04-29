@@ -12,6 +12,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _BookInfoPopup = require('components/BookInfoPopup');
+
+var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33,13 +37,17 @@ var Book = function (_Component) {
     key: 'render',
     value: function render() {
       var book = this.props.book;
+      var title = book.title;
+      var author = book.author;
+      var description = book.summary;
+      var bookId = this.props.id;
 
       return _react2.default.createElement(
         'li',
         { className: 'book' },
         _react2.default.createElement(
           _reactRouter.Link,
-          { to: "/book/" + this.props.id },
+          { to: "/book/" + bookId },
           _react2.default.createElement(
             'div',
             { className: 'book-cover' },
@@ -59,7 +67,8 @@ var Book = function (_Component) {
               Array.isArray(book.author) ? book.author.join(' ') : book.author
             )
           )
-        )
+        ),
+        _react2.default.createElement(_BookInfoPopup2.default, { bookId: bookId, title: title, author: author, description: description })
       );
     }
   }]);

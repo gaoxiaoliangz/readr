@@ -86,7 +86,7 @@ var Branding = function (_Component) {
               ),
               this.state.isDropdownMenuVisible ? _react2.default.createElement(
                 'ul',
-                { className: 'dropdown-menu' },
+                { onClick: this.toggleDropdownMenu.bind(this), className: 'dropdown-menu' },
                 isAdmin === true ? _react2.default.createElement(
                   'li',
                   null,
@@ -101,7 +101,16 @@ var Branding = function (_Component) {
                   null,
                   _react2.default.createElement(
                     _reactRouter.Link,
-                    { to: '/profile/' + username },
+                    { to: '/shelf' },
+                    '书架'
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/profile' },
                     '我的账号'
                   )
                 ),

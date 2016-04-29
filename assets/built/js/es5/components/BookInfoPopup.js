@@ -12,22 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _reactRedux = require('react-redux');
-
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _Container = require('elements/Container');
-
-var _Container2 = _interopRequireDefault(_Container);
-
-var _Colophon = require('components/Colophon');
-
-var _Colophon2 = _interopRequireDefault(_Colophon);
-
-var _actions = require('actions');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36,49 +20,56 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_Component) {
-  _inherits(App, _Component);
+var BookInfoPopup = function (_Component) {
+  _inherits(BookInfoPopup, _Component);
 
-  function App(props) {
-    _classCallCheck(this, App);
+  function BookInfoPopup(props) {
+    _classCallCheck(this, BookInfoPopup);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(BookInfoPopup).call(this, props));
   }
 
-  _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
-    }
-  }, {
+  _createClass(BookInfoPopup, [{
     key: 'render',
     value: function render() {
-      var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
-      var username = this.props.user.username;
-      var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : this.props.children.props.route.component.displayName.toLowerCase();
-
-      console.log(this.props.children.props.route);
+      var author = this.props.author;
+      var title = this.props.title;
+      var description = this.props.description;
+      var bookId = this.props.bookId;
 
       return _react2.default.createElement(
         'div',
-        { className: "page-" + pageName },
-        _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, username: username }),
+        { className: 'book-info-popup popup' },
         _react2.default.createElement(
-          _Container2.default,
-          null,
-          this.props.children
+          'h2',
+          { className: 'title' },
+          title
         ),
-        _react2.default.createElement(_Colophon2.default, null)
+        _react2.default.createElement(
+          'p',
+          { className: 'author' },
+          author
+        ),
+        _react2.default.createElement(
+          _reactRouter.Link,
+          { to: "/viewer/book/" + bookId },
+          '阅读'
+        ),
+        _react2.default.createElement(
+          'h3',
+          null,
+          '内容简介'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          description
+        )
       );
     }
   }]);
 
-  return App;
+  return BookInfoPopup;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    notification: state.notification,
-    user: state.user
-  };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(App);
+exports.default = BookInfoPopup;

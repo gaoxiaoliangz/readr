@@ -37,13 +37,15 @@ class Branding extends Component {
                   <span className="username">{username}{isAdmin?(<span className="badge-dark">Admin</span>):null}</span>
                   {
                     this.state.isDropdownMenuVisible?(
-                      <ul className="dropdown-menu">
+                      <ul onClick={this.toggleDropdownMenu.bind(this)} className="dropdown-menu">
                         {
                           isAdmin === true?(
                             <li><a href="/console">Console</a></li>
                           ):null
                         }
-                        <li><Link to={`/profile/${username}`}>我的账号</Link></li>
+                        {/*<li><Link to={`/profile/${username}`}>我的账号</Link></li>*/}
+                        <li><Link to={`/shelf`}>书架</Link></li>
+                        <li><Link to={`/profile`}>我的账号</Link></li>
                         <li><a href='/logout'>退出</a></li>
                       </ul>
                     ):null

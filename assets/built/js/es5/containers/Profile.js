@@ -16,18 +16,6 @@ var _reactRouter = require('react-router');
 
 var _actions = require('actions');
 
-var _BookListSection = require('components/BookListSection');
-
-var _BookListSection2 = _interopRequireDefault(_BookListSection);
-
-var _Loading = require('components/Loading');
-
-var _Loading2 = _interopRequireDefault(_Loading);
-
-var _CandyBox = require('components/CandyBox');
-
-var _CandyBox2 = _interopRequireDefault(_CandyBox);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36,82 +24,104 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Home = function (_Component) {
-  _inherits(Home, _Component);
+var Profile = function (_Component) {
+  _inherits(Profile, _Component);
 
-  _createClass(Home, null, [{
-    key: 'fetchData',
-    value: function fetchData(_ref) {
-      var store = _ref.store;
+  // static fetchData({store, params}) {
+  //   return store.dispatch(fetch())
+  // }
 
-      return store.dispatch((0, _actions.fetchBookList)());
-    }
-  }]);
+  function Profile(props) {
+    _classCallCheck(this, Profile);
 
-  function Home(props) {
-    _classCallCheck(this, Home);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Profile).call(this, props));
   }
 
-  _createClass(Home, [{
+  _createClass(Profile, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchBookList();
-    }
+    value: function componentDidMount() {}
   }, {
     key: 'render',
     value: function render() {
-      var bookList = this.props.book.bookList;
-      var list = [{
-        name: "测试1",
-        link: "/"
-      }, {
-        name: "测试1",
-        link: "/"
-      }, {
-        name: "测试1",
-        link: "/"
-      }, {
-        name: "测试1",
-        link: "/"
-      }, {
-        name: "测试1",
-        link: "/"
-      }, {
-        name: "测试1",
-        link: "/"
-      }];
-
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'profile' },
         _react2.default.createElement(
-          'div',
-          { className: 'row' },
+          'h1',
+          { className: 'title' },
+          '个人资料'
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
           _react2.default.createElement(
-            'div',
-            { className: 'col-md-8' },
-            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '新书速递', moreLink: '/' }),
-            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '近期热门' }),
-            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '推荐书单' })
+            'li',
+            null,
+            _react2.default.createElement(
+              'label',
+              null,
+              '头像'
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'avatar' },
+              'pic'
+            )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'col-md-4' },
-            _react2.default.createElement(_CandyBox2.default, { title: '近期热门', list: list }),
-            _react2.default.createElement(_CandyBox2.default, { title: '最近阅读', list: list })
+            'li',
+            null,
+            _react2.default.createElement(
+              'label',
+              null,
+              '用户名'
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              'liang'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'label',
+              null,
+              '邮箱'
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              'liang@gmail.com'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'label',
+              null,
+              '密码'
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              '******'
+            )
           )
         )
       );
     }
   }]);
 
-  return Home;
+  return Profile;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    book: state.book
-  };
-}, { fetchBookList: _actions.fetchBookList })(Home);
+exports.default = Profile;
+// export default connect(
+//   state => ({
+//     notification: state.notification,
+//   }),
+//   { handleNotification }
+// )(Profile)

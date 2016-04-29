@@ -7,12 +7,16 @@ import Signup from 'containers/Signup'
 import BookInfo from 'containers/BookInfo'
 import App from 'containers/App'
 import Home from 'containers/Home'
+import Profile from 'containers/Profile'
+import BookShelf from 'containers/BookShelf'
 
 export default (
   <Router>
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="book/:id" component={BookInfo} />
+      <Route path="profile" component={Profile} />
+      <Route path="shelf" component={BookShelf} />
     </Route>
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />

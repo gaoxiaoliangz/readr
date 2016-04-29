@@ -20,7 +20,11 @@ class App extends Component {
   render() {
     let isAdmin = this.props.user.role?(this.props.user.role === 'admin'?true:false):false
     let username = this.props.user.username
-    let pageName = this.props.children.props.route.component.WrappedComponent?this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase():'404'
+    let pageName = this.props.children.props.route.component.WrappedComponent ?
+      this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() :
+      this.props.children.props.route.component.displayName.toLowerCase()
+
+    console.log(this.props.children.props.route);
 
     return (
       <div className={"page-"+pageName}>

@@ -38,6 +38,14 @@ var _Home = require('containers/Home');
 
 var _Home2 = _interopRequireDefault(_Home);
 
+var _Profile = require('containers/Profile');
+
+var _Profile2 = _interopRequireDefault(_Profile);
+
+var _BookShelf = require('containers/BookShelf');
+
+var _BookShelf2 = _interopRequireDefault(_BookShelf);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _react2.default.createElement(
@@ -47,7 +55,9 @@ exports.default = _react2.default.createElement(
     _reactRouter.Route,
     { path: '/', component: _App2.default },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _BookInfo2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: 'book/:id', component: _BookInfo2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: _Profile2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'shelf', component: _BookShelf2.default })
   ),
   _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _Signup2.default }),
