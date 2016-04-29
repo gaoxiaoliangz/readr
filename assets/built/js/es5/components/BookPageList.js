@@ -54,24 +54,16 @@ var BookPageList = function (_Component) {
       // }
 
       return _react2.default.createElement(
-        'div',
-        { className: 'pages' },
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(
-            'ul',
-            { style: { height: this.props.height } },
-            this.props.pages.map(function (page, index) {
-              if (page.type === "page") {
-                // style = Object.assign({}, style, page.props.style)
-                return _react2.default.createElement(_BookPage2.default, { style: page.props.style, bookId: _this2.props.bookId, key: index, page: page });
-              } else {
-                console.error("Not type page!");
-              }
-            })
-          )
-        )
+        'ul',
+        { className: 'pages', style: { height: this.props.height } },
+        this.props.pages.map(function (page, index) {
+          if (page.type === "page") {
+            // style = Object.assign({}, style, page.props.style)
+            return _react2.default.createElement(_BookPage2.default, { style: page.props.style, bookId: _this2.props.bookId, key: index, page: page });
+          } else {
+            console.error("Not type page!");
+          }
+        })
       );
     }
   }]);

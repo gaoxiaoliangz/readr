@@ -1,43 +1,44 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\000031}}
 html {
-  font-size: 62.5%; }
+  font-size: 16px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\000034}}
 body {
+  font-size: 1rem;
   font-family: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
   color: #666;
   -webkit-font-smoothing: antialiased; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000311}}
 .no-csschunit body {
   font-family: "Microsoft Yahei", Arial, sans-serif; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000315}}
 ::selection {
   background: rgba(47, 141, 246, 0.3);
   color: #666;
   text-shadow: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000320}}
 a,
 a:hover,
 a:focus,
 a:active {
   text-decoration: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000326}}
 a {
   color: #2c65c7;
   transition: all .2s ease-in; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000329}}
   a:hover {
     color: #4c83e0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000332}}
   a:active {
     color: #4b8cff;
     transition: all 0s; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\0000337}}
 ul {
   padding: 0;
   margin: 0;
@@ -91,10 +92,11 @@ ul {
  * icons
  * -------------------------------------------------------------------------------------
 **/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/icons\.scss}line{font-family:\000037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/icons\.scss}line{font-family:\000036}}
 .icon {
   width: 30px;
   height: 30px;
+  line-height: 30px;
   display: inline-block; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/icons\.scss}line{font-family:\0000312}}
@@ -128,6 +130,16 @@ ul {
 .icon-database {
   background: url(../img/icons/database.png) no-repeat center;
   background-size: 30px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/icons\.scss}line{font-family:\0000338}}
+.icon-font {
+  background: url(../img/icons/font.png) no-repeat center;
+  background-size: 30px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/icons\.scss}line{font-family:\0000342}}
+.icon-back {
+  background: url(../img/icons/back.png) no-repeat center;
+  background-size: 15px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/animation\.scss}line{font-family:\000031}}
 .fade-enter {

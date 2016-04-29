@@ -16,24 +16,20 @@ class BookPageList extends Component {
     // }
 
     return (
-      <div className="pages">
-        <div className="container">
-          <ul style={{height: this.props.height}}>
-            {
-              this.props.pages.map((page, index)=>{
-                if(page.type === "page") {
-                  // style = Object.assign({}, style, page.props.style)
-                  return (
-                    <BookPage style={page.props.style} bookId={this.props.bookId} key={index} page={page}></BookPage>
-                  )
-                }else{
-                  console.error("Not type page!")
-                }
-              })
+      <ul className="pages" style={{height: this.props.height}}>
+        {
+          this.props.pages.map((page, index)=>{
+            if(page.type === "page") {
+              // style = Object.assign({}, style, page.props.style)
+              return (
+                <BookPage style={page.props.style} bookId={this.props.bookId} key={index} page={page}></BookPage>
+              )
+            }else{
+              console.error("Not type page!")
             }
-          </ul>
-        </div>
-      </div>
+          })
+        }
+      </ul>
     )
   }
 }

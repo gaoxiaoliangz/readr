@@ -9,6 +9,7 @@ import { API_ROOT } from 'constants/APIS'
 import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
 import Confirm from 'components/Confirm'
+import Icon from 'elements/Icon'
 
 let windowWidth
 if(typeof window !== 'undefined') {
@@ -26,7 +27,7 @@ class BookViewer extends Component {
 
     this.bookId = props.params.id
     this.state = {
-      showPanel: false,
+      showPanel: true,
       isListenersAdded: false
     }
   }
@@ -238,8 +239,7 @@ class BookViewer extends Component {
     }
 
     return (
-      <div className={`page-book-viewer book-viewer--${view.screen}`}
-           onMouseMove={this.toggleBookPanel.bind(this)} >
+      <div className={`viewer viewer--${view.screen}`} onMouseMovfe={this.toggleBookPanel.bind(this)} >
         <Confirm confirm={this.props.confirm} />
         {
           this.state.isLoading || book.isFetchingInfo || book.isFetchingContent?(
@@ -254,13 +254,20 @@ class BookViewer extends Component {
         >
           {
             this.state.showPanel && book.meta && book.isPagesLoaded === true ?(
-              <div className="functions">
+              <div className="viewer-panel">
                 <div className="container">
-                  <span className="home">
-                    <Link to="/bookstore"></Link>
-                  </span>
+                  <div className="back">
+                    <Link to="/">
+                      <Icon name="back" />
+                      <span>返回</span>
+                    </Link>
+                  </div>
                   <span className="title">{book.meta.title}</span>
-                  <span className="loc">{book.currentPage+"/"+pages.length}</span>
+                  <div className="preference">
+                    <Icon name="font" />
+                  </div>
+
+                  {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
                 </div>
               </div>
             ):null
@@ -268,15 +275,11 @@ class BookViewer extends Component {
         </ReactCSSTransitionGroup>
         {
           book.mode === 'render' ?(
-            <div className="pages">
-              <div className="container">
-                <ul>
-                  <li>
-                    <div className="content" dangerouslySetInnerHTML={{__html: book.html}} />
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ul className="pages">
+              <li>
+                <div className="content" dangerouslySetInnerHTML={{__html: book.html}}></div>
+              </li>
+            </ul>
           ):null
         }
         {

@@ -40,6 +40,10 @@ var _Confirm = require('components/Confirm');
 
 var _Confirm2 = _interopRequireDefault(_Confirm);
 
+var _Icon = require('elements/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -69,7 +73,7 @@ var BookViewer = function (_Component) {
 
     _this.bookId = props.params.id;
     _this.state = {
-      showPanel: false,
+      showPanel: true,
       isListenersAdded: false
     };
     return _this;
@@ -304,8 +308,7 @@ var BookViewer = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'page-book-viewer book-viewer--' + view.screen,
-          onMouseMove: this.toggleBookPanel.bind(this) },
+        { className: 'viewer viewer--' + view.screen, onMouseMovfe: this.toggleBookPanel.bind(this) },
         _react2.default.createElement(_Confirm2.default, { confirm: this.props.confirm }),
         this.state.isLoading || book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
         _react2.default.createElement(
@@ -318,14 +321,23 @@ var BookViewer = function (_Component) {
           },
           this.state.showPanel && book.meta && book.isPagesLoaded === true ? _react2.default.createElement(
             'div',
-            { className: 'functions' },
+            { className: 'viewer-panel' },
             _react2.default.createElement(
               'div',
               { className: 'container' },
               _react2.default.createElement(
-                'span',
-                { className: 'home' },
-                _react2.default.createElement(_reactRouter.Link, { to: '/bookstore' })
+                'div',
+                { className: 'back' },
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/' },
+                  _react2.default.createElement(_Icon2.default, { name: 'back' }),
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    '返回'
+                  )
+                )
               ),
               _react2.default.createElement(
                 'span',
@@ -333,28 +345,20 @@ var BookViewer = function (_Component) {
                 book.meta.title
               ),
               _react2.default.createElement(
-                'span',
-                { className: 'loc' },
-                book.currentPage + "/" + pages.length
+                'div',
+                { className: 'preference' },
+                _react2.default.createElement(_Icon2.default, { name: 'font' })
               )
             )
           ) : null
         ),
         book.mode === 'render' ? _react2.default.createElement(
-          'div',
+          'ul',
           { className: 'pages' },
           _react2.default.createElement(
-            'div',
-            { className: 'container' },
-            _react2.default.createElement(
-              'ul',
-              null,
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement('div', { className: 'content', dangerouslySetInnerHTML: { __html: book.html } })
-              )
-            )
+            'li',
+            null,
+            _react2.default.createElement('div', { className: 'content', dangerouslySetInnerHTML: { __html: book.html } })
           )
         ) : null,
         book.mode === 'vertical' ? _react2.default.createElement(

@@ -2,11 +2,11 @@
  * icons
  * -------------------------------------------------------------------------------------
 **/
-$icons_size: 30px;
-$icons_size_small: 10px;
+
 .icon {
  width: $icons_size;
  height: $icons_size;
+ line-height: $icons_size;
  display: inline-block;
 }
 .icon.small {
@@ -34,4 +34,12 @@ $icons_size_small: 10px;
 .icon-database {
   background: url(../img/icons/database.png) no-repeat center;
   background-size: $icons_size;
+}
+.icon-font {
+  background: url(../img/icons/font.png) no-repeat center;
+  background-size: $icons_size;
+}
+.icon-back {
+  background: url(../img/icons/back.png) no-repeat center;
+  background-size: $icons_size/2;
 }

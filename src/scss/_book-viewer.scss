@@ -1,119 +1,145 @@
-.page-book-viewer {
-  .pages {
-    position: relative;
-    background: #e5e4db;
+$viewer_background1: #e5e4db;
+$text_background1: #f6f4ec;
 
-    .container {
-      position: relative;
-      width: 700px;
-      margin: 0 auto;
+@mixin make_viewer($text, $text_background, $panel_text, $panel_background, $viewer_background, $color) {
+
+  position: relative;
+  background: $viewer_background;
+
+  .page-no {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top: 1px solid lighten($text, 50%);
+    padding: 0 10px;
+    color: lighten($text, 50%);
+    font-size: 0.8rem;
+  }
+
+  ul.pages {
+    position: relative;
+    width: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: $text_background;
+    z-index: 980;
+
+    >li {
+      display: block;
+      width: 100%;
       overflow: hidden;
-      background: #f6f4ec;
-      z-index: 980;
-    }
-    ul {
-      position: relative;
-      li {
-        display: block;
-        width: 100%;
+      cursor: default;
+
+      .content {
+        margin: 0 auto;
+        width: 550px;
+        position: relative;
         overflow: hidden;
-        cursor: default;
-        .content {
-          margin: 0 auto;
-          width: 550px;
-          position: relative;
-          overflow: hidden;
-          color: #333;
-          font-size: 1.8rem;
-          line-height: 1.9;
-          p {
-            margin: 0;
-            min-height: 25px;
-          }
-        }
-        .page-no {
-          position: absolute;
-          left: 0;
-          top: 0;
-          border-top: 1px solid #ddd;
-          padding: 0 10px;
-          color: #999;
-          font-size: 1.4rem;
+        color: $text;
+        line-height: 1.9;
+
+        p {
+          margin: 0;
+          min-height: 25px;
         }
       }
-      li.init {
-        position: relative;
+    }
+    >li.init {
+      position: relative;
+      height: auto;
+      .content {
         height: auto;
-        .content {
-          height: auto;
-        }
       }
     }
   }
 
-  .functions {
+  .viewer-panel {
+    $height: 60px;
+
     width: 100%;
     position: fixed;
     top: 0;
     overflow: hidden;
     z-index: 990;
-    $height: 60px;
+    background: $panel_background;
+    color: $panel_text;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+    height: $height;
 
     .container {
-      margin: 0 auto;
-      border-bottom: 1px solid #e5e4db;
-      background: #f6f4ec;
-      text-align: left;
       overflow: hidden;
       text-align: center;
+      // height: $height;
+      margin-top: ($height - $icons_size)/2;
     }
 
-    span {
-      height: $height;
-      line-height: $height;
-      color: #333;
-      display: inline-block;
-      opacity: .4;
-      margin: 0 10px;
-      background-repeat: no-repeat !important;
-      background-size: 30px !important;
+    .icon {
+
+    }
+
+    .back, .title, .preference {
+      // line-height: $height;
+    }
+
+    .back {
       float: left;
-    }
-    span.title {
-      font-size: 18px;
-      border-left: 1px solid #ccc;
-      padding: 0;
-      opacity: .7 !important;
-      padding-left: 20px;
-      margin-left: 0;
-    }
-    span.loc {
-      float: right;
-      opacity: .4 !important;
-      font-size: 1.6rem;
-      margin-right: 20px;
-    }
-    span:active {
-      opacity: .8;
-    }
-    .home {
-      width: 30px;
-      background: url(../img/home.png) center;
       a {
-        display: block;
-        height: $height;
+        color: $panel_text;
+        display: inline-block;
+        overflow: hidden;
+        span {
+          float: left;
+        }
+      }
+      span {
+        line-height: $icons_size;
+        display: inline-block;
       }
     }
-    .sync {
-      background: url(../img/sync.png) center;
+
+    .title {
+      font-size: 1.2rem;
     }
-    .sync.dotted {
-      background: url(../img/sync.png) center,url(../img/loc.png) 20px 3px;
+
+    .preference {
+      float: right;
     }
-    .clear {
-      background: url(../img/clear.png) center;
-    }
+
+    // span {
+    //   height: $height;
+    //   line-height: $height;
+    //   display: inline-block;
+    //   opacity: .4;
+    //   margin: 0 10px;
+    //   background-repeat: no-repeat !important;
+    //   background-size: 30px !important;
+    //   float: left;
+    // }
+    // span.title {
+    //   font-size: 18px;
+    //   border-left: 1px solid #ccc;
+    //   padding: 0;
+    //   opacity: .7 !important;
+    //   padding-left: 20px;
+    //   margin-left: 0;
+    // }
+    // span.loc {
+    //   float: right;
+    //   opacity: .4 !important;
+    //   font-size: 1.6rem;
+    //   margin-right: 20px;
+    // }
+    // span:active {
+    //   opacity: .8;
+    // }
+    // .home {
+    //   width: 30px;
+    //   background: url(../img/home.png) center;
+    //   a {
+    //     display: block;
+    //     height: $height;
+    //   }
+    // }
   }
 }
 
@@ -148,4 +174,8 @@
       }
     }
   }
+}
+
+.viewer {
+  @include make_viewer(#555, #fff, #fff, #222, #eee, red);
 }
