@@ -24,8 +24,6 @@ class App extends Component {
       this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() :
       this.props.children.props.route.component.displayName.toLowerCase()
 
-    console.log(this.props.children.props.route);
-
     return (
       <div className={"page-"+pageName}>
         <Branding isAdmin={isAdmin} username={username} />

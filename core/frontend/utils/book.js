@@ -226,23 +226,23 @@ export function setProgress(bookId, progress) {
  * functions being used internally
  */
 
- function getNodeHeights(selector, actions) {
-   actions.setBookMode('render')
+function getNodeHeights(selector, actions) {
+  actions.setBookMode('render')
 
-   let nodes = document.querySelector(selector).childNodes
-   let nodesHeight = []
+  let nodes = document.querySelector(selector).childNodes
+  let nodesHeight = []
 
-   Array.prototype.forEach.call(nodes, (node, index) => {
-     if(node.tagName.toLowerCase() !== "p") {
-       console.error("Unsupported content found!")
-     }
-     nodesHeight.push(node.clientHeight)
-   })
+  Array.prototype.forEach.call(nodes, (node, index) => {
+   if(node.tagName.toLowerCase() !== "p") {
+     console.error("Unsupported content found!")
+   }
+   nodesHeight.push(node.clientHeight)
+  })
 
-   actions.setBookMode('vertical')
+  actions.setBookMode('vertical')
 
-   return nodesHeight
- }
+  return nodesHeight
+}
 
 function parseHTML(htmlString) {
   let nodes = []

@@ -34,12 +34,21 @@ export function clearBookSearch() {
   }
 }
 
-export function fetchBookContent(bookId, endpoint) {
-  return promisedCallApi({
-    types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
-    endpoint
-  }, { bookId })
+export function fetchBookContent(bookId) {
+  return {
+    CALL_API: {
+      types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+      endpoint: `books/${bookId}/content`
+    }
+  }
 }
+
+// export function fetchBookContent(bookId) {
+//   return promisedCallApi({
+//     types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+//     endpoint: `books/${bookId}/content`
+//   }, { bookId })
+// }
 
 
 export function fetchBookInfo(bookId) {

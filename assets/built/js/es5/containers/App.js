@@ -57,8 +57,6 @@ var App = function (_Component) {
       var username = this.props.user.username;
       var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : this.props.children.props.route.component.displayName.toLowerCase();
 
-      console.log(this.props.children.props.route);
-
       return _react2.default.createElement(
         'div',
         { className: "page-" + pageName },
