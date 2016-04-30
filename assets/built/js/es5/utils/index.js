@@ -50,6 +50,7 @@ exports.lockScroll = lockScroll;
 exports.unlockScroll = unlockScroll;
 exports.delayStuff = delayStuff;
 exports.lazilize = lazilize;
+exports.compareObjects = compareObjects;
 
 var _APIS = require('constants/APIS');
 
@@ -194,4 +195,23 @@ function lazilize(callback, t) {
     var timer = setTimeout(callback.bind(_this), t);
     timers.push(timer);
   };
+}
+
+// very rough but enough for use here
+function compareObjects(obj1, obj2) {
+  var isEqual = true;
+
+  try {
+    for (var prop in obj1) {
+      if (obj1[prop] !== obj2[prop]) {
+        isEqual = false;
+        break;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    isEqual = false;
+  }
+
+  return isEqual;
 }

@@ -2,7 +2,6 @@ $viewer_background1: #e5e4db;
 $text_background1: #f6f4ec;
 
 @mixin make_viewer($text, $text_background, $panel_text, $panel_background, $viewer_background, $color) {
-
   position: relative;
   background: $viewer_background;
 
@@ -69,16 +68,13 @@ $text_background1: #f6f4ec;
     .container {
       overflow: hidden;
       text-align: center;
-      // height: $height;
       margin-top: ($height - $icons_size)/2;
     }
 
     .icon {
-
     }
 
     .back, .title, .preference {
-      // line-height: $height;
     }
 
     .back {
@@ -141,16 +137,11 @@ $text_background1: #f6f4ec;
     //   }
     // }
   }
-}
 
-.page-book-viewer.book-viewer--phone {
-  .pages {
-    background: #fff;
-    .container {
+  &.viewer--phone {
+    ul.pages {
       width: 100%;
-      background: #fff;
-      ul li {
-        display: block;
+      >li {
         .content {
           padding: 0 25px;
           width: auto;
@@ -163,6 +154,13 @@ $text_background1: #f6f4ec;
         }
       }
     }
+  }
+}
+
+.page-book-viewer.book-viewer--phone {
+  .pages {
+    background: #fff;
+
   }
 
   .functions {

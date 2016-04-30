@@ -22,6 +22,8 @@ var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTran
 
 var _utils = require('utils');
 
+var utils = _interopRequireWildcard(_utils);
+
 var _actions = require('actions');
 
 var actions = _interopRequireWildcard(_actions);
@@ -84,7 +86,8 @@ var BookViewer = function (_Component) {
       isCalculatingDom: false,
       isReadingMode: false,
       isScrollMode: true,
-      calculatedPages: null
+      calculatedPages: null,
+      view: (0, _utils.getView)()
     };
     return _this;
   }
@@ -191,24 +194,44 @@ var BookViewer = function (_Component) {
       //   }
       // }
 
-      window.addEventListener('scroll', function () {
+      this.mapScrollTopToState = function () {
         _this2.setState({
           scrollTop: document.body.scrollTop
         });
+      };
 
-        // getProgress(this.props.book.id).then(res => {
-        //   latestProgress = res.page_no
-        // })
-      });
+      this.mapWindowWidthToState = function () {
+        _this2.setState({
+          windowWidth: window.innerWidth
+        });
+      };
 
-      // window.addEventListener('scroll', this.handleScroll)
-      // window.addEventListener('resize', this.handleResize)
+      this.mapViewToState = function () {
+        _this2.setState({
+          view: (0, _utils.getView)()
+        });
+      };
+
+      // window.addEventListener('scroll', () => {
+      //   this.setState({
+      //     scrollTop: document.body.scrollTop
+      //   })
+      //
+      //   // getProgress(this.props.book.id).then(res => {
+      //   //   latestProgress = res.page_no
+      //   // })
+      // })
+
+      window.addEventListener('scroll', this.mapScrollTopToState);
+      window.addEventListener('resize', this.mapWindowWidthToState);
+      window.addEventListener('resize', this.mapViewToState);
     }
   }, {
     key: 'removeEventListeners',
     value: function removeEventListeners() {
-      window.removeEventListener('scroll', this.handleScroll);
-      window.removeEventListener('resize', this.handleResize);
+      window.removeEventListener('scroll', this.mapScrollTopToState);
+      window.removeEventListener('resize', this.mapWindowWidthToState);
+      window.removeEventListener('resize', this.mapViewToState);
     }
   }, {
     key: 'toggleBookPanel',
@@ -252,7 +275,7 @@ var BookViewer = function (_Component) {
   }, {
     key: 'calculateDom',
     value: function calculateDom() {
-      var html = this.props.book.html;
+      var html = this.state.bookHtml;
       var bookId = this.bookId;
       var view = (0, _utils.getView)();
       // TODO: ref?
@@ -261,6 +284,9 @@ var BookViewer = function (_Component) {
       var pages = _renderBook.htmlToPages(html, nodeHeights, view);
 
       (0, _utils.setCache)('book' + bookId + '_pages', JSON.stringify(pages));
+
+      console.log('calculated');
+
       this.setState({
         isReadingMode: true,
         isCalculatingDom: false,
@@ -268,11 +294,26 @@ var BookViewer = function (_Component) {
       });
     }
   }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(nextProps, nextState) {
+      // let view = getView()
+      //
+      // if(nextState.windowWidth < 700 ) {
+      //   console.log('update');
+      // }
+      if (!utils.compareObjects(this.state.view, nextState.view)) {
+        console.log('update');
+        this.setState({
+          isCalculatingDom: true,
+          fuck: 'yeah'
+        });
+        // this.calculateDom()
+      }
+    }
+  }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       if (this.state.isCalculatingDom && !prevState.isCalculatingDom) {
-        alert(12);
-        console.log(prevState);
         this.calculateDom();
       }
     }
@@ -294,14 +335,17 @@ var BookViewer = function (_Component) {
       // check if pages are cached
       if (pages) {
         pages = JSON.parse(pages);
+
         this.setState({
           isReadingMode: true,
-          calculatedPages: pages
+          calculatedPages: pages,
+          bookHtml: _renderBook.pagesToHtml(pages)
         });
       } else {
         this.props.actions.fetchBookContent(bookId).then(function (res) {
           _this3.setState({
-            isCalculatingDom: true
+            isCalculatingDom: true,
+            bookHtml: res.response.html
           });
         });
       }
@@ -338,7 +382,7 @@ var BookViewer = function (_Component) {
     key: 'render',
     value: function render() {
       var book = this.props.book;
-      var view = this.props.view;
+      var view = this.state.view;
 
       return _react2.default.createElement(
         'div',

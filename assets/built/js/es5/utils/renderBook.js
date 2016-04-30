@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.filterPages = filterPages;
 exports.convertPercentageToPage = convertPercentageToPage;
 exports.htmlToPages = htmlToPages;
+exports.pagesToHtml = pagesToHtml;
 exports.getNodeHeights = getNodeHeights;
 function filterPages(config) {
   var startPage = config.startPage;
@@ -49,6 +50,27 @@ function htmlToPages(html, nodeHeights, view) {
       view: view
     }
   };
+}
+
+function pagesToHtml(pages) {
+  var nodes = pages.props.children.reduce(function (a, b) {
+    return a.concat(b.props.children);
+  }, []);
+  var uniqueNodes = [];
+  var realIndex = 0;
+
+  // remove duplicate nodes
+  for (var i = 0; i < nodes.length; i++) {
+    nodes[i];
+    if (nodes[i].props.index === realIndex) {
+      uniqueNodes.push(nodes[i]);
+      realIndex++;
+    }
+  }
+
+  var html = parseNodes(uniqueNodes);
+
+  return html;
 }
 
 function getNodeHeights(nodes) {
@@ -175,4 +197,19 @@ function parseHTML(htmlString) {
     }
   }
   return nodes;
+}
+
+function parseNodes(nodes) {
+  var html = '';
+
+  for (var i = 0; i < nodes.length; i++) {
+    if (nodes[i].type !== 'p') {
+      console.error('Unsupported node found!');
+      continue;
+    } else {
+      html += "<p>" + nodes[i].props.children + "</p>";
+    }
+  }
+
+  return html;
 }

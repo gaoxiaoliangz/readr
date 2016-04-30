@@ -10,6 +10,7 @@ import BookPageList from 'components/BookPageList'
 import Loading from 'components/Loading'
 import Confirm from 'components/Confirm'
 import Icon from 'elements/Icon'
+import * as utils from 'utils'
 
 import * as renderBook from 'utils/renderBook'
 
@@ -36,7 +37,8 @@ class BookViewer extends Component {
       isCalculatingDom: false,
       isReadingMode: false,
       isScrollMode: true,
-      calculatedPages: null
+      calculatedPages: null,
+      view: getView()
     }
   }
 
@@ -138,23 +140,43 @@ class BookViewer extends Component {
     //   }
     // }
 
-    window.addEventListener('scroll', () => {
+    this.mapScrollTopToState = () => {
       this.setState({
         scrollTop: document.body.scrollTop
       })
+    }
 
-      // getProgress(this.props.book.id).then(res => {
-      //   latestProgress = res.page_no
-      // })
-    })
+    this.mapWindowWidthToState = () => {
+      this.setState({
+        windowWidth: window.innerWidth
+      })
+    }
 
-    // window.addEventListener('scroll', this.handleScroll)
-    // window.addEventListener('resize', this.handleResize)
+    this.mapViewToState = () => {
+      this.setState({
+        view: getView()
+      })
+    }
+
+    // window.addEventListener('scroll', () => {
+    //   this.setState({
+    //     scrollTop: document.body.scrollTop
+    //   })
+    //
+    //   // getProgress(this.props.book.id).then(res => {
+    //   //   latestProgress = res.page_no
+    //   // })
+    // })
+
+    window.addEventListener('scroll', this.mapScrollTopToState)
+    window.addEventListener('resize', this.mapWindowWidthToState)
+    window.addEventListener('resize', this.mapViewToState)
   }
 
   removeEventListeners() {
-    window.removeEventListener('scroll', this.handleScroll)
-    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.mapScrollTopToState)
+    window.removeEventListener('resize', this.mapWindowWidthToState)
+    window.removeEventListener('resize', this.mapViewToState)
   }
 
   toggleBookPanel(event) {
@@ -194,7 +216,7 @@ class BookViewer extends Component {
   }
 
   calculateDom() {
-    let html = this.props.book.html
+    let html = this.state.bookHtml
     let bookId = this.bookId
     let view = getView()
     // TODO: ref?
@@ -203,6 +225,9 @@ class BookViewer extends Component {
     let pages = renderBook.htmlToPages(html, nodeHeights, view)
 
     setCache(`book${bookId}_pages`, JSON.stringify(pages))
+
+    console.log('calculated');
+    
     this.setState({
       isReadingMode: true,
       isCalculatingDom: false,
@@ -210,10 +235,24 @@ class BookViewer extends Component {
     })
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    // let view = getView()
+    //
+    // if(nextState.windowWidth < 700 ) {
+    //   console.log('update');
+    // }
+    if(!utils.compareObjects(this.state.view, nextState.view)) {
+      console.log('update');
+      this.setState({
+        isCalculatingDom: true,
+        fuck: 'yeah'
+      })
+      // this.calculateDom()
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if(this.state.isCalculatingDom && !prevState.isCalculatingDom) {
-      alert(12)
-      console.log(prevState);
       this.calculateDom()
     }
   }
@@ -232,14 +271,17 @@ class BookViewer extends Component {
     // check if pages are cached
     if(pages){
       pages = JSON.parse(pages)
+
       this.setState({
         isReadingMode: true,
-        calculatedPages: pages
+        calculatedPages: pages,
+        bookHtml: renderBook.pagesToHtml(pages)
       })
     } else {
       this.props.actions.fetchBookContent(bookId).then(res => {
         this.setState({
-          isCalculatingDom: true
+          isCalculatingDom: true,
+          bookHtml: res.response.html
         })
       })
     }
@@ -273,7 +315,7 @@ class BookViewer extends Component {
 
   render() {
     let book = this.props.book
-    let view = this.props.view
+    let view = this.state.view
 
     return (
       <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this)} >
