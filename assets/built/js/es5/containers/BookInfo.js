@@ -30,6 +30,10 @@ var _Colophon = require('components/Colophon');
 
 var _Colophon2 = _interopRequireDefault(_Colophon);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69,12 +73,12 @@ var BookInfo = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var bookInfo = this.props.book.meta ? this.props.book.meta : {};
+      var bookInfo = this.props.bookInfo ? this.props.bookInfo : {};
 
       return _react2.default.createElement(
         'article',
         { className: 'book-info content-container' },
-        this.props.book.isFetchingInfo ? _react2.default.createElement(_Loading2.default, null) : null,
+        _lodash2.default.isEmpty(bookInfo) ? _react2.default.createElement(_Loading2.default, null) : null,
         _react2.default.createElement(
           'header',
           { className: 'book-info-header' },
@@ -160,9 +164,9 @@ var BookInfo = function (_Component) {
   return BookInfo;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
+exports.default = (0, _reactRedux.connect)(function (state, ownProps) {
   return {
-    book: state.book,
+    bookInfo: state.entities.books[ownProps.params.id],
     user: state.user
   };
 }, { fetchBookInfo: _actions.fetchBookInfo, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookInfo);

@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.JUMP_TO = exports.LOAD_PAGES = exports.SET_BOOK_MODE = exports.LOAD_HTML = exports.CLEAR_BOOK_SEARCH = undefined;
+exports.JUMP_TO = exports.LOAD_PAGES = exports.SET_BOOK_MODE = exports.LOAD_HTML = exports.BOOK_INFO_FAILURE = exports.BOOK_INFO_SUCCESS = exports.BOOK_INFO_REQUEST = exports.CLEAR_BOOK_SEARCH = exports.BOOK_LIST_FAILURE = exports.BOOK_LIST_SUCCESS = exports.BOOK_LIST_REQUEST = undefined;
+exports.fetchBookProgress = fetchBookProgress;
 exports.fetchBookList = fetchBookList;
-exports.fetchBookList00 = fetchBookList00;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
 exports.clearBookSearch = clearBookSearch;
 exports.fetchBookContent = fetchBookContent;
@@ -20,21 +20,30 @@ var _actions = require('actions');
 
 var _APIS = require('constants/APIS');
 
-function fetchBookList() {
+var _api = require('middleware/api');
+
+function fetchBookProgress(bookId) {
   return {
     CALL_API: {
-      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
-      endpoint: 'books'
+      types: ['BOOK_PROGRESS_REQUEST', 'BOOK_PROGRESS_SUCCESS', 'BOOK_PROGRESS_FAILURE'],
+      endpoint: 'books/' + bookId + '/progress',
+      schema: _api.Schemas.BOOK_PROGRESS
     }
   };
 }
 
-// TODO
-function fetchBookList00(endpoint) {
-  return (0, _actions.promisedCallApi)({
-    types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
-    endpoint: endpoint
-  }, {});
+var BOOK_LIST_REQUEST = exports.BOOK_LIST_REQUEST = 'BOOK_LIST_REQUEST';
+var BOOK_LIST_SUCCESS = exports.BOOK_LIST_SUCCESS = 'BOOK_LIST_SUCCESS';
+var BOOK_LIST_FAILURE = exports.BOOK_LIST_FAILURE = 'BOOK_LIST_FAILURE';
+
+function fetchBookList() {
+  return {
+    CALL_API: {
+      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE],
+      endpoint: 'books',
+      schema: _api.Schemas.BOOK_ARRAY
+    }
+  };
 }
 
 function fetchDoubanBookSearchResults(endpoint) {
@@ -68,11 +77,16 @@ function fetchBookContent(bookId) {
 //   }, { bookId })
 // }
 
+var BOOK_INFO_REQUEST = exports.BOOK_INFO_REQUEST = 'BOOK_INFO_REQUEST';
+var BOOK_INFO_SUCCESS = exports.BOOK_INFO_SUCCESS = 'BOOK_INFO_SUCCESS';
+var BOOK_INFO_FAILURE = exports.BOOK_INFO_FAILURE = 'BOOK_INFO_FAILURE';
+
 function fetchBookInfo(bookId) {
   return {
     CALL_API: {
-      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-      endpoint: 'books/' + bookId
+      types: [BOOK_INFO_REQUEST, BOOK_INFO_SUCCESS, BOOK_INFO_FAILURE],
+      endpoint: 'books/' + bookId,
+      schema: _api.Schemas.BOOK
     }
   };
 }

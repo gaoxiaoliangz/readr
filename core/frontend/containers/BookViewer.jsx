@@ -42,104 +42,27 @@ class BookViewer extends Component {
     }
   }
 
-  // props have to be loaded and updated simultaneously
-  // so it's better to put it in React component
-  // scrollToLoadPages() {
-  //   let props = this.props
-  //   let pages = props.book.pages.props.children
-  //   let pageSum = pages.length
-  //   let percentage = Number((document.body.scrollTop/(props.book.pages.props.view.pageHeight*pageSum)).toFixed(4))
-  //   let page = convertPercentageToPage(percentage, pageSum)
-  //   let tolerance = 2
-  //   let progress = {
-  //     pageNo: page,
-  //     pageSum: pageSum,
-  //     percentage
-  //   }
-  //   currentProgress = progress
-  //
-  //   props.actions.jumpTo(page)
-  //   if(this.props.user.authed) {
-  //     getProgress(this.bookId).then(res => {
-  //       if(_.isEmpty(res)) {
-  //         setProgress(props.book.id, progress)
-  //       } else {
-  //         latestProgress = res
-  //
-  //         if(percentage + tolerance/pageSum <= res.percentage && !isResolvingProgressRejection) {
-  //           props.actions.showConfirm('是否跳转到最新进度？')
-  //         } else {
-  //           setProgress(this.bookId, progress)
-  //           isResolvingProgressRejection = false
-  //         }
-  //       }
-  //     })
-  //   }
-  // }
+  scrollTo(position) {
+    let pageCount = this.state.calculatedPages.props.children.length
+    let pageHeight = this.state.calculatedPages.props.view.pageHeight
+    let height = pageCount * pageHeight
 
-  // scrollTo(position) {
-  //   let props = this.props
-  //
-  //   if(position < 1) {
-  //     props.actions.jumpTo(convertPercentageToPage(position, props.book.pages.props.children.length))
-  //     document.body.scrollTop = props.book.pages.props.children.length * props.book.pages.props.view.pageHeight * position
-  //   }else{
-  //     props.actions.jumpTo(position)
-  //     document.body.scrollTop = props.book.pages.props.view.pageHeight * position
-  //   }
-  // }
-
-  // prepareBook(bookId, props, view) {
-  //   let actions = props.actions
-  //   let user = props.user
-  //
-  //   initBook(bookId, actions, view).then(book => {
-  //     if(book.pages) {
-  //       if(user.authed) {
-  //         getProgress(bookId).then(res => {
-  //           this.scrollTo(res.percentage)
-  //           this.setState({ isLoading: false })
-  //         }, err => {
-  //           this.setState({ isLoading: false })
-  //           actions.jumpTo(1)
-  //         })
-  //       }else{
-  //         this.setState({ isLoading: false })
-  //         actions.jumpTo(1)
-  //         // this is a bad fix
-  //         // localstorage solution is recommended
-  //         document.body.scrollTop = document.body.scrollTop + 1
-  //       }
-  //     }
-  //   })
-  // }
+    if(position < 1) {
+      this.setState({
+        currentPage: convertPercentageToPage(position, pageCount),
+        scrollTop: position * height
+      })
+      document.body.scrollTop = pageCount * pageHeight * position
+    }else{
+      this.setState({
+        currentPage: position,
+        scrollTop: height * position / pageCount
+      })
+      document.body.scrollTop = pageHeight * position
+    }
+  }
 
   addEventListeners() {
-    // let timers = []
-
-    // function lazilize(callback, t) {
-    //   return () => {
-    //     clearTimeout(timers.slice(-1)[0])
-    //
-    //     let timer = setTimeout(callback.bind(this), t)
-    //     timers.push(timer)
-    //   }
-    // }
-    //
-    // this.handleScroll = lazilize(this.scrollToLoadPages.bind(this), 100)
-    // this.handleResize = () => {
-    //   let view = getView()
-    //
-    //   if(window.innerWidth !== windowWidth) {
-    //     this.setState({
-    //       isLoading: true
-    //     })
-    //
-    //     windowWidth = window.innerWidth
-    //     lazilize(this.prepareBook.bind(this, this.bookId, this.props, view), 500)()
-    //   }
-    // }
-
     this.mapScrollTopToState = () => {
       this.setState({
         scrollTop: document.body.scrollTop
@@ -157,16 +80,6 @@ class BookViewer extends Component {
         view: getView()
       })
     }
-
-    // window.addEventListener('scroll', () => {
-    //   this.setState({
-    //     scrollTop: document.body.scrollTop
-    //   })
-    //
-    //   // getProgress(this.props.book.id).then(res => {
-    //   //   latestProgress = res.page_no
-    //   // })
-    // })
 
     window.addEventListener('scroll', this.mapScrollTopToState)
     window.addEventListener('resize', this.mapWindowWidthToState)
@@ -203,31 +116,19 @@ class BookViewer extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if(this.props.confirm.isVisible === true) {
-    //   if(nextProps.confirm.result === 'yes') {
-    //     this.scrollTo(latestProgress.percentage)
-    //   }
-    //   if(nextProps.confirm.result === 'no') {
-    //     isResolvingProgressRejection = true
-    //     this.scrollTo(currentProgress.percentage)
-    //   }
-    // }
-  }
-
   calculateDom() {
+    console.log('calculating dom ...');
     let html = this.state.bookHtml
     let bookId = this.bookId
     let view = getView()
-    // TODO: ref?
-    let nodeHeights = renderBook.getNodeHeights(document.querySelector('ul.pages>li>.content').childNodes)
+    // console.log(this.refs.bookHtml.childNodes);
+    // let nodeHeights = renderBook.getNodeHeights(document.querySelector('ul.pages>li>.content').childNodes)
+    let nodeHeights = renderBook.getNodeHeights(this.refs.bookHtml.childNodes)
 
     let pages = renderBook.htmlToPages(html, nodeHeights, view)
 
     setCache(`book${bookId}_pages`, JSON.stringify(pages))
 
-    console.log('calculated');
-    
     this.setState({
       isReadingMode: true,
       isCalculatingDom: false,
@@ -235,38 +136,9 @@ class BookViewer extends Component {
     })
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // let view = getView()
-    //
-    // if(nextState.windowWidth < 700 ) {
-    //   console.log('update');
-    // }
-    if(!utils.compareObjects(this.state.view, nextState.view)) {
-      console.log('update');
-      this.setState({
-        isCalculatingDom: true,
-        fuck: 'yeah'
-      })
-      // this.calculateDom()
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.isCalculatingDom && !prevState.isCalculatingDom) {
-      this.calculateDom()
-    }
-  }
-
-  componentDidMount() {
-    const actions = this.props.actions
-    const bookId = this.props.params.id
-
-    actions.fetchUserAuthInfo()
-    actions.fetchBookInfo(bookId)
-
-    this.addEventListeners()
-
+  loadCalculatedPages() {
     let pages = getCache(`book${bookId}_pages`)
+    const bookId = this.props.params.id
 
     // check if pages are cached
     if(pages){
@@ -285,6 +157,51 @@ class BookViewer extends Component {
         })
       })
     }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(!utils.compareObjects(this.state.view, nextState.view)) {
+      console.log('update');
+      this.setState({
+        isCalculatingDom: true,
+      })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.isCalculatingDom && !prevState.isCalculatingDom) {
+      this.calculateDom()
+    }
+    if(this.state.calculatedPages && !prevState.calculatedPages) {
+      setTimeout(() => {
+        this.scrollTo(10)
+      }, 1)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if(this.props.confirm.isVisible === true) {
+    //   if(nextProps.confirm.result === 'yes') {
+    //     this.scrollTo(latestProgress.percentage)
+    //   }
+    //   if(nextProps.confirm.result === 'no') {
+    //     isResolvingProgressRejection = true
+    //     this.scrollTo(currentProgress.percentage)
+    //   }
+    // }
+  }
+
+  componentDidMount() {
+    const actions = this.props.actions
+    const bookId = this.props.params.id
+
+    actions.fetchUserAuthInfo()
+    actions.fetchBookInfo(bookId)
+    actions.fetchBookProgress(bookId)
+
+    this.addEventListeners()
+    this.loadCalculatedPages()
+
   }
 
   componentWillUnmount() {
@@ -356,7 +273,7 @@ class BookViewer extends Component {
           (this.state.isCalculatingDom && book.html)?(
             <ul className="pages">
               <li>
-                <div className="content" dangerouslySetInnerHTML={{__html: book.html}}></div>
+                <div ref="bookHtml" className="content" dangerouslySetInnerHTML={{__html: book.html}}></div>
               </li>
             </ul>
           ):null

@@ -8,6 +8,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                                                                                                                                                                                                                                                    * functions defined here must be important and better be pure
                                                                                                                                                                                                                                                    */
 
+
 var _book = require('utils/book');
 
 Object.keys(_book).forEach(function (key) {
@@ -56,7 +57,21 @@ var _APIS = require('constants/APIS');
 
 require('isomorphic-fetch');
 
-function callApi(fullUrl, type, data) {
+var _normalizr = require('normalizr');
+
+var _humps = require('humps');
+
+var _humps2 = _interopRequireDefault(_humps);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// export function callApi(fullUrl, type, data) {
+function callApi(options) {
+  var fullUrl = options.fullUrl;
+  var type = options.type;
+  var data = options.data;
+  var schema = options.schema;
+
 
   var config = {
     credentials: 'include'
@@ -109,18 +124,46 @@ function callApi(fullUrl, type, data) {
   }
 
   return fetch(fullUrl, config).then(function (response) {
-    var josn = response.json();
+    return response.json().then(function (json) {
+      return { json: json, response: response };
+    });
+  }).then(function (_ref) {
+    var json = _ref.json;
+    var response = _ref.response;
 
     if (response.ok) {
-      return josn;
+      json = _humps2.default.camelizeKeys(json);
+
+      var result = Object.assign({}, (0, _normalizr.normalize)(json, schema));
+
+      return result;
     } else {
-      return josn.then(function (json) {
-        return Promise.reject(json);
-      });
+      return Promise.reject(json);
     }
-  }).catch(function (error) {
-    return Promise.reject(error);
   });
+
+  // return fetch(fullUrl, config)
+  //   .then(response => {
+  //     let json = response.json()
+  //
+  //     if(response.ok) {
+  //       // return json
+  //       console.log(json)
+  //       let result = Object.assign({},
+  //         normalize(json, schema)
+  //       )
+  //       console.log(schema);
+  //       console.log(result);
+  //       return result
+  //     }else{
+  //       return json.then(json => {
+  //         return Promise.reject(json)
+  //       })
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     return Promise.reject(error)
+  //   })
 }
 
 function $callApi(fullUrl, type, data) {

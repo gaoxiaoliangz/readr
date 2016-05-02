@@ -21,7 +21,7 @@ class Home extends Component {
   }
 
   render() {
-    let bookList = this.props.book.bookList
+    let bookList = this.props.bookListAll
     let list = [
       {
         name: "测试1",
@@ -67,9 +67,23 @@ class Home extends Component {
   }
 }
 
+function mapStateToProps(state, ownProps) {
+  const type = 'all'
+
+  const {
+    pagination: { bookList },
+    entities: { books }
+  } = state
+
+  const bookListPagination = bookList[type]
+  const bookListAll = bookListPagination.ids.map(id => books[id])
+
+  return {
+    bookListAll
+  }
+}
+
 export default connect(
-  state => ({
-    book: state.book
-  }),
+  mapStateToProps,
   { fetchBookList }
 )(Home)

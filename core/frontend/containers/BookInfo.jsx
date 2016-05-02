@@ -6,6 +6,7 @@ import { fetchUserAuthInfo, fetchBookInfo } from 'actions'
 import Loading from 'components/Loading'
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
+import _ from 'lodash'
 
 class BookInfo extends Component {
 
@@ -24,12 +25,12 @@ class BookInfo extends Component {
   }
 
   render() {
-    let bookInfo = this.props.book.meta?this.props.book.meta:{}
+    let bookInfo = this.props.bookInfo?this.props.bookInfo:{}
 
     return (
       <article className="book-info content-container">
         {
-          this.props.book.isFetchingInfo?(
+          _.isEmpty(bookInfo)?(
             <Loading />
           ):null
         }
@@ -78,8 +79,8 @@ class BookInfo extends Component {
 }
 
 export default connect(
-  state =>({
-    book: state.book,
+  (state, ownProps) =>({
+    bookInfo: state.entities.books[ownProps.params.id],
     user: state.user
   }),
   { fetchBookInfo, fetchUserAuthInfo }

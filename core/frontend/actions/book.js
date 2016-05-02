@@ -1,22 +1,29 @@
 import { promisedCallApi } from 'actions'
 import { API_DOUBAN_BOOKS } from 'constants/APIS'
+import { Schemas } from 'middleware/api'
 
-
-export function fetchBookList() {
+export function fetchBookProgress(bookId) {
   return {
     CALL_API: {
-      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
-      endpoint: 'books'
+      types: ['BOOK_PROGRESS_REQUEST', 'BOOK_PROGRESS_SUCCESS', 'BOOK_PROGRESS_FAILURE'],
+      endpoint: `books/${bookId}/progress`,
+      schema: Schemas.BOOK_PROGRESS
     }
   }
 }
 
-// TODO
-export function fetchBookList00(endpoint) {
-  return promisedCallApi({
-    types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
-    endpoint
-  }, {})
+export const BOOK_LIST_REQUEST = 'BOOK_LIST_REQUEST'
+export const BOOK_LIST_SUCCESS = 'BOOK_LIST_SUCCESS'
+export const BOOK_LIST_FAILURE = 'BOOK_LIST_FAILURE'
+
+export function fetchBookList() {
+  return {
+    CALL_API: {
+      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE],
+      endpoint: 'books',
+      schema: Schemas.BOOK_ARRAY
+    }
+  }
 }
 
 export function fetchDoubanBookSearchResults(endpoint) {
@@ -50,12 +57,16 @@ export function fetchBookContent(bookId) {
 //   }, { bookId })
 // }
 
+export const BOOK_INFO_REQUEST = 'BOOK_INFO_REQUEST'
+export const BOOK_INFO_SUCCESS = 'BOOK_INFO_SUCCESS'
+export const BOOK_INFO_FAILURE = 'BOOK_INFO_FAILURE'
 
 export function fetchBookInfo(bookId) {
   return {
     CALL_API:{
-      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-      endpoint: `books/${bookId}`
+      types: [BOOK_INFO_REQUEST, BOOK_INFO_SUCCESS, BOOK_INFO_FAILURE],
+      endpoint: `books/${bookId}`,
+      schema: Schemas.BOOK
     }
   }
 }

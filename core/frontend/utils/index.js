@@ -1,15 +1,18 @@
 /*
  * functions defined here must be important and better be pure
  */
-
 import { API_ROOT } from 'constants/APIS'
 import 'isomorphic-fetch'
+import { normalize } from 'normalizr'
+import humps from 'humps'
 
 export * from 'utils/book'
 export * from 'utils/cache'
 export * from 'utils/filters'
 
-export function callApi(fullUrl, type, data) {
+// export function callApi(fullUrl, type, data) {
+export function callApi(options) {
+  let { fullUrl, type, data, schema } = options
 
   let config = {
     credentials: 'include'
@@ -57,19 +60,44 @@ export function callApi(fullUrl, type, data) {
 
   return fetch(fullUrl, config)
     .then(response => {
-      let josn = response.json()
-
+      return response.json().then(json => ({ json, response }))
+    })
+    .then(({ json, response }) => {
       if(response.ok) {
-        return josn
+        json = humps.camelizeKeys(json)
+
+        let result = Object.assign({},
+          normalize(json, schema)
+        )
+
+        return result
       }else{
-        return josn.then(json => {
-          return Promise.reject(json)
-        })
+        return Promise.reject(json)
       }
     })
-    .catch((error) => {
-      return Promise.reject(error)
-    })
+
+  // return fetch(fullUrl, config)
+  //   .then(response => {
+  //     let json = response.json()
+  //
+  //     if(response.ok) {
+  //       // return json
+  //       console.log(json)
+  //       let result = Object.assign({},
+  //         normalize(json, schema)
+  //       )
+  //       console.log(schema);
+  //       console.log(result);
+  //       return result
+  //     }else{
+  //       return json.then(json => {
+  //         return Promise.reject(json)
+  //       })
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     return Promise.reject(error)
+  //   })
 }
 
 

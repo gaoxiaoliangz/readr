@@ -62,7 +62,7 @@ var Home = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var bookList = this.props.book.bookList;
+      var bookList = this.props.bookListAll;
       var list = [{
         name: "测试1",
         link: "/"
@@ -110,8 +110,21 @@ var Home = function (_Component) {
   return Home;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
+function mapStateToProps(state, ownProps) {
+  var type = 'all';
+
+  var bookList = state.pagination.bookList;
+  var books = state.entities.books;
+
+
+  var bookListPagination = bookList[type];
+  var bookListAll = bookListPagination.ids.map(function (id) {
+    return books[id];
+  });
+
   return {
-    book: state.book
+    bookListAll: bookListAll
   };
-}, { fetchBookList: _actions.fetchBookList })(Home);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBookList: _actions.fetchBookList })(Home);

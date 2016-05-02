@@ -42,6 +42,6 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   externals: {
-    'lodash': '_'
+    // 'lodash': '_'
   }
 }

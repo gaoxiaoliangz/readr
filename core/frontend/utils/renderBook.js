@@ -86,7 +86,7 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   // long paragraph situation doesn't seem to affect this function
   // offset distance is always negtive or zero
   // the index will be of the paragraph with this offset at the end
-  let getPageOffset = function(pageIndex) {
+  const getPageOffset = function(pageIndex) {
     let offset = 0
     let i = 0
     let index
@@ -109,7 +109,7 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
     }
   }
 
-  let getNodesOfPage = function(pageIndex) {
+  const getNodesOfPage = function(pageIndex) {
     let offsetObject = getPageOffset(pageIndex)
     let nodeStartIndex = offsetObject.index
     let offset = offsetObject.offset

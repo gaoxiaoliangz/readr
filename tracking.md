@@ -1,5 +1,8 @@
 # tracking
-
+- 引入了 Bootstrap-grid
+- 引入了 reducers/paginate
+- 优化了 store 结构
+- 简化了 actions 和 reducers
 
 
 ##bugs
