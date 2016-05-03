@@ -64,22 +64,19 @@ var Home = function (_Component) {
     value: function render() {
       var bookList = this.props.bookListAll;
       var list = [{
-        name: "测试1",
+        name: "Major Bible Themes/Dsf",
         link: "/"
       }, {
-        name: "测试1",
+        name: "战略中心型组织",
         link: "/"
       }, {
-        name: "测试1",
+        name: "1984",
         link: "/"
       }, {
-        name: "测试1",
+        name: "Major Bible Themes/Dsf",
         link: "/"
       }, {
-        name: "测试1",
-        link: "/"
-      }, {
-        name: "测试1",
+        name: "1984",
         link: "/"
       }];
 

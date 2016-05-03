@@ -12,8 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _react3 = require('muicss/react');
-
 var _reactRouter = require('react-router');
 
 var _ApiRoots = require('constants/ApiRoots');
@@ -33,6 +31,18 @@ var _Notification2 = _interopRequireDefault(_Notification);
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
+
+var _Input = require('elements/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _Button = require('elements/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Container = require('elements/Container');
+
+var _Container2 = _interopRequireDefault(_Container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97,10 +107,10 @@ var Signin = function (_Component) {
         { className: 'page-signin' },
         _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(
-          _react3.Container,
+          _Container2.default,
           null,
           _react2.default.createElement(
-            _react3.Form,
+            'form',
             { className: 'content-container', action: _ApiRoots2.default.LOCAL + 'auth', method: 'post' },
             _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
@@ -108,11 +118,11 @@ var Signin = function (_Component) {
               { className: 'page-title' },
               '欢迎回来'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.login, name: 'login', hint: '用户名或邮箱' }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', hint: '密码', type: 'password' }),
+            _react2.default.createElement(_Input2.default, { onChange: this.handleInput.bind(this), value: this.state.login, name: 'login', placeholder: '用户名或邮箱' }),
+            _react2.default.createElement(_Input2.default, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', placeholder: '密码', type: 'password' }),
             _react2.default.createElement(
-              _react3.Button,
-              { onClick: this.handleSignin.bind(this), variant: 'raised' },
+              _Button2.default,
+              { className: 'z1', color: 'blue', onClick: this.handleSignin.bind(this) },
               '登录'
             ),
             _react2.default.createElement(

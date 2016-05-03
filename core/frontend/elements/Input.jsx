@@ -6,14 +6,13 @@ class Input extends Component{
   }
 
   render(){
-    let className = this.props.className?this.props.className:null
-    let placeholder = this.props.placeholder
-    let value = this.props.value
-    let onChange = this.props.onChange
+    let className = this.props.className?`input-wrap ${this.props.className}`:'input-wrap'
+    let props = Object.assign({}, this.props)
+    delete props.className
 
     return (
-      <div className={`input ${className}`}>
-        <input onChange={onChange} value={value} placeholder={placeholder} />
+      <div className={className}>
+        { React.createElement('input', props) }
       </div>
     )
   }

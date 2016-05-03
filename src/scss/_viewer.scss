@@ -69,6 +69,7 @@ $text_background1: #f6f4ec;
       overflow: hidden;
       text-align: center;
       margin-top: ($height - $icons_size)/2;
+      position: relative;
     }
 
     .icon {
@@ -78,7 +79,9 @@ $text_background1: #f6f4ec;
     }
 
     .back {
-      float: left;
+      position: absolute;
+      left: 5px;
+      top: 0;
       a {
         color: $panel_text;
         display: inline-block;
@@ -98,44 +101,10 @@ $text_background1: #f6f4ec;
     }
 
     .preference {
-      float: right;
+      position: absolute;
+      right: 15px;
+      top: 0;
     }
-
-    // span {
-    //   height: $height;
-    //   line-height: $height;
-    //   display: inline-block;
-    //   opacity: .4;
-    //   margin: 0 10px;
-    //   background-repeat: no-repeat !important;
-    //   background-size: 30px !important;
-    //   float: left;
-    // }
-    // span.title {
-    //   font-size: 18px;
-    //   border-left: 1px solid #ccc;
-    //   padding: 0;
-    //   opacity: .7 !important;
-    //   padding-left: 20px;
-    //   margin-left: 0;
-    // }
-    // span.loc {
-    //   float: right;
-    //   opacity: .4 !important;
-    //   font-size: 1.6rem;
-    //   margin-right: 20px;
-    // }
-    // span:active {
-    //   opacity: .8;
-    // }
-    // .home {
-    //   width: 30px;
-    //   background: url(../img/home.png) center;
-    //   a {
-    //     display: block;
-    //     height: $height;
-    //   }
-    // }
   }
 
   &.viewer--phone {

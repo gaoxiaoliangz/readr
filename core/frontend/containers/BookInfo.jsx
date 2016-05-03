@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Appbar, Button, Container } from 'muicss/react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchUserAuthInfo, fetchBookInfo } from 'actions'
 import Loading from 'components/Loading'
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
+import Button from 'elements/Button'
+import Container from 'elements/Container'
 import _ from 'lodash'
 
 class BookInfo extends Component {
@@ -51,10 +52,10 @@ class BookInfo extends Component {
             </div>
             {
               bookInfo.title?(
-                <Link to={`/viewer/book/${bookInfo.id}`}><Button color="primary">阅读</Button></Link>
+                <Button to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
               ):null
             }
-            <p><a target="_blank" href={`http://book.douban.com/subject/${bookInfo.book_id}`}>在豆瓣查看</a></p>
+            {/*<p><a target="_blank" href={`http://book.douban.com/subject/${bookInfo.book_id}`}>在豆瓣查看</a></p>*/}
           </div>
         </header>
         {

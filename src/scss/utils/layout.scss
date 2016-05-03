@@ -2,6 +2,7 @@
  * layout
  * ------------------------------------------------------------------------------------
 **/
+
 // bootstrap-grid has it
 // .container {
 //   width: 1060px;
@@ -15,6 +16,7 @@
 //     width: 100%;
 //   }
 // }
+
 .container-fluid {
   width: 100%;
   padding: 0 10px;
@@ -28,22 +30,4 @@
   @include phone {
     width: 100%;
   }
-}
-.sep {
-  margin: 0 5px;
-  color: $gray_d;
-}
-.left {
-  float: left;
-}
-.right {
-  float: right;
-}
-.hidden {
-  display: none;
-}
-.clearfix:after {
-  content: " ";
-  clear: both;
-  display: table;
 }

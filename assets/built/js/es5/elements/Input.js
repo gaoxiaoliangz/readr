@@ -30,15 +30,14 @@ var Input = function (_Component) {
   _createClass(Input, [{
     key: 'render',
     value: function render() {
-      var className = this.props.className ? this.props.className : null;
-      var placeholder = this.props.placeholder;
-      var value = this.props.value;
-      var onChange = this.props.onChange;
+      var className = this.props.className ? 'input-wrap ' + this.props.className : 'input-wrap';
+      var props = Object.assign({}, this.props);
+      delete props.className;
 
       return _react2.default.createElement(
         'div',
-        { className: 'input ' + className },
-        _react2.default.createElement('input', { onChange: onChange, value: value, placeholder: placeholder })
+        { className: className },
+        _react2.default.createElement('input', props)
       );
     }
   }]);

@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
 import ApiRoots from 'constants/ApiRoots'
 import callApi from 'utils/callApi'
 import { fetchUserAuthInfo, handleNotification } from 'actions'
 import Notification from 'components/Notification'
 import Branding from 'components/Branding'
+import Input from 'elements/Input'
+import Button from 'elements/Button'
+import Container from 'elements/Container'
 
 class Signin extends Component {
   constructor(props) {
@@ -48,14 +50,14 @@ class Signin extends Component {
       <div className="page-signin">
         <Branding />
         <Container>
-          <Form className="content-container" action={`${ApiRoots.LOCAL}auth`} method="post">
+          <form className="content-container" action={`${ApiRoots.LOCAL}auth`} method="post">
             <Notification notification={this.props.notification} />
             <h1 className="page-title">欢迎回来</h1>
-            <Input onChange={this.handleInput.bind(this)} value={this.state.login} name="login" hint="用户名或邮箱" />
-            <Input onChange={this.handleInput.bind(this)} value={this.state.password} name="password" hint="密码" type="password" />
-            <Button onClick={this.handleSignin.bind(this)} variant="raised">登录</Button>
+            <Input onChange={this.handleInput.bind(this)} value={this.state.login} name="login" placeholder="用户名或邮箱" />
+            <Input onChange={this.handleInput.bind(this)} value={this.state.password} name="password" placeholder="密码" type="password" />
+            <Button className="z1" color="blue" onClick={this.handleSignin.bind(this)}>登录</Button>
             <p className="hint">没有账号？<Link to="/signup">注册</Link></p>
-          </Form>
+          </form>
         </Container>
       </div>
     )

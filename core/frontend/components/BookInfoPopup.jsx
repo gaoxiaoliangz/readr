@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+import Button from 'elements/Button'
 
 class BookInfoPopup extends Component{
   constructor(props) {
@@ -16,9 +17,10 @@ class BookInfoPopup extends Component{
       <div className="book-info-popup popup">
         <h2 className="title">{title}</h2>
         <p className="author">{author}</p>
-        <Link to={"/viewer/book/"+bookId}>阅读</Link>
-        <h3>内容简介</h3>
-        <p>{description}</p>
+        <Button color="blue" to={"/viewer/book/"+bookId}>阅读</Button>
+        <div className="description">
+          <p>{description}</p>
+        </div>
       </div>
     )
   }

@@ -29,35 +29,6 @@
  * -------------------------------------------------------------------------------------
 **/
 
- .page-title {
-   margin: 30px 0 15px;
-   font-size: 25px;
-   color: $text_d;
-   font-weight: bold;
- }
-
- .badge-dark {
-   background: lighten($super_power, 40%);
-   border-radius: 3px;
-   padding: 3px 4px;
-   font-size: 1rem;
-   color: lighten($super_power, 50%);
-   color: $super_power;
-   margin: 0 5px;
- }
-
- .tag {
-   background: $super_power;
-   border-radius: 3px;
-   padding: 3px 5px;
-   margin: 0 5px 5px 0;
-   color: #fff;
-   display: inline-block;
-   .icon {
-     margin: 0 5px;
-   }
- }
-
 // notification
 .msg {
   position: fixed;
@@ -146,7 +117,7 @@ input {
   padding: 0;
 }
 
-.input {
+.input-wrap {
   margin: 10px 0;
   input {
     width: 100%;
@@ -208,12 +179,13 @@ textarea {
   }
 }
 
+// TODO
 .btn {
   display: inline-block;
   background: $btn_normal;
-  padding: $input_padding 15px;
+  padding: $input_padding 20px;
   line-height: $input_line_height;
-  font-size: 1.6rem;
+  font-size: 1rem;
   color: $btn_text;
   cursor: pointer;
   border: none;
@@ -223,20 +195,36 @@ textarea {
   border-radius: $border_radius;
   border: 1px solid transparent;
   margin: 5px 0;
+  transition: all 0.3s 0s;
   &:hover {
     background: $btn_hover;
     color: $btn_hover_text;
     border: 1px solid $btn_hover_outline;
-    box-shadow: $btn_shadow;
-  }
-  &:active {
-    background: $btn_active;
-    border: 1px solid $btn_outline;
+    @extend .z2;
   }
   &:focus {
     background: $btn_focus;
     border: 1px solid $btn_outline;
+    @extend .z3;
   }
+  &:active {
+    background: $btn_active;
+    border: 1px solid $btn_outline;
+    @extend .z3;
+  }
+}
+
+.btn.btn-blue {
+  background: $btn_blue;
+  color: #fff;
+}
+
+.btn.btn-orange {
+  background: $btn_orange;
+}
+
+.btn.btn-red {
+  background: $btn_red;
 }
 
 /*

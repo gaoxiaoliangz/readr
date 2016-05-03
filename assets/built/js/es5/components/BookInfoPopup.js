@@ -12,6 +12,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _Button = require('elements/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51,19 +55,18 @@ var BookInfoPopup = function (_Component) {
           author
         ),
         _react2.default.createElement(
-          _reactRouter.Link,
-          { to: "/viewer/book/" + bookId },
+          _Button2.default,
+          { color: 'blue', to: "/viewer/book/" + bookId },
           '阅读'
         ),
         _react2.default.createElement(
-          'h3',
-          null,
-          '内容简介'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          description
+          'div',
+          { className: 'description' },
+          _react2.default.createElement(
+            'p',
+            null,
+            description
+          )
         )
       );
     }

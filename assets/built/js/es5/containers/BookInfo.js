@@ -10,8 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _react3 = require('muicss/react');
-
 var _reactRouter = require('react-router');
 
 var _reactRedux = require('react-redux');
@@ -29,6 +27,14 @@ var _Branding2 = _interopRequireDefault(_Branding);
 var _Colophon = require('components/Colophon');
 
 var _Colophon2 = _interopRequireDefault(_Colophon);
+
+var _Button = require('elements/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Container = require('elements/Container');
+
+var _Container2 = _interopRequireDefault(_Container);
 
 var _lodash = require('lodash');
 
@@ -110,23 +116,10 @@ var BookInfo = function (_Component) {
               )
             ),
             bookInfo.title ? _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/viewer/book/' + bookInfo.id },
-              _react2.default.createElement(
-                _react3.Button,
-                { color: 'primary' },
-                '阅读'
-              )
-            ) : null,
-            _react2.default.createElement(
-              'p',
-              null,
-              _react2.default.createElement(
-                'a',
-                { target: '_blank', href: 'http://book.douban.com/subject/' + bookInfo.book_id },
-                '在豆瓣查看'
-              )
-            )
+              _Button2.default,
+              { to: '/viewer/book/' + bookInfo.id, color: 'blue' },
+              '阅读'
+            ) : null
           )
         ),
         bookInfo.author_intro ? _react2.default.createElement(

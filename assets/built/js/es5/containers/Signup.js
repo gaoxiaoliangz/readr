@@ -12,8 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _react3 = require('muicss/react');
-
 var _reactRouter = require('react-router');
 
 var _ApiRoots = require('constants/ApiRoots');
@@ -33,6 +31,18 @@ var _Notification2 = _interopRequireDefault(_Notification);
 var _Branding = require('components/Branding');
 
 var _Branding2 = _interopRequireDefault(_Branding);
+
+var _Input = require('elements/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _Button = require('elements/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Container = require('elements/Container');
+
+var _Container2 = _interopRequireDefault(_Container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73,8 +83,7 @@ var Signup = function (_Component) {
         password: this.state.password
       };
 
-      (0, _callApi2.default)(_ApiRoots2.default.LOCAL + 'users', 'POST', params).then(function (res) {
-        console.log(res);
+      (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'users', type: 'POST', data: params }).then(function (res) {
         _this2.props.handleNotification('注册成功！');
         setTimeout(function () {
           _reactRouter.browserHistory.push('/');
@@ -96,10 +105,10 @@ var Signup = function (_Component) {
         { className: 'page-signup' },
         _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(
-          _react3.Container,
+          _Container2.default,
           null,
           _react2.default.createElement(
-            _react3.Form,
+            'form',
             { className: 'content-container', method: 'post', action: '/signup' },
             _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
@@ -107,12 +116,12 @@ var Signup = function (_Component) {
               { className: 'page-title' },
               '加入 Readr'
             ),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.username, name: 'username', hint: '用户名' }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.email, name: 'email', hint: '邮箱' }),
-            _react2.default.createElement(_react3.Input, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', hint: '密码 ', type: 'password' }),
+            _react2.default.createElement(_Input2.default, { onChange: this.handleInput.bind(this), value: this.state.username, name: 'username', placeholder: '用户名' }),
+            _react2.default.createElement(_Input2.default, { onChange: this.handleInput.bind(this), value: this.state.email, name: 'email', placeholder: '邮箱' }),
+            _react2.default.createElement(_Input2.default, { onChange: this.handleInput.bind(this), value: this.state.password, name: 'password', placeholder: '密码 ', type: 'password' }),
             _react2.default.createElement(
-              _react3.Button,
-              { onClick: this.handleSignup.bind(this), variant: 'raised' },
+              _Button2.default,
+              { className: 'z1', color: 'blue', onClick: this.handleSignup.bind(this) },
               '注册'
             ),
             _react2.default.createElement(

@@ -37,3 +37,19 @@
   transform: translateY(-100%);
   opacity: 0;
 }
+
+
+// animation mixins
+
+@mixin make_hover_fadein($target, $duration, $delay) {
+  #{$target} {
+    transition: all $duration 0s;
+    opacity: 0;
+    visibility: hidden;
+  }
+  &:hover #{$target} {
+    opacity: 1;
+    visibility: visible;
+    transition: all $duration $delay;
+  }
+}

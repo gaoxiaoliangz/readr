@@ -132,14 +132,7 @@ li.book {
     span.book-name {
     }
   }
-  .book-info-popup {
-    display: none;
-  }
-  &:hover {
-    .book-info-popup {
-      display: block;
-    }
-  }
+  @include make_hover_fadein(".book-info-popup", 0.2s, 0.8s);
 }
 .book-cover {
   position: relative;
@@ -176,7 +169,16 @@ li.book {
   width: 300px;
   background: #fff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
-  padding: 10px 20px;
+  padding: 10px 20px 0;
+  border: 1px solid $gray_d;
+  .description {
+    margin-top: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 20px;
+    background: $gray_l;
+    line-height: 1.6;
+  }
 }
 
 
@@ -201,5 +203,47 @@ li.book {
         width: 100px;
       }
     }
+  }
+}
+
+
+// candy box
+
+.candy-box {
+  h3.box-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $text_d;
+  }
+  ul {
+    li {
+      border-top: 1px solid $gray_l;
+      a {
+        color: $text_n;
+        line-height: 2.5;
+        &:hover {
+          color: $link_n;
+        }
+      }
+    }
+  }
+}
+
+
+// book list section
+
+.book-list-section {
+  position: relative;
+
+  .section-title {
+    @extend .page-title;
+    margin-top: 20px;
+  }
+
+  a.more {
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 32px;
   }
 }

@@ -24,27 +24,23 @@ class Home extends Component {
     let bookList = this.props.bookListAll
     let list = [
       {
-        name: "测试1",
+        name: "Major Bible Themes/Dsf",
         link: "/"
       },
       {
-        name: "测试1",
+        name: "战略中心型组织",
         link: "/"
       },
       {
-        name: "测试1",
+        name: "1984",
         link: "/"
       },
       {
-        name: "测试1",
+        name: "Major Bible Themes/Dsf",
         link: "/"
       },
       {
-        name: "测试1",
-        link: "/"
-      },
-      {
-        name: "测试1",
+        name: "1984",
         link: "/"
       }
     ]

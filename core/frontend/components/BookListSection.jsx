@@ -10,10 +10,10 @@ class BookListSection extends Component {
 
     return (
       <div className="book-list-section">
-        <h1 className="page-title">{title}</h1>
+        <h2 className="section-title">{title}</h2>
         {
           moreLink?(
-            <Link to={moreLink}>查看更多</Link>
+            <Link className="more" to={moreLink}>查看更多</Link>
           ):null
         }
         <BookList bookList={bookList} />
