@@ -11,7 +11,9 @@ var _callApi = require('utils/callApi');
 
 var _callApi2 = _interopRequireDefault(_callApi);
 
-var _APIS = require('constants/APIS');
+var _ApiRoots = require('constants/ApiRoots');
+
+var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
 
 var _normalizr = require('normalizr');
 
@@ -71,7 +73,7 @@ exports.default = function (store) {
       }
 
       if (typeof apiUrl === 'undefined') {
-        apiUrl = _APIS.API_ROOT;
+        apiUrl = _ApiRoots2.default.LOCAL;
       }
 
       var fullUrl = apiUrl + endpoint;

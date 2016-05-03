@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
-
-import { API_ROOT } from 'constants/APIS'
-import { callApi } from 'utils'
+import ApiRoots from 'constants/ApiRoots'
+import callApi from 'utils/callApi'
 import { fetchUserAuthInfo, handleNotification } from 'actions'
-
 import Notification from 'components/Notification'
 import Branding from 'components/Branding'
 
@@ -27,7 +25,11 @@ class Signin extends Component {
       password: this.state.password
     }
 
-    callApi(`${API_ROOT}auth`, 'POST', params).then(res => {
+    callApi({
+      fullUrl: `${ApiRoots.LOCAL}auth`,
+      type: 'POST',
+      data: params
+    }).then(res => {
       this.props.handleNotification('登录成功！')
       setTimeout(function(){
         browserHistory.push('/')
@@ -46,7 +48,7 @@ class Signin extends Component {
       <div className="page-signin">
         <Branding />
         <Container>
-          <Form className="content-container" action={`${API_ROOT}auth`} method="post">
+          <Form className="content-container" action={`${ApiRoots.LOCAL}auth`} method="post">
             <Notification notification={this.props.notification} />
             <h1 className="page-title">欢迎回来</h1>
             <Input onChange={this.handleInput.bind(this)} value={this.state.login} name="login" hint="用户名或邮箱" />

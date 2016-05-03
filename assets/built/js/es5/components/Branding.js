@@ -12,7 +12,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _utils = require('utils');
+var _callApi = require('utils/callApi');
+
+var _callApi2 = _interopRequireDefault(_callApi);
 
 var _Container = require('elements/Container');
 

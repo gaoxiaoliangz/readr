@@ -1,4 +1,3 @@
-import { API_ROOT } from 'constants/APIS'
 import 'isomorphic-fetch'
 import { normalize } from 'normalizr'
 import humps from 'humps'

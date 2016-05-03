@@ -15,15 +15,6 @@ export function filterPages(config) {
   return newPages
 }
 
-export function convertPercentageToPage(p, pageSum) {
-  if(p>1) {
-    console.error("Wrong parameter!")
-    return null
-  } else {
-    return parseInt(p*pageSum) + 1
-  }
-}
-
 
 export function htmlToPages(html, nodeHeights, view) {
   let pageHeight = view.pageHeight
@@ -70,6 +61,55 @@ export function getNodeHeights(nodes) {
   })
 
   return nodesHeight
+}
+
+
+export function percentageToPage(p, pageSum) {
+  if(p>1) {
+    console.error("Wrong parameter!")
+    return null
+  } else {
+    return parseInt(p*pageSum) + 1
+  }
+}
+
+// funcs used internally
+
+function parseHTML(htmlString) {
+  let nodes = []
+  let $html = document.createElement("div")
+
+  $html.innerHTML = htmlString
+  $html = $html.childNodes
+
+  for (var i = 0; i < $html.length; i++) {
+    if($html[i].nodeType != 1) {
+      continue
+    }else{
+      nodes.push({
+        type: $html[i].tagName.toLowerCase(),
+        props: {
+          children: $html[i].innerHTML
+        }
+      })
+    }
+  }
+  return nodes
+}
+
+function parseNodes(nodes) {
+  let html = ''
+
+  for (let i = 0; i < nodes.length; i++) {
+    if(nodes[i].type !== 'p') {
+      console.error('Unsupported node found!')
+      continue
+    }else{
+      html += `<p>${nodes[i].props.children}</p>`
+    }
+  }
+
+  return html
 }
 
 function groupNodesByPage(nodes, nodeHeights, pageHeight) {
@@ -160,42 +200,4 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   }
 
   return pages
-}
-
-
-function parseHTML(htmlString) {
-  let nodes = []
-  let $html = document.createElement("div")
-
-  $html.innerHTML = htmlString
-  $html = $html.childNodes
-
-  for (var i = 0; i < $html.length; i++) {
-    if($html[i].nodeType != 1) {
-      continue
-    }else{
-      nodes.push({
-        type: $html[i].tagName.toLowerCase(),
-        props: {
-          children: $html[i].innerHTML
-        }
-      })
-    }
-  }
-  return nodes
-}
-
-function parseNodes(nodes) {
-  let html = ''
-
-  for (let i = 0; i < nodes.length; i++) {
-    if(nodes[i].type !== 'p') {
-      console.error('Unsupported node found!')
-      continue
-    }else{
-      html += `<p>${nodes[i].props.children}</p>`
-    }
-  }
-
-  return html
 }

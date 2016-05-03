@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Panel, Appbar, Container, Form, Input, Textarea, Button } from 'muicss/react'
 import { Link, browserHistory } from 'react-router'
-
-import { API_ROOT } from 'constants/APIS'
-import { callApi } from 'utils'
+import ApiRoots from 'constants/ApiRoots'
+import callApi from 'utils/callApi'
 import { fetchUserAuthInfo, handleNotification } from 'actions'
-
 import Notification from 'components/Notification'
 import Branding from 'components/Branding'
 
@@ -29,7 +27,7 @@ class Signup extends Component {
       password: this.state.password
     }
 
-    callApi(`${API_ROOT}users`, 'POST', params).then(res => {
+    callApi(`${ApiRoots.LOCAL}users`, 'POST', params).then(res => {
       console.log(res);
       this.props.handleNotification('注册成功！')
       setTimeout(function(){

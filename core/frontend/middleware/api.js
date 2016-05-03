@@ -1,7 +1,6 @@
 import callApi from 'utils/callApi'
-import { API_ROOT } from 'constants/APIS'
+import ApiRoots from 'constants/ApiRoots'
 import { Schema, arrayOf, normalize } from 'normalizr'
-
 
 const bookSchema = new Schema('books', {
   idAttribute: 'id'
@@ -45,7 +44,7 @@ export default store => next => action => {
   }
 
   if(typeof apiUrl === 'undefined') {
-    apiUrl = API_ROOT
+    apiUrl = ApiRoots.LOCAL
   }
 
   const fullUrl = apiUrl + endpoint

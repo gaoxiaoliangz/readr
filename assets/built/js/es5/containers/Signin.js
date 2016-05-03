@@ -16,9 +16,13 @@ var _react3 = require('muicss/react');
 
 var _reactRouter = require('react-router');
 
-var _APIS = require('constants/APIS');
+var _ApiRoots = require('constants/ApiRoots');
 
-var _utils = require('utils');
+var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
+
+var _callApi = require('utils/callApi');
+
+var _callApi2 = _interopRequireDefault(_callApi);
 
 var _actions = require('actions');
 
@@ -67,7 +71,11 @@ var Signin = function (_Component) {
         password: this.state.password
       };
 
-      (0, _utils.callApi)(_APIS.API_ROOT + 'auth', 'POST', params).then(function (res) {
+      (0, _callApi2.default)({
+        fullUrl: _ApiRoots2.default.LOCAL + 'auth',
+        type: 'POST',
+        data: params
+      }).then(function (res) {
         _this2.props.handleNotification('登录成功！');
         setTimeout(function () {
           _reactRouter.browserHistory.push('/');
@@ -93,7 +101,7 @@ var Signin = function (_Component) {
           null,
           _react2.default.createElement(
             _react3.Form,
-            { className: 'content-container', action: _APIS.API_ROOT + 'auth', method: 'post' },
+            { className: 'content-container', action: _ApiRoots2.default.LOCAL + 'auth', method: 'post' },
             _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
             _react2.default.createElement(
               'h1',

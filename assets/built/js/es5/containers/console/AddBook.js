@@ -18,11 +18,15 @@ var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
-var _APIS = require('constants/APIS');
+var _ApiRoots = require('constants/ApiRoots');
+
+var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
 
 var _actions = require('actions');
 
-var _utils = require('utils');
+var _callApi = require('utils/callApi');
+
+var _callApi2 = _interopRequireDefault(_callApi);
 
 var _Notification = require('components/Notification');
 
@@ -98,7 +102,7 @@ var AddBook = function (_Component) {
       dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo);
 
       if (isValid) {
-        (0, _utils.callApi)(_APIS.API_ROOT + 'books', 'POST', dataToPost).then(function (res) {
+        (0, _callApi2.default)(_ApiRoots2.default.LOCAL + 'books', 'POST', dataToPost).then(function (res) {
           _this2.props.handleNotification('添加成功');
         }).catch(function (err) {
           console.error(err);

@@ -13,6 +13,7 @@ import { getBookView } from 'utils/view'
 import { getCache, setCache } from 'utils/cache'
 import { simpleCompareObjects } from 'utils/object'
 import { fetchBookInfo, fetchBookProgress, fetchBookContent, fetchUserAuthInfo } from 'actions'
+import ApiRoots from 'constants/ApiRoots'
 
 const actions = { fetchBookInfo, fetchBookProgress, fetchBookContent, fetchUserAuthInfo }
 
@@ -46,7 +47,7 @@ class BookViewer extends Component {
 
     if(position < 1) {
       this.setState({
-        currentPage: convertPercentageToPage(position, pageCount),
+        currentPage: renderBook.percentageToPage(position, pageCount),
         scrollTop: position * height
       })
       document.body.scrollTop = pageCount * pageHeight * position
@@ -57,6 +58,18 @@ class BookViewer extends Component {
       })
       document.body.scrollTop = pageHeight * position
     }
+  }
+
+  setProgress(bookId, progress) {
+    return new Promise(resolve => {
+      callApi({
+        fullUrl: `${ApiRoots.LOCAL}books/${bookId}/progress`,
+        type: 'POST',
+        data: progress
+      }).then((res) => {
+        resolve(res)
+      })
+    })
   }
 
   addEventListeners() {
@@ -78,7 +91,7 @@ class BookViewer extends Component {
       })
     }
 
-    this.setProgress = () => {
+    this.checkAndSetProgress = () => {
       let currentPageNo = this.props.book.pageNo
       this.props.actions.fetchBookProgress(this.bookId).then(action => {
         if(this.props.book.pageNo - currentPageNo > 5) {
@@ -90,7 +103,7 @@ class BookViewer extends Component {
           let pageSum = this.state.calculatedPages.props.children.length
           let height = pageSum * this.state.view.pageHeight
           let percentage = this.state.scrollTop/height
-          let pageNo = convertPercentageToPage(percentage, pageSum)
+          let pageNo = renderBook.percentageToPage(percentage, pageSum)
 
           let progress = {
             pageNo,
@@ -98,13 +111,13 @@ class BookViewer extends Component {
             percentage
           }
 
-          setProgress(this.bookId, progress)
+          this.setProgress(this.bookId, progress)
         }
       })
     }
 
     // TODO: use session to determine latest progress
-    this.deboundedSetProgress = _.debounce(this.setProgress, 200)
+    this.deboundedSetProgress = _.debounce(this.checkAndSetProgress, 200)
 
     window.addEventListener('scroll', this.deboundedSetProgress)
     window.addEventListener('scroll', this.mapScrollTopToState)
@@ -233,7 +246,7 @@ class BookViewer extends Component {
     let bookId = this.props.params.id
     let view = calculatedPages.props.view
     let height = calculatedPages.props.children.length * view.pageHeight
-    let currentPage = renderBook.convertPercentageToPage(scrollTop/height, calculatedPages.props.children.length)
+    let currentPage = renderBook.percentageToPage(scrollTop/height, calculatedPages.props.children.length)
 
     let pages = renderBook.filterPages({
       startPage: currentPage,

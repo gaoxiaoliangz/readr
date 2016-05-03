@@ -1,5 +1,3 @@
-// import merge from 'lodash/merge'
-// import union from 'lodash/array/union'
 import _ from 'lodash'
 
 // Creates a reducer managing pagination, given the action types to handle,
@@ -50,7 +48,7 @@ export default function paginate({ types, mapActionToKey }) {
       case successType:
       case failureType:
         const key = mapActionToKey(action)
-        
+
         if (typeof key !== 'string') {
           throw new Error('Expected key to be a string.')
         }

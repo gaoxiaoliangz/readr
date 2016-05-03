@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { API_ROOT } from 'constants/APIS'
+import ApiRoots from 'constants/ApiRoots'
 import { fetchDoubanBookSearchResults, clearBookSearch, fetchUserAuthInfo, handleNotification } from 'actions'
-import { callApi } from 'utils'
+import callApi from 'utils/callApi'
 import Notification from 'components/Notification'
 import Input from 'elements/Input'
 
@@ -55,7 +55,7 @@ class AddBook extends Component {
     dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo)
 
     if(isValid) {
-      callApi(`${API_ROOT}books`, 'POST', dataToPost).then(res => {
+      callApi(`${ApiRoots.LOCAL}books`, 'POST', dataToPost).then(res => {
         this.props.handleNotification('添加成功')
       }).catch((err) => {
         console.error(err)

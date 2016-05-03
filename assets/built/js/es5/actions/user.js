@@ -7,22 +7,11 @@ exports.USER_AUTH_INFO_FAILURE = exports.USER_AUTH_INFO_SUCCESS = exports.USER_A
 exports.fetchUserAuthInfo = fetchUserAuthInfo;
 exports.fetchUserList = fetchUserList;
 
-var _actions = require('actions');
-
 var _api = require('middleware/api');
-
-// TODO
-// export function fetchUserAuthInfo00() {
-//   return promisedCallApi({
-//     types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
-//     endpoint: 'auth'
-//   }, {})
-// }
 
 var USER_AUTH_INFO_REQUEST = exports.USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST';
 var USER_AUTH_INFO_SUCCESS = exports.USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS';
 var USER_AUTH_INFO_FAILURE = exports.USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE';
-
 function fetchUserAuthInfo() {
   return {
     CALL_API: {

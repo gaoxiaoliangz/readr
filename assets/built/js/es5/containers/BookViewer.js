@@ -52,6 +52,10 @@ var _object = require('utils/object');
 
 var _actions = require('actions');
 
+var _ApiRoots = require('constants/ApiRoots');
+
+var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -100,7 +104,7 @@ var BookViewer = function (_Component) {
 
       if (position < 1) {
         this.setState({
-          currentPage: convertPercentageToPage(position, pageCount),
+          currentPage: _renderBook.percentageToPage(position, pageCount),
           scrollTop: position * height
         });
         document.body.scrollTop = pageCount * pageHeight * position;
@@ -111,6 +115,19 @@ var BookViewer = function (_Component) {
         });
         document.body.scrollTop = pageHeight * position;
       }
+    }
+  }, {
+    key: 'setProgress',
+    value: function setProgress(bookId, progress) {
+      return new Promise(function (resolve) {
+        (0, _callApi2.default)({
+          fullUrl: _ApiRoots2.default.LOCAL + 'books/' + bookId + '/progress',
+          type: 'POST',
+          data: progress
+        }).then(function (res) {
+          resolve(res);
+        });
+      });
     }
   }, {
     key: 'addEventListeners',
@@ -135,7 +152,7 @@ var BookViewer = function (_Component) {
         });
       };
 
-      this.setProgress = function () {
+      this.checkAndSetProgress = function () {
         var currentPageNo = _this2.props.book.pageNo;
         _this2.props.actions.fetchBookProgress(_this2.bookId).then(function (action) {
           if (_this2.props.book.pageNo - currentPageNo > 5) {
@@ -147,7 +164,7 @@ var BookViewer = function (_Component) {
             var pageSum = _this2.state.calculatedPages.props.children.length;
             var height = pageSum * _this2.state.view.pageHeight;
             var percentage = _this2.state.scrollTop / height;
-            var pageNo = convertPercentageToPage(percentage, pageSum);
+            var pageNo = _renderBook.percentageToPage(percentage, pageSum);
 
             var progress = {
               pageNo: pageNo,
@@ -155,13 +172,13 @@ var BookViewer = function (_Component) {
               percentage: percentage
             };
 
-            setProgress(_this2.bookId, progress);
+            _this2.setProgress(_this2.bookId, progress);
           }
         });
       };
 
       // TODO: use session to determine latest progress
-      this.deboundedSetProgress = _.debounce(this.setProgress, 200);
+      this.deboundedSetProgress = _.debounce(this.checkAndSetProgress, 200);
 
       window.addEventListener('scroll', this.deboundedSetProgress);
       window.addEventListener('scroll', this.mapScrollTopToState);
@@ -302,7 +319,7 @@ var BookViewer = function (_Component) {
       var bookId = this.props.params.id;
       var view = calculatedPages.props.view;
       var height = calculatedPages.props.children.length * view.pageHeight;
-      var currentPage = _renderBook.convertPercentageToPage(scrollTop / height, calculatedPages.props.children.length);
+      var currentPage = _renderBook.percentageToPage(scrollTop / height, calculatedPages.props.children.length);
 
       var pages = _renderBook.filterPages({
         startPage: currentPage,

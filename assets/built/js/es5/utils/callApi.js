@@ -9,8 +9,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 exports.callApi = callApi;
 exports.$callApi = $callApi;
 
-var _APIS = require('constants/APIS');
-
 require('isomorphic-fetch');
 
 var _normalizr = require('normalizr');

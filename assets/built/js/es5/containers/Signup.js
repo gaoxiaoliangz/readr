@@ -16,9 +16,13 @@ var _react3 = require('muicss/react');
 
 var _reactRouter = require('react-router');
 
-var _APIS = require('constants/APIS');
+var _ApiRoots = require('constants/ApiRoots');
 
-var _utils = require('utils');
+var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
+
+var _callApi = require('utils/callApi');
+
+var _callApi2 = _interopRequireDefault(_callApi);
 
 var _actions = require('actions');
 
@@ -69,7 +73,7 @@ var Signup = function (_Component) {
         password: this.state.password
       };
 
-      (0, _utils.callApi)(_APIS.API_ROOT + 'users', 'POST', params).then(function (res) {
+      (0, _callApi2.default)(_ApiRoots2.default.LOCAL + 'users', 'POST', params).then(function (res) {
         console.log(res);
         _this2.props.handleNotification('注册成功！');
         setTimeout(function () {

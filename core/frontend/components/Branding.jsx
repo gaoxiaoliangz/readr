@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import { checkAuthStatus, callApi } from 'utils'
+import callApi from 'utils/callApi'
 import Container from 'elements/Container'
-
-
 
 class Branding extends Component {
 

@@ -4,10 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.filterPages = filterPages;
-exports.convertPercentageToPage = convertPercentageToPage;
 exports.htmlToPages = htmlToPages;
 exports.pagesToHtml = pagesToHtml;
 exports.getNodeHeights = getNodeHeights;
+exports.percentageToPage = percentageToPage;
 function filterPages(config) {
   var startPage = config.startPage;
   var quantity = config.quantity;
@@ -27,15 +27,6 @@ function filterPages(config) {
   }
 
   return newPages;
-}
-
-function convertPercentageToPage(p, pageSum) {
-  if (p > 1) {
-    console.error("Wrong parameter!");
-    return null;
-  } else {
-    return parseInt(p * pageSum) + 1;
-  }
 }
 
 function htmlToPages(html, nodeHeights, view) {
@@ -84,6 +75,54 @@ function getNodeHeights(nodes) {
   });
 
   return nodesHeight;
+}
+
+function percentageToPage(p, pageSum) {
+  if (p > 1) {
+    console.error("Wrong parameter!");
+    return null;
+  } else {
+    return parseInt(p * pageSum) + 1;
+  }
+}
+
+// funcs used internally
+
+function parseHTML(htmlString) {
+  var nodes = [];
+  var $html = document.createElement("div");
+
+  $html.innerHTML = htmlString;
+  $html = $html.childNodes;
+
+  for (var i = 0; i < $html.length; i++) {
+    if ($html[i].nodeType != 1) {
+      continue;
+    } else {
+      nodes.push({
+        type: $html[i].tagName.toLowerCase(),
+        props: {
+          children: $html[i].innerHTML
+        }
+      });
+    }
+  }
+  return nodes;
+}
+
+function parseNodes(nodes) {
+  var html = '';
+
+  for (var i = 0; i < nodes.length; i++) {
+    if (nodes[i].type !== 'p') {
+      console.error('Unsupported node found!');
+      continue;
+    } else {
+      html += "<p>" + nodes[i].props.children + "</p>";
+    }
+  }
+
+  return html;
 }
 
 function groupNodesByPage(nodes, nodeHeights, pageHeight) {
@@ -175,41 +214,4 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   }
 
   return pages;
-}
-
-function parseHTML(htmlString) {
-  var nodes = [];
-  var $html = document.createElement("div");
-
-  $html.innerHTML = htmlString;
-  $html = $html.childNodes;
-
-  for (var i = 0; i < $html.length; i++) {
-    if ($html[i].nodeType != 1) {
-      continue;
-    } else {
-      nodes.push({
-        type: $html[i].tagName.toLowerCase(),
-        props: {
-          children: $html[i].innerHTML
-        }
-      });
-    }
-  }
-  return nodes;
-}
-
-function parseNodes(nodes) {
-  var html = '';
-
-  for (var i = 0; i < nodes.length; i++) {
-    if (nodes[i].type !== 'p') {
-      console.error('Unsupported node found!');
-      continue;
-    } else {
-      html += "<p>" + nodes[i].props.children + "</p>";
-    }
-  }
-
-  return html;
 }
