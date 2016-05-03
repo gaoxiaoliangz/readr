@@ -1,18 +1,23 @@
 import { promisedCallApi } from 'actions'
-
+import { Schemas } from 'middleware/api'
 // TODO
-export function fetchUserAuthInfo00() {
-  return promisedCallApi({
-    types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
-    endpoint: 'auth'
-  }, {})
-}
+// export function fetchUserAuthInfo00() {
+//   return promisedCallApi({
+//     types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
+//     endpoint: 'auth'
+//   }, {})
+// }
+
+export const USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST'
+export const USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS'
+export const USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE'
 
 export function fetchUserAuthInfo() {
   return {
     CALL_API: {
-      types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
-      endpoint: 'auth'
+      types: [USER_AUTH_INFO_REQUEST, USER_AUTH_INFO_SUCCESS, USER_AUTH_INFO_FAILURE],
+      endpoint: 'auth',
+      schema: Schemas.USER_AUTH_INFO
     }
   }
 }

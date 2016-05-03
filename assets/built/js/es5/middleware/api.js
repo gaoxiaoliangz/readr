@@ -17,12 +17,19 @@ var bookSchema = new _normalizr.Schema('books', {
   idAttribute: 'id'
 });
 
-var bookProgressSchema = new _normalizr.Schema('bookProgress', {
-  idAttribute: 'id'
+var userAuthInfoSchema = new _normalizr.Schema('userAuthInfo', {
+  idAttribute: function idAttribute() {
+    return 'current';
+  }
+});
+
+var bookProgressSchema = new _normalizr.Schema('books', {
+  idAttribute: 'bookId'
 });
 
 var Schemas = exports.Schemas = {
   BOOK: bookSchema,
+  USER_AUTH_INFO: userAuthInfoSchema,
   BOOK_PROGRESS: bookProgressSchema,
   BOOK_ARRAY: (0, _normalizr.arrayOf)(bookSchema)
 };

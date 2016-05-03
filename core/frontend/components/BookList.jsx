@@ -6,8 +6,6 @@ class BookList extends Component {
   render() {
     let bookList = this.props.bookList
 
-    console.log(bookList);
-
     return (
       <ul className="book-list clearfix">
         {

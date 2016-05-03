@@ -10,23 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = require('react-router');
+var _reactDom = require('react-dom');
 
-var _reactRedux = require('react-redux');
-
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _Container = require('elements/Container');
-
-var _Container2 = _interopRequireDefault(_Container);
-
-var _Colophon = require('components/Colophon');
-
-var _Colophon2 = _interopRequireDefault(_Colophon);
-
-var _actions = require('actions');
+var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,53 +22,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_Component) {
-  _inherits(App, _Component);
+var Container = function (_Component) {
+  _inherits(Container, _Component);
 
-  function App(props) {
-    _classCallCheck(this, App);
+  function Container() {
+    _classCallCheck(this, Container);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Container).apply(this, arguments));
   }
 
-  _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
-    }
-  }, {
+  _createClass(Container, [{
     key: 'render',
     value: function render() {
-      var isAdmin = false;
-      var username = null;
+      var defaultClass = 'dialog z1';
 
-      if (this.props.userAuthInfo.authed === true) {
-        isAdmin = this.props.userAuthInfo.user.role ? this.props.userAuthInfo.user.role === 'admin' ? true : false : false;
-        username = this.props.userAuthInfo.user.username;
-      }
-
-      var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : this.props.children.props.route.component.displayName.toLowerCase();
+      var className = this.props.className ? defaultClass + ' ' + this.props.className : defaultClass;
+      var content = this.props.content;
+      var actions = this.props.actions;
 
       return _react2.default.createElement(
         'div',
-        { className: "page-" + pageName },
-        _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, username: username }),
+        { className: className },
         _react2.default.createElement(
-          _Container2.default,
+          'p',
           null,
-          this.props.children
+          content
         ),
-        _react2.default.createElement(_Colophon2.default, null)
+        _react2.default.createElement(
+          'div',
+          { className: 'actions' },
+          actions.map(function (action, index) {
+            return _react2.default.createElement(
+              'span',
+              { key: index, onClick: action.function },
+              action.text
+            );
+          })
+        )
       );
     }
   }]);
 
-  return App;
+  return Container;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    notification: state.notification,
-    userAuthInfo: state.entities.userAuthInfo ? state.entities.userAuthInfo.current : {}
-  };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(App);
+exports.default = Container;

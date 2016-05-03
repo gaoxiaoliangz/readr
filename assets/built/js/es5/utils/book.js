@@ -239,7 +239,11 @@ function getProgress(bookId) {
 
 function setProgress(bookId, progress) {
   return new Promise(function (resolve) {
-    (0, _utils.callApi)(_APIS.API_ROOT + 'books/' + bookId + '/progress', 'POST', progress).then(function (res) {
+    (0, _utils.callApi)({
+      fullUrl: _APIS.API_ROOT + 'books/' + bookId + '/progress',
+      type: 'POST',
+      data: progress
+    }).then(function (res) {
       resolve(res);
     });
   });

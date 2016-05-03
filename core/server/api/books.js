@@ -48,7 +48,10 @@ const books = {
     const doQuery = (options) => {
       return models.getData('books', {id: options.id}).then(function(result){
         if(result.length !== 0) {
-          return Promise.resolve({html: result[0].book_content.html})
+          return Promise.resolve({
+            html: result[0].book_content.html,
+            id: options.id
+          })
         }else{
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }

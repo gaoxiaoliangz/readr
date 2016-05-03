@@ -66,38 +66,19 @@ export function callApi(options) {
       if(response.ok) {
         json = humps.camelizeKeys(json)
 
-        let result = Object.assign({},
-          normalize(json, schema)
-        )
+        let result = json
+
+        if(typeof schema !== 'undefined') {
+          result = Object.assign({},
+            normalize(json, schema)
+          )
+        }
 
         return result
       }else{
         return Promise.reject(json)
       }
     })
-
-  // return fetch(fullUrl, config)
-  //   .then(response => {
-  //     let json = response.json()
-  //
-  //     if(response.ok) {
-  //       // return json
-  //       console.log(json)
-  //       let result = Object.assign({},
-  //         normalize(json, schema)
-  //       )
-  //       console.log(schema);
-  //       console.log(result);
-  //       return result
-  //     }else{
-  //       return json.then(json => {
-  //         return Promise.reject(json)
-  //       })
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     return Promise.reject(error)
-  //   })
 }
 
 

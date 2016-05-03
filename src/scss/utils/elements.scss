@@ -40,7 +40,7 @@
    background: lighten($super_power, 40%);
    border-radius: 3px;
    padding: 3px 4px;
-   font-size: 1.2rem;
+   font-size: 1rem;
    color: lighten($super_power, 50%);
    color: $super_power;
    margin: 0 5px;
@@ -120,7 +120,7 @@
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
   line-height: 2.2;
-  font-size: 1.4rem;
+  font-size: 1rem;
   min-width: 150px;
   text-align: left;
   background: $background;
@@ -255,5 +255,25 @@ textarea {
   &:focus {
     background: $btn_focus;
     border: 1px solid $btn_outline;
+  }
+}
+
+/*
+ * dialog
+ * -------------------------------------------------------------------------------------
+**/
+
+.dialog {
+  position: fixed;
+  width: 500px;
+  left: 50%;
+  margin-left: -250px;
+  top: 50%;
+  z-index: 999;
+  background: #fff;
+  padding: 30px;
+
+  p {
+    font-size: 1.2rem;
   }
 }

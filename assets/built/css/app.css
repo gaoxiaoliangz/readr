@@ -1344,6 +1344,10 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/bootstrap-grid\/mixins\/_grid-framework\.scss}line{font-family:\0000340}}
   .offset-xl-11 {
     margin-left: 91.66667%; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/helpers\.scss}line{font-family:\000031}}
+.z1 {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16); }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\000031}}
 html {
   font-size: 16px; }
@@ -1517,7 +1521,7 @@ ul {
   background: #828de4;
   border-radius: 3px;
   padding: 3px 4px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #acb3ed;
   color: #1B267F;
   margin: 0 5px; }
@@ -1591,7 +1595,7 @@ ul.dropdown-menu {
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
   line-height: 2.2;
-  font-size: 1.4rem;
+  font-size: 1rem;
   min-width: 150px;
   text-align: left;
   background: #1b1b1b; }
@@ -1711,6 +1715,24 @@ textarea {
     background: #fff;
     border: 1px solid #1d5ad0; }
 
+/*
+ * dialog
+ * -------------------------------------------------------------------------------------
+**/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003266}}
+.dialog {
+  position: fixed;
+  width: 500px;
+  left: 50%;
+  margin-left: -250px;
+  top: 50%;
+  z-index: 999;
+  background: #fff;
+  padding: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003276}}
+  .dialog p {
+    font-size: 1.2rem; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\000033}}
 .branding {
   min-height: 60px;
@@ -1771,7 +1793,7 @@ textarea {
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
     line-height: 2.2;
-    font-size: 1.4rem;
+    font-size: 1rem;
     min-width: 150px;
     text-align: left;
     background: #1B267F; }
@@ -2141,7 +2163,7 @@ li.book {
     .page-signup .content-container .hint a {
       font-weight: bold; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/app\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/app\.scss}line{font-family:\0000320}}
 .page-profile {
   background: #1b1b1b; }
 

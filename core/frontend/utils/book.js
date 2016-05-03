@@ -215,7 +215,11 @@ export function getProgress(bookId) {
 
 export function setProgress(bookId, progress) {
   return new Promise(resolve => {
-    callApi(`${API_ROOT}books/${bookId}/progress`, 'POST', progress).then((res) => {
+    callApi({
+      fullUrl: `${API_ROOT}books/${bookId}/progress`,
+      type: 'POST',
+      data: progress
+    }).then((res) => {
       resolve(res)
     })
   })

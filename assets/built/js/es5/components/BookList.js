@@ -38,8 +38,6 @@ var BookList = function (_Component) {
     value: function render() {
       var bookList = this.props.bookList;
 
-      console.log(bookList);
-
       return _react2.default.createElement(
         'ul',
         { className: 'book-list clearfix' },

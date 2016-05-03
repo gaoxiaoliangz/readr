@@ -9,13 +9,13 @@ export * from 'actions/notification'
 export * from 'actions/user'
 export * from 'actions/confirm'
 
-export const SET_VIEW = 'SET_VIEW'
-export function setView(view) {
-  return {
-    type: SET_VIEW,
-    view
-  }
-}
+// export const SET_VIEW = 'SET_VIEW'
+// export function setView(view) {
+//   return {
+//     type: SET_VIEW,
+//     view
+//   }
+// }
 
 // todo: merge with api.js
 export function promisedCallApi(CALL_API, actionArgObj){

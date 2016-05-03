@@ -18,8 +18,14 @@ class App extends Component {
   }
 
   render() {
-    let isAdmin = this.props.user.role?(this.props.user.role === 'admin'?true:false):false
-    let username = this.props.user.username
+    let isAdmin = false
+    let username = null
+
+    if(this.props.userAuthInfo.authed === true) {
+      isAdmin = this.props.userAuthInfo.user.role?(this.props.userAuthInfo.user.role === 'admin'?true:false):false
+      username = this.props.userAuthInfo.user.username
+    }
+
     let pageName = this.props.children.props.route.component.WrappedComponent ?
       this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() :
       this.props.children.props.route.component.displayName.toLowerCase()
@@ -39,7 +45,7 @@ class App extends Component {
 export default connect(
   state => ({
     notification: state.notification,
-    user: state.user
+    userAuthInfo: state.entities.userAuthInfo?state.entities.userAuthInfo.current:{}
   }),
   { handleNotification, fetchUserAuthInfo }
 )(App)

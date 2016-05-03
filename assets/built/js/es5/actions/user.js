@@ -3,25 +3,32 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchUserAuthInfo00 = fetchUserAuthInfo00;
+exports.USER_AUTH_INFO_FAILURE = exports.USER_AUTH_INFO_SUCCESS = exports.USER_AUTH_INFO_REQUEST = undefined;
 exports.fetchUserAuthInfo = fetchUserAuthInfo;
 exports.fetchUserList = fetchUserList;
 
 var _actions = require('actions');
 
+var _api = require('middleware/api');
+
 // TODO
-function fetchUserAuthInfo00() {
-  return (0, _actions.promisedCallApi)({
-    types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
-    endpoint: 'auth'
-  }, {});
-}
+// export function fetchUserAuthInfo00() {
+//   return promisedCallApi({
+//     types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
+//     endpoint: 'auth'
+//   }, {})
+// }
+
+var USER_AUTH_INFO_REQUEST = exports.USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST';
+var USER_AUTH_INFO_SUCCESS = exports.USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS';
+var USER_AUTH_INFO_FAILURE = exports.USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE';
 
 function fetchUserAuthInfo() {
   return {
     CALL_API: {
-      types: ['USER_AUTH_INFO_REQUEST', 'USER_AUTH_INFO_SUCCESS', 'USER_AUTH_INFO_FAILURE'],
-      endpoint: 'auth'
+      types: [USER_AUTH_INFO_REQUEST, USER_AUTH_INFO_SUCCESS, USER_AUTH_INFO_FAILURE],
+      endpoint: 'auth',
+      schema: _api.Schemas.USER_AUTH_INFO
     }
   };
 }

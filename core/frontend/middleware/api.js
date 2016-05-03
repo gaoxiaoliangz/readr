@@ -7,12 +7,17 @@ const bookSchema = new Schema('books', {
   idAttribute: 'id'
 })
 
-const bookProgressSchema = new Schema('bookProgress', {
-  idAttribute: 'id'
+const userAuthInfoSchema = new Schema('userAuthInfo', {
+  idAttribute: () => ('current')
+})
+
+const bookProgressSchema = new Schema('books', {
+  idAttribute: 'bookId'
 })
 
 export const Schemas = {
   BOOK: bookSchema,
+  USER_AUTH_INFO: userAuthInfoSchema,
   BOOK_PROGRESS: bookProgressSchema,
   BOOK_ARRAY: arrayOf(bookSchema),
 }
