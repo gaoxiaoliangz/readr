@@ -1,16 +1,9 @@
-/*
- * functions defined here must be important and better be pure
- */
 import { API_ROOT } from 'constants/APIS'
 import 'isomorphic-fetch'
 import { normalize } from 'normalizr'
 import humps from 'humps'
 
-export * from 'utils/book'
-export * from 'utils/cache'
-export * from 'utils/filters'
 
-// export function callApi(fullUrl, type, data) {
 export function callApi(options) {
   let { fullUrl, type, data, schema } = options
 
@@ -114,63 +107,4 @@ export function $callApi(fullUrl, type, data) {
   })
 }
 
-// dom related
-export function isIE(ver){
-  if(typeof ver === 'undefined') {
-    ver = null
-  }
-  var b = document.createElement('b')
-  b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->'
-  return b.getElementsByTagName('i').length === 1
-}
-
-export function lockScroll(){
-  document.body.style.overflow = 'hidden'
-}
-
-export function unlockScroll(){
-  document.body.style.overflow = 'visible'
-}
-
-
-
-// a better solution?
-
-// todo: when multiple functins are called?
-export function delayStuff(callback, delay) {
-  console.log(this);
-  return function() {
-    clearTimeout(this.__delayStuffTimer__)
-    this.__delayStuffTimer__ = setTimeout(callback.bind(this), delay)
-  }
-}
-
-export function lazilize(callback, t) {
-  let timers = []
-
-  return () => {
-    console.log(timers);
-    clearTimeout(timers.slice(-1)[0])
-    let timer = setTimeout(callback.bind(this), t)
-    timers.push(timer)
-  }
-}
-
-// very rough but enough for use here
-export function compareObjects(obj1, obj2) {
-  let isEqual = true
-
-  try {
-    for(let prop in obj1) {
-      if(obj1[prop] !== obj2[prop]) {
-        isEqual = false
-        break
-      }
-    }
-  } catch (e) {
-    console.error(e)
-    isEqual = false
-  }
-
-  return isEqual
-}
+export default callApi

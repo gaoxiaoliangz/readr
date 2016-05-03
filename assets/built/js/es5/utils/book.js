@@ -9,7 +9,6 @@ exports.convertPercentageToPage = convertPercentageToPage;
 exports.filterPages = filterPages;
 exports.getProgress = getProgress;
 exports.setProgress = setProgress;
-exports.getView = getView;
 
 var _utils = require('utils');
 
@@ -325,22 +324,4 @@ function compareObjects(obj1, obj2) {
   }
 
   return isEqual;
-}
-
-function getView() {
-  var aspectRatio = 7 / 9;
-
-  if (window.innerWidth <= 540) {
-    return {
-      screen: 'phone',
-      pageWidth: window.innerWidth,
-      pageHeight: window.innerWidth / aspectRatio
-    };
-  } else {
-    return {
-      screen: 'hd',
-      pageWidth: 700,
-      pageHeight: 700 / aspectRatio
-    };
-  }
 }

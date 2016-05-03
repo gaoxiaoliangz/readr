@@ -3,17 +3,18 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { getCache, setCache, initBook, getView, getProgress, setProgress, convertPercentageToPage, filterPages, readCache, saveCache, callApi } from 'utils'
-import * as actions from 'actions'
-import { API_ROOT } from 'constants/APIS'
-import BookPageList from 'components/BookPageList'
-import Loading from 'components/Loading'
-import Confirm from 'components/Confirm'
 import Icon from 'elements/Icon'
-import * as utils from 'utils'
+import Loading from 'components/Loading'
 import Dialog from 'elements/Dialog'
+import BookPageList from 'components/BookPageList'
 import * as renderBook from 'utils/renderBook'
+import callApi from 'utils/callApi'
+import { getBookView } from 'utils/view'
+import { getCache, setCache } from 'utils/cache'
+import { simpleCompareObjects } from 'utils/object'
+import { fetchBookInfo, fetchBookProgress, fetchBookContent, fetchUserAuthInfo } from 'actions'
 
+const actions = { fetchBookInfo, fetchBookProgress, fetchBookContent, fetchUserAuthInfo }
 
 class BookViewer extends Component {
 
@@ -22,18 +23,19 @@ class BookViewer extends Component {
 
     this.bookId = props.params.id
     this.state = {
-      scrollTop: 0,
-      currentPage: 0,
       showPanel: true,
-      isListenersAdded: false,
+      showProgressDialog: false,
+
       isCalculatingDom: false,
       isReadingMode: false,
       isScrollMode: true,
-      calculatedPages: null,
-      view: getView(),
       isInitialProgressSet: false,
-      showProgressDialog: false,
-      latestProgress: 0
+
+      scrollTop: 0,
+      currentPage: 0, // TODO: remove?
+      calculatedPages: null,
+      latestProgress: 0,
+      view: getBookView()
     }
   }
 
@@ -72,7 +74,7 @@ class BookViewer extends Component {
 
     this.mapViewToState = () => {
       this.setState({
-        view: getView()
+        view: getBookView()
       })
     }
 
@@ -142,16 +144,10 @@ class BookViewer extends Component {
   }
 
   calculateDom() {
-    console.log('calculating dom ...');
     let html = this.state.bookHtml
     let bookId = this.bookId
-    let view = getView()
-
-    console.log(this.refs.bookHtml);
-    // console.log(this.refs.bookHtml.childNodes);
-    // let nodeHeights = renderBook.getNodeHeights(document.querySelector('ul.pages>li>.content').childNodes)
+    let view = getBookView()
     let nodeHeights = renderBook.getNodeHeights(this.refs.bookHtml.childNodes)
-
     let pages = renderBook.htmlToPages(html, nodeHeights, view)
 
     setCache(`book${bookId}_pages`, JSON.stringify(pages))
@@ -189,8 +185,7 @@ class BookViewer extends Component {
       })
     }
 
-    if(!utils.compareObjects(this.state.view, nextState.view)) {
-      console.log('update');
+    if(!simpleCompareObjects(this.state.view, nextState.view)) {
       this.setState({
         isCalculatingDom: true,
       })
@@ -201,11 +196,6 @@ class BookViewer extends Component {
     if(this.state.isCalculatingDom && !prevState.isCalculatingDom) {
       this.calculateDom()
     }
-    // if(this.state.calculatedPages && !prevState.calculatedPages) {
-    //   // setTimeout(() => {
-    //   //   this.scrollTo(10)
-    //   // }, 1)
-    // }
 
     // scroll to previous reading progress when opening a book
     if(this.props.book && this.props.book.percentage && this.state.calculatedPages && !this.state.isInitialProgressSet) {
@@ -284,7 +274,6 @@ class BookViewer extends Component {
 
     return (
       <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this)} >
-        <Confirm confirm={this.props.confirm} />
         {
           this.state.isLoading || book.isFetchingInfo || book.isFetchingContent?(
             <Loading />

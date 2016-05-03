@@ -1,4 +1,4 @@
-import { callApi } from 'utils'
+import callApi from 'utils/callApi'
 import { API_ROOT } from 'constants/APIS'
 import { Schema, arrayOf, normalize } from 'normalizr'
 

@@ -1,4 +1,3 @@
-
 export function filterPages(config) {
   let {startPage, quantity, offset, pages} = config
   let newPages = []

@@ -20,39 +20,37 @@ var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group'
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-var _utils = require('utils');
+var _Icon = require('elements/Icon');
 
-var utils = _interopRequireWildcard(_utils);
-
-var _actions = require('actions');
-
-var actions = _interopRequireWildcard(_actions);
-
-var _APIS = require('constants/APIS');
-
-var _BookPageList = require('components/BookPageList');
-
-var _BookPageList2 = _interopRequireDefault(_BookPageList);
+var _Icon2 = _interopRequireDefault(_Icon);
 
 var _Loading = require('components/Loading');
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
-var _Confirm = require('components/Confirm');
-
-var _Confirm2 = _interopRequireDefault(_Confirm);
-
-var _Icon = require('elements/Icon');
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
 var _Dialog = require('elements/Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
+var _BookPageList = require('components/BookPageList');
+
+var _BookPageList2 = _interopRequireDefault(_BookPageList);
+
 var _renderBook2 = require('utils/renderBook');
 
 var _renderBook = _interopRequireWildcard(_renderBook2);
+
+var _callApi = require('utils/callApi');
+
+var _callApi2 = _interopRequireDefault(_callApi);
+
+var _view = require('utils/view');
+
+var _cache = require('utils/cache');
+
+var _object = require('utils/object');
+
+var _actions = require('actions');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -64,6 +62,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var actions = { fetchBookInfo: _actions.fetchBookInfo, fetchBookProgress: _actions.fetchBookProgress, fetchBookContent: _actions.fetchBookContent, fetchUserAuthInfo: _actions.fetchUserAuthInfo };
+
 var BookViewer = function (_Component) {
   _inherits(BookViewer, _Component);
 
@@ -74,18 +74,19 @@ var BookViewer = function (_Component) {
 
     _this.bookId = props.params.id;
     _this.state = {
-      scrollTop: 0,
-      currentPage: 0,
       showPanel: true,
-      isListenersAdded: false,
+      showProgressDialog: false,
+
       isCalculatingDom: false,
       isReadingMode: false,
       isScrollMode: true,
-      calculatedPages: null,
-      view: (0, _utils.getView)(),
       isInitialProgressSet: false,
-      showProgressDialog: false,
-      latestProgress: 0
+
+      scrollTop: 0,
+      currentPage: 0, // TODO: remove?
+      calculatedPages: null,
+      latestProgress: 0,
+      view: (0, _view.getBookView)()
     };
     return _this;
   }
@@ -99,7 +100,7 @@ var BookViewer = function (_Component) {
 
       if (position < 1) {
         this.setState({
-          currentPage: (0, _utils.convertPercentageToPage)(position, pageCount),
+          currentPage: convertPercentageToPage(position, pageCount),
           scrollTop: position * height
         });
         document.body.scrollTop = pageCount * pageHeight * position;
@@ -130,7 +131,7 @@ var BookViewer = function (_Component) {
 
       this.mapViewToState = function () {
         _this2.setState({
-          view: (0, _utils.getView)()
+          view: (0, _view.getBookView)()
         });
       };
 
@@ -146,7 +147,7 @@ var BookViewer = function (_Component) {
             var pageSum = _this2.state.calculatedPages.props.children.length;
             var height = pageSum * _this2.state.view.pageHeight;
             var percentage = _this2.state.scrollTop / height;
-            var pageNo = (0, _utils.convertPercentageToPage)(percentage, pageSum);
+            var pageNo = convertPercentageToPage(percentage, pageSum);
 
             var progress = {
               pageNo: pageNo,
@@ -154,7 +155,7 @@ var BookViewer = function (_Component) {
               percentage: percentage
             };
 
-            (0, _utils.setProgress)(_this2.bookId, progress);
+            setProgress(_this2.bookId, progress);
           }
         });
       };
@@ -204,19 +205,13 @@ var BookViewer = function (_Component) {
   }, {
     key: 'calculateDom',
     value: function calculateDom() {
-      console.log('calculating dom ...');
       var html = this.state.bookHtml;
       var bookId = this.bookId;
-      var view = (0, _utils.getView)();
-
-      console.log(this.refs.bookHtml);
-      // console.log(this.refs.bookHtml.childNodes);
-      // let nodeHeights = renderBook.getNodeHeights(document.querySelector('ul.pages>li>.content').childNodes)
+      var view = (0, _view.getBookView)();
       var nodeHeights = _renderBook.getNodeHeights(this.refs.bookHtml.childNodes);
-
       var pages = _renderBook.htmlToPages(html, nodeHeights, view);
 
-      (0, _utils.setCache)('book' + bookId + '_pages', JSON.stringify(pages));
+      (0, _cache.setCache)('book' + bookId + '_pages', JSON.stringify(pages));
 
       this.setState({
         isReadingMode: true,
@@ -228,7 +223,7 @@ var BookViewer = function (_Component) {
     key: 'loadCalculatedPages',
     value: function loadCalculatedPages() {
       var bookId = this.props.params.id;
-      var pages = (0, _utils.getCache)('book' + bookId + '_pages');
+      var pages = (0, _cache.getCache)('book' + bookId + '_pages');
 
       // check if pages are cached
       if (pages) {
@@ -253,8 +248,7 @@ var BookViewer = function (_Component) {
         });
       }
 
-      if (!utils.compareObjects(this.state.view, nextState.view)) {
-        console.log('update');
+      if (!(0, _object.simpleCompareObjects)(this.state.view, nextState.view)) {
         this.setState({
           isCalculatingDom: true
         });
@@ -268,11 +262,6 @@ var BookViewer = function (_Component) {
       if (this.state.isCalculatingDom && !prevState.isCalculatingDom) {
         this.calculateDom();
       }
-      // if(this.state.calculatedPages && !prevState.calculatedPages) {
-      //   // setTimeout(() => {
-      //   //   this.scrollTo(10)
-      //   // }, 1)
-      // }
 
       // scroll to previous reading progress when opening a book
       if (this.props.book && this.props.book.percentage && this.state.calculatedPages && !this.state.isInitialProgressSet) {
@@ -356,7 +345,6 @@ var BookViewer = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'viewer viewer--' + view.screen, onMouseMove: this.toggleBookPanel.bind(this) },
-        _react2.default.createElement(_Confirm2.default, { confirm: this.props.confirm }),
         this.state.isLoading || book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
         this.state.showProgressDialog ? _react2.default.createElement(_Dialog2.default, { actions: actions, content: 'are you sure?' }) : null,
         _react2.default.createElement(
