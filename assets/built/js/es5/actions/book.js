@@ -30,11 +30,12 @@ function fetchBookProgress(bookId) {
   };
 }
 
-function fetchBookList() {
+function fetchBookList(filter) {
   return {
+    filter: filter,
     CALL_API: {
       types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
-      endpoint: 'books',
+      endpoint: 'books?filter=' + filter,
       schema: _schemas.Schemas.BOOK_ARRAY
     }
   };

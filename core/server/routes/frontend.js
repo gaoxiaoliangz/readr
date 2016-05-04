@@ -73,7 +73,8 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
         res.status(status).render(entry, {
           env: env,
           html: isServerRenderingEnabled?renderToString(html):null,
-          initialState: encodeURIComponent(JSON.stringify(initialState))
+          // initialState: encodeURIComponent(JSON.stringify(initialState))
+          initialState: isServerRenderingEnabled?encodeURIComponent(JSON.stringify(initialState)):''
         })
       }
 

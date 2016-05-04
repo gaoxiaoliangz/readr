@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
-import book from './book'
-import notification from './notification'
 import { routerReducer as routing } from 'react-router-redux'
+import notification from './notification'
 import paginate from './paginate'
 import _ from 'lodash'
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = {}, action) {
+function entities(state = { books: {}, users: {} }, action) {
   if (action.response && action.response.entities) {
     return _.merge({}, state, action.response.entities)
   }
@@ -54,10 +53,11 @@ function session(state = { user: { role: 'visitor' } }, action) {
 // Updates the pagination data for different actions.
 const pagination = combineReducers({
   bookList: paginate({
-    mapActionToKey: action => 'all',
+    mapActionToKey: action => action.filter,
     types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
   }),
   userList: paginate({
+    // TODO
     mapActionToKey: action => 'all',
     types: ['USER_LIST_REQUEST', 'USER_LIST_SUCCESS', 'USER_LIST_FAILURE'],
   }),

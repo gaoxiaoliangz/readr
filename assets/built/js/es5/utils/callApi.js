@@ -38,6 +38,7 @@ function callApi(options) {
   var includeCredentials = options.includeCredentials;
   var useJsonp = options.useJsonp;
 
+  // TODO: jsonp.js
 
   if (useJsonp === true) {
     if (fullUrl.indexOf('douban') !== -1) {

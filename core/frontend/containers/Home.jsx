@@ -9,7 +9,7 @@ import CandyBox from 'components/CandyBox'
 class Home extends Component {
 
   static fetchData({store}) {
-    return store.dispatch(fetchBookList())
+    return store.dispatch(fetchBookList('newest'))
   }
 
   constructor(props) {
@@ -17,33 +17,24 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBookList()
+    this.props.fetchBookList('newest')
+    this.props.fetchBookList('user')
   }
 
   render() {
-    let bookList = this.props.bookListAll
-    let list = [
-      {
-        name: "Major Bible Themes/Dsf",
-        link: "/"
-      },
-      {
-        name: "战略中心型组织",
-        link: "/"
-      },
-      {
-        name: "1984",
-        link: "/"
-      },
-      {
-        name: "Major Bible Themes/Dsf",
-        link: "/"
-      },
-      {
-        name: "1984",
-        link: "/"
+    let bookList = this.props.bookListNewest
+    let hotList = bookList.map((book, index) => {
+      return {
+        name: book.title,
+        link: `/book/${book.id}`
       }
-    ]
+    })
+    let userList = this.props.bookListUser.map((book, index) => {
+      return {
+        name: book.title,
+        link: `/book/${book.id}`
+      }
+    })
 
     return (
       <div>
@@ -54,8 +45,8 @@ class Home extends Component {
             <BookListSection bookList={bookList} title="推荐书单" />
           </div>
           <div className="col-md-4">
-            <CandyBox title="近期热门" list={list} />
-            <CandyBox title="最近阅读" list={list} />
+            <CandyBox title="近期热门" list={hotList} />
+            <CandyBox title="最近阅读" list={userList} />
           </div>
         </div>
       </div>
@@ -64,18 +55,18 @@ class Home extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const type = 'all'
-
   const {
     pagination: { bookList },
     entities: { books }
   } = state
 
-  const bookListPagination = bookList[type]
-  const bookListAll = bookListPagination.ids.map(id => books[id])
+  const genList = (whichPagination) => (
+    whichPagination?whichPagination.ids.map(id => books[id]):[]
+  )
 
   return {
-    bookListAll
+    bookListUser: genList(bookList['user']),
+    bookListNewest: genList(bookList['newest'])
   }
 }
 

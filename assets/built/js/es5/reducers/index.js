@@ -6,15 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = require('redux');
 
-var _book = require('./book');
-
-var _book2 = _interopRequireDefault(_book);
+var _reactRouterRedux = require('react-router-redux');
 
 var _notification = require('./notification');
 
 var _notification2 = _interopRequireDefault(_notification);
-
-var _reactRouterRedux = require('react-router-redux');
 
 var _paginate = require('./paginate');
 
@@ -28,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Updates an entity cache in response to any action with response.entities.
 function entities() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var state = arguments.length <= 0 || arguments[0] === undefined ? { books: {}, users: {} } : arguments[0];
   var action = arguments[1];
 
   if (action.response && action.response.entities) {
@@ -86,11 +82,12 @@ function session() {
 var pagination = (0, _redux.combineReducers)({
   bookList: (0, _paginate2.default)({
     mapActionToKey: function mapActionToKey(action) {
-      return 'all';
+      return action.filter;
     },
     types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
   }),
   userList: (0, _paginate2.default)({
+    // TODO
     mapActionToKey: function mapActionToKey(action) {
       return 'all';
     },

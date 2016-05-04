@@ -44,7 +44,7 @@ var Home = function (_Component) {
     value: function fetchData(_ref) {
       var store = _ref.store;
 
-      return store.dispatch((0, _actions.fetchBookList)());
+      return store.dispatch((0, _actions.fetchBookList)('newest'));
     }
   }]);
 
@@ -57,28 +57,25 @@ var Home = function (_Component) {
   _createClass(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookList();
+      this.props.fetchBookList('newest');
+      this.props.fetchBookList('user');
     }
   }, {
     key: 'render',
     value: function render() {
-      var bookList = this.props.bookListAll;
-      var list = [{
-        name: "Major Bible Themes/Dsf",
-        link: "/"
-      }, {
-        name: "战略中心型组织",
-        link: "/"
-      }, {
-        name: "1984",
-        link: "/"
-      }, {
-        name: "Major Bible Themes/Dsf",
-        link: "/"
-      }, {
-        name: "1984",
-        link: "/"
-      }];
+      var bookList = this.props.bookListNewest;
+      var hotList = bookList.map(function (book, index) {
+        return {
+          name: book.title,
+          link: '/book/' + book.id
+        };
+      });
+      var userList = this.props.bookListUser.map(function (book, index) {
+        return {
+          name: book.title,
+          link: '/book/' + book.id
+        };
+      });
 
       return _react2.default.createElement(
         'div',
@@ -96,8 +93,8 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-4' },
-            _react2.default.createElement(_CandyBox2.default, { title: '近期热门', list: list }),
-            _react2.default.createElement(_CandyBox2.default, { title: '最近阅读', list: list })
+            _react2.default.createElement(_CandyBox2.default, { title: '近期热门', list: hotList }),
+            _react2.default.createElement(_CandyBox2.default, { title: '最近阅读', list: userList })
           )
         )
       );
@@ -108,19 +105,19 @@ var Home = function (_Component) {
 }(_react.Component);
 
 function mapStateToProps(state, ownProps) {
-  var type = 'all';
-
   var bookList = state.pagination.bookList;
   var books = state.entities.books;
 
 
-  var bookListPagination = bookList[type];
-  var bookListAll = bookListPagination.ids.map(function (id) {
-    return books[id];
-  });
+  var genList = function genList(whichPagination) {
+    return whichPagination ? whichPagination.ids.map(function (id) {
+      return books[id];
+    }) : [];
+  };
 
   return {
-    bookListAll: bookListAll
+    bookListUser: genList(bookList['user']),
+    bookListNewest: genList(bookList['newest'])
   };
 }
 

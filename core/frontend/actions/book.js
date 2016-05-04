@@ -13,11 +13,12 @@ export function fetchBookProgress(bookId) {
   }
 }
 
-export function fetchBookList() {
+export function fetchBookList(filter) {
   return {
+    filter,
     CALL_API: {
       types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
-      endpoint: 'books',
+      endpoint: `books?filter=${filter}`,
       schema: Schemas.BOOK_ARRAY
     }
   }

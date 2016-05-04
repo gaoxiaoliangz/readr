@@ -6,8 +6,8 @@ const middleware = require('../middleware')
 const router = express.Router()
 
 function apiRoutes() {
-  router.get('/books', api.http(api.books.getAllBooks))
-  router.post('/books',middleware.getUserInfo, api.http(api.books.addBook))
+  router.get('/books', middleware.getUserInfo, api.http(api.books.getBooks))
+  router.post('/books', middleware.getUserInfo, api.http(api.books.addBook))
   router.get('/books/:id/', api.http(api.books.getBookInfo))
   router.delete('/books/:id/', middleware.getUserInfo, api.http(api.books.deleteBook))
   router.get('/books/:id/content', api.http(api.books.getBookContent));

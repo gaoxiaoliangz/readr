@@ -14,6 +14,12 @@ var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
 
+var _actions = require('actions');
+
+var _BookListSection = require('components/BookListSection');
+
+var _BookListSection2 = _interopRequireDefault(_BookListSection);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22,14 +28,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import { someAction } from 'actions'
-
 var BookShelf = function (_Component) {
   _inherits(BookShelf, _Component);
 
-  // static fetchData({store, params}) {
-  //   return store.dispatch(fetch())
-  // }
+  _createClass(BookShelf, null, [{
+    key: 'fetchData',
+    value: function fetchData(_ref) {
+      var store = _ref.store;
+      var params = _ref.params;
+
+      return store.dispatch((0, _actions.fetchBookList)('user'));
+    }
+  }]);
 
   function BookShelf(props) {
     _classCallCheck(this, BookShelf);
@@ -38,44 +48,19 @@ var BookShelf = function (_Component) {
   }
 
   _createClass(BookShelf, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchBookList('user');
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var bookList = this.props.bookListUser;
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'ul',
-          null,
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: 'book-name' },
-              'abc'
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'progress' },
-              '已阅读 50%'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: 'book-name' },
-              'abc'
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'progress' },
-              '已阅读 50%'
-            )
-          )
-        )
+        _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '我的书架' })
       );
     }
   }]);
@@ -83,10 +68,20 @@ var BookShelf = function (_Component) {
   return BookShelf;
 }(_react.Component);
 
-exports.default = BookShelf;
-// export default connect(
-//   state => ({
-//     data: state.data,
-//   }),
-//   { someAction }
-// )(Comp)
+function mapStateToProps(state, ownProps) {
+  var bookList = state.pagination.bookList;
+  var books = state.entities.books;
+
+
+  var genList = function genList(whichPagination) {
+    return whichPagination ? whichPagination.ids.map(function (id) {
+      return books[id];
+    }) : [];
+  };
+
+  return {
+    bookListUser: genList(bookList['user'])
+  };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBookList: _actions.fetchBookList })(BookShelf);

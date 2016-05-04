@@ -42,6 +42,52 @@ const books = {
     })
   },
 
+  /**
+   * @param options includes query #filter: user | newest 
+   */
+  getBooks(options) {
+    const requiredOptions = []
+    let filter = options.filter?options.filter:'newest'
+    let doQuery
+
+    const queryRecentReading = (options) => {
+      return models.getData('reading_progress', { user_id: options.context.user.id}).then(result => {
+        return Promise.all(result.map(item => {
+          let infoOptions = Object.assign({}, options, {id: item.book_id})
+          return books.getBookInfo(infoOptions)
+        }))
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const queryNewest = () => {
+      return models.getData('books', null).then(result => {
+        return Promise.all(result.map(item => {
+          let infoOptions = Object.assign({}, options, {id: item.id})
+          return books.getBookInfo(infoOptions)
+        }))
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    let tasks = [
+      utils.validate(requiredOptions),
+    ]
+
+    if(filter === 'user') {
+      doQuery = queryRecentReading
+      tasks.push(utils.checkUserPermissions)
+    } else {
+      doQuery = queryNewest
+    }
+
+    tasks.push(doQuery)
+
+    return pipeline(tasks, options)
+  },
+
   getBookContent(options) {
     const requiredOptions = ['id']
 

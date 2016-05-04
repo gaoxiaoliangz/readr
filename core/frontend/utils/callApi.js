@@ -18,6 +18,7 @@ export function handleResponseJson(json, schema) {
 export function callApi(options) {
   let { fullUrl, method, data, schema, includeCredentials, useJsonp } = options
 
+  // TODO: jsonp.js
   if(useJsonp === true) {
     if(fullUrl.indexOf('douban') !== -1) {
       let id = new Date().valueOf()

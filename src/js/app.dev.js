@@ -8,8 +8,15 @@ import { Router } from 'react-router'
 import DevTools from 'containers/DevTools'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-const initialState = JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
-const store = configureStore(initialState)
+let store
+
+if(typeof window.__INITIAL_STATE__ !== 'undefined') {
+  let initialState = JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
+  store = configureStore(initialState)
+}else{
+  store = configureStore()
+}
+
 const history = syncHistoryWithStore(browserHistory, store)
 
 render(
