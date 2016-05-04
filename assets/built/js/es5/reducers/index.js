@@ -90,6 +90,12 @@ var pagination = (0, _redux.combineReducers)({
     },
     types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
   }),
+  userList: (0, _paginate2.default)({
+    mapActionToKey: function mapActionToKey(action) {
+      return 'all';
+    },
+    types: ['USER_LIST_REQUEST', 'USER_LIST_SUCCESS', 'USER_LIST_FAILURE']
+  }),
   doubanBookSearchResults: (0, _paginate2.default)({
     mapActionToKey: function mapActionToKey(action) {
       return action.query;

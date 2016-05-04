@@ -39,6 +39,8 @@ var ManageUsers = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var userListAll = this.props.userListAll ? this.props.userListAll : [];
+
       return _react2.default.createElement(
         'div',
         null,
@@ -72,7 +74,7 @@ var ManageUsers = function (_Component) {
                 'Actions'
               )
             ),
-            this.props.user.userList ? this.props.user.userList.map(function (user, index) {
+            userListAll.map(function (user, index) {
               return _react2.default.createElement(
                 'tr',
                 { key: index },
@@ -101,7 +103,7 @@ var ManageUsers = function (_Component) {
                   )
                 )
               );
-            }) : null
+            })
           )
         )
       );
@@ -111,8 +113,21 @@ var ManageUsers = function (_Component) {
   return ManageUsers;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
+function mapStateToProps(state, ownProps) {
+  var type = 'all';
+
+  var userList = state.pagination.userList;
+  var users = state.entities.users;
+
+
+  var userListPagination = userList[type];
+  var userListAll = userListPagination ? userListPagination.ids.map(function (id) {
+    return users[id];
+  }) : [];
+
   return {
-    user: state.user
+    userListAll: userListAll
   };
-}, { fetchUserList: _actions.fetchUserList })(ManageUsers);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchUserList: _actions.fetchUserList })(ManageUsers);

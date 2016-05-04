@@ -13,6 +13,8 @@ class ManageUsers extends Component {
   }
 
   render() {
+    let userListAll = this.props.userListAll?this.props.userListAll:[]
+
     return (
       <div>
         <table>
@@ -23,7 +25,7 @@ class ManageUsers extends Component {
               <td>Date created</td>
               <td>Actions</td>
             </tr>
-            {this.props.user.userList?this.props.user.userList.map((user, index) => {
+            {userListAll.map((user, index) => {
               return (
                 <tr key={index}>
                   <td>{user.id}</td>
@@ -32,7 +34,7 @@ class ManageUsers extends Component {
                   <td><a href="#">Delete</a></td>
                 </tr>
               )
-            }):null}
+            })}
           </tbody>
         </table>
       </div>
@@ -40,9 +42,23 @@ class ManageUsers extends Component {
   }
 }
 
+function mapStateToProps(state, ownProps) {
+  const type = 'all'
+
+  const {
+    pagination: { userList },
+    entities: { users }
+  } = state
+
+  const userListPagination = userList[type]
+  const userListAll = userListPagination?userListPagination.ids.map(id => users[id]):[]
+
+  return {
+    userListAll
+  }
+}
+
 export default connect(
-  state => ({
-    user: state.user,
-  }),
+  mapStateToProps,
   { fetchUserList }
 )(ManageUsers)

@@ -21,7 +21,8 @@ function fetchUserList() {
   return {
     CALL_API: {
       types: ['USER_LIST_REQUEST', 'USER_LIST_SUCCESS', 'USER_LIST_FAILURE'],
-      endpoint: 'users'
+      endpoint: 'users',
+      schema: _schemas.Schemas.USER_ARRAY
     }
   };
 }

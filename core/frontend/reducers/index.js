@@ -57,6 +57,10 @@ const pagination = combineReducers({
     mapActionToKey: action => 'all',
     types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
   }),
+  userList: paginate({
+    mapActionToKey: action => 'all',
+    types: ['USER_LIST_REQUEST', 'USER_LIST_SUCCESS', 'USER_LIST_FAILURE'],
+  }),
   doubanBookSearchResults: paginate({
     mapActionToKey: action => action.query,
     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE']

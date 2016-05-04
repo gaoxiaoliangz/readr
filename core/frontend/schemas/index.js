@@ -4,6 +4,10 @@ const book = new Schema('books', {
   idAttribute: 'id'
 })
 
+const user = new Schema('users', {
+  idAttribute: 'id'
+})
+
 const doubanBook = new Schema('doubanBooks', {
   idAttribute: 'id'
 })
@@ -16,5 +20,6 @@ export const Schemas = {
   BOOK: book,
   BOOK_PROGRESS: bookProgress,
   BOOK_ARRAY: arrayOf(book),
-  DOUBAN_BOOK_SEARCH_RESULTS: {books: arrayOf(doubanBook)}
+  DOUBAN_BOOK_SEARCH_RESULTS: {books: arrayOf(doubanBook)},
+  USER_ARRAY: arrayOf(user)
 }
