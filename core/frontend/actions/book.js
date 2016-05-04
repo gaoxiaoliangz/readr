@@ -1,6 +1,6 @@
 import { promisedCallApi } from 'actions'
 import ApiRoots from 'constants/ApiRoots'
-import { Schemas } from 'middleware/api'
+import { Schemas } from 'schemas'
 
 export function fetchBookProgress(bookId) {
   return {
@@ -12,13 +12,10 @@ export function fetchBookProgress(bookId) {
   }
 }
 
-export const BOOK_LIST_REQUEST = 'BOOK_LIST_REQUEST'
-export const BOOK_LIST_SUCCESS = 'BOOK_LIST_SUCCESS'
-export const BOOK_LIST_FAILURE = 'BOOK_LIST_FAILURE'
 export function fetchBookList() {
   return {
     CALL_API: {
-      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE],
+      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
       endpoint: 'books',
       schema: Schemas.BOOK_ARRAY
     }
@@ -27,6 +24,7 @@ export function fetchBookList() {
 
 export function fetchBookContent(bookId) {
   return {
+    bookId,
     CALL_API: {
       types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
       endpoint: `books/${bookId}/content`,
@@ -35,25 +33,28 @@ export function fetchBookContent(bookId) {
   }
 }
 
-export const BOOK_INFO_REQUEST = 'BOOK_INFO_REQUEST'
-export const BOOK_INFO_SUCCESS = 'BOOK_INFO_SUCCESS'
-export const BOOK_INFO_FAILURE = 'BOOK_INFO_FAILURE'
 export function fetchBookInfo(bookId) {
   return {
+    bookId,
     CALL_API:{
-      types: [BOOK_INFO_REQUEST, BOOK_INFO_SUCCESS, BOOK_INFO_FAILURE],
+      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
       endpoint: `books/${bookId}`,
-      schema: Schemas.BOOK
+      schema: Schemas.BOOK_ARRAY
     }
   }
 }
 
-export function fetchDoubanBookSearchResults(endpoint) {
-  return promisedCallApi({
-    types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
-    endpoint,
-    apiUrl: ApiRoots.DOUBAN_BOOKS
-  }, {})
+export function fetchDoubanBookSearchResults(query) {
+  return {
+    query,
+    CALL_API:{
+      types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
+      endpoint: `search?count=5&q=${query}`,
+      apiUrl: ApiRoots.DOUBAN_BOOKS,
+      schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
+      extendedOptions: { useJsonp: true }
+    }
+  }
 }
 
 export const CLEAR_BOOK_SEARCH = 'CLEAR_BOOK_SEARCH'

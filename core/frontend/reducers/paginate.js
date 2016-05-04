@@ -17,7 +17,7 @@ export default function paginate({ types, mapActionToKey }) {
 
   function updatePagination(state = {
     isFetching: false,
-    nextPageUrl: undefined,
+    nextPageUrl: null,
     pageCount: 0,
     ids: []
   }, action) {

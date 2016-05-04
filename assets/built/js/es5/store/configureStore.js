@@ -27,6 +27,10 @@ var _api = require('middleware/api');
 
 var _api2 = _interopRequireDefault(_api);
 
+var _modifyResponse = require('middleware/modifyResponse');
+
+var _modifyResponse2 = _interopRequireDefault(_modifyResponse);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function configureStore(initialState) {
@@ -39,5 +43,5 @@ function configureStore(initialState) {
 
   return (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.compose)(
   // applyMiddleware(thunk, api, createLogger()),
-  (0, _redux.applyMiddleware)(_reduxThunk2.default, _api2.default), _DevTools2.default.instrument()));
+  (0, _redux.applyMiddleware)(_reduxThunk2.default, _api2.default, _modifyResponse2.default), _DevTools2.default.instrument()));
 }

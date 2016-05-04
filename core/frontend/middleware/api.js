@@ -1,25 +1,5 @@
 import callApi from 'utils/callApi'
 import ApiRoots from 'constants/ApiRoots'
-import { Schema, arrayOf, normalize } from 'normalizr'
-
-const bookSchema = new Schema('books', {
-  idAttribute: 'id'
-})
-
-const userAuthInfoSchema = new Schema('userAuthInfo', {
-  idAttribute: () => ('current')
-})
-
-const bookProgressSchema = new Schema('books', {
-  idAttribute: 'bookId'
-})
-
-export const Schemas = {
-  BOOK: bookSchema,
-  USER_AUTH_INFO: userAuthInfoSchema,
-  BOOK_PROGRESS: bookProgressSchema,
-  BOOK_ARRAY: arrayOf(bookSchema),
-}
 
 export default store => next => action => {
   const CALL_API = action.CALL_API
@@ -27,7 +7,7 @@ export default store => next => action => {
     return next(action)
   }
 
-  let { endpoint, apiUrl } = CALL_API
+  let { endpoint, apiUrl, extendedOptions } = CALL_API
   const { types, schema } = CALL_API
   const [ requestType, successType, failureType ] = types
 
@@ -48,8 +28,13 @@ export default store => next => action => {
   }
 
   const fullUrl = apiUrl + endpoint
+  let options = { fullUrl, schema }
 
-  return callApi({ fullUrl, schema }).then(
+  if(typeof extendedOptions !== 'undefined') {
+    options = Object.assign({}, options, extendedOptions)
+  }
+
+  return callApi(options).then(
     response => next(actionWith({
       response,
       type: successType

@@ -55,9 +55,11 @@
   .sep {
     margin: 0 20px;
     opacity: .6;
+    font-size: 1.5rem;
   }
   .sub {
     opacity: .8;
+    font-size: 1.3rem;
   }
   .dropdown-menu {
     @include make_dropdown_menu($super_power);

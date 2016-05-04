@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { fetchUserAuthInfo, fetchBookInfo } from 'actions'
+import { fetchBookInfo } from 'actions'
 import Loading from 'components/Loading'
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
@@ -21,7 +21,6 @@ class BookInfo extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUserAuthInfo()
     this.props.fetchBookInfo(this.bookId)
   }
 
@@ -81,8 +80,7 @@ class BookInfo extends Component {
 
 export default connect(
   (state, ownProps) =>({
-    bookInfo: state.entities.books[ownProps.params.id],
-    user: state.user
+    bookInfo: state.entities.books[ownProps.params.id]
   }),
-  { fetchBookInfo, fetchUserAuthInfo }
+  { fetchBookInfo }
 )(BookInfo)

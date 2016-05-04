@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import ApiRoots from 'constants/ApiRoots'
-import { fetchDoubanBookSearchResults, clearBookSearch, fetchUserAuthInfo, handleNotification } from 'actions'
+import { fetchDoubanBookSearchResults, clearBookSearch, handleNotification } from 'actions'
 import callApi from 'utils/callApi'
 import Notification from 'components/Notification'
 import Input from 'elements/Input'
+import _ from 'lodash'
 
 class AddBook extends Component {
   constructor(props) {
@@ -18,10 +19,7 @@ class AddBook extends Component {
       conformed: false
     }
     this.state = this.defaultState
-  }
-
-  componentDidMount() {
-    this.props.fetchUserAuthInfo()
+    this.fetchDoubanBookSearchResults = _.debounce(this.props.fetchDoubanBookSearchResults, 150)
   }
 
   handleAddBook(event) {
@@ -30,7 +28,6 @@ class AddBook extends Component {
     let currentBook = this.state.currentBook
     let dataToPost = {}
     let bookContent = ReactDOM.findDOMNode(this.refs.bookContent).value
-    console.log(bookContent);
     let isValid = false
 
     while (true) {
@@ -65,8 +62,12 @@ class AddBook extends Component {
   }
 
   search(event) {
-    this.setState({searchQuery: event.target.value})
-    this.props.fetchDoubanBookSearchResults('search?count=5&q=' + event.target.value)
+    let query = event.target.value
+
+    this.setState({searchQuery: query})
+    if(query !== '') {
+      this.fetchDoubanBookSearchResults(query)
+    }
   }
 
   conformResult(index) {
@@ -89,9 +90,15 @@ class AddBook extends Component {
 
   render() {
     let book = null
+    let searchResultIds = this.props.doubanBookSearchResults[this.state.searchQuery] ?
+      this.props.doubanBookSearchResults[this.state.searchQuery].ids : []
+    let doubanBooks = this.props.doubanBooks
+    let searchResults = searchResultIds.map(id => (
+      doubanBooks[id]
+    ))
 
     if(this.state.currentBook !== -1) {
-      book = this.props.book.searchResults.books[this.state.currentBook]
+      book = searchResults[this.state.currentBook]
     }
 
     return (
@@ -104,11 +111,11 @@ class AddBook extends Component {
           ):null
         }
         {
-          !this.state.conformed && this.props.book.searchResults?(
+          !this.state.conformed && searchResults?(
             <div className="drop-down">
               <ul>
                 {
-                  this.props.book.searchResults.books.map((item, index)=>{
+                  searchResults.map((item, index)=>{
                     return (
                       <li onMouseOver={this.showBookCover.bind(this, index)} onClick={this.conformResult.bind(this, index)} key={index}>
                         {item.title} ({item.author})
@@ -144,9 +151,9 @@ class AddBook extends Component {
 
 export default connect(
   state => ({
-    user: state.user,
-    book: state.book,
-    notification: state.notification
+    doubanBookSearchResults: state.pagination.doubanBookSearchResults,
+    doubanBooks: state.entities.doubanBooks,
+    notification: state.components.notification
   }),
-  { fetchUserAuthInfo, fetchDoubanBookSearchResults, clearBookSearch, handleNotification }
+  { fetchDoubanBookSearchResults, clearBookSearch, handleNotification }
 )(AddBook)

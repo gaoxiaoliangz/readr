@@ -6,11 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.userAuth = userAuth;
 exports.fetchUserList = fetchUserList;
 
-var _api = require('middleware/api');
+var _schemas = require('schemas');
 
-// export const USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST'
-// export const USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS'
-// export const USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE'
 function userAuth() {
   return {
     CALL_API: {

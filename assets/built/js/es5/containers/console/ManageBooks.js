@@ -41,6 +41,8 @@ var ManageBooks = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var bookListAll = this.props.bookListAll ? this.props.bookListAll : null;
+
       return _react2.default.createElement(
         'div',
         null,
@@ -74,7 +76,7 @@ var ManageBooks = function (_Component) {
                 'Actions'
               )
             ),
-            this.props.book.bookList ? this.props.book.bookList.map(function (book, index) {
+            bookListAll ? bookListAll.map(function (book, index) {
               return _react2.default.createElement(
                 'tr',
                 { key: index },
@@ -91,7 +93,7 @@ var ManageBooks = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   null,
-                  book.date_created
+                  book.dateCreated
                 ),
                 _react2.default.createElement(
                   'td',
@@ -113,8 +115,21 @@ var ManageBooks = function (_Component) {
   return ManageBooks;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
+function mapStateToProps(state, ownProps) {
+  var type = 'all';
+
+  var bookList = state.pagination.bookList;
+  var books = state.entities.books;
+
+
+  var bookListPagination = bookList[type];
+  var bookListAll = bookListPagination.ids.map(function (id) {
+    return books[id];
+  });
+
   return {
-    book: state.book
+    bookListAll: bookListAll
   };
-}, { fetchBookList: _actions.fetchBookList })(ManageBooks);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBookList: _actions.fetchBookList })(ManageBooks);

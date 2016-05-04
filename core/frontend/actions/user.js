@@ -1,8 +1,5 @@
-import { Schemas } from 'middleware/api'
+import { Schemas } from 'schemas'
 
-// export const USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST'
-// export const USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS'
-// export const USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE'
 export function userAuth() {
   return {
     CALL_API: {

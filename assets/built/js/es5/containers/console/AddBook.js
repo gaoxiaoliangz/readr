@@ -36,6 +36,10 @@ var _Input = require('elements/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59,15 +63,11 @@ var AddBook = function (_Component) {
       conformed: false
     };
     _this.state = _this.defaultState;
+    _this.fetchDoubanBookSearchResults = _lodash2.default.debounce(_this.props.fetchDoubanBookSearchResults, 150);
     return _this;
   }
 
   _createClass(AddBook, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
-    }
-  }, {
     key: 'handleAddBook',
     value: function handleAddBook(event) {
       var _this2 = this;
@@ -77,7 +77,6 @@ var AddBook = function (_Component) {
       var currentBook = this.state.currentBook;
       var dataToPost = {};
       var bookContent = _reactDom2.default.findDOMNode(this.refs.bookContent).value;
-      console.log(bookContent);
       var isValid = false;
 
       while (true) {
@@ -113,8 +112,12 @@ var AddBook = function (_Component) {
   }, {
     key: 'search',
     value: function search(event) {
-      this.setState({ searchQuery: event.target.value });
-      this.props.fetchDoubanBookSearchResults('search?count=5&q=' + event.target.value);
+      var query = event.target.value;
+
+      this.setState({ searchQuery: query });
+      if (query !== '') {
+        this.fetchDoubanBookSearchResults(query);
+      }
     }
   }, {
     key: 'conformResult',
@@ -143,9 +146,14 @@ var AddBook = function (_Component) {
       var _this3 = this;
 
       var book = null;
+      var searchResultIds = this.props.doubanBookSearchResults[this.state.searchQuery] ? this.props.doubanBookSearchResults[this.state.searchQuery].ids : [];
+      var doubanBooks = this.props.doubanBooks;
+      var searchResults = searchResultIds.map(function (id) {
+        return doubanBooks[id];
+      });
 
       if (this.state.currentBook !== -1) {
-        book = this.props.book.searchResults.books[this.state.currentBook];
+        book = searchResults[this.state.currentBook];
       }
 
       return _react2.default.createElement(
@@ -158,13 +166,13 @@ var AddBook = function (_Component) {
           'Add book'
         ),
         !this.state.conformed ? _react2.default.createElement(_Input2.default, { onChange: this.search.bind(this), value: this.state.searchQuery, placeholder: 'Type something to match book info' }) : null,
-        !this.state.conformed && this.props.book.searchResults ? _react2.default.createElement(
+        !this.state.conformed && searchResults ? _react2.default.createElement(
           'div',
           { className: 'drop-down' },
           _react2.default.createElement(
             'ul',
             null,
-            this.props.book.searchResults.books.map(function (item, index) {
+            searchResults.map(function (item, index) {
               return _react2.default.createElement(
                 'li',
                 { onMouseOver: _this3.showBookCover.bind(_this3, index), onClick: _this3.conformResult.bind(_this3, index), key: index },
@@ -221,8 +229,8 @@ var AddBook = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    user: state.user,
-    book: state.book,
-    notification: state.notification
+    doubanBookSearchResults: state.pagination.doubanBookSearchResults,
+    doubanBooks: state.entities.doubanBooks,
+    notification: state.components.notification
   };
-}, { fetchUserAuthInfo: _actions.fetchUserAuthInfo, fetchDoubanBookSearchResults: _actions.fetchDoubanBookSearchResults, clearBookSearch: _actions.clearBookSearch, handleNotification: _actions.handleNotification })(AddBook);
+}, { fetchDoubanBookSearchResults: _actions.fetchDoubanBookSearchResults, clearBookSearch: _actions.clearBookSearch, handleNotification: _actions.handleNotification })(AddBook);

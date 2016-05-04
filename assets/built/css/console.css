@@ -1416,6 +1416,21 @@
   .tag .icon {
     margin: 0 5px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/helpers\.scss}line{font-family:\0000371}}
+.styled-table, #root.console .content table {
+  margin-top: 10px;
+  width: 100%;
+  line-height: 2.5;
+  font-size: 1rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/helpers\.scss}line{font-family:\0000377}}
+  .styled-table > tbody > tr:first-child, #root.console .content table > tbody > tr:first-child {
+    border-bottom: 2px solid #666;
+    font-weight: bold;
+    line-height: 2.5; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/helpers\.scss}line{font-family:\0000382}}
+  .styled-table > tbody > tr, #root.console .content table > tbody > tr {
+    border-bottom: 1px solid #ddd; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/base\.scss}line{font-family:\000031}}
 html {
   font-size: 16px; }
@@ -1841,11 +1856,13 @@ textarea {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000355}}
   .console-branding .sep {
     margin: 0 20px;
-    opacity: .6; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000359}}
+    opacity: .6;
+    font-size: 1.5rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000360}}
   .console-branding .sub {
-    opacity: .8; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000362}}
+    opacity: .8;
+    font-size: 1.3rem; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000364}}
   .console-branding .dropdown-menu {
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
@@ -1873,7 +1890,7 @@ textarea {
     .console-branding .dropdown-menu > li:last-child {
       border-bottom: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000372}}
 .colophon {
   margin-top: 50px;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
@@ -1881,7 +1898,7 @@ textarea {
   padding: 30px 0;
   color: #999; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000383}}
 .sidebar-left {
   position: fixed;
   left: 0;
@@ -1889,7 +1906,7 @@ textarea {
   height: 100%;
   width: 300px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\0000395}}
 ul.book-list {
   list-style: none;
   padding: 0;
@@ -1897,25 +1914,25 @@ ul.book-list {
   margin-left: -10px;
   margin-right: -10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003102}}
 li.book {
   float: left;
   transition: all 0.2s ease 0s;
   position: relative;
   width: 150px;
   padding: 0 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003108}}
   li.book a {
     display: block;
     padding-top: 10px;
     position: relative; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003113}}
   li.book a:hover img {
     opacity: .96; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003116}}
   li.book a:active {
     opacity: .8; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003120}}
   li.book .book-meta span {
     width: 100%;
     text-align: left;
@@ -1926,7 +1943,7 @@ li.book {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003129}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003131}}
   li.book .book-meta span.book-author {
     color: #999; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/animation\.scss}line{font-family:\0000345}}
@@ -1940,7 +1957,7 @@ li.book {
     visibility: visible;
     transition: all 0.2s 0.8s; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003139}}
 .book-cover {
   position: relative;
   margin: 0;
@@ -1950,7 +1967,7 @@ li.book {
   background: url(../img/shadow.png) no-repeat top;
   transition: all 0.2s ease 0s;
   position: relative; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003148}}
   .book-cover img {
     width: 100px;
     height: 150px;
@@ -1960,11 +1977,11 @@ li.book {
     left: 17px;
     top: 7px;
     border-radius: 4px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003158}}
   .book-cover:hover {
     top: -7px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003166}}
 .book-info-popup {
   position: absolute;
   z-index: 999;
@@ -1975,7 +1992,7 @@ li.book {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
   padding: 10px 20px 0;
   border: 1px solid #ddd; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003176}}
   .book-info-popup .description {
     margin-top: 20px;
     margin-left: -20px;
@@ -1984,49 +2001,49 @@ li.book {
     background: #f2f2f2;
     line-height: 1.6; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003187}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003189}}
 .profile {
   background: #fff;
   width: 750px;
   margin: 50px auto;
   padding: 45px 60px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003192}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003194}}
   .profile .title {
     font-size: 1.8rem;
     font-weight: bold;
     margin: 0 0 1rem 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003200}}
   .profile > ul > li {
     line-height: 3;
     border-top: 1px solid rgba(0, 0, 0, 0.14); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003201}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003203}}
     .profile > ul > li label {
       display: inline-block;
       width: 100px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003213}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003215}}
 .candy-box h3.box-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003219}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003221}}
 .candy-box ul li {
   border-top: 1px solid #f2f2f2; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003221}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003223}}
   .candy-box ul li a {
     color: #666;
     line-height: 2.5; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003224}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003226}}
     .candy-box ul li a:hover {
       color: #2c65c7; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003235}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003237}}
 .book-list-section {
   position: relative; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003238}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003240}}
   .book-list-section .section-title {
     margin-top: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003243}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/components\.scss}line{font-family:\00003245}}
   .book-list-section a.more {
     position: absolute;
     right: 0;
@@ -2084,19 +2101,5 @@ li.book {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000364}}
   #root.console .content form {
     width: 500px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000367}}
-  #root.console .content table {
-    margin-top: 10px;
-    width: 100%;
-    line-height: 2.5;
-    font-size: 1.5rem; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000373}}
-    #root.console .content table > tbody > tr:first-child {
-      border-bottom: 2px solid #666;
-      font-weight: bold;
-      line-height: 2.5; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/console\.scss}line{font-family:\0000378}}
-    #root.console .content table > tbody > tr {
-      border-bottom: 1px solid #ddd; }
 
 /*# sourceMappingURL=console.css.map */

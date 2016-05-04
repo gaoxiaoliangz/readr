@@ -7,6 +7,6 @@ export default function configureStore(initialState) {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunk, api)
+    applyMiddleware(thunk, api, modifyResponse)
   )
 }

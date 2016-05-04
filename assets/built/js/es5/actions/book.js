@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CLEAR_BOOK_SEARCH = exports.BOOK_INFO_FAILURE = exports.BOOK_INFO_SUCCESS = exports.BOOK_INFO_REQUEST = exports.BOOK_LIST_FAILURE = exports.BOOK_LIST_SUCCESS = exports.BOOK_LIST_REQUEST = undefined;
+exports.CLEAR_BOOK_SEARCH = undefined;
 exports.fetchBookProgress = fetchBookProgress;
 exports.fetchBookList = fetchBookList;
 exports.fetchBookContent = fetchBookContent;
@@ -17,7 +17,7 @@ var _ApiRoots = require('constants/ApiRoots');
 
 var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
 
-var _api = require('middleware/api');
+var _schemas = require('schemas');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,53 +26,54 @@ function fetchBookProgress(bookId) {
     CALL_API: {
       types: ['BOOK_PROGRESS_REQUEST', 'BOOK_PROGRESS_SUCCESS', 'BOOK_PROGRESS_FAILURE'],
       endpoint: 'books/' + bookId + '/progress',
-      schema: _api.Schemas.BOOK_PROGRESS
+      schema: _schemas.Schemas.BOOK_PROGRESS
     }
   };
 }
 
-var BOOK_LIST_REQUEST = exports.BOOK_LIST_REQUEST = 'BOOK_LIST_REQUEST';
-var BOOK_LIST_SUCCESS = exports.BOOK_LIST_SUCCESS = 'BOOK_LIST_SUCCESS';
-var BOOK_LIST_FAILURE = exports.BOOK_LIST_FAILURE = 'BOOK_LIST_FAILURE';
 function fetchBookList() {
   return {
     CALL_API: {
-      types: [BOOK_LIST_REQUEST, BOOK_LIST_SUCCESS, BOOK_LIST_FAILURE],
+      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
       endpoint: 'books',
-      schema: _api.Schemas.BOOK_ARRAY
+      schema: _schemas.Schemas.BOOK_ARRAY
     }
   };
 }
 
 function fetchBookContent(bookId) {
   return {
+    bookId: bookId,
     CALL_API: {
       types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
       endpoint: 'books/' + bookId + '/content',
-      schema: _api.Schemas.BOOK
+      schema: _schemas.Schemas.BOOK
     }
   };
 }
 
-var BOOK_INFO_REQUEST = exports.BOOK_INFO_REQUEST = 'BOOK_INFO_REQUEST';
-var BOOK_INFO_SUCCESS = exports.BOOK_INFO_SUCCESS = 'BOOK_INFO_SUCCESS';
-var BOOK_INFO_FAILURE = exports.BOOK_INFO_FAILURE = 'BOOK_INFO_FAILURE';
 function fetchBookInfo(bookId) {
   return {
+    bookId: bookId,
     CALL_API: {
-      types: [BOOK_INFO_REQUEST, BOOK_INFO_SUCCESS, BOOK_INFO_FAILURE],
+      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
       endpoint: 'books/' + bookId,
-      schema: _api.Schemas.BOOK
+      schema: _schemas.Schemas.BOOK_ARRAY
     }
   };
 }
 
-function fetchDoubanBookSearchResults(endpoint) {
-  return (0, _actions.promisedCallApi)({
-    types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
-    endpoint: endpoint,
-    apiUrl: _ApiRoots2.default.DOUBAN_BOOKS
-  }, {});
+function fetchDoubanBookSearchResults(query) {
+  return {
+    query: query,
+    CALL_API: {
+      types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
+      endpoint: 'search?count=5&q=' + query,
+      apiUrl: _ApiRoots2.default.DOUBAN_BOOKS,
+      schema: _schemas.Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
+      extendedOptions: { useJsonp: true }
+    }
+  };
 }
 
 var CLEAR_BOOK_SEARCH = exports.CLEAR_BOOK_SEARCH = 'CLEAR_BOOK_SEARCH';

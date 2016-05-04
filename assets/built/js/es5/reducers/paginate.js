@@ -44,7 +44,7 @@ function paginate(_ref) {
   function updatePagination() {
     var state = arguments.length <= 0 || arguments[0] === undefined ? {
       isFetching: false,
-      nextPageUrl: undefined,
+      nextPageUrl: null,
       pageCount: 0,
       ids: []
     } : arguments[0];

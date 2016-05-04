@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import book from './book'
 import notification from './notification'
 import { routerReducer as routing } from 'react-router-redux'
-import * as ActionTypes from '../actions'
 import paginate from './paginate'
 import _ from 'lodash'
 
@@ -56,11 +55,11 @@ function session(state = { user: { role: 'visitor' } }, action) {
 const pagination = combineReducers({
   bookList: paginate({
     mapActionToKey: action => 'all',
-    types: [
-      ActionTypes.BOOK_LIST_REQUEST,
-      ActionTypes.BOOK_LIST_SUCCESS,
-      ActionTypes.BOOK_LIST_FAILURE
-    ]
+    types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
+  }),
+  doubanBookSearchResults: paginate({
+    mapActionToKey: action => action.query,
+    types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE']
   })
 })
 
@@ -69,7 +68,6 @@ const components = combineReducers({
 })
 
 const rootReducer = combineReducers({
-  book,
   components,
   routing,
   entities,

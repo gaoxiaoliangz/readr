@@ -14,6 +14,8 @@ class ManageBooks extends Component {
   }
 
   render() {
+    let bookListAll = this.props.bookListAll?this.props.bookListAll:null
+
     return (
       <div>
         <table>
@@ -24,12 +26,12 @@ class ManageBooks extends Component {
               <td>Date created</td>
               <td>Actions</td>
             </tr>
-            {this.props.book.bookList?this.props.book.bookList.map((book, index) => {
+            {bookListAll?bookListAll.map((book, index) => {
               return (
                 <tr key={index}>
                   <td>{book.id}</td>
                   <td>{book.title}</td>
-                  <td>{book.date_created}</td>
+                  <td>{book.dateCreated}</td>
                   <td><a href="#">Delete</a></td>
                 </tr>
               )
@@ -41,9 +43,23 @@ class ManageBooks extends Component {
   }
 }
 
+function mapStateToProps(state, ownProps) {
+  const type = 'all'
+
+  const {
+    pagination: { bookList },
+    entities: { books }
+  } = state
+
+  const bookListPagination = bookList[type]
+  const bookListAll = bookListPagination.ids.map(id => books[id])
+
+  return {
+    bookListAll
+  }
+}
+
 export default connect(
-  state => ({
-    book: state.book,
-  }),
+  mapStateToProps,
   { fetchBookList }
 )(ManageBooks)

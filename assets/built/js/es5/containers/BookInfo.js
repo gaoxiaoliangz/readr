@@ -73,7 +73,6 @@ var BookInfo = function (_Component) {
   _createClass(BookInfo, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
       this.props.fetchBookInfo(this.bookId);
     }
   }, {
@@ -159,7 +158,6 @@ var BookInfo = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state, ownProps) {
   return {
-    bookInfo: state.entities.books[ownProps.params.id],
-    user: state.user
+    bookInfo: state.entities.books[ownProps.params.id]
   };
-}, { fetchBookInfo: _actions.fetchBookInfo, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(BookInfo);
+}, { fetchBookInfo: _actions.fetchBookInfo })(BookInfo);
