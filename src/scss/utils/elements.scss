@@ -200,7 +200,7 @@ textarea {
     background: $btn_hover;
     color: $btn_hover_text;
     border: 1px solid $btn_hover_outline;
-    @extend .z2;
+    @extend .z1;
   }
   &:focus {
     background: $btn_focus;
@@ -212,7 +212,7 @@ textarea {
     border: 1px solid $btn_outline;
     box-shadow: none;
     &:hover {
-      @extend .z1;
+      @extend .z2;
     }
   }
 }

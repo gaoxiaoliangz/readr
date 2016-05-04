@@ -39,75 +39,73 @@ var Profile = function (_Component) {
 
   _createClass(Profile, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      this.props.userAuth();
+    }
   }, {
     key: 'render',
     value: function render() {
+      var user = this.props.session.user;
+
       return _react2.default.createElement(
         'div',
         { className: 'profile' },
         _react2.default.createElement(
-          'h1',
-          { className: 'title' },
-          '个人资料'
-        ),
-        _react2.default.createElement(
-          'ul',
-          null,
+          'div',
+          { className: 'row' },
           _react2.default.createElement(
-            'li',
-            null,
+            'div',
+            { className: 'col-md-8' },
             _react2.default.createElement(
-              'label',
-              null,
-              '头像'
+              'h1',
+              { className: 'page-title' },
+              '个人资料'
             ),
             _react2.default.createElement(
-              'span',
-              { className: 'avatar' },
-              'pic'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'label',
+              'ul',
               null,
-              '用户名'
-            ),
-            _react2.default.createElement(
-              'span',
-              null,
-              'liang'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'label',
-              null,
-              '邮箱'
-            ),
-            _react2.default.createElement(
-              'span',
-              null,
-              'liang@gmail.com'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'label',
-              null,
-              '密码'
-            ),
-            _react2.default.createElement(
-              'span',
-              null,
-              '******'
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  '用户名'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  user.username
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  '邮箱'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  user.email
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'label',
+                  null,
+                  '密码'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  '******'
+                )
+              )
             )
           )
         )
@@ -118,10 +116,9 @@ var Profile = function (_Component) {
   return Profile;
 }(_react.Component);
 
-exports.default = Profile;
-// export default connect(
-//   state => ({
-//     notification: state.notification,
-//   }),
-//   { handleNotification }
-// )(Profile)
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    notification: state.notification,
+    session: state.session
+  };
+}, { handleNotification: _actions.handleNotification, userAuth: _actions.userAuth })(Profile);

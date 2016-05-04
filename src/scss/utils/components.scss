@@ -184,37 +184,12 @@ li.book {
 }
 
 
-// Profile
-
-.profile {
-  background: #fff;
-  width: $best_reading_width*1.5;
-  margin: 50px auto;
-  padding: 45px 60px;
-  .title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0 0 1rem 0;
-  }
-  >ul {
-    >li {
-      line-height: 3;
-      border-top: 1px solid rgba(0, 0, 0, 0.14);
-      label {
-        display: inline-block;
-        width: 100px;
-      }
-    }
-  }
-}
-
-
 // candy box
 
 .candy-box {
   h3.box-title {
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: normal;
     color: $text_d;
   }
   ul {

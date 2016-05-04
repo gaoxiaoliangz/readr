@@ -1,0 +1,16 @@
+.page-profile {
+}
+
+.profile {
+  min-height: 500px;
+  ul {
+    >li {
+      line-height: 3;
+      border-top: 1px solid rgba(0, 0, 0, 0.14);
+      label {
+        display: inline-block;
+        width: 100px;
+      }
+    }
+  }
+}

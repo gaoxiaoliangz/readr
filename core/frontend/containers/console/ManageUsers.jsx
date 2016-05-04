@@ -30,7 +30,7 @@ class ManageUsers extends Component {
                 <tr key={index}>
                   <td>{user.id}</td>
                   <td>{user.username}</td>
-                  <td>{user.date_created}</td>
+                  <td>{user.dateCreated}</td>
                   <td><a href="#">Delete</a></td>
                 </tr>
               )

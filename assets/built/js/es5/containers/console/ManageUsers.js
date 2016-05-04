@@ -91,7 +91,7 @@ var ManageUsers = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   null,
-                  user.date_created
+                  user.dateCreated
                 ),
                 _react2.default.createElement(
                   'td',
