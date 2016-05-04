@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Branding from 'components/Branding'
 import Container from 'elements/Container'
 import Colophon from 'components/Colophon'
-import { fetchUserAuthInfo, handleNotification } from 'actions'
+import { userAuth, handleNotification } from 'actions'
 
 
 class App extends Component {
@@ -14,16 +14,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUserAuthInfo()
+    this.props.userAuth()
   }
 
   render() {
     let isAdmin = false
     let username = null
 
-    if(this.props.userAuthInfo.authed === true) {
-      isAdmin = this.props.userAuthInfo.user.role?(this.props.userAuthInfo.user.role === 'admin'?true:false):false
-      username = this.props.userAuthInfo.user.username
+    if(this.props.session.user.role !== 'visitor') {
+      isAdmin = this.props.session.user.role === 'admin'?true:false
+      username = this.props.session.user.username
     }
 
     let pageName = this.props.children.props.route.component.WrappedComponent ?
@@ -45,7 +45,7 @@ class App extends Component {
 export default connect(
   state => ({
     notification: state.notification,
-    userAuthInfo: state.entities.userAuthInfo?state.entities.userAuthInfo.current:{}
+    session: state.session
   }),
-  { handleNotification, fetchUserAuthInfo }
+  { handleNotification, userAuth }
 )(App)

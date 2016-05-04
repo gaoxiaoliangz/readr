@@ -3,21 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.USER_AUTH_INFO_FAILURE = exports.USER_AUTH_INFO_SUCCESS = exports.USER_AUTH_INFO_REQUEST = undefined;
-exports.fetchUserAuthInfo = fetchUserAuthInfo;
+exports.userAuth = userAuth;
 exports.fetchUserList = fetchUserList;
 
 var _api = require('middleware/api');
 
-var USER_AUTH_INFO_REQUEST = exports.USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST';
-var USER_AUTH_INFO_SUCCESS = exports.USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS';
-var USER_AUTH_INFO_FAILURE = exports.USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE';
-function fetchUserAuthInfo() {
+// export const USER_AUTH_INFO_REQUEST = 'USER_AUTH_INFO_REQUEST'
+// export const USER_AUTH_INFO_SUCCESS = 'USER_AUTH_INFO_SUCCESS'
+// export const USER_AUTH_INFO_FAILURE = 'USER_AUTH_INFO_FAILURE'
+function userAuth() {
   return {
     CALL_API: {
-      types: [USER_AUTH_INFO_REQUEST, USER_AUTH_INFO_SUCCESS, USER_AUTH_INFO_FAILURE],
-      endpoint: 'auth',
-      schema: _api.Schemas.USER_AUTH_INFO
+      types: ['USER_AUTH_REQUEST', 'USER_AUTH_SUCCESS', 'USER_AUTH_FAILURE'],
+      endpoint: 'auth'
     }
   };
 }

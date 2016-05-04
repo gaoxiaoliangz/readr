@@ -146,7 +146,7 @@ var Signin = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    notification: state.notification,
+    notification: state.components.notification,
     user: state.user
   };
 }, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Signin);

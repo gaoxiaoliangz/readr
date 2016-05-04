@@ -28,6 +28,30 @@ function errorMessage(state = null, action) {
   return state
 }
 
+function session(state = { user: { role: 'visitor' } }, action) {
+  switch (action.type) {
+    case 'USER_AUTH_REQUEST':
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+
+    case 'USER_AUTH_SUCCESS':
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: action.response
+      })
+
+    case 'USER_AUTH_FAILURE':
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: action.response
+      })
+
+    default:
+      return state
+  }
+}
+
 // Updates the pagination data for different actions.
 const pagination = combineReducers({
   bookList: paginate({
@@ -40,12 +64,17 @@ const pagination = combineReducers({
   })
 })
 
+const components = combineReducers({
+  notification: notification
+})
+
 const rootReducer = combineReducers({
   book,
-  notification,
+  components,
   routing,
   entities,
-  pagination
+  pagination,
+  session
 })
 
 export default rootReducer

@@ -12,12 +12,12 @@ import callApi from 'utils/callApi'
 import { getBookView } from 'utils/view'
 import { getCache, setCache } from 'utils/cache'
 import { simpleCompareObjects } from 'utils/object'
-import { fetchBookInfo, fetchBookProgress, fetchBookContent, fetchUserAuthInfo } from 'actions'
+import { fetchBookInfo, fetchBookProgress, fetchBookContent, userAuth } from 'actions'
 import ApiRoots from 'constants/ApiRoots'
 
-const actions = { fetchBookInfo, fetchBookProgress, fetchBookContent, fetchUserAuthInfo }
+const actions = { fetchBookInfo, fetchBookProgress, fetchBookContent, userAuth }
 
-class BookViewer extends Component {
+class Viewer extends Component {
 
   constructor(props) {
     super(props)
@@ -225,7 +225,7 @@ class BookViewer extends Component {
     const actions = this.props.actions
     const bookId = this.props.params.id
 
-    actions.fetchUserAuthInfo()
+    actions.userAuth()
     actions.fetchBookInfo(bookId)
     actions.fetchBookProgress(bookId)
 
@@ -343,7 +343,7 @@ class BookViewer extends Component {
   }
 }
 
-BookViewer.propTypes = {
+Viewer.propTypes = {
   book: React.PropTypes.object.isRequired
 }
 
@@ -351,10 +351,10 @@ export default connect(
   (state, ownProps) => {
     return {
       book: state.entities.books?state.entities.books[ownProps.params.id]:{},
-      user: state.entities.userAuthInfo?state.entities.userAuthInfo.current:{}
+      session: state.session
     }
   },
   dispatch => ({
     actions: bindActionCreators(actions, dispatch)
   })
-)(BookViewer)
+)(Viewer)

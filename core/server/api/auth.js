@@ -4,11 +4,10 @@ const Promise = require('bluebird')
 
 const auth = {
   checkStatus(options) {
-    let data = { authed: false}
+    let data = { role: 'visitor'}
 
     if(options.context.user) {
-      data.authed = true
-      data.user = options.context.user
+      data = options.context.user
     }
 
     return Promise.resolve(data)

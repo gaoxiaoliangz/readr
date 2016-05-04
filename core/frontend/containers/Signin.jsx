@@ -66,7 +66,7 @@ class Signin extends Component {
 
 export default connect(
   state => ({
-    notification: state.notification,
+    notification: state.components.notification,
     user: state.user
   }),
   { handleNotification, fetchUserAuthInfo }

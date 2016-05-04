@@ -61,6 +61,33 @@ function errorMessage() {
   return state;
 }
 
+function session() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? { user: { role: 'visitor' } } : arguments[0];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'USER_AUTH_REQUEST':
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+
+    case 'USER_AUTH_SUCCESS':
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: action.response
+      });
+
+    case 'USER_AUTH_FAILURE':
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: action.response
+      });
+
+    default:
+      return state;
+  }
+}
+
 // Updates the pagination data for different actions.
 var pagination = (0, _redux.combineReducers)({
   bookList: (0, _paginate2.default)({
@@ -71,12 +98,17 @@ var pagination = (0, _redux.combineReducers)({
   })
 });
 
+var components = (0, _redux.combineReducers)({
+  notification: _notification2.default
+});
+
 var rootReducer = (0, _redux.combineReducers)({
   book: _book2.default,
-  notification: _notification2.default,
+  components: components,
   routing: _reactRouterRedux.routerReducer,
   entities: entities,
-  pagination: pagination
+  pagination: pagination,
+  session: session
 });
 
 exports.default = rootReducer;

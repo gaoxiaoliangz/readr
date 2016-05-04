@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import Container from 'elements/Container'
 import Icon from 'elements/Icon'
 import ConsoleBranding from 'components/ConsoleBranding'
-import { fetchUserAuthInfo, handleNotification } from 'actions'
+import { userAuth, handleNotification } from 'actions'
 
 class Console extends Component {
 
   componentDidMount() {
-    this.props.fetchUserAuthInfo()
+    this.props.userAuth()
   }
 
   renderMenu(currentPath) {
@@ -126,8 +126,8 @@ class Console extends Component {
   }
 
   render() {
-    let isAdmin = this.props.user.role?(this.props.user.role === 'admin'?true:false):false
-    let username = this.props.user.username
+    let isAdmin = this.props.session.user.role === 'admin'?true:false
+    let username = this.props.session.user.username?this.props.session.user.username:null
     let pageName = this.props.children.props.route.component.WrappedComponent?this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase():'404'
 
     return (
@@ -147,8 +147,8 @@ class Console extends Component {
 export default connect(
   state => ({
     notification: state.notification,
-    user: state.user,
+    session: state.session,
     routing: state.routing
   }),
-  { handleNotification, fetchUserAuthInfo }
+  { handleNotification, userAuth }
 )(Console)

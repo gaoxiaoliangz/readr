@@ -14,9 +14,9 @@ var _NoMatch = require('containers/NoMatch');
 
 var _NoMatch2 = _interopRequireDefault(_NoMatch);
 
-var _BookViewer = require('containers/BookViewer');
+var _Viewer = require('containers/Viewer');
 
-var _BookViewer2 = _interopRequireDefault(_BookViewer);
+var _Viewer2 = _interopRequireDefault(_Viewer);
 
 var _Signin = require('containers/Signin');
 
@@ -61,6 +61,6 @@ exports.default = _react2.default.createElement(
   ),
   _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _Signin2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _Signup2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'viewer/book/:id', component: _BookViewer2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'viewer/book/:id', component: _Viewer2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NoMatch2.default })
 );

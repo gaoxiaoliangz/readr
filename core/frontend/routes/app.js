@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router'
 import NoMatch from 'containers/NoMatch'
-import BookViewer from 'containers/BookViewer'
+import Viewer from 'containers/Viewer'
 import Signin from 'containers/Signin'
 import Signup from 'containers/Signup'
 import BookInfo from 'containers/BookInfo'
@@ -20,7 +20,7 @@ export default (
     </Route>
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />
-    <Route path="viewer/book/:id" component={BookViewer} />
+    <Route path="viewer/book/:id" component={Viewer} />
     <Route path="*" component={NoMatch} />
   </Router>
 )

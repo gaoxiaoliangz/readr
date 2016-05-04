@@ -48,7 +48,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
+      this.props.userAuth();
     }
   }, {
     key: 'render',
@@ -56,9 +56,9 @@ var App = function (_Component) {
       var isAdmin = false;
       var username = null;
 
-      if (this.props.userAuthInfo.authed === true) {
-        isAdmin = this.props.userAuthInfo.user.role ? this.props.userAuthInfo.user.role === 'admin' ? true : false : false;
-        username = this.props.userAuthInfo.user.username;
+      if (this.props.session.user.role !== 'visitor') {
+        isAdmin = this.props.session.user.role === 'admin' ? true : false;
+        username = this.props.session.user.username;
       }
 
       var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : this.props.children.props.route.component.displayName.toLowerCase();
@@ -83,6 +83,6 @@ var App = function (_Component) {
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
     notification: state.notification,
-    userAuthInfo: state.entities.userAuthInfo ? state.entities.userAuthInfo.current : {}
+    session: state.session
   };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(App);
+}, { handleNotification: _actions.handleNotification, userAuth: _actions.userAuth })(App);

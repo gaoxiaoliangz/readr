@@ -48,7 +48,7 @@ var Console = function (_Component) {
   _createClass(Console, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
+      this.props.userAuth();
     }
   }, {
     key: 'renderMenu',
@@ -164,8 +164,8 @@ var Console = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var isAdmin = this.props.user.role ? this.props.user.role === 'admin' ? true : false : false;
-      var username = this.props.user.username;
+      var isAdmin = this.props.session.user.role === 'admin' ? true : false;
+      var username = this.props.session.user.username ? this.props.session.user.username : null;
       var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : '404';
 
       return _react2.default.createElement(
@@ -192,7 +192,7 @@ var Console = function (_Component) {
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
     notification: state.notification,
-    user: state.user,
+    session: state.session,
     routing: state.routing
   };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Console);
+}, { handleNotification: _actions.handleNotification, userAuth: _actions.userAuth })(Console);

@@ -205,12 +205,15 @@ textarea {
   &:focus {
     background: $btn_focus;
     border: 1px solid $btn_outline;
-    @extend .z3;
+    @extend .z1;
   }
   &:active {
     background: $btn_active;
     border: 1px solid $btn_outline;
-    @extend .z3;
+    box-shadow: none;
+    &:hover {
+      @extend .z1;
+    }
   }
 }
 
