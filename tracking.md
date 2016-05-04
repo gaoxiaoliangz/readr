@@ -3,6 +3,7 @@
 - 引入了 reducers/paginate
 - 优化了 store 结构
 - 简化了 actions 和 reducers
+- 添加了 modifyResponse middleware, addbook 重构
 
 
 ##bugs

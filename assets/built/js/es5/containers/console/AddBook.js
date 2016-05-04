@@ -81,7 +81,11 @@ var AddBook = function (_Component) {
 
       while (true) {
         if (currentBook !== -1) {
-          dataToPost.bookInfo = this.props.book.searchResults.books[currentBook];
+          dataToPost.bookInfo = this.props.doubanBooks[this.props.doubanBookSearchResults[this.state.searchQuery].ids.filter(function (book, index) {
+            if (index === currentBook) {
+              return true;
+            }
+          })[0]];
         } else {
           this.props.handleNotification('未选择书籍！');
           break;
@@ -101,8 +105,10 @@ var AddBook = function (_Component) {
       dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo);
 
       if (isValid) {
-        (0, _callApi2.default)(_ApiRoots2.default.LOCAL + 'books', 'POST', dataToPost).then(function (res) {
+        (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books', method: 'POST', data: dataToPost }).then(function (res) {
           _this2.props.handleNotification('添加成功');
+          _this2.removeResult();
+          _reactDom2.default.findDOMNode(_this2.refs.bookContent).value = '';
         }).catch(function (err) {
           console.error(err);
           _this2.props.handleNotification(err.message);
@@ -138,7 +144,6 @@ var AddBook = function (_Component) {
     key: 'removeResult',
     value: function removeResult() {
       this.setState(this.defaultState);
-      this.props.clearBookSearch();
     }
   }, {
     key: 'render',
@@ -233,4 +238,4 @@ exports.default = (0, _reactRedux.connect)(function (state) {
     doubanBooks: state.entities.doubanBooks,
     notification: state.components.notification
   };
-}, { fetchDoubanBookSearchResults: _actions.fetchDoubanBookSearchResults, clearBookSearch: _actions.clearBookSearch, handleNotification: _actions.handleNotification })(AddBook);
+}, { fetchDoubanBookSearchResults: _actions.fetchDoubanBookSearchResults, handleNotification: _actions.handleNotification })(AddBook);

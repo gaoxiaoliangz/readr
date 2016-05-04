@@ -3,13 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CLEAR_BOOK_SEARCH = undefined;
 exports.fetchBookProgress = fetchBookProgress;
 exports.fetchBookList = fetchBookList;
 exports.fetchBookContent = fetchBookContent;
 exports.fetchBookInfo = fetchBookInfo;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
-exports.clearBookSearch = clearBookSearch;
 
 var _actions = require('actions');
 
@@ -23,6 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function fetchBookProgress(bookId) {
   return {
+    bookId: bookId,
     CALL_API: {
       types: ['BOOK_PROGRESS_REQUEST', 'BOOK_PROGRESS_SUCCESS', 'BOOK_PROGRESS_FAILURE'],
       endpoint: 'books/' + bookId + '/progress',
@@ -73,12 +72,5 @@ function fetchDoubanBookSearchResults(query) {
       schema: _schemas.Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
       extendedOptions: { useJsonp: true }
     }
-  };
-}
-
-var CLEAR_BOOK_SEARCH = exports.CLEAR_BOOK_SEARCH = 'CLEAR_BOOK_SEARCH';
-function clearBookSearch() {
-  return {
-    type: CLEAR_BOOK_SEARCH
   };
 }

@@ -32,7 +32,11 @@ class AddBook extends Component {
 
     while (true) {
       if(currentBook !== -1) {
-        dataToPost.bookInfo = this.props.book.searchResults.books[currentBook]
+        dataToPost.bookInfo = this.props.doubanBooks[this.props.doubanBookSearchResults[this.state.searchQuery].ids.filter((book, index) => {
+          if(index === currentBook) {
+            return true
+          }
+        })[0]]
       }else{
         this.props.handleNotification('未选择书籍！')
         break
@@ -52,8 +56,10 @@ class AddBook extends Component {
     dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo)
 
     if(isValid) {
-      callApi(`${ApiRoots.LOCAL}books`, 'POST', dataToPost).then(res => {
+      callApi({ fullUrl: `${ApiRoots.LOCAL}books`, method: 'POST', data: dataToPost }).then(res => {
         this.props.handleNotification('添加成功')
+        this.removeResult()
+        ReactDOM.findDOMNode(this.refs.bookContent).value = ''
       }).catch((err) => {
         console.error(err)
         this.props.handleNotification(err.message)
@@ -85,7 +91,6 @@ class AddBook extends Component {
 
   removeResult() {
     this.setState(this.defaultState)
-    this.props.clearBookSearch()
   }
 
   render() {
@@ -155,5 +160,5 @@ export default connect(
     doubanBooks: state.entities.doubanBooks,
     notification: state.components.notification
   }),
-  { fetchDoubanBookSearchResults, clearBookSearch, handleNotification }
+  { fetchDoubanBookSearchResults, handleNotification }
 )(AddBook)

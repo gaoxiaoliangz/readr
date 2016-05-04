@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import ApiRoots from 'constants/ApiRoots'
 import callApi from 'utils/callApi'
-import { fetchUserAuthInfo, handleNotification } from 'actions'
+import { handleNotification } from 'actions'
 import Notification from 'components/Notification'
 import Branding from 'components/Branding'
 import Input from 'elements/Input'
@@ -27,11 +27,7 @@ class Signin extends Component {
       password: this.state.password
     }
 
-    callApi({
-      fullUrl: `${ApiRoots.LOCAL}auth`,
-      type: 'POST',
-      data: params
-    }).then(res => {
+    callApi({ fullUrl: `${ApiRoots.LOCAL}auth`, method: 'POST', data: params }).then(res => {
       this.props.handleNotification('登录成功！')
       setTimeout(function(){
         browserHistory.push('/')
@@ -69,5 +65,5 @@ export default connect(
     notification: state.components.notification,
     user: state.user
   }),
-  { handleNotification, fetchUserAuthInfo }
+  { handleNotification }
 )(Signin)

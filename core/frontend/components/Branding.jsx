@@ -20,7 +20,7 @@ class Branding extends Component {
 
   render() {
     let username = this.props.username
-    let isAdmin = this.props.isAdmin?this.props.isAdmin:'false'
+    let isAdmin = this.props.isAdmin?this.props.isAdmin:false
 
     return (
       <div className="branding">

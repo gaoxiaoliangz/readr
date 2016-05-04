@@ -27,8 +27,6 @@ function handleResponseJson(json, schema) {
     result = Object.assign({}, (0, _normalizr.normalize)(json, schema));
   }
 
-  console.log(schema);
-
   return result;
 }
 
@@ -81,9 +79,9 @@ function callApi(options) {
     }
 
     if (typeof method === 'undefined') {
-      method = 'GET';
+      config.method = 'GET';
     } else if (method === 'POST' || method === 'post') {
-      config = Object.assign({}, {
+      config = Object.assign({}, config, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

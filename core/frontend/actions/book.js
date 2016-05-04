@@ -4,6 +4,7 @@ import { Schemas } from 'schemas'
 
 export function fetchBookProgress(bookId) {
   return {
+    bookId,
     CALL_API: {
       types: ['BOOK_PROGRESS_REQUEST', 'BOOK_PROGRESS_SUCCESS', 'BOOK_PROGRESS_FAILURE'],
       endpoint: `books/${bookId}/progress`,
@@ -54,12 +55,5 @@ export function fetchDoubanBookSearchResults(query) {
       schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
       extendedOptions: { useJsonp: true }
     }
-  }
-}
-
-export const CLEAR_BOOK_SEARCH = 'CLEAR_BOOK_SEARCH'
-export function clearBookSearch() {
-  return {
-    type: CLEAR_BOOK_SEARCH
   }
 }

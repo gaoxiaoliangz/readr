@@ -53,7 +53,7 @@ var Branding = function (_Component) {
     key: 'render',
     value: function render() {
       var username = this.props.username;
-      var isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false';
+      var isAdmin = this.props.isAdmin ? this.props.isAdmin : false;
 
       return _react2.default.createElement(
         'div',

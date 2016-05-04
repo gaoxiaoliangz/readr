@@ -81,11 +81,7 @@ var Signin = function (_Component) {
         password: this.state.password
       };
 
-      (0, _callApi2.default)({
-        fullUrl: _ApiRoots2.default.LOCAL + 'auth',
-        type: 'POST',
-        data: params
-      }).then(function (res) {
+      (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'auth', method: 'POST', data: params }).then(function (res) {
         _this2.props.handleNotification('登录成功！');
         setTimeout(function () {
           _reactRouter.browserHistory.push('/');
@@ -149,4 +145,4 @@ exports.default = (0, _reactRedux.connect)(function (state) {
     notification: state.components.notification,
     user: state.user
   };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Signin);
+}, { handleNotification: _actions.handleNotification })(Signin);
