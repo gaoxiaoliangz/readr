@@ -1,4 +1,3 @@
-import { promisedCallApi } from 'actions'
 import ApiRoots from 'constants/ApiRoots'
 import { Schemas } from 'schemas'
 
@@ -55,6 +54,18 @@ export function fetchDoubanBookSearchResults(query) {
       apiUrl: ApiRoots.DOUBAN_BOOKS,
       schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
       extendedOptions: { useJsonp: true }
+    }
+  }
+}
+
+export function searchBooks(query) {
+  return {
+    query,
+    CALL_API:{
+      types: ['BOOK_SEARCH_REQUEST', 'BOOK_SEARCH_SUCCESS', 'BOOK_SEARCH_FAILURE'],
+      endpoint: `search?q=${query}`,
+      apiUrl: ApiRoots.LOCAL,
+      schema: Schemas.MATCHED_BOOK_ARRAY
     }
   }
 }

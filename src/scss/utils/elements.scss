@@ -212,7 +212,7 @@ textarea {
     border: 1px solid $btn_outline;
     box-shadow: none;
     &:hover {
-      @extend .z2;
+      box-shadow: none;
     }
   }
 }

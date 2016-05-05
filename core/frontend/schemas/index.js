@@ -16,10 +16,15 @@ const bookProgress = new Schema('books', {
   idAttribute: 'bookId'
 })
 
+const matchedBooks = new Schema('books', {
+  idAttribute: 'bookId'
+})
+
 export const Schemas = {
   BOOK: book,
   BOOK_PROGRESS: bookProgress,
   BOOK_ARRAY: arrayOf(book),
   DOUBAN_BOOK_SEARCH_RESULTS: {books: arrayOf(doubanBook)},
-  USER_ARRAY: arrayOf(user)
+  USER_ARRAY: arrayOf(user),
+  MATCHED_BOOK_ARRAY: arrayOf(matchedBooks)
 }

@@ -23,10 +23,15 @@ var bookProgress = new _normalizr.Schema('books', {
   idAttribute: 'bookId'
 });
 
+var matchedBooks = new _normalizr.Schema('books', {
+  idAttribute: 'bookId'
+});
+
 var Schemas = exports.Schemas = {
   BOOK: book,
   BOOK_PROGRESS: bookProgress,
   BOOK_ARRAY: (0, _normalizr.arrayOf)(book),
   DOUBAN_BOOK_SEARCH_RESULTS: { books: (0, _normalizr.arrayOf)(doubanBook) },
-  USER_ARRAY: (0, _normalizr.arrayOf)(user)
+  USER_ARRAY: (0, _normalizr.arrayOf)(user),
+  MATCHED_BOOK_ARRAY: (0, _normalizr.arrayOf)(matchedBooks)
 };

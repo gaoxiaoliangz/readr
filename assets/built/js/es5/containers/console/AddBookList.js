@@ -20,6 +20,10 @@ var _Input = require('elements/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
+var _Button = require('elements/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
 var _AddTags = require('elements/AddTags');
 
 var _AddTags2 = _interopRequireDefault(_AddTags);
@@ -35,16 +39,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AddBookList = function (_Component) {
   _inherits(AddBookList, _Component);
 
-  _createClass(AddBookList, null, [{
-    key: 'fetchData',
-    value: function fetchData(_ref) {
-      var store = _ref.store;
-      var params = _ref.params;
-
-      return store.dispatch(fetch());
-    }
-  }]);
-
   function AddBookList(props) {
     _classCallCheck(this, AddBookList);
 
@@ -52,15 +46,26 @@ var AddBookList = function (_Component) {
 
     _this.state = {
       booksToAdd: '',
-      tagsToAdd: ''
+      tagsToAdd: '',
+      bookQueryResults: []
     };
     return _this;
   }
 
   _createClass(AddBookList, [{
+    key: 'getCurrentSearchResults',
+    value: function getCurrentSearchResults() {
+      var query = this.state.booksToAdd;
+      var books = this.props.books;
+
+      return this.props.bookSearchResults ? this.props.bookSearchResults[query].ids.map(function (id, index) {
+        return books[id];
+      }) : [];
+    }
+  }, {
     key: 'check',
     value: function check() {
-      console.log(this.refs.addTags.state);
+      console.log(this.refs.addBooks.state);
     }
   }, {
     key: 'resetBooksValue',
@@ -79,9 +84,26 @@ var AddBookList = function (_Component) {
   }, {
     key: 'handleAddBook',
     value: function handleAddBook(event) {
+      var _this2 = this;
+
+      var query = event.target.value;
       this.setState({
-        booksToAdd: event.target.value
+        booksToAdd: query
       });
+
+      if (query !== '') {
+        this.props.searchBooks(query).then(function () {
+          _this2.setState({
+            bookQueryResults: _this2.getCurrentSearchResults().map(function (item) {
+              return item.title;
+            })
+          });
+        });
+      } else {
+        this.setState({
+          bookQueryResults: []
+        });
+      }
     }
   }, {
     key: 'handleAddTag',
@@ -105,12 +127,28 @@ var AddBookList = function (_Component) {
           'Add book list'
         ),
         _react2.default.createElement(_Input2.default, { placeholder: 'Name' }),
-        _react2.default.createElement(_AddTags2.default, { className: 'add-books', value: this.state.booksToAdd, onChange: this.handleAddBook.bind(this), ref: 'addBooks', queryResults: ['abc', 'bcd', 'uoeuoi', 'eoioie'], resetValue: this.resetBooksValue.bind(this), placeholder: 'Type book name to begin' }),
-        _react2.default.createElement(_AddTags2.default, { className: 'add-tags', value: this.state.tagsToAdd, onChange: this.handleAddTag.bind(this), ref: 'addTags', queryResults: ['tag1', 'tag2', 'uoeuoi', 'eoioie'], resetValue: this.resetTagsValue.bind(this), placeholder: 'Tags' }),
+        _react2.default.createElement(_AddTags2.default, {
+          className: 'add-books',
+          value: this.state.booksToAdd,
+          onChange: this.handleAddBook.bind(this),
+          ref: 'addBooks',
+          queryResults: this.state.bookQueryResults,
+          resetValue: this.resetBooksValue.bind(this),
+          placeholder: 'Type book name to begin'
+        }),
+        _react2.default.createElement(_AddTags2.default, {
+          className: 'add-tags',
+          value: this.state.tagsToAdd,
+          onChange: this.handleAddTag.bind(this),
+          ref: 'addTags',
+          queryResults: ['tag1', 'tag2', 'uoeuoi', 'eoioie'],
+          resetValue: this.resetTagsValue.bind(this),
+          placeholder: 'Tags'
+        }),
         _react2.default.createElement('textarea', { placeholder: 'Description' }),
         _react2.default.createElement(
-          'span',
-          { className: 'btn', onClick: this.check.bind(this) },
+          _Button2.default,
+          { onClick: this.check.bind(this) },
           'Check'
         )
       );
@@ -120,8 +158,11 @@ var AddBookList = function (_Component) {
   return AddBookList;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
+function mapStateToProps(state) {
   return {
-    data: state.data
+    bookSearchResults: state.pagination.bookSearchResults,
+    books: state.entities.books
   };
-}, { someAction: _actions.someAction })(AddBookList);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchBooks: _actions.searchBooks })(AddBookList);

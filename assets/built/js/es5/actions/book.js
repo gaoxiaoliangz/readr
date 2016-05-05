@@ -8,8 +8,7 @@ exports.fetchBookList = fetchBookList;
 exports.fetchBookContent = fetchBookContent;
 exports.fetchBookInfo = fetchBookInfo;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
-
-var _actions = require('actions');
+exports.searchBooks = searchBooks;
 
 var _ApiRoots = require('constants/ApiRoots');
 
@@ -72,6 +71,18 @@ function fetchDoubanBookSearchResults(query) {
       apiUrl: _ApiRoots2.default.DOUBAN_BOOKS,
       schema: _schemas.Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
       extendedOptions: { useJsonp: true }
+    }
+  };
+}
+
+function searchBooks(query) {
+  return {
+    query: query,
+    CALL_API: {
+      types: ['BOOK_SEARCH_REQUEST', 'BOOK_SEARCH_SUCCESS', 'BOOK_SEARCH_FAILURE'],
+      endpoint: 'search?q=' + query,
+      apiUrl: _ApiRoots2.default.LOCAL,
+      schema: _schemas.Schemas.MATCHED_BOOK_ARRAY
     }
   };
 }

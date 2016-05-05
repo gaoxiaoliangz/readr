@@ -36,12 +36,12 @@ var ManageBooks = function (_Component) {
   _createClass(ManageBooks, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookList();
+      this.props.fetchBookList('newest');
     }
   }, {
     key: 'render',
     value: function render() {
-      var bookListAll = this.props.bookListAll ? this.props.bookListAll : null;
+      var bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null;
 
       return _react2.default.createElement(
         'div',
@@ -76,7 +76,7 @@ var ManageBooks = function (_Component) {
                 'Actions'
               )
             ),
-            bookListAll ? bookListAll.map(function (book, index) {
+            bookListNewest ? bookListNewest.map(function (book, index) {
               return _react2.default.createElement(
                 'tr',
                 { key: index },
@@ -116,19 +116,18 @@ var ManageBooks = function (_Component) {
 }(_react.Component);
 
 function mapStateToProps(state, ownProps) {
-  var type = 'all';
-
   var bookList = state.pagination.bookList;
   var books = state.entities.books;
 
 
-  var bookListPagination = bookList[type];
-  var bookListAll = bookListPagination.ids.map(function (id) {
-    return books[id];
-  });
+  var genList = function genList(whichPagination) {
+    return whichPagination ? whichPagination.ids.map(function (id) {
+      return books[id];
+    }) : [];
+  };
 
   return {
-    bookListAll: bookListAll
+    bookListNewest: genList(bookList['newest'])
   };
 }
 

@@ -1,26 +1,33 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { someAction } from 'actions'
+import { searchBooks } from 'actions'
 import Input from 'elements/Input'
+import Button from 'elements/Button'
 import AddTags from 'elements/AddTags'
 
 class AddBookList extends Component{
-
-  static fetchData({store, params}) {
-    return store.dispatch(fetch())
-  }
 
   constructor(props) {
     super(props)
     this.state = {
       booksToAdd: '',
-      tagsToAdd: ''
+      tagsToAdd: '',
+      bookQueryResults: []
     }
   }
 
+  getCurrentSearchResults() {
+    let query = this.state.booksToAdd
+    let books = this.props.books
+
+    return this.props.bookSearchResults?this.props.bookSearchResults[query].ids.map((id, index) => {
+      return books[id]
+    }):[]
+  }
+
   check() {
-    console.log(this.refs.addTags.state)
+    console.log(this.refs.addBooks.state)
   }
 
   resetBooksValue() {
@@ -36,9 +43,22 @@ class AddBookList extends Component{
   }
 
   handleAddBook(event) {
+    let query = event.target.value
     this.setState({
-      booksToAdd: event.target.value
+      booksToAdd: query
     })
+
+    if(query !== '') {
+      this.props.searchBooks(query).then(() => {
+        this.setState({
+          bookQueryResults: this.getCurrentSearchResults().map(item => item.title)
+        })
+      })
+    }else{
+      this.setState({
+        bookQueryResults: []
+      })
+    }
   }
 
   handleAddTag(event) {
@@ -56,18 +76,39 @@ class AddBookList extends Component{
       <form>
         <h1 className="page-title">Add book list</h1>
         <Input placeholder="Name" />
-        <AddTags className="add-books" value={this.state.booksToAdd} onChange={this.handleAddBook.bind(this)} ref="addBooks" queryResults={['abc', 'bcd', 'uoeuoi', 'eoioie']} resetValue={this.resetBooksValue.bind(this)} placeholder="Type book name to begin" />
-        <AddTags className="add-tags" value={this.state.tagsToAdd} onChange={this.handleAddTag.bind(this)} ref="addTags" queryResults={['tag1', 'tag2', 'uoeuoi', 'eoioie']} resetValue={this.resetTagsValue.bind(this)} placeholder="Tags" />
+        <AddTags
+          className="add-books"
+          value={this.state.booksToAdd}
+          onChange={this.handleAddBook.bind(this)}
+          ref="addBooks"
+          queryResults={this.state.bookQueryResults}
+          resetValue={this.resetBooksValue.bind(this)}
+          placeholder="Type book name to begin"
+        />
+        <AddTags
+          className="add-tags"
+          value={this.state.tagsToAdd}
+          onChange={this.handleAddTag.bind(this)}
+          ref="addTags"
+          queryResults={['tag1', 'tag2', 'uoeuoi', 'eoioie']}
+          resetValue={this.resetTagsValue.bind(this)}
+          placeholder="Tags"
+        />
         <textarea placeholder="Description" />
-        <span className="btn" onClick={this.check.bind(this)}>Check</span>
+        <Button onClick={this.check.bind(this)}>Check</Button>
       </form>
     )
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    bookSearchResults: state.pagination.bookSearchResults,
+    books: state.entities.books
+  }
+}
+
 export default connect(
-  state => ({
-    data: state.data,
-  }),
-  { someAction }
+  mapStateToProps,
+  { searchBooks }
 )(AddBookList)

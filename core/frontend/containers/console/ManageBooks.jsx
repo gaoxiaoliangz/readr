@@ -10,11 +10,11 @@ class ManageBooks extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBookList()
+    this.props.fetchBookList('newest')
   }
 
   render() {
-    let bookListAll = this.props.bookListAll?this.props.bookListAll:null
+    let bookListNewest = this.props.bookListNewest?this.props.bookListNewest:null
 
     return (
       <div>
@@ -26,7 +26,7 @@ class ManageBooks extends Component {
               <td>Date created</td>
               <td>Actions</td>
             </tr>
-            {bookListAll?bookListAll.map((book, index) => {
+            {bookListNewest?bookListNewest.map((book, index) => {
               return (
                 <tr key={index}>
                   <td>{book.id}</td>
@@ -44,18 +44,17 @@ class ManageBooks extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const type = 'all'
-
   const {
     pagination: { bookList },
     entities: { books }
   } = state
 
-  const bookListPagination = bookList[type]
-  const bookListAll = bookListPagination.ids.map(id => books[id])
+  const genList = (whichPagination) => (
+    whichPagination?whichPagination.ids.map(id => books[id]):[]
+  )
 
   return {
-    bookListAll
+    bookListNewest: genList(bookList['newest'])
   }
 }
 

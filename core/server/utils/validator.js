@@ -6,9 +6,10 @@ const _ = require('lodash')
 
 const validator = {
   numberTypes: ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo'],
-  stringifiedJSONTypes: ['bookInfo'],
-  stringTypes: ['email', 'password', 'login', 'username', 'role', 'bookContent'],
+  stringifiedJSONTypes: ['bookInfo', 'books', 'tags'],
+  stringTypes: ['email', 'password', 'login', 'username', 'role', 'bookContent', 'description', 'name'],
   longStringTypes: ['bookContent'],
+  arrayTypes: [],
 
   getSupportedTypes() {
     return Array.prototype.concat(validator.numberTypes, validator.stringifiedJSONTypes, validator.stringTypes)
@@ -23,6 +24,7 @@ const validator = {
     const stringifiedJSONTypes = validator.stringifiedJSONTypes
     const stringTypes = validator.stringTypes
     const longStringTypes = validator.longStringTypes
+    const arrayTypes = validator.arrayTypes
 
     function preCheck() {
       if(numberTypes.indexOf(type) !== -1) {
@@ -54,6 +56,12 @@ const validator = {
           JSON.parse(input)
         } catch (e) {
           return 'error parsing json'
+        }
+      }
+
+      if(arrayTypes.indexOf(type) !== -1) {
+        if(Array.isArray(input) !== true) {
+          return i18n('errors.validation.invalidFormat', type)
         }
       }
 

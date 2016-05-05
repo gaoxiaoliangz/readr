@@ -64,6 +64,10 @@ const pagination = combineReducers({
   doubanBookSearchResults: paginate({
     mapActionToKey: action => action.query,
     types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE']
+  }),
+  bookSearchResults: paginate({
+    mapActionToKey: action => action.query,
+    types: ['BOOK_SEARCH_REQUEST', 'BOOK_SEARCH_SUCCESS', 'BOOK_SEARCH_FAILURE']
   })
 })
 

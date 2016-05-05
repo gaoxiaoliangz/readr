@@ -2,21 +2,106 @@
 
 const models = require('../models')
 const Promise = require('bluebird')
-const mongodb = require('mongodb')
 const utils = require('./utils')
 const _ = require('lodash')
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const pipeline = require('../utils/pipeline')
 
-
 const books = {
+  add(object, options) {
+    let requiredOptions = ['bookContent', 'bookInfo']
+
+    function parseTextToHtml(str) {
+      let html = ''
+      let paragraphs = str.split("\n")
+
+      for(let i = 0; i < paragraphs.length; i++){
+        html += '<p>' + paragraphs[i] + '</p>'
+      }
+
+      return html
+    }
+
+    function processDataAndDoQuery(options) {
+      const raw = options.data.bookContent
+      const html = parseTextToHtml(raw)
+
+      let bookInfo = JSON.parse(options.data.bookInfo)
+      const bookInfoId = bookInfo.id
+
+      // model putData will override id infoo
+      bookInfo.book_id = bookInfoId
+      delete bookInfo.id
+
+      const bookData = {
+        book_info_id: bookInfoId,
+        book_content: {
+          raw: raw,
+          html: html
+        }
+      }
+
+      return models.getData('book_info', { book_id: bookInfoId}).then(result => {
+        if(result.length === 0) {
+          return models.putData('book_info', bookInfo).then(result => {
+            return models.putData('books', bookData).then(result => {
+              return Promise.resolve(result)
+            }, error => {
+              return Promise.reject(error)
+            })
+          }, error => {
+            return Promise.reject(error)
+          })
+        }else{
+          return Promise.reject(new errors.ValidationError(i18n('errors.api.books.bookExists')))
+        }
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(requiredOptions),
+      utils.checkAdminPermissions,
+      processDataAndDoQuery
+    ]
+
+    return pipeline(tasks, object, options)
+  },
+
   deleteBook(options) {
     const requiredOptions = ['id']
 
     function doQuery(options) {
       return models.deleteData('books', {id: options.id}).then(result => {
         return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(requiredOptions),
+      utils.checkAdminPermissions,
+      doQuery
+    ]
+
+    return pipeline(tasks, options)
+  },
+
+  /**
+   * @param options includes query #q to match title and author
+   */
+  search(options) {
+    const requiredOptions = []
+
+    const doQuery = () => {
+      const query = options.q
+      const reg = new RegExp(query)
+
+      return models.getData('book_info', {$or: [{title: reg}, {author: reg}]}).then(result => {
+        return result
       }, error => {
         return Promise.reject(error)
       })
@@ -43,7 +128,7 @@ const books = {
   },
 
   /**
-   * @param options includes query #filter: user | newest 
+   * @param options includes query #filter: user | newest
    */
   getBooks(options) {
     const requiredOptions = []
@@ -156,67 +241,6 @@ const books = {
     return pipeline(tasks, options)
   },
 
-  addBook(object, options) {
-    let requiredOptions = ['bookContent', 'bookInfo']
-
-    function parseTextToHtml(str) {
-      let html = ''
-      let paragraphs = str.split("\n")
-
-      for(let i = 0; i < paragraphs.length; i++){
-        html += '<p>' + paragraphs[i] + '</p>'
-      }
-
-      return html
-    }
-
-    function processDataAndDoQuery(options) {
-      const raw = options.data.bookContent
-      const html = parseTextToHtml(raw)
-
-      let bookInfo = JSON.parse(options.data.bookInfo)
-      const bookInfoId = bookInfo.id
-
-      // model putData will override id infoo
-      bookInfo.book_id = bookInfoId
-      delete bookInfo.id
-
-      const bookData = {
-        book_info_id: bookInfoId,
-        book_content: {
-          raw: raw,
-          html: html
-        }
-      }
-
-      return models.getData('book_info', { book_id: bookInfoId}).then(result => {
-        if(result.length === 0) {
-          return models.putData('book_info', bookInfo).then(result => {
-            return models.putData('books', bookData).then(result => {
-              return Promise.resolve(result)
-            }, error => {
-              return Promise.reject(error)
-            })
-          }, error => {
-            return Promise.reject(error)
-          })
-        }else{
-          return Promise.reject(new errors.ValidationError(i18n('errors.api.books.bookExists')))
-        }
-      }, error => {
-        return Promise.reject(error)
-      })
-    }
-
-    const tasks = [
-      utils.validate(requiredOptions),
-      utils.checkAdminPermissions,
-      processDataAndDoQuery
-    ]
-
-    return pipeline(tasks, object, options)
-  },
-
   getReadingProgress(options) {
     const requiredOptions = ['id']
 
@@ -275,4 +299,4 @@ const books = {
   }
 }
 
-module.exports = books;
+module.exports = books
