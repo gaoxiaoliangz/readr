@@ -25,7 +25,13 @@ const utils = {
     return user?options: Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
   },
 
-  validate(requiredOptions) {
+  validate(requiredOptions, additionalOptions) {
+    // 'use strict'
+
+    if(typeof additionalOptions === 'undefined') {
+      additionalOptions = []
+    }
+
     return function() {
       let object, options
 
@@ -41,20 +47,24 @@ const utils = {
       requiredOptions = requiredOptions.concat(utils.globalDefaultOptions)
 
       function checkOptions(options) {
-        object =  utils.trimOptions(_.pick(object, requiredOptions))
-        options = utils.trimOptions(_.pick(options, requiredOptions))
+        let requiredOptionsLength = _.size(Object.assign({}, _.pick(object, requiredOptions), _.pick(options, requiredOptions)))
+        let allOptions = requiredOptions.concat(additionalOptions)
 
-        const dataToCheck = Object.assign({}, options, object)
+        object =  utils.trimOptions(_.pick(object, allOptions))
+        options = utils.trimOptions(_.pick(options, allOptions))
 
-        if(_.isEmpty(dataToCheck)) {
+        const combinedOptions = Object.assign({}, options, object)
+
+        if(_.isEmpty(combinedOptions)) {
           return Promise.reject(new errors.BadRequestError(i18n('errors.api.validation.inputEmpty')))
         }
 
-        if(_.size(dataToCheck) !== requiredOptions.length) {
+        // check options length
+        if(_.size(combinedOptions) < requiredOptionsLength) {
           return Promise.reject(new errors.BadRequestError(i18n('errors.validation.unmatchedOptionQuantity')))
         }
 
-        let validationErrors = utils.validateOptions(dataToCheck)
+        let validationErrors = utils.validateOptions(combinedOptions)
 
         if(validationErrors.length === 0) {
           return Promise.resolve(Object.assign({}, options, {data: object}))
