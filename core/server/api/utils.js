@@ -26,42 +26,49 @@ const utils = {
   },
 
   validate(requiredOptions, additionalOptions) {
-    // 'use strict'
-
     if(typeof additionalOptions === 'undefined') {
       additionalOptions = []
     }
 
     return function() {
-      let object, options
+      let object = {}
+      let options = {}
 
       if (arguments.length === 2) {
         object = arguments[0];
         options = _.clone(arguments[1]) || {};
       } else if (arguments.length === 1) {
         options = _.clone(arguments[0]) || {};
-      } else {
-        options = {};
       }
 
       requiredOptions = requiredOptions.concat(utils.globalDefaultOptions)
 
-      function checkOptions(options) {
-        let requiredOptionsLength = _.size(Object.assign({}, _.pick(object, requiredOptions), _.pick(options, requiredOptions)))
-        let allOptions = requiredOptions.concat(additionalOptions)
+      const isOptionLengthCorrect = (object, options, requiredOptions) => {
+        let combined = Object.assign({}, object, options)
 
-        object =  utils.trimOptions(_.pick(object, allOptions))
-        options = utils.trimOptions(_.pick(options, allOptions))
+        combined = _.pick(combined, requiredOptions)
+
+        if(_.size(combined) === requiredOptions.length) {
+          return true
+        }
+
+        return false
+      }
+
+      const checkOptions = (options) => {
+        if(!isOptionLengthCorrect(object, options, requiredOptions)) {
+          return Promise.reject(new errors.BadRequestError(i18n('errors.validation.unmatchedOptionQuantity')))
+        }
+
+        let permittedOptions = requiredOptions.concat(additionalOptions)
+
+        object =  utils.trimOptions(_.pick(object, permittedOptions))
+        options = utils.trimOptions(_.pick(options, permittedOptions))
 
         const combinedOptions = Object.assign({}, options, object)
 
         if(_.isEmpty(combinedOptions)) {
           return Promise.reject(new errors.BadRequestError(i18n('errors.api.validation.inputEmpty')))
-        }
-
-        // check options length
-        if(_.size(combinedOptions) < requiredOptionsLength) {
-          return Promise.reject(new errors.BadRequestError(i18n('errors.validation.unmatchedOptionQuantity')))
         }
 
         let validationErrors = utils.validateOptions(combinedOptions)

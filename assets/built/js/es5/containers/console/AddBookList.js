@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _reactRedux = require('react-redux');
 
 var _reactRouter = require('react-router');
@@ -27,6 +31,16 @@ var _Button2 = _interopRequireDefault(_Button);
 var _AddTags = require('elements/AddTags');
 
 var _AddTags2 = _interopRequireDefault(_AddTags);
+
+var _Notification = require('components/Notification');
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
+var _data = require('utils/data');
+
+var data = _interopRequireWildcard(_data);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,9 +77,22 @@ var AddBookList = function (_Component) {
       }) : [];
     }
   }, {
-    key: 'check',
-    value: function check() {
-      console.log(this.refs.addBooks.state);
+    key: 'add',
+    value: function add(e) {
+      var _this2 = this;
+
+      var books = JSON.stringify(this.refs.addBooks.state.tags.map(function (tag) {
+        return tag.key;
+      }));
+      var name = _reactDom2.default.findDOMNode(this.refs.name).querySelector('input').value;
+      var description = _reactDom2.default.findDOMNode(this.refs.description).value;
+
+      data.addBookList(name, books, description).then(function (result) {
+        _this2.props.handleNotification('添加成功');
+      }, function (error) {
+        _this2.props.handleNotification(error.message);
+      });
+      e.preventDefault();
     }
   }, {
     key: 'resetBooksValue',
@@ -84,7 +111,7 @@ var AddBookList = function (_Component) {
   }, {
     key: 'handleAddBook',
     value: function handleAddBook(event) {
-      var _this2 = this;
+      var _this3 = this;
 
       var query = event.target.value;
       this.setState({
@@ -93,9 +120,9 @@ var AddBookList = function (_Component) {
 
       if (query !== '') {
         this.props.searchBooks(query).then(function () {
-          _this2.setState({
-            bookQueryResults: _this2.getCurrentSearchResults().map(function (item) {
-              return item.title;
+          _this3.setState({
+            bookQueryResults: _this3.getCurrentSearchResults().map(function (item) {
+              return { text: item.title, key: item.id };
             })
           });
         });
@@ -118,15 +145,18 @@ var AddBookList = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var notification = this.props.notification;
+
       return _react2.default.createElement(
         'form',
         null,
+        _react2.default.createElement(_Notification2.default, { notification: notification }),
         _react2.default.createElement(
           'h1',
           { className: 'page-title' },
           'Add book list'
         ),
-        _react2.default.createElement(_Input2.default, { placeholder: 'Name' }),
+        _react2.default.createElement(_Input2.default, { ref: 'name', placeholder: 'Name' }),
         _react2.default.createElement(_AddTags2.default, {
           className: 'add-books',
           value: this.state.booksToAdd,
@@ -145,11 +175,11 @@ var AddBookList = function (_Component) {
           resetValue: this.resetTagsValue.bind(this),
           placeholder: 'Tags'
         }),
-        _react2.default.createElement('textarea', { placeholder: 'Description' }),
+        _react2.default.createElement('textarea', { ref: 'description', placeholder: 'Description' }),
         _react2.default.createElement(
           _Button2.default,
-          { onClick: this.check.bind(this) },
-          'Check'
+          { onClick: this.add.bind(this) },
+          'Add'
         )
       );
     }
@@ -161,8 +191,9 @@ var AddBookList = function (_Component) {
 function mapStateToProps(state) {
   return {
     bookSearchResults: state.pagination.bookSearchResults,
-    books: state.entities.books
+    books: state.entities.books,
+    notification: state.components.notification
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchBooks: _actions.searchBooks })(AddBookList);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { searchBooks: _actions.searchBooks, handleNotification: _actions.handleNotification })(AddBookList);

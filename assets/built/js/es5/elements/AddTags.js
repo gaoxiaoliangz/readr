@@ -121,7 +121,7 @@ var AddTags = function (_Component) {
           return _react2.default.createElement(
             'span',
             { key: index, className: 'tag' },
-            tag,
+            tag.text,
             _react2.default.createElement(_Icon2.default, { size: "small", name: 'close-light', onClick: _this2.removeTag.bind(_this2, index) })
           );
         }),
@@ -133,7 +133,7 @@ var AddTags = function (_Component) {
             return _react2.default.createElement(
               'li',
               { onClick: _this2.addTag.bind(_this2, result), key: index },
-              result
+              result.text
             );
           })
         ) : null

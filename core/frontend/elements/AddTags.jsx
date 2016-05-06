@@ -77,7 +77,7 @@ class AddTags extends Component{
         {
           tags.map((tag, index) => {
             return (
-              <span key={index} className="tag">{tag}<Icon size={"small"} name="close-light" onClick={this.removeTag.bind(this, index)} /></span>
+              <span key={index} className="tag">{tag.text}<Icon size={"small"} name="close-light" onClick={this.removeTag.bind(this, index)} /></span>
             )
           })
         }
@@ -88,7 +88,7 @@ class AddTags extends Component{
               {
                 queryResults.map((result, index) => {
                   return (
-                    <li onClick={this.addTag.bind(this, result)} key={index}>{result}</li>
+                    <li onClick={this.addTag.bind(this, result)} key={index}>{result.text}</li>
                   )
                 })
               }

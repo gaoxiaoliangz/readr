@@ -6,7 +6,9 @@ const cn = {
       password: '密码',
       percentage: '进度百分比',
       email: '邮箱',
-      login: '登录项'
+      login: '登录项',
+      description: '描述',
+      name: '名称'
     }
   },
   errors: {
