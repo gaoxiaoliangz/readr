@@ -17,6 +17,7 @@ function boot(app, env) {
   })
 
   console.log(colors.cyan(`> Server running in ${env} (${port})`))
+  return app
 }
 
 // Event listener for HTTP server error event

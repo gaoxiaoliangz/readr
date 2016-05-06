@@ -51,7 +51,7 @@ function init(basePath) {
     skip: function (req, res) { return res.statusCode < 400 }
   }))
 
-  bootServer(app, env)
+  return bootServer(app, env)
 }
 
 module.exports = init
