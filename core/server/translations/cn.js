@@ -12,6 +12,7 @@ const cn = {
   errors: {
     validation: {
       unmatchedOptionQuantity: '提供的参数数目有误',
+      invalidJson: 'JSON 格式不正确',
       inputEmpty: '{value}输入不能为空',
       inputUndefined: '输入不能为未定义',
       inputTypeInvalid: '输入项类型只能为字符串',

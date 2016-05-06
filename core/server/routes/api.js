@@ -8,12 +8,13 @@ const router = express.Router()
 function apiRoutes() {
   // book list
   router.post('/booklist', middleware.getUserInfo, api.http(api.bookList.add))
+  router.get('/booklist/:id', middleware.getUserInfo, api.http(api.bookList.find))
 
   // books
   router.post('/books', middleware.getUserInfo, api.http(api.books.add))
   router.get('/books', middleware.getUserInfo, api.http(api.books.browse))
-  router.delete('/books/:id/', middleware.getUserInfo, api.http(api.books.delete))
-  router.get('/books/:id/', api.http(api.books.find))
+  router.delete('/books/:id', middleware.getUserInfo, api.http(api.books.delete))
+  router.get('/books/:id', api.http(api.books.find))
   router.get('/search', middleware.getUserInfo, api.http(api.books.search))
   // router.get('/books/:id/content', api.http(api.books.getBookContent));
 

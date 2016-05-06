@@ -55,7 +55,7 @@ const validator = {
         try {
           JSON.parse(input)
         } catch (e) {
-          return 'error parsing json'
+          return i18n('errors.validation.invalidJson')
         }
       }
 

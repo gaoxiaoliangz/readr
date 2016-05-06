@@ -71,8 +71,8 @@ const books = {
     const queryRecentReading = (options) => {
       return models.getData('reading_progress', { user_id: options.context.user.id}).then(result => {
         return Promise.all(result.map(item => {
-          let infoOptions = Object.assign({}, options, {id: item.book_id})
-          return books.getBookInfo(infoOptions)
+          options = Object.assign({}, options, {id: item.book_id})
+          return books.find(options)
         }))
       }, error => {
         return Promise.reject(error)
@@ -82,8 +82,8 @@ const books = {
     const queryNewest = () => {
       return models.getData('books', null).then(result => {
         return Promise.all(result.map(item => {
-          let infoOptions = Object.assign({}, options, {id: item.id})
-          return books.getBookInfo(infoOptions)
+          options = Object.assign({}, options, {id: item.id})
+          return books.find(options)
         }))
       }, error => {
         return Promise.reject(error)

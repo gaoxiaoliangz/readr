@@ -7,6 +7,7 @@ const _ = require('lodash')
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const pipeline = require('../utils/pipeline')
+const books = require('./books')
 
 const bookList = {
   add(object, options) {
@@ -46,7 +47,33 @@ const bookList = {
   },
 
   find(options) {
+    const requiredOptions = ['id']
 
+    const doQuery = (options) => {
+      return models.getData('book_list', {id: options.id}).then(result => {
+        let bookList = result[0]
+
+        return Promise.all(result[0].books.map(id => {
+          options = Object.assign({}, options, {id: id})
+          return books.find(options)
+        })).then(result => {
+          bookList.books = result
+          delete bookList._id
+          return Promise.resolve(bookList)
+        }, error => {
+          return Promise.reject(error)
+        })
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(requiredOptions),
+      doQuery
+    ]
+
+    return pipeline(tasks, options)
   },
 
   search(options) {
