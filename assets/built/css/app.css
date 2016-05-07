@@ -1680,7 +1680,7 @@ input {
       border-color: #1B267F; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003135}}
-.input-addtags {
+.selectize-input {
   min-width: 300px;
   border: 1px solid #ddd;
   margin: 10px 0;
@@ -1689,24 +1689,24 @@ input {
   transition: border-color .3s;
   cursor: text; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003143}}
-  .input-addtags input {
+  .selectize-input input {
     border: none;
     outline: none;
     line-height: 25px;
     margin-bottom: 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003151}}
-  .input-addtags ul.query-results {
+  .selectize-input ul.query-results {
     margin-bottom: 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003153}}
-    .input-addtags ul.query-results li {
+    .selectize-input ul.query-results li {
       padding: 0 3px;
       line-height: 2;
       cursor: pointer; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003157}}
-      .input-addtags ul.query-results li:hover {
+      .selectize-input ul.query-results li:hover {
         background: #f2f2f2; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003162}}
-  .input-addtags.focus {
+  .selectize-input.focus {
     border-color: #1B267F; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\00003170}}

@@ -24,13 +24,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AddTags = function (_Component) {
-  _inherits(AddTags, _Component);
+var SelectizeInput = function (_Component) {
+  _inherits(SelectizeInput, _Component);
 
-  function AddTags(props) {
-    _classCallCheck(this, AddTags);
+  function SelectizeInput(props) {
+    _classCallCheck(this, SelectizeInput);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddTags).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SelectizeInput).call(this, props));
 
     _this.state = {
       tags: [],
@@ -40,7 +40,7 @@ var AddTags = function (_Component) {
     return _this;
   }
 
-  _createClass(AddTags, [{
+  _createClass(SelectizeInput, [{
     key: 'handleFocus',
     value: function handleFocus() {
       this.setState({
@@ -116,7 +116,7 @@ var AddTags = function (_Component) {
       var tags = this.state.tags;
       var queryResults = this.props.queryResults ? this.props.queryResults : [];
       var onChange = this.props.onChange;
-      var className = 'input-addtags' + (this.props.className ? ' ' + this.props.className : '') + (this.state.focus === true ? ' focus' : '') + (tags.length === 0 ? ' empty' : '');
+      var className = 'selectize-input' + (this.props.className ? ' ' + this.props.className : '') + (this.state.focus === true ? ' focus' : '') + (tags.length === 0 ? ' empty' : '');
       var initialInputWidth = this.props.initialInputWidth ? this.props.initialInputWidth : '100%';
       var inputWidth = tags.length > 0 ? value.length === 0 ? 16 : value.length * 16 : initialInputWidth;
       var placeholder = tags.length > 0 ? '' : this.props.placeholder;
@@ -148,11 +148,11 @@ var AddTags = function (_Component) {
     }
   }]);
 
-  return AddTags;
+  return SelectizeInput;
 }(_react.Component);
 
-AddTags.propTypes = {
+SelectizeInput.propTypes = {
   // placeholder: React.PropTypes.string.isRequired
 };
 
-exports.default = AddTags;
+exports.default = SelectizeInput;

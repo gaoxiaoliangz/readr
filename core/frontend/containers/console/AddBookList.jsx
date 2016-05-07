@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { searchBooks, handleNotification } from 'actions'
 import Input from 'elements/Input'
 import Button from 'elements/Button'
-import AddTags from 'elements/AddTags'
+import SelectizeInput from 'elements/SelectizeInput'
 import Notification from 'components/Notification'
 import * as data from 'utils/data'
 
@@ -35,6 +35,9 @@ class AddBookList extends Component{
     let description = ReactDOM.findDOMNode(this.refs.description).value
 
     data.addBookList(name, books, description).then(result => {
+      this.refs.addBooks.resetTags()
+      ReactDOM.findDOMNode(this.refs.name).querySelector('input').value = ''
+      ReactDOM.findDOMNode(this.refs.description).value = ''
       this.props.handleNotification('添加成功')
     }, error => {
       this.props.handleNotification(error.message)
@@ -91,8 +94,7 @@ class AddBookList extends Component{
         <Notification notification={notification} />
         <h1 className="page-title">Add book list</h1>
         <Input ref="name" placeholder="Name" />
-        <AddTags
-          className="add-books"
+        <SelectizeInput
           value={this.state.booksToAdd}
           onChange={this.handleAddBook.bind(this)}
           ref="addBooks"
@@ -100,8 +102,7 @@ class AddBookList extends Component{
           resetValue={this.resetBooksValue.bind(this)}
           placeholder="Type book name to begin"
         />
-        <AddTags
-          className="add-tags"
+        <SelectizeInput
           value={this.state.tagsToAdd}
           onChange={this.handleAddTag.bind(this)}
           ref="addTags"

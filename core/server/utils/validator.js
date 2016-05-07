@@ -7,9 +7,9 @@ const _ = require('lodash')
 const validator = {
   numberTypes: ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo'],
   stringifiedJSONTypes: ['bookInfo', 'books', 'tags'],
-  stringTypes: ['email', 'password', 'login', 'username', 'role', 'bookContent', 'description', 'name', 'fields'],
-  longStringTypes: ['bookContent'],
-  arrayTypes: [],
+  stringTypes: ['email', 'password', 'login', 'username', 'role', 'name', 'fields'],
+  longStringTypes: ['bookContent', 'description'],
+  stringMaxLength: 60,
 
   getSupportedTypes() {
     return Array.prototype.concat(validator.numberTypes, validator.stringifiedJSONTypes, validator.stringTypes)
@@ -44,8 +44,19 @@ const validator = {
         if(input.length === 0) {
           return i18n('errors.validation.inputEmpty', type)
         }
-        if(longStringTypes.indexOf(type) === -1 && input.length >60) {
-          return i18n('errors.validation.maxLengthExceed', type)
+        if(input.length > validator.stringMaxLength) {
+          return i18n('errors.validation.maxLength', type)
+        }
+      }
+
+      if(longStringTypes.indexOf(type) !== -1) {
+        isDefined = true
+
+        if(typeof input !== 'string') {
+          return i18n('errors.validation.invalidFormat', type)
+        }
+        if(input.length === 0) {
+          return i18n('errors.validation.inputEmpty', type)
         }
       }
 
@@ -56,12 +67,6 @@ const validator = {
           JSON.parse(input)
         } catch (e) {
           return i18n('errors.validation.invalidJson')
-        }
-      }
-
-      if(arrayTypes.indexOf(type) !== -1) {
-        if(Array.isArray(input) !== true) {
-          return i18n('errors.validation.invalidFormat', type)
         }
       }
 

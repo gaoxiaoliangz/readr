@@ -28,9 +28,9 @@ var _Button = require('elements/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _AddTags = require('elements/AddTags');
+var _SelectizeInput = require('elements/SelectizeInput');
 
-var _AddTags2 = _interopRequireDefault(_AddTags);
+var _SelectizeInput2 = _interopRequireDefault(_SelectizeInput);
 
 var _Notification = require('components/Notification');
 
@@ -88,6 +88,9 @@ var AddBookList = function (_Component) {
       var description = _reactDom2.default.findDOMNode(this.refs.description).value;
 
       data.addBookList(name, books, description).then(function (result) {
+        _this2.refs.addBooks.resetTags();
+        _reactDom2.default.findDOMNode(_this2.refs.name).querySelector('input').value = '';
+        _reactDom2.default.findDOMNode(_this2.refs.description).value = '';
         _this2.props.handleNotification('添加成功');
       }, function (error) {
         _this2.props.handleNotification(error.message);
@@ -157,8 +160,7 @@ var AddBookList = function (_Component) {
           'Add book list'
         ),
         _react2.default.createElement(_Input2.default, { ref: 'name', placeholder: 'Name' }),
-        _react2.default.createElement(_AddTags2.default, {
-          className: 'add-books',
+        _react2.default.createElement(_SelectizeInput2.default, {
           value: this.state.booksToAdd,
           onChange: this.handleAddBook.bind(this),
           ref: 'addBooks',
@@ -166,8 +168,7 @@ var AddBookList = function (_Component) {
           resetValue: this.resetBooksValue.bind(this),
           placeholder: 'Type book name to begin'
         }),
-        _react2.default.createElement(_AddTags2.default, {
-          className: 'add-tags',
+        _react2.default.createElement(_SelectizeInput2.default, {
           value: this.state.tagsToAdd,
           onChange: this.handleAddTag.bind(this),
           ref: 'addTags',

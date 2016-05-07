@@ -44,7 +44,7 @@ var Home = function (_Component) {
     value: function fetchData(_ref) {
       var store = _ref.store;
 
-      return store.dispatch((0, _actions.fetchBookList)('newest'));
+      return store.dispatch((0, _actions.fetchBooks)('newest'));
     }
   }]);
 
@@ -57,25 +57,27 @@ var Home = function (_Component) {
   _createClass(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookList('newest');
-      this.props.fetchBookList('user');
+      this.props.fetchBooks('newest');
+      this.props.fetchBooks('user');
+      this.props.fetchCollection('83340896');
     }
   }, {
     key: 'render',
     value: function render() {
-      var bookList = this.props.bookListNewest;
-      var hotList = bookList.map(function (book, index) {
+      var newestBooks = this.props.newestBooks;
+      var hotBooks = newestBooks.map(function (book, index) {
         return {
           name: book.title,
           link: '/book/' + book.id
         };
       });
-      var userList = this.props.bookListUser.map(function (book, index) {
+      var userBooks = this.props.userBooks.map(function (book, index) {
         return {
           name: book.title,
           link: '/book/' + book.id
         };
       });
+      var collection = this.props.collection ? this.props.collection.books : [];
 
       return _react2.default.createElement(
         'div',
@@ -86,15 +88,15 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-8' },
-            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '新书速递', moreLink: '/' }),
-            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '近期热门' }),
-            _react2.default.createElement(_BookListSection2.default, { bookList: bookList, title: '推荐书单' })
+            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '新书速递', moreLink: '/' }),
+            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '近期热门' }),
+            _react2.default.createElement(_BookListSection2.default, { bookList: collection, title: '推荐书单' })
           ),
           _react2.default.createElement(
             'div',
             { className: 'col-md-4' },
-            _react2.default.createElement(_CandyBox2.default, { title: '近期热门', list: hotList }),
-            _react2.default.createElement(_CandyBox2.default, { title: '最近阅读', list: userList })
+            _react2.default.createElement(_CandyBox2.default, { title: '近期热门', list: hotBooks }),
+            _react2.default.createElement(_CandyBox2.default, { title: '最近阅读', list: userBooks })
           )
         )
       );
@@ -105,8 +107,10 @@ var Home = function (_Component) {
 }(_react.Component);
 
 function mapStateToProps(state, ownProps) {
-  var bookList = state.pagination.bookList;
-  var books = state.entities.books;
+  var filteredBooks = state.pagination.filteredBooks;
+  var _state$entities = state.entities;
+  var books = _state$entities.books;
+  var collections = _state$entities.collections;
 
 
   var genList = function genList(whichPagination) {
@@ -116,9 +120,14 @@ function mapStateToProps(state, ownProps) {
   };
 
   return {
-    bookListUser: genList(bookList['user']),
-    bookListNewest: genList(bookList['newest'])
+    userBooks: genList(filteredBooks['user']),
+    newestBooks: genList(filteredBooks['newest']),
+    collection: function () {
+      for (var prop in collections) {
+        return collections[prop];
+      }
+    }()
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBookList: _actions.fetchBookList })(Home);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBooks: _actions.fetchBooks, fetchCollection: _actions.fetchCollection })(Home);

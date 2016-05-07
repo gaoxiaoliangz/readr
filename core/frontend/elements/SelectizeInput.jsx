@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Icon from 'elements/Icon'
 
-class AddTags extends Component{
+class SelectizeInput extends Component{
   constructor(props) {
     super(props)
     this.state = {
@@ -54,6 +54,12 @@ class AddTags extends Component{
     this.refs.input.focus()
   }
 
+  resetTags() {
+    this.setState({
+      tags: []
+    })
+  }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.value != '') {
       this.setState({
@@ -67,7 +73,7 @@ class AddTags extends Component{
     let tags = this.state.tags
     let queryResults = this.props.queryResults?this.props.queryResults:[]
     let onChange = this.props.onChange
-    let className = 'input-addtags' + (this.props.className?` ${this.props.className}`:'') + (this.state.focus === true?' focus':'') + (tags.length === 0?' empty':'')
+    let className = 'selectize-input' + (this.props.className?` ${this.props.className}`:'') + (this.state.focus === true?' focus':'') + (tags.length === 0?' empty':'')
     let initialInputWidth = this.props.initialInputWidth?this.props.initialInputWidth:'100%'
     let inputWidth = tags.length > 0?(value.length === 0?16:value.length * 16):initialInputWidth
     let placeholder = tags.length > 0?'':this.props.placeholder
@@ -100,8 +106,8 @@ class AddTags extends Component{
   }
 }
 
-AddTags.propTypes = {
+SelectizeInput.propTypes = {
   // placeholder: React.PropTypes.string.isRequired
 }
 
-export default AddTags
+export default SelectizeInput

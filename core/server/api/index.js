@@ -3,7 +3,7 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 const books = require('./books')
-const bookList = require('./book-list')
+const collections = require('./collections')
 const tags = require('./tags')
 const users = require('./users')
 const auth = require('./auth')
@@ -69,7 +69,7 @@ module.exports = {
   http: http,
   books: books,
   tags: tags,
-  bookList: bookList,
+  collections: collections,
   users: users,
   auth: auth
 }

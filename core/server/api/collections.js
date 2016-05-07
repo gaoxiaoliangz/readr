@@ -9,7 +9,7 @@ const i18n = require('../utils/i18n')
 const pipeline = require('../utils/pipeline')
 const books = require('./books')
 
-const bookList = {
+const collections = {
   add(object, options) {
     let requiredOptions = ['books', 'description', 'name']
 
@@ -18,7 +18,7 @@ const bookList = {
 
       let bookList = Object.assign({}, { creator_id: options.context.user.id }, options.data)
 
-      return models.putData('book_list', bookList).then(result => {
+      return models.putData('collections', bookList).then(result => {
         return Promise.resolve(result)
       }, error => {
         return Promise.reject(error)
@@ -50,19 +50,24 @@ const bookList = {
     const requiredOptions = ['id']
 
     const doQuery = (options) => {
-      return models.getData('book_list', {id: options.id}).then(result => {
+      return models.getData('collections', {id: options.id}).then(result => {
+        if(result.length === 0) {
+          return Promise.reject(new errors.NotFoundError(i18n('errors.api.collections.notFound')))
+        }
+
         let bookList = result[0]
 
         return Promise.all(result[0].books.map(id => {
-          options = Object.assign({}, options, {id: id})
-          return books.find(options)
-        })).then(result => {
-          bookList.books = result
-          delete bookList._id
-          return Promise.resolve(bookList)
-        }, error => {
-          return Promise.reject(error)
-        })
+            options = Object.assign({}, options, {id: id})
+            return books.find(options)
+          }))
+          .then(result => {
+            bookList.books = result
+            delete bookList._id
+            return Promise.resolve(bookList)
+          }, error => {
+            return Promise.reject(error)
+          })
       }, error => {
         return Promise.reject(error)
       })
@@ -81,4 +86,4 @@ const bookList = {
   }
 }
 
-module.exports = bookList
+module.exports = collections

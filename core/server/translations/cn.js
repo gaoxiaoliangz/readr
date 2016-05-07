@@ -41,6 +41,9 @@ const cn = {
         doubanInfoNotFound: '未找到书籍信息',
         bookExists: '书籍已存在'
       },
+      collections: {
+        notFound: '书单未找到'
+      },
       users: {
         userNotFound: '用户不存在',
         usernameUnavailable: '用户名已存在',

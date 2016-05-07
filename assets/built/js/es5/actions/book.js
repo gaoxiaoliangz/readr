@@ -4,7 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.fetchBookProgress = fetchBookProgress;
-exports.fetchBookList = fetchBookList;
+exports.fetchBooks = fetchBooks;
+exports.fetchCollection = fetchCollection;
 exports.fetchBookContent = fetchBookContent;
 exports.fetchBookInfo = fetchBookInfo;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
@@ -29,13 +30,24 @@ function fetchBookProgress(bookId) {
   };
 }
 
-function fetchBookList(filter) {
+function fetchBooks(filter) {
   return {
     filter: filter,
     CALL_API: {
-      types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE'],
+      types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
       endpoint: 'books?filter=' + filter,
       schema: _schemas.Schemas.BOOK_ARRAY
+    }
+  };
+}
+
+function fetchCollection(collectionId) {
+  return {
+    collectionId: collectionId,
+    CALL_API: {
+      types: ['COLLECTION_REQUEST', 'COLLECTION_SUCCESS', 'COLLECTION_FAILURE'],
+      endpoint: 'collections/' + collectionId,
+      schema: _schemas.Schemas.COLLECTION
     }
   };
 }

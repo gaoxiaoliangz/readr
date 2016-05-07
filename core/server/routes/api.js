@@ -6,9 +6,9 @@ const middleware = require('../middleware')
 const router = express.Router()
 
 function apiRoutes() {
-  // book list
-  router.post('/booklist', middleware.getUserInfo, api.http(api.bookList.add))
-  router.get('/booklist/:id', middleware.getUserInfo, api.http(api.bookList.find))
+  // collections
+  router.post('/collections', middleware.getUserInfo, api.http(api.collections.add))
+  router.get('/collections/:id', middleware.getUserInfo, api.http(api.collections.find))
 
   // books
   router.post('/books', middleware.getUserInfo, api.http(api.books.add))

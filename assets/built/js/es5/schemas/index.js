@@ -11,6 +11,10 @@ var book = new _normalizr.Schema('books', {
   idAttribute: 'id'
 });
 
+var collection = new _normalizr.Schema('collections', {
+  idAttribute: 'id'
+});
+
 var user = new _normalizr.Schema('users', {
   idAttribute: 'id'
 });
@@ -33,5 +37,6 @@ var Schemas = exports.Schemas = {
   BOOK_ARRAY: (0, _normalizr.arrayOf)(book),
   DOUBAN_BOOK_SEARCH_RESULTS: { books: (0, _normalizr.arrayOf)(doubanBook) },
   USER_ARRAY: (0, _normalizr.arrayOf)(user),
-  MATCHED_BOOK_ARRAY: (0, _normalizr.arrayOf)(matchedBooks)
+  MATCHED_BOOK_ARRAY: (0, _normalizr.arrayOf)(matchedBooks),
+  COLLECTION: collection
 };

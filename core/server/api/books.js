@@ -129,7 +129,7 @@ const books = {
   find(options) {
     const requiredOptions = ['id']
     const additionalOptions = ['fields']
-    const defaultFields = ['id', 'title', 'author', 'date_created']
+    const defaultFields = ['id', 'title', 'author', 'date_created', 'image']
 
     const doQuery = (options) => {
       return models.getData('books', {id: options.id}).then(result => {

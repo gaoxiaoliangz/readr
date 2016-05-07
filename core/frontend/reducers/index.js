@@ -52,9 +52,13 @@ function session(state = { user: { role: 'visitor' } }, action) {
 
 // Updates the pagination data for different actions.
 const pagination = combineReducers({
-  bookList: paginate({
+  // bookList: paginate({
+  //   mapActionToKey: action => action.filter,
+  //   types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
+  // }),
+  filteredBooks: paginate({
     mapActionToKey: action => action.filter,
-    types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
+    types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE']
   }),
   userList: paginate({
     // TODO

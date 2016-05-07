@@ -80,11 +80,15 @@ function session() {
 
 // Updates the pagination data for different actions.
 var pagination = (0, _redux.combineReducers)({
-  bookList: (0, _paginate2.default)({
+  // bookList: paginate({
+  //   mapActionToKey: action => action.filter,
+  //   types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
+  // }),
+  filteredBooks: (0, _paginate2.default)({
     mapActionToKey: function mapActionToKey(action) {
       return action.filter;
     },
-    types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
+    types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE']
   }),
   userList: (0, _paginate2.default)({
     // TODO

@@ -4,6 +4,10 @@ const book = new Schema('books', {
   idAttribute: 'id'
 })
 
+const collection = new Schema('collections', {
+  idAttribute: 'id'
+})
+
 const user = new Schema('users', {
   idAttribute: 'id'
 })
@@ -26,5 +30,6 @@ export const Schemas = {
   BOOK_ARRAY: arrayOf(book),
   DOUBAN_BOOK_SEARCH_RESULTS: {books: arrayOf(doubanBook)},
   USER_ARRAY: arrayOf(user),
-  MATCHED_BOOK_ARRAY: arrayOf(matchedBooks)
+  MATCHED_BOOK_ARRAY: arrayOf(matchedBooks),
+  COLLECTION: collection
 }
