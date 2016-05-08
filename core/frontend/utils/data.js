@@ -1,11 +1,11 @@
 import callApi from './callApi'
 import ApiRoots from 'constants/ApiRoots'
 
-export function addBookList(name, books, description) {
+export function addBookList(name, ids, description) {
   const data = {
     name,
-    books,
+    ids,
     description
   }
-  return callApi({ fullUrl: `${ApiRoots.LOCAL}booklist`, method: 'POST', data: data })
+  return callApi({ fullUrl: `${ApiRoots.LOCAL}collections`, method: 'POST', data: data })
 }

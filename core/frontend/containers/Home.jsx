@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchUserAuthInfo, fetchBooks, fetchCollection } from 'actions'
+import { fetchUserAuthInfo, fetchBooks, fetchCollections } from 'actions'
 import BookListSection from 'components/BookListSection'
 import Loading from 'components/Loading'
 import CandyBox from 'components/CandyBox'
@@ -19,7 +19,7 @@ class Home extends Component {
   componentDidMount() {
     this.props.fetchBooks('newest')
     this.props.fetchBooks('user')
-    this.props.fetchCollection('83340896')
+    this.props.fetchCollections()
   }
 
   render() {
@@ -36,7 +36,7 @@ class Home extends Component {
         link: `/book/${book.id}`
       }
     })
-    let collection = this.props.collection?this.props.collection.books:[]
+    let collection = this.props.collection?this.props.collection.content:[]
 
     return (
       <div>
@@ -79,5 +79,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchCollection }
+  { fetchBooks, fetchCollections }
 )(Home)

@@ -23,6 +23,16 @@ export function fetchBooks(filter) {
   }
 }
 
+export function fetchCollections() {
+  return {
+    CALL_API: {
+      types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE'],
+      endpoint: `collections`,
+      schema: Schemas.COLLECTION_ARRAY
+    }
+  }
+}
+
 export function fetchCollection(collectionId) {
   return {
     collectionId,

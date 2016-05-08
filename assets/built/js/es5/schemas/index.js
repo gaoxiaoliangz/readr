@@ -38,5 +38,6 @@ var Schemas = exports.Schemas = {
   DOUBAN_BOOK_SEARCH_RESULTS: { books: (0, _normalizr.arrayOf)(doubanBook) },
   USER_ARRAY: (0, _normalizr.arrayOf)(user),
   MATCHED_BOOK_ARRAY: (0, _normalizr.arrayOf)(matchedBooks),
-  COLLECTION: collection
+  COLLECTION: collection,
+  COLLECTION_ARRAY: (0, _normalizr.arrayOf)(collection)
 };

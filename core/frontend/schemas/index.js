@@ -31,5 +31,6 @@ export const Schemas = {
   DOUBAN_BOOK_SEARCH_RESULTS: {books: arrayOf(doubanBook)},
   USER_ARRAY: arrayOf(user),
   MATCHED_BOOK_ARRAY: arrayOf(matchedBooks),
-  COLLECTION: collection
+  COLLECTION: collection,
+  COLLECTION_ARRAY: arrayOf(collection)
 }

@@ -25,6 +25,7 @@ class AddBookList extends Component{
     let books = this.props.books
 
     return this.props.bookSearchResults?this.props.bookSearchResults[query].ids.map((id, index) => {
+      console.log(id);
       return books[id]
     }):[]
   }

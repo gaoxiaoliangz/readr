@@ -59,7 +59,7 @@ var Home = function (_Component) {
     value: function componentDidMount() {
       this.props.fetchBooks('newest');
       this.props.fetchBooks('user');
-      this.props.fetchCollection('83340896');
+      this.props.fetchCollections();
     }
   }, {
     key: 'render',
@@ -77,7 +77,7 @@ var Home = function (_Component) {
           link: '/book/' + book.id
         };
       });
-      var collection = this.props.collection ? this.props.collection.books : [];
+      var collection = this.props.collection ? this.props.collection.content : [];
 
       return _react2.default.createElement(
         'div',
@@ -130,4 +130,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBooks: _actions.fetchBooks, fetchCollection: _actions.fetchCollection })(Home);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBooks: _actions.fetchBooks, fetchCollections: _actions.fetchCollections })(Home);

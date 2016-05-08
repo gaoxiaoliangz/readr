@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchBookList } from 'actions'
+import { fetchBooks } from 'actions'
 import { Link } from 'react-router'
 
 class ManageBooks extends Component {
@@ -10,7 +10,7 @@ class ManageBooks extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBookList('newest')
+    this.props.fetchBooks('newest')
   }
 
   render() {
@@ -45,7 +45,7 @@ class ManageBooks extends Component {
 
 function mapStateToProps(state, ownProps) {
   const {
-    pagination: { bookList },
+    pagination: { filteredBooks },
     entities: { books }
   } = state
 
@@ -54,11 +54,11 @@ function mapStateToProps(state, ownProps) {
   )
 
   return {
-    bookListNewest: genList(bookList['newest'])
+    bookListNewest: genList(filteredBooks['newest'])
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchBookList }
+  { fetchBooks }
 )(ManageBooks)

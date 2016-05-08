@@ -26,7 +26,7 @@ var users = {
 
     const tasks = [
       utils.validate(requiredOptions),
-      utils.checkAdminPermissions,
+      utils.requireAdminPermissions,
       doQuery
     ]
 
@@ -50,7 +50,7 @@ var users = {
 
     const tasks = [
       utils.validate(requiredOptions),
-      utils.checkAdminPermissions,
+      utils.requireAdminPermissions,
       doQuery
     ]
 

@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchBookProgress = fetchBookProgress;
 exports.fetchBooks = fetchBooks;
+exports.fetchCollections = fetchCollections;
 exports.fetchCollection = fetchCollection;
 exports.fetchBookContent = fetchBookContent;
 exports.fetchBookInfo = fetchBookInfo;
@@ -37,6 +38,16 @@ function fetchBooks(filter) {
       types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
       endpoint: 'books?filter=' + filter,
       schema: _schemas.Schemas.BOOK_ARRAY
+    }
+  };
+}
+
+function fetchCollections() {
+  return {
+    CALL_API: {
+      types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE'],
+      endpoint: 'collections',
+      schema: _schemas.Schemas.COLLECTION_ARRAY
     }
   };
 }

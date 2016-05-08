@@ -36,7 +36,7 @@ var ManageBooks = function (_Component) {
   _createClass(ManageBooks, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookList('newest');
+      this.props.fetchBooks('newest');
     }
   }, {
     key: 'render',
@@ -116,7 +116,7 @@ var ManageBooks = function (_Component) {
 }(_react.Component);
 
 function mapStateToProps(state, ownProps) {
-  var bookList = state.pagination.bookList;
+  var filteredBooks = state.pagination.filteredBooks;
   var books = state.entities.books;
 
 
@@ -127,8 +127,8 @@ function mapStateToProps(state, ownProps) {
   };
 
   return {
-    bookListNewest: genList(bookList['newest'])
+    bookListNewest: genList(filteredBooks['newest'])
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBookList: _actions.fetchBookList })(ManageBooks);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBooks: _actions.fetchBooks })(ManageBooks);

@@ -6,8 +6,14 @@ const middleware = require('../middleware')
 const router = express.Router()
 
 function apiRoutes() {
+  // authors
+  router.post('/authors', middleware.getUserInfo, api.http(api.authors.add))
+  router.get('/authors', middleware.getUserInfo, api.http(api.authors.browse))
+  router.get('/authors/:id', middleware.getUserInfo, api.http(api.authors.find))
+
   // collections
   router.post('/collections', middleware.getUserInfo, api.http(api.collections.add))
+  router.get('/collections', middleware.getUserInfo, api.http(api.collections.browse))
   router.get('/collections/:id', middleware.getUserInfo, api.http(api.collections.find))
 
   // books

@@ -11,14 +11,17 @@ const books = require('./books')
 
 const collections = {
   add(object, options) {
-    let requiredOptions = ['books', 'description', 'name']
+    let requiredOptions = ['items', 'description', 'name']
 
     const doQuery = (options) => {
-      options.data.books = JSON.parse(options.data.books)
+      // 暂时没加 item 的验证，如果不存在，browse 的时候不会输出
+      options.data.items = JSON.parse(options.data.items)
 
-      let bookList = Object.assign({}, { creator_id: options.context.user.id }, options.data)
+      let collection = Object.assign({}, { creator_id: options.context.user.id }, options.data)
+      // TODO
+      collection.type = 'book'
 
-      return models.putData('collections', bookList).then(result => {
+      return models.create('collections', collection).then(result => {
         return Promise.resolve(result)
       }, error => {
         return Promise.reject(error)
@@ -27,7 +30,7 @@ const collections = {
 
     const tasks = [
       utils.validate(requiredOptions),
-      utils.checkAdminPermissions,
+      utils.requireAdminPermissions,
       doQuery
     ]
 
@@ -35,7 +38,28 @@ const collections = {
   },
 
   browse(options) {
+    const requiredOptions = []
 
+    const doQuery = (options) => {
+      return models.read('collections', null).then(result => {
+        if(result.length === 0) {
+          return Promise.resolve(result)
+        }
+
+        return Promise.all(result.map(item => {
+          return collections.find(Object.assign({}, options, {id: item.id}))
+        }))
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(requiredOptions),
+      doQuery
+    ]
+
+    return pipeline(tasks, options)
   },
 
   delete(options) {
@@ -50,21 +74,30 @@ const collections = {
     const requiredOptions = ['id']
 
     const doQuery = (options) => {
-      return models.getData('collections', {id: options.id}).then(result => {
+      return models.read('collections', {id: options.id}).then(result => {
         if(result.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.collections.notFound')))
         }
 
-        let bookList = result[0]
+        let collection = result[0]
 
-        return Promise.all(result[0].books.map(id => {
+        return Promise.all(result[0].items.map(id => {
             options = Object.assign({}, options, {id: id})
-            return books.find(options)
+            if(result[0].type === 'book') {
+              return books.find(options).then(result => result, error => Promise.resolve(null))
+            } else {
+              return Promise.reject(new Error('undefined type'))
+            }
           }))
           .then(result => {
-            bookList.books = result
-            delete bookList._id
-            return Promise.resolve(bookList)
+            result = result.filter(item => {
+              if(item !== null) {
+                return true
+              }
+            })
+            collection.items = result
+            delete collection._id
+            return Promise.resolve(collection)
           }, error => {
             return Promise.reject(error)
           })

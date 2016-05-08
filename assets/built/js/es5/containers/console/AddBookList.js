@@ -73,6 +73,7 @@ var AddBookList = function (_Component) {
       var books = this.props.books;
 
       return this.props.bookSearchResults ? this.props.bookSearchResults[query].ids.map(function (id, index) {
+        console.log(id);
         return books[id];
       }) : [];
     }

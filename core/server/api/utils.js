@@ -9,7 +9,7 @@ const utils = {
   globalDefaultOptions: ['context'],
   noTrimTypes: ['password'],
 
-  checkAdminPermissions(options) {
+  requireAdminPermissions(options) {
     let role = options.context.user?options.context.user.role:'visitor'
 
     if(role === 'admin') {
@@ -19,7 +19,7 @@ const utils = {
     }
   },
 
-  checkUserPermissions(options) {
+  requireUserPermissions(options) {
     let user = options.context.user?options.context.user:null
 
     return user?options: Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
