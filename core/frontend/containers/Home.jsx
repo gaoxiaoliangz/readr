@@ -36,7 +36,7 @@ class Home extends Component {
         link: `/book/${book.id}`
       }
     })
-    let collection = this.props.collection?this.props.collection.content:[]
+    let collection = this.props.collection?this.props.collection.items:[]
 
     return (
       <div>

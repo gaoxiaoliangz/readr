@@ -77,7 +77,7 @@ var Home = function (_Component) {
           link: '/book/' + book.id
         };
       });
-      var collection = this.props.collection ? this.props.collection.content : [];
+      var collection = this.props.collection ? this.props.collection.items : [];
 
       return _react2.default.createElement(
         'div',

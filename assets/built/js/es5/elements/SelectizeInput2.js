@@ -33,49 +33,58 @@ var SelectizeInput = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SelectizeInput).call(this, props));
 
     _this.state = {
-      showOptions: false,
-      focus: false,
-      value: ''
+      tags: [],
+      showQueryResult: false,
+      focus: false
     };
     return _this;
   }
 
   _createClass(SelectizeInput, [{
-    key: 'addValue',
-    value: function addValue(value) {
-      var _this2 = this;
-
-      var values = [].concat(_toConsumableArray(this.props.values), [value]);
-
+    key: 'handleFocus',
+    value: function handleFocus() {
       this.setState({
-        showOptions: false,
-        value: ''
-      }, function () {
-        _this2.props.onValuesChange(values);
+        focus: true
+      });
+    }
+  }, {
+    key: 'handleBlur',
+    value: function handleBlur() {
+      this.setState({
+        focus: false
+      });
+    }
+  }, {
+    key: 'removeTag',
+    value: function removeTag(targetIndex) {
+      this.props.resetValue();
+      this.setState({
+        tags: this.state.tags.filter(function (tag, index) {
+          return targetIndex !== index ? true : false;
+        }),
+        showQueryResult: false
       });
       this.getFocus();
     }
   }, {
-    key: 'removeValue',
-    value: function removeValue(targetIndex) {
-      this.props.onValuesChange(this.props.values.filter(function (value, index) {
-        return targetIndex !== index ? true : false;
-      }));
-      this.setState({
-        showOptions: false,
-        value: ''
-      });
-      this.getFocus();
+    key: 'handleKey',
+    value: function handleKey(e) {
+      if (e.keyCode === 8 && !this.props.value) {
+        this.removeTag(this.state.tags.length - 1);
+      }
+      if (e.keyCode === 13 && this.state.showQueryResult) {
+        this.addTag(this.props.queryResults[0]);
+      }
     }
   }, {
-    key: 'handleKeyPress',
-    value: function handleKeyPress(e) {
-      if (e.keyCode === 8 && !this.state.value) {
-        this.removeValue(this.props.values.length - 1);
-      }
-      if (e.keyCode === 13 && this.state.showOptions) {
-        this.addValue(this.props.options[0]);
-      }
+    key: 'addTag',
+    value: function addTag(tag) {
+      this.props.resetValue();
+      this.setState({
+        tags: [].concat(_toConsumableArray(this.state.tags), [tag]),
+        showQueryResult: false
+      });
+      this.getFocus();
     }
   }, {
     key: 'getFocus',
@@ -83,70 +92,62 @@ var SelectizeInput = function (_Component) {
       this.refs.input.focus();
     }
   }, {
+    key: 'resetTags',
+    value: function resetTags() {
+      this.setState({
+        tags: []
+      });
+    }
+  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (this.state.value !== '') {
+      if (nextProps.value != '') {
         this.setState({
-          showOptions: true
+          showQueryResult: true
         });
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
-      var value = this.state.value;
-      var values = this.props.values;
-      var options = this.props.options ? this.props.options : [];
-      var _onChange = this.props.onChange ? this.props.onChange : null;
+      var value = this.props.value;
+      var tags = this.state.tags;
+      var queryResults = this.props.queryResults ? this.props.queryResults : [];
+      var onChange = this.props.onChange;
+      var className = 'selectize-input' + (this.props.className ? ' ' + this.props.className : '') + (this.state.focus === true ? ' focus' : '') + (tags.length === 0 ? ' empty' : '');
       var initialInputWidth = this.props.initialInputWidth ? this.props.initialInputWidth : '100%';
-      var inputWidth = values.length > 0 ? value.length === 0 ? 16 : value.length * 16 : initialInputWidth;
-      var placeholder = values.length > 0 ? '' : this.props.placeholder;
-      var className = 'selectize-input' + (this.props.className ? ' ' + this.props.className : '') + (this.state.focus === true ? ' focus' : '') + (values.length === 0 ? ' empty' : '');
+      var inputWidth = tags.length > 0 ? value.length === 0 ? 16 : value.length * 16 : initialInputWidth;
+      var placeholder = tags.length > 0 ? '' : this.props.placeholder;
 
       return _react2.default.createElement(
         'div',
         { onClick: this.getFocus.bind(this), className: className },
-        values.map(function (value, index) {
+        tags.map(function (tag, index) {
           return _react2.default.createElement(
             'span',
             { key: index, className: 'tag' },
-            value,
-            _react2.default.createElement(_Icon2.default, {
-              size: "small",
-              name: 'close-light',
-              onClick: _this3.removeValue.bind(_this3, index)
-            })
+            tag.text,
+            _react2.default.createElement(_Icon2.default, { size: "small", name: 'close-light', onClick: _this2.removeTag.bind(_this2, index) })
           );
         }),
         _react2.default.createElement('input', {
+          onKeyDown: this.handleKey.bind(this),
           style: { width: inputWidth },
-          ref: 'input',
-          value: value,
-          placeholder: placeholder,
-          onKeyDown: this.handleKeyPress.bind(this),
-          onBlur: function onBlur() {
-            _this3.setState({ focus: false });
-          },
-          onFocus: function onFocus() {
-            _this3.setState({ focus: true });
-          },
-          onChange: function onChange(event) {
-            _this3.setState({
-              value: event.target.value
-            });
-            _onChange(event);
-          }
+          ref: 'input', onBlur: this.handleBlur.bind(this),
+          onFocus: this.handleFocus.bind(this),
+          onChange: onChange, value: value,
+          placeholder: placeholder
         }),
-        this.state.showOptions ? _react2.default.createElement(
+        this.state.showQueryResult ? _react2.default.createElement(
           'ul',
           { className: 'query-results' },
-          options.map(function (option, index) {
+          queryResults.map(function (result, index) {
             return _react2.default.createElement(
               'li',
-              { onClick: _this3.addValue.bind(_this3, option), key: index },
-              option
+              { onClick: _this2.addTag.bind(_this2, result), key: index },
+              result.text
             );
           })
         ) : null
@@ -158,8 +159,7 @@ var SelectizeInput = function (_Component) {
 }(_react.Component);
 
 SelectizeInput.propTypes = {
-  values: _react2.default.PropTypes.array.isRequired,
-  onValuesChange: _react2.default.PropTypes.func.isRequired
+  // placeholder: React.PropTypes.string.isRequired
 };
 
 exports.default = SelectizeInput;

@@ -7,7 +7,7 @@ import Input from 'elements/Input'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
 import Notification from 'components/Notification'
-import * as data from 'utils/data'
+import * as data from 'utils/apis'
 
 class AddBookList extends Component{
 

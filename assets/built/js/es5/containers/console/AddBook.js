@@ -36,9 +36,21 @@ var _Input = require('elements/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
+var _Button = require('elements/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _SelectizeInput = require('elements/SelectizeInput');
+
+var _SelectizeInput2 = _interopRequireDefault(_SelectizeInput);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
+
+var _apis = require('utils/apis');
+
+var _apis2 = _interopRequireDefault(_apis);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47,6 +59,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ReactSelectize = require("react-selectize");
+var SimpleSelect = ReactSelectize.SimpleSelect;
+var MultiSelect = ReactSelectize.MultiSelect;
 
 var AddBook = function (_Component) {
   _inherits(AddBook, _Component);
@@ -60,67 +76,96 @@ var AddBook = function (_Component) {
       searchQuery: "",
       currentBook: -1,
       previewIndex: -1,
-      conformed: false
+      conformed: false,
+      bookTitle: '',
+      bookAuthor: '',
+      bookCover: '',
+      bookDescription: '',
+      bookContent: '',
+      dbQuery: '',
+      dbBook: []
     };
     _this.state = _this.defaultState;
     _this.fetchDoubanBookSearchResults = _lodash2.default.debounce(_this.props.fetchDoubanBookSearchResults, 150);
     return _this;
   }
 
+  // handleAddBook2(event) {
+  //   event.preventDefault()
+  //
+  //   let currentBook = this.state.currentBook
+  //   let dataToPost = {}
+  //   let bookContent = ReactDOM.findDOMNode(this.refs.bookContent).value
+  //   let isValid = false
+  //
+  //   console.log(this.state);
+  //
+  //   while (true) {
+  //     if(currentBook !== -1) {
+  //       dataToPost.bookInfo = this.props.doubanBooks[this.props.doubanBookSearchResults[this.state.searchQuery].ids.filter((book, index) => {
+  //         if(index === currentBook) {
+  //           return true
+  //         }
+  //       })[0]]
+  //     }else{
+  //       this.props.handleNotification('未选择书籍！')
+  //       break
+  //     }
+  //
+  //     if(bookContent) {
+  //       dataToPost.bookContent = bookContent
+  //     }else{
+  //       this.props.handleNotification('请输入书籍内容！')
+  //       break
+  //     }
+  //
+  //     isValid = true
+  //     break
+  //   }
+  //
+  //   dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo)
+  //
+  //   if(isValid) {
+  //     callApi({ fullUrl: `${ApiRoots.LOCAL}books`, method: 'POST', data: dataToPost }).then(res => {
+  //       this.props.handleNotification('添加成功')
+  //       this.removeResult()
+  //       ReactDOM.findDOMNode(this.refs.bookContent).value = ''
+  //     }).catch((err) => {
+  //       console.error(err)
+  //       this.props.handleNotification(err.message)
+  //     })
+  //   }
+  // }
+
   _createClass(AddBook, [{
     key: 'handleAddBook',
-    value: function handleAddBook(event) {
+    value: function handleAddBook(e) {
       var _this2 = this;
 
-      event.preventDefault();
-
-      var currentBook = this.state.currentBook;
-      var dataToPost = {};
-      var bookContent = _reactDom2.default.findDOMNode(this.refs.bookContent).value;
-      var isValid = false;
-
-      while (true) {
-        if (currentBook !== -1) {
-          dataToPost.bookInfo = this.props.doubanBooks[this.props.doubanBookSearchResults[this.state.searchQuery].ids.filter(function (book, index) {
-            if (index === currentBook) {
-              return true;
-            }
-          })[0]];
-        } else {
-          this.props.handleNotification('未选择书籍！');
-          break;
-        }
-
-        if (bookContent) {
-          dataToPost.bookContent = bookContent;
-        } else {
-          this.props.handleNotification('请输入书籍内容！');
-          break;
-        }
-
-        isValid = true;
-        break;
-      }
-
-      dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo);
-
-      if (isValid) {
-        (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books', method: 'POST', data: dataToPost }).then(function (res) {
-          _this2.props.handleNotification('添加成功');
-          _this2.removeResult();
-          _reactDom2.default.findDOMNode(_this2.refs.bookContent).value = '';
-        }).catch(function (err) {
-          console.error(err);
-          _this2.props.handleNotification(err.message);
-        });
-      }
+      var data = {
+        title: this.state.bookTitle,
+        description: this.state.bookDescription,
+        content: this.state.bookContent,
+        author: '567890',
+        cover: this.state.bookCover
+      };
+      console.log(data);
+      _apis2.default.addBook(data).then(function (result) {
+        _this2.props.handleNotification('添加成功');
+      }, function (error) {
+        _this2.props.handleNotification(err.message);
+      });
+      e.preventDefault();
     }
   }, {
     key: 'search',
     value: function search(event) {
       var query = event.target.value;
 
-      this.setState({ searchQuery: query });
+      this.setState({
+        searchQuery: query,
+        dbQuery: query
+      });
       if (query !== '') {
         this.fetchDoubanBookSearchResults(query);
       }
@@ -154,7 +199,7 @@ var AddBook = function (_Component) {
       var searchResultIds = this.props.doubanBookSearchResults[this.state.searchQuery] ? this.props.doubanBookSearchResults[this.state.searchQuery].ids : [];
       var doubanBooks = this.props.doubanBooks;
       var searchResults = searchResultIds.map(function (id) {
-        return doubanBooks[id];
+        return doubanBooks[id].title;
       });
 
       if (this.state.currentBook !== -1) {
@@ -168,9 +213,48 @@ var AddBook = function (_Component) {
         _react2.default.createElement(
           'h1',
           { className: 'page-title' },
-          'Add book'
+          'Add Book'
         ),
+        _react2.default.createElement(_SelectizeInput2.default, {
+          onChange: this.search.bind(this),
+          onValuesChange: function onValuesChange(values) {
+            _this3.setState({
+              dbBook: values
+            });
+          },
+          ref: 'dbBook',
+          options: searchResults,
+          values: this.state.dbBook,
+          placeholder: 'Type book name to begin'
+        }),
         !this.state.conformed ? _react2.default.createElement(_Input2.default, { onChange: this.search.bind(this), value: this.state.searchQuery, placeholder: 'Type something to match book info' }) : null,
+        _react2.default.createElement(_Input2.default, {
+          onChange: function onChange(event) {
+            _this3.setState({
+              bookTitle: event.target.value
+            });
+          },
+          value: this.state.bookTitle,
+          placeholder: 'Title'
+        }),
+        _react2.default.createElement(_Input2.default, {
+          onChange: function onChange(event) {
+            _this3.setState({
+              bookAuthor: event.target.value
+            });
+          },
+          value: this.state.bookAuthor,
+          placeholder: 'Author'
+        }),
+        _react2.default.createElement(_Input2.default, {
+          onChange: function onChange(event) {
+            _this3.setState({
+              bookCover: event.target.value
+            });
+          },
+          value: this.state.bookCover,
+          placeholder: 'Cover'
+        }),
         !this.state.conformed && searchResults ? _react2.default.createElement(
           'div',
           { className: 'drop-down' },
@@ -214,15 +298,34 @@ var AddBook = function (_Component) {
             book.author[0]
           ),
           _react2.default.createElement(
-            'button',
-            { className: 'btn', onClick: this.removeResult.bind(this) },
+            _Button2.default,
+            { onClick: this.removeResult.bind(this) },
             'Reselect'
           )
         ) : null,
-        _react2.default.createElement('textarea', { placeholder: 'Paste book content here', style: { height: 200 }, name: 'book_content', ref: 'bookContent' }),
+        _react2.default.createElement('textarea', {
+          placeholder: 'Description',
+          style: { height: 100 },
+          value: this.state.bookDescription,
+          onChange: function onChange(event) {
+            _this3.setState({
+              bookDescription: event.target.value
+            });
+          }
+        }),
+        _react2.default.createElement('textarea', {
+          placeholder: 'Paste book content here',
+          style: { height: 100 },
+          value: this.state.bookContent,
+          onChange: function onChange(event) {
+            _this3.setState({
+              bookContent: event.target.value
+            });
+          }
+        }),
         _react2.default.createElement(
-          'button',
-          { className: 'btn', onClick: this.handleAddBook.bind(this) },
+          _Button2.default,
+          { onClick: this.handleAddBook.bind(this) },
           'Add'
         )
       );

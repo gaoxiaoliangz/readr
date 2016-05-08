@@ -86,7 +86,7 @@ var pagination = (0, _redux.combineReducers)({
   // }),
   filteredBooks: (0, _paginate2.default)({
     mapActionToKey: function mapActionToKey(action) {
-      return action.filter;
+      return action.flow;
     },
     types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE']
   }),
