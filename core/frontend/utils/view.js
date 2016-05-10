@@ -23,3 +23,9 @@ export function lockScroll(){
 export function unlockScroll(){
   document.body.style.overflow = 'visible'
 }
+
+export default {
+  getBookView,
+  lockScroll,
+  unlockScroll
+}

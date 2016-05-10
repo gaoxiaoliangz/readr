@@ -51,7 +51,7 @@ const authors = {
 
       return models.read('authors', match).then(result => {
         if(result.length === 0) {
-          return Promise.reject(result)
+          return Promise.resolve(result)
         }
 
         return Promise.all(result.map(item => {

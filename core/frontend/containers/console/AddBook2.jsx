@@ -9,7 +9,6 @@ import Notification from 'components/Notification'
 import Input from 'elements/Input'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
-import Modal from 'elements/Modal'
 import _ from 'lodash'
 import apis from 'utils/apis'
 
@@ -26,20 +25,63 @@ class AddBook extends Component {
       previewIndex: -1,
       conformed: false,
       bookTitle: '',
-
+      bookAuthor: '',
       bookCover: '',
       bookDescription: '',
       bookContent: '',
       dbQuery: '',
-      dbBook: [],
-
-      authorSearch: [],
-      bookAuthor: [],
-      isAddAuthorModalVisible: false
+      dbBook: []
     }
     this.state = this.defaultState
     this.fetchDoubanBookSearchResults = _.debounce(this.props.fetchDoubanBookSearchResults, 150)
   }
+
+  // handleAddBook2(event) {
+  //   event.preventDefault()
+  //
+  //   let currentBook = this.state.currentBook
+  //   let dataToPost = {}
+  //   let bookContent = ReactDOM.findDOMNode(this.refs.bookContent).value
+  //   let isValid = false
+  //
+  //   console.log(this.state);
+  //
+  //   while (true) {
+  //     if(currentBook !== -1) {
+  //       dataToPost.bookInfo = this.props.doubanBooks[this.props.doubanBookSearchResults[this.state.searchQuery].ids.filter((book, index) => {
+  //         if(index === currentBook) {
+  //           return true
+  //         }
+  //       })[0]]
+  //     }else{
+  //       this.props.handleNotification('未选择书籍！')
+  //       break
+  //     }
+  //
+  //     if(bookContent) {
+  //       dataToPost.bookContent = bookContent
+  //     }else{
+  //       this.props.handleNotification('请输入书籍内容！')
+  //       break
+  //     }
+  //
+  //     isValid = true
+  //     break
+  //   }
+  //
+  //   dataToPost.bookInfo = JSON.stringify(dataToPost.bookInfo)
+  //
+  //   if(isValid) {
+  //     callApi({ fullUrl: `${ApiRoots.LOCAL}books`, method: 'POST', data: dataToPost }).then(res => {
+  //       this.props.handleNotification('添加成功')
+  //       this.removeResult()
+  //       ReactDOM.findDOMNode(this.refs.bookContent).value = ''
+  //     }).catch((err) => {
+  //       console.error(err)
+  //       this.props.handleNotification(err.message)
+  //     })
+  //   }
+  // }
 
   handleAddBook(e) {
     const data = {
@@ -70,17 +112,21 @@ class AddBook extends Component {
     }
   }
 
-  searchAuthors(event) {
-    let query = event.target.value
+  conformResult(index) {
+    this.setState({
+      currentBook: index,
+      conformed: true
+    })
+  }
 
-    if(query !== '') {
-      apis.searchAuthors(query).then(response => {
-        console.log(response)
-        this.setState({
-          authorSearch: response
-        })
-      })
-    }
+  showBookCover(index) {
+    this.setState({
+      previewIndex: index
+    })
+  }
+
+  removeResult() {
+    this.setState(this.defaultState)
   }
 
   render() {
@@ -90,115 +136,67 @@ class AddBook extends Component {
     let doubanBooks = this.props.doubanBooks
     let searchResults = searchResultIds.map(id => doubanBooks[id])
 
+    if(this.state.currentBook !== -1) {
+      book = searchResults[this.state.currentBook]
+    }
+
     return (
       <form>
-        <Modal
-          width={600}
-          isVisible={this.state.isAddAuthorModalVisible}
-          onRequestClose={() => {
-            this.setState({
-              isAddAuthorModalVisible: false
-            })
-          }}
-        >
-          <h1 className="page-title" style={{marginTop: 0}}>Add author</h1>
-          <Input
-            onChange={event => {
-              this.setState({
-                authorName: event.target.value
-              })
-            }}
-            value={this.state.authorName}
-            placeholder="Name"
-          />
-          <Input
-            onChange={event => {
-              this.setState({
-                authorSlug: event.target.value
-              })
-            }}
-            value={this.state.authorSlug}
-            placeholder="Slug"
-          />
-          <Button>Add</Button>
-        </Modal>
         <Notification notification={this.props.notification} />
         <h1 className="page-title">Add Book</h1>
         <SelectizeInput
-          ref="bookTitle"
           onChange={this.search.bind(this)}
           onValuesChange={(targetIndex, type) => {
             switch (type) {
               case 'ADD':
-                this.setState({
-                  dbBook: [...this.state.dbBook, searchResults[targetIndex]],
-                  bookCover: searchResults[targetIndex].image,
-                  bookDescription: searchResults[targetIndex].summary
-                })
-                // this.refs.bookAuthor.setState({
-                //   value: searchResults[targetIndex].author
-                // })
+              this.setState({
+                dbBook: [...this.state.dbBook, searchResults[targetIndex]]
+              })
               break
 
               case 'REMOVE':
-                this.setState({
-                  dbBook: this.state.dbBook.filter((value, index) => (targetIndex !== index?true:false))
-                })
+              this.setState({
+                dbBook: this.state.dbBook.filter((value, index) => (targetIndex !== index?true:false))
+              })
               break
 
               default:
-                console.error('Undefined type')
+              console.error('Undefined type')
             }
           }}
+          ref="dbBook"
           options={searchResults.map(a => ({
             value: a.title,
             subInfo: a.author,
             thumb: a.image
           }))}
           values={this.state.dbBook.map(book => book.title)}
-          placeholder="Book title"
-          addNewValue={() => {
-            let value = ReactDOM.findDOMNode(this.refs.bookTitle).querySelector('input').value
-            this.setState({
-              dbBook: [...this.state.dbBook, {title: value}]
-            })
-            this.refs.bookTitle.clearState()
-          }}
+          placeholder="Type book name to begin"
         />
 
-        <SelectizeInput
-          ref="bookAuthor"
-          onChange={this.searchAuthors.bind(this)}
-          onValuesChange={(targetIndex, type) => {
-            switch (type) {
-              case 'ADD':
-                this.setState({
-                  bookAuthor: [...this.state.bookAuthor, this.state.authorSearch[targetIndex]]
-                })
-              break
-
-              case 'REMOVE':
-                this.setState({
-                  bookAuthor: this.state.bookAuthor.filter((value, index) => (targetIndex !== index?true:false))
-                })
-              break
-
-              default:
-                console.error('Undefined type')
-            }
+        {
+          !this.state.conformed?(
+            <Input onChange={this.search.bind(this)} value={this.state.searchQuery} placeholder="Type something to match book info"/>
+          ):null
+        }
+        <Input
+          onChange={event => {
+            this.setState({
+              bookTitle: event.target.value
+            })
           }}
-          options={this.state.authorSearch.map(a => a.name)}
-          values={this.state.bookAuthor.map(a => a.name)}
+          value={this.state.bookTitle}
+          placeholder="Title"
+        />
+        <Input
+          onChange={event => {
+            this.setState({
+              bookAuthor: event.target.value
+            })
+          }}
+          value={this.state.bookAuthor}
           placeholder="Author"
-          addNewValue={() => {
-            this.setState({
-              bookAuthor: [...this.state.bookAuthor, { name: this.refs.bookAuthor.state.value }],
-              isAddAuthorModalVisible: true
-            })
-            this.refs.bookAuthor.clearState()
-          }}
         />
-
         <Input
           onChange={event => {
             this.setState({
@@ -208,7 +206,38 @@ class AddBook extends Component {
           value={this.state.bookCover}
           placeholder="Cover"
         />
-
+        {
+          !this.state.conformed && searchResults?(
+            <div className="drop-down">
+              <ul>
+                {
+                  searchResults.map((item, index)=>{
+                    return (
+                      <li onMouseOver={this.showBookCover.bind(this, index)} onClick={this.conformResult.bind(this, index)} key={index}>
+                        {item.title} ({item.author})
+                        {
+                          this.state.previewIndex === index?(
+                            <div><img src={item.image} /></div>
+                          ):null
+                        }
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+          ):null
+        }
+        {
+          book?(
+            <div className="book">
+              <div><img src={book.image} /></div>
+              <h2 className="book-name">{book.title}</h2>
+              <div className="book-author">作者：{book.author[0]}</div>
+              <Button onClick={this.removeResult.bind(this)}>Reselect</Button>
+            </div>
+          ):null
+        }
         <textarea
           placeholder="Description"
           style={{height: 100}}
@@ -219,7 +248,6 @@ class AddBook extends Component {
             })
           }}
         />
-
         <textarea
           placeholder="Paste book content here"
           style={{height: 100}}
@@ -230,7 +258,6 @@ class AddBook extends Component {
             })
           }}
         />
-
         <Button onClick={this.handleAddBook.bind(this)}>Add</Button>
       </form>
     )

@@ -17,7 +17,12 @@ export function addBook(data) {
   callApi({ fullUrl: `${ApiRoots.LOCAL}books`, method: 'POST', data: data })
 }
 
+export function searchAuthors(query) {
+  return callApi({ fullUrl: `${ApiRoots.LOCAL}authors?q=${query}` })
+}
+
 export default {
   addCollection,
-  addBook
+  addBook,
+  searchAuthors
 }

@@ -5,9 +5,9 @@ const errors = require('../errors')
 const _ = require('lodash')
 
 const validator = {
-  numberTypes: ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo', 'cover', 'dbBookId'],
+  numberTypes: ['pageSum', 'id', 'bookId', 'userId', 'percentage', 'pageNo', 'dbBookId'],
   stringifiedJSONTypes: ['bookInfo', 'ids', 'tags', 'author', 'items'],
-  stringTypes: ['email', 'password', 'login', 'username', 'role', 'name', 'fields', 'title', 'slug', 'flow', 'q'],
+  stringTypes: ['email', 'password', 'login', 'username', 'role', 'name', 'fields', 'title', 'slug', 'flow', 'q', 'cover'],
   longStringTypes: ['content', 'description'],
   stringMaxLength: 60,
 
