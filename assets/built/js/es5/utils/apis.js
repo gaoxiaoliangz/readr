@@ -7,6 +7,7 @@ exports.addCollection = addCollection;
 exports.addBook = addBook;
 exports.addAuthor = addAuthor;
 exports.searchAuthors = searchAuthors;
+exports.searchBooks = searchBooks;
 
 var _callApi = require('./callApi');
 
@@ -19,7 +20,7 @@ var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * data: name, content, description
+ * data: name, items, description
  */
 function addCollection(data) {
   return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'collections', method: 'POST', data: data });
@@ -43,9 +44,14 @@ function searchAuthors(query) {
   return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'authors?q=' + query });
 }
 
+function searchBooks(query) {
+  return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books?q=' + query });
+}
+
 exports.default = {
   addCollection: addCollection,
   addBook: addBook,
   addAuthor: addAuthor,
+  searchBooks: searchBooks,
   searchAuthors: searchAuthors
 };

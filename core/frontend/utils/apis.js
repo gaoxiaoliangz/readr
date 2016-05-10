@@ -3,7 +3,7 @@ import ApiRoots from 'constants/ApiRoots'
 
 
 /**
- * data: name, content, description
+ * data: name, items, description
  */
 export function addCollection(data) {
   return callApi({ fullUrl: `${ApiRoots.LOCAL}collections`, method: 'POST', data: data })
@@ -27,9 +27,14 @@ export function searchAuthors(query) {
   return callApi({ fullUrl: `${ApiRoots.LOCAL}authors?q=${query}` })
 }
 
+export function searchBooks(query) {
+  return callApi({ fullUrl: `${ApiRoots.LOCAL}books?q=${query}` })
+}
+
 export default {
   addCollection,
   addBook,
   addAuthor,
+  searchBooks,
   searchAuthors
 }

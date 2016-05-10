@@ -4,7 +4,7 @@ import Console from 'containers/console'
 import ManageBooks from 'containers/console/ManageBooks'
 import ManageUsers from 'containers/console/ManageUsers'
 import AddBook from 'containers/console/AddBook'
-import AddBookList from 'containers/console/AddBookList'
+import AddCollection from 'containers/console/AddCollection'
 import NoMatch from 'containers/NoMatch'
 
 export default (
@@ -14,7 +14,7 @@ export default (
       <Route path="managebooks" component={ManageBooks} />
       <Route path="manageusers" component={ManageUsers} />
       <Route path="addbook" component={AddBook} />
-      <Route path="addbooklist" component={AddBookList} />
+      <Route path="collection/new" component={AddCollection} />
     </Route>
     <Route path="*" component={NoMatch} />
   </Router>

@@ -26,9 +26,9 @@ var _AddBook = require('containers/console/AddBook');
 
 var _AddBook2 = _interopRequireDefault(_AddBook);
 
-var _AddBookList = require('containers/console/AddBookList');
+var _AddCollection = require('containers/console/AddCollection');
 
-var _AddBookList2 = _interopRequireDefault(_AddBookList);
+var _AddCollection2 = _interopRequireDefault(_AddCollection);
 
 var _NoMatch = require('containers/NoMatch');
 
@@ -46,7 +46,7 @@ exports.default = _react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: 'managebooks', component: _ManageBooks2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'manageusers', component: _ManageUsers2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'addbook', component: _AddBook2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'addbooklist', component: _AddBookList2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: 'collection/new', component: _AddCollection2.default })
   ),
   _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NoMatch2.default })
 );

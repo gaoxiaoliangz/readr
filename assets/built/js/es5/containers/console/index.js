@@ -63,16 +63,16 @@ var Console = function (_Component) {
         path: '/console/managebooks',
         children: [{
           component: 'managebooks',
-          displayName: 'Manage books',
+          displayName: 'Manage Books',
           path: '/console/managebooks'
         }, {
           component: 'addbook',
-          displayName: 'Add book',
+          displayName: 'Add Book',
           path: '/console/addbook'
         }, {
-          component: 'addbooklist',
-          displayName: 'Add book list',
-          path: '/console/addbooklist'
+          component: 'addcollection',
+          displayName: 'Add Collection',
+          path: '/console/collection/new'
         }]
       }, {
         component: 'users',
@@ -80,7 +80,7 @@ var Console = function (_Component) {
         path: '/console/manageusers',
         children: [{
           component: 'manageusers',
-          displayName: 'Manage users',
+          displayName: 'Manage Users',
           path: '/console/manageusers'
         }]
       }, {

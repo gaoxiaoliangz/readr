@@ -148,7 +148,7 @@ var AddCollection = function (_Component) {
         _react2.default.createElement(
           'h1',
           { className: 'page-title' },
-          'Add book list'
+          'Add Collection'
         ),
         _react2.default.createElement(_Input2.default, { value: this.state.collectionName, onChange: function onChange(e) {
             return _this5.setState({ collectionName: e.target.value });

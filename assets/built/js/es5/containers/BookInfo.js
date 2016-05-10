@@ -79,7 +79,7 @@ var BookInfo = function (_Component) {
     key: 'render',
     value: function render() {
       var bookInfo = this.props.bookInfo ? this.props.bookInfo : {};
-      console.log(bookinfo);
+      console.log(bookInfo);
 
       return _react2.default.createElement(
         'article',
