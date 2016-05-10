@@ -16,7 +16,7 @@ const auth = {
     function doQuery(options) {
       let login = options.login.toLowerCase()
 
-      return models.getData('users', {$or: [{slug: login}, {email: login}]}).then(result => {
+      return models.read('users', {$or: [{slug: login}, {email: login}]}).then(result => {
         if(result.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.auth.userDoesNotExist')))
         } else if (options.password === result[0].password){

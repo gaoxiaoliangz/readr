@@ -19,11 +19,13 @@ const books = {
       const raw = options.data.content
       const html = data.parseTextToHtml(raw)
 
+
       let book = Object.assign({}, humps.decamelizeKeys(options.data))
       book.content = {
         raw: raw,
         html: html
       }
+      book.author = JSON.parse(options.data.author)
 
       return models.create('books', book).then(result => {
         return Promise.resolve(result)

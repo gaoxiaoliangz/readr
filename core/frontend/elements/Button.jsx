@@ -30,9 +30,7 @@ class Button extends Component{
       className =+ ' btn-fluid'
     }
 
-    let method = this.props.onClick?this.props.onClick:null
     let to = this.props.to?this.props.to:null
-
     let onClick = this.props.onClick?this.props.onClick:null
 
     if(to) {

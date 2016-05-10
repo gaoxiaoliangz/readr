@@ -5,6 +5,7 @@ import Container from 'elements/Container'
 import Icon from 'elements/Icon'
 import ConsoleBranding from 'components/ConsoleBranding'
 import { userAuth, handleNotification } from 'actions'
+import Notification from 'components/Notification'
 
 class Console extends Component {
 
@@ -134,6 +135,7 @@ class Console extends Component {
       <div className={"page-"+pageName}>
         <ConsoleBranding isAdmin={isAdmin} username={username} />
         <Container isFluid={true}>
+          <Notification notification={this.props.notification} />
           {this.renderMenu(pageName)}
           <div className="content">
             {this.props.children}
@@ -146,7 +148,7 @@ class Console extends Component {
 
 export default connect(
   state => ({
-    notification: state.notification,
+    notification: state.components.notification,
     session: state.session,
     routing: state.routing
   }),

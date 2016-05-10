@@ -55,9 +55,7 @@ var Button = function (_Component) {
         className = +' btn-fluid';
       }
 
-      var method = this.props.onClick ? this.props.onClick : null;
       var to = this.props.to ? this.props.to : null;
-
       var onClick = this.props.onClick ? this.props.onClick : null;
 
       if (to) {

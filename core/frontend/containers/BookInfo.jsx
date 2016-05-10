@@ -26,6 +26,7 @@ class BookInfo extends Component {
 
   render() {
     let bookInfo = this.props.bookInfo?this.props.bookInfo:{}
+    console.log(bookInfo);
 
     return (
       <article className="book-info content-container">
@@ -37,9 +38,9 @@ class BookInfo extends Component {
         <header className="book-info-header">
           <div className="left-col">
             {
-              bookInfo.image?(
+              bookInfo.cover?(
                 <div className="book-cover">
-                  <img src={bookInfo.image} />
+                  <img src={bookInfo.cover} />
                 </div>
               ):null
             }
@@ -58,18 +59,18 @@ class BookInfo extends Component {
           </div>
         </header>
         {
-          bookInfo.author_intro?(
+          bookInfo.authorIntro?(
             <div>
               <h2>作者简介</h2>
-              <p>{bookInfo.author_intro}</p>
+              <p>{bookInfo.authorIntro}</p>
             </div>
           ):null
         }
         {
-          bookInfo.summary?(
+          bookInfo.description?(
             <div>
               <h2>内容简介</h2>
-              <p>{bookInfo.summary}</p>
+              <p>{bookInfo.description}</p>
             </div>
           ):null
         }

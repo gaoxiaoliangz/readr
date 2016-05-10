@@ -66,10 +66,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ReactSelectize = require("react-selectize");
-var SimpleSelect = ReactSelectize.SimpleSelect;
-var MultiSelect = ReactSelectize.MultiSelect;
-
 var AddBook = function (_Component) {
   _inherits(AddBook, _Component);
 
@@ -79,55 +75,70 @@ var AddBook = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddBook).call(this, props));
 
     _this.defaultState = {
-      searchQuery: "",
-      currentBook: -1,
-      previewIndex: -1,
-      conformed: false,
-      bookTitle: '',
-
+      dbBookQuery: "",
+      bookTitle: [],
+      bookAuthor: [],
       bookCover: '',
       bookDescription: '',
       bookContent: '',
-      dbQuery: '',
-      dbBook: [],
-
-      authorSearch: [],
-      bookAuthor: [],
+      authorResults: [],
       isAddAuthorModalVisible: false
     };
-    _this.state = _this.defaultState;
+    _this.state = Object.assign({}, _this.defaultState);
     _this.fetchDoubanBookSearchResults = _lodash2.default.debounce(_this.props.fetchDoubanBookSearchResults, 150);
     return _this;
   }
 
   _createClass(AddBook, [{
-    key: 'handleAddBook',
-    value: function handleAddBook(e) {
+    key: 'addBook',
+    value: function addBook(e) {
       var _this2 = this;
 
+      e.preventDefault();
       var data = {
-        title: this.state.bookTitle,
+        title: this.state.bookTitle[0].title,
         description: this.state.bookDescription,
         content: this.state.bookContent,
-        author: '567890',
+        author: JSON.stringify([this.state.bookAuthor[0].id]),
         cover: this.state.bookCover
       };
       console.log(data);
       _apis2.default.addBook(data).then(function (result) {
         _this2.props.handleNotification('添加成功');
+        _this2.setState(_this2.defaultState);
       }, function (error) {
-        _this2.props.handleNotification(err.message);
+        _this2.props.handleNotification(error.message);
       });
+    }
+  }, {
+    key: 'addAuthor',
+    value: function addAuthor(e) {
+      var _this3 = this;
+
       e.preventDefault();
+      var data = {
+        name: this.state.authorName,
+        description: this.state.authorDescription,
+        slug: this.state.authorSlug
+      };
+      _apis2.default.addAuthor(data).then(function (result) {
+        _this3.props.handleNotification('添加成功');
+        _this3.setState({
+          bookAuthor: [].concat(_toConsumableArray(_this3.state.bookAuthor), [{ name: _this3.state.authorName, id: result.id }]),
+          isAddAuthorModalVisible: false
+        });
+        _this3.refs.bookAuthor.clearState();
+      }, function (error) {
+        _this3.props.handleNotification(err.message);
+      });
     }
   }, {
     key: 'search',
-    value: function search(event) {
-      var query = event.target.value;
+    value: function search(e) {
+      var query = e.target.value;
 
       this.setState({
-        searchQuery: query,
-        dbQuery: query
+        dbBookQuery: query
       });
       if (query !== '') {
         this.fetchDoubanBookSearchResults(query);
@@ -135,16 +146,16 @@ var AddBook = function (_Component) {
     }
   }, {
     key: 'searchAuthors',
-    value: function searchAuthors(event) {
-      var _this3 = this;
+    value: function searchAuthors(e) {
+      var _this4 = this;
 
-      var query = event.target.value;
+      var query = e.target.value;
 
       if (query !== '') {
         _apis2.default.searchAuthors(query).then(function (response) {
           console.log(response);
-          _this3.setState({
-            authorSearch: response
+          _this4.setState({
+            authorResults: response
           });
         });
       }
@@ -152,10 +163,10 @@ var AddBook = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var book = null;
-      var searchResultIds = this.props.doubanBookSearchResults[this.state.searchQuery] ? this.props.doubanBookSearchResults[this.state.searchQuery].ids : [];
+      var searchResultIds = this.props.doubanBookSearchResults[this.state.dbBookQuery] ? this.props.doubanBookSearchResults[this.state.dbBookQuery].ids : [];
       var doubanBooks = this.props.doubanBooks;
       var searchResults = searchResultIds.map(function (id) {
         return doubanBooks[id];
@@ -170,7 +181,7 @@ var AddBook = function (_Component) {
             width: 600,
             isVisible: this.state.isAddAuthorModalVisible,
             onRequestClose: function onRequestClose() {
-              _this4.setState({
+              _this5.setState({
                 isAddAuthorModalVisible: false
               });
             }
@@ -182,7 +193,7 @@ var AddBook = function (_Component) {
           ),
           _react2.default.createElement(_Input2.default, {
             onChange: function onChange(event) {
-              _this4.setState({
+              _this5.setState({
                 authorName: event.target.value
               });
             },
@@ -191,20 +202,29 @@ var AddBook = function (_Component) {
           }),
           _react2.default.createElement(_Input2.default, {
             onChange: function onChange(event) {
-              _this4.setState({
+              _this5.setState({
                 authorSlug: event.target.value
               });
             },
             value: this.state.authorSlug,
             placeholder: 'Slug'
           }),
+          _react2.default.createElement('textarea', {
+            placeholder: 'Description',
+            style: { height: 100 },
+            value: this.state.authorDescription,
+            onChange: function onChange(event) {
+              _this5.setState({
+                authorDescription: event.target.value
+              });
+            }
+          }),
           _react2.default.createElement(
             _Button2.default,
-            null,
+            { onClick: this.addAuthor.bind(this) },
             'Add'
           )
         ),
-        _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
         _react2.default.createElement(
           'h1',
           { className: 'page-title' },
@@ -216,19 +236,16 @@ var AddBook = function (_Component) {
           onValuesChange: function onValuesChange(targetIndex, type) {
             switch (type) {
               case 'ADD':
-                _this4.setState({
-                  dbBook: [].concat(_toConsumableArray(_this4.state.dbBook), [searchResults[targetIndex]]),
+                _this5.setState({
+                  bookTitle: [].concat(_toConsumableArray(_this5.state.bookTitle), [searchResults[targetIndex]]),
                   bookCover: searchResults[targetIndex].image,
                   bookDescription: searchResults[targetIndex].summary
                 });
-                // this.refs.bookAuthor.setState({
-                //   value: searchResults[targetIndex].author
-                // })
                 break;
 
               case 'REMOVE':
-                _this4.setState({
-                  dbBook: _this4.state.dbBook.filter(function (value, index) {
+                _this5.setState({
+                  bookTitle: _this5.state.bookTitle.filter(function (value, index) {
                     return targetIndex !== index ? true : false;
                   })
                 });
@@ -245,16 +262,16 @@ var AddBook = function (_Component) {
               thumb: a.image
             };
           }),
-          values: this.state.dbBook.map(function (book) {
+          values: this.state.bookTitle.map(function (book) {
             return book.title;
           }),
           placeholder: 'Book title',
           addNewValue: function addNewValue() {
-            var value = _reactDom2.default.findDOMNode(_this4.refs.bookTitle).querySelector('input').value;
-            _this4.setState({
-              dbBook: [].concat(_toConsumableArray(_this4.state.dbBook), [{ title: value }])
+            var value = _reactDom2.default.findDOMNode(_this5.refs.bookTitle).querySelector('input').value;
+            _this5.setState({
+              bookTitle: [].concat(_toConsumableArray(_this5.state.bookTitle), [{ title: value }])
             });
-            _this4.refs.bookTitle.clearState();
+            _this5.refs.bookTitle.clearState();
           }
         }),
         _react2.default.createElement(_SelectizeInput2.default, {
@@ -263,14 +280,14 @@ var AddBook = function (_Component) {
           onValuesChange: function onValuesChange(targetIndex, type) {
             switch (type) {
               case 'ADD':
-                _this4.setState({
-                  bookAuthor: [].concat(_toConsumableArray(_this4.state.bookAuthor), [_this4.state.authorSearch[targetIndex]])
+                _this5.setState({
+                  bookAuthor: [].concat(_toConsumableArray(_this5.state.bookAuthor), [_this5.state.authorResults[targetIndex]])
                 });
                 break;
 
               case 'REMOVE':
-                _this4.setState({
-                  bookAuthor: _this4.state.bookAuthor.filter(function (value, index) {
+                _this5.setState({
+                  bookAuthor: _this5.state.bookAuthor.filter(function (value, index) {
                     return targetIndex !== index ? true : false;
                   })
                 });
@@ -280,7 +297,7 @@ var AddBook = function (_Component) {
                 console.error('Undefined type');
             }
           },
-          options: this.state.authorSearch.map(function (a) {
+          options: this.state.authorResults.map(function (a) {
             return a.name;
           }),
           values: this.state.bookAuthor.map(function (a) {
@@ -288,16 +305,17 @@ var AddBook = function (_Component) {
           }),
           placeholder: 'Author',
           addNewValue: function addNewValue() {
-            _this4.setState({
-              bookAuthor: [].concat(_toConsumableArray(_this4.state.bookAuthor), [{ name: _this4.refs.bookAuthor.state.value }]),
-              isAddAuthorModalVisible: true
+            var name = _this5.refs.bookAuthor.state.value;
+
+            _this5.setState({
+              isAddAuthorModalVisible: true,
+              authorName: name
             });
-            _this4.refs.bookAuthor.clearState();
           }
         }),
         _react2.default.createElement(_Input2.default, {
           onChange: function onChange(event) {
-            _this4.setState({
+            _this5.setState({
               bookCover: event.target.value
             });
           },
@@ -309,7 +327,7 @@ var AddBook = function (_Component) {
           style: { height: 100 },
           value: this.state.bookDescription,
           onChange: function onChange(event) {
-            _this4.setState({
+            _this5.setState({
               bookDescription: event.target.value
             });
           }
@@ -319,14 +337,14 @@ var AddBook = function (_Component) {
           style: { height: 100 },
           value: this.state.bookContent,
           onChange: function onChange(event) {
-            _this4.setState({
+            _this5.setState({
               bookContent: event.target.value
             });
           }
         }),
         _react2.default.createElement(
           _Button2.default,
-          { onClick: this.handleAddBook.bind(this) },
+          { onClick: this.addBook.bind(this) },
           'Add'
         )
       );

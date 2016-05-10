@@ -5,7 +5,7 @@ import Branding from 'components/Branding'
 import Container from 'elements/Container'
 import Colophon from 'components/Colophon'
 import { userAuth, handleNotification } from 'actions'
-
+import Notification from 'components/Notification'
 
 class App extends Component {
 
@@ -34,6 +34,7 @@ class App extends Component {
       <div className={"page-"+pageName}>
         <Branding isAdmin={isAdmin} username={username} />
         <Container>
+          <Notification notification={this.props.notification} />
           {this.props.children}
         </Container>
         <Colophon />
@@ -44,7 +45,7 @@ class App extends Component {
 
 export default connect(
   state => ({
-    notification: state.notification,
+    notification: state.components.notification,
     session: state.session
   }),
   { handleNotification, userAuth }

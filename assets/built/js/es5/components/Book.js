@@ -39,7 +39,7 @@ var Book = function (_Component) {
       var book = this.props.book;
       var title = book.title;
       var author = book.author;
-      var description = book.summary;
+      var description = book.description;
       var bookId = this.props.id;
 
       return _react2.default.createElement(

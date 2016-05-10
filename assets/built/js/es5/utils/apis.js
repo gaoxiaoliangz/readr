@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addCollection = addCollection;
 exports.addBook = addBook;
+exports.addAuthor = addAuthor;
 exports.searchAuthors = searchAuthors;
 
 var _callApi = require('./callApi');
@@ -17,12 +18,10 @@ var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function addCollection(name, ids, description) {
-  var data = {
-    name: name,
-    ids: ids,
-    description: description
-  };
+/**
+ * data: name, content, description
+ */
+function addCollection(data) {
   return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'collections', method: 'POST', data: data });
 }
 
@@ -30,7 +29,14 @@ function addCollection(name, ids, description) {
  * data: name, author, description, cover, content
  */
 function addBook(data) {
-  (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books', method: 'POST', data: data });
+  return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books', method: 'POST', data: data });
+}
+
+/**
+ * data: name, slug, description
+ */
+function addAuthor(data) {
+  return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'authors', method: 'POST', data: data });
 }
 
 function searchAuthors(query) {
@@ -40,5 +46,6 @@ function searchAuthors(query) {
 exports.default = {
   addCollection: addCollection,
   addBook: addBook,
+  addAuthor: addAuthor,
   searchAuthors: searchAuthors
 };

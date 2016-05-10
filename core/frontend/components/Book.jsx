@@ -7,7 +7,7 @@ export default class Book extends Component {
     let book = this.props.book
     let title = book.title
     let author = book.author
-    let description = book.summary
+    let description = book.description
     let bookId = this.props.id
 
     return (

@@ -79,6 +79,7 @@ var BookInfo = function (_Component) {
     key: 'render',
     value: function render() {
       var bookInfo = this.props.bookInfo ? this.props.bookInfo : {};
+      console.log(bookinfo);
 
       return _react2.default.createElement(
         'article',
@@ -90,10 +91,10 @@ var BookInfo = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'left-col' },
-            bookInfo.image ? _react2.default.createElement(
+            bookInfo.cover ? _react2.default.createElement(
               'div',
               { className: 'book-cover' },
-              _react2.default.createElement('img', { src: bookInfo.image })
+              _react2.default.createElement('img', { src: bookInfo.cover })
             ) : null
           ),
           _react2.default.createElement(
@@ -121,7 +122,7 @@ var BookInfo = function (_Component) {
             ) : null
           )
         ),
-        bookInfo.author_intro ? _react2.default.createElement(
+        bookInfo.authorIntro ? _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
@@ -132,10 +133,10 @@ var BookInfo = function (_Component) {
           _react2.default.createElement(
             'p',
             null,
-            bookInfo.author_intro
+            bookInfo.authorIntro
           )
         ) : null,
-        bookInfo.summary ? _react2.default.createElement(
+        bookInfo.description ? _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
@@ -146,7 +147,7 @@ var BookInfo = function (_Component) {
           _react2.default.createElement(
             'p',
             null,
-            bookInfo.summary
+            bookInfo.description
           )
         ) : null
       );

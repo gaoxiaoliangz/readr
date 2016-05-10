@@ -28,6 +28,10 @@ var _ConsoleBranding2 = _interopRequireDefault(_ConsoleBranding);
 
 var _actions = require('actions');
 
+var _Notification = require('components/Notification');
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -175,6 +179,7 @@ var Console = function (_Component) {
         _react2.default.createElement(
           _Container2.default,
           { isFluid: true },
+          _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
           this.renderMenu(pageName),
           _react2.default.createElement(
             'div',
@@ -191,7 +196,7 @@ var Console = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    notification: state.notification,
+    notification: state.components.notification,
     session: state.session,
     routing: state.routing
   };

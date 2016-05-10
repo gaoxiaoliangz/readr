@@ -28,6 +28,10 @@ var _Colophon2 = _interopRequireDefault(_Colophon);
 
 var _actions = require('actions');
 
+var _Notification = require('components/Notification');
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70,6 +74,7 @@ var App = function (_Component) {
         _react2.default.createElement(
           _Container2.default,
           null,
+          _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
           this.props.children
         ),
         _react2.default.createElement(_Colophon2.default, null)
@@ -82,7 +87,7 @@ var App = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
   return {
-    notification: state.notification,
+    notification: state.components.notification,
     session: state.session
   };
 }, { handleNotification: _actions.handleNotification, userAuth: _actions.userAuth })(App);
