@@ -12,10 +12,10 @@ import callApi from 'utils/callApi'
 import { getBookView } from 'utils/view'
 import { getCache, setCache } from 'utils/cache'
 import { simpleCompareObjects } from 'utils/object'
-import { fetchBookInfo, fetchBookProgress, fetchBookContent, userAuth } from 'actions'
-import ApiRoots from 'constants/ApiRoots'
+import { fetchBook, fetchBookProgress, userAuth } from 'actions'
+import apis from 'utils/apis'
 
-const actions = { fetchBookInfo, fetchBookProgress, fetchBookContent, userAuth }
+const actions = { fetchBook, fetchBookProgress, userAuth }
 
 class Viewer extends Component {
 
@@ -60,18 +60,6 @@ class Viewer extends Component {
     }
   }
 
-  setProgress(bookId, progress) {
-    return new Promise(resolve => {
-      callApi({
-        fullUrl: `${ApiRoots.LOCAL}books/${bookId}/progress`,
-        type: 'POST',
-        data: progress
-      }).then((res) => {
-        resolve(res)
-      })
-    })
-  }
-
   addEventListeners() {
     this.mapScrollTopToState = () => {
       this.setState({
@@ -111,7 +99,7 @@ class Viewer extends Component {
             percentage
           }
 
-          this.setProgress(this.bookId, progress)
+          apis.setProgress(this.bookId, progress)
         }
       })
     }
@@ -186,15 +174,15 @@ class Viewer extends Component {
         bookHtml: renderBook.pagesToHtml(pages)
       })
     } else {
-      this.props.actions.fetchBookContent(bookId)
+      this.props.actions.fetchBook(bookId, ['content'])
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(nextProps.book && nextProps.book.html && !this.props.book.html) {
+    if(nextProps.book && nextProps.book.content && nextProps.book.content.html && !this.props.book.content) {
       this.setState({
         isCalculatingDom: true,
-        bookHtml: nextProps.book.html
+        bookHtml: nextProps.book.content.html
       })
     }
 
@@ -226,7 +214,7 @@ class Viewer extends Component {
     const bookId = this.props.params.id
 
     actions.userAuth()
-    actions.fetchBookInfo(bookId)
+    actions.fetchBook(bookId)
     actions.fetchBookProgress(bookId)
 
     this.addEventListeners()
@@ -288,7 +276,7 @@ class Viewer extends Component {
     return (
       <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this)} >
         {
-          this.state.isLoading || book.isFetchingInfo || book.isFetchingContent?(
+          !book.content && !this.state.calculatedPages ?(
             <Loading />
           ):null
         }
@@ -314,10 +302,9 @@ class Viewer extends Component {
                     </Link>
                   </div>
                   <span className="title">{book.title}</span>
-                  <div className="preference">
+                  {/*<div className="preference">
                     <Icon name="font" />
-                  </div>
-
+                  </div>*/}
                   {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
                 </div>
               </div>
@@ -343,14 +330,10 @@ class Viewer extends Component {
   }
 }
 
-Viewer.propTypes = {
-  book: React.PropTypes.object.isRequired
-}
-
 export default connect(
   (state, ownProps) => {
     return {
-      book: state.entities.books?state.entities.books[ownProps.params.id]:{},
+      book: state.entities.books[ownProps.params.id]?state.entities.books[ownProps.params.id]:{},
       session: state.session
     }
   },

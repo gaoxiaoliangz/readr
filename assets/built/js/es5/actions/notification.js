@@ -8,7 +8,7 @@ exports.showNotification = showNotification;
 exports.hideNotification = hideNotification;
 function handleNotification(content, t) {
   if (typeof t === 'undefined') {
-    t = 3000;
+    t = 6000;
   }
 
   return function (dispatch, getState) {

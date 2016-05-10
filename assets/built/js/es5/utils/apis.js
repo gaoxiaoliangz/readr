@@ -8,6 +8,7 @@ exports.addBook = addBook;
 exports.addAuthor = addAuthor;
 exports.searchAuthors = searchAuthors;
 exports.searchBooks = searchBooks;
+exports.setProgress = setProgress;
 
 var _callApi = require('./callApi');
 
@@ -48,10 +49,18 @@ function searchBooks(query) {
   return (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books?q=' + query });
 }
 
+/**
+ * data: pageNo, pageSum, percentage
+ */
+function setProgress(bookId, data) {
+  (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'books/' + bookId + '/progress', method: 'POST', data: data });
+}
+
 exports.default = {
   addCollection: addCollection,
   addBook: addBook,
   addAuthor: addAuthor,
   searchBooks: searchBooks,
-  searchAuthors: searchAuthors
+  searchAuthors: searchAuthors,
+  setProgress: setProgress
 };

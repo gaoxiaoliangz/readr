@@ -31,10 +31,18 @@ export function searchBooks(query) {
   return callApi({ fullUrl: `${ApiRoots.LOCAL}books?q=${query}` })
 }
 
+/**
+ * data: pageNo, pageSum, percentage
+ */
+export function setProgress(bookId, data) {
+  callApi({ fullUrl: `${ApiRoots.LOCAL}books/${bookId}/progress`, method: 'POST', data })
+}
+
 export default {
   addCollection,
   addBook,
   addAuthor,
   searchBooks,
-  searchAuthors
+  searchAuthors,
+  setProgress
 }

@@ -77,7 +77,8 @@ var Home = function (_Component) {
           link: '/book/' + book.id
         };
       });
-      var collection = this.props.collection ? this.props.collection.items : [];
+      var listName = this.props.collection ? this.props.collection.name : '';
+      var list = this.props.collection ? this.props.collection.items : [];
 
       return _react2.default.createElement(
         'div',
@@ -88,14 +89,12 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-8' },
-            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '新书速递', moreLink: '/' }),
-            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '近期热门' }),
-            _react2.default.createElement(_BookListSection2.default, { bookList: collection, title: '推荐书单' })
+            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '新书速递' }),
+            _react2.default.createElement(_BookListSection2.default, { bookList: list, title: listName })
           ),
           _react2.default.createElement(
             'div',
             { className: 'col-md-4' },
-            _react2.default.createElement(_CandyBox2.default, { title: '近期热门', list: hotBooks }),
             _react2.default.createElement(_CandyBox2.default, { title: '最近阅读', list: userBooks })
           )
         )

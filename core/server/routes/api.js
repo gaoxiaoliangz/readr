@@ -29,9 +29,9 @@ function apiRoutes() {
 
 
   // users
-  router.post('/users', api.http(api.users.addUser))
-  router.get('/users', middleware.getUserInfo, api.http(api.users.listUsers))
-  router.post('/users/:id/role', middleware.getUserInfo, api.http(api.users.setUserRole))
+  router.post('/users', api.http(api.users.add))
+  router.get('/users', middleware.getUserInfo, api.http(api.users.browse))
+  router.post('/users/:id/role', middleware.getUserInfo, api.http(api.users.setRole))
 
   // auth
   router.post('/auth', middleware.auth.basic)

@@ -9,6 +9,7 @@ const i18n = require('../utils/i18n')
 const pipeline = require('../utils/pipeline')
 const data = require('../utils/data')
 const humps = require('humps')
+const authors = require('./authors')
 
 const books = {
   add(object, options) {
@@ -147,15 +148,30 @@ const books = {
   find(options) {
     const requiredOptions = ['id']
     const additionalOptions = ['fields']
-    const defaultFields = ['id', 'title', 'author', 'date_created']
+    const defaultFields = ['id', 'title', 'author', 'description', 'cover', 'date_created']
 
     const query = (options) => {
       return models.read('books', {id: options.id}).then(result => {
         if(result.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }
-        // TODO: get author info
-        return Promise.resolve(_.pick(result[0], defaultFields))
+        let book = result[0]
+        let fields = defaultFields
+
+        if(options.fields) {
+          fields = defaultFields.concat(options.fields.split(','))
+        }
+
+        return Promise.all(result[0].author.map(id => {
+          return authors.find(Object.assign({}, options, {id}))
+        })).then(result => {
+          book = Object.assign({}, book, {author: result})
+          book = _.pick(book, fields)
+          if(book.content) {
+            delete book.content.raw
+          }
+          return Promise.resolve(book)
+        }, error => Promise.reject(error))
       }, error => {
         return Promise.reject(error)
       })
@@ -173,10 +189,11 @@ const books = {
     const requiredOptions = ['id']
 
     function doQuery(options) {
-      return models.getData('reading_progress', {book_id: options.id}).then(result => {
+      return models.read('reading_progress', {book_id: options.id}).then(result => {
         if(result.length === 0) {
           return {}
         } else {
+          delete result[0]._id
           return Promise.resolve(result[0])
         }
       }, error => {
@@ -210,7 +227,7 @@ const books = {
         percentage: options.data.percentage
       }
 
-      return models.updateData('reading_progress', match, data, true).then(result => {
+      return models.update('reading_progress', match, data, true).then(result => {
         return Promise.resolve(result)
       }, error => {
         return Promise.reject(error)

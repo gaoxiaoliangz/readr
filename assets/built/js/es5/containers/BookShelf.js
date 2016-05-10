@@ -37,7 +37,7 @@ var BookShelf = function (_Component) {
       var store = _ref.store;
       var params = _ref.params;
 
-      return store.dispatch((0, _actions.fetchBookList)('user'));
+      return store.dispatch((0, _actions.fetchBooks)('user'));
     }
   }]);
 
@@ -50,7 +50,7 @@ var BookShelf = function (_Component) {
   _createClass(BookShelf, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookList('user');
+      this.props.fetchBooks('user');
     }
   }, {
     key: 'render',
@@ -69,7 +69,7 @@ var BookShelf = function (_Component) {
 }(_react.Component);
 
 function mapStateToProps(state, ownProps) {
-  var bookList = state.pagination.bookList;
+  var filteredBooks = state.pagination.filteredBooks;
   var books = state.entities.books;
 
 
@@ -80,8 +80,8 @@ function mapStateToProps(state, ownProps) {
   };
 
   return {
-    bookListUser: genList(bookList['user'])
+    bookListUser: genList(filteredBooks['user'])
   };
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBookList: _actions.fetchBookList })(BookShelf);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchBooks: _actions.fetchBooks })(BookShelf);

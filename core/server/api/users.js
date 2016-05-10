@@ -13,55 +13,11 @@ const pipeline = require('../utils/pipeline')
 
 
 var users = {
-  listUsers(options) {
-    const requiredOptions = []
-
-    function doQuery(options) {
-      return models.getData('users', null).then(result => {
-        return Promise.resolve(result)
-      }, error => {
-        return Promise.reject(error)
-      })
-    }
-
-    const tasks = [
-      utils.validate(requiredOptions),
-      utils.requireAdminPermissions,
-      doQuery
-    ]
-
-    return pipeline(tasks, options)
-  },
-
-  setUserRole(object, options) {
-    const requiredOptions = ['id', 'role']
-
-    function doQuery(options) {
-      const data = {
-        role: options.data.role
-      }
-
-      return models.updateData('users', {id: options.id}, data).then(result => {
-        return Promise.resolve(result)
-      }, error => {
-        return Promise.reject(error)
-      })
-    }
-
-    const tasks = [
-      utils.validate(requiredOptions),
-      utils.requireAdminPermissions,
-      doQuery
-    ]
-
-    return pipeline(tasks, object, options)
-  },
-
-  addUser: function(object, options){
+  add: function(object, options){
     const requiredOptions = ['username', 'password', 'email']
 
     function doQuery(options) {
-      return models.getData('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then(result => {
+      return models.create('users', {$or: [{email: options.data.email}, {username: options.data.username}]}).then(result => {
         if(result.length === 0) {
           // TODO
           // camel to snake
@@ -99,6 +55,50 @@ var users = {
 
     const tasks = [
       utils.validate(requiredOptions),
+      doQuery
+    ]
+
+    return pipeline(tasks, object, options)
+  },
+
+  browse(options) {
+    const requiredOptions = []
+
+    function doQuery(options) {
+      return models.read('users', null).then(result => {
+        return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(requiredOptions),
+      utils.requireAdminPermissions,
+      doQuery
+    ]
+
+    return pipeline(tasks, options)
+  },
+
+  setRole(object, options) {
+    const requiredOptions = ['id', 'role']
+
+    function doQuery(options) {
+      const data = {
+        role: options.data.role
+      }
+
+      return models.update('users', {id: options.id}, data).then(result => {
+        return Promise.resolve(result)
+      }, error => {
+        return Promise.reject(error)
+      })
+    }
+
+    const tasks = [
+      utils.validate(requiredOptions),
+      utils.requireAdminPermissions,
       doQuery
     ]
 

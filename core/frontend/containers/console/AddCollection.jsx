@@ -14,12 +14,13 @@ class AddCollection extends Component{
 
   constructor(props) {
     super(props)
-    this.state = {
+    this.defaultState = {
       bookResults: [],
       collectedBooks: [],
       collectionName: '',
       collectionDesc: ''
     }
+    this.state = Object.assign({}, this.defaultState)
   }
 
   // getCurrentSearchResults() {
@@ -40,10 +41,9 @@ class AddCollection extends Component{
 
     const data = {name, items, description}
 
-    console.log(data);
-
     apis.addCollection(data).then(result => {
       this.props.handleNotification('添加成功')
+      this.setState(this.defaultState)
     }, error => {
       this.props.handleNotification(error.message)
     })
@@ -109,7 +109,7 @@ class AddCollection extends Component{
           }}
           options={this.state.bookResults.map(a => ({
             value: a.title,
-            subInfo: a.author,
+            subInfo: a.author.map(a => a.name).join(', '),
             thumb: a.cover
           }))}
           values={this.state.collectedBooks.map(book => book.title)}

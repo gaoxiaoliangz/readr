@@ -1603,7 +1603,7 @@ ul {
   font-size: 16px;
   text-align: center;
   background: #fff;
-  z-index: 990; }
+  z-index: 9999; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/utils\/elements\.scss}line{font-family:\0000347}}
 .text-loading {

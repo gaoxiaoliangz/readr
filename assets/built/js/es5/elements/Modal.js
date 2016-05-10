@@ -54,9 +54,6 @@ var Modal = function (_Component) {
   _createClass(Modal, [{
     key: 'hideModal',
     value: function hideModal() {
-      // this.setState({
-      //   isModalHidden: true
-      // })
       this.props.onRequestClose();
       _view2.default.unlockScroll();
       window.removeEventListener('resize', this.setView);
@@ -67,8 +64,6 @@ var Modal = function (_Component) {
       var modalHeight = _reactDom2.default.findDOMNode(this.refs.modal).clientHeight;
       var isModalVerticalCenter = true;
       var documentHeight = document.body.clientHeight;
-
-      console.log(modalHeight);
 
       if (window.innerHeight < modalHeight) {
         isModalVerticalCenter = false;

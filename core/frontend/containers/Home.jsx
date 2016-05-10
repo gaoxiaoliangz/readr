@@ -36,18 +36,17 @@ class Home extends Component {
         link: `/book/${book.id}`
       }
     })
-    let collection = this.props.collection?this.props.collection.items:[]
+    let listName = this.props.collection?this.props.collection.name:''
+    let list = this.props.collection?this.props.collection.items:[]
 
     return (
       <div>
         <div className="row">
           <div className="col-md-8">
-            <BookListSection bookList={newestBooks} title="新书速递" moreLink="/"/>
-            <BookListSection bookList={newestBooks} title="近期热门" />
-            <BookListSection bookList={collection} title="推荐书单" />
+            <BookListSection bookList={newestBooks} title="新书速递" />
+            <BookListSection bookList={list} title={listName} />
           </div>
           <div className="col-md-4">
-            <CandyBox title="近期热门" list={hotBooks} />
             <CandyBox title="最近阅读" list={userBooks} />
           </div>
         </div>

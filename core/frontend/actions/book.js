@@ -23,6 +23,23 @@ export function fetchBooks(flow) {
   }
 }
 
+export function fetchBook(bookId, fields) {
+  let endpoint = `books/${bookId}`
+
+  if(fields) {
+    endpoint += `?fields=${fields.join(',')}`
+  }
+
+  return {
+    bookId,
+    CALL_API:{
+      types: ['BOOK_REQUEST', 'BOOK_SUCCESS', 'BOOK_FAILURE'],
+      endpoint,
+      schema: Schemas.BOOK
+    }
+  }
+}
+
 export function fetchCollections() {
   return {
     CALL_API: {
@@ -44,27 +61,27 @@ export function fetchCollection(collectionId) {
   }
 }
 
-export function fetchBookContent(bookId) {
-  return {
-    bookId,
-    CALL_API: {
-      types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
-      endpoint: `books/${bookId}/content`,
-      schema: Schemas.BOOK
-    }
-  }
-}
-
-export function fetchBookInfo(bookId) {
-  return {
-    bookId,
-    CALL_API:{
-      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-      endpoint: `books/${bookId}`,
-      schema: Schemas.BOOK_ARRAY
-    }
-  }
-}
+// export function fetchBookContent(bookId) {
+//   return {
+//     bookId,
+//     CALL_API: {
+//       types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+//       endpoint: `books/${bookId}/content`,
+//       schema: Schemas.BOOK
+//     }
+//   }
+// }
+//
+// export function fetchBookInfo(bookId) {
+//   return {
+//     bookId,
+//     CALL_API:{
+//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
+//       endpoint: `books/${bookId}`,
+//       schema: Schemas.BOOK_ARRAY
+//     }
+//   }
+// }
 
 export function fetchDoubanBookSearchResults(query) {
   return {

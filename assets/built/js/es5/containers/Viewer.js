@@ -52,9 +52,9 @@ var _object = require('utils/object');
 
 var _actions = require('actions');
 
-var _ApiRoots = require('constants/ApiRoots');
+var _apis = require('utils/apis');
 
-var _ApiRoots2 = _interopRequireDefault(_ApiRoots);
+var _apis2 = _interopRequireDefault(_apis);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -66,7 +66,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var actions = { fetchBookInfo: _actions.fetchBookInfo, fetchBookProgress: _actions.fetchBookProgress, fetchBookContent: _actions.fetchBookContent, userAuth: _actions.userAuth };
+var actions = { fetchBook: _actions.fetchBook, fetchBookProgress: _actions.fetchBookProgress, userAuth: _actions.userAuth };
 
 var Viewer = function (_Component) {
   _inherits(Viewer, _Component);
@@ -117,19 +117,6 @@ var Viewer = function (_Component) {
       }
     }
   }, {
-    key: 'setProgress',
-    value: function setProgress(bookId, progress) {
-      return new Promise(function (resolve) {
-        (0, _callApi2.default)({
-          fullUrl: _ApiRoots2.default.LOCAL + 'books/' + bookId + '/progress',
-          type: 'POST',
-          data: progress
-        }).then(function (res) {
-          resolve(res);
-        });
-      });
-    }
-  }, {
     key: 'addEventListeners',
     value: function addEventListeners() {
       var _this2 = this;
@@ -172,7 +159,7 @@ var Viewer = function (_Component) {
               percentage: percentage
             };
 
-            _this2.setProgress(_this2.bookId, progress);
+            _apis2.default.setProgress(_this2.bookId, progress);
           }
         });
       };
@@ -252,16 +239,16 @@ var Viewer = function (_Component) {
           bookHtml: _renderBook.pagesToHtml(pages)
         });
       } else {
-        this.props.actions.fetchBookContent(bookId);
+        this.props.actions.fetchBook(bookId, ['content']);
       }
     }
   }, {
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps, nextState) {
-      if (nextProps.book && nextProps.book.html && !this.props.book.html) {
+      if (nextProps.book && nextProps.book.content && nextProps.book.content.html && !this.props.book.content) {
         this.setState({
           isCalculatingDom: true,
-          bookHtml: nextProps.book.html
+          bookHtml: nextProps.book.content.html
         });
       }
 
@@ -297,7 +284,7 @@ var Viewer = function (_Component) {
       var bookId = this.props.params.id;
 
       actions.userAuth();
-      actions.fetchBookInfo(bookId);
+      actions.fetchBook(bookId);
       actions.fetchBookProgress(bookId);
 
       this.addEventListeners();
@@ -362,7 +349,7 @@ var Viewer = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'viewer viewer--' + view.screen, onMouseMove: this.toggleBookPanel.bind(this) },
-        this.state.isLoading || book.isFetchingInfo || book.isFetchingContent ? _react2.default.createElement(_Loading2.default, null) : null,
+        !book.content && !this.state.calculatedPages ? _react2.default.createElement(_Loading2.default, null) : null,
         this.state.showProgressDialog ? _react2.default.createElement(_Dialog2.default, { actions: actions, content: 'are you sure?' }) : null,
         _react2.default.createElement(
           _reactAddonsCssTransitionGroup2.default,
@@ -396,11 +383,6 @@ var Viewer = function (_Component) {
                 'span',
                 { className: 'title' },
                 book.title
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'preference' },
-                _react2.default.createElement(_Icon2.default, { name: 'font' })
               )
             )
           ) : null
@@ -422,13 +404,9 @@ var Viewer = function (_Component) {
   return Viewer;
 }(_react.Component);
 
-Viewer.propTypes = {
-  book: _react2.default.PropTypes.object.isRequired
-};
-
 exports.default = (0, _reactRedux.connect)(function (state, ownProps) {
   return {
-    book: state.entities.books ? state.entities.books[ownProps.params.id] : {},
+    book: state.entities.books[ownProps.params.id] ? state.entities.books[ownProps.params.id] : {},
     session: state.session
   };
 }, function (dispatch) {

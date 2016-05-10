@@ -96,10 +96,12 @@ var AddBook = function (_Component) {
 
       e.preventDefault();
       var data = {
-        title: this.state.bookTitle[0].title,
+        title: this.state.bookTitle.length !== 0 ? this.state.bookTitle[0].title : '',
         description: this.state.bookDescription,
         content: this.state.bookContent,
-        author: JSON.stringify([this.state.bookAuthor[0].id]),
+        author: JSON.stringify(this.state.bookAuthor.map(function (a) {
+          return a.id;
+        })),
         cover: this.state.bookCover
       };
       console.log(data);
@@ -129,7 +131,7 @@ var AddBook = function (_Component) {
         });
         _this3.refs.bookAuthor.clearState();
       }, function (error) {
-        _this3.props.handleNotification(err.message);
+        _this3.props.handleNotification(error.message);
       });
     }
   }, {
@@ -153,7 +155,6 @@ var AddBook = function (_Component) {
 
       if (query !== '') {
         _apis2.default.searchAuthors(query).then(function (response) {
-          console.log(response);
           _this4.setState({
             authorResults: response
           });

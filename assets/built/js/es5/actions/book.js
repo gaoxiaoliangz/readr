@@ -5,10 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchBookProgress = fetchBookProgress;
 exports.fetchBooks = fetchBooks;
+exports.fetchBook = fetchBook;
 exports.fetchCollections = fetchCollections;
 exports.fetchCollection = fetchCollection;
-exports.fetchBookContent = fetchBookContent;
-exports.fetchBookInfo = fetchBookInfo;
 exports.fetchDoubanBookSearchResults = fetchDoubanBookSearchResults;
 exports.searchBooks = searchBooks;
 
@@ -42,6 +41,23 @@ function fetchBooks(flow) {
   };
 }
 
+function fetchBook(bookId, fields) {
+  var endpoint = 'books/' + bookId;
+
+  if (fields) {
+    endpoint += '?fields=' + fields.join(',');
+  }
+
+  return {
+    bookId: bookId,
+    CALL_API: {
+      types: ['BOOK_REQUEST', 'BOOK_SUCCESS', 'BOOK_FAILURE'],
+      endpoint: endpoint,
+      schema: _schemas.Schemas.BOOK
+    }
+  };
+}
+
 function fetchCollections() {
   return {
     CALL_API: {
@@ -63,27 +79,27 @@ function fetchCollection(collectionId) {
   };
 }
 
-function fetchBookContent(bookId) {
-  return {
-    bookId: bookId,
-    CALL_API: {
-      types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
-      endpoint: 'books/' + bookId + '/content',
-      schema: _schemas.Schemas.BOOK
-    }
-  };
-}
-
-function fetchBookInfo(bookId) {
-  return {
-    bookId: bookId,
-    CALL_API: {
-      types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-      endpoint: 'books/' + bookId,
-      schema: _schemas.Schemas.BOOK_ARRAY
-    }
-  };
-}
+// export function fetchBookContent(bookId) {
+//   return {
+//     bookId,
+//     CALL_API: {
+//       types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
+//       endpoint: `books/${bookId}/content`,
+//       schema: Schemas.BOOK
+//     }
+//   }
+// }
+//
+// export function fetchBookInfo(bookId) {
+//   return {
+//     bookId,
+//     CALL_API:{
+//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
+//       endpoint: `books/${bookId}`,
+//       schema: Schemas.BOOK_ARRAY
+//     }
+//   }
+// }
 
 function fetchDoubanBookSearchResults(query) {
   return {

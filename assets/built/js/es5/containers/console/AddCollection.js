@@ -58,12 +58,13 @@ var AddCollection = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddCollection).call(this, props));
 
-    _this.state = {
+    _this.defaultState = {
       bookResults: [],
       collectedBooks: [],
       collectionName: '',
       collectionDesc: ''
     };
+    _this.state = Object.assign({}, _this.defaultState);
     return _this;
   }
 
@@ -91,10 +92,9 @@ var AddCollection = function (_Component) {
 
       var data = { name: name, items: items, description: description };
 
-      console.log(data);
-
       _apis2.default.addCollection(data).then(function (result) {
         _this2.props.handleNotification('添加成功');
+        _this2.setState(_this2.defaultState);
       }, function (error) {
         _this2.props.handleNotification(error.message);
       });
@@ -179,7 +179,9 @@ var AddCollection = function (_Component) {
           options: this.state.bookResults.map(function (a) {
             return {
               value: a.title,
-              subInfo: a.author,
+              subInfo: a.author.map(function (a) {
+                return a.name;
+              }).join(', '),
               thumb: a.cover
             };
           }),

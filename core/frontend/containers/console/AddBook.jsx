@@ -34,10 +34,10 @@ class AddBook extends Component {
   addBook(e) {
     e.preventDefault()
     const data = {
-      title: this.state.bookTitle[0].title,
+      title: this.state.bookTitle.length !== 0?this.state.bookTitle[0].title:'',
       description: this.state.bookDescription,
       content: this.state.bookContent,
-      author: JSON.stringify([this.state.bookAuthor[0].id]),
+      author: JSON.stringify(this.state.bookAuthor.map(a => a.id)),
       cover: this.state.bookCover
     }
     console.log(data);
@@ -64,7 +64,7 @@ class AddBook extends Component {
       })
       this.refs.bookAuthor.clearState()
     }, error => {
-      this.props.handleNotification(err.message)
+      this.props.handleNotification(error.message)
     })
   }
 
@@ -84,7 +84,6 @@ class AddBook extends Component {
 
     if(query !== '') {
       apis.searchAuthors(query).then(response => {
-        console.log(response)
         this.setState({
           authorResults: response
         })

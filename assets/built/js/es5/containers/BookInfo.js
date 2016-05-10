@@ -57,7 +57,7 @@ var BookInfo = function (_Component) {
       var store = _ref.store;
       var params = _ref.params;
 
-      return store.dispatch((0, _actions.fetchBookInfo)(params.id));
+      return store.dispatch((0, _actions.fetchBook)(params.id));
     }
   }]);
 
@@ -73,13 +73,12 @@ var BookInfo = function (_Component) {
   _createClass(BookInfo, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchBookInfo(this.bookId);
+      this.props.fetchBook(this.bookId);
     }
   }, {
     key: 'render',
     value: function render() {
       var bookInfo = this.props.bookInfo ? this.props.bookInfo : {};
-      console.log(bookInfo);
 
       return _react2.default.createElement(
         'article',
@@ -112,7 +111,9 @@ var BookInfo = function (_Component) {
                 'strong',
                 null,
                 '作者：',
-                bookInfo.author
+                bookInfo.author ? bookInfo.author.map(function (a) {
+                  return a.name;
+                }).join(', ') : ''
               )
             ),
             bookInfo.title ? _react2.default.createElement(
@@ -122,20 +123,6 @@ var BookInfo = function (_Component) {
             ) : null
           )
         ),
-        bookInfo.authorIntro ? _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h2',
-            null,
-            '作者简介'
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            bookInfo.authorIntro
-          )
-        ) : null,
         bookInfo.description ? _react2.default.createElement(
           'div',
           null,
@@ -161,4 +148,4 @@ exports.default = (0, _reactRedux.connect)(function (state, ownProps) {
   return {
     bookInfo: state.entities.books[ownProps.params.id]
   };
-}, { fetchBookInfo: _actions.fetchBookInfo })(BookInfo);
+}, { fetchBook: _actions.fetchBook })(BookInfo);

@@ -1,6 +1,6 @@
 export function handleNotification(content, t) {
   if(typeof t === 'undefined') {
-    t = 3000
+    t = 6000
   }
 
   return (dispatch, getState) => {

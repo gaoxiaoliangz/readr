@@ -17,9 +17,6 @@ class Modal extends Component {
   }
 
   hideModal() {
-    // this.setState({
-    //   isModalHidden: true
-    // })
     this.props.onRequestClose()
     view.unlockScroll()
     window.removeEventListener('resize', this.setView)
@@ -30,8 +27,6 @@ class Modal extends Component {
     let modalHeight = ReactDOM.findDOMNode(this.refs.modal).clientHeight
     let isModalVerticalCenter = true
     let documentHeight = document.body.clientHeight
-
-    console.log(modalHeight);
 
     if(window.innerHeight < modalHeight) {
       isModalVerticalCenter = false

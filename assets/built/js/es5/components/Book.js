@@ -38,9 +38,11 @@ var Book = function (_Component) {
     value: function render() {
       var book = this.props.book;
       var title = book.title;
-      var author = book.author;
       var description = book.description;
       var bookId = this.props.id;
+      var author = book.author.map(function (a) {
+        return a.name;
+      }).join(', ');
 
       return _react2.default.createElement(
         'li',
@@ -51,7 +53,7 @@ var Book = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'book-cover' },
-            _react2.default.createElement('img', { src: book.image })
+            _react2.default.createElement('img', { src: book.cover })
           ),
           _react2.default.createElement(
             'div',
@@ -64,7 +66,7 @@ var Book = function (_Component) {
             _react2.default.createElement(
               'span',
               { className: 'book-author' },
-              Array.isArray(book.author) ? book.author.join(' ') : book.author
+              author
             )
           )
         ),

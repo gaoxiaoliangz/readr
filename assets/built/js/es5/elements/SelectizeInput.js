@@ -79,6 +79,7 @@ var SelectizeInput = function (_Component) {
         this.removeValue(this.props.values.length - 1);
       }
       if (e.keyCode === 13 && this.state.showOptions) {
+        e.preventDefault();
         this.addValue(0);
       }
     }

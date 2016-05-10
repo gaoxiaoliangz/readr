@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { fetchBookInfo } from 'actions'
+import { fetchBook } from 'actions'
 import Loading from 'components/Loading'
 import Branding from 'components/Branding'
 import Colophon from 'components/Colophon'
@@ -12,7 +12,7 @@ import _ from 'lodash'
 class BookInfo extends Component {
 
   static fetchData({store, params}) {
-    return store.dispatch(fetchBookInfo(params.id))
+    return store.dispatch(fetchBook(params.id))
   }
 
   constructor(props) {
@@ -21,12 +21,11 @@ class BookInfo extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBookInfo(this.bookId)
+    this.props.fetchBook(this.bookId)
   }
 
   render() {
     let bookInfo = this.props.bookInfo?this.props.bookInfo:{}
-    console.log(bookInfo);
 
     return (
       <article className="book-info content-container">
@@ -48,7 +47,7 @@ class BookInfo extends Component {
           <div className="right-col">
             <h1 className="book-name">{bookInfo.title}</h1>
             <div className="book-author">
-              <strong>作者：{bookInfo.author}</strong>
+              <strong>作者：{bookInfo.author?bookInfo.author.map(a => a.name).join(', '):''}</strong>
             </div>
             {
               bookInfo.title?(
@@ -58,14 +57,6 @@ class BookInfo extends Component {
             {/*<p><a target="_blank" href={`http://book.douban.com/subject/${bookInfo.book_id}`}>在豆瓣查看</a></p>*/}
           </div>
         </header>
-        {
-          bookInfo.authorIntro?(
-            <div>
-              <h2>作者简介</h2>
-              <p>{bookInfo.authorIntro}</p>
-            </div>
-          ):null
-        }
         {
           bookInfo.description?(
             <div>
@@ -83,5 +74,5 @@ export default connect(
   (state, ownProps) =>({
     bookInfo: state.entities.books[ownProps.params.id]
   }),
-  { fetchBookInfo }
+  { fetchBook }
 )(BookInfo)
