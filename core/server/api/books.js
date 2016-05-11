@@ -1,5 +1,6 @@
 'use strict'
 
+
 const models = require('../models')
 const Promise = require('bluebird')
 const utils = require('./utils')
@@ -70,7 +71,7 @@ const books = {
 
       const getUserFlow = (options) => {
         let userPermissionCheckResult = utils.requireUserPermissions(options)
-        
+
         if(userPermissionCheckResult.then) {
           return userPermissionCheckResult
         } else {
