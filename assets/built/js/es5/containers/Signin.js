@@ -44,6 +44,10 @@ var _Container = require('elements/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _Body = require('side-effects/Body');
+
+var _Body2 = _interopRequireDefault(_Body);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -100,7 +104,8 @@ var Signin = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'page-signin' },
+        null,
+        _react2.default.createElement(_Body2.default, { className: 'signin' }),
         _react2.default.createElement(_Branding2.default, null),
         _react2.default.createElement(
           _Container2.default,

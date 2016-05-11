@@ -1,5 +1,7 @@
-.page-home {
-  overflow: hidden;
+body.home {
+  #root {
+    overflow: hidden;
+  }
   .branding {
     margin-bottom: 10px;
   }

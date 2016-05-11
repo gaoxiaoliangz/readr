@@ -9,6 +9,7 @@ import Branding from 'components/Branding'
 import Input from 'elements/Input'
 import Button from 'elements/Button'
 import Container from 'elements/Container'
+import Body from 'side-effects/Body'
 
 class Signin extends Component {
   constructor(props) {
@@ -43,7 +44,8 @@ class Signin extends Component {
 
   render() {
     return (
-      <div className="page-signin">
+      <div>
+        <Body className="signin" />
         <Branding />
         <Container>
           <form className="content-container" action={`${ApiRoots.LOCAL}auth`} method="post">

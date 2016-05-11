@@ -69,30 +69,34 @@ const books = {
       }
 
       const getUserFlow = (options) => {
-        utils.requireUserPermissions(options)
-
-        return models.read('reading_progress', { user_id: options.context.user.id}).then(result => {
-          if(result.length === 0) {
-            return Promise.resolve(result)
-          }
-
-          return Promise.all(result.map(item => {
-            return books.find(Object.assign({}, options, {id: item.book_id})).then(result => {
+        let userPermissionCheckResult = utils.requireUserPermissions(options)
+        
+        if(userPermissionCheckResult.then) {
+          return userPermissionCheckResult
+        } else {
+          return models.read('reading_progress', { user_id: options.context.user.id}).then(result => {
+            if(result.length === 0) {
               return Promise.resolve(result)
-            }, error => {
-              // 失效的书籍直接从查询结果里移除
-              return Promise.resolve(null)
+            }
+
+            return Promise.all(result.map(item => {
+              return books.find(Object.assign({}, options, {id: item.book_id})).then(result => {
+                return Promise.resolve(result)
+              }, error => {
+                // 失效的书籍直接从查询结果里移除
+                return Promise.resolve(null)
+              })
+            })).then(result => {
+              return result.filter(item => {
+                if(item !== null) {
+                  return true
+                }
+              })
             })
-          })).then(result => {
-            return result.filter(item => {
-              if(item !== null) {
-                return true
-              }
-            })
+          }, error => {
+            return Promise.reject(error)
           })
-        }, error => {
-          return Promise.reject(error)
-        })
+        }
       }
 
       const getNewest = (options) => {

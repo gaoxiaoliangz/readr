@@ -22,6 +22,7 @@ const DevTools = require('containers/DevTools').default
 const store = configureStore()
 const appRoutes = require('routes/app').default
 const consoleRoutes = require('routes/console').default
+const Body = require('side-effects/Body').default
 
 function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
 
@@ -70,11 +71,23 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
           )
         }
 
+        try {
+          html = isServerRenderingEnabled?renderToString(html):null
+        } catch (e) {
+          console.log(e);
+        }
+
+        let bodyClass = Body.rewind()
+
+        if(typeof bodyClass === 'undefined') {
+          bodyClass = ''
+        }
+
         res.status(status).render(entry, {
           env: env,
-          html: isServerRenderingEnabled?renderToString(html):null,
-          // initialState: encodeURIComponent(JSON.stringify(initialState))
-          initialState: isServerRenderingEnabled?encodeURIComponent(JSON.stringify(initialState)):''
+          html: html,
+          bodyClass: bodyClass,
+          initialState: JSON.stringify(initialState)
         })
       }
 
@@ -91,11 +104,11 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
             if(Array.isArray(result)) {
               Promise.all(result).then(res => {
                 renderPage(renderProps)
-              })
+              }, error => error)
             }else{
               result.then(res => {
                 renderPage(renderProps, status)
-              })
+              }, error => error)
             }
 
             return false

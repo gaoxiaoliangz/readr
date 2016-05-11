@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchBooks } from 'actions'
 import { Link } from 'react-router'
+import Body from 'side-effects/Body'
 
 class ManageBooks extends Component {
+
+  static fetchData({store}) {
+    return store.dispatch(fetchBooks('newest'))
+  }
 
   constructor(props) {
     super(props)
@@ -18,6 +23,7 @@ class ManageBooks extends Component {
 
     return (
       <div>
+        <Body className="manage-books" />
         <table>
           <tbody>
             <tr>

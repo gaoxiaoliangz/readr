@@ -32,6 +32,10 @@ var _Notification = require('components/Notification');
 
 var _Notification2 = _interopRequireDefault(_Notification);
 
+var _Body = require('side-effects/Body');
+
+var _Body2 = _interopRequireDefault(_Body);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39,6 +43,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var menuMapping = [{
+  component: 'books',
+  displayName: '',
+  path: 'console/managebooks',
+  subMenu: [{
+    component: 'managebooks',
+    displayName: 'Manage Books',
+    path: 'console'
+  }, {
+    component: 'addbook',
+    displayName: 'Add Book',
+    path: 'console/addbook'
+  }, {
+    component: 'addcollection',
+    displayName: 'Add Collection',
+    path: 'console/collection/new'
+  }]
+}, {
+  component: 'users',
+  displayName: '',
+  path: 'console/manageusers',
+  subMenu: [{
+    component: 'manageusers',
+    displayName: 'Manage Users',
+    path: 'console/manageusers'
+  }]
+}, {
+  component: 'database',
+  displayName: '',
+  path: 'console/managebooks',
+  subMenu: []
+}, {
+  component: 'statistics',
+  displayName: '',
+  path: 'console/managebooks',
+  subMenu: []
+}];
 
 var Console = function (_Component) {
   _inherits(Console, _Component);
@@ -56,52 +98,17 @@ var Console = function (_Component) {
     }
   }, {
     key: 'renderMenu',
-    value: function renderMenu(currentPath) {
-      var menuMapping = [{
-        component: 'books',
-        displayName: '',
-        path: '/console/managebooks',
-        children: [{
-          component: 'managebooks',
-          displayName: 'Manage Books',
-          path: '/console/managebooks'
-        }, {
-          component: 'addbook',
-          displayName: 'Add Book',
-          path: '/console/addbook'
-        }, {
-          component: 'addcollection',
-          displayName: 'Add Collection',
-          path: '/console/collection/new'
-        }]
-      }, {
-        component: 'users',
-        displayName: '',
-        path: '/console/manageusers',
-        children: [{
-          component: 'manageusers',
-          displayName: 'Manage Users',
-          path: '/console/manageusers'
-        }]
-      }, {
-        component: 'database',
-        displayName: '',
-        path: '/console/managebooks',
-        children: []
-      }, {
-        component: 'statistics',
-        displayName: '',
-        path: '/console/managebooks',
-        children: []
-      }];
+    value: function renderMenu(menuMapping, currentPath) {
+      var currentMenu = {
+        rootIndex: 0,
+        subIndex: 0
+      };
 
-      var currentMenu = {};
-
-      menuMapping.filter(function (item, rootIndex) {
+      menuMapping.forEach(function (item, rootIndex) {
         var subIndex = void 0;
 
-        var result = item.children.filter(function (item, index) {
-          if (item.component === currentPath) {
+        var result = item.subMenu.filter(function (item, index) {
+          if (item.path === currentPath) {
             subIndex = index;
             return true;
           }
@@ -110,7 +117,6 @@ var Console = function (_Component) {
         if (result.length > 0) {
           currentMenu.rootIndex = rootIndex;
           currentMenu.subIndex = subIndex;
-          return true;
         }
       });
 
@@ -129,7 +135,7 @@ var Console = function (_Component) {
             { key: index, className: className },
             _react2.default.createElement(
               _reactRouter.Link,
-              { to: menu.path },
+              { to: '/' + menu.path },
               _react2.default.createElement(_Icon2.default, { name: menu.component })
             )
           );
@@ -139,7 +145,7 @@ var Console = function (_Component) {
       var subMenu = _react2.default.createElement(
         'ul',
         { className: 'nav-side nav-side-sub' },
-        menuMapping[currentMenu.rootIndex].children.map(function (menu, index) {
+        menuMapping[currentMenu.rootIndex].subMenu.map(function (menu, index) {
           var className = 'menu-' + menu.component;
 
           if (index === currentMenu.subIndex) {
@@ -151,7 +157,7 @@ var Console = function (_Component) {
             { key: index, className: className },
             _react2.default.createElement(
               _reactRouter.Link,
-              { to: menu.path },
+              { to: '/' + menu.path },
               menu.displayName
             )
           );
@@ -170,17 +176,17 @@ var Console = function (_Component) {
     value: function render() {
       var isAdmin = this.props.session.user.role === 'admin' ? true : false;
       var username = this.props.session.user.username ? this.props.session.user.username : null;
-      var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : '404';
+      var pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console';
 
       return _react2.default.createElement(
         'div',
-        { className: "page-" + pageName },
+        null,
         _react2.default.createElement(_ConsoleBranding2.default, { isAdmin: isAdmin, username: username }),
         _react2.default.createElement(
           _Container2.default,
           { isFluid: true },
           _react2.default.createElement(_Notification2.default, { notification: this.props.notification }),
-          this.renderMenu(pageName),
+          this.renderMenu(menuMapping, pathname),
           _react2.default.createElement(
             'div',
             { className: 'content' },

@@ -8,6 +8,7 @@ import Colophon from 'components/Colophon'
 import Button from 'elements/Button'
 import Container from 'elements/Container'
 import _ from 'lodash'
+import Body from 'side-effects/Body'
 
 class BookInfo extends Component {
 
@@ -29,6 +30,7 @@ class BookInfo extends Component {
 
     return (
       <article className="book-info content-container">
+        <Body className="book-info" />
         {
           _.isEmpty(bookInfo)?(
             <Loading />

@@ -26,12 +26,8 @@ class App extends Component {
       username = this.props.session.user.username
     }
 
-    let pageName = this.props.children.props.route.component.WrappedComponent ?
-      this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() :
-      this.props.children.props.route.component.displayName.toLowerCase()
-
     return (
-      <div className={"page-"+pageName}>
+      <div>
         <Branding isAdmin={isAdmin} username={username} />
         <Container>
           <Notification notification={this.props.notification} />

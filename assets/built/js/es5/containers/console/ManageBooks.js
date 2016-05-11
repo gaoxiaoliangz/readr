@@ -16,6 +16,10 @@ var _actions = require('actions');
 
 var _reactRouter = require('react-router');
 
+var _Body = require('side-effects/Body');
+
+var _Body2 = _interopRequireDefault(_Body);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,6 +30,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var ManageBooks = function (_Component) {
   _inherits(ManageBooks, _Component);
+
+  _createClass(ManageBooks, null, [{
+    key: 'fetchData',
+    value: function fetchData(_ref) {
+      var store = _ref.store;
+
+      return store.dispatch((0, _actions.fetchBooks)('newest'));
+    }
+  }]);
 
   function ManageBooks(props) {
     _classCallCheck(this, ManageBooks);
@@ -46,6 +59,7 @@ var ManageBooks = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_Body2.default, { className: 'manage-books' }),
         _react2.default.createElement(
           'table',
           null,

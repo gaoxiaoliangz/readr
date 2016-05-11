@@ -9,6 +9,7 @@ import Branding from 'components/Branding'
 import Input from 'elements/Input'
 import Button from 'elements/Button'
 import Container from 'elements/Container'
+import Body from 'side-effects/Body'
 
 class Signup extends Component {
   constructor(props) {
@@ -46,7 +47,8 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="page-signup">
+      <div>
+        <Body className="signup" />
         <Branding />
         <Container>
           <form className="content-container" method="post" action="/signup">

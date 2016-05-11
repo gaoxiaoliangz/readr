@@ -2033,12 +2033,12 @@ li.book {
     .content-container {
       width: 100%; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_home\.scss}line{font-family:\000031}}
-.page-home {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_home\.scss}line{font-family:\000032}}
+body.home #root {
   overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_home\.scss}line{font-family:\000033}}
-  .page-home .branding {
-    margin-bottom: 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_home\.scss}line{font-family:\000035}}
+body.home .branding {
+  margin-bottom: 10px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_viewer\.scss}line{font-family:\00003130}}
 .page-book-viewer.book-viewer--phone .pages {
@@ -2154,39 +2154,39 @@ li.book {
       line-height: 2.6; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\000031}}
-.page-bookinfo {
+body.book-info {
   line-height: 1.7; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\000033}}
-  .page-bookinfo .book-info-header {
+  body.book-info .book-info-header {
     overflow: hidden;
     margin-top: 40px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\000037}}
-  .page-bookinfo .left-col {
+  body.book-info .left-col {
     float: left;
     margin-right: 30px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\0000311}}
-  .page-bookinfo h1.book-name {
+  body.book-info h1.book-name {
     font-size: 1.8rem;
     font-weight: bold;
     margin: 15px 0 5px 0;
     color: #333;
     line-height: 1.2; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\0000318}}
-  .page-bookinfo .book-author {
+  body.book-info .book-author {
     font-size: 1.2rem;
     margin-bottom: 10px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\0000322}}
-  .page-bookinfo h2 {
+  body.book-info h2 {
     font-size: 1.2rem;
     font-weight: bold;
     color: #333;
     padding-top: 20px;
     border-top: 1px solid #ddd; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\0000329}}
-  .page-bookinfo section {
+  body.book-info section {
     margin-bottom: 40px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\0000332}}
-  .page-bookinfo .book-cover {
+  body.book-info .book-cover {
     margin: 0;
     width: 134px;
     height: 184px;
@@ -2195,7 +2195,7 @@ li.book {
     transition: all 0.2s ease 0s;
     position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_bookinfo\.scss}line{font-family:\0000340}}
-    .page-bookinfo .book-cover img {
+    body.book-info .book-cover img {
       width: 100px;
       height: 150px;
       display: block;
@@ -2206,38 +2206,38 @@ li.book {
       border-radius: 4px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000033}}
-.page-signin .content-container,
-.page-signup .content-container {
+body.signin .content-container,
+body.signup .content-container {
   margin-top: 100px;
   text-align: center;
   position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\000037}}
-  .page-signin .content-container .mui-textfield,
-  .page-signup .content-container .mui-textfield {
+  body.signin .content-container .mui-textfield,
+  body.signup .content-container .mui-textfield {
     padding-top: 8px;
     margin-bottom: 8px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\0000311}}
-  .page-signin .content-container .mui-btn,
-  .page-signup .content-container .mui-btn {
+  body.signin .content-container .mui-btn,
+  body.signup .content-container .mui-btn {
     margin-top: 15px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\0000314}}
-  .page-signin .content-container .hint,
-  .page-signup .content-container .hint {
+  body.signin .content-container .hint,
+  body.signup .content-container .hint {
     margin-top: 20px;
     font-size: 16px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_signin\.scss}line{font-family:\0000317}}
-    .page-signin .content-container .hint a,
-    .page-signup .content-container .hint a {
+    body.signin .content-container .hint a,
+    body.signup .content-container .hint a {
       font-weight: bold; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_profile\.scss}line{font-family:\000034}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_profile\.scss}line{font-family:\000031}}
 .profile {
   min-height: 500px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_profile\.scss}line{font-family:\000037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_profile\.scss}line{font-family:\000034}}
   .profile ul > li {
     line-height: 3;
     border-top: 1px solid rgba(0, 0, 0, 0.14); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_profile\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/_profile\.scss}line{font-family:\000037}}
     .profile ul > li label {
       display: inline-block;
       width: 100px; }

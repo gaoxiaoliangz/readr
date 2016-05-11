@@ -28,6 +28,10 @@ var _CandyBox = require('components/CandyBox');
 
 var _CandyBox2 = _interopRequireDefault(_CandyBox);
 
+var _Body = require('side-effects/Body');
+
+var _Body2 = _interopRequireDefault(_Body);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83,6 +87,7 @@ var Home = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_Body2.default, { className: 'home' }),
         _react2.default.createElement(
           'div',
           { className: 'row' },

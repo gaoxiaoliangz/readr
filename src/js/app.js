@@ -5,12 +5,15 @@ import configureStore from 'store/configureStore'
 import routes from 'routes/app'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
-const initialState = JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
-const store = configureStore(initialState)
+import { syncHistoryWithStore } from 'react-router-redux'
+import createStore from './createStore'
+
+const store = createStore()
+const history = syncHistoryWithStore(browserHistory, store)
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router history={history} routes={routes} />
   </Provider>,
   document.getElementById('root')
 )

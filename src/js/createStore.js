@@ -4,8 +4,7 @@ function createStore() {
   let store
 
   if(typeof window.__INITIAL_STATE__ !== 'undefined') {
-    let initialState = JSON.parse(decodeURIComponent(window.__INITIAL_STATE__))
-    store = configureStore(initialState)
+    store = configureStore(window.__INITIAL_STATE__)
   }else{
     store = configureStore()
   }

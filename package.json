@@ -5,6 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production nodemon index",
     "dev": "BABEL_ENV=hmr node index --webpack & grunt watch:sass & grunt watch:babel",
+    "dev-sr": "BABEL_ENV=hmr nodemon index --webpack & grunt watch:sass & grunt watch:babel",
     "dev-server": "nodemon index & grunt watch:sass & grunt watch:babel",
     "test": "mocha --require babel-register"
   },
@@ -41,6 +42,7 @@
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.4",
     "react-selectize": "^2.0.1",
+    "react-side-effect": "^1.0.2",
     "redux": "^3.3.1",
     "request": "^2.67.0",
     "whatwg-fetch": "^0.11.0"

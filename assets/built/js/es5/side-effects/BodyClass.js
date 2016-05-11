@@ -10,15 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = require('react-router');
+var _reactSideEffect = require('react-side-effect');
 
-var _reactRedux = require('react-redux');
-
-var _Branding = require('components/Branding');
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _actions = require('actions');
+var _reactSideEffect2 = _interopRequireDefault(_reactSideEffect);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,43 +22,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Template = function (_Component) {
-  _inherits(Template, _Component);
+var Body = function (_Component) {
+  _inherits(Body, _Component);
 
-  function Template() {
-    _classCallCheck(this, Template);
+  function Body() {
+    _classCallCheck(this, Body);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Template).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Body).apply(this, arguments));
   }
 
-  _createClass(Template, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchUserAuthInfo();
-    }
-  }, {
+  _createClass(Body, [{
     key: 'render',
     value: function render() {
-      var spanStyle = { color: "white", marginTop: 12, marginRight: 20, fontSize: "16px", display: "inline-block" };
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'page-home' },
-        _react2.default.createElement(
-          Container,
-          { style: { width: "100%", paddingLeft: "276px", paddingTop: 84, paddingBottom: 30, paddingRight: 30, boxSizing: "border-box" } },
-          this.props.children
-        )
-      );
+      return _react2.default.createElement('div', { className: 'react-body-class hidden' });
     }
   }]);
 
-  return Template;
+  return Body;
 }(_react.Component);
 
-exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    notification: state.notification,
-    user: state.user
-  };
-}, { handleNotification: _actions.handleNotification, fetchUserAuthInfo: _actions.fetchUserAuthInfo })(Template);
+BodyClass.propTypes = {
+  className: _react.PropTypes.string.isRequired
+};
+
+function reducePropsToState(propsList) {
+  var className = void 0;
+
+  propsList.forEach(function (props) {
+    className = props.className;
+  });
+
+  return className;
+}
+
+function handleStateChangeOnClient(className) {
+  document.body.className = className;
+}
+
+exports.default = (0, _reactSideEffect2.default)(reducePropsToState, handleStateChangeOnClient)(Body);

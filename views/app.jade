@@ -16,12 +16,11 @@ html
     else
       link(type='text/css' rel='stylesheet' href='/built/css/app.css')
 
-  body
+  body(class="#{bodyClass}")
     #root.app !{html}
     
-    //- todo server reandering disabled?
-    //- script.
-      //- var __INITIAL_STATE__ = '!{initialState}'
+    script.
+      var __INITIAL_STATE__ = !{initialState}
 
     //- script(src="/vendors/lodash/lodash.core.min.js")
 

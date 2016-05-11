@@ -65,11 +65,9 @@ var App = function (_Component) {
         username = this.props.session.user.username;
       }
 
-      var pageName = this.props.children.props.route.component.WrappedComponent ? this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase() : this.props.children.props.route.component.displayName.toLowerCase();
-
       return _react2.default.createElement(
         'div',
-        { className: "page-" + pageName },
+        null,
         _react2.default.createElement(_Branding2.default, { isAdmin: isAdmin, username: username }),
         _react2.default.createElement(
           _Container2.default,

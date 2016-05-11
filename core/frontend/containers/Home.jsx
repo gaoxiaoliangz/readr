@@ -5,6 +5,7 @@ import { fetchUserAuthInfo, fetchBooks, fetchCollections } from 'actions'
 import BookListSection from 'components/BookListSection'
 import Loading from 'components/Loading'
 import CandyBox from 'components/CandyBox'
+import Body from 'side-effects/Body'
 
 class Home extends Component {
 
@@ -41,6 +42,7 @@ class Home extends Component {
 
     return (
       <div>
+        <Body className="home" />
         <div className="row">
           <div className="col-md-8">
             <BookListSection bookList={newestBooks} title="新书速递" />

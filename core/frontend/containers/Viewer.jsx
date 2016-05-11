@@ -14,6 +14,7 @@ import { getCache, setCache } from 'utils/cache'
 import { simpleCompareObjects } from 'utils/object'
 import { fetchBook, fetchBookProgress, userAuth } from 'actions'
 import apis from 'utils/apis'
+import Body from 'side-effects/Body'
 
 const actions = { fetchBook, fetchBookProgress, userAuth }
 
@@ -275,6 +276,7 @@ class Viewer extends Component {
 
     return (
       <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this)} >
+        <Body className="viewer" />
         {
           !book.content && !this.state.calculatedPages ?(
             <Loading />

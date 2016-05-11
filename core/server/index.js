@@ -43,7 +43,7 @@ function init(basePath) {
   if(env === 'production') {
     app.get("*", routes.frontend(env, true, true))
   }else{
-    app.get("*", routes.frontend(env, true, false))
+    app.get("*", routes.frontend(env, true, true))
   }
 
   // error log info

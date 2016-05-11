@@ -40,6 +40,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _Body = require('side-effects/Body');
+
+var _Body2 = _interopRequireDefault(_Body);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83,6 +87,7 @@ var BookInfo = function (_Component) {
       return _react2.default.createElement(
         'article',
         { className: 'book-info content-container' },
+        _react2.default.createElement(_Body2.default, { className: 'book-info' }),
         _lodash2.default.isEmpty(bookInfo) ? _react2.default.createElement(_Loading2.default, null) : null,
         _react2.default.createElement(
           'header',

@@ -6,6 +6,56 @@ import Icon from 'elements/Icon'
 import ConsoleBranding from 'components/ConsoleBranding'
 import { userAuth, handleNotification } from 'actions'
 import Notification from 'components/Notification'
+import Body from 'side-effects/Body'
+
+const menuMapping = [
+  {
+    component: 'books',
+    displayName: '',
+    path: 'console/managebooks',
+    subMenu: [
+      {
+        component: 'managebooks',
+        displayName: 'Manage Books',
+        path: 'console'
+      },
+      {
+        component: 'addbook',
+        displayName: 'Add Book',
+        path: 'console/addbook'
+      },
+      {
+        component: 'addcollection',
+        displayName: 'Add Collection',
+        path: 'console/collection/new'
+      }
+    ]
+  },
+  {
+    component: 'users',
+    displayName: '',
+    path: 'console/manageusers',
+    subMenu: [
+      {
+        component: 'manageusers',
+        displayName: 'Manage Users',
+        path: 'console/manageusers'
+      }
+    ]
+  },
+  {
+    component: 'database',
+    displayName: '',
+    path: 'console/managebooks',
+    subMenu: []
+  },
+  {
+    component: 'statistics',
+    displayName: '',
+    path: 'console/managebooks',
+    subMenu: []
+  }
+]
 
 class Console extends Component {
 
@@ -13,63 +63,17 @@ class Console extends Component {
     this.props.userAuth()
   }
 
-  renderMenu(currentPath) {
-    let menuMapping = [
-      {
-        component: 'books',
-        displayName: '',
-        path: '/console/managebooks',
-        children: [
-          {
-            component: 'managebooks',
-            displayName: 'Manage Books',
-            path: '/console/managebooks'
-          },
-          {
-            component: 'addbook',
-            displayName: 'Add Book',
-            path: '/console/addbook'
-          },
-          {
-            component: 'addcollection',
-            displayName: 'Add Collection',
-            path: '/console/collection/new'
-          }
-        ]
-      },
-      {
-        component: 'users',
-        displayName: '',
-        path: '/console/manageusers',
-        children: [
-          {
-            component: 'manageusers',
-            displayName: 'Manage Users',
-            path: '/console/manageusers'
-          }
-        ]
-      },
-      {
-        component: 'database',
-        displayName: '',
-        path: '/console/managebooks',
-        children: []
-      },
-      {
-        component: 'statistics',
-        displayName: '',
-        path: '/console/managebooks',
-        children: []
-      }
-    ]
+  renderMenu(menuMapping, currentPath) {
+    let currentMenu = {
+      rootIndex: 0,
+      subIndex: 0
+    }
 
-    let currentMenu = {}
-
-    menuMapping.filter((item, rootIndex) => {
+    menuMapping.forEach((item, rootIndex) => {
       let subIndex
 
-      let result = item.children.filter((item, index) => {
-        if(item.component === currentPath) {
+      let result = item.subMenu.filter((item, index) => {
+        if(item.path === currentPath) {
           subIndex = index
           return true
         }
@@ -78,7 +82,6 @@ class Console extends Component {
       if(result.length > 0) {
         currentMenu.rootIndex = rootIndex
         currentMenu.subIndex = subIndex
-        return true
       }
     })
 
@@ -93,7 +96,7 @@ class Console extends Component {
             }
 
             return (
-              <li key={index} className={className}><Link to={menu.path}><Icon name={menu.component} /></Link></li>
+              <li key={index} className={className}><Link to={`/${menu.path}`}><Icon name={menu.component} /></Link></li>
             )
           })
         }
@@ -103,7 +106,7 @@ class Console extends Component {
     let subMenu = (
       <ul className="nav-side nav-side-sub">
         {
-          menuMapping[currentMenu.rootIndex].children.map((menu, index) => {
+          menuMapping[currentMenu.rootIndex].subMenu.map((menu, index) => {
             let className = `menu-${menu.component}`
 
             if(index === currentMenu.subIndex) {
@@ -111,7 +114,7 @@ class Console extends Component {
             }
 
             return (
-              <li key={index} className={className}><Link to={menu.path}>{menu.displayName}</Link></li>
+              <li key={index} className={className}><Link to={`/${menu.path}`}>{menu.displayName}</Link></li>
             )
           })
         }
@@ -129,14 +132,14 @@ class Console extends Component {
   render() {
     let isAdmin = this.props.session.user.role === 'admin'?true:false
     let username = this.props.session.user.username?this.props.session.user.username:null
-    let pageName = this.props.children.props.route.component.WrappedComponent?this.props.children.props.route.component.WrappedComponent.displayName.toLowerCase():'404'
+    let pathname = this.props.routing.locationBeforeTransitions?this.props.routing.locationBeforeTransitions.pathname:'console'
 
     return (
-      <div className={"page-"+pageName}>
+      <div>
         <ConsoleBranding isAdmin={isAdmin} username={username} />
         <Container isFluid={true}>
           <Notification notification={this.props.notification} />
-          {this.renderMenu(pageName)}
+          {this.renderMenu(menuMapping, pathname)}
           <div className="content">
             {this.props.children}
           </div>

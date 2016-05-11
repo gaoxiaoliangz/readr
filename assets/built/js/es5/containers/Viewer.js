@@ -56,6 +56,10 @@ var _apis = require('utils/apis');
 
 var _apis2 = _interopRequireDefault(_apis);
 
+var _Body = require('side-effects/Body');
+
+var _Body2 = _interopRequireDefault(_Body);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -349,6 +353,7 @@ var Viewer = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'viewer viewer--' + view.screen, onMouseMove: this.toggleBookPanel.bind(this) },
+        _react2.default.createElement(_Body2.default, { className: 'viewer' }),
         !book.content && !this.state.calculatedPages ? _react2.default.createElement(_Loading2.default, null) : null,
         this.state.showProgressDialog ? _react2.default.createElement(_Dialog2.default, { actions: actions, content: 'are you sure?' }) : null,
         _react2.default.createElement(

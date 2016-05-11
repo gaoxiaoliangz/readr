@@ -40,8 +40,16 @@ module.exports = {
       css: path.join(__dirname, "assets/built/css")
     },
     extensions: ['', '.js', '.jsx']
-  },
-  externals: {
-    // 'lodash': '_'
   }
+  // externals: {
+  //   'lodash': '_',
+  //   'react': 'React',
+  //   'react-redux': 'ReactRedux',
+  //   'react-router': 'ReactRouter',
+  //   'redux-devtools': 'ReduxDevtools',
+  //   'redux-devtools-log-monitor': 'LogMonitor',
+  //   'redux-devtools-dock-monitor': 'DockMonitor',
+  //   'redux-thunk': 'ReduxThunk',
+  //   'redux-logger': 'ReduxLogger'
+  // }
 }

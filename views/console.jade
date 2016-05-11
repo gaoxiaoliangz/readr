@@ -16,11 +16,11 @@ html
     else
       link(type='text/css' rel='stylesheet' href='/built/css/console.css')
 
-  body
+  body(class="#{bodyClass}")
     #root.console !{html}
     
-    //- script.
-      //- var __INITIAL_STATE__ = '!{initialState}'
+    script.
+      var __INITIAL_STATE__ = !{initialState}
 
     script(src="/vendors/lodash/lodash.core.min.js")
 
