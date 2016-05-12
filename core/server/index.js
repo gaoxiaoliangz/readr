@@ -9,10 +9,11 @@ const colors = require('colors/safe')
 const routes = require('./routes')
 const bootServer = require('./boot')
 const config = require('./config')
-const startWebpack = require('./webpack')
 const app = express()
-const isWebpackEnabled = process.argv.indexOf('--webpack') !== -1?true:false
 const env = app.get('env')
+
+const isHmrEnabled = process.argv.indexOf('--hmr') !== -1?true:false
+const startWebpack = require('./webpack')
 
 function init(basePath) {
   app.use(session({
@@ -26,7 +27,8 @@ function init(basePath) {
     store: new MongoStore({ url: config.dbUrl+'readr_session' })
   }))
 
-  if(env =="development" && isWebpackEnabled) {
+  // it won't work if placed in the wrong position
+  if(isHmrEnabled) {
     startWebpack(app)
   }
 
@@ -37,6 +39,12 @@ function init(basePath) {
   app.set('view engine', 'jade')
   app.use(express.static(path.join(basePath, 'assets')))
 
+  // error log info
+  app.use(morgan('dev', {
+    skip: function (req, res) { return res.statusCode < 400 }
+  }))
+  // app.use(morgan('tiny'))
+
   // handle routing
   app.use(routes.apiBaseUri, routes.api())
 
@@ -45,11 +53,6 @@ function init(basePath) {
   }else{
     app.get("*", routes.frontend(env, true, true))
   }
-
-  // error log info
-  app.use(morgan('dev', {
-    skip: function (req, res) { return res.statusCode < 400 }
-  }))
 
   return bootServer(app, env)
 }

@@ -1,11 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
-var hot = 'webpack-hot-middleware/client'
 
 module.exports = {
   entry: {
-    app: [hot, './src/js/app.dev'],
-    console: [hot, './src/js/console.dev']
+    app: ['./src/js/app.dev'],
+    console: ['./src/js/console.dev']
   },
   output: {
     path: path.join(__dirname, 'assets/built/js'),
@@ -19,13 +18,19 @@ module.exports = {
       'process.env.NODE_ENV': '"development"'
     })
   ],
+  devServer: {
+    stats: 'errors-only'
+  },
   devtool: 'source-map',
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
+        loader: 'babel',
+        query: {
+          presets: ['react', 'es2015']
+        }
       },
       {
         test: /\.css?$/,

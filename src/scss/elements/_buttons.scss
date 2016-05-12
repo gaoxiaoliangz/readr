@@ -1,0 +1,63 @@
+$btn_normal: #f6f6f6;
+$btn_hover: #f9f9f9;
+$btn_active: #fff;
+$btn_focus: #fff;
+$btn_outline: #1d5ad0;
+$btn_hover_outline: #999;
+$btn_text: #666;
+$btn_hover_text: #222;
+$btn_shadow: 0 1px 5px rgba(0,0,0,0.1);
+
+$btn_blue: rgb(29, 82, 186);
+$btn_orange: rgb(238, 147, 51);
+$btn_red: rgb(212, 32, 32);
+
+.btn {
+  display: inline-block;
+  background: $btn_normal;
+  padding: $input_padding 20px;
+  line-height: $input_line_height;
+  font-size: 1rem;
+  color: $btn_text;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  font-family: $sans_font;
+  border-radius: $border_radius;
+  border: 1px solid transparent;
+  margin: 5px 0;
+  transition: all 0.3s 0s;
+  &:hover {
+    background: $btn_hover;
+    color: $btn_hover_text;
+    border: 1px solid $btn_hover_outline;
+    @extend .z1;
+  }
+  &:focus {
+    background: $btn_focus;
+    border: 1px solid $btn_outline;
+    @extend .z1;
+  }
+  &:active {
+    background: $btn_active;
+    border: 1px solid $btn_outline;
+    box-shadow: none;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+.btn.btn-blue {
+  background: $btn_blue;
+  color: #fff;
+}
+
+.btn.btn-orange {
+  background: $btn_orange;
+}
+
+.btn.btn-red {
+  background: $btn_red;
+}

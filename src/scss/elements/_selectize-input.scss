@@ -1,0 +1,34 @@
+.selectize-input {
+  min-width: 300px;
+  border: 1px solid $gray_d;
+  margin: 10px 0;
+  box-sizing: border-box;
+  padding: $input_padding 5px ($input_padding - 5);
+  transition: border-color .3s;
+  cursor: text;
+  input {
+    border: none;
+    outline: none;
+    line-height: $input_line_height;
+    margin-bottom: 5px;
+  }
+  .tag {
+  }
+  ul.query-results {
+    margin-bottom: 5px;
+    li {
+      padding: 0 3px;
+      line-height: 2;
+      cursor: pointer;
+      &:hover {
+        background: $gray_l;
+      }
+    }
+  }
+  &.focus {
+    border-color: $super_power;
+  }
+  &.empty {
+    // padding-bottom: $input_padding;
+  }
+}

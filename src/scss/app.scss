@@ -1,15 +1,11 @@
-@import "bootstrap-grid/index";
-
+@import "vendors/normalize";
 // bootstrap's variables are not accessiable in my utils, don't know why
-@import "utils/constants";
-@import "utils/helpers";
-@import "utils/mixin";
-@import "utils/base";
-@import "utils/icons";
-@import "utils/animation";
-@import "utils/elements";
-@import "utils/components";
-@import "utils/layout";
+@import "vendors/bootstrap-grid/index";
+@import "kitx";
+
+// Components
+@import "components/brandings";
+@import "components/pieces";
 
 @import "home";
 @import "viewer";

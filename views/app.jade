@@ -22,12 +22,13 @@ html
     script.
       var __INITIAL_STATE__ = !{initialState}
 
-    //- script(src="/vendors/lodash/lodash.core.min.js")
-
     if env == "production"
       script(src="/vendors/polyfills/fetch.js")
       script(src="/vendors/polyfills/babel-polyfill.min.js")
       script(src="/built/js/app.built.js")
 
     else
-      script(src="/built/js/app.js")
+      if isWebpackDevServerEnabled == true
+        script(src="http://localhost:8080/built/js/app.js")
+      else
+        script(src="/built/js/app.js")

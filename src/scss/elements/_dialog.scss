@@ -1,0 +1,14 @@
+.dialog {
+  position: fixed;
+  width: 500px;
+  left: 50%;
+  margin-left: -250px;
+  top: 50%;
+  z-index: 999;
+  background: #fff;
+  padding: 30px;
+
+  p {
+    font-size: 1.2rem;
+  }
+}

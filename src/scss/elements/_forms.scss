@@ -1,0 +1,31 @@
+input {
+  margin: 0;
+  padding: 0;
+}
+
+.input-wrap {
+  margin: 10px 0;
+  input {
+    width: 100%;
+    padding: $input_padding 5px;
+    border: 1px solid $gray_d;
+    transition: border-color .3s;
+    line-height: $input_line_height;
+    outline: none;
+    &:focus {
+      border-color: $super_power;
+    }
+  }
+}
+
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid $gray_d;
+  outline: none;
+  height: 100px;
+  transition: border-color .3s;
+  &:focus {
+    border-color: $super_power;
+  }
+}

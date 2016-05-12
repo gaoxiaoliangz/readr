@@ -1,15 +1,10 @@
-@import "bootstrap-grid/index";
-@import 'vendors/react-selectize/index';
-@import "utils/constants";
-@import "utils/helpers";
-@import "utils/mixin";
-@import "utils/base";
-@import "utils/layout";
-@import "utils/icons";
-@import "utils/animation";
-@import "utils/elements";
-@import "elements/modal";
-@import "utils/components";
+@import "vendors/normalize";
+@import "vendors/bootstrap-grid/index";
+@import "kitx";
+
+// Components
+@import "components/brandings";
+@import "components/pieces";
 
 #root.console {
   .sidebar-left {

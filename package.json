@@ -3,11 +3,15 @@
   "version": "0.3.4",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production nodemon index",
-    "dev": "BABEL_ENV=hmr node index --webpack & grunt watch:sass & grunt watch:babel",
-    "dev-sr": "BABEL_ENV=hmr nodemon index --webpack & grunt watch:sass & grunt watch:babel",
-    "dev-server": "nodemon index & grunt watch:sass & grunt watch:babel",
-    "test": "mocha --require babel-register"
+    "start": "nodemon index --production",
+    "webpack": "webpack-dev-server",
+    "dev": "nodemon index.dev --hmr --exec babel-node & grunt watch:sass",
+    "dev2": "nodemon index.dev --webpack-dev-server --exec babel-node & grunt watch:sass",
+    "dev3": "nodemon index --hmr & grunt watch:sass & grunt babel",
+    "dev4": "nodemon index.dev --exec babel-node --hmr & grunt watch:sass",
+    "test": "mocha --require babel-register",
+    "dev-es6": "nodemon index.dev --exec babel-node",
+    "watch": "grunt watch:sass"
   },
   "dependencies": {
     "app-module-path": "^1.0.6",
@@ -48,6 +52,7 @@
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.8.0",
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.7.4",

@@ -23,6 +23,8 @@ const store = configureStore()
 const appRoutes = require('routes/app').default
 const consoleRoutes = require('routes/console').default
 const Body = require('side-effects/Body').default
+const isWebpackDevServerEnabled = process.argv.indexOf('--webpack-dev-server') !== -1?true:false
+
 
 function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
 
@@ -87,7 +89,8 @@ function frontendRoutes(env, isServerRoutingEnabled, isServerRenderingEnabled) {
           env: env,
           html: html,
           bodyClass: bodyClass,
-          initialState: JSON.stringify(initialState)
+          initialState: JSON.stringify(initialState),
+          isWebpackDevServerEnabled: isWebpackDevServerEnabled
         })
       }
 

@@ -1,6 +1,5 @@
 'use strict'
 
-
 const models = require('../models')
 const Promise = require('bluebird')
 const utils = require('./utils')
