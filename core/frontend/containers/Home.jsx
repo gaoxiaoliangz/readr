@@ -45,7 +45,7 @@ class Home extends Component {
         <Body className="home" />
         <div className="row">
           <div className="col-md-8">
-            <BookListSection bookList={newestBooks} title="新书速递" />
+            <BookListSection bookList={newestBooks} title="新书速递222333" />
             <BookListSection bookList={list} title={listName} />
           </div>
           <div className="col-md-4">

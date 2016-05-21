@@ -7,7 +7,7 @@
     "webpack": "webpack-dev-server",
     "dev": "nodemon index.dev --hmr --exec babel-node & grunt watch:sass",
     "dev2": "nodemon index.dev --webpack-dev-server --exec babel-node & grunt watch:sass",
-    "dev3": "nodemon index --hmr & grunt watch:sass & grunt babel",
+    "dev3": "nodemon index --hmr & grunt watch:sass & grunt watch:babel",
     "dev4": "nodemon index.dev --exec babel-node --hmr & grunt watch:sass",
     "test": "mocha --require babel-register",
     "dev-es6": "nodemon index.dev --exec babel-node",

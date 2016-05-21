@@ -206,53 +206,172 @@ ul {
     .content-container {
       width: 100%; } }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000311}}
 .btn {
-  display: inline-block;
-  background: #f6f6f6;
-  padding: 5px 20px;
-  line-height: 25px;
+  color: #fff;
+  background-color: #3c72dd;
+  border-color: #3c72dd;
+  padding: 3px 12px;
   font-size: 1rem;
-  color: #666;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  font-weight: bold;
-  font-family: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
   border-radius: 3px;
+  transition: all 0.2s 0s;
+  outline: none;
   border: 1px solid transparent;
-  margin: 5px 0;
-  transition: all 0.3s 0s; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000331}}
+  display: inline-block;
+  margin: 5px 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
   .btn:hover {
-    background: #f9f9f9;
-    color: #222;
-    border: 1px solid #999; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000337}}
-  .btn:focus {
-    background: #fff;
-    border: 1px solid #1d5ad0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000342}}
-  .btn:active {
-    background: #fff;
-    border: 1px solid #1d5ad0;
+    color: #fff;
+    background-color: #2258c4;
+    border-color: #2154bb; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000320}}
+  .btn:focus, .btn.focus {
+    color: #fff;
+    background-color: #2258c4;
+    border-color: #2154bb;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #6791e5; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000328}}
+  .btn:active, .btn.active {
+    color: #fff;
+    background-color: #2258c4;
+    border-color: #2154bb;
+    background-image: none;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #6791e5; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000337}}
+    .btn:active:hover, .btn:active:focus, .btn:active.focus, .btn.active:hover, .btn.active:focus, .btn.active.focus {
+      color: #fff;
+      background-color: #1d4ba5;
+      border-color: #173b83;
+      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #6791e5 !important; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000349}}
+  .btn.disabled:focus, .btn.disabled.focus, .btn:disabled:focus, .btn:disabled.focus {
+    background-color: #3c72dd;
+    border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.disabled:hover, .btn:disabled:hover {
+    background-color: #3c72dd;
+    border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000320}}
+  .btn.disabled, .btn:disabled {
+    cursor: not-allowed;
+    opacity: .65; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000333}}
+  .btn:active:hover {
     box-shadow: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000346}}
-    .btn:active:hover {
-      box-shadow: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000340}}
 .btn.btn-blue {
-  background: #1d52ba;
-  color: #fff; }
+  color: #fff;
+  background-color: #3c72dd;
+  border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.btn-blue:hover {
+    color: #fff;
+    background-color: #2258c4;
+    border-color: #2154bb; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000320}}
+  .btn.btn-blue:focus, .btn.btn-blue.focus {
+    color: #fff;
+    background-color: #2258c4;
+    border-color: #2154bb;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #6791e5; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000328}}
+  .btn.btn-blue:active, .btn.btn-blue.active {
+    color: #fff;
+    background-color: #2258c4;
+    border-color: #2154bb;
+    background-image: none;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #6791e5; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000337}}
+    .btn.btn-blue:active:hover, .btn.btn-blue:active:focus, .btn.btn-blue:active.focus, .btn.btn-blue.active:hover, .btn.btn-blue.active:focus, .btn.btn-blue.active.focus {
+      color: #fff;
+      background-color: #1d4ba5;
+      border-color: #173b83;
+      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #6791e5 !important; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000349}}
+  .btn.btn-blue.disabled:focus, .btn.btn-blue.disabled.focus, .btn.btn-blue:disabled:focus, .btn.btn-blue:disabled.focus {
+    background-color: #3c72dd;
+    border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.btn-blue.disabled:hover, .btn.btn-blue:disabled:hover {
+    background-color: #3c72dd;
+    border-color: #3c72dd; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000344}}
 .btn.btn-orange {
-  background: #ee9333; }
+  color: #fff;
+  background-color: #ee9333;
+  border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.btn-orange:hover {
+    color: #fff;
+    background-color: #dc7a12;
+    border-color: #2154bb; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000320}}
+  .btn.btn-orange:focus, .btn.btn-orange.focus {
+    color: #fff;
+    background-color: #dc7a12;
+    border-color: #2154bb;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000328}}
+  .btn.btn-orange:active, .btn.btn-orange.active {
+    color: #fff;
+    background-color: #dc7a12;
+    border-color: #2154bb;
+    background-image: none;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000337}}
+    .btn.btn-orange:active:hover, .btn.btn-orange:active:focus, .btn.btn-orange:active.focus, .btn.btn-orange.active:hover, .btn.btn-orange.active:focus, .btn.btn-orange.active.focus {
+      color: #fff;
+      background-color: #bb6710;
+      border-color: #173b83;
+      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62 !important; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000349}}
+  .btn.btn-orange.disabled:focus, .btn.btn-orange.disabled.focus, .btn.btn-orange:disabled:focus, .btn.btn-orange:disabled.focus {
+    background-color: #ee9333;
+    border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.btn-orange.disabled:hover, .btn.btn-orange:disabled:hover {
+    background-color: #ee9333;
+    border-color: #3c72dd; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_buttons\.scss}line{font-family:\0000348}}
 .btn.btn-red {
-  background: #d42020; }
+  color: #fff;
+  background-color: #d42020;
+  border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.btn-red:hover {
+    color: #fff;
+    background-color: #a81919;
+    border-color: #2154bb; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000320}}
+  .btn.btn-red:focus, .btn.btn-red.focus {
+    color: #fff;
+    background-color: #a81919;
+    border-color: #2154bb;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000328}}
+  .btn.btn-red:active, .btn.btn-red.active {
+    color: #fff;
+    background-color: #a81919;
+    border-color: #2154bb;
+    background-image: none;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000337}}
+    .btn.btn-red:active:hover, .btn.btn-red:active:focus, .btn.btn-red:active.focus, .btn.btn-red.active:hover, .btn.btn-red.active:focus, .btn.btn-red.active.focus {
+      color: #fff;
+      background-color: #891515;
+      border-color: #173b83;
+      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444 !important; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_buttons\.scss}line{font-family:\0000349}}
+  .btn.btn-red.disabled:focus, .btn.btn-red.disabled.focus, .btn.btn-red:disabled:focus, .btn.btn-red:disabled.focus {
+    background-color: #d42020;
+    border-color: #3c72dd; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/mixins\/_hover\.scss}line{font-family:\0000310}}
+  .btn.btn-red.disabled:hover, .btn.btn-red:disabled:hover {
+    background-color: #d42020;
+    border-color: #3c72dd; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/liang\/dev\/readr\/src\/scss\/elements\/_dialog\.scss}line{font-family:\000031}}
 .dialog {

@@ -31,20 +31,6 @@ module.exports = function(grunt) {
           "dest": "<%=path.dist%>/js/es5",
           "ext": ".js"
         }]
-      },
-      es6: {
-        options: {
-          sourceMap: false,
-          babelrc: false,
-          presets: ['react']
-        },
-        files: [{
-          "expand": true,
-          "cwd": "<%=path.core%>/frontend",
-          "src": ["**/*.{js,jsx}"],
-          "dest": "<%=path.dist%>/js/es5",
-          "ext": ".js"
-        }]
       }
     },
     webpack: {

@@ -1,9 +1,12 @@
+@charset "UTF-8";
 /* !
  * KitX v0.2.0
  * Copyright 2015-2016 Gao Liang
  */
 
 // Mixins
+@import "mixins/hover";
+@import "mixins/border-radius";
 @import "mixins/buttons";
 @import "mixins/dropdowns";
 @import "mixins/screens";
