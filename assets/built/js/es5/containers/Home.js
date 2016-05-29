@@ -94,7 +94,7 @@ var Home = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-8' },
-            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '新书速递222333' }),
+            _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: '新书速递' }),
             _react2.default.createElement(_BookListSection2.default, { bookList: list, title: listName })
           ),
           _react2.default.createElement(

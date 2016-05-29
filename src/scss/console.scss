@@ -1,10 +1,6 @@
-@import "vendors/normalize";
-@import "vendors/bootstrap-grid/index";
-@import "kitx";
-
-// Components
-@import "components/brandings";
-@import "components/pieces";
+@import "mixins";
+@import "utils";
+@import "components";
 
 #root.console {
   .sidebar-left {

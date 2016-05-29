@@ -7,11 +7,14 @@ import Colophon from 'components/Colophon'
 import { userAuth, handleNotification } from 'actions'
 import Notification from 'components/Notification'
 
+var a = 12
+
 class App extends Component {
 
   constructor(props) {
     super(props)
   }
+
 
   componentDidMount() {
     this.props.userAuth()

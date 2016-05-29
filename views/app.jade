@@ -8,12 +8,13 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
     
     link(rel="shortcut icon" href="/built/img/favicon.png")
-    link(type='text/css' rel='stylesheet' href='/built/css/vendor.built.css')
 
     if env == "production"
+      link(type='text/css' rel='stylesheet' href='/built/css/vendors.built.css')
       link(type='text/css' rel='stylesheet' href='/built/css/app.built.css')
 
     else
+      link(type='text/css' rel='stylesheet' href='/built/css/vendors.css')
       link(type='text/css' rel='stylesheet' href='/built/css/app.css')
 
   body(class="#{bodyClass}")
