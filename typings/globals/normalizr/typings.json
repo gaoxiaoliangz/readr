@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/fef1581025301ba8d4211fb4917c87c170e0689d/normalizr/normalizr.d.ts",
+    "raw": "registry:dt/normalizr#2.0.1+20160501130729",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/fef1581025301ba8d4211fb4917c87c170e0689d/normalizr/normalizr.d.ts"
+  }
+}

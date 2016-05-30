@@ -1,0 +1,25 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "rootDir": "core/frontend",
+    "inlineSourceMap": true,
+    "jsx": "react",
+    "outDir": "core_built",
+    "experimentalDecorators": true,
+    "moduleResolution": "classic"
+    // "noImplicitAny": true,
+  },
+  "exclude": [
+    "node_modules",
+    "assets"
+  ]
+  // "files": [
+  //   "./typings/main.d.ts",
+  //   "./core/containers/Home.tsx",
+  //   "./core/containers/Hello.tsx",
+  //   "./core/containers/Root.dev.tsx",
+  //   "./src/js/index.tsx"
+  // ]
+}

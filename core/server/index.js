@@ -51,7 +51,7 @@ function init(basePath) {
   if(env === 'production') {
     app.get("*", routes.frontend(env, true, true))
   }else{
-    app.get("*", routes.frontend(env, true, true))
+    app.get("*", routes.frontend(env, true, false))
   }
 
   return bootServer(app, env)

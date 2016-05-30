@@ -1,0 +1,21 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/andrew-w-ross/typings-react-router/f36f207864367bd5f838b2c50b49ed6dfe88d71c/typings.json",
+    "raw": "registry:npm/react-router#2.0.0+20160214194820",
+    "main": "react-router.d.ts",
+    "global": false,
+    "dependencies": {
+      "history": {
+        "src": "https://raw.githubusercontent.com/andrew-w-ross/typings-history/master/typings.json",
+        "raw": "github:andrew-w-ross/typings-history",
+        "main": "history.d.ts",
+        "global": false,
+        "name": "history",
+        "type": "typings"
+      }
+    },
+    "name": "react-router",
+    "type": "typings"
+  }
+}

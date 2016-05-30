@@ -3,8 +3,8 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: ['./src/js/app.dev'],
-    console: ['./src/js/console.dev']
+    app: ['./core_built/entry/app.dev'],
+    console: ['./core_built/entry/console.dev']
   },
   output: {
     path: path.join(__dirname, 'assets/built/js'),
@@ -36,15 +36,16 @@ module.exports = {
         test: /\.css?$/,
         loaders: [ 'style', 'raw' ]
       }
+      // { test: /\.tsx?$/, loader: 'ts-loader' }
     ]
   },
   resolve: {
-    root: path.resolve('./core/frontend'),
+    root: path.resolve('./core_built'),
     alias: {
       vendor: path.join(__dirname, "assets/vendors"),
       css: path.join(__dirname, "assets/built/css")
     },
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx']
   }
   // externals: {
   //   'lodash': '_',
