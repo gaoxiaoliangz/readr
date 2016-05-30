@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -23,37 +23,23 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Fade = function (_Component) {
-  _inherits(Fade, _Component);
+    _inherits(Fade, _Component);
 
-  function Fade(props) {
-    _classCallCheck(this, Fade);
+    function Fade(props) {
+        _classCallCheck(this, Fade);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Fade).call(this, props));
-  }
-
-  _createClass(Fade, [{
-    key: 'render',
-    value: function render() {
-      var className = this.props.className ? this.props.className : null;
-
-      return _react2.default.createElement(
-        'div',
-        { className: className },
-        _react2.default.createElement(
-          _reactAddonsCssTransitionGroup2.default,
-          {
-            component: 'div',
-            transitionName: 'fade',
-            transitionEnterTimeout: 300,
-            transitionLeaveTimeout: 300
-          },
-          this.props.children
-        )
-      );
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Fade).call(this, props));
     }
-  }]);
 
-  return Fade;
+    _createClass(Fade, [{
+        key: 'render',
+        value: function render() {
+            var className = this.props.className ? this.props.className : null;
+            return _react2.default.createElement("div", { className: className }, _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: "fade", transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, this.props.children));
+        }
+    }]);
+
+    return Fade;
 }(_react.Component);
 
 exports.default = Fade;

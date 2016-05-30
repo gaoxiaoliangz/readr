@@ -6,7 +6,7 @@
     "rootDir": "core/frontend",
     "inlineSourceMap": true,
     "jsx": "react",
-    "outDir": "core_built",
+    "outDir": "assets/built/js/es6",
     "experimentalDecorators": true,
     "moduleResolution": "classic"
     // "noImplicitAny": true,
@@ -15,11 +15,4 @@
     "node_modules",
     "assets"
   ]
-  // "files": [
-  //   "./typings/main.d.ts",
-  //   "./core/containers/Home.tsx",
-  //   "./core/containers/Hello.tsx",
-  //   "./core/containers/Root.dev.tsx",
-  //   "./src/js/index.tsx"
-  // ]
 }

@@ -3,8 +3,8 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: ['./core_built/entry/app.dev'],
-    console: ['./core_built/entry/console.dev']
+    app: ['./assets/built/js/es6/entry/app.dev'],
+    console: ['./assets/built/js/es6/entry/console.dev']
   },
   output: {
     path: path.join(__dirname, 'assets/built/js'),
@@ -40,7 +40,7 @@ module.exports = {
     ]
   },
   resolve: {
-    root: path.resolve('./core_built'),
+    root: path.resolve('./assets/built/js/es6'),
     alias: {
       vendor: path.join(__dirname, "assets/vendors"),
       css: path.join(__dirname, "assets/built/css")

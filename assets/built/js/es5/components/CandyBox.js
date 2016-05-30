@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -12,10 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _BookList = require('components/BookList');
-
-var _BookList2 = _interopRequireDefault(_BookList);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25,54 +21,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CandyBox = function (_Component) {
-  _inherits(CandyBox, _Component);
+    _inherits(CandyBox, _Component);
 
-  function CandyBox() {
-    _classCallCheck(this, CandyBox);
+    function CandyBox() {
+        _classCallCheck(this, CandyBox);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(CandyBox).apply(this, arguments));
-  }
-
-  _createClass(CandyBox, [{
-    key: 'render',
-    value: function render() {
-      var list = this.props.list;
-      var title = this.props.title;
-      var moreLink = this.props.moreLink ? this.props.moreLink : null;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'candy-box' },
-        _react2.default.createElement(
-          'h3',
-          { className: 'box-title' },
-          title
-        ),
-        moreLink ? _react2.default.createElement(
-          _reactRouter.Link,
-          { to: moreLink },
-          '查看更多'
-        ) : null,
-        _react2.default.createElement(
-          'ul',
-          null,
-          list.map(function (item, index) {
-            return _react2.default.createElement(
-              'li',
-              { key: index },
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { to: item.link },
-                item.name
-              )
-            );
-          })
-        )
-      );
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CandyBox).apply(this, arguments));
     }
-  }]);
 
-  return CandyBox;
+    _createClass(CandyBox, [{
+        key: 'render',
+        value: function render() {
+            var list = this.props.list;
+            var title = this.props.title;
+            var moreLink = this.props.moreLink ? this.props.moreLink : null;
+            return _react2.default.createElement("div", { className: "candy-box" }, _react2.default.createElement("h3", { className: "box-title" }, title), moreLink ? _react2.default.createElement(_reactRouter.Link, { to: moreLink }, "查看更多") : null, _react2.default.createElement("ul", null, list.map(function (item, index) {
+                return _react2.default.createElement("li", { key: index }, _react2.default.createElement(_reactRouter.Link, { to: item.link }, item.name));
+            })));
+        }
+    }]);
+
+    return CandyBox;
 }(_react.Component);
 
 exports.default = CandyBox;

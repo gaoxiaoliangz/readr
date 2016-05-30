@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -25,57 +25,29 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Book = function (_Component) {
-  _inherits(Book, _Component);
+    _inherits(Book, _Component);
 
-  function Book() {
-    _classCallCheck(this, Book);
+    function Book() {
+        _classCallCheck(this, Book);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Book).apply(this, arguments));
-  }
-
-  _createClass(Book, [{
-    key: 'render',
-    value: function render() {
-      var book = this.props.book;
-      var title = book.title;
-      var description = book.description;
-      var bookId = this.props.id;
-      var author = book.author.map(function (a) {
-        return a.name;
-      }).join(', ');
-
-      return _react2.default.createElement(
-        'li',
-        { className: 'book' },
-        _react2.default.createElement(
-          _reactRouter.Link,
-          { to: "/book/" + bookId },
-          _react2.default.createElement(
-            'div',
-            { className: 'book-cover' },
-            _react2.default.createElement('img', { src: book.cover })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'book-meta' },
-            _react2.default.createElement(
-              'span',
-              { title: book.title, className: 'book-name' },
-              book.title
-            ),
-            _react2.default.createElement(
-              'span',
-              { className: 'book-author' },
-              author
-            )
-          )
-        ),
-        _react2.default.createElement(_BookInfoPopup2.default, { bookId: bookId, title: title, author: author, description: description })
-      );
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Book).apply(this, arguments));
     }
-  }]);
 
-  return Book;
+    _createClass(Book, [{
+        key: 'render',
+        value: function render() {
+            var book = this.props.book;
+            var title = book.title;
+            var description = book.description;
+            var bookId = this.props.id;
+            var author = book.author.map(function (a) {
+                return a.name;
+            }).join(', ');
+            return _react2.default.createElement("li", { className: "book" }, _react2.default.createElement(_reactRouter.Link, { to: "/book/" + bookId }, _react2.default.createElement("div", { className: "book-cover" }, _react2.default.createElement("img", { src: book.cover })), _react2.default.createElement("div", { className: "book-meta" }, _react2.default.createElement("span", { title: book.title, className: "book-name" }, book.title), _react2.default.createElement("span", { className: "book-author" }, author))), _react2.default.createElement(_BookInfoPopup2.default, { bookId: bookId, title: title, author: author, description: description }));
+        }
+    }]);
+
+    return Book;
 }(_react.Component);
 
 exports.default = Book;

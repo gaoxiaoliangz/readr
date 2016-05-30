@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -12,9 +12,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _reactRouter = require('react-router');
-
-var _actions = require('actions');
+var _index = require('actions/index');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25,36 +23,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Comp = function (_Component) {
-  _inherits(Comp, _Component);
+    _inherits(Comp, _Component);
 
-  _createClass(Comp, null, [{
-    key: 'fetchData',
-    value: function fetchData(_ref) {
-      var store = _ref.store;
-      var params = _ref.params;
+    function Comp(props) {
+        _classCallCheck(this, Comp);
 
-      return store.dispatch(fetch());
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Comp).call(this, props));
     }
-  }]);
 
-  function Comp(props) {
-    _classCallCheck(this, Comp);
+    _createClass(Comp, [{
+        key: 'render',
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Comp).call(this, props));
-  }
+        // return store.dispatch(fetchBook())
+        value: function render() {
+            return _react2.default.createElement("div", null);
+        }
+    }], [{
+        key: 'fetchData',
+        value: function fetchData(_ref) {
+            var store = _ref.store;
+            var params = _ref.params;
+        }
+    }]);
 
-  _createClass(Comp, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('div', null);
-    }
-  }]);
-
-  return Comp;
+    return Comp;
 }(_react.Component);
 
 exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    data: state.data
-  };
-}, { someAction: _actions.someAction })(Comp);
+    return {
+        data: state.data
+    };
+}, { fetchBook: _index.fetchBook })(Comp);

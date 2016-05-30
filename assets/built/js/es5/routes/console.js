@@ -10,9 +10,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _console = require('containers/console');
+var _index = require('containers/console/index');
 
-var _console2 = _interopRequireDefault(_console);
+var _index2 = _interopRequireDefault(_index);
 
 var _ManageBooks = require('containers/console/ManageBooks');
 
@@ -36,17 +36,4 @@ var _NoMatch2 = _interopRequireDefault(_NoMatch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _react2.default.createElement(
-  _reactRouter.Router,
-  null,
-  _react2.default.createElement(
-    _reactRouter.Route,
-    { path: '/console', component: _console2.default },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _ManageBooks2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'managebooks', component: _ManageBooks2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'manageusers', component: _ManageUsers2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'addbook', component: _AddBook2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'collection/new', component: _AddCollection2.default })
-  ),
-  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NoMatch2.default })
-);
+exports.default = _react2.default.createElement(_reactRouter.Router, null, _react2.default.createElement(_reactRouter.Route, { path: "/console", component: _index2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _ManageBooks2.default }), _react2.default.createElement(_reactRouter.Route, { path: "managebooks", component: _ManageBooks2.default }), _react2.default.createElement(_reactRouter.Route, { path: "manageusers", component: _ManageUsers2.default }), _react2.default.createElement(_reactRouter.Route, { path: "addbook", component: _AddBook2.default }), _react2.default.createElement(_reactRouter.Route, { path: "collection/new", component: _AddCollection2.default })), _react2.default.createElement(_reactRouter.Route, { path: "*", component: _NoMatch2.default }));

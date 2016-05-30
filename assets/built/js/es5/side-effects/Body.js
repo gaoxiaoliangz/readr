@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -23,44 +23,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Body = function (_Component) {
-  _inherits(Body, _Component);
+    _inherits(Body, _Component);
 
-  function Body() {
-    _classCallCheck(this, Body);
+    function Body() {
+        _classCallCheck(this, Body);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Body).apply(this, arguments));
-  }
-
-  _createClass(Body, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('div', { className: 'react-body-class hidden' });
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Body).apply(this, arguments));
     }
-  }]);
 
-  return Body;
+    _createClass(Body, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement("div", { className: "react-body-class hidden" });
+        }
+    }]);
+
+    return Body;
 }(_react.Component);
 
-Body.propTypes = {
-  className: _react.PropTypes.string.isRequired
-};
-
 function reducePropsToState(propsList) {
-  var className = void 0;
-
-  propsList.forEach(function (props) {
-    className = props.className;
-  });
-
-  return className;
+    var className = void 0;
+    propsList.forEach(function (props) {
+        className = props.className;
+    });
+    return className;
 }
-
 function handleStateChangeOnClient(className) {
-  if (typeof className !== 'undefined') {
-    document.body.className = className;
-  } else {
-    document.body.removeAttribute('class');
-  }
+    if (typeof className !== 'undefined') {
+        document.body.className = className;
+    } else {
+        document.body.removeAttribute('class');
+    }
 }
-
 exports.default = (0, _reactSideEffect2.default)(reducePropsToState, handleStateChangeOnClient)(Body);

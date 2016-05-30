@@ -1,0 +1,10 @@
+import { render } from 'react-dom';
+import React from 'react';
+import { browserHistory, Router } from 'react-router';
+import routes from 'routes/App';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import configureStore from 'store/configureStore';
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+render(React.createElement(Provider, {store: store}, React.createElement("div", null, React.createElement(Router, {history: history, routes: routes.props.children}))), document.getElementById('root'));
