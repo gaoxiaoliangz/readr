@@ -1,84 +1,57 @@
 import 'isomorphic-fetch';
-import { normalize } from 'normalizr';
-import humps from 'humps';
 import objectToUrlencoded from 'utils/objectToUrlencoded';
-export function handleResponseJson(json, schema) {
-    json = humps.camelizeKeys(json);
-    let result = json;
-    if (typeof schema !== 'undefined') {
-        result = Object.assign({}, normalize(json, schema));
-    }
-    return result;
-}
-export function callApi(options) {
-    let { fullUrl, method, data, schema, includeCredentials, useJsonp, contentType } = options;
-    const handleFetchConfig = () => {
-        let config = {};
-        let body;
-        if (typeof method === 'undefined' || method === 'GET' || method === 'get') {
-            config.method = 'GET';
+import handleResponseJson from 'utils/handleResponseJson';
+const defaultConfig = {
+    dataType: 'json',
+    method: 'GET',
+    credentials: 'same-origin'
+};
+export function callApi(fullUrl, config = {}) {
+    // return fetch config
+    const parseConfig = (config) => {
+        let config2 = Object.assign({}, defaultConfig, config);
+        let { method, data, schema, credentials, dataType } = config2;
+        let fetchConfig = {};
+        if (method) {
+            fetchConfig.method = method;
         }
-        else if (method === 'POST' || method === 'post') {
-            // 默认不带 credentials
-            if (includeCredentials === true) {
-                config.credentials = 'include';
-            }
-            // contentType 默认 urlencoded
-            if (typeof contentType === 'undefined' || contentType === 'urlencoded') {
-                contentType = 'application/x-www-form-urlencoded';
-                body = objectToUrlencoded(data);
-            }
-            else if (contentType === 'json') {
+        if (credentials) {
+            fetchConfig.credentials = credentials;
+        }
+        // handle request headers and body
+        if (method === 'POST') {
+            let contentType;
+            let body;
+            if (dataType === 'json') {
                 contentType = 'application/json';
                 body = JSON.stringify(data);
             }
-            config = Object.assign({}, config, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': contentType,
-                    'Access-Control-Request-Method': 'POST'
-                },
-                body
-            });
-        }
-        else {
-            console.error('Unsupported method');
-        }
-        return config;
-    };
-    const handleJsonp = () => {
-        if (fullUrl.indexOf('douban') !== -1) {
-            let id = new Date().valueOf();
-            let jsonpId = 'jsonp-' + id;
-            let jsonpCallback = 'jsonpCallback' + id;
-            let jsonpCallbackData = `__JSONP_DATA_${id}__`;
-            window[jsonpCallback] = function (data) {
-                window[jsonpCallbackData] = data;
+            else if (dataType === 'urlencoded') {
+                contentType = 'application/x-www-form-urlencoded';
+                body = objectToUrlencoded(data);
+            }
+            else {
+                // handle unsupported dataType
+                dataType = 'urlencoded';
+                contentType = 'application/x-www-form-urlencoded';
+                body = objectToUrlencoded(data);
+                console.warn('Unsupported dataType used "urlencoded" instead!');
+            }
+            fetchConfig.headers = {
+                'Content-Type': contentType,
+                'Access-Control-Request-Method': 'POST'
             };
-            let script = document.createElement('script');
-            script.setAttribute('src', `${fullUrl}&callback=${jsonpCallback}`);
-            script.setAttribute('id', jsonpId);
-            document.body.appendChild(script);
-            return new Promise(resolve => {
-                script.onload = function () {
-                    document.body.removeChild(document.getElementById(jsonpId));
-                    let json = window[jsonpCallbackData];
-                    resolve(handleResponseJson(json, schema));
-                };
-            });
+            fetchConfig.body = body;
         }
+        return fetchConfig;
     };
-    if (useJsonp === true) {
-        return handleJsonp();
-    }
-    return fetch(fullUrl, handleFetchConfig())
+    return fetch(fullUrl, parseConfig(config))
         .then(response => {
         return response.json().then(json => ({ json, response }));
     })
         .then(({ json, response }) => {
         if (response.ok) {
-            return handleResponseJson(json, schema);
+            return handleResponseJson(json, config.schema);
         }
         else {
             return Promise.reject(json);
@@ -86,4 +59,4 @@ export function callApi(options) {
     });
 }
 export default callApi;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FsbEFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NvcmUvZnJvbnRlbmQvdXRpbHMvY2FsbEFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiT0FBTyxrQkFBa0I7T0FDbEIsRUFBRSxTQUFTLEVBQUUsTUFBTSxXQUFXO09BQzlCLEtBQUssTUFBTSxPQUFPO09BQ2xCLGtCQUFrQixNQUFNLDBCQUEwQjtBQUl6RCxtQ0FBbUMsSUFBSSxFQUFFLE1BQU07SUFDN0MsSUFBSSxHQUFHLEtBQUssQ0FBQyxZQUFZLENBQUMsSUFBSSxDQUFDLENBQUE7SUFDL0IsSUFBSSxNQUFNLEdBQUcsSUFBSSxDQUFBO0lBRWpCLEVBQUUsQ0FBQSxDQUFDLE9BQU8sTUFBTSxLQUFLLFdBQVcsQ0FBQyxDQUFDLENBQUM7UUFDakMsTUFBTSxHQUFHLE1BQU0sQ0FBQyxNQUFNLENBQUMsRUFBRSxFQUN2QixTQUFTLENBQUMsSUFBSSxFQUFFLE1BQU0sQ0FBQyxDQUN4QixDQUFBO0lBQ0gsQ0FBQztJQUVELE1BQU0sQ0FBQyxNQUFNLENBQUE7QUFDZixDQUFDO0FBYUQsd0JBQXdCLE9BQXVCO0lBQzdDLElBQUksRUFBRSxPQUFPLEVBQUUsTUFBTSxFQUFFLElBQUksRUFBRSxNQUFNLEVBQUUsa0JBQWtCLEVBQUUsUUFBUSxFQUFFLFdBQVcsRUFBRSxHQUFHLE9BQU8sQ0FBQTtJQUUxRixNQUFNLGlCQUFpQixHQUFHO1FBTXhCLElBQUksTUFBTSxHQUFlLEVBQUUsQ0FBQTtRQUMzQixJQUFJLElBQUksQ0FBQTtRQUVSLEVBQUUsQ0FBQSxDQUFDLE9BQU8sTUFBTSxLQUFLLFdBQVcsSUFBSSxNQUFNLEtBQUssS0FBSyxJQUFJLE1BQU0sS0FBSSxLQUFLLENBQUMsQ0FBQyxDQUFDO1lBQ3hFLE1BQU0sQ0FBQyxNQUFNLEdBQUcsS0FBSyxDQUFBO1FBQ3ZCLENBQUM7UUFBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUMsTUFBTSxLQUFLLE1BQU0s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
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2FsbEFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NvcmUvZnJvbnRlbmQvdXRpbHMvY2FsbEFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiT0FBTyxrQkFBa0I7T0FDbEIsa0JBQWtCLE1BQU0sMEJBQTBCO09BQ2xELGtCQUFrQixNQUFNLDBCQUEwQjtBQVd6RCxNQUFNLGFBQWEsR0FBa0I7SUFDbkMsUUFBUSxFQUFFLE1BQU07SUFDaEIsTUFBTSxFQUFFLEtBQUs7SUFDYixXQUFXLEVBQUUsYUFBYTtDQUMzQixDQUFBO0FBRUQsd0JBQXdCLE9BQWUsRUFBRSxNQUFNLEdBQWtCLEVBQUU7SUFDakUsc0JBQXNCO0lBQ3RCLE1BQU0sV0FBVyxHQUFHLENBQUMsTUFBcUI7UUFDeEMsSUFBSSxPQUFPLEdBQUcsTUFBTSxDQUFDLE1BQU0sQ0FBQyxFQUFFLEVBQUUsYUFBYSxFQUFFLE1BQU0sQ0FBQyxDQUFBO1FBQ3RELElBQUksRUFBRSxNQUFNLEVBQUUsSUFBSSxFQUFFLE1BQU0sRUFBRSxXQUFXLEVBQUUsUUFBUSxFQUFFLEdBQUcsT0FBTyxDQUFBO1FBQzdELElBQUksV0FBVyxHQUtYLEVBQUUsQ0FBQTtRQUVOLEVBQUUsQ0FBQSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUM7WUFDVixXQUFXLENBQUMsTUFBTSxHQUFHLE1BQU0sQ0FBQTtRQUM3QixDQUFDO1FBRUQsRUFBRSxDQUFBLENBQUMsV0FBVyxDQUFDLENBQUMsQ0FBQztZQUNmLFdBQVcsQ0FBQyxXQUFXLEdBQUcsV0FBVyxDQUFBO1FBQ3ZDLENBQUM7UUFFRCxrQ0FBa0M7UUFDbEMsRUFBRSxDQUFBLENBQUMsTUFBTSxLQUFLLE1BQU0sQ0FBQyxDQUFDLENBQUM7WUFDckIsSUFBSSxXQUFXLENBQUE7WUFDZixJQUFJLElBQUksQ0FBQTtZQUVSLEVBQUUsQ0FBQSxDQUFDLFFBQVEsS0FBSyxNQUFNLENBQUMsQ0FBQyxDQUFDO2dCQUN2QixXQUFXLEdBQUcsa0JBQWtCLENBQUE7Z0JBQ2hDLElBQUksR0FBRyxJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFBO1lBQzdCLENBQUM7WUFBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUMsUUFBUSxLQUFLLFlBQVksQ0FBQyxDQUFDLENBQUM7Z0JBQ3JDLFdBQVcsR0FBRyxtQ0FBbUMsQ0FBQTtnQkFDakQsSUFBSSxHQUFHLGtCQUFrQixDQUFDLElBQUksQ0FBQyxDQUFBO1lBQ2pDLENBQUM7WUFBQyxJQUFJLENBQUMsQ0FBQztnQkFDTiw4QkFBOEI7Z0JBQzlCLFFBQVEsR0FBRyxZQUFZLENBQUE7Z0JBQ3ZCLFdBQVcsR0FBRyxtQ0FBbUMsQ0FBQTtnQkFDakQsSUFBSSxHQUFHLGtCQUFrQixDQUFDLElBQUksQ0FBQyxDQUFBO2dCQUMvQixPQUFPLENBQUMsSUFBSSxDQUFDLGlEQUFpRCxDQUFDLENBQUE7WUFDakUsQ0FBQztZQUVELFdBQVcsQ0FBQyxPQUFPLEdBQUc7Z0JBQ3BCLGNBQWMsRUFBRSxXQUFXO2dCQUMzQiwrQkFBK0IsRUFBRSxNQUFNO2FBQ3hDLENBQUE7WUFFRCxXQUFXLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQTtRQUN6QixDQUFDO1FBRUQsTUFBTSxDQUFDLFdBQVcsQ0FBQTtJQUNwQixDQUFDLENBQUE7SUFFRCxNQUFNLENBQUMsS0FBSyxDQUFDLE9BQU8sRUFBRSxXQUFXLENBQUMsTUFBTSxDQUFDLENBQUM7U0FDdkMsSUFBSSxDQUFDLFFBQVE7UUFDWixNQUFNLENBQUMsUUFBUSxDQUFDLElBQUksRUFBRSxDQUFDLElBQUksQ0FBQyxJQUFJLElBQUksQ0FBQyxFQUFFLElBQUksRUFBRSxRQUFRLEVBQUUsQ0FBQyxDQUFDLENBQUE7SUFDM0QsQ0FBQyxDQUFDO1NBQ0QsSUFBSSxDQUFDLENBQUMsRUFBRSxJQUFJLEVBQUUsUUFBUSxFQUFFO1FBQ3ZCLEVBQUUsQ0FBQSxDQUFDLFFBQVEsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDO1lBQ2YsTUFBTSxDQUFDLGtCQUFrQixDQUFDLElBQUksRUFBRSxNQUFNLENBQUMsTUFBTSxDQUFDLENBQUE7UUFDaEQsQ0FBQztRQUFBLElBQUksQ0FBQSxDQUFDO1lBQ0osTUFBTSxDQUFDLE9BQU8sQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLENBQUE7UUFDN0IsQ0FBQztJQUNILENBQUMsQ0FBQyxDQUFBO0FBQ04sQ0FBQztBQUVELGVBQWUsT0FBTyxDQUFBIn0=

@@ -28,7 +28,7 @@ class Signin extends Component<any, any> {
       password: this.state.password
     }
 
-    callApi({ fullUrl: `${ApiRoots.LOCAL}auth`, method: 'POST', data: params }).then(res => {
+    callApi(`${ApiRoots.LOCAL}auth`, { method: 'POST', data: params }).then(res => {
       this.props.handleNotification('登录成功！')
       setTimeout(function(){
         browserHistory.push('/')

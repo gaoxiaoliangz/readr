@@ -28,13 +28,13 @@ export default store => next => action => {
   }
 
   const fullUrl = apiUrl + endpoint
-  let options = { fullUrl, schema }
+  let options = { schema }
 
   if(typeof extendedOptions !== 'undefined') {
     options = Object.assign({}, options, extendedOptions)
   }
 
-  return callApi(options).then(
+  return callApi(fullUrl, options).then(
     response => next(actionWith({
       response,
       type: successType

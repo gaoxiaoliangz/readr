@@ -8,13 +8,13 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
     
     link(rel="shortcut icon" href="/built/img/favicon.png")
-    link(type='text/css' rel='stylesheet' href='/built/css/vendor.built.css')
+    link(type='text/css' rel='stylesheet' href='/built/vendor.css')
 
     if env == "production"
-      link(type='text/css' rel='stylesheet' href='/built/css/console.built.css')
+      link(type='text/css' rel='stylesheet' href='/built/console.css')
 
     else
-      link(type='text/css' rel='stylesheet' href='/built/css/console.css')
+      link(type='text/css' rel='stylesheet' href='/built/console.css')
 
   body(class="#{bodyClass}")
     #root.console !{html}
@@ -31,4 +31,4 @@ html
       if isWebpackDevServerEnabled == true
         script(src="http://localhost:8080/built/js/console.js")
       else
-        script(src="/built/js/console.js")
+        script(src="/built/console.js")

@@ -30,7 +30,7 @@ class Signup extends Component<any, any> {
       password: this.state.password
     }
 
-    callApi({ fullUrl: `${ApiRoots.LOCAL}users`, method: 'POST', data: params })
+    callApi(`${ApiRoots.LOCAL}users`, { method: 'POST', data: params })
       .then(res => {
         this.props.handleNotification('注册成功！')
         setTimeout(function(){

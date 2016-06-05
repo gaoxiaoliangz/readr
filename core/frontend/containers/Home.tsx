@@ -7,7 +7,11 @@ import Loading from 'components/Loading'
 import CandyBox from 'components/CandyBox'
 import Body from 'side-effects/Body'
 
-class Home extends Component<any, any> {
+interface State {
+  showRecentReading: boolean
+}
+
+class Home extends Component<any, State> {
 
   static fetchData({store}) {
     return store.dispatch(fetchBooks('newest'))
@@ -15,12 +19,25 @@ class Home extends Component<any, any> {
 
   constructor(props) {
     super(props)
+    this.state = {
+      showRecentReading: false
+    }
   }
 
   componentDidMount() {
     this.props.fetchBooks('newest')
-    this.props.fetchBooks('user')
     this.props.fetchCollections()
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if(this.props.session.isFetching && !nextProps.session.isFetching ) {
+      if(nextProps.session.user.role !== 'visitor') {
+        this.props.fetchBooks('user')
+        this.setState({
+          showRecentReading: true
+        })
+      }
+    }
   }
 
   render() {
@@ -49,7 +66,11 @@ class Home extends Component<any, any> {
             <BookListSection bookList={list} title={listName} />
           </div>
           <div className="col-md-4">
-            <CandyBox title="最近阅读" list={userBooks} />
+          {
+            this.state.showRecentReading ? (
+              <CandyBox title="最近阅读" list={userBooks} />   
+            ) : null
+          }
           </div>
         </div>
       </div>
@@ -70,6 +91,7 @@ function mapStateToProps(state, ownProps) {
   return {
     userBooks: genList(filteredBooks['user']),
     newestBooks: genList(filteredBooks['newest']),
+    session: state.session,
     collection: (() => {
       for(let prop in collections) {
         return collections[prop]
