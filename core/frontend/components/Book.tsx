@@ -9,7 +9,7 @@ export default class Book extends Component<any, any> {
     let description = book.description
     let bookId = this.props.id
     let author = book.author.map(a => a.name).join(', ')
-
+    let test = 999
     return (
       <li className="book">
         <Link to={"/book/"+bookId} >

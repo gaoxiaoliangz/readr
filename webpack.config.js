@@ -3,15 +3,15 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: ['./assets/built/js/es6/entry/app'],
-    console: ['./assets/built/js/es6/entry/console']
+    app: ['./assets/built/es6/entry/app'],
+    console: ['./assets/built/es6/entry/console']
     // app: ['./core/frontend/entry/app'],
     // console: ['./core/frontend/entry/console'],
   },
   output: {
-    path: path.join(__dirname, 'assets/built/js'),
+    path: path.join(__dirname, 'assets/built'),
     filename: '[name].js',
-    publicPath: '/built/js/'
+    publicPath: '/built/'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -21,7 +21,6 @@ module.exports = {
   devServer: {
     stats: 'errors-only'
   },
-  devtool: 'source-map',
   module: {
     loaders: [
       {
@@ -46,11 +45,11 @@ module.exports = {
     ]
   },
   resolve: {
-    root: path.resolve('./assets/built/js/es6'),
+    root: path.resolve('./assets/built/es6'),
     // root: path.resolve('./core/frontend'),
     alias: {
-      vendor: path.join(__dirname, "assets/vendors"),
-      css: path.join(__dirname, "assets/built/css")
+      vendor: path.join(__dirname, "assets/vendor"),
+      css: path.join(__dirname, "assets/built")
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx']
   },

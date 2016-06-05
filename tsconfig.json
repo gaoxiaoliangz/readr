@@ -6,9 +6,10 @@
     "rootDir": "core/frontend",
     "inlineSourceMap": true,
     "jsx": "react",
-    "outDir": "assets/built/js/es6",
+    "outDir": "assets/built/es6",
     "experimentalDecorators": true,
     "moduleResolution": "classic"
+    // "watch": true
     // "noImplicitAny": true,
   },
   "exclude": [
