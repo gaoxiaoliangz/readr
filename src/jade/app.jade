@@ -10,12 +10,11 @@ html
     link(rel="shortcut icon" href="/built/img/favicon.png")
 
     if env == "production"
-      link(type='text/css' rel='stylesheet' href='/built/css/vendors.built.css')
-      link(type='text/css' rel='stylesheet' href='/built/css/app.built.css')
-
+      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
+      link(type='text/css' rel='stylesheet' href='/built/app.css')
     else
-      link(type='text/css' rel='stylesheet' href='/built/css/vendors.css')
-      link(type='text/css' rel='stylesheet' href='/built/css/app.css')
+      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
+      link(type='text/css' rel='stylesheet' href='/built/app.css')
 
   body(class="#{bodyClass}")
     #root.app !{html}
@@ -27,9 +26,5 @@ html
       script(src="/vendors/polyfills/fetch.js")
       script(src="/vendors/polyfills/babel-polyfill.min.js")
       script(src="/built/js/app.built.js")
-
     else
-      if isWebpackDevServerEnabled == true
-        script(src="http://localhost:8080/built/js/app.js")
-      else
-        script(src="/built/js/app.js")
+      script(src="/built/app.js")

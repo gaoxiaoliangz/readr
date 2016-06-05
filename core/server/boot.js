@@ -6,6 +6,7 @@ const colors = require('colors/safe')
 const runtimeOptions = require('./utils/runtime-options')
 const config = require('./config')
 const port = config.port
+const env = runtimeOptions.env
 const isHmrEnabled = runtimeOptions.hmr
 
 function boot(app) {

@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon index --production",
     "webpack": "webpack-dev-server",
-    "dev": "node index --hmr --noServerRendering & grunt watch:sass & tsc --watch",
+    "dev": "node index --hmr --noServerRendering & gulp watch-sass & tsc --watch",
     "devx": "nodemon index --delay 1 & gulp watch-js & tsc --watch",
     "dev5": "nodemon index.dev --hmr --exec babel-node & grunt watch:sass",
     "dev2": "nodemon index.dev --webpack-dev-server --exec babel-node & grunt watch:sass",
