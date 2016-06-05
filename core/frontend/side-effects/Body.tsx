@@ -1,5 +1,6 @@
-import React, { Component, Children, PropTypes } from 'react';
-import withSideEffect from 'react-side-effect';
+import React, { Component, Children, PropTypes } from 'react'
+import withSideEffect from 'react-side-effect'
+// const withSideEffect = require('react-side-effect')
 
 interface BodyProps {
   className: string

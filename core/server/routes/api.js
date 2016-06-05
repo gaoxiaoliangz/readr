@@ -5,7 +5,7 @@ const api = require('../api')
 const middleware = require('../middleware')
 const router = express.Router()
 
-function apiRoutes() {
+function handleApiRouting() {
   // authors
   router.post('/authors', middleware.getUserInfo, api.http(api.authors.add))
   router.get('/authors', middleware.getUserInfo, api.http(api.authors.browse))
@@ -40,4 +40,4 @@ function apiRoutes() {
   return router
 }
 
-module.exports = apiRoutes
+module.exports = handleApiRouting

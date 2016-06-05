@@ -10,6 +10,7 @@ const users = require('./users')
 const auth = require('./auth')
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
+const runtimeOptions = require('../utils/runtime-options')
 
 // referenced ghost /server/api/index.js
 const http = function http(apiMethod) {
@@ -48,8 +49,10 @@ const http = function http(apiMethod) {
       }
     }, error => {
       let statusCode = error.statusCode || 500
-
-      console.log(error.stack)
+      
+      if(statusCode >= 500) {
+        console.log(error.stack) 
+      }
 
       if (Error.prototype.isPrototypeOf(error)) {
         error = {
@@ -60,6 +63,10 @@ const http = function http(apiMethod) {
 
       delete error.statusCode
       delete error.name
+      
+      if(runtimeOptions.env === 'production') {
+        delete error.stack
+      }
 
       res.status(statusCode).send(error)
     })

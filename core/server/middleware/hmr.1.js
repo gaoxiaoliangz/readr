@@ -1,7 +1,7 @@
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('../../webpack.config')
+var config = require('../../../webpack.config')
 var colors = require('colors/safe')
 var hot = 'webpack-hot-middleware/client'
 
@@ -10,10 +10,25 @@ for(var prop in config.entry) {
 }
 
 config.module.loaders.forEach(loader => {
-  if(loader.loader === 'babel') {
+  // if(loader.loader === 'babel') {
+  //   loader.query.presets.push('react-hmre')
+  // }
+  if(loader.query) {
     loader.query.presets.push('react-hmre')
   }
 })
+
+config.plugins = [
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': '"development"'
+  })
+]
+config.devtool = 'source-map'
+
+// console.log(config.module.loaders[2])
+
+delete config.externals
 
 var compiler = webpack(config)
 

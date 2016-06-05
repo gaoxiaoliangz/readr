@@ -10,14 +10,13 @@ const routes = require('./routes')
 const bootServer = require('./boot')
 const config = require('./config')
 const app = express()
-const env = app.get('env')
-
-const isHmrEnabled = process.argv.indexOf('--hmr') !== -1?true:false
-const startWebpack = require('./webpack')
+const hmr = require('./middleware/hmr')
+const runtimeOptions = require('./utils/runtime-options')
+const controllers = require('./controllers')
 
 function init(basePath) {
   app.use(session({
-    secret: 'key wtf',
+    secret: 'key',
     cookie: {
       maxAge: 7*24*60*60*1000,
       expires: new Date(Date.now() + 7*24*60*60*1000)
@@ -28,33 +27,36 @@ function init(basePath) {
   }))
 
   // it won't work if placed in the wrong position
-  if(isHmrEnabled) {
-    startWebpack(app)
+  if(runtimeOptions.hmr) {
+    app.use(hmr())
   }
 
   app.use(bodyParser.urlencoded({limit: '5mb', extended: false}))
   app.use(bodyParser.json({limit: '5mb'}))
   app.use(cookieParser())
-  app.set('views', path.join(basePath, 'views'))
+  app.set('views', path.join(basePath, 'src/jade'))
   app.set('view engine', 'jade')
   app.use(express.static(path.join(basePath, 'assets')))
 
-  // error log info
+  // log error info
   app.use(morgan('dev', {
     skip: function (req, res) { return res.statusCode < 400 }
   }))
-  // app.use(morgan('tiny'))
-
-  // handle routing
-  app.use(routes.apiBaseUri, routes.api())
-
-  if(env === 'production') {
-    app.get("*", routes.frontend(env, true, true))
+  
+  // api routing
+  app.use(routes.apiBaseUri, routes.handleApiRouting())
+  
+  // logout
+  app.use(controllers.logout())
+  
+  // frontend routing
+  if(runtimeOptions.serverRouting) {
+    app.use(routes.handleFrontendRouting(), controllers.render(runtimeOptions.serverRendering))  
   }else{
-    app.get("*", routes.frontend(env, true, false))
+    app.use(routes.simpleRouter())
   }
 
-  return bootServer(app, env)
+  return bootServer(app, runtimeOptions.env)
 }
 
 module.exports = init

@@ -1,16 +1,14 @@
-var debug = require('debug')('rd:server')
-var http = require('http')
-var colors = require('colors/safe')
-var port = 3000
+const debug = require('debug')('rd:server')
+const http = require('http')
+const colors = require('colors/safe')
+const runtimeOptions = require('./utils/runtime-options')
 
-const isHmrEnabled = process.argv.indexOf('--hmr') !== -1?true:false
-const isWebpackDevServerEnabled = process.argv.indexOf('--webpack-dev-server') !== -1?true:false
-const startWebpack = require('./webpack')
+const port = 3000
 
+const isHmrEnabled = runtimeOptions.hmr
 
 function boot(app, env) {
   var server
-  var webpackDevServerMsg = isWebpackDevServerEnabled ? 'with webpack dev server' : ''
   var hmrMsg = isHmrEnabled ? '[HMR]' : ''
 
   app.set('port', port)
@@ -23,7 +21,7 @@ function boot(app, env) {
   //   onListening(server)
   // })
 
-  console.log(colors.cyan(`> Server running in ${env} (${port}) ${hmrMsg} ${webpackDevServerMsg}`))
+  console.log(colors.cyan(`> Server running in ${env} (${port}) ${hmrMsg}`))
   return app
 }
 
@@ -32,11 +30,11 @@ function boot(app, env) {
 //   if (error.syscall !== 'listen') {
 //     throw error
 //   }
-//
+
 //   var bind = typeof port === 'string'
 //     ? 'Pipe ' + port
 //     : 'Port ' + port
-//
+
 //   // handle specific listen errors with friendly messages
 //   switch (error.code) {
 //     case 'EACCES':

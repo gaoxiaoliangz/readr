@@ -7,7 +7,7 @@ interface Props {
   actions: Array<any>
 }
 
-class Container extends Component<Props, any> {
+class Dialog extends Component<Props, any> {
   render() {
     const defaultClass = 'dialog z1'
 
@@ -30,4 +30,4 @@ class Container extends Component<Props, any> {
   }
 }
 
-export default Container
+export default Dialog

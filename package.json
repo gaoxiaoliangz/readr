@@ -5,14 +5,16 @@
   "scripts": {
     "start": "nodemon index --production",
     "webpack": "webpack-dev-server",
-    "dev": "node index --hmr & grunt watch:sass",
+    "dev": "node index --hmr --noServerRendering & grunt watch:sass & tsc --watch",
+    "devx": "nodemon index --delay 1 & gulp watch-js & tsc --watch",
+    
     "dev5": "nodemon index.dev --hmr --exec babel-node & grunt watch:sass",
     "dev2": "nodemon index.dev --webpack-dev-server --exec babel-node & grunt watch:sass",
     "dev3": "nodemon index --hmr & grunt watch:sass & grunt watch:babel",
     "dev4": "nodemon index.dev --exec babel-node --hmr & grunt watch:sass",
     "test": "mocha --require babel-register",
     "dev-es6": "nodemon index.dev --exec babel-node",
-    "watch": "grunt watch:sass"
+    "watch": "grunt watch:sass & tsc --watch & gulp watch-js"
   },
   "dependencies": {
     "app-module-path": "^1.0.6",

@@ -68,7 +68,7 @@ var Home = function (_Component) {
             });
             var listName = this.props.collection ? this.props.collection.name : '';
             var list = this.props.collection ? this.props.collection.items : [];
-            return _react2.default.createElement("div", null, _react2.default.createElement(_Body2.default, { className: "home" }), _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("div", { className: "col-md-8" }, _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: "新书速递222" }), _react2.default.createElement(_BookListSection2.default, { bookList: list, title: listName })), _react2.default.createElement("div", { className: "col-md-4" }, _react2.default.createElement(_CandyBox2.default, { title: "最近阅读", list: userBooks }))));
+            return _react2.default.createElement("div", null, _react2.default.createElement(_Body2.default, { className: "home" }), _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("div", { className: "col-md-8" }, _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: "新书速递" }), _react2.default.createElement(_BookListSection2.default, { bookList: list, title: listName })), _react2.default.createElement("div", { className: "col-md-4" }, _react2.default.createElement(_CandyBox2.default, { title: "最近阅读", list: userBooks }))));
         }
     }], [{
         key: 'fetchData',

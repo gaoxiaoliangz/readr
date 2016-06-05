@@ -3,8 +3,10 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: ['./assets/built/js/es6/entry/app.dev'],
-    console: ['./assets/built/js/es6/entry/console.dev']
+    app: ['./assets/built/js/es6/entry/app'],
+    console: ['./assets/built/js/es6/entry/console']
+    // app: ['./core/frontend/entry/app'],
+    // console: ['./core/frontend/entry/console'],
   },
   output: {
     path: path.join(__dirname, 'assets/built/js'),
@@ -12,10 +14,8 @@ module.exports = {
     publicPath: '/built/js/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"'
+      'process.env.NODE_ENV': '"production"'
     })
   ],
   devServer: {
@@ -35,27 +35,27 @@ module.exports = {
       {
         test: /\.css?$/,
         loaders: [ 'style', 'raw' ]
+      },
+      { 
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        query: {
+          presets: ['react', 'es2015']
+        }
       }
-      // { test: /\.tsx?$/, loader: 'ts-loader' }
     ]
   },
   resolve: {
     root: path.resolve('./assets/built/js/es6'),
+    // root: path.resolve('./core/frontend'),
     alias: {
       vendor: path.join(__dirname, "assets/vendors"),
       css: path.join(__dirname, "assets/built/css")
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx']
-  }
+  },
   // externals: {
-  //   'lodash': '_',
   //   'react': 'React',
-  //   'react-redux': 'ReactRedux',
-  //   'react-router': 'ReactRouter',
-  //   'redux-devtools': 'ReduxDevtools',
-  //   'redux-devtools-log-monitor': 'LogMonitor',
-  //   'redux-devtools-dock-monitor': 'DockMonitor',
-  //   'redux-thunk': 'ReduxThunk',
-  //   'redux-logger': 'ReduxLogger'
+  //   'react-dom': 'ReactDOM'
   // }
 }

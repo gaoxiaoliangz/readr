@@ -869,11 +869,11 @@ module ReactRouter {
 
 export = ReactRouter;
 }
-declare module 'react-router/react-router' {
-import alias = require('~react-router/react-router');
-export = alias;
-}
-declare module 'react-router' {
-import alias = require('~react-router/react-router');
-export = alias;
-}
+// declare module 'react-router/react-router' {
+// import alias = require('~react-router/react-router');
+// export = alias;
+// }
+// declare module 'react-router' {
+// import alias = require('~react-router/react-router');
+// export = alias;
+// }

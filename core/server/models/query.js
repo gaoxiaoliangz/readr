@@ -1,7 +1,8 @@
 'use strict'
 
 var db = require("./db")
-var dbName = 'readr'
+var config = require('../config')
+var dbName = config.dbName
 var colors = require('colors/safe')
 
 var query = {

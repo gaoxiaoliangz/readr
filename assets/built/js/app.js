@@ -27892,16 +27892,16 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Container = function (_Component) {
-	    _inherits(Container, _Component);
+	var Dialog = function (_Component) {
+	    _inherits(Dialog, _Component);
 	
-	    function Container() {
-	        _classCallCheck(this, Container);
+	    function Dialog() {
+	        _classCallCheck(this, Dialog);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Container).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Dialog).apply(this, arguments));
 	    }
 	
-	    _createClass(Container, [{
+	    _createClass(Dialog, [{
 	        key: 'render',
 	        value: function render() {
 	            var defaultClass = 'dialog z1';
@@ -27914,10 +27914,10 @@
 	        }
 	    }]);
 	
-	    return Container;
+	    return Dialog;
 	}(_react.Component);
 	
-	exports.default = Container;
+	exports.default = Dialog;
 
 /***/ },
 /* 258 */

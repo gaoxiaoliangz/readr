@@ -1,8 +1,10 @@
-var api = require('./api')
-var frontend  = require('./frontend')
+const api = require('./api')
+const frontend  = require('./frontend')
+const simpleRouter = require('./simple-router')
 
 module.exports = {
   apiBaseUri: '/api/v0.1/',
-  api: api,
-  frontend: frontend
+  handleApiRouting: api,
+  handleFrontendRouting: frontend,
+  simpleRouter: simpleRouter
 }
