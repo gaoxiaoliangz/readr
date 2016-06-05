@@ -3,4 +3,4 @@ bower_components/
 .sass-cache/
 .idea/
 .DS_Store
-assets/built/es6
+assets/built/es6/
