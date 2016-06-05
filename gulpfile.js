@@ -28,7 +28,7 @@ const paths = {
     html: [`${srcDir}/html/index.html`],
     scss: [`${srcDir}/scss/**/*.scss`],
     es6: [`${assetBuilt}/es6/**/*.js`],
-    img: [`${srcDir}/img/*`],
+    img: [`${srcDir}/img/**/*.*`],
     fonts: [`${srcDir}/fonts/*`]
   },
   built: {
@@ -46,6 +46,14 @@ const jsVendor = [
   'node_modules/react/dist/react.min.js',
   'node_modules/react-dom/dist/react-dom.min.js'
 ]
+
+gulp.task('build-es6', () => {
+  return tsProject.src()
+    .pipe(sourcemaps.init())
+    .pipe(ts(tsProject))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(paths.built.es6))
+})
 
 gulp.task('build-es5', () => {
   return gulp.src(paths.src.es6)
@@ -71,7 +79,8 @@ gulp.task('watch-sass', () => {
 
 gulp.task('image', () =>
   gulp.src(paths.src.img)
-    .pipe(imagemin())
+    // TODO
+    // .pipe(imagemin())
     .pipe(gulp.dest(paths.built.img))
 )
 
@@ -83,14 +92,7 @@ gulp.task('copy-fonts', () =>
 
 gulp.task('build', () => {
   const bundle = gulp.src('entry')
-    .pipe(webpackStream(Object.assign({}, webpackConfig, {
-      plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"production"'
-        })
-      ]
-    })))
+    .pipe(webpackStream(webpackConfig))
 
   const vendor = gulp.src(jsVendor)
     .pipe(uglify())
@@ -111,40 +113,4 @@ gulp.task('build', () => {
 
   return revd
 })
-
-// gulp.task('build-es5', () => {
-//   return tsProject.src()
-//     .pipe(ts(tsProject))
-//     .pipe(gulp.dest(paths.built.es6))
-//     .pipe(babel())
-//     .pipe(gulp.dest(paths.built.es5))
-//     .pipe(webpack(Object.assign({}, webpackConfig, {
-//       plugins: []
-//     })))
-//     .pipe(gulp.dest(paths.built.js))
-// })
-
-// gulp.task('js', () => {
-//   return gulp.src(paths.scripts)
-//     .pipe(babel())
-//     .pipe(gulp.dest(paths.built.es5))
-//     .pipe(webpack(Object.assign({}, webpackConfig, {
-//       watch: true,
-//       plugins: []
-//     })))
-//     .pipe(gulp.dest(paths.built.js))
-// })
-
-// gulp.task('build-js', () => {
-//   // gulp.src(paths.scripts)
-//   return tsProject.src()
-//     .pipe(ts(tsProject))
-//     .pipe(gulp.dest(paths.built.es6))
-//     .pipe(babel())
-//     .pipe(gulp.dest(paths.built.es5))
-//     .pipe(webpack(Object.assign({}, webpackConfig, {
-//       plugins: []
-//     })))
-//     .pipe(gulp.dest(paths.built.js))
-// })
 
