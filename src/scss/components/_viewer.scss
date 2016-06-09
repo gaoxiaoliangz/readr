@@ -1,0 +1,16 @@
+.viewer {
+  @include make_viewer(#555, #fff, #fff, #222, #eee, red);
+}
+.viewer-panel {
+  .container {
+    position: relative;
+  }
+}
+.viewer-preference {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  background: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  color: $text_n;
+}

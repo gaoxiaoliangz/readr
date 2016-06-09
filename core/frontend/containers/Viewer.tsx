@@ -19,6 +19,21 @@ import _ from 'lodash'
 
 const actions = { fetchBook, fetchBookProgress, userAuth }
 
+interface State {
+  showPanel: boolean
+  showProgressDialog: boolean
+  isCalculatingDom: boolean
+  isReadingMode: boolean
+  isScrollMode: boolean
+  isInitialProgressSet: boolean
+  scrollTop: number
+  currentPage: number
+  calculatedPages: any
+  latestProgress: number
+  view: {}
+  showViewerPreference: boolean
+}
+
 class Viewer extends Component<any, any> {
   
   bookId: number
@@ -49,8 +64,19 @@ class Viewer extends Component<any, any> {
       currentPage: 0, // TODO: remove?
       calculatedPages: null,
       latestProgress: 0,
-      view: getBookView()
+      view: getBookView(),
+      showViewerPreference: false
     }
+
+    this.toggleViewerPreference = this.toggleViewerPreference.bind(this)
+  }
+
+  toggleViewerPreference() {
+    console.log('test');
+    
+    this.setState({
+      showViewerPreference: !this.state.showViewerPreference
+    });
   }
 
   scrollTo(position) {
@@ -60,7 +86,7 @@ class Viewer extends Component<any, any> {
 
     if(position < 1) {
       this.setState({
-        currentPage: renderBook.percentageToPage(position, pageCount),
+        currentPage: renderBook.percentageToPage(position, pageCount) as any,
         scrollTop: position * height
       })
       document.body.scrollTop = pageCount * pageHeight * position
@@ -306,7 +332,7 @@ class Viewer extends Component<any, any> {
           transitionLeaveTimeout={300}
         >
           {
-            this.state.showPanel && this.state.isReadingMode ?(
+            (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference ?(
               <div className="viewer-panel">
                 <div className="container">
                   <div className="back">
@@ -316,9 +342,14 @@ class Viewer extends Component<any, any> {
                     </Link>
                   </div>
                   <span className="title">{book.title}</span>
-                  {/*<div className="preference">
+                  <div onClick={this.toggleViewerPreference} className="preference">
                     <Icon name="font" />
-                  </div>*/}
+                  </div>
+                  {
+                    this.state.showViewerPreference ? (
+                      <div className="viewer-preference">settings</div>
+                    ):null
+                  }
                   {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
                 </div>
               </div>

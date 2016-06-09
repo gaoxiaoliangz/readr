@@ -1,0 +1,122 @@
+@mixin make_viewer($text, $text_background, $panel_text, $panel_background, $viewer_background, $color) {
+  position: relative;
+  background: $viewer_background;
+
+  .page-no {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top: 1px solid lighten($text, 50%);
+    padding: 0 10px;
+    color: lighten($text, 50%);
+    font-size: 0.8rem;
+  }
+
+  ul.pages {
+    position: relative;
+    width: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: $text_background;
+    z-index: 980;
+
+    >li {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      cursor: default;
+
+      .content {
+        margin: 0 auto;
+        width: 550px;
+        position: relative;
+        overflow: hidden;
+        color: $text;
+        line-height: 1.9;
+
+        p {
+          margin: 0;
+          min-height: 25px;
+        }
+      }
+    }
+    >li.init {
+      position: relative;
+      height: auto;
+      .content {
+        height: auto;
+      }
+    }
+  }
+
+  .viewer-panel {
+    $height: 60px;
+
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 990;
+    background: $panel_background;
+    color: $panel_text;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+    height: $height;
+
+    .container {
+      text-align: center;
+      margin-top: ($height - $icons_size)/2;
+      position: relative;
+    }
+
+    .icon {
+    }
+
+    .back, .title, .preference {
+    }
+
+    .back {
+      position: absolute;
+      left: 5px;
+      top: 0;
+      a {
+        color: $panel_text;
+        display: inline-block;
+        overflow: hidden;
+        span {
+          float: left;
+        }
+      }
+      span {
+        line-height: $icons_size;
+        display: inline-block;
+      }
+    }
+
+    .title {
+      font-size: 1.2rem;
+    }
+
+    .preference {
+      position: absolute;
+      right: 15px;
+      top: 0;
+    }
+  }
+
+  &.viewer--phone {
+    ul.pages {
+      width: 100%;
+      >li {
+        .content {
+          padding: 0 25px;
+          width: auto;
+          margin: 0 auto;
+        }
+        .page-no {
+          padding: 0 3px;
+          font-size: 10px;
+          line-height: 2.6;
+        }
+      }
+    }
+  }
+}

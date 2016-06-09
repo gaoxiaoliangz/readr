@@ -6,8 +6,26 @@ import Container from 'elements/Container'
 import Colophon from 'components/Colophon'
 import { userAuth, handleNotification } from 'actions/index'
 import Notification from 'components/Notification'
+import { bindActionCreators } from 'redux'
 
 
+// function mapStateToProps(state) {
+//   return {
+//     test: 'hahah',
+//     notification: state.components.notification,
+//     session: state.session
+//   }
+// }
+
+
+// function mapDispatchToProps(dispatch) {
+//   return { actions: bindActionCreators(actionCreators, dispatch) };
+// }
+
+// @connect(
+//   mapStateToProps,
+//   { handleNotification, userAuth } as any
+// )
 class App extends Component<any, any> {
 
   constructor(props) {
@@ -40,6 +58,8 @@ class App extends Component<any, any> {
     )
   }
 }
+
+// export default App
 
 export default connect(
   state => ({

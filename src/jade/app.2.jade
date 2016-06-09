@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    title Readr
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    base(href="/")
+    meta(name="description" content="The next generation online reading app.")
+    meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+    
+    link(rel="shortcut icon" href="/built/img/favicon.png")
+
+    if env == "production"
+      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
+      link(type='text/css' rel='stylesheet' href='/built/app.css')
+    else
+      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
+      link(type='text/css' rel='stylesheet' href='/built/app.css')
+
+  body(class="#{bodyClass}")
+    #root.app !{html}
+    
+    script.
+      var __INITIAL_STATE__ = !{initialState}
+
+    if env == "production"
+      script(src="/vendors/polyfills/fetch.js")
+      script(src="/vendors/polyfills/babel-polyfill.min.js")
+      script(src="/built/js/app.built.js")
+    else
+      //- script(src="/built/app.js")
+      //- script src="https://google.github.io/traceur-compiler/bin/traceur.js"
+      //- script(src="/vendor/system-polyfills.js")
+      script(src="/vendor/react/react.js")
+      script(src="/vendor/react/react-dom.js")
+      script(src="/vendor/system.js")
+
+    script.
+      System.config({
+        baseURL: '/built/es6',
+        map: {
+          traceur: '/vendor/traceur.js'
+        }
+      });
+
+      System.import('entry/app.js');
