@@ -27,19 +27,4 @@ html
       script(src="/vendors/polyfills/babel-polyfill.min.js")
       script(src="/built/js/app.built.js")
     else
-      //- script(src="/built/app.js")
-      //- script src="https://google.github.io/traceur-compiler/bin/traceur.js"
-      //- script(src="/vendor/system-polyfills.js")
-      //- script(src="/vendor/react/react.js")
-      //- script(src="/vendor/react/react-dom.js")
-      //- script(src="/vendor/system.js")
-
-      script(src="/built/es6/jspm_packages/system.js")
-      script(src="/built/es6/config.js")
-
-    script.
-      //- System.config({
-      //-   baseURL: '/built/es6'
-      //- });
-
-      System.import('entry/test.js');
+      script(src="/built/app.js")
