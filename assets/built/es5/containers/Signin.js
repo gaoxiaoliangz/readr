@@ -83,7 +83,7 @@ var Signin = function (_Component) {
                 login: this.state.login,
                 password: this.state.password
             };
-            (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'auth', method: 'POST', data: params }).then(function (res) {
+            (0, _callApi2.default)(_ApiRoots2.default.LOCAL + 'auth', { method: 'POST', data: params }).then(function (res) {
                 _this2.props.handleNotification('登录成功！');
                 setTimeout(function () {
                     _reactRouter.browserHistory.push('/');

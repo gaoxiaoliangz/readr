@@ -5,6 +5,7 @@ import { handleNotification, userAuth } from 'actions/index'
 import NavTab from '../components/NavTab'
 import { fetchBooks, fetchCollections } from 'actions/index'
 import BookListSection from 'components/BookListSection'
+import Button from 'elements/Button'
 
 class Profile extends Component<any, any> {
 
@@ -33,6 +34,7 @@ class Profile extends Component<any, any> {
           </div>
           <span className="username">username</span>
           <span className="tagline">something to say</span>
+          <Button>编辑</Button>
         </div>
         <NavTab tabs={['收藏', '读过', '书评']} current={0} />
         <div>

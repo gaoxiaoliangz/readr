@@ -2,10 +2,14 @@
   $branding_height: 60px;
   min-height: $branding_height;
   background: $app_base_color;
+
   .logo {
     margin: 0;
     line-height: $branding_height;
     color: #fff;
+    margin-right: 15px;
+    margin-top: -3px;
+
     a {
       background: url(img/logo.png) no-repeat left;
       width: 70px;
@@ -15,15 +19,21 @@
       display: inline-block;
     }
   }
+
   .nav {
     position: relative;
     color: #fff;
     cursor: pointer;
     padding: 0 10px;
+
     .username,
     .nav-links {
       line-height: $branding_height;
     }
+
+    .recent-reading {
+      margin-right: 15px;
+    } 
 
     ul.nav-links {
       li {
@@ -51,15 +61,18 @@
   left: 0;
   width: 100%;
   z-index: 999;
+
   .sep {
     margin: 0 20px;
     opacity: .6;
     font-size: 1.5rem;
   }
+
   .sub {
     opacity: .8;
     font-size: 1.3rem;
   }
+
   .dropdown-menu {
     @include make_dropdown_menu($super_power);
   }

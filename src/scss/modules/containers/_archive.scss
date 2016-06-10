@@ -1,0 +1,18 @@
+.archive {
+  .categories {
+    border-bottom: 1px solid $gray_d;
+    padding-bottom: 10px;
+
+    li {
+      display: inline-block;
+      margin: 5px;
+      padding: 5px 15px;
+      border-radius: 100px;
+
+      &.current {
+        background: $app_blue;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -48,11 +48,11 @@ exports.default = function (store) {
                 apiUrl = _ApiRoots2.default.LOCAL;
             }
             var fullUrl = apiUrl + endpoint;
-            var options = { fullUrl: fullUrl, schema: schema };
+            var options = { schema: schema };
             if (typeof extendedOptions !== 'undefined') {
                 options = Object.assign({}, options, extendedOptions);
             }
-            return (0, _callApi2.default)(options).then(function (response) {
+            return (0, _callApi2.default)(fullUrl, options).then(function (response) {
                 return next(actionWith({
                     response: response,
                     type: successType

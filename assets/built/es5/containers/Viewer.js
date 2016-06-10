@@ -60,6 +60,18 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _ViewerPreference = require('../components/ViewerPreference');
+
+var _ViewerPreference2 = _interopRequireDefault(_ViewerPreference);
+
+var _Fade = require('../elements/animations/Fade');
+
+var _Fade2 = _interopRequireDefault(_Fade);
+
+var _ViewerScrollbar = require('../components/ViewerScrollbar');
+
+var _ViewerScrollbar2 = _interopRequireDefault(_ViewerScrollbar);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -92,12 +104,22 @@ var Viewer = function (_Component) {
             currentPage: 0,
             calculatedPages: null,
             latestProgress: 0,
-            view: (0, _view.getBookView)()
+            view: (0, _view.getBookView)(),
+            showViewerPreference: false
         };
+        _this.toggleViewerPreference = _this.toggleViewerPreference.bind(_this);
         return _this;
     }
 
     _createClass(Viewer, [{
+        key: 'toggleViewerPreference',
+        value: function toggleViewerPreference() {
+            console.log('test');
+            this.setState({
+                showViewerPreference: !this.state.showViewerPreference
+            });
+        }
+    }, {
         key: 'scrollTo',
         value: function scrollTo(position) {
             var pageCount = this.state.calculatedPages.props.children.length;
@@ -324,7 +346,7 @@ var Viewer = function (_Component) {
                 text: 'No',
                 function: this.hideProgressDialog.bind(this)
             }];
-            return _react2.default.createElement("div", { className: 'viewer viewer--' + view.screen, onMouseMove: this.toggleBookPanel.bind(this) }, _react2.default.createElement(_Body2.default, { className: "viewer" }), !book.content && !this.state.calculatedPages ? _react2.default.createElement(_Loading2.default, null) : null, this.state.showProgressDialog ? _react2.default.createElement(_Dialog2.default, { actions: actions, content: "are you sure?" }) : null, _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: "slide", transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, this.state.showPanel && this.state.isReadingMode ? _react2.default.createElement("div", { className: "viewer-panel" }, _react2.default.createElement("div", { className: "container" }, _react2.default.createElement("div", { className: "back" }, _react2.default.createElement(_reactRouter.Link, { to: "/" }, _react2.default.createElement(_Icon2.default, { name: "back" }), _react2.default.createElement("span", null, "返回"))), _react2.default.createElement("span", { className: "title" }, book.title))) : null), this.state.isCalculatingDom && this.state.bookHtml ? _react2.default.createElement("ul", { className: "pages" }, _react2.default.createElement("li", null, _react2.default.createElement("div", { ref: "bookHtml", className: "content", dangerouslySetInnerHTML: { __html: this.state.bookHtml } }))) : null, this.state.isReadingMode ? this.renderBook() : null);
+            return _react2.default.createElement("div", { className: 'viewer viewer--' + view.screen, onMouseMove: this.toggleBookPanel.bind(this) }, _react2.default.createElement(_Body2.default, { className: "viewer" }), !book.content && !this.state.calculatedPages ? _react2.default.createElement(_Loading2.default, null) : null, this.state.showProgressDialog ? _react2.default.createElement(_Dialog2.default, { actions: actions, content: "are you sure?" }) : null, _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: "slide", transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, this.state.showPanel && this.state.isReadingMode || this.state.showViewerPreference ? _react2.default.createElement("div", { className: "viewer-panel" }, _react2.default.createElement("div", { className: "container" }, _react2.default.createElement("div", { className: "back" }, _react2.default.createElement(_reactRouter.Link, { to: "/" }, _react2.default.createElement(_Icon2.default, { name: "back" }), _react2.default.createElement("span", null, "返回"))), _react2.default.createElement("span", { className: "title" }, book.title), _react2.default.createElement("div", { onClick: this.toggleViewerPreference, className: "preference" }, _react2.default.createElement(_Icon2.default, { name: "font" })), _react2.default.createElement("div", { className: "add" }, "点击添加至书架"), _react2.default.createElement(_Fade2.default, null, this.state.showViewerPreference ? _react2.default.createElement(_ViewerPreference2.default, null) : null))) : null), this.state.isCalculatingDom && this.state.bookHtml ? _react2.default.createElement("ul", { className: "pages" }, _react2.default.createElement("li", null, _react2.default.createElement("div", { ref: "bookHtml", className: "content", dangerouslySetInnerHTML: { __html: this.state.bookHtml } }))) : null, this.state.isReadingMode ? this.renderBook() : null, _react2.default.createElement(_ViewerScrollbar2.default, { current: 20, total: 309 }));
         }
     }]);
 

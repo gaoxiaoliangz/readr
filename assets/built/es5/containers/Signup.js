@@ -85,7 +85,7 @@ var Signup = function (_Component) {
                 email: this.state.email,
                 password: this.state.password
             };
-            (0, _callApi2.default)({ fullUrl: _ApiRoots2.default.LOCAL + 'users', method: 'POST', data: params }).then(function (res) {
+            (0, _callApi2.default)(_ApiRoots2.default.LOCAL + 'users', { method: 'POST', data: params }).then(function (res) {
                 _this2.props.handleNotification('注册成功！');
                 setTimeout(function () {
                     _reactRouter.browserHistory.push('/');

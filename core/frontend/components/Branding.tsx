@@ -29,16 +29,27 @@ class Branding extends Component<any, any> {
             <h1 className="logo left">
               <Link to="/">readr</Link>
             </h1>
+            <div className="nav left">
+              <ul className="nav-links">
+                <li>
+                  <Link to="/browse">浏览</Link>
+                </li>
+                <li>
+                  <Link to="/collections">书单</Link>
+                </li>
+              </ul>
+            </div>
             {
               username?(
                 <div onMouseLeave={this.toggleDropdownMenu.bind(this)} onMouseEnter={this.toggleDropdownMenu.bind(this)} className="nav right">
+                  <span className="recent-reading">最近阅读</span>
                   <span className="username">{username}{isAdmin?(<span className="badge-dark">Admin</span>):null}</span>
                   {
                     this.state.isDropdownMenuVisible?(
                       <ul onClick={this.toggleDropdownMenu.bind(this)} className="dropdown-menu">
                         {
                           isAdmin === true?(
-                            <li><a href="/console">Console</a></li>
+                            <li><a href="/console">控制台</a></li>
                           ):null
                         }
                         {/*<li><Link to={`/profile/${username}`}>我的账号</Link></li>*/}

@@ -6,6 +6,7 @@ import BookListSection from 'components/BookListSection'
 import Loading from 'components/Loading'
 import CandyBox from 'components/CandyBox'
 import Body from 'side-effects/Body'
+import Button from '../elements/Button'
 
 interface State {
   showRecentReading: boolean
@@ -56,14 +57,25 @@ class Home extends Component<any, State> {
     })
     let listName = this.props.collection?this.props.collection.name:''
     let list = this.props.collection?this.props.collection.items:[]
+    
 
     return (
       <div>
         <Body className="home" />
         <div className="row">
+          {
+            this.props.session.user.role === 'visitor' && !this.props.session.isFetching ?(
+              <div className="hero-image">
+                <div className="logo">Readr</div>
+                <div className="page-title">新一代 web 阅读体验</div>
+                <Button to="/signup">注册</Button>
+              </div>
+            ):null
+          }
           <div className="col-md-8">
             <BookListSection bookList={newestBooks} title="新书速递" />
-            <BookListSection bookList={list} title={listName} />
+            <BookListSection bookList={list} title={listName} moreLink="/collection" />
+            <Link className="view-more" to="/collections">浏览更多书单 ></Link>
           </div>
           <div className="col-md-4">
           {

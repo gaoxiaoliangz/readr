@@ -10,9 +10,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
+var _reactRedux = require('react-redux');
 
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+var _Switcher = require('./Switcher');
+
+var _Switcher2 = _interopRequireDefault(_Switcher);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,24 +24,23 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Fade = function (_Component) {
-    _inherits(Fade, _Component);
+var ViewerPreference = function (_Component) {
+    _inherits(ViewerPreference, _Component);
 
-    function Fade(props) {
-        _classCallCheck(this, Fade);
+    function ViewerPreference(props) {
+        _classCallCheck(this, ViewerPreference);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Fade).call(this, props));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ViewerPreference).call(this, props));
     }
 
-    _createClass(Fade, [{
+    _createClass(ViewerPreference, [{
         key: 'render',
         value: function render() {
-            // let className = this.props.className?this.props.className:null
-            return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: "fade", transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, this.props.children);
+            return _react2.default.createElement("div", { className: "viewer-preference" }, _react2.default.createElement("ul", { className: "options" }, _react2.default.createElement("li", { className: "option option-font-size" }, _react2.default.createElement("span", null, "A"), _react2.default.createElement("span", null, "A")), _react2.default.createElement("li", { className: "option option-scroll" }, _react2.default.createElement("span", { className: "label" }, "滚动模式"), _react2.default.createElement(_Switcher2.default, { on: true })), _react2.default.createElement("li", { className: "option option-theme" }, _react2.default.createElement("span", { style: { background: '#fff' } }, "theme1"), _react2.default.createElement("span", { style: { background: '#eee' } }, "theme2"), _react2.default.createElement("span", { style: { background: '#222' } }, "theme3"))));
         }
     }]);
 
-    return Fade;
+    return ViewerPreference;
 }(_react.Component);
 
-exports.default = Fade;
+exports.default = (0, _reactRedux.connect)()(ViewerPreference);

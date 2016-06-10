@@ -11,6 +11,8 @@
 
 .page-header {
   margin: 35px 0;
+  position: relative;
+  
   .page-title {
     margin: 0;
     margin-top: 5px;
@@ -22,4 +24,16 @@
 .page-content {
   width: 700px;
   margin: 0 auto;
+}
+
+// todo: make this button
+.page-load-more {
+  border: 1px solid $gray_d;
+  width: 80%;
+  margin: 30px auto;
+  padding: 6px 0;
+  text-align: center;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-user-select: none;
 }

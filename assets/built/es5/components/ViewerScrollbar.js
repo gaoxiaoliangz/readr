@@ -10,9 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
-
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+var _reactRedux = require('react-redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,24 +20,23 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Fade = function (_Component) {
-    _inherits(Fade, _Component);
+var ViewerScrollbar = function (_Component) {
+    _inherits(ViewerScrollbar, _Component);
 
-    function Fade(props) {
-        _classCallCheck(this, Fade);
+    function ViewerScrollbar(props) {
+        _classCallCheck(this, ViewerScrollbar);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Fade).call(this, props));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ViewerScrollbar).call(this, props));
     }
 
-    _createClass(Fade, [{
+    _createClass(ViewerScrollbar, [{
         key: 'render',
         value: function render() {
-            // let className = this.props.className?this.props.className:null
-            return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: "fade", transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, this.props.children);
+            return _react2.default.createElement("div", { style: { height: 400 }, className: "viewer-scrollbar" }, _react2.default.createElement("div", { className: "button" }, _react2.default.createElement("div", { className: "loc-info" }, _react2.default.createElement("div", null, _react2.default.createElement("strong", null, this.props.current), "/", this.props.total), _react2.default.createElement("div", { className: "sub-info" }, "30.3%"))), _react2.default.createElement("div", { style: { height: 100 }, className: "track-past" }), _react2.default.createElement("div", { style: { height: 400 }, className: "track" }));
         }
     }]);
 
-    return Fade;
+    return ViewerScrollbar;
 }(_react.Component);
 
-exports.default = Fade;
+exports.default = (0, _reactRedux.connect)()(ViewerScrollbar);

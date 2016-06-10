@@ -10,6 +10,9 @@ import Home from 'containers/Home'
 import Profile from 'containers/Profile'
 import BookShelf from 'containers/BookShelf'
 import Settings from 'containers/Settings'
+import Archive from 'containers/Archive'
+import Collection from 'containers/Collection'
+import ArchivedCollection from 'containers/ArchivedCollection'
 
 export default (
   <Router>
@@ -19,6 +22,9 @@ export default (
       <Route path="profile" component={Profile} />
       <Route path="shelf" component={BookShelf} />
       <Route path="settings" component={Settings} />
+      <Route path="browse" component={Archive} />
+      <Route path="collection" component={Collection} />
+      <Route path="collections" component={ArchivedCollection} />
     </Route>
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />

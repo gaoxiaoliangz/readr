@@ -1,7 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import { Link, browserHistory } from 'react-router'
 
-class Button extends Component<any, any>{
+interface Props {
+  className?: string
+  size?: string
+  isFluid?: boolean
+  color?: string
+  type?: string
+  to?: string
+  onClick?: any
+}
+
+class Button extends Component<Props, any>{
   constructor(props) {
     super(props)
   }

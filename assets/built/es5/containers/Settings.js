@@ -18,13 +18,13 @@ var _NavTab = require('../components/NavTab');
 
 var _NavTab2 = _interopRequireDefault(_NavTab);
 
-var _BookListSection = require('components/BookListSection');
+var _Body = require('../side-effects/Body');
 
-var _BookListSection2 = _interopRequireDefault(_BookListSection);
+var _Body2 = _interopRequireDefault(_Body);
 
-var _Button = require('elements/Button');
+var _Switcher = require('../components/Switcher');
 
-var _Button2 = _interopRequireDefault(_Button);
+var _Switcher2 = _interopRequireDefault(_Switcher);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,41 +51,21 @@ var Profile = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.userAuth();
-            this.props.fetchBooks('newest');
         }
     }, {
         key: 'render',
         value: function render() {
             var user = this.props.session.user;
-            var newestBooks = this.props.newestBooks;
-            return _react2.default.createElement("div", { className: "profile" }, _react2.default.createElement("div", { className: "page-header" }, _react2.default.createElement("div", { className: "user-avatar" }, _react2.default.createElement("img", { src: "https://img3.doubanio.com/icon/ul43646706-43.jpg", alt: "user_avatar" })), _react2.default.createElement("span", { className: "username" }, "username"), _react2.default.createElement("span", { className: "tagline" }, "something to say"), _react2.default.createElement(_Button2.default, null, "编辑")), _react2.default.createElement(_NavTab2.default, { tabs: ['收藏', '读过', '书评'], current: 0 }), _react2.default.createElement("div", null, _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks })));
+            return _react2.default.createElement(_Body2.default, { className: "page-settings" }), _react2.default.createElement("div", { className: "settings" }, _react2.default.createElement("div", { className: "page-content" }, _react2.default.createElement("div", { className: "page-header" }, _react2.default.createElement("h1", { className: "page-title" }, "设置"), _react2.default.createElement(_NavTab2.default, { tabs: ['资料', '个人主页'], current: 0 })), _react2.default.createElement("ul", { className: "options" }, _react2.default.createElement("li", { className: "option" }, _react2.default.createElement("h2", null, "用户名"), _react2.default.createElement("span", { className: "option-input" }, "http://readrweb.com/@", _react2.default.createElement("strong", null, user.username)), _react2.default.createElement("span", { className: "edit" }, "编辑")), _react2.default.createElement("li", { className: "option" }, _react2.default.createElement("h2", null, "邮箱"), _react2.default.createElement("span", { className: "option-input" }, user.email), _react2.default.createElement("span", { className: "edit" }, "编辑")), _react2.default.createElement("li", { className: "option" }, _react2.default.createElement("h2", null, "密码"), _react2.default.createElement("span", { className: "option-input" }, "******"), _react2.default.createElement("span", { className: "edit" }, "编辑")), _react2.default.createElement("li", { className: "option" }, _react2.default.createElement("h2", null, "公开展示我的收藏"), _react2.default.createElement("span", { className: "option-desc" }, "关闭后其他用户将无法查看您的收藏"), _react2.default.createElement(_Switcher2.default, { on: true })))));
         }
     }]);
 
     return Profile;
 }(_react.Component);
 
-function mapStateToProps(state, ownProps) {
-    var filteredBooks = state.pagination.filteredBooks;
-    var _state$entities = state.entities;
-    var books = _state$entities.books;
-    var collections = _state$entities.collections;
-
-    var genList = function genList(whichPagination) {
-        return whichPagination ? whichPagination.ids.map(function (id) {
-            return books[id];
-        }) : [];
-    };
+exports.default = (0, _reactRedux.connect)(function (state) {
     return {
-        userBooks: genList(filteredBooks['user']),
-        newestBooks: genList(filteredBooks['newest']),
-        session: state.session,
-        collection: function () {
-            for (var prop in collections) {
-                return collections[prop];
-            }
-        }(),
-        notification: state.notification
+        notification: state.notification,
+        session: state.session
     };
-}
-exports.default = (0, _reactRedux.connect)(mapStateToProps, { handleNotification: _index.handleNotification, userAuth: _index.userAuth, fetchBooks: _index.fetchBooks, fetchCollections: _index.fetchCollections })(Profile);
+}, { handleNotification: _index.handleNotification, userAuth: _index.userAuth })(Profile);

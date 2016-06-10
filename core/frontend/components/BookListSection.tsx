@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import BookList from 'components/BookList'
 
+
+
 class BookListSection extends Component<any, any> {
   render() {
     let bookList = this.props.bookList

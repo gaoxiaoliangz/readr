@@ -40,15 +40,31 @@ var Home = function (_Component) {
     function Home(props) {
         _classCallCheck(this, Home);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this, props));
+
+        _this.state = {
+            showRecentReading: false
+        };
+        return _this;
     }
 
     _createClass(Home, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.fetchBooks('newest');
-            this.props.fetchBooks('user');
             this.props.fetchCollections();
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.session.isFetching && !nextProps.session.isFetching) {
+                if (nextProps.session.user.role !== 'visitor') {
+                    this.props.fetchBooks('user');
+                    this.setState({
+                        showRecentReading: true
+                    });
+                }
+            }
         }
     }, {
         key: 'render',
@@ -68,7 +84,7 @@ var Home = function (_Component) {
             });
             var listName = this.props.collection ? this.props.collection.name : '';
             var list = this.props.collection ? this.props.collection.items : [];
-            return _react2.default.createElement("div", null, _react2.default.createElement(_Body2.default, { className: "home" }), _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("div", { className: "col-md-8" }, _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: "新书速递" }), _react2.default.createElement(_BookListSection2.default, { bookList: list, title: listName })), _react2.default.createElement("div", { className: "col-md-4" }, _react2.default.createElement(_CandyBox2.default, { title: "最近阅读", list: userBooks }))));
+            return _react2.default.createElement("div", null, _react2.default.createElement(_Body2.default, { className: "home" }), _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("div", { className: "col-md-8" }, _react2.default.createElement(_BookListSection2.default, { bookList: newestBooks, title: "新书速递" }), _react2.default.createElement(_BookListSection2.default, { bookList: list, title: listName })), _react2.default.createElement("div", { className: "col-md-4" }, this.state.showRecentReading ? _react2.default.createElement(_CandyBox2.default, { title: "最近阅读", list: userBooks }) : null)));
         }
     }], [{
         key: 'fetchData',
@@ -96,6 +112,7 @@ function mapStateToProps(state, ownProps) {
     return {
         userBooks: genList(filteredBooks['user']),
         newestBooks: genList(filteredBooks['newest']),
+        session: state.session,
         collection: function () {
             for (var prop in collections) {
                 return collections[prop];
