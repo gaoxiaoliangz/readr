@@ -1,22 +1,4 @@
-// links
-
-.text-link {
-  color: $text_n;
-
-  &:hover {
-   color: $link_n;
-  }
-}
-.light-link {
-  color: #fff;
-
-  &:hover {
-   color: #f2f2f2;
-  }
-}
-
-
-// position and fixes
+// layout
 
 .sep {
   margin: 0 5px;
@@ -36,11 +18,31 @@
   clear: both;
   display: table;
 }
+.center {
+  text-align: center;
+}
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+}
+.content-container {
+  width: $best_reading_width;
+  margin: 0 auto;
+  @include phone {
+    width: 100%;
+  }
+}
+.text-overflow-hidden {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-
-// styles
 
 // depth
+
 .z1 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -57,12 +59,8 @@
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-.page-title {
-  margin: 30px 0 15px;
-  font-size: 1.5rem;
-  color: $text_d;
-  font-weight: normal;
-}
+
+// styles
 
 .badge-dark {
   background: lighten($super_power, 40%);
@@ -75,63 +73,41 @@
 }
 
 .tag {
-  background: $super_power;
+  background: $app_base_color;
   border-radius: 3px;
   padding: 3px 5px;
   margin: 0 5px 5px 0;
   color: #fff;
   display: inline-block;
-  .icon {
+  .iconfont {
     margin: 0 5px;
   }
 }
 
-.styled-table {
-  margin-top: 10px;
-  width: 100%;
-  line-height: 2.5;
-  font-size: 1rem;
-  >tbody {
-    >tr:first-child {
-      border-bottom: 2px solid $text_n;
-      font-weight: bold;
-      line-height: 2.5
-    }
-    >tr {
-      border-bottom: 1px solid $gray_d;
-    }
+.tag-l {
+  background: #b7c0c7;
+  border-radius: 3px;
+  padding: 6px 20px;
+  margin: 0 15px 15px 0;
+  color: #fff;
+  display: inline-block;
+  .icon {
+    margin: 0 5px;
+  }
+  &.active {
+    background: #1172a5;
   }
 }
 
-
-// layout
-
-// bootstrap-grid has it
-// .container {
-//   width: 1060px;
-//   padding: 0 10px;
-//   margin: 0 auto;
-//   box-sizing: border-box;
-//   @include tablet_landscape {
-//     width: 750px;
-//   }
-//   @include tablet {
-//     width: 100%;
-//   }
-// }
-
-.container-fluid {
-  width: 100%;
-  padding: 0 10px;
+.circled {
+  min-width: 19px;
+  height: 19px;
   box-sizing: border-box;
-  margin: 0 auto;
-  position: relative;
-}
-
-.content-container {
-  width: $best_reading_width;
-  margin: 0 auto;
-  @include phone {
-    width: 100%;
-  }
+  padding: 1px 4px 0;
+  line-height: 19px;
+  background: #00bcd5;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
 }

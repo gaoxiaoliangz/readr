@@ -1,0 +1,25 @@
+.page-title {
+  margin: 35px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: $text_d;
+  
+  small {
+    font-size: 1rem;
+  }
+}
+
+.page-header {
+  margin: 35px 0;
+  .page-title {
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    line-height: 46px;
+  }
+}
+
+.page-content {
+  width: 700px;
+  margin: 0 auto;
+}

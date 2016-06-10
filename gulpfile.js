@@ -26,7 +26,7 @@ const paths = {
   },
   src: {
     html: [`${srcDir}/html/index.html`],
-    scss: [`${srcDir}/scss/**/*.scss`],
+    scss: [`${srcDir}/scss/**/**/*.scss`],
     es6: [`${assetBuilt}/es6/**/*.js`],
     img: [`${srcDir}/img/**/*.*`],
     fonts: [`${srcDir}/fonts/*`]

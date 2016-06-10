@@ -1,0 +1,71 @@
+.viewer-preference {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 200px;
+  background: #fff;
+  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);
+  color: $text_n;
+  border-radius: 3px;
+  -webkit-user-select: none;
+  overflow: hidden;
+
+  .option {
+    padding: 10px 15px;
+    border-bottom: 1px solid $gray_d;
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+  .option-font-size {
+    $height: 40px;
+    overflow: hidden;
+    padding: 0;
+
+    span {
+      font-size: 1.2rem;
+      width: 50%;
+      float: left;
+      box-sizing: border-box;
+      padding: 0 5px;
+      height: $height;
+      line-height: $height;
+      cursor: pointer;
+    }
+
+    span:first-child {
+      font-size: .9rem;
+      border-right: 1px solid $gray_d;
+    }
+  }
+
+  .option-scroll {
+    overflow: hidden;
+    text-align: left;
+
+    .label {
+      float: left;
+    }
+
+    .switcher {
+      float: right;
+    }
+  }
+
+  .option-theme {
+    padding: 5px 0;
+
+    span {
+      border-radius: 50%;
+      border: 2px solid $gray_d;
+      text-indent: -999em;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  }
+}

@@ -61,4 +61,15 @@
       @extend .styled-table;
     }
   }
+
+  .page-content {
+    margin-left: $sidebar_width + 30;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: $branding_height;
+    
+    form {
+      width: $best_reading_width;
+    }
+  }
 }

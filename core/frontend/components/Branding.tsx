@@ -43,7 +43,8 @@ class Branding extends Component<any, any> {
                         }
                         {/*<li><Link to={`/profile/${username}`}>我的账号</Link></li>*/}
                         <li><Link to={`/shelf`}>书架</Link></li>
-                        <li><Link to={`/profile`}>我的账号</Link></li>
+                        <li><Link to={`/profile`}>个人主页</Link></li>
+                        <li><Link to={`/settings`}>设置</Link></li>
                         <li><a href='/logout'>退出</a></li>
                       </ul>
                     ):null

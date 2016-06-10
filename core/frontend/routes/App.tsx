@@ -9,6 +9,7 @@ import App from 'containers/App'
 import Home from 'containers/Home'
 import Profile from 'containers/Profile'
 import BookShelf from 'containers/BookShelf'
+import Settings from 'containers/Settings'
 
 export default (
   <Router>
@@ -17,6 +18,7 @@ export default (
       <Route path="book/:id" component={BookInfo} />
       <Route path="profile" component={Profile} />
       <Route path="shelf" component={BookShelf} />
+      <Route path="settings" component={Settings} />
     </Route>
     <Route path="signin" component={Signin} />
     <Route path="signup" component={Signup} />

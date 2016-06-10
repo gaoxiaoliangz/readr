@@ -16,6 +16,9 @@ import { fetchBook, fetchBookProgress, userAuth } from 'actions/index'
 import apis from 'utils/apis'
 import Body from 'side-effects/Body'
 import _ from 'lodash'
+import ViewerPreference from '../components/ViewerPreference'
+import Fade from '../elements/animations/Fade'
+import ViewerScrollbar from '../components/ViewerScrollbar'
 
 const actions = { fetchBook, fetchBookProgress, userAuth }
 
@@ -345,11 +348,14 @@ class Viewer extends Component<any, any> {
                   <div onClick={this.toggleViewerPreference} className="preference">
                     <Icon name="font" />
                   </div>
-                  {
-                    this.state.showViewerPreference ? (
-                      <div className="viewer-preference">settings</div>
-                    ):null
-                  }
+                  <div className="add">点击添加至书架</div>
+                  <Fade>
+                    {
+                      this.state.showViewerPreference ? (
+                        <ViewerPreference />
+                      ) : null
+                    }
+                  </Fade>
                   {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
                 </div>
               </div>
@@ -369,6 +375,9 @@ class Viewer extends Component<any, any> {
           this.state.isReadingMode?(
             this.renderBook()
           ):null
+        }
+        {
+          <ViewerScrollbar current={20} total={309} />
         }
       </div>
     )

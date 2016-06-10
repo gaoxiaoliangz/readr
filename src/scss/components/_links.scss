@@ -1,0 +1,23 @@
+.text-link {
+  color: $text_n;
+
+  &:hover {
+   color: $link_n;
+  }
+}
+
+.light-link {
+  color: #fff;
+
+  &:hover {
+   color: #f2f2f2;
+  }
+}
+
+.dark-link {
+  color: $text_n;
+
+  &:hover {
+   color: $text_d;
+  }
+}

@@ -7,19 +7,16 @@ class Fade extends Component<any, any> {
   }
 
   render(){
-    let className = this.props.className?this.props.className:null
-
+    // let className = this.props.className?this.props.className:null
     return (
-      <div className={className}>
-        <ReactCSSTransitionGroup
-          component="div"
-          transitionName="fade"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
-          {this.props.children}
-        </ReactCSSTransitionGroup>
-      </div>
+      <ReactCSSTransitionGroup
+        component="div"
+        transitionName="fade"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
+        {this.props.children}
+      </ReactCSSTransitionGroup>
     )
   }
 }
