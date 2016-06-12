@@ -1,3 +1,6 @@
+// Grunt 已经不再作为主要构建工具
+// 这里的配置项可能不会正常运行
+// 仅作参考
 module.exports = function(grunt) {
 
   var webpack = require("webpack");
