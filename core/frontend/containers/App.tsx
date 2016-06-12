@@ -8,6 +8,10 @@ import { userAuth, handleNotification } from 'actions/index'
 import Notification from 'components/Notification'
 import { bindActionCreators } from 'redux'
 
+const s = require('!style!raw!./App.css')
+
+
+
 
 // function mapStateToProps(state) {
 //   return {
@@ -22,10 +26,10 @@ import { bindActionCreators } from 'redux'
 //   return { actions: bindActionCreators(actionCreators, dispatch) };
 // }
 
-@connect(
-  mapStateToProps,
-  { handleNotification, userAuth } as any
-)
+// @connect(
+//   mapStateToProps,
+//   { handleNotification, userAuth } as any
+// )
 class App extends Component<any, any> {
 
   constructor(props) {
