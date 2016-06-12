@@ -12,7 +12,7 @@ export default class Book extends Component<any, any> {
     let test = 999
     return (
       <li className="book">
-        <Link to={"/book/"+bookId} >
+        <Link to={'/book/' + bookId} >
           <div className="book-cover"><img src={book.cover}/></div>
           <div className="book-meta">
             <span title={book.title} className="book-name">{book.title}</span>

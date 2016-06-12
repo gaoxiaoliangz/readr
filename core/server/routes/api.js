@@ -10,6 +10,7 @@ function handleApiRouting() {
   router.post('/authors', middleware.getUserInfo, api.http(api.authors.add))
   router.get('/authors', middleware.getUserInfo, api.http(api.authors.browse))
   router.get('/authors/:id', middleware.getUserInfo, api.http(api.authors.find))
+  router.get('/authors2/:id', middleware.getUserInfo, api.http(api.authors.find2))
 
   // collections
   router.post('/collections', middleware.getUserInfo, api.http(api.collections.add))

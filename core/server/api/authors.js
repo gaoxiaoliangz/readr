@@ -3,17 +3,18 @@
 const models = require('../models')
 const Promise = require('bluebird')
 const utils = require('./utils')
-const _ = require('lodash')
+// const _ = require('lodash')
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const pipeline = require('../utils/pipeline')
-const books = require('./books')
+// const books = require('./books')
 const humps = require('humps')
+const Validation = require('../data/validation')
 
 const authors = {
   // TODO: check existence
   add(object, options) {
-    let requiredOptions = ['description', 'name', 'slug']
+    const requiredOptions = ['description', 'name', 'slug']
 
     const query = (options) => {
       let author = Object.assign({}, humps.decamelizeKeys(options.data))
@@ -95,6 +96,35 @@ const authors = {
     const tasks = [
       utils.validate(requiredOptions),
       doQuery
+    ]
+
+    return pipeline(tasks, options)
+  },
+
+  find2(options) {
+    // const requiredOptions = ['id']
+    // todo
+    // delete options.context
+
+    const scheme = {
+      id: Validation.validators.id,
+      context: [Validation.flags.isOptional, Validation.validators.any],
+    }
+
+    const doQuery = (options2) => {
+      return models.read('authors', {id: options2.id}).then(result => {
+        if (result.length === 0) {
+          return Promise.reject(new errors.NotFoundError(i18n('errors.api.collections.notFound')))
+        }
+        delete result[0]._id
+        return Promise.resolve(result[0])
+      }, error => Promise.reject(error))
+    }
+
+    const tasks = [
+      // utils.validate(requiredOptions),
+      Validation.exec2(scheme),
+      doQuery,
     ]
 
     return pipeline(tasks, options)
