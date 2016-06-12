@@ -22,10 +22,10 @@ import { bindActionCreators } from 'redux'
 //   return { actions: bindActionCreators(actionCreators, dispatch) };
 // }
 
-// @connect(
-//   mapStateToProps,
-//   { handleNotification, userAuth } as any
-// )
+@connect(
+  mapStateToProps,
+  { handleNotification, userAuth } as any
+)
 class App extends Component<any, any> {
 
   constructor(props) {
@@ -42,7 +42,7 @@ class App extends Component<any, any> {
     let username = null
 
     if(this.props.session.user.role !== 'visitor') {
-      isAdmin = this.props.session.user.role === 'admin'?true:false
+      isAdmin = this.props.session.user.role === 'admin'
       username = this.props.session.user.username
     }
 

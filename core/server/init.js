@@ -45,6 +45,7 @@ function init(basePath) {
   
   // api routing
   app.use(routes.apiBaseUri, routes.handleApiRouting())
+  app.use(routes.apiBaseUri2, routes.handleApiRouting2())
   
   // logout
   app.use(controllers.logout())

@@ -11,8 +11,33 @@ const data = require('../utils/data')
 const humps = require('humps')
 const authors = require('./authors')
 
+const dataTypes = {
+  string: 'string',
+  json: 'JSON',
+  email: 'email',
+  shortString: 'shortString'
+}
+
 const books = {
   add(object, options) {
+    let args = [
+      {
+        name: 'content',
+        type: dataTypes.string,
+        isRequired: true
+      },
+      {
+        name: 'title',
+        type: dataTypes.shortString,
+        isRequired: true
+      }
+    ]
+
+    let args2 = {
+      content: {}
+    }
+
+
     let requiredOptions = ['content', 'title', 'author', 'description', 'cover']
     let additionalOptions = ['tags', 'category', 'dbId']
 
