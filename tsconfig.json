@@ -9,8 +9,6 @@
     "outDir": "assets/built/es6",
     "experimentalDecorators": true,
     "moduleResolution": "classic"
-    // "watch": true
-    // "noImplicitAny": true,
   },
   "exclude": [
     "node_modules",
