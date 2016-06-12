@@ -10,19 +10,23 @@ const utils = {
   noTrimTypes: ['password'],
 
   requireAdminPermissions(options) {
-    let role = options.context.user?options.context.user.role:'visitor'
+    const role = options.context.user ? options.context.user.role : 'visitor'
 
-    if(role === 'admin') {
+    if (role === 'admin') {
       return options
-    } else {
-      return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.needAdminPermission')))
     }
+
+    return Promise.reject(
+      new errors.NoPermissionError(i18n('errors.api.auth.needAdminPermission'))
+    )
   },
 
   requireUserPermissions(options) {
-    let user = options.context.user?options.context.user:null
+    const user = options.context.user ? options.context.user : null
 
-    return user?options: Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
+    return user
+      ? options
+      : Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
   },
 
   validate(requiredOptions, additionalOptions) {
