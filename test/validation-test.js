@@ -17,10 +17,22 @@ describe('utils/object', () => {
           assert.equal('length', Validation.validators.id('9999'))
         })
       })
+
+      describe('email', () => {
+        it('should fail when number is passed', () => {
+          // should.js 返回值是布尔类型会出问题
+          // Validation.validators.email('abcadb.com').should.have.length(1)
+          assert.equal(true, Validation.validators.email('78787@78.c'))
+        })
+
+        it('should be ok when email is valid', () => {
+          Validation.validators.email('a@b.c').should.be.ok
+        })
+      })
     })
 
     describe('validation exec', () => {
-      it('single validator: should return true', () => {
+      it('should return true when using single validator', () => {
         var scheme = {
           bookId: Validation.validators.id,
           email: Validation.validators.email,
@@ -34,7 +46,7 @@ describe('utils/object', () => {
         assert.equal(true, Validation.exec(options, scheme))
       })
 
-      it('multi validator: should return true', function() {
+      it('should return true when using multi validators', function() {
         var scheme = {
           bookId: [Validation.validators.id, Validation.validators.string],
           email: Validation.validators.email,
@@ -48,7 +60,7 @@ describe('utils/object', () => {
         Validation.exec(options, scheme).should.equal(true)
       })
 
-      it('multi validator: should have one error', () => {
+      it('should have one error when id is invalid', () => {
         var scheme = {
           bookId: [Validation.validators.id, Validation.validators.string],
           email: Validation.validators.email,
@@ -63,19 +75,35 @@ describe('utils/object', () => {
         res.should.have.length(1)
       })
 
-      it('should have one error when option item is not defined', () => {
+      it('should have one error when unsupported item found', () => {
         var scheme = {
           bookId: [Validation.validators.id, Validation.validators.string],
-          email: Validation.validators.email,
+          email: Validation.validators.email
         }
 
         var options = {
-          id: '8888',
-          email: 'somebody@gmail.com'
+          bookId: '87878787',
+          email: 'somebody@gmail.com',
+          id: '789'
         }
 
         var res = Validation.exec(options, scheme)
+        // console.log(res)
         res.should.have.length(1)
+      })
+
+      it('should have no error when optional option item is not defined', () => {
+        var scheme = {
+          bookId: [Validation.validators.id, Validation.validators.string],
+          email: [Validation.flags.isOptional ,Validation.validators.email]
+        }
+
+        var options = {
+          bookId: '99999999'
+        }
+
+        var res = Validation.exec(options, scheme)
+        res.should.be.ok
       })
     })
   })
