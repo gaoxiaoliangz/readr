@@ -47,7 +47,7 @@ const authors = {
 
       if(query) {
         reg = new RegExp(options.q)
-        match = {$or: [{slug: reg}, {name: reg}]}
+        match = { $or: [{ slug: reg }, { name: reg }] }
       }
 
       return models.read('authors', match).then(result => {
@@ -56,7 +56,7 @@ const authors = {
         }
 
         return Promise.all(result.map(item => {
-          return authors.find(Object.assign({}, options, {id: item.id}))
+          return authors.find(Object.assign({}, options, { id: item.id }))
         }))
       }, error => {
         return Promise.reject(error)
@@ -84,7 +84,7 @@ const authors = {
     const requiredOptions = ['id']
 
     const doQuery = (options) => {
-      return models.read('authors', {id: options.id}).then(result => {
+      return models.read('authors', { id: options.id }).then(result => {
         if(result.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.collections.notFound')))
         }
@@ -106,13 +106,13 @@ const authors = {
     // todo
     // delete options.context
 
-    const scheme = {
+    const schema = {
       id: Validation.validators.id,
       context: [Validation.flags.isOptional, Validation.validators.any],
     }
 
     const doQuery = (options2) => {
-      return models.read('authors', {id: options2.id}).then(result => {
+      return models.read('authors', { id: options2.id }).then(result => {
         if (result.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.collections.notFound')))
         }
@@ -123,7 +123,7 @@ const authors = {
 
     const tasks = [
       // utils.validate(requiredOptions),
-      Validation.exec2(scheme),
+      Validation.exec2(schema),
       doQuery,
     ]
 

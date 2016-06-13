@@ -1,8 +1,7 @@
-// import assert from 'assert'
-// import validation from '../core/server/data/validation'
 var assert = require('assert')
 var Validation = require('../core/server/data/validation')
-var should = require('should')
+// var should = require('should')
+var expect = require('expect.js')
 
 describe('utils/object', () => {
   describe('Validation', () => {
@@ -10,23 +9,25 @@ describe('utils/object', () => {
     describe('validators', () => {
       describe('id', () => {
         it('should return true', () => {
+          // using assert
           assert.equal(true, Validation.validators.id('78787878'))
         })
 
         it('should return error', () => {
+          // using assert
           assert.equal('length', Validation.validators.id('9999'))
         })
       })
 
       describe('email', () => {
-        it('should fail when number is passed', () => {
+        it('should fail when pure number is passed', () => {
           // should.js 返回值是布尔类型会出问题
-          // Validation.validators.email('abcadb.com').should.have.length(1)
-          assert.equal(true, Validation.validators.email('78787@78.c'))
+          var res = Validation.validators.email('78787')          
+          expect(res).to.be.a('string')
         })
 
         it('should be ok when email is valid', () => {
-          Validation.validators.email('a@b.c').should.be.ok
+          expect(Validation.validators.email('a@b.co')).to.be(true)
         })
       })
     })
@@ -56,8 +57,8 @@ describe('utils/object', () => {
           bookId: '88888888',
           email: 'somebody@gmail.com'
         }
-
-        Validation.exec(options, scheme).should.equal(true)
+        
+        expect(Validation.exec(options, scheme)).to.be(true)
       })
 
       it('should have one error when id is invalid', () => {
@@ -72,7 +73,7 @@ describe('utils/object', () => {
         }
 
         var res = Validation.exec(options, scheme)
-        res.should.have.length(1)
+        expect(res).to.have.length(1)
       })
 
       it('should have one error when unsupported item found', () => {
@@ -88,8 +89,7 @@ describe('utils/object', () => {
         }
 
         var res = Validation.exec(options, scheme)
-        // console.log(res)
-        res.should.have.length(1)
+        expect(res).to.have.length(1)
       })
 
       it('should have no error when optional option item is not defined', () => {
@@ -103,7 +103,22 @@ describe('utils/object', () => {
         }
 
         var res = Validation.exec(options, scheme)
-        res.should.be.ok
+        expect(res).to.be(true)
+      })
+
+      it('should have no error when optional option item is defined and optional option is present', () => {
+        var scheme = {
+          bookId: [Validation.validators.id, Validation.validators.string],
+          email: [Validation.flags.isOptional ,Validation.validators.email]
+        }
+
+        var options = {
+          bookId: '99999999',
+          email: 'a@b.c'
+        }
+
+        var res = Validation.exec(options, scheme)
+        expect(res).to.be(true)
       })
     })
   })

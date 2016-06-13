@@ -1,6 +1,7 @@
 'use strict'
 
 const i18n = require('../utils/i18n')
+const validator = require('validator')
 // const errors = require('../errors')
 // const _ = require('lodash')
 
@@ -13,13 +14,17 @@ const flags = {
 
 const validators = {
   email(input) {
-    const emailReg = /^([a-zA-Z0-9_-_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/i
+    // const emailReg = /^([a-zA-Z0-9_-_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/i
 
-    if (!emailReg.test(input)) {
-      return i18n('errors.validation.invalidFormat', 'Email')
-    }
+    // if (!emailReg.test(input)) {
+    //   return i18n('errors.validation.invalidFormat', 'Email')
+    // }
 
-    return true
+    // return true
+    const res = validator.isEmail(input)
+    console.log(res)
+    
+    return res
   },
   // todo
   id(input) {

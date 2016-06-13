@@ -50,6 +50,7 @@
     "react-side-effect": "^1.0.2",
     "redux": "^3.3.1",
     "request": "^2.67.0",
+    "validator": "^5.4.0",
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
@@ -71,6 +72,7 @@
     "eslint-plugin-jsx": "0.0.2",
     "eslint-plugin-jsx-a11y": "^1.4.2",
     "eslint-plugin-react": "^5.1.1",
+    "expect.js": "^0.3.1",
     "expose-loader": "^0.7.1",
     "grunt": "^0.4.5",
     "grunt-babel": "^6.0.0",
