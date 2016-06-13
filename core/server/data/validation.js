@@ -6,13 +6,11 @@ const validator = require('validator')
 // const _ = require('lodash')
 
 
-const flags = {
-  isOptional: 'isOptional',
-  isRequired: 'isRequired',
-  skip: 'skip',
+const mark = {
+  optional: 'isOptional',
 }
 
-const validators = {
+const types = {
   email(input) {
     // const emailReg = /^([a-zA-Z0-9_-_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/i
 
@@ -54,8 +52,65 @@ const validators = {
 //   // todo
 // }
 
+function schemaHasRightFormat(schema) {
+  if (typeof schema !== 'object') {
+    return false
+  }
 
-function exec(data, scheme) {
+  return Object.keys(schema).every(key => {
+    const validators = schema[key]
+
+    if (typeof validators === 'function') {
+      return true
+    }
+
+    if (Array.isArray(validators)) {
+      return validators.every(v => {
+        if (v === mark.optional) {
+          return true
+        }
+
+        if (typeof v === 'function') {
+          return true
+        }
+
+        return false
+      })
+    }
+
+    return false
+  })
+}
+
+
+function hasNoUnsupportedInput(data, schema) {
+  return Object.keys(data).every(key => {
+    if (typeof schema[key] !== 'undefined') {
+      return true
+    }
+    return false
+  })
+}
+
+function hasAllNeededInput(data, schema) {
+  return Object.keys(schema).every(key => {
+    // make validators array
+    const validators = Array.isArray(schema[key])
+      ? schema[key]
+      : [schema[key]]
+
+    if (validators.indexOf(mark.optional) !== -1 || typeof data[key] !== 'undefined') {
+      return true
+    }
+    return false
+  })
+}
+
+function exec(input, validators) {
+  
+}
+
+function execAll(data, scheme) {
   let allErrors = []
 
   // validator can be a single function or an array
@@ -71,10 +126,10 @@ function exec(data, scheme) {
   }
 
   // handle optional inputs
-  for(let prop in scheme) {
+  for (const prop in scheme) {
     const validators2 = makeValidatorArray(prop, scheme)
 
-    if (validators2.indexOf(flags.isOptional) === -1) {
+    if (validators2.indexOf(mark.optional) === -1) {
       if (typeof data[prop] === 'undefined') {
         allErrors.push(new Error(`${prop} not found`))
       }
@@ -114,9 +169,9 @@ function exec(data, scheme) {
   return (allErrors.length === 0 ? true : allErrors)
 }
 
-function exec2(scheme) {
+function exeWithPromise(scheme) {
   return data => {
-    const result = exec(data, scheme)
+    const result = execAll(data, scheme)
 
     if (result === true) {
       return data
@@ -127,10 +182,13 @@ function exec2(scheme) {
 }
 
 const Validation = {
-  validators,
-  flags,
-  exec,
-  exec2,
+  types,
+  mark,
+  execAll,
+  exeWithPromise,
+  hasNoUnsupportedInput,
+  hasAllNeededInput,
+  schemaHasRightFormat,
 }
 
 module.exports = Validation
