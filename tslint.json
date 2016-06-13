@@ -1,4 +1,5 @@
 {
+  "rulesDirectory": ["node_modules/vrsource-tslint-rules/rules"],
   "rules": {
     "class-name": true,
     "comment-format": [
@@ -53,6 +54,20 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+    "no-shadowed-variable": true,
+    "no-unused-expression": true,
+    "no-use-before-declare": true,
+    "no-unused-variable": [
+      true,
+      {
+        "ignore-pattern": ["^_|React"]
+      }
+    ],
+    "one-variable-per-declaration": [true, "ignore-for-loop"],
+    "no-console": [true, "log"],
+    
+    // from plugin
+    "no-param-reassign": true
   }
 }
