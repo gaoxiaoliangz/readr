@@ -1,16 +1,16 @@
 'use strict'
 
 const _ = require('lodash')
-// const Promise = require('bluebird')
 const books = require('./books')
 const collections = require('./collections')
 const authors = require('./authors')
 const tags = require('./tags')
 const users = require('./users')
 const auth = require('./auth')
-// const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const runtimeOptions = require('../utils/runtime-options')
+// const Promise = require('bluebird')
+// const errors = require('../errors')
 
 // referenced ghost /server/api/index.js
 const http = function http(apiMethod) {
@@ -51,7 +51,7 @@ const http = function http(apiMethod) {
       let statusCode = error.statusCode || 500
 
       if (statusCode >= 500) {
-        console.log(error.stack)
+        console.error(error.stack)
       }
 
       if (Error.prototype.isPrototypeOf(error)) {

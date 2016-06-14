@@ -11,6 +11,8 @@
     "prefer-const": [0],
     "prefer-rest-params": [0],
     "no-param-reassign": [0],
-    "max-len": [1, 200]
+    "max-len": [1, 200],
+    "no-console": [1, { "allow": ["warn", "error"] }],
+    "no-underscore-dangle": [0]
   }
 }
