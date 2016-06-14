@@ -102,13 +102,12 @@ const authors = {
   },
 
   find2(options) {
-    // const requiredOptions = ['id']
     // todo
     // delete options.context
 
     const schema = {
-      id: Validation.validators.id,
-      context: [Validation.flags.isOptional, Validation.validators.any],
+      id: Validation.validator.id,
+      context: [Validation.mark.optional, Validation.validator.any],
     }
 
     const doQuery = (options2) => {

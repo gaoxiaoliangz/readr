@@ -4,191 +4,154 @@ const i18n = require('../utils/i18n')
 const validator = require('validator')
 // const errors = require('../errors')
 // const _ = require('lodash')
+const Promise = require('bluebird')
+let Validation
 
-
-const mark = {
-  optional: 'isOptional',
-}
-
-const types = {
-  email(input) {
-    // const emailReg = /^([a-zA-Z0-9_-_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+$/i
-
-    // if (!emailReg.test(input)) {
-    //   return i18n('errors.validation.invalidFormat', 'Email')
-    // }
-
-    // return true
-    const res = validator.isEmail(input)
-    console.log(res)
-    
-    return res
+Validation = {
+  mark: {
+    optional: 'optional',
   },
-  // todo
-  id(input) {
-    if (input.length === 8) {
-      return true
+
+  // pipeline for validators
+  // pipeline: function pipeline(tasks, ...args) {
+  pipeline: function pipeline(tasks /* initial args */) {
+    const args = Array.prototype.slice.call(arguments, 1)
+    if (typeof tasks === 'function') {
+      tasks = [tasks]
     }
-    // todo
-    return 'length'
+    const errors = tasks
+      .filter(task => (typeof task === 'function'))
+      .map(task => task.apply(null, args))
+      .filter(res => (res !== true))
+    // 如果有错误只返回第一个
+    return (errors.length === 0 ? true : errors[0])
   },
-  string(input) {
-    if (typeof input === 'string') {
-      return true
-    }
-    // todo
-    return false
-  },
-  any(input) {
-    if (typeof input !== 'undefined') {
-      return true
-    }
-    // todo
-    return false
-  },
-}
 
-// const combined = {
-//   // todo
-// }
-
-function schemaHasRightFormat(schema) {
-  if (typeof schema !== 'object') {
-    return false
-  }
-
-  return Object.keys(schema).every(key => {
-    const validators = schema[key]
-
-    if (typeof validators === 'function') {
-      return true
-    }
-
-    if (Array.isArray(validators)) {
-      return validators.every(v => {
-        if (v === mark.optional) {
-          return true
-        }
-
-        if (typeof v === 'function') {
-          return true
-        }
-
+  preCheck: {
+    validateSchema: function validateSchema(schema) {
+      if (typeof schema !== 'object') {
         return false
-      })
-    }
-
-    return false
-  })
-}
-
-
-function hasNoUnsupportedInput(data, schema) {
-  return Object.keys(data).every(key => {
-    if (typeof schema[key] !== 'undefined') {
-      return true
-    }
-    return false
-  })
-}
-
-function hasAllNeededInput(data, schema) {
-  return Object.keys(schema).every(key => {
-    // make validators array
-    const validators = Array.isArray(schema[key])
-      ? schema[key]
-      : [schema[key]]
-
-    if (validators.indexOf(mark.optional) !== -1 || typeof data[key] !== 'undefined') {
-      return true
-    }
-    return false
-  })
-}
-
-function exec(input, validators) {
-  
-}
-
-function execAll(data, scheme) {
-  let allErrors = []
-
-  // validator can be a single function or an array
-  // this makes sure validators are all arrays
-  const makeValidatorArray = (prop, scheme2) => {
-    let validators2 = scheme2[prop]
-
-    if (!Array.isArray(validators2)) {
-      validators2 = [validators2]
-    }
-
-    return validators2
-  }
-
-  // handle optional inputs
-  for (const prop in scheme) {
-    const validators2 = makeValidatorArray(prop, scheme)
-
-    if (validators2.indexOf(mark.optional) === -1) {
-      if (typeof data[prop] === 'undefined') {
-        allErrors.push(new Error(`${prop} not found`))
       }
-    }
-  }
 
-  for(let prop in data) {
-    const input = data[prop]
-    let validators2 = scheme[prop]
+      return Object.keys(schema).every(key => {
+        const validators = schema[key]
 
-    if (typeof validators2 === 'undefined') {
-      // todo: 发现不支持的参数
-      // allErrors.push(new Error(`${prop} not permitted`))
-      allErrors.push(`${prop} not permitted`)
-      continue
-    }
-
-    validators2 = makeValidatorArray(prop, scheme)
-
-    const errors2 = validators2
-      .map(fn => {
-        return fn(input)
-      })
-      .filter(res => {
-        if (res !== true) {
+        if (typeof validators === 'function') {
           return true
+        }
+
+        if (Array.isArray(validators)) {
+          return validators.every(v => {
+            if (v === Validation.mark.optional) {
+              return true
+            }
+
+            if (typeof v === 'function') {
+              return true
+            }
+
+            return false
+          })
         }
 
         return false
       })
+    },
 
-    if (errors2.length !== 0) {
-      allErrors = allErrors.concat(errors2)
+    hasNoUnsupportedInput: function hasNoUnsupportedInput(data, schema) {
+      return Object.keys(data).every(key => {
+        if (typeof schema[key] !== 'undefined') {
+          return true
+        }
+        return false
+      })
+    },
+
+    hasAllNeededInput: function hasAllNeededInput(data, schema) {
+      return Object.keys(schema).every(key => {
+        // make validators array
+        const validators = Array.isArray(schema[key])
+          ? schema[key]
+          : [schema[key]]
+
+        if (validators.indexOf(Validation.mark.optional) !== -1
+          || typeof data[key] !== 'undefined') {
+          return true
+        }
+        return false
+      })
+    },
+  },
+
+  validator: {
+    email: function email(input) {
+      const res = validator.isEmail(input)
+      return (res ? true : i18n('errors.validation.invalidFormat', 'Email'))
+    },
+
+    // todo
+    id: function id(input) {
+      if (input.length === 8) {
+        return true
+      }
+
+      return i18n('errors.validation.invalidFormat', 'id')
+    },
+
+    string: function string(input) {
+      if (typeof input === 'string') {
+        return true
+      }
+      // todo
+      return false
+    },
+
+    any: function any(input) {
+      if (typeof input !== 'undefined') {
+        return true
+      }
+      // todo
+      return false
+    },
+  },
+
+  presets: {
+    id: [],
+    username: [],
+    password: [],
+  },
+
+  exec: function exec(data, schema) {
+    if (!Validation.preCheck.validateSchema(schema)) {
+      return [i18n('errors.validation.invalidFormat', 'schema')]
     }
-  }
-
-  return (allErrors.length === 0 ? true : allErrors)
-}
-
-function exeWithPromise(scheme) {
-  return data => {
-    const result = execAll(data, scheme)
-
-    if (result === true) {
-      return data
+    if (!Validation.preCheck.hasNoUnsupportedInput(data, schema)) {
+      return [i18n('errors.validation.invalidFormat', 'data')]
+    }
+    if (!Validation.preCheck.hasAllNeededInput(data, schema)) {
+      return [i18n('errors.validation.invalidFormat', 'data')]
     }
 
-    return Promise.reject(result)
-  }
-}
+    const errors = Object.keys(data)
+      .map(key => {
+        return Validation.pipeline(schema[key], data[key])
+      })
+      .filter(res => (res !== true))
 
-const Validation = {
-  types,
-  mark,
-  execAll,
-  exeWithPromise,
-  hasNoUnsupportedInput,
-  hasAllNeededInput,
-  schemaHasRightFormat,
+    return (errors.length === 0 ? true : errors)
+  },
+
+  exec2: function execPromise(schema) {
+    return data => {
+      const result = Validation.exec(data, schema)
+
+      if (result === true) {
+        return data
+      }
+
+      return Promise.reject(result)
+    }
+  },
 }
 
 module.exports = Validation
