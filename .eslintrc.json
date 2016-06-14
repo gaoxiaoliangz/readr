@@ -8,6 +8,9 @@
     "strict": [0],
     "handle-callback-err": [2],
     "arrow-body-style": [0],
-    "prefer-const": [0]
+    "prefer-const": [0],
+    "prefer-rest-params": [0],
+    "no-param-reassign": [0],
+    "max-len": [1, 200]
   }
 }

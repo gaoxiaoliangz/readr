@@ -13,6 +13,11 @@ const cn = {
   },
   errors: {
     validation: {
+      valueType: {
+        notString: '不是字符串',
+        undefined: '未定义',
+      },
+      undefined: '未定义',
       unmatchedOptionQuantity: '提供的参数数目有误',
       invalidJson: 'JSON 格式不正确',
       inputEmpty: '{value}输入不能为空',
@@ -20,6 +25,7 @@ const cn = {
       inputTypeInvalid: '输入项类型只能为字符串',
       invalidFormat: '{value}格式不对',
       inputUnsupported: '发现不支持的输入项',
+      length: '长度不对',
       minLength: '{value}长度不足',
       maxLength: '{value}超出最大长度',
       password: {

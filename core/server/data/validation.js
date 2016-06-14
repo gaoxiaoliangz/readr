@@ -1,10 +1,10 @@
 'use strict'
 
-const i18n = require('../utils/i18n')
-const validator = require('validator')
-// const errors = require('../errors')
-// const _ = require('lodash')
+const Validator = require('validator')
+const Errors = require('../errors')
 const Promise = require('bluebird')
+const i18n = require('../utils/i18n')
+// const _ = require('lodash')
 let Validation
 
 Validation = {
@@ -13,18 +13,22 @@ Validation = {
   },
 
   // pipeline for validators
-  // pipeline: function pipeline(tasks, ...args) {
-  pipeline: function pipeline(tasks /* initial args */) {
-    const args = Array.prototype.slice.call(arguments, 1)
-    if (typeof tasks === 'function') {
-      tasks = [tasks]
-    }
-    const errors = tasks
+  pipeline: function pipeline(tasks, input, key) {
+    const tasks2 = typeof tasks === 'function' ? [tasks] : tasks
+    const errors = tasks2
       .filter(task => (typeof task === 'function'))
-      .map(task => task.apply(null, args))
+      .map(task => task(input))
       .filter(res => (res !== true))
+
     // 如果有错误只返回第一个
-    return (errors.length === 0 ? true : errors[0])
+    return (
+      errors.length === 0
+        ? true
+        : {
+          type: errors[0],
+          for: key,
+        }
+    )
   },
 
   preCheck: {
@@ -85,56 +89,88 @@ Validation = {
 
   validator: {
     email: function email(input) {
-      const res = validator.isEmail(input)
-      return (res ? true : i18n('errors.validation.invalidFormat', 'Email'))
+      return Validation.makeValidator(
+        Validator.isEmail,
+        'errors.validation.invalidFormat'
+      )(input)
     },
 
-    // todo
-    id: function id(input) {
-      if (input.length === 8) {
-        return true
+    lengthGreaterThan: function lengthGreaterThan(len) {
+      return input => {
+        return (input.length > len ? true : 'errors.validation.minLength')
       }
+    },
 
-      return i18n('errors.validation.invalidFormat', 'id')
+    length: function length(len) {
+      return input => {
+        return (input.length === len ? true : 'errors.validation.length')
+      }
+    },
+
+    id: function id(input) {
+      return Validation.makeValidator(
+        [
+          Validation.validator.length(8),
+          Validation.validator.string,
+        ],
+        'errors.validation.invalidFormat'
+      )(input)
     },
 
     string: function string(input) {
       if (typeof input === 'string') {
         return true
       }
-      // todo
-      return false
+
+      return 'errors.validation.valueType.notString'
     },
 
     any: function any(input) {
       if (typeof input !== 'undefined') {
         return true
       }
-      // todo
-      return false
+
+      return 'errors.validation.valueType.undefined'
     },
   },
 
-  presets: {
-    id: [],
-    username: [],
-    password: [],
+  makeValidator: function makeValidator(validators, errorMsg) {
+    return input => {
+      let errors = (typeof validators === 'function' ? [validators] : validators)
+        .map(v => v(input))
+        .filter(r => (r !== true))
+
+      if (errors.length === 0) {
+        return true
+      }
+
+      errors = errors.filter(err => {
+        return (err !== false)
+      })
+
+      // 如果定义了 errorMsg 则优先使用 errorMsg
+      if (typeof errorMsg !== 'undefined' || errors.length === 0) {
+        return errorMsg
+      }
+
+      return (errors[0] !== false ? errors[0] : 'errors.validation.undefined')
+    }
   },
 
   exec: function exec(data, schema) {
     if (!Validation.preCheck.validateSchema(schema)) {
-      return [i18n('errors.validation.invalidFormat', 'schema')]
+      return [{ type: 'errors.validation.invalidFormat', for: 'schema' }]
     }
     if (!Validation.preCheck.hasNoUnsupportedInput(data, schema)) {
-      return [i18n('errors.validation.invalidFormat', 'data')]
+      return [{ type: 'errors.validation.invalidFormat', for: 'data' }]
     }
     if (!Validation.preCheck.hasAllNeededInput(data, schema)) {
-      return [i18n('errors.validation.invalidFormat', 'data')]
+      return [{ type: 'errors.validation.invalidFormat', for: 'data' }]
     }
 
     const errors = Object.keys(data)
       .map(key => {
-        return Validation.pipeline(schema[key], data[key])
+        return Validation.pipeline(schema[key], data[key], key)
       })
       .filter(res => (res !== true))
 
@@ -143,13 +179,15 @@ Validation = {
 
   exec2: function execPromise(schema) {
     return data => {
-      const result = Validation.exec(data, schema)
+      let result = Validation.exec(data, schema)
 
       if (result === true) {
         return data
       }
 
-      return Promise.reject(result)
+      result = result.map(r => new Errors.BadRequestError(i18n(r.type), r.type))
+      // 和之前 api 兼容，一次输出一个错误
+      return Promise.reject(result[0])
     }
   },
 }
