@@ -11,31 +11,31 @@ const data = require('../utils/data')
 const humps = require('humps')
 const authors = require('./authors')
 
-const dataTypes = {
-  string: 'string',
-  json: 'JSON',
-  email: 'email',
-  shortString: 'shortString'
-}
+// const dataTypes = {
+//   string: 'string',
+//   json: 'JSON',
+//   email: 'email',
+//   shortString: 'shortString',
+// }
 
 const books = {
   add(object, options) {
-    let args = [
-      {
-        name: 'content',
-        type: dataTypes.string,
-        isRequired: true
-      },
-      {
-        name: 'title',
-        type: dataTypes.shortString,
-        isRequired: true
-      }
-    ]
+    // let args = [
+    //   {
+    //     name: 'content',
+    //     type: dataTypes.string,
+    //     isRequired: true,
+    //   },
+    //   {
+    //     name: 'title',
+    //     type: dataTypes.shortString,
+    //     isRequired: true,
+    //   },
+    // ]
 
-    let args2 = {
-      content: {}
-    }
+    // let args2 = {
+    //   content: {},
+    // }
 
 
     let requiredOptions = ['content', 'title', 'author', 'description', 'cover']
@@ -49,7 +49,7 @@ const books = {
       let book = Object.assign({}, humps.decamelizeKeys(options.data))
       book.content = {
         raw: raw,
-        html: html
+        html: html,
       }
       book.author = JSON.parse(options.data.author)
 
@@ -63,7 +63,7 @@ const books = {
     const tasks = [
       utils.validate(requiredOptions),
       utils.requireAdminPermissions,
-      processDataAndDoQuery
+      processDataAndDoQuery,
     ]
 
     return pipeline(tasks, object, options)
@@ -75,18 +75,18 @@ const books = {
   browse(options) {
     const requiredOptions = []
     const additionalOptions = ['flow', 'q']
-    let filter = options.filter?options.filter:'newest'
+    let filter = options.filter ? options.filter:'newest'
 
     const doQuery = (options) => {
-      let flow = options.flow?options.flow:'newest'
-      let query = options.q?options.q:null
+      let flow = options.flow ? options.flow:'newest'
+      let query = options.q ? options.q:null
 
       const search = (options) => {
         const reg = new RegExp(options.q)
 
-        return models.read('books', {$or: [{title: reg}, {author: reg}]}).then(result => {
+        return models.read('books', { $or: [{ title: reg }, { author: reg }] }).then(result => {
           return Promise.all(result.map(item => {
-            return books.find(Object.assign({}, options, {id: item.id}))
+            return books.find(Object.assign({}, options, { id: item.id }))
           }))
         }, error => {
           return Promise.reject(error)
@@ -96,16 +96,16 @@ const books = {
       const getUserFlow = (options) => {
         let userPermissionCheckResult = utils.requireUserPermissions(options)
 
-        if(userPermissionCheckResult.then) {
+        if (userPermissionCheckResult.then) {
           return userPermissionCheckResult
         } else {
-          return models.read('reading_progress', { user_id: options.context.user.id}).then(result => {
-            if(result.length === 0) {
+          return models.read('reading_progress', { user_id: options.context.user.id }).then(result => {
+            if (result.length === 0) {
               return Promise.resolve(result)
             }
 
             return Promise.all(result.map(item => {
-              return books.find(Object.assign({}, options, {id: item.book_id})).then(result => {
+              return books.find(Object.assign({}, options, { id: item.book_id })).then(result => {
                 return Promise.resolve(result)
               }, error => {
                 // 失效的书籍直接从查询结果里移除
@@ -113,7 +113,7 @@ const books = {
               })
             })).then(result => {
               return result.filter(item => {
-                if(item !== null) {
+                if (item !== null) {
                   return true
                 }
               })
@@ -127,18 +127,18 @@ const books = {
       const getNewest = (options) => {
         return models.read('books', null).then(result => {
           return Promise.all(result.map(item => {
-            return books.find(Object.assign({}, options, {id: item.id}))
+            return books.find(Object.assign({}, options, { id: item.id }))
           }))
         }, error => {
           return Promise.reject(error)
         })
       }
 
-      if(query) {
+      if (query) {
         return search(options)
       }
 
-      if(flow === 'user') {
+      if (flow === 'user') {
         return getUserFlow(options)
       } else {
         return getNewest(options)
@@ -146,7 +146,7 @@ const books = {
     }
 
     let tasks = [
-      utils.validate(requiredOptions, additionalOptions)
+      utils.validate(requiredOptions, additionalOptions),
     ]
 
     tasks.push(doQuery)
@@ -158,7 +158,7 @@ const books = {
     const requiredOptions = ['id']
 
     function doQuery(options) {
-      return models.deleteData('books', {id: options.id}).then(result => {
+      return models.deleteData('books', { id: options.id }).then(result => {
         return Promise.resolve(result)
       }, error => {
         return Promise.reject(error)
@@ -168,7 +168,7 @@ const books = {
     const tasks = [
       utils.validate(requiredOptions),
       utils.requireAdminPermissions,
-      doQuery
+      doQuery,
     ]
 
     return pipeline(tasks, options)
@@ -180,23 +180,23 @@ const books = {
     const defaultFields = ['id', 'title', 'author', 'description', 'cover', 'date_created']
 
     const query = (options) => {
-      return models.read('books', {id: options.id}).then(result => {
-        if(result.length === 0) {
+      return models.read('books', { id: options.id }).then(result => {
+        if (result.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.books.bookNotFound')))
         }
         let book = result[0]
         let fields = defaultFields
 
-        if(options.fields) {
+        if (options.fields) {
           fields = defaultFields.concat(options.fields.split(','))
         }
 
         return Promise.all(result[0].author.map(id => {
-          return authors.find(Object.assign({}, options, {id}))
+          return authors.find(Object.assign({}, options, { id }))
         })).then(result => {
-          book = Object.assign({}, book, {author: result})
+          book = Object.assign({}, book, { author: result })
           book = _.pick(book, fields)
-          if(book.content) {
+          if (book.content) {
             delete book.content.raw
           }
           return Promise.resolve(book)
@@ -208,7 +208,7 @@ const books = {
 
     const tasks = [
       utils.validate(requiredOptions, additionalOptions),
-      query
+      query,
     ]
 
     return pipeline(tasks, options)
@@ -218,8 +218,8 @@ const books = {
     const requiredOptions = ['id']
 
     function doQuery(options) {
-      return models.read('reading_progress', {book_id: options.id}).then(result => {
-        if(result.length === 0) {
+      return models.read('reading_progress', { book_id: options.id }).then(result => {
+        if (result.length === 0) {
           return {}
         } else {
           delete result[0]._id
@@ -233,7 +233,7 @@ const books = {
     const tasks = [
       utils.validate(requiredOptions),
       utils.requireUserPermissions,
-      doQuery
+      doQuery,
     ]
 
     return pipeline(tasks, options)
@@ -245,7 +245,7 @@ const books = {
     function doQuery(options) {
       const match = {
         book_id: options.id,
-        user_id: options.context.user.id
+        user_id: options.context.user.id,
       }
 
       const data = {
@@ -253,7 +253,7 @@ const books = {
         user_id: options.context.user.id,
         page_no: options.data.pageNo,
         page_sum: options.data.pageSum,
-        percentage: options.data.percentage
+        percentage: options.data.percentage,
       }
 
       return models.update('reading_progress', match, data, true).then(result => {
@@ -266,11 +266,11 @@ const books = {
     const tasks = [
       utils.validate(requiredOptions),
       utils.requireUserPermissions,
-      doQuery
+      doQuery,
     ]
 
     return pipeline(tasks, object, options)
-  }
+  },
 }
 
 module.exports = books

@@ -2,8 +2,8 @@
 
 const auth = require('./auth')
 
-function getUserInfo(req,res,next){
-  if(req.session.user) {
+function getUserInfo(req, res, next) {
+  if (req.session.user) {
     req.user = req.session.user
   }
   next()
@@ -11,7 +11,7 @@ function getUserInfo(req,res,next){
 
 function checkAdminPermissions(req, res, next) {
   req.isAdmin = false
-  if(req.session.user && req.session.user.role === 'admin') {
+  if (req.session.user && req.session.user.role === 'admin') {
     req.isAdmin = true
   }
   
@@ -19,9 +19,9 @@ function checkAdminPermissions(req, res, next) {
 }
 
 const middleware = {
-  auth: auth,
-  getUserInfo: getUserInfo,
-  checkAdminPermissions: checkAdminPermissions
+  auth,
+  getUserInfo,
+  checkAdminPermissions,
 }
 
 module.exports = middleware

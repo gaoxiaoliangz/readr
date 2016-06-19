@@ -37,6 +37,9 @@ const cn = {
       },
     },
     api: {
+      general: {
+        notFound: '未找到纪录'
+      },
       auth: {
         userDoesNotExist: '用户不存在',
         needAdminPermission: '需要管理员权限',

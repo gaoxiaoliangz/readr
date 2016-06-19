@@ -1,11 +1,11 @@
 'use strict'
 
 const express = require('express')
-const api = require('../api')
+const api = require('../api-v1')
 const middleware = require('../middleware')
 const router = express.Router()
 
-function handleApiRouting() {
+function apiRoute() {
   // authors
   router.post('/authors', middleware.getUserInfo, api.http(api.authors.add))
   router.get('/authors', middleware.getUserInfo, api.http(api.authors.browse))
@@ -41,4 +41,4 @@ function handleApiRouting() {
   return router
 }
 
-module.exports = handleApiRouting
+module.exports = apiRoute

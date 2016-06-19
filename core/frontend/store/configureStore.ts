@@ -14,26 +14,26 @@ const env = process.env.NODE_ENV
 
 export default function configureStore() {
   let store
-  
+
   // if(module.hot) {
   //   module.hot.accept('../reducers', () => {
   //     const nextRootReducer = require('../reducers').default
   //     store.replaceReducer(nextRootReducer)
   //   })
   // }
-  
+
   // server side
-  if(typeof window === 'undefined') {
+  if (typeof window === 'undefined') {
     store = createStore(
       rootReducer,
       {},
       applyMiddleware(thunk, api, modifyResponse)
     )
-    
+
     return store
   }
 
-  if(env === 'production') {
+  if (env === 'production') {
     store = createStore(
       rootReducer,
       handleInitialState(),
