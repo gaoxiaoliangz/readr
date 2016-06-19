@@ -10,8 +10,10 @@ const ApiMethods = require('./api-methods')
 
 const books = new ApiMethods(schemas.book)
 const authors = new ApiMethods(schemas.author)
+const collections = new ApiMethods(schemas.collection)
 
 module.exports = {
   books,
-  authors
+  authors,
+  collections
 }

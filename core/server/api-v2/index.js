@@ -85,6 +85,14 @@ function http(apiMethods) {
     apiMethods.find(parseReqData(req)).then(done(req, res), err(res))
   })
 
+  router.post('/:id', (req, res) => {
+    apiMethods.edit(parseReqData(req)).then(done(req, res), err(res))
+  })
+
+  router.delete('/:id', (req, res) => {
+    apiMethods.delete(parseReqData(req)).then(done(req, res), err(res))
+  })
+
   router.post('/', (req, res) => {
     apiMethods.add(parseReqData(req)).then(done(req, res), err(res))
   })

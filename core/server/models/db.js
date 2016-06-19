@@ -1,17 +1,19 @@
-var mongodb = require('mongodb')
-var Promise = require('bluebird')
-var config = require('../config')
-var MongoClient = mongodb.MongoClient
+const mongodb = require('mongodb')
+const Promise = require('bluebird')
+const config = require('../config')
+const MongoClient = mongodb.MongoClient
 
-var db = {
-  connect: function(dbName){
-    var dbUrl = config.dbUrl + dbName;
-    return new Promise(function (resolve, reject) {
-      MongoClient.connect(dbUrl, function (err, db) {
+const db = {
+  connect(dbName) {
+    const dbUrl = config.dbUrl + dbName
+    
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(dbUrl, (err, db2) => {
         if (err) {
-          console.log('Unable to connect to the mongoDB server. Error:', err)
+          console.error('Unable to connect to the mongoDB server. Error:', err)
+          reject(err)
         } else {
-          resolve(db);
+          resolve(db2)
         }
       })
     })
