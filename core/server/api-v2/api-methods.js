@@ -1,7 +1,7 @@
 'use strict'
 const Promise = require('bluebird')
 const errors = require('../errors')
-const models = require('../models')
+const models = require('../api-v1/models')
 const i18n = require('../utils/i18n')
 
 const defaultConfig = {}

@@ -1,28 +1,62 @@
-'use strict'
+const express = require('express')
+const router = new express.Router()
+const Db = require('../models/db')
 
-const config = require('../config')
-// const humps = require('humps')
-// const utils = require('./utils')
-// const _ = require('lodash')
-
-const mongoose = require('mongoose')
-// const Schema = mongoose.Schema
-
-mongoose.connect(config.dbUrl + config.dbName)
-
-const Book = mongoose.model('Book', {
-  name: String,
-  description: String,
-  content: String
+const table
+const dbName
+Db.connect(dbName).then(db => {
+  db.collection(table)
 })
 
-const Collection = mongoose.model('Collection', {
-  name: String,
-  description: String,
-  items: Array
-})
 
-module.exports = {
-  Book,
-  Collection
+// more than just a data table
+// it extends with ref support
+// so it looks more like a model
+class Model {
+  constructor(schema) {
+    this.schema = schema
+  }
+
+  findById() {
+    // if a ref is used, data will be retrived automaticly
+    return this
+  }
+
+  find(match) {
+
+  }
+
+  insert(data) {
+
+  }
+
+  update(data) {
+
+  }
+
+  delete() {
+    
+  }
 }
+
+const bookSchema
+const bookModel = new Model(bookSchema)
+
+
+
+
+
+
+
+
+
+
+
+const model = function model() {
+  router.get('/model', (req, res) => {
+    res.send('hello')
+  })
+  return router
+}
+
+module.exports = model

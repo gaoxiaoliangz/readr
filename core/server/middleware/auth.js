@@ -1,6 +1,6 @@
 'use strict'
 
-const models = require('../models')
+const models = require('../api-v1/models')
 const Promise = require('bluebird')
 const pipeline = require('../utils/pipeline')
 const _ = require('lodash')
@@ -12,7 +12,7 @@ const utils = require('../api-v1/utils')
 
 
 const auth = {
-  basic(req, res, next){
+  basic(req, res, next) {
     const requiredOptions = ['login', 'password']
 
     function doQuery(options) {

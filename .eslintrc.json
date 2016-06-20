@@ -17,6 +17,7 @@
     "no-trailing-spaces": [0],
     "comma-dangle": [0],
     "no-shadow": [1],
-    "no-unused-vars": [1]
+    "no-unused-vars": [1],
+    "prefer-template": [0]
   }
 }
