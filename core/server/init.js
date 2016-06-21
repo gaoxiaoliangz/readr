@@ -22,7 +22,7 @@ function init(basePath) {
     },
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ url: config.dbUrl + 'readr_session' })
+    store: new MongoStore({ url: config.db.host + 'readr_session' })
   }))
 
   // it won't work if placed in the wrong position

@@ -1,6 +1,8 @@
 const config = {
-  dbUrl: 'mongodb://localhost:27017/',
-  dbName: 'readr',
+  db: {
+    host: 'mongodb://localhost:27017/',
+    name: 'readr'
+  },
   port: 3000,
 }
 
