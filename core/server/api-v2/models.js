@@ -1,42 +1,135 @@
 'use strict'
-const express = require('express')
-const router = new express.Router()
-
 const config = require('../config')
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
+// const errors = require('../errors')
+// const i18n = require('../utils/i18n')
 
 
-// more than just a data table
-// it extends with ref support
-// so it looks more like a model
+const SchemaTypes = {
+  String: 'string',
+  Array: 'array',
+  Number: 'number',
+  ID: 'id'
+}
 
-// oop
+
+// for testing
+const express = require('express')
+const router = new express.Router()
+
+
+
+
 class Model {
-  constructor(tableName) {
-    // this.schema = schema
-    this.tableName = tableName
+  constructor(schema) {
+    this.schema = schema
+    this.tableName = schema.baseTable
     this.db = MongoClient.connect(config.db.host + config.db.name)
   }
 
-  findAll() {
-    return this.db.then(db => {  
+  // take array as param
+  _embedRef(rawResults) {
+    if (rawResults.length === 0) {
+      return Promise.resolve([])
+    }
+
+    // handle ref
+    // return something like this
+    // refFields = [{
+    //   name,
+    //   type,
+    //   ids,
+    //   ref: {
+    //     table,
+    //     fields
+    //   }
+    // }]
+    const getRefFieldsWithIds = (rawResult) => {
+      return Object.keys(this.schema.fields)
+        .filter(key => {
+          return (typeof this.schema.fields[key].ref !== 'undefined')
+        })
+        .map(key => {
+          const ids = this.schema.fields[key].type === SchemaTypes.Array ? rawResult[key] : [rawResult[key]]
+          // console.log(ids)
+          return Object.assign({}, this.schema.fields[key], {
+            name: key,
+            ids
+          })
+        })
+    }
+
+    const getRefFieldsWithData = (fieldsWithRefIds) => {
+      return fieldsWithRefIds.map(field => {
+        // 一个 field 里面的 ids 返回的查询结果
+        return Promise.all(
+          field.ids.map(id => {
+            return this.db.then(db => {
+              return db.collection(field.ref.table)
+                .find({ id })
+                .toArray()
+                .then(results => {
+                  try {
+                    // todo
+                    // filter
+                    if (typeof results[0] === 'object' && results[0].hasOwnProperty('content')) {
+                      delete results[0].content
+                    }
+                  } catch (e) {
+                    console.error(e)
+                  }
+                  return Promise.resolve(results[0])
+                }, err => {
+                  console.error(err)
+                  Promise.reject(err)
+                })
+            })
+          })
+        ).then(dataResults => {
+          return Promise.resolve({
+            [field.name]: field.type === SchemaTypes.Array ? dataResults : dataResults[0]
+          })
+        })
+      })
+    }
+
+    return Promise.all(
+      rawResults.map(rawResult => {
+        return Promise.all(getRefFieldsWithData(getRefFieldsWithIds(rawResult)))
+          .then(newFields => {
+            let embedResult = {}
+            newFields.forEach(newField => {
+              embedResult = Object.assign({}, embedResult, newField)
+            })
+
+            return Promise.resolve(Object.assign(rawResult, embedResult))
+          })
+      })
+    )
+  }
+
+  _findAll() {
+    return this._find({})
+  }
+
+  _findById(id) {
+    return this._find({ id })
+  }
+
+  _find(match) {
+    return this.db.then(db => {
       return db.collection(this.tableName)
-        .find({})
+        .find(match)
         .toArray()
-        .then(res => {
+        .then(res => {          
           return Promise.resolve(res)
         })
     })
   }
 
-  findById() {
-    // if a ref is used, data will be retrived automaticly
-    return this
-  }
-
-  find(match) {
-
+  findAll() {
+    return this._findAll().then(res => this._embedRef(res))
   }
 
   insert(data) {
@@ -57,49 +150,34 @@ class Model {
 }
 
 
-
-// fp
-// function findAll(db) {
-//   return db.collection(this.tableName)
-//     .find({})
-//     .toArray()
-//     .then(res => {
-//       return Promise.resolve(res)
-//     })
-// }
-
-// function update(db) {
-//   return (match, data) => {
-//     return db.collection(this.tableName).update(match, { $set: data }, {
-//       upsert: true
-//     })
-//   }
-// }
-
-
-
-
-// const bookSchema
-// const bookModel = new Model(bookSchema)
-
-
-// bookModel.findById('1948392').edit({a: 1})
-// bookModel.edit({a:1}, {a:2})
-
-// return a promise 
-// bookModel.find({})
-// .read()
-// .edit()
-// .delete()
-
-
-
+// for testing
+const collection2 = {
+  baseTable: 'collections',
+  fields: {
+    name: {
+      type: SchemaTypes.String
+    },
+    items: {
+      type: SchemaTypes.Array,
+      ref: {
+        table: 'books',
+        fields: ['name', 'authors', 'description']
+      }
+    },
+    creator_id: {
+      type: SchemaTypes.ID,
+      ref: {
+        table: 'users',
+        fields: []
+      }
+    }
+  }
+}
 
 const model = function model() {
   router.get('/model', (req, res) => {
-    const user = new Model('users')
-    // console.log(user.findAll())
-    
+    const user = new Model(collection2)
+
     user.findAll().then(result => {
       res.send(result)
     })
