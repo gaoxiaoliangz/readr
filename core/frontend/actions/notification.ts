@@ -1,8 +1,4 @@
-export function handleNotification(content, t) {
-  if(typeof t === 'undefined') {
-    t = 6000
-  }
-
+export function handleNotification(content, t = 3000) {
   return (dispatch, getState) => {
     dispatch(showNotification(content))
     setTimeout(() => {

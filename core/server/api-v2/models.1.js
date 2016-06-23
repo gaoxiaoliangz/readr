@@ -3,8 +3,8 @@ const config = require('../config')
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
-// const errors = require('../errors')
-// const i18n = require('../utils/i18n')
+const errors = require('../errors')
+const i18n = require('../utils/i18n')
 
 
 const SchemaTypes = {
@@ -30,8 +30,6 @@ class Model {
     this.collection = this.db.then(db => {
       return Promise.resolve(db.collection(this.schema.baseTable))
     })
-    // this.selector = null
-    this.match = {}
   }
 
   // take array as param
@@ -129,34 +127,40 @@ class Model {
     )
   }
 
-  _getAndResetMatch() {
-    const match = Object.assign({}, this.match)
-    this.match = {}
-    return match
+  _findAll() {
+    return this._find({})
   }
 
-  findById(id) {
-    this.match = Object.assign({}, { id })    
-    return this
+  _findById(id) {
+    return this._find({ id })
+  }
+
+  _find(match) {
+    return this.db.then(db => {
+      return db.collection(this.tableName)
+        .find(match)
+        .toArray()
+        .then(res => {          
+          return Promise.resolve(res)
+        })
+    })
   }
 
   find(match) {
-    this.match = Object.assign({}, match)
-    return this
+    return this._find(match).then(res => this._embedRef(res))
   }
 
-  listRaw() {
-    const match = this._getAndResetMatch()
-
-    return this.collection.then(collection => {
-      return collection.find(match).toArray()
+  findById(id) {
+    return this.find({ id }).then(res => {
+      if (res.length === 0) {
+        return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
+      }
+      return Promise.resolve(res[0])
     })
   }
 
-  list() {
-    return this.listRaw().then(results => {
-      return this._embedRef(results)
-    })
+  findAll() {
+    return this.find({})
   }
 
   // todo: validation 
@@ -166,31 +170,22 @@ class Model {
     })
   }
 
-  update(data, multi) {
-    const match = this._getAndResetMatch()
-    let enableMulti = false
-
-    if (Object.keys(match).length === 0) {
-      enableMulti = true
-    }
-    if (typeof multi !== 'undefined') {
-      enableMulti = multi
-    }
-
-    return this.collection.then(collection => {
-      return collection.update(match, { $set: data }, {
-        upsert: true,
-        multi: enableMulti
+  update(match, data) {
+    return this.db.then(db => {
+      return db.collection(this.tableName).update(match, { $set: data }, {
+        upsert: true
       })
     })
   }
 
-  delete() {
-    const match = this._getAndResetMatch()
-
+  delete(match) {
     return this.collection.then(collection => {
       return collection.remove(match)
     })
+  }
+
+  deleteById(id) {
+    return this.delete({ id })
   }
 }
 
@@ -223,17 +218,27 @@ const model = function model() {
   router.get('/model', (req, res) => {
     const user = new Model(collection2)
 
-    user.findById('02').listRaw().then(result => {
+    // user._findAll().then(result => {
+    //   res.send(result)
+    // })
+
+    user.findAll().then(result => {
       res.send(result)
-    }, err => {
-      res.send(err)
     })
 
-    user.update({ hehe: 'solved' }).then(result => {
-      res.send(result)
-    }, err => {
-      res.send(err)
-    })
+    // user.findById('08361320').then(result => {
+    //   res.send(result)
+    // }, err => {
+    //   res.send(err)
+    // })
+
+    // user.insert({ name: 'test' }).then(result => {
+    //   res.send(result)
+    // })
+
+    // user.deleteById('08361320').then(result => {
+    //   res.send(result)
+    // })
   })
   return router
 }
