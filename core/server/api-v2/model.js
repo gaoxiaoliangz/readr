@@ -5,16 +5,11 @@ const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
 // const errors = require('../errors')
 // const i18n = require('../utils/i18n')
-const SchemaTypes = require('./data-types')
+const DataTypes = require('./data-types')
 
-// for testing
-// const express = require('express')
-// const router = new express.Router()
 
 class Model {
   constructor(schema) {
-    console.log(schema)
-    
     this.schema = schema
     this.tableName = schema.baseTable
     this.db = MongoClient.connect(config.db.host + config.db.name)
@@ -49,7 +44,7 @@ class Model {
           return (typeof this.schema.fields[key].ref !== 'undefined')
         })
         .map(key => {
-          const ids = this.schema.fields[key].type === SchemaTypes.arrayOf(SchemaTypes.ID) ? rawResult[key] : [rawResult[key]]
+          const ids = this.schema.fields[key].type === DataTypes.arrayOf(DataTypes.ID) ? rawResult[key] : [rawResult[key]]
 
           return Object.assign({}, this.schema.fields[key], {
             name: key,
@@ -96,7 +91,7 @@ class Model {
           })
         ).then(dataResults => {
           return Promise.resolve({
-            [field.name]: field.type === SchemaTypes.arrayOf(SchemaTypes.ID) ? dataResults : dataResults[0]
+            [field.name]: field.type === DataTypes.arrayOf(DataTypes.ID) ? dataResults : dataResults[0]
           })
         })
       })
@@ -163,6 +158,9 @@ class Model {
   }
 
   update(data, multi) {
+    const data2 = Object.assign({}, data, {
+      date_updated: new Date().toString()
+    })
     const match = this._getAndResetMatch()
     let enableMulti = false
 
@@ -174,7 +172,7 @@ class Model {
     }
 
     return this.collection.then(collection => {
-      return collection.update(match, { $set: data }, {
+      return collection.update(match, { $set: data2 }, {
         upsert: true,
         multi: enableMulti
       })
@@ -189,49 +187,5 @@ class Model {
     })
   }
 }
-
-
-// for testing
-// const collection2 = {
-//   baseTable: 'collections',
-//   fields: {
-//     name: {
-//       type: SchemaTypes.String
-//     },
-//     items: {
-//       type: SchemaTypes.arrayOf(SchemaTypes.ID),
-//       ref: {
-//         table: 'books',
-//         fields: ['title', 'author', 'description']
-//       }
-//     },
-//     creator_id: {
-//       type: SchemaTypes.ID,
-//       ref: {
-//         table: 'users',
-//         fields: []
-//       }
-//     }
-//   }
-// }
-
-// const model = function model() {
-//   router.get('/model', (req, res) => {
-//     const user = new Model(collection2)
-
-//     user.findById('02').listRaw().then(result => {
-//       res.send(result)
-//     }, err => {
-//       res.send(err)
-//     })
-
-//     user.update({ hehe: 'solved' }).then(result => {
-//       res.send(result)
-//     }, err => {
-//       res.send(err)
-//     })
-//   })
-//   return router
-// }
 
 module.exports = Model

@@ -1,4 +1,4 @@
-const SchemaTypes = {
+const DataTypes = {
   String: 'String',
   Array: 'Array',
   Number: 'Number',
@@ -8,4 +8,4 @@ const SchemaTypes = {
   }
 }
 
-module.exports = SchemaTypes
+module.exports = DataTypes

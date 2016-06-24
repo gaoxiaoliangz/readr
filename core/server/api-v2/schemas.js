@@ -3,23 +3,23 @@
 // const utils = require('./utils')
 // const _ = require('lodash')
 const Validation = require('../data/validation')
-const SchemaTypes = require('./data-types')
+const DataTypes = require('./data-types')
 
 const collection = {
   baseTable: 'collections',
   fields: {
     name: {
-      type: SchemaTypes.String
+      type: DataTypes.String
     },
     items: {
-      type: SchemaTypes.arrayOf(SchemaTypes.ID),
+      type: DataTypes.arrayOf(DataTypes.ID),
       ref: {
         table: 'books',
         fields: ['title', 'author', 'description']
       }
     },
     creator_id: {
-      type: SchemaTypes.ID,
+      type: DataTypes.ID,
       ref: {
         table: 'users',
         fields: []

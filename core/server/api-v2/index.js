@@ -1,9 +1,7 @@
 'use strict'
-
 const _ = require('lodash')
 const i18n = require('../utils/i18n')
 const runtimeOptions = require('../utils/runtime-options')
-// const Promise = require('bluebird')
 const endpoint = require('./endpoint')
 const express = require('express')
 
