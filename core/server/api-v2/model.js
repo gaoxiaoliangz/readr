@@ -5,25 +5,16 @@ const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
 // const errors = require('../errors')
 // const i18n = require('../utils/i18n')
-
-
-const SchemaTypes = {
-  String: 'String',
-  Array: 'Array',
-  Number: 'Number',
-  ID: 'ID',
-  arrayOf: function ArrayOf(type) {
-    return `ArrayOf${type}`
-  }
-}
-
+const SchemaTypes = require('./data-types')
 
 // for testing
-const express = require('express')
-const router = new express.Router()
+// const express = require('express')
+// const router = new express.Router()
 
 class Model {
   constructor(schema) {
+    console.log(schema)
+    
     this.schema = schema
     this.tableName = schema.baseTable
     this.db = MongoClient.connect(config.db.host + config.db.name)
@@ -135,8 +126,8 @@ class Model {
     return match
   }
 
-  findById(id) {
-    this.match = Object.assign({}, { id })    
+  findById(_id) {
+    this.match = Object.assign({}, { _id })    
     return this
   }
 
@@ -161,8 +152,13 @@ class Model {
 
   // todo: validation 
   insert(data) {
+    const data2 = Object.assign({}, data, {
+      _id: Math.random().toFixed(8).substr(2),
+      date_created: new Date().toString()
+    })
+
     return this.collection.then(collection => {
-      return collection.insert([data])
+      return collection.insert([data2])
     })
   }
 
@@ -196,46 +192,46 @@ class Model {
 
 
 // for testing
-const collection2 = {
-  baseTable: 'collections',
-  fields: {
-    name: {
-      type: SchemaTypes.String
-    },
-    items: {
-      type: SchemaTypes.arrayOf(SchemaTypes.ID),
-      ref: {
-        table: 'books',
-        fields: ['title', 'author', 'description']
-      }
-    },
-    creator_id: {
-      type: SchemaTypes.ID,
-      ref: {
-        table: 'users',
-        fields: []
-      }
-    }
-  }
-}
+// const collection2 = {
+//   baseTable: 'collections',
+//   fields: {
+//     name: {
+//       type: SchemaTypes.String
+//     },
+//     items: {
+//       type: SchemaTypes.arrayOf(SchemaTypes.ID),
+//       ref: {
+//         table: 'books',
+//         fields: ['title', 'author', 'description']
+//       }
+//     },
+//     creator_id: {
+//       type: SchemaTypes.ID,
+//       ref: {
+//         table: 'users',
+//         fields: []
+//       }
+//     }
+//   }
+// }
 
-const model = function model() {
-  router.get('/model', (req, res) => {
-    const user = new Model(collection2)
+// const model = function model() {
+//   router.get('/model', (req, res) => {
+//     const user = new Model(collection2)
 
-    user.findById('02').listRaw().then(result => {
-      res.send(result)
-    }, err => {
-      res.send(err)
-    })
+//     user.findById('02').listRaw().then(result => {
+//       res.send(result)
+//     }, err => {
+//       res.send(err)
+//     })
 
-    user.update({ hehe: 'solved' }).then(result => {
-      res.send(result)
-    }, err => {
-      res.send(err)
-    })
-  })
-  return router
-}
+//     user.update({ hehe: 'solved' }).then(result => {
+//       res.send(result)
+//     }, err => {
+//       res.send(err)
+//     })
+//   })
+//   return router
+// }
 
-module.exports = model
+module.exports = Model

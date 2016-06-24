@@ -46,8 +46,8 @@ function init(basePath) {
   app.use(routes.apiBaseUri, routes.handleApiRouting())
 
   // test model
-  const model = require('./api-v2/models')
-  app.use(model())
+  // const model = require('./api-v2/models')
+  // app.use(model())
 
   // logout
   app.use(controllers.logout())

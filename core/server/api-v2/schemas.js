@@ -1,48 +1,64 @@
 'use strict'
-
 // const humps = require('humps')
 // const utils = require('./utils')
 // const _ = require('lodash')
 const Validation = require('../data/validation')
-
-const book = {
-  table: 'books',
-  // fields: {
-  //   name: String,
-  //   description: String,
-  //   content: String
-  // }
-}
+const SchemaTypes = require('./data-types')
 
 const collection = {
-  table: 'collections',
-  fields: [
-    {
-      name: 'name',
-      type: 'string',
-      // validation: [Validation.validators.string]
+  baseTable: 'collections',
+  fields: {
+    name: {
+      type: SchemaTypes.String
     },
-    {
-      name: 'items',
-      type: 'array',
+    items: {
+      type: SchemaTypes.arrayOf(SchemaTypes.ID),
       ref: {
         table: 'books',
-        fields: ['name', 'authors', 'description']
+        fields: ['title', 'author', 'description']
       }
     },
-    {
-      name: 'creator_id',
-      type: 'id',
+    creator_id: {
+      type: SchemaTypes.ID,
       ref: {
         table: 'users',
-        fields: 'all'
+        fields: []
       }
     }
-  ]
+  }
 }
 
+
+const book = {
+  baseTable: 'books',
+  title: {
+
+  },
+  content: {
+
+  },
+  author: {
+
+  },
+  description: {
+
+  }
+}
+
+
 const author = {
-  table: 'authors',
+  baseTable: 'authors',
+  fields: {
+    name: {
+
+    },
+    slug: {
+
+    },
+    description: {
+
+    }
+  }
 }
 
 module.exports = {
