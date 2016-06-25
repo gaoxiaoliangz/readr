@@ -4,7 +4,11 @@ const ApiMethods = require('./api-methods')
 // const humps = require('humps')
 
 const books = new ApiMethods(schemas.book)
-const authors = new ApiMethods(schemas.author)
+const authors = new ApiMethods(schemas.author, {
+  methods: {
+    browse: [true]
+  }
+})
 const collections = new ApiMethods(schemas.collection)
 
 module.exports = {

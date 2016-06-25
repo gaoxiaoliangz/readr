@@ -79,6 +79,10 @@ function http(apiMethods) {
     apiMethods.browse(parseReqData(req)).then(done(req, res), err(res))
   })
 
+  router.post('/', (req, res) => {
+    apiMethods.add(parseReqData(req)).then(done(req, res), err(res))
+  })
+
   router.get('/:id', (req, res) => {
     apiMethods.find(parseReqData(req)).then(done(req, res), err(res))
   })
@@ -89,10 +93,6 @@ function http(apiMethods) {
 
   router.delete('/:id', (req, res) => {
     apiMethods.delete(parseReqData(req)).then(done(req, res), err(res))
-  })
-
-  router.post('/', (req, res) => {
-    apiMethods.add(parseReqData(req)).then(done(req, res), err(res))
   })
 
   return router

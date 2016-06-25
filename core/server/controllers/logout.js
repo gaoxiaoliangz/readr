@@ -1,12 +1,12 @@
 const express = require('express')
-const router = express.Router()
+const router = new express.Router()
 
-function logout(req, res) {
-  router.get("/logout",function(req, res) {   
+function logout() {
+  router.get('/logout', (req, res) => {
     req.session.destroy()
-    res.redirect("/")
+    res.redirect('/')
   })
-  
+
   return router
 }
 
