@@ -15,26 +15,9 @@ const defaultConfig = {
   }
 }
 
-// function pipeline(tasks) {
-//   // for (let i = 0; i < tasks.length; i++) {
-//   //   // if (tasks[i]().then
-//   // }
-
-//   return Promise.all(tasks.reduce(task => {
-
-//   }))
-// }
-
-
-
 class ApiMethods {
   constructor(schema, config) {
     // todo: validatae config
-    // this.config = Object.assign(
-    //   {},
-    //   defaultConfig,
-    //   (typeof config === 'undefined' ? {} : config)
-    // )
     this.config = _.merge(defaultConfig, (typeof config === 'undefined' ? {} : config))
     this.schema = schema
     this.model = new Model(schema)
@@ -44,7 +27,7 @@ class ApiMethods {
   // 也可以是 Promise
   _pipeline(tasks) {
     return Promise.reduce(tasks, (result, task) => {
-      return (typeof task === 'function' ? task() : task).then(res => {
+      return (typeof task === 'function' ? task.call(this) : task).then(res => {
         return res
       })
     })
@@ -64,23 +47,39 @@ class ApiMethods {
   browse(data) {
     return this._pipeline([
       this._isEnabled('browse'),
+      // 作为 fn 传参后，需要手动绑定 this，不然 this 会被当前类的 this 覆盖
       this.model.listRaw.bind(this.model)
     ])
   }
 
   edit(data) {
-    return this.model.update(data.object)
+    return this._pipeline([
+      this._isEnabled('edit'),
+      this.model.update.bind(this.model, data.object)
+    ])
   }
 
   delete(data) {
-    return this.model.findById(data.options.id).delete()
+    return this._pipeline([
+      this._isEnabled('delete'),
+      this.model.findById(data.options.id).delete.bind(this.model)
+    ])
   }
 
   find(data) {
-    if (this.config.methods.find[0]) {
-      return this.model.listRaw()
+    const query = () => {
+      return this.model.findById(data.options.id).listRaw().then(res => {
+        if (res.length === 0) {
+          return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
+        }
+        return Promise.resolve(res)
+      })
     }
-    return this.model.findById(data.options.id).listRaw()
+
+    return this._pipeline([
+      this._isEnabled('find'),
+      query
+    ])
   }
 }
 
