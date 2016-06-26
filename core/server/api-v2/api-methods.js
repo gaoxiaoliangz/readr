@@ -135,7 +135,7 @@ class ApiMethods {
         match = { $or: matchArray }
       }
 
-      return () => this.model.find(match).listRaw().then(results => {
+      return this.model.find(match).listRaw().then(results => {
         return results
           .map(includeFields(filedsToInclude))
           .map(excludeFields(fieldsToExclude))
@@ -145,8 +145,9 @@ class ApiMethods {
 
     return pipeline([
       this._isEnabled('browse'),
-      // 作为 fn 传参后，需要手动绑定 this，不然 this 会被当前类的 this 覆盖
-      query()
+      // 作为 fn 传参后，需要手动绑定 this（或者像现在这样使用闭包）
+      // 不然 this 会被当前类的 this 覆盖
+      query
     ])
   }
 

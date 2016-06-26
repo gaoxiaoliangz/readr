@@ -34,7 +34,7 @@ const collection = {
         fields: ['title', 'author', 'description']
       }
     },
-    creator_id: {
+    creator: {
       type: DataTypes.ID,
       ref: {
         table: 'users',
