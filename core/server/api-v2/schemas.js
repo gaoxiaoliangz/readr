@@ -2,8 +2,24 @@
 // const humps = require('humps')
 // const utils = require('./utils')
 // const _ = require('lodash')
-const Validation = require('../data/validation')
+// const Validation = require('../data/validation')
+const Validator = require('validator')
 const DataTypes = require('./data-types')
+
+
+const validator = {
+  lengthMin(len) {
+    return input => {
+      return input.length >= len
+    }
+  },
+
+  lengthMax(len) {
+    return input => {
+      return input.length <= len
+    }
+  }
+}
 
 const collection = {
   baseTable: 'collections',
@@ -53,12 +69,17 @@ const author = {
       includeInSearch: true,
       required: true,
       validators: [
-        // [Validation.validators.string, 'not string!'],
-        // [Validation.validators.lengthGreaterThan(6), 'not long enough!'],
+        [validator.lengthMin(6), 'Too short!'],
+        [validator.lengthMax(12), 'Too long!'],
       ]
     },
     slug: {
       includeInSearch: true
+    },
+    email: {
+      validators: [
+        [Validator.isEmail, 'Email wrong!']
+      ]
     },
     description: {
     }

@@ -4,7 +4,6 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const Model = require('./model')
 const _ = require('lodash')
-const Validation = require('../data/validation')
 
 
 const defaultConfig = {
@@ -21,9 +20,12 @@ const defaultConfig = {
 // 也可以是 Promise
 function pipeline(tasks) {
   return Promise.reduce(tasks, (result, task) => {
-    return (typeof task === 'function' ? task.call(this) : task).then(res => {
-      return res
-    })
+    if (typeof task === 'function') {
+      return task.call(this)
+    }
+    // 如果 task 是 Promise blue bird 貌似会自动把 promise resolve 出来，是 reject 直接就终止执行
+    // 所以 写 task#then 会出错
+    return task
   })
 }
 
@@ -60,26 +62,57 @@ class ApiMethods {
     return Promise.reject(new errors.BadRequestError('no no'))
   }
 
-  _validate(data) {
-    return () => {
-      const allFields = Object.keys(this.schema.fields)
-      const requiredFields = allFields.filter(key => Boolean(this.schema.fields[key].required))
+  _validate(data, isEditing) {
+    const suppliedFields = Object.keys(data)
+    const allFields = Object.keys(this.schema.fields)
+    const requiredFields = allFields.filter(key => Boolean(this.schema.fields[key].required))
+    const unsupportedFields = suppliedFields.filter(key => allFields.indexOf(key) === -1)
+    const missedFields = requiredFields.filter(key => suppliedFields.indexOf(key) === -1)
 
-      
-      return Promise.resolve(true)
+    if (unsupportedFields.length > 0) {
+      return Promise.reject('Unsupported input found!')
     }
+
+    if (missedFields.length > 0 && !isEditing) {
+      return Promise.reject('Miss required input!')
+    }
+
+    // 验证 fields，因为每个 field 可能有不止一个 validator
+    const validateField = (key, val, validators) => {
+      return pipeline(validators.map(validation => {
+        if (validation[0](val)) {
+          return Promise.resolve(true)
+        }
+        return Promise.reject(validation[1])
+      }))
+    }
+
+    // 所有 fields 验证一遍
+    return pipeline(Object.keys(data).map(key => {
+      const validators = this.schema.fields[key].validators
+      if (validators) {
+        return validateField(key, data[key], validators)
+      }
+      // 跳过未定义 validation 的 filed
+      return Promise.resolve(true)
+    }))
   }
 
   add(data) {
+    const query = () => {
+      return this.model.insert(data.object)
+    }
+
     return pipeline([
       this._isEnabled('edit'),
-      this._validate(data.object),
-      this.model.insert.bind(this.model, data.object)
+      this._validate(data.object, false),
+      query
     ])
   }
 
   browse(data) {
-    // 支持 query string: ?exclude=field1,field2&include=field3,field4&limit=10
+    // 支持过滤器：exclude, fields, limit
+    // 例如：?exclude=field1,field2&fields=field3,field4&limit=10
     const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
     const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
     const limit = data.options && data.options.limit ? parseInt(data.options.limit, 10) : 0
@@ -120,6 +153,7 @@ class ApiMethods {
   edit(data) {
     return pipeline([
       this._isEnabled('edit'),
+      this._validate(data.object, true),
       this.model.findById(data.options.id).update.bind(this.model, data.object)
     ])
   }
