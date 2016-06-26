@@ -50,7 +50,7 @@ const author = {
   baseTable: 'authors',
   fields: {
     name: {
-
+      includeInSearch: true
     },
     slug: {
 

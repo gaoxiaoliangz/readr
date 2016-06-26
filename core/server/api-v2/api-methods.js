@@ -63,12 +63,30 @@ class ApiMethods {
   }
 
   browse(data) {
+    // 支持 query string: ?exclude=field1,field2&include=field3,field4&limit=10
     const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
     const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
     const limit = data.options && data.options.limit ? parseInt(data.options.limit, 10) : 0
+    const search = data.options && data.options.q ? data.options.q : ''
+
+    const getSearchableFields = (fields) => {
+      return Object.keys(fields)
+        .filter(key => Boolean(fields[key].includeInSearch))
+        .map(key => key)
+    }
 
     const query = () => {
-      return () => this.model.listRaw().then(results => {
+      let match = {}
+
+      if (search !== '') {
+        const reg = new RegExp(search)
+        const matchArray = getSearchableFields(this.schema.fields).map(key => ({
+          [key]: reg
+        }))
+        match = { $or: matchArray }
+      }
+
+      return () => this.model.find(match).listRaw().then(results => {
         return results
           .map(includeFields(filedsToInclude))
           .map(excludeFields(fieldsToExclude))
@@ -86,7 +104,7 @@ class ApiMethods {
   edit(data) {
     return pipeline([
       this._isEnabled('edit'),
-      this.model.update.bind(this.model, data.object)
+      this.model.findById(data.options.id).update.bind(this.model, data.object)
     ])
   }
 
