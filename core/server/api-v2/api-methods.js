@@ -15,22 +15,40 @@ const defaultConfig = {
   }
 }
 
+// tasks 可以是返回 Promise 的 fn
+// 也可以是 Promise
+function pipeline(tasks) {
+  return Promise.reduce(tasks, (result, task) => {
+    return (typeof task === 'function' ? task.call(this) : task).then(res => {
+      return res
+    })
+  })
+}
+
+function excludeFields(fieldsToExclude) {
+  return res => _.omit(res, fieldsToExclude)
+}
+
+function includeFields(fieldsToInclude) {
+  if (fieldsToInclude.length === 0) {
+    return res => res
+  }
+  return res => _.pick(res, fieldsToInclude)
+}
+
+function limitResults(limit) {
+  if (isNaN(limit) || limit === 0) {
+    return () => true
+  }
+  return (res, index) => index < limit
+}
+
 class ApiMethods {
   constructor(schema, config) {
     // todo: validatae config
     this.config = _.merge(defaultConfig, (typeof config === 'undefined' ? {} : config))
     this.schema = schema
     this.model = new Model(schema)
-  }
-
-  // tasks 可以是返回 Promise 的 fn
-  // 也可以是 Promise
-  _pipeline(tasks) {
-    return Promise.reduce(tasks, (result, task) => {
-      return (typeof task === 'function' ? task.call(this) : task).then(res => {
-        return res
-      })
-    })
   }
 
   _isEnabled(methodName) {
@@ -45,38 +63,56 @@ class ApiMethods {
   }
 
   browse(data) {
-    return this._pipeline([
+    const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
+    const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
+    const limit = data.options && data.options.limit ? parseInt(data.options.limit, 10) : 0
+
+    const query = () => {
+      return () => this.model.listRaw().then(results => {
+        return results
+          .map(includeFields(filedsToInclude))
+          .map(excludeFields(fieldsToExclude))
+          .filter(limitResults(limit))
+      })
+    }
+
+    return pipeline([
       this._isEnabled('browse'),
       // 作为 fn 传参后，需要手动绑定 this，不然 this 会被当前类的 this 覆盖
-      this.model.listRaw.bind(this.model)
+      query()
     ])
   }
 
   edit(data) {
-    return this._pipeline([
+    return pipeline([
       this._isEnabled('edit'),
       this.model.update.bind(this.model, data.object)
     ])
   }
 
   delete(data) {
-    return this._pipeline([
+    return pipeline([
       this._isEnabled('delete'),
       this.model.findById(data.options.id).delete.bind(this.model)
     ])
   }
 
   find(data) {
+    const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
+    const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
+
     const query = () => {
       return this.model.findById(data.options.id).listRaw().then(res => {
         if (res.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
         }
-        return Promise.resolve(res)
+        return res
+          .map(includeFields(filedsToInclude))
+          .map(excludeFields(fieldsToExclude))[0]
       })
     }
 
-    return this._pipeline([
+    return pipeline([
       this._isEnabled('find'),
       query
     ])
