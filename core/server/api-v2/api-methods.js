@@ -4,6 +4,8 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const Model = require('./model')
 const _ = require('lodash')
+const Validation = require('../data/validation')
+
 
 const defaultConfig = {
   methods: {
@@ -58,8 +60,22 @@ class ApiMethods {
     return Promise.reject(new errors.BadRequestError('no no'))
   }
 
+  _validate(data) {
+    return () => {
+      const allFields = Object.keys(this.schema.fields)
+      const requiredFields = allFields.filter(key => Boolean(this.schema.fields[key].required))
+
+      
+      return Promise.resolve(true)
+    }
+  }
+
   add(data) {
-    return this.model.insert(data.object)
+    return pipeline([
+      this._isEnabled('edit'),
+      this._validate(data.object),
+      this.model.insert.bind(this.model, data.object)
+    ])
   }
 
   browse(data) {

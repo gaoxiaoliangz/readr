@@ -50,13 +50,17 @@ const author = {
   baseTable: 'authors',
   fields: {
     name: {
-      includeInSearch: true
+      includeInSearch: true,
+      required: true,
+      validators: [
+        // [Validation.validators.string, 'not string!'],
+        // [Validation.validators.lengthGreaterThan(6), 'not long enough!'],
+      ]
     },
     slug: {
-
+      includeInSearch: true
     },
     description: {
-
     }
   }
 }
