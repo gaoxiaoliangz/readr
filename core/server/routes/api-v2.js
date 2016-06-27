@@ -10,6 +10,10 @@ function apiRoute() {
     router.use(`/${endpoint}`, api.http(api.endpoint[endpoint]))
   })
 
+  // auth
+  router.post('/auth', middleware.auth2.basic)
+  router.get('/auth', middleware.auth2.check)
+
   return router
 }
 

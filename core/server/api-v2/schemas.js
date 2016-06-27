@@ -86,8 +86,28 @@ const author = {
   }
 }
 
+
+const users = {
+  baseTable: 'users',
+  fields: {
+    username: {
+      required: true
+    },
+    password: {
+      required: true
+    },
+    email: {
+      required: true
+    },
+    role: {
+      required: true
+    }
+  }
+}
+
 module.exports = {
   book,
   collection,
   author,
+  users
 }
