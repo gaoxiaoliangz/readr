@@ -4,7 +4,7 @@
 // const _ = require('lodash')
 // const Validation = require('../data/validation')
 const Validator = require('validator')
-const DataTypes = require('./data-types')
+const DataTypes = require('../data-types')
 
 
 const validator = {

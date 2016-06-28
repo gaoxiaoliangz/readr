@@ -48,11 +48,11 @@ function limitResults(limit) {
 }
 
 class ApiMethods {
-  constructor(schema, config) {
+  constructor(config) {
     // todo: validatae config
     this.config = _.merge(defaultConfig, (typeof config === 'undefined' ? {} : config))
-    this.schema = schema
-    this.model = new Model(schema)
+    this.schema = config.schema
+    this.model = new Model(config.schema)
   }
 
   _isEnabled(methodName) {

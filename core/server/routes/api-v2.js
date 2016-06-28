@@ -1,13 +1,23 @@
 'use strict'
-
 const express = require('express')
-const api = require('../api-v2')
+const apiHttp = require('../api-v2/api-http')
 const middleware = require('../middleware')
 const router = new express.Router()
+const endpoints = require('../api-v2/config/endpoints')
+const ApiMethods = require('../api-v2/api-methods')
+const _ = require('lodash')
 
 function apiRoute() {
-  Object.keys(api.endpoint).forEach(endpoint => {
-    router.use(`/${endpoint}`, api.http(api.endpoint[endpoint]))
+  _.forEach(endpoints, (config) => {
+    const apiMethods = new ApiMethods(config)
+    router.get(`${config.base}/:id`, apiHttp(apiMethods.find.bind(apiMethods)))
+    router.post(`${config.base}/:id`, apiHttp(apiMethods.edit.bind(apiMethods)))
+    router.delete(`${config.base}/:id`, apiHttp(apiMethods.delete.bind(apiMethods)))
+
+    if (!config.isMulti) {
+      router.get(config.base, apiHttp(apiMethods.browse.bind(apiMethods)))
+      router.post(config.base, apiHttp(apiMethods.add.bind(apiMethods)))
+    }
   })
 
   // auth

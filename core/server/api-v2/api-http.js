@@ -2,8 +2,6 @@
 const _ = require('lodash')
 const i18n = require('../utils/i18n')
 const runtimeOptions = require('../utils/runtime-options')
-const endpoint = require('./endpoint')
-const express = require('express')
 
 
 function parseReqData(req) {
@@ -12,7 +10,7 @@ function parseReqData(req) {
   const context = {
     user: req.user ? req.user : null,
   }
-  let data = { context }
+  const data = { context }
 
   if (!_.isEmpty(object)) {
     data.object = object
@@ -46,7 +44,7 @@ function done(req, res) {
 
 function err(res) {
   return error => {
-    let statusCode = error.statusCode || 500
+    const statusCode = error.statusCode || 500
 
     if (statusCode >= 500) {
       console.error(error.stack)
@@ -71,34 +69,10 @@ function err(res) {
   }
 }
 
-
-function http(apiMethods) {
-  const router = new express.Router()
-  
-  router.get('/', (req, res) => {
-    apiMethods.browse(parseReqData(req)).then(done(req, res), err(res))
-  })
-
-  router.post('/', (req, res) => {
-    apiMethods.add(parseReqData(req)).then(done(req, res), err(res))
-  })
-
-  router.get('/:id', (req, res) => {
-    apiMethods.find(parseReqData(req)).then(done(req, res), err(res))
-  })
-
-  router.post('/:id', (req, res) => {
-    apiMethods.edit(parseReqData(req)).then(done(req, res), err(res))
-  })
-
-  router.delete('/:id', (req, res) => {
-    apiMethods.delete(parseReqData(req)).then(done(req, res), err(res))
-  })
-
-  return router
+function apiHttp(apiMethod) {
+  return function apiHandler(req, res) {
+    apiMethod(parseReqData(req)).then(done(req, res), err(res))
+  }
 }
 
-module.exports = {
-  http,
-  endpoint
-}
+module.exports = apiHttp

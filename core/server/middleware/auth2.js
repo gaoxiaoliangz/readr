@@ -4,7 +4,7 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const Model = require('../api-v2/model')
 const _ = require('lodash')
-const schemas = require('../api-v2/schemas')
+const schemas = require('../api-v2/config/schemas')
 
 const user = new Model(schemas.users)
 
