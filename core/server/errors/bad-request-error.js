@@ -17,6 +17,6 @@ module.exports = class BadRequestError {
     this.message = message
     this.code = code
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }

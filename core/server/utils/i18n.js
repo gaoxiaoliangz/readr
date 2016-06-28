@@ -8,58 +8,60 @@
 const cnTranslations = require('../translations/cn')
 const _ = require('lodash')
 
-function addPaddingRight(str) {
-  if(str) {
-    if(escape(str.substr(-1)).indexOf("%u") !== 0) {
-      str = str + ' '
-    }
-  }else{
-    str = ''
+function addPadding(str) {
+  if (!str) {
+    return ''
+  }
+  
+  if (escape(str.substr(-1)).indexOf('%u') !== 0) {
+    return ` ${str} `
   }
 
   return str
 }
 
+function getMatchingString(msgPath) {
+  let matchingString = cnTranslations
+  const path = msgPath.split('.')
+
+  for (let i = 0; i < path.length; i++) {
+    if (matchingString[path[i]]) {
+      matchingString = matchingString[path[i]]
+    } else {
+      matchingString = null
+      break
+    }
+  }
+  
+  return matchingString
+}
 
 module.exports = function i18n(msgPath, value) {
-
-  function getMatchingString(msgPath) {
-    let matchingString = cnTranslations
-    const path = msgPath.split('.')
-
-    for (let i = 0; i < path.length; i++) {
-      if(matchingString[path[i]]) {
-        matchingString = matchingString[path[i]]
-      }else{
-        matchingString = null
-        break
-      }
-    }
-
-    return matchingString
-  }
-
   let matchingString = getMatchingString(msgPath)
-  let matchingValue = getMatchingString(`common.terms.${value}`)
-
+  
   if (_.isNull(matchingString)) {
     console.error('Unable to find matching path [' + msgPath + '] in locale file.\n')
     matchingString = 'i18n error: path "' + msgPath + '" was not found.'
   } else {
     const placeholderIndex = matchingString.indexOf('{value}')
 
-    if(placeholderIndex !== -1){
-      let before = matchingString.substring(0, placeholderIndex)
-      let after = matchingString.substr(placeholderIndex + 7)
+    if (placeholderIndex !== -1) {
+      const before = matchingString.substring(0, placeholderIndex)
+      const after = matchingString.substr(placeholderIndex + 7)
+      let matchingValue = ''
 
-      if(_.isNull(matchingValue)) {
-        matchingValue = value
+      if (typeof value !== 'undefined') {
+        matchingValue = getMatchingString(`common.terms.${value}`)
+        if (_.isNull(matchingValue)) {
+          matchingValue = value
+        }
+        matchingValue = addPadding(matchingValue)
       }
 
-      matchingValue = addPaddingRight(matchingValue)
-      matchingString = before + matchingValue + after
+      // todo: ! en
+      matchingString = before + matchingValue + after + '！'
     }
   }
 
-  return matchingString
+  return matchingString.trim()
 }

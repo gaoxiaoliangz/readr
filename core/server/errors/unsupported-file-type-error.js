@@ -6,6 +6,6 @@ module.exports = class UnsupportedFileTypeError {
     this.statusCode = 415
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }

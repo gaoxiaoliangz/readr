@@ -78,6 +78,7 @@ class ApiMethods {
     if (this.config.methods[methodName][0]) {
       return Promise.resolve(true)
     }
+    // todo
     return Promise.reject(new errors.BadRequestError('no no'))
   }
 
@@ -89,11 +90,11 @@ class ApiMethods {
     const missedFields = requiredFields.filter(key => suppliedFields.indexOf(key) === -1)
 
     if (unsupportedFields.length > 0) {
-      return Promise.reject('Unsupported input found!')
+      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.unsupportedInput')))
     }
 
     if (missedFields.length > 0 && !isEditing) {
-      return Promise.reject('Miss required input!')
+      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.missRequiredFields')))
     }
 
     // 验证 fields，因为每个 field 可能有不止一个 validator
@@ -102,7 +103,7 @@ class ApiMethods {
         if (validation[0](val)) {
           return Promise.resolve(true)
         }
-        return Promise.reject(validation[1])
+        return Promise.reject(new errors.BadRequestError(validation[1]))
       }))
     }
 

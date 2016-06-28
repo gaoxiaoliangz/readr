@@ -6,6 +6,6 @@ module.exports = class TooManyRequestsError {
     this.statusCode = 429
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }

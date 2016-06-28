@@ -13,57 +13,39 @@ const cn = {
   },
   errors: {
     validation: {
-      valueType: {
-        notString: '不是字符串',
-        undefined: '未定义',
+      valueLimit: {
+        notString: '{value}不是字符串！',
+        stringOnly: '输入项类型只能为字符串！',
+        undefined: '{value}未定义！',
+        invalidFormat: '{value}格式不对！',
+        noPureNumber: '{value}不能为纯数字',
+        onlyStartWithLetters: '{value}只能以字母开头',
+        length: '长度不匹配！',
+        minLength: '{value}长度不足！',
+        maxLength: '{value}超出最大长度！',
+        username: {
+          allowedChars: '用户名只能包含字母，数字及以下字符 "-","_"',
+        },
       },
-      undefined: '未定义',
-      unmatchedOptionQuantity: '提供的参数数目有误',
-      invalidJson: 'JSON 格式不正确',
-      inputEmpty: '{value}输入不能为空',
-      inputUndefined: '输入不能为未定义',
-      inputTypeInvalid: '输入项类型只能为字符串',
-      invalidFormat: '{value}格式不对',
-      inputUnsupported: '发现不支持的输入项',
-      length: '长度不对',
-      minLength: '{value}长度不足',
-      maxLength: '{value}超出最大长度',
-      password: {
-        pureNumber: '密码不能为纯数字',
-      },
-      username: {
-        onlyStartWithLetters: '用户名只能以字母开头',
-        allowedChars: '用户名只能包含字母，数字及以下字符 "-","_"',
+      preCheck: {
+        missRequiredFields: '缺少{value}必填项！',
+        unsupportedInput: '发现不支持的输入项{value}！',
+        inputEmpty: '{value}输入不能为空',
       },
     },
     api: {
       general: {
-        notFound: '未找到纪录'
+        notFound: '{value}未找到',
+        exists: '{value}已存在',
       },
       auth: {
-        userDoesNotExist: '用户不存在',
         needAdminPermission: '需要管理员权限',
         loginRequired: '需要登录',
-      },
-      books: {
-        bookNotFound: '书籍未找到',
-        doubanInfoNotFound: '未找到书籍信息',
-        bookExists: '书籍已存在',
-      },
-      collections: {
-        notFound: '书单未找到',
-      },
-      users: {
-        userNotFound: '用户不存在',
-        usernameUnavailable: '用户名已存在',
-        emailUnavailable: '该邮箱已被使用',
-        usernameOrEmailUnavailable: '用户名或邮箱已被使用',
       },
     },
     middleware: {
       auth: {
         accessDenied: '访问被禁止',
-        pleaseSignIn: '请登录后访问',
         wrongPassword: '密码错误',
       },
       oauth: {
@@ -78,21 +60,11 @@ const cn = {
     mail: {
       failedSendingEmail: '邮件发送失败',
     },
-    models: {
-      books: {
-      },
-      users: {
-      },
-    },
     general: {
       anErrorOccurred: '发生错误',
       unknownErrorOccurred: '发生未知错误',
-      notFound: '未找到',
+      notFound: '{value}未找到',
     },
-  },
-  warnings: {
-  },
-  notices: {
   },
 }
 

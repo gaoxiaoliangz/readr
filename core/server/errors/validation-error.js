@@ -6,7 +6,7 @@ module.exports = class ValidationError {
     this.statusCode = 422
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
     if (offendingProperty) {
       this.property = offendingProperty
     }

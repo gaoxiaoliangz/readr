@@ -6,6 +6,6 @@ module.exports = class NotFoundError {
     this.statusCode = 404
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }

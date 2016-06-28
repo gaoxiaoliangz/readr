@@ -1,6 +1,7 @@
 'use strict'
 const DataTypes = require('../data-types')
 const validator = require('../../utils/validator')
+const i18n = require('../../utils/i18n')
 
 const schemas = {
   author: {
@@ -10,17 +11,12 @@ const schemas = {
         includeInSearch: true,
         required: true,
         validators: [
-          [validator.lengthMin(6), 'Too short!'],
-          [validator.lengthMax(12), 'Too long!'],
+          [validator.lengthMin(5), i18n('errors.validation.valueLimit.minLength', 'name')],
+          [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'name')],
         ]
       },
       slug: {
         includeInSearch: true
-      },
-      email: {
-        validators: [
-          [validator.isEmail, 'Email wrong!']
-        ]
       },
       description: {
       }
@@ -29,17 +25,20 @@ const schemas = {
 
   book: {
     baseTable: 'books',
-    title: {
-
-    },
-    content: {
-
-    },
-    author: {
-
-    },
-    description: {
-
+    fields: {
+      title: {
+        includeInSearch: true,
+        required: true,
+      },
+      author: {
+        includeInSearch: true,
+        required: true,
+      },
+      description: {
+      },
+      content: {
+        required: true,
+      },
     }
   },
 
@@ -47,16 +46,21 @@ const schemas = {
     baseTable: 'collections',
     fields: {
       name: {
-        type: DataTypes.String
+        type: DataTypes.String,
+        includeInSearch: true,
+        required: true,
       },
       items: {
+        required: true,
         type: DataTypes.arrayOf(DataTypes.ID),
         ref: {
           table: 'books',
           fields: ['title', 'author', 'description']
         }
       },
+      description: {},
       creator: {
+        required: true,
         type: DataTypes.ID,
         ref: {
           table: 'users',
@@ -70,13 +74,13 @@ const schemas = {
     baseTable: 'reading_progress',
     fields: {
       user_id: {
-
+        required: true,
       },
       book_id: {
-
+        required: true,
       },
       progress: {
-
+        required: true,
       }
     }
   },
@@ -85,13 +89,20 @@ const schemas = {
     baseTable: 'users',
     fields: {
       username: {
-        required: true
+        required: true,
+        validators: [
+          [validator.lengthMin(5), i18n('errors.validation.valueLimit.minLength', 'username')],
+          [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'username')],
+        ]
       },
       password: {
         required: true
       },
       email: {
-        required: true
+        required: true,
+        validators: [
+          [validator.isEmail, 'Email wrong!']
+        ]
       },
       role: {
         required: true

@@ -6,6 +6,6 @@ module.exports = class RequestEntityTooLargeError {
     this.statusCode = 413
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }

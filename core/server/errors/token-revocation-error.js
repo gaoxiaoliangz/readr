@@ -6,6 +6,6 @@ module.exports = class TokenRevocationError {
     this.statusCode = 503
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }

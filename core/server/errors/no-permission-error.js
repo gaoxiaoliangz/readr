@@ -6,6 +6,6 @@ module.exports = class NoPermissionError {
     this.statusCode = 403
     this.message = message
     this.stack = new Error().stack
-    this.errorType = this.name
+    this.type = this.name
   }
 }
