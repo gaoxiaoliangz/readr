@@ -10,13 +10,17 @@ const DataTypes = require('./data-types')
 
 class Model {
   constructor(schema) {
+    // validate schema
+    if (!schema.baseTable) {
+      throw new Error('schema 格式错误！')
+    }
+
     this.schema = schema
     this.tableName = schema.baseTable
     this.db = MongoClient.connect(config.db.host + config.db.name)
     this.collection = this.db.then(db => {
       return Promise.resolve(db.collection(this.schema.baseTable))
     })
-    // this.selector = null
     this.match = {}
   }
 

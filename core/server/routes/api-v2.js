@@ -10,9 +10,11 @@ const _ = require('lodash')
 function apiRoute() {
   _.forEach(endpoints, (config) => {
     const apiMethods = new ApiMethods(config)
-    router.get(`${config.base}/:id`, apiHttp(apiMethods.find.bind(apiMethods)))
-    router.post(`${config.base}/:id`, apiHttp(apiMethods.edit.bind(apiMethods)))
-    router.delete(`${config.base}/:id`, apiHttp(apiMethods.delete.bind(apiMethods)))
+    const endpointBase = config.isMulti ? config.base : `${config.base}/:id`
+
+    router.get(endpointBase, apiHttp(apiMethods.find.bind(apiMethods)))
+    router.post(endpointBase, apiHttp(apiMethods.edit.bind(apiMethods)))
+    router.delete(endpointBase, apiHttp(apiMethods.delete.bind(apiMethods)))
 
     if (!config.isMulti) {
       router.get(config.base, apiHttp(apiMethods.browse.bind(apiMethods)))

@@ -6,7 +6,7 @@ const Model = require('../api-v2/model')
 const _ = require('lodash')
 const schemas = require('../api-v2/config/schemas')
 
-const user = new Model(schemas.users)
+const user = new Model(schemas.user)
 
 const auth = {
   basic(req, res, next) {

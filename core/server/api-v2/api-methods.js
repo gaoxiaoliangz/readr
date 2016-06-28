@@ -29,6 +29,21 @@ function pipeline(tasks) {
   })
 }
 
+function getIdMatch(options) {
+  if (options.id) {
+    return { _id: options.id }
+  }
+
+  const match = {}
+  _.forEach(options, (val, key) => {
+    if (key.indexOf('id')) {
+      match[key] = val
+    }
+  })
+
+  return match
+}
+
 function excludeFields(fieldsToExclude) {
   return res => _.omit(res, fieldsToExclude)
 }
@@ -52,7 +67,11 @@ class ApiMethods {
     // todo: validatae config
     this.config = _.merge(defaultConfig, (typeof config === 'undefined' ? {} : config))
     this.schema = config.schema
-    this.model = new Model(config.schema)
+    try {
+      this.model = new Model(config.schema)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   _isEnabled(methodName) {
@@ -169,9 +188,9 @@ class ApiMethods {
   find(data) {
     const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
     const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
-
+    const match = getIdMatch(data.options)
     const query = () => {
-      return this.model.findById(data.options.id).listRaw().then(res => {
+      return this.model.find(match).listRaw().then(res => {
         if (res.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
         }

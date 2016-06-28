@@ -2,11 +2,12 @@
 const _ = require('lodash')
 const i18n = require('../utils/i18n')
 const runtimeOptions = require('../utils/runtime-options')
+const humps = require('humps')
 
 
 function parseReqData(req) {
-  const object = req.body
-  const options = _.extend({}, req.files, req.query, req.params)
+  const object = humps.decamelizeKeys(req.body)
+  const options = humps.decamelizeKeys(_.extend({}, req.files, req.query, req.params))
   const context = {
     user: req.user ? req.user : null,
   }
