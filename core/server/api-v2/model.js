@@ -5,7 +5,6 @@ const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
 // const errors = require('../errors')
 // const i18n = require('../utils/i18n')
-const DataTypes = require('./data-types')
 
 
 class Model {
@@ -48,8 +47,19 @@ class Model {
           return (typeof this.schema.fields[key].ref !== 'undefined')
         })
         .map(key => {
-          const ids = this.schema.fields[key].type === DataTypes.arrayOf(DataTypes.ID) ? rawResult[key] : [rawResult[key]]
-
+          // 使用了新的 type 定义方式
+          let ids = []
+          if (this.schema.fields[key].type.isArray()) {
+            ids = rawResult[key]
+            if (typeof ids === 'string') {
+              ids = []
+              // throw new Error('Reference id invalid!')
+              console.error('Reference id invalid!')
+            }
+          } else {
+            // todo: 检查 id 是否可用？
+            ids = [rawResult[key]]
+          }
           return Object.assign({}, this.schema.fields[key], {
             name: key,
             ids
@@ -95,7 +105,9 @@ class Model {
           })
         ).then(dataResults => {
           return Promise.resolve({
-            [field.name]: field.type === DataTypes.arrayOf(DataTypes.ID) ? dataResults : dataResults[0]
+            // 使用了新的 type 定义方式
+            // todo: 检查可用性
+            [field.name]: field.type.isArray() ? dataResults : dataResults[0]
           })
         })
       })
@@ -104,7 +116,6 @@ class Model {
     return Promise.all(
       rawResults.map(rawResult => {
         const filedsWithIds = getRefFieldsWithIds(rawResult)
-        // console.log(filedsWithIds)
         
         return Promise.all(getRefFieldsWithData(filedsWithIds))
           .then(newFields => {
@@ -151,11 +162,21 @@ class Model {
 
   // todo: validation 
   insert(data) {
-    const data2 = Object.assign({}, data, {
+    let data2 = Object.assign({}, data, {
       _id: Math.random().toFixed(8).substr(2),
       date_created: new Date().toString()
     })
 
+    const arrayTypedFieldKeys = Object.keys(this.schema.fields).filter(key => this.schema.fields[key].type
+      && this.schema.fields[key].type.isArray())
+
+    data2 = _.mapValues(data2, (val, key) => {
+      if (arrayTypedFieldKeys.indexOf(key) !== -1) {
+        return val.split(',')
+      }
+      return val
+    })
+    
     return this.collection.then(collection => {
       return collection.insert([data2])
     })

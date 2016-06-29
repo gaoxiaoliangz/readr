@@ -4,6 +4,7 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const Model = require('./model')
 const _ = require('lodash')
+const DataTypes = require('./data-types')
 
 
 const defaultConfig = {
@@ -155,7 +156,7 @@ class ApiMethods {
         match = { $or: matchArray }
       }
 
-      return this.model.find(match).listRaw().then(results => {
+      return this.model.find(match).list().then(results => {
         return results
           .map(includeFields(filedsToInclude))
           .map(excludeFields(fieldsToExclude))
@@ -191,7 +192,7 @@ class ApiMethods {
     const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
     const match = getIdMatch(data.options)
     const query = () => {
-      return this.model.find(match).listRaw().then(res => {
+      return this.model.find(match).list().then(res => {
         if (res.length === 0) {
           return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
         }
