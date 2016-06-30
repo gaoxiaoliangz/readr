@@ -33,6 +33,11 @@ const schemas = {
       author: {
         includeInSearch: true,
         required: true,
+        type: DataTypes.arrayOf(DataTypes.ID),
+        ref: {
+          table: 'authors',
+          fields: ['name']
+        }
       },
       description: {
       },
@@ -55,7 +60,7 @@ const schemas = {
         type: DataTypes.arrayOf(DataTypes.ID),
         ref: {
           table: 'books',
-          fields: ['title', 'author', 'description']
+          fields: ['_id', 'title', 'author', 'description']
         }
       },
       description: {},
