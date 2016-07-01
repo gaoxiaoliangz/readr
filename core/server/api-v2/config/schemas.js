@@ -36,11 +36,11 @@ const schemas = {
         type: DataTypes.arrayOf(DataTypes.ID),
         ref: {
           table: 'authors',
-          fields: ['name']
+          fields: []
         }
       },
-      description: {
-      },
+      description: {},
+      cover: {},
       content: {
         required: true,
       },
@@ -72,6 +72,21 @@ const schemas = {
           fields: []
         }
       }
+    }
+  },
+
+  tag: {
+    baseTable: 'tags',
+    fields: {
+      name: {
+        includeInSearch: true,
+        required: true,
+      },
+      slug: {
+        includeInSearch: true,
+        required: true,
+      },
+      description: {}
     }
   },
 

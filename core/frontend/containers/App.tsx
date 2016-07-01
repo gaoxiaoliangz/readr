@@ -8,7 +8,7 @@ import { userAuth, handleNotification } from 'actions/index'
 import Notification from 'components/Notification'
 import { bindActionCreators } from 'redux'
 
-const s = require('!style!raw!./App.css')
+// const s = require('!style!raw!./App.css')
 
 
 

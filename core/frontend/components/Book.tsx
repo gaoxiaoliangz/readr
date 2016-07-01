@@ -8,7 +8,7 @@ export default class Book extends Component<any, any> {
     let title = book.title
     let description = book.description
     let bookId = this.props.id
-    let author = book.author.map(a => a.name).join(', ')
+    let author = book.author.map(a => a ? a.name : '').join(', ')
 
     return (
       <li className="book">

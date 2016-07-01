@@ -88,22 +88,23 @@ function embedRef(rawResults, schema) {
             return collection.find({ _id: id })
               .toArray()
               .then(results => {
+                console.log(id)
+                console.log(results)
+                
                 const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
 
                 const filterResults = rawRefResults => {
-                  let newResults
-                  try {
-                    if (typeof rawRefResults === 'object') {
-                      // 如果 fields 为空数组则将字段全部无保留输出
-                      if (field.ref.fields.length !== 0) {
-                        newResults = _.pick(rawRefResults[0], field.ref.fields)
-                      }
-                    } else {
-                      newResults = {}
+                  let newResults = rawRefResults[0]
+
+                  if (typeof rawRefResults === 'object') {
+                    // 如果 fields 为空数组则将字段全部无保留输出
+                    if (field.ref.fields.length !== 0) {
+                      newResults = _.pick(rawRefResults[0], field.ref.fields)
                     }
-                  } catch (e) {
-                    console.error(e)
+                  } else {
+                    newResults = {}
                   }
+
                   return Promise.resolve(newResults)
                 }
 
@@ -204,7 +205,7 @@ class Model {
       && this.schema.fields[key].type.isArray())
 
     data2 = _.mapValues(data2, (val, key) => {
-      if (arrayTypedFieldKeys.indexOf(key) !== -1) {
+      if (arrayTypedFieldKeys.indexOf(key) !== -1 && !Array.isArray(val)) {
         return val.split(',')
       }
       return val

@@ -24,6 +24,12 @@ const endpoints = {
     schema: schemas.collection
   },
 
+  tag: {
+    base: '/tags',
+    methods: {},
+    schema: schemas.tag
+  },
+
   user: {
     base: '/users',
     methods: {

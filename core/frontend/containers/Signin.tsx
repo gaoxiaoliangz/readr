@@ -34,6 +34,8 @@ class Signin extends Component<any, any> {
         browserHistory.push('/')
       }, 600)
     }).catch((err) => {
+      console.log(err);
+      
       this.props.handleNotification(err.message)
     })
   }
