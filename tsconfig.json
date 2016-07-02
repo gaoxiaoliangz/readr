@@ -4,7 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "es6",
     "rootDir": "core/frontend",
-    "inlineSourceMap": true,
+    // "inlineSourceMap": true,
     "jsx": "react",
     "outDir": "assets/built/es6",
     "experimentalDecorators": true,

@@ -87,10 +87,7 @@ function embedRef(rawResults, schema) {
           return getCollection(field.ref.table).then(collection => {
             return collection.find({ _id: id })
               .toArray()
-              .then(results => {
-                console.log(id)
-                console.log(results)
-                
+              .then(results => {                
                 const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
 
                 const filterResults = rawRefResults => {

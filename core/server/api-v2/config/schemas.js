@@ -9,11 +9,7 @@ const schemas = {
     fields: {
       name: {
         includeInSearch: true,
-        required: true,
-        validators: [
-          [validator.lengthMin(5), i18n('errors.validation.valueLimit.minLength', 'name')],
-          [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'name')],
-        ]
+        required: true
       },
       slug: {
         includeInSearch: true
@@ -111,8 +107,8 @@ const schemas = {
       username: {
         required: true,
         validators: [
-          [validator.lengthMin(5), i18n('errors.validation.valueLimit.minLength', 'username')],
-          [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'username')],
+          [validator.lengthMin(5), i18n('errors.validation.valueLimit.minLength', 'name')],
+          [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'name')],
         ]
       },
       password: {

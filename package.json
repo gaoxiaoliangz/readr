@@ -6,6 +6,8 @@
     "start": "nodemon index --production",
     "webpack": "webpack-dev-server",
     "debug-server": "nodemon --debug index.js",
+    "predevt": "gulp sass",
+    "devt": "node index --hmr --noServerRendering & gulp watch-sass",
     "dev": "node index --hmr --noServerRendering & gulp watch-sass & tsc --watch",
     "devx": "nodemon index --delay 1 & gulp watch-js & tsc --watch",
     "dev5": "nodemon index.dev --hmr --exec babel-node & grunt watch:sass",
@@ -55,6 +57,7 @@
     "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^1.1.1",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",
@@ -105,6 +108,7 @@
     "load-grunt-tasks": "^3.4.0",
     "muicss": "^0.4.7",
     "raw-loader": "^0.5.1",
+    "react-hot-loader": "^1.3.0",
     "redux-devtools": "^3.2.0",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.9",

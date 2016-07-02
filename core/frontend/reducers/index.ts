@@ -7,7 +7,7 @@ import _ from 'lodash'
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { books: {}, users: {} }, action) {
   if (action.response && action.response.entities) {
-    return _.merge({}, state, action.response.entities)
+    return Object.assign({}, state, action.response.entities)
   }
 
   return state
@@ -76,12 +76,33 @@ const pagination = combineReducers({
   })
 })
 
+function elements(state = {}, action) {
+  if (action.type === 'CHANGE_VALUE') {
+    // lodash#merge 不支持 Symbol
+    return Object.assign({}, state, {
+      [action.name]: Object.assign({}, state[action.name], {
+        value: action.value
+      })
+    })
+  }
+
+  if (action.type === 'UPDATE_ELEMENT') {
+    return Object.assign({}, state, {
+      [action.name]: Object.assign({}, state[action.name], action.data)
+    })
+  }
+
+  return state
+}
+
+
 const components = combineReducers({
   notification: notification
 })
 
 const rootReducer = combineReducers({
   components,
+  elements,
   routing,
   entities,
   pagination,

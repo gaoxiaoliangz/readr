@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchBooks } from 'actions/index'
 import { Link } from 'react-router'
 import Body from 'side-effects/Body'
+import apis from 'utils/apis'
 
 class ManageBooks extends Component<any, any> {
 
@@ -38,7 +39,17 @@ class ManageBooks extends Component<any, any> {
                   <td>{book.id}</td>
                   <td>{book.title}</td>
                   <td>{book.dateCreated}</td>
-                  <td><a href="#">Delete</a></td>
+                  <td>
+                    <a
+                      onClick={e => {
+                        e.preventDefault()
+                        apis.deleteBook(book.id).then(res => {
+                          this.props.fetchBooks('newest')
+                        })
+                        return false
+                      }}
+                      href="#">Delete</a>
+                  </td>
                 </tr>
               )
             }):null}

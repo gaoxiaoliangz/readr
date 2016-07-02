@@ -1,32 +1,41 @@
-import React, { Component, PropTypes } from 'react'
-import Icon from 'elements/Icon'
+import React, { Component } from 'react'
+import Icon from '../elements/Icon'
 
+type Options = {
+  value: string
+  name: string
+  disabled?: boolean
+}
+
+type Values = {
+  value: string
+  name: string
+}
 
 interface Props {
   className?: string
   placeholder?: string
-  onChange?: any
-  values: Array<string>
-  
-  // options can be an plain array or an array of object {value, subInfo, thumb} providing more info
-  options?: Array<any>
-  
-  // takes two parameters: targetIndex, type: Add, REMOVE
-  onValuesChange?: (targetIndex:number, type:string) => void
-  
-  initialInputWidth?: number
-  
-  // add new value when search doesn't match anything
-  addNewValue?: any
+  label?: string
+  stayFocused?: boolean // default true
+
+  value: string
+  onInputChange: (newValue: string) => void
+
+  options: Array<Options>
+  onOptionsChange?: (newValues: Array<Options>) => void
+
+  values: Array<Values>
+  onValuesChange: (newValues: Array<Values>) => void
+
+  // 额外功能
+  addNewValue?: boolean
+  onAddNewValue?: (newValue: string) => void
 }
 
 class SelectizeInput extends Component<Props, any> {
-  
-  refs: {
-    [string: string]: any
-    input: string
-  }
-  
+
+  input: any
+
   constructor(props) {
     super(props)
     this.state = {
@@ -35,143 +44,182 @@ class SelectizeInput extends Component<Props, any> {
       value: '',
       expendedOptionIndex: 0
     }
+    this.hideOptions = this.hideOptions.bind(this)
+    this.focusInput = this.focusInput.bind(this)
+    this.showOptions = this.showOptions.bind(this)
   }
 
-  clearState(callback) {
-    this.setState({
-      showOptions: false,
-      value: '',
-      expendedOptionIndex: 0
-    }, () => {
-      if(callback) {
-        callback()
-      }
-    })
-  }
-
-  addValue(index) {
-    this.clearState(() => {
-      this.props.onValuesChange(index, 'ADD')
-    })
+  addValue(newValue) {
+    this.props.onValuesChange(this.props.values.concat(newValue))
+    if (this.props.onOptionsChange) {
+      this.props.onOptionsChange(this.props.options.map(option => (option.value === newValue.value
+        ? Object.assign({}, option, { disabled: true })
+        : option)))
+    }
+    this.clearInputValue()
+    if (typeof this.props.stayFocused === 'undefined' || this.props.stayFocused !== false) {
+      this.focusInput()
+    }
+    this.hideOptions()
   }
 
   removeValue(index) {
-    this.clearState(() => {
-      this.props.onValuesChange(index, 'REMOVE')
-    })
+    let newValues = []
+    let removedValue
+
+    if (index === -1) {
+      newValues = this.props.values.slice(0, this.props.values.length - 1)
+      removedValue = this.props.values[this.props.values.length - 1].value
+    } else {
+      newValues = this.props.values
+        .filter((v, i) => {
+          removedValue = v.value
+          return i !== index
+        })
+    }
+
+    if (this.props.onOptionsChange) {
+      this.props.onOptionsChange(this.props.options.map(option => (option.value === removedValue
+        ? Object.assign({}, option, { disabled: false })
+        : option)))
+    }
+
+    this.props.onValuesChange(newValues)
+  }
+
+  clearInputValue() {
+    this.props.onInputChange('')
   }
 
   handleKeyPress(e) {
-    if(e.keyCode === 8 && !this.state.value) {
-      this.removeValue(this.props.values.length -1)
+    if (e.keyCode === 8 && !this.props.value) {
+      this.removeValue(- 1)
     }
-    if(e.keyCode === 13 && this.state.showOptions) {
-      e.preventDefault()
-      this.addValue(0)
-    }
+    // todo
+    // if (e.keyCode === 13 && this.state.showOptions) {
+    //   this.addValue()
+    // }
   }
 
-  getFocus() {
-    let input = document.querySelector(this.refs.input) as HTMLInputElement
-    input.focus()
+  focusInput() {
+    (this.input as any as HTMLInputElement).focus()
   }
 
-  expendOption(index) {
+  hideOptions() {
     this.setState({
-      expendedOptionIndex: index
+      showOptions: false
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.state.value !== '') {
-      this.setState({
-        showOptions: true
-      })
-    }
+  showOptions(e) {
+    e.stopPropagation()
+    this.setState({
+      showOptions: true
+    })
   }
 
-  render(){
-    let value = this.state.value
+  componentDidMount() {
+    window.addEventListener('click', this.hideOptions)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.hideOptions)
+  }
+
+  render() {
+    let label = this.props.label ? this.props.label : null
+    let value = this.props.value ? this.props.value : ''
     let values = this.props.values
-    let options = this.props.options?this.props.options:[]
-    let onChange = this.props.onChange?this.props.onChange:null
-    let initialInputWidth = this.props.initialInputWidth?this.props.initialInputWidth:'100%'
-    let inputWidth = values.length > 0?(value.length === 0?16:value.length * 16):initialInputWidth
-    let placeholder = values.length > 0?'':this.props.placeholder
-    let className = 'selectize-input' + (this.props.className?` ${this.props.className}`:'') + (this.state.focus === true?' focus':'') + (values.length === 0?' empty':'')
-    let addNewValue = this.props.addNewValue?this.props.addNewValue:undefined
+    let options = this.props.options ? this.props.options : []
+    let inputWidth = values.length > 0 ? (value.length === 0 ? 16 : value.length * 16) : '100%'
+    let placeholder = values.length > 0 ? '' : this.props.placeholder
+    let className = 'selectize-input' + (this.state.focus === true ? ' focus' : '') + (values.length === 0 ? ' empty' : '')
+    let addNewValue = this.props.addNewValue ? this.props.addNewValue : undefined
 
     return (
-      <div onClick={this.getFocus.bind(this)} className={className}>
+      <div className={`selectize-input-wrap ${this.props.className ? this.props.className : ''}`.trim()}>
         {
-          values.map((value, index) => {
-            return (
-              <span key={index} className="tag">
-                {value}
-                <Icon
-                  size={"small"}
-                  name="close-light"
-                  onClick={this.removeValue.bind(this, index)}
-                />
-              </span>
-            )
-          })
+          label ? (
+            <label className="form-label">{label}</label>
+          ) :null
         }
-        <input
-          style={{width: inputWidth}}
-          ref="input"
-          value={value}
-          placeholder={placeholder}
-          onKeyDown={this.handleKeyPress.bind(this)}
-          onBlur={() => {
-            this.setState({ focus: false })
+        <div
+          className={className}
+          onClick={e => {
+            this.focusInput()
+            this.showOptions(e)
           }}
-          onFocus={() => {
-            this.setState({ focus: true })
-          }}
-          onChange={event => {
-            this.setState({
-              value: (event.target as HTMLInputElement).value
+        >
+          {
+            values.map((v, index) => {
+              return (
+                <span key={index} className="selectize-tag">
+                  {v.name}
+                  <Icon
+                    size={'small'}
+                    name="close"
+                    onClick={e => {
+                      this.removeValue(index)
+                    }}
+                  />
+                </span>
+              )
             })
-            onChange(event)
-          }}
-        />
+          }
+          <input
+            style={{width: inputWidth}}
+            ref={ref => {this.input = ref}}
+            value={value}
+            placeholder={placeholder}
+            onBlur={e => {
+              this.setState({ focus: false })
+            }}
+            onFocus={e => {
+              this.setState({ focus: true })
+            }}
+            onChange={e => {
+              this.props.onInputChange((e.target as any).value)
+            }}
+            onKeyDown={e => {
+              this.handleKeyPress(e)
+            }}
+          />
+        </div>
         {
-          this.state.showOptions && this.state.value !== '' ?(
-            <ul className="query-results">
+          (this.state.showOptions) ? (
+            <ul className="selectize-query-results">
               {
                 options.map((option, index) => {
-                  if(typeof option === 'string') {
-                    return <li onClick={this.addValue.bind(this, index)} key={index}>{option}</li>
-                  } else if (typeof option === 'object') {
-                    let showMoreInfo = true
-                    return (
-                    <li
-                      onMouseOver={() => {
-                        this.expendOption(index)
-                      }}
-                      onClick={this.addValue.bind(this, index)}
-                      key={index}
-                    >
-                      {option.thumb && this.state.expendedOptionIndex === index ?(
-                        <div className="thumb"><img src={option.thumb} /></div>
-                      ):null}
-                      <h3>{option.value}</h3>
-                      {option.subInfo && this.state.expendedOptionIndex === index ?(
-                        <p>{option.subInfo}</p>
-                      ):null}
-                    </li>
-                    )
+                  if (option.disabled) {
+                    return <li key={index} className="disabled">{option.name}</li>
                   }
+                  return (
+                    <li
+                      key={index}
+                      onClick={e => {
+                        this.addValue(option)
+                      }}
+                    >
+                      <span>{option.name}</span>
+                    </li>
+                  )
                 })
               }
               {
-                options.length === 0 && addNewValue ? (
-                  <li onClick={addNewValue} className="add">Add {this.state.value}</li>
-                ):null
+                addNewValue ? (
+                  // todo
+                  <li
+                    onClick={e => {
+                      this.props.onAddNewValue(this.props.value)
+                    }}
+                    className="add">添加 <strong>{this.props.value}</strong></li>
+                ) : null
               }
             </ul>
-          ):null
+          ) : null
         }
       </div>
     )

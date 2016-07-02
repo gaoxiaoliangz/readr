@@ -39,11 +39,18 @@ export function setProgress(bookId, data) {
   callApi(`${ApiRoots.LOCAL}books/${bookId}/progress`, { method: 'POST', data })
 }
 
+export function deleteBook(id) {
+  return callApi(`${ApiRoots.LOCAL}books/${id}`, {
+    method: 'DELETE'
+  })
+}
+
 export default {
   addCollection,
   addBook,
   addAuthor,
   searchBooks,
   searchAuthors,
-  setProgress
+  setProgress,
+  deleteBook
 }

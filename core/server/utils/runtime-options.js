@@ -1,8 +1,7 @@
 'use strict'
-
 const hmr = process.argv.indexOf('--hmr') !== -1
-const serverRouting = process.argv.indexOf('--noServerRouting') !== -1
-const serverRendering = process.argv.indexOf('--noServerRendering') !== -1
+const serverRouting = process.argv.indexOf('--noServerRouting') === -1
+const serverRendering = process.argv.indexOf('--noServerRendering') === -1
 const webpackDevServer = process.argv.indexOf('--webpackDevServer') !== -1
 const express = require('express')
 const app = express()

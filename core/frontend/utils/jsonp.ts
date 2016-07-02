@@ -1,13 +1,13 @@
 import handleResponseJson from 'utils/handleResponseJson'
 
-function jsonp(fullUrl, config: { schema?: {}}) {
-  if(fullUrl.indexOf('douban') !== -1) {
+function jsonp(fullUrl, config: { schema?: {} }) {
+  if (fullUrl.indexOf('douban') !== -1) {
     let id = new Date().valueOf()
     let jsonpId = 'jsonp-' + id
     let jsonpCallback = 'jsonpCallback' + id
     let jsonpCallbackData = `__JSONP_DATA_${id}__`
 
-    window[jsonpCallback] = function(data) {
+    window[jsonpCallback] = function (data) {
       window[jsonpCallbackData] = data
     }
 
@@ -18,7 +18,7 @@ function jsonp(fullUrl, config: { schema?: {}}) {
     document.body.appendChild(script)
 
     return new Promise(resolve => {
-      script.onload = function() {
+      script.onload = function () {
         document.body.removeChild(document.getElementById(jsonpId))
         let json = window[jsonpCallbackData]
 

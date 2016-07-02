@@ -88,68 +88,7 @@ class AddCollection extends Component<any, any> {
         <Notification notification={notification} />
         <h1 className="page-title">Add Collection</h1>
         <Input value={this.state.collectionName} onChange={(e) => this.setState({collectionName: e.target.value})} placeholder="Name" />
-        <SelectizeInput
-          ref="collectedBooks"
-          onChange={this.searchBooks.bind(this)}
-          onValuesChange={(targetIndex, type) => {
-            switch (type) {
-              case 'ADD':
-                this.setState({
-                  collectedBooks: [...this.state.collectedBooks, this.state.bookResults[targetIndex]]
-                })
-              break
-
-              case 'REMOVE':
-                this.setState({
-                  collectedBooks: this.state.collectedBooks.filter((value, index) => (targetIndex !== index?true:false))
-                })
-              break
-
-              default:
-                console.error('Undefined type')
-            }
-          }}
-          options={this.state.bookResults.map(a => ({
-            value: a.title,
-            subInfo: a.author.map(a => a.name).join(', '),
-            thumb: a.cover
-          }))}
-          values={this.state.collectedBooks.map(book => book.title)}
-          placeholder="Books"
-        />
-        {/*<SelectizeInput
-          ref="collectionTags"
-          onChange={this.searchTags.bind(this)}
-          onValuesChange={(targetIndex, type) => {
-            switch (type) {
-              case 'ADD':
-                this.setState({
-                  collectionTags: [...this.state.collectionTags, this.state.tagrResults[targetIndex]]
-                })
-              break
-
-              case 'REMOVE':
-                this.setState({
-                  collectionTags: this.state.collectionTags.filter((value, index) => (targetIndex !== index?true:false))
-                })
-              break
-
-              default:
-                console.error('Undefined type')
-            }
-          }}
-          options={this.state.tagResults.map(a => a.name)}
-          values={this.state.collectionTags.map(a => a.name)}
-          placeholder="Author"
-          addNewValue={() => {
-            let name = this.refs.bookAuthor.state.value
-
-            this.setState({
-              isAddAuthorModalVisible: true,
-              authorName: name
-            })
-          }}
-        />*/}
+        
         <textarea value={this.state.collectionDesc} onChange={(e) => this.setState({collectionDesc: (e.target as HTMLTextAreaElement).value})} placeholder="Description" />
         <Button onClick={this.addCollection.bind(this)}>Add</Button>
       </form>

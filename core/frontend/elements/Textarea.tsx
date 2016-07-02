@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
+import { Props as InputProps } from 'elements/Input'
 
-export interface Props {
-  className?: string
-  placeholder?: string
-  onChange?: any
-  value?: string
-  type?: string
-  name?: string
+export interface Props extends InputProps {
+
 }
 
-class Input extends Component<Props, any> {
+class Textarea extends Component<Props, any> {
   constructor(props) {
     super(props)
   }
 
   render() {
-    let className = this.props.className ? `input-wrap ${this.props.className}` : 'input-wrap'
+    let className = this.props.className ? `textarea-wrap ${this.props.className}` : 'textarea-wrap'
     let props = Object.assign({}, this.props)
     delete props.className
 
     return (
       <div className={className}>
-        <input
+        <textarea
           placeholder={this.props.placeholder}
           value={this.props.value}
           onChange={e => {
@@ -35,4 +31,4 @@ class Input extends Component<Props, any> {
   }
 }
 
-export default Input
+export default Textarea

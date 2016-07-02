@@ -4,11 +4,18 @@ import handleResponseJson from 'utils/handleResponseJson'
 declare let fetch
 
 type CallApiConfig = {
-  method?: 'GET' | 'POST'
+  method?: 'GET' | 'POST' | 'DELETE'
   data?: {}
   schema?: {}
   credentials?: 'include' | 'same-origin'
   dataType?: 'urlencoded' | 'json'
+}
+
+type FetchConfig = {
+  method?: string
+  credentials?: 'include' | 'same-origin'
+  headers?: {}
+  body?: string
 }
 
 const defaultConfig: CallApiConfig = {
@@ -19,15 +26,9 @@ const defaultConfig: CallApiConfig = {
 
 export function callApi(fullUrl: string, config: CallApiConfig = {}) {
   // return fetch config
-  const parseConfig = (config: CallApiConfig) => {
-    let config2 = Object.assign({}, defaultConfig, config)
-    let { method, data, schema, credentials, dataType } = config2
-    let fetchConfig: {
-      method?: string
-      credentials?: 'include' | 'same-origin'
-      headers?: {}
-      body?: string
-    } = {}
+  const parseConfig = (originanConfig: CallApiConfig) => {
+    let { method, data, credentials, dataType } = Object.assign({}, defaultConfig, originanConfig)
+    let fetchConfig: FetchConfig = {}
 
     if (method) {
       fetchConfig.method = method
@@ -62,6 +63,12 @@ export function callApi(fullUrl: string, config: CallApiConfig = {}) {
       }
 
       fetchConfig.body = body
+    }
+
+    if (method === 'DELETE') {
+      fetchConfig.headers = {
+        'Access-Control-Request-Method': 'DELETE'
+      }
     }
 
     return fetchConfig
