@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchBooks } from 'actions/index'
-import { Link } from 'react-router'
 import Body from 'side-effects/Body'
 import apis from 'utils/apis'
+import { handleNotification } from 'actions/index'
 
-class ManageBooks extends Component<any, any> {
+
+interface Props {
+  handleNotification?: any
+  fetchBooks?: any
+  bookListNewest?: any
+}
+
+class ManageBooks extends Component<Props, any> {
 
   static fetchData({store}) {
-    return store.dispatch(fetchBooks('newest'))
+    return store.dispatch(fetchBooks())
   }
 
   constructor(props) {
@@ -16,11 +23,11 @@ class ManageBooks extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks('newest')
+    this.props.fetchBooks()
   }
 
   render() {
-    let bookListNewest = this.props.bookListNewest?this.props.bookListNewest:null
+    let bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null
 
     return (
       <div>
@@ -33,7 +40,7 @@ class ManageBooks extends Component<any, any> {
               <td>Date created</td>
               <td>Actions</td>
             </tr>
-            {bookListNewest?bookListNewest.map((book, index) => {
+            {bookListNewest ? bookListNewest.map((book, index) => {
               return (
                 <tr key={index}>
                   <td>{book.id}</td>
@@ -44,15 +51,16 @@ class ManageBooks extends Component<any, any> {
                       onClick={e => {
                         e.preventDefault()
                         apis.deleteBook(book.id).then(res => {
-                          this.props.fetchBooks('newest')
+                          this.props.handleNotification('删除成功！')
+                          this.props.fetchBooks()
                         })
                         return false
-                      }}
+                      } }
                       href="#">Delete</a>
                   </td>
                 </tr>
               )
-            }):null}
+            }) : null}
           </tbody>
         </table>
       </div>
@@ -67,7 +75,7 @@ function mapStateToProps(state, ownProps) {
   } = state
 
   const genList = (whichPagination) => (
-    whichPagination?whichPagination.ids.map(id => books[id]):[]
+    whichPagination ? whichPagination.ids.map(id => books[id]) : []
   )
 
   return {
@@ -77,5 +85,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks } as any
-)(ManageBooks)
+  { fetchBooks, handleNotification }
+)(ManageBooks as any)

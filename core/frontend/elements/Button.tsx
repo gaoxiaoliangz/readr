@@ -50,7 +50,7 @@ class Button extends Component<Props, any>{
       onClick = e => {
         e.preventDefault()
         if (this.props.onClick) {
-          this.props.onClick()
+          this.props.onClick(e)
         }
       }
     }

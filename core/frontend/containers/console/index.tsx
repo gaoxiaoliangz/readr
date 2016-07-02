@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import Container from 'elements/Container'
@@ -7,55 +7,8 @@ import ConsoleBranding from 'components/ConsoleBranding'
 import { userAuth, handleNotification } from 'actions/index'
 import Notification from 'components/Notification'
 import Body from 'side-effects/Body'
+import menus from './menus'
 
-const menuMapping = [
-  {
-    component: 'books',
-    displayName: '',
-    path: 'console/managebooks',
-    subMenu: [
-      {
-        component: 'managebooks',
-        displayName: 'Manage Books',
-        path: 'console'
-      },
-      {
-        component: 'addbook',
-        displayName: 'Add Book',
-        path: 'console/addbook'
-      },
-      {
-        component: 'addcollection',
-        displayName: 'Add Collection',
-        path: 'console/collection/new'
-      }
-    ]
-  },
-  {
-    component: 'users',
-    displayName: '',
-    path: 'console/manageusers',
-    subMenu: [
-      {
-        component: 'manageusers',
-        displayName: 'Manage Users',
-        path: 'console/manageusers'
-      }
-    ]
-  },
-  {
-    component: 'database',
-    displayName: '',
-    path: 'console/managebooks',
-    subMenu: []
-  },
-  {
-    component: 'statistics',
-    displayName: '',
-    path: 'console/managebooks',
-    subMenu: []
-  }
-]
 
 class Console extends Component<any, any> {
 
@@ -139,7 +92,7 @@ class Console extends Component<any, any> {
         <ConsoleBranding isAdmin={isAdmin} username={username} />
         <Container isFluid={true}>
           <Notification notification={this.props.notification} />
-          {this.renderMenu(menuMapping, pathname)}
+          {this.renderMenu(menus, pathname)}
           <div className="content">
             {this.props.children}
           </div>

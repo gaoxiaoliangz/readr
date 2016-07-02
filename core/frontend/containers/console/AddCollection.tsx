@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { searchBooks, handleNotification, changeValue } from 'actions/index'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
-import Notification from 'components/Notification'
 import apis from 'utils/apis'
 import getElement_R from 'utils/getElement_R'
 import InputR from 'elements-wrapped/InputR'
@@ -57,7 +56,7 @@ class AddCollection extends Component<Props, State> {
     const data = { name, items, description, creator: this.props.session.user.id }
 
     apis.addCollection(data).then(result => {
-      this.props.handleNotification('添加成功')
+      this.props.handleNotification('添加成功！')
       this.resetForm()
     }, error => {
       this.props.handleNotification(error.message)
@@ -94,7 +93,6 @@ class AddCollection extends Component<Props, State> {
   render() {
     return (
       <form>
-        <Notification notification={this.props.notification} />
         <h1 className="page-title">Add Collection</h1>
         <InputR symbol={syls.inputCollectionName} placeholder="Name" />
         <SelectizeInput

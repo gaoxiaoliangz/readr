@@ -58,7 +58,7 @@ const pagination = combineReducers({
   //   types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
   // }),
   filteredBooks: paginate({
-    mapActionToKey: action => action.flow,
+    mapActionToKey: action => 'newest',
     types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE']
   }),
   userList: paginate({

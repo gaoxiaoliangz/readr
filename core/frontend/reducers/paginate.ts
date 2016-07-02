@@ -29,7 +29,8 @@ export default function paginate({ types, mapActionToKey }) {
       case successType:
         return Object.assign({}, state, {
           isFetching: false,
-          ids: _.union(state.ids, action.response.result),
+          // ids: _.union(state.ids, action.response.result),
+          ids: action.response.result,
           nextPageUrl: action.response.nextPageUrl,
           pageCount: state.pageCount + 1
         })

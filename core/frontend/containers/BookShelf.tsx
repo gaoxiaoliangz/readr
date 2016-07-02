@@ -7,7 +7,7 @@ import BookListSection from 'components/BookListSection'
 class BookShelf extends Component<any, any> {
 
   static fetchData({store, params}) {
-    return store.dispatch(fetchBooks('user'))
+    return store.dispatch(fetchBooks())
   }
 
   constructor(props) {
@@ -18,7 +18,7 @@ class BookShelf extends Component<any, any> {
     this.props.fetchBooks('user')
   }
 
-  render(){
+  render() {
     let bookList = this.props.bookListUser
 
     return (
@@ -36,7 +36,7 @@ function mapStateToProps(state, ownProps) {
   } = state
 
   const genList = (whichPagination) => (
-    whichPagination?whichPagination.ids.map(id => books[id]):[]
+    whichPagination ? whichPagination.ids.map(id => books[id]) : []
   )
 
   return {

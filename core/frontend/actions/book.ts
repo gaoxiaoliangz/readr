@@ -12,27 +12,26 @@ export function fetchBookProgress(bookId) {
   }
 }
 
-export function fetchBooks(flow) {
+export function fetchBooks() {
   return {
-    flow,
     CALL_API: {
       types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
-      endpoint: `books?flow=${flow}`,
+      endpoint: `books?exclude=content`,
       schema: Schemas.BOOK_ARRAY
     }
   }
 }
 
-export function fetchBook(bookId, fields?:Array<any>) {
+export function fetchBook(bookId, fields?: Array<any>) {
   let endpoint = `books/${bookId}`
 
-  if(fields) {
+  if (fields) {
     endpoint += `?fields=${fields.join(',')}`
   }
 
   return {
     bookId,
-    CALL_API:{
+    CALL_API: {
       types: ['BOOK_REQUEST', 'BOOK_SUCCESS', 'BOOK_FAILURE'],
       endpoint,
       schema: Schemas.BOOK
@@ -86,7 +85,7 @@ export function fetchCollection(collectionId) {
 export function fetchDoubanBookSearchResults(query) {
   return {
     query,
-    CALL_API:{
+    CALL_API: {
       types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
       endpoint: `search?count=5&q=${query}`,
       apiUrl: ApiRoots.DOUBAN_BOOKS,
@@ -99,7 +98,7 @@ export function fetchDoubanBookSearchResults(query) {
 export function searchBooks(query) {
   return {
     query,
-    CALL_API:{
+    CALL_API: {
       types: ['BOOK_SEARCH_REQUEST', 'BOOK_SEARCH_SUCCESS', 'BOOK_SEARCH_FAILURE'],
       endpoint: `search?q=${query}`,
       apiUrl: ApiRoots.LOCAL,
