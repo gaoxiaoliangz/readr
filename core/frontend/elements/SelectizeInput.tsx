@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Icon from '../elements/Icon'
 
-type Options = {
+type TypeOption = {
   value: string
   name: string
   disabled?: boolean
+  additional?: any
 }
 
-type Values = {
+type TypeValue = {
   value: string
   name: string
 }
@@ -21,15 +22,16 @@ interface Props {
   value: string
   onInputChange: (newValue: string) => void
 
-  options: Array<Options>
-  onOptionsChange?: (newValues: Array<Options>) => void
+  options: Array<TypeOption>
+  onOptionsChange?: (newValues: Array<TypeOption>) => void
 
-  values: Array<Values>
-  onValuesChange: (newValues: Array<Values>) => void
+  values: Array<TypeValue>
+  onValuesChange: (newValues: Array<TypeValue>) => void
 
   // 额外功能
   addNewValue?: boolean
   onAddNewValue?: (newValue: string) => void
+  onOptionClick?: (selectedValue: TypeOption) => void
 }
 
 class SelectizeInput extends Component<Props, any> {
@@ -201,6 +203,9 @@ class SelectizeInput extends Component<Props, any> {
                       key={index}
                       onClick={e => {
                         this.addValue(option)
+                        if (this.props.onOptionClick) {
+                          this.props.onOptionClick(option)
+                        }
                       }}
                     >
                       <span>{option.name}</span>
@@ -210,7 +215,6 @@ class SelectizeInput extends Component<Props, any> {
               }
               {
                 addNewValue ? (
-                  // todo
                   <li
                     onClick={e => {
                       this.props.onAddNewValue(this.props.value)

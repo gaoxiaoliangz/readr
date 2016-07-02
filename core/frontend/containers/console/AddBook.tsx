@@ -1,50 +1,40 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { fetchDoubanBookSearchResults, handleNotification, changeValue } from 'actions/index'
-import Input from 'elements/Input'
+// import { Link } from 'react-router'
+import { handleNotification, changeValue } from 'actions/index'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
 import Modal from 'elements/Modal'
 import _ from 'lodash'
 import apis from 'utils/apis'
 import getElement_R from 'utils/getElement_R'
-import { fetchDoubanBook } from 'utils/apis-third-party'
+import { fetchDoubanBooks } from 'utils/apis-third-party'
 import InputR from 'elements-wrapped/InputR'
 import TextareaR from 'elements-wrapped/TextareaR'
 
 
-const symbols = {
+const syls = {
   inputBookName: Symbol('inputBookName'),
   inputBookAuthor: Symbol('inputBookAuthor'),
   inputAuthorName: Symbol('inputAuthorName'),
   inputAuthorSlug: Symbol('inputAuthorSlug'),
-  textareaAuthorDesc: Symbol('textareaAuthorDesc')
+  inputBookCover: Symbol('inputBookCover'),
+  textareaAuthorDesc: Symbol('textareaAuthorDesc'),
+  textareaBookDesc: Symbol('textareaBookDesc'),
+  textareaBookContent: Symbol('textareaBookContent')
 }
 
 interface Props {
   elements?: any
   changeValue?: any
   handleNotification?: any
-  fetchDoubanBookSearchResults?: any
-  doubanBookSearchResults?: any
-  doubanBooks?: any
 }
 
 interface State {
-  dbBookQuery?: string
   bookTitle?: Array<any>
   bookAuthor?: Array<any>
-  bookCover?: string
-  bookDescription?: string
-  bookContent?: string
   isAddAuthorModalVisible?: boolean
-  authorName?: string
-  authorSlug?: string
-  authorDescription?: string
-
-  authorResults?: Array<any>
   optionsOfBookTitle?: Array<any>
   optionsOfBookAuthor?: Array<any>
 }
@@ -52,37 +42,41 @@ interface State {
 class AddBook extends Component<Props, State> {
 
   defaultState: {}
-  fetchDoubanBookSearchResults: (query: string) => void
+  fetchDoubanBooks: any
 
   constructor(props) {
     super(props)
     this.defaultState = {
-      dbBookQuery: '',
       bookTitle: [],
       bookAuthor: [],
-      bookCover: '',
-      bookDescription: '',
-      bookContent: '',
       authorResults: [],
       isAddAuthorModalVisible: false
     }
     this.state = Object.assign({}, this.defaultState)
-    this.fetchDoubanBookSearchResults = _.debounce(this.props.fetchDoubanBookSearchResults, 150)
+
+    // todo
+    // this.fetchDoubanBooks = _.debounce(fetchDoubanBooks, 150)
   }
 
-  addBook(e) {
-    e.preventDefault()
+  resetForm() {
+    this.props.changeValue(syls.inputBookCover, '')
+    this.props.changeValue(syls.textareaBookDesc, '')
+    this.props.changeValue(syls.textareaBookContent, '')
+    this.setState(this.defaultState)
+  }
+
+  addBook() {
     const data = {
       title: this.state.bookTitle.length !== 0 ? this.state.bookTitle[0].value : '',
-      description: this.state.bookDescription,
       author: this.state.bookAuthor.map(a => a.value),
-      cover: this.state.bookCover,
-      content: this.state.bookContent
+      description: this.props.elements[syls.textareaBookDesc].value,
+      cover: this.props.elements[syls.inputBookCover].value,
+      content: this.props.elements[syls.textareaBookContent].value
     }
 
     apis.addBook(data).then(result => {
       this.props.handleNotification('添加成功')
-      this.setState(this.defaultState)
+      this.resetForm()
     }, error => {
       this.props.handleNotification(error.message)
     })
@@ -90,9 +84,9 @@ class AddBook extends Component<Props, State> {
 
   addAuthor() {
     const data = {
-      name: this.props.elements[symbols.inputAuthorName].value,
-      slug: this.props.elements[symbols.inputAuthorSlug].value,
-      description: this.props.elements[symbols.textareaAuthorDesc].value
+      name: this.props.elements[syls.inputAuthorName].value,
+      slug: this.props.elements[syls.inputAuthorSlug].value,
+      description: this.props.elements[syls.textareaAuthorDesc].value
     }
 
     apis.addAuthor(data).then(result => {
@@ -103,25 +97,26 @@ class AddBook extends Component<Props, State> {
         bookAuthor: [...this.state.bookAuthor, { name: data.name, value: id }],
         isAddAuthorModalVisible: false
       })
-      this.props.changeValue(symbols.inputBookAuthor, '')
+      this.props.changeValue(syls.inputBookAuthor, '')
     }, error => {
       this.props.handleNotification(error.message)
     })
   }
 
-  search(query) {
-    this.setState({
-      dbBookQuery: query
-    })
+  searchBooks(query) {
     if (query !== '') {
-      fetchDoubanBook(query).then(res => {
+      fetchDoubanBooks(query).then(res => {
         this.setState({
           optionsOfBookTitle: (res as any).books.map(book => ({
             name: book.title,
-            value: book.title
+            value: book.title,
+            additional: {
+              description: book.summary,
+              cover: book.images.large,
+              author: book.author.join(', ')
+            }
           }))
         })
-        // console.log(res)
       })
     }
   }
@@ -156,10 +151,10 @@ class AddBook extends Component<Props, State> {
           }}
         >
           <h1 className="page-title" style={{marginTop: 0}}>Add author</h1>
-          <InputR placeholder="Name" symbol={symbols.inputAuthorName} />
-          <InputR placeholder="Slug" symbol={symbols.inputAuthorSlug} />
+          <InputR placeholder="Name" symbol={syls.inputAuthorName} />
+          <InputR placeholder="Slug" symbol={syls.inputAuthorSlug} />
           <TextareaR
-            symbol={symbols.textareaAuthorDesc}
+            symbol={syls.textareaAuthorDesc}
             placeholder="Description"
           />
           <Button onClick={e => {
@@ -172,10 +167,10 @@ class AddBook extends Component<Props, State> {
         <SelectizeInput
           placeholder="Book title"
           onInputChange={newValue => {
-            this.search(newValue)
-            this.props.changeValue(symbols.inputBookName, newValue)
+            this.searchBooks(newValue)
+            this.props.changeValue(syls.inputBookName, newValue)
           }}
-          value={getElement_R(this.props.elements, symbols.inputBookName).value}
+          value={getElement_R(this.props.elements, syls.inputBookName).value}
           onValuesChange={newValues => {
             this.setState({
               bookTitle: newValues
@@ -184,6 +179,12 @@ class AddBook extends Component<Props, State> {
           options={this.state.optionsOfBookTitle}
           values={this.state.bookTitle}
           onAddNewValue={() => {
+            // todo
+          }}
+          onOptionClick={option => {
+            this.props.changeValue(syls.inputBookCover, option.additional.cover)
+            this.props.changeValue(syls.inputBookAuthor, option.additional.author)
+            this.props.changeValue(syls.textareaBookDesc, option.additional.description)
           }}
         />
 
@@ -191,9 +192,9 @@ class AddBook extends Component<Props, State> {
           placeholder="Book author"
           onInputChange={newValue => {
             this.searchAuthors(newValue)
-            this.props.changeValue(symbols.inputBookAuthor, newValue)
+            this.props.changeValue(syls.inputBookAuthor, newValue)
           }}
-          value={getElement_R(this.props.elements, symbols.inputBookAuthor).value}
+          value={getElement_R(this.props.elements, syls.inputBookAuthor).value}
           onValuesChange={newValues => {
             this.setState({
               bookAuthor: newValues
@@ -203,48 +204,23 @@ class AddBook extends Component<Props, State> {
           values={this.state.bookAuthor}
           addNewValue={true}
           onAddNewValue={value => {
-            this.props.changeValue(symbols.inputAuthorName, value)
-            this.props.changeValue(symbols.inputAuthorSlug, value)
-            this.props.changeValue(symbols.textareaAuthorDesc, '')
+            this.props.changeValue(syls.inputAuthorName, value)
+            // todo
+            // this.props.changeValue(syls.inputAuthorSlug, value)
+            this.props.changeValue(syls.textareaAuthorDesc, '')
             this.setState({
               isAddAuthorModalVisible: true,
             })
           }}
         />
 
-        <Input
-          onChange={event => {
-            this.setState({
-              bookCover: event.target.value
-            })
-          }}
-          value={this.state.bookCover}
-          placeholder="Cover"
-        />
+        <InputR placeholder="Cover" symbol={syls.inputBookCover} />
+        <TextareaR placeholder="Description" symbol={syls.textareaBookDesc} />
+        <TextareaR placeholder="Paste book content here" symbol={syls.textareaBookContent} />
 
-        <textarea
-          placeholder="Description"
-          style={{height: 100}}
-          value={this.state.bookDescription}
-          onChange={event => {
-            this.setState({
-              bookDescription: (event.target as HTMLTextAreaElement).value
-            })
-          }}
-        />
-
-        <textarea
-          placeholder="Paste book content here"
-          style={{height: 100}}
-          value={this.state.bookContent}
-          onChange={event => {
-            this.setState({
-              bookContent: (event.target as HTMLTextAreaElement).value
-            })
-          }}
-        />
-
-        <Button onClick={this.addBook.bind(this)}>Add</Button>
+        <Button onClick={e => {
+          e.preventDefault()
+          this.addBook()}}>Add</Button>
       </form>
     )
   }
@@ -252,10 +228,8 @@ class AddBook extends Component<Props, State> {
 
 export default connect(
   state => ({
-    doubanBookSearchResults: state.pagination.doubanBookSearchResults,
-    doubanBooks: state.entities.doubanBooks,
     notification: state.components.notification,
     elements: state.elements
   }),
-  {fetchDoubanBookSearchResults, handleNotification, changeValue}
+  { handleNotification, changeValue}
 )(AddBook as any)
