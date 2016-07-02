@@ -91,11 +91,11 @@ class ApiMethods {
     const missedFields = requiredFields.filter(key => suppliedFields.indexOf(key) === -1)
 
     if (unsupportedFields.length > 0) {
-      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.unsupportedInput')))
+      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.unsupportedInput', unsupportedFields[0])))
     }
 
     if (missedFields.length > 0 && !isEditing) {
-      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.missRequiredFields')))
+      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.missRequiredFields', missedFields[0])))
     }
 
     // 验证 fields，因为每个 field 可能有不止一个 validator

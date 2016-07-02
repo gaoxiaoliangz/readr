@@ -1,72 +1,83 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { searchBooks, handleNotification } from 'actions/index'
-import Input from 'elements/Input'
+import { searchBooks, handleNotification, changeValue } from 'actions/index'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
 import Notification from 'components/Notification'
 import apis from 'utils/apis'
+import getElement_R from 'utils/getElement_R'
+import InputR from 'elements-wrapped/InputR'
+import TextareaR from 'elements-wrapped/TextareaR'
 
 
-class AddCollection extends Component<any, any> {
+const syls = {
+  inputCollectionName: Symbol('inputCollectionName'),
+  inputBookName: Symbol('inputBookName'),
+  textareaCollectionDesc: Symbol('textareaCollectionDesc')
+}
+
+interface Props {
+  elements?: any
+  changeValue?: any
+  handleNotification?: any
+  notification?: any
+  session?: any
+}
+
+interface State {
+  optionsOfBooks?: Array<any>
+  valuesOfBooks?: Array<any>
+}
+
+class AddCollection extends Component<Props, State> {
 
   defaultState: {}
 
   constructor(props) {
     super(props)
     this.defaultState = {
-      bookResults: [],
-      collectedBooks: [],
-      collectionName: '',
-      collectionDesc: ''
+      optionsOfBooks: [],
+      valuesOfBooks: [],
     }
     this.state = Object.assign({}, this.defaultState)
+    this.addCollection = this.addCollection.bind(this)
   }
 
-  // getCurrentSearchResults() {
-  //   let query = this.state.booksToAdd
-  //   let books = this.props.books
-  //
-  //   return this.props.bookSearchResults?this.props.bookSearchResults[query].ids.map((id, index) => {
-  //     console.log(id);
-  //     return books[id]
-  //   }):[]
-  // }
+  resetForm() {
+    this.props.changeValue(syls.inputCollectionName, '')
+    this.props.changeValue(syls.textareaCollectionDesc, '')
+    this.setState(this.defaultState)
+  }
 
-  addCollection(e) {
-    e.preventDefault()
-    let name = this.state.collectionName
-    let items = JSON.stringify(this.state.collectedBooks.map(a => a.id))
-    let description = this.state.collectionDesc
-
-    const data = {name, items, description}
+  addCollection() {
+    let name = this.props.elements[syls.inputCollectionName].value
+    let items = this.state.valuesOfBooks.map(a => a.value) as any
+    let description = this.props.elements[syls.textareaCollectionDesc].value
+    const data = { name, items, description, creator: this.props.session.user.id }
 
     apis.addCollection(data).then(result => {
       this.props.handleNotification('添加成功')
-      this.setState(this.defaultState)
+      this.resetForm()
     }, error => {
       this.props.handleNotification(error.message)
     })
   }
 
-  searchBooks(e) {
-    let query = e.target.value
-
-    if(query !== '') {
+  searchBooks(query) {
+    if (query !== '') {
       apis.searchBooks(query).then(response => {
-        console.log(response)
         this.setState({
-          bookResults: response
+          optionsOfBooks: response.map(r => ({
+            name: r.title,
+            value: r.id
+          }))
         })
       })
     }
   }
 
-  // searchTags(e) {
-  //   let query = e.target.value
-
+  // searchTags(query) {
   //   if(query !== '') {
   //     apis.searchTags(query).then(response => {
   //       console.log(response)
@@ -80,17 +91,29 @@ class AddCollection extends Component<any, any> {
   componentDidMount() {
   }
 
-  render(){
-    let notification = this.props.notification
-
+  render() {
     return (
       <form>
-        <Notification notification={notification} />
+        <Notification notification={this.props.notification} />
         <h1 className="page-title">Add Collection</h1>
-        <Input value={this.state.collectionName} onChange={(e) => this.setState({collectionName: e.target.value})} placeholder="Name" />
-        
-        <textarea value={this.state.collectionDesc} onChange={(e) => this.setState({collectionDesc: (e.target as HTMLTextAreaElement).value})} placeholder="Description" />
-        <Button onClick={this.addCollection.bind(this)}>Add</Button>
+        <InputR symbol={syls.inputCollectionName} placeholder="Name" />
+        <SelectizeInput
+          placeholder="Books"
+          onInputChange={newValue => {
+            this.searchBooks(newValue)
+            this.props.changeValue(syls.inputBookName, newValue)
+          } }
+          value={getElement_R(this.props.elements, syls.inputBookName).value}
+          onValuesChange={newValues => {
+            this.setState({
+              valuesOfBooks: newValues
+            })
+          } }
+          options={this.state.optionsOfBooks}
+          values={this.state.valuesOfBooks}
+        />
+        <TextareaR symbol={syls.textareaCollectionDesc}  placeholder="Description" />
+        <Button onClick={this.addCollection}>Add</Button>
       </form>
     )
   }
@@ -98,13 +121,13 @@ class AddCollection extends Component<any, any> {
 
 function mapStateToProps(state) {
   return {
-    bookSearchResults: state.pagination.bookSearchResults,
-    books: state.entities.books,
-    notification: state.components.notification
+    notification: state.components.notification,
+    elements: state.elements,
+    session: state.session
   }
 }
 
 export default connect(
   mapStateToProps,
-  { searchBooks, handleNotification } as any
-)(AddCollection)
+  { searchBooks, handleNotification, changeValue }
+)(AddCollection as any)

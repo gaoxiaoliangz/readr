@@ -9,6 +9,7 @@ const cn = {
       login: '登录项',
       description: '描述',
       name: '名称',
+      creator: '创建者',
     },
   },
   errors: {
@@ -28,8 +29,8 @@ const cn = {
         },
       },
       preCheck: {
-        missRequiredFields: '缺少{value}必填项！',
-        unsupportedInput: '发现不支持的输入项{value}！',
+        missRequiredFields: '{value}为必填项',
+        unsupportedInput: '发现未知的输入项{value}',
         inputEmpty: '{value}输入不能为空',
       },
     },

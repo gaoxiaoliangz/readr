@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { Link, browserHistory } from 'react-router'
+import React, { Component } from 'react'
+import { browserHistory } from 'react-router'
 
 interface Props {
   className?: string
@@ -16,13 +16,14 @@ class Button extends Component<Props, any>{
     super(props)
   }
 
-  render(){
-    let className:string = this.props.className?`btn ${this.props.className}`:'btn'
-    let size = this.props.size?this.props.size:'medium'
-    let isFluid = this.props.isFluid?this.props.isFluid:false
-    let color = this.props.color?this.props.color:null
+  render() {
+    let className: string = this.props.className ? `btn ${this.props.className}` : 'btn'
+    let size = this.props.size ? this.props.size : 'medium'
+    let isFluid = this.props.isFluid ? this.props.isFluid : false
+    let color = this.props.color ? this.props.color : null
+    let onClick
 
-    if(size === 'small') {
+    if (size === 'small') {
       className += ' btn-small'
     } else if (size === 'large') {
       className += ' btn-large'
@@ -32,24 +33,29 @@ class Button extends Component<Props, any>{
       console.error('Unsupport size!');
     }
 
-    if(color) {
+    if (color) {
       className += ` btn-${color}`
     }
 
-    if(isFluid) {
+    if (isFluid) {
       className = `${className} btn-fluid`
     }
 
-    let to = this.props.to?this.props.to:null
-    let onClick = this.props.onClick?this.props.onClick:null
-
-    if(to) {
-      onClick = () => {
-        browserHistory.push(to)
+    if (this.props.to) {
+      onClick = e => {
+        e.preventDefault()
+        browserHistory.push(this.props.to)
+      }
+    } else {
+      onClick = e => {
+        e.preventDefault()
+        if (this.props.onClick) {
+          this.props.onClick()
+        }
       }
     }
 
-    let props = Object.assign({}, this.props, {className}, {onClick})
+    let props = Object.assign({}, this.props, { className }, { onClick })
     delete props.to
     delete props.color
     delete props.size
