@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { searchBooks, handleNotification, changeValue } from 'actions/index'
+import { searchBooks, sendNotification, changeValue } from 'actions/index'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
 import apis from 'utils/apis'
@@ -19,7 +19,7 @@ const syls = {
 interface Props {
   elements?: any
   changeValue?: any
-  handleNotification?: any
+  sendNotification?: any
   notification?: any
   session?: any
 }
@@ -56,10 +56,10 @@ class AddCollection extends Component<Props, State> {
     const data = { name, items, description, creator: this.props.session.user.id }
 
     apis.addCollection(data).then(result => {
-      this.props.handleNotification('添加成功！')
+      this.props.sendNotification('添加成功！')
       this.resetForm()
     }, error => {
-      this.props.handleNotification(error.message)
+      this.props.sendNotification(error.message)
     })
   }
 
@@ -127,5 +127,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { searchBooks, handleNotification, changeValue }
+  { searchBooks, sendNotification, changeValue }
 )(AddCollection as any)

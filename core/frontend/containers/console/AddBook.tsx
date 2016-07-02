@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { handleNotification, changeValue } from 'actions/index'
+import { sendNotification, changeValue } from 'actions/index'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
 import Modal from 'elements/Modal'
@@ -27,7 +27,7 @@ const syls = {
 interface Props {
   elements?: any
   changeValue?: any
-  handleNotification?: any
+  sendNotification?: any
 }
 
 interface State {
@@ -74,10 +74,10 @@ class AddBook extends Component<Props, State> {
     }
 
     apis.addBook(data).then(result => {
-      this.props.handleNotification('添加成功')
+      this.props.sendNotification('添加成功')
       this.resetForm()
     }, error => {
-      this.props.handleNotification(error.message)
+      this.props.sendNotification(error.message)
     })
   }
 
@@ -89,7 +89,7 @@ class AddBook extends Component<Props, State> {
     }
 
     apis.addAuthor(data).then(result => {
-      this.props.handleNotification('添加成功')
+      this.props.sendNotification('添加成功')
       const id = result.ops[0].id
 
       this.setState({
@@ -98,7 +98,7 @@ class AddBook extends Component<Props, State> {
       })
       this.props.changeValue(syls.inputBookAuthor, '')
     }, error => {
-      this.props.handleNotification(error.message)
+      this.props.sendNotification(error.message)
     })
   }
 
@@ -205,7 +205,7 @@ class AddBook extends Component<Props, State> {
           onAddNewValue={value => {
             this.props.changeValue(syls.inputAuthorName, value)
             // todo
-            // this.props.changeValue(syls.inputAuthorSlug, value)
+            this.props.changeValue(syls.inputAuthorSlug, value)
             this.props.changeValue(syls.textareaAuthorDesc, '')
             this.setState({
               isAddAuthorModalVisible: true,
@@ -230,5 +230,5 @@ export default connect(
     notification: state.components.notification,
     elements: state.elements
   }),
-  { handleNotification, changeValue}
+  { sendNotification, changeValue}
 )(AddBook as any)

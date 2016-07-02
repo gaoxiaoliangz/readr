@@ -4,13 +4,20 @@ import { connect } from 'react-redux'
 import Container from 'elements/Container'
 import Icon from 'elements/Icon'
 import ConsoleBranding from 'components/ConsoleBranding'
-import { userAuth, handleNotification } from 'actions/index'
+import { userAuth, sendNotification } from 'actions/index'
 import Notification from 'components/Notification'
 import Body from 'side-effects/Body'
 import menus from './menus'
 
 
-class Console extends Component<any, any> {
+interface Props {
+  notifications?: any
+  userAuth?: any
+  session?: any
+  routing?: any
+}
+
+class Console extends Component<Props, any> {
 
   componentDidMount() {
     this.props.userAuth()
@@ -91,7 +98,24 @@ class Console extends Component<any, any> {
       <div>
         <ConsoleBranding isAdmin={isAdmin} username={username} />
         <Container isFluid={true}>
-          <Notification notification={this.props.notification} />
+          {
+            this.props.notifications.filter(noti => noti.visible).length > 0
+            ? (
+              <div className="notifications">
+                {
+                  this.props.notifications.map((noti, index) => (
+                    <Notification
+                      key={index}
+                      type={noti.type}
+                      message={noti.message}
+                      visible={noti.visible}
+                    />
+                  ))
+                }
+              </div>
+            )
+            : null
+          }
           {this.renderMenu(menus, pathname)}
           <div className="content">
             {this.props.children}
@@ -104,9 +128,9 @@ class Console extends Component<any, any> {
 
 export default connect(
   state => ({
-    notification: state.components.notification,
+    notifications: state.components.notifications,
     session: state.session,
     routing: state.routing
   }),
-  { handleNotification, userAuth } as any
-)(Console)
+  { sendNotification, userAuth }
+)(Console  as any)

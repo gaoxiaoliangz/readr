@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { handleNotification, userAuth } from 'actions/index'
+import { sendNotification, userAuth } from 'actions/index'
 import NavTab from '../components/NavTab'
 import { fetchBooks, fetchCollections } from 'actions/index'
 import BookListSection from 'components/BookListSection'
@@ -22,7 +22,7 @@ class Profile extends Component<any, any> {
     this.props.fetchBooks('newest')
   }
 
-  render(){
+  render() {
     let user = this.props.session.user
     let newestBooks = this.props.newestBooks
 
@@ -52,7 +52,7 @@ function mapStateToProps(state, ownProps) {
   } = state
 
   const genList = (whichPagination) => (
-    whichPagination?whichPagination.ids.map(id => books[id]):[]
+    whichPagination ? whichPagination.ids.map(id => books[id]) : []
   )
 
   return {
@@ -60,7 +60,7 @@ function mapStateToProps(state, ownProps) {
     newestBooks: genList(filteredBooks['newest']),
     session: state.session,
     collection: (() => {
-      for(let prop in collections) {
+      for (let prop in collections) {
         return collections[prop]
       }
     })(),
@@ -70,5 +70,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { handleNotification, userAuth, fetchBooks, fetchCollections } as any
+  { sendNotification, userAuth, fetchBooks, fetchCollections } as any
 )(Profile)

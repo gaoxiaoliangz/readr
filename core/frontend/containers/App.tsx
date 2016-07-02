@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Link, match } from 'react-router'
 import { connect } from 'react-redux'
 import Branding from 'components/Branding'
 import Container from 'elements/Container'
 import Colophon from 'components/Colophon'
-import { userAuth, handleNotification } from 'actions/index'
+import { userAuth } from 'actions/index'
 import Notification from 'components/Notification'
 import { bindActionCreators } from 'redux'
 
@@ -54,7 +54,6 @@ class App extends Component<any, any> {
       <div>
         <Branding isAdmin={isAdmin} username={username} />
         <Container>
-          <Notification notification={this.props.notification} />
           {this.props.children}
         </Container>
         <Colophon />
@@ -70,5 +69,5 @@ export default connect(
     notification: state.components.notification,
     session: state.session
   }),
-  { handleNotification, userAuth } as any
+  { userAuth } as any
 )(App)

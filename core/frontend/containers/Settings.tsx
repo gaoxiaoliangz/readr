@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { handleNotification, userAuth } from 'actions/index'
+import { sendNotification, userAuth } from 'actions/index'
 import NavTab from '../components/NavTab'
 import Body from '../side-effects/Body'
 import Switcher from '../components/Switcher'
@@ -64,5 +64,5 @@ export default connect(
     notification: state.notification,
     session: state.session
   }),
-  { handleNotification, userAuth } as any
+  { sendNotification, userAuth } as any
 )(Profile)

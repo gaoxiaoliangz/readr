@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import ApiRoots from 'constants/ApiRoots'
 import callApi from 'utils/callApi'
-import { handleNotification } from 'actions/index'
-import Notification from 'components/Notification'
+import { sendNotification } from 'actions/index'
 import Branding from 'components/Branding'
 import Input from 'elements/Input'
 import Button from 'elements/Button'
@@ -52,7 +51,6 @@ class Signup extends Component<any, any> {
         <Branding />
         <Container>
           <form className="content-container" method="post" action="/signup">
-            <Notification notification={this.props.notification} />
             <h1 className="page-title">加入 Readr</h1>
             <Input onChange={this.handleInput.bind(this)} value={this.state.username} name="username" placeholder="用户名" />
             <Input onChange={this.handleInput.bind(this)} value={this.state.email} name="email" placeholder="邮箱" />
@@ -71,5 +69,5 @@ export default connect(
     notification: state.components.notification,
     user: state.user
   }),
-  { handleNotification } as any
+  { sendNotification } as any
 )(Signup)

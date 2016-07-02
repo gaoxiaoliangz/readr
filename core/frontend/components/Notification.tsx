@@ -1,12 +1,32 @@
 import React, { Component } from 'react'
+import { MsgType } from 'actions/notification'
+import Icon from '../elements/Icon'
 
-class Notification extends Component<any, any> {
+interface Props {
+  message: string
+  type?: MsgType
+  onRequestClose?: () => void
+  visible: boolean
+}
+
+class Notification extends Component<Props, {}> {
   render() {
-    let notification = this.props.notification
-
+    const type = this.props.type ? this.props.type : 'success'
     return (
       <div>
-        { notification.isVisible?(<div className="msg mui--z1">{notification.content}</div>):null }
+        {
+          this.props.visible && (
+            <div
+              className={`notification notification--${type} z1`.trim()}
+            >
+              <Icon
+                onClick={this.props.onRequestClose}
+                name="close"
+              />
+              {this.props.message}
+            </div>
+          )
+        }
       </div>
     )
   }

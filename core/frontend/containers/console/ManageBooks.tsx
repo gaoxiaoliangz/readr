@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { fetchBooks } from 'actions/index'
 import Body from 'side-effects/Body'
 import apis from 'utils/apis'
-import { handleNotification } from 'actions/index'
+import { sendNotification } from 'actions/index'
 
 
 interface Props {
-  handleNotification?: any
+  sendNotification?: any
   fetchBooks?: any
   bookListNewest?: any
 }
@@ -51,7 +51,7 @@ class ManageBooks extends Component<Props, any> {
                       onClick={e => {
                         e.preventDefault()
                         apis.deleteBook(book.id).then(res => {
-                          this.props.handleNotification('删除成功！')
+                          this.props.sendNotification('删除成功！')
                           this.props.fetchBooks()
                         })
                         return false
@@ -85,5 +85,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, handleNotification }
+  { fetchBooks, sendNotification }
 )(ManageBooks as any)

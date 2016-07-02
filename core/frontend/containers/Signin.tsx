@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import ApiRoots from 'constants/ApiRoots'
 import callApi from 'utils/callApi'
-import { handleNotification } from 'actions/index'
+import { sendNotification } from 'actions/index'
 import Notification from 'components/Notification'
 import Branding from 'components/Branding'
 import Input from 'elements/Input'
@@ -51,7 +51,6 @@ class Signin extends Component<any, any> {
         <Branding />
         <Container>
           <form className="content-container" action={`${ApiRoots.LOCAL}auth`} method="post">
-            <Notification notification={this.props.notification} />
             <h1 className="page-title">欢迎回来</h1>
             <Input onChange={this.handleInput.bind(this)} value={this.state.login} name="login" placeholder="用户名或邮箱" />
             <Input onChange={this.handleInput.bind(this)} value={this.state.password} name="password" placeholder="密码" type="password" />
@@ -69,5 +68,5 @@ export default connect(
     notification: state.components.notification,
     user: state.user
   }),
-  { handleNotification } as any
+  { sendNotification } as any
 )(Signin)
