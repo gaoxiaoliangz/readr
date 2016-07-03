@@ -33,7 +33,7 @@ class Home extends Component<any, State> {
   componentWillReceiveProps(nextProps) {
     if (this.props.session.isFetching && !nextProps.session.isFetching) {
       if (nextProps.session.user.role !== 'visitor') {
-        this.props.fetchBooks('user')
+        // this.props.fetchBooks('user')
         this.setState({
           showRecentReading: true
         })
@@ -49,12 +49,12 @@ class Home extends Component<any, State> {
         link: `/book/${book.id}`
       }
     })
-    let userBooks = this.props.userBooks.map((book, index) => {
-      return {
-        name: book.title,
-        link: `/book/${book.id}`
-      }
-    })
+    // let userBooks = this.props.userBooks.map((book, index) => {
+    //   return {
+    //     name: book.title,
+    //     link: `/book/${book.id}`
+    //   }
+    // })
     let listName = this.props.collection ? this.props.collection.name : ''
     let list = this.props.collection ? this.props.collection.items : []
 
@@ -80,7 +80,7 @@ class Home extends Component<any, State> {
           <div className="col-md-4">
             {
               this.state.showRecentReading ? (
-                <CandyBox title="最近阅读" list={userBooks} />
+                <CandyBox title="最近阅读" list={[]} />
               ) : null
             }
           </div>
@@ -101,8 +101,11 @@ function mapStateToProps(state, ownProps) {
   )
 
   return {
-    userBooks: genList(filteredBooks['user']),
-    newestBooks: genList(filteredBooks['newest']),
+    userBooks: [],
+    // newestBooks: genList(filteredBooks['newest']),
+    newestBooks: state.pagination.books.newest
+      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
+      : [],
     session: state.session,
     collection: (() => {
       for (let prop in collections) {

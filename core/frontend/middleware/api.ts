@@ -1,5 +1,6 @@
 import callApi from 'utils/callApi'
 import ApiRoots from 'constants/ApiRoots'
+import _ from 'lodash'
 
 export default store => next => action => {
   const CALL_API = action.CALL_API
@@ -9,7 +10,7 @@ export default store => next => action => {
 
   let { endpoint, apiUrl, extendedOptions } = CALL_API
   const { types, schema } = CALL_API
-  const [ requestType, successType, failureType ] = types
+  const [requestType, successType, failureType] = types
 
   function actionWith(data) {
     const finalAction = Object.assign({}, action, data)
@@ -17,20 +18,20 @@ export default store => next => action => {
     return finalAction
   }
 
-  next(actionWith({type: requestType}))
+  next(actionWith({ type: requestType }))
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
   }
 
-  if(typeof apiUrl === 'undefined') {
+  if (typeof apiUrl === 'undefined') {
     apiUrl = ApiRoots.LOCAL
   }
 
   const fullUrl = apiUrl + endpoint
   let options = { schema }
 
-  if(typeof extendedOptions !== 'undefined') {
+  if (typeof extendedOptions !== 'undefined') {
     options = Object.assign({}, options, extendedOptions)
   }
 

@@ -7,7 +7,7 @@ import _ from 'lodash'
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { books: {}, users: {} }, action) {
   if (action.response && action.response.entities) {
-    return Object.assign({}, state, action.response.entities)
+    return _.merge({}, state, action.response.entities)
   }
 
   return state
@@ -57,8 +57,8 @@ const pagination = combineReducers({
   //   mapActionToKey: action => action.filter,
   //   types: ['BOOK_LIST_REQUEST', 'BOOK_LIST_SUCCESS', 'BOOK_LIST_FAILURE']
   // }),
-  filteredBooks: paginate({
-    mapActionToKey: action => 'newest',
+  books: paginate({
+    mapActionToKey: action => action.flowType,
     types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE']
   }),
   userList: paginate({

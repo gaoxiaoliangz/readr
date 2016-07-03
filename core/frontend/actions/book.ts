@@ -12,12 +12,14 @@ export function fetchBookProgress(bookId) {
   }
 }
 
-export function fetchBooks() {
+export function fetchBooks(flowType: 'newest' | 'hot' = 'newest') {
   return {
+    // for paginate
+    flowType,
     CALL_API: {
       types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
       endpoint: `books?exclude=content`,
-      schema: Schemas.BOOK_ARRAY
+      schema: Schemas.BOOK_ARRAY,
     }
   }
 }

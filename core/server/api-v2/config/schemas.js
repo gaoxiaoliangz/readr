@@ -56,7 +56,7 @@ const schemas = {
         type: DataTypes.arrayOf(DataTypes.ID),
         ref: {
           table: 'books',
-          fields: ['_id', 'title', 'author', 'description']
+          fields: ['_id', 'title', 'author', 'description', 'cover']
         }
       },
       description: {},

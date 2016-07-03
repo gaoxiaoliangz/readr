@@ -2,17 +2,11 @@ import _ from 'lodash'
 
 // Creates a reducer managing pagination, given the action types to handle,
 // and a function telling how to extract the key from an action.
-export default function paginate({ types, mapActionToKey }) {
-  if (!Array.isArray(types) || types.length !== 3) {
-    throw new Error('Expected types to be an array of three elements.')
-  }
-  if (!types.every(t => typeof t === 'string')) {
-    throw new Error('Expected types to be strings.')
-  }
-  if (typeof mapActionToKey !== 'function') {
-    throw new Error('Expected mapActionToKey to be a function.')
-  }
-
+// todo: types length should be 3
+export default function paginate({ types, mapActionToKey }: {
+  types: Array<string>
+  mapActionToKey: (action: any) => string
+}) {
   const [ requestType, successType, failureType ] = types
 
   function updatePagination(state = {
@@ -48,7 +42,7 @@ export default function paginate({ types, mapActionToKey }) {
       case requestType:
       case successType:
       case failureType:
-        const key = mapActionToKey(action)
+        const key: string = mapActionToKey(action)
 
         if (typeof key !== 'string') {
           throw new Error('Expected key to be a string.')

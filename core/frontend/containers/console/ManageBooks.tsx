@@ -69,17 +69,10 @@ class ManageBooks extends Component<Props, any> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {
-    pagination: { filteredBooks },
-    entities: { books }
-  } = state
-
-  const genList = (whichPagination) => (
-    whichPagination ? whichPagination.ids.map(id => books[id]) : []
-  )
-
   return {
-    bookListNewest: genList(filteredBooks['newest'])
+    bookListNewest: state.pagination.books.newest
+      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
+      : [],
   }
 }
 
