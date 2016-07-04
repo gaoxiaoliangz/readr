@@ -47,79 +47,6 @@ function parseIds(ids) {
   return ids2
 } 
 
-// function embedRef(rawResults, schema) {
-//   const refFields = getRefFields(schema.fields)
-
-//   if (rawResults.length === 0) {
-//     return Promise.resolve([])
-//   }
-
-// //   return Promise.all(rawResults.map(res => {
-// //     return res
-// // // return Promise.resolve({
-// // //   a: 1,
-// // //   b: Promise.resolve(2)
-// // // })
-
-// // // return Promise.all([Promise.resolve(1), 2])
-// //     // return _.mapValues(res, (val, key) => {
-// //     //   if (key === 'name') {
-// //     //     return Promise.resolve('fuck')
-// //     //   }
-
-// //     //   return val + 'fucked'
-// //     // })
-// //   }))
-
-//   return Promise.all(rawResults.map(result => {
-//     let embedResult = {}
-    
-//     Object.keys(result).forEach(key => {
-//       if (refFields.indexOf(key) !== -1) {
-//         const table = schema.fields[key].ref.table
-        
-//         if (schema.fields[key].type.isArray()) {
-//           const ids = parseIds(val)
-//           return Promise.all(ids.map(id => {
-//             return fetchDataById(id, table).then(res => {
-//               // console.log(res)
-//               return Promise.resolve(res)
-//             })
-//           }))
-//         }
-        
-//         const id = val
-//         return fetchDataById(id, table)
-//       }
-//       return val
-//     })
-
-
-//     return _.mapValues(result, (val, key) => {
-//       if (refFields.indexOf(key) !== -1) {
-//         const table = schema.fields[key].ref.table
-        
-//         if (schema.fields[key].type.isArray()) {
-//           const ids = parseIds(val)
-//           return Promise.all(ids.map(id => {
-//             return fetchDataById(id, table).then(res => {
-//               // console.log(res)
-//               return Promise.resolve(res)
-//             })
-//           }))
-//         }
-        
-//         const id = val
-//         return fetchDataById(id, table)
-//       }
-//       // return val
-//       // return 'fucked'
-//       return Promise.resolve('fucked')
-//     }))
-//   }))
-// }
-
-
 // prepare ref fields
 // output = Array<{
 //   name,
@@ -155,6 +82,8 @@ function getRefFieldsWithIds(rawResult, schema) {
     })
 }
 
+// 问题真多！！！
+let warning = []
 
 // take array as param
 function embedRef(rawResults, schema) {
@@ -186,8 +115,8 @@ function embedRef(rawResults, schema) {
                       newResults = _.pick(rawRefResults[0], field.ref.fields)
                     }
                   } else {
-                    // newResults = {}
                     newResults = null
+                    warning.push(`${field.name} with id: ${id} not found! `)
                   }
 
                   return Promise.resolve(newResults)
@@ -208,13 +137,12 @@ function embedRef(rawResults, schema) {
         })
       ).then(dataResults => {
         let fieldData
+
         if (field.type.isArray()) {
           const resultWithNoEmptyItem = dataResults.filter(r => {
             return !_.isEmpty(r)
           })
-          // 这边直接将 404 的 ref 过滤掉了
-          // 而且也不报错
-          // 暂时不知道会产生什么问题
+
           if (resultWithNoEmptyItem.length !== 0) {
             fieldData = resultWithNoEmptyItem
           } else {
@@ -224,7 +152,11 @@ function embedRef(rawResults, schema) {
           fieldData = dataResults[0]
         }
 
-        return Promise.resolve({ [field.name]: fieldData })
+        const dataToResolve = {
+          [field.name]: fieldData
+        }
+
+        return Promise.resolve(dataToResolve)
       })
     })
   }
@@ -236,9 +168,11 @@ function embedRef(rawResults, schema) {
       return Promise.all(getRefFieldsWithData(fieldsWithIds))
         .then(newFields => {
           let embedResult = {}
+
           newFields.forEach(newField => {
             embedResult = Object.assign({}, embedResult, newField)
           })
+          embedResult.warning = warning
 
           return Promise.resolve(Object.assign({}, rawResult, embedResult))
         })
