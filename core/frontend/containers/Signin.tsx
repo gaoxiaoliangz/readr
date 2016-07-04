@@ -4,7 +4,6 @@ import { Link, browserHistory } from 'react-router'
 import ApiRoots from 'constants/ApiRoots'
 import callApi from 'utils/callApi'
 import { sendNotification } from 'actions/index'
-import Notification from 'components/Notification'
 import Branding from 'components/Branding'
 import Input from 'elements/Input'
 import Button from 'elements/Button'
@@ -34,8 +33,8 @@ class Signin extends Component<any, any> {
         browserHistory.push('/')
       }, 600)
     }).catch((err) => {
-      console.log(err);
-      
+      console.log(err)
+
       this.props.handleNotification(err.message)
     })
   }

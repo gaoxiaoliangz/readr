@@ -3,7 +3,9 @@
 class Type {
   constructor(mark, isTypeArray) {
     this.mark = mark
-    this.isTypeArray = isTypeArray
+    this.isTypeArray = typeof isTypeArray === 'undefined'
+      ? false
+      : isTypeArray
   }
 
   isArray() {
@@ -18,21 +20,11 @@ class Type {
   }
 }
 
-
-// const DataTypes = {
-//   String: 'String',
-//   Array: 'Array',
-//   Number: 'Number',
-//   ID: 'ID',
-//   arrayOf: function ArrayOf(type) {
-//     return `ArrayOf${type}`
-//   }
-// }
-
 const DataTypes = {
   String: new Type('STRING'),
   Number: new Type('NUMBER'),
   ID: new Type('ID'),
+  Text: new Type('TEXT'),
   arrayOf(type) {
     return new Type(type.mark, true)
   }

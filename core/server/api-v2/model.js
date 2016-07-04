@@ -3,146 +3,36 @@ const config = require('../config')
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
-const schemas = require('./config/schemas')
+const DataTypes = require('./data-types')
+const parseTextToHtml = require('../utils/data').parseTextToHtml
+const embedRef = require('./embedref')
 // const errors = require('../errors')
 // const i18n = require('../utils/i18n')
 
 
-function getCollection(table) {
-  const dbConnect = MongoClient.connect(config.db.host + config.db.name)
-  return dbConnect.then(db => {
-    return Promise.resolve(db.collection(table))
+function dataConvention(schema, data) {
+  const arrayTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
+    && schema.fields[key].type.isArray())
+
+  const textTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
+    && schema.fields[key].type.equals(DataTypes.Text))
+
+  // 处理特殊格式
+  return _.mapValues(data, (val, key) => {
+    if (arrayTypedFieldKeys.indexOf(key) !== -1 && !Array.isArray(val)) {
+      return val.split(',')
+    }
+
+    // convert Text type to raw and html
+    if (textTypedFieldKeys.indexOf(key) !== -1) {
+      return {
+        html: parseTextToHtml(val),
+        raw: val
+      }
+    }
+
+    return val
   })
-}
-
-function getSchemaByTable(table) {
-  const schema = _.filter(schemas, val => {
-    return (val.baseTable === table)
-  })[0]
-
-  return schema
-}
-
-function doesRefTableHaveRefInItsSchema(table) {
-  const schema = getSchemaByTable(table)
-  const keysWithRef = _.filter(schema.fields, val => Boolean(val.ref))
-  return keysWithRef.length !== 0
-}
-
-// take array as param
-function embedRef(rawResults, schema) {
-  if (rawResults.length === 0) {
-    return Promise.resolve([])
-  }
-
-  // handle ref
-  // ------------------------------------------------------------------------
-  // output something like this
-  // refFields = [{
-  //   name,
-  //   type,
-  //   ids,
-  //   ref: {
-  //     table,
-  //     fields
-  //   }
-  // }]
-  const getRefFieldsWithIds = (rawResult) => {
-    return Object.keys(schema.fields)
-      .filter(key => {
-        return (typeof schema.fields[key].ref !== 'undefined')
-      })
-      .map(key => {
-        // 使用了新的 type 定义方式
-        let ids = []
-        if (schema.fields[key].type.isArray()) {
-          ids = rawResult[key]
-          if (typeof ids === 'string') {
-            ids = []
-            // throw new Error('Reference id invalid!')
-            console.error('Reference id invalid!')
-          }
-        } else {
-          // todo: 检查 id 是否可用？
-          ids = [rawResult[key]]
-        }
-        return Object.assign({}, schema.fields[key], {
-          name: key,
-          ids
-        })
-      })
-  }
-
-  // fetch ref data
-  // ------------------------------------------------------------------------
-  // output something like this
-  // [{
-  //   fieldName: fetchedData
-  // }]
-  const getRefFieldsWithData = (fieldsWithRefIds) => {
-    return fieldsWithRefIds.map(field => {
-      // 一个 field 里面的 ids 返回的查询结果
-      return Promise.all(
-        field.ids.map(id => {
-          return getCollection(field.ref.table).then(collection => {
-            return collection.find({ _id: id })
-              .toArray()
-              .then(results => {                
-                const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
-
-                const filterResults = rawRefResults => {
-                  let newResults = rawRefResults[0]
-
-                  if (typeof rawRefResults === 'object') {
-                    // 如果 fields 为空数组则将字段全部无保留输出
-                    if (field.ref.fields.length !== 0) {
-                      newResults = _.pick(rawRefResults[0], field.ref.fields)
-                    }
-                  } else {
-                    newResults = {}
-                  }
-
-                  return Promise.resolve(newResults)
-                }
-
-                if (isRefInRef) {
-                  const refSchema = getSchemaByTable(field.ref.table)
-                  // 递归很强大！！
-                  return embedRef(results, refSchema).then(reRefedResult => filterResults(reRefedResult))
-                }
-
-                return filterResults(results)
-              }, err => {
-                console.error(err)
-                Promise.reject(err)
-              })
-          })
-        })
-      ).then(dataResults => {
-        return Promise.resolve({
-          // 使用了新的 type 定义方式
-          // todo: 检查可用性
-          [field.name]: field.type.isArray() ? dataResults : dataResults[0]
-        })
-      })
-    })
-  }
-
-  return Promise.all(
-    rawResults.map(rawResult => {
-      const filedsWithIds = getRefFieldsWithIds(rawResult)
-
-      return Promise.all(getRefFieldsWithData(filedsWithIds))
-        .then(newFields => {
-          let embedResult = {}
-          newFields.forEach(newField => {
-            embedResult = Object.assign({}, embedResult, newField)
-          })
-
-          return Promise.resolve(Object.assign(rawResult, embedResult))
-        })
-    })
-  )
 }
 
 class Model {
@@ -198,15 +88,7 @@ class Model {
       date_created: new Date().toString()
     })
 
-    const arrayTypedFieldKeys = Object.keys(this.schema.fields).filter(key => this.schema.fields[key].type
-      && this.schema.fields[key].type.isArray())
-
-    data2 = _.mapValues(data2, (val, key) => {
-      if (arrayTypedFieldKeys.indexOf(key) !== -1 && !Array.isArray(val)) {
-        return val.split(',')
-      }
-      return val
-    })
+    data2 = dataConvention(this.schema, data2)
 
     return this.collection.then(collection => {
       return collection.insert([data2])
@@ -214,6 +96,7 @@ class Model {
   }
 
   update(data, multi) {
+    // todo: 添加特殊格式处理
     const data2 = Object.assign({}, data, {
       date_updated: new Date().toString()
     })

@@ -39,6 +39,7 @@ const schemas = {
       cover: {},
       content: {
         required: true,
+        type: DataTypes.Text
       },
     }
   },

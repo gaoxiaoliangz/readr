@@ -3,9 +3,9 @@
 const data = {
   parseTextToHtml(str) {
     let html = ''
-    let paragraphs = str.split("\n")
+    const paragraphs = str.split('\n')
 
-    for(let i = 0; i < paragraphs.length; i++){
+    for (let i = 0; i < paragraphs.length; i++) {
       html += '<p>' + paragraphs[i] + '</p>'
     }
 
