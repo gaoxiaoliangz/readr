@@ -26,24 +26,20 @@ function getCollection(table) {
   })
 }
 
-function getRefFields(fields) {
-  return Object.keys(fields).filter(key => {
-    return (typeof fields[key].ref !== 'undefined')
-  })
-}
-
 function fetchDataById(id, table) {
   return getCollection(table).then(collection => {
     return collection.find({ _id: id }).toArray()
   })
 }
 
+// 将 ids 通通转换为数组
+// 这里包括本该传数组却得到字符串被转换的情况
 function parseIds(ids) {
   let ids2 = ids
   if (typeof ids === 'string') {
     ids2 = [ids]
-    console.error('WARNING: Ref id 应该为数组，却得到字符串，现在将字符串封装为第一个元素为该字符串的数组！')
   }
+
   return ids2
 } 
 
@@ -63,29 +59,38 @@ function getRefFieldsWithIds(rawResult, schema) {
       return (typeof schema.fields[key].ref !== 'undefined')
     })
     .map(key => {
-      // 使用了新的 type 定义方式
-      let ids = []
-      if (schema.fields[key].type.isArray()) {
-        ids = rawResult[key]
-        if (typeof ids === 'string') {
-          ids = [ids]
-          console.error('WARNING: Ref id 应该为数组，却得到字符串，现在将字符串封装为第一个元素为该字符串的数组！')
-        }
-      } else {
-        // todo: 检查 id 是否可用？
-        ids = [rawResult[key]]
-      }
       return Object.assign({}, schema.fields[key], {
         name: key,
-        ids
+        ids: parseIds(rawResult[key])
       })
     })
 }
 
-// 问题真多！！！
-let warning = []
+// 并且添加相应错误信息
+function filterRefResult(rawRefResult, schemaField, id) {
+  let newResults = rawRefResult
 
-// take array as param
+  if (typeof rawRefResult === 'object') {
+    // 如果 fields 为空数组则将字段全部无保留输出
+    if (schemaField.ref.fields.length !== 0) {
+      newResults = _.pick(rawRefResult, schemaField.ref.fields)
+      return { ref_data: newResults }
+    }
+
+    return { ref_data: newResults }
+  }
+
+  return {
+    ref_error: {
+      // 不使用 i18n, 该信息不会直接向终端用户展示
+      id,
+      field_name: schemaField.name,
+      message: `${schemaField.name} with id ${id} not found! `
+    }
+  }
+}
+
+// rawResults 必须为数组
 function embedRef(rawResults, schema) {
   if (rawResults.length === 0) {
     return Promise.resolve([])
@@ -100,40 +105,21 @@ function embedRef(rawResults, schema) {
       // 一个 field 里面的 ids 返回的查询结果
       return Promise.all(
         field.ids.map(id => {
-          return getCollection(field.ref.table).then(collection => {
-            return collection.find({ _id: id })
-              .toArray()
-              .then(results => {
-                const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
+          return fetchDataById(id, field.ref.table)
+            .then(results => {
+              const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
 
-                const filterResults = rawRefResults => {
-                  let newResults = rawRefResults[0]
+              if (isRefInRef) {
+                const refSchema = getSchemaByTable(field.ref.table)
+                // 递归很强大！！
+                return embedRef(results, refSchema).then(reRefedResult => filterRefResult(reRefedResult[0], field, id))
+              }
 
-                  if (rawRefResults.length !== 0 && typeof rawRefResults === 'object') {
-                    // 如果 fields 为空数组则将字段全部无保留输出
-                    if (field.ref.fields.length !== 0) {
-                      newResults = _.pick(rawRefResults[0], field.ref.fields)
-                    }
-                  } else {
-                    newResults = null
-                    warning.push(`${field.name} with id: ${id} not found! `)
-                  }
-
-                  return Promise.resolve(newResults)
-                }
-
-                if (isRefInRef) {
-                  const refSchema = getSchemaByTable(field.ref.table)
-                  // 递归很强大！！
-                  return embedRef(results, refSchema).then(reRefedResult => filterResults(reRefedResult))
-                }
-
-                return filterResults(results)
-              }, err => {
-                console.error(err)
-                Promise.reject(err)
-              })
-          })
+              return filterRefResult(results[0], field, id)
+            }, err => {
+              console.error(err)
+              Promise.reject(err)
+            })
         })
       ).then(dataResults => {
         let fieldData
@@ -172,7 +158,6 @@ function embedRef(rawResults, schema) {
           newFields.forEach(newField => {
             embedResult = Object.assign({}, embedResult, newField)
           })
-          embedResult.warning = warning
 
           return Promise.resolve(Object.assign({}, rawResult, embedResult))
         })
