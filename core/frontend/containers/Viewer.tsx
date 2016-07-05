@@ -38,7 +38,7 @@ interface State {
 }
 
 class Viewer extends Component<any, any> {
-  
+
   bookId: number
   mapScrollTopToState: () => void
   mapWindowWidthToState: () => void
@@ -46,8 +46,8 @@ class Viewer extends Component<any, any> {
   checkAndSetProgress: () => void
   deboundedSetProgress: () => void
   refs: {
-      [string: string]: any
-      bookHtml: any
+    [string: string]: any
+    bookHtml: any
   }
 
   constructor(props) {
@@ -76,7 +76,7 @@ class Viewer extends Component<any, any> {
 
   toggleViewerPreference() {
     console.log('test');
-    
+
     this.setState({
       showViewerPreference: !this.state.showViewerPreference
     });
@@ -87,13 +87,13 @@ class Viewer extends Component<any, any> {
     let pageHeight = this.state.calculatedPages.props.view.pageHeight
     let height = pageCount * pageHeight
 
-    if(position < 1) {
+    if (position < 1) {
       this.setState({
         currentPage: renderBook.percentageToPage(position, pageCount) as any,
         scrollTop: position * height
       })
       document.body.scrollTop = pageCount * pageHeight * position
-    }else{
+    } else {
       this.setState({
         currentPage: position,
         scrollTop: height * position / pageCount
@@ -124,15 +124,15 @@ class Viewer extends Component<any, any> {
     this.checkAndSetProgress = () => {
       let currentPageNo = this.props.book.pageNo
       this.props.actions.fetchBookProgress(this.bookId).then(action => {
-        if(this.props.book.pageNo - currentPageNo > 5) {
+        if (this.props.book.pageNo - currentPageNo > 5) {
           this.setState({
             showProgressDialog: true,
             latestProgress: this.props.book.percentage
           })
-        }else{
+        } else {
           let pageSum = this.state.calculatedPages.props.children.length
           let height = pageSum * this.state.view.pageHeight
-          let percentage = this.state.scrollTop/height
+          let percentage = this.state.scrollTop / height
           let pageNo = renderBook.percentageToPage(percentage, pageSum)
 
           let progress = {
@@ -163,14 +163,14 @@ class Viewer extends Component<any, any> {
   }
 
   toggleBookPanel(event) {
-    if(this.state.calculatedPages.props.view.screen === 'hd') {
+    if (this.state.calculatedPages.props.view.screen === 'hd') {
       var y = event.pageY - document.body.scrollTop
 
-      if(y < 90){
+      if (y < 90) {
         this.setState({
           showPanel: true
         })
-      }else{
+      } else {
         this.setState({
           showPanel: false
         })
@@ -179,7 +179,7 @@ class Viewer extends Component<any, any> {
   }
 
   clickToToggleBookPanel() {
-    if(this.state.calculatedPages.props.view.screen === 'phone') {
+    if (this.state.calculatedPages.props.view.screen === 'phone') {
       this.setState({
         showPanel: !this.state.showPanel
       })
@@ -207,7 +207,7 @@ class Viewer extends Component<any, any> {
     let pages = getCache(`book${bookId}_pages`)
 
     // check if pages are cached
-    if(pages){
+    if (pages) {
       pages = JSON.parse(pages)
 
       this.setState({
@@ -221,14 +221,14 @@ class Viewer extends Component<any, any> {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(nextProps.book && nextProps.book.content && nextProps.book.content.html && !this.props.book.content) {
+    if (nextProps.book && nextProps.book.content && nextProps.book.content.html && !this.props.book.content) {
       this.setState({
         isCalculatingDom: true,
         bookHtml: nextProps.book.content.html
       })
     }
 
-    if(!simpleCompareObjects(this.state.view, nextState.view)) {
+    if (!simpleCompareObjects(this.state.view, nextState.view)) {
       this.setState({
         isCalculatingDom: true,
       })
@@ -236,12 +236,12 @@ class Viewer extends Component<any, any> {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.isCalculatingDom && !prevState.isCalculatingDom) {
+    if (this.state.isCalculatingDom && !prevState.isCalculatingDom) {
       this.calculateDom()
     }
 
     // scroll to previous reading progress when opening a book
-    if(this.props.book && this.props.book.percentage && this.state.calculatedPages && !this.state.isInitialProgressSet) {
+    if (this.props.book && this.props.book.percentage && this.state.calculatedPages && !this.state.isInitialProgressSet) {
       setTimeout(() => {
         this.scrollTo(this.props.book.percentage)
         this.setState({
@@ -276,7 +276,7 @@ class Viewer extends Component<any, any> {
     let bookId = this.props.params.id
     let view = calculatedPages.props.view
     let height = calculatedPages.props.children.length * view.pageHeight
-    let currentPage = renderBook.percentageToPage(scrollTop/height, calculatedPages.props.children.length)
+    let currentPage = renderBook.percentageToPage(scrollTop / height, calculatedPages.props.children.length)
 
     let pages = renderBook.filterPages({
       startPage: currentPage,
@@ -286,7 +286,7 @@ class Viewer extends Component<any, any> {
     })
 
     return (
-      <div onClick={this.clickToToggleBookPanel.bind(this)}>
+      <div onClick={this.clickToToggleBookPanel.bind(this) }>
         <BookPageList height={height} view={view} bookId={bookId} pages={pages} />
       </div>
     )
@@ -316,26 +316,26 @@ class Viewer extends Component<any, any> {
     ]
 
     return (
-      <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this)} >
+      <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this) } >
         <Body className="viewer" />
         {
-          !book.content && !this.state.calculatedPages ?(
+          !book.content && !this.state.calculatedPages ? (
             <Loading />
-          ):null
+          ) : null
         }
         {
-          this.state.showProgressDialog? (
+          this.state.showProgressDialog ? (
             <Dialog actions={actions} content="are you sure?"/>
-          ):null
+          ) : null
         }
         <ReactCSSTransitionGroup
           component="div"
           transitionName="slide"
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
-        >
+          >
           {
-            (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference ?(
+            (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference ? (
               <div className="viewer-panel">
                 <div className="container">
                   <div className="back">
@@ -359,22 +359,22 @@ class Viewer extends Component<any, any> {
                   {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
                 </div>
               </div>
-            ):null
+            ) : null
           }
         </ReactCSSTransitionGroup>
         {
-          (this.state.isCalculatingDom && this.state.bookHtml)?(
+          (this.state.isCalculatingDom && this.state.bookHtml) ? (
             <ul className="pages">
               <li>
-                <div ref="bookHtml" className="content" dangerouslySetInnerHTML={{__html: this.state.bookHtml}}></div>
+                <div ref="bookHtml" className="content" dangerouslySetInnerHTML={{ __html: this.state.bookHtml }}></div>
               </li>
             </ul>
-          ):null
+          ) : null
         }
         {
-          this.state.isReadingMode?(
+          this.state.isReadingMode ? (
             this.renderBook()
-          ):null
+          ) : null
         }
         {
           <ViewerScrollbar current={20} total={309} />
@@ -387,7 +387,7 @@ class Viewer extends Component<any, any> {
 export default connect(
   (state, ownProps: any) => {
     return {
-      book: state.entities.books[ownProps.params.id]?state.entities.books[ownProps.params.id]:{},
+      book: state.entities.books[ownProps.params.id] ? state.entities.books[ownProps.params.id] : {},
       session: state.session
     }
   },
