@@ -75,7 +75,11 @@ class Home extends Component<PropsWithReduxState, State> {
           }
           <div className="col-md-8">
             <BookListSection bookEntities={newestBooks} title="新书速递" />
-            <BookListSection bookEntities={list} title={listName} moreLink="/collection" />
+            <BookListSection
+              bookEntities={list}
+              title={listName}
+              moreLink={`/collections/${this.props.collection ? this.props.collection.id : ''}`}
+            />
             <Link className="view-more" to="/collections">浏览更多书单 ></Link>
           </div>
           <div className="col-md-4">

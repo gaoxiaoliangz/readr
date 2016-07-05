@@ -1,35 +1,45 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Button from '../elements/Button'
+import { fetchCollection } from 'actions/index'
+import BookList from '../components/BookList'
 
 interface Props {
   name: string
+  fetchCollection: any
+  params: any
+  bookCollection: any
 }
 
-class Collection extends Component<Props, any> {
+class Collection extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
   }
 
+  componentDidMount() {
+    this.props.fetchCollection(this.props.params.id)
+  }
+
   render() {
+    const bookCollection = this.props.bookCollection ? this.props.bookCollection : { items: [] }
+    const items = bookCollection.items
+      .filter(item => item.refData)
+      .map(item => item.refData)
+
     return (
       <div className="collection">
         <div className="page-header">
-          <div className="page-title">书单名称</div>
+          <div className="page-title">{bookCollection.name}</div>
           <div className="sub-title">10 本书</div>
           <div className="book-slider">
-            <ul>
-              <li>01</li>
-              <li>02</li>
-              <li>03</li>
-            </ul>
+            <BookList bookEntities={items} />
           </div>
           <Button>收藏</Button>
         </div>
         <div className="page-content">
-          <p>内容。。。</p>
+          <p>{bookCollection.description}</p>
         </div>
       </div>
     )
@@ -37,5 +47,8 @@ class Collection extends Component<Props, any> {
 }
 
 export default connect(
-
+  (state, ownProps: any) => {
+    return { bookCollection: state.entities.bookCollections[ownProps.params.id] }
+  },
+  { fetchCollection }
 )(Collection as any)

@@ -25,7 +25,7 @@ export default (
         <Route path="shelf" component={BookShelf} />
         <Route path="settings" component={Settings} />
         <Route path="browse" component={Archive} />
-        <Route path="collection" component={Collection} />
+        <Route path="collections/:id" component={Collection} />
         <Route path="collections" component={ArchivedCollection} />
       </Route>
       <Route path="signin" component={Signin} />
