@@ -41,8 +41,9 @@ export function fetchBook(bookId, fields?: Array<any>) {
   }
 }
 
-export function fetchCollections() {
+export function fetchCollections(flowType: 'newest' | 'hot' = 'newest') {
   return {
+    flowType,
     CALL_API: {
       types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE'],
       endpoint: `collections`,

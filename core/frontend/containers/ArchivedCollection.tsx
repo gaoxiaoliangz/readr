@@ -1,15 +1,21 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { fetchCollections } from 'actions/index'
 
 interface Props {
-  name: string
+  fetchCollections: any
+  newestCollections: Array<any>
 }
 
-class ArchivedCollection extends Component<Props, any> {
+class ArchivedCollection extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    this.props.fetchCollections()
   }
 
   render() {
@@ -17,11 +23,17 @@ class ArchivedCollection extends Component<Props, any> {
       <div className="archived-collection">
         <div className="page-title">往期书单</div>
         <ul>
-          <li>书单01</li>
-          <li>书单02</li>
-          <li>书单03</li>
-          <li>书单04</li>
-          <li>书单05</li>
+          {
+            this.props.newestCollections.length !== 0
+              && this.props.newestCollections.map((coll, index) => {
+                return (
+                  <li key={index}>
+                    <h2>{coll.name}</h2>
+                    <p>{coll.description}</p>
+                  </li>
+                )
+              })
+          }
         </ul>
         <div className="page-load-more">加载更多</div>
       </div>
@@ -30,5 +42,10 @@ class ArchivedCollection extends Component<Props, any> {
 }
 
 export default connect(
-
+  state => ({
+    newestCollections: state.pagination.bookCollections.newest
+      ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id])
+      : []
+  }),
+  { fetchCollections }
 )(ArchivedCollection as any)

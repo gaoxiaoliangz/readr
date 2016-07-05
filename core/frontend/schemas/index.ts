@@ -4,7 +4,7 @@ const book = new Schema('books', {
   idAttribute: 'id'
 })
 
-const collection = new Schema('collections', {
+const collection = new Schema('bookCollections', {
   idAttribute: 'id'
 })
 

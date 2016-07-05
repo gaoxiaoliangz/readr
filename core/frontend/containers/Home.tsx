@@ -100,8 +100,8 @@ function mapStateToProps(state, ownProps) {
     session: state.session,
     // todo: collection pagination
     collection: (() => {
-      for (let prop in state.entities.collections) {
-        return state.entities.collections[prop]
+      for (let prop in state.entities.bookCollections) {
+        return state.entities.bookCollections[prop]
       }
     })()
   }

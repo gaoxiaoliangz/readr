@@ -5,7 +5,7 @@ import paginate from './paginate'
 import _ from 'lodash'
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = { books: {}, users: {} }, action) {
+function entities(state = { books: {}, users: {}, bookCollections: {} }, action) {
   if (action.response && action.response.entities) {
     return _.merge({}, state, action.response.entities)
   }
@@ -60,6 +60,10 @@ const pagination = combineReducers({
   books: paginate({
     mapActionToKey: action => action.flowType,
     types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE']
+  }),
+  bookCollections: paginate({
+    mapActionToKey: action => action.flowType,
+    types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE']
   }),
   userList: paginate({
     // TODO
