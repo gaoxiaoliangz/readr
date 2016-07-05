@@ -121,7 +121,14 @@ class ApiMethods {
 
   add(data) {
     const query = () => {
-      return this.model.insert(data.object)
+      const data2 = data.object
+
+      // 处理注册
+      if (this.config.methods.add[1] && this.config.methods.add[1].isRegister) {
+        data2.role = 'user'
+      }
+
+      return this.model.insert(data2)
     }
 
     return pipeline([

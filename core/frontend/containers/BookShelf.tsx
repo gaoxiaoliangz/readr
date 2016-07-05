@@ -23,7 +23,7 @@ class BookShelf extends Component<any, any> {
 
     return (
       <div>
-        <BookListSection bookList={bookList} title="我的书架" />
+        <BookListSection bookEntities={bookList} title="我的书架" />
       </div>
     )
   }

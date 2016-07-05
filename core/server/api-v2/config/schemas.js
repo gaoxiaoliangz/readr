@@ -3,6 +3,20 @@ const DataTypes = require('../data-types')
 const validator = require('../../utils/validator')
 const i18n = require('../../utils/i18n')
 
+// 支持的选项
+// field: {
+//   includeInSearch,
+//   required,
+//   isId, // 好像没用
+//   type,
+//   validators,
+//   ref: {
+//     table,
+//     fields[]
+//   },
+//   unique
+// }
+
 const schemas = {
   author: {
     baseTable: 'authors',
@@ -12,7 +26,8 @@ const schemas = {
         required: true
       },
       slug: {
-        includeInSearch: true
+        includeInSearch: true,
+        unique: true,
       },
       description: {
       }
@@ -82,6 +97,7 @@ const schemas = {
       slug: {
         includeInSearch: true,
         required: true,
+        unique: true
       },
       description: {}
     }
@@ -115,22 +131,27 @@ const schemas = {
     fields: {
       username: {
         required: true,
+        unique: true,
         validators: [
           [validator.lengthMin(5), i18n('errors.validation.valueLimit.minLength', 'name')],
           [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'name')],
         ]
       },
       password: {
-        required: true
+        required: true,
+        validators: [
+          [validator.lengthMin(6), i18n('errors.validation.valueLimit.minLength', 'password')],
+          [validator.lengthMax(20), i18n('errors.validation.valueLimit.maxLength', 'password')],
+        ]
       },
       email: {
         required: true,
+        unique: true,
         validators: [
-          [validator.isEmail, 'Email wrong!']
+          [validator.isEmail, i18n('errors.validation.valueLimit.invalidFormat', 'email')]
         ]
       },
       role: {
-        required: true
       }
     }
   },

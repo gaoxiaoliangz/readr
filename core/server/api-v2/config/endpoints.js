@@ -1,5 +1,16 @@
 const schemas = require('./schemas')
 
+// 支持的选项
+// methods: {
+//   add: {
+//     isRegister // 注册
+//   },
+//   edit: {
+//     upsert,
+//     multi
+//   }
+// }
+
 // isMulti 为 true 的 api 请求会包含两个 id
 const endpoints = {
   author: {
@@ -33,6 +44,9 @@ const endpoints = {
   user: {
     base: '/users',
     methods: {
+      add: [true, {
+        isRegister: true
+      }]
     },
     schema: schemas.user
   },

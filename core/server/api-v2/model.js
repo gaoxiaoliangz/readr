@@ -5,9 +5,10 @@ const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
 const DataTypes = require('./data-types')
 const parseTextToHtml = require('../utils/data').parseTextToHtml
-const embedRef = require('./embedref')
-// const errors = require('../errors')
-// const i18n = require('../utils/i18n')
+const db = require('./db')
+const embedRef = db.embedRef
+const errors = require('../errors')
+const i18n = require('../utils/i18n')
 
 
 function dataConvention(schema, data) {
@@ -44,10 +45,10 @@ class Model {
 
     this.schema = schema
     this.tableName = schema.baseTable
-    this.db = MongoClient.connect(config.db.host + config.db.name)
-    this.collection = this.db.then(db => {
-      return Promise.resolve(db.collection(this.schema.baseTable))
-    })
+    // this.db = MongoClient.connect(config.db.host + config.db.name)
+    // this.collection = this.db.then(db => {
+    //   return Promise.resolve(db.collection(this.schema.baseTable))
+    // })
     this.match = {}
   }
 
@@ -70,7 +71,7 @@ class Model {
   listRaw() {
     const match = this._getAndResetMatch()
 
-    return this.collection.then(collection => {
+    return db.getCollection(this.tableName).then(collection => {
       return collection.find(match).toArray()
     })
   }
@@ -90,7 +91,39 @@ class Model {
 
     data2 = dataConvention(this.schema, data2)
 
-    return this.collection.then(collection => {
+    // 检查是否需要确认唯一性
+    const dataToCheck = Object.keys(this.schema.fields)
+      .filter(key => this.schema.fields[key].unique)
+      .map(key => ({
+        key,
+        value: data[key]
+      }))
+
+    // 过滤出和数据库中已存在数据相匹配的输入项
+    if (dataToCheck.length !== 0) {
+      const checkingResult = Promise.all(dataToCheck.map(data3 => {
+        return db.fetchData({ [data3.key]: data3.value }, this.tableName).then(res => {
+          if (res.length !== 0) {
+            return data3
+          }
+          return false
+        })
+      })).then(res => {
+        return res.filter(r => r !== false)
+      })
+
+      return checkingResult.then(res => {
+        if (res.length !== 0) {
+          return Promise.reject(new errors.BadRequestError(i18n('errors.schema.unique', res[0].key)))
+        }
+
+        return db.getCollection(this.tableName).then(collection => {
+          return collection.insert([data2])
+        })
+      })
+    }
+
+    return db.getCollection(this.tableName).then(collection => {
       return collection.insert([data2])
     })
   }
@@ -113,7 +146,7 @@ class Model {
       enableMulti = multi
     }
 
-    return this.collection.then(collection => {
+    return db.getCollection(this.tableName).then(collection => {
       return collection.update(match, { $set: data2 }, {
         upsert: typeof upsert !== undefined ? upsert : false,
         multi: enableMulti
@@ -124,7 +157,7 @@ class Model {
   delete() {
     const match = this._getAndResetMatch()
 
-    return this.collection.then(collection => {
+    return db.getCollection(this.tableName).then(collection => {
       return collection.remove(match)
     })
   }

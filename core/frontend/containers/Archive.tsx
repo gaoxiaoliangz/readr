@@ -46,7 +46,7 @@ class Archive extends Component<Props, any> {
             <Switcher on={false} />
           </div>
         </div>
-        <BookListSection bookList={newestBooks} />
+        <BookListSection bookEntities={newestBooks} />
         <div className="page-load-more">加载更多</div>
       </div>
     )

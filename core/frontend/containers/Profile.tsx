@@ -38,7 +38,7 @@ class Profile extends Component<any, any> {
         </div>
         <NavTab tabs={['收藏', '读过', '书评']} current={0} />
         <div>
-          <BookListSection bookList={newestBooks} />
+          <BookListSection title="😄" bookEntities={newestBooks} />
         </div>
       </div>
     )

@@ -13,22 +13,25 @@ import Settings from 'containers/Settings'
 import Archive from 'containers/Archive'
 import Collection from 'containers/Collection'
 import ArchivedCollection from 'containers/ArchivedCollection'
+import Root from 'containers/Root'
 
 export default (
   <Router>
-    <Route path="/" component={App}>
-      <IndexRoute component={Home} />
-      <Route path="book/:id" component={BookInfo} />
-      <Route path="profile" component={Profile} />
-      <Route path="shelf" component={BookShelf} />
-      <Route path="settings" component={Settings} />
-      <Route path="browse" component={Archive} />
-      <Route path="collection" component={Collection} />
-      <Route path="collections" component={ArchivedCollection} />
+    <Route path="/" component={Root}>
+      <Route component={App}>
+        <IndexRoute component={Home} />
+        <Route path="book/:id" component={BookInfo} />
+        <Route path="profile" component={Profile} />
+        <Route path="shelf" component={BookShelf} />
+        <Route path="settings" component={Settings} />
+        <Route path="browse" component={Archive} />
+        <Route path="collection" component={Collection} />
+        <Route path="collections" component={ArchivedCollection} />
+      </Route>
+      <Route path="signin" component={Signin} />
+      <Route path="signup" component={Signup} />
+      <Route path="viewer/book/:id" component={Viewer} />
+      <Route path="*" component={NoMatch} />
     </Route>
-    <Route path="signin" component={Signin} />
-    <Route path="signup" component={Signup} />
-    <Route path="viewer/book/:id" component={Viewer} />
-    <Route path="*" component={NoMatch} />
   </Router>
 )

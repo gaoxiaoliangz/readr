@@ -28,14 +28,12 @@ class Signin extends Component<any, any> {
     }
 
     callApi(`${ApiRoots.LOCAL}auth`, { method: 'POST', data: params }).then(res => {
-      this.props.handleNotification('登录成功！')
+      this.props.sendNotification('登录成功！')
       setTimeout(function(){
         browserHistory.push('/')
       }, 600)
     }).catch((err) => {
-      console.log(err)
-
-      this.props.handleNotification(err.message)
+      this.props.sendNotification(err.message)
     })
   }
 

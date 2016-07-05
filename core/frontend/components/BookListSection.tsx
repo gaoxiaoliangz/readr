@@ -3,22 +3,31 @@ import { Link } from 'react-router'
 import BookList from 'components/BookList'
 
 
+interface Props {
+  bookEntities: any
+  title?: string
+  moreLink?: string
+}
 
-class BookListSection extends Component<any, any> {
+class BookListSection extends Component<Props, any> {
   render() {
-    let bookList = this.props.bookList
+
     let title = this.props.title
-    let moreLink = this.props.moreLink?this.props.moreLink:null
+    let moreLink = this.props.moreLink ? this.props.moreLink : null
 
     return (
       <div className="book-list-section">
-        <h2 className="section-title">{title}</h2>
         {
-          moreLink?(
-            <Link className="more" to={moreLink}>查看更多</Link>
-          ):null
+          this.props.title && (
+            <h2 className="section-title">{title}</h2>
+          )
         }
-        <BookList bookList={bookList} />
+        {
+          moreLink ? (
+            <Link className="more" to={moreLink}>查看更多</Link>
+          ) : null
+        }
+        <BookList bookEntities={this.props.bookEntities} />
       </div>
     )
   }

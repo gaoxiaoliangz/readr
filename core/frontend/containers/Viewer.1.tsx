@@ -12,7 +12,7 @@ import * as renderBook from 'utils/renderBook'
 import { getBookView } from 'utils/view'
 import { getCache, setCache } from 'utils/cache'
 import { simpleCompareObjects } from 'utils/object'
-import { fetchBook, userAuth } from 'actions/index'
+import { fetchBook, fetchBookProgress, userAuth } from 'actions/index'
 import apis from 'utils/apis'
 import Body from 'side-effects/Body'
 import _ from 'lodash'
@@ -20,7 +20,7 @@ import ViewerPreference from '../components/ViewerPreference'
 import Fade from '../elements/animations/Fade'
 import ViewerScrollbar from '../components/ViewerScrollbar'
 
-const actions = { fetchBook, userAuth }
+const actions = { fetchBook, fetchBookProgress, userAuth }
 
 interface State {
   showPanel: boolean
@@ -147,7 +147,7 @@ class Viewer extends Component<any, any> {
     // TODO: use session to determine latest progress
     this.deboundedSetProgress = _.debounce(this.checkAndSetProgress, 200)
 
-    // window.addEventListener('scroll', this.deboundedSetProgress)
+    window.addEventListener('scroll', this.deboundedSetProgress)
     window.addEventListener('scroll', this.mapScrollTopToState)
     window.addEventListener('resize', this.mapWindowWidthToState)
     window.addEventListener('resize', this.mapViewToState)
@@ -255,7 +255,7 @@ class Viewer extends Component<any, any> {
 
     actions.userAuth()
     actions.fetchBook(bookId)
-    // actions.fetchBookProgress(bookId)
+    actions.fetchBookProgress(bookId)
 
     this.addEventListeners()
     this.loadCalculatedPages()

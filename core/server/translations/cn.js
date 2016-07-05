@@ -44,6 +44,9 @@ const cn = {
         loginRequired: '需要登录',
       },
     },
+    schema: {
+      unique: '{value}已存在'
+    },
     middleware: {
       auth: {
         accessDenied: '访问被禁止',

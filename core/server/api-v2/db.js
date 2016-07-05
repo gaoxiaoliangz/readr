@@ -26,10 +26,14 @@ function getCollection(table) {
   })
 }
 
-function fetchDataById(id, table) {
+function fetchData(match, table) {
   return getCollection(table).then(collection => {
-    return collection.find({ _id: id }).toArray()
+    return collection.find(match).toArray()
   })
+}
+
+function fetchDataById(id, table) {
+  return fetchData({ _id: id }, table)
 }
 
 // 将 ids 通通转换为数组
@@ -165,4 +169,9 @@ function embedRef(rawResults, schema) {
   )
 }
 
-module.exports = embedRef
+module.exports = {
+  embedRef,
+  getCollection,
+  fetchData,
+  fetchDataById
+}

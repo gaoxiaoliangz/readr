@@ -8,11 +8,23 @@ import CandyBox from 'components/CandyBox'
 import Body from 'side-effects/Body'
 import Button from '../elements/Button'
 
+
+interface Props {
+}
+
+interface PropsWithReduxState extends Props {
+  fetchBooks: any
+  fetchCollections: any
+  session: any
+  newestBooks: any
+  collection: any
+}
+
 interface State {
   showRecentReading: boolean
 }
 
-class Home extends Component<any, State> {
+class Home extends Component<PropsWithReduxState, State> {
 
   static fetchData({store}) {
     return store.dispatch(fetchBooks())
@@ -43,20 +55,10 @@ class Home extends Component<any, State> {
 
   render() {
     let newestBooks = this.props.newestBooks
-    let hotBooks = newestBooks.map((book, index) => {
-      return {
-        name: book.title,
-        link: `/book/${book.id}`
-      }
-    })
-    // let userBooks = this.props.userBooks.map((book, index) => {
-    //   return {
-    //     name: book.title,
-    //     link: `/book/${book.id}`
-    //   }
-    // })
     let listName = this.props.collection ? this.props.collection.name : ''
-    let list = this.props.collection ? this.props.collection.items.map(item => item.refData) : []
+    let list = this.props.collection ? this.props.collection.items
+      .filter(item => Boolean(item.refData))
+      .map(item => item.refData) : []
 
     return (
       <div>
@@ -72,8 +74,8 @@ class Home extends Component<any, State> {
             ) : null
           }
           <div className="col-md-8">
-            <BookListSection bookList={newestBooks} title="新书速递" />
-            <BookListSection bookList={list} title={listName} moreLink="/collection" />
+            <BookListSection bookEntities={newestBooks} title="新书速递" />
+            <BookListSection bookEntities={list} title={listName} moreLink="/collection" />
             <Link className="view-more" to="/collections">浏览更多书单 ></Link>
           </div>
           <div className="col-md-4">
@@ -90,25 +92,16 @@ class Home extends Component<any, State> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {
-    pagination: { filteredBooks },
-    entities: { books, collections }
-  } = state
-
-  const genList = (whichPagination) => (
-    whichPagination ? whichPagination.ids.map(id => books[id]) : []
-  )
-
   return {
     userBooks: [],
-    // newestBooks: genList(filteredBooks['newest']),
     newestBooks: state.pagination.books.newest
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
       : [],
     session: state.session,
+    // todo: collection pagination
     collection: (() => {
-      for (let prop in collections) {
-        return collections[prop]
+      for (let prop in state.entities.collections) {
+        return state.entities.collections[prop]
       }
     })()
   }
@@ -116,5 +109,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchCollections } as any
-)(Home)
+  { fetchBooks, fetchCollections }
+)(Home as any)

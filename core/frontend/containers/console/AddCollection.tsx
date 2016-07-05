@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { searchBooks, sendNotification, changeValue } from 'actions/index'
+import { sendNotification, changeValue } from 'actions/index'
 import Button from 'elements/Button'
 import SelectizeInput from 'elements/SelectizeInput'
 import apis from 'utils/apis'
@@ -127,5 +127,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { searchBooks, sendNotification, changeValue }
+  { sendNotification, changeValue }
 )(AddCollection as any)
