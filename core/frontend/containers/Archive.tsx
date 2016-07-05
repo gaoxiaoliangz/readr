@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Switcher from '../components/Switcher'
@@ -6,9 +6,8 @@ import BookListSection from 'components/BookListSection'
 import { fetchBooks, fetchCollections } from 'actions/index'
 
 interface Props {
-  name: string;
-  fetchBooks: (string) => void;
-  newestBooks: Array<any>;
+  fetchBooks: any
+  newestBooks: any
 }
 
 class Archive extends Component<Props, any> {
@@ -18,12 +17,10 @@ class Archive extends Component<Props, any> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks('newest')
+    this.props.fetchBooks()
   }
 
   render() {
-    let newestBooks = this.props.newestBooks
-
     return (
       <div className="archive page-content">
         <div className="page-header">
@@ -46,7 +43,7 @@ class Archive extends Component<Props, any> {
             <Switcher on={false} />
           </div>
         </div>
-        <BookListSection bookEntities={newestBooks} />
+        <BookListSection bookEntities={this.props.newestBooks} />
         <div className="page-load-more">加载更多</div>
       </div>
     )
@@ -54,28 +51,14 @@ class Archive extends Component<Props, any> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {
-    pagination: { filteredBooks },
-    entities: { books, collections }
-  } = state
-
-  const genList = (whichPagination) => (
-    whichPagination?whichPagination.ids.map(id => books[id]):[]
-  )
-
   return {
-    userBooks: genList(filteredBooks['user']),
-    newestBooks: genList(filteredBooks['newest']),
-    session: state.session,
-    collection: (() => {
-      for(let prop in collections) {
-        return collections[prop]
-      }
-    })()
+    newestBooks: state.pagination.books.newest
+      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
+      : []
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchCollections } as any
+  { fetchBooks, fetchCollections }
 )(Archive as any)

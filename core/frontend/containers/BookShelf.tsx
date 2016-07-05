@@ -4,7 +4,13 @@ import { Link } from 'react-router'
 import { fetchBooks } from 'actions/index'
 import BookListSection from 'components/BookListSection'
 
-class BookShelf extends Component<any, any> {
+
+interface Props {
+  fetchBooks?: any
+  newestBooks?: any
+}
+
+class BookShelf extends Component<Props, {}> {
 
   static fetchData({store, params}) {
     return store.dispatch(fetchBooks())
@@ -15,11 +21,11 @@ class BookShelf extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks('user')
+    this.props.fetchBooks()
   }
 
   render() {
-    let bookList = this.props.bookListUser
+    let bookList = this.props.newestBooks
 
     return (
       <div>
@@ -30,21 +36,14 @@ class BookShelf extends Component<any, any> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {
-    pagination: { filteredBooks },
-    entities: { books }
-  } = state
-
-  const genList = (whichPagination) => (
-    whichPagination ? whichPagination.ids.map(id => books[id]) : []
-  )
-
   return {
-    bookListUser: genList(filteredBooks['user']),
+    newestBooks: state.pagination.books.newest
+      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
+      : []
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchBooks } as any
-)(BookShelf)
+  { fetchBooks }
+)(BookShelf as any)

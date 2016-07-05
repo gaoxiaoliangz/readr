@@ -1,13 +1,19 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification, userAuth } from 'actions/index'
+import { sendNotification } from 'actions/index'
 import NavTab from '../components/NavTab'
 import { fetchBooks, fetchCollections } from 'actions/index'
 import BookListSection from 'components/BookListSection'
 import Button from 'elements/Button'
 
-class Profile extends Component<any, any> {
+interface Props {
+  fetchBooks?: any
+  session?: any
+  newestBooks?: any
+}
+
+class Profile extends Component<Props, any> {
 
   // static fetchData({store, params}) {
   //   return store.dispatch(fetch())
@@ -18,12 +24,10 @@ class Profile extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.userAuth()
-    this.props.fetchBooks('newest')
+    this.props.fetchBooks()
   }
 
   render() {
-    let user = this.props.session.user
     let newestBooks = this.props.newestBooks
 
     return (
@@ -46,29 +50,15 @@ class Profile extends Component<any, any> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const {
-    pagination: { filteredBooks },
-    entities: { books, collections }
-  } = state
-
-  const genList = (whichPagination) => (
-    whichPagination ? whichPagination.ids.map(id => books[id]) : []
-  )
-
   return {
-    userBooks: genList(filteredBooks['user']),
-    newestBooks: genList(filteredBooks['newest']),
     session: state.session,
-    collection: (() => {
-      for (let prop in collections) {
-        return collections[prop]
-      }
-    })(),
-    notification: state.notification
+    newestBooks: state.pagination.books.newest
+      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
+      : []
   }
 }
 
 export default connect(
   mapStateToProps,
-  { sendNotification, userAuth, fetchBooks, fetchCollections } as any
-)(Profile)
+  { sendNotification, fetchBooks, fetchCollections }
+)(Profile as any)

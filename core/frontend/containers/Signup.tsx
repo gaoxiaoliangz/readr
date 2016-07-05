@@ -31,12 +31,12 @@ class Signup extends Component<any, any> {
 
     callApi(`${ApiRoots.LOCAL}users`, { method: 'POST', data: params })
       .then(res => {
-        this.props.handleNotification('注册成功！')
+        this.props.sendNotification('注册成功！')
         setTimeout(function(){
           browserHistory.push('/')
         }, 600)
       }, err => {
-        this.props.handleNotification(err.message)
+        this.props.sendNotification(err.message, 'error')
       })
   }
 
