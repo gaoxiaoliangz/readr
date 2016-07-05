@@ -9,10 +9,7 @@ export default class Book extends Component<any, any> {
     let title = book.title
     let description = book.description
     let author = ''
-
-    if (!_.isEmpty(this.props.book)) {
-      author = book.author.map(a => a ? a.name : '').join(', ')
-    }
+    author = book.author.map(a => a.refData ? a.refData.name : '').join(', ')
 
     return (
       !_.isEmpty(this.props.book) && (
@@ -21,7 +18,7 @@ export default class Book extends Component<any, any> {
             <div className="book-cover"><img src={book.cover}/></div>
             <div className="book-meta">
               <span title={book.title} className="book-name">{book.title}</span>
-              <span className="book-author">{}</span>
+              <span className="book-author">{author}</span>
             </div>
           </Link>
           <BookInfoPopup bookId={this.props.id} title={title} author={author} description={description} />

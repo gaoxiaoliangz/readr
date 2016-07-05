@@ -173,17 +173,30 @@ class ApiMethods {
   }
 
   edit(data) {
+    let config
+    const match = getIdMatch(data.options)
+    if (this.config.methods.edit[0]) {
+      config = this.config.methods.edit[1]
+    }
+
+    // todo: 无法提前知道是否为 upsert，所以无法预先决定是否验证 fields
+    // 可能会造成 upsert 的数据 fields 不全的问题
     return pipeline([
       this._isEnabled('edit'),
       this._validate(data.object, true),
-      this.model.findById(data.options.id).update.bind(this.model, data.object)
+      this.model.find(match).update.bind(this.model, data.object, {
+        multi: config.multi ? config.multi : false,
+        upsert: config.upsert ? config.upsert : false
+      })
     ])
   }
 
   delete(data) {
+    const match = getIdMatch(data.options)
+
     return pipeline([
       this._isEnabled('delete'),
-      this.model.findById(data.options.id).delete.bind(this.model)
+      this.model.find(match).delete.bind(this.model)
     ])
   }
 

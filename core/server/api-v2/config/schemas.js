@@ -92,11 +92,19 @@ const schemas = {
     fields: {
       user_id: {
         required: true,
+        isId: true
       },
       book_id: {
         required: true,
+        isId: true
       },
-      progress: {
+      page_no: {
+        required: true,
+      },
+      page_sum: {
+        required: true,
+      },
+      percentage: {
         required: true,
       }
     }

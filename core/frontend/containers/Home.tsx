@@ -56,8 +56,7 @@ class Home extends Component<any, State> {
     //   }
     // })
     let listName = this.props.collection ? this.props.collection.name : ''
-    let list = this.props.collection ? this.props.collection.items : []
-
+    let list = this.props.collection ? this.props.collection.items.map(item => item.refData) : []
 
     return (
       <div>

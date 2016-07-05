@@ -41,6 +41,9 @@ const endpoints = {
     base: '/users/:userId/books/:bookId/progress',
     isMulti: true,
     methods: {
+      edit: [true, {
+        upsert: true
+      }]
     },
     schema: schemas.progress
   }

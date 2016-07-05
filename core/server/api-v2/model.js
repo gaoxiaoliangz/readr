@@ -95,7 +95,10 @@ class Model {
     })
   }
 
-  update(data, multi) {
+  // @multi: boolean
+  update(data, updateConfig) {
+    const multi = updateConfig.multi
+    const upsert = updateConfig.upsert
     // todo: 添加特殊格式处理
     const data2 = Object.assign({}, data, {
       date_updated: new Date().toString()
@@ -112,7 +115,7 @@ class Model {
 
     return this.collection.then(collection => {
       return collection.update(match, { $set: data2 }, {
-        upsert: true,
+        upsert: typeof upsert !== undefined ? upsert : false,
         multi: enableMulti
       })
     })
