@@ -4,7 +4,6 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const Model = require('./model')
 const _ = require('lodash')
-const DataTypes = require('./data-types')
 
 
 const defaultConfig = {

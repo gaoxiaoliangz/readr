@@ -1,7 +1,7 @@
 'use strict'
 const _ = require('lodash')
 const i18n = require('../utils/i18n')
-const runtimeOptions = require('../utils/runtime-options')
+// const runtimeOptions = require('../utils/runtime-options')
 const humps = require('humps')
 
 
@@ -46,27 +46,28 @@ function done(req, res) {
 function err(res) {
   return error => {
     const statusCode = error.statusCode || 500
+    let errorJson = error
 
-    if (statusCode >= 500) {
-      console.error(error.stack)
-    }
+    // if (statusCode >= 500) {
+    //   console.error(error.stack)
+    // }
 
     if (Error.prototype.isPrototypeOf(error)) {
-      error = {
+      errorJson = {
         message: error.message || i18n('errors.general.unknownErrorOccurred'),
         type: error.name,
       }
     }
 
-    delete error.statusCode
-    delete error.name
-    delete error.stack
+    // delete error.statusCode
+    // delete error.name
+    // delete error.stack
 
-    if (runtimeOptions.env === 'production') {
-      delete error.stack
-    }
+    // if (runtimeOptions.env === 'production') {
+    //   delete error.stack
+    // }
 
-    res.status(statusCode).send(error)
+    res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name', 'stack']))
   }
 }
 

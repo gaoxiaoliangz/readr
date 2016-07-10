@@ -16,6 +16,9 @@ function apiRoute() {
     router.post(endpointBase, apiHttp(apiMethods.edit.bind(apiMethods)))
     router.delete(endpointBase, apiHttp(apiMethods.delete.bind(apiMethods)))
 
+
+    // router.post(endpoint.url, api.http(makeApiMethods(endpoint.methods)('browse'))
+
     if (!config.isMulti) {
       router.get(config.base, apiHttp(apiMethods.browse.bind(apiMethods)))
       router.post(config.base, apiHttp(apiMethods.add.bind(apiMethods)))

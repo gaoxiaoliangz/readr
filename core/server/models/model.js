@@ -1,9 +1,6 @@
 'use strict'
-const config = require('../config')
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
 const _ = require('lodash')
-const DataTypes = require('./data-types')
+const DataTypes = require('../data/types')
 const parseTextToHtml = require('../utils/data').parseTextToHtml
 const db = require('./db')
 const embedRef = db.embedRef

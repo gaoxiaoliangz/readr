@@ -60,7 +60,9 @@ const endpoints = {
       }]
     },
     schema: schemas.progress
-  }
+  },
+
+  
 }
 
 module.exports = endpoints

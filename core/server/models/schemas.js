@@ -1,7 +1,8 @@
 'use strict'
-const DataTypes = require('../data-types')
-const validator = require('../../utils/validator')
-const i18n = require('../../utils/i18n')
+const DataTypes = require('../data/types')
+const validator = require('../utils/validator')
+const i18n = require('../utils/i18n')
+
 
 // 支持的选项
 // field: {
