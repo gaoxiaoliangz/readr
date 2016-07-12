@@ -9,7 +9,7 @@ const i18n = require('../utils/i18n')
 const pipeline = require('../utils/pipeline')
 // const books = require('./books')
 const humps = require('humps')
-const Validation = require('../data/validation')
+const Validation = require('../_trash/validation')
 
 const authors = {
   // TODO: check existence
