@@ -9,10 +9,11 @@ const _ = require('lodash')
 
 
 function apiRoute() {
-  const ep = endpoints[0]
-  console.log(ep)
-  
-  router.get(ep.url, apiHttp(ep.fn))
+  endpoints.forEach(ep => {
+    if (typeof ep.fn === 'function') {
+      router.get(ep.url, apiHttp(ep.fn))
+    }
+  })
 
   // _.forEach(endpoints, (config) => {
   //   const apiMethods = new ApiMethods(config)

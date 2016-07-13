@@ -72,6 +72,8 @@ function err(res) {
 }
 
 function apiHttp(apiMethod) {
+  // console.log(apiMethod)
+  
   return function apiHandler(req, res) {
     apiMethod(parseReqData(req)).then(done(req, res), err(res))
   }

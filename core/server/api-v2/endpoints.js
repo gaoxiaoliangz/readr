@@ -1,15 +1,16 @@
-const restConfig = require('./rest-config')
-const api = require('./index')
+const Api = require('./index')
 
-function makeEndpoint(config) {
-  console.log(config)
-  
-  return {
-    url: config.url,
-    fn: api[config.api].browse
-  }
+
+function createEndpoints(api) {
+  return api._publicMethods.map(mtd => {
+    return {
+      url: mtd.url,
+      fn: api[mtd.name],
+      httpMethod: mtd.httpMethod
+    }
+  })
 }
 
-const endpoints = [makeEndpoint(restConfig.authors)]
+const endpoints = createEndpoints(Api.authors)
 
 module.exports = endpoints

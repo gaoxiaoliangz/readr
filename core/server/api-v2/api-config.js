@@ -1,7 +1,9 @@
 const apiConfig = {
   authors: {
     model: 'author',
-    methods: []
+    url: '/authors',
+    excludedMethods: [],
+    privateMethods: []
   }
 }
 
