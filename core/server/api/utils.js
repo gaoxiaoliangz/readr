@@ -2,7 +2,6 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const Promise = require('bluebird')
 const _ = require('lodash')
-const apiMethods = require('./methods')
 
 
 // tasks 可以是返回 Promise 的 fn
@@ -89,32 +88,6 @@ function limitResults(limit) {
   return (res, index) => index < limit
 }
 
-function mapApiMethods(methodConfig) {
-  return methodName => {
-    switch (methodName) {
-      case 'find':
-        return apiMethods.find
-
-      case 'edit':
-        return apiMethods.edit
-
-      case 'add':
-        return apiMethods.add
-
-      case 'browse':
-        return apiMethods.browse
-
-      case 'delete':
-        return apiMethods.delete
-
-      default:
-        return new Error('API method not defined!')
-    }
-  }
-}
-
-
-
 
 module.exports = {
   pipeline,
@@ -122,6 +95,5 @@ module.exports = {
   getIdMatch,
   excludeFields,
   includeFields,
-  limitResults,
-  mapApiMethods
+  limitResults
 }

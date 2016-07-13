@@ -48,10 +48,6 @@ function err(res) {
     const statusCode = error.statusCode || 500
     let errorJson = error
 
-    // if (statusCode >= 500) {
-    //   console.error(error.stack)
-    // }
-
     if (Error.prototype.isPrototypeOf(error)) {
       errorJson = {
         message: error.message || i18n('errors.general.unknownErrorOccurred'),
@@ -59,21 +55,11 @@ function err(res) {
       }
     }
 
-    // delete error.statusCode
-    // delete error.name
-    // delete error.stack
-
-    // if (runtimeOptions.env === 'production') {
-    //   delete error.stack
-    // }
-
     res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name', 'stack']))
   }
 }
 
 function apiHttp(apiMethod) {
-  // console.log(apiMethod)
-  
   return function apiHandler(req, res) {
     apiMethod(parseReqData(req)).then(done(req, res), err(res))
   }

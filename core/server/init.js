@@ -43,7 +43,7 @@ function init(basePath) {
   }))
   
   // api routing
-  app.use(routes.apiBaseUri, routes.handleApiRouting())
+  app.use(routes.apiBaseUri, routes.apiRoutes)
 
   // test model
   // const model = require('./api-v2/models')

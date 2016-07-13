@@ -42,10 +42,6 @@ class Model {
 
     this.schema = schema
     this.tableName = schema.baseTable
-    // this.db = MongoClient.connect(config.db.host + config.db.name)
-    // this.collection = this.db.then(db => {
-    //   return Promise.resolve(db.collection(this.schema.baseTable))
-    // })
     this.match = {}
   }
 
@@ -127,8 +123,14 @@ class Model {
 
   // @multi: boolean
   update(data, updateConfig) {
-    const multi = updateConfig.multi
-    const upsert = updateConfig.upsert
+    let multi = false
+    let upsert = false
+
+    if (updateConfig) {
+      multi = updateConfig.multi || false
+      upsert = updateConfig.upsert || false
+    }
+    
     // todo: 添加特殊格式处理
     const data2 = Object.assign({}, data, {
       date_updated: new Date().toString()
@@ -151,7 +153,7 @@ class Model {
     })
   }
 
-  delete() {
+  destroy() {
     const match = this._getAndResetMatch()
 
     return db.getCollection(this.tableName).then(collection => {

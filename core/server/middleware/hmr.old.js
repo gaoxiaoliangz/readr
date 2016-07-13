@@ -9,12 +9,12 @@ const hot = 'webpack-hot-middleware/client'
 const combineMiddleware = require('../utils/combine-middleware')
 
 function hmr() {
-  for(let prop in config.entry) {
+  for (let prop in config.entry) {
     config.entry[prop] = [hot].concat(config.entry[prop])
   }
 
   config.module.loaders.forEach(loader => {
-    if(loader.query) {
+    if (loader.query) {
       loader.query.presets.push('react-hmre')
     }
   })
