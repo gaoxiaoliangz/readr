@@ -113,7 +113,12 @@ const schemas = {
       },
       book_id: {
         required: true,
-        isId: true
+        isId: true,
+        type: DataTypes.ID,
+        ref: {
+          table: 'books',
+          fields: ['title', 'author', 'description']
+        }
       },
       page_no: {
         required: true,

@@ -1,24 +1,17 @@
+const _ = require('lodash')
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
-const Promise = require('bluebird')
-const _ = require('lodash')
 
 
 function getIdMatch(options) {
-  if (options.id) {
-    return { _id: options.id }
-  }
-
-  const match = {}
-  _.forEach(options, (val, key) => {
-    if (key.indexOf('id')) {
-      match[key] = val
-    }
+  return _.pick(options, (val, key) => {
+    return key.indexOf('id') !== -1
   })
-
-  return match
 }
 
+function handleNotFound(itemName) {
+  return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound', itemName)))
+}
 
 /**
  * 查询结果过滤
@@ -45,10 +38,10 @@ function limitResults(limit) {
   return (res, index) => index < limit
 }
 
-
 module.exports = {
   getIdMatch,
   excludeFields,
   includeFields,
-  limitResults
+  limitResults,
+  handleNotFound
 }

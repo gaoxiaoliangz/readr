@@ -8,6 +8,10 @@ const collection = new Schema('bookCollections', {
   idAttribute: 'id'
 })
 
+const profile = new Schema('profiles', {
+  idAttribute: 'id'
+})
+
 const user = new Schema('users', {
   idAttribute: 'id'
 })
@@ -32,5 +36,6 @@ export const Schemas = {
   USER_ARRAY: arrayOf(user),
   MATCHED_BOOK_ARRAY: arrayOf(matchedBooks),
   COLLECTION: collection,
-  COLLECTION_ARRAY: arrayOf(collection)
+  COLLECTION_ARRAY: arrayOf(collection),
+  PROFILE: profile
 }

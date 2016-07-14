@@ -95,12 +95,12 @@ function createApiFn(fnName, model) {
 }
 
 function createApi(config) {
-  const allMethods = ['add', 'browse', 'find', 'edit', 'remove']
+  const allFns = ['add', 'browse', 'find', 'edit', 'remove']
   const fnWithoutId = ['add', 'browse']
   let fns = {}
   let _publicMethods = [] // { name, url }[]
 
-  allMethods.forEach(mtd => {
+  allFns.forEach(mtd => {
     if (!config.excludedMethods || (config.excludedMethods && config.excludedMethods.indexOf(mtd) === -1)) {
       // 如果方法没在配置文件里面被排除
 
@@ -127,7 +127,7 @@ function createApi(config) {
       }
 
       if (fnWithoutId.indexOf(mtd) === -1) {
-        url = `${url}/:Id`
+        url = `${url}/:_id`
       }
 
       fns = Object.assign({}, fns, {

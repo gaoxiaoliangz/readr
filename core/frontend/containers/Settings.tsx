@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification, userAuth } from 'actions/index'
+import { sendNotification, userAuth, fetchProfile } from 'actions/index'
 import NavTab from '../components/NavTab'
 import Body from '../side-effects/Body'
 import Switcher from '../components/Switcher'
@@ -17,7 +17,14 @@ class Profile extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.userAuth()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // user session fetched
+    if (nextProps.session.isFetching === false && this.props.session.isFetching) {
+      const userId = nextProps.session.user.id
+      this.props.fetchProfile(userId)
+    }
   }
 
   render(){
@@ -32,7 +39,7 @@ class Profile extends Component<any, any> {
             <NavTab tabs={['资料', '个人主页']} current={0}/>
           </div>
           <ul className="options">
-            <li className="option"> 
+            <li className="option">
               <h2>用户名</h2>
               <span className="option-input">http://readrweb.com/@<strong>{user.username}</strong></span>
               <span className="edit">编辑</span>
@@ -64,5 +71,5 @@ export default connect(
     notification: state.notification,
     session: state.session
   }),
-  { sendNotification, userAuth } as any
+  { sendNotification, userAuth, fetchProfile } as any
 )(Profile)

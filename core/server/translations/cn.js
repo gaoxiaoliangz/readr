@@ -11,21 +11,22 @@ const cn = {
       name: '名称',
       creator: '创建者',
       title: '标题',
-      progress: '进度'
+      progress: '进度',
+      user: '用户'
     },
   },
   errors: {
     validation: {
       valueLimit: {
-        notString: '{value}不是字符串！',
-        stringOnly: '输入项类型只能为字符串！',
-        undefined: '{value}未定义！',
-        invalidFormat: '{value}格式不对！',
+        notString: '{value}不是字符串',
+        stringOnly: '输入项类型只能为字符串',
+        undefined: '{value}未定义',
+        invalidFormat: '{value}格式不对',
         noPureNumber: '{value}不能为纯数字',
         onlyStartWithLetters: '{value}只能以字母开头',
-        length: '长度不匹配！',
-        minLength: '{value}长度不足！',
-        maxLength: '{value}超出最大长度！',
+        length: '长度不匹配',
+        minLength: '{value}长度不足',
+        maxLength: '{value}超出最大长度',
         username: {
           allowedChars: '用户名只能包含字母，数字及以下字符 "-","_"',
         },
@@ -54,6 +55,7 @@ const cn = {
       auth: {
         accessDenied: '访问被禁止',
         wrongPassword: '密码错误',
+        wrongCombination: '用户名或密码错误'
       },
       oauth: {
         tokenExpired: 'token 过期',

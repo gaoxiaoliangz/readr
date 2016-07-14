@@ -13,16 +13,16 @@ const auth = {
       const password = data.object.password
       
       if (typeof login === 'undefined') {
-        return Promise.reject(new errors.ValidationError('login 为必填项！'))
+        return Promise.reject(new errors.ValidationError(i18n('errors.validation.preCheck.missRequiredFields', 'login')))
       }
 
       if (typeof password === 'undefined') {
-        return Promise.reject(new errors.ValidationError('密码为必填项！'))
+        return Promise.reject(new errors.ValidationError(i18n('errors.validation.preCheck.missRequiredFields', 'password')))
       }
 
       return models.user.find({ $or: [{ slug: login, password }, { email: login, password }] }).listRaw().then(result => {
         if (result.length === 0) {
-          return Promise.reject(new errors.BadRequestError('用户名或密码错误！'))
+          return Promise.reject(new errors.UnauthorizedError(i18n('errors.middleware.auth.wrongCombination')))
         }
 
         req.session.user = result[0]

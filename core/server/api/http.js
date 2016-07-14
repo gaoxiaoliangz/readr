@@ -1,7 +1,6 @@
 'use strict'
 const _ = require('lodash')
 const i18n = require('../utils/i18n')
-// const runtimeOptions = require('../utils/runtime-options')
 const humps = require('humps')
 
 
@@ -26,15 +25,6 @@ function parseReqData(req) {
 
 function done(req, res) {
   return result => {
-    // todo: remove
-    if (result.hook) {
-      if (result.hook.action === 'auth') {
-        req.session.user = result.hook.data
-      }
-
-      delete result.hook
-    }
-
     if (req.method === 'POST') {
       res.status(201).send(result)
     } else {
