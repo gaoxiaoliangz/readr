@@ -6,6 +6,7 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const http = require('./http')
 const _ = require('lodash')
+const extendedApi = require('./extended')
 
 
 function createApiFn(fnName, model) {
@@ -15,6 +16,7 @@ function createApiFn(fnName, model) {
         const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
         const filedsToInclude = data.options && data.options.fields ? data.options.fields.split(',') : []
         const match = utils.getIdMatch(data.options)
+
         const query = () => {
           return models[model].find(match).list().then(res => {
             if (res.length === 0) {
@@ -146,29 +148,17 @@ function createApi(config) {
   return Object.assign({}, fns, { _publicMethods })
 }
 
-const apiReadingProgress = {
-  _publicMethods: [
-    {
-      name: 'find',
-      url: '/users/:userId/books/:bookId/progress'
-    }, {
-      name: 'edit',
-      url: '/users/:userId/books/:bookId/progress'
-    }
-  ],
-  find() {
-    return {}
-  },
-  edit() {
-    return {}
-  }
-}
-
-const _api = _.mapValues(apiConfig, (val, key) => {
+let _api = _.mapValues(apiConfig, (val, key) => {
   return createApi(apiConfig[key])
 })
 
-// module.exports = Object.assign({}, Api, { http })
+_api = _.merge({}, _api, extendedApi, (objValue, srcValue) => {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue)
+  }
+  return undefined
+})
+
 module.exports = _.assign({
   http,
   _api,

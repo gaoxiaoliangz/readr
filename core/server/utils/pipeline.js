@@ -4,28 +4,29 @@
  * Based on pipeline.js from when.js:
  * https://github.com/cujojs/when/blob/3.7.4/pipeline.js
  */
-var Promise = require('bluebird');
+'use strict'
+const Promise = require('bluebird')
 
 function pipeline(tasks /* initial arguments */) {
-    var args = Array.prototype.slice.call(arguments, 1)
-    
-    var runTask = function (task, args) {
-        // Self-optimizing function to run first task with multiple
-        // args using apply, but subsequent tasks via direct invocation
-        runTask = function (task, arg) {
-            return task(arg);
-        };
+  const args = Array.prototype.slice.call(arguments, 1)
 
-        return task.apply(null, args);
-    };
+  let runTask = (task, args) => {
+    // Self-optimizing function to run first task with multiple
+    // args using apply, but subsequent tasks via direct invocation
+    runTask = (task, arg) => {
+      return task(arg)
+    }
 
-    // Resolve any promises for the arguments passed in first
-    return Promise.all(args).then(function (args) {
-        // Iterate through the tasks passing args from one into the next
-        return Promise.reduce(tasks, function (arg, task) {
-            return runTask(task, arg);
-        }, args);
-    });
+    return task.apply(null, args)
+  }
+
+  // Resolve any promises for the arguments passed in first
+  return Promise.all(args).then(args => {
+    // Iterate through the tasks passing args from one into the next
+    return Promise.reduce(tasks, (arg, task) => {
+      return runTask(task, arg)
+    }, args)
+  })
 }
 
-module.exports = pipeline;
+module.exports = pipeline

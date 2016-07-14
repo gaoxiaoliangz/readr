@@ -153,6 +153,7 @@ const schemas = {
         ]
       },
       role: {
+        required: true
       }
     }
   },

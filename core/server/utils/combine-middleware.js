@@ -8,13 +8,13 @@
  */
 
 function combineMiddleware(mids) {
-  return mids.reduce(function(a, b) {
-    return function(req, res, next) {
-      a(req, res, function(err) {
+  return mids.reduce((a, b) => {
+    return (req, res, next) => {
+      a(req, res, err => {
         if (err) {
-          return next(err);
+          return next(err)
         }
-        b(req, res, next);
+        return b(req, res, next)
       })
     }
   })

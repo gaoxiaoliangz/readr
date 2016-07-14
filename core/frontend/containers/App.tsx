@@ -6,6 +6,8 @@ import Container from 'elements/Container'
 import Colophon from 'components/Colophon'
 import { userAuth } from 'actions/index'
 import Notification from 'components/Notification'
+import _ from 'lodash'
+
 
 class App extends Component<any, any> {
 

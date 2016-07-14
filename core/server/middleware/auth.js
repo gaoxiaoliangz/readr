@@ -1,65 +1,46 @@
-// 'use strict'
+'use strict'
+const errors = require('../errors')
+const i18n = require('../utils/i18n')
+const models = require('../models')
+const _ = require('lodash')
+const API = require('../api')
 
-// const models = require('../api-v1/models')
-// const Promise = require('bluebird')
-// const pipeline = require('../utils/pipeline')
-// const _ = require('lodash')
-// const errors = require('../errors')
-// const i18n = require('../utils/i18n')
+// todo
+const auth = {
+  basic(req, res) {
+    return API.http(data => {
+      const login = data.object.login ? data.object.login.toLowerCase() : undefined
+      const password = data.object.password
+      
+      if (typeof login === 'undefined') {
+        return Promise.reject(new errors.ValidationError('login 为必填项！'))
+      }
 
-// // todo
-// const utils = require('../api-v1/utils')
+      if (typeof password === 'undefined') {
+        return Promise.reject(new errors.ValidationError('密码为必填项！'))
+      }
 
+      return models.user.find({ $or: [{ slug: login, password }, { email: login, password }] }).listRaw().then(result => {
+        if (result.length === 0) {
+          return Promise.reject(new errors.BadRequestError('用户名或密码错误！'))
+        }
 
-// const auth = {
-//   basic(req, res, next) {
-//     const requiredOptions = ['login', 'password']
+        req.session.user = result[0]
+        return Promise.resolve({ ok: 1 })
+      })
+    })(req, res)
+  },
 
-//     function doQuery(options) {
-//       let login = options.login.toLowerCase()
+  check(req, res) {
+    if (req.session.user) {
+      const user = _.omit(req.session.user, ['password', 'date_created'])
+      res.send(user)
+    } else {
+      res.send({
+        role: 'visitor'
+      })
+    }
+  }
+}
 
-//       return models.read('users', {$or: [{slug: login}, {email: login}]}).then(result => {
-//         if(result.length === 0) {
-//           return Promise.reject(new errors.NotFoundError(i18n('errors.api.auth.userDoesNotExist')))
-//         } else if (options.password === result[0].password){
-//           delete result[0].password
-//           return result[0]
-//         } else {
-//           return Promise.reject(new errors.ValidationError(i18n('errors.middleware.auth.wrongPassword')))
-//         }
-//       }, error => {
-//         return Promise.reject(error)
-//       })
-//     }
-
-//     const tasks = [
-//       utils.validate(requiredOptions),
-//       doQuery
-//     ]
-
-//     // it's a patch
-//     let options = req.body
-//     options.context = null
-
-//     pipeline(tasks, options).then(result => {
-//       delete result._id
-//       delete result.date_created
-
-//       // TODO
-//       // write user to session, dont't know if it's the right way to do it
-//       // should I use token?
-//       req.session.user = result
-
-//       res.send(result)
-//     }, error => {
-//       let statusCode = error.statusCode
-
-//       delete error.name
-//       delete error.statusCode
-
-//       res.status(statusCode).send(error)
-//     })
-//   }
-// }
-
-// module.exports = auth
+module.exports = auth

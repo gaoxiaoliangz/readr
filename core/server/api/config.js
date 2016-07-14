@@ -13,7 +13,13 @@ const config = {
 
   books: {
     model: 'book',
-    url: '/books'
+    url: '/books',
+    excludedMethods: ['add']
+  },
+
+  tags: {
+    model: 'tag',
+    url: '/tags'
   }
 }
 

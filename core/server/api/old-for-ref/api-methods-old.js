@@ -74,49 +74,43 @@ class ApiMethods {
     }
   }
 
-  _isEnabled(methodName) {
-    if (this.config.methods[methodName][0]) {
-      return Promise.resolve(true)
-    }
-    // todo
-    return Promise.reject(new errors.BadRequestError('no no'))
-  }
 
-  _validate(data, isEditing) {
-    const suppliedFields = Object.keys(data)
-    const allFields = Object.keys(this.schema.fields)
-    const requiredFields = allFields.filter(key => Boolean(this.schema.fields[key].required))
-    const unsupportedFields = suppliedFields.filter(key => allFields.indexOf(key) === -1)
-    const missedFields = requiredFields.filter(key => suppliedFields.indexOf(key) === -1)
 
-    if (unsupportedFields.length > 0) {
-      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.unsupportedInput', unsupportedFields[0])))
-    }
+  // _validate(data, isEditing) {
+  //   const suppliedFields = Object.keys(data)
+  //   const allFields = Object.keys(this.schema.fields)
+  //   const requiredFields = allFields.filter(key => Boolean(this.schema.fields[key].required))
+  //   const unsupportedFields = suppliedFields.filter(key => allFields.indexOf(key) === -1)
+  //   const missedFields = requiredFields.filter(key => suppliedFields.indexOf(key) === -1)
 
-    if (missedFields.length > 0 && !isEditing) {
-      return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.missRequiredFields', missedFields[0])))
-    }
+  //   if (unsupportedFields.length > 0) {
+  //     return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.unsupportedInput', unsupportedFields[0])))
+  //   }
 
-    // 验证 fields，因为每个 field 可能有不止一个 validator
-    const validateField = (key, val, validators) => {
-      return pipeline(validators.map(validation => {
-        if (validation[0](val)) {
-          return Promise.resolve(true)
-        }
-        return Promise.reject(new errors.BadRequestError(validation[1]))
-      }))
-    }
+  //   if (missedFields.length > 0 && !isEditing) {
+  //     return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.missRequiredFields', missedFields[0])))
+  //   }
 
-    // 所有 fields 验证一遍
-    return pipeline(Object.keys(data).map(key => {
-      const validators = this.schema.fields[key].validators
-      if (validators) {
-        return validateField(key, data[key], validators)
-      }
-      // 跳过未定义 validation 的 filed
-      return Promise.resolve(true)
-    }))
-  }
+  //   // 验证 fields，因为每个 field 可能有不止一个 validator
+  //   const validateField = (key, val, validators) => {
+  //     return pipeline(validators.map(validation => {
+  //       if (validation[0](val)) {
+  //         return Promise.resolve(true)
+  //       }
+  //       return Promise.reject(new errors.BadRequestError(validation[1]))
+  //     }))
+  //   }
+
+  //   // 所有 fields 验证一遍
+  //   return pipeline(Object.keys(data).map(key => {
+  //     const validators = this.schema.fields[key].validators
+  //     if (validators) {
+  //       return validateField(key, data[key], validators)
+  //     }
+  //     // 跳过未定义 validation 的 filed
+  //     return Promise.resolve(true)
+  //   }))
+  // }
 
   add(data) {
     const query = () => {

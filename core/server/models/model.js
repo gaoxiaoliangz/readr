@@ -6,6 +6,8 @@ const db = require('./db')
 const embedRef = db.embedRef
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
+const utils = require('../utils')
+const validate = require('../data/validate')
 
 
 function dataConvention(schema, data) {
@@ -77,48 +79,55 @@ class Model {
 
   // todo: validation 
   insert(data) {
-    let data2 = Object.assign({}, data, {
-      _id: Math.random().toFixed(8).substr(2),
-      date_created: new Date().toString()
-    })
-
-    data2 = dataConvention(this.schema, data2)
-
-    // 检查是否需要确认唯一性
-    const dataToCheck = Object.keys(this.schema.fields)
-      .filter(key => this.schema.fields[key].unique)
-      .map(key => ({
-        key,
-        value: data[key]
-      }))
-
-    // 过滤出和数据库中已存在数据相匹配的输入项
-    if (dataToCheck.length !== 0) {
-      const checkingResult = Promise.all(dataToCheck.map(data3 => {
-        return db.fetchData({ [data3.key]: data3.value }, this.tableName).then(res => {
-          if (res.length !== 0) {
-            return data3
-          }
-          return false
-        })
-      })).then(res => {
-        return res.filter(r => r !== false)
+    const query = () => {
+      let data2 = Object.assign({}, data, {
+        _id: Math.random().toFixed(8).substr(2),
+        date_created: new Date().toString()
       })
 
-      return checkingResult.then(res => {
-        if (res.length !== 0) {
-          return Promise.reject(new errors.BadRequestError(i18n('errors.schema.unique', res[0].key)))
-        }
+      data2 = dataConvention(this.schema, data2)
 
-        return db.getCollection(this.tableName).then(collection => {
-          return collection.insert([data2])
+      // 检查是否需要确认唯一性
+      const dataToCheck = Object.keys(this.schema.fields)
+        .filter(key => this.schema.fields[key].unique)
+        .map(key => ({
+          key,
+          value: data[key]
+        }))
+
+      // 过滤出和数据库中已存在数据相匹配的输入项
+      if (dataToCheck.length !== 0) {
+        const checkingResult = Promise.all(dataToCheck.map(data3 => {
+          return db.fetchData({ [data3.key]: data3.value }, this.tableName).then(res => {
+            if (res.length !== 0) {
+              return data3
+            }
+            return false
+          })
+        })).then(res => {
+          return res.filter(r => r !== false)
         })
+
+        return checkingResult.then(res => {
+          if (res.length !== 0) {
+            return Promise.reject(new errors.BadRequestError(i18n('errors.schema.unique', res[0].key)))
+          }
+
+          return db.getCollection(this.tableName).then(collection => {
+            return collection.insert([data2])
+          })
+        })
+      }
+
+      return db.getCollection(this.tableName).then(collection => {
+        return collection.insert([data2])
       })
     }
 
-    return db.getCollection(this.tableName).then(collection => {
-      return collection.insert([data2])
-    })
+    return utils.reduceTasks([
+      validate(data, this.schema),
+      query
+    ])
   }
 
   // @multi: boolean
@@ -126,31 +135,38 @@ class Model {
     let multi = false
     let upsert = false
 
-    if (updateConfig) {
-      multi = updateConfig.multi || false
-      upsert = updateConfig.upsert || false
-    }
-    
-    // todo: 添加特殊格式处理
-    const data2 = Object.assign({}, data, {
-      date_updated: new Date().toString()
-    })
-    const match = this._getAndResetMatch()
-    let enableMulti = false
-
-    if (Object.keys(match).length === 0) {
-      enableMulti = true
-    }
-    if (typeof multi !== 'undefined') {
-      enableMulti = multi
-    }
-
-    return db.getCollection(this.tableName).then(collection => {
-      return collection.update(match, { $set: data2 }, {
-        upsert: typeof upsert !== undefined ? upsert : false,
-        multi: enableMulti
+    const query = () => {
+      if (updateConfig) {
+        multi = updateConfig.multi || false
+        upsert = updateConfig.upsert || false
+      }
+      
+      // todo: 添加特殊格式处理
+      const data2 = Object.assign({}, data, {
+        date_updated: new Date().toString()
       })
-    })
+      const match = this._getAndResetMatch()
+      let enableMulti = false
+
+      if (Object.keys(match).length === 0) {
+        enableMulti = true
+      }
+      if (typeof multi !== 'undefined') {
+        enableMulti = multi
+      }
+
+      return db.getCollection(this.tableName).then(collection => {
+        return collection.update(match, { $set: data2 }, {
+          upsert: typeof upsert !== undefined ? upsert : false,
+          multi: enableMulti
+        })
+      })
+    }
+
+    return utils.reduceTasks([
+      validate(data, this.schema, true),
+      query
+    ])
   }
 
   destroy() {

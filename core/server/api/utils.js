@@ -4,57 +4,6 @@ const Promise = require('bluebird')
 const _ = require('lodash')
 
 
-// tasks 可以是返回 Promise 的 fn
-// 也可以是 Promise
-function pipeline(tasks) {
-  return Promise.reduce(tasks, (result, task) => {
-    if (typeof task === 'function') {
-      return task.call(this)
-    }
-    // 如果 task 是 Promise blue bird 貌似会自动把 promise resolve 出来，是 reject 直接就终止执行
-    // 所以 写 task#then 会出错
-    return task
-  })
-}
-
-function validate(data, isEditing) {
-  const suppliedFields = Object.keys(data)
-  const allFields = Object.keys(this.schema.fields)
-  const requiredFields = allFields.filter(key => Boolean(this.schema.fields[key].required))
-  const unsupportedFields = suppliedFields.filter(key => allFields.indexOf(key) === -1)
-  const missedFields = requiredFields.filter(key => suppliedFields.indexOf(key) === -1)
-
-  if (unsupportedFields.length > 0) {
-    return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.unsupportedInput', unsupportedFields[0])))
-  }
-
-  if (missedFields.length > 0 && !isEditing) {
-    return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.missRequiredFields', missedFields[0])))
-  }
-
-  // 验证 fields，因为每个 field 可能有不止一个 validator
-  const validateField = (key, val, validators) => {
-    return pipeline(validators.map(validation => {
-      if (validation[0](val)) {
-        return Promise.resolve(true)
-      }
-      return Promise.reject(new errors.BadRequestError(validation[1]))
-    }))
-  }
-
-  // 所有 fields 验证一遍
-  return pipeline(Object.keys(data).map(key => {
-    const validators = this.schema.fields[key].validators
-    if (validators) {
-      return validateField(key, data[key], validators)
-    }
-    // 跳过未定义 validation 的 filed
-    return Promise.resolve(true)
-  }))
-}
-
-
-
 function getIdMatch(options) {
   if (options.id) {
     return { _id: options.id }
@@ -90,8 +39,6 @@ function limitResults(limit) {
 
 
 module.exports = {
-  pipeline,
-  validate,
   getIdMatch,
   excludeFields,
   includeFields,

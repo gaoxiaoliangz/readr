@@ -1,10 +1,9 @@
-'use strict'
-
 /**
  * referenced ghost i18n.js, it's a simplified version
  * and I used js to store local translations instead of json
  */
 
+'use strict'
 const cnTranslations = require('../translations/cn')
 const _ = require('lodash')
 
@@ -36,6 +35,11 @@ function getMatchingString(msgPath) {
   return matchingString
 }
 
+function addPunc(str, lang) {
+  // todo: lang
+  return `${str}！`
+}
+
 module.exports = function i18n(msgPath, value) {
   let matchingString = getMatchingString(msgPath)
   
@@ -58,8 +62,9 @@ module.exports = function i18n(msgPath, value) {
         matchingValue = addPadding(matchingValue)
       }
 
-      // todo: ! en
-      matchingString = before + matchingValue + after + '！'
+      matchingString = addPunc(before + matchingValue + after)
+    } else {
+      matchingString = addPunc(matchingString)
     }
   }
 

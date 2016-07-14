@@ -10,6 +10,8 @@ const cn = {
       description: '描述',
       name: '名称',
       creator: '创建者',
+      title: '标题',
+      progress: '进度'
     },
   },
   errors: {
@@ -29,6 +31,7 @@ const cn = {
         },
       },
       preCheck: {
+        emptyObject: '提交数据不能为空',
         missRequiredFields: '{value}为必填项',
         unsupportedInput: '发现未知的输入项{value}',
         inputEmpty: '{value}输入不能为空',

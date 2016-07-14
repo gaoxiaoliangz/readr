@@ -1,6 +1,5 @@
 'use strict'
 const auth = require('./auth')
-const auth2 = require('./auth2')
 
 function getUserInfo(req, res, next) {
   if (req.session.user) {
@@ -20,9 +19,8 @@ function checkAdminPermissions(req, res, next) {
 
 const middleware = {
   auth,
-  auth2,
   getUserInfo,
-  checkAdminPermissions,
+  checkAdminPermissions
 }
 
 module.exports = middleware

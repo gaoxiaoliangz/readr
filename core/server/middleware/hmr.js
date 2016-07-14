@@ -4,31 +4,13 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const config = require('../../../webpack.config')
 const hot = 'webpack-hot-middleware/client'
+const combineMiddleware = require('../utils/combine-middleware')
 
 
-function combineMiddleware(mids) {
-  return mids.reduce((a, b) => {
-    return (req, res, next) => {
-      a(req, res, err => {
-        if (err) {
-          return next(err)
-        }
-        return b(req, res, next)
-      })
-    }
+function hotModuleReplacement() {
+  Object.keys(config.entry).forEach(key => {
+    config.entry[key] = [hot].concat(config.entry[key])
   })
-}
-
-function hmr() {
-  for (const prop in config.entry) {
-    config.entry[prop] = [hot].concat(config.entry[prop])
-  }
-
-  // config.entry = [
-  //   'webpack-dev-server/client?http://0.0.0.0:3000', // WebpackDevServer host and port
-  //   'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-  //   './core/entry/app' // Your appʼs entry point
-  // ]
 
   // config.module.loaders.forEach(loader => {
   //   if (loader.query) {
@@ -56,4 +38,4 @@ function hmr() {
   ])
 }
 
-module.exports = hmr
+module.exports = hotModuleReplacement
