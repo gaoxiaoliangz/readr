@@ -7,7 +7,7 @@ const embedRef = db.embedRef
 const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const utils = require('../utils')
-const validate = require('../data/validate')
+const validate = require('./validate')
 
 
 function dataConvention(schema, data) {

@@ -3,6 +3,7 @@ const Promise = require('bluebird')
 const errors = require('../../errors')
 const i18n = require('../../utils/i18n')
 const models = require('../../models')
+const utils = require('../utils')
 
 
 const readingProgress = {
@@ -19,10 +20,9 @@ const readingProgress = {
   ],
 
   find(data) {
-    const userId = data.options.user_id
-    const bookId = data.options.book_id
+    const match = utils.getIdMatch(data.options)
 
-    return models.progress.find({ userId, bookId }).listRaw().then(res => {
+    return models.progress.find(match).listRaw().then(res => {
       if (res.length === 0) {
         return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound', 'progress')))
       }
@@ -31,10 +31,9 @@ const readingProgress = {
   },
 
   edit(data) {
-    const userId = data.options.user_id
-    const bookId = data.options.book_id
+    const match = utils.getIdMatch(data.options)
 
-    return models.progress.find({ userId, bookId }).update(data.object, {
+    return models.progress.find(match).update(data.object, {
       upsert: true
     })
   }

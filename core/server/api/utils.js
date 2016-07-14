@@ -19,6 +19,13 @@ function getIdMatch(options) {
   return match
 }
 
+
+/**
+ * 查询结果过滤
+ * 作为 model 返回结果数据数组方法的 iteratee 使用
+ */
+
+// for map
 function excludeFields(fieldsToExclude) {
   return res => _.omit(res, fieldsToExclude)
 }
@@ -30,6 +37,7 @@ function includeFields(fieldsToInclude) {
   return res => _.pick(res, fieldsToInclude)
 }
 
+// for filter
 function limitResults(limit) {
   if (isNaN(limit) || limit === 0) {
     return () => true
