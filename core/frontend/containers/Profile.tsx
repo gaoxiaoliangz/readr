@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { sendNotification } from 'actions/index'
 import NavTab from '../components/NavTab'
-import { fetchBooks, fetchCollections } from 'actions/index'
+import { fetchBooks, fetchCollections, fetchShelf } from 'actions/index'
 import BookListSection from 'components/BookListSection'
 import Button from 'elements/Button'
 
@@ -11,6 +11,7 @@ interface Props {
   fetchBooks?: any
   session?: any
   newestBooks?: any
+  fetchShelf?: any
 }
 
 class Profile extends Component<Props, any> {
@@ -25,6 +26,7 @@ class Profile extends Component<Props, any> {
 
   componentDidMount() {
     this.props.fetchBooks()
+    this.props.fetchShelf('15593187')
   }
 
   render() {
@@ -60,5 +62,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, fetchBooks, fetchCollections }
+  { sendNotification, fetchBooks, fetchCollections, fetchShelf }
 )(Profile as any)

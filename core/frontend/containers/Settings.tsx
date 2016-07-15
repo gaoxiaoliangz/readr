@@ -5,6 +5,7 @@ import { sendNotification, userAuth, fetchProfile } from 'actions/index'
 import NavTab from '../components/NavTab'
 import Body from '../side-effects/Body'
 import Switcher from '../components/Switcher'
+import _ from 'lodash'
 
 class Profile extends Component<any, any> {
 
@@ -27,8 +28,8 @@ class Profile extends Component<any, any> {
     }
   }
 
-  render(){
-    let user = this.props.session.user
+  render() {
+    let user = this.props.profile
 
     return (
       <div className="settings">
@@ -67,9 +68,15 @@ class Profile extends Component<any, any> {
 }
 
 export default connect(
-  state => ({
-    notification: state.notification,
-    session: state.session
-  }),
+  state => {
+    const userId = state.session.user.role !== 'visitor' ? state.session.user.id : ''
+    const profile = userId && !_.isEmpty(state.entities.profiles) ? state.entities.profiles[userId] : {}
+
+    return {
+      notification: state.notification,
+      session: state.session,
+      profile
+    }
+  },
   { sendNotification, userAuth, fetchProfile } as any
 )(Profile)

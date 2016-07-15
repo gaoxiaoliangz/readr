@@ -28,3 +28,14 @@ export function fetchUserList() {
     }
   }
 }
+
+export function fetchShelf(userId) {
+  return {
+    userId,
+    CALL_API: {
+      types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
+      endpoint: `users/${userId}/shelf`,
+      schema: Schemas.BOOK_ARRAY,
+    }
+  }
+}

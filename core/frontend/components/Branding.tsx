@@ -20,10 +20,10 @@ class Branding extends Component<any, any> {
 
   render() {
     let username = this.props.username
-    let isAdmin = this.props.isAdmin?this.props.isAdmin:false
+    let isAdmin = this.props.isAdmin ? this.props.isAdmin : false
 
     return (
-      <div className="branding">
+      <div className={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
             <h1 className="logo left">
@@ -40,17 +40,17 @@ class Branding extends Component<any, any> {
               </ul>
             </div>
             {
-              username?(
-                <div onMouseLeave={this.toggleDropdownMenu.bind(this)} onMouseEnter={this.toggleDropdownMenu.bind(this)} className="nav right">
+              username ? (
+                <div onMouseLeave={this.toggleDropdownMenu.bind(this) } onMouseEnter={this.toggleDropdownMenu.bind(this) } className="nav right">
                   <span className="recent-reading">最近阅读</span>
-                  <span className="username">{username}{isAdmin?(<span className="badge-dark">Admin</span>):null}</span>
+                  <span className="username">{username}{isAdmin ? (<span className="badge-dark">Admin</span>) : null}</span>
                   {
-                    this.state.isDropdownMenuVisible?(
-                      <ul onClick={this.toggleDropdownMenu.bind(this)} className="dropdown-menu">
+                    this.state.isDropdownMenuVisible ? (
+                      <ul onClick={this.toggleDropdownMenu.bind(this) } className="dropdown-menu">
                         {
-                          isAdmin === true?(
+                          isAdmin === true ? (
                             <li><a href="/console">控制台</a></li>
-                          ):null
+                          ) : null
                         }
                         {/*<li><Link to={`/profile/${username}`}>我的账号</Link></li>*/}
                         <li><Link to={`/shelf`}>书架</Link></li>
@@ -58,21 +58,21 @@ class Branding extends Component<any, any> {
                         <li><Link to={`/settings`}>设置</Link></li>
                         <li><a href='/logout'>退出</a></li>
                       </ul>
-                    ):null
+                    ) : null
                   }
                 </div>
-              ):(
-                <div className="nav right">
-                  <ul className="nav-links">
-                    <li>
-                      <Link to="/signin">登录</Link>
-                    </li>
-                    <li>
-                      <Link to="/signup">注册</Link>
-                    </li>
-                  </ul>
-                </div>
-              )
+              ) : (
+                  <div className="nav right">
+                    <ul className="nav-links">
+                      <li>
+                        <Link to="/signin">登录</Link>
+                      </li>
+                      <li>
+                        <Link to="/signup">注册</Link>
+                      </li>
+                    </ul>
+                  </div>
+                )
             }
           </div>
         </Container>

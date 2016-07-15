@@ -65,6 +65,10 @@ const pagination = combineReducers({
     mapActionToKey: action => action.flowType,
     types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE']
   }),
+  shelf: paginate({
+    mapActionToKey: action => action.userId,
+    types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE']
+  }),
   userList: paginate({
     // TODO
     mapActionToKey: action => 'all',

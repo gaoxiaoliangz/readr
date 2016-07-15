@@ -7,14 +7,18 @@ import Colophon from 'components/Colophon'
 import { userAuth } from 'actions/index'
 import Notification from 'components/Notification'
 import _ from 'lodash'
+import CSSModules from 'react-css-modules'
+// const style = require('./App.css')
+const styles = require('./App.css')
+import Button from 'elements/Button'
 
 
+@CSSModules(styles)
 class App extends Component<any, any> {
 
   constructor(props) {
     super(props)
   }
-
 
   componentDidMount() {
     this.props.userAuth()
@@ -24,14 +28,15 @@ class App extends Component<any, any> {
     let isAdmin = false
     let username = null
 
-    if(this.props.session.user.role !== 'visitor') {
+    if (this.props.session.user.role !== 'visitor') {
       isAdmin = this.props.session.user.role === 'admin'
       username = this.props.session.user.username
     }
 
     return (
       <div>
-        <Branding isAdmin={isAdmin} username={username} />
+        <Branding styleName="fuck" isAdmin={isAdmin} username={username} />
+        <Button {...{styleName: 'btn'}}>test</Button>
         <Container>
           {this.props.children}
         </Container>

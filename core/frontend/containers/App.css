@@ -1,3 +1,12 @@
-body {
+.fuck {
+
+}
+
+.btn {
+  composes: box from "shared/style.css";
   background: red;
+  font-size: 2rem;
+}
+
+:global .container {
 }

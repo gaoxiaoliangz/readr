@@ -9,9 +9,10 @@ interface Props {
   type?: string
   to?: string
   onClick?: any
+  // styleName?: any
 }
 
-class Button extends Component<Props, any>{
+class Button extends Component<Props, any> {
   constructor(props) {
     super(props)
   }
