@@ -31,6 +31,7 @@ const paths = {
     es6: [`${assetBuilt}/es6/**/*.js`, `!${assetBuilt}/es6/jspm_packages/**`],
     img: [`${srcDir}/img/**/*.*`],
     fonts: [`${srcDir}/fonts/*`],
+    frontend: 'core/frontend/**/*.*'
   },
   built: {
     root: assetBuilt,
@@ -120,4 +121,18 @@ gulp.task('wpserver', () => {
   return gulp.src('entry')
     .pipe(webpackStream(webpackConfigServer))
     .pipe(gulp.dest(paths.built.server))
+})
+
+// watch webpack server script
+gulp.task('wwps', () => {
+  return gulp.src('entry')
+    .pipe(webpackStream(Object.assign({}, webpackConfigServer, {
+      watch: true,
+      progress: true
+    })))
+    .pipe(gulp.dest(paths.built.server))
+})
+
+gulp.task('w-wsjs', () => {
+  gulp.watch(paths.src.frontend, ['wpserver'])
 })

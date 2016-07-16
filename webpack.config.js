@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'assets/built'),
     filename: '[name].built.js',
-    publicPath: '/built',
+    publicPath: '/built/',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'file?hash=sha512&digest=hex&name=[name]-[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },
@@ -38,7 +38,7 @@ module.exports = {
         test: /\.scss$/,
         loaders: [
           'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
           'resolve-url',
           // 'postcss?sourceMap'
           'sass?sourceMap'
@@ -63,20 +63,5 @@ module.exports = {
       css: path.join(__dirname, 'assets/built'),
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
-  },
-  externals: {
-    // 'react': 'React',
-    // 'react-dom': 'ReactDOM',
-    // 'react-router': 'ReactRouter',
-    // 'react-redux': 'ReactRedux',
-    // 'lodash': '_',
-    // 'normalizr': 'normalizr',
-    // 'humps': 'humps',
-    // 'react-addons-css-transition-group': 'react-addons-css-transition-group', // todo
-    // 'jquery': '$',
-    // 'redux-thunk': 'ReduxThunk',
-    // 'redux': 'Redux',
-    // 'redux-devtools-log-monitor': 'redux-devtools-log-monitor', // todo
-    // 'redux-devtools-dock-monitor': 'redux-devtools-dock-monitor' // todo
   },
 }
