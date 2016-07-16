@@ -1,12 +1,16 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Switcher from './Switcher'
+import CSSModules from 'react-css-modules'
+// const styles = require('containers/App.css')
+
 
 interface Props {
   name: string
 }
 
+// @CSSModules(styles)
 class ViewerPreference extends Component<Props, any> {
 
   constructor(props) {

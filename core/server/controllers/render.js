@@ -9,11 +9,15 @@ const Provider = require('react-redux').Provider
 const renderToString = require('react-dom/server').renderToString
 const ReactRouter = require('react-router')
 const RouterContext = ReactRouter.RouterContext
-const configureStore = require('store/configureStore').default
+
+const configureStore = require('configureStore').default
 const store = configureStore()
 // const appRoutes = require('routes/app').default
 // const consoleRoutes = require('routes/console').default
-const Body = require('side-effects/Body').default
+
+
+
+// const Body = require('side-effects/Body').default
 
 function getRenderData(renderProps) {
   let html
@@ -42,15 +46,18 @@ function getRenderData(renderProps) {
     console.log(e)
   }
 
-  let bodyClass = Body.rewind()
+  // let bodyClass = Body.rewind()
 
-  if (typeof bodyClass === 'undefined') {
-    bodyClass = ''
-  }
+  // if (typeof bodyClass === 'undefined') {
+  //   bodyClass = ''
+  // }
+
+  // console.log(html)
+  
 
   return {
-    html: html,
-    bodyClass: bodyClass,
+    html,
+    bodyClass: 'body-todo',
     initialState: JSON.stringify(initialState)
   }
 }
@@ -61,7 +68,7 @@ function preRender(renderProps) {
   let wrappedComponent = renderProps.components.slice(-1)[0].WrappedComponent ? renderProps.components.slice(-1)[0].WrappedComponent : null
 
   if (wrappedComponent && wrappedComponent.fetchData) {
-    let result = wrappedComponent.fetchData({ store: store, params: params })
+    let result = wrappedComponent.fetchData({ store, params })
 
     if (Array.isArray(result)) {
       return Promise.all(result).then(res => {

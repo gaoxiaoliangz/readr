@@ -7,6 +7,7 @@ import Loading from 'components/Loading'
 import CandyBox from 'components/CandyBox'
 import Body from 'side-effects/Body'
 import Button from '../elements/Button'
+import _ from 'lodash'
 
 
 interface Props {
@@ -96,6 +97,8 @@ class Home extends Component<PropsWithReduxState, State> {
 }
 
 function mapStateToProps(state, ownProps) {
+  // console.log(state.pagination.books.newest);
+  
   return {
     userBooks: [],
     newestBooks: state.pagination.books.newest

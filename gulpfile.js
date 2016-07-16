@@ -6,6 +6,7 @@ const sass = require('gulp-sass')
 const uglify = require('gulp-uglify')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./webpack.config.js')
+const webpackConfigServer = require('./webpack.config.server.js')
 // const webpack = require('webpack');
 const babel = require('gulp-babel')
 const ts = require('gulp-typescript')
@@ -37,6 +38,7 @@ const paths = {
     es5: `${assetBuilt}/es5`,
     img: `${assetBuilt}/img`,
     fonts: `${assetBuilt}/fonts`,
+    server: `${assetBuilt}/server`
   },
 }
 
@@ -114,3 +116,8 @@ gulp.task('build', () => {
   return revd
 })
 
+gulp.task('wpserver', () => {
+  return gulp.src('entry')
+    .pipe(webpackStream(webpackConfigServer))
+    .pipe(gulp.dest(paths.built.server))
+})

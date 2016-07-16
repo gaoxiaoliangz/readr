@@ -8,12 +8,13 @@ import { userAuth } from 'actions/index'
 import Notification from 'components/Notification'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-// const style = require('./App.css')
-const styles = require('./App.css')
+// const styles = require('containers/App.scss')
+const styles = require('./App.scss')
 import Button from 'elements/Button'
 
+console.log((styles as any));
 
-@CSSModules(styles)
+@CSSModules((styles as any))
 class App extends Component<any, any> {
 
   constructor(props) {
@@ -41,12 +42,11 @@ class App extends Component<any, any> {
           {this.props.children}
         </Container>
         <Colophon />
+        <div></div>
       </div>
     )
   }
 }
-
-// export default App
 
 export default connect(
   state => ({

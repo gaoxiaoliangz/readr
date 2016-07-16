@@ -23,8 +23,9 @@ export default function paginate({ types, mapActionToKey }: {
       case successType:
         return Object.assign({}, state, {
           isFetching: false,
-          // ids: _.union(state.ids, action.response.result),
-          ids: action.response.result,
+          ids: _.union(state.ids, action.response.result),
+          // 不使用 union 会导致 server rendering 问题？
+          // ids: action.response.result,
           nextPageUrl: action.response.nextPageUrl,
           pageCount: state.pageCount + 1
         })
@@ -47,9 +48,11 @@ export default function paginate({ types, mapActionToKey }: {
         if (typeof key !== 'string') {
           throw new Error('Expected key to be a string.')
         }
-        return Object.assign({}, state, {
+        const res = Object.assign({}, state, {
           [key]: updatePagination(state[key], action)
         })
+
+        return res
       default:
         return state
     }

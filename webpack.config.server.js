@@ -1,15 +1,23 @@
 const path = require('path')
 const webpack = require('webpack')
+// const fs = require('fs')
 
 module.exports = {
   entry: {
-    app: ['./core/frontend/entry/app'],
-    console: ['./core/frontend/entry/console'],
+    app: ['./core/frontend/routes/App'],
+    console: ['./core/frontend/routes/Console'],
+    configureStore: ['./core/frontend/store/configureStore'],
+  },
+  node: {
+    __filename: true,
+    __dirname: true,
+    console: true
   },
   output: {
-    path: path.join(__dirname, 'assets/built'),
-    filename: '[name].built.js',
-    publicPath: '/built',
+    path: path.join(__dirname, 'assets/built/server'),
+    filename: '[name].js',
+    // publicPath: '/built/es5/routes',
+    libraryTarget: 'commonjs2'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -37,7 +45,7 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: [
-          'style?sourceMap',
+          // 'style?sourceMap',
           'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'resolve-url',
           // 'postcss?sourceMap'
@@ -64,19 +72,7 @@ module.exports = {
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },
-  externals: {
-    // 'react': 'React',
-    // 'react-dom': 'ReactDOM',
-    // 'react-router': 'ReactRouter',
-    // 'react-redux': 'ReactRedux',
-    // 'lodash': '_',
-    // 'normalizr': 'normalizr',
-    // 'humps': 'humps',
-    // 'react-addons-css-transition-group': 'react-addons-css-transition-group', // todo
-    // 'jquery': '$',
-    // 'redux-thunk': 'ReduxThunk',
-    // 'redux': 'Redux',
-    // 'redux-devtools-log-monitor': 'redux-devtools-log-monitor', // todo
-    // 'redux-devtools-dock-monitor': 'redux-devtools-dock-monitor' // todo
-  },
+  // externals: /^[a-z][a-z\.\-0-9]*$/,
+  target: 'node',
+  externals: ['react', 'react-dom', 'isomorphic-fetch']
 }
