@@ -2,6 +2,5 @@ node_modules/
 bower_components/
 .sass-cache/
 .idea/
-assets/built/es6/
 .DS_Store
 
