@@ -3,12 +3,12 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: ['./core/frontend/entry/app'],
-    console: ['./core/frontend/entry/console'],
+    app: ['./src/client/entry/app'],
+    console: ['./src/client/entry/console'],
   },
   output: {
     path: path.join(__dirname, 'assets/built'),
-    filename: '[name].built.js',
+    filename: '[name].js',
     publicPath: '/built/',
   },
   plugins: [
@@ -53,14 +53,13 @@ module.exports = {
   postcss: () => {
     return [require('postcss-cssnext'), require('postcss-import')]
   },
-  sassLoader: {
-    includePaths: [path.resolve(__dirname, './core/frontend')]
-  },
+  // sassLoader: {
+  //   includePaths: [path.resolve(__dirname, './core/frontend')]
+  // },
   resolve: {
     root: path.resolve('./core/frontend'),
     alias: {
-      vendor: path.join(__dirname, 'assets/vendors'),
-      css: path.join(__dirname, 'assets/built'),
+      styles: path.join(__dirname, 'src/client/shared/scss'),
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },

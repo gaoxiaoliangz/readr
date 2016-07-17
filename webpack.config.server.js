@@ -3,12 +3,12 @@ const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: ['./core/frontend/routes/App'],
-    console: ['./core/frontend/routes/Console'],
-    configureStore: ['./core/frontend/store/configureStore'],
+    app: ['./src/client/routes/App'],
+    console: ['./src/client/routes/Console'],
+    configureStore: ['./src/client/store/configureStore'],
   },
   output: {
-    path: path.join(__dirname, 'assets/built/server'),
+    path: path.join(__dirname, 'bin'),
     filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
@@ -53,14 +53,13 @@ module.exports = {
   postcss: () => {
     return [require('postcss-cssnext'), require('postcss-import')]
   },
-  sassLoader: {
-    includePaths: [path.resolve(__dirname, './core/frontend')]
-  },
+  // sassLoader: {
+  //   includePaths: [path.resolve(__dirname, './core/frontend')]
+  // },
   resolve: {
-    root: path.resolve('./core/frontend'),
+    root: path.resolve('./src/client'),
     alias: {
-      vendor: path.join(__dirname, 'assets/vendor'),
-      built: path.join(__dirname, 'assets/built'),
+      styles: path.join(__dirname, 'src/client/shared/scss'),
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },
