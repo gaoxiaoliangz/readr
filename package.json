@@ -11,7 +11,7 @@
       "server.s": "gulp webpack.s.w & nodemon --debug index",
 
     "build": "webpack --progress",
-    "clean": "",
+    "clean.built": "npm run rimraf -- assets/built",
 
     "test": "mocha --require babel-register",
     "babel-node?": "nodemon index.dev --exec babel-node"
@@ -141,7 +141,7 @@
   },
   "jspm": {
     "directories": {
-      "baseURL": "assets/built/es6"
+      "baseURL": "assets/built"
     },
     "dependencies": {
       "humps": "npm:humps@^1.1.0",

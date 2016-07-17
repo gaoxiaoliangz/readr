@@ -9,7 +9,6 @@ module.exports = {
     console: [hot, './src/client/entry/console'],
   },
   output: {
-    path: path.join(__dirname, 'assets/built'),
     filename: '[name].js',
     publicPath: '/built/',
   },
@@ -17,7 +16,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"',
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoErrorsPlugin(),
   ],
+  devtool: 'inline-source-map',
   module: {
     loaders: [
       {
