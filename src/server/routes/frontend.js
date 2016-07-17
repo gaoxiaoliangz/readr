@@ -1,8 +1,7 @@
 'use strict'
-
 const path = require('path')
 const express = require('express')
-const router = express.Router()
+const router = new express.Router()
 const querystring = require('querystring')
 const url = require('url')
 const Promise = require('bluebird')
@@ -11,15 +10,15 @@ const errors = require('../errors')
 // const appRoutes = require('routes/App').default
 // const consoleRoutes = require('routes/Console').default
 
-const appRoutes = require('app').default
-const consoleRoutes = require('console').default
+const appRoutes = require('../../../bin/app').default
+const consoleRoutes = require('../../../bin/console').default
 
 const ReactRouter = require('react-router')
 const match = ReactRouter.match
 
 
 function handleFrontendRouting() {
-  router.get('*', middleware.checkAdminPermissions, function (req, res, next) {
+  router.get('*', middleware.checkAdminPermissions, (req, res, next) => {
     let entry = req.url.indexOf('console') !== -1 ? 'console' : 'app'
     let data = {}
     let routes = req.entry === 'console' ? consoleRoutes : appRoutes
@@ -28,7 +27,7 @@ function handleFrontendRouting() {
       res.redirect('/')
     }
 
-    match({ routes: routes, location: req.url }, function (error, redirectLocation, renderProps) {
+    match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         data.error = error
       } else if (redirectLocation) {

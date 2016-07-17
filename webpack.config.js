@@ -53,11 +53,11 @@ module.exports = {
   postcss: () => {
     return [require('postcss-cssnext'), require('postcss-import')]
   },
-  // sassLoader: {
-  //   includePaths: [path.resolve(__dirname, './core/frontend')]
-  // },
+  sassLoader: {
+    includePaths: [path.resolve(__dirname, './src/client')]
+  },
   resolve: {
-    root: path.resolve('./core/frontend'),
+    root: path.resolve('./src/client'),
     alias: {
       styles: path.join(__dirname, 'src/client/shared/scss'),
     },

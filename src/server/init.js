@@ -33,7 +33,7 @@ function init(basePath) {
   app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
   app.use(bodyParser.json({ limit: '5mb' }))
   app.use(cookieParser())
-  app.set('views', path.join(basePath, 'src/jade'))
+  app.set('views', path.join(basePath, 'src/client/views'))
   app.set('view engine', 'jade')
   app.use(express.static(path.join(basePath, 'assets')))
 

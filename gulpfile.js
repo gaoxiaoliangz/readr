@@ -8,6 +8,7 @@ const webpackConfigServer = require('./webpack.config.server.js')
 const rev = require('gulp-rev')
 const mergeStream = require('merge-stream')
 const cleanCSS = require('gulp-clean-css')
+const _ = require('lodash')
 // const ts = require('gulp-typescript')
 // const babel = require('gulp-babel')
 // const tsProject = ts.createProject('tsconfig.json')
@@ -44,7 +45,7 @@ gulp.task('sass.v', () => {
     .pipe(gulp.dest(paths.built.root))
 })
 
-gulp.task('image', () => {
+gulp.task('images', () => {
   return gulp.src(paths.src.img)
     // TODO
     // .pipe(imagemin())
@@ -86,9 +87,11 @@ gulp.task('webpack.s', () => {
 // webpack watch for server rendering
 gulp.task('webpack.s.w', () => {
   return gulp.src('entry')
-    .pipe(webpackStream(Object.assign({}, webpackConfigServer, {
+    .pipe(webpackStream(_.assign({}, webpackConfigServer, {
       watch: true,
       progress: true
     })))
     .pipe(gulp.dest(dirBin))
 })
+
+gulp.task('default', ['images', 'fonts', 'build', 'webpack.s'])
