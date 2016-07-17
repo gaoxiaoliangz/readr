@@ -10,8 +10,10 @@
       "server.c": "node index --hmr --noServerRendering",
       "server.s": "gulp webpack.s.w & nodemon --debug index",
 
-    "build": "webpack --progress",
-    "clean.built": "npm run rimraf -- assets/built",
+    "build.c": "webpack --progress",
+    "build.s": "gulp webpack.s",
+
+    "clean.built": "rimraf -- assets/built",
 
     "test": "mocha --require babel-register",
     "babel-node?": "nodemon index.dev --exec babel-node"

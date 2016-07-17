@@ -62159,7 +62159,7 @@
 /* 376 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "clear2-4368df9ac3cb99ada3e81a4c6c0c67d8.png";
+	module.exports = __webpack_require__.p + "clear2.png";
 
 /***/ },
 /* 377 */

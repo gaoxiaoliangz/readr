@@ -9,7 +9,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'assets/built'),
-    filename: '[name].[chunkhash].js',
+    // filename: '[name].[chunkhash].js',
+    filename: '[name].js',
     publicPath: '/built/',
   },
   plugins: [
@@ -24,7 +25,7 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
-          'file?hash=sha512&digest=hex&name=[name].[ext]',
+          'file?hash=sha512&digest=hex&name=[name].[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       },

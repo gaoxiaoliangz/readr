@@ -22,7 +22,7 @@ class ViewerPreference extends Component<Props, any> {
       <div className="viewer-preference">
         <ul className="options">
           <li className="option option-font-size">
-            <span>A</span><span>A</span>
+            <span>A-</span><span>A+</span>
           </li>
           <li className="option option-scroll">
             <span className="label">滚动模式</span>

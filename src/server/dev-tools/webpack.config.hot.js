@@ -5,19 +5,21 @@ const hot = 'webpack-hot-middleware/client'
 
 module.exports = {
   entry: {
-    app: [hot, './src/client/entry/app'],
-    console: [hot, './src/client/entry/console'],
+    app: [hot, path.resolve('src/client/entry/app')],
+    console: [hot, path.resolve('src/client/entry/console')],
   },
   output: {
+    path: path.resolve('assets/built/'),
+    publicPath: 'http://localhost:3000/built/',
     filename: '[name].js',
-    publicPath: '/built/',
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"',
     }),
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoErrorsPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
   devtool: 'inline-source-map',
   module: {
@@ -57,12 +59,12 @@ module.exports = {
   //   return [require('postcss-cssnext'), require('postcss-import')]
   // },
   sassLoader: {
-    includePaths: [path.resolve(__dirname, './src/client')]
+    includePaths: [path.resolve('src/client')]
   },
   resolve: {
-    root: path.resolve('./src/client'),
+    root: path.resolve('src/client'),
     alias: {
-      styles: path.join(__dirname, 'src/client/shared/scss'),
+      styles: path.resolve('src/client/shared/scss'),
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },
