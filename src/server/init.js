@@ -9,9 +9,10 @@ const routes = require('./routes')
 const bootServer = require('./boot')
 const config = require('./config')
 const app = express()
-const hmr = require('./middleware/hmr')
+const hotModuleReplacement = require('./dev-tools/hot-module-replacement')
 const runtimeOptions = require('./utils/runtime-options')
 const controllers = require('./controllers')
+
 
 function init(basePath) {
   app.use(session({
@@ -27,7 +28,7 @@ function init(basePath) {
 
   // it won't work if placed in the wrong position
   if (runtimeOptions.hmr) {
-    app.use(hmr())
+    app.use(hotModuleReplacement())
   }
 
   app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
@@ -44,10 +45,6 @@ function init(basePath) {
   
   // api routing
   app.use(routes.apiBaseUri, routes.apiRoutes)
-
-  // test model
-  // const model = require('./api-v2/models')
-  // app.use(model())
 
   // logout
   app.use(controllers.logout())

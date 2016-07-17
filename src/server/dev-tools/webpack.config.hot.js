@@ -1,23 +1,22 @@
 const path = require('path')
 const webpack = require('webpack')
-const ManifestPlugin = require('webpack-manifest-plugin')
+const hot = 'webpack-hot-middleware/client'
+
 
 module.exports = {
   entry: {
-    app: ['./src/client/entry/app'],
-    console: ['./src/client/entry/console'],
+    app: [hot, './src/client/entry/app'],
+    console: [hot, './src/client/entry/console'],
   },
   output: {
     path: path.join(__dirname, 'assets/built'),
-    filename: '[name].[chunkhash].js',
+    filename: '[name].js',
     publicPath: '/built/',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"',
+      'process.env.NODE_ENV': '"development"',
     }),
-    new ManifestPlugin(),
   ],
   module: {
     loaders: [
@@ -42,8 +41,8 @@ module.exports = {
           'style?sourceMap',
           'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
           'resolve-url',
-          // 'postcss?sourceMap'
-          'sass?sourceMap'
+          'sass?sourceMap',
+          // 'postcss?sourceMap',
         ]
       },
       {
@@ -52,9 +51,9 @@ module.exports = {
       },
     ],
   },
-  postcss: () => {
-    return [require('postcss-cssnext'), require('postcss-import')]
-  },
+  // postcss: () => {
+  //   return [require('postcss-cssnext'), require('postcss-import')]
+  // },
   sassLoader: {
     includePaths: [path.resolve(__dirname, './src/client')]
   },

@@ -2,8 +2,7 @@
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('../../../webpack.config')
-const hot = 'webpack-hot-middleware/client'
+const config = require('./webpack.config.hot')
 const combineMiddleware = require('../utils/combine-middleware')
 
 

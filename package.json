@@ -10,7 +10,7 @@
       "server.c": "node index --hmr --noServerRendering",
       "server.s": "gulp webpack.s.w & nodemon --debug index",
 
-    "build": "gulp",
+    "build": "webpack --progress",
     "clean": "",
 
     "test": "mocha --require babel-register",

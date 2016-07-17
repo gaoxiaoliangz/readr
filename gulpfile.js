@@ -2,6 +2,7 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
 const uglify = require('gulp-uglify')
+const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./webpack.config.js')
 const webpackConfigServer = require('./webpack.config.server.js')
@@ -37,6 +38,34 @@ const paths = {
   },
 }
 
+
+// streams /////////////////////////////////////////////////////////////////////
+const webpackChunkStream = () => {
+  return gulp.src('entry')
+    .pipe(webpackStream(Object.assign({}, webpackConfig, {
+      plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': '"production"'
+        })
+      ]
+    })))
+}
+
+const scriptStream = () => { 
+  return webpackChunkStream()
+    // .pipe(uglify())
+}
+
+const cssStream = () => {
+  return gulp
+    .src(paths.src.scss)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCSS({ compatibility: 'ie8' }))
+}
+
+
+// tasks ///////////////////////////////////////////////////////////////////////
 gulp.task('sass.v', () => {
   return gulp.src(paths.src.scss)
     // .pipe(sourcemaps.init())
@@ -58,17 +87,12 @@ gulp.task('fonts', () => {
 })
 
 gulp.task('build', () => {
-  const bundleStream = gulp
-    .src('entry')
-    .pipe(webpackStream(webpackConfig))
-    .pipe(uglify())
+  // const bundleStream = mergeStream(
+  //   gulp.src('entry').pipe(webpackStream(webpackConfig))
+  // )
+  //   .pipe(uglify())
 
-  const cssStream = gulp
-    .src(paths.src.scss)
-    .pipe(sass().on('error', sass.logError))
-    .pipe(cleanCSS({ compatibility: 'ie8' }))
-
-  const revd = mergeStream(bundleStream, cssStream)
+  const revd = mergeStream(scriptStream(), cssStream())
     .pipe(rev())
     .pipe(gulp.dest(paths.built.root))
     .pipe(rev.manifest())
