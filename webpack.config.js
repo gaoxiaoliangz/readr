@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 
 module.exports = {
   entry: {
@@ -9,8 +11,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'assets/built'),
-    // filename: '[name].[chunkhash].js',
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
     publicPath: '/built/',
   },
   plugins: [
@@ -19,6 +20,7 @@ module.exports = {
       'process.env.NODE_ENV': '"production"',
     }),
     new ManifestPlugin(),
+    new ExtractTextPlugin('[name].css'),
   ],
   module: {
     loaders: [
@@ -37,15 +39,22 @@ module.exports = {
           presets: ['react', 'es2015'],
         },
       },
+      // {
+      //   test: /\.scss$/,
+      //   loaders: [
+      //     'style?sourceMap',
+      //     'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
+      //     'resolve-url',
+      //     // 'postcss?sourceMap'
+      //     'sass?sourceMap'
+      //   ]
+      // },
       {
         test: /\.scss$/,
-        loaders: [
-          'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
-          'resolve-url',
-          // 'postcss?sourceMap'
-          'sass?sourceMap'
-        ]
+        loader: ExtractTextPlugin.extract(
+          'style-loader?sourceMap',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]!resolve-url-loader!sass-loader?sourceMap'
+        )
       },
       {
         test: /\.tsx?$/,
