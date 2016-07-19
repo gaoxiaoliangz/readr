@@ -14,6 +14,7 @@ function createEndpoints(api) {
 
 let endpoints = []
 
+
 _.forEach(API._api, api => {  
   endpoints = endpoints.concat(createEndpoints(api))
 })

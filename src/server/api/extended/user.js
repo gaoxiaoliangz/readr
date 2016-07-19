@@ -23,7 +23,10 @@ const user = {
     }, {
       name: 'getShelfBooks',
       url: '/users/:_id/shelf',
-      httpMethod: 'get'
+      httpMethod: 'get',
+      mapDataToApi(data) {
+        return utils.getIdMatch(data.options)._id
+      },
     }
   ],
 

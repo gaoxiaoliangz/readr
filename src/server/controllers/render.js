@@ -53,7 +53,7 @@ function getRenderData(renderProps) {
   // }
 
   // console.log(html)
-  
+
 
   return {
     html,
@@ -63,31 +63,30 @@ function getRenderData(renderProps) {
 }
 
 function preRender(renderProps) {
-  let query = renderProps.location.query
-  let params = renderProps.params
-  let wrappedComponent = renderProps.components.slice(-1)[0].WrappedComponent ? renderProps.components.slice(-1)[0].WrappedComponent : null
+  // const query = renderProps.location.query
+  const params = renderProps.params
+  const wrappedComponent = renderProps.components.slice(-1)[0].WrappedComponent ? renderProps.components.slice(-1)[0].WrappedComponent : null
 
   if (wrappedComponent && wrappedComponent.fetchData) {
-    let result = wrappedComponent.fetchData({ store, params })
+    const result = wrappedComponent.fetchData({ store, params })
 
     if (Array.isArray(result)) {
-      return Promise.all(result).then(res => {
-        return Promise.resolve(getRenderData(renderProps))
-      }, error => error)
-    } else {
-      return result.then(res => {
+      return Promise.all(result).then(() => {
         return Promise.resolve(getRenderData(renderProps))
       }, error => error)
     }
+    return result.then(() => {
+      return Promise.resolve(getRenderData(renderProps))
+    }, error => error)
   }
-  
+
   return Promise.resolve(getRenderData(renderProps))
 }
 
 function render(isServerRenderingEnabled) {
   router.get('*', (req, res) => {
     let status = 200
-    let env = runtimeOptions.env
+    const env = runtimeOptions.env
 
     if (req.data && req.data.error) {
       if (req.data.error.statusCode && req.data.error.statusCode === 404) {
@@ -99,18 +98,18 @@ function render(isServerRenderingEnabled) {
 
     if (status === 500) {
       res.status(500).render('error', {
-        message: error.message,
-        error: env !== 'production' ? error : {},
+        message: req.data.error.message,
+        error: env !== 'production' ? req.data.error : {},
         env
       })
     }
 
     if (req.data && isServerRenderingEnabled) {
       preRender(req.data.renderProps).then(result => {
-        res.status(status).render(req.data.entry, Object.assign({}, result, { env: env }))
+        res.status(status).render(req.data.entry, Object.assign({}, result, { env }))
       })
     } else {
-      res.status(status).render(req.data.entry, { env: env, initialState: '{}' })
+      res.status(status).render(req.data.entry, { env, initialState: '{}' })
     }
   })
 
