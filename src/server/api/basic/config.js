@@ -5,7 +5,10 @@
  * 如果同名 api 在 extended 里定义，则会重载对应基本 api 里的方法
  * excludedMethods: 用来排出无需生成的 api 方法
  * privateMethods:被包含的 api 方法将不会输出到 router
+ * 
+ * 生成的 api 里面包含 _publicMethods: { name, url, httpMethod }[]
  */
+
 
 const config = {
   authors: {
@@ -34,7 +37,7 @@ const config = {
   users: {
     model: 'user',
     url: '/users',
-    excludedMethods: ['add', 'find', 'edit', 'remove']
+    excludedMethods: ['add', 'find', 'update', 'remove']
   },
 }
 

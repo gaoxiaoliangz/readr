@@ -1,17 +1,14 @@
 'use strict'
 const express = require('express')
-const api = require('../api')
 const middleware = require('../middleware')
 const router = new express.Router()
-const endpoints = require('../api/endpoints')
-// const _ = require('lodash')
+const endpoints = require('../endpoints')
+const _ = require('lodash')
 
-
-function apiRoute() {
-  endpoints.forEach(ep => {
-    if (typeof ep.fn === 'function') {
-      router[ep.httpMethod](ep.url, api.http(ep.fn))
-    }
+function apiRoutes() {
+  _.forEach(endpoints, endpoint => {
+    // console.log(endpoint)
+    router[endpoint.httpMethod](endpoint.url, endpoint.handler)
   })
 
   // auth
@@ -21,4 +18,4 @@ function apiRoute() {
   return router
 }
 
-module.exports = apiRoute()
+module.exports = apiRoutes()

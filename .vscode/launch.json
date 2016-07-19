@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "启动开发环境",
+      "name": "启动服务端开发环境",
       "type": "node",
       "request": "launch",
       "program": "${workspaceRoot}/index.js",
@@ -22,7 +22,7 @@
       "outDir": null
     },
     {
-      "name": "附加",
+      "name": "附加调试",
       "type": "node",
       "request": "attach",
       "port": 5858,
