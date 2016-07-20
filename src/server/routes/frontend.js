@@ -18,12 +18,12 @@ const match = ReactRouter.match
 
 
 function handleFrontendRouting() {
-  router.get('*', middleware.checkAdminPermissions, (req, res, next) => {
+  router.get('*', middleware.parseContext, (req, res, next) => {
     let entry = req.url.indexOf('console') !== -1 ? 'console' : 'app'
     let data = {}
     let routes = req.entry === 'console' ? consoleRoutes : appRoutes
 
-    if (!req.isAdmin && entry === 'console') {
+    if (!req.context.userRole === 'admin' && entry === 'console') {
       res.redirect('/')
     }
 

@@ -8,7 +8,6 @@ const i18n = require('../utils/i18n')
 // field: {
 //   includeInSearch,
 //   required,
-//   isId, // 好像没用
 //   type,
 //   validators,
 //   ref: {
@@ -106,20 +105,8 @@ const schemas = {
 
   progress: {
     baseTable: 'reading_progress',
+    ids: ['user_id', 'book_id'],
     fields: {
-      user_id: {
-        required: true,
-        isId: true
-      },
-      book_id: {
-        required: true,
-        isId: true,
-        type: DataTypes.ID,
-        ref: {
-          table: 'books',
-          fields: ['title', 'author', 'description']
-        }
-      },
       page_no: {
         required: true,
       },

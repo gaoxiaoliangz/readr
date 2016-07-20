@@ -4,23 +4,24 @@ const i18n = require('../utils/i18n')
 const humps = require('humps')
 
 
-function parseReqData(req) {
-  const object = humps.decamelizeKeys(req.body)
-  const options = humps.decamelizeKeys(_.extend({}, req.files, req.query, req.params))
-  const context = {
-    user: req.user ? req.user : null,
-  }
-  const data = { context }
+function parseRequest(req) {
+  // const object = humps.decamelizeKeys(req.body)
+  // const options = humps.decamelizeKeys(_.extend({}, req.files, req.query, req.params))
+  // const context = {
+  //   // todo
+  //   user: req.session.user ? req.session.user : null,
+  // }
+  // const data = { context }
 
-  if (!_.isEmpty(object)) {
-    data.object = object
-  }
+  // if (!_.isEmpty(object)) {
+  //   data.object = object
+  // }
 
-  if (!_.isEmpty(options)) {
-    data.options = options
-  }
+  // if (!_.isEmpty(options)) {
+  //   data.options = options
+  // }
 
-  return data
+  return req
 }
 
 function done(req, res) {
@@ -50,8 +51,18 @@ function err(res) {
 }
 
 function apiHttp(apiMethod) {
-  return function apiHandler(req, res) {
-    apiMethod(parseReqData(req)).then(done(req, res), err(res))
+  return (req, res) => {
+    const result = apiMethod(parseRequest(req))
+    console.log(apiMethod)
+    const a = apiMethod
+
+    if (typeof result === 'undefined') {
+      const a = 1
+    }
+    
+
+    result.then(done(req, res), err(res))
+    // apiMethod(parseRequest(req)).then(done(req, res), err(res))
   }
 }
 
