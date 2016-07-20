@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchBooks } from 'actions/index'
+import { fetchBooks, fetchShelf } from 'actions/index'
 import BookListSection from 'components/BookListSection'
 
 
 interface Props {
   fetchBooks?: any
   newestBooks?: any
+  fetchShelf?: any
 }
 
 class BookShelf extends Component<Props, {}> {
@@ -21,7 +22,7 @@ class BookShelf extends Component<Props, {}> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks()
+    this.props.fetchShelf()
   }
 
   render() {
@@ -45,5 +46,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks }
+  { fetchBooks, fetchShelf }
 )(BookShelf as any)

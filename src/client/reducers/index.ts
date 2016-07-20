@@ -6,6 +6,14 @@ import _ from 'lodash'
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { books: {}, users: {}, bookCollections: {} }, action) {
+  // 先试试看
+  if (action.request && action.payload) {
+    return Object.assign({}, state, action.request)
+  }
+  if (action.response && action.payload) {
+    return Object.assign({}, state, action.response)
+  }
+
   if (action.response && action.response.entities) {
     return _.merge({}, state, action.response.entities)
   }

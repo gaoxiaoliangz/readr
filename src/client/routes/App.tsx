@@ -21,7 +21,8 @@ export default (
       <Route component={App}>
         <IndexRoute component={Home} />
         <Route path="book/:id" component={BookInfo} />
-        <Route path="profile/:userId" component={Profile} />
+        <Route path="profile" component={Profile} />
+        <Route path="profile/:user" component={Profile} />
         <Route path="shelf" component={BookShelf} />
         <Route path="settings" component={Settings} />
         <Route path="browse" component={Archive} />

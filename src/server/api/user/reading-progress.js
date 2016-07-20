@@ -21,6 +21,8 @@ module.exports = {
 
   update(userId, bookId, data) {
     const match = humps.decamelizeKeys({ userId, bookId })
+    console.log(match)
+    
 
     return models.progress.find(match).update(data, {
       upsert: true

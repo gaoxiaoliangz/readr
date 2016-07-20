@@ -8,42 +8,52 @@ const extendedEndpointsConfig = [
   {
     url: '/users',
     api: 'users.add',
-    parser: data => {
-      return data
-    }
+    parser: request => [request.body]
   },
   {
     url: '/books',
     api: 'books.add',
-    parser: data => {
-      return data
-    }
+    parser: request => [request.body]
   },
 
   /**
    * user
    */
 
+  // shelf
+  {
+    url: '/user/profile',
+    api: 'user.profile.find',
+    requiredRole: roles.user,
+    parser: request => [request.context.user.id]
+  },
+
   // reading progress
   {
-    url: '/user/books/:book_id/progress',
+    url: '/user/books/:book/progress',
     api: 'user.readingProgress.find',
     requiredRole: roles.user,
     handler: req => {
-      return api.user.readingProgress.find(req.context.userId, req.params.book_id)
+      return api.user.readingProgress.find(req.context.user.id, req.params.book)
     }
   },
   {
     url: '/user/books/:book/progress',
     api: 'user.readingProgress.update',
     requiredRole: roles.user,
-    parser: request => {
-      return [
-        request.context.userId,
-        request.params.book,
-        request.body
-      ]
-    }
+    parser: request => [
+      request.context.user.id,
+      request.params.book,
+      request.body
+    ]
+  },
+
+  // shelf
+  {
+    url: '/user/books/shelf',
+    api: 'user.shelf.list',
+    requiredRole: roles.user,
+    parser: request => [request.context.user.id]
   }
 ]
 

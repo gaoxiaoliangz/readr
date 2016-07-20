@@ -8,7 +8,7 @@ export default store => next => action => {
     return next(action)
   }
 
-  let { endpoint, apiUrl, extendedOptions } = CALL_API
+  let { endpoint, apiUrl, extendedOptions, payload } = CALL_API
   const { types, schema } = CALL_API
   const [requestType, successType, failureType] = types
 
@@ -18,7 +18,18 @@ export default store => next => action => {
     return finalAction
   }
 
-  next(actionWith({ type: requestType }))
+  if (payload) {
+    next(actionWith({
+      type: requestType,
+      request: {
+        [payload]: {
+          isFetching: true
+        }
+      }
+    }))
+  } else {
+    next(actionWith({ type: requestType }))
+  }
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -36,10 +47,19 @@ export default store => next => action => {
   }
 
   return callApi(fullUrl, options).then(
-    response => next(actionWith({
-      response,
-      type: successType
-    })),
+    response => {
+      if (payload) {
+        return next(actionWith({
+          response: { [payload]: Object.assign({}, response, {isFetching: false}) },
+          type: successType
+        }))
+      }
+
+      return next(actionWith({
+        response,
+        type: successType
+      }))
+    },
     error => next(actionWith({
       type: failureType,
       error: error.message || 'Oops!'

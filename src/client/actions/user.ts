@@ -29,13 +29,24 @@ export function fetchUserList() {
   }
 }
 
-export function fetchShelf(userId) {
+// export function fetchShelf(userId) {
+//   return {
+//     userId,
+//     CALL_API: {
+//       types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
+//       endpoint: `users/${userId}/shelf`,
+//       schema: Schemas.BOOK_ARRAY,
+//     }
+//   }
+// }
+
+export function fetchShelf() {
   return {
-    userId,
     CALL_API: {
       types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
-      endpoint: `users/${userId}/shelf`,
-      schema: Schemas.BOOK_ARRAY,
+      endpoint: `user/books/shelf`,
+      // schema: Schemas.BOOK_ARRAY,
+      payload: 'bookShelf'
     }
   }
 }

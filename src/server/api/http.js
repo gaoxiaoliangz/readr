@@ -52,17 +52,7 @@ function err(res) {
 
 function apiHttp(apiMethod) {
   return (req, res) => {
-    const result = apiMethod(parseRequest(req))
-    console.log(apiMethod)
-    const a = apiMethod
-
-    if (typeof result === 'undefined') {
-      const a = 1
-    }
-    
-
-    result.then(done(req, res), err(res))
-    // apiMethod(parseRequest(req)).then(done(req, res), err(res))
+    apiMethod(parseRequest(req)).then(done(req, res), err(res))
   }
 }
 

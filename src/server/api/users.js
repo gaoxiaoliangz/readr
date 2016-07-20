@@ -2,15 +2,8 @@ const models = require('../models')
 const _ = require('lodash')
 
 const users = {
-  _publicMethods: [
-    {
-      name: 'add',
-      url: '/users',
-      httpMethod: 'post'
-    }
-  ],
   add(data) {
-    return models.user.insert(_.assign({}, data.object, {
+    return models.user.insert(_.assign({}, data, {
       role: 'user'
     }))
   }
