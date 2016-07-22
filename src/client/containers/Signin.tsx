@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import ApiRoots from 'constants/ApiRoots'
-import callApi from 'utils/callApi'
-import { sendNotification } from 'actions/index'
-import Branding from 'components/Branding'
-import Input from 'elements/Input'
-import Button from 'elements/Button'
-import Container from 'elements/Container'
-import Body from 'side-effects/Body'
+import ApiRoots from '../api-config/api-roots'
+import callApi from '../utils/call-api'
+import { sendNotification } from '../actions'
+import Branding from '../components/Branding'
+import Input from '../elements/form/input'
+import Button from '../elements/form/button'
+import Container from '../elements/layout/container'
+import Body from '../side-effects/Body'
 
 class Signin extends Component<any, any> {
   constructor(props) {

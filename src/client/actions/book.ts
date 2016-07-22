@@ -1,4 +1,3 @@
-import ApiRoots from 'constants/ApiRoots'
 import { Schemas } from 'schemas'
 
 export function fetchBookProgress(bookId) {

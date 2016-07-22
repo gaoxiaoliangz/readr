@@ -2,8 +2,8 @@ import _ from 'lodash'
 
 export function filterContentNodesByPage(contentNodes, config, page) {
   var elements = _.cloneDeep(contentNodes), pageWrap = {},
-      h = 0, h2 = 0, i = 0, flag = true, startIndex = 0, endIndex = 0, eleOffset = 0, top = 0,
-      pageContent = [], style = {}
+    h = 0, h2 = 0, i = 0, flag = true, startIndex = 0, endIndex = 0, eleOffset = 0, top = 0,
+    pageContent = [], style = {}
 
   while (i < elements.length && h < config.pageHeight * page) {
     h = parseInt(elements[i].props.style.height) + h
@@ -18,7 +18,7 @@ export function filterContentNodesByPage(contentNodes, config, page) {
   }
   top = (page - 1) * config.pageHeight;
 
-  for(i = startIndex; i <= endIndex; i++){
+  for (i = startIndex; i <= endIndex; i++) {
     switch (elements[i].type) {
       case "p":
         pageContent.push(elements[i])
@@ -33,7 +33,7 @@ export function filterContentNodesByPage(contentNodes, config, page) {
       top: top,
       position: "absolute"
     }
-  }else{
+  } else {
     style = {
       top: top,
       position: "absolute"

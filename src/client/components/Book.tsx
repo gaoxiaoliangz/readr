@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import BookInfoPopup from 'components/BookInfoPopup'
+import BookInfoPopup from './book-info-popup'
 import _ from 'lodash'
-
 
 interface Props {
   title: string

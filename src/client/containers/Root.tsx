@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification } from 'actions/index'
-import Notification from 'components/Notification'
+import { sendNotification } from '../actions'
+import Alert from '../elements/alert'
 
 interface Props {
   notifications?: any
@@ -28,7 +28,7 @@ class Root extends Component<Props, State> {
             <div className="notifications">
               {
                 this.props.notifications.map((noti, index) => (
-                  <Notification
+                  <Alert
                     key={index}
                     type={noti.type}
                     message={noti.message}

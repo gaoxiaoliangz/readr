@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import view from 'utils/view'
+import view from '../utils/view'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import Fade from 'elements/animations/Fade'
+import Fade from '../elements/animations/fade'
 
 interface Props {
   width: number

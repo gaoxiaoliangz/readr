@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import Container from 'elements/Container'
+import Container from '../elements/layout/container'
 
 
 class Colophon extends Component<any, any> {

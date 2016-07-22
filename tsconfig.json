@@ -6,7 +6,8 @@
     "jsx": "react",
     "outDir": "assets/built/es6",
     "experimentalDecorators": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules",

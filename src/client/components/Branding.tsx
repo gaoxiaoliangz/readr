@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router'
-import callApi from 'utils/callApi'
-import Container from 'elements/Container'
+import { Container } from '../elements/layout'
 
 class Branding extends Component<any, any> {
 

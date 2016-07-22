@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router'
-import Switcher from '../components/Switcher'
-import BookListSection from 'components/BookListSection'
-import { fetchBooks, fetchCollections } from 'actions/index'
+import Switcher from '../elements/switcher'
+import BookListSection from '../components/book-list-section'
+import { fetchBooks, fetchCollections } from '../actions'
 
 interface Props {
   fetchBooks: any

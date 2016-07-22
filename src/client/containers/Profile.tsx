@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification } from 'actions/index'
-import NavTab from '../components/NavTab'
-import { fetchBooks, fetchCollections, fetchShelf } from 'actions/index'
-import BookListSection from 'components/BookListSection'
-import Button from 'elements/Button'
+import NavTab from '../elements/nav-tab'
+import { fetchBooks, fetchCollections, fetchShelf, sendNotification } from '../actions/index'
+import BookListSection from '../components/book-list-section'
+import Button from '../elements/form/button'
 
 interface Props {
   fetchBooks?: any

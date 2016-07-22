@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification, userAuth, fetchProfile } from 'actions/index'
-import NavTab from '../components/NavTab'
-import Body from '../side-effects/Body'
-import Switcher from '../components/Switcher'
+import { sendNotification, userAuth, fetchProfile } from '../actions'
+import NavTab from '../elements/nav-tab'
+import Body from '../side-effects/body'
+import Switcher from '../elements/switcher'
 import _ from 'lodash'
 
 class Profile extends Component<any, any> {

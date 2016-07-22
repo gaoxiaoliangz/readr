@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
-// import { Link, match } from 'react-router'
 import { connect } from 'react-redux'
-import Branding from 'components/Branding'
-import Container from 'elements/Container'
-import Colophon from 'components/Colophon'
-import { userAuth } from 'actions/index'
-// import Notification from 'components/Notification'
+import Branding from '../../components/branding'
+import { Container } from '../../elements/layout'
+import Colophon from '../../components/Colophon'
+import { userAuth } from '../../actions'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 const styles = require('./app.scss')
-import Button from 'elements/Button'
+// import { Button } from '../../elements/form'
 
 @CSSModules(styles)
 class App extends Component<any, any> {

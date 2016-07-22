@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import Button from '../elements/Button'
-import { fetchCollection } from 'actions/index'
-import BookList from '../components/BookList'
+import Button from '../elements/form/button'
+import { fetchCollection } from '../actions'
+import BookList from '../components/book-list-section'
 
 interface Props {
   name: string
