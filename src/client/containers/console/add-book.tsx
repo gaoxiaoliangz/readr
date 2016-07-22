@@ -166,7 +166,7 @@ class AddBook extends Component<Props, State> {
             this.searchBooks(newValue)
             this.props.changeValue(syls.inputBookName, newValue)
           }}
-          value={getElement_R(this.props.elements, syls.inputBookName).value}
+          value={_.get(this.props.elements[syls.inputBookName], 'value', '')}
           onValuesChange={newValues => {
             this.setState({
               bookTitle: newValues
@@ -190,7 +190,7 @@ class AddBook extends Component<Props, State> {
             this.searchAuthors(newValue)
             this.props.changeValue(syls.inputBookAuthor, newValue)
           }}
-          value={getElement_R(this.props.elements, syls.inputBookAuthor).value}
+          value={_.get(this.props.elements[syls.inputBookAuthor], 'value', '')}
           onValuesChange={newValues => {
             this.setState({
               bookAuthor: newValues

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Icon from '../elements/Icon'
+import Icon from '../icon'
 
 type TypeOption = {
   value: string

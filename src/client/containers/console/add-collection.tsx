@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue } from '../../actions/index'
-import { Button, SelectizeInput} from '../../elements/form'
+import { sendNotification, changeValue } from '../../actions'
+import { Button, SelectizeInput } from '../../elements/form'
 import apis from '../../utils/apis'
 import RInput from '../../r-elements/r-input'
 import RTextarea from '../../r-elements/r-textarea'
+import _ from 'lodash'
 
 const syls = {
   inputCollectionName: Symbol('inputCollectionName'),
@@ -98,7 +99,7 @@ class AddCollection extends Component<Props, State> {
             this.searchBooks(newValue)
             this.props.changeValue(syls.inputBookName, newValue)
           } }
-          value={getElement_R(this.props.elements, syls.inputBookName).value}
+          value={_.get(this.props.elements[syls.inputBookName], 'value', '')}
           onValuesChange={newValues => {
             this.setState({
               valuesOfBooks: newValues

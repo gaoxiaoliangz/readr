@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router'
-import Console from 'containers/console/index'
-import ManageBooks from 'containers/console/ManageBooks'
-import ManageUsers from 'containers/console/ManageUsers'
-import AddBook from 'containers/console/AddBook'
-import AddCollection from 'containers/console/AddCollection'
-import NoMatch from 'containers/NoMatch'
+import Console from '../containers/console/home'
+import ManageBooks from '../containers/console/manage-books'
+import ManageUsers from '../containers/console/manage-users'
+import AddBook from '../containers/console/add-book'
+import AddCollection from '../containers/console/add-collection'
+import NoMatch from '../containers/no-match'
 
 export default (
   <Router>
