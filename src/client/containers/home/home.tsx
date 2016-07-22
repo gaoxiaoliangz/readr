@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchBooks, fetchCollections } from 'actions/index'
+import { fetchBooks, fetchCollections } from '../../actions'
 import BookListSection from 'components/BookListSection'
-import Loading from 'components/Loading'
+// import Loading from 'components/Loading'
 import CandyBox from 'components/CandyBox'
 import Body from 'side-effects/Body'
-import Button from '../elements/Button'
+import Button from 'elements/Button'
 import _ from 'lodash'
-
 
 interface Props {
 }

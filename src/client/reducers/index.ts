@@ -6,16 +6,28 @@ import _ from 'lodash'
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { books: {}, users: {}, bookCollections: {} }, action) {
-  // 先试试看
-  if (action.request && action.payload) {
-    return Object.assign({}, state, action.request)
-  }
-  if (action.response && action.payload) {
-    return Object.assign({}, state, action.response)
-  }
-
   if (action.response && action.response.entities) {
     return _.merge({}, state, action.response.entities)
+  }
+
+  return state
+}
+
+function payloads(state = {}, action) {
+  if (action.error && action.payload) {
+    return _.assign({}, state, {
+      [action.payload]: {
+        error: action.error
+      }
+    })
+  }
+
+  if (action.response && action.payload) {
+    return _.assign({}, state, {
+      [action.payload]: {
+        data: action.response
+      }
+    })
   }
 
   return state
@@ -73,10 +85,10 @@ const pagination = combineReducers({
     mapActionToKey: action => action.flowType,
     types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE']
   }),
-  shelf: paginate({
-    mapActionToKey: action => action.userId,
-    types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE']
-  }),
+  // shelf: paginate({
+  //   mapActionToKey: action => action.userId,
+  //   types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE']
+  // }),
   userList: paginate({
     // TODO
     mapActionToKey: action => 'all',
@@ -116,10 +128,12 @@ const components = combineReducers({
 })
 
 const rootReducer = combineReducers({
+  payloads,
   components,
   elements,
   routing,
   entities,
+  errorMessage,
   pagination,
   session
 })

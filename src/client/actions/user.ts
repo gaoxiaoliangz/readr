@@ -42,11 +42,10 @@ export function fetchUserList() {
 
 export function fetchShelf() {
   return {
+    payload: 'bookShelf',
     CALL_API: {
       types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
       endpoint: `user/books/shelf`,
-      // schema: Schemas.BOOK_ARRAY,
-      payload: 'bookShelf'
     }
   }
 }

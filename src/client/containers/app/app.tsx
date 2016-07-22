@@ -8,10 +8,8 @@ import { userAuth } from 'actions/index'
 // import Notification from 'components/Notification'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-// const styles = require('containers/App.scss')
-const styles = require('./App.scss')
+const styles = require('./app.scss')
 import Button from 'elements/Button'
-
 
 @CSSModules(styles)
 class App extends Component<any, any> {
@@ -35,13 +33,11 @@ class App extends Component<any, any> {
 
     return (
       <div>
-        <Branding styleName="fuck" isAdmin={isAdmin} username={username} />
-        <Button {...{styleName: 'btn'}}>test</Button>
+        <Branding isAdmin={isAdmin} username={username} />
         <Container>
           {this.props.children}
         </Container>
         <Colophon />
-        <div></div>
       </div>
     )
   }

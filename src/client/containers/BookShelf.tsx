@@ -1,20 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchBooks, fetchShelf } from 'actions/index'
+import { fetchShelf } from 'actions/index'
 import BookListSection from 'components/BookListSection'
+import _ from 'lodash'
 
 
 interface Props {
-  fetchBooks?: any
-  newestBooks?: any
+  shelf?: any
   fetchShelf?: any
 }
 
 class BookShelf extends Component<Props, {}> {
 
   static fetchData({store, params}) {
-    return store.dispatch(fetchBooks())
+    return store.dispatch(fetchShelf())
   }
 
   constructor(props) {
@@ -26,7 +26,7 @@ class BookShelf extends Component<Props, {}> {
   }
 
   render() {
-    let bookList = this.props.newestBooks
+    let bookList = this.props.shelf
 
     return (
       <div>
@@ -38,13 +38,11 @@ class BookShelf extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: state.pagination.books.newest
-      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
-      : []
+    shelf: _.get(state.payloads.bookShelf, 'data', [])
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchShelf }
+  { fetchShelf }
 )(BookShelf as any)

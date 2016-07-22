@@ -5,7 +5,7 @@ function handleResponseJson(json, schema) {
   json = humps.camelizeKeys(json)
   let result = json
 
-  if(typeof schema !== 'undefined') {
+  if (typeof schema !== 'undefined') {
     result = Object.assign({},
       normalize(json, schema)
     )
