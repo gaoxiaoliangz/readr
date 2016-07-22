@@ -4,10 +4,10 @@ import { Link, browserHistory } from 'react-router'
 import ApiRoots from '../api-config/api-roots'
 import callApi from '../utils/call-api'
 import { sendNotification } from '../actions'
-import Branding from '../components/Branding'
+import Branding from '../components/branding'
 import { Input, Button } from '../elements/form'
 import Container from '../elements/layout/container'
-import Body from '../side-effects/Body'
+import Body from '../side-effects/body'
 
 class Signup extends Component<any, any> {
   constructor(props) {

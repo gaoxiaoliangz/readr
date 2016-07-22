@@ -17,7 +17,7 @@ const store = configureStore()
 
 
 
-// const Body = require('side-effects/Body').default
+// const Body = require('side-effects/body').default
 
 function getRenderData(renderProps) {
   let html

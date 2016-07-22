@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { MsgType } from '../actions/notification'
-import Icon from '../elements/Icon'
+import Icon from '../elements/icon'
 
 interface Props {
   message: string

@@ -4,11 +4,11 @@ import { Link, browserHistory } from 'react-router'
 import ApiRoots from '../api-config/api-roots'
 import callApi from '../utils/call-api'
 import { sendNotification } from '../actions'
-import Branding from '../components/Branding'
+import Branding from '../components/branding'
 import Input from '../elements/form/input'
 import Button from '../elements/form/button'
 import Container from '../elements/layout/container'
-import Body from '../side-effects/Body'
+import Body from '../side-effects/body'
 
 class Signin extends Component<any, any> {
   constructor(props) {
