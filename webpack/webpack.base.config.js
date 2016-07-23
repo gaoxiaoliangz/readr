@@ -46,7 +46,16 @@ module.exports = {
     sass: {
       test: /\.scss$/,
       loaders: [
-        'style-loader?sourceMap',
+        'style?sourceMap',
+        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
+        'resolve-url',
+        'sass?sourceMap'
+      ]
+    },
+    sassIsomorphic: {
+      test: /\.scss$/,
+      loaders: [
+        'isomorphic-style?sourceMap',
         `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
         'resolve-url',
         'sass?sourceMap'
@@ -55,7 +64,7 @@ module.exports = {
     sassWithExtractText: {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract(
-        'style-loader?sourceMap',
+        'style?sourceMap',
         `css-loader?modules&importLoaders=1&localIdentName=${cssLocalIdentName}!resolve-url-loader!sass-loader?sourceMap`
       )
     },

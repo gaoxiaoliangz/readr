@@ -22,12 +22,14 @@ module.exports = {
     loaders: [
       base.loaders.imageWebpack,
       base.loaders.babel,
-      base.loaders.sass,
+      base.loaders.sassIsomorphic,
       base.loaders.ts,
     ],
   },
+  devtool: 'inline-source-map',
   sassLoader: base.loaderConfig.sassLoader,
   resolve: base.resolve,
+  // todo: find out what these are for
   // target: 'node',
   // node: {
   //   __filename: true,

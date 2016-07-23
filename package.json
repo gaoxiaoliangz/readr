@@ -55,6 +55,7 @@
     "redux": "^3.3.1",
     "request": "^2.67.0",
     "reselect": "^2.5.3",
+    "source-map-support": "^0.4.2",
     "validator": "^5.4.0",
     "whatwg-fetch": "^0.11.0"
   },

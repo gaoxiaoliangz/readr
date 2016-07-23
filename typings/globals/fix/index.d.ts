@@ -3,9 +3,9 @@ declare module "react-side-effect" {
   export = noTypeInfoYet
 }
 
-declare module "schemas" {
-  export const Schemas: any;
-}
+// declare module "schemas" {
+//   export const Schemas: any;
+// }
 
 declare module "humps" {
   var noTypeInfoYet: any
