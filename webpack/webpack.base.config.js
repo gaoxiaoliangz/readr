@@ -3,16 +3,21 @@
  * 不可直接使用！
  */
 
-// const path = require('path')
-// const webpack = require('webpack')
+const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const pathPrefix = process.cwd()
+const paths = {
+  root: pathPrefix,
+  src: path.join(pathPrefix, 'src/client'),
+  built: path.join(pathPrefix, 'assets/built')
+}
 const cssLocalIdentName = '[name]-[local]-[hash:base64:5]'
 const imageName = '[name].[hash].[ext]'
 
-let config = {}
-
-config = {
+module.exports = {
+  paths,
+  hot: 'webpack-hot-middleware/client',
   loaders: {
     imageWebpack: {
       test: /\.(jpe?g|png|gif|svg)$/i,
@@ -40,10 +45,11 @@ config = {
     },
     sass: {
       test: /\.scss$/,
-      // 需要做为 ExtractTextPlugin 参数，长度貌似只能是 2
       loaders: [
         'style-loader?sourceMap',
-        `css-loader?modules&importLoaders=1&localIdentName=${cssLocalIdentName}!resolve-url-loader!sass-loader?sourceMap`
+        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
+        'resolve-url',
+        'sass?sourceMap'
       ]
     },
     sassWithExtractText: {
@@ -67,7 +73,16 @@ config = {
     postcss: () => {
       return [require('postcss-cssnext'), require('postcss-import')]
     },
-  }
-}
+    sassLoader: {
+      includePaths: [paths.src]
+    },
+  },
 
-module.exports = config
+  resolve: {
+    root: paths.src,
+    alias: {
+      styles: `${paths.src}/shared/scss`,
+    },
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
+  },
+}

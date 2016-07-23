@@ -1,5 +1,5 @@
-const path = require('path')
 const webpack = require('webpack')
+const base = require('./webpack.base.config')
 
 module.exports = {
   entry: {
@@ -7,13 +7,13 @@ module.exports = {
     utils: ['lodash', 'jquery']
   },
   output: {
-    path: path.join(process.cwd(), 'assets/built'),
+    path: base.paths.built,
     filename: '[name].bundle.js',
     library: '[name]_lib',
   },
   plugins: [
     new webpack.DllPlugin({
-      path: path.join(process.cwd(), 'assets/built/[name]-manifest.json'),
+      path: `${base.paths.built}/[name]-manifest.json`,
       name: '[name]_lib'
     }),
   ],

@@ -1,13 +1,7 @@
-const path = require('path')
 const webpack = require('webpack')
-const webpackBase = require('./webpack.base.config')
-const hot = 'webpack-hot-middleware/client'
-
-const pathPrefix = process.cwd()
-const paths = {
-  src: path.join(pathPrefix, 'src/client'),
-  built: path.join(pathPrefix, 'assets/built')
-}
+const base = require('./webpack.base.config')
+const paths = base.paths
+const hot = base.hot
 
 module.exports = {
   entry: {
@@ -38,20 +32,12 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     loaders: [
-      webpackBase.loaders.imageWebpack,
-      webpackBase.loaders.sass,
-      webpackBase.loaders.babel,
-      webpackBase.loaders.tsHot
+      base.loaders.imageWebpack,
+      base.loaders.sass,
+      base.loaders.babel,
+      base.loaders.tsHot
     ]
   },
-  sassLoader: {
-    includePaths: [paths.src]
-  },
-  resolve: {
-    root: paths.src,
-    alias: {
-      styles: `${paths.src}/shared/scss`,
-    },
-    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
-  },
+  sassLoader: base.loaderConfig.sassLoader,
+  resolve: base.resolve
 }

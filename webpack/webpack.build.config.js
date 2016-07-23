@@ -1,11 +1,7 @@
-/**
- * 构建开发环境脚本
- */
-
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const base = require('./webpack/webpack.base.config')
+const base = require('./webpack.base.config')
 const paths = base.paths
 
 module.exports = {
@@ -15,7 +11,7 @@ module.exports = {
   },
   output: {
     path: paths.built,
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -25,7 +21,6 @@ module.exports = {
     new ManifestPlugin(),
     new ExtractTextPlugin('[name].css'),
   ],
-  devtool: 'inline-source-map',
   module: {
     loaders: [
       base.loaders.imageWebpack,
