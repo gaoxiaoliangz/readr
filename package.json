@@ -10,7 +10,7 @@
     "server.c.h": "node index --hmr --noServerRendering",
     "server.s": "nodemon --debug index",
     "server.s.ssr": "webpack --config ./webpack/webpack.node.config.js --watch & nodemon --debug --delay 1.5 index",
-    "webpack": "webpack --config ./webpack/webpack.build.prod.config.js",
+    "webpack": "webpack --progress --config ./webpack/webpack.build.prod.config.js",
     "webpack.v": "webpack --config ./webpack/webpack.vendor.config.js",
     "webpack.v.prod": "webpack --config ./webpack/webpack.vendor.prod.config.js",
     "webpack.n": "webpack --config ./webpack/webpack.node.config.js",

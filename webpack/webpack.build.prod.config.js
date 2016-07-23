@@ -8,6 +8,27 @@ module.exports = {
   entry: {
     app: [`${paths.src}/entry/app`],
     console: [`${paths.src}/entry/console`],
+    'react-kit': [
+      'react',
+      'react-dom',
+      'react-addons-css-transition-group',
+      'redux',
+      'react-redux',
+      'react-router',
+      'redux-thunk',
+      'react-css-modules',
+      'react-side-effect',
+      'react-router-redux',
+      // 'redux-devtools-log-monitor',
+      // 'redux-devtools-dock-monitor',
+    ],
+    utils: [
+      'lodash',
+      'jquery',
+      'normalizr',
+      'humps',
+      'isomorphic-fetch',
+    ]
   },
   output: {
     path: paths.built,
@@ -22,9 +43,16 @@ module.exports = {
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: true
+        warnings: false
       }
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // 顺序会产生影响
+      // 目前这种顺序，react-kit 里面会包含 webpack 用来解析模块的逻辑
+      // 所以如果在页面上两者顺序颠倒会出错
+      names: ['utils', 'react-kit'],
+      minChunks: Infinity
+    }),
   ],
   module: {
     loaders: [

@@ -11,6 +11,8 @@ html
 
     if env == "production"
       //- hash
+      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
+      link(type='text/css' rel='stylesheet' href='/built/app.global.css')
     else
       link(type='text/css' rel='stylesheet' href='/built/vendor.css')
       link(type='text/css' rel='stylesheet' href='/built/app.global.css')
@@ -22,7 +24,9 @@ html
       var __INITIAL_STATE__ = !{initialState}
 
     if env == "production"
-      //- todo: hash
+      script(src="/built/#{entryManifest['react-kit.js']}")
+      script(src="/built/#{entryManifest['utils.js']}")
+      script(src="/built/#{entryManifest['app.js']}")
     else
       script(src="/built/react.lib.js")
       script(src="/built/utils.lib.js")

@@ -15,10 +15,9 @@ module.exports = {
   },
   plugins: [
     base.plugins.envDev,
-    base.plugins.occurenceOrder,    
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    ...base.plugins.dllReferences
+    ...base.plugins.dllReferenceDev,
   ],
   devtool: 'inline-source-map',
   module: {

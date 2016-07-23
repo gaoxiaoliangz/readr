@@ -15,6 +15,9 @@ const store = configureStore()
 // const appRoutes = require('routes/app').default
 // const consoleRoutes = require('routes/console').default
 
+const entryManifest = require('../../../assets/built/entry.manifest.json')
+
+console.log(entryManifest)
 
 
 // const Body = require('side-effects/body').default
@@ -106,7 +109,10 @@ function render(isServerRenderingEnabled) {
 
     if (req.data && isServerRenderingEnabled) {
       preRender(req.data.renderProps).then(result => {
-        res.status(status).render(req.data.entry, Object.assign({}, result, { env }))
+        res.status(status).render(req.data.entry, Object.assign({}, result, { 
+          env,
+          entryManifest
+        }))
       })
     } else {
       res.status(status).render(req.data.entry, { env, initialState: '{}' })
