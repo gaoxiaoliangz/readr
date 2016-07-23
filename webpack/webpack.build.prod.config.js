@@ -2,33 +2,14 @@ const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('./webpack.base.config')
-const paths = base.paths
+const paths = base.vars.paths
 
 module.exports = {
   entry: {
     app: [`${paths.src}/entry/app`],
     console: [`${paths.src}/entry/console`],
-    'react-kit': [
-      'react',
-      'react-dom',
-      'react-addons-css-transition-group',
-      'redux',
-      'react-redux',
-      'react-router',
-      'redux-thunk',
-      'react-css-modules',
-      'react-side-effect',
-      'react-router-redux',
-      // 'redux-devtools-log-monitor',
-      // 'redux-devtools-dock-monitor',
-    ],
-    utils: [
-      'lodash',
-      'jquery',
-      'normalizr',
-      'humps',
-      'isomorphic-fetch',
-    ]
+    'react-kit': base.vars.reactKit,
+    utils: base.vars.utils,
   },
   output: {
     path: paths.built,
@@ -38,7 +19,7 @@ module.exports = {
     base.plugins.occurenceOrder,
     base.plugins.envProd,
     new ManifestPlugin({
-      fileName: 'entry.manifest.json',
+      fileName: 'chunks.manifest.json',
     }),
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({

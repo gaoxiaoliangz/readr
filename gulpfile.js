@@ -1,16 +1,13 @@
 'use strict'
 const gulp = require('gulp')
 const sass = require('gulp-sass')
-// const uglify = require('gulp-uglify')
-const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./webpack.config.js')
-// const webpackConfigServer = require('./webpack.server.config.js')
-// const webpackConfigVendor = require('./webpack.vendor.config.js')
 const rev = require('gulp-rev')
 const mergeStream = require('merge-stream')
 const cleanCSS = require('gulp-clean-css')
-const _ = require('lodash')
+// const uglify = require('gulp-uglify')
+// const _ = require('lodash')
 // const ts = require('gulp-typescript')
 // const babel = require('gulp-babel')
 // const tsProject = ts.createProject('tsconfig.json')
@@ -20,8 +17,7 @@ const _ = require('lodash')
 // const rename = require('gulp-rename')
 // const imagemin = require('gulp-imagemin')
 
-
-const dirBin = 'bin'
+// const dirBin = 'bin'
 const dirBuilt = 'assets/built'
 const dirSrc = 'src'
 const paths = {
@@ -65,9 +61,8 @@ const cssStream = () => {
     .pipe(cleanCSS({ compatibility: 'ie8' }))
 }
 
-
 // tasks ///////////////////////////////////////////////////////////////////////
-gulp.task('sass.v', () => {
+gulp.task('sass', () => {
   return gulp.src(paths.src.scss)
     // .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -88,11 +83,6 @@ gulp.task('fonts', () => {
 })
 
 gulp.task('build', () => {
-  // const bundleStream = mergeStream(
-  //   gulp.src('entry').pipe(webpackStream(webpackConfig))
-  // )
-  //   .pipe(uglify())
-
   const revd = mergeStream(scriptStream(), cssStream())
     .pipe(rev())
     .pipe(gulp.dest(paths.built.root))
@@ -102,28 +92,4 @@ gulp.task('build', () => {
   return revd
 })
 
-// // webpack build for server rendering
-// gulp.task('webpack.s', () => {
-//   return gulp.src('entry')
-//     .pipe(webpackStream(webpackConfigServer))
-//     .pipe(gulp.dest(dirBin))
-// })
-
-// // webpack build for vendor
-// gulp.task('webpack.v', () => {
-//   return gulp.src('entry')
-//     .pipe(webpackStream(webpackConfigVendor))
-//     // .pipe(gulp.dest(paths.built.root))
-// })
-
-// // webpack watch for server rendering
-// gulp.task('webpack.s.w', () => {
-//   return gulp.src('entry')
-//     .pipe(webpackStream(_.assign({}, webpackConfigServer, {
-//       watch: true,
-//       progress: true
-//     })))
-//     .pipe(gulp.dest(dirBin))
-// })
-
-gulp.task('default', ['images', 'fonts', 'build', 'webpack.s'])
+gulp.task('default', ['images', 'fonts', 'sass'])

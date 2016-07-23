@@ -1,13 +1,14 @@
 const base = require('./webpack.base.config')
+const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    app: [`${base.paths.src}/routes/app`],
-    console: [`${base.paths.src}/routes/console`],
-    'configure-store': [`${base.paths.src}/store/configure-store`],
+    app: [`${paths.src}/routes/app`],
+    console: [`${paths.src}/routes/console`],
+    'configure-store': [`${paths.src}/store/configure-store`],
   },
   output: {
-    path: `${base.paths.root}/bin`,
+    path: `${paths.root}/bin`,
     filename: '[name].js',
     libraryTarget: 'commonjs2'
   },

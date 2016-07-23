@@ -11,7 +11,7 @@ const RouterContext = ReactRouter.RouterContext
 const configureStore = require('../../../bin/configure-store').default
 const store = configureStore()
 
-const manifest = require('../../../assets/built/entry.manifest.json')
+const manifest = require('../../../assets/built/chunks.manifest.json')
 
 // const Body = require('side-effects/body').default
 

@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const base = require('./webpack.base.config')
-const paths = base.paths
-const hot = base.hot
+const paths = base.vars.paths
+const hot = base.vars.hot
 
 module.exports = {
   entry: {
@@ -17,7 +17,7 @@ module.exports = {
     base.plugins.envDev,
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    ...base.plugins.dllReferenceDev,
+    ...base.plugins.dllReference,
   ],
   devtool: 'inline-source-map',
   module: {

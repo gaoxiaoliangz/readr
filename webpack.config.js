@@ -1,11 +1,8 @@
-/**
- * 构建开发环境脚本
- */
-
+// # 构建开发环境脚本
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('./webpack/webpack.base.config')
-const paths = base.paths
+const paths = base.vars.paths
 
 module.exports = {
   entry: {
@@ -19,7 +16,7 @@ module.exports = {
   plugins: [
     base.plugins.occurenceOrder,
     base.plugins.envDev,
-    ...base.plugins.dllReferenceDev,
+    ...base.plugins.dllReference,
     new ManifestPlugin(),
     new ExtractTextPlugin('[name].css'),
   ],

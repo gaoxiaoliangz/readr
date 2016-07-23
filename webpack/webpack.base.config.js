@@ -1,11 +1,13 @@
-/**
- * webpack 配置合集，各种情况各取所需
- * 不可直接使用！
- */
-
+// # WEBPACK ROCKS!!
+// webpack 配置合集，各种情况各取所需
 const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const _ = require('lodash')
+
+/**
+ * ## 定义常用变量
+ */
 
 const pathPrefix = process.cwd()
 const paths = {
@@ -15,31 +17,74 @@ const paths = {
 }
 const cssLocalIdentName = '[name]-[local]-[hash:base64:5]'
 const imageName = '[name].[hash].[ext]'
-// 暴露到全局变量的名称
-const vendorLibName = '_[name]_lib'
-// hmr entry 里面的一个标记，具体不懂。。
-const hot = 'webpack-hot-middleware/client'
-let dllReference = []
 
-try {
-  dllReference = [
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('../assets/built/react-kit.dll.manifest.json')
-    }),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('../assets/built/utils.dll.manifest.json')
-    }),
-  ]
-} catch (error) {
-  console.warn('WARNING: ', error.message)
+// 暴露到全局变量的名称
+const vendorLibName = '_[name]_dll'
+
+// HMR entry 里面的一个标记，具体不懂。。
+const hot = 'webpack-hot-middleware/client'
+
+// webpack 会使用文件名作为变量，所以不能使用带有 - 的名字
+const dllNames = {
+  reactKit: 'react_kit',
+  utils: 'utils'
 }
 
+// names: { name: string }
+const dllReference = (names) => {
+  try {
+    return _.map(names, name => {
+      return new webpack.DllReferencePlugin({
+        context: '.',
+        manifest: require(`${paths.built}/${name}.dll.manifest.json`)
+      })
+    })
+  } catch (error) {
+    console.warn('WARNING: ', error.message, '(normally this message can be ignored)')
+    return []
+  }
+}
+
+// code splitting
+const reactKit = [
+  'react',
+  'react-dom',
+  'react-addons-css-transition-group',
+  'redux',
+  'react-redux',
+  'react-router',
+  'redux-thunk',
+  'react-css-modules',
+  'react-side-effect',
+  'react-router-redux',
+]
+const reactDevKit = [
+  'redux-devtools-log-monitor',
+  'redux-devtools-dock-monitor',
+]
+
+const utils = [
+  'lodash',
+  'jquery',
+  'normalizr',
+  'humps',
+  'isomorphic-fetch',
+]
+
 module.exports = {
-  paths,
-  hot,
-  vendorLibName,
+  vars: {
+    pathPrefix,
+    paths,
+    cssLocalIdentName,
+    imageName,
+    vendorLibName,
+    hot,
+
+    dllNames,
+    reactKit,
+    reactDevKit,
+    utils
+  },
 
   plugins: {
     envProd: new webpack.DefinePlugin({
@@ -53,7 +98,7 @@ module.exports = {
       entryOnly: true
     }),
     occurenceOrder: new webpack.optimize.OccurenceOrderPlugin(),
-    dllReference,
+    dllReference: dllReference(dllNames),
     dllDefinition: new webpack.DllPlugin({
       path: `${paths.built}/[name].dll.manifest.json`,
       name: vendorLibName
