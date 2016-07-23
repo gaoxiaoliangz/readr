@@ -5,23 +5,26 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: ['./src/client/entry/app'],
-    console: ['./src/client/entry/console'],
+    react: ['react', 'react-dom']
   },
   output: {
     path: path.join(__dirname, 'assets/built'),
-    filename: '[name].js',
-    publicPath: '/built/',
+    filename: '[name].bundle.js',
+    library: '[name]_lib',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"',
     }),
-    new ExtractTextPlugin('[name].css'),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('./assets/built/react-manifest.json')
+    new webpack.DllPlugin({
+      // The path to the manifest file which maps between
+      // modules included in a bundle and the internal IDs
+      // within that bundle
+      path: path.join(__dirname, 'assets/built/[name]-manifest.json'),
+      // The name of the global variable which the library's
+      // require function has been assigned to. This must match the
+      // output.library option above
+      name: '[name]_lib'
     }),
   ],
   module: {
@@ -41,16 +44,6 @@ module.exports = {
           presets: ['react', 'es2015'],
         },
       },
-      // {
-      //   test: /\.scss$/,
-      //   loaders: [
-      //     'style?sourceMap',
-      //     'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
-      //     'resolve-url',
-      //     // 'postcss?sourceMap'
-      //     'sass?sourceMap'
-      //   ]
-      // },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(

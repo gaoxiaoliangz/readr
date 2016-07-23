@@ -7,9 +7,7 @@ const mapHttpMethod = require('../../endpoints/map-http-method')
 const _ = require('lodash')
 
 function createApiMethod(methodName, model) {
-  function list(match) {
-    console.log('list')
-    
+  function list(match) {    
     // 支持过滤器：exclude, fields, limit
     // 例如：?exclude=field1,field2&fields=field3,field4&limit=10
     // const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []

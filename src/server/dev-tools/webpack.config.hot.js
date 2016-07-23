@@ -2,16 +2,17 @@ const path = require('path')
 const webpack = require('webpack')
 const hot = 'webpack-hot-middleware/client'
 
-
 module.exports = {
   entry: {
     app: [hot, path.resolve('src/client/entry/app')],
     console: [hot, path.resolve('src/client/entry/console')],
+    react: ['react', 'react-dom']
   },
   output: {
     path: path.resolve('assets/built/'),
     publicPath: 'http://localhost:3000/built/',
     filename: '[name].js',
+    library: '[name]_lib',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -20,6 +21,16 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.DllPlugin({
+      // The path to the manifest file which maps between
+      // modules included in a bundle and the internal IDs
+      // within that bundle
+      path: path.resolve('assets/built/[name]-manifest.json'),
+      // The name of the global variable which the library's
+      // require function has been assigned to. This must match the
+      // output.library option above
+      name: '[name]_lib'
+    }),
   ],
   devtool: 'inline-source-map',
   module: {

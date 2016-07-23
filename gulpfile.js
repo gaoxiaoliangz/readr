@@ -1,11 +1,12 @@
 'use strict'
 const gulp = require('gulp')
 const sass = require('gulp-sass')
-const uglify = require('gulp-uglify')
+// const uglify = require('gulp-uglify')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./webpack.config.js')
-const webpackConfigServer = require('./webpack.config.server.js')
+// const webpackConfigServer = require('./webpack.server.config.js')
+// const webpackConfigVendor = require('./webpack.vendor.config.js')
 const rev = require('gulp-rev')
 const mergeStream = require('merge-stream')
 const cleanCSS = require('gulp-clean-css')
@@ -101,21 +102,28 @@ gulp.task('build', () => {
   return revd
 })
 
-// webpack build for server rendering
-gulp.task('webpack.s', () => {
-  return gulp.src('entry')
-    .pipe(webpackStream(webpackConfigServer))
-    .pipe(gulp.dest(dirBin))
-})
+// // webpack build for server rendering
+// gulp.task('webpack.s', () => {
+//   return gulp.src('entry')
+//     .pipe(webpackStream(webpackConfigServer))
+//     .pipe(gulp.dest(dirBin))
+// })
 
-// webpack watch for server rendering
-gulp.task('webpack.s.w', () => {
-  return gulp.src('entry')
-    .pipe(webpackStream(_.assign({}, webpackConfigServer, {
-      watch: true,
-      progress: true
-    })))
-    .pipe(gulp.dest(dirBin))
-})
+// // webpack build for vendor
+// gulp.task('webpack.v', () => {
+//   return gulp.src('entry')
+//     .pipe(webpackStream(webpackConfigVendor))
+//     // .pipe(gulp.dest(paths.built.root))
+// })
+
+// // webpack watch for server rendering
+// gulp.task('webpack.s.w', () => {
+//   return gulp.src('entry')
+//     .pipe(webpackStream(_.assign({}, webpackConfigServer, {
+//       watch: true,
+//       progress: true
+//     })))
+//     .pipe(gulp.dest(dirBin))
+// })
 
 gulp.task('default', ['images', 'fonts', 'build', 'webpack.s'])

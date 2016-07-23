@@ -1,7 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
-// const ManifestPlugin = require('webpack-manifest-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 
 module.exports = {
   entry: {
@@ -10,19 +11,16 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'assets/built'),
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
     publicPath: '/built/',
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"',
+      'process.env.NODE_ENV': '"production"',
     }),
+    new ManifestPlugin(),
     new ExtractTextPlugin('[name].css'),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('./assets/built/react-manifest.json')
-    }),
   ],
   module: {
     loaders: [
