@@ -14,12 +14,16 @@ module.exports = {
     filename: '[name].[chunkhash].js',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"',
-    }),
+    base.plugins.envProd,
+    base.plugins.occurenceOrder,
+    ...base.plugins.dllReferences,
     new ManifestPlugin(),
     new ExtractTextPlugin('[name].css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        // warnings: false
+      }
+    })
   ],
   module: {
     loaders: [

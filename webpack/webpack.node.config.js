@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const base = require('./webpack.base.config')
 
 module.exports = {
@@ -14,10 +13,8 @@ module.exports = {
   },
   plugins: [
     base.plugins.nodeSourceMapSupport,
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"',
-    }),
+    base.plugins.envProd,
+    base.plugins.occurenceOrder,
   ],
   module: {
     loaders: [
@@ -38,20 +35,4 @@ module.exports = {
   //   console: true
   // },
   externals: /^[a-z][a-z\.\-0-9]*$/,
-  // externals: [
-  //   'react',
-  //   'react-dom',
-  //   'isomorphic-fetch',
-  //   'react-router',
-  //   'react-redux',
-  //   'lodash',
-  //   'normalizr',
-  //   'humps',
-  //   'react-addons-css-transition-group',
-  //   'jquery',
-  //   'redux-thunk',
-  //   'redux',
-  //   'redux-devtools-log-monitor',
-  //   'redux-devtools-dock-monitor'
-  // ]
 }

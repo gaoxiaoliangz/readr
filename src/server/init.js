@@ -13,7 +13,6 @@ const hotModuleReplacement = require('./dev-tools/hot-module-replacement')
 const runtimeOptions = require('./utils/runtime-options')
 const controllers = require('./controllers')
 
-
 function init(basePath) {
   app.use(session({
     secret: 'key',

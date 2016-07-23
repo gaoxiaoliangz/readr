@@ -14,20 +14,11 @@ module.exports = {
     filename: '[name].js',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"',
-    }),
+    base.plugins.envDev,
+    base.plugins.occurenceOrder,    
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('../assets/built/react-manifest.json')
-    }),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('../assets/built/utils-manifest.json')
-    }),
+    ...base.plugins.dllReferences
   ],
   devtool: 'inline-source-map',
   module: {

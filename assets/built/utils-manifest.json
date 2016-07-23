@@ -1,8 +1,0 @@
-{
-  "name": "utils_lib",
-  "content": {
-    "./node_modules/webpack/buildin/module.js": 249,
-    "./node_modules/lodash/index.js": 268,
-    "./node_modules/jquery/dist/jquery.js": 269
-  }
-}

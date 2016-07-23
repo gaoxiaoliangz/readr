@@ -2,7 +2,6 @@
  * 构建开发环境脚本
  */
 
-const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('./webpack/webpack.base.config')
@@ -18,10 +17,9 @@ module.exports = {
     filename: '[name].js',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"',
-    }),
+    base.plugins.occurenceOrder,
+    base.plugins.envDev,
+    ...base.plugins.dllReferences,
     new ManifestPlugin(),
     new ExtractTextPlugin('[name].css'),
   ],
