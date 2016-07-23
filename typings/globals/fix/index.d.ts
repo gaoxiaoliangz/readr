@@ -18,13 +18,11 @@ declare module "react-css-modules" {
 }
 
 // declare let Promise
-// declare let require
+// declare let Symbol
 
 // declare interface ObjectConstructor {
-//     assign(target: any, ...sources: any[]): any;
+//   assign(target: any, ...sources: any[]): any;
 // }
-
-// type Symbol = any
 
 declare var require: {
   <T>(path: string): T

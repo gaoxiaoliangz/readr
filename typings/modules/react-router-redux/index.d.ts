@@ -111,6 +111,7 @@ export = alias;
 // Source: https://raw.githubusercontent.com/andrew-w-ross/typings-redux/e16683b6d921624478ff926c9b50151aa4a5d22d/redux.d.ts
 declare module '~react-router-redux~redux/redux' {
 module redux {
+  // type Symbol = any
 	//This should be extended
 	export interface IAction {
 		type: string | number | Symbol;

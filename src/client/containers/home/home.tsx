@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchBooks, fetchCollections } from '../../actions'
+import { fetchBooks, fetchCollections } from '../../actions/index'
 import BookListSection from '../../components/book-list-section'
 // import Loading from 'components/Loading'
 import CandyBox from '../../components/candy-box'
 import Body from '../../side-effects/body'
-import Button from '../../elements/form/button'
+import { Button } from '../../elements/form'
 import _ from 'lodash'
 
 interface Props {

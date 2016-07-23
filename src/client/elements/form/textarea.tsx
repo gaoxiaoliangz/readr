@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Props as InputProps } from './input'
 
 export interface Props extends InputProps {
-
 }
 
 class Textarea extends Component<Props, any> {
