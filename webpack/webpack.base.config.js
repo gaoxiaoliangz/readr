@@ -3,6 +3,7 @@
  * 不可直接使用！
  */
 
+const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
@@ -18,6 +19,14 @@ const imageName = '[name].[hash].[ext]'
 module.exports = {
   paths,
   hot: 'webpack-hot-middleware/client',
+
+  plugins: {
+    nodeSourceMapSupport: new webpack.BannerPlugin(`require('source-map-support').install()`, {
+      raw: true,
+      entryOnly: true
+    }),
+  },
+
   loaders: {
     imageWebpack: {
       test: /\.(jpe?g|png|gif|svg)$/i,

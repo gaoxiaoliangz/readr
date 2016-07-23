@@ -30,7 +30,8 @@ interface State {
 class Home extends Component<PropsWithReduxState, State> {
 
   static fetchData({store}) {
-    return store.dispatch(fetchBooks())
+    throw new Error('hahaha')
+    // return store.dispatch(fetchBooks())
   }
 
   constructor(props) {

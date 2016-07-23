@@ -13,6 +13,7 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   plugins: [
+    base.plugins.nodeSourceMapSupport,
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',

@@ -19,6 +19,7 @@
     "no-shadow": [1],
     "no-unused-vars": [1],
     "prefer-template": [0],
-    "global-require": [0]
+    "global-require": [0],
+    "quotes": ["error", "single", {"allowTemplateLiterals": true}]
   }
 }
