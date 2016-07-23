@@ -1,3 +1,8 @@
+/**
+ * webpack 构建生产文件
+ * 主要参考配置
+ */
+
 const path = require('path')
 const webpack = require('webpack')
 // const ManifestPlugin = require('webpack-manifest-plugin')
@@ -22,6 +27,10 @@ module.exports = {
     new webpack.DllReferencePlugin({
       context: '.',
       manifest: require('./assets/built/react-manifest.json')
+    }),
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: require('./assets/built/utils-manifest.json')
     }),
   ],
   module: {

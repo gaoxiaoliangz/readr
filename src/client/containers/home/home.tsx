@@ -80,12 +80,12 @@ class Home extends Component<PropsWithReduxState, State> {
               title={listName}
               moreLink={`/collections/${this.props.collection ? this.props.collection.id : ''}`}
             />
-            <Link className="view-more" to="/collections">浏览更多书单 ></Link>
+            <Link className="view-more" to="/collections">浏览更多书单23232 ></Link>
           </div>
           <div className="col-md-4">
             {
               this.state.showRecentReading ? (
-                <CandyBox title="最近阅读" list={[]} />
+                <CandyBox title="最近阅读222" list={[]} />
               ) : null
             }
           </div>
