@@ -31,7 +31,7 @@ class Button extends Component<Props, any> {
     } else if (size === 'medium') {
       className += ' btn-medium'
     } else {
-      console.error('Unsupport size!');
+      console.error('Unsupport size!')
     }
 
     if (color) {

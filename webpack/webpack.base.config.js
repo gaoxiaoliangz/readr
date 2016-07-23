@@ -19,29 +19,17 @@ const imageName = '[name].[hash].[ext]'
 const vendorLibName = '_[name]_lib'
 // hmr entry 里面的一个标记，具体不懂。。
 const hot = 'webpack-hot-middleware/client'
-let dllReferenceProd = []
-let dllReferenceDev = []
+let dllReference = []
 
 try {
-  dllReferenceDev = [
+  dllReference = [
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require('../assets/built/react.lib.manifest.dev.json')
+      manifest: require('../assets/built/react-kit.dll.manifest.json')
     }),
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require('../assets/built/utils.lib.manifest.dev.json')
-    }),
-  ]
-
-  dllReferenceProd = [
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('../assets/built/react.lib.manifest.prod.json')
-    }),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: require('../assets/built/utils.lib.manifest.prod.json')
+      manifest: require('../assets/built/utils.dll.manifest.json')
     }),
   ]
 } catch (error) {
@@ -65,14 +53,9 @@ module.exports = {
       entryOnly: true
     }),
     occurenceOrder: new webpack.optimize.OccurenceOrderPlugin(),
-    dllReferenceDev,
-    dllReferenceProd,
-    dllDefinitionDev: new webpack.DllPlugin({
-      path: `${paths.built}/[name].lib.manifest.dev.json`,
-      name: vendorLibName
-    }),
-    dllDefinitionProd: new webpack.DllPlugin({
-      path: `${paths.built}/[name].lib.manifest.prod.json`,
+    dllReference,
+    dllDefinition: new webpack.DllPlugin({
+      path: `${paths.built}/[name].dll.manifest.json`,
       name: vendorLibName
     }),
   },
