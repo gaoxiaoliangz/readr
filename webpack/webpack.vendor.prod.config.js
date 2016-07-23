@@ -1,4 +1,6 @@
+const webpack = require('webpack')
 const base = require('./webpack.base.config')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
   entry: {
@@ -13,8 +15,6 @@ module.exports = {
       'react-css-modules',
       'react-side-effect',
       'react-router-redux',
-      'redux-devtools-log-monitor',
-      'redux-devtools-dock-monitor',
     ],
     utils: [
       'lodash',
@@ -26,10 +26,18 @@ module.exports = {
   },
   output: {
     path: base.paths.built,
-    filename: '[name]-lib.js',
+    filename: '[name]-lib.[chunkhash].js',
     library: base.vendorLibName
   },
   plugins: [
-    base.plugins.dllDefinition
+    base.plugins.dllDefinition,
+    new ManifestPlugin({
+      fileName: 'lib-manifest.json',
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
   ],
 }

@@ -18,10 +18,10 @@ module.exports = {
     base.plugins.occurenceOrder,
     ...base.plugins.dllReferences,
     new ManifestPlugin(),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        // warnings: false
+        warnings: true
       }
     })
   ],

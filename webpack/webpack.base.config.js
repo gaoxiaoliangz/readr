@@ -15,10 +15,31 @@ const paths = {
 }
 const cssLocalIdentName = '[name]-[local]-[hash:base64:5]'
 const imageName = '[name].[hash].[ext]'
+// 暴露到全局变量的名称
+const vendorLibName = '_[name]_lib'
+// hmr entry 里面的一个标记，具体不懂。。
+const hot = 'webpack-hot-middleware/client'
+let dllReferences = []
+
+try {
+  dllReferences = [
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: require('../assets/built/react-manifest.json')
+    }),
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: require('../assets/built/utils-manifest.json')
+    }),
+  ]
+} catch (error) {
+  console.warn('WARNING: ', error.message)
+}
 
 module.exports = {
   paths,
-  hot: 'webpack-hot-middleware/client',
+  hot,
+  vendorLibName,
 
   plugins: {
     envProd: new webpack.DefinePlugin({
@@ -32,16 +53,11 @@ module.exports = {
       entryOnly: true
     }),
     occurenceOrder: new webpack.optimize.OccurenceOrderPlugin(),
-    dllReferences: [
-      new webpack.DllReferencePlugin({
-        context: '.',
-        manifest: require('../assets/built/react-manifest.json')
-      }),
-      new webpack.DllReferencePlugin({
-        context: '.',
-        manifest: require('../assets/built/utils-manifest.json')
-      }),
-    ]
+    dllReferences,
+    dllDefinition: new webpack.DllPlugin({
+      path: `${paths.built}/[name]-manifest.json`,
+      name: vendorLibName
+    }),
   },
 
   loaders: {
