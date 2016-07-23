@@ -11,11 +11,12 @@ html
 
     if env == "production"
       //- hash
-      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
-      link(type='text/css' rel='stylesheet' href='/built/app.global.css')
+      link(type="text/css" rel="stylesheet" href="/built/vendor.css")
+      link(type="text/css" rel="stylesheet" href="/built/app.global.css")
+      link(type="text/css" rel="stylesheet" href="/built/#{manifest['app.css']}")
     else
-      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
-      link(type='text/css' rel='stylesheet' href='/built/app.global.css')
+      link(type="text/css" rel="stylesheet" href="/built/vendor.css")
+      link(type="text/css" rel="stylesheet" href="/built/app.global.css")
 
   body(class="#{bodyClass}")
     #root.app !{html}
@@ -24,9 +25,9 @@ html
       var __INITIAL_STATE__ = !{initialState}
 
     if env == "production"
-      script(src="/built/#{entryManifest['react-kit.js']}")
-      script(src="/built/#{entryManifest['utils.js']}")
-      script(src="/built/#{entryManifest['app.js']}")
+      script(src="/built/#{manifest['react-kit.js']}")
+      script(src="/built/#{manifest['utils.js']}")
+      script(src="/built/#{manifest['app.js']}")
     else
       script(src="/built/react.lib.js")
       script(src="/built/utils.lib.js")

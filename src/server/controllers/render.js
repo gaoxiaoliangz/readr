@@ -3,8 +3,6 @@ const express = require('express')
 const router = new express.Router()
 const runtimeOptions = require('../utils/runtime-options')
 const React = require('react')
-// const Component = React.Component
-// const createStore = require('redux').createStore
 const Provider = require('react-redux').Provider
 const renderToString = require('react-dom/server').renderToString
 const ReactRouter = require('react-router')
@@ -12,13 +10,8 @@ const RouterContext = ReactRouter.RouterContext
 
 const configureStore = require('../../../bin/configure-store').default
 const store = configureStore()
-// const appRoutes = require('routes/app').default
-// const consoleRoutes = require('routes/console').default
 
-const entryManifest = require('../../../assets/built/entry.manifest.json')
-
-console.log(entryManifest)
-
+const manifest = require('../../../assets/built/entry.manifest.json')
 
 // const Body = require('side-effects/body').default
 
@@ -46,7 +39,7 @@ function getRenderData(renderProps) {
   try {
     html = renderToString(html)
   } catch (e) {
-    console.log(e)
+    console.error(e)
   }
 
   // let bodyClass = Body.rewind()
@@ -111,7 +104,7 @@ function render(isServerRenderingEnabled) {
       preRender(req.data.renderProps).then(result => {
         res.status(status).render(req.data.entry, Object.assign({}, result, { 
           env,
-          entryManifest
+          manifest
         }))
       })
     } else {
