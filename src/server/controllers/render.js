@@ -10,7 +10,7 @@ const renderToString = require('react-dom/server').renderToString
 const ReactRouter = require('react-router')
 const RouterContext = ReactRouter.RouterContext
 
-const configureStore = require('../../../bin/configureStore').default
+const configureStore = require('../../../bin/configure-store').default
 const store = configureStore()
 // const appRoutes = require('routes/app').default
 // const consoleRoutes = require('routes/console').default
