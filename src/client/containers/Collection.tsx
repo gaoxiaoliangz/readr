@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Button from '../elements/form/button'
+import { Button } from '../elements/form'
 import { fetchCollection } from '../actions'
 import BookList from '../components/book-list-section'
 

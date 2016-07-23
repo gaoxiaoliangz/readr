@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue } from '../../actions/index'
+import { sendNotification, changeValue } from '../../actions'
 import { Button, SelectizeInput} from '../../elements/form'
 import Modal from '../../elements/Modal'
 import _ from 'lodash'

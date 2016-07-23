@@ -71,7 +71,7 @@ module.exports = {
   resolve: {
     root: path.resolve('./src/client'),
     alias: {
-      styles: path.join(__dirname, 'src/client/shared/scss'),
+      styles: path.join(__dirname, './src/client/shared/scss'),
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },

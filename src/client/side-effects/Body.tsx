@@ -23,9 +23,9 @@ function reducePropsToState(propsList) {
 }
 
 function handleStateChangeOnClient(className) {
-  if(typeof className !== 'undefined') {
+  if (typeof className !== 'undefined') {
     document.body.className = className
-  }else{
+  } else {
     document.body.removeAttribute('class')
   }
 }
@@ -33,4 +33,4 @@ function handleStateChangeOnClient(className) {
 export default withSideEffect(
   reducePropsToState,
   handleStateChangeOnClient
-)(Body);
+)(Body)

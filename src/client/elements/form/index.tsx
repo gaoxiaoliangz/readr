@@ -1,4 +1,4 @@
-import Button from './button'
+import Button from './button/index'
 import Input from './input'
 import SelectizeInput from './selectize-input'
 import Textarea from './textarea'

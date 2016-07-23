@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import NavTab from '../elements/nav-tab'
-import { fetchBooks, fetchCollections, fetchShelf, sendNotification } from '../actions/index'
+import { fetchBooks, fetchCollections, fetchShelf, sendNotification } from '../actions'
 import BookListSection from '../components/book-list-section'
-import Button from '../elements/form/button'
+import { Button } from '../elements/form'
 
 interface Props {
   fetchBooks?: any
