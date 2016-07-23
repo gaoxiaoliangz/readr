@@ -8,6 +8,8 @@ import CandyBox from '../../components/candy-box'
 import Body from '../../side-effects/body'
 import { Button } from '../../elements/form'
 import _ from 'lodash'
+import CSSModules from 'react-css-modules'
+const styles = require('./home.scss')
 
 interface Props {
 }
@@ -24,6 +26,7 @@ interface State {
   showRecentReading: boolean
 }
 
+@CSSModules(styles)
 class Home extends Component<PropsWithReduxState, State> {
 
   static fetchData({store}) {
@@ -80,7 +83,7 @@ class Home extends Component<PropsWithReduxState, State> {
               title={listName}
               moreLink={`/collections/${this.props.collection ? this.props.collection.id : ''}`}
             />
-            <Link className="view-more" to="/collections">浏览更多书单23232 ></Link>
+            <Link {...{styleName: 'blue'}} className="view-more" to="/collections">浏览更多书单2 ></Link>
           </div>
           <div className="col-md-4">
             {
@@ -97,7 +100,7 @@ class Home extends Component<PropsWithReduxState, State> {
 
 function mapStateToProps(state, ownProps) {
   // console.log(state.pagination.books.newest);
-  
+
   return {
     userBooks: [],
     newestBooks: state.pagination.books.newest

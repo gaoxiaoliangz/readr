@@ -3,11 +3,12 @@
  * 不可直接使用！
  */
 
-const path = require('path')
-const webpack = require('webpack')
+// const path = require('path')
+// const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const cssLocalIdentName = 'localIdentName=[name]__[local]-[hash:base64:5]'
+const cssLocalIdentName = '[name]-[local]-[hash:base64:5]'
+const imageName = '[name].[hash].[ext]'
 
 let config = {}
 
@@ -16,7 +17,7 @@ config = {
     imageWebpack: {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        'file?hash=sha512&digest=hex&name=[name].[hash].[ext]',
+        `file?hash=sha512&digest=hex&name=${imageName}`,
         'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     },
@@ -32,7 +33,7 @@ config = {
       test: /\.css$/,
       loaders: [
         'style?sourceMap',
-        'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
+        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
         'resolve-url',
         'postcss?sourceMap'
       ]
@@ -42,12 +43,15 @@ config = {
       // 需要做为 ExtractTextPlugin 参数，长度貌似只能是 2
       loaders: [
         'style-loader?sourceMap',
-        'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]!resolve-url-loader!sass-loader?sourceMap'
+        `css-loader?modules&importLoaders=1&localIdentName=${cssLocalIdentName}!resolve-url-loader!sass-loader?sourceMap`
       ]
     },
     sassWithExtractText: {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract.apply(null, config.lodaders.sass.loaders)
+      loader: ExtractTextPlugin.extract(
+        'style-loader?sourceMap',
+        `css-loader?modules&importLoaders=1&localIdentName=${cssLocalIdentName}!resolve-url-loader!sass-loader?sourceMap`
+      )
     },
     ts: {
       test: /\.tsx?$/,
@@ -57,6 +61,12 @@ config = {
       test: /\.tsx?$/,
       loaders: ['react-hot', 'babel', 'awesome-typescript'],
     }
+  },
+
+  loaderConfig: {
+    postcss: () => {
+      return [require('postcss-cssnext'), require('postcss-import')]
+    },
   }
 }
 

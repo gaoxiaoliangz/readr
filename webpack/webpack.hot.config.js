@@ -1,14 +1,21 @@
 const path = require('path')
 const webpack = require('webpack')
+const webpackBase = require('./webpack.base.config')
 const hot = 'webpack-hot-middleware/client'
+
+const pathPrefix = process.cwd()
+const paths = {
+  src: path.join(pathPrefix, 'src/client'),
+  built: path.join(pathPrefix, 'assets/built')
+}
 
 module.exports = {
   entry: {
-    app: [hot, path.resolve('src/client/entry/app')],
-    console: [hot, path.resolve('src/client/entry/console')],
+    app: [hot, `${paths.src}/entry/app`],
+    console: [hot, `${paths.src}/entry/console`],
   },
   output: {
-    path: path.resolve('assets/built/'),
+    path: paths.built,
     publicPath: 'http://localhost:3000/built/',
     filename: '[name].js',
   },
@@ -21,57 +28,29 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require('../../../assets/built/react-manifest.json')
+      manifest: require('../assets/built/react-manifest.json')
     }),
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require('../../../assets/built/utils-manifest.json')
+      manifest: require('../assets/built/utils-manifest.json')
     }),
   ],
   devtool: 'inline-source-map',
   module: {
     loaders: [
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file?hash=sha512&digest=hex&name=[name].[ext]',
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015'],
-        },
-      },
-      {
-        test: /\.scss$/,
-        loaders: [
-          'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[name]__[local]-[hash:base64:5]',
-          'resolve-url',
-          'sass?sourceMap',
-          // 'postcss?sourceMap',
-        ]
-      },
-      {
-        test: /\.tsx?$/,
-        loaders: ['react-hot', 'babel', 'awesome-typescript'],
-      },
-    ],
+      webpackBase.loaders.imageWebpack,
+      webpackBase.loaders.sass,
+      webpackBase.loaders.babel,
+      webpackBase.loaders.tsHot
+    ]
   },
-  // postcss: () => {
-  //   return [require('postcss-cssnext'), require('postcss-import')]
-  // },
   sassLoader: {
-    includePaths: [path.resolve('src/client')]
+    includePaths: [paths.src]
   },
   resolve: {
-    root: path.resolve('src/client'),
+    root: paths.src,
     alias: {
-      styles: path.resolve('src/client/shared/scss'),
+      styles: `${paths.src}/shared/scss`,
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },
