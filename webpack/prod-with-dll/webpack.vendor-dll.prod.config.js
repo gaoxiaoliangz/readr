@@ -26,17 +26,18 @@ module.exports = {
   },
   output: {
     path: base.paths.built,
-    filename: '[name]-lib.[chunkhash].js',
+    filename: '[name].lib.[chunkhash].js',
     library: base.vendorLibName
   },
   plugins: [
-    base.plugins.dllDefinition,
+    base.plugins.dllDefinitionProd,
     new ManifestPlugin({
-      fileName: 'lib-manifest.json',
+      fileName: 'vendor.manifest.json',
     }),
     new webpack.optimize.UglifyJsPlugin({
+      mangle: false,
       compress: {
-        warnings: false
+        warnings: false,
       }
     })
   ],

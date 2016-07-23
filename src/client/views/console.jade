@@ -11,10 +11,11 @@ html
     link(type='text/css' rel='stylesheet' href='/built/vendor.css')
 
     if env == "production"
-      link(type='text/css' rel='stylesheet' href='/built/console.css')
+      //- todo
 
     else
-      link(type='text/css' rel='stylesheet' href='/built/console.css')
+      link(type='text/css' rel='stylesheet' href='/built/vendor.css')
+      link(type='text/css' rel='stylesheet' href='/built/console.global.css')
 
   body(class="#{bodyClass}")
     #root.console !{html}
@@ -23,12 +24,9 @@ html
       var __INITIAL_STATE__ = !{initialState}
 
     if env == "production"
-      script(src="/vendors/polyfills/fetch.js")
-      script(src="/vendors/polyfills/babel-polyfill.min.js")
-      script(src="/built/console.built.js")
+      //- todo
 
     else
-      if isWebpackDevServerEnabled == true
-        script(src="http://localhost:8080/built/js/console.js")
-      else
-        script(src="/built/console.js")
+      script(src="/built/react.lib.js")
+      script(src="/built/utils.lib.js")
+      script(src="/built/console.js")

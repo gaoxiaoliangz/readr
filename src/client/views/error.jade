@@ -8,13 +8,11 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
 
     link(rel="shortcut icon" href="/built/img/favicon.png")
-    link(type='text/css' rel='stylesheet' href='/built/css/vendor.built.css')
+    link(type='text/css' rel='stylesheet' href='/built/css/vendor.css')
 
-    if env == "development"
-      link(type='text/css' rel='stylesheet' href='/built/css/index.css')
+    if env == "production"
 
-    else if env == "production"
-      link(type='text/css' rel='stylesheet' href='/built/css/index.built.css')
+    else
 
   body
     div.branding.mui-appbar.mui--z1

@@ -26,10 +26,10 @@ module.exports = {
   },
   output: {
     path: base.paths.built,
-    filename: '[name]-lib.js',
+    filename: '[name].lib.js',
     library: base.vendorLibName
   },
   plugins: [
-    base.plugins.dllDefinition
+    base.plugins.dllDefinitionDev
   ],
 }

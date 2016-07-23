@@ -1,10 +1,7 @@
-/**
- * 构建开发环境脚本
- */
-
+const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const base = require('./webpack/webpack.base.config')
+const base = require('./webpack.base.config')
 const paths = base.paths
 
 module.exports = {
@@ -14,16 +11,22 @@ module.exports = {
   },
   output: {
     path: paths.built,
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
   },
   plugins: [
     base.plugins.occurenceOrder,
-    base.plugins.envDev,
-    ...base.plugins.dllReferenceDev,
-    new ManifestPlugin(),
-    new ExtractTextPlugin('[name].css'),
+    base.plugins.envProd,
+    ...base.plugins.dllReferenceProd,
+    new ManifestPlugin({
+      fileName: 'entry.manifest.json',
+    }),
+    new ExtractTextPlugin('[name].[chunkhash].css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: true
+      }
+    })
   ],
-  devtool: 'inline-source-map',
   module: {
     loaders: [
       base.loaders.imageWebpack,

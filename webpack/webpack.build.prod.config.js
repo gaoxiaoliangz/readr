@@ -14,10 +14,11 @@ module.exports = {
     filename: '[name].[chunkhash].js',
   },
   plugins: [
-    base.plugins.envProd,
     base.plugins.occurenceOrder,
-    ...base.plugins.dllReferences,
-    new ManifestPlugin(),
+    base.plugins.envProd,
+    new ManifestPlugin({
+      fileName: 'entry.manifest.json',
+    }),
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

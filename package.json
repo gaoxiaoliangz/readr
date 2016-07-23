@@ -14,7 +14,12 @@
     "webpack.v": "webpack --config ./webpack/webpack.vendor.config.js",
     "webpack.v.prod": "webpack --config ./webpack/webpack.vendor.prod.config.js",
     "webpack.n": "webpack --config ./webpack/webpack.node.config.js",
-    "build.c": "webpack --progress",
+    "prebuild.v": "npm run webpack.v",
+    "build.v": "npm run webpack.n",
+    "prebuild.v.prod": "npm run webpack.v.prod & gulp sass.v & gulp images",
+    "build.v.prod": "npm run webpack.n",
+    "prebuild": "npm run build.v.prod",
+    "build": "npm run webpack",
     "clean": "rimraf -- assets/built bin",
     "test": "mocha --require babel-register",
     "babel-node?": "nodemon index.dev --exec babel-node"
