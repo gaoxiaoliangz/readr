@@ -24,7 +24,7 @@ class ViewerPreference extends Component<Props, any> {
           </li>
           <li className="option option-scroll">
             <span className="label">滚动模式</span>
-            <Switcher on={true} />
+            <Switcher value={true} />
           </li>
           <li className="option option-theme">
             <span style={{background: '#fff'}}>theme1</span>

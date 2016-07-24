@@ -39,7 +39,7 @@ class Archive extends Component<Props, any> {
           </ul>
           <div className="right">
             <div className="label">不显示我读过的</div>
-            <Switcher on={false} />
+            <Switcher value={false} />
           </div>
         </div>
         <BookListSection bookEntities={this.props.newestBooks} />

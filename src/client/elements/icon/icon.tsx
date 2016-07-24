@@ -27,12 +27,12 @@ class Icon extends Component<IProps, {}> {
     let className = classnames('icon', `icon-${name}`, size, this.props.className)
 
     if (typeof svgIcons[name] === 'undefined') {
-      console.error('Icon name not found! ')
+      console.error('Icon name (%s) not found! ', name)
     }
 
     return (
       <span styleName="icon" className={className} onClick={method}>
-        <svg styleName="svg-shape">
+        <svg styleName="svg-shape" style={{fill: 'currentColor'}}>
           <path d={svgIcons[name]}/>
         </svg>
       </span>

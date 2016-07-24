@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import Container from '../../elements/layout/container'
-// import Icon from '../../elements/icon'
 import ConsoleBranding from '../../components/console-branding'
 import { userAuth, sendNotification } from '../../actions'
 import Alert from '../../elements/alert'
-import Body from '../../side-effects/body'
+// import Body from '../../side-effects/body'
+import Icon from '../../elements/icon'
 import menus from './menus'
 
 interface Props {
@@ -57,7 +57,7 @@ class Console extends Component<Props, any> {
             return (
               <li key={index} className={className}>
                 <Link to={`/${menu.path}`}>
-                  {/*<Icon name={menu.component} />*/}
+                  <Icon name={menu.component} />
                 </Link>
               </li>
             )

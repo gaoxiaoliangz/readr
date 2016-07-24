@@ -7,7 +7,17 @@ import Body from '../side-effects/body'
 import Switcher from '../elements/switcher'
 import _ from 'lodash'
 
-class Profile extends Component<any, any> {
+interface IAllProps {
+  session?: any
+  fetchProfile?: any
+  profile?: any
+}
+
+interface IState {
+  showFav?: boolean
+}
+
+class Settings extends Component<IAllProps, IState> {
 
   // static fetchData({store, params}) {
   //   return store.dispatch(fetch())
@@ -15,6 +25,9 @@ class Profile extends Component<any, any> {
 
   constructor(props) {
     super(props)
+    this.state = {
+      showFav: true
+    }
   }
 
   componentDidMount() {
@@ -58,7 +71,14 @@ class Profile extends Component<any, any> {
             <li className="option">
               <h2>公开展示我的收藏</h2>
               <span className="option-desc">关闭后其他用户将无法查看您的收藏</span>
-              <Switcher on={true} />
+              <Switcher
+                value={this.state.showFav}
+                onChange={newValue => {
+                  this.setState({
+                    showFav: newValue as boolean
+                  })
+                }}
+              />
             </li>
           </ul>
         </div>
@@ -78,5 +98,5 @@ export default connect(
       profile
     }
   },
-  { sendNotification, userAuth, fetchProfile } as any
-)(Profile)
+  { sendNotification, userAuth, fetchProfile }
+)(Settings as any)

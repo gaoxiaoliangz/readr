@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router'
-import NavTab from '../elements/nav-tab'
 import { fetchBooks, fetchCollections, fetchShelf, sendNotification } from '../actions'
 import BookListSection from '../components/book-list-section'
 import { Button } from '../elements/form'
+import { Tab, Tabs } from '../elements/tab'
 
 interface Props {
   fetchBooks?: any
@@ -41,10 +41,14 @@ class Profile extends Component<Props, any> {
           <span className="tagline">something to say</span>
           <Button>编辑</Button>
         </div>
-        <NavTab tabs={['收藏', '读过', '书评']} current={0} />
-        <div>
-          <BookListSection title="😄" bookEntities={newestBooks} />
-        </div>
+        <Tabs>
+          <Tab title="收藏">
+            我的收藏
+          </Tab>
+          <Tab title="读过">
+            <BookListSection title="😄" bookEntities={newestBooks} />
+          </Tab>
+        </Tabs>
       </div>
     )
   }
