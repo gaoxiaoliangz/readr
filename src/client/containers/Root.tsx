@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification } from '../actions'
-import Alert from '../elements/alert'
+import { sendNotification, hideNotification } from '../actions'
+import { Alerts } from '../elements/alert'
 
-interface Props {
+interface IAllProps {
   notifications?: any
+  hideNotification?: any
 }
 
-interface State {
+interface IState {
 }
 
-class Root extends Component<Props, State> {
+class Root extends Component<IAllProps, IState> {
 
   constructor(props) {
     super(props)
@@ -25,18 +26,15 @@ class Root extends Component<Props, State> {
         {
           this.props.notifications.filter(noti => noti.visible).length > 0
           ? (
-            <div className="notifications">
-              {
-                this.props.notifications.map((noti, index) => (
-                  <Alert
-                    key={index}
-                    type={noti.type}
-                    message={noti.message}
-                    visible={noti.visible}
-                  />
-                ))
-              }
-            </div>
+            <Alerts
+              onRequestClose={this.props.hideNotification}
+              messages={this.props.notifications.map(noti => ({
+                content: noti.message,
+                type: noti.type,
+                visible: noti.visible,
+                id: noti.id
+              }))}
+            />
           )
           : null
         }
@@ -46,7 +44,7 @@ class Root extends Component<Props, State> {
   }
 }
 
-export default connect<{}, {}, Props>(
+export default connect<{}, {}, IAllProps>(
   state => ({ notifications: state.components.notifications}),
-  { sendNotification }
+  { sendNotification, hideNotification }
 )(Root as any)

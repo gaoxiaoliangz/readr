@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import Container from '../../elements/layout/container'
-import Icon from '../../elements/icon'
+// import Icon from '../../elements/icon'
 import ConsoleBranding from '../../components/console-branding'
 import { userAuth, sendNotification } from '../../actions'
 import Alert from '../../elements/alert'
@@ -32,13 +32,13 @@ class Console extends Component<Props, any> {
       let subIndex
 
       let result = item.subMenu.filter((item, index) => {
-        if(item.path === currentPath) {
+        if (item.path === currentPath) {
           subIndex = index
           return true
         }
       })
 
-      if(result.length > 0) {
+      if (result.length > 0) {
         currentMenu.rootIndex = rootIndex
         currentMenu.subIndex = subIndex
       }
@@ -50,12 +50,16 @@ class Console extends Component<Props, any> {
           menuMapping.map((menu, index) => {
             let className = `menu-${menu.component}`
 
-            if(index === currentMenu.rootIndex) {
+            if (index === currentMenu.rootIndex) {
               className += ' current'
             }
 
             return (
-              <li key={index} className={className}><Link to={`/${menu.path}`}><Icon name={menu.component} /></Link></li>
+              <li key={index} className={className}>
+                <Link to={`/${menu.path}`}>
+                  {/*<Icon name={menu.component} />*/}
+                </Link>
+              </li>
             )
           })
         }
@@ -68,7 +72,7 @@ class Console extends Component<Props, any> {
           menuMapping[currentMenu.rootIndex].subMenu.map((menu, index) => {
             let className = `menu-${menu.component}`
 
-            if(index === currentMenu.subIndex) {
+            if (index === currentMenu.subIndex) {
               className += ' current'
             }
 
@@ -89,9 +93,9 @@ class Console extends Component<Props, any> {
   }
 
   render() {
-    let isAdmin = this.props.session.user.role === 'admin'?true:false
-    let username = this.props.session.user.username?this.props.session.user.username:null
-    let pathname = this.props.routing.locationBeforeTransitions?this.props.routing.locationBeforeTransitions.pathname:'console'
+    let isAdmin = this.props.session.user.role === 'admin' ? true : false
+    let username = this.props.session.user.username ? this.props.session.user.username : null
+    let pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console'
 
     return (
       <div>
@@ -99,23 +103,23 @@ class Console extends Component<Props, any> {
         <Container isFluid={true}>
           {
             this.props.notifications.filter(noti => noti.visible).length > 0
-            ? (
-              <div className="notifications">
-                {
-                  this.props.notifications.map((noti, index) => (
-                    <Alert
-                      key={index}
-                      type={noti.type}
-                      message={noti.message}
-                      visible={noti.visible}
-                    />
-                  ))
-                }
-              </div>
-            )
-            : null
+              ? (
+                <div className="notifications">
+                  {
+                    this.props.notifications.map((noti, index) => (
+                      <Alert
+                        key={index}
+                        type={noti.type}
+                        message={noti.message}
+                        visible={noti.visible}
+                        />
+                    ))
+                  }
+                </div>
+              )
+              : null
           }
-          {this.renderMenu(menus, pathname)}
+          {this.renderMenu(menus, pathname) }
           <div className="content">
             {this.props.children}
           </div>
@@ -132,4 +136,4 @@ export default connect(
     routing: state.routing
   }),
   { sendNotification, userAuth }
-)(Console  as any)
+)(Console as any)

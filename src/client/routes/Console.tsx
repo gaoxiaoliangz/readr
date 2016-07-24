@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory } from 'react-router'
 import Console from '../containers/console/home'
 import ManageBooks from '../containers/console/manage-books'

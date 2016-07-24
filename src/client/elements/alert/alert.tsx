@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { MsgType } from '../actions/notification'
-import Icon from '../elements/icon'
+import { MsgType } from '../../actions/notification'
+import Icon from '../icon'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./alert.scss')
+// import classnames from 'classnames'
 
 interface Props {
   message: string
@@ -9,7 +12,10 @@ interface Props {
   visible: boolean
 }
 
-class Notification extends Component<Props, {}> {
+@CSSModules(styles, {
+  allowMultiple: true
+})
+class Alert extends Component<Props, {}> {
   render() {
     const type = this.props.type ? this.props.type : 'success'
     return (
@@ -17,12 +23,14 @@ class Notification extends Component<Props, {}> {
         {
           this.props.visible && (
             <div
-              className={`notification notification--${type} z1`.trim()}
+              styleName={`alert--${type}`}
             >
+            <div styleName="alert-close">
               <Icon
                 onClick={this.props.onRequestClose}
                 name="close"
               />
+            </div>
               {this.props.message}
             </div>
           )
@@ -32,4 +40,4 @@ class Notification extends Component<Props, {}> {
   }
 }
 
-export default Notification
+export default Alert

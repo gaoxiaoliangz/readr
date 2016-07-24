@@ -1,0 +1,47 @@
+@import "shared/scss/utils/variables";
+
+$alert-width: 700px;
+$alert-succes: #72efa8;
+$alert-success-text: #204d33;
+
+.alerts {
+  position: fixed;
+  width: $alert-width;
+  margin-left: -$alert-width/2;
+  top: 10px;
+  left: 50%;
+  z-index: 9999;
+} 
+
+.alert {
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  background: #fff;
+  margin-bottom: 10px;
+  position: relative;
+  box-shadow: $common_shadow;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.alert-close {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  display: inline-block;
+}
+
+.alert--success {
+  @extend .alert;
+  background: $alert-succes;
+  color: $alert-success-text;
+}
+
+.alert--error {
+  @extend .alert;
+  background: red;
+  color: #fff;
+}

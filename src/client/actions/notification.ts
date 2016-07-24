@@ -1,12 +1,14 @@
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
-export function sendNotification(message: string, msgType: MsgType = 'success', t: number = 5000) {
+export function sendNotification(message: string, msgType: MsgType = 'success', t: number = 3000) {
   return (dispatch, getState) => {
     const id = Math.random().toFixed(8).substr(2)
 
     dispatch(showNotification(id, message, msgType))
-    setTimeout(() => {
-      dispatch(hideNotification(id))
-    }, t)
+    if (t !== 0) {
+      setTimeout(() => {
+        dispatch(hideNotification(id))
+      }, t)
+    }
   }
 }
 

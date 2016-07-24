@@ -2,6 +2,7 @@
   "name": "readr",
   "version": false,
   "globalDependencies": {
+    "classnames": "registry:dt/classnames#0.0.0+20160316155526",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",
     "normalizr": "registry:dt/normalizr#2.0.1+20160501130729",
     "react": "registry:dt/react#0.14.0+20160526134601",

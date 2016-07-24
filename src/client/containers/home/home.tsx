@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchBooks, fetchCollections } from '../../actions/index'
+import { fetchBooks, fetchCollections, sendNotification } from '../../actions'
 import BookListSection from '../../components/book-list-section'
 // import Loading from 'components/Loading'
 import CandyBox from '../../components/candy-box'
@@ -11,15 +11,16 @@ import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 const styles = require('./home.scss')
 
-interface Props {
+interface IProps {
 }
 
-interface PropsWithReduxState extends Props {
+interface IAllProps extends IProps {
   fetchBooks: any
   fetchCollections: any
   session: any
   newestBooks: any
   collection: any
+  sendNotification: any
 }
 
 interface State {
@@ -27,7 +28,7 @@ interface State {
 }
 
 @CSSModules(styles)
-class Home extends Component<PropsWithReduxState, State> {
+class Home extends Component<IAllProps, State> {
 
   static fetchData({store}) {
     return store.dispatch(fetchBooks())
@@ -66,6 +67,7 @@ class Home extends Component<PropsWithReduxState, State> {
     return (
       <div>
         <Body className="home" />
+        <Button onClick={this.props.sendNotification.bind(this, '测试22222', 'success', 0)}>测试</Button>
         <div className="row">
           {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
@@ -99,8 +101,6 @@ class Home extends Component<PropsWithReduxState, State> {
 }
 
 function mapStateToProps(state, ownProps) {
-  // console.log(state.pagination.books.newest);
-
   return {
     userBooks: [],
     newestBooks: state.pagination.books.newest
@@ -118,5 +118,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchCollections }
+  { fetchBooks, fetchCollections, sendNotification }
 )(Home as any)

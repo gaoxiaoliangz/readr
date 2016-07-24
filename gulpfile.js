@@ -70,6 +70,10 @@ gulp.task('sass', () => {
     .pipe(gulp.dest(paths.built.root))
 })
 
+gulp.task('watch-sass', () => {
+  gulp.watch(paths.src.scss, ['sass'])
+})
+
 gulp.task('images', () => {
   return gulp.src(paths.src.img)
     // TODO
