@@ -12,7 +12,7 @@ const cleanCSS = require('gulp-clean-css')
 // const babel = require('gulp-babel')
 // const tsProject = ts.createProject('tsconfig.json')
 // const concat = require('gulp-concat')
-// const sourcemaps = require('gulp-sourcemaps')
+const sourcemaps = require('gulp-sourcemaps')
 // const fs = require('fs')
 // const rename = require('gulp-rename')
 // const imagemin = require('gulp-imagemin')
@@ -64,9 +64,9 @@ const cssStream = () => {
 // tasks ///////////////////////////////////////////////////////////////////////
 gulp.task('sass', () => {
   return gulp.src(paths.src.scss)
-    // .pipe(sourcemaps.init())
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    // .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.built.root))
 })
 

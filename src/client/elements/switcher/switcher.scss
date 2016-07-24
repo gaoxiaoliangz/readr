@@ -3,6 +3,10 @@
 $size: 20px;
 $base-color: blue;
 
+.switcher-wrap {
+  display: inline-block;
+}
+
 .switcher {
   display: inline-block;
   width: $size * 2;

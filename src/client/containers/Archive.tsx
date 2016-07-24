@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Switcher from '../elements/switcher'
 import BookListSection from '../components/book-list-section'
 import { fetchBooks, fetchCollections } from '../actions'
+import { Tab, Tabs } from '../elements/tab'
 
 interface Props {
   fetchBooks: any
@@ -23,26 +24,29 @@ class Archive extends Component<Props, any> {
     return (
       <div className="archive page-content">
         <div className="page-header">
-          <ul className="categories">
-            <li className="current">全部</li>
-            <li>全部</li>
-            <li>全部</li>
-            <li>全部</li>
-            <li>全部</li>
-            <li>全部</li>
-            <li>全部</li>
-          </ul>
           <ul className="left dropdown-menu">
             <li>时间</li>
             <li>热度</li>
             <li>名称</li>
           </ul>
           <div className="right">
-            <div className="label">不显示我读过的</div>
-            <Switcher value={false} />
+            <Switcher title="不显示我读过的" value={false} />
           </div>
+          <Tabs>
+            <Tab title="全部">
+              <BookListSection bookEntities={this.props.newestBooks} />
+            </Tab>
+            <Tab title="悬疑">
+              coming soon ...
+            </Tab>
+            <Tab title="古典">
+              coming soon ...
+            </Tab>
+            <Tab title="其它">
+              coming soon ...
+            </Tab>
+          </Tabs>
         </div>
-        <BookListSection bookEntities={this.props.newestBooks} />
         <div className="page-load-more">加载更多</div>
       </div>
     )

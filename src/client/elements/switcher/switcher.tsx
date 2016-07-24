@@ -9,6 +9,7 @@ const styles = require('./switcher.scss')
 
 interface IProps {
   value: string | boolean
+  title?: string
   onChange?: (newValue: string | boolean) => void
   options?: {
     name?: string
@@ -43,37 +44,44 @@ class Switcher extends Component<IProps, IState> {
     let state = Boolean(isOn) ? 'on' : 'off'
 
     return (
-      <div
-        onClick={e => {
-          if (this.props.onChange) {
-            let newValue
+      <div styleName="switcher-wrap">
+        {
+          this.props.title && (
+            <span>{this.props.title}</span>
+          )
+        }
+        <div
+          onClick={e => {
+            if (this.props.onChange) {
+              let newValue
 
-            if (this.props.options) {
-              const currentValueIndex = this.props.options.map(option => option.value).indexOf(this.props.value)
+              if (this.props.options) {
+                const currentValueIndex = this.props.options.map(option => option.value).indexOf(this.props.value)
 
-              if (currentValueIndex === 1) {
-                newValue = this.props.options[0].value
-              } else if (currentValueIndex === 0) {
-                newValue = this.props.options[1].value
+                if (currentValueIndex === 1) {
+                  newValue = this.props.options[0].value
+                } else if (currentValueIndex === 0) {
+                  newValue = this.props.options[1].value
+                } else {
+                  newValue = this.props.options[0].value
+                  console.error('当前数据有误，将使用默认数据！')
+                }
               } else {
-                newValue = this.props.options[0].value
-                console.error('当前数据有误，将使用默认数据！')
+                if (typeof this.props.value === 'string') {
+                  console.error('没有给 options 时必须使用布尔型的 value！')
+                } else {
+                  newValue = !this.props.value
+                }
               }
-            } else {
-              if (typeof this.props.value === 'string') {
-                console.error('没有给 options 时必须使用布尔型的 value！')
-              } else {
-                newValue = !this.props.value
-              }
+
+              this.props.onChange(newValue)
             }
-
-            this.props.onChange(newValue)
-          }
-        }}
-        styleName={`switcher--${state}`}
-      >
-        <div styleName="switcher-button"></div>
-        <div styleName="switcher-track"></div>
+          }}
+          styleName={`switcher--${state}`}
+        >
+          <div styleName="switcher-button"></div>
+          <div styleName="switcher-track"></div>
+        </div>
       </div>
     )
   }

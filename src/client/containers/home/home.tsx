@@ -67,7 +67,7 @@ class Home extends Component<IAllProps, State> {
     return (
       <div>
         <Body className="home" />
-        <Button onClick={this.props.sendNotification.bind(this, '测试22222', 'success', 0)}>测试</Button>
+        <Button onClick={this.props.sendNotification.bind(this, '测试22222', 'success', 0)}>测试 Alert</Button>
         <div className="row">
           {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
@@ -85,12 +85,12 @@ class Home extends Component<IAllProps, State> {
               title={listName}
               moreLink={`/collections/${this.props.collection ? this.props.collection.id : ''}`}
             />
-            <Link {...{styleName: 'blue'}} className="view-more" to="/collections">浏览更多书单2 ></Link>
+            <Link className="view-more" to="/collections">浏览更多书单</Link>
           </div>
           <div className="col-md-4">
             {
               this.state.showRecentReading ? (
-                <CandyBox title="最近阅读222" list={[]} />
+                <CandyBox title="最近阅读" list={[]} />
               ) : null
             }
           </div>

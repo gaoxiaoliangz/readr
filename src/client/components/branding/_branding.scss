@@ -1,0 +1,66 @@
+@import "../../shared/scss/utils/_variables.scss";
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.branding {
+  $branding_height: 60px;
+  min-height: $branding_height;
+  background: $app_base_color;
+
+  .logo {
+    margin: 0;
+    line-height: $branding_height;
+    color: #fff;
+    margin-right: 15px;
+    margin-top: -3px;
+
+    a {
+      background: url(img/logo.png) no-repeat left;
+      width: 70px;
+      height: $branding_height;
+      background-size: 70px;
+      text-indent: -999em;
+      display: inline-block;
+    }
+  }
+
+  .nav {
+    position: relative;
+    color: #fff;
+    cursor: pointer;
+    padding: 0 10px;
+    line-height: $branding_height;
+
+    .username,
+    .nav-links {
+      line-height: $branding_height;
+    }
+
+    .recent-reading {
+      margin-right: 15px;
+    } 
+
+    ul.nav-links {
+      li {
+        display: inline-block;
+        a {
+          padding: 0 5px;
+          // @extend .light-link;
+        }
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;;
+      top: 60px;
+      right: 0;
+      z-index: 999;
+    }
+  }
+}

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { sendNotification, userAuth, fetchProfile } from '../actions'
-import NavTab from '../elements/nav-tab'
 import Body from '../side-effects/body'
 import Switcher from '../elements/switcher'
 import _ from 'lodash'
@@ -50,7 +49,6 @@ class Settings extends Component<IAllProps, IState> {
         <div className="page-content">
           <div className="page-header">
             <h1 className="page-title">设置</h1>
-            <NavTab tabs={['资料', '个人主页']} current={0}/>
           </div>
           <ul className="options">
             <li className="option">
