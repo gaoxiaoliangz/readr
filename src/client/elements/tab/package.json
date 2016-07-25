@@ -1,0 +1,16 @@
+{
+  "name": "zui-react-tab",
+  "version": "0.1.1",
+  "description": "Tab component for React",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tab",
+    "tabs",
+    "react"
+  ],
+  "author": "gaoxiaoliangz",
+  "license": "ISC"
+}
