@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 import svgIcons from './svg-icons'
 import CSSModules from 'react-css-modules'
-const styles = require('./icon.scss')
+const styles = require('./_icon.scss')
 
 interface IProps {
   name: string

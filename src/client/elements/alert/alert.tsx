@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { MsgType } from '../../actions/notification'
 import Icon from '../icon'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./alert.scss')
+const styles: any = require('./_alert.scss')
 // import classnames from 'classnames'
 
 interface Props {

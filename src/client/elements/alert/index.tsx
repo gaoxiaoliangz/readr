@@ -1,4 +1,4 @@
 import Alert from './alert'
 import Alerts from './alerts'
-export { Alerts }
+export { Alerts, Alert }
 export default Alert
