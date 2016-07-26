@@ -15,8 +15,8 @@ const paths = {
   src: path.join(pathPrefix, 'src/client'),
   built: path.join(pathPrefix, 'assets/built')
 }
-const cssLocalIdentName = '__[local]__[hash:base64:10]'
-const imageName = '[name].[hash].[ext]'
+const cssLocalIdentName = '__[name]__[local]__[hash:base64:5]'
+const imageName = '[name].[hash:10].[ext]'
 
 // 暴露到全局变量的名称
 const vendorLibName = '_[name]_dll'
@@ -30,7 +30,7 @@ const dllNames = {
   utils: 'utils'
 }
 
-// names: { name: string }
+// names: { name: string }[]
 const dllReference = (names) => {
   try {
     return _.map(names, name => {
@@ -109,7 +109,9 @@ module.exports = {
     imageWebpack: {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        `file?hash=sha512&digest=hex&name=${imageName}`,
+        // `file?hash=sha512&digest=hex&name=${imageName}`,
+        // `file?hash=${imageHash}&digest=hex&name=${imageName}`,
+        `file?name=${imageName}`,
         'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     },
@@ -170,13 +172,16 @@ module.exports = {
       return [require('postcss-cssnext'), require('postcss-import')]
     },
     sassLoader: {
-      includePaths: [paths.src]
+      // 用于 scss 文件里 import 其它文件
+      includePaths: [paths.src + '/shared/scss']
     },
   },
 
   resolve: {
+    // 这边定义的 root 暂时没用，因为 vs code 里面目前配置的是只使用相对路径
     root: paths.src,
     alias: {
+      // 方便在组建里面引用通用的 scss 文件（可能不会太常用）
       styles: `${paths.src}/shared/scss`,
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],

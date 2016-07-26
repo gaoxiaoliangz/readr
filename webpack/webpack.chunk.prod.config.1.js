@@ -6,13 +6,13 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    [`${paths.src}/entry/app`]: `${paths.built}/app.js`,
-    [`${paths.src}/entry/console`]: `${paths.built}/console.js`,
-    // 'react-kit': base.vars.reactKit: `${paths.built}/console.js`,
-    // utils: base.vars.utils: `${paths.built}/console.js`,
+    app: [`${paths.src}/entry/app`],
+    console: [`${paths.src}/entry/console`],
+    'react-kit': base.vars.reactKit,
+    utils: base.vars.utils,
   },
   output: {
-    path: './',
+    path: `${paths.built}/[name]`,
     filename: '[name].[chunkhash:10].js',
   },
   plugins: [
@@ -27,13 +27,13 @@ module.exports = {
         warnings: false
       }
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   // 顺序会产生影响
-    //   // 目前这种顺序，react-kit 里面会包含 webpack 用来解析模块的逻辑
-    //   // 所以如果在页面上两者顺序颠倒会出错
-    //   names: ['utils', 'react-kit'],
-    //   minChunks: Infinity
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // 顺序会产生影响
+      // 目前这种顺序，react-kit 里面会包含 webpack 用来解析模块的逻辑
+      // 所以如果在页面上两者顺序颠倒会出错
+      names: ['utils', 'react-kit'],
+      minChunks: Infinity
+    }),
   ],
   module: {
     loaders: [

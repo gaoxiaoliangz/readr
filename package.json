@@ -1,6 +1,6 @@
 {
   "name": "readr",
-  "version": "0.3.4",
+  "version": "0.5.1",
   "private": true,
   "scripts": {
     "start": "nodemon index --production",
@@ -10,7 +10,7 @@
     "server.c.h": "node index --hmr --noServerRendering",
     "server.s": "nodemon --debug index",
     "server.s.ssr": "webpack --config ./webpack/webpack.node.config.js --watch & nodemon --debug --delay 1.5 index",
-    "webpack": "webpack --progress --config ./webpack/webpack.build.prod.config.js",
+    "webpack": "webpack --progress --config ./webpack/webpack.chunk.prod.config.js",
     "webpack.dll": "webpack --progress --config ./webpack/webpack.dll.config.js",
     "webpack.node": "webpack --progress --config ./webpack/webpack.node.config.js",
     "prebuild": "npm run webpack.dll & npm run webpack.node & gulp",
@@ -55,6 +55,7 @@
     "react-selectize": "^2.0.1",
     "react-side-effect": "^1.0.2",
     "redux": "^3.3.1",
+    "redux-form": "^5.3.1",
     "request": "^2.67.0",
     "reselect": "^2.5.3",
     "source-map-support": "^0.4.2",
