@@ -12,5 +12,13 @@
     "react"
   ],
   "author": "gaoxiaoliangz",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaoxiaoliangz/zui-react-tab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gaoxiaoliangz/zui-react-tab/issues"
+  },
+  "homepage": "https://github.com/gaoxiaoliangz/zui-react-tab#readme"
 }
