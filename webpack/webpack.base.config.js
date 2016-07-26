@@ -109,8 +109,6 @@ module.exports = {
     imageWebpack: {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        // `file?hash=sha512&digest=hex&name=${imageName}`,
-        // `file?hash=${imageHash}&digest=hex&name=${imageName}`,
         `file?name=${imageName}`,
         'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
