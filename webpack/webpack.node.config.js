@@ -1,4 +1,4 @@
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const base = require('./webpack.base.config')
 const paths = base.vars.paths
 
@@ -13,13 +13,10 @@ module.exports = {
   },
   plugins: [
     base.plugins.nodeSourceMapSupport,
-    base.plugins.envProd,
-    // new webpack.IgnorePlugin(/\.(css|scss)$/)
-    // base.plugins.occurenceOrder,
   ],
   module: {
     loaders: [
-      base.loaders.imageWebpack,
+      base.loaders.imageWebpackNoEmit,
       base.loaders.babel,
       base.loaders.sassIsomorphic,
       base.loaders.ts,
@@ -28,12 +25,12 @@ module.exports = {
   devtool: 'inline-source-map',
   sassLoader: base.loaderConfig.sassLoader,
   resolve: base.resolve,
-  // todo: find out what these are for
   target: 'node',
+  // 暂不清楚作用
   // node: {
   //   __filename: true,
   //   __dirname: true,
   //   console: true
   // },
-  externals: /^[a-z][a-z\.\-0-9]*$/,
+  externals: [/^[a-z][a-z\.\-0-9]*$/, 'colors/safe'],
 }

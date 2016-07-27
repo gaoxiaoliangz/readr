@@ -118,6 +118,13 @@ module.exports = {
         'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     },
+    imageWebpackNoEmit: {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'file?emitFile=false',
+        // 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+      ]
+    },
     babel: {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
