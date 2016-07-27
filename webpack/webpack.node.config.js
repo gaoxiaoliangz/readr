@@ -1,9 +1,10 @@
+const webpack = require('webpack')
 const base = require('./webpack.base.config')
 const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    server: [`${paths.root}/index`]
+    index: [`${paths.root}/index`]
   },
   output: {
     path: `${paths.root}/bin/server`,
@@ -13,7 +14,8 @@ module.exports = {
   plugins: [
     base.plugins.nodeSourceMapSupport,
     base.plugins.envProd,
-    base.plugins.occurenceOrder,
+    // new webpack.IgnorePlugin(/\.(css|scss)$/)
+    // base.plugins.occurenceOrder,
   ],
   module: {
     loaders: [
@@ -27,7 +29,7 @@ module.exports = {
   sassLoader: base.loaderConfig.sassLoader,
   resolve: base.resolve,
   // todo: find out what these are for
-  // target: 'node',
+  target: 'node',
   // node: {
   //   __filename: true,
   //   __dirname: true,

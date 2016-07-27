@@ -10,8 +10,10 @@ const errors = require('../errors')
 // const appRoutes = require('routes/App').default
 // const consoleRoutes = require('routes/Console').default
 
-const appRoutes = require('../../../bin/app').default
-const consoleRoutes = require('../../../bin/console').default
+// const appRoutes = require('../../../bin/app').default
+// const consoleRoutes = require('../../../bin/console').default
+const appRoutes = require('../../client/routes/app.tsx').default
+const consoleRoutes = require('../../client/routes/console.tsx').default
 
 const ReactRouter = require('react-router')
 const match = ReactRouter.match

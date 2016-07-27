@@ -8,10 +8,12 @@ const renderToString = require('react-dom/server').renderToString
 const ReactRouter = require('react-router')
 const RouterContext = ReactRouter.RouterContext
 
-const configureStore = require('../../../bin/configure-store').default
+// const configureStore = require('../../../bin/configure-store').default
+const configureStore = require('../../client/store/configure-store.ts').default
 const store = configureStore()
 
-const manifest = require('../../../assets/built/chunks.manifest.json')
+// const manifest = require('../../../assets/built/chunks.manifest.json')
+const manifest = {}
 
 // const Body = require('side-effects/body').default
 

@@ -10,11 +10,11 @@ import { Button } from '../../elements/form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 const styles = require('./_home.scss')
-const grid = require('bootstrap-grid-sass')
+// const grid = require('bootstrap-grid-sass')
 // const styles2 = require('styles/utils/_variables.scss')
 // const styles2 = require('utils/_variables.scss')
 
-console.log(grid);
+// console.log(grid);
 
 
 interface IProps {
@@ -79,7 +79,7 @@ class Home extends Component<IAllProps, State> {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
               <div className="hero-image">
                 <div className="logo">Readr</div>
-                <div className="page-title">新一代 web 阅读体验</div>
+                <div className="page-title">新一代 web 阅读体验!!!!</div>
                 <Button to="/signup">注册</Button>
               </div>
             ) : null
