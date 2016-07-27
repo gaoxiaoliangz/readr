@@ -2,6 +2,49 @@
 @import "utils";
 @import "components";
 
+html {
+  font-size: $font_size_root;
+}
+body {
+  font-size: 1rem;
+  font-family: $sans_font;
+  color: $text_n;
+  -webkit-font-smoothing: antialiased;
+}
+.no-csschunit {
+  body {
+    font-family: $sans_font_ie;
+  }
+}
+::selection {
+  background: rgba(47, 141, 246, .3);
+  color: $text_n;
+  text-shadow: none;
+}
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+a {
+  color: $link_n;
+  transition: all .2s ease-in;
+  &:hover {
+    color: $link_h;
+  }
+  &:active {
+    color: $link_a;
+    transition: all 0s;
+  }
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+
 #root.console {
   .sidebar-left {
     $nav_root_width: 80px;
