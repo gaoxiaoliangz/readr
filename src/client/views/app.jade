@@ -14,7 +14,7 @@ html
       link(type="text/css" rel="stylesheet" href="/built/app.global.css")
       link(type="text/css" rel="stylesheet" href="/built/#{manifest['app.css']}")
     else
-      link(type="text/css" rel="stylesheet" href="/built/vendor.css")
+      link(type="text/css" rel="stylesheet" href="/built/vendor.global.css")
       link(type="text/css" rel="stylesheet" href="/built/app.global.css")
       link(type="text/css" rel="stylesheet" href="/built/app.css")
 
@@ -25,7 +25,7 @@ html
       var __INITIAL_STATE__ = !{initialState}
 
     if env == "production"
-      script(src="/built/#{manifest['react-kit.js']}")
+      script(src="/built/#{manifest['react_kit.js']}")
       script(src="/built/#{manifest['utils.js']}")
       script(src="/built/#{manifest['app.js']}")
     else

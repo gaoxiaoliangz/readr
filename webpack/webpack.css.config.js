@@ -4,7 +4,9 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    'vendor.global': [`${paths.src}/shared/scss/vendor.scss`]
+    'vendor.global': [`${paths.src}/shared/scss/vendor.scss`],
+    // 'app.global': [`${paths.src}/shared/scss/app.global.scss`],
+    // 'console.global': [`${paths.src}/shared/scss/console.global.scss`],
   },
   output: {
     path: paths.built,
@@ -15,6 +17,7 @@ module.exports = {
   ],
   module: {
     loaders: [
+      base.loaders.imageWebpack,
       base.loaders.sassBuild,
     ],
   },
