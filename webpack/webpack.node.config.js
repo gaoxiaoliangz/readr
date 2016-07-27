@@ -32,5 +32,5 @@ module.exports = {
   //   __dirname: true,
   //   console: true
   // },
-  externals: [/^[a-z][a-z\.\-0-9]*$/, 'colors/safe'],
+  externals: [/^[a-z][a-z\.\-0-9]*$/, 'colors/safe']
 }
