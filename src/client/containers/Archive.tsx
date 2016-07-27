@@ -24,14 +24,6 @@ class Archive extends Component<Props, any> {
     return (
       <div className="archive page-content">
         <div className="page-header">
-          <ul className="left dropdown-menu">
-            <li>时间</li>
-            <li>热度</li>
-            <li>名称</li>
-          </ul>
-          <div className="right">
-            <Switcher title="不显示我读过的" value={false} />
-          </div>
           <Tabs>
             <Tab title="全部">
               <BookListSection bookEntities={this.props.newestBooks} />

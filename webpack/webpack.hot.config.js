@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const base = require('./webpack.base.config')
 const paths = base.vars.paths
 const hot = base.vars.hot
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -16,7 +16,7 @@ module.exports = {
   },
   plugins: [
     base.plugins.envDev,
-    new ExtractTextPlugin('[name].css'),
+    // new ExtractTextPlugin('[name].css'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     ...base.plugins.dllReference,
@@ -25,7 +25,8 @@ module.exports = {
   module: {
     loaders: [
       base.loaders.imageWebpack,
-      base.loaders.sassWithExtractText,
+      // base.loaders.sassWithExtractText,
+      base.loaders.sass,
       base.loaders.babel,
       base.loaders.tsHot
     ]

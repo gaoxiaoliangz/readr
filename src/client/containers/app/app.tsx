@@ -6,7 +6,7 @@ import Colophon from '../../components/Colophon'
 import { userAuth } from '../../actions'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-const styles = require('./app.scss')
+const styles = require('./_app.scss')
 // import { Button } from '../../elements/form'
 
 @CSSModules(styles)

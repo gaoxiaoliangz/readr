@@ -121,7 +121,8 @@ module.exports = {
     imageWebpackNoEmit: {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
-        'file?emitFile=false',
+        `file?emitFile=false&name=${imageName}`,
+        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     },
     babel: {
