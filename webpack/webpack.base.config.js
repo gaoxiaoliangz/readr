@@ -103,6 +103,11 @@ module.exports = {
       path: `${paths.built}/[name].dll.manifest.json`,
       name: vendorLibName
     }),
+    uglify: new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
   },
 
   loaders: {
@@ -138,6 +143,13 @@ module.exports = {
         'resolve-url',
         'sass?sourceMap'
       ]
+    },
+    sassBuild: {
+      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract(
+        'style?sourceMap',
+        `css-loader?modules&importLoaders=1&localIdentName=[local]!resolve-url-loader!sass-loader?sourceMap`
+      )
     },
     sassIsomorphic: {
       test: /\.scss$/,

@@ -10,8 +10,12 @@ import { Button } from '../../elements/form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 const styles = require('./_home.scss')
+const grid = require('bootstrap-grid-sass')
 // const styles2 = require('styles/utils/_variables.scss')
 // const styles2 = require('utils/_variables.scss')
+
+console.log(grid);
+
 
 interface IProps {
 }
@@ -70,7 +74,7 @@ class Home extends Component<IAllProps, State> {
       <div>
         <Body className="home" />
         <Button onClick={this.props.sendNotification.bind(this, '测试22222', 'success', 0)}>测试 Alert</Button>
-        <div styleName="test" className="row">
+        <div className="row">
           {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
               <div className="hero-image">
