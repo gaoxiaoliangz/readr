@@ -6,7 +6,8 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    'vendor.global': [`${paths.src}/shared/scss/vendor.scss`]
+    'vendor.global': [`${paths.src}/styles/vendor.scss`],
+    'base.global': [`${paths.src}/styles/base.scss`],
   },
   output: {
     path: paths.built,

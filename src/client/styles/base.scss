@@ -1,6 +1,9 @@
+@import "variables";
 @import "mixins";
-@import "utils";
 @import "components";
+@import "helpers";
+@import "links";
+@import "animations";
 
 html {
   font-size: $font_size_root;

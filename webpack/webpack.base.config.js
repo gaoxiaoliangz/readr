@@ -122,7 +122,6 @@ module.exports = {
       test: /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
         'file?emitFile=false',
-        // 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     },
     babel: {
@@ -190,7 +189,7 @@ module.exports = {
     },
     sassLoader: {
       // 用于 scss 文件里 import 其它文件
-      includePaths: [paths.src + '/shared/scss']
+      includePaths: [paths.src + '/styles']
     },
   },
 
@@ -199,7 +198,7 @@ module.exports = {
     root: paths.src,
     alias: {
       // 方便在组建里面引用通用的 scss 文件（可能不会太常用）
-      styles: `${paths.src}/shared/scss`,
+      styles: `${paths.src}/styles`,
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },

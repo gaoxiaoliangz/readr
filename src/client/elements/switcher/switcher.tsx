@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-const styles = require('./switcher.scss')
+const styles = require('./_switcher.scss')
 
 // interface Props {
 //   on: boolean

@@ -3,19 +3,12 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { fetchBooks, fetchCollections, sendNotification } from '../../actions'
 import BookListSection from '../../components/book-list-section'
-// import Loading from 'components/Loading'
 import CandyBox from '../../components/candy-box'
 import Body from '../../side-effects/body'
 import { Button } from '../../elements/form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 const styles = require('./_home.scss')
-// const grid = require('bootstrap-grid-sass')
-// const styles2 = require('styles/utils/_variables.scss')
-// const styles2 = require('utils/_variables.scss')
-
-// console.log(grid);
-
 
 interface IProps {
 }
