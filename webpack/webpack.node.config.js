@@ -4,7 +4,7 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    index: [`${paths.root}/index`]
+    index: [`${paths.src}/server/index`]
   },
   output: {
     path: `${paths.root}/bin/server`,

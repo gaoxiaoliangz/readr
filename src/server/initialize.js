@@ -13,7 +13,7 @@ const hotModuleReplacement = require('./dev-tools/hot-module-replacement')
 const runtimeOptions = require('./utils/runtime-options')
 const controllers = require('./controllers')
 
-function init(basePath) {
+function initialize(basePath) {
   app.use(session({
     secret: 'key',
     cookie: {
@@ -58,4 +58,4 @@ function init(basePath) {
   return bootServer(app, runtimeOptions.env)
 }
 
-module.exports = init
+module.exports = initialize
