@@ -42,7 +42,7 @@ const dllReference = (names) => {
       })
     })
   } catch (error) {
-    console.warn('WARNING: ', error.message, '(normally this message can be ignored)')
+    console.warn('WARNING: ', error.message)
     return []
   }
 }
@@ -100,7 +100,7 @@ module.exports = {
       entryOnly: true
     }),
     occurenceOrder: new webpack.optimize.OccurenceOrderPlugin(),
-    dllReference: dllReference(dllNames),
+    dllReference: () => dllReference(dllNames),
     dllDefinition: new webpack.DllPlugin({
       path: `${paths.built}/[name].dll.manifest.json`,
       name: vendorLibName
@@ -142,6 +142,14 @@ module.exports = {
         `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
         'resolve-url',
         'postcss?sourceMap'
+      ]
+    },
+    css: {
+      test: /\.css$/,
+      loaders: [
+        'style',
+        'css?modules&importLoaders=1&localIdentName=[local]',
+        'resolve-url',
       ]
     },
     sass: {

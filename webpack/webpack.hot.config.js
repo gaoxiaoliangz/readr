@@ -19,7 +19,7 @@ module.exports = {
     // new ExtractTextPlugin('[name].css'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    ...base.plugins.dllReference,
+    ...base.plugins.dllReference(),
   ],
   devtool: 'inline-source-map',
   module: {

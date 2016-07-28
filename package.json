@@ -7,7 +7,9 @@
     "server": "npm run server.c.h",
     "preserver.c": "gulp sass",
     "server.c": "node bin/server --noServerRendering",
+    "preserver.c.h": "npm run webpack.css & npm run webpack.dll",
     "server.c.h": "node bin/server --hmr --noServerRendering",
+    
     "server.s": "npm run webpack.node & nodemon --debug bin/server",
     "server.s.ssr": "webpack --config ./webpack/webpack.node.config.js --watch & nodemon --debug --delay 1.5 index",
     "webpack": "webpack --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",

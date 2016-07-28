@@ -18,7 +18,7 @@ module.exports = {
     // base.plugins.occurenceOrder,
     base.plugins.envDev,
     base.plugins.uglify,
-    ...base.plugins.dllReference,
+    ...base.plugins.dllReference(),
     // new ManifestPlugin(),
     // new ExtractTextPlugin('[name].css'),
   ],
