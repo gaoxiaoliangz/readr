@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const _ = require('lodash')
+const fs = require('fs')
 
 /**
  * ## 定义常用变量
@@ -25,6 +26,7 @@ const vendorLibName = '_[name]_dll'
 const hot = 'webpack-hot-middleware/client'
 
 // webpack 会使用文件名作为变量，所以不能使用带有 - 的名字
+// 这边的配置会同时影响生成和引用，所以只需在这边修改就行了
 const dllNames = {
   reactKit: 'react_kit',
   utils: 'utils'
@@ -36,7 +38,7 @@ const dllReference = (names) => {
     return _.map(names, name => {
       return new webpack.DllReferencePlugin({
         context: '.',
-        manifest: require(`${paths.built}/${name}.dll.manifest.json`)
+        manifest: JSON.parse(fs.readFileSync(`${paths.built}/${name}.dll.manifest.json`, 'utf8'))
       })
     })
   } catch (error) {
@@ -146,7 +148,7 @@ module.exports = {
       test: /\.scss$/,
       loaders: [
         'style?sourceMap',
-        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
+        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}&sourceMap`,
         'resolve-url',
         'sass?sourceMap'
       ]

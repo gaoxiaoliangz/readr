@@ -34,7 +34,8 @@ module.exports = {
     utils: base.vars.utils
   },
   output: {
-    path: paths.built + getTime(),
+    // path: paths.built + getTime(),
+    path: paths.built,
     filename: '[name].[chunkhash:10].js',
   },
   plugins: [
