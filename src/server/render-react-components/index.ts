@@ -1,11 +1,9 @@
-import finalRender from './final-render'
 import getStore from './get-store'
 import matchRoute from './match-route'
-import generateProvider from './generate-provider'
+import renderHtml from './render-html'
 
 export {
-  finalRender,
   getStore,
   matchRoute,
-  generateProvider
+  renderHtml
 }
