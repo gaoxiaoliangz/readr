@@ -5,7 +5,8 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
-const routes = require('./routes')
+const routes = require('./routes/index.ts').default
+// import routes from './routes/index.ts'
 const bootServer = require('./boot')
 const config = require('./config')
 const app = express()
@@ -43,17 +44,21 @@ function initialize(basePath) {
   }))
   
   // api routing
-  app.use(routes.apiBaseUri, routes.apiRoutes)
+  app.use(routes.apiBaseUri, routes.api)
 
   // logout
   app.use(controllers.logout())
   
   // frontend routing
-  if (runtimeOptions.serverRouting) {
-    app.use(routes.handleFrontendRouting(), controllers.render(runtimeOptions.serverRendering))  
-  } else {
-    app.use(routes.simpleRouter())
-  }
+  app.use(routes.view)
+  // app.use((req, res) => {
+  //   res.send('yes')
+  // })
+  // if (runtimeOptions.serverRouting) {
+  //   app.use(routes.handleFrontendRouting(), controllers.render(runtimeOptions.serverRendering))  
+  // } else {
+  //   app.use(routes.simpleRouter())
+  // }
 
   return bootServer(app, runtimeOptions.env)
 }

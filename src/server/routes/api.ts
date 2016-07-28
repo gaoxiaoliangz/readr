@@ -1,11 +1,11 @@
-'use strict'
-const express = require('express')
-const middleware = require('../middleware')
+const express: any = require('express')
+const middleware: any = require('../middleware')
 const router = new express.Router()
 const endpoints = require('../endpoints')
-const _ = require('lodash')
-const api = require('../api')
-const roles = require('../models/roles')
+// const _ = require('lodash')
+import _ from 'lodash'
+const api: any = require('../api')
+// const roles = require('../models/roles')
 
 function apiRoutes() {
   _.forEach(endpoints, endpoint => {
@@ -20,7 +20,7 @@ function apiRoutes() {
         middleware.requirePermissionsOf(endpoint.requiredRole),
         api.http(endpoint.handler)
       )
-    } else {      
+    } else {
       router[endpoint.httpMethod](
         endpoint.url,
         // middleware.parseContext,
