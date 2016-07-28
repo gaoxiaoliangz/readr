@@ -14,6 +14,7 @@ const pathPrefix = process.cwd()
 const paths = {
   root: pathPrefix,
   src: path.join(pathPrefix, 'src/client'),
+  serverSrc: path.join(pathPrefix, 'src/server'),
   built: path.join(pathPrefix, 'assets/built')
 }
 const cssLocalIdentName = '__[name]__[local]__[hash:base64:5]'

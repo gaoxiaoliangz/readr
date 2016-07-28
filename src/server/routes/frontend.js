@@ -12,6 +12,7 @@ const errors = require('../errors')
 
 // const appRoutes = require('../../../bin/app').default
 // const consoleRoutes = require('../../../bin/console').default
+const routesWithEnsure = require('../../client/routes/index.tsx').default
 const appRoutes = require('../../client/routes/app.tsx').default
 const consoleRoutes = require('../../client/routes/console.tsx').default
 
@@ -23,7 +24,8 @@ function handleFrontendRouting() {
   router.get('*', middleware.parseContext, (req, res, next) => {
     let entry = req.url.indexOf('console') !== -1 ? 'console' : 'app'
     let data = {}
-    let routes = req.entry === 'console' ? consoleRoutes : appRoutes
+    // const routes = req.entry === 'console' ? consoleRoutes : appRoutes
+    const routes = routesWithEnsure
 
     if (!req.context.userRole === 'admin' && entry === 'console') {
       res.redirect('/')
