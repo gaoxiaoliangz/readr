@@ -62,12 +62,12 @@ class Branding extends Component<any, any> {
                       >
                       {
                         isAdmin === true ? (
-                          <DropdownItem><a href="/console">控制台</a></DropdownItem>
+                          <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
                         ) : null
                       }
-                      <DropdownItem><Link to={`/shelf`}>书架</Link></DropdownItem>
-                      <DropdownItem><Link to={`/profile`}>个人主页</Link></DropdownItem>
-                      <DropdownItem><Link to={`/settings`}>设置</Link></DropdownItem>
+                      <DropdownItem><Link to={`/user/shelf`}>书架</Link></DropdownItem>
+                      <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
+                      <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
                       <DropdownItem><a href="/logout">退出</a></DropdownItem>
                     </Dropdown>
                   </div>

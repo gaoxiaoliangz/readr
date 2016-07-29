@@ -19,7 +19,7 @@ class ConsoleBranding extends Component<any, any> {
 
   render() {
     let username = this.props.username
-    let isAdmin = this.props.isAdmin?this.props.isAdmin:'false'
+    let isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false'
 
     return (
       <div className="branding console-branding">
@@ -31,35 +31,35 @@ class ConsoleBranding extends Component<any, any> {
               <span className="sub">Console</span>
             </h1>
             {
-              username?(
-                <div onMouseLeave={this.toggleDropdownMenu.bind(this)} onMouseEnter={this.toggleDropdownMenu.bind(this)} className="nav right">
-                  <span className="username">{username}{isAdmin?(<span className="badge-dark">Admin</span>):null}</span>
+              username ? (
+                <div onMouseLeave={this.toggleDropdownMenu.bind(this) } onMouseEnter={this.toggleDropdownMenu.bind(this) } className="nav right">
+                  <span className="username">{username}{isAdmin ? (<span className="badge-dark">Admin</span>) : null}</span>
                   {
-                    this.state.isDropdownMenuVisible?(
+                    this.state.isDropdownMenuVisible ? (
                       <ul className="dropdown-menu">
                         {
-                          isAdmin === true?(
-                            <li><a href="/">Back to readr</a></li>
-                          ):null
+                          isAdmin === true ? (
+                            <li><Link to="/">Back to readr</Link></li>
+                          ) : null
                         }
                         <li><Link to={`/profile/${username}`}>我的账号</Link></li>
-                        <li><a href='/logout'>退出</a></li>
+                        <li><Link to="/logout">退出</Link></li>
                       </ul>
-                    ):null
+                    ) : null
                   }
                 </div>
-              ):(
-                <div className="nav right">
-                  <ul className="nav-links">
-                    <li>
-                      <Link to="/signin">登录</Link>
-                    </li>
-                    <li>
-                      <Link to="/signup">注册</Link>
-                    </li>
-                  </ul>
-                </div>
-              )
+              ) : (
+                  <div className="nav right">
+                    <ul className="nav-links">
+                      <li>
+                        <Link to="/signin">登录</Link>
+                      </li>
+                      <li>
+                        <Link to="/signup">注册</Link>
+                      </li>
+                    </ul>
+                  </div>
+                )
             }
           </div>
         </Container>

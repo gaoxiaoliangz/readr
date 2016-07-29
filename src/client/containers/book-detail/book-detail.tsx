@@ -75,7 +75,6 @@ class BookInfo extends Component<any, any> {
   }
 }
 
-
 export default connect(
   (state, ownProps: any) => {
     return { bookInfo: state.entities.books[ownProps.params.id] }

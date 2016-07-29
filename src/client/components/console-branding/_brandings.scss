@@ -1,5 +1,5 @@
 .console-branding {
-  background: $super_power;
+  // background: $super_power;
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@
     font-size: 1.3rem;
   }
 
-  .dropdown-menu {
-    @include make_dropdown_menu($super_power);
-  }
+  // .dropdown-menu {
+  //   // @include make_dropdown_menu($super_power);
+  // }
 }

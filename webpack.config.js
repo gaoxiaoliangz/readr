@@ -6,7 +6,7 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    app: [`${paths.src}/index`],
+    app: [`${paths.src}/containers/app`],
   },
   output: {
     path: paths.built,

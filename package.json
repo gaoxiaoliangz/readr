@@ -12,6 +12,7 @@
     "server.s": "npm run webpack.node.w & nodemon --debug bin/server",
 
     "webpack": "webpack --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
+    "webpack.chunk.w": "webpack --watch --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.dll": "webpack --progress --config ./webpack/webpack.dll.config.js",
     "webpack.node": "webpack --progress --config ./webpack/webpack.node.config.js",
     "webpack.node.w": "webpack --watch --progress --config ./webpack/webpack.node.config.js",

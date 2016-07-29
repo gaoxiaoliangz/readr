@@ -16,7 +16,7 @@ interface IState {
   showFav?: boolean
 }
 
-class Settings extends Component<IAllProps, IState> {
+class UserPreference extends Component<IAllProps, IState> {
 
   // static fetchData({store, params}) {
   //   return store.dispatch(fetch())
@@ -63,4 +63,4 @@ export default connect(
     }
   },
   { sendNotification, userAuth, fetchProfile }
-)(Settings as any)
+)(UserPreference as any)

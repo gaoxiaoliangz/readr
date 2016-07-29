@@ -6,10 +6,10 @@ import Colophon from '../components/colophon'
 import { userAuth } from '../actions'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-const styles = require('./_app.scss')
+// const styles = require('./_app.scss')
 
-@CSSModules(styles)
-class App extends Component<any, any> {
+// @CSSModules(styles)
+class AppCommon extends Component<any, any> {
 
   constructor(props) {
     super(props)
@@ -46,4 +46,4 @@ export default connect(
     session: state.session
   }),
   { userAuth } as any
-)(App)
+)(AppCommon)
