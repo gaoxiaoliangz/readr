@@ -1,6 +1,6 @@
 // # 构建开发环境脚本
 // const ManifestPlugin = require('webpack-manifest-plugin')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('./webpack/webpack.base.config')
 const paths = base.vars.paths
 
@@ -20,14 +20,14 @@ module.exports = {
     base.plugins.uglify,
     ...base.plugins.dllReference(),
     // new ManifestPlugin(),
-    // new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('[name].css'),
   ],
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   module: {
     loaders: [
-      base.loaders.imageWebpackNoEmit,
+      base.loaders.imageWebpack,
       base.loaders.babel,
-      base.loaders.sass,
+      base.loaders.sassWithExtractText,
       base.loaders.ts,
     ],
   },

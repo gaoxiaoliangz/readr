@@ -7,7 +7,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const routes = require('./routes/index.ts').default
 // import routes from './routes/index.ts'
-const bootServer = require('./boot')
+const bootServer = require('./bootstrap.ts')
 const config = require('./config')
 const app = express()
 const hotModuleReplacement = require('./dev-tools/hot-module-replacement')

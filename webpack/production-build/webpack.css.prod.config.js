@@ -15,7 +15,7 @@ module.exports = {
   },
   plugins: [
     new ManifestPlugin({
-      fileName: 'vendor-css.manifest.json',
+      fileName: 'css.manifest.json',
     }),
     new ExtractTextPlugin('[name].[chunkhash:10].css'),
     base.plugins.uglify
@@ -23,6 +23,7 @@ module.exports = {
   module: {
     loaders: [
       base.loaders.sassBuild,
+      base.loaders.imageWebpack
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,

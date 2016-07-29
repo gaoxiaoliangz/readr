@@ -26,11 +26,10 @@ module.exports = {
   sassLoader: base.loaderConfig.sassLoader,
   resolve: base.resolve,
   target: 'node',
-  // 暂不清楚作用
-  // node: {
-  //   __filename: true,
-  //   __dirname: true,
-  //   console: true
-  // },
+  node: {
+    __filename: true,
+    __dirname: true,
+    console: false
+  },
   externals: [/^[a-z][a-z\.\-0-9]*$/, 'colors/safe']
 }

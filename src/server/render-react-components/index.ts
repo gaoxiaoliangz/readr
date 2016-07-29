@@ -1,6 +1,6 @@
-import getStore from './get-store'
-import matchRoute from './match-route'
-import renderHtml from './render-html'
+import getStore from './getStore'
+import matchRoute from './matchRoute'
+import renderHtml from './renderHtml'
 
 export {
   getStore,

@@ -9,7 +9,7 @@
       "preserver.c.h": "npm run webpack.css & npm run webpack.dll",
     "server.c.h": "node bin/server --hmr --noServerRendering",
     
-    "server.s": "npm run webpack.node.w & nodemon --debug --delay 1.5 bin/server",
+    "server.s": "npm run webpack.node.w & nodemon --debug bin/server",
 
     "webpack": "webpack --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.dll": "webpack --progress --config ./webpack/webpack.dll.config.js",

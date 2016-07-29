@@ -37,6 +37,7 @@ module.exports = {
     // path: paths.built + getTime(),
     path: paths.built,
     filename: '[name].[chunkhash:10].js',
+    publicPath: '/built/'
   },
   plugins: [
     base.plugins.occurenceOrder,

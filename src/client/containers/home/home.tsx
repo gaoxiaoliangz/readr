@@ -72,7 +72,7 @@ class Home extends Component<IAllProps, State> {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
               <div className="hero-image">
                 <div className="logo">Readr</div>
-                <div className="page-title">新一代 web 阅读体验!!!!</div>
+                <div className="page-title">new</div>
                 <Button to="/signup">注册</Button>
               </div>
             ) : null

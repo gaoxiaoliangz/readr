@@ -3,16 +3,17 @@ declare module "react-side-effect" {
   export = noTypeInfoYet
 }
 
-// declare module "schemas" {
-//   export const Schemas: any;
-// }
-
 declare module "humps" {
   var noTypeInfoYet: any
   export = noTypeInfoYet
 }
 
 declare module "react-css-modules" {
+  var noTypeInfoYet: any
+  export = noTypeInfoYet
+}
+
+declare module "colors/safe" {
   var noTypeInfoYet: any
   export = noTypeInfoYet
 }
@@ -30,6 +31,12 @@ declare var require: {
   ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 }
 
+
+// for node
 declare var module: {
   exports: any
 }
+
+declare var process
+declare var __dirname
+declare var __filename

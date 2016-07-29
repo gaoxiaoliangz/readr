@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 
-interface NoMatchProps {
+interface IProps {
+  title?: string
+  message?: string
 }
 
-class NoMatch extends Component<NoMatchProps, {}> {
-
+class NoMatch extends Component<IProps, {}> {
   render() {
     return (
-      <h1>404</h1>
+      <div>
+        <h1>{this.props.title}</h1>
+        <div>{this.props.message}</div>
+      </div>
     )
   }
 }
