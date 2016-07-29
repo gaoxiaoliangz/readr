@@ -11,12 +11,12 @@ const print = {
   },
 
   warn(message) {
-    console.error(colors.bgYellow.bold.black(' WARNING '), colors.yellow(message))
+    console.error(colors.bgYellow.bold.black(' WARNING '), typeof message !== 'object' ? colors.yellow(message) : message)
     console.error(colors.yellow(`  at ${__filename}`))
   },
 
   error(message) {
-    console.error(colors.bgRed.bold.white(' ERROR '), colors.red(message))
+    console.error(colors.bgRed.bold.white(' ERROR '), typeof message !== 'object' ? colors.red(message) : message)
     console.error(colors.red(`  at ${__filename}`))
   }
 }

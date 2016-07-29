@@ -1,5 +1,4 @@
 import React from 'react'
-import print from '../../utils/print'
 
 type TProps = {
   title: string
