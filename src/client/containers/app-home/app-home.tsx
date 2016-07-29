@@ -8,7 +8,7 @@ import Body from '../../side-effects/body'
 import { Button } from '../../elements/form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-const styles = require('./_home.scss')
+const styles = require('./_app-home.scss')
 
 interface IProps {
 }
