@@ -1,2 +1,2 @@
-import Branding from './branding'
-export default Branding
+import ConsoleBranding from './console-branding'
+export default ConsoleBranding

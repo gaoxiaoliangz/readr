@@ -1,9 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from '../reducers'
-import api from '../middleware/api'
-import modifyResponse from '../middleware/modify-response'
-import handleInitialState from '../utils/handle-initial-state'
+import rootReducer from './reducers'
+import api from './middleware/api'
+import modifyResponse from './middleware/modify-response'
+import handleInitialState from './utils/handle-initial-state'
 import createLogger from 'redux-logger'
 
 declare let module

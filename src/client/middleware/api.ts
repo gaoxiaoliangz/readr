@@ -1,5 +1,5 @@
 import callApi from '../utils/call-api'
-import ApiRoots from '../api-config/api-roots'
+import ApiRoots from '../config'
 import _ from 'lodash'
 
 export default store => next => action => {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue } from '../../actions'
-import { Button, SelectizeInput } from '../../elements/form'
-import apis from '../../utils/apis'
-import RInput from '../../r-elements/r-input'
-import RTextarea from '../../r-elements/r-textarea'
+import { sendNotification, changeValue } from '../actions'
+import { Button, SelectizeInput } from '../elements/form'
+import apis from '../utils/apis'
+import RInput from '../r-elements/r-input'
+import RTextarea from '../r-elements/r-textarea'
 import _ from 'lodash'
 
 const syls = {

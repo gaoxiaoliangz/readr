@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { sendNotification, userAuth, fetchProfile } from '../actions'
 import Body from '../side-effects/body'
 import _ from 'lodash'
-import PreferenceList from '../components/PreferenceList'
+import PreferenceList from '../components/preference-list'
 
 interface IAllProps {
   session?: any

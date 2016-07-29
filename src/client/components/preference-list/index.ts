@@ -1,2 +1,2 @@
-import PreferenceList from './PreferenceList'
+import PreferenceList from './preference-list'
 export default PreferenceList

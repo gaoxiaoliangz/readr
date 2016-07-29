@@ -1,50 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Branding from '../../components/branding'
-import { Container } from '../../elements/layout'
-import Colophon from '../../components/Colophon'
-import { userAuth } from '../../actions'
-import _ from 'lodash'
-import CSSModules from 'react-css-modules'
-const styles = require('./_app.scss')
-// import { Button } from '../../elements/form'
 
-@CSSModules(styles)
-class App extends Component<any, any> {
+interface IProps {
+}
+
+interface IAllProps extends IProps {
+  routing: any
+  elements: any
+  sendNotification: any
+}
+
+interface IState {
+}
+
+class AppMaster extends Component<IAllProps, IState> {
 
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-    this.props.userAuth()
   }
 
   render() {
-    let isAdmin = false
-    let username = null
-
-    if (this.props.session.user.role !== 'visitor') {
-      isAdmin = this.props.session.user.role === 'admin'
-      username = this.props.session.user.username
-    }
-
     return (
       <div>
-        <Branding isAdmin={isAdmin} username={username} />
-        <Container>
-          {this.props.children}
-        </Container>
-        <Colophon />
+        {this.props.children}
       </div>
     )
   }
 }
 
-export default connect(
+export default connect<{}, {}, IProps>(
   state => ({
-    notification: state.components.notification,
-    session: state.session
-  }),
-  { userAuth } as any
-)(App)
+    elements: state.elements,
+    routing: state.routing.locationBeforeTransitions
+}), {}
+)(AppMaster as any)

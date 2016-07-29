@@ -1,5 +1,5 @@
 import callApi from './call-api'
-import ApiRoots from '../api-config/api-roots'
+import ApiRoots from '../config'
 
 export function addCollection(data: {
   name: string

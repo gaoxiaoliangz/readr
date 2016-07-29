@@ -2,7 +2,7 @@
  * Get Redux store tree with initial fetched data
  */
 
-import configureStore from '../../client/store/configure-store'
+import configureStore from '../../client/configure-store'
 const store = configureStore()
 
 function getStore(renderProps) {

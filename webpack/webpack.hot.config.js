@@ -6,8 +6,7 @@ const hot = base.vars.hot
 
 module.exports = {
   entry: {
-    app: [hot, `${paths.src}/entry/app`],
-    console: [hot, `${paths.src}/entry/console`],
+    app: [hot, `${paths.src}/index`]
   },
   output: {
     path: paths.built,
