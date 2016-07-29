@@ -6,7 +6,7 @@ const print = {
   },
 
   test(message) {
-    console.info(colors.bgCyan.bold.black(' INFO '), colors.cyan(message))
+    console.info(colors.bgCyan.bold.black(' INFO '), typeof message !== 'object' ? colors.cyan(message) : message)
     console.info(colors.cyan(`  from ${__filename}`))
   },
 

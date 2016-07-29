@@ -44,6 +44,7 @@ function Page(props: TProps) {
       title={title}
       styles={styles}
       scripts={scripts}
+      initialState={store.getState()}
     >
       <Root
         store={store}

@@ -1,10 +1,12 @@
 import React from 'react'
+import print from '../../utils/print'
 
 type TProps = {
   title: string
   children?: any
   styles?: string[]
   scripts?: string[]
+  initialState?: any
 }
 
 const assetPrefix = '/built'
@@ -28,7 +30,7 @@ function Script(props: TScriptProps) {
 }
 
 function Html(props: TProps) {
-  const { title, styles, scripts } = props
+  const { title, styles, scripts, initialState } = props
 
   return (
     <html>
@@ -44,6 +46,11 @@ function Html(props: TProps) {
         <div id="root">
           {props.children}
         </div>
+        {
+          initialState && (
+            <script dangerouslySetInnerHTML={{__html: `var __INITIAL_STATE__ = ${JSON.stringify(initialState)}`}} />
+          )
+        }
         {
           scripts && scripts.map((scriptName, index) => {
             return <Script filename={scriptName} key={index} />
