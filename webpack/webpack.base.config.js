@@ -13,7 +13,9 @@ const fs = require('fs')
 const pathPrefix = process.cwd()
 const paths = {
   root: pathPrefix,
-  src: path.join(pathPrefix, 'src/client'),
+  entry: path.join(pathPrefix, 'src/entry/app'),
+  src: path.join(pathPrefix, 'src'),
+  isomorphicSrc: path.join(pathPrefix, 'src/isomorphic'),
   serverSrc: path.join(pathPrefix, 'src/server'),
   built: path.join(pathPrefix, 'assets/built')
 }

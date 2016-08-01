@@ -28,7 +28,7 @@ function getTime() {
 
 module.exports = {
   entry: {
-    app: [`${paths.src}/index`],
+    app: paths.entry,
     react_kit: base.vars.reactKit,
     utils: base.vars.utils
   },
