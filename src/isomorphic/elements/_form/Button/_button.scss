@@ -1,0 +1,52 @@
+@import "_variables.scss";
+@import "mixins/buttons";
+@import "mixins/hover";
+@import "mixins/border-radius";
+
+$btn_blue: rgb(60, 114, 221);
+$btn_orange: rgb(238, 147, 51);
+$btn_red: rgb(212, 32, 32);
+$btn_default: $btn_blue;
+
+$btn_padding_y: 3px;
+$btn_padding_x: 12px;
+$font_size_base: 1rem;
+$btn_border_radius: 3px;
+
+.btn {
+  @include button-variant(#fff, $btn_default, $btn_default);
+  @include button-size($btn_padding_y, $btn_padding_x, $font_size_base, $btn_border_radius);
+  transition: all 0.2s 0s;
+  outline: none;
+  border: 1px solid transparent;
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+  
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .65;
+  }
+  &:active {
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+.btn--hover {
+  composes: z1 from "styles/_helpers.css";
+}
+
+.btn.btn--blue {
+  @include button-variant(#fff, $btn_blue, $btn_blue);
+}
+
+.btn.btn--orange {
+  @include button-variant(#fff, $btn_orange, $btn_orange);
+}
+
+.btn.btn--red {
+  @include button-variant(#fff, $btn_red, $btn_red);
+}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
-import Container from '../elements/_layout/Container'
-
+// import { Link } from 'react-router'
+import Container from '../../elements/_layout/Container'
 
 class Colophon extends Component<any, any> {
   render() {

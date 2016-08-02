@@ -1,47 +1,45 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
+import CSSModules from 'react-css-modules'
+import classnames from 'classnames'
+import _ from 'lodash'
+const styles = require('./_button.scss')
 
-interface Props {
+interface IProps {
   className?: string
-  size?: string
+  styleName2?: any
+  size?: 'small' | 'medium' | 'large'
   isFluid?: boolean
-  color?: string
-  type?: string
+  color?: 'red' | 'blue' | 'green' | 'orange'
   to?: string
   onClick?: any
-  styleName?: any
 }
 
-class Button extends Component<Props, any> {
+interface IState {
+  isMouseOver?: boolean
+}
+
+@CSSModules(styles, {
+  allowMultiple: true
+})
+class Button extends Component<IProps, IState> {
   constructor(props) {
     super(props)
+    this.state = {
+      isMouseOver: false,
+    }
   }
 
   render() {
-    let className: string = this.props.className ? `btn ${this.props.className}` : 'btn'
-    let size = this.props.size ? this.props.size : 'medium'
-    let isFluid = this.props.isFluid ? this.props.isFluid : false
-    let color = this.props.color ? this.props.color : null
-    let onClick
+    let { onClick, className, color, size, isFluid } = this.props
 
-    if (size === 'small') {
-      className += ' btn-small'
-    } else if (size === 'large') {
-      className += ' btn-large'
-    } else if (size === 'medium') {
-      className += ' btn-medium'
-    } else {
-      console.error('Unsupport size!')
-    }
-
-    if (color) {
-      className += ` btn-${color}`
-    }
-
-    if (isFluid) {
-      className = `${className} btn-fluid`
-    }
-
+    const styleName = classnames({
+      'btn': true,
+      'btn--hover': this.state.isMouseOver,
+      'btn--fluid': isFluid,
+      [`btn--${color}`]: Boolean(color),
+      [`btn--${size}`]: Boolean(size),
+    })
     if (this.props.to) {
       onClick = e => {
         e.preventDefault()
@@ -56,20 +54,37 @@ class Button extends Component<Props, any> {
       }
     }
 
-    let props = Object.assign({}, this.props, { className }, { onClick })
-    delete props.to
-    delete props.color
-    delete props.size
-    delete props.isFluid
+    const props = _(this.props)
+      .omit(['to', 'color', 'size', 'isFluid'])
+      .assign({}, {
+        className: className || '',
+        onClick
+      })
+      .value()
 
     return (
-      React.createElement(
-        'button',
-        props,
-        this.props.children
-      )
+      <button
+        {...props}
+        styleName={styleName}
+        onMouseOver={() => {
+          this.setState({
+            isMouseOver: true
+          })
+        }}
+        onMouseOut={() => {
+          this.setState({
+            isMouseOver: false
+          })
+        }}
+      >
+        {this.props.children}
+      </button>
     )
   }
+}
+
+(Button as any).defaultProps = {
+  color: 'blue'
 }
 
 export default Button

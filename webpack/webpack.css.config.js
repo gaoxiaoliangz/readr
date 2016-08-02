@@ -14,6 +14,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('[name].css')
   ],
+  devtool: 'inline-source-map',
   module: {
     loaders: [
       base.loaders.imageWebpack,

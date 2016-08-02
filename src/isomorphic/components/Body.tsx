@@ -1,4 +1,4 @@
-import React, { Component, Children, PropTypes } from 'react'
+import React, { Component } from 'react'
 import withSideEffect from 'react-side-effect'
 // const withSideEffect = require('react-side-effect')
 

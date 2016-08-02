@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import BookList from './BookList'
+import BookList from '../BookList'
+import CSSModules from 'react-css-modules'
+const styles = require('./_book-list-section.scss')
 
 interface Props {
   bookEntities: any
@@ -8,6 +10,9 @@ interface Props {
   moreLink?: string
 }
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class BookListSection extends Component<Props, any> {
   render() {
 

@@ -13,6 +13,7 @@ const fs = require('fs')
 const pathPrefix = process.cwd()
 const paths = {
   root: pathPrefix,
+  static: path.join(pathPrefix, 'src/static'),
   src: path.join(pathPrefix, 'src'),
   entry: path.join(pathPrefix, 'src/entry'),
   isomorphic: path.join(pathPrefix, 'src/isomorphic'),
@@ -168,7 +169,14 @@ module.exports = {
       test: /\.scss$/,
       loader: ExtractTextPlugin.extract(
         'style?sourceMap',
-        `css-loader?modules&importLoaders=1&localIdentName=[local]!resolve-url-loader!sass-loader?sourceMap`
+        `css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]!resolve-url-loader!sass-loader?sourceMap`
+      )
+    },
+    sassBuildWithoutSourceMap: {
+      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract(
+        'style',
+        `css-loader?modules&importLoaders=1&localIdentName=[local]!resolve-url-loader!sass-loader`
       )
     },
     sassIsomorphic: {
@@ -207,7 +215,10 @@ module.exports = {
     },
     sassLoader: {
       // 用于 scss 文件里 import 其它文件
-      includePaths: [`${paths.isomorphic}/styles`]
+      includePaths: [
+        `${paths.isomorphic}/styles`,
+        paths.static
+      ]
     },
   },
 
@@ -216,6 +227,7 @@ module.exports = {
     root: paths.src,
     alias: {
       // 方便在组建里面引用通用的 scss 文件（可能不会太常用）
+      // composes 使用的是 webpack resolve 里面的规则
       styles: `${paths.isomorphic}/styles`,
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],

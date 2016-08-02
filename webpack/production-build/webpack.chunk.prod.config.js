@@ -28,7 +28,7 @@ function getTime() {
 
 module.exports = {
   entry: {
-    app: paths.entry,
+    app: `${paths.entry}/app`,
     react_kit: base.vars.reactKit,
     utils: base.vars.utils
   },
@@ -63,7 +63,7 @@ module.exports = {
       base.loaders.imageWebpack,
       base.loaders.babel,
       base.loaders.sassWithExtractText,
-      base.loaders.ts,
+      base.loaders.awesomeTs,
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,

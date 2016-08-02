@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 interface Props {
-  current: number;
-  total: number;
+  current: number
+  total: number
 }
 
 class ViewerScrollbar extends Component<Props, any> {

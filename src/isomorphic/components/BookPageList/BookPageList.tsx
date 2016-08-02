@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 // import * as styles from '../constants/STYLES'
-import BookPage from './book-page'
+import BookPage from '../BookPage'
 
 class BookPageList extends Component<any, any> {
 

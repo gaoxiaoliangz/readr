@@ -1,4 +1,4 @@
-// layout
+/*// layout*/
 
 .sep {
   margin: 0 5px;
@@ -31,9 +31,9 @@
 .content-container {
   width: $best_reading_width;
   margin: 0 auto;
-  @include phone {
-    width: 100%;
-  }
+  /*// @include phone {
+  //   width: 100%;
+  // }*/
 }
 .text-overflow-hidden {
   text-overflow: ellipsis;
@@ -41,7 +41,7 @@
 }
 
 
-// depth
+/*// depth*/
 
 .z1 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -60,7 +60,7 @@
 }
 
 
-// styles
+/*// styles*/
 
 .badge-dark {
   background: lighten($super_power, 40%);
@@ -79,9 +79,9 @@
   margin: 0 5px 5px 0;
   color: #fff;
   display: inline-block;
-  .iconfont {
+  /*.iconfont {
     margin: 0 5px;
-  }
+  }*/
 }
 
 .tag-l {
@@ -91,12 +91,12 @@
   margin: 0 15px 15px 0;
   color: #fff;
   display: inline-block;
-  .icon {
+  /*.icon {
     margin: 0 5px;
   }
   &.active {
     background: #1172a5;
-  }
+  }*/
 }
 
 .circled {

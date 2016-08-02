@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import BookList from './BookList'
+import BookList from '../BookList'
 
 interface Props {
   list: Array<any>

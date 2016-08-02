@@ -22,7 +22,7 @@ module.exports = {
   ],
   module: {
     loaders: [
-      base.loaders.sassBuild,
+      base.loaders.sassBuildWithoutSourceMap,
       base.loaders.imageWebpack
     ],
   },

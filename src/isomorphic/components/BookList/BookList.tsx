@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import Book from './book'
+import Book from '../Book'
+import CSSModules from 'react-css-modules'
+const styles = require('./_book-list.scss')
 
 interface Props {
   bookEntities: any
 }
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class BookList extends Component<Props, {}> {
   render() {
     return (
