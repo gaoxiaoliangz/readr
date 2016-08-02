@@ -13,10 +13,10 @@ const fs = require('fs')
 const pathPrefix = process.cwd()
 const paths = {
   root: pathPrefix,
-  entry: path.join(pathPrefix, 'src/entry/app'),
   src: path.join(pathPrefix, 'src'),
-  isomorphicSrc: path.join(pathPrefix, 'src/isomorphic'),
-  serverSrc: path.join(pathPrefix, 'src/server'),
+  entry: path.join(pathPrefix, 'src/entry'),
+  isomorphic: path.join(pathPrefix, 'src/isomorphic'),
+  server: path.join(pathPrefix, 'src/server'),
   built: path.join(pathPrefix, 'assets/built')
 }
 const cssLocalIdentName = '__[name]__[local]__[hash:base64:5]'
@@ -191,6 +191,10 @@ module.exports = {
       test: /\.tsx?$/,
       loaders: ['babel', 'ts'],
     },
+    awesomeTs: {
+      test: /\.tsx?$/,
+      loaders: ['babel', 'awesome-typescript'],
+    },
     tsHot: {
       test: /\.tsx?$/,
       loaders: ['react-hot', 'babel', 'awesome-typescript'],
@@ -203,7 +207,7 @@ module.exports = {
     },
     sassLoader: {
       // 用于 scss 文件里 import 其它文件
-      includePaths: [paths.src + '/styles']
+      includePaths: [`${paths.isomorphic}/styles`]
     },
   },
 
@@ -212,7 +216,7 @@ module.exports = {
     root: paths.src,
     alias: {
       // 方便在组建里面引用通用的 scss 文件（可能不会太常用）
-      styles: `${paths.src}/styles`,
+      styles: `${paths.isomorphic}/styles`,
     },
     extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
   },

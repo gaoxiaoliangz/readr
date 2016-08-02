@@ -4,7 +4,7 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    index: [`${paths.serverSrc}/index`]
+    index: [`${paths.server}/index`]
   },
   output: {
     path: `${paths.root}/bin/server`,
@@ -19,7 +19,7 @@ module.exports = {
       base.loaders.imageWebpackNoEmit,
       base.loaders.babel,
       base.loaders.sassIsomorphic,
-      base.loaders.ts,
+      base.loaders.awesomeTs,
     ],
   },
   devtool: 'inline-source-map',

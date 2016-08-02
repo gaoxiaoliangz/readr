@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import BookInfoPopup from './book-info-popup'
+import BookInfoPopup from './BookInfoPopup'
 import _ from 'lodash'
 
 interface Props {

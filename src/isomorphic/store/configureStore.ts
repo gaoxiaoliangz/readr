@@ -2,13 +2,9 @@ import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 import api from './middleware/api'
-import modifyResponse from './middleware/modify-response'
-import handleInitialState from './utils/handle-initial-state'
+import modifyResponse from './middleware/modifyResponse'
+import handleInitialState from '../utils/handleInitialState'
 import createLogger from 'redux-logger'
-
-declare let module
-declare let require
-declare let process
 
 const env = process.env.NODE_ENV
 

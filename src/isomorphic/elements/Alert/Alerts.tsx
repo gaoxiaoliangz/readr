@@ -1,5 +1,5 @@
 import React from 'react'
-import Alert from './alert'
+import Alert from './Alert'
 const styles: any = require('./_alert.scss')
 
 type TProps = {

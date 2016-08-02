@@ -7,8 +7,8 @@ import print from '../../utils/print'
 type TProps = {
   children?: any
   title?: string
-  store: any
-  renderProps: any
+  store?: any
+  renderProps?: any
   isProd?: boolean
   manifest?: any
 }
@@ -44,7 +44,7 @@ function Page(props: TProps) {
       title={title}
       styles={styles}
       scripts={scripts}
-      initialState={store.getState()}
+      initialState={store ? store.getState() : {}}
     >
       <Root
         store={store}

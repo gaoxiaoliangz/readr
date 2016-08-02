@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/branding'
-import { Container } from '../elements/layout'
+import { Container } from '../elements/_layout'
 import Colophon from '../components/colophon'
-import { userAuth } from '../actions'
+import { userAuth } from '../store/actions'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 // const styles = require('./_app.scss')

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification } from '../actions'
-import { Alerts } from '../elements/alert'
+import { sendNotification, hideNotification } from '../store/actions'
+import { Alerts } from '../elements/Alert'
 
 interface IAllProps {
   notifications?: any

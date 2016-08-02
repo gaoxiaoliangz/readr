@@ -4,8 +4,8 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    'vendor.global': [`${paths.src}/styles/vendor.scss`],
-    'base.global': [`${paths.src}/styles/base.scss`],
+    'vendor.global': [`${paths.isomorphic}/styles/vendor.scss`],
+    'base.global': [`${paths.isomorphic}/styles/base.scss`],
   },
   output: {
     path: paths.built,

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import { Button } from '../elements/form'
+import { Button } from '../elements/_form'
 
 class BookInfoPopup extends Component<any, any> {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { Container } from '../../elements/layout'
+import { Container } from '../../elements/_layout'
 import { Dropdown, DropdownItem } from '../../elements/dropdown'
 import CSSModules from 'react-css-modules'
 const styles = require('./_branding.scss')

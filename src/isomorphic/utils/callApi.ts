@@ -1,6 +1,6 @@
 import 'isomorphic-fetch'
-import objectToUrlencoded from '../utils/parse-form-data'
-import handleResponseJson from '../utils/handle-response-json'
+import objectToUrlencoded from '../utils/parseFormData'
+import handleResponseJson from '../utils/handleResponseJson'
 declare let fetch
 
 type CallApiConfig = {
