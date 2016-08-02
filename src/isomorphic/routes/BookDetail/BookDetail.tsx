@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchBook } from '../../actions'
+import { fetchBook } from '../../store/actions'
 import Loading from '../../elements/loading'
-import { Button } from '../../elements/form'
+import { Button } from '../../elements/_form'
 import _ from 'lodash'
-import Body from '../../side-effects/body'
+import Body from '../../components/Body'
 
 class BookInfo extends Component<any, any> {
 
