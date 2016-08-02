@@ -1,0 +1,15 @@
+.book-list-section {
+  position: relative;
+
+  .section-title {
+    @extend .page-title;
+    margin-top: 20px;
+  }
+
+  a.more {
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 32px;
+  }
+}

@@ -1,9 +1,0 @@
-.viewer {
-  @include make_viewer(#555, #fff, #fff, #222, #eee, red);
-}
-.viewer-panel {
-  .container {
-    position: relative;
-  }
-}
-

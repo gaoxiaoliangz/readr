@@ -1,9 +1,5 @@
 @import "variables";
-@import "mixins";
-@import "components";
-@import "helpers";
-@import "links";
-@import "animations";
+@import "mixins/screens";
 
 html {
   font-size: $font_size_root;
@@ -13,11 +9,6 @@ body {
   font-family: $sans_font;
   color: $text_n;
   -webkit-font-smoothing: antialiased;
-}
-.no-csschunit {
-  body {
-    font-family: $sans_font_ie;
-  }
 }
 ::selection {
   background: rgba(47, 141, 246, .3);
@@ -47,75 +38,169 @@ ul {
   list-style: none;
 }
 
+// other
+.no-csschunit {
+  body {
+    font-family: $sans_font_ie;
+  }
+}
 
-#root.console {
-  .sidebar-left {
-    $nav_root_width: 80px;
-    $item_line_height: 50px;
-    background: #E4E4E4;
-    .nav-side {
-      position: fixed;
-      left: 0;
-      height: 100%;
-      li {
-        height: $item_line_height;
-        line-height: $item_line_height;
-        a {
-          display: block;
-          padding: 0 15px;
-          box-sizing: border-box;
-        }
-      }
-    }
-    .nav-side-root {
-      width: $nav_root_width;
-      background: $super_power2;
-      li {
-        .icon {
-          width: 100%;
-          height: $item_line_height;
-        }
-      }
-      li.current {
-        background: $super_power;
-      }
-    }
-    .nav-side-sub {
-      width: $sidebar_width - $nav_root_width;
-      left: $nav_root_width;
-      li {
-        background: #D8D8D8;
-        a {
-          color: $text_n;
-        }
-      }
-      li.current {
-        background: #fff;
-        a {
-          color: $super_power;
-        }
-      }
-    }
-  }
-  .content {
-    margin-left: $sidebar_width + 20;
-    padding-top: $branding_height;
-    form {
-      width: $best_reading_width;
-    }
-    table {
-      @extend .styled-table;
-    }
-  }
 
-  .page-content {
-    margin-left: $sidebar_width + 30;
-    padding-right: 30px;
-    padding-bottom: 30px;
-    padding-top: $branding_height;
-    
-    form {
-      width: $best_reading_width;
-    }
+// link
+.text-link {
+  color: $text_n;
+  &:hover {
+   color: $link_n;
   }
+}
+
+.light-link {
+  color: #fff;
+
+  &:hover {
+   color: #f2f2f2;
+  }
+}
+
+.dark-link {
+  color: $text_n;
+
+  &:hover {
+   color: $text_d;
+  }
+}
+
+// page
+.page-title {
+  margin: 35px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: $text_d;
+  
+  small {
+    font-size: 1rem;
+  }
+}
+
+.page-header {
+  margin: 35px 0;
+  position: relative;
+  
+  .page-title {
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    line-height: 46px;
+  }
+}
+
+.page-content {
+  width: 700px;
+  margin: 0 auto;
+}
+
+// todo: make this button
+.page-load-more {
+  border: 1px solid $gray_d;
+  width: 80%;
+  margin: 30px auto;
+  padding: 6px 0;
+  text-align: center;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+
+
+// layout
+
+.sep {
+  margin: 0 5px;
+  color: $gray_d;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.hidden {
+  display: none;
+}
+.clearfix:after {
+  content: " ";
+  clear: both;
+  display: table;
+}
+.center {
+  text-align: center;
+}
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+}
+.content-container {
+  width: $best_reading_width;
+  margin: 0 auto;
+  @include phone {
+    width: 100%;
+  }
+}
+.text-overflow-hidden {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// styled
+
+.badge-dark {
+  background: lighten($super_power, 40%);
+  border-radius: 3px;
+  padding: 3px 4px;
+  font-size: 0.8rem;
+  color: lighten($super_power, 50%);
+  color: $super_power;
+  margin: 0 5px;
+}
+
+.tag {
+  background: $app_base_color;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: 0 5px 5px 0;
+  color: #fff;
+  display: inline-block;
+  
+  .icon {
+    margin: 0 5px;
+  }
+}
+
+.tag-l {
+  background: #b7c0c7;
+  border-radius: 3px;
+  padding: 6px 20px;
+  margin: 0 15px 15px 0;
+  color: #fff;
+  display: inline-block;
+  
+  .icon {
+    margin: 0 5px;
+  }
+}
+
+.circled {
+  min-width: 19px;
+  height: 19px;
+  box-sizing: border-box;
+  padding: 1px 4px 0;
+  line-height: 19px;
+  background: #00bcd5;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
 }
