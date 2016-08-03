@@ -1,18 +1,32 @@
-@import "variables";
-@import "mixins/screens";
+@import "styles/variables.css";
+/*@import "./a.css";*/
+
+
+/*:root {
+  --text: #666;
+  --text-dark: #333;
+  --text-light: #999;
+  --blue: blue;
+  --gray: gray;
+
+  --font-size-root: 16px;
+  --border-radius: 3px;
+  --font-family: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+  --font-family-mono: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}*/
 
 html {
-  font-size: $font_size_root;
+  font-size: var(--font-size-root);
 }
 body {
   font-size: 1rem;
-  font-family: $sans_font;
-  color: $text_n;
+  font-family: var(--font-family);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 ::selection {
   background: rgba(47, 141, 246, .3);
-  color: $text_n;
+  color: var(--text);
   text-shadow: none;
 }
 a,
@@ -22,15 +36,15 @@ a:active {
   text-decoration: none;
 }
 a {
-  color: $link_n;
+  color: var(--blue);
   transition: all .2s ease-in;
-  &:hover {
-    color: $link_h;
-  }
-  &:active {
-    color: $link_a;
-    transition: all 0s;
-  }
+}
+a:hover {
+  color: var(--text);
+}
+a:active {
+  color: var(--text-dark);
+  transition: all 0s;
 }
 ul {
   padding: 0;
@@ -38,16 +52,9 @@ ul {
   list-style: none;
 }
 
-// other
-.no-csschunit {
-  body {
-    font-family: $sans_font_ie;
-  }
-}
 
-
-// link
-.text-link {
+/* link */
+/*.text-link {
   color: $text_n;
   &:hover {
    color: $link_n;
@@ -68,18 +75,25 @@ ul {
   &:hover {
    color: $text_d;
   }
+}*/
+
+/* page */
+.pagetitle {
+  margin: 35px 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-dark);
 }
 
 .page-header {
   margin: 35px 0;
   position: relative;
-  
-  .page-title {
-    margin: 0;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    line-height: 46px;
-  }
+}
+.page-header > .page-title {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  line-height: 46px;
 }
 
 .page-content {
@@ -87,9 +101,9 @@ ul {
   margin: 0 auto;
 }
 
-// todo: make this button
+/* todo */
 .page-load-more {
-  border: 1px solid $gray_d;
+  border: 1px solid var(--gray);
   width: 80%;
   margin: 30px auto;
   padding: 6px 0;
@@ -100,11 +114,10 @@ ul {
 }
 
 
-// layout
-
+/* layout */
 .sep {
   margin: 0 5px;
-  color: $gray_d;
+  color: var(--gray);
 }
 .left {
   float: left;
@@ -130,21 +143,20 @@ ul {
   margin: 0 auto;
   position: relative;
 }
-.content-container {
+/*.content-container {
   width: $best_reading_width;
   margin: 0 auto;
   @include phone {
     width: 100%;
   }
-}
+}*/
 .text-overflow-hidden {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-// styled
-
-.badge-dark {
+/* styled */
+/*.badge-dark {
   background: lighten($super_power, 40%);
   border-radius: 3px;
   padding: 3px 4px;
@@ -191,4 +203,4 @@ ul {
   border-radius: 20px;
   display: inline-block;
   text-align: center;
-}
+}*/

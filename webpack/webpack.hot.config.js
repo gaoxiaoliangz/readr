@@ -23,6 +23,10 @@ module.exports = {
     loaders: [
       base.loaders.imageWebpack,
       base.loaders.sass,
+      base.loaders.postCss({
+        global: false,
+        extract: false
+      }),
       base.loaders.babel,
       base.loaders.tsHot
     ]

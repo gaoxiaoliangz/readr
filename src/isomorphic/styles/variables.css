@@ -1,0 +1,18 @@
+:root {
+  /* colors */
+  --text: #666;
+  --text-dark: #333;
+  --text-light: #999;
+  --blue: blue;
+  --gray: gray;
+
+  /* style values */
+  --font-size-root: 16px;
+  --border-radius: 3px;
+  --font-family: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+  --font-family-mono: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.fuck {
+  color: red;
+}

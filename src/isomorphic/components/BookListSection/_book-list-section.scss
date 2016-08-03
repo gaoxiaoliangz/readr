@@ -1,8 +1,6 @@
 .book-list-section {
   position: relative;
 
-
-
   a.more {
     position: absolute;
     right: 0;
@@ -13,6 +11,6 @@
 
 .section-title {
   // @extend .page-title;
-  composes: pagetitle from 'styles/shared/_helpers.scss';
+  // composes: pagetitle from 'styles/shared/_helpers.scss';
   margin-top: 20px;
 }

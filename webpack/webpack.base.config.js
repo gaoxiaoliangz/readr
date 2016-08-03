@@ -139,7 +139,7 @@ module.exports = {
         presets: ['react', 'es2015'],
       },
     },
-    postCss: {
+    postCss2: {
       test: /\.css$/,
       loaders: [
         'style?sourceMap',
@@ -147,6 +147,29 @@ module.exports = {
         'resolve-url',
         'postcss?sourceMap'
       ]
+    },
+    postCss({ global, sourceMap, extract }) {
+      const localIdentName = global ? '[local]' : cssLocalIdentName
+
+      if (extract) {
+        return {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract(
+            'style?sourceMap',
+            `css?sourceMap&modules&importLoaders=1&localIdentName=${localIdentName}!resolve-url!postcss?sourceMap`
+          )
+        }
+      }
+
+      return {
+        test: /\.css$/,
+        loaders: [
+          'style?sourceMap',
+          `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
+          'resolve-url',
+          'postcss?sourceMap'
+        ]
+      }
     },
     css: {
       test: /\.css$/,
@@ -211,12 +234,15 @@ module.exports = {
 
   loaderConfig: {
     postcss: () => {
-      return [require('postcss-cssnext'), require('postcss-import')]
+      return [
+        require('postcss-import'),
+        require('postcss-cssnext')
+      ]
     },
     sassLoader: {
       // 用于 scss 文件里 import 其它文件
       includePaths: [
-        `${paths.isomorphic}/styles`,
+        `${paths.isomorphic}/styles/scss`,
         paths.static
       ]
     },

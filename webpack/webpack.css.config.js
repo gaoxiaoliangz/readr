@@ -4,8 +4,8 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    'vendor.global': [`${paths.isomorphic}/styles/vendor.scss`],
-    'base.global': [`${paths.isomorphic}/styles/base.scss`],
+    'vendor.global': [`${paths.isomorphic}/styles/scss/vendor.scss`],
+    'base.global': [`${paths.isomorphic}/styles/base.css`],
   },
   output: {
     path: paths.built,
@@ -19,8 +19,13 @@ module.exports = {
     loaders: [
       base.loaders.imageWebpack,
       base.loaders.sassBuild,
+      base.loaders.postCss({
+        global: true,
+        extract: true
+      })
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,
+  postcss: base.loaderConfig.postcss(),
   resolve: base.resolve,
 }
