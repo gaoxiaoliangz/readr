@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-// import Icon from '../icon'
 import CSSModules from 'react-css-modules'
 const styles = require('./_dropdown.scss')
 
 interface IProps {
   title: string | JSX.Element
+  className?: string
+  styleName?: string
 }
 
 interface IState {
@@ -47,8 +48,10 @@ class Dropdown extends Component<IProps, IState> {
   }
 
   render() {
+    const { className } = this.props
+
     return (
-      <div onClick={this.toggleDropdown} styleName="dropdown">
+      <div onClick={this.toggleDropdown} styleName="dropdown" className={className || ''}>
         <span styleName="dropdown-toggle">
           {this.props.title} <span styleName="dropdown-caret" />
         </span>

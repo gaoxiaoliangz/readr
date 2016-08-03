@@ -1,5 +1,3 @@
-/*@import "_variables.scss";*/
-/*@import "../../styles/variables.css";*/
 /*@import "styles/variables.css";*/
 
 :root {
@@ -51,6 +49,10 @@
   float: left;
 }
 
+.dropdown-recent-reading {
+  margin-right: 15px;
+}
+
 .nav--user {
   composes: nav;
   float: right;
@@ -67,4 +69,4 @@
 
 .recent-reading {
   margin-right: 15px;
-} 
+}

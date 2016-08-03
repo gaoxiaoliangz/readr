@@ -139,16 +139,18 @@ ul {
 }
 
 /* styled */
-/*.badge-dark {
-  background: lighten($super_power, 40%);
+.badge-dark {
+  /*background: lighten($super_power, 40%);*/
+  background: var(--blue);
   border-radius: 3px;
   padding: 3px 4px;
   font-size: 0.8rem;
-  color: lighten($super_power, 50%);
-  color: $super_power;
+  /*color: lighten($super_power, 50%);*/
+  color: #fff;
   margin: 0 5px;
 }
 
+/*
 .tag {
   background: $app_base_color;
   border-radius: 3px;

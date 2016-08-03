@@ -48,7 +48,7 @@ class Branding extends Component<any, any> {
               username
                 ? (
                   <div styleName="nav--user">
-                    <Dropdown title="最近阅读">
+                    <Dropdown styleName="dropdown-recent-reading" title="最近阅读">
                       <DropdownItem><Link to="/">hahahh</Link></DropdownItem>
                       <DropdownItem>haha</DropdownItem>
                       <DropdownItem>hahasf</DropdownItem>

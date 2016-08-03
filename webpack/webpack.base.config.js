@@ -20,7 +20,7 @@ const paths = {
   server: path.join(pathPrefix, 'src/server'),
   built: path.join(pathPrefix, 'assets/built')
 }
-const cssLocalIdentName = '__[name]__[local]__[hash:base64:5]'
+const cssLocalIdentName = '[name]__[local]__[hash:base64:5]'
 const imageName = './img/[name].[hash:10].[ext]'
 
 // 暴露到全局变量的名称
@@ -165,7 +165,7 @@ module.exports = {
         test: /\.css$/,
         loaders: [
           'style?sourceMap',
-          `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
+          `css?sourceMap&modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
           'resolve-url',
           'postcss?sourceMap'
         ]
