@@ -3,7 +3,8 @@
 @import "styles/scss/mixins/border-radius";
 @import "./_button.mixin.scss";
 
-$btn_blue: rgb(60, 114, 221);
+// $btn_blue: rgb(60, 114, 221);
+$btn_blue: blue;
 $btn_orange: rgb(238, 147, 51);
 $btn_red: rgb(212, 32, 32);
 $btn_default: $btn_blue;

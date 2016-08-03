@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import CSSModules from 'react-css-modules'
-const styles = require('./tab.scss')
+const styles = require('./_tab.scss')
 
 interface IProps {
   onTabSwitch?: (activeTabIndex: number) => void

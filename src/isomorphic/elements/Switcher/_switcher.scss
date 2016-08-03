@@ -1,4 +1,4 @@
-@import "_variables.scss";
+@import "styles/scss/_variables.scss";
 
 $size: 20px;
 $base-color: blue;
@@ -23,7 +23,7 @@ $base-color: blue;
   height: $size;
   position: absolute;
   top: 0;
-  box-shadow: $common_shadow;
+  box-shadow: $shadow-y1;
 }
 
 .switcher-track {

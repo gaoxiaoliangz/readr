@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { sendNotification, userAuth, fetchProfile } from '../actions'
-import Body from '../side-effects/body'
+// import { Link } from 'react-router'
+import { sendNotification, userAuth, fetchProfile } from '../../store/actions'
+// import Body from '../../../components/Body'
 import _ from 'lodash'
-import PreferenceList from '../components/preference-list'
+import PreferenceList from '../../components/PreferenceList'
 
 interface IAllProps {
   session?: any
@@ -16,7 +16,7 @@ interface IState {
   showFav?: boolean
 }
 
-class UserPreference extends Component<IAllProps, IState> {
+class Preference extends Component<IAllProps, IState> {
 
   // static fetchData({store, params}) {
   //   return store.dispatch(fetch())
@@ -63,4 +63,4 @@ export default connect(
     }
   },
   { sendNotification, userAuth, fetchProfile }
-)(UserPreference as any)
+)(Preference as any)

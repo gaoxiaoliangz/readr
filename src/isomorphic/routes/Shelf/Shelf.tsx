@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { fetchShelf } from '../actions'
-import BookListSection from '../components/book-list-section'
+// import { Link } from 'react-router'
+import { fetchShelf } from '../../store/actions'
+import BookListSection from '../../components/BookListSection'
 import _ from 'lodash'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   fetchShelf?: any
 }
 
-class BookShelf extends Component<Props, {}> {
+class Shelf extends Component<Props, {}> {
 
   static fetchData({store, params}) {
     return store.dispatch(fetchShelf())
@@ -44,4 +44,4 @@ function mapStateToProps(state, ownProps) {
 export default connect(
   mapStateToProps,
   { fetchShelf }
-)(BookShelf as any)
+)(Shelf as any)

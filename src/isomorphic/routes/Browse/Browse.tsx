@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Switcher from '../elements/switcher'
-import BookListSection from '../components/book-list-section'
-import { fetchBooks, fetchCollections } from '../actions'
-import { Tab, Tabs } from '../elements/tab'
+import Switcher from '../../elements/Switcher'
+import BookListSection from '../../components/BookListSection'
+import { fetchBooks, fetchCollections } from '../../store/actions'
+import { Tab, Tabs } from '../../elements/Tab'
 
 interface Props {
   fetchBooks: any
   newestBooks: any
 }
 
-class Archive extends Component<Props, any> {
+class Browse extends Component<Props, any> {
 
   constructor(props) {
     super(props)
@@ -56,4 +56,4 @@ function mapStateToProps(state, ownProps) {
 export default connect(
   mapStateToProps,
   { fetchBooks, fetchCollections }
-)(Archive as any)
+)(Browse as any)

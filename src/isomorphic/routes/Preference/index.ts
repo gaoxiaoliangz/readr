@@ -1,9 +1,9 @@
 module.exports = {
-  path: 'book/:id',
+  path: 'preference',
 
   getComponent(nextState, fn) {
     require.ensure([], function (require) {
-      fn(null, (require('./BookDetail') as any).default)
+      fn(null, (require('./Preference') as any).default)
     })
   }
 }

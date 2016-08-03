@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCollections } from '../actions'
+import { fetchCollections } from '../../store/actions'
 
 interface Props {
   fetchCollections: any
   newestCollections: Array<any>
 }
 
-class ArchivedCollection extends Component<Props, {}> {
+class Collections extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
@@ -47,4 +47,4 @@ export default connect(
       : []
   }),
   { fetchCollections }
-)(ArchivedCollection as any)
+)(Collections as any)
