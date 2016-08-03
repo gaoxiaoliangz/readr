@@ -235,14 +235,18 @@ module.exports = {
   loaderConfig: {
     postcss: () => {
       return [
-        require('postcss-import'),
+        require('postcss-import')({
+          path: [
+            paths.isomorphic
+          ]
+        }),
         require('postcss-cssnext')
       ]
     },
     sassLoader: {
       // 用于 scss 文件里 import 其它文件
       includePaths: [
-        `${paths.isomorphic}/styles/scss`,
+        paths.isomorphic,
         paths.static
       ]
     },

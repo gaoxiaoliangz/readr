@@ -1,19 +1,4 @@
-@import "styles/variables.css";
-/*@import "./a.css";*/
-
-
-/*:root {
-  --text: #666;
-  --text-dark: #333;
-  --text-light: #999;
-  --blue: blue;
-  --gray: gray;
-
-  --font-size-root: 16px;
-  --border-radius: 3px;
-  --font-family: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
-  --font-family-mono: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}*/
+@import "./variables.css";
 
 html {
   font-size: var(--font-size-root);
@@ -52,20 +37,18 @@ ul {
   list-style: none;
 }
 
+.light-link {
+  color: #fff;
+}
+.light-link:hover {
+  color: #aaa;
+}
 
 /* link */
 /*.text-link {
   color: $text_n;
   &:hover {
    color: $link_n;
-  }
-}
-
-.light-link {
-  color: #fff;
-
-  &:hover {
-   color: #f2f2f2;
   }
 }
 

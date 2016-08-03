@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { Container } from '../../elements/_layout'
 import { Dropdown, DropdownItem } from '../../elements/dropdown'
 import CSSModules from 'react-css-modules'
-const styles = require('./_branding.scss')
+const styles = require('./Branding.css')
 
 @CSSModules(styles, {
   allowMultiple: true
@@ -31,23 +31,23 @@ class Branding extends Component<any, any> {
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
-            <h1 styleName="logo left">
-              <Link to="/">readr</Link>
+            <h1 styleName="logo-wrap">
+              <Link styleName="logo" to="/">readr</Link>
             </h1>
-            <div styleName="nav left">
+            <div styleName="nav">
               <ul styleName="nav-links">
-                <li>
-                  <Link to="/browse">浏览</Link>
+                <li styleName="nav-item">
+                  <Link styleName="nav-link" to="/browse">浏览</Link>
                 </li>
-                <li>
-                  <Link to="/collections">书单</Link>
+                <li styleName="nav-item">
+                  <Link styleName="nav-link" to="/collections">书单</Link>
                 </li>
               </ul>
             </div>
             {
               username
                 ? (
-                  <div styleName="nav right">
+                  <div styleName="nav--user">
                     <Dropdown title="最近阅读">
                       <DropdownItem><Link to="/">hahahh</Link></DropdownItem>
                       <DropdownItem>haha</DropdownItem>
@@ -57,13 +57,13 @@ class Branding extends Component<any, any> {
                     </Dropdown>
                     <Dropdown
                       title={(
-                        <span>{username}{isAdmin ? (<span className="badge-dark">Admin</span>) : null}</span>
+                        <span>{username}{ isAdmin && <span className="badge-dark">Admin</span> }</span>
                       ) }
                       >
                       {
-                        isAdmin === true ? (
+                        isAdmin === true && (
                           <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
-                        ) : null
+                        )
                       }
                       <DropdownItem><Link to={`/user/shelf`}>书架</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
@@ -73,7 +73,7 @@ class Branding extends Component<any, any> {
                   </div>
                 )
                 : (
-                  <div styleName="nav right">
+                  <div styleName="nav--user">
                     <ul styleName="nav-links">
                       <li>
                         <Link to="/signin">登录</Link>
