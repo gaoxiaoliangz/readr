@@ -29,6 +29,8 @@ $background: black;
   right: 0;
   min-width: 150px;
   overflow: hidden;
+  // todo: 添加到 variables
+  z-index: 1000;
 }
 
 .dropdown-caret {
