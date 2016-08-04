@@ -1,26 +1,7 @@
-/*@import "styles/variables.css";*/
+@import "styles/variables.css";
 
 :root {
-  --branding-height: 60px;
   --background: black;
-}
-
-.logo-wrap {
-  margin: 0;
-  line-height: var(--branding-height);
-  color: #fff;
-  margin-right: 15px;
-  margin-top: -3px;
-  float: left;
-}
-
-.logo {
-  background: url(logo.png) no-repeat left;
-  width: 70px;
-  height: var(--branding-height);
-  background-size: 70px;
-  text-indent: -999em;
-  display: inline-block;
 }
 
 .branding {

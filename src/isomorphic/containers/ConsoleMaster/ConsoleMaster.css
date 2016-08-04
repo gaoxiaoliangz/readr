@@ -1,0 +1,29 @@
+@import "styles/variables.css";
+
+.content {
+  /*margin-left: $sidebar_width + 20;*/
+  margin-left: calc(var(--sidebar-width) + 20);
+  padding-top: var(--branding-height);
+  /*padding-top: $branding_height;*/
+  /*form {
+    width: $best_reading_width;
+  }
+  table {
+    @extend .styled-table;
+  }*/
+}
+/*#root.console {
+ 
+
+
+  .page-content {
+    margin-left: $sidebar_width + 30;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: $branding_height;
+    
+    form {
+      width: $best_reading_width;
+    }
+  }
+}*/

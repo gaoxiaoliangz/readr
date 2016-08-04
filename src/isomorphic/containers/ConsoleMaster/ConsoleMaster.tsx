@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import Container from '../../elements/_layout/Container'
 import ConsoleBranding from '../../components/ConsoleBranding'
 import { userAuth, sendNotification } from '../../store/actions'
 import Alert from '../../elements/Alert'
-import Icon from '../../elements/Icon'
+import ConsoleSidebar from '../../components/ConsoleSidebar'
 import menus from '../../content/menus'
+import CSSModules from 'react-css-modules'
+const styles = require('./ConsoleMaster.css')
 
 interface Props {
   notifications?: any
@@ -15,80 +16,13 @@ interface Props {
   routing?: any
 }
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class Console extends Component<Props, any> {
 
   componentDidMount() {
     this.props.userAuth()
-  }
-
-  renderMenu(menuMapping, currentPath) {
-    let currentMenu = {
-      rootIndex: 0,
-      subIndex: 0
-    }
-
-    menuMapping.forEach((item, rootIndex) => {
-      let subIndex
-
-      let result = item.subMenu.filter((item, index) => {
-        if (item.path === currentPath) {
-          subIndex = index
-          return true
-        }
-      })
-
-      if (result.length > 0) {
-        currentMenu.rootIndex = rootIndex
-        currentMenu.subIndex = subIndex
-      }
-    })
-
-    let rootMenu = (
-      <ul className="nav-side nav-side-root">
-        {
-          menuMapping.map((menu, index) => {
-            let className = `menu-${menu.component}`
-
-            if (index === currentMenu.rootIndex) {
-              className += ' current'
-            }
-
-            return (
-              <li key={index} className={className}>
-                <Link to={`/${menu.path}`}>
-                  <Icon name={menu.component} />
-                </Link>
-              </li>
-            )
-          })
-        }
-      </ul>
-    )
-
-    let subMenu = (
-      <ul className="nav-side nav-side-sub">
-        {
-          menuMapping[currentMenu.rootIndex].subMenu.map((menu, index) => {
-            let className = `menu-${menu.component}`
-
-            if (index === currentMenu.subIndex) {
-              className += ' current'
-            }
-
-            return (
-              <li key={index} className={className}><Link to={`/${menu.path}`}>{menu.displayName}</Link></li>
-            )
-          })
-        }
-      </ul>
-    )
-
-    return (
-      <div className="sidebar-left">
-        {rootMenu}
-        {subMenu}
-      </div>
-    )
   }
 
   render() {
@@ -118,8 +52,11 @@ class Console extends Component<Props, any> {
               )
               : null
           }
-          {this.renderMenu(menus, pathname) }
-          <div className="content">
+          <ConsoleSidebar
+            menuMapping={menus}
+            currentPath={pathname}
+          />
+          <div styleName="content">
             {this.props.children}
           </div>
         </Container>

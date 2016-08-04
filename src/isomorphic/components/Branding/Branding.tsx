@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { Container } from '../../elements/_layout'
-import { Dropdown, DropdownItem } from '../../elements/dropdown'
+import { Dropdown, DropdownItem } from '../../elements/Dropdown'
+import Logo from '../Logo'
 import CSSModules from 'react-css-modules'
 const styles = require('./Branding.css')
 
@@ -31,9 +32,7 @@ class Branding extends Component<any, any> {
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
-            <h1 styleName="logo-wrap">
-              <Link styleName="logo" to="/">readr</Link>
-            </h1>
+            <Logo to="/" />
             <div styleName="nav">
               <ul styleName="nav-links">
                 <li styleName="nav-item">

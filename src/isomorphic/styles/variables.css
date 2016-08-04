@@ -3,8 +3,11 @@
   --text: #666;
   --text-dark: #333;
   --text-light: #999;
-  --blue: blue;
+  --blue: #1B267F;
+  --shiny-blue: #1B267F;
   --gray: gray;
+  --branding-height: 60px;
+  --sidebar-width: 300px;
 
   /* style values */
   --font-size-root: 16px;

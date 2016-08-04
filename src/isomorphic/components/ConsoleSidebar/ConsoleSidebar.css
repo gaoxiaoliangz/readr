@@ -1,0 +1,87 @@
+@import "styles/variables.css";
+
+:root {
+  --nav-root-width: 80px;
+  --item-line-height: 50px;
+}
+
+.sidebar-left {
+  position: fixed;
+  left: 0;
+  top: var(--branding-height);
+  height: 100%;
+  width: var(--sidebar-width);
+  background: #E4E4E4;
+}
+
+.nav-side {
+  position: fixed;
+  left: 0;
+  height: 100%;
+}
+
+.nav-side-root {
+  composes: nav-side;
+  width: var(--nav-root-width);
+  background: #04082E;
+}
+
+.nav-side-root--current {
+  composes: nav-side-root;
+  background: red;
+}
+
+.nav-side-sub {
+  composes: nav-side;
+  width: calc(var(--sidebar-width) - var(--nav-root-width));
+  left: var(--nav-root-width);
+}
+
+/* item */
+.nav-item {
+  height: var(--item-line-height);
+  line-height: var(--item-line-height);
+}
+
+.nav-item a {
+  display: block;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.icon {
+  width: 100%;
+  height: var(--item-line-height);
+  color: #fff;
+}
+
+.root-item {
+  composes: nav-item;
+}
+
+.root-item--current {
+  composes: root-item;
+  background: var(--blue);
+}
+
+.root-item--current .icon {
+  color: #fff;
+}
+
+.sub-item {
+  background: #D8D8D8;
+  composes: nav-item;
+}
+
+.sub-item--current {
+  composes: sub-item;
+  background: #fff;
+}
+
+.sub-item--current > a {
+  color: blue;
+}
+
+.sub-item a {
+  color: $text_n;
+}

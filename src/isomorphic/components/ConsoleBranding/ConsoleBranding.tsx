@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Container from '../../elements/_layout/Container'
+import { Dropdown, DropdownItem } from '../../elements/Dropdown'
+import CSSModules from 'react-css-modules'
+import Logo from '../Logo'
+// const brandingStyles = require('../Branding/Branding.css')
+const styles = require('./ConsoleBranding.css')
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class ConsoleBranding extends Component<any, any> {
 
   constructor(props) {
@@ -22,34 +30,28 @@ class ConsoleBranding extends Component<any, any> {
     let isAdmin = this.props.isAdmin ? this.props.isAdmin : 'false'
 
     return (
-      <div className="branding console-branding">
+      <div styleName="branding">
         <Container isFluid={true} className="clearfix">
           <div>
-            <h1 className="logo left">
-              <Link to="/console">readr</Link>
-              <span className="sep">|</span>
-              <span className="sub">Console</span>
-            </h1>
-            {
-              username ? (
-                <div onMouseLeave={this.toggleDropdownMenu.bind(this) } onMouseEnter={this.toggleDropdownMenu.bind(this) } className="nav right">
-                  <span className="username">{username}{isAdmin ? (<span className="badge-dark">Admin</span>) : null}</span>
-                  {
-                    this.state.isDropdownMenuVisible ? (
-                      <ul className="dropdown-menu">
-                        {
-                          isAdmin === true ? (
-                            <li><Link to="/">Back to readr</Link></li>
-                          ) : null
-                        }
-                        <li><Link to={`/profile/${username}`}>我的账号</Link></li>
-                        <li><Link to="/logout">退出</Link></li>
-                      </ul>
-                    ) : null
-                  }
-                </div>
-              ) : (
-                  <div className="nav right">
+            <Logo to="/console" />
+            <div styleName="sub-name">
+              <span styleName="sep">|</span>
+              <span styleName="sub">Console</span>
+            </div>
+            <div styleName="nav right">
+              {
+                username ? (
+                  <Dropdown
+                    title={(
+                      <span>{username}{ isAdmin && <span className="badge-dark">Admin</span> }</span>
+                    ) }
+                    >
+                    <DropdownItem><Link to="/">Back to readr</Link></DropdownItem>
+                    <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
+                    <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
+                    <DropdownItem><a href="/logout">退出</a></DropdownItem>
+                  </Dropdown>
+                ) : (
                     <ul className="nav-links">
                       <li>
                         <Link to="/signin">登录</Link>
@@ -58,9 +60,9 @@ class ConsoleBranding extends Component<any, any> {
                         <Link to="/signup">注册</Link>
                       </li>
                     </ul>
-                  </div>
-                )
-            }
+                  )
+              }
+            </div>
           </div>
         </Container>
       </div>
