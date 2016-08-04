@@ -1,4 +1,4 @@
-import callApi from './call-api'
+import callApi from '../utils/callApi'
 import ApiRoots from '../config'
 
 export function addCollection(data: {
@@ -44,12 +44,12 @@ export function deleteBook(id) {
   })
 }
 
-export default {
-  addCollection,
-  addBook,
-  addAuthor,
-  searchBooks,
-  searchAuthors,
-  setProgress,
-  deleteBook
-}
+// export default {
+//   addCollection,
+//   addBook,
+//   addAuthor,
+//   searchBooks,
+//   searchAuthors,
+//   setProgress,
+//   deleteBook
+// }

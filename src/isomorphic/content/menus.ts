@@ -7,42 +7,42 @@ const menus = [
       {
         component: 'managebooks',
         displayName: 'Manage Books',
-        path: 'console'
+        path: 'console/books'
       },
       {
         component: 'addbook',
         displayName: 'Add Book',
-        path: 'console/addbook'
+        path: 'console/books/new'
       },
       {
         component: 'addcollection',
         displayName: 'Add Collection',
-        path: 'console/collection/new'
+        path: 'console/collections/new'
       }
     ]
   },
   {
     component: 'users',
     displayName: '',
-    path: 'console/manageusers',
+    path: 'console/users',
     subMenu: [
       {
         component: 'manageusers',
         displayName: 'Manage Users',
-        path: 'console/manageusers'
+        path: 'console/users'
       }
     ]
   },
   {
     component: 'database',
     displayName: '',
-    path: 'console/managebooks',
+    path: 'console/db',
     subMenu: []
   },
   {
     component: 'statistics',
     displayName: '',
-    path: 'console/managebooks',
+    path: 'console/statistics',
     subMenu: []
   }
 ]

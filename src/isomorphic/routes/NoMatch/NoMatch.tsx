@@ -9,7 +9,7 @@ class NoMatch extends Component<IProps, {}> {
   render() {
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1>{this.props.title || 'Not Found'}</h1>
         <div>{this.props.message}</div>
       </div>
     )

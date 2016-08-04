@@ -16,7 +16,8 @@ type TProps = {
 const scriptsProd = ['react_kit.js', 'utils.js', 'app.js']
 const scriptsDev = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
 
-const styleSheets = ['base.global.css', 'vendor.global.css', 'app.css']
+const styleSheetsProd = ['base.global.css', 'vendor.global.css', 'app.css']
+const styleSheetsDev = ['base.global.css', 'vendor.global.css']
 
 function getHashedFilename(manifest) {
   return filename => {
@@ -36,8 +37,8 @@ function Page(props: TProps) {
     : scriptsDev
 
   const styles = props.isProd
-    ? styleSheets.map(getHashedFilename(manifest))
-    : styleSheets
+    ? styleSheetsProd.map(getHashedFilename(manifest))
+    : styleSheetsDev
 
   return (
     <Html

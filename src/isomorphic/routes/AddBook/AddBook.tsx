@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue } from '../actions'
-import { Button, SelectizeInput} from '../elements/form'
-import Modal from '../elements/modal'
+import { sendNotification, changeValue } from '../../store/actions'
+import { Button, SelectizeInput} from '../../elements/_form'
+import Modal from '../../elements/Modal'
 import _ from 'lodash'
-import apis from '../utils/apis'
-import { fetchDoubanBooks } from '../utils/apis-third-party'
-import RInput from '../r-elements/r-input'
-import RTextarea from '../r-elements/r-textarea'
+import apis from '../../apis'
+import RInput from '../../elements/_wrapped/RInput'
+import RTextarea from '../../elements/_wrapped/RTextarea'
+
+const fetchDoubanBooks = apis.fetchDoubanBooks
 
 const syls = {
   inputBookName: Symbol('inputBookName'),

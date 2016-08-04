@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button } from '../elements/form'
-import { fetchCollection } from '../actions'
-import BookList from '../components/book-list-section'
+import { Button } from '../../elements/_form'
+import { fetchCollection } from '../../store/actions'
+import BookList from '../../components/BookListSection'
 
 interface Props {
   name: string
@@ -11,7 +11,7 @@ interface Props {
   bookCollection: any
 }
 
-class Collection extends Component<Props, {}> {
+class CollectionDetail extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
@@ -50,4 +50,4 @@ export default connect(
     return { bookCollection: state.entities.bookCollections[ownProps.params.id] }
   },
   { fetchCollection }
-)(Collection as any)
+)(CollectionDetail as any)

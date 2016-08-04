@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Container from '../../elements/layout/container'
+import Container from '../../elements/_layout/Container'
 
 class ConsoleBranding extends Component<any, any> {
 

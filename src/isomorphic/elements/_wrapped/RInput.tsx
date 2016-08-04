@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Input, { Props as InputProps } from '../elements/form/input'
-import { changeValue } from '../actions'
+import Input, { Props as InputProps } from '../_form/Input'
+import { changeValue } from '../../store/actions'
 import _ from 'lodash'
 
 interface Props extends InputProps {

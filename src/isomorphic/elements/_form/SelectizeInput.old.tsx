@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Icon from '../icon'
+import Icon from '../Icon'
 
 
 interface Props {

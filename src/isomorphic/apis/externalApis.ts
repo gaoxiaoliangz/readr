@@ -1,4 +1,4 @@
-import jsonp from './jsonp'
+import jsonp from '../utils/jsonp'
 import ApiRoots from '../config'
 
 export function fetchDoubanBooks(query) {

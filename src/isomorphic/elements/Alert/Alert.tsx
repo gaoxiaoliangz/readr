@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { MsgType } from '../../store/actions/notification'
-import Icon from '../icon'
+import Icon from '../Icon'
 import CSSModules from 'react-css-modules'
 const styles: any = require('./_alert.scss')
 // import classnames from 'classnames'

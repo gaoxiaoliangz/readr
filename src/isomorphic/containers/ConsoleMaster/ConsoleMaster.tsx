@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import Container from '../elements/layout/container'
-import ConsoleBranding from '../components/console-branding'
-import { userAuth, sendNotification } from '../actions'
-import Alert from '../elements/alert'
-import Icon from '../elements/icon'
-import menus from '../content/menus'
+import Container from '../../elements/_layout/Container'
+import ConsoleBranding from '../../components/ConsoleBranding'
+import { userAuth, sendNotification } from '../../store/actions'
+import Alert from '../../elements/Alert'
+import Icon from '../../elements/Icon'
+import menus from '../../content/menus'
 
 interface Props {
   notifications?: any

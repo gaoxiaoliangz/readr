@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Body from '../side-effects/body'
-import apis from '../utils/apis'
-import { sendNotification, fetchBooks } from '../actions'
+import Body from '../../components/Body'
+import apis from '../../apis'
+import { sendNotification, fetchBooks } from '../../store/actions'
 
 interface Props {
   sendNotification?: any

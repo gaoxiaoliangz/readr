@@ -1,4 +1,4 @@
-import handleResponseJson from './handle-response-json'
+import handleResponseJson from './handleResponseJson'
 
 function jsonp(fullUrl, config: { schema?: {} }) {
   if (fullUrl.indexOf('douban') !== -1) {
