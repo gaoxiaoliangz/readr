@@ -1,5 +1,8 @@
 @import "./variables.css";
 
+* {
+  box-sizing: border-box;
+}
 html {
   font-size: var(--font-size-root);
 }
@@ -61,9 +64,9 @@ ul {
 }*/
 
 /* page */
-.pagetitle {
+.page-title {
   margin: 35px 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: var(--text-dark);
 }
@@ -72,6 +75,7 @@ ul {
   margin: 35px 0;
   position: relative;
 }
+
 .page-header > .page-title {
   margin: 0;
   margin-top: 5px;
@@ -150,20 +154,17 @@ ul {
   margin: 0 5px;
 }
 
-/*
+
 .tag {
-  background: $app_base_color;
+  background: var(--blue);
   border-radius: 3px;
   padding: 3px 5px;
   margin: 0 5px 5px 0;
   color: #fff;
   display: inline-block;
-  
-  .icon {
-    margin: 0 5px;
-  }
 }
 
+/*
 .tag-l {
   background: #b7c0c7;
   border-radius: 3px;

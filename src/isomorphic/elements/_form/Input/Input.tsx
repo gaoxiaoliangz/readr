@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import CSSModules from 'react-css-modules'
+const styles = require('./Input.css')
 
 export interface Props {
   className?: string
@@ -9,19 +11,22 @@ export interface Props {
   name?: string
 }
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class Input extends Component<Props, any> {
   constructor(props) {
     super(props)
   }
 
   render() {
-    let className = this.props.className ? `input-wrap ${this.props.className}` : 'input-wrap'
     let props = Object.assign({}, this.props)
     delete props.className
 
     return (
-      <div className={className}>
+      <div styleName="input-wrap" className={this.props.className || ''}>
         <input
+          styleName="input"
           placeholder={this.props.placeholder}
           value={this.props.value}
           onChange={e => {

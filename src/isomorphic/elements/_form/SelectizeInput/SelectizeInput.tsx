@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import Icon from '../Icon'
+import Icon from '../../Icon'
+import classnames from 'classnames'
+import CSSModules from 'react-css-modules'
+const styles = require('./SelectizeInput.css')
 
 type TypeOption = {
   value: string
@@ -13,7 +16,7 @@ type TypeValue = {
   name: string
 }
 
-interface Props {
+interface IProps {
   className?: string
   placeholder?: string
   label?: string
@@ -34,7 +37,17 @@ interface Props {
   onOptionClick?: (selectedValue: TypeOption) => void
 }
 
-class SelectizeInput extends Component<Props, any> {
+interface IState {
+  focus?: boolean
+  showOptions?: boolean
+  value?: string
+  expendedOptionIndex?: number
+}
+
+@CSSModules(styles, {
+  allowMultiple: true
+})
+class SelectizeInput extends Component<IProps, IState> {
 
   input: any
 
@@ -138,18 +151,23 @@ class SelectizeInput extends Component<Props, any> {
     let options = this.props.options ? this.props.options : []
     let inputWidth = values.length > 0 ? (value.length === 0 ? 16 : value.length * 16) : '100%'
     let placeholder = values.length > 0 ? '' : this.props.placeholder
-    let className = 'selectize-input' + (this.state.focus === true ? ' focus' : '') + (values.length === 0 ? ' empty' : '')
     let addNewValue = this.props.addNewValue ? this.props.addNewValue : undefined
 
+    const selectizeInputStyleName = classnames({
+      'selectize-input': true,
+      'selectize-input--focus': this.state.focus,
+      'selectize-input--empty': values.length === 0
+    })
+
     return (
-      <div className={`selectize-input-wrap ${this.props.className ? this.props.className : ''}`.trim()}>
+      <div styleName="selectize-wrap" className={this.props.className || ''}>
         {
           label ? (
             <label className="form-label">{label}</label>
           ) :null
         }
         <div
-          className={className}
+          styleName={selectizeInputStyleName}
           onClick={e => {
             this.focusInput()
             this.showOptions(e)
@@ -158,9 +176,10 @@ class SelectizeInput extends Component<Props, any> {
           {
             values.map((v, index) => {
               return (
-                <span key={index} className="selectize-tag">
+                <span key={index} styleName="selectize-tag">
                   {v.name}
                   <Icon
+                    styleName="icon"
                     size={'small'}
                     name="close"
                     onClick={e => {
@@ -192,7 +211,7 @@ class SelectizeInput extends Component<Props, any> {
         </div>
         {
           (this.state.showOptions) ? (
-            <ul className="selectize-query-results">
+            <ul styleName="query-results">
               {
                 options.map((option, index) => {
                   if (option.disabled) {

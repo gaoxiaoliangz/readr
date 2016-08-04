@@ -4,13 +4,11 @@
   "private": true,
   "scripts": {
     "server": "npm run server.c.h",
-      "preserver.c": "gulp sass",
+    "preserver.c": "gulp sass",
     "server.c": "node bin/server --noServerRendering",
-      "preserver.c.h": "npm run webpack.css & npm run webpack.dll",
+    "preserver.c.h": "npm run webpack.css & npm run webpack.dll",
     "server.c.h": "node bin/server --hmr --noServerRendering",
-    
     "server.s": "npm run webpack.node.w & nodemon --debug bin/server",
-
     "webpack": "webpack --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.chunk.w": "webpack --watch --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.dll": "webpack --progress --config ./webpack/webpack.dll.config.js",
@@ -18,7 +16,6 @@
     "webpack.node.w": "webpack --watch --progress --config ./webpack/webpack.node.config.js",
     "webpack.css": "webpack --progress --config ./webpack/webpack.css.config.js",
     "webpack.css.prod": "webpack --progress --config ./webpack/production-build/webpack.css.prod.config.js",
-    
     "start": "nodemon bin/server --production",
     "build": "npm run webpack.css.prod & npm run webpack.node & npm run webpack",
     "clean.all": "rimraf -- assets/built bin",
@@ -57,6 +54,7 @@
     "react-addons-css-transition-group": "^15.0.1",
     "react-addons-shallow-compare": "^15.0.2",
     "react-dom": "^15.0.1",
+    "react-motion": "^0.4.4",
     "react-redux": "^4.4.0",
     "react-resolver": "^3.0.1",
     "react-router": "^2.0.0",

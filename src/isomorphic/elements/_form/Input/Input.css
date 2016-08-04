@@ -1,0 +1,19 @@
+@import "styles/variables.css";
+
+.input-wrap {
+  margin: 10px 0;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: var(--input-padding) 5px;
+  border: 1px solid var(--gray);
+  transition: border-color .3s;
+  line-height: var(--input-line-height);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--blue);
+}

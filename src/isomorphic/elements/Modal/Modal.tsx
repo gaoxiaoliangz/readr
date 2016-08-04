@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import view from '../../utils/view'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Fade from '../_animations/Fade'
+import CSSModules from 'react-css-modules'
+const styles = require('./Modal.css')
 
 interface Props {
   width: number
@@ -11,6 +13,9 @@ interface Props {
   className?: string
 }
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class Modal extends Component<Props, any> {
 
   refs: {
@@ -67,9 +72,7 @@ class Modal extends Component<Props, any> {
   }
 
   render() {
-    const defaultClass = 'modal'
-
-    let className = this.props.className ? `${defaultClass} ${this.props.className}` : defaultClass
+    const { className } = this.props
 
     let width = this.props.width ? this.props.width : 500
     let height = this.state.modalHeight
@@ -122,7 +125,7 @@ class Modal extends Component<Props, any> {
     return (
       <Fade>
         {
-          isVisible ? (
+          isVisible && (
             <div
               onClick={this.hideModal.bind(this) }
               className="modal-backdrop"
@@ -130,7 +133,8 @@ class Modal extends Component<Props, any> {
               >
               <div
                 style={style.modal}
-                className={className}
+                className={className || ''}
+                styleName="modal"
                 ref="modal"
                 onClick={(e) => {
                   e.stopPropagation()
@@ -139,7 +143,7 @@ class Modal extends Component<Props, any> {
                 {this.props.children}
               </div>
             </div>
-          ) : null
+          )
         }
       </Fade>
     )

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Body from '../../components/Body'
 import apis from '../../apis'
 import { sendNotification, fetchBooks } from '../../store/actions'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./ManageBooks.css')
 
 interface Props {
   sendNotification?: any
@@ -10,6 +12,9 @@ interface Props {
   bookListNewest?: any
 }
 
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class ManageBooks extends Component<Props, any> {
 
   static fetchData({store}) {

@@ -3,6 +3,7 @@
 /// <reference path="globals/normalizr/index.d.ts" />
 /// <reference path="globals/react-addons-css-transition-group/index.d.ts" />
 /// <reference path="globals/react-dom/index.d.ts" />
+/// <reference path="globals/react-motion/index.d.ts" />
 /// <reference path="globals/react-redux/index.d.ts" />
 /// <reference path="globals/react-router-redux/index.d.ts" />
 /// <reference path="globals/react-router/index.d.ts" />

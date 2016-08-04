@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+const styles: any = require('./Fade.css')
 
 class Fade extends Component<any, any> {
   constructor(props) {
     super(props)
   }
 
-  render(){
-    // let className = this.props.className?this.props.className:null
+  render() {
     return (
       <ReactCSSTransitionGroup
         component="div"
-        transitionName="fade"
+        transitionName={styles}
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
-      >
+        >
         {this.props.children}
       </ReactCSSTransitionGroup>
     )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Input, { Props as InputProps } from '../_form/Input'
+import Input, { Props as InputProps } from '../_form/Input/Input'
 import { changeValue } from '../../store/actions'
 import _ from 'lodash'
 

@@ -8,6 +8,7 @@
     "react": "registry:dt/react#0.14.0+20160526134601",
     "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
+    "react-motion": "registry:dt/react-motion#0.0.0+20160705193226",
     "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
     "react-router": "registry:dt/react-router#2.0.0+20160501155536",
     "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160316155526",
