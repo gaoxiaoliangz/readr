@@ -26,11 +26,15 @@ $alert-success-text: #204d33;
   border-radius: 3px;
 }
 
+.content {
+  overflow: hidden;
+}
+
 .alert-close {
   cursor: pointer;
   position: absolute;
   right: 10px;
-  top: 14px;
+  top: 11px;
   display: inline-block;
 }
 

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Container from '../../elements/_layout/Container'
 import ConsoleBranding from '../../components/ConsoleBranding'
 import { userAuth, sendNotification } from '../../store/actions'
-import Alert from '../../elements/Alert'
 import ConsoleSidebar from '../../components/ConsoleSidebar'
 import menus from '../../content/menus'
 import CSSModules from 'react-css-modules'
@@ -34,24 +33,6 @@ class Console extends Component<Props, any> {
       <div>
         <ConsoleBranding isAdmin={isAdmin} username={username} />
         <Container isFluid={true}>
-          {
-            this.props.notifications.filter(noti => noti.visible).length > 0
-              ? (
-                <div className="notifications">
-                  {
-                    this.props.notifications.map((noti, index) => (
-                      <Alert
-                        key={index}
-                        type={noti.type}
-                        message={noti.message}
-                        visible={noti.visible}
-                        />
-                    ))
-                  }
-                </div>
-              )
-              : null
-          }
           <ConsoleSidebar
             menuMapping={menus}
             currentPath={pathname}

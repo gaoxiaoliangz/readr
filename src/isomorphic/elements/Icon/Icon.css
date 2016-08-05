@@ -1,0 +1,11 @@
+:root {
+}
+
+.svg-shape {
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.icon {
+  display: inline-block;
+}

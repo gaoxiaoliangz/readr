@@ -24,8 +24,7 @@ class Root extends Component<IAllProps, IState> {
     return (
       <div className="app-root">
         {
-          this.props.notifications.filter(noti => noti.visible).length > 0
-          ? (
+          this.props.notifications.filter(noti => noti.visible).length > 0 && (
             <Alerts
               onRequestClose={this.props.hideNotification}
               messages={this.props.notifications.map(noti => ({
@@ -33,10 +32,9 @@ class Root extends Component<IAllProps, IState> {
                 type: noti.type,
                 visible: noti.visible,
                 id: noti.id
-              }))}
-            />
+              })) }
+              />
           )
-          : null
         }
         {this.props.children}
       </div>
@@ -45,6 +43,6 @@ class Root extends Component<IAllProps, IState> {
 }
 
 export default connect<{}, {}, IAllProps>(
-  state => ({ notifications: state.components.notifications}),
+  state => ({ notifications: state.components.notifications }),
   { sendNotification, hideNotification }
-)(Root as any)
+)(Root)

@@ -46,30 +46,17 @@
     display: block;
     padding: 0 15px;
     color: #fff;
+    height: var(--item-line-height);
   }
 }
 
-/* todo */
 .icon {
-  width: 100%;
-  height: var(--item-line-height);
-  text-align: center;
-  margin-top: 10px;
-
-  & svg {
-    display: inline-block;
-    width: 30px;
-    margin: 0 auto;
-    text-align: center;
-
-    & path {
-      display: inline-block;
-    }
-  }
+  margin-top: 12px;
 }
 
 .root-item {
   composes: nav-item;
+  text-align: center;
 
   & a:hover {
     background: color(var(--dark-blue) l(+ 10%));

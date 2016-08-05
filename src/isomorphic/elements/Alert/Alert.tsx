@@ -24,14 +24,15 @@ class Alert extends Component<Props, {}> {
           this.props.visible && (
             <div
               styleName={`alert--${type}`}
-            >
-            <div styleName="alert-close">
-              <Icon
-                onClick={this.props.onRequestClose}
-                name="close"
-              />
-            </div>
-              {this.props.message}
+              >
+              <div styleName="alert-close">
+                <Icon
+                  onClick={this.props.onRequestClose}
+                  name="close"
+                  size={15}
+                  />
+              </div>
+              <div styleName="content">{this.props.message}</div>
             </div>
           )
         }

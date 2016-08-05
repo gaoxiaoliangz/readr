@@ -180,7 +180,7 @@ class SelectizeInput extends Component<IProps, IState> {
                   {v.name}
                   <Icon
                     styleName="icon"
-                    size={'small'}
+                    size={20}
                     name="close"
                     onClick={e => {
                       this.removeValue(index)

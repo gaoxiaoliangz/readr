@@ -55,7 +55,7 @@ class ConsoleSidebar extends Component<IProps, IState> {
             return (
               <li key={index} styleName={index !== currentMenu.rootIndex ? 'root-item' : 'root-item--current'}>
                 <Link to={menu.path}>
-                  <Icon styleName="icon" name={menu.component} />
+                  <Icon size={25} styleName="icon" name={menu.component} />
                 </Link>
               </li>
             )
