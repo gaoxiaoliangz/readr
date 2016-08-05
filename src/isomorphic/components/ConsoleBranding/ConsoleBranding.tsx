@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Container from '../../elements/_layout/Container'
-import { Dropdown, DropdownItem } from '../../elements/Dropdown'
+import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
 import CSSModules from 'react-css-modules'
 import Logo from '../Logo'
 // const brandingStyles = require('../Branding/Branding.css')
@@ -35,20 +35,21 @@ class ConsoleBranding extends Component<any, any> {
           <div>
             <Logo to="/console" />
             <div styleName="sub-name">
-              <span styleName="sep">|</span>
               <span styleName="sub">Console</span>
             </div>
             <div styleName="nav right">
               {
                 username ? (
                   <Dropdown
+                    style="dark"
                     title={(
-                      <span>{username}{ isAdmin && <span className="badge-dark">Admin</span> }</span>
+                      <span>{username}{ isAdmin && <span className="badge badge--dark">Admin</span> }</span>
                     ) }
                     >
-                    <DropdownItem><Link to="/">Back to readr</Link></DropdownItem>
+                    <DropdownItem><Link to="/">回到 Readr</Link></DropdownItem>
                     <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
                     <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
+                    <DropdownItemSep />
                     <DropdownItem><a href="/logout">退出</a></DropdownItem>
                   </Dropdown>
                 ) : (

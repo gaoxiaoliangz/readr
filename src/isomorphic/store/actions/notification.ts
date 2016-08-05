@@ -1,5 +1,5 @@
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
-export function sendNotification(message: string, msgType: MsgType = 'success', t: number = 3000) {
+export function sendNotification(message: string, msgType: MsgType = 'success', t = 2000) {
   return (dispatch, getState) => {
     const id = Math.random().toFixed(8).substr(2)
 

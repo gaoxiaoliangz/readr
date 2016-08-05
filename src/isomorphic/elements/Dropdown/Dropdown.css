@@ -1,5 +1,8 @@
-@import "styles/scss/variables";
-$background: black;
+@import "styles/variables.css";
+
+:root {
+  --background: black;
+}
 
 .light-link {
   color: #ddd;
@@ -25,14 +28,13 @@ $background: black;
   font-size: 1rem;
   min-width: 150px;
   text-align: left;
-  background: $background;
+  background: var(--background);
   position: absolute;
   right: 0;
   min-width: 150px;
   overflow: hidden;
   padding: 5px 0;
-  // todo: 添加到 variables
-  z-index: 1000;
+  z-index: var(--z-dropdown-menu);
 }
 
 .dropdown-caret {
@@ -48,39 +50,37 @@ $background: black;
 }
 
 .dropdown-item {
-  @extend .light-link;
-  padding: 5px 0;
+  composes: light-link;
   display: block;
-  padding: 0 10px;
+  padding: 0 25px;
   transition: all 0s;
-  
+
   &:hover {
-    background: lighten($background, 10%);
+    background: color(var(--background) l(+ 10%));
   }
 
   &:active {
-    background: darken($background, 10%);
+    background: color(var(--background) l(- 10%));
   }
 }
 
 .sep {
   margin: 5px 0;
   height: 1px;
-  background: lighten($background, 10%);
+  background: color(var(--background) l(+ 10%));
 }
 
 .dropdown-menu--dark {
-  @extend .dropdown-menu;
-  background: $super_power;
+  composes: dropdown-menu;
+  background: var(--blue);
 
-  .sep {
-    background: lighten($super_power, 5%);
+  & .sep {
+    background: color(var(--blue) l(+ 5%));
   }
 
-  .dropdown-item {
+  & .dropdown-item {
     &:hover {
-      background: $super_power;
-      background: lighten($super_power, 10%);
+      background: color(var(--blue) l(+ 10%));
     }
   }
 }

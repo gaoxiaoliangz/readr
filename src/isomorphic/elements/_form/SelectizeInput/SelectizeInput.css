@@ -40,7 +40,7 @@
   width: 100%;
   box-shadow: var(--shadow-y1);
   background: #fff;
-  z-index: var(--selectize-options);
+  z-index: var(--z-selectize-options);
 }
 
 .query-results li {

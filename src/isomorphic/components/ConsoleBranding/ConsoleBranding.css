@@ -10,14 +10,17 @@
 }
 
 .sep {
-  margin: 0 20px;
+  margin: 0 10px;
   opacity: .6;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .sub {
   opacity: .8;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-top: -3px;
+  display: inline-block;
 }
 
 .right {

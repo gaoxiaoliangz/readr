@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_dropdown.scss')
+// const styles: any = require('./_dropdown.scss')
+const styles: any = require('./Dropdown.css')
 
 interface IProps {
   title: string | JSX.Element
   className?: string
   styleName?: string
+  style?: 'blue' | 'dark'
 }
 
 interface IState {
@@ -66,20 +68,22 @@ class Dropdown extends Component<IProps, IState> {
   }
 
   render() {
-    const { className } = this.props
+    const { className, style } = this.props
 
     return (
-      <div ref={ref => { this.dropdown = ref }} onClick={this.toggleDropdown} styleName="dropdown" className={className || ''}>
+      <div ref={ref => { this.dropdown = ref } } onClick={this.toggleDropdown} styleName="dropdown" className={className || ''}>
         <span styleName="dropdown-toggle">
           {this.props.title} <span styleName="dropdown-caret" />
         </span>
-        <div styleName="dropdown-menu">
-          <ul>
-            {
-              this.state.showMenu ? this.props.children : null
-            }
-          </ul>
-        </div>
+        {
+          this.state.showMenu && (
+            <div styleName={ style === 'dark' ? 'dropdown-menu--dark' : 'dropdown-menu'}>
+              <ul>
+                {this.props.children}
+              </ul>
+            </div>
+          )
+        }
       </div>
     )
   }

@@ -22,12 +22,12 @@ interface IAllProps extends IProps {
   sendNotification: any
 }
 
-interface State {
+interface IState {
   showRecentReading: boolean
 }
 
 @CSSModules(styles)
-class Home extends Component<IAllProps, State> {
+class Home extends Component<IAllProps, IState> {
 
   static fetchData({store}) {
     return store.dispatch(fetchBooks())
@@ -66,7 +66,6 @@ class Home extends Component<IAllProps, State> {
     return (
       <div>
         <Body className="home" />
-        <Button onClick={this.props.sendNotification.bind(this, '测试22222', 'success', 0)}>测试 Alert</Button>
         <div className="row">
           {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
