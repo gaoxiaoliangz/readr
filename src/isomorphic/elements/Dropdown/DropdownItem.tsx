@@ -1,5 +1,4 @@
 import React from 'react'
-// const styles = require('./_dropdown.scss')
 const styles = require('./Dropdown.css')
 
 type TProps = {

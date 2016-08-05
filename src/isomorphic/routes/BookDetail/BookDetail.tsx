@@ -6,7 +6,7 @@ import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import Body from '../../components/Body'
 import CSSModules from 'react-css-modules'
-const styles = require('./_book-detail.scss')
+const styles = require('./BookDetail.css')
 
 @CSSModules(styles, {
   allowMultiple: true
@@ -70,7 +70,7 @@ class BookInfo extends Component<any, any> {
         {
           bookInfo.description ? (
             <div>
-              <h2>内容简介</h2>
+              <h2 styleName="desc">内容简介</h2>
               <p>{bookInfo.description}</p>
             </div>
           ) : null

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-// const styles: any = require('./_dropdown.scss')
 const styles: any = require('./Dropdown.css')
 
 interface IProps {

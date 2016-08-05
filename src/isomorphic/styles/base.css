@@ -130,14 +130,14 @@ ul {
   margin: 0 auto;
   position: relative;
 }
-/*.content-container {
-  width: $best_reading_width;
+.content-container {
+  width: var(--reading-width);
   margin: 0 auto;
-  @include phone {
+  /*@include phone {
     width: 100%;
-  }
-}*/
-.text-overflow-hidden {
+  }*/
+}
+.text-overflow {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
