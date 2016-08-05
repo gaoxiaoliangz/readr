@@ -8,6 +8,7 @@ import Body from '../../components/Body'
 import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
+import CollectionSection from '../../components/CollectionSection'
 const styles = require('./_app-home.scss')
 
 interface IProps {
@@ -76,20 +77,21 @@ class Home extends Component<IAllProps, IState> {
               </div>
             ) : null
           }
-          <div className="col-md-8">
+          <div className="col-md-12">
             <BookListSection bookEntities={newestBooks} title="新书速递" />
             <BookListSection
               bookEntities={list}
               title={listName}
               moreLink={`/collections/${this.props.collection ? this.props.collection.id : ''}`}
             />
+            <CollectionSection title="书单" list={[{name: 'aaa', id: '3223', cover: 'fiejfi'}]} />
             <Link className="view-more" to="/collections">浏览更多书单</Link>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-12">
             {
-              this.state.showRecentReading ? (
+              this.state.showRecentReading && (
                 <CandyBox title="最近阅读" list={[]} />
-              ) : null
+              )
             }
           </div>
         </div>

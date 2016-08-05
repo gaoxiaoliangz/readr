@@ -2,16 +2,16 @@
 
 .book-list-section {
   position: relative;
+}
 
-  & .more {
-    position: absolute;
-    right: 0;
-    top: 0;
-    line-height: 32px;
-  }
+.more {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 32px;
 }
 
 .section-title {
   composes: page-title from "styles/base.css";
-  margin-top: 20px;
+  margin-bottom: 10px;
 }

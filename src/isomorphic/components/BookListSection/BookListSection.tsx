@@ -27,7 +27,7 @@ class BookListSection extends Component<IProps, {}> {
         }
         {
           moreLink ? (
-            <Link className="more" to={moreLink}>查看更多</Link>
+            <Link styleName="more" to={moreLink}>查看更多</Link>
           ) : null
         }
         <BookList bookEntities={this.props.bookEntities} />
