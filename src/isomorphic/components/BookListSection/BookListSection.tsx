@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import BookList from '../BookList'
 import CSSModules from 'react-css-modules'
-const styles = require('./_book-list-section.scss')
+const styles = require('./BookListSection.css')
 
-interface Props {
+interface IProps {
   bookEntities: any
   title?: string
   moreLink?: string
@@ -13,17 +13,16 @@ interface Props {
 @CSSModules(styles, {
   allowMultiple: true
 })
-class BookListSection extends Component<Props, any> {
+class BookListSection extends Component<IProps, {}> {
   render() {
-
     let title = this.props.title
     let moreLink = this.props.moreLink ? this.props.moreLink : null
 
     return (
-      <div className="book-list-section">
+      <div styleName="book-list-section">
         {
           this.props.title && (
-            <h2 className="section-title">{title}</h2>
+            <h2 styleName="section-title">{title}</h2>
           )
         }
         {

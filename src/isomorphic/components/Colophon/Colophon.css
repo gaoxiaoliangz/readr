@@ -1,0 +1,9 @@
+@import "styles/variables.css";
+
+.colophon {
+  margin-top: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  padding: 20px 0;
+  color: var(--text-light);
+}
