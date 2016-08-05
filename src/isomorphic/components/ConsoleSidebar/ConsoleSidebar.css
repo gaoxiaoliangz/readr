@@ -41,22 +41,39 @@
 .nav-item {
   height: var(--item-line-height);
   line-height: var(--item-line-height);
+
+  & a {
+    display: block;
+    padding: 0 15px;
+    color: #fff;
+  }
 }
 
-.nav-item a {
-  display: block;
-  padding: 0 15px;
-  box-sizing: border-box;
-}
-
+/* todo */
 .icon {
   width: 100%;
   height: var(--item-line-height);
-  color: #fff;
+  text-align: center;
+  margin-top: 10px;
+
+  & svg {
+    display: inline-block;
+    width: 30px;
+    margin: 0 auto;
+    text-align: center;
+
+    & path {
+      display: inline-block;
+    }
+  }
 }
 
 .root-item {
   composes: nav-item;
+
+  & a:hover {
+    background: color(var(--dark-blue) l(+ 10%));
+  }
 }
 
 .root-item--current {
@@ -64,24 +81,23 @@
   background: var(--blue);
 }
 
-.root-item--current .icon {
-  color: #fff;
-}
-
 .sub-item {
-  background: #D8D8D8;
   composes: nav-item;
+
+  & a {
+    color: var(--text);
+  }
+  & a:hover {
+    background: gray(200);
+  }
 }
 
 .sub-item--current {
   composes: sub-item;
-  background: #fff;
-}
 
-.sub-item--current > a {
-  color: blue;
-}
-
-.sub-item a {
-  color: $text_n;
+  & a,
+  & a:hover {
+    color: var(--blue);
+    background: #fff;
+  }
 }

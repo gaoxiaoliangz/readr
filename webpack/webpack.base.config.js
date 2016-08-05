@@ -20,7 +20,7 @@ const paths = {
   server: path.join(pathPrefix, 'src/server'),
   built: path.join(pathPrefix, 'assets/built')
 }
-const cssLocalIdentName = '[name]__[local]__[hash:base64:5]'
+const cssLocalIdentName = '[local]_[hash:base64:5]'
 const imageName = './img/[name].[hash:10].[ext]'
 
 // 暴露到全局变量的名称

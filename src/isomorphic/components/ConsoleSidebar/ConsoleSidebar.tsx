@@ -32,10 +32,10 @@ class ConsoleSidebar extends Component<IProps, IState> {
       subIndex: 0
     }
 
-    menuMapping.forEach((item, rootIndex) => {
+    menuMapping.forEach((menu, rootIndex) => {
       let subIndex
 
-      let result = item.subMenu.filter((item, index) => {
+      let result = menu.subMenu.filter((item, index) => {
         if (item.path === currentPath) {
           subIndex = index
           return true
@@ -53,8 +53,8 @@ class ConsoleSidebar extends Component<IProps, IState> {
         {
           menuMapping.map((menu, index) => {
             return (
-              <li key={index} styleName={index !== currentMenu.subIndex ? 'root-item' : 'root-item--current'}>
-                <Link to={`/${menu.path}`}>
+              <li key={index} styleName={index !== currentMenu.rootIndex ? 'root-item' : 'root-item--current'}>
+                <Link to={menu.path}>
                   <Icon styleName="icon" name={menu.component} />
                 </Link>
               </li>
@@ -70,7 +70,7 @@ class ConsoleSidebar extends Component<IProps, IState> {
           menuMapping[currentMenu.rootIndex].subMenu.map((menu, index) => {
             return (
               <li key={index} styleName={index !== currentMenu.subIndex ? 'sub-item' : 'sub-item--current'}>
-                <Link to={`/${menu.path}`}>{menu.displayName}</Link>
+                <Link to={menu.path}>{menu.displayName}</Link>
               </li>
             )
           })

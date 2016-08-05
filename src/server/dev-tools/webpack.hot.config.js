@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const base = require('./webpack.base.config')
+const base = require('../../../webpack/webpack.base.config')
 const paths = base.vars.paths
 const hot = base.vars.hot
 
