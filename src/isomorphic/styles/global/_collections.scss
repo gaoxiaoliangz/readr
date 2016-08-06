@@ -1,0 +1,26 @@
+.page-collections {
+  width: 100%;
+
+  & a {
+    color: red;
+  }
+}
+
+  .collection-item {
+    border-top: 1px solid gray;
+    border-bottom: none;
+  }
+
+
+/*.covers {
+  overflow: hidden;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+
+  & li {
+    float: left;
+    margin: 0 10px;
+  }
+}*/
+

@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import BookInfoPopup from '../BookInfoPopup'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-const styles = require('./Book.css')
+const styles = require('./Book.scss')
 
 interface IProps {
   title: string

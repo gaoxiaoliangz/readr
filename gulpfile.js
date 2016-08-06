@@ -22,11 +22,12 @@ const sourcemaps = require('gulp-sourcemaps')
 const dirBuilt = 'assets/built'
 const dirSrc = 'src'
 const paths = {
+  isomorphic: `${dirSrc}/isomorphic`,
   src: {
     root: dirSrc,
     client: `${dirSrc}/client/**/*.*`,
     css: [`${dirSrc}/isomorphic/styles/**/*.css`],
-    scss: [`${dirSrc}/client/shared/scss/**/**/*.scss`],
+    scss: [`${dirSrc}/isomorphic/styles/**/*.scss`],
     img: [`${dirSrc}/client/shared/img/**/*.*`],
     fonts: [`${dirSrc}/client/shared/fonts/*`],
   },
@@ -72,7 +73,7 @@ gulp.task('sass', () => {
     .pipe(gulp.dest(paths.built.root))
 })
 
-gulp.task('watch-sass', () => {
+gulp.task('sass.w', () => {
   gulp.watch(paths.src.scss, ['sass'])
 })
 

@@ -243,6 +243,18 @@ module.exports = {
         require('postcss-cssnext')
       ]
     },
+    // postcss: () => {
+    //   return [
+    //     require('postcss-import')({
+    //       path: [
+    //         paths.isomorphic
+    //       ]
+    //     }),
+    //     require('postcss-calc'),
+    //     require('postcss-custom-properties'),
+    //     require('postcss-apply'),
+    //   ]
+    // },
     sassLoader: {
       // 用于 scss 文件里 import 其它文件
       includePaths: [

@@ -12,6 +12,7 @@
 }
 
 .section-title {
-  composes: page-title from "styles/base.css";
+  /*composes: page-title from "styles/base.css";*/
+  /* todo */
   margin-bottom: 10px;
 }

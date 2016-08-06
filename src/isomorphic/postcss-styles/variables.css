@@ -8,7 +8,6 @@
   --dark-blue: #04082E;
   --gray: #ddd;
 
-
   --branding-height: 60px;
   --sidebar-width: 300px;
   --input-line-height: 25px;
@@ -32,4 +31,9 @@
   /* z-index */
   --z-selectize-options: 900;
   --z-dropdown-menu: 900;
+
+  /* defined styles */
+  /*--light-link: {
+    color: #fff;
+  };*/
 }

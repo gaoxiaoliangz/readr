@@ -4,7 +4,7 @@ import { Container } from '../../elements/_layout'
 import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
 import Logo from '../Logo'
 import CSSModules from 'react-css-modules'
-const styles = require('./Branding.css')
+const styles = require('./Branding.scss')
 
 @CSSModules(styles, {
   allowMultiple: true

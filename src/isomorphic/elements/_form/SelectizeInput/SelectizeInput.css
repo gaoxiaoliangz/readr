@@ -55,7 +55,8 @@
 
 .selectize-tag {
   /*@extend .tag;*/
-  composes: tag from "styles/base.css";
+  /*composes: tag from "styles/base.css";*/
+  /* todo */
   background: var(--blue);
   cursor: pointer;
 }

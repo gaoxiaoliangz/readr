@@ -21,7 +21,8 @@
 }
 
 .title {
-  composes: page-title from "styles/base.css";
+  /*composes: page-title from "styles/base.css";*/
+  /* todo */
   margin: 30px 0 10px 0;
 }
 

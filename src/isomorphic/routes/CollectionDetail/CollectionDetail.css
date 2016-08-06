@@ -3,7 +3,8 @@
 }
 
 .title {
-  composes: page-title from "styles/base.css";
+  /*composes: page-title from "styles/base.css";*/
+  /* todo */
   margin-top: 0;
   padding-top: 30px;
   color: #fff;

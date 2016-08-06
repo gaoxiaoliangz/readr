@@ -34,5 +34,6 @@
 }
 
 .nav {
-  composes: nav from '../Branding/Branding.css'
+  color: #fff;
+  /*composes: nav from '../Branding/Branding.css'*/
 }
