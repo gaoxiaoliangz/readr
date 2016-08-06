@@ -1,9 +1,6 @@
-// @import "styles/variables.css";
-@import "./_utils.scss";
+@import "styles/_variables";
 
 $width: 134px;
-$light-text: #666;
-$dark-text: #333;
 
 .book {
   float: left;
@@ -38,24 +35,18 @@ $dark-text: #333;
   line-height: 1.5;
   margin-left: 17px;
   width: $width;
-  /*composes: text-overflow from "styles/base.css";*/
-  /* todo */
   @extend %text-overflow;
 }
 
 .book-name {
   composes: meta-item;
   font-size: 1.3rem;
-  color: $dark-text;
+  color: $text-dark;
 }
 
 .book-author {
   composes: meta-item;
-  color: $light-text;
-}
-
-.fuck {
-  background: red;
+  color: $text-light;
 }
 
 .book-cover {
@@ -64,7 +55,7 @@ $dark-text: #333;
   width: $width;
   height: 184px;
   top: 0;
-  background: url(static/img/shadow.png) no-repeat top;
+  background: url("static/img/shadow.png") no-repeat top;
   transition: all 0.2s ease 0s;
   position: relative;
   
@@ -81,6 +72,5 @@ $dark-text: #333;
 
   &:hover {
     top: -7px;
-    @extend .fuck;
   }
 }

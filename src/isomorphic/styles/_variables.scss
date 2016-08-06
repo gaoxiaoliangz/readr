@@ -1,8 +1,54 @@
 // config
 $enable-hover-media-query: false !default;
 $enable-rounded: true !default;
-$font_size_root: 16px;
 
+
+// colors
+$text: #666;
+$text-dark: #333;
+$text-light: #999;
+$blue: #1B267F;
+$shiny-blue: #1B267F;
+$dark-blue: #04082E;
+$gray: #ddd;
+
+// layout
+$root-font-size: 16px;
+$branding-height: 60px;
+$sidebar-width: 300px;
+$input-line-height: 25px;
+$input-padding: 5px;
+$reading-width: 700px;
+
+$border-radius: 3px;
+$font-family: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+$font-family-mono: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+$shadow-z1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-z2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$shadow-z3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+$shadow-z4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+$shadow-z5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+$shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32);
+
+// z-index
+$z-selectize-options: 900;
+$z-dropdown-menu: 900;
+
+// defined styles
+%text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+
+
+
+
+
+// legacy variables
+$font_size_root: 16px;
 
 // colors
 $app_base_color: #1b1b1b;
@@ -39,13 +85,3 @@ $zindex-exp: 990 !default;
 $sans_font: Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
 $sans_font_ie: "Microsoft Yahei", Arial, sans-serif;
 $serif_font: "Droid serif", georgia, serif;
-
-
-// other
-$shadow-z1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-$shadow-z2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-$shadow-z3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-$shadow-z4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-$shadow-z5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-
-$shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32);

@@ -3,7 +3,11 @@
 :root {
   --cover-size: 100px;
   --light-link: {
-    color: red;
+    color: #fff;
+
+    &:hover {
+      color: #ddd;
+    }
   };
   --dark: {
     color: var(--text);
@@ -14,7 +18,7 @@
   width: 100%;
   min-height: 200px;
   position: relative;
-  border-bottom: 1px solid gray(50);
+  border-bottom: 1px solid color(var(--dark-blue) l(- 10%));
   padding: 0 0 30px 0;
 }
 
@@ -54,7 +58,6 @@
 }
 
 .link {
-  /*composes: light-link from 'styles/global/common.css'*/
   @apply --light-link;
 }
 
@@ -64,9 +67,7 @@
 }
 
 .title {
-  /*composes: page-title from "styles/global/common.css";*/
-  /* todo */
-  @apply --light-link;
+  composes: page-title from "styles/_common.scss";
   color: #fff;
 }
 
