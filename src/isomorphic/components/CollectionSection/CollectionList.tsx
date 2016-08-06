@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-import CollectionItem, { IProps as ICollectionItemProps } from './CollectionItem'
+import CollectionItem, { ICollectionEntity } from './CollectionItem'
 const styles: any = require('./Collection.css')
 
 export interface IProps {
-  list: ICollectionItemProps[]
+  list: ICollectionEntity[]
+  style?: 'dark' | 'light'
+  maxWidth?: number
 }
 
 interface IState {
@@ -21,14 +23,14 @@ class CollectionList extends Component<IProps, IState> {
   }
 
   render() {
-    const { list } = this.props
+    const { list, style, maxWidth } = this.props
 
     return (
-      <div styleName="list">
+      <div styleName="list" className="clearfix">
         {
           list.map((item, index) => {
             return (
-              <CollectionItem key={index} {...item} />
+              <CollectionItem maxWidth={maxWidth} style={style} key={index} {...item} />
             )
           })
         }

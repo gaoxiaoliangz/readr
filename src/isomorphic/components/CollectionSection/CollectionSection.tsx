@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
+import { Link } from 'react-router'
+import { Container } from '../../elements/_layout'
 import CollectionList from './CollectionList'
-import { IProps as ICollectionItemProps } from './CollectionItem'
+import { ICollectionEntity } from './CollectionItem'
 const styles: any = require('./Collection.css')
 
 interface IProps {
-  list: ICollectionItemProps[]
+  list: ICollectionEntity[]
   title: string
 }
 
@@ -26,9 +28,12 @@ class CollectionSection extends Component<IProps, IState> {
     const { list, title } = this.props
 
     return (
-      <div>
-        <h2 styleName="title">{title}</h2>
-        <CollectionList list={list} />
+      <div styleName="section">
+        <Container>
+          <h2 styleName="title">{title}</h2>
+          <CollectionList list={list} />
+          <Link styleName="view-more" to="/collections">浏览更多书单</Link>
+        </Container>
       </div>
     )
   }

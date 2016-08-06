@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchCollections } from '../../store/actions'
+import { Container } from '../../elements/_layout'
+import { CollectionList } from '../../components/CollectionSection'
+import { Link } from 'react-router'
 
 interface Props {
   fetchCollections: any
@@ -18,22 +21,22 @@ class Collections extends Component<Props, {}> {
   }
 
   render() {
+    let { newestCollections } = this.props
+
+    let list = newestCollections
+      .map(item => ({
+        name: item.name,
+        id: item.id,
+        bookCovers: item.items.map(book => book.refData.cover),
+        description: item.description
+      }))
+
     return (
-      <div className="archived-collection">
-        <div className="page-title">往期书单</div>
-        <ul>
-          {
-            this.props.newestCollections.length !== 0
-              && this.props.newestCollections.map((coll, index) => {
-                return (
-                  <li key={index}>
-                    <h2>{coll.name}</h2>
-                    <p>{coll.description}</p>
-                  </li>
-                )
-              })
-          }
-        </ul>
+      <div className="page-collections">
+        <div style={{maxWidth: 800, margin: '0 auto'}}>
+          <h2 className="page-title">往期书单</h2>
+        </div>
+        <CollectionList maxWidth={800} style="dark" list={list} />
         <div className="page-load-more">加载更多</div>
       </div>
     )

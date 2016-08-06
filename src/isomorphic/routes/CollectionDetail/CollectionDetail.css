@@ -1,0 +1,10 @@
+.header {
+  background: black;
+}
+
+.title {
+  composes: page-title from "styles/base.css";
+  margin-top: 0;
+  padding-top: 30px;
+  color: #fff;
+}

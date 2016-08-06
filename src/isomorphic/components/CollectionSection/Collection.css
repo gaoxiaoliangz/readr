@@ -2,27 +2,95 @@
 
 :root {
   --cover-size: 100px;
+  --light-link: {
+    color: #fff;
+  };
+  --dark: {
+    color: var(--text);
+  };
 }
 
-.cover {
-  width: var(--cover-size);
-  height: var(--cover-size);
-  background: var(--blue);
+.item {
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+  border-bottom: 1px solid gray(50);
+  padding: 0 0 30px 0;
+}
+
+.item--light {
+  composes: item;
+}
+
+.section {
+  background: var(--dark-blue);
+  overflow: hidden;
+  margin: 40px 0;
+}
+
+.covers {
+  overflow: hidden;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+
+  & li {
+    float: left;
+    margin: 0 10px;
+
+    & img {
+      max-width: 70px;
+      box-shadow: var(--shadow-y1);
+      overflow: hidden;
+      border-radius: 3px;
+    }
+  }
 }
 
 .name {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 1em;
+}
+
+.link {
+  composes: light-link from 'styles/global/common.css'
+}
+
+.desc {
+  color: gray(180);
   font-size: 1rem;
-  color: var(--text);
 }
 
 .title {
-  composes: page-title from "styles/base.css";
+  composes: page-title from "styles/global/common.css";
+  color: #fff;
 }
 
 .list {
   width: 100%;
 }
 
-.item {
-  width: 100%;
+.view-more {
+  margin: 20px 0;
+  display: inline-block;
+  composes: link;
+}
+
+/* style 2 */
+.item--dark {
+  composes: item;
+  border-color: var(--gray);
+
+  & .link {
+    color: var(--text-dark);
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+
+  & .desc {
+    @apply --dark;
+  }
 }

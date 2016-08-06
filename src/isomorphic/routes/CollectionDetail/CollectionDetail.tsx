@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { Button } from '../../elements/_form'
 import { fetchCollection } from '../../store/actions'
 import BookList from '../../components/BookListSection'
+import { Container } from '../../elements/_layout'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./CollectionDetail.css')
 
 interface Props {
   name: string
@@ -11,6 +14,7 @@ interface Props {
   bookCollection: any
 }
 
+@CSSModules(styles)
 class CollectionDetail extends Component<Props, {}> {
 
   constructor(props) {
@@ -29,16 +33,20 @@ class CollectionDetail extends Component<Props, {}> {
 
     return (
       <div className="collection">
-        <div className="page-header">
-          <div className="page-title">{bookCollection.name}</div>
-          <div className="sub-title">10 本书</div>
-          <div className="book-slider">
-            <BookList bookEntities={items} />
-          </div>
-          <Button>收藏</Button>
+        <div styleName="header">
+          <Container>
+            <div styleName="title">{bookCollection.name}</div>
+            <div className="sub-title">10 本书</div>
+            <div className="book-slider">
+              <BookList bookEntities={items} />
+            </div>
+            <Button>收藏</Button>
+          </Container>
         </div>
         <div className="page-content">
-          <p>{bookCollection.description}</p>
+          <Container>
+            <p>{bookCollection.description}</p>
+          </Container>
         </div>
       </div>
     )

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
-import { Container } from '../elements/_layout'
 import Colophon from '../components/Colophon'
 import { userAuth } from '../store/actions'
 import _ from 'lodash'
@@ -31,9 +30,7 @@ class AppCommon extends Component<any, any> {
     return (
       <div>
         <Branding isAdmin={isAdmin} username={username} />
-        <Container>
-          {this.props.children}
-        </Container>
+        {this.props.children}
         <Colophon />
       </div>
     )

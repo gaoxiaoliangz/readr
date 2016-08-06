@@ -6,6 +6,7 @@ const webpackConfig = require('./webpack.config.js')
 const rev = require('gulp-rev')
 const mergeStream = require('merge-stream')
 const cleanCSS = require('gulp-clean-css')
+const postcss = require('gulp-postcss')
 // const uglify = require('gulp-uglify')
 // const _ = require('lodash')
 // const ts = require('gulp-typescript')
@@ -24,6 +25,7 @@ const paths = {
   src: {
     root: dirSrc,
     client: `${dirSrc}/client/**/*.*`,
+    css: [`${dirSrc}/isomorphic/styles/**/*.css`],
     scss: [`${dirSrc}/client/shared/scss/**/**/*.scss`],
     img: [`${dirSrc}/client/shared/img/**/*.*`],
     fonts: [`${dirSrc}/client/shared/fonts/*`],
@@ -37,22 +39,22 @@ const paths = {
 
 
 // streams /////////////////////////////////////////////////////////////////////
-const webpackChunkStream = () => {
-  return gulp.src('entry')
-    .pipe(webpackStream(Object.assign({}, webpackConfig, {
-      plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"production"'
-        })
-      ]
-    })))
-}
+// const webpackChunkStream = () => {
+//   return gulp.src('entry')
+//     .pipe(webpackStream(Object.assign({}, webpackConfig, {
+//       plugins: [
+//         new webpack.optimize.OccurenceOrderPlugin(),
+//         new webpack.DefinePlugin({
+//           'process.env.NODE_ENV': '"production"'
+//         })
+//       ]
+//     })))
+// }
 
-const scriptStream = () => { 
-  return webpackChunkStream()
-    // .pipe(uglify())
-}
+// const scriptStream = () => { 
+//   return webpackChunkStream()
+//     // .pipe(uglify())
+// }
 
 const cssStream = () => {
   return gulp
@@ -86,14 +88,27 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest(paths.built.fonts))
 })
 
-gulp.task('build', () => {
-  const revd = mergeStream(scriptStream(), cssStream())
-    .pipe(rev())
-    .pipe(gulp.dest(paths.built.root))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest(paths.built.root))
+// gulp.task('build', () => {
+//   const revd = mergeStream(scriptStream(), cssStream())
+//     .pipe(rev())
+//     .pipe(gulp.dest(paths.built.root))
+//     .pipe(rev.manifest())
+//     .pipe(gulp.dest(paths.built.root))
 
-  return revd
+//   return revd
+// })
+
+gulp.task('css', () => {
+  return gulp.src(paths.src.css)
+    .pipe(postcss([
+      require('postcss-import')({
+        path: [
+          paths.isomorphic
+        ]
+      }),
+      require('postcss-cssnext')
+    ]))
+    .pipe(gulp.dest(paths.built.root))
 })
 
 gulp.task('default', ['images', 'fonts', 'sass'])

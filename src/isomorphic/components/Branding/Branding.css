@@ -41,7 +41,7 @@
 
 .nav-link {
   padding: 0 5px;
-  composes: light-link from 'styles/base.css'
+  composes: light-link from 'styles/global/common.css'
 }
 
 .nav-item {

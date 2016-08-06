@@ -1,0 +1,156 @@
+.light-link {
+  color: #fff;
+}
+.light-link:hover {
+  color: #aaa;
+}
+
+/* link */
+/*.text-link {
+  color: $text_n;
+  &:hover {
+   color: $link_n;
+  }
+}
+
+.dark-link {
+  color: $text_n;
+
+  &:hover {
+   color: $text_d;
+  }
+}*/
+
+/* page */
+.page-title {
+  margin: 35px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.page-header {
+  margin: 35px 0;
+  position: relative;
+}
+
+.page-header > .page-title {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  line-height: 46px;
+}
+
+.page-content {
+  width: 700px;
+  margin: 0 auto;
+}
+
+/* todo */
+.page-load-more {
+  border: 1px solid var(--gray);
+  width: 80%;
+  margin: 30px auto;
+  padding: 6px 0;
+  text-align: center;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+
+
+/* layout */
+.sep {
+  margin: 0 5px;
+  color: var(--gray);
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.hidden {
+  display: none;
+}
+.clearfix:after {
+  content: " ";
+  clear: both;
+  display: table;
+}
+.center {
+  text-align: center;
+}
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+}
+.content-container {
+  width: var(--reading-width);
+  margin: 0 auto;
+  /*@include phone {
+    width: 100%;
+  }*/
+}
+.text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* styled */
+.badge {
+  /*background: lighten($super_power, 40%);*/
+  background: var(--blue);
+  border-radius: 3px;
+  padding: 3px 4px;
+  font-size: 0.8rem;
+  /*color: lighten($super_power, 50%);*/
+  color: #fff;
+  margin: 0 5px;
+}
+
+.badge--dark {
+  composes: badge;
+  background: black;
+}
+
+
+.tag {
+  background: var(--blue);
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: 0 5px 5px 0;
+  color: #fff;
+  display: inline-block;
+}
+
+/*
+.tag-l {
+  background: #b7c0c7;
+  border-radius: 3px;
+  padding: 6px 20px;
+  margin: 0 15px 15px 0;
+  color: #fff;
+  display: inline-block;
+  
+  .icon {
+    margin: 0 5px;
+  }
+}
+
+.circled {
+  min-width: 19px;
+  height: 19px;
+  box-sizing: border-box;
+  padding: 1px 4px 0;
+  line-height: 19px;
+  background: #00bcd5;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+}*/

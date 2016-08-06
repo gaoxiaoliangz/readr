@@ -9,6 +9,7 @@ import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import CollectionSection from '../../components/CollectionSection'
+import { Container } from '../../elements/_layout'
 const styles = require('./_app-home.scss')
 
 interface IProps {
@@ -19,7 +20,7 @@ interface IAllProps extends IProps {
   fetchCollections: any
   session: any
   newestBooks: any
-  collection: any
+  bookCollections: any
   sendNotification: any
 }
 
@@ -58,11 +59,15 @@ class Home extends Component<IAllProps, IState> {
   }
 
   render() {
-    let newestBooks = this.props.newestBooks
-    let listName = this.props.collection ? this.props.collection.name : ''
-    let list = this.props.collection ? this.props.collection.items
-      .filter(item => Boolean(item.refData))
-      .map(item => item.refData) : []
+    let { newestBooks, bookCollections } = this.props
+
+    bookCollections = bookCollections
+      .map(item => ({
+        name: item.name,
+        id: item.id,
+        bookCovers: item.items.map(book => book.refData.cover),
+        description: item.description
+      }))
 
     return (
       <div>
@@ -72,28 +77,26 @@ class Home extends Component<IAllProps, IState> {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
               <div className="hero-image">
                 <div className="logo">Readr</div>
-                <div className="page-title">new</div>
+                <div className="page-title">new </div>
                 <Button to="/signup">注册</Button>
               </div>
             ) : null
           }
-          <div className="col-md-12">
-            <BookListSection bookEntities={newestBooks} title="新书速递" />
-            <BookListSection
-              bookEntities={list}
-              title={listName}
-              moreLink={`/collections/${this.props.collection ? this.props.collection.id : ''}`}
-            />
-            <CollectionSection title="书单" list={[{name: 'aaa', id: '3223', cover: 'fiejfi'}]} />
-            <Link className="view-more" to="/collections">浏览更多书单</Link>
-          </div>
-          <div className="col-md-12">
-            {
-              this.state.showRecentReading && (
-                <CandyBox title="最近阅读" list={[]} />
-              )
-            }
-          </div>
+          <Container>
+            <div className="col-md-12">
+              <BookListSection bookEntities={newestBooks} title="新书速递" />
+            </div>
+          </Container>
+          <CollectionSection title="书单" list={bookCollections} />
+          <Container>
+            <div className="col-md-12">
+              {
+                this.state.showRecentReading && (
+                  <CandyBox title="最近阅读" list={[]} />
+                )
+              }
+            </div>
+          </Container>
         </div>
       </div>
     )
@@ -108,11 +111,14 @@ function mapStateToProps(state, ownProps) {
       : [],
     session: state.session,
     // todo: collection pagination
-    collection: (() => {
-      for (let prop in state.entities.bookCollections) {
-        return state.entities.bookCollections[prop]
-      }
-    })()
+    // collection: (() => {
+    //   for (let prop in state.entities.bookCollections) {
+    //     return state.entities.bookCollections[prop]
+    //   }
+    // })()
+    bookCollections: state.pagination.bookCollections.newest
+      ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id])
+      : []
   }
 }
 

@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: var(--font-size-root);
+}
+body {
+  font-size: 1rem;
+  font-family: var(--font-family);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: rgba(47, 141, 246, .3);
+  color: var(--text);
+  text-shadow: none;
+}
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+a {
+  color: var(--blue);
+  transition: all .2s ease-in;
+}
+a:hover {
+  color: var(--text);
+}
+a:active {
+  color: var(--text-dark);
+  transition: all 0s;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
