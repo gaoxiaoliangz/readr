@@ -10,7 +10,7 @@ const styles = require('./Colophon.css')
 class Colophon extends Component<any, any> {
   render() {
     return (
-      <div styleName="colophon">
+      <div className="colophon" styleName="colophon">
         <Container>
           <p>© 2015－2016 readrweb.com, all rights reserved</p>
         </Container>

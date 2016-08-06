@@ -70,8 +70,7 @@ class Home extends Component<IAllProps, IState> {
       }))
 
     return (
-      <div>
-        <Body className="home" />
+      <Body bodyClass="home">
         <div className="row">
           {
             this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
@@ -98,7 +97,7 @@ class Home extends Component<IAllProps, IState> {
             </div>
           </Container>
         </div>
-      </div>
+      </Body>
     )
   }
 }

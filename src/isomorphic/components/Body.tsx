@@ -1,25 +1,32 @@
 import React, { Component } from 'react'
 import withSideEffect from 'react-side-effect'
-// const withSideEffect = require('react-side-effect')
 
 interface BodyProps {
-  className: string
+  className?: string
+  styleName?: string
+  bodyClass: string
 }
 
-class Body extends Component<BodyProps, any> {
+class Body extends Component<BodyProps, {}> {
   render() {
-    return <div className="react-body-class hidden"></div>
+    const { className } = this.props
+
+    return (
+      <div className={className || ''}>
+        {this.props.children}
+      </div>
+    )
   }
 }
 
 function reducePropsToState(propsList) {
-  let className
+  let bodyClass
 
   propsList.forEach(function (props) {
-    className = props.className
+    bodyClass = props.bodyClass
   })
 
-  return className
+  return bodyClass
 }
 
 function handleStateChangeOnClient(className) {
