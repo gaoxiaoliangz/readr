@@ -55,14 +55,11 @@ class BookInfo extends Component<any, any> {
               <strong>作者：{bookInfo.author ? bookInfo.author.map(a => a.refData ? a.refData.name : '').join(', ') : ''}</strong>
             </div>
             {
-              bookInfo.title ? (
+              bookInfo.title && (
                 <div>
                   <Button to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
-                  <Button>添加到书架</Button>
-                  <Button>标记为已读</Button>
-                  <Button>收藏</Button>
                 </div>
-              ) : null
+              )
             }
             {/*<p><a target="_blank" href={`http://book.douban.com/subject/${bookInfo.book_id}`}>在豆瓣查看</a></p>*/}
           </div>

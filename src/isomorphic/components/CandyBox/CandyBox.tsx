@@ -12,15 +12,15 @@ class CandyBox extends Component<Props, any> {
   render() {
     let list = this.props.list
     let title = this.props.title
-    let moreLink = this.props.moreLink?this.props.moreLink:null
+    let moreLink = this.props.moreLink ? this.props.moreLink : null
 
     return (
       <div className="candy-box">
         <h3 className="box-title">{title}</h3>
         {
-          moreLink?(
+          moreLink ? (
             <Link to={moreLink}>查看更多</Link>
-          ):null
+          ) : null
         }
         <ul>
           {

@@ -6,10 +6,21 @@ import Logo from '../Logo'
 import CSSModules from 'react-css-modules'
 const styles = require('./Branding.scss')
 
+interface IProps {
+  username: string
+  isAdmin?: boolean
+  className?: string
+  recentReading?: any[]
+}
+
+interface IState {
+  isDropdownMenuVisible: boolean
+}
+
 @CSSModules(styles, {
   allowMultiple: true
 })
-class Branding extends Component<any, any> {
+class Branding extends Component<IProps, IState> {
 
   constructor(props) {
     super(props)
@@ -25,8 +36,9 @@ class Branding extends Component<any, any> {
   }
 
   render() {
-    let username = this.props.username
     let isAdmin = this.props.isAdmin ? this.props.isAdmin : false
+
+    const { username ,recentReading } = this.props
 
     return (
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
@@ -48,11 +60,13 @@ class Branding extends Component<any, any> {
                 ? (
                   <div styleName="nav--user">
                     <Dropdown styleName="dropdown-recent-reading" title="最近阅读">
-                      <DropdownItem><Link to="/">hahahh</Link></DropdownItem>
-                      <DropdownItem>haha</DropdownItem>
-                      <DropdownItem>hahasf</DropdownItem>
-                      <DropdownItem>haha</DropdownItem>
-                      <DropdownItem>hahasdf</DropdownItem>
+                      {
+                        recentReading.map((book, index) => {
+                          return (
+                            <DropdownItem key={index}>{book}</DropdownItem>
+                          )
+                        })
+                      }
                     </Dropdown>
                     <Dropdown
                       title={(

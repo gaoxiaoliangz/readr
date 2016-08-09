@@ -49,3 +49,14 @@ export function fetchShelf() {
     }
   }
 }
+
+export function fetchProgress(bookId) {
+  return {
+    bookId,
+    CALL_API: {
+      types: ['PROGRESS_REQUEST', 'PROGRESS_SUCCESS', 'PROGRESS_FAILURE'],
+      endpoint: `user/books/${bookId}/progress`,
+      schema: Schemas.BOOK_PROGRESS
+    }
+  }
+}

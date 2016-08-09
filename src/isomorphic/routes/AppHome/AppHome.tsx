@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { fetchBooks, fetchCollections, sendNotification } from '../../store/actions'
+import { fetchBooks, fetchCollections, sendNotification, fetchShelf } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
 import CandyBox from '../../components/CandyBox'
 import Body from '../../components/Body'
@@ -22,6 +22,8 @@ interface IAllProps extends IProps {
   newestBooks: any
   bookCollections: any
   sendNotification: any
+  fetchShelf: any
+  bookShelf: any[]
 }
 
 interface IState {
@@ -45,6 +47,7 @@ class Home extends Component<IAllProps, IState> {
   componentDidMount() {
     this.props.fetchBooks()
     this.props.fetchCollections()
+    this.props.fetchShelf()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,7 +62,7 @@ class Home extends Component<IAllProps, IState> {
   }
 
   render() {
-    let { newestBooks, bookCollections } = this.props
+    let { newestBooks, bookCollections, bookShelf } = this.props
 
     bookCollections = bookCollections
       .map(item => ({
@@ -68,6 +71,11 @@ class Home extends Component<IAllProps, IState> {
         bookCovers: item.items.map(book => book.refData.cover),
         description: item.description
       }))
+
+    const bookShelfList = bookShelf.filter(book => Boolean(book)).map(book => ({
+      name: book.title,
+      link: '/'
+    }))
 
     return (
       <Body bodyClass="home">
@@ -91,7 +99,7 @@ class Home extends Component<IAllProps, IState> {
             <div className="col-md-12">
               {
                 this.state.showRecentReading && (
-                  <CandyBox title="最近阅读" list={[]} />
+                  <CandyBox title="最近阅读" list={bookShelfList} />
                 )
               }
             </div>
@@ -104,6 +112,7 @@ class Home extends Component<IAllProps, IState> {
 
 function mapStateToProps(state, ownProps) {
   return {
+    // todo: reselect
     userBooks: [],
     newestBooks: state.pagination.books.newest
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
@@ -117,11 +126,12 @@ function mapStateToProps(state, ownProps) {
     // })()
     bookCollections: state.pagination.bookCollections.newest
       ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id])
-      : []
+      : [],
+    bookShelf: _.get(state.payloads, 'bookShelf.data', [])
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchCollections, sendNotification }
+  { fetchBooks, fetchCollections, sendNotification, fetchShelf }
 )(Home as any)

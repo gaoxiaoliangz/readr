@@ -1,16 +1,5 @@
 import { Schemas } from '../../schemas'
 
-export function fetchBookProgress(bookId) {
-  return {
-    bookId,
-    CALL_API: {
-      types: ['BOOK_PROGRESS_REQUEST', 'BOOK_PROGRESS_SUCCESS', 'BOOK_PROGRESS_FAILURE'],
-      endpoint: `books/${bookId}/progress`,
-      schema: Schemas.BOOK_PROGRESS
-    }
-  }
-}
-
 export function fetchBooks(flowType: 'newest' | 'hot' = 'newest') {
   return {
     // for paginate

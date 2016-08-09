@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { userAuth } from '../store/actions'
+import { userAuth, fetchShelf } from '../store/actions'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 // const styles = require('./_app.scss')
@@ -16,6 +16,7 @@ class AppCommon extends Component<any, any> {
 
   componentDidMount() {
     this.props.userAuth()
+    this.props.fetchShelf()
   }
 
   render() {
@@ -27,9 +28,16 @@ class AppCommon extends Component<any, any> {
       username = this.props.session.user.username
     }
 
+    const {bookShelf} = this.props
+    const bookShelfList = bookShelf.filter(book => Boolean(book)).map(book => book.title)
+
     return (
       <div>
-        <Branding isAdmin={isAdmin} username={username} />
+        <Branding
+          recentReading={bookShelfList}
+          isAdmin={isAdmin}
+          username={username}
+        />
         {this.props.children}
         <Colophon />
       </div>
@@ -40,7 +48,8 @@ class AppCommon extends Component<any, any> {
 export default connect(
   state => ({
     notification: state.components.notification,
-    session: state.session
+    session: state.session,
+    bookShelf: _.get(state.payloads, 'bookShelf.data', [])
   }),
-  { userAuth } as any
+  { userAuth, fetchShelf } as any
 )(AppCommon)

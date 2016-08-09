@@ -25,6 +25,7 @@ declare module "colors/safe" {
 //   assign(target: any, ...sources: any[]): any;
 // }
 
+// https://github.com/TypeStrong/ts-loader/blob/master/test/codeSplitting/require.d.ts
 declare var require: {
   <T>(path: string): T
   (paths: string[], callback: (...modules: any[]) => void): void
