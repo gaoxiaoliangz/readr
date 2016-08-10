@@ -7,7 +7,7 @@ const styles = require('./_button.scss')
 
 interface IProps {
   className?: string
-  styleName2?: any
+  styleName?: any
   size?: 'small' | 'medium' | 'large'
   isFluid?: boolean
   color?: 'red' | 'blue' | 'green' | 'orange'

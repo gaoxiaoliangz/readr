@@ -7,7 +7,7 @@ const styles = require('./_book.scss')
 
 interface IProps {
   title: string
-  author: string
+  authors: string
   description: string
   id: string
   cover: string
@@ -51,7 +51,7 @@ export default class Book extends Component<IProps, IState> {
           <div styleName="book-cover"><img src={this.props.cover}/></div>
           <div styleName="book-meta">
             <span title={this.props.title} styleName="book-name">{this.props.title}</span>
-            <span styleName="book-author">{this.props.author}</span>
+            <span styleName="book-author">{this.props.authors}</span>
           </div>
         </Link>
         {
@@ -59,7 +59,7 @@ export default class Book extends Component<IProps, IState> {
             <BookInfoPopup
               bookId={this.props.id}
               title={this.props.title}
-              author={this.props.author}
+              author={this.props.authors}
               description={this.props.description}
             />
           )

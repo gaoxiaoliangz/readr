@@ -20,7 +20,7 @@ const extendedEndpointsConfig = [
    * user
    */
 
-  // shelf
+  // profile
   {
     url: '/user/profile',
     api: 'user.profile.find',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Switcher from '../../elements/switcher'
+import Switcher from '../../../elements/Switcher'
 import CSSModules from 'react-css-modules'
 const styles = require('./_preference-list.scss')
 
@@ -16,7 +16,7 @@ interface IState {
 @CSSModules(styles, {
   allowMultiple: true
 })
-class Comp extends Component<IProps, IState> {
+class PreferenceList extends Component<IProps, IState> {
 
   constructor(props) {
     super(props)
@@ -37,7 +37,7 @@ class Comp extends Component<IProps, IState> {
           <ul styleName="options">
             <li styleName="option">
               <h2>用户名</h2>
-              <span styleName="option-input">http://readrweb.com/@<strong>{username}</strong></span>
+              <span styleName="option-input">readrweb.com/@<strong>{username}</strong></span>
               <span styleName="edit">编辑</span>
             </li>
             <li styleName="option">
@@ -69,4 +69,4 @@ class Comp extends Component<IProps, IState> {
   }
 }
 
-export default Comp
+export default PreferenceList

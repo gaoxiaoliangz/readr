@@ -38,7 +38,7 @@ class Branding extends Component<IProps, IState> {
   render() {
     let isAdmin = this.props.isAdmin ? this.props.isAdmin : false
 
-    const { username ,recentReading } = this.props
+    const { username, recentReading } = this.props
 
     return (
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>

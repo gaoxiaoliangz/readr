@@ -28,8 +28,6 @@ class CollectionDetail extends Component<Props, {}> {
   render() {
     const bookCollection = this.props.bookCollection ? this.props.bookCollection : { items: [] }
     const items = bookCollection.items
-      .filter(item => item.refData)
-      .map(item => item.refData)
 
     return (
       <div className="collection">

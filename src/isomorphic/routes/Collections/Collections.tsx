@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchCollections } from '../../store/actions'
-import { Container } from '../../elements/_layout'
+// import { Container } from '../../elements/_layout'
 import { CollectionList } from '../../components/CollectionSection'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 
 interface Props {
   fetchCollections: any
@@ -27,7 +27,7 @@ class Collections extends Component<Props, {}> {
       .map(item => ({
         name: item.name,
         id: item.id,
-        bookCovers: item.items.map(book => book.refData.cover),
+        bookCovers: item.items.map(book => book.cover),
         description: item.description
       }))
 

@@ -1,8 +1,8 @@
 'use strict'
 const _ = require('lodash')
 const i18n = require('../utils/i18n')
-const humps = require('humps')
-
+// const humps = require('humps')
+const print = require('../utils/print.ts').default
 
 function parseRequest(req) {
   // const object = humps.decamelizeKeys(req.body)
@@ -46,7 +46,9 @@ function err(res) {
       }
     }
 
-    res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name', 'stack']))
+    print.error(error)
+
+    res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name']))
   }
 }
 

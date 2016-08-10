@@ -4,7 +4,7 @@ import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
 import { userAuth, fetchShelf } from '../store/actions'
 import _ from 'lodash'
-import CSSModules from 'react-css-modules'
+// import CSSModules from 'react-css-modules'
 // const styles = require('./_app.scss')
 
 // @CSSModules(styles)
@@ -29,7 +29,8 @@ class AppCommon extends Component<any, any> {
     }
 
     const {bookShelf} = this.props
-    const bookShelfList = bookShelf.filter(book => Boolean(book)).map(book => book.title)
+    const bookShelfList = bookShelf
+      .map(book => book.title)
 
     return (
       <div>

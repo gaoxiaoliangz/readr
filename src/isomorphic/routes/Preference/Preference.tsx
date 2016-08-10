@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { sendNotification, userAuth, fetchProfile } from '../../store/actions'
 // import Body from '../../../components/Body'
 import _ from 'lodash'
-import PreferenceList from '../../components/PreferenceList'
+import PreferenceList from './PreferenceList'
 
 interface IAllProps {
   session?: any

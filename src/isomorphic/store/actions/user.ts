@@ -9,11 +9,11 @@ export function userAuth() {
   }
 }
 
-export function fetchProfile(id) {
+export function fetchProfile() {
   return {
     CALL_API: {
       types: ['PROFILE_REQUEST', 'PROFILE_SUCCESS', 'PROFILE_FAILURE'],
-      endpoint: `users/${id}/profile`,
+      endpoint: `user/profile`,
       schema: Schemas.PROFILE
     }
   }

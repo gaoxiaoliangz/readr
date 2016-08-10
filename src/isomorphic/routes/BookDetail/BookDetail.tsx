@@ -52,7 +52,7 @@ class BookInfo extends Component<any, any> {
           <div className="right-col">
             <h1 styleName="book-name">{bookInfo.title}</h1>
             <div styleName="book-author">
-              <strong>作者：{bookInfo.author ? bookInfo.author.map(a => a.refData ? a.refData.name : '').join(', ') : ''}</strong>
+              <strong>作者：{bookInfo.authors.map(a => a.name).join(', ')}</strong>
             </div>
             {
               bookInfo.title && (

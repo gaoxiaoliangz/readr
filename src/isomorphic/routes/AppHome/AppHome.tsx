@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import { fetchBooks, fetchCollections, sendNotification, fetchShelf } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
 import CandyBox from '../../components/CandyBox'
@@ -68,7 +68,7 @@ class Home extends Component<IAllProps, IState> {
       .map(item => ({
         name: item.name,
         id: item.id,
-        bookCovers: item.items.map(book => book.refData.cover),
+        bookCovers: item.items.map(book => book.cover),
         description: item.description
       }))
 

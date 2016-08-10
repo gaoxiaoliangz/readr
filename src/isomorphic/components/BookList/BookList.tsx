@@ -4,7 +4,13 @@ import CSSModules from 'react-css-modules'
 const styles = require('./_book-list.scss')
 
 interface Props {
-  bookEntities: any
+  bookEntities: {
+    id: string
+    title: string
+    authors: any
+    description: string
+    cover: string
+  }[]
 }
 
 @CSSModules(styles, {
@@ -17,13 +23,13 @@ class BookList extends Component<Props, {}> {
         {
           this.props.bookEntities ? (
             this.props.bookEntities.map((book, index) => {
-              const { title, author, description, cover } = book
+              const { title, authors, description, cover } = book
               return (
                 <Book
                   id={book.id}
                   key={index}
                   title={title}
-                  author={author.map(a => a.refData ? a.refData.name : '').join(', ')}
+                  authors={authors.map(author => author.name).join(', ')}
                   description={description}
                   cover={cover}
                 />

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 // import { Link } from 'react-router'
 import { fetchShelf } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
+import Container from '../../elements/_layout/Container'
 import _ from 'lodash'
 
 interface IProps {
@@ -28,9 +29,9 @@ class Shelf extends Component<IProps, {}> {
     let bookList = this.props.shelf
 
     return (
-      <div>
+      <Container>
         <BookListSection bookEntities={bookList} title="我的书架" />
-      </div>
+      </Container>
     )
   }
 }

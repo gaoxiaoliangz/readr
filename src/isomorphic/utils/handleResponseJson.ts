@@ -2,16 +2,15 @@ import { normalize } from 'normalizr'
 import humps from 'humps'
 
 function handleResponseJson(json, schema) {
-  json = humps.camelizeKeys(json)
-  let result = json
+  const camelizedJson = humps.camelizeKeys(json)
 
   if (typeof schema !== 'undefined') {
-    result = Object.assign({},
-      normalize(json, schema)
+    return  Object.assign({},
+      normalize(camelizedJson, schema)
     )
   }
 
-  return result
+  return camelizedJson
 }
 
 export default handleResponseJson
