@@ -16,10 +16,16 @@ module.exports = {
   ],
   module: {
     loaders: [
-      base.loaders.imageWebpackNoEmit,
+      base.loaders.image({
+        emitFile: false
+      }),
       base.loaders.babel,
-      base.loaders.sassIsomorphic,
-      base.loaders.awesomeTs,
+      base.loaders.sass({
+        isomorphic: true
+      }),
+      base.loaders.ts({
+        officialLoader: false
+      }),
     ],
   },
   devtool: 'inline-source-map',

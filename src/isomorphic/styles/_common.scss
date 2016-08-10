@@ -26,7 +26,7 @@
   margin: 35px 0;
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--text-dark);
+  color: $text-dark;
 }
 
 .page-header {
@@ -48,7 +48,7 @@
 
 /* todo */
 .page-load-more {
-  border: 1px solid var(--gray);
+  border: 1px solid $gray;
   width: 80%;
   margin: 30px auto;
   padding: 6px 0;
@@ -62,7 +62,7 @@
 /* layout */
 .sep {
   margin: 0 5px;
-  color: var(--gray);
+  color: $gray;
 }
 .left {
   float: left;
@@ -89,11 +89,12 @@
   position: relative;
 }
 .content-container {
-  width: var(--reading-width);
+  width: $reading-width;
   margin: 0 auto;
-  /*@include phone {
+
+  @include phone {
     width: 100%;
-  }*/
+  }
 }
 .text-overflow {
   text-overflow: ellipsis;
@@ -104,7 +105,7 @@
 /* styled */
 .badge {
   /*background: lighten($super_power, 40%);*/
-  background: var(--blue);
+  background: $blue;
   border-radius: 3px;
   padding: 3px 4px;
   font-size: 0.8rem;
@@ -120,7 +121,7 @@
 
 
 .tag {
-  background: var(--blue);
+  background: $blue;
   border-radius: 3px;
   padding: 3px 5px;
   margin: 0 5px 5px 0;

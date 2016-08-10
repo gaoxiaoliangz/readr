@@ -28,6 +28,13 @@
 
   --shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32);
 
+  --page-title: {
+    margin: 35px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  };
+
   /* z-index */
   --z-selectize-options: 900;
   --z-dropdown-menu: 900;

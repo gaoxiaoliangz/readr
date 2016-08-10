@@ -21,14 +21,17 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     loaders: [
-      base.loaders.imageWebpack,
-      base.loaders.sass,
-      base.loaders.postCss({
-        global: false,
-        extract: false
+      base.loaders.image(),
+      base.loaders.sass({
+        sourceMap: true,
+      }),
+      base.loaders.postcss({
+        sourceMap: true,
       }),
       base.loaders.babel,
-      base.loaders.tsHot
+      base.loaders.ts({
+        isHot: true
+      })
     ]
   },
   sassLoader: base.loaderConfig.sassLoader,

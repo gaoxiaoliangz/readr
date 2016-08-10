@@ -12,6 +12,6 @@
 }
 
 .section-title {
-  composes: page-title from "styles/_common.scss";
+  @apply --page-title;
   margin-bottom: 10px;
 }

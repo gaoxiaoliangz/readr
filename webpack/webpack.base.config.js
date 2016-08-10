@@ -6,6 +6,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const _ = require('lodash')
 const fs = require('fs')
 
+function parseLoadersForExtractTextPlugin(loaders) {
+  return [
+    loaders[0],
+    loaders.slice(1, loaders.length).join('!')
+  ]
+}
+
 /**
  * ## 定义常用变量
  */
@@ -117,20 +124,18 @@ module.exports = {
   },
 
   loaders: {
-    imageWebpack: {
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      loaders: [
-        `file?name=${imageName}`,
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-      ]
+    image({ emitFile } = { emitFile: true }) {
+      const emitFileConfig = emitFile ? 'emitFile=true' : 'emitFile=false'
+
+      return {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          `file?name=${imageName}&${emitFileConfig}`,
+          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
+      }
     },
-    imageWebpackNoEmit: {
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      loaders: [
-        `file?emitFile=false&name=${imageName}`,
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-      ]
-    },
+
     babel: {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
@@ -139,38 +144,59 @@ module.exports = {
         presets: ['react', 'es2015'],
       },
     },
-    postCss2: {
-      test: /\.css$/,
-      loaders: [
-        'style?sourceMap',
-        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
-        'resolve-url',
-        'postcss?sourceMap'
-      ]
+
+    ts({ officialLoader, isHot } = {}) {
+      const tsLoader = officialLoader ? 'ts' : 'awesome-typescript'
+
+      return {
+        test: /\.tsx?$/,
+        loaders: isHot
+          ? ['react-hot', 'babel', tsLoader]
+          : ['babel', tsLoader]
+      }
     },
-    postCss({ global, sourceMap, extract }) {
+
+    // css
+    sass({ isomorphic, global, extract, sourceMap } = {}) {
+      const styleLoader = isomorphic ? 'isomorphic-style' : 'style'
+      const sourceMapConfig = sourceMap ? 'sourceMap=true' : 'sourceMap=false'
       const localIdentName = global ? '[local]' : cssLocalIdentName
 
-      if (extract) {
-        return {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract(
-            'style?sourceMap',
-            `css?sourceMap&modules&importLoaders=1&localIdentName=${localIdentName}!resolve-url!postcss?sourceMap`
-          )
-        }
+      const loaders = [
+        `${styleLoader}?${sourceMapConfig}`,
+        `css?${sourceMapConfig}&modules&importLoaders=1&localIdentName=${localIdentName}`,
+        `sass?${sourceMapConfig}`,
+        // 'resolve-url',
+      ]
+
+      return {
+        test: /\.scss$/,
+        loader: extract
+          ? ExtractTextPlugin.extract.apply(null, parseLoadersForExtractTextPlugin(loaders))
+          : loaders.join('!')
       }
+    },
+
+    postcss({ global, extract, sourceMap, isomorphic } = {}) {
+      const styleLoader = isomorphic ? 'isomorphic-style' : 'style'
+      const localIdentName = global ? '[local]' : cssLocalIdentName
+      const sourceMapConfig = sourceMap ? 'sourceMap=true' : 'sourceMap=false'
+
+      const loaders = [
+        `${styleLoader}?${sourceMapConfig}`,
+        `css?${sourceMapConfig}&modules&importLoaders=1&localIdentName=${localIdentName}`,
+        `postcss?${sourceMapConfig}`,
+        // 'resolve-url',
+      ]
 
       return {
         test: /\.css$/,
-        loaders: [
-          'style?sourceMap',
-          `css?sourceMap&modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
-          'resolve-url',
-          'postcss?sourceMap'
-        ]
+        loader: extract
+          ? ExtractTextPlugin.extract.apply(null, parseLoadersForExtractTextPlugin(loaders))
+          : loaders.join('!')
       }
     },
+
     css: {
       test: /\.css$/,
       loaders: [
@@ -179,57 +205,6 @@ module.exports = {
         'resolve-url',
       ]
     },
-    sass: {
-      test: /\.scss$/,
-      loaders: [
-        'style?sourceMap',
-        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}&sourceMap`,
-        'resolve-url',
-        'sass?sourceMap'
-      ]
-    },
-    sassBuild: {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(
-        'style?sourceMap',
-        `css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]!resolve-url-loader!sass-loader?sourceMap`
-      )
-    },
-    sassBuildWithoutSourceMap: {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(
-        'style',
-        `css-loader?modules&importLoaders=1&localIdentName=[local]!resolve-url-loader!sass-loader`
-      )
-    },
-    sassIsomorphic: {
-      test: /\.scss$/,
-      loaders: [
-        'isomorphic-style?sourceMap',
-        `css?modules&importLoaders=1&localIdentName=${cssLocalIdentName}`,
-        'resolve-url',
-        'sass?sourceMap'
-      ]
-    },
-    sassWithExtractText: {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(
-        'style?sourceMap',
-        `css-loader?modules&importLoaders=1&localIdentName=${cssLocalIdentName}!resolve-url-loader!sass-loader?sourceMap`
-      )
-    },
-    ts: {
-      test: /\.tsx?$/,
-      loaders: ['babel', 'ts'],
-    },
-    awesomeTs: {
-      test: /\.tsx?$/,
-      loaders: ['babel', 'awesome-typescript'],
-    },
-    tsHot: {
-      test: /\.tsx?$/,
-      loaders: ['react-hot', 'babel', 'awesome-typescript'],
-    }
   },
 
   loaderConfig: {

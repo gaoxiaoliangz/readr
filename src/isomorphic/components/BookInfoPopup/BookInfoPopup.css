@@ -21,7 +21,7 @@
 }
 
 .title {
-  composes: page-title from "styles/_common.scss";
+  @apply --page-title;
   margin: 30px 0 10px 0;
 }
 

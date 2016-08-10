@@ -18,9 +18,13 @@ module.exports = {
   devtool: 'inline-source-map',
   module: {
     loaders: [
-      base.loaders.imageWebpack,
-      base.loaders.sassBuild,
-      base.loaders.postCss({
+      base.loaders.image(),
+      base.loaders.sass({
+        extract: true,
+        sourceMap: true,
+        global: true
+      }),
+      base.loaders.postcss({
         global: true,
         extract: true
       })
