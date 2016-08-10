@@ -4,6 +4,7 @@ const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 const schemas = require('./schemas')
 const _ = require('lodash')
+const utils = require('./utils')
 
 function getSchemaByTable(table) {
   const schema = _.filter(schemas, val => {
@@ -71,27 +72,28 @@ function getRefFieldsWithIds(rawResult, schema) {
 }
 
 // 并且添加相应错误信息
-function filterRefResult(rawRefResult, schemaField, id) {
+function filterRefResult(rawRefResult, schemaField, id, refSchema) {
   let newResults = rawRefResult
 
   if (typeof rawRefResult === 'object') {
     // 如果 fields 为空数组则将字段全部无保留输出
     if (schemaField.ref.fields.length !== 0) {
       newResults = _.pick(rawRefResult, schemaField.ref.fields)
-      return { ref_data: newResults }
+      return newResults
     }
 
-    return { ref_data: newResults }
+    return newResults
   }
 
-  return {
-    ref_error: {
-      // 不使用 i18n, 该信息不会直接向终端用户展示
-      id,
-      field_name: schemaField.name,
-      message: `${schemaField.name} with id ${id} not found! `
-    }
-  }
+  // return {
+  //   ref_error: {
+  //     // 不使用 i18n, 该信息不会直接向终端用户展示
+  //     id,
+  //     field_name: schemaField.name,
+  //     message: `${schemaField.name} with id ${id} not found! `
+  //   }
+  // }
+  return utils.outputEmptyEntity(refSchema.fields, id)
 }
 
 // rawResults 必须为数组
@@ -112,14 +114,14 @@ function embedRef(rawResults, schema) {
           return fetchDataById(id, field.ref.table)
             .then(results => {
               const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
-
+              const refSchema = getSchemaByTable(field.ref.table)
+              
               if (isRefInRef) {
-                const refSchema = getSchemaByTable(field.ref.table)
                 // 递归很强大！！
-                return embedRef(results, refSchema).then(reRefedResult => filterRefResult(reRefedResult[0], field, id))
+                return embedRef(results, refSchema).then(reRefedResult => filterRefResult(reRefedResult[0], field, id, refSchema))
               }
 
-              return filterRefResult(results[0], field, id)
+              return filterRefResult(results[0], field, id, refSchema)
             }, err => {
               console.error(err)
               Promise.reject(err)

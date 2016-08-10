@@ -8,7 +8,7 @@ const errors = require('../errors')
 const i18n = require('../utils/i18n')
 const utils = require('../utils')
 const validate = require('./validate')
-
+const modelUtils = require('./utils')
 
 function dataConvention(schema, data) {
   const arrayTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
@@ -54,14 +54,7 @@ class Model {
   }
 
   outputEmpty(id) {
-    return _(this.schema.fields)
-      .mapValues(val => {
-        return ''
-      })
-      .assign({}, {
-        id
-      })
-      .value()
+    return modelUtils.outputEmptyEntity(this.schema.fields, id)
   }
 
   findById(_id) {
