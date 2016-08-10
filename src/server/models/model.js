@@ -53,6 +53,17 @@ class Model {
     return match
   }
 
+  outputEmpty(id) {
+    return _(this.schema.fields)
+      .mapValues(val => {
+        return ''
+      })
+      .assign({}, {
+        id
+      })
+      .value()
+  }
+
   findById(_id) {
     this.match = Object.assign({}, { _id })
     return this
@@ -140,7 +151,7 @@ class Model {
         multi = updateConfig.multi || false
         upsert = updateConfig.upsert || false
       }
-      
+
       // todo: 添加特殊格式处理
       const data2 = Object.assign({}, data, {
         date_updated: new Date().toString()
