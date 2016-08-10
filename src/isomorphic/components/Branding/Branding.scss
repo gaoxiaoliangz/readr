@@ -1,11 +1,6 @@
-// @import "styles/variables.css";
+@import "styles/_variables";
 
-$branding-height: 60px; 
 $background: black;
-
-%light-link {
-  color: #fff;
-}
 
 .branding {
   min-height: $branding-height;

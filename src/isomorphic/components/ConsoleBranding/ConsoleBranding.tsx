@@ -5,7 +5,7 @@ import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown
 import CSSModules from 'react-css-modules'
 import Logo from '../Logo'
 // const brandingStyles = require('../Branding/Branding.css')
-const styles = require('./ConsoleBranding.css')
+const styles = require('./ConsoleBranding.scss')
 
 @CSSModules(styles, {
   allowMultiple: true

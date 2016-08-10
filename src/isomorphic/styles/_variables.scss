@@ -41,6 +41,13 @@ $z-dropdown-menu: 900;
   overflow: hidden;
 }
 
+%light-link {
+  color: #fff;
+
+  &:hover {
+    color: #ddd;
+  }
+}
 
 
 

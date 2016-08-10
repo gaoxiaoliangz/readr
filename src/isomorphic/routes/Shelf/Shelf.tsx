@@ -5,12 +5,12 @@ import { fetchShelf } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
 import _ from 'lodash'
 
-interface Props {
+interface IProps {
   shelf?: any
   fetchShelf?: any
 }
 
-class Shelf extends Component<Props, {}> {
+class Shelf extends Component<IProps, {}> {
 
   static fetchData({store, params}) {
     return store.dispatch(fetchShelf())

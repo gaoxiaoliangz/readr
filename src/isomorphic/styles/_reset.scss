@@ -2,17 +2,17 @@
   box-sizing: border-box;
 }
 html {
-  font-size: var(--font-size-root);
+  font-size: $font-size-root;
 }
 body {
   font-size: 1rem;
-  font-family: var(--font-family);
-  color: var(--text);
+  font-family: $font-family;
+  color: $text;
   -webkit-font-smoothing: antialiased;
 }
 ::selection {
   background: rgba(47, 141, 246, .3);
-  color: var(--text);
+  color: $text;
   text-shadow: none;
 }
 a,
@@ -22,14 +22,14 @@ a:active {
   text-decoration: none;
 }
 a {
-  color: var(--blue);
+  color: $blue;
   transition: all .2s ease-in;
 }
 a:hover {
-  color: var(--text);
+  color: $text;
 }
 a:active {
-  color: var(--text-dark);
+  color: $text-dark;
   transition: all 0s;
 }
 ul {

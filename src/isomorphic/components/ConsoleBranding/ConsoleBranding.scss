@@ -1,7 +1,7 @@
-@import "styles/variables.css";
+@import "styles/_variables";
 
 .branding {
-  background: var(--blue);
+  background: $blue;
   position: fixed;
   top: 0;
   left: 0;
@@ -29,11 +29,11 @@
 
 .sub-name {
   float: left;
-  line-height: var(--branding-height);
+  line-height: $branding-height;
   color: #fff;
 }
 
 .nav {
   color: #fff;
-  /*composes: nav from '../Branding/Branding.css'*/
+  composes: nav from '../Branding/Branding.scss'
 }
