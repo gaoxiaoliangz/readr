@@ -76,6 +76,7 @@ export function callApi(fullUrl: string, config: CallApiConfig = {}) {
 
   return fetch(fullUrl, parseConfig(config))
     .then(response => {
+      console.log(response)
       return response.json().then(json => ({ json, response }))
     })
     .then(({ json, response }) => {

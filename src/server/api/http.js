@@ -29,6 +29,15 @@ function done(req, res) {
     if (req.method === 'POST') {
       res.status(201).send(result)
     } else {
+      // res.set({
+      //   'Content-Type': 'text/plain',
+      //   'Content-Length': '123',
+      //   'ETag': '12345'
+      // })
+      res.links({
+        nextttt: 'http://api.example.com/users?page=2',
+        last: 'http://api.example.com/users?page=5'
+      })
       res.status(200).send(result)
     }
   }

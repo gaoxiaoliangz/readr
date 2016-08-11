@@ -14,11 +14,12 @@
     "max-len": [1, 200],
     "no-console": [1, { "allow": ["warn", "error"] }],
     "no-underscore-dangle": [0],
-    "no-trailing-spaces": [0],
+    "no-trailing-spaces": [1],
     "comma-dangle": [0],
     "no-shadow": [1],
     "no-unused-vars": [1],
     "prefer-template": [0],
-    "global-require": [0]
+    "global-require": [0],
+    "quote-props": ["error", "as-needed", { "keywords": true, "unnecessary": false }]
   }
 }

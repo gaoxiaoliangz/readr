@@ -81,7 +81,7 @@ class Model {
     })
   }
 
-  // todo: validation 
+  // todo: validation
   insert(data) {
     const query = () => {
       let data2 = Object.assign({}, data, {

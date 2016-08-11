@@ -20,6 +20,7 @@
     "no-unused-vars": [1],
     "prefer-template": [0],
     "global-require": [0],
-    "quotes": ["error", "single", {"allowTemplateLiterals": true}]
+    "quotes": ["error", "single", {"allowTemplateLiterals": true}],
+    "quote-props": ["error", "as-needed", { "keywords": true, "unnecessary": false }]
   }
 }
