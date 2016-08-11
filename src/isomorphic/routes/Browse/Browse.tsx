@@ -36,23 +36,17 @@ class Browse extends Component<IProps, {}> {
           <Tabs>
             <Tab title="全部">
               <BookListSection bookEntities={this.props.newestBooks} />
+              {
+                nextPage !== 0 && (
+                  <div onClick={() => { this.loadMore(nextPage) } } className="page-load-more">加载更多</div>
+                )
+              }
             </Tab>
-            <Tab title="悬疑">
-              coming soon ...
-            </Tab>
-            <Tab title="古典">
-              coming soon ...
-            </Tab>
-            <Tab title="其它">
-              coming soon ...
+            <Tab title="其它分类">
+              空
             </Tab>
           </Tabs>
         </div>
-        {
-          nextPage !== 0 && (
-            <div onClick={() => { this.loadMore(nextPage) }} className="page-load-more">加载更多</div>
-          )
-        }
       </div>
     )
   }

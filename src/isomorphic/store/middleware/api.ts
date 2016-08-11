@@ -43,7 +43,8 @@ export default store => next => action => {
           type: successType
         }))
         return {
-          data: response
+          ok: true,
+          response
         }
       })
     },
@@ -53,7 +54,10 @@ export default store => next => action => {
         error: error.message || '发生未知 API 错误！(Code 1000)'
       }))
       return {
-        error: error.message
+        ok: false,
+        error: {
+          message: error.message
+        }
       }
     })
   )
