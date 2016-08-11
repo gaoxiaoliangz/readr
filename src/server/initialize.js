@@ -28,7 +28,7 @@ function initialize(basePath) {
 
   // it won't work if placed in the wrong position
   if (runtimeOptions.hmr) {
-    app.use(hotModuleReplacement())
+    app.use(hotModuleReplacement())    
   }
 
   app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))

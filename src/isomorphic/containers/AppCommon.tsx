@@ -50,7 +50,7 @@ export default connect(
   state => ({
     notification: state.components.notification,
     session: state.session,
-    bookShelf: _.get(state.payloads, 'bookShelf.data', [])
+    bookShelf: state.payloads.bookShel || []
   }),
   { userAuth, fetchShelf } as any
 )(AppCommon)

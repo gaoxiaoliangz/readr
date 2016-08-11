@@ -5,8 +5,6 @@ const webpackConfig = require('./webpack.hot.config')
 const combineMiddleware = require('../utils/combine-middleware')
 
 function hotModuleReplacement() {
-  // console.log(webpackConfig.module.loaders)
-
   const compiler = webpack(webpackConfig)
 
   return combineMiddleware([

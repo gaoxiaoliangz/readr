@@ -24,6 +24,9 @@ function bootstrap(app) {
   server.listen(port)
 
   print.info(msg)
+  if (runtimeOptions.hmr) {
+    console.info('webpack building...')
+  }
 
   return app
 }

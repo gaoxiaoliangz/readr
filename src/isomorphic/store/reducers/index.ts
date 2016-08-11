@@ -14,7 +14,7 @@ function entities(state = { books: {}, users: {}, bookCollections: {} }, action)
 }
 
 function payloads(state = {}, action) {
-  if (action.payload) {
+  if ((action.response || action.error) && action.payload) {
     return _.assign({}, state, {
       [action.payload]: action.response
     })
