@@ -24,20 +24,39 @@ function parseRequest(req) {
   return req
 }
 
+// todo: 边界情况考虑
+function parsePagination(link, { current, all }) {
+  const links = {
+    first: `${link}?page=1`,
+    last: `${link}?page=${all}`,
+    prev: `${link}?page=${current - 1}`,
+    next: `${link}?page=${current + 1}`,
+  }
+
+  if (current === 1) {
+    return _.omit(links, ['prev'])
+  }
+
+  if (current >= all) {
+    links.prev = `${link}?page=${all}`
+    return _.omit(links, ['next'])
+  }
+
+  return links
+}
+
 function done(req, res) {
   return result => {
     if (req.method === 'POST') {
       res.status(201).send(result)
     } else {
-      // res.set({
-      //   'Content-Type': 'text/plain',
-      //   'Content-Length': '123',
-      //   'ETag': '12345'
-      // })
-      res.links({
-        nextttt: 'http://api.example.com/users?page=2',
-        last: 'http://api.example.com/users?page=5'
-      })
+      if (result._pagination) {
+        const link = 'http://readrweb.com/path_to_endpoint'
+
+        res.links(parsePagination(link, result._pagination))
+        res.status(200).send(result._response)
+      }
+
       res.status(200).send(result)
     }
   }

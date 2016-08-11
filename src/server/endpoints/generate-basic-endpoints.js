@@ -3,6 +3,9 @@ const _ = require('lodash')
 const api = require('../api')
 const utils = require('../api/utils')
 
+// todo
+const itemsPerPage = 10
+
 function getParserByMethodName(methodName) {
   switch (methodName) {
     case 'find':
@@ -14,9 +17,12 @@ function getParserByMethodName(methodName) {
 
     case 'list':
       return request => {
+        // console.log(request.query)
         return [
           {},
-          request.query
+          _.assign({}, request.query, {
+            itemsPerPage
+          })
         ]
       }
 
