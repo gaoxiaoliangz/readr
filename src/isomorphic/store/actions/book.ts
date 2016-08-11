@@ -1,12 +1,15 @@
 import { Schemas } from '../../schemas'
 
-export function fetchBooks(flowType: 'newest' | 'hot' = 'newest') {
+export function fetchBooks({flowType, page }: {
+  flowType: 'newest' | 'hot'
+  page: number
+} = { flowType: 'newest', page: 1}) {
   return {
     // for paginate
     flowType,
     CALL_API: {
       types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
-      endpoint: `books?exclude=content`,
+      endpoint: `books?exclude=content&page=${page}`,
       schema: Schemas.BOOK_ARRAY,
     }
   }
