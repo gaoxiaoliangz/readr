@@ -1,4 +1,4 @@
-import handleResponseJson from './handleResponseJson'
+import handleResponse from './handleResponse'
 
 function jsonp(fullUrl, config: { schema?: {} }) {
   if (fullUrl.indexOf('douban') !== -1) {
@@ -22,7 +22,7 @@ function jsonp(fullUrl, config: { schema?: {} }) {
         document.body.removeChild(document.getElementById(jsonpId))
         let json = window[jsonpCallbackData]
 
-        resolve(handleResponseJson(json, config.schema))
+        resolve(handleResponse(json, config.schema))
       }
     })
   }

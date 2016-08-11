@@ -4,7 +4,7 @@ const api = require('../api')
 const utils = require('../api/utils')
 
 // todo
-const itemsPerPage = 10
+const itemsPerPage = 5
 
 function getParserByMethodName(methodName) {
   switch (methodName) {

@@ -32,6 +32,7 @@ declare var require: {
   ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 }
 
+declare let fetch
 
 // for node
 declare var module: {

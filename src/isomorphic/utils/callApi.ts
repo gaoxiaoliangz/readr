@@ -1,7 +1,6 @@
 import 'isomorphic-fetch'
 import objectToUrlencoded from '../utils/parseFormData'
-import handleResponseJson from '../utils/handleResponseJson'
-declare let fetch
+import handleResponse from '../utils/handleResponse'
 
 type CallApiConfig = {
   method?: 'GET' | 'POST' | 'DELETE'
@@ -76,12 +75,11 @@ export function callApi(fullUrl: string, config: CallApiConfig = {}) {
 
   return fetch(fullUrl, parseConfig(config))
     .then(response => {
-      console.log(response)
       return response.json().then(json => ({ json, response }))
     })
     .then(({ json, response }) => {
       if (response.ok) {
-        return handleResponseJson(json, config.schema)
+        return handleResponse({ json, response }, config.schema)
       } else {
         return Promise.reject(json)
       }
