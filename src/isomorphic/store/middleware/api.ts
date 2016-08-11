@@ -37,14 +37,24 @@ export default store => next => action => {
 
   return callApi(fullUrl, options).then(
     response => {
-      return next(actionWith({
-        response,
-        type: successType
-      }))
+      return next(dispatch => {
+        dispatch(actionWith({
+          response,
+          type: successType
+        }))
+        return {
+          data: response
+        }
+      })
     },
-    error => next(actionWith({
-      type: failureType,
-      error: error.message || 'Oops!'
-    }))
+    error => next(dispatch => {
+      dispatch(actionWith({
+        type: failureType,
+        error: error.message || '发生未知 API 错误！(Code 1000)'
+      }))
+      return {
+        error: error.message
+      }
+    })
   )
 }

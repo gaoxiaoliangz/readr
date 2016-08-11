@@ -78,9 +78,7 @@ function createApiMethod(methodName, model) {
 
     case 'list':
       return (match, options) => {
-        // return list(match, options)
-        // todo: 测试异常
-        return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
+        return list(match, options)
       }
 
     case 'update':

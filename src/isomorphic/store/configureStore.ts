@@ -23,7 +23,7 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       {},
-      applyMiddleware(thunk, api, modifyResponse)
+      applyMiddleware(api, thunk, modifyResponse)
     )
 
     return store
@@ -33,14 +33,14 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       handleInitialState(),
-      applyMiddleware(thunk, api, modifyResponse)
+      applyMiddleware(api, thunk, modifyResponse)
     )
   } else {
     store = createStore(
       rootReducer,
       handleInitialState(),
       compose(
-        applyMiddleware(thunk, api, modifyResponse, createLogger({collapsed: true}))
+        applyMiddleware(api, thunk, modifyResponse, createLogger({collapsed: true}))
       )
     )
   }

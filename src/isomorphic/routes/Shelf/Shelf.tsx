@@ -38,7 +38,7 @@ class Shelf extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    shelf: _.get(state.payloads.bookShelf, 'data', [])
+    shelf: state.payloads.bookShelf || []
   }
 }
 

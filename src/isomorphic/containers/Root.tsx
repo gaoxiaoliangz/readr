@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { sendNotification, hideNotification } from '../store/actions'
 import { Alerts } from '../elements/Alert'
+import _ from 'lodash'
 
 interface IAllProps {
   notifications?: any
   hideNotification?: any
+  errorMessage?: string
+  sendNotification?: any
 }
 
 interface IState {
@@ -15,6 +18,14 @@ class Root extends Component<IAllProps, IState> {
 
   constructor(props) {
     super(props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
+
+    if (hasNewErrorMsg) {
+      this.props.sendNotification(_.last(nextProps.errorMessage), 'error')
+    }
   }
 
   componentDidMount() {
@@ -43,6 +54,9 @@ class Root extends Component<IAllProps, IState> {
 }
 
 export default connect<{}, {}, IAllProps>(
-  state => ({ notifications: state.components.notifications }),
+  state => ({
+    notifications: state.components.notifications,
+    errorMessage: state.errorMessage
+  }),
   { sendNotification, hideNotification }
 )(Root)

@@ -14,19 +14,9 @@ function entities(state = { books: {}, users: {}, bookCollections: {} }, action)
 }
 
 function payloads(state = {}, action) {
-  if (action.error && action.payload) {
+  if (action.payload) {
     return _.assign({}, state, {
-      [action.payload]: {
-        error: action.error
-      }
-    })
-  }
-
-  if (action.response && action.payload) {
-    return _.assign({}, state, {
-      [action.payload]: {
-        data: action.response
-      }
+      [action.payload]: action.response
     })
   }
 
@@ -34,14 +24,11 @@ function payloads(state = {}, action) {
 }
 
 // Updates error message to notify about the failed fetches.
-function errorMessage(state = null, action) {
-  const { type, error } = action
+function errorMessage(state = [], action) {
+  const { error } = action
 
-  // if (type === ActionTypes.RESET_ERROR_MESSAGE) {
-  //   return null
-  // }
   if (error) {
-    return action.error
+    return [...state, action.error]
   }
 
   return state
