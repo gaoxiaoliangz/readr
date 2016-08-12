@@ -11,13 +11,23 @@ export function userAuth() {
 
 export function fetchProfile() {
   return {
+    payload: 'profile',
     CALL_API: {
       types: ['PROFILE_REQUEST', 'PROFILE_SUCCESS', 'PROFILE_FAILURE'],
       endpoint: `user/profile`,
-      schema: Schemas.PROFILE
     }
   }
 }
+
+// export function fetchPublicProfile() {
+//   return {
+//     CALL_API: {
+//       types: ['PROFILE_REQUEST', 'PROFILE_SUCCESS', 'PROFILE_FAILURE'],
+//       endpoint: `user/profile`,
+//       schema: Schemas.PROFILE
+//     }
+//   }
+// }
 
 export function fetchUserList() {
   return {

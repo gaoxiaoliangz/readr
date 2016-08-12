@@ -40,6 +40,7 @@ function createApiMethod(methodName, model) {
           _response: results.slice(startIndex, itemsPerPage + startIndex),
           _pagination: {
             current: page,
+            // todo: 可能有 bug
             all: parseInt((results.length / itemsPerPage), 10) + 1
           }
         }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router'
-import { fetchBooks, fetchCollections, fetchShelf, sendNotification, fetchProfile } from '../../store/actions'
-import BookListSection from '../../components/BookListSection'
+import { fetchBooks, fetchCollections, sendNotification, fetchProfile } from '../../store/actions'
+// import BookListSection from '../../components/BookListSection'
 import { Button } from '../../elements/_form'
 import { Tab, Tabs } from '../../elements/Tab'
 import Container from '../../elements/_layout/Container'
@@ -11,10 +11,10 @@ const styles: any = require('./_profile.scss')
 
 interface IProps {
   fetchBooks?: any
-  session?: any
   newestBooks?: any
-  fetchShelf?: any
   fetchProfile?: any
+  sendNotification?: any
+  profile?: any
 }
 
 @CSSModules(styles)
@@ -29,13 +29,12 @@ class Profile extends Component<IProps, {}> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks()
-    this.props.fetchShelf()
+    // this.props.fetchBooks()
     this.props.fetchProfile()
   }
 
   render() {
-    let newestBooks = this.props.newestBooks
+    const { profile: { username } } = this.props
 
     return (
       <Container>
@@ -44,16 +43,16 @@ class Profile extends Component<IProps, {}> {
             <div styleName="user-avatar">
               <img src="https://img3.doubanio.com/icon/ul43646706-43.jpg" alt="user_avatar"/>
             </div>
-            <span styleName="username">username</span>
-            <span styleName="tagline">something to say</span>
-            <Button styleName="edit">编辑</Button>
+            <span styleName="username">{username}</span>
+            <span styleName="tagline">暂无签名</span>
+            <Button onClick={() => { this.props.sendNotification('该功能尚不可用', 'warning') }} styleName="edit">编辑</Button>
           </div>
           <Tabs>
             <Tab title="收藏">
-              我的收藏
+              暂无数据
             </Tab>
             <Tab title="读过">
-              <BookListSection title="😄" bookEntities={newestBooks} />
+              暂无数据
             </Tab>
           </Tabs>
         </div>
@@ -64,14 +63,14 @@ class Profile extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    session: state.session,
     newestBooks: state.pagination.books.newest
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
       : [],
+    profile: _.get(state.payloads, 'profile', {})
   }
 }
 
 export default connect(
   mapStateToProps,
-  { sendNotification, fetchBooks, fetchCollections, fetchShelf, fetchProfile }
+  { sendNotification, fetchBooks, fetchCollections, fetchProfile }
 )(Profile as any)

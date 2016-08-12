@@ -27,6 +27,7 @@ export default function paginate({ types, mapActionToKey }: {
           // 不使用 union 会导致 server rendering 问题？
           // ids: action.response.result,
           nextPageUrl: action.response.nextPageUrl,
+          nextPage: action.response.nextPage,
           pageCount: state.pageCount + 1
         })
       case failureType:

@@ -1,13 +1,12 @@
 // @import "../../shared/scss/utils/_variables.scss";
-$gray_d: #ddd;
-$app_blue: blue;
+@import "styles/_variables";
 
 .tabs-header {
   margin-bottom: 15px;
   font-size: 1.2rem;
 
   ul {
-    border-bottom: 1px solid $gray_d;
+    border-bottom: 1px solid $gray;
 
     li {
       margin-bottom: -2px;
@@ -18,8 +17,8 @@ $app_blue: blue;
 
       &.active {
         font-weight: bold;
-        color: $app_blue;
-        border-bottom: 2px solid $app_blue;
+        color: $blue;
+        border-bottom: 2px solid $blue;
       }
     }
   }

@@ -5,7 +5,6 @@ import BookListSection from '../../components/BookListSection'
 import { fetchBooks, fetchCollections } from '../../store/actions'
 import { Tab, Tabs } from '../../elements/Tab'
 import _ from 'lodash'
-import parseQueryString from '../../utils/parseQueryString'
 
 interface IProps {
   fetchBooks: any
@@ -53,14 +52,11 @@ class Browse extends Component<IProps, {}> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const nextPageUrl = _.get(state.pagination, 'books.newest.nextPageUrl', '') || ''
-  const nextPage = _.get(parseQueryString(nextPageUrl.split('?')[1] || ''), 'page', 0)
-
   return {
     newestBooks: state.pagination.books.newest
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
       : [],
-    nextPage
+    nextPage: _.get(state.pagination, 'books.newest.nextPage', 0)
   }
 }
 

@@ -3,6 +3,7 @@ const _ = require('lodash')
 const i18n = require('../utils/i18n')
 // const humps = require('humps')
 const print = require('../utils/print.ts').default
+const parseFormData = require('../../isomorphic/utils/parseFormData.ts').default
 
 function parseRequest(req) {
   // const object = humps.decamelizeKeys(req.body)
@@ -25,20 +26,24 @@ function parseRequest(req) {
 }
 
 // todo: 边界情况考虑
-function parsePagination(link, { current, all }) {
+function parsePagination({ fullPath, query }, { current, all }) {
   const links = {
-    first: `${link}?page=1`,
-    last: `${link}?page=${all}`,
-    prev: `${link}?page=${current - 1}`,
-    next: `${link}?page=${current + 1}`,
+    first: `${fullPath}?${parseFormData(_.assign({}, query, { page: 1 }))}`,
+    last: `${fullPath}?${parseFormData(_.assign({}, query, { page: all }))}`,
+    prev: `${fullPath}?${parseFormData(_.assign({}, query, { page: current - 1 }))}`,
+    next: `${fullPath}?${parseFormData(_.assign({}, query, { page: current + 1 }))}`,
   }
 
-  if (current === 1) {
+  if (current <= 1) {
     return _.omit(links, ['prev'])
   }
 
-  if (current >= all) {
-    links.prev = `${link}?page=${all}`
+  if (current === all) {
+    return _.omit(links, ['next'])
+  }
+
+  if (current > all) {
+    links.prev = links.last
     return _.omit(links, ['next'])
   }
 
@@ -51,9 +56,12 @@ function done(req, res) {
       res.status(201).send(result)
     } else {
       if (result._pagination) {
-        const link = 'http://readrweb.com/path_to_endpoint'
+        const host = 'http://readrweb.com'
 
-        res.links(parsePagination(link, result._pagination))
+        res.links(parsePagination({
+          fullPath: host + req.path,
+          query: req.query,
+        }, result._pagination))
         res.status(200).send(result._response)
       }
 

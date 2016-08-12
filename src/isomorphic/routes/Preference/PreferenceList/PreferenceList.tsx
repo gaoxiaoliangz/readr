@@ -54,6 +54,7 @@ class PreferenceList extends Component<IProps, IState> {
               <h2>公开展示我的收藏</h2>
               <span styleName="option-desc">关闭后其他用户将无法查看您的收藏</span>
               <Switcher
+                styleName="switcher"
                 value={showFav}
                 onChange={newValue => {
                   this.setState({

@@ -1,8 +1,12 @@
-@import "styles/_variables.scss";
+@import "styles/_variables";
 
 $alert-width: 700px;
 $alert-succes: #72efa8;
 $alert-success-text: #204d33;
+$alert-error: darken(red, 30%);
+$alert-error-text: darken($alert-error, 40%);
+$alert-warning: orange;
+$alert-warning-text: darken(orange, 50%);
 
 .alerts {
   position: fixed;
@@ -46,6 +50,12 @@ $alert-success-text: #204d33;
 
 .alert--error {
   @extend .alert;
-  background: red;
-  color: #fff;
+  background: $alert-error;
+  color: $alert-error-text;
+}
+
+.alert--warning {
+  @extend .alert;
+  background: $alert-warning;
+  color: $alert-warning-text;
 }

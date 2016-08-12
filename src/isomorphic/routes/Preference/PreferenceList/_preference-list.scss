@@ -16,6 +16,10 @@
       margin: 0;
       margin-bottom: 5px;
     }
+
+    &:last-child {
+      display: none;
+    }
   }
 
   .option-input,
@@ -45,5 +49,6 @@
     padding: 6px 16px;
     border-radius: 100px;
     cursor: pointer;
+    display: none;
   }
 }

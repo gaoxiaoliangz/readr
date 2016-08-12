@@ -15,6 +15,8 @@ interface IProps {
     name?: string
     value: string | boolean
   }[]
+  className?: string
+  styleName?: string
 }
 
 interface IState {
@@ -33,7 +35,8 @@ class Switcher extends Component<IProps, IState> {
   }
 
   render() {
-    let isOn = this.props.value
+    let { value: isOn, className } = this.props
+
     if (typeof this.props.value === 'string') {
       if (isOn === '1' || isOn === 'true') {
         isOn = true
@@ -44,7 +47,7 @@ class Switcher extends Component<IProps, IState> {
     let state = Boolean(isOn) ? 'on' : 'off'
 
     return (
-      <div styleName="switcher-wrap">
+      <div className={className || ''} styleName="switcher-wrap">
         {
           this.props.title && (
             <span>{this.props.title}</span>

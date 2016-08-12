@@ -1,7 +1,7 @@
-@import "styles/_variables.scss";
+@import "styles/_variables";
 
 $size: 20px;
-$base-color: blue;
+$base-color: $blue;
 
 .switcher-wrap {
   display: inline-block;
@@ -35,7 +35,7 @@ $base-color: blue;
 .switcher--off {
   @extend .switcher;
   .switcher-track {
-    background: $gray_d;
+    background: $gray;
   }
   
   .switcher-button {

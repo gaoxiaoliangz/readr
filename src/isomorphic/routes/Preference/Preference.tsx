@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router'
-import { sendNotification, userAuth, fetchProfile } from '../../store/actions'
+import { sendNotification, fetchProfile } from '../../store/actions'
 // import Body from '../../../components/Body'
+// import { Link } from 'react-router'
 import _ from 'lodash'
 import PreferenceList from './PreferenceList'
 
 interface IAllProps {
-  session?: any
   fetchProfile?: any
   profile?: any
 }
@@ -30,19 +29,13 @@ class Preference extends Component<IAllProps, IState> {
   }
 
   componentDidMount() {
+    this.props.fetchProfile()
   }
 
   componentWillReceiveProps(nextProps) {
-    // user session fetched
-    if (nextProps.session.isFetching === false && this.props.session.isFetching) {
-      const userId = nextProps.session.user.id
-      this.props.fetchProfile(userId)
-    }
   }
 
   render() {
-    let user = this.props.profile
-
     return (
       <PreferenceList
         {...this.props.profile}
@@ -53,14 +46,9 @@ class Preference extends Component<IAllProps, IState> {
 
 export default connect(
   state => {
-    const userId = state.session.user.role !== 'visitor' ? state.session.user.id : ''
-    const profile = userId && !_.isEmpty(state.entities.profiles) ? state.entities.profiles[userId] : {}
-
     return {
-      notification: state.notification,
-      session: state.session,
-      profile
+      profile: _.get(state.payloads, 'profile', {})
     }
   },
-  { sendNotification, userAuth, fetchProfile }
+  { sendNotification, fetchProfile }
 )(Preference as any)
