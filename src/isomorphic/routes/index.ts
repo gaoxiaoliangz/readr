@@ -9,7 +9,9 @@ export default {
   childRoutes: [{
     component: AppMaster,
 
-    childRoutes: [{
+    childRoutes: [
+      require('./Viewer')
+      , {
       component: AppCommon,
 
       childRoutes: [

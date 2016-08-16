@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class BookPage extends Component<any, any> {
@@ -12,11 +12,11 @@ class BookPage extends Component<any, any> {
         <div className="content">
           {
             page.props.children.map((node, index) => {
-              if (node.type !== "p") {
-                console.error("Unsupported content found!")
+              if (node.type !== 'p') {
+                console.error('Unsupported content found!')
               }
               return (
-                <p {...index===0?{style: {marginTop: page.props.offset}}:{}}
+                <p {...index === 0 ? {style: {marginTop: page.props.offset}} :{}}
                   key={index} >
                   {node.props.children}
                 </p>

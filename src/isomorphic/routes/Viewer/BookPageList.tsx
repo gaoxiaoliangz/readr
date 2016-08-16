@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 // import * as styles from '../constants/STYLES'
-import BookPage from '../BookPage'
+import BookPage from './BookPage'
 
 class BookPageList extends Component<any, any> {
 
@@ -16,16 +16,16 @@ class BookPageList extends Component<any, any> {
     // }
 
     return (
-      <ul className="pages" style={{height: this.props.height}}>
+      <ul className="pages" style={{ height: this.props.height }}>
         {
-          this.props.pages.map((page, index)=>{
-            if(page.type === "page") {
+          this.props.pages.map((page, index) => {
+            if (page.type === 'page') {
               // style = Object.assign({}, style, page.props.style)
               return (
                 <BookPage style={page.props.style} bookId={this.props.bookId} key={index} page={page}></BookPage>
               )
-            }else{
-              console.error("Not type page!")
+            } else {
+              console.error('Not type page!')
             }
           })
         }

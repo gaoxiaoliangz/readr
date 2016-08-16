@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import Switcher from '../../elements/switcher'
+import Switcher from '../../elements/Switcher'
 import CSSModules from 'react-css-modules'
 
 interface Props {

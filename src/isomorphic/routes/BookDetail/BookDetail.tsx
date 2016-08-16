@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchBook } from '../../store/actions'
-import Loading from '../../elements/loading'
+import Loading from '../../elements/Loading'
 import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import Body from '../../components/Body'
@@ -52,7 +52,7 @@ class BookInfo extends Component<any, any> {
           <div className="right-col">
             <h1 styleName="book-name">{bookInfo.title}</h1>
             <div styleName="book-author">
-              <strong>作者：{bookInfo.authors.map(a => a.name).join(', ')}</strong>
+              <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ')}</strong>
             </div>
             {
               bookInfo.title && (
