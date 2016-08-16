@@ -1,14 +1,16 @@
-'use strict'
 const models = require('../../models')
 // const utils = require('../utils')
-const errors = require('../../errors')
-const i18n = require('../../utils/i18n')
-const mapHttpMethod = require('../../endpoints/map-http-method')
-const _ = require('lodash')
+const errors: any = require('../../errors')
+const i18n: any = require('../../utils/i18n')
+const mapHttpMethod: any = require('../../endpoints/map-http-method')
+// const _ = require('lodash')
+import _ from 'lodash'
 
-function createApiMethod(methodName, model) {
-  function list(match, { page: pageString, itemsPerPage }) {
-    const page = parseInt(pageString || '1', 10)
+function createApiMethod(methodName, model): any {
+  function list(match, queryString = { page: '1', itemsPerPage: '5'}) {
+    const { page: pageStr, itemsPerPage: itemsPerPageStr } = queryString
+    const page = parseInt(pageStr || '1', 10)
+    const itemsPerPage = parseInt(itemsPerPageStr || '5', 10)
     // 支持过滤器：exclude, fields, limit
     // 例如：?exclude=field1,field2&fields=field3,field4&limit=10
     // const fieldsToExclude = data.options && data.options.exclude ? data.options.exclude.split(',') : []
@@ -16,11 +18,11 @@ function createApiMethod(methodName, model) {
     // const limit = data.options && data.options.limit ? parseInt(data.options.limit, 10) : 0
     // const search = data.options && data.options.q ? data.options.q : ''
 
-    const getSearchableFields = (fields) => {
-      return Object.keys(fields)
-        .filter(key => Boolean(fields[key].includeInSearch))
-        .map(key => key)
-    }
+    // const getSearchableFields = (fields) => {
+    //   return Object.keys(fields)
+    //     .filter(key => Boolean(fields[key].includeInSearch))
+    //     .map(key => key)
+    // }
 
     const query = () => {
       // let match = {}
@@ -35,19 +37,21 @@ function createApiMethod(methodName, model) {
 
       // todo: 边界情况考虑
       return models[model].find(match).list().then(results => {
+        // if (typeof page === 'undefined') {
+        //   console.log('wtf')
+        //   // return Promise.resolve(results)
+        // }
         const startIndex = (page - 1) * itemsPerPage
         const pagedResults = {
           _response: results.slice(startIndex, itemsPerPage + startIndex),
           _pagination: {
             current: page,
             // todo: 可能有 bug
-            all: parseInt((results.length / itemsPerPage), 10) + 1
+            all: parseInt((results.length / itemsPerPage) as any, 10) + 1
           }
         }
 
-        return Promise.resolve(pagedResults)
-
-
+        return pagedResults
         // .map(utils.includeFields(filedsToInclude))
         // .map(utils.excludeFields(fieldsToExclude))
         // .filter(utils.limitResults(limit))
@@ -84,7 +88,7 @@ function createApiMethod(methodName, model) {
           if (res.length === 0) {
             return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
           }
-          return res[0]
+          return res._response[0]
         })
       }
 

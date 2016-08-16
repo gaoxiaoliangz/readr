@@ -2,7 +2,6 @@ const _ = require('lodash')
 const errors = require('../../errors')
 const i18n = require('../../utils/i18n')
 
-
 function getIdMatch(options) {
   return _.pick(options, (val, key) => {
     return key.indexOf('id') !== -1

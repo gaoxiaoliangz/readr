@@ -1,10 +1,7 @@
 'use strict'
 const _ = require('lodash')
-const api = require('../api')
+// const api = require('../api')
 const utils = require('../api/utils')
-
-// todo
-const itemsPerPage = 5
 
 function getParserByMethodName(methodName) {
   switch (methodName) {
@@ -20,9 +17,7 @@ function getParserByMethodName(methodName) {
         // console.log(request.query)
         return [
           {},
-          _.assign({}, request.query, {
-            itemsPerPage
-          })
+          _.assign({}, request.query)
         ]
       }
 
