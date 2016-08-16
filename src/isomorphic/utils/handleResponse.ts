@@ -17,7 +17,8 @@ function getNextPageUrl(response) {
   return nextLink.split(';')[0].trim().slice(1, -1)
 }
 
-function handleResponse({json, response}, schema) {
+function handleResponse(data, schema) {
+  const { json, response } = data
   const camelizedJson = humps.camelizeKeys(json)
 
   if (typeof schema !== 'undefined') {

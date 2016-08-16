@@ -65,7 +65,7 @@ class AddBook extends Component<Props, State> {
   addBook() {
     const data = {
       title: this.state.bookTitle.length !== 0 ? this.state.bookTitle[0].value : '',
-      author: this.state.bookAuthor.map(a => a.value),
+      authors: this.state.bookAuthor.map(a => a.value),
       description: this.props.elements[syls.textareaBookDesc].value,
       cover: this.props.elements[syls.inputBookCover].value,
       content: this.props.elements[syls.textareaBookContent].value

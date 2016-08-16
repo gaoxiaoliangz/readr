@@ -22,7 +22,7 @@ function jsonp(fullUrl, config: { schema?: {} }) {
         document.body.removeChild(document.getElementById(jsonpId))
         let json = window[jsonpCallbackData]
 
-        resolve(handleResponse(json, config.schema))
+        resolve(handleResponse({ json }, config.schema))
       }
     })
   }

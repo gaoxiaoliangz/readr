@@ -316,7 +316,8 @@ class Viewer extends Component<any, any> {
     ]
 
     return (
-      <div styleName={`viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this) } >
+      <div styleName="viewer" className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this) } >
+        <Body className="viewer" />
         {
           !book.content && !this.state.calculatedPages ? (
             <Loading />
@@ -334,9 +335,31 @@ class Viewer extends Component<any, any> {
           transitionLeaveTimeout={300}
           >
           {
-            (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference && (
-              <ViewerPanel />
-            )
+            (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference ? (
+              <div styleName="viewer-panel">
+                <div styleName="container">
+                  <div styleName="back">
+                    <Link to="/">
+                      <Icon name="back" />
+                      <span>返回</span>
+                    </Link>
+                  </div>
+                  <span styleName="title">{book.title}</span>
+                  <div onClick={this.toggleViewerPreference} styleName="preference">
+                    <Icon name="font" />
+                  </div>
+                  <div className="add">点击添加至书架</div>
+                  <Fade>
+                    {
+                      this.state.showViewerPreference ? (
+                        <ViewerPreference />
+                      ) : null
+                    }
+                  </Fade>
+                  {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
+                </div>
+              </div>
+            ) : null
           }
         </ReactCSSTransitionGroup>
         {
@@ -368,5 +391,7 @@ export default connect(
       session: state.session
     }
   },
-  {}
+  dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+  })
 )(Viewer)
