@@ -31,14 +31,14 @@ export function htmlToPages(html, nodeHeights, view) {
 }
 
 export function pagesToHtml(pages) {
-  let nodes = pages.props.children.reduce((a, b) => (a.concat(b.props.children)),[])
+  let nodes = pages.props.children.reduce((a, b) => (a.concat(b.props.children)), [])
   let uniqueNodes = []
   let realIndex = 0
 
   // remove duplicate nodes
-  for (var i = 0; i < nodes.length; i++) {
+  for (let i = 0; i < nodes.length; i++) {
     nodes[i]
-    if(nodes[i].props.index === realIndex) {
+    if (nodes[i].props.index === realIndex) {
       uniqueNodes.push(nodes[i])
       realIndex++
     }
@@ -54,19 +54,19 @@ export function getNodeHeights(nodes) {
   let nodesHeight = []
 
   Array.prototype.forEach.call(nodes, (node, index) => {
-   if(node.tagName.toLowerCase() !== "p") {
-     console.error("Unsupported content found!")
-   }
-   nodesHeight.push(node.clientHeight)
+    if (node.tagName.toLowerCase() !== 'p') {
+      console.error('Unsupported content found!')
+    }
+    nodesHeight.push(node.clientHeight)
   })
 
   return nodesHeight
 }
 
 
-export function percentageToPage(p:number, pageSum:number) {
-  if(p>1) {
-    console.error("Wrong parameter!")
+export function percentageToPage(p: number, pageSum: number) {
+  if (p > 1) {
+    console.error('Wrong parameter!')
     return null
   } else {
     return parseInt((p * pageSum) as any) + 1
@@ -77,16 +77,16 @@ export function percentageToPage(p:number, pageSum:number) {
 
 function parseHTML(htmlString: string) {
   let nodes = []
-  let $html = document.createElement("div")
+  let $html = document.createElement('div')
   let $htmlNodes
 
   $html.innerHTML = htmlString
   $htmlNodes = $html.childNodes
 
-  for (var i = 0; i < $htmlNodes.length; i++) {
-    if($htmlNodes[i].nodeType != 1) {
+  for (let i = 0; i < $htmlNodes.length; i++) {
+    if ($htmlNodes[i].nodeType != 1) {
       continue
-    }else{
+    } else {
       nodes.push({
         type: $htmlNodes[i].tagName.toLowerCase(),
         props: {
@@ -102,10 +102,10 @@ function parseNodes(nodes) {
   let html = ''
 
   for (let i = 0; i < nodes.length; i++) {
-    if(nodes[i].type !== 'p') {
+    if (nodes[i].type !== 'p') {
       console.error('Unsupported node found!')
       continue
-    }else{
+    } else {
       html += `<p>${nodes[i].props.children}</p>`
     }
   }
@@ -115,8 +115,8 @@ function parseNodes(nodes) {
 
 function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   let pages = []
-  let pageHeightSum = nodeHeights.reduce((a, b) => (a+b), 0)
-  let pageSum = Math.ceil(pageHeightSum/pageHeight)
+  let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
+  let pageSum = Math.ceil(pageHeightSum / pageHeight)
 
   nodes = nodes.map((node, index) => {
     node.props.index = index
@@ -126,18 +126,18 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   // long paragraph situation doesn't seem to affect this function
   // offset distance is always negtive or zero
   // the index will be of the paragraph with this offset at the end
-  const getPageOffset = function(pageIndex) {
+  const getPageOffset = function (pageIndex) {
     let offset = 0
     let i = 0
     let index
 
-    if(pageIndex !== 0) {
+    if (pageIndex !== 0) {
       let nodeHeightSum = 0
-      while(nodeHeightSum <= pageHeight * pageIndex) {
+      while (nodeHeightSum <= pageHeight * pageIndex) {
         nodeHeightSum += nodeHeights[i]
         i++
       }
-      offset = nodeHeightSum - nodeHeights[i-1] - pageIndex * pageHeight
+      offset = nodeHeightSum - nodeHeights[i - 1] - pageIndex * pageHeight
       index = i - 1
     } else {
       index = 0
@@ -149,7 +149,7 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
     }
   }
 
-  const getNodesOfPage = function(pageIndex) {
+  const getNodesOfPage = function (pageIndex) {
     let offsetObject = getPageOffset(pageIndex)
     let nodeStartIndex = offsetObject.index
     let offset = offsetObject.offset
@@ -162,17 +162,17 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
     let nodeHeightSum = offset + nodeHeights[nodeStartIndex]
     i++
 
-    if(nodeHeightSum < pageHeight) {
+    if (nodeHeightSum < pageHeight) {
       while (nodeHeightSum <= pageHeight && i !== nodes.length) {
         nodeHeightSum += nodeHeights[i]
         i++
       }
       nodeEndIndex = i - 1
-    }else{
+    } else {
       nodeEndIndex = nodeStartIndex
     }
 
-    for(let i = nodeStartIndex; i <= nodeEndIndex && i <= nodes.length - 1; i++) {
+    for (let i = nodeStartIndex; i <= nodeEndIndex && i <= nodes.length - 1; i++) {
       pageNodes.push(nodes[i])
     }
 
@@ -180,7 +180,7 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   }
 
   // finally
-  for(let i = 0; i < pageSum; i++) {
+  for (let i = 0; i < pageSum; i++) {
     let array = getNodesOfPage(i)
     let nodes = array[0]
     let offset = array[1]
@@ -189,14 +189,14 @@ function groupNodesByPage(nodes, nodeHeights, pageHeight) {
       props: {
         children: nodes,
         style: {
-          top: i*pageHeight,
+          top: i * pageHeight,
           position: 'absolute',
           height: pageHeight
         },
-        pageNo: i+1,
+        pageNo: i + 1,
         offset
       },
-      type: "page"
+      type: 'page'
     })
   }
 

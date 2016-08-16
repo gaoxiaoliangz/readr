@@ -1,5 +1,5 @@
 module.exports = {
-  path: 'viewer/book/:bookId',
+  path: 'viewer/book/:id',
 
   getComponent(nextState, fn) {
     require.ensure([], function (require) {

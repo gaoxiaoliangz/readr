@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 // import { Link } from 'react-router'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./_book-page.scss')
 
+@CSSModules(styles)
 class BookPage extends Component<any, any> {
   render() {
     let page = this.props.page
     let style = this.props.style
 
     return (
-      <li style={style}>
-        <div className="content">
+      <li styleName="page" style={style}>
+        <div styleName="content">
           {
             page.props.children.map((node, index) => {
               if (node.type !== 'p') {
@@ -24,7 +27,7 @@ class BookPage extends Component<any, any> {
             })
           }
         </div>
-        <div className="page-no">{page.props.pageNo}</div>
+        <div styleName="page-no">{page.props.pageNo}</div>
       </li>
     )
   }

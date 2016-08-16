@@ -21,12 +21,14 @@ class Icon extends Component<IProps, {}> {
   }
 
   render() {
-    const { name, onClick, size } = this.props
+    let { name, onClick, size } = this.props
     let className = classnames('icon', `icon-${name}`, this.props.className)
 
     if (typeof svgIcons[name] === 'undefined') {
       console.error('Icon name (%s) not found! ', name)
     }
+
+    size = size || 30
 
     return (
       <span styleName="icon" className={className} onClick={onClick}>

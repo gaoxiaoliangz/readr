@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./_viewer-scrollbar.scss')
 
 interface Props {
   current: number
   total: number
 }
 
+@CSSModules(styles)
 class ViewerScrollbar extends Component<Props, any> {
 
   constructor(props) {
@@ -14,15 +17,15 @@ class ViewerScrollbar extends Component<Props, any> {
 
   render() {
     return (
-      <div style={{height: 400}} className="viewer-scrollbar">
-        <div className="button">
-          <div className="loc-info">
+      <div style={{height: 400}} styleName="scrollbar">
+        <div styleName="button">
+          <div styleName="loc-info">
             <div><strong>{this.props.current}</strong>/{this.props.total}</div>
-            <div className="sub-info">30.3%</div>
+            <div styleName="sub-info">30.3%</div>
           </div>
         </div>
-        <div style={{height: 100}} className="track-past"></div>
-        <div style={{height: 400}} className="track"></div>
+        <div style={{height: 100}} styleName="track--past"></div>
+        <div style={{height: 400}} styleName="track"></div>
       </div>
     )
   }

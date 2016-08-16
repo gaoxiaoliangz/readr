@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import Switcher from '../../elements/Switcher'
 import CSSModules from 'react-css-modules'
+const styles: any = require('./_viewer-preference.scss')
 
 interface Props {
   name: string
 }
 
-// @CSSModules(styles)
+@CSSModules(styles)
 class ViewerPreference extends Component<Props, any> {
 
   constructor(props) {
@@ -17,16 +18,16 @@ class ViewerPreference extends Component<Props, any> {
 
   render() {
     return (
-      <div className="viewer-preference">
+      <div styleName="viewer-preference">
         <ul className="options">
-          <li className="option option-font-size">
+          <li styleName="option-font-size">
             <span>A-</span><span>A+</span>
           </li>
-          <li className="option option-scroll">
+          <li styleName="option-scroll">
             <span className="label">滚动模式</span>
             <Switcher value={true} />
           </li>
-          <li className="option option-theme">
+          <li styleName="option-theme">
             <span style={{background: '#fff'}}>theme1</span>
             <span style={{background: '#eee'}}>theme2</span>
             <span style={{background: '#222'}}>theme3</span>
@@ -38,5 +39,4 @@ class ViewerPreference extends Component<Props, any> {
 }
 
 export default connect(
-
 )(ViewerPreference as any)

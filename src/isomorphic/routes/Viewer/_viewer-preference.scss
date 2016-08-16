@@ -1,3 +1,5 @@
+@import "styles/_variables";
+
 .viewer-preference {
   position: absolute;
   right: 0;
@@ -9,63 +11,66 @@
   border-radius: 3px;
   -webkit-user-select: none;
   overflow: hidden;
+}
 
-  .option {
-    padding: 10px 15px;
-    border-bottom: 1px solid $gray_d;
+.option {
+  padding: 10px 15px;
+  border-bottom: 1px solid $gray_d;
 
-    &:last-child {
-      border: none;
-    }
+  &:last-child {
+    border: none;
+  }
+}
+
+.option-font-size {
+  composes: option;
+  $height: 40px;
+  overflow: hidden;
+  padding: 0;
+
+  span {
+    font-size: 1.2rem;
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    padding: 0 5px;
+    height: $height;
+    line-height: $height;
+    cursor: pointer;
   }
 
-  .option-font-size {
-    $height: 40px;
-    overflow: hidden;
-    padding: 0;
+  span:first-child {
+    font-size: .9rem;
+    border-right: 1px solid $gray_d;
+  }
+}
 
-    span {
-      font-size: 1.2rem;
-      width: 50%;
-      float: left;
-      box-sizing: border-box;
-      padding: 0 5px;
-      height: $height;
-      line-height: $height;
-      cursor: pointer;
-    }
+.option-scroll {
+  composes: option;
+  overflow: hidden;
+  text-align: left;
 
-    span:first-child {
-      font-size: .9rem;
-      border-right: 1px solid $gray_d;
-    }
+  .label {
+    float: left;
   }
 
-  .option-scroll {
-    overflow: hidden;
-    text-align: left;
-
-    .label {
-      float: left;
-    }
-
-    .switcher {
-      float: right;
-    }
+  .switcher {
+    float: right;
   }
+}
 
-  .option-theme {
-    padding: 5px 0;
+.option-theme {
+  composes: option;
+  padding: 5px 0;
 
-    span {
-      border-radius: 50%;
-      border: 2px solid $gray_d;
-      text-indent: -999em;
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      margin: 5px;
-      cursor: pointer;
-    }
+  span {
+    border-radius: 50%;
+    border: 2px solid $gray_d;
+    text-indent: -999em;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    cursor: pointer;
   }
 }

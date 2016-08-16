@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 // import * as styles from '../constants/STYLES'
 import BookPage from './BookPage'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./_book-page-list.scss')
 
+@CSSModules(styles)
 class BookPageList extends Component<any, any> {
 
   render() {
@@ -16,7 +19,7 @@ class BookPageList extends Component<any, any> {
     // }
 
     return (
-      <ul className="pages" style={{ height: this.props.height }}>
+      <ul styleName="pages" style={{ height: this.props.height }}>
         {
           this.props.pages.map((page, index) => {
             if (page.type === 'page') {

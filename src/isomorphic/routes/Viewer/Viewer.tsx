@@ -18,6 +18,8 @@ import _ from 'lodash'
 import ViewerPreference from './ViewerPreference'
 import Fade from '../../elements/_animations/Fade'
 import ViewerScrollbar from './ViewerScrollbar'
+import CSSModules from 'react-css-modules'
+const styles: any = require('./_viewer.scss')
 
 const actions = { fetchBook, userAuth }
 
@@ -36,6 +38,7 @@ interface State {
   showViewerPreference: boolean
 }
 
+@CSSModules(styles)
 class Viewer extends Component<any, any> {
 
   bookId: number
@@ -313,7 +316,7 @@ class Viewer extends Component<any, any> {
     ]
 
     return (
-      <div className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this) } >
+      <div styleName="viewer" className={`viewer viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this) } >
         <Body className="viewer" />
         {
           !book.content && !this.state.calculatedPages ? (
@@ -333,16 +336,16 @@ class Viewer extends Component<any, any> {
           >
           {
             (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference ? (
-              <div className="viewer-panel">
-                <div className="container">
-                  <div className="back">
+              <div styleName="viewer-panel">
+                <div styleName="container">
+                  <div styleName="back">
                     <Link to="/">
                       <Icon name="back" />
                       <span>返回</span>
                     </Link>
                   </div>
-                  <span className="title">{book.title}</span>
-                  <div onClick={this.toggleViewerPreference} className="preference">
+                  <span styleName="title">{book.title}</span>
+                  <div onClick={this.toggleViewerPreference} styleName="preference">
                     <Icon name="font" />
                   </div>
                   <div className="add">点击添加至书架</div>

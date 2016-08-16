@@ -1,3 +1,6 @@
+@import "styles/_variables";
+@import "./viewer.mixin";
+
 .viewer {
   @include make_viewer(#555, #fff, #fff, #222, #eee, red);
 }
@@ -6,4 +9,3 @@
     position: relative;
   }
 }
-
