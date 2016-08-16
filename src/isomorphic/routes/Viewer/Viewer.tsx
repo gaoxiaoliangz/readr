@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import Icon from '../../elements/Icon'
+// import Icon from '../../elements/Icon'
 import Loading from '../../elements/Loading'
 import Dialog from '../../elements/Dialog'
 import BookPageList from './BookPageList'
@@ -15,13 +15,11 @@ import { fetchBook, userAuth } from '../../store/actions'
 import apis from '../../apis'
 import Body from '../../components/Body'
 import _ from 'lodash'
-import ViewerPreference from './ViewerPreference'
-import Fade from '../../elements/_animations/Fade'
+// import Fade from '../../elements/_animations/Fade'
 import ViewerScrollbar from './ViewerScrollbar'
+import ViewerPanel from './ViewerPanel'
 import CSSModules from 'react-css-modules'
 const styles: any = require('./_viewer.scss')
-
-const actions = { fetchBook, userAuth }
 
 interface State {
   showPanel: boolean
@@ -72,14 +70,6 @@ class Viewer extends Component<any, any> {
       view: getBookView(),
       showViewerPreference: false
     }
-
-    this.toggleViewerPreference = this.toggleViewerPreference.bind(this)
-  }
-
-  toggleViewerPreference() {
-    this.setState({
-      showViewerPreference: !this.state.showViewerPreference
-    })
   }
 
   scrollTo(position) {
@@ -162,7 +152,7 @@ class Viewer extends Component<any, any> {
     window.removeEventListener('resize', this.mapViewToState)
   }
 
-  toggleBookPanel(event) {
+  handelViewerOnMouseMove(event) {
     if (this.state.calculatedPages.props.view.screen === 'hd') {
       let y = event.pageY - document.body.scrollTop
 
@@ -252,11 +242,10 @@ class Viewer extends Component<any, any> {
   }
 
   componentDidMount() {
-    const actions = this.props.actions
     const bookId = this.props.params.id
 
-    actions.userAuth()
-    actions.fetchBook(bookId)
+    // actions.userAuth()
+    this.props.fetchBook(bookId)
     // actions.fetchBookProgress(bookId)
 
     this.addEventListeners()
@@ -316,7 +305,7 @@ class Viewer extends Component<any, any> {
     ]
 
     return (
-      <div styleName={`viewer--${view.screen}`} onMouseMove={this.toggleBookPanel.bind(this) } >
+      <div styleName={`viewer--${view.screen}`} onMouseMove={this.handelViewerOnMouseMove.bind(this) } >
         {
           !book.content && !this.state.calculatedPages ? (
             <Loading />
@@ -327,18 +316,13 @@ class Viewer extends Component<any, any> {
             <Dialog actions={actions} content="are you sure?"/>
           ) : null
         }
-        <ReactCSSTransitionGroup
-          component="div"
-          transitionName="slide"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-          >
-          {
-            (this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference && (
-              <ViewerPanel />
-            )
-          }
-        </ReactCSSTransitionGroup>
+        {
+          ((this.state.showPanel && this.state.isReadingMode) || this.state.showViewerPreference) && (
+            <ViewerPanel
+              title="abc"
+              />
+          )
+        }
         {
           (this.state.isCalculatingDom && this.state.bookHtml) ? (
             <ul className="pages">
@@ -368,5 +352,5 @@ export default connect(
       session: state.session
     }
   },
-  {}
+  { fetchBook }
 )(Viewer)

@@ -2,54 +2,6 @@
   position: relative;
   background: $viewer_background;
 
-  .viewer-panel {
-    $height: 60px;
-
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 990;
-    background: $panel_background;
-    color: $panel_text;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
-    height: $height;
-
-    .container {
-      text-align: center;
-      margin-top: ($height - $icons_size)/2;
-      position: relative;
-    }
-
-    .back {
-      position: absolute;
-      left: 5px;
-      top: 0;
-      a {
-        color: $panel_text;
-        display: inline-block;
-        overflow: hidden;
-        span {
-          float: left;
-        }
-      }
-      span {
-        line-height: $icons_size;
-        display: inline-block;
-      }
-    }
-
-    .title {
-      font-size: 1.2rem;
-    }
-
-    .preference {
-      position: absolute;
-      right: 15px;
-      top: 0;
-      cursor: pointer;
-    }
-  }
-
   &.viewer--phone {
     ul.pages {
       width: 100%;
