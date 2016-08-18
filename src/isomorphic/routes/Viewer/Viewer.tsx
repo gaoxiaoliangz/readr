@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import marked from 'marked'
 // import Icon from '../../elements/Icon'
 import BookPageList from './BookPageList'
 import * as renderBook from './Viewer.utils'
@@ -306,10 +307,11 @@ class Viewer extends Component<IAllProps, IState> {
 
   renderRawBook() {
     const {rawBookContent} = this.props
+    const html = marked(rawBookContent)
 
     return (rawBookContent) && (
       <BookPageWithRawHtml
-        bookHtml={rawBookContent}
+        bookHtml={html}
         />
     )
   }
@@ -347,7 +349,7 @@ export default connect(
 
     return {
       book,
-      rawBookContent: _.get(book , 'content.html', ''),
+      rawBookContent: _.get(book , 'content.raw', ''),
       session: state.session
     }
   },

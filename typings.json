@@ -4,6 +4,7 @@
   "globalDependencies": {
     "classnames": "registry:dt/classnames#0.0.0+20160316155526",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",
+    "marked": "registry:dt/marked#0.0.0+20160325085301",
     "normalizr": "registry:dt/normalizr#2.0.1+20160501130729",
     "react": "registry:dt/react#0.14.0+20160526134601",
     "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",
