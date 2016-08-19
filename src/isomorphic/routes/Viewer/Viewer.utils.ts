@@ -51,14 +51,7 @@ export function pagesToHtml(pages) {
 
 
 
-export function percentageToPage(p: number, pageSum: number) {
-  if (p > 1) {
-    console.error('Wrong parameter!')
-    return null
-  } else {
-    return parseInt((p * pageSum) as any) + 1
-  }
-}
+
 
 // funcs used internally
 

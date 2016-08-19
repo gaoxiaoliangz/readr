@@ -5,16 +5,24 @@ import BookPage from './BookPage'
 import * as utils from './BookPageList.utils'
 import CSSModules from 'react-css-modules'
 const styles: any = require('./_book-page-list.scss')
+import _ from 'lodash'
 
 interface IProps {
   nodes: string[]
   nodeHeights: number[]
-  startPage: number
   pageCount: number
+  isScrollMode?: boolean
+  initialPage?: number
+  pageHeight: number
 }
 
 interface IState {
-  calculatedPages: utils.TPageList
+  scrollTop?: number
+  currentPage?: number
+  _calculated?: {
+    pages?: utils.TPageList
+    totalHeight?: number
+  }
 }
 
 @CSSModules(styles)
@@ -23,21 +31,59 @@ class BookPageList extends Component<IProps, IState> {
   constructor(props) {
     super(props)
     this.state = {
-      calculatedPages: []
+      _calculated: {
+        pages: [],
+        totalHeight: 0
+      },
+      scrollTop: 0,
+      currentPage: 1
     }
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
-  calcPages() {
-    const { nodeHeights, nodes } = this.props
-    const calculatedPages = utils.groupNodesByPage(nodes, nodeHeights, 900)
+  handleScroll() {
+    // const { pageHeight } = this.props
+    const { _calculated: { pages, totalHeight } } = this.state
+    const scrollTop = document.body.scrollTop
 
     this.setState({
-      calculatedPages: calculatedPages
+      currentPage: utils.percentageToPage(scrollTop / totalHeight, pages.length)
+    })
+  }
+
+  addEventListeners() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  removeEventListeners() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  calcPages(fn?) {
+    const { nodeHeights, nodes, pageHeight } = this.props
+    const pages = utils.groupNodesByPage(nodes, nodeHeights, 900)
+
+    this.setState({
+      _calculated: {
+        pages,
+        totalHeight: pages.length * pageHeight
+      }
+    }, () => {
+      if (fn) fn()
     })
   }
 
   componentDidMount() {
-    this.calcPages()
+    const { nodeHeights, nodes, pageHeight, initialPage } = this.props
+    this.calcPages(() => {
+      const scrollTop = pageHeight * (initialPage - 1)
+      document.body.scrollTop = scrollTop
+    })
+    this.addEventListeners()
+  }
+
+  componentWillUnmount() {
+    this.removeEventListeners()
   }
 
   render() {
@@ -50,15 +96,22 @@ class BookPageList extends Component<IProps, IState> {
     //   style.height = "100%"
     // }
 
-    const { calculatedPages: pages } = this.state
-    // todo
-    const totalHeight = pages.length * 900
+    const { _calculated: { pages, totalHeight }, currentPage } = this.state
+    const { pageCount, pageHeight } = this.props
+    const startPageIndex = currentPage - 1
+    const endPageIndex = startPageIndex + pageCount
 
     return (
-      <ul styleName="pages" style={{ height: totalHeight || 'auto' }}>
+      <ul styleName="pages" style={{ height: totalHeight }}>
         {
-          pages.map((page, index) => {
-            return <BookPage key={index} page={page}></BookPage>
+          _.slice(pages, startPageIndex, endPageIndex).map((page, index) => {
+            return (
+              <BookPage
+                key={index}
+                page={page}
+                pageHeight={pageHeight}
+                />
+            )
           })
         }
       </ul>

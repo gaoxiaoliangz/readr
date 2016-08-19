@@ -90,3 +90,12 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
 
   return pages
 }
+
+export function percentageToPage(p: number, pageSum: number) {
+  if (p > 1) {
+    console.error('Wrong parameter!')
+    return null
+  } else {
+    return parseInt((p * pageSum) as any) + 1
+  }
+}

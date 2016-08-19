@@ -34,8 +34,13 @@ export function searchBooks(query) {
 /**
  * data: pageNo, pageSum, percentage
  */
-export function setProgress(bookId, data) {
-  callApi(`${ApiRoots.LOCAL}books/${bookId}/progress`, { method: 'POST', data })
+export type setProgress = {
+  pageNo: number
+  pageSum: number
+  percentage: number
+}
+export function setProgress(bookId, data: setProgress) {
+  callApi(`${ApiRoots.LOCAL}user/books/${bookId}/progress`, { method: 'POST', data })
 }
 
 export function deleteBook(id) {

@@ -63,6 +63,7 @@ export function fetchShelf() {
 export function fetchProgress(bookId) {
   return {
     bookId,
+    payload: 'progress',
     CALL_API: {
       types: ['PROGRESS_REQUEST', 'PROGRESS_SUCCESS', 'PROGRESS_FAILURE'],
       endpoint: `user/books/${bookId}/progress`,

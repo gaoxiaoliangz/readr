@@ -6,6 +6,7 @@ const styles: any = require('./_book-page.scss')
 
 interface IProps {
   page: utils.TPage
+  pageHeight: number
 }
 
 interface IState {
@@ -14,16 +15,19 @@ interface IState {
 @CSSModules(styles)
 class BookPage extends Component<IProps, IState> {
   render() {
-    const { page: { nodes, meta } } = this.props
+    const { page: { nodes, meta }, pageHeight } = this.props
     const style = {
       position: 'absolute',
-      // todo
-      top: 900 * (meta.pageNo - 1)
+      top: pageHeight * (meta.pageNo - 1)
     }
 
     return (
       <li styleName="page" style={style}>
-        <div style={{marginTop: meta.offset}} styleName="content" dangerouslySetInnerHTML={{ __html: nodes.join('') }} />
+        <div
+          style={{ marginTop: meta.offset, height: pageHeight }}
+          styleName="content"
+          dangerouslySetInnerHTML={{ __html: nodes.join('') }}
+          />
         <div styleName="page-no">{meta.pageNo}</div>
       </li>
     )

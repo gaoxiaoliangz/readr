@@ -5,14 +5,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 // import Icon from '../../elements/Icon'
 import BookPageList from './BookPageList'
-import * as renderBook from './Viewer.utils'
+// import * as renderBook from './Viewer.utils'
 import * as viewerUtils from './Viewer.utils2'
 import { getBookView } from '../../utils/view'
-import { getCache, setCache } from '../../utils/cache'
-import { simpleCompareObjects } from '../../utils/object'
-import { fetchBook, userAuth } from '../../store/actions'
+// import { getCache, setCache } from '../../utils/cache'
+// import { simpleCompareObjects } from '../../utils/object'
+import { fetchBook, fetchProgress } from '../../store/actions'
 import apis from '../../apis'
-import Body from '../../components/Body'
+// import Body from '../../components/Body'
 import _ from 'lodash'
 // import Fade from '../../elements/_animations/Fade'
 import ViewerScrollbar from './ViewerScrollbar'
@@ -26,6 +26,7 @@ interface IAllProps {
   fetchBook: any
   book: any
   rawBookContent: string
+  fetchProgress: (bookId: string) => void
 }
 
 interface IState {
@@ -33,14 +34,10 @@ interface IState {
   isCalcMode?: boolean
   nodeHeights?: number[]
   nodes?: string[]
-  // showProgressDialog: boolean
-  // isCalculatingDom: boolean
-  // isReadingMode: boolean
-  // isScrollMode: boolean
+
+
   // isInitialProgressSet: boolean
-  // scrollTop: number
   // currentPage: number
-  // calculatedPages: any
   // latestProgress: number
   // view: {}
   // showViewerPreference: boolean
@@ -49,17 +46,12 @@ interface IState {
 @CSSModules(styles)
 class Viewer extends Component<IAllProps, IState> {
 
-  bookId: number
+  bookId: string
   bookHtml: any
-  // mapScrollTopToState: () => void
-  // mapWindowWidthToState: () => void
+
   // mapViewToState: () => void
   // checkAndSetProgress: () => void
   // deboundedSetProgress: () => void
-  // refs: {
-  //   [string: string]: any
-  //   bookHtml: any
-  // }
 
   constructor(props) {
     super(props)
@@ -70,16 +62,12 @@ class Viewer extends Component<IAllProps, IState> {
       isCalcMode: true,
       nodeHeights: [],
       nodes: []
-      // showProgressDialog: false,
 
-      // isCalculatingDom: false,
-      // isReadingMode: false,
-      // isScrollMode: true,
+
       // isInitialProgressSet: false,
 
-      // scrollTop: 0,
       // currentPage: 0, // TODO: remove?
-      // calculatedPages: null,
+
       // latestProgress: 0,
       // view: getBookView(),
       // showViewerPreference: false
@@ -264,11 +252,6 @@ class Viewer extends Component<IAllProps, IState> {
   //   )
   // }
 
-  // hideProgressDialog() {
-  //   this.setState({
-  //     showProgressDialog: false
-  //   })
-  // }
 
   loadRawBookContent() {
     this.props.fetchBook(this.bookId).then(res => {
@@ -289,18 +272,8 @@ class Viewer extends Component<IAllProps, IState> {
       isCalcMode: false
     })
 
-    // let html = this.state.bookHtml
-    // let bookId = this.bookId
     // let view = getBookView()
-    // let nodeHeights = renderBook.getNodeHeights(this.refs.bookHtml.childNodes)
-    // let pages = renderBook.htmlToPages(html, nodeHeights, view)
 
-    // setCache(`book${bookId}_pages`, JSON.stringify(pages))
-
-    // this.setState({
-    //   isCalcMode: false,
-    //   calculatedPages: pages
-    // })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -323,6 +296,7 @@ class Viewer extends Component<IAllProps, IState> {
 
   componentDidMount() {
     this.loadRawBookContent()
+    this.props.fetchProgress(this.bookId)
   }
 
   renderViewPanel() {
@@ -349,7 +323,8 @@ class Viewer extends Component<IAllProps, IState> {
           nodeHeights={nodeHeights}
           nodes={this.state.nodes}
           pageCount={5}
-          startPage={2}
+          initialPage={20}
+          pageHeight={900}
           />
       )
   }
@@ -391,5 +366,5 @@ export default connect(
       session: state.session
     }
   },
-  { fetchBook }
+  { fetchBook, fetchProgress }
 )(Viewer as any)
