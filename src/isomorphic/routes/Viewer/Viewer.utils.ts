@@ -50,19 +50,6 @@ export function pagesToHtml(pages) {
 }
 
 
-export function getNodeHeights(nodes) {
-  let nodesHeight = []
-
-  Array.prototype.forEach.call(nodes, (node, index) => {
-    if (node.tagName.toLowerCase() !== 'p') {
-      console.error('Unsupported content found!')
-    }
-    nodesHeight.push(node.clientHeight)
-  })
-
-  return nodesHeight
-}
-
 
 export function percentageToPage(p: number, pageSum: number) {
   if (p > 1) {
@@ -113,6 +100,11 @@ function parseNodes(nodes) {
   return html
 }
 
+
+
+
+
+// original
 function groupNodesByPage(nodes, nodeHeights, pageHeight) {
   let pages = []
   let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)

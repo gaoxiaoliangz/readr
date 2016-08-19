@@ -2,11 +2,43 @@ import React, { Component } from 'react'
 // import { Link } from 'react-router'
 // import * as styles from '../constants/STYLES'
 import BookPage from './BookPage'
+import * as utils from './BookPageList.utils'
 import CSSModules from 'react-css-modules'
 const styles: any = require('./_book-page-list.scss')
 
+interface IProps {
+  nodes: string[]
+  nodeHeights: number[]
+  startPage: number
+  pageCount: number
+}
+
+interface IState {
+  calculatedPages: utils.TPageList
+}
+
 @CSSModules(styles)
-class BookPageList extends Component<any, any> {
+class BookPageList extends Component<IProps, IState> {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      calculatedPages: []
+    }
+  }
+
+  calcPages() {
+    const { nodeHeights, nodes } = this.props
+    const calculatedPages = utils.groupNodesByPage(nodes, nodeHeights, 900)
+
+    this.setState({
+      calculatedPages: calculatedPages
+    })
+  }
+
+  componentDidMount() {
+    this.calcPages()
+  }
 
   render() {
     // let style = styles.BOOK_HD_STYLE
@@ -18,18 +50,15 @@ class BookPageList extends Component<any, any> {
     //   style.height = "100%"
     // }
 
+    const { calculatedPages: pages } = this.state
+    // todo
+    const totalHeight = pages.length * 900
+
     return (
-      <ul styleName="pages" style={{ height: this.props.height }}>
+      <ul styleName="pages" style={{ height: totalHeight || 'auto' }}>
         {
-          this.props.pages.map((page, index) => {
-            if (page.type === 'page') {
-              // style = Object.assign({}, style, page.props.style)
-              return (
-                <BookPage style={page.props.style} bookId={this.props.bookId} key={index} page={page}></BookPage>
-              )
-            } else {
-              console.error('Not type page!')
-            }
+          pages.map((page, index) => {
+            return <BookPage key={index} page={page}></BookPage>
           })
         }
       </ul>

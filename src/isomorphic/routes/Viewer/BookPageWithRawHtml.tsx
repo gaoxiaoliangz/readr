@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { Component } from 'react'
 const styles: any = require('./_book-page-list.scss')
 const styles2: any = require('./_book-page.scss')
 
-type TProps = {
-  children?: any
+interface IProps {
   bookHtml: any
 }
 
-function BookPageWithRawHtml(props: TProps) {
-  return (
-    <ul className={styles.pages}>
-      <li className={styles2.page}>
-        <div className={styles2.content} dangerouslySetInnerHTML={{ __html: props.bookHtml }}></div>
-      </li>
-    </ul>
-  )
+interface IState {
+}
+
+class BookPageWithRawHtml extends Component<IProps, IState> {
+
+  bookHtml: any
+
+  constructor(props) {
+    super(props)
+  }
+
+  getNodes() {
+    return this.bookHtml
+  }
+
+  componentDidMount() {
+  }
+
+  render() {
+    return (
+      <ul className={styles.pages}>
+        <li className={styles2.page}>
+          <div ref={ref => { this.bookHtml = ref }} className={styles2.content} dangerouslySetInnerHTML={{ __html: this.props.bookHtml }}></div>
+        </li>
+      </ul>
+    )
+  }
 }
 
 export default BookPageWithRawHtml

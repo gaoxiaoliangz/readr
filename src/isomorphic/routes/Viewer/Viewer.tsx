@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 // import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import marked from 'marked'
+
 // import Icon from '../../elements/Icon'
 import BookPageList from './BookPageList'
 import * as renderBook from './Viewer.utils'
+import * as viewerUtils from './Viewer.utils2'
 import { getBookView } from '../../utils/view'
 import { getCache, setCache } from '../../utils/cache'
 import { simpleCompareObjects } from '../../utils/object'
@@ -18,6 +19,7 @@ import ViewerScrollbar from './ViewerScrollbar'
 import ViewerPanel from './ViewerPanel'
 import BookPageWithRawHtml from './BookPageWithRawHtml'
 import CSSModules from 'react-css-modules'
+
 const styles: any = require('./_viewer.scss')
 
 interface IAllProps {
@@ -27,7 +29,10 @@ interface IAllProps {
 }
 
 interface IState {
-  showPanel: boolean
+  showPanel?: boolean
+  isCalcMode?: boolean
+  nodeHeights?: number[]
+  nodes?: string[]
   // showProgressDialog: boolean
   // isCalculatingDom: boolean
   // isReadingMode: boolean
@@ -45,6 +50,7 @@ interface IState {
 class Viewer extends Component<IAllProps, IState> {
 
   bookId: number
+  bookHtml: any
   // mapScrollTopToState: () => void
   // mapWindowWidthToState: () => void
   // mapViewToState: () => void
@@ -60,7 +66,10 @@ class Viewer extends Component<IAllProps, IState> {
 
     this.bookId = props.params.id
     this.state = {
-      showPanel: true,
+      showPanel: false,
+      isCalcMode: true,
+      nodeHeights: [],
+      nodes: []
       // showProgressDialog: false,
 
       // isCalculatingDom: false,
@@ -159,18 +168,19 @@ class Viewer extends Component<IAllProps, IState> {
 
   handelViewerOnMouseMove(event) {
     // if (this.state.calculatedPages.props.view.screen === 'hd') {
-    let y = event.pageY - document.body.scrollTop
+    if (!this.state.isCalcMode) {
+      let y = event.pageY - document.body.scrollTop
 
-    if (y < 90) {
-      this.setState({
-        showPanel: true
-      })
-    } else {
-      this.setState({
-        showPanel: false
-      })
+      if (y < 90) {
+        this.setState({
+          showPanel: true
+        })
+      } else {
+        this.setState({
+          showPanel: false
+        })
+      }
     }
-    // }
   }
 
   // clickToToggleBookPanel() {
@@ -179,22 +189,6 @@ class Viewer extends Component<IAllProps, IState> {
   //       showPanel: !this.state.showPanel
   //     })
   //   }
-  // }
-
-  // calculateDom() {
-  //   let html = this.state.bookHtml
-  //   let bookId = this.bookId
-  //   let view = getBookView()
-  //   let nodeHeights = renderBook.getNodeHeights(this.refs.bookHtml.childNodes)
-  //   let pages = renderBook.htmlToPages(html, nodeHeights, view)
-
-  //   setCache(`book${bookId}_pages`, JSON.stringify(pages))
-
-  //   this.setState({
-  //     isReadingMode: true,
-  //     isCalculatingDom: false,
-  //     calculatedPages: pages
-  //   })
   // }
 
   // loadCalculatedPages() {
@@ -227,22 +221,6 @@ class Viewer extends Component<IAllProps, IState> {
   //     this.setState({
   //       isCalculatingDom: true,
   //     })
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.isCalculatingDom && !prevState.isCalculatingDom) {
-  //     this.calculateDom()
-  //   }
-
-  //   // scroll to previous reading progress when opening a book
-  //   if (this.props.book && this.props.book.percentage && this.state.calculatedPages && !this.state.isInitialProgressSet) {
-  //     setTimeout(() => {
-  //       this.scrollTo(this.props.book.percentage)
-  //       this.setState({
-  //         isInitialProgressSet: true
-  //       })
-  //     }, 1)
   //   }
   // }
 
@@ -292,8 +270,59 @@ class Viewer extends Component<IAllProps, IState> {
   //   })
   // }
 
+  loadRawBookContent() {
+    this.props.fetchBook(this.bookId).then(res => {
+      const nodes = viewerUtils.markdownToNodeStringList(this.props.rawBookContent)
+
+      this.setState({
+        nodes
+      })
+    })
+  }
+
+  calcDom() {
+    const contentHtml = this.bookHtml.getNodes()
+    const nodeHeights = viewerUtils.getNodeHeights(contentHtml.childNodes)
+
+    this.setState({
+      nodeHeights,
+      isCalcMode: false
+    })
+
+    // let html = this.state.bookHtml
+    // let bookId = this.bookId
+    // let view = getBookView()
+    // let nodeHeights = renderBook.getNodeHeights(this.refs.bookHtml.childNodes)
+    // let pages = renderBook.htmlToPages(html, nodeHeights, view)
+
+    // setCache(`book${bookId}_pages`, JSON.stringify(pages))
+
+    // this.setState({
+    //   isCalcMode: false,
+    //   calculatedPages: pages
+    // })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const hasBookNodesLoaded = this.state.nodes.length !== 0 && prevState.nodes.length === 0
+
+    if (this.state.isCalcMode && hasBookNodesLoaded) {
+      this.calcDom()
+    }
+
+    // scroll to previous reading progress when opening a book
+    //   if (this.props.book && this.props.book.percentage && this.state.calculatedPages && !this.state.isInitialProgressSet) {
+    //     setTimeout(() => {
+    //       this.scrollTo(this.props.book.percentage)
+    //       this.setState({
+    //         isInitialProgressSet: true
+    //       })
+    //     }, 1)
+    //   }
+  }
+
   componentDidMount() {
-    this.props.fetchBook(this.bookId)
+    this.loadRawBookContent()
   }
 
   renderViewPanel() {
@@ -305,15 +334,24 @@ class Viewer extends Component<IAllProps, IState> {
     )
   }
 
-  renderRawBook() {
-    const {rawBookContent} = this.props
-    const html = marked(rawBookContent)
+  renderBook() {
+    const { nodes, nodeHeights } = this.state
 
-    return (rawBookContent) && (
-      <BookPageWithRawHtml
-        bookHtml={html}
-        />
-    )
+    return this.state.isCalcMode
+      ? (
+        <BookPageWithRawHtml
+          bookHtml={nodes.join('') }
+          ref={ref => { this.bookHtml = ref } }
+          />
+      )
+      : (
+        <BookPageList
+          nodeHeights={nodeHeights}
+          nodes={this.state.nodes}
+          pageCount={5}
+          startPage={2}
+          />
+      )
   }
 
   render() {
@@ -336,7 +374,7 @@ class Viewer extends Component<IAllProps, IState> {
     return (
       <div styleName={`viewer--hd`} onMouseMove={this.handelViewerOnMouseMove.bind(this) } >
         { this.renderViewPanel() }
-        { this.renderRawBook() }
+        { this.renderBook() }
         <ViewerScrollbar current={20} total={309} />
       </div>
     )
@@ -349,7 +387,7 @@ export default connect(
 
     return {
       book,
-      rawBookContent: _.get(book , 'content.raw', ''),
+      rawBookContent: _.get(book, 'content.raw', ''),
       session: state.session
     }
   },

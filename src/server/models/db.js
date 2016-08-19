@@ -115,7 +115,7 @@ function embedRef(rawResults, schema) {
             .then(results => {
               const isRefInRef = doesRefTableHaveRefInItsSchema(field.ref.table)
               const refSchema = getSchemaByTable(field.ref.table)
-              
+
               if (isRefInRef) {
                 // 递归很强大！！
                 return embedRef(results, refSchema).then(reRefedResult => filterRefResult(reRefedResult[0], field, id, refSchema))

@@ -3,6 +3,7 @@
   "version": false,
   "globalDependencies": {
     "classnames": "registry:dt/classnames#0.0.0+20160316155526",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",
     "marked": "registry:dt/marked#0.0.0+20160325085301",
     "normalizr": "registry:dt/normalizr#2.0.1+20160501130729",
