@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "server": "npm run server.c.h",
+    "server.c.f": "node bin/server --hmr --noServerRendering",
     "preserver.c": "gulp sass",
     "server.c": "node bin/server --noServerRendering",
-    "preserver.c.h": "npm run webpack.dll",
+    "preserver.c.h": "npm run webpack.dll & npm run webpack.node",
     "server.c.h": "node bin/server --hmr --noServerRendering & npm run webpack.css.w",
     "server.s": "npm run webpack.node.w & nodemon --debug bin/server",
     "server.c.h.s": "npm run webpack.node.w & nodemon --debug bin/server --hmr & npm run webpack.css.w",

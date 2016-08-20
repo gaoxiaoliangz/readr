@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import utils from '../../utils'
+import view from '../../utils/view'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Fade from '../_animations/Fade'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_modal.scss')
+const styles = require('./Modal.css')
 
-export interface IProps {
+interface Props {
   width: number
   onRequestClose?: () => void
   isVisible: boolean
   className?: string
 }
 
-interface IState {
-  modalHeight?: number
-  isModalHidden?: boolean
-  isModalVerticalCenter?: boolean
-  documentHeight?: number
-}
+@CSSModules(styles, {
+  allowMultiple: true
+})
+class Modal extends Component<Props, any> {
 
-@CSSModules(styles)
-class Modal extends Component<IProps, IState> {
-
-  modal: any
+  refs: {
+    [string: string]: any
+    modal: any
+  }
 
   constructor(props) {
     super(props)
@@ -32,17 +31,16 @@ class Modal extends Component<IProps, IState> {
       isModalVerticalCenter: true
     }
     this.setView = this.setView.bind(this)
-    this.hideModal = this.hideModal.bind(this)
   }
 
   hideModal() {
     this.props.onRequestClose()
-    utils.unlockScroll()
+    view.unlockScroll()
     window.removeEventListener('resize', this.setView)
   }
 
   setView() {
-    let modalHeight = ReactDOM.findDOMNode(this.modal).clientHeight
+    let modalHeight = ReactDOM.findDOMNode(this.refs.modal).clientHeight
     let isModalVerticalCenter = true
     let documentHeight = document.body.clientHeight
 
@@ -61,24 +59,11 @@ class Modal extends Component<IProps, IState> {
     })
   }
 
-  componentDidMount() {
-  }
-
-  componentWillReceiveProps(nextProps) {
-  }
-
   componentDidUpdate(prevProps) {
-    // modal show
-    if (!prevProps.isVisible && this.props.isVisible === true) {
+    if (prevProps.isVisible === false && this.props.isVisible === true) {
       this.setView()
-      utils.lockScroll()
+      view.lockScroll()
       window.addEventListener('resize', this.setView)
-    }
-
-    // modal hide
-    if (prevProps.isVisible === true && this.props.isVisible === false) {
-      window.removeEventListener('resize', this.setView)
-      this.hideModal()
     }
   }
 
@@ -87,10 +72,7 @@ class Modal extends Component<IProps, IState> {
   }
 
   render() {
-    const defaultClass = 'modal'
-    const modalId = `modal-${(new Date()).valueOf()}`
-
-    let className = this.props.className ? `${defaultClass} ${this.props.className}` : defaultClass
+    const { className } = this.props
 
     let width = this.props.width ? this.props.width : 500
     let height = this.state.modalHeight
@@ -102,13 +84,16 @@ class Modal extends Component<IProps, IState> {
     }
     let isVisible = this.props.isVisible ? this.props.isVisible : false
 
+    // let onRequestClose = this.props.onRequestClose?this.props.onRequestClose:null
+
     style.backdrop = {
       position: 'fixed',
       height: '100%',
       width: '100%',
       left: 0,
       top: 0,
-      background: 'rgba(0, 0, 0, 0.23)',
+      background: 'rgba(0, 0, 0, 0.86)',
+      zIndex: 9990,
       overflow: 'scroll'
     }
 
@@ -126,7 +111,10 @@ class Modal extends Component<IProps, IState> {
       margin: '50px auto'
     }
 
-    style.modal = {}
+    style.modal = {
+      padding: '30px',
+      boxShadow: '0 3px 10px rgba(0, 0, 0, 0.57)'
+    }
 
     if (this.state.isModalVerticalCenter) {
       style.modal = Object.assign({}, style.modal, style.verticalCenter)
@@ -137,28 +125,25 @@ class Modal extends Component<IProps, IState> {
     return (
       <Fade>
         {
-          isVisible === true ? (
+          isVisible && (
             <div
-              onClick={e => {
-                // 使用阻止冒泡会造成问题
-                if ((e.target as any).querySelector(`#${modalId}`)) {
-                  this.hideModal()
-                }
-              } }
-              styleName="modal-backdrop"
+              onClick={this.hideModal.bind(this) }
+              className="modal-backdrop"
               style={style.backdrop}
               >
               <div
-                id={modalId}
                 style={style.modal}
-                className={className}
+                className={className || ''}
                 styleName="modal"
-                ref={ref => { this.modal = ref } }
+                ref="modal"
+                onClick={(e) => {
+                  e.stopPropagation()
+                } }
                 >
                 {this.props.children}
               </div>
             </div>
-          ) : null
+          )
         }
       </Fade>
     )

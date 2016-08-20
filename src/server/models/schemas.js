@@ -107,12 +107,6 @@ const schemas = {
     baseTable: 'reading_progress',
     ids: ['user_id', 'book_id'],
     fields: {
-      page_no: {
-        required: true,
-      },
-      page_sum: {
-        required: true,
-      },
       percentage: {
         required: true,
       }

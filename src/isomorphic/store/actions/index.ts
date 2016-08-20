@@ -1,5 +1,5 @@
 export * from '../actions/book'
-export * from '../actions/notification'
+export * from '../actions/components'
 export * from '../actions/user'
 
 export function changeValue(name, value) {

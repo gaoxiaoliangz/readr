@@ -43,7 +43,7 @@ function createApiMethod(methodName, model): any {
         // }
         const startIndex = (page - 1) * itemsPerPage
         const pagedResults = {
-          _response: results.slice(startIndex, itemsPerPage + startIndex),
+          _response: results.reverse().slice(startIndex, itemsPerPage + startIndex),
           _pagination: {
             current: page,
             // todo: 可能有 bug

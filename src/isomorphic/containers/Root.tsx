@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification } from '../store/actions'
+import { sendNotification, hideNotification, closeDialog } from '../store/actions'
 import { Alerts } from '../elements/Alert'
 import _ from 'lodash'
+import Dialog from '../elements/Dialog'
 
 interface IAllProps {
-  notifications?: any
-  hideNotification?: any
-  errorMessage?: string
-  sendNotification?: any
+  notifications: any
+  hideNotification: any
+  errorMessage: string
+  sendNotification: any
+  dialog: any
+  closeDialog: any
 }
 
 interface IState {
@@ -32,8 +35,19 @@ class Root extends Component<IAllProps, IState> {
   }
 
   render() {
+    const { dialog, closeDialog } = this.props
+
     return (
       <div className="app-root">
+        <Dialog
+          isVisible={dialog.isVisible}
+          title={dialog.title}
+          onConfirm={dialog.onConfirm}
+          onRequestClose={closeDialog}
+          width={300}
+          >
+          {dialog.content}
+        </Dialog>
         {
           this.props.notifications.filter(noti => noti.visible).length > 0 && (
             <Alerts
@@ -56,7 +70,8 @@ class Root extends Component<IAllProps, IState> {
 export default connect<{}, {}, IAllProps>(
   state => ({
     notifications: state.components.notifications,
-    errorMessage: state.errorMessage
+    errorMessage: state.errorMessage,
+    dialog: state.components.dialog,
   }),
-  { sendNotification, hideNotification }
+  { sendNotification, hideNotification, closeDialog }
 )(Root)

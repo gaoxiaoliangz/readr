@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
-import notifications from './notifications'
+import components from './components'
 import paginate from './paginate'
 import _ from 'lodash'
 
@@ -109,10 +109,6 @@ function elements(state = {}, action) {
 
   return state
 }
-
-const components = combineReducers({
-  notifications
-})
 
 const rootReducer = combineReducers({
   payloads,

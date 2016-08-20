@@ -9,7 +9,9 @@ module.exports = {
   },
   output: {
     path: paths.built,
-    publicPath: 'http://localhost:3000/built/',
+    // publicPath: 'http://localhost:3000/built/',
+    publicPath: 'http://192.168.0.102:3000/built/',
+    // publicPath: '/built/',
     filename: '[name].js',
   },
   plugins: [

@@ -1,31 +1,48 @@
 import React, { Component } from 'react'
-import ReactDom from 'react-dom'
+import Modal, { IProps as IModalProps } from '../Modal'
+import Button from '../_form/Button'
 
-interface Props {
-  className?: string
-  content: any
-  actions: Array<any>
+interface IProps extends IModalProps {
+  onConfirm: any
+  title: string
 }
 
-class Dialog extends Component<Props, any> {
+interface IState {
+}
+
+class Dialog extends Component<IProps, IState> {
+
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+  }
+
   render() {
-    const defaultClass = 'dialog z1'
-
-    let className = this.props.className?`${defaultClass} ${this.props.className}`:defaultClass
-    let content = this.props.content
-    let actions = this.props.actions
-
     return (
-      <div className={className}>
-        <p>{content}</p>
-        <div className="actions">
+      <Modal
+        isVisible={this.props.isVisible}
+        onRequestClose={this.props.onRequestClose}
+        width={this.props.width}
+      >
+        <div className="dialog">
           {
-            actions.map((action, index) => {
-              return <span key={index} onClick={action.function}>{action.text}</span>
-            })
+            this.props.title && (
+              <div className="dialog-header">
+                <h1 className="dialog-title">{this.props.title}</h1>
+              </div>
+            )
           }
+          <div className="dialog-content">
+            {this.props.children}
+          </div>
+          <div className="dialog-footer">
+            <Button color="blue" onClick={this.props.onConfirm}>确认</Button>
+            <Button onClick={this.props.onRequestClose}>取消</Button>
+          </div>
         </div>
-      </div>
+      </Modal>
     )
   }
 }

@@ -13,7 +13,9 @@ interface IProps {
   pageCount: number
   isScrollMode?: boolean
   initialPage?: number
+  initialProgress?: number
   pageHeight: number
+  onProgressChange: (newProgress: number) => void
 }
 
 interface IState {
@@ -42,12 +44,16 @@ class BookPageList extends Component<IProps, IState> {
   }
 
   handleScroll() {
-    // const { pageHeight } = this.props
     const { _calculated: { pages, totalHeight } } = this.state
+    const { onProgressChange } = this.props
+
     const scrollTop = document.body.scrollTop
+    const currentPage = utils.percentageToPage(scrollTop / totalHeight, pages.length)
+
+    onProgressChange(scrollTop / totalHeight)
 
     this.setState({
-      currentPage: utils.percentageToPage(scrollTop / totalHeight, pages.length)
+      currentPage
     })
   }
 
@@ -74,10 +80,17 @@ class BookPageList extends Component<IProps, IState> {
   }
 
   componentDidMount() {
-    const { nodeHeights, nodes, pageHeight, initialPage } = this.props
+    const { nodeHeights, nodes, pageHeight, initialPage, initialProgress } = this.props
     this.calcPages(() => {
-      const scrollTop = pageHeight * (initialPage - 1)
-      document.body.scrollTop = scrollTop
+      const { _calculated: { totalHeight }} = this.state
+      let scrollTop = 0
+
+      if (initialProgress) {
+        scrollTop = totalHeight * initialProgress
+      } else if (initialPage) {
+        scrollTop = pageHeight * (initialPage - 1)
+      }
+       document.body.scrollTop = scrollTop
     })
     this.addEventListeners()
   }

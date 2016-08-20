@@ -28,7 +28,7 @@ const paths = {
   built: path.join(pathPrefix, 'assets/built')
 }
 const cssLocalIdentName = '[local]_[hash:base64:5]'
-const imageName = './img/[name].[hash:10].[ext]'
+const imageName = 'img/[name].[hash:10].[ext]'
 
 // 暴露到全局变量的名称
 const vendorLibName = '_[name]_dll'

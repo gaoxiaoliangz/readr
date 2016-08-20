@@ -67,7 +67,7 @@ export function fetchProgress(bookId) {
     CALL_API: {
       types: ['PROGRESS_REQUEST', 'PROGRESS_SUCCESS', 'PROGRESS_FAILURE'],
       endpoint: `user/books/${bookId}/progress`,
-      schema: Schemas.BOOK_PROGRESS
+      // schema: Schemas.BOOK_PROGRESS
     }
   }
 }

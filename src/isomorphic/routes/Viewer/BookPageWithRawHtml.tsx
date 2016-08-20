@@ -22,6 +22,7 @@ class BookPageWithRawHtml extends Component<IProps, IState> {
   }
 
   componentDidMount() {
+    console.log('raw mounted')
   }
 
   render() {

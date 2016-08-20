@@ -4,6 +4,7 @@ import $ from 'jquery'
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的
 export function getNodeHeights(nodes) {
+  console.log('dom ready, getNodeHeights')
   let nodesHeight = []
 
   Array.prototype.forEach.call(nodes, (node, index) => {
@@ -18,11 +19,12 @@ export function getNodeHeights(nodes) {
 
 
 export function markdownToNodeStringList(markdown: string): string[] {
+  console.log('start md')
   let html = marked(markdown, {
     gfm: true,
     breaks: true
   })
-
+  console.log('done marked')
   const nodes = Array.prototype
     .map.call($(html), (ele, index) => {
       if (ele.nodeType === 3 && ele.nodeValue === '\n') {
@@ -37,7 +39,8 @@ export function markdownToNodeStringList(markdown: string): string[] {
       }
     })
     .filter(node => node)
-
+  // console.log(nodes)
+  console.log('end md')
   return nodes
 }
 

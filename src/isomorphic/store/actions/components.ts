@@ -29,3 +29,41 @@ export function hideNotification(id: string) {
     id
   }
 }
+
+// dialog
+export type openDialog = {
+  title?: string
+  content: string
+  onConfirm: () => void
+}
+export function openDialog(data: openDialog) {
+  return {
+    type: 'OPEN_DIALOG',
+    data
+  }
+}
+
+export function closeDialog() {
+  return {
+    type: 'CLOSE_DIALOG'
+  }
+}
+
+// basic modal
+export type openBasicModal = {
+  title: string
+  subTitle?: string
+  content?: JSX.Element
+}
+export function openBasicModal(data: openBasicModal) {
+  return {
+    type: 'OPEN_BASIC_MODAL',
+    data
+  }
+}
+
+export function closeBasicModal() {
+  return {
+    type: 'CLOSE_BASIC_MODAL'
+  }
+}

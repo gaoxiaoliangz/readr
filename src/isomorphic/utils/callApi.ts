@@ -3,7 +3,7 @@ import objectToUrlencoded from '../utils/parseFormData'
 import handleResponse from '../utils/handleResponse'
 
 type CallApiConfig = {
-  method?: 'GET' | 'POST' | 'DELETE'
+  method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
   data?: {}
   schema?: {}
   credentials?: 'include' | 'same-origin'
@@ -38,7 +38,7 @@ export function callApi(fullUrl: string, config: CallApiConfig = {}) {
     }
 
     // handle request headers and body
-    if (method === 'POST') {
+    if (method === 'POST' || method === 'PUT') {
       let contentType
       let body
 
@@ -58,7 +58,7 @@ export function callApi(fullUrl: string, config: CallApiConfig = {}) {
 
       fetchConfig.headers = {
         'Content-Type': contentType,
-        'Access-Control-Request-Method': 'POST'
+        'Access-Control-Request-Method': method
       }
 
       fetchConfig.body = body

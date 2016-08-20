@@ -1,4 +1,4 @@
-export function getBookView() {
+export default function getView() {
   let aspectRatio = 7 / 9
 
   if (window.innerWidth <= 540) {
@@ -14,18 +14,4 @@ export function getBookView() {
       pageHeight: 700 / aspectRatio
     }
   }
-}
-
-export function lockScroll() {
-  document.body.style.overflow = 'hidden'
-}
-
-export function unlockScroll() {
-  document.body.style.overflow = 'visible'
-}
-
-export default {
-  getBookView,
-  lockScroll,
-  unlockScroll
 }

@@ -7,10 +7,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookPageList from './BookPageList'
 // import * as renderBook from './Viewer.utils'
 import * as viewerUtils from './Viewer.utils2'
-import { getBookView } from '../../utils/view'
+// import { getBookView } from '../../utils/view'
 // import { getCache, setCache } from '../../utils/cache'
 // import { simpleCompareObjects } from '../../utils/object'
-import { fetchBook, fetchProgress } from '../../store/actions'
+import { fetchBook, fetchProgress, openDialog } from '../../store/actions'
 import apis from '../../apis'
 // import Body from '../../components/Body'
 import _ from 'lodash'
@@ -19,6 +19,7 @@ import ViewerScrollbar from './ViewerScrollbar'
 import ViewerPanel from './ViewerPanel'
 import BookPageWithRawHtml from './BookPageWithRawHtml'
 import CSSModules from 'react-css-modules'
+import api from '../../apis'
 
 const styles: any = require('./_viewer.scss')
 
@@ -27,6 +28,8 @@ interface IAllProps {
   book: any
   rawBookContent: string
   fetchProgress: (bookId: string) => void
+  progress: number
+  openDialog: (data: openDialog) => void
 }
 
 interface IState {
@@ -72,6 +75,7 @@ class Viewer extends Component<IAllProps, IState> {
       // view: getBookView(),
       // showViewerPreference: false
     }
+    this.handleProgressChange = this.handleProgressChange.bind(this)
   }
 
   // scrollTo(position) {
@@ -263,10 +267,18 @@ class Viewer extends Component<IAllProps, IState> {
     })
   }
 
+  setProgress(percentage) {
+    api.setProgress(this.bookId, { percentage })
+  }
+
+  handleProgressChange(newProgress) {
+    this.setProgress(newProgress)
+  }
+
   calcDom() {
     const contentHtml = this.bookHtml.getNodes()
     const nodeHeights = viewerUtils.getNodeHeights(contentHtml.childNodes)
-
+    console.log('calc done')
     this.setState({
       nodeHeights,
       isCalcMode: false
@@ -297,6 +309,13 @@ class Viewer extends Component<IAllProps, IState> {
   componentDidMount() {
     this.loadRawBookContent()
     this.props.fetchProgress(this.bookId)
+    this.props.openDialog({
+      title: 'test',
+      content: 'fuck you',
+      onConfirm: () => {
+        console.log('hahaha')
+      }
+    })
   }
 
   renderViewPanel() {
@@ -310,6 +329,7 @@ class Viewer extends Component<IAllProps, IState> {
 
   renderBook() {
     const { nodes, nodeHeights } = this.state
+    const { progress } = this.props
 
     return this.state.isCalcMode
       ? (
@@ -323,8 +343,9 @@ class Viewer extends Component<IAllProps, IState> {
           nodeHeights={nodeHeights}
           nodes={this.state.nodes}
           pageCount={5}
-          initialPage={20}
+          initialProgress={progress}
           pageHeight={900}
+          onProgressChange={this.handleProgressChange}
           />
       )
   }
@@ -363,8 +384,9 @@ export default connect(
     return {
       book,
       rawBookContent: _.get(book, 'content.raw', ''),
+      progress: _.get(state.payloads, 'progress.percentage', 0),
       session: state.session
     }
   },
-  { fetchBook, fetchProgress }
+  { fetchBook, fetchProgress, openDialog }
 )(Viewer as any)
