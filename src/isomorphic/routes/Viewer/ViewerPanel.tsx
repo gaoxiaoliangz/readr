@@ -8,10 +8,12 @@ const styles: any = require('./_viewer-panel.scss')
 
 interface IProps {
   title: string
+  showViewerPreference: boolean
+  onPrefVisibilityChange: (newVisibility: boolean) => void
 }
 
 interface IState {
-  showViewerPreference: boolean
+  // showViewerPreference: boolean
 }
 
 @CSSModules(styles)
@@ -26,16 +28,17 @@ class ViewerPanel extends Component<IProps, IState> {
   }
 
   handlePrefClick() {
-    this.setState({
-      showViewerPreference: !this.state.showViewerPreference
-    })
+    // this.setState({
+    //   showViewerPreference: !this.state.showViewerPreference
+    // })
+    this.props.onPrefVisibilityChange(!this.props.showViewerPreference)
   }
 
   componentDidMount() {
   }
 
   render() {
-    const { title } = this.props
+    const { title, showViewerPreference } = this.props
 
     return (
       <div styleName="viewer-panel">
@@ -53,7 +56,7 @@ class ViewerPanel extends Component<IProps, IState> {
           <div className="add">点击添加至书架</div>
           <Fade>
             {
-              this.state.showViewerPreference ? (
+              showViewerPreference ? (
                 <ViewerPreference />
               ) : null
             }

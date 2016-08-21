@@ -1,37 +1,35 @@
 import React, { Component } from 'react'
-const styles: any = require('./_book-page-list.scss')
-const styles2: any = require('./_book-page.scss')
+import BookPageList from './BookPageList'
 
 interface IProps {
-  bookHtml: any
+  nodes: string[]
+  fluid: boolean
 }
 
-interface IState {
-}
-
-class BookPageWithRawHtml extends Component<IProps, IState> {
-
-  bookHtml: any
+class BookPageWithRawHtml extends Component<IProps, {}> {
 
   constructor(props) {
     super(props)
   }
 
-  getNodes() {
-    return this.bookHtml
-  }
+  bookPageList: any
 
-  componentDidMount() {
-    console.log('raw mounted')
+  getContentHtml() {
+    return this.bookPageList.bookPage
   }
 
   render() {
+    const { fluid, nodes } = this.props
+
     return (
-      <ul className={styles.pages}>
-        <li className={styles2.page}>
-          <div ref={ref => { this.bookHtml = ref }} className={styles2.content} dangerouslySetInnerHTML={{ __html: this.props.bookHtml }}></div>
-        </li>
-      </ul>
+      <BookPageList
+        fluid={fluid}
+        nodes={nodes}
+        nodeHeights={[]}
+        pageCount={1}
+        pageHeight={0}
+        ref={ref => { this.bookPageList = ref }}
+      />
     )
   }
 }

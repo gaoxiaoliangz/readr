@@ -10,7 +10,10 @@ interface IProps {
   username: string
   isAdmin?: boolean
   className?: string
-  recentReading?: any[]
+  recentReading?: {
+    title: string
+    id: string
+  }[]
 }
 
 interface IState {
@@ -63,7 +66,9 @@ class Branding extends Component<IProps, IState> {
                       {
                         recentReading.map((book, index) => {
                           return (
-                            <DropdownItem key={index}>{book}</DropdownItem>
+                            <DropdownItem key={index}>
+                              <Link to={`/viewer/book/${book.id}`}>{book.title}</Link>
+                            </DropdownItem>
                           )
                         })
                       }

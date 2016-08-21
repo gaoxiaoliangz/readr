@@ -7,3 +7,8 @@ $text_background: #ddd;
   overflow: hidden;
   background: #fff;
 }
+
+.pages--fluid {
+  composes: pages;
+  width: 100%;
+}

@@ -30,7 +30,10 @@ class AppCommon extends Component<any, any> {
 
     const {bookShelf} = this.props
     const bookShelfList = bookShelf
-      .map(book => book.title)
+      .map(book => ({
+        title: book.title,
+        id: book.id
+      }))
 
     return (
       <div>

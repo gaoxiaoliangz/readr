@@ -18,7 +18,15 @@
   display: block;
   width: 100%;
   overflow: hidden;
-  cursor: default;
+  // cursor: default;
+}
+
+.page--fluid {
+  composes: page;
+
+  .content {
+    width: 100%;
+  }
 }
 
 .page--init {

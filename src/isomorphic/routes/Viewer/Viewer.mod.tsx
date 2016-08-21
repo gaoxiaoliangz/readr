@@ -327,7 +327,7 @@ class Viewer extends Component<any, any> {
         {
           (this.state.isCalculatingDom && this.state.bookHtml) && (
             <BookPageWithRawHtml
-              bookHtml={this.state.bookHtml}
+              nodes={this.state.bookHtml}
             />
           )
         }

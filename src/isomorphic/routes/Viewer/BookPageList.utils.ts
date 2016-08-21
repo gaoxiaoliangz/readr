@@ -75,6 +75,16 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   //   return node
   // })
 
+  if (nodeHeights.length === 0) {
+    return [{
+      nodes,
+      meta: {
+        pageNo: 1,
+        offset: 0
+      }
+    }]
+  }
+
   // finally
   for (let i = 0; i < pageSum; i++) {
     const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes, nodeHeights, pageHeight })

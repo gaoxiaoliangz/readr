@@ -1,19 +1,20 @@
-export function filterPages(config) {
-  let {startPage, quantity, offset, pages} = config
-  let newPages = []
+// 用 slice 就可以解决
+// export function filterPages(config) {
+//   let {startPage, quantity, offset, pages} = config
+//   let newPages = []
 
-  while (startPage - offset < 0) {
-    offset--
-  }
-  startPage = startPage - offset
+//   while (startPage - offset < 0) {
+//     offset--
+//   }
+//   startPage = startPage - offset
 
-  for (let i = startPage; i < quantity + startPage && i < pages.length; i++) {
-    let page = pages[i]
-    newPages.push(page)
-  }
+//   for (let i = startPage; i < quantity + startPage && i < pages.length; i++) {
+//     let page = pages[i]
+//     newPages.push(page)
+//   }
 
-  return newPages
-}
+//   return newPages
+// }
 
 
 export function htmlToPages(html, nodeHeights, view) {
