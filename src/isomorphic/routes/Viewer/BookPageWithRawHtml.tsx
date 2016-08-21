@@ -15,7 +15,7 @@ class BookPageWithRawHtml extends Component<IProps, {}> {
   bookPageList: any
 
   getContentHtml() {
-    return this.bookPageList.bookPage
+    return this.bookPageList.bookPage.bookPageDom
   }
 
   render() {
@@ -28,6 +28,7 @@ class BookPageWithRawHtml extends Component<IProps, {}> {
         nodeHeights={[]}
         pageCount={1}
         pageHeight={0}
+        isCalcMode
         ref={ref => { this.bookPageList = ref }}
       />
     )

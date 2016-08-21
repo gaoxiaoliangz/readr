@@ -70,6 +70,7 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
   let pageSum = Math.ceil(pageHeightSum / pageHeight)
 
+  console.log('todo: group nodes')
   // nodes = nodes.map((node, index) => {
   //   node.props.index = index
   //   return node

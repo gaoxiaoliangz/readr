@@ -23,19 +23,18 @@ class BookPage extends Component<IProps, IState> {
     const { page: { nodes, meta }, pageHeight, fluid } = this.props
     const style = {
       position: 'absolute',
-      top: pageHeight * (meta.pageNo - 1)
+      top: pageHeight * (meta.pageNo - 1),
+      height: pageHeight || 'auto'
     }
     const className = classnames({
       'page': !fluid,
       'page--fluid': fluid
     })
 
-    console.log('render')
-
     return (
       <li styleName={className} style={style}>
         <div
-          style={{ marginTop: meta.offset, height: pageHeight || 'auto' }}
+          style={{ marginTop: meta.offset }}
           styleName="content"
           dangerouslySetInnerHTML={{ __html: nodes.join('') }}
           ref={ref => { this.bookPageDom = ref }}
