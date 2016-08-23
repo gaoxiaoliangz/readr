@@ -1,8 +1,8 @@
-const webpack = require('webpack')
+import webpack from 'webpack'
+import webpackConfig from './webpack.hot.config'
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const webpackConfig = require('./webpack.hot.config')
-const combineMiddleware = require('../utils/combine-middleware')
+import combineMiddleware from '../utils/combine-middleware'
 
 function hotModuleReplacement() {
   const compiler = webpack(webpackConfig)

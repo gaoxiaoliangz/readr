@@ -7,7 +7,7 @@
  * @return {Function} single combined middleware
  */
 
-function combineMiddleware(mids) {
+export default function combineMiddleware(mids) {
   return mids.reduce((a, b) => {
     return (req, res, next) => {
       a(req, res, err => {
@@ -19,5 +19,3 @@ function combineMiddleware(mids) {
     }
   })
 }
-
-module.exports = combineMiddleware

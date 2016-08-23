@@ -1,14 +1,13 @@
-const express = require('express')
+import express from 'express'
 const path = require('path')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
-const routes = require('./routes/index.ts').default
-// import routes from './routes/index.ts'
-const bootServer = require('./bootstrap.ts')
-const config = require('./config')
+import session from 'express-session'
+const MongoStore = (require('connect-mongo') as any)(session)
+import routes from './routes/index.ts'
+import bootServer from './bootstrap'
+import config from './config'
 const app = express()
 const hotModuleReplacement = require('./dev-tools/hot-module-replacement')
 const runtimeOptions = require('./utils/runtime-options')
@@ -28,7 +27,7 @@ function initialize(basePath) {
 
   // it won't work if placed in the wrong position
   if (runtimeOptions.hmr) {
-    app.use(hotModuleReplacement())    
+    app.use(hotModuleReplacement())
   }
 
   app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
@@ -42,13 +41,13 @@ function initialize(basePath) {
   app.use(morgan('dev', {
     skip(req, res) { return res.statusCode < 400 }
   }))
-  
+
   // api routing
   app.use(routes.apiBaseUri, routes.api)
 
   // logout
   app.use(controllers.logout())
-  
+
   // frontend routing
   app.use(routes.view)
   // app.use((req, res) => {
