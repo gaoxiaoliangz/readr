@@ -1,6 +1,6 @@
-const _ = require('lodash')
-const errors = require('../../errors')
-const i18n = require('../../utils/i18n')
+import _ from 'lodash'
+const errors: any = require('../../errors')
+import i18n from '../../utils/i18n'
 
 function getIdMatch(options) {
   return _.pick(options, (val, key) => {
@@ -37,7 +37,7 @@ function limitResults(limit) {
   return (res, index) => index < limit
 }
 
-module.exports = {
+export default {
   getIdMatch,
   excludeFields,
   includeFields,

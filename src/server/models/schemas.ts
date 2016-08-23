@@ -1,8 +1,6 @@
-'use strict'
-const DataTypes = require('../data/types')
-const validator = require('../utils/validator')
-const i18n = require('../utils/i18n')
-
+import DataTypes from '../data/types'
+import validator from '../utils/validator'
+import i18n from '../utils/i18n'
 
 // 支持的选项
 // field: {
@@ -17,7 +15,7 @@ const i18n = require('../utils/i18n')
 //   unique
 // }
 
-const schemas = {
+export default {
   author: {
     baseTable: 'authors',
     fields: {
@@ -134,9 +132,9 @@ const schemas = {
       email: {
         required: true,
         unique: true,
-        validators: [
-          [validator.isEmail, i18n('errors.validation.valueLimit.invalidFormat', 'email')]
-        ]
+        // validators: [
+        //   [validator.isEmail, i18n('errors.validation.valueLimit.invalidFormat', 'email')]
+        // ]
       },
       role: {
         required: true
@@ -144,5 +142,3 @@ const schemas = {
     }
   },
 }
-
-module.exports = schemas

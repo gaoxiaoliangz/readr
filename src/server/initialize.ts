@@ -4,16 +4,17 @@ import routes from './routes/index.ts'
 import bootServer from './bootstrap'
 import config from './config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
-const path = require('path')
-const morgan = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const MongoStore = (require('connect-mongo') as any)(session)
-const app = express()
-const runtimeOptions = require('./utils/runtime-options')
-const controllers = require('./controllers')
+import runtimeOptions from './utils/runtime-options'
+import controllers from './controllers'
+const path: any = require('path')
+const morgan: any = require('morgan')
+const cookieParser: any = require('cookie-parser')
+const bodyParser: any = require('body-parser')
+const MongoStore: any = (require('connect-mongo') as any)(session)
 
-function initialize(basePath) {
+const app = express()
+
+export default function initialize(basePath) {
   app.use(session({
     secret: 'key',
     cookie: {
@@ -59,7 +60,5 @@ function initialize(basePath) {
   //   app.use(routes.simpleRouter())
   // }
 
-  return bootServer(app, runtimeOptions.env)
+  return bootServer(app, runtimeOptions)
 }
-
-module.exports = initialize

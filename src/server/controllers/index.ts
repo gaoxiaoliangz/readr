@@ -1,7 +1,7 @@
-const logout = require('./logout')
+import logout from './logout'
 // const render = require('./render')
 
-module.exports = {
+export default {
   // render,
   logout
 }

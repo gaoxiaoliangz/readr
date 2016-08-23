@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   find: 'find',
   list: 'list',
   add: 'add',

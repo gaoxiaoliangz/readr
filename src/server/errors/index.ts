@@ -1,4 +1,4 @@
-exports.NotFoundError = require('./not-found-error')
+exports.NotFoundError = (require('./not-found-error') as any).default
 exports.ValidationError = require('./validation-error')
 exports.BadRequestError = require('./bad-request-error')
 exports.InternalServerError = require('./internal-server-error')

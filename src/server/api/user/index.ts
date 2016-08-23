@@ -1,9 +1,8 @@
-'use strict'
-const Promise = require('bluebird')
+const Promise: any = require('bluebird')
 const errors = require('../../errors')
 const i18n = require('../../utils/i18n')
 const models = require('../../models')
-const utils = require('../utils')
+import utils from '../utils'
 const readingProgress = require('./reading-progress')
 const shelf = require('./shelf')
 

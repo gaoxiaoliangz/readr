@@ -14,4 +14,4 @@ const additionalValidators = {
   }
 }
 
-module.exports = Object.assign({}, validator, additionalValidators)
+export default Object.assign({}, validator, additionalValidators)

@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = class NotFoundError {
+export default class NotFoundError {
   constructor(message) {
     this.name = 'NotFoundError'
     this.statusCode = 404

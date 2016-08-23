@@ -1,11 +1,8 @@
-'use strict'
-const Promise = require('bluebird')
-const errors = require('../../errors')
-const i18n = require('../../utils/i18n')
+const Promise: any = require('bluebird')
+const errors: any = require('../../errors')
+import i18n from '../../utils/i18n'
 const models = require('../../models')
-// const utils = require('../utils')
-const humps = require('humps')
-
+import humps from 'humps'
 
 module.exports = {
   find(userId, bookId) {
@@ -21,8 +18,6 @@ module.exports = {
 
   update(userId, bookId, data) {
     const match = humps.decamelizeKeys({ userId, bookId })
-    console.log(match)
-    
 
     return models.progress.find(match).update(data, {
       upsert: true

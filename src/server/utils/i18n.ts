@@ -3,15 +3,14 @@
  * and I used js to store local translations instead of json
  */
 
-'use strict'
-const cnTranslations = require('../translations/cn')
-const _ = require('lodash')
+import cnTranslations from '../translations/cn'
+import _ from 'lodash'
 
 function addPadding(str) {
   if (!str) {
     return ''
   }
-  
+
   if (escape(str.substr(-1)).indexOf('%u') !== 0) {
     return ` ${str} `
   }
@@ -19,7 +18,7 @@ function addPadding(str) {
   return str
 }
 
-function getMatchingString(msgPath) {
+function getMatchingString(msgPath): any {
   let matchingString = cnTranslations
   const path = msgPath.split('.')
 
@@ -31,18 +30,18 @@ function getMatchingString(msgPath) {
       break
     }
   }
-  
+
   return matchingString
 }
 
-function addPunc(str, lang) {
+function addPunc(str, lang?) {
   // todo: lang
   return `${str}！`
 }
 
-module.exports = function i18n(msgPath, value) {
+export default function i18n(msgPath, value) {
   let matchingString = getMatchingString(msgPath)
-  
+
   if (_.isNull(matchingString)) {
     console.error('Unable to find matching path [' + msgPath + '] in locale file.\n')
     matchingString = 'i18n error: path "' + msgPath + '" was not found.'

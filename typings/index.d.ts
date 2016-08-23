@@ -1,3 +1,4 @@
+/// <reference path="globals/bluebird/index.d.ts" />
 /// <reference path="globals/classnames/index.d.ts" />
 /// <reference path="globals/express-session/index.d.ts" />
 /// <reference path="globals/express/index.d.ts" />

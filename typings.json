@@ -2,6 +2,7 @@
   "name": "readr",
   "version": false,
   "globalDependencies": {
+    "bluebird": "registry:dt/bluebird#3.0.0+20160811111256",
     "classnames": "registry:dt/classnames#0.0.0+20160316155526",
     "express": "registry:dt/express#4.0.0+20160708185218",
     "express-session": "registry:dt/express-session#0.0.0+20160819134112",

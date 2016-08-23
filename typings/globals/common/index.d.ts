@@ -40,6 +40,7 @@ declare var module: {
   exports: any
 }
 
+declare var exports
 declare var process
 declare var __dirname
 declare var __filename
@@ -51,3 +52,5 @@ declare var __filename
 // declare interface ObjectConstructor {
 //   assign(target: any, ...sources: any[]): any;
 // }
+
+declare function escape(str: string): string

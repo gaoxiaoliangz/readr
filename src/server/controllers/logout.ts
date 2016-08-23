@@ -1,7 +1,7 @@
-const express = require('express')
-const router = new express.Router()
+import express from 'express'
+const router = express.Router()
 
-function logout() {
+export default function logout() {
   router.get('/logout', (req, res) => {
     req.session.destroy()
     res.redirect('/')
@@ -9,5 +9,3 @@ function logout() {
 
   return router
 }
-
-module.exports = logout

@@ -77,4 +77,4 @@ const cn = {
   },
 }
 
-module.exports = cn
+export default cn

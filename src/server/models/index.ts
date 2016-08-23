@@ -1,6 +1,5 @@
-'use strict'
-const schemas = require('./schemas')
-const Model = require('./model')
+import schemas from './schemas'
+import Model from './model'
 const dp = {}
 
 Object.keys(schemas).forEach(key => {

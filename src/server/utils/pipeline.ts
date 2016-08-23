@@ -4,8 +4,7 @@
  * Based on pipeline.js from when.js:
  * https://github.com/cujojs/when/blob/3.7.4/pipeline.js
  */
-'use strict'
-const Promise = require('bluebird')
+import Promise from 'bluebird'
 
 function pipeline(tasks /* initial arguments */) {
   const args = Array.prototype.slice.call(arguments, 1)
@@ -29,4 +28,4 @@ function pipeline(tasks /* initial arguments */) {
   })
 }
 
-module.exports = pipeline
+export default pipeline

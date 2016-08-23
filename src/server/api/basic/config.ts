@@ -9,7 +9,7 @@
  * 生成的 api 里面包含 _publicMethods: { name, url, httpMethod }[]
  */
 
-const config = {
+export default {
   authors: {
     model: 'author',
     url: '/authors',
@@ -39,5 +39,3 @@ const config = {
     excludedMethods: ['add', 'find', 'update', 'remove']
   },
 }
-
-module.exports = config

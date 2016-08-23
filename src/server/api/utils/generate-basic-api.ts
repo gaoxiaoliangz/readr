@@ -157,4 +157,4 @@ function generateBasicApi(config) {
   return _.assign({}, methods, { _publicMethods })
 }
 
-module.exports = generateBasicApi
+export default generateBasicApi

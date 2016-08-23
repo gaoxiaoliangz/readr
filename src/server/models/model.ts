@@ -1,14 +1,13 @@
-'use strict'
-const _ = require('lodash')
-const DataTypes = require('../data/types')
-const parseTextToHtml = require('../utils/data').parseTextToHtml
-const db = require('./db')
+import _ from 'lodash'
+import DataTypes from '../data/types'
+import parseTextToHtml from '../utils/parseTextToHtml'
+import db from './db'
 const embedRef = db.embedRef
-const errors = require('../errors')
-const i18n = require('../utils/i18n')
-const utils = require('../utils')
-const validate = require('./validate')
-const modelUtils = require('./utils')
+const errors: any = require('../errors')
+import i18n from '../utils/i18n'
+import utils from '../utils'
+import validate from './validate'
+import modelUtils from './utils'
 
 function dataConvention(schema, data) {
   const arrayTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
@@ -182,4 +181,4 @@ class Model {
   }
 }
 
-module.exports = Model
+export default Model

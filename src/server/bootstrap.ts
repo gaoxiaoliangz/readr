@@ -1,20 +1,20 @@
 const http: any = require('http')
-const runtimeOptions: any = require('./utils/runtime-options')
+// const runtimeOptions: any = require('./utils/runtime-options')
 const config: any = require('./config')
 const port = config.port
-const env = runtimeOptions.env
+// const env = runtimeOptions.env
 import print from './utils/print'
 
-function bootstrap(app) {
+export default function bootstrap(app, { env, serverRendering, hmr, serverRouting }) {
   let msg = `Server running in ${env} (${port})`
 
-  if (runtimeOptions.hmr) {
+  if (hmr) {
     msg = msg + ' [HMR]'
   }
-  if (runtimeOptions.serverRendering) {
+  if (serverRendering) {
     msg = msg + ' [server rendering]'
   }
-  if (!runtimeOptions.serverRouting) {
+  if (!serverRouting) {
     msg = msg + ' [hash routing]'
   }
 
@@ -24,11 +24,9 @@ function bootstrap(app) {
   server.listen(port)
 
   print.info(msg)
-  if (runtimeOptions.hmr) {
+  if (hmr) {
     console.info('webpack building...')
   }
 
   return app
 }
-
-module.exports = bootstrap

@@ -1,7 +1,8 @@
-'use strict'
-
 class Type {
-  constructor(mark, isTypeArray) {
+  mark: string
+  isTypeArray: boolean
+
+  constructor(mark, isTypeArray?) {
     this.mark = mark
     this.isTypeArray = typeof isTypeArray === 'undefined'
       ? false
@@ -16,7 +17,7 @@ class Type {
   }
 
   equals(type) {
-    return (type.mark === this.mark && type.isArray() === this.isTypeArray) 
+    return (type.mark === this.mark && type.isArray() === this.isTypeArray)
   }
 }
 
@@ -30,4 +31,4 @@ const DataTypes = {
   }
 }
 
-module.exports = DataTypes
+export default DataTypes

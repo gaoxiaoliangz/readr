@@ -1,17 +1,22 @@
-'use strict'
-const config = require('../config')
-const mongodb = require('mongodb')
+import config from '../config'
+const mongodb: any = require('mongodb')
 const MongoClient = mongodb.MongoClient
-const schemas = require('./schemas')
-const _ = require('lodash')
-const utils = require('./utils')
+import schemas from './schemas'
+import _ from 'lodash'
+import utils from './utils'
 
-function getSchemaByTable(table) {
-  const schema = _.filter(schemas, val => {
-    return (val.baseTable === table)
+function getSchemaByTable(table): {
+  fields: {
+    [fieldName: string]: {
+      ref: string
+    }
+  }
+} {
+  const schema = _.filter(schemas as any, val => {
+    return ((val as any).baseTable === table)
   })[0]
 
-  return schema
+  return schema as any
 }
 
 function doesRefTableHaveRefInItsSchema(table) {
@@ -171,7 +176,7 @@ function embedRef(rawResults, schema) {
   )
 }
 
-module.exports = {
+export default {
   embedRef,
   getCollection,
   fetchData,
