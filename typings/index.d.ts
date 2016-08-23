@@ -16,5 +16,6 @@
 /// <reference path="globals/redux-thunk/index.d.ts" />
 /// <reference path="globals/redux/index.d.ts" />
 /// <reference path="globals/webpack/index.d.ts" />
+/// <reference path="globals/whatwg-fetch/index.d.ts" />
 /// <reference path="modules/react-router-redux/index.d.ts" />
 /// <reference path="modules/react-router/index.d.ts" />
