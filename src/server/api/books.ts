@@ -1,5 +1,4 @@
-const models = require('../models')
-
+import models from '../models'
 
 const books = {
   add(data) {
@@ -7,4 +6,4 @@ const books = {
   }
 }
 
-module.exports = books
+export default books

@@ -1,4 +1,4 @@
-const cn = {
+export default {
   common: {
     terms: {
       id: 'ID',
@@ -76,5 +76,3 @@ const cn = {
     },
   },
 }
-
-export default cn

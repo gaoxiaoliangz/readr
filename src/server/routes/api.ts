@@ -1,11 +1,10 @@
-const express: any = require('express')
-const middleware: any = require('../middleware')
-const router = new express.Router()
-const endpoints = require('../endpoints')
-// const _ = require('lodash')
+import express from 'express'
+import middleware from '../middleware'
+import endpoints from '../endpoints'
 import _ from 'lodash'
-const api: any = require('../api')
-// const roles = require('../models/roles')
+import api from '../api'
+
+const router = express.Router()
 
 function apiRoutes() {
   _.forEach(endpoints, endpoint => {
@@ -37,4 +36,4 @@ function apiRoutes() {
   return router
 }
 
-module.exports = apiRoutes()
+export default apiRoutes()

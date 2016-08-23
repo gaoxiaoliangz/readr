@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-module.exports = function parseContext(req, res, next) {
+export default function parseContext(req, res, next) {
   if (req.session.user) {
     req.context = {
       user: _.omit(req.session.user, ['password', 'dateCreated', 'email'])

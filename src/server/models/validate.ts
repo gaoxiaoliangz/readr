@@ -1,9 +1,10 @@
-const utils = require('../utils')
-const errors = require('../errors')
+import utils from '../utils'
+const errors: any = require('../errors')
+
 const reduceTasks = utils.reduceTasks
 const i18n = utils.i18n
 
-module.exports = function validate(data, schema, isEditing) {
+export default function validate(data, schema, isEditing): any {
   if (typeof data === 'undefined') {
     return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.emptyObject')))
   }
@@ -23,7 +24,7 @@ module.exports = function validate(data, schema, isEditing) {
   }
 
   // 验证 fields，因为每个 field 可能有不止一个 validator
-  const validateField = (key, val, validators) => {
+  const validateField = (key, val, validators: any[]) => {
     return reduceTasks(validators.map(validation => {
       if (validation[0](val)) {
         return Promise.resolve(true)

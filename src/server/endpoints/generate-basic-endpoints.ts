@@ -1,7 +1,5 @@
-'use strict'
-const _ = require('lodash')
-// const api = require('../api')
-const utils = require('../api/utils')
+import _ from 'lodash'
+import utils from '../api/utils'
 
 function getParserByMethodName(methodName) {
   switch (methodName) {
@@ -71,4 +69,4 @@ function generateBasicEndpoints(basicApi) {
   return endpoints
 }
 
-module.exports = generateBasicEndpoints
+export default generateBasicEndpoints

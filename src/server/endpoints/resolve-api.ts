@@ -1,6 +1,6 @@
-const _ = require('lodash')
-const api = require('../api')
-const mapHttpMethod = require('./map-http-method')
+import _ from 'lodash'
+import api from '../api'
+import mapHttpMethod from './map-http-method'
 
 function resolveApi(apiPath) {
   const apiMethod = _.get(api, apiPath)
@@ -13,4 +13,4 @@ function resolveApi(apiPath) {
   return { apiMethod, httpMethod }
 }
 
-module.exports = resolveApi
+export default resolveApi

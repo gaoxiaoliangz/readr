@@ -1,5 +1,5 @@
-const models = require('../models')
-const _ = require('lodash')
+import models from '../models'
+import _ from 'lodash'
 
 const users = {
   add(data) {
@@ -9,4 +9,4 @@ const users = {
   }
 }
 
-module.exports = users
+export default users

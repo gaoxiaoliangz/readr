@@ -1,12 +1,20 @@
-const _ = require('lodash')
-// const api = require('../api')
-const resolveApi = require('./resolve-api')
+import _ from 'lodash'
+import resolveApi from './resolve-api'
 
-module.exports = function generateExtendedEndpoints(config) {
+type Config = {
+  // todo: wtf???
+  // [key: string]: any
+  api: any
+  handler?: any
+  parser: any
+  url: any
+  requiredRole?: any
+}[]
+export default function generateExtendedEndpoints(config: Config) {
   return _.map(config, endpoint => {
     const resolvedApi = resolveApi(endpoint.api)
     const httpMethod = resolvedApi.httpMethod
-    const apiMethod = resolvedApi.apiMethod
+    const apiMethod: any = resolvedApi.apiMethod
     let handler = endpoint.handler
 
     if (endpoint.parser) {

@@ -2,7 +2,7 @@ import Promise from 'bluebird'
 
 // tasks 可以是返回 Promise 的 fn
 // 也可以是 Promise
-module.exports = function reduceTasks(tasks: any[]) {
+export default function reduceTasks(tasks: (any)[]) {
   return Promise.reduce(tasks, (result, task) => {
     if (typeof task === 'function') {
       return task.call(this)

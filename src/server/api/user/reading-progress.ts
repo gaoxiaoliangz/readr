@@ -1,10 +1,10 @@
-const Promise: any = require('bluebird')
+import Promise from 'bluebird'
 const errors: any = require('../../errors')
 import i18n from '../../utils/i18n'
-const models = require('../../models')
+import models from '../../models'
 import humps from 'humps'
 
-module.exports = {
+export default {
   find(userId, bookId) {
     const match = humps.decamelizeKeys({ userId, bookId })
 

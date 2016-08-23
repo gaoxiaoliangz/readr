@@ -39,7 +39,7 @@ function addPunc(str, lang?) {
   return `${str}！`
 }
 
-export default function i18n(msgPath, value) {
+export default function i18n(msgPath, value?) {
   let matchingString = getMatchingString(msgPath)
 
   if (_.isNull(matchingString)) {

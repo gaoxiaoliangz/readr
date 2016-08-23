@@ -1,9 +1,7 @@
-'use strict'
-const _ = require('lodash')
-const i18n = require('../utils/i18n')
-// const humps = require('humps')
-const print = require('../utils/print.ts').default
-const parseFormData = require('../../isomorphic/utils/parseFormData.ts').default
+import _ from 'lodash'
+import i18n from '../utils/i18n'
+import print from '../utils/print'
+import parseFormData from '../../isomorphic/utils/parseFormData'
 
 function parseRequest(req) {
   // const object = humps.decamelizeKeys(req.body)
@@ -94,4 +92,4 @@ function apiHttp(apiMethod) {
   }
 }
 
-module.exports = apiHttp
+export default apiHttp

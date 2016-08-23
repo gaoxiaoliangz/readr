@@ -1,3 +1,5 @@
-exports.parseContext = require('./parse-context')
-exports.auth = require('./auth')
-exports.requirePermissionsOf = require('./require-permissions-of')
+import parseContext from './parse-context'
+import auth from './auth'
+import requirePermissionsOf from './require-permissions-of'
+
+export default { parseContext, auth, requirePermissionsOf }

@@ -1,4 +1,4 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 // const config = {
 //   add: 'post',
@@ -16,7 +16,7 @@ const config = {
   remove: 'delete',
 }
 
-module.exports = function mapHttpMethod(methodName) {
+export default function mapHttpMethod(methodName) {
   const httpMethod = _.get(config, methodName)
 
   if (!httpMethod) {

@@ -1,10 +1,9 @@
-'use strict'
-const errors = require('../errors')
-const i18n = require('../utils/i18n')
-const models = require('../models')
-const _ = require('lodash')
-const API = require('../api')
-const humps = require('humps')
+import _ from 'lodash'
+const errors: any = require('../errors')
+import i18n from '../utils/i18n'
+import models from '../models'
+import API from '../api'
+import humps from 'humps'
 
 // todo
 const auth = {
@@ -12,7 +11,7 @@ const auth = {
     return API.http(parsedReq => {
       const login = parsedReq.body.login ? parsedReq.body.login.toLowerCase() : undefined
       const password = parsedReq.body.password
-      
+
       if (typeof login === 'undefined') {
         return Promise.reject(new errors.ValidationError(i18n('errors.validation.preCheck.missRequiredFields', 'login')))
       }
@@ -27,7 +26,7 @@ const auth = {
         }
 
         req.session.user = humps.camelizeKeys(result[0])
-        return Promise.resolve({ ok: 1 })
+        return Promise.resolve({ ok: 1 }) as any
       })
     })(req, res)
   },
@@ -42,4 +41,4 @@ const auth = {
   },
 }
 
-module.exports = auth
+export default auth

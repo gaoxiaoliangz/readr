@@ -6,4 +6,4 @@ Object.keys(schemas).forEach(key => {
   dp[key] = new Model(schemas[key])
 })
 
-module.exports = dp
+export default dp as any

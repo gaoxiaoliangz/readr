@@ -36,11 +36,11 @@ declare var require: {
 /**
  * For node support
  */
-declare var module: {
-  exports: any
-}
+// declare var module: {
+//   exports: any
+// }
+// declare var exports
 
-declare var exports
 declare var process
 declare var __dirname
 declare var __filename

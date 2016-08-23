@@ -1,8 +1,8 @@
-const basicApi = require('../api/basic')
-const generateBasicEndpoints = require('./generate-basic-endpoints')
-const generateExtendedEndpoints = require('./generate-extended-endpoints')
-const api = require('../api')
-const roles = require('../models/roles')
+import basicApi from '../api/basic'
+import generateBasicEndpoints from './generate-basic-endpoints'
+import generateExtendedEndpoints from './generate-extended-endpoints'
+import api from '../api'
+import roles from '../models/roles'
 
 const extendedEndpointsConfig = [
   {
@@ -58,7 +58,7 @@ const extendedEndpointsConfig = [
 ]
 
 const basicEndpoints = generateBasicEndpoints(basicApi)
-const extendedEndpoints = generateExtendedEndpoints(extendedEndpointsConfig)
+const extendedEndpoints = generateExtendedEndpoints(extendedEndpointsConfig as any)
 const endpoints = basicEndpoints.concat(extendedEndpoints)
 
-module.exports = endpoints
+export default endpoints

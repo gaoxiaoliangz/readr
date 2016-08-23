@@ -3,10 +3,10 @@
  * admin | user | visitor | none
  */
 
-const api = require('../api')
-const roles = require('../models/roles')
+import api from '../api'
+import roles from '../models/roles'
 
-module.exports = function requirePermissionsOf(userRole) {
+export default function requirePermissionsOf(userRole) {
   return (req, res, next) => {
     switch (userRole) {
       case roles.admin:

@@ -1,17 +1,12 @@
-'use strict'
-const Promise = require('bluebird')
-const errors = require('../../errors')
-const i18n = require('../../utils/i18n')
-const models = require('../../models')
-const _ = require('lodash')
-// const humps = require('humps')
+import models from '../../models'
+import _ from 'lodash'
 
-module.exports = {
+export default {
   list(userId) {
     return models.progress.find({ user_id: userId }).listRaw().then(results => {
-      if (results.length === 0) {   
+      if (results.length === 0) {
         return results
-      }      
+      }
 
       return Promise.all(
         results.map(result => {

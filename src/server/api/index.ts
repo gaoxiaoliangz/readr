@@ -1,15 +1,13 @@
-const basicApi = require('./basic')
-const _ = require('lodash')
-const books = require('./books')
-const user = require('./user')
-const users = require('./users')
-const http = require('./http')
+import _ from 'lodash'
+import basicApi from './basic'
+import books from './books'
+import user from './user'
+import users from './users'
+import http from './http'
 
-const api = _.assign({}, basicApi, {
+export default _.assign({}, basicApi, {
   books,
   user,
   users,
   http,
 })
-
-module.exports = api
