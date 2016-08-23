@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class UnauthorizedError {
+export default class UnauthorizedError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'UnauthorizedError'
     this.statusCode = 401
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

@@ -176,6 +176,13 @@ function embedRef(rawResults, schema) {
   )
 }
 
+export {
+  embedRef,
+  getCollection,
+  fetchData,
+  fetchDataById
+}
+
 export default {
   embedRef,
   getCollection,

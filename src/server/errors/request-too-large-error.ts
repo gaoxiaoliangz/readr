@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class RequestEntityTooLargeError {
+export default class RequestEntityTooLargeError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'RequestEntityTooLargeError'
     this.statusCode = 413
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

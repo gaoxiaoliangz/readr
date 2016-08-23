@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class UnsupportedFileTypeError {
+export default class UnsupportedFileTypeError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'UnsupportedFileTypeError'
     this.statusCode = 415
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

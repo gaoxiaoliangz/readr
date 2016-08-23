@@ -1,9 +1,8 @@
 import _ from 'lodash'
 import DataTypes from '../data/types'
 import parseTextToHtml from '../utils/parseTextToHtml'
-import db from './db'
-const embedRef = db.embedRef
-const errors: any = require('../errors')
+import db, { embedRef } from './db'
+import errors from '../errors'
 import i18n from '../utils/i18n'
 import utils from '../utils'
 import validate from './validate'
@@ -35,6 +34,10 @@ function dataConvention(schema, data) {
 }
 
 class Model {
+  schema: any
+  tableName: string
+  match: Object
+
   constructor(schema) {
     // validate schema
     if (!schema.baseTable) {
@@ -105,7 +108,7 @@ class Model {
             if (res.length !== 0) {
               return data3
             }
-            return false
+            return false as any
           })
         })).then(res => {
           return res.filter(r => r !== false)

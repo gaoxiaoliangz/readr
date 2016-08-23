@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class MethodNotAllowedError {
+export default class MethodNotAllowedError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'MethodNotAllowedError'
     this.statusCode = 405
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

@@ -1,22 +1,16 @@
-'use strict'
+import GenericError from './generic-error'
 
-// module.exports = class BadRequestError {
-//   constructor(message) {
-//     this.name = 'BadRequestError'
-//     this.statusCode = 400
-//     this.message = message
-//     this.stack = new Error().stack
-//     this.errorType = this.name
-//   }
-// }
+export default class BadRequestError extends GenericError {
+  code: number
 
-module.exports = class BadRequestError {
-  constructor(message, code) {
+  constructor(message, code?) {
+    super(message)
+
     this.name = 'BadRequestError'
     this.statusCode = 400
-    this.message = message
-    this.code = code
-    this.stack = new Error().stack
-    this.type = this.name
+
+    if (code) {
+      this.code = code
+    }
   }
 }

@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class InternalServerError {
+export default class InternalServerError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'InternalServerError'
     this.statusCode = 500
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

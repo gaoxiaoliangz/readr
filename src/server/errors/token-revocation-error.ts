@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class TokenRevocationError {
+export default class TokenRevocationError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'TokenRevocationError'
     this.statusCode = 503
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

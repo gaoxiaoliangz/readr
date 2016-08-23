@@ -1,9 +1,10 @@
-export default class NotFoundError {
+import GenericError from './generic-error'
+
+export default class NotFoundError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'NotFoundError'
     this.statusCode = 404
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

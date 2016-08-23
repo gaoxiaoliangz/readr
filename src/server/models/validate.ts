@@ -4,7 +4,7 @@ const errors: any = require('../errors')
 const reduceTasks = utils.reduceTasks
 const i18n = utils.i18n
 
-export default function validate(data, schema, isEditing): any {
+export default function validate(data, schema, isEditing?): any {
   if (typeof data === 'undefined') {
     return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.emptyObject')))
   }

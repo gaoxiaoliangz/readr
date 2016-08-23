@@ -1,9 +1,8 @@
 const http: any = require('http')
-// const runtimeOptions: any = require('./utils/runtime-options')
-const config: any = require('./config')
-const port = config.port
-// const env = runtimeOptions.env
+import config from './config'
 import print from './utils/print'
+
+const port = config.port
 
 export default function bootstrap(app, { env, serverRendering, hmr, serverRouting }) {
   let msg = `Server running in ${env} (${port})`

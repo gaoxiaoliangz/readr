@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class EmailError {
+export default class EmailError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'EmailError'
     this.statusCode = 500
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }

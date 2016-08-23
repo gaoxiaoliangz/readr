@@ -1,12 +1,14 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class ValidationError {
-  constructor(message, offendingProperty) {
+export default class ValidationError extends GenericError {
+  property: string
+
+  constructor(message, offendingProperty?) {
+    super(message)
+
     this.name = 'ValidationError'
     this.statusCode = 422
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
+
     if (offendingProperty) {
       this.property = offendingProperty
     }

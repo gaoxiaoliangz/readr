@@ -1,9 +1,7 @@
-const models = require('../../models')
-// const utils = require('../utils')
-const errors: any = require('../../errors')
-const i18n: any = require('../../utils/i18n')
-const mapHttpMethod: any = require('../../endpoints/map-http-method')
-// const _ = require('lodash')
+import models from '../../models'
+import errors from '../../errors'
+import i18n from '../../utils/i18n'
+import mapHttpMethod from '../../endpoints/map-http-method'
 import _ from 'lodash'
 
 function createApiMethod(methodName, model): any {

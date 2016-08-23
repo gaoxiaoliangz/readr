@@ -1,11 +1,10 @@
-'use strict'
+import GenericError from './generic-error'
 
-module.exports = class TooManyRequestsError {
+export default class TooManyRequestsError extends GenericError {
   constructor(message) {
+    super(message)
+
     this.name = 'TooManyRequestsError'
     this.statusCode = 429
-    this.message = message
-    this.stack = new Error().stack
-    this.type = this.name
   }
 }
