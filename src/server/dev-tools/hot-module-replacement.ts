@@ -1,10 +1,10 @@
 import webpack from 'webpack'
 import webpackConfig from './webpack.hot.config'
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 import combineMiddleware from '../utils/combine-middleware'
+const webpackDevMiddleware: any = require('webpack-dev-middleware')
+const webpackHotMiddleware: any = require('webpack-hot-middleware')
 
-function hotModuleReplacement() {
+export default function hotModuleReplacement() {
   const compiler = webpack(webpackConfig)
 
   return combineMiddleware([
@@ -12,5 +12,3 @@ function hotModuleReplacement() {
     webpackHotMiddleware(compiler),
   ])
 }
-
-module.exports = hotModuleReplacement

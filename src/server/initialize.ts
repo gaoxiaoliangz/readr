@@ -1,15 +1,15 @@
 import express from 'express'
+import session from 'express-session'
+import routes from './routes/index.ts'
+import bootServer from './bootstrap'
+import config from './config'
+import hotModuleReplacement from './dev-tools/hot-module-replacement'
 const path = require('path')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-import session from 'express-session'
 const MongoStore = (require('connect-mongo') as any)(session)
-import routes from './routes/index.ts'
-import bootServer from './bootstrap'
-import config from './config'
 const app = express()
-const hotModuleReplacement = require('./dev-tools/hot-module-replacement')
 const runtimeOptions = require('./utils/runtime-options')
 const controllers = require('./controllers')
 

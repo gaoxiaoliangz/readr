@@ -1,9 +1,9 @@
-const webpack = require('webpack')
-const base = require('../../../webpack/webpack.base.config')
+import webpack from 'webpack'
+const base: any = require('../../../webpack/webpack.base.config')
 const paths = base.vars.paths
 const hot = base.vars.hot
 
-module.exports = {
+export default {
   entry: {
     app: [hot, `${paths.entry}/app`]
   },
