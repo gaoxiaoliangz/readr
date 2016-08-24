@@ -34,6 +34,9 @@ function Html(props: TProps) {
   return (
     <html>
       <head>
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="description" content="The next generation online reading app." />
         <title>{title}</title>
         {
           styles && styles.map((stylesheetName, index) => {

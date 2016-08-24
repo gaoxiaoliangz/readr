@@ -23,6 +23,9 @@ module.exports = {
       base.loaders.sass({
         isomorphic: true
       }),
+      base.loaders.postcss({
+        isomorphic: true
+      }),
       base.loaders.ts({
         officialLoader: false
       }),

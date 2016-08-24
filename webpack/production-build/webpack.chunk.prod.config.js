@@ -4,7 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('../webpack.base.config')
 const paths = base.vars.paths
 
-
 function addZero(num) {
   let numStrWithZero
 

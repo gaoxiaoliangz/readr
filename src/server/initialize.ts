@@ -46,7 +46,7 @@ export default function initialize(basePath) {
   // api routing
   app.use(routes.apiBaseUri, routes.api)
 
-  // logout
+  // todo: logout
   app.use(controllers.logout())
 
   // frontend routing
