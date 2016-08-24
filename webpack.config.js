@@ -6,7 +6,7 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    app: [`${paths.src}/index`],
+    app: `${paths.entry}/app`,
   },
   output: {
     path: paths.built,
@@ -14,20 +14,26 @@ module.exports = {
     publicPath: '/built/'
   },
   plugins: [
-    // base.plugins.occurenceOrder,
     base.plugins.envDev,
-    base.plugins.uglify,
     ...base.plugins.dllReference(),
-    // new ManifestPlugin(),
     new ExtractTextPlugin('[name].css'),
   ],
   devtool: 'inline-source-map',
   module: {
     loaders: [
-      base.loaders.imageWebpack,
+      base.loaders.image(),
       base.loaders.babel,
-      base.loaders.sassWithExtractText,
-      base.loaders.ts,
+      base.loaders.sass({
+        sourceMap: true,
+        extract: true
+      }),
+      base.loaders.postcss({
+        sourceMap: true,
+        extract: true
+      }),
+      base.loaders.ts({
+        officialLoader: false
+      }),
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import getStore from './getStore'
-import matchRoute from './matchRoute'
+import getStore from './get-store'
+import matchRoute from './match-route'
 import NotFoundErrorPage from '../../isomorphic/containers/NotFoundErrorPage'
 import InternalServerErrorPage from '../../isomorphic/containers/InternalServerErrorPage'
 import Page from '../../isomorphic/containers/Page'
@@ -31,36 +31,23 @@ function renderHtml(config: RenderConfig) {
   const { reqUrl, routes, isProd, fetchData } = config
 
   return matchRoute(routes, reqUrl).then(result => {
-    // if (renderPageContent) {
-      return getStore(result.renderProps, fetchData).then(store => {
-        return renderToStaticMarkup(
-          <Page
-            title="Readr"
-            store={store}
-            renderProps={result.renderProps}
-            isProd={isProd}
-            manifest={isProd && getManifest() }
-            renderPageContent={fetchData}
-            />
-        )
-      }, err => {
-        return Promise.reject({
-          htmlString: renderToStaticMarkup(<InternalServerErrorPage message={err.message} />),
-          statusCode: 500
-        })
+    return getStore(result.renderProps, fetchData).then(store => {
+      return renderToStaticMarkup(
+        <Page
+          title="Readr"
+          store={store}
+          renderProps={result.renderProps}
+          isProd={isProd}
+          manifest={isProd && getManifest() }
+          renderPageContent={fetchData}
+          />
+      )
+    }, err => {
+      return Promise.reject({
+        htmlString: renderToStaticMarkup(<InternalServerErrorPage message={err.message} />),
+        statusCode: 500
       })
-    // }
-
-    // 直接输出不获取 api 数据
-    // return renderToStaticMarkup(
-    //   <Page
-    //     title="Readr"
-    //     store={{}}
-    //     renderProps={result.renderProps}
-    //     isProd={isProd}
-    //     manifest={isProd && getManifest() }
-    //     />
-    // )
+    })
   }, err => {
     return Promise.reject({
       htmlString: renderToStaticMarkup(<NotFoundErrorPage message={err.message} />),

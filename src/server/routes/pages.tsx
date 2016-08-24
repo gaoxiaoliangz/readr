@@ -4,6 +4,8 @@ import React from 'react'
 import print from '../utils/print'
 import runtimeOptions from '../utils/runtime-options'
 
+// console.log(routesWithEnsure)
+
 function pages(req, res) {
   render({
     reqUrl: req.url,

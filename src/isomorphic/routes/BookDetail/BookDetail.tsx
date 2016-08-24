@@ -11,7 +11,7 @@ const styles = require('./BookDetail.css')
 @CSSModules(styles, {
   allowMultiple: true
 })
-class BookInfo extends Component<any, any> {
+class BookDetail extends Component<any, any> {
 
   bookId: string
 
@@ -35,18 +35,18 @@ class BookInfo extends Component<any, any> {
       <article className="content-container">
         <Body className="book-info" />
         {
-          _.isEmpty(bookInfo) ? (
+          _.isEmpty(bookInfo) && (
             <Loading />
-          ) : null
+          )
         }
         <header styleName="book-info-header">
           <div className="left-col">
             {
-              bookInfo.cover ? (
+              bookInfo.cover && (
                 <div styleName="book-cover">
                   <img src={bookInfo.cover} />
                 </div>
-              ) : null
+              )
             }
           </div>
           <div className="right-col">
@@ -65,12 +65,12 @@ class BookInfo extends Component<any, any> {
           </div>
         </header>
         {
-          bookInfo.description ? (
+          bookInfo.description && (
             <div>
               <h2 styleName="desc">内容简介</h2>
               <p>{bookInfo.description}</p>
             </div>
-          ) : null
+          )
         }
       </article>
     )
@@ -81,5 +81,5 @@ export default connect(
   (state, ownProps: any) => {
     return { bookInfo: state.entities.books[ownProps.params.id] }
   },
-  { fetchBook } as any
-)(BookInfo)
+  { fetchBook }
+)(BookDetail)

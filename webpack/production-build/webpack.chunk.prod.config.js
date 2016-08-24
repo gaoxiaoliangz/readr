@@ -4,27 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('../webpack.base.config')
 const paths = base.vars.paths
 
-function addZero(num) {
-  let numStrWithZero
-
-  if (num < 10) {
-    numStrWithZero = '0' + num.toString()
-  } else {
-    numStrWithZero = num.toString()
-  }
-
-  return numStrWithZero
-}
-
-function getTime() {
-  const d = new Date()
-  const time = [d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()]
-  
-  return time.map(t => {
-    return addZero(t)
-  }).join('')
-}
-
 module.exports = {
   entry: {
     app: `${paths.entry}/app`,
@@ -32,7 +11,6 @@ module.exports = {
     utils: base.vars.utils
   },
   output: {
-    // path: paths.built + getTime(),
     path: paths.built,
     filename: '[name].[chunkhash:10].js',
     publicPath: '/built/'
@@ -59,6 +37,7 @@ module.exports = {
   ],
   module: {
     loaders: [
+      // todo
       base.loaders.imageWebpack,
       base.loaders.babel,
       base.loaders.sassWithExtractText,
