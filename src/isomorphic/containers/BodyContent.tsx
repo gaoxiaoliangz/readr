@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { Router } from 'react-router'
+import { RouterContext } from 'react-router'
 import _ from 'lodash'
 
 type TProps = {
@@ -18,7 +18,7 @@ function BodyContent(props: TProps) {
         {
           renderPageContent
             ? (
-              <Router {...renderProps} />
+              <RouterContext {...renderProps} />
             )
             : <div className="loading">Loading ...</div>
         }

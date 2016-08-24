@@ -30,8 +30,6 @@ function matchRoute(routes, reqUrl: string): Promise<TResult> {
           ? (renderProps.components.slice(-1)[0] as any).WrappedComponent
           : null
 
-        // console.log(renderProps)
-
         if (!wrappedComponent) {
           reject(new errors.NotFoundError('404 (defined in routes)'))
         } else {

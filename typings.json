@@ -15,7 +15,7 @@
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-motion": "registry:dt/react-motion#0.0.0+20160705193226",
     "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
-    "react-router": "registry:dt/react-router#2.0.0+20160501155536",
+    "react-router": "registry:dt/react-router#2.0.0+20160813233016",
     "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160316155526",
     "redux": "registry:dt/redux#3.3.1+20160326112656",
     "redux-logger": "registry:dt/redux-logger#2.6.0+20160316155526",
