@@ -50,7 +50,7 @@ export default function initialize(basePath) {
   app.use(controllers.logout())
 
   // frontend routing
-  app.use(routes.view)
+  app.use(routes.pages)
   // app.use((req, res) => {
   //   res.send('yes')
   // })

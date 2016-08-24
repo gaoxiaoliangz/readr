@@ -1,8 +1,8 @@
 import React from 'react'
 import Html from './Html'
-import Root from './Root'
+import BodyContent from './BodyContent'
 import _ from 'lodash'
-import print from '../../utils/print'
+import print from '../../server/utils/print'
 
 type TProps = {
   children?: any
@@ -11,6 +11,7 @@ type TProps = {
   renderProps?: any
   isProd?: boolean
   manifest?: any
+  renderPageContent?: boolean
 }
 
 const scriptsProd = ['react_kit.js', 'utils.js', 'app.js']
@@ -31,7 +32,7 @@ function getHashedFilename(manifest) {
 }
 
 function Page(props: TProps) {
-  const { title, store, renderProps, manifest } = props
+  const { title, store, renderProps, manifest, renderPageContent } = props
   const scripts = props.isProd
     ? scriptsProd.map(getHashedFilename(manifest))
     : scriptsDev
@@ -45,11 +46,12 @@ function Page(props: TProps) {
       title={title}
       styles={styles}
       scripts={scripts}
-      initialState={store ? store.getState() : {}}
+      initialState={store.getState()}
     >
-      <Root
+      <BodyContent
         store={store}
         renderProps={renderProps}
+        renderPageContent={renderPageContent}
       />
     </Html>
   )

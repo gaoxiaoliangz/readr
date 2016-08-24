@@ -1,4 +1,4 @@
-import NoMatch from '../../../isomorphic/routes/NoMatch/NoMatch'
+import NoMatch from '../routes/NoMatch/NoMatch'
 import Html from './Html'
 import React from 'react'
 

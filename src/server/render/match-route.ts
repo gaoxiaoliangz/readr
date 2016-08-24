@@ -1,4 +1,4 @@
-const errors: any = require('../errors')
+import errors from '../errors'
 import { match } from 'react-router'
 
 // function handleFrontendRouting() {
