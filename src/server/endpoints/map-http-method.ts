@@ -17,7 +17,7 @@ const config = {
 }
 
 export default function mapHttpMethod(methodName) {
-  const httpMethod = _.get(config, methodName)
+  const httpMethod = _.get(config, methodName) as string
 
   if (!httpMethod) {
     throw new Error(`Undefined method: ${methodName}!`)

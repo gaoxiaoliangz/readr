@@ -3,6 +3,7 @@ import i18n from '../utils/i18n'
 // import mapHttpMethod from '../endpoints/map-http-method'
 import _ from 'lodash'
 
+
 class BasicApi {
   // todo
   model: any
@@ -71,7 +72,9 @@ class BasicApi {
       })
     }
 
-    return query()
+    const result = query()
+    // console.log(result)
+    return result
   }
 
   add(data) {

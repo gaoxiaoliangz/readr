@@ -2,14 +2,14 @@ import express from 'express'
 import middleware from '../middleware'
 import endpoints from '../endpoints'
 import _ from 'lodash'
-import api from '../api'
+// import api from '../api'
 
 const router = express.Router()
 
 function apiRoutes() {
   _.forEach(endpoints, endpoint => {
     if (typeof endpoint.handler !== 'function') {
-      throw new Error('Should be function!')
+      throw new Error('Should be a function!')
     }
 
     if (endpoint.requiredRole) {
@@ -17,13 +17,13 @@ function apiRoutes() {
         endpoint.url,
         middleware.parseContext,
         middleware.requirePermissionsOf(endpoint.requiredRole),
-        api.http(endpoint.handler)
+        endpoint.handler
       )
     } else {
       router[endpoint.httpMethod](
         endpoint.url,
         // middleware.parseContext,
-        api.http(endpoint.handler)
+        endpoint.handler
       )
     }
   })

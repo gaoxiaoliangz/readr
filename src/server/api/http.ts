@@ -88,7 +88,8 @@ function err(res) {
 
 function apiHttp(apiMethod) {
   return (req, res) => {
-    apiMethod(parseRequest(req)).then(done(req, res), err(res))
+    const response = apiMethod(parseRequest(req))
+    response.then(done(req, res), err(res))
   }
 }
 
