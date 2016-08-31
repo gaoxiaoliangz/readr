@@ -1,12 +1,5 @@
 import _ from 'lodash'
 
-// const config = {
-//   add: 'post',
-//   list: 'get',
-//   update: 'put',
-//   remove: 'delete',
-// }
-
 const config = {
   add: 'post',
   list: 'get',

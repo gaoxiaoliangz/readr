@@ -1,9 +1,14 @@
 import schemas from './schemas'
 import Model from './model'
-const dp = {}
+
+const models: {
+  [modelName: string]: {
+    find: any
+  }
+} = {}
 
 Object.keys(schemas).forEach(key => {
-  dp[key] = new Model(schemas[key])
+  models[key] = new Model(schemas[key])
 })
 
-export default dp as any
+export default models as any

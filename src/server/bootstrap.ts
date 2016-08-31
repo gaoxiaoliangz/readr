@@ -1,6 +1,6 @@
-const http: any = require('http')
 import config from './config'
 import print from './utils/print'
+const http: any = require('http')
 
 const port = config.port
 

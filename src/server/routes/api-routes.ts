@@ -2,7 +2,6 @@ import express from 'express'
 import middleware from '../middleware'
 import endpoints from '../endpoints'
 import _ from 'lodash'
-// import api from '../api'
 
 const router = express.Router()
 

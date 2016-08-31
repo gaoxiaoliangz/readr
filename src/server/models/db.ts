@@ -51,7 +51,7 @@ function parseIds(ids) {
   }
 
   return ids2
-} 
+}
 
 // prepare ref fields
 // output = Array<{

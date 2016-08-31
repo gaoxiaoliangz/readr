@@ -5,7 +5,6 @@ import bootServer from './bootstrap'
 import config from './config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
 import runtimeOptions from './utils/runtime-options'
-import controllers from './controllers'
 const path: any = require('path')
 const morgan: any = require('morgan')
 const cookieParser: any = require('cookie-parser')
@@ -46,19 +45,8 @@ export default function initialize(basePath) {
   // api routing
   app.use(routes.apiBaseUri, routes.api)
 
-  // todo: logout
-  app.use(controllers.logout())
-
   // frontend routing
   app.use(routes.pages)
-  // app.use((req, res) => {
-  //   res.send('yes')
-  // })
-  // if (runtimeOptions.serverRouting) {
-  //   app.use(routes.handleFrontendRouting(), controllers.render(runtimeOptions.serverRendering))  
-  // } else {
-  //   app.use(routes.simpleRouter())
-  // }
 
   return bootServer(app, runtimeOptions)
 }

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-const errors: any = require('../errors')
+import errors from '../errors'
 import i18n from '../utils/i18n'
 import models from '../models'
 import API from '../api'
