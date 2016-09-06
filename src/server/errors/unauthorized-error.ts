@@ -2,9 +2,8 @@ import GenericError from './generic-error'
 
 export default class UnauthorizedError extends GenericError {
   constructor(message) {
-    super(message)
+    super(message, 'UnauthorizedError')
 
-    this.name = 'UnauthorizedError'
     this.statusCode = 401
   }
 }

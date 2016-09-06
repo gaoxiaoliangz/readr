@@ -2,6 +2,7 @@ import _ from 'lodash'
 import errors from '../../errors'
 import i18n from '../../utils/i18n'
 import parseEntityResults, { includeFields, excludeFields } from './parse-entity-results'
+import sortByDate from './sort-by-date'
 
 function getIdMatch(options) {
   return _.pick(options, (val, key) => {
@@ -18,5 +19,6 @@ export default {
   handleNotFound,
   parseEntityResults,
   includeFields,
-  excludeFields
+  excludeFields,
+  sortByDate
 }

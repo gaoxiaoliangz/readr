@@ -5,8 +5,8 @@ export default class GenericError {
   stack: Object
   type: string
 
-  constructor(message) {
-    this.name = 'GenericError'
+  constructor(message, name?) {
+    this.name = name || 'GenericError'
     this.statusCode = 500
     this.message = message
     this.stack = (new Error() as any).stack

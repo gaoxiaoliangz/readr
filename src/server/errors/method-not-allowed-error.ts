@@ -2,9 +2,8 @@ import GenericError from './generic-error'
 
 export default class MethodNotAllowedError extends GenericError {
   constructor(message) {
-    super(message)
+    super(message, 'MethodNotAllowedError')
 
-    this.name = 'MethodNotAllowedError'
     this.statusCode = 405
   }
 }

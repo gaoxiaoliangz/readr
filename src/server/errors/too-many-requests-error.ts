@@ -2,9 +2,8 @@ import GenericError from './generic-error'
 
 export default class TooManyRequestsError extends GenericError {
   constructor(message) {
-    super(message)
+    super(message, 'TooManyRequestsError')
 
-    this.name = 'TooManyRequestsError'
     this.statusCode = 429
   }
 }

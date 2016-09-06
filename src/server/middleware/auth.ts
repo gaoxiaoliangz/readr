@@ -5,7 +5,6 @@ import models from '../models'
 import API from '../api'
 import humps from 'humps'
 
-// todo
 const auth = {
   basic(req, res) {
     return API.http(parsedReq => {

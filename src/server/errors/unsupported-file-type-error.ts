@@ -2,9 +2,8 @@ import GenericError from './generic-error'
 
 export default class UnsupportedFileTypeError extends GenericError {
   constructor(message) {
-    super(message)
+    super(message, 'UnsupportedFileTypeError')
 
-    this.name = 'UnsupportedFileTypeError'
     this.statusCode = 415
   }
 }

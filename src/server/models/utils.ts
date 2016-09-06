@@ -8,11 +8,11 @@ type Fields = {
 }
 export function outputEmptyEntity(fields: Fields, id) {
   return _.assign({}, _.mapValues(fields, key => {
-      if (key.type && key.type.isArray()) {
-        return []
-      }
-      return ''
-    }), id)
+    if (key.type && key.type.isArray()) {
+      return []
+    }
+    return ''
+  }), { id })
 }
 
 export default {

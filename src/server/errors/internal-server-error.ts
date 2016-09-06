@@ -2,9 +2,8 @@ import GenericError from './generic-error'
 
 export default class InternalServerError extends GenericError {
   constructor(message) {
-    super(message)
+    super(message, 'InternalServerError')
 
-    this.name = 'InternalServerError'
     this.statusCode = 500
   }
 }

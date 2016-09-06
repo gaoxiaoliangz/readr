@@ -8,7 +8,9 @@ import _ from 'lodash'
 type Fields = string[]
 
 export function excludeFields(fieldsToExclude: Fields) {
-  return res => _.omit(res, fieldsToExclude)
+  return res => {
+    return _.omit(res, fieldsToExclude)
+  }
 }
 
 export function includeFields(fieldsToInclude: Fields) {
