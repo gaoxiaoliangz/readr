@@ -6,20 +6,35 @@ import { fetchShelf } from '../store/actions'
 import _ from 'lodash'
 import apis from '../apis'
 
-class AppCommon extends Component<any, any> {
+interface Props {
+  fetchShelf: any
+  session: any
+  bookShelf: any
+}
+
+class AppCommon extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
-  }
-
-  componentDidMount() {
-    this.props.fetchShelf()
   }
 
   handleLogout() {
     apis.logout().then(() => {
       location.href = location.href
     })
+  }
+
+  componentDidMount() {
+    if (this.props.session.user.role !== 'visitor') {
+      this.props.fetchShelf()
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const userLoggedIn = this.props.session.user.role === 'visitor' && nextProps.session.user.role !== 'visitor'
+    if (userLoggedIn) {
+      this.props.fetchShelf()
+    }
   }
 
   render() {
@@ -53,7 +68,7 @@ class AppCommon extends Component<any, any> {
   }
 }
 
-export default connect(
+export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
     session: state.session,

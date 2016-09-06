@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router'
-import { fetchBooks, fetchCollections, sendNotification, fetchShelf } from '../../store/actions'
+import { fetchBooks, fetchCollections, sendNotification } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
 import CandyBox from '../../components/CandyBox'
 import Body from '../../components/Body'
@@ -22,7 +21,6 @@ interface IAllProps extends IProps {
   newestBooks: any
   bookCollections: any
   sendNotification: any
-  fetchShelf: any
   bookShelf: any[]
 }
 
@@ -47,13 +45,11 @@ class Home extends Component<IAllProps, IState> {
   componentDidMount() {
     this.props.fetchBooks()
     this.props.fetchCollections()
-    this.props.fetchShelf()
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.session.isFetching && !nextProps.session.isFetching) {
       if (nextProps.session.user.role !== 'visitor') {
-        // this.props.fetchBooks('user')
         this.setState({
           showRecentReading: true
         })
@@ -79,32 +75,30 @@ class Home extends Component<IAllProps, IState> {
 
     return (
       <Body bodyClass="home">
-        <div className="row">
-          {
-            this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
-              <div className="hero-image">
-                <div className="logo">Readr</div>
-                <div className="page-title">new </div>
-                <Button to="/signup">注册</Button>
-              </div>
-            ) : null
-          }
-          <Container>
-            <div className="col-md-12">
-              <BookListSection bookEntities={newestBooks} title="新书速递" />
+        {
+          this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
+            <div styleName="hero-image">
+              <Container>
+                <div styleName="logo">- Readr -</div>
+                <h1 styleName="page-title">New Reading Experience</h1>
+                <Button to="/signup">现在加入</Button>
+              </Container>
             </div>
-          </Container>
-          <CollectionSection title="书单" list={bookCollections} />
-          <Container>
-            <div className="col-md-12">
-              {
-                this.state.showRecentReading && (
-                  <CandyBox title="最近阅读" list={bookShelfList} />
-                )
-              }
-            </div>
-          </Container>
-        </div>
+          ) : null
+        }
+        <Container>
+          <BookListSection bookEntities={newestBooks} title="新书速递" />
+        </Container>
+        <CollectionSection title="书单" list={bookCollections} />
+        <Container>
+          <div className="col-md-12">
+            {
+              this.state.showRecentReading && (
+                <CandyBox title="最近阅读" list={bookShelfList} />
+              )
+            }
+          </div>
+        </Container>
       </Body>
     )
   }
@@ -133,5 +127,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, fetchCollections, sendNotification, fetchShelf }
+  { fetchBooks, fetchCollections, sendNotification }
 )(Home as any)

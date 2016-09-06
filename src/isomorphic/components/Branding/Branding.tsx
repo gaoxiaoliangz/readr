@@ -69,17 +69,21 @@ class Branding extends Component<IProps, IState> {
               username
                 ? (
                   <div styleName="nav--user">
-                    <Dropdown styleName="dropdown-recent-reading" title="最近阅读">
-                      {
-                        recentReading.map((book, index) => {
-                          return (
-                            <DropdownItem key={index}>
-                              <Link to={`/viewer/book/${book.id}`}>{book.title}</Link>
-                            </DropdownItem>
-                          )
-                        })
-                      }
-                    </Dropdown>
+                    {
+                      recentReading.length !== 0 && (
+                        <Dropdown styleName="dropdown-recent-reading" title="历史阅读">
+                          {
+                            recentReading.map((book, index) => {
+                              return (
+                                <DropdownItem key={index}>
+                                  <Link to={`/viewer/book/${book.id}`}>{book.title}</Link>
+                                </DropdownItem>
+                              )
+                            })
+                          }
+                        </Dropdown>
+                      )
+                    }
                     <Dropdown
                       title={(
                         <span>{username}{ isAdmin && <span className="badge">Admin</span> }</span>
@@ -90,7 +94,6 @@ class Branding extends Component<IProps, IState> {
                           <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
                         )
                       }
-                      <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/shelf`}>书架</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
