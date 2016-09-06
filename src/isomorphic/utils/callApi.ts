@@ -75,7 +75,12 @@ const parseConfig = (originanConfig: CallApiConfig) => {
 export function callApi(fullUrl: string, config: CallApiConfig = {}) {
   return fetch(fullUrl, parseConfig(config))
     .then(response => {
-      return response.json().then(json => ({ json, response }))
+      if (response.status !== 204) {
+        return response.json().then(json => {
+          return { json, response }
+        })
+      }
+      return { response, json: {} }
     })
     .then(({ json, response }) => {
       if (response.ok) {
