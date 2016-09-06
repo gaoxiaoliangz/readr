@@ -3,27 +3,6 @@ import i18n from '../utils/i18n'
 import print from '../utils/print'
 import parseFormData from '../../isomorphic/utils/parseFormData'
 
-function parseRequest(req) {
-  // const object = humps.decamelizeKeys(req.body)
-  // const options = humps.decamelizeKeys(_.extend({}, req.files, req.query, req.params))
-  // const context = {
-  //   // todo
-  //   user: req.session.user ? req.session.user : null,
-  // }
-  // const data = { context }
-
-  // if (!_.isEmpty(object)) {
-  //   data.object = object
-  // }
-
-  // if (!_.isEmpty(options)) {
-  //   data.options = options
-  // }
-
-  return req
-}
-
-// todo: 边界情况考虑
 function parsePagination({ fullPath, query }, { current, all }) {
   const links = {
     first: `${fullPath}?${parseFormData(_.assign({}, query, { page: 1 }))}`,
@@ -80,15 +59,17 @@ function err(res) {
       }
     }
 
-    print.error(error)
+    if (!error.statusCode) {
+      print.error(error)
+    }
 
-    res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name']))
+    res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name', 'stack']))
   }
 }
 
 function apiHttp(apiMethod) {
   return (req, res) => {
-    const response = apiMethod(parseRequest(req))
+    const response = apiMethod(req)
     response.then(done(req, res), err(res))
   }
 }

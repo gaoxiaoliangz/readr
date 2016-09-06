@@ -5,6 +5,8 @@
 
 import api from '../api'
 import roles from '../models/roles'
+import errors from '../errors'
+import i18n from '../utils/i18n'
 
 export default function requirePermissionsOf(userRole) {
   return (req, res, next) => {
@@ -16,8 +18,7 @@ export default function requirePermissionsOf(userRole) {
         }
 
         api.http(() => {
-          // todo
-          return Promise.reject(new Error('no admin permissio'))
+          return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.needPermissionsOf', 'admin')))
         })(req, res)
         break
 
@@ -28,14 +29,14 @@ export default function requirePermissionsOf(userRole) {
         }
 
         api.http(() => {
-          return Promise.reject(new Error('no user permission'))
+          return Promise.reject(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
         })(req, res)
         break
 
       default:
         if (userRole !== roles.visitor) {
           api.http(() => {
-            return Promise.reject(new Error('undefined role!'))
+            return Promise.reject(new Error('Undefined role!'))
           })(req, res)
           break
         }

@@ -12,7 +12,8 @@ export default {
       creator: '创建者',
       title: '标题',
       progress: '进度',
-      user: '用户'
+      user: '用户',
+      admin: '管理员'
     },
   },
   errors: {
@@ -44,7 +45,7 @@ export default {
         exists: '{value}已存在',
       },
       auth: {
-        needAdminPermission: '需要管理员权限',
+        needPermissionsOf: '需要 {value} 权限',
         loginRequired: '需要登录',
       },
     },
