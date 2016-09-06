@@ -50,8 +50,8 @@ export default class Book extends Component<IProps, IState> {
         <Link to={'/book/' + this.props.id} >
           <div styleName="book-cover"><img src={this.props.cover}/></div>
           <div styleName="book-meta">
-            <span title={this.props.title} styleName="book-name">{this.props.title}</span>
-            <span styleName="book-author">{this.props.authors}</span>
+            <span title={this.props.title} styleName="book-name">{this.props.title || '无标题'}</span>
+            <span styleName="book-author">{this.props.authors || '作者不详'}</span>
           </div>
         </Link>
         {

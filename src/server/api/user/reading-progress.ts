@@ -1,5 +1,5 @@
 import Promise from 'bluebird'
-const errors: any = require('../../errors')
+import errors from '../../errors'
 import i18n from '../../utils/i18n'
 import models from '../../models'
 import humps from 'humps'

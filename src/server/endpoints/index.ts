@@ -9,7 +9,7 @@ let basicEndpointConfig = []
 _.keys(basicApi).forEach(key => {
   const groupEndpoints = ['find', 'list', 'add', 'update', 'remove'].map(methodKey => {
     let url = `/${key}`
-    const idMatch = req => ({ id: req.params.id })
+    const idMatch = req => ({ _id: req.params.id })
 
     if (['find', 'update', 'remove'].indexOf(methodKey) !== -1) {
       url = `/${key}/:id`
