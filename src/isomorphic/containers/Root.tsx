@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification, closeDialog } from '../store/actions'
+import { browserHistory } from 'react-router'
+import { sendNotification, hideNotification, closeDialog, userAuth } from '../store/actions'
 import { Alerts } from '../elements/Alert'
 import _ from 'lodash'
 import Dialog from '../elements/Dialog'
@@ -12,6 +13,9 @@ interface IAllProps {
   sendNotification: any
   dialog: any
   closeDialog: any
+  userAuth: any
+  routing: any
+  session: any
 }
 
 interface IState {
@@ -25,13 +29,23 @@ class Root extends Component<IAllProps, IState> {
 
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
+    const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage), 'error')
     }
+
+    if (routerChanged) {
+      if (nextProps.routing.locationBeforeTransitions.pathname.indexOf('console') !== -1) {
+        if (this.props.session.user.role !== 'admin') {
+          browserHistory.push('/')
+        }
+      }
+    }
   }
 
   componentDidMount() {
+    this.props.userAuth()
   }
 
   render() {
@@ -72,6 +86,8 @@ export default connect<{}, {}, IAllProps>(
     notifications: state.components.notifications,
     errorMessage: state.errorMessage,
     dialog: state.components.dialog,
+    routing: state.routing,
+    session: state.session,
   }),
-  { sendNotification, hideNotification, closeDialog }
+  { sendNotification, hideNotification, closeDialog, userAuth }
 )(Root)

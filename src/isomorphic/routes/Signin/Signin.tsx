@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import ApiRoots from '../../config'
 import callApi from '../../utils/callApi'
-import { sendNotification } from '../../store/actions'
+import { sendNotification, userAuth } from '../../store/actions'
 import { Button, Input } from '../../elements/_form'
 import Body from '../../components/Body'
 
@@ -25,10 +25,12 @@ class Signin extends Component<any, any> {
     }
 
     callApi(`${ApiRoots.LOCAL}auth`, { method: 'POST', data: params }).then(res => {
-      this.props.sendNotification('登录成功！')
-      setTimeout(function () {
-        browserHistory.push('/')
-      }, 600)
+      this.props.sendNotification('登录成功！', 'success', 1500)
+      this.props.userAuth().then(() => {
+        setTimeout(function () {
+          browserHistory.push('/')
+        }, 600)
+      })
     }).catch((err) => {
       this.props.sendNotification(err.message, 'error')
     })
@@ -59,5 +61,5 @@ export default connect(
     notification: state.components.notification,
     user: state.user
   }),
-  { sendNotification } as any
+  { sendNotification, userAuth } as any
 )(Signin)

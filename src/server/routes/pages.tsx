@@ -3,8 +3,18 @@ import routesWithEnsure from '../../isomorphic/routes'
 import React from 'react'
 import print from '../utils/print'
 import runtimeOptions from '../utils/runtime-options'
+import roles from '../models/roles'
 
 function pages(req, res) {
+  // 检查权限
+  // todo:
+  // 能否使用 react-router 统一前后端权限校验
+  if (req.url.indexOf('console') !== -1) {
+    if (req.context.user.role !== roles.admin) {
+      res.redirect('/')
+    }
+  }
+
   render({
     reqUrl: req.url,
     routes: routesWithEnsure,

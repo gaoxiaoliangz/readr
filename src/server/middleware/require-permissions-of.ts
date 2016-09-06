@@ -22,7 +22,7 @@ export default function requirePermissionsOf(userRole) {
         break
 
       case roles.user:
-        if (req.context.user.role === roles.user || req.context.user.role === roles.admin) {          
+        if (req.context.user.role === roles.user || req.context.user.role === roles.admin) {
           next()
           break
         }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { userAuth, fetchShelf } from '../store/actions'
+import { fetchShelf } from '../store/actions'
 import _ from 'lodash'
 import apis from '../apis'
 
@@ -13,12 +13,13 @@ class AppCommon extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.userAuth()
     this.props.fetchShelf()
   }
 
   handleLogout() {
-    apis.logout()
+    apis.logout().then(() => {
+      location.href = location.href
+    })
   }
 
   render() {
@@ -58,5 +59,5 @@ export default connect(
     session: state.session,
     bookShelf: state.payloads.bookShelf || []
   }),
-  { userAuth, fetchShelf } as any
+  { fetchShelf } as any
 )(AppCommon)

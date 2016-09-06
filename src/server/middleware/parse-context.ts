@@ -8,7 +8,7 @@ export default function parseContext(req, res, next) {
   } else {
     req.context = {
       user: {
-        userRole: 'visitor'
+        role: 'visitor'
       }
     }
   }

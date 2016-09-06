@@ -6,6 +6,7 @@ import config from './config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
 import runtimeOptions from './utils/runtime-options'
 import path from 'path'
+import middleware from './middleware'
 const morgan: any = require('morgan')
 const cookieParser: any = require('cookie-parser')
 const bodyParser: any = require('body-parser')
@@ -46,7 +47,7 @@ export default function initialize(basePath) {
   app.use(routes.apiBaseUri, routes.api)
 
   // frontend routing
-  app.use(routes.pages)
+  app.use(middleware.parseContext, routes.pages)
 
   return bootServer(app, runtimeOptions)
 }
