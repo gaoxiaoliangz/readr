@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /**
  * 查询结果过滤
  * 作为 model 返回结果数据数组方法的 iteratee 使用
@@ -5,7 +7,6 @@
 
 type Fields = string[]
 
-// for map
 export function excludeFields(fieldsToExclude: Fields) {
   return res => _.omit(res, fieldsToExclude)
 }
@@ -25,12 +26,17 @@ export interface Options {
   fields?: Fields
 }
 
-export default function parseEntityResults(results, options: Options = {
+const defaultOptions = {
   page: 1,
-  limit: 3,
+  limit: 10,
   order: 'new'
-}) {
-  const { page, limit, order, exclude, fields } = options
+}
+
+export default function parseEntityResults(results, options: Options) {
+  let { page, limit, order, exclude, fields } = Object.assign({}, defaultOptions, options)
+  // query 里面传过来的都是 string
+  page = parseInt(page as any, 10)
+  limit = parseInt(limit as any, 10)
 
   if (order === 'new') {
     results.reverse()

@@ -4,10 +4,8 @@ import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
 import { userAuth, fetchShelf } from '../store/actions'
 import _ from 'lodash'
-// import CSSModules from 'react-css-modules'
-// const styles = require('./_app.scss')
+import apis from '../apis'
 
-// @CSSModules(styles)
 class AppCommon extends Component<any, any> {
 
   constructor(props) {
@@ -17,6 +15,10 @@ class AppCommon extends Component<any, any> {
   componentDidMount() {
     this.props.userAuth()
     this.props.fetchShelf()
+  }
+
+  handleLogout() {
+    apis.logout()
   }
 
   render() {
@@ -41,6 +43,7 @@ class AppCommon extends Component<any, any> {
           recentReading={bookShelfList}
           isAdmin={isAdmin}
           username={username}
+          onLogout={this.handleLogout}
         />
         {this.props.children}
         <Colophon />

@@ -45,7 +45,8 @@ _.keys(basicApi).forEach(key => {
   basicEndpointConfig = basicEndpointConfig.concat(groupEndpoints)
 })
 
-allEndpointConfig = allEndpointConfig.concat(basicEndpointConfig, extendedEndpointConfig)
+// basicEndpointConfig 应该被 extendedEndpointConfig 里面的相同路径相同方法的 route 覆盖
+allEndpointConfig = allEndpointConfig.concat(extendedEndpointConfig, basicEndpointConfig)
 
 const endpoints = allEndpointConfig.map(config => {
   return new Endpoint(config)

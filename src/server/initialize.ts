@@ -5,7 +5,7 @@ import bootServer from './bootstrap'
 import config from './config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
 import runtimeOptions from './utils/runtime-options'
-const path: any = require('path')
+import path from 'path'
 const morgan: any = require('morgan')
 const cookieParser: any = require('cookie-parser')
 const bodyParser: any = require('body-parser')

@@ -40,7 +40,8 @@ declare module "express-session" {
       secret: string;
       name?: string;
       store?: Store | MemoryStore;
-      cookie?: express.CookieOptions;
+      // cookie?: express.CookieOptions;
+      cookie?: any;
       genid?: (req: express.Request) => string;
       rolling?: boolean;
       resave?: boolean;

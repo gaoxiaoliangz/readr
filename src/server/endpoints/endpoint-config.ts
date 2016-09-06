@@ -41,7 +41,7 @@ const endpointConfig: EndpointConfig[] = [
   },
   {
     url: '/user/books/:book/progress',
-    apiMethod: 'user.readingProgress.update',
+    apiMethod: 'api.user.readingProgress.update',
     requiredRole: roles.user,
     parser: request => [
       request.context.user.id,
@@ -53,7 +53,7 @@ const endpointConfig: EndpointConfig[] = [
   // shelf
   {
     url: '/user/books/shelf',
-    apiMethod: 'user.shelf.list',
+    apiMethod: 'api.user.shelf.list',
     requiredRole: roles.user,
     parser: request => [request.context.user.id]
   }

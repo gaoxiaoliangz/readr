@@ -4,11 +4,11 @@
   "globalDependencies": {
     "bluebird": "registry:dt/bluebird#3.0.0+20160811111256",
     "classnames": "registry:dt/classnames#0.0.0+20160316155526",
-    "express": "registry:dt/express#4.0.0+20160708185218",
     "express-session": "registry:dt/express-session#0.0.0+20160819134112",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "lodash": "registry:dt/lodash#4.14.0+20160817155621",
     "marked": "registry:dt/marked#0.0.0+20160325085301",
+    "node": "registry:dt/node#6.0.0+20160831021119",
     "normalizr": "registry:dt/normalizr#2.0.1+20160501130729",
     "react": "registry:dt/react#0.14.0+20160526134601",
     "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",
@@ -20,10 +20,13 @@
     "redux": "registry:dt/redux#3.3.1+20160326112656",
     "redux-logger": "registry:dt/redux-logger#2.6.0+20160316155526",
     "redux-thunk": "registry:dt/redux-thunk#2.0.1+20160317120654",
+    "source-map": "registry:dt/source-map#0.0.0+20160317120654",
+    "uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
     "webpack": "registry:dt/webpack#1.12.9+20160724112410",
     "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160728142841"
   },
   "dependencies": {
+    "express": "registry:npm/express#4.14.0+20160815112707",
     "react-router": "registry:npm/react-router#2.0.0+20160214194820",
     "react-router-redux": "registry:npm/react-router-redux#3.0.0+20160214195458"
   }

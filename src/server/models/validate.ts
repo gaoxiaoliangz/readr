@@ -1,5 +1,5 @@
 import utils from '../utils'
-const errors: any = require('../errors')
+import errors from '../errors'
 
 const reduceTasks = utils.reduceTasks
 const i18n = utils.i18n

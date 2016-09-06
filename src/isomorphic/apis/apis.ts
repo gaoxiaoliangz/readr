@@ -11,6 +11,7 @@ export function addCollection(data: {
 
 /**
  * data: name, author, description, cover, content
+ * todo
  */
 export function addBook(data) {
   return callApi(`${ApiRoots.LOCAL}books`, { method: 'POST', data: data })
@@ -18,6 +19,7 @@ export function addBook(data) {
 
 /**
  * data: name, slug, description
+ * todo
  */
 export function addAuthor(data) {
   return callApi(`${ApiRoots.LOCAL}authors`, { method: 'POST', data: data })
@@ -33,6 +35,7 @@ export function searchBooks(query) {
 
 /**
  * data: pageNo, pageSum, percentage
+ * todo
  */
 export type setProgress = {
   percentage: number
@@ -47,12 +50,8 @@ export function deleteBook(id) {
   })
 }
 
-// export default {
-//   addCollection,
-//   addBook,
-//   addAuthor,
-//   searchBooks,
-//   searchAuthors,
-//   setProgress,
-//   deleteBook
-// }
+export function logout() {
+  return callApi(`${ApiRoots.LOCAL}auth/revoke`, {
+    method: 'PUT'
+  })
+}

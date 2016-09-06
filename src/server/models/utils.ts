@@ -14,3 +14,7 @@ export function outputEmptyEntity(fields: Fields, id) {
       return ''
     }), id)
 }
+
+export default {
+  outputEmptyEntity
+}

@@ -14,6 +14,7 @@ interface IProps {
     title: string
     id: string
   }[]
+  onLogout: () => void
 }
 
 interface IState {
@@ -30,12 +31,18 @@ class Branding extends Component<IProps, IState> {
     this.state = {
       isDropdownMenuVisible: false
     }
+    this.handleLogoutClick = this.handleLogoutClick.bind(this)
   }
 
   toggleDropdownMenu() {
     this.setState({
       isDropdownMenuVisible: !this.state.isDropdownMenuVisible
     })
+  }
+
+  handleLogoutClick() {
+    this.props.onLogout()
+    return false
   }
 
   render() {
@@ -87,7 +94,7 @@ class Branding extends Component<IProps, IState> {
                       <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
                       <DropdownItemSep />
-                      <DropdownItem><a href="/logout">退出</a></DropdownItem>
+                      <DropdownItem><a onClick={this.handleLogoutClick} href="#">退出ww</a></DropdownItem>
                     </Dropdown>
                   </div>
                 )
