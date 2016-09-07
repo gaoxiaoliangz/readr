@@ -159,7 +159,7 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   renderViewPanel() {
-    return (this.state.showPanel || this.state.showViewerPreference) && (
+    return (this.state.showPanel || this.state.showViewerPreference || true) && (
       <ViewerPanel
         title={this.props.book.title}
         showViewerPreference={this.state.showViewerPreference}

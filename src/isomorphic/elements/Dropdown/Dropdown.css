@@ -54,6 +54,7 @@
   display: block;
   padding: 0 25px;
   transition: all 0s;
+  composes: text-overflow from "styles/_common.scss";
 
   &:hover {
     background: color(var(--background) l(+ 10%));

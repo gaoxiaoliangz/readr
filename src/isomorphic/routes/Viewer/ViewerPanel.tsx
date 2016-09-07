@@ -13,7 +13,6 @@ interface IProps {
 }
 
 interface IState {
-  // showViewerPreference: boolean
 }
 
 @CSSModules(styles)
@@ -28,9 +27,6 @@ class ViewerPanel extends Component<IProps, IState> {
   }
 
   handlePrefClick() {
-    // this.setState({
-    //   showViewerPreference: !this.state.showViewerPreference
-    // })
     this.props.onPrefVisibilityChange(!this.props.showViewerPreference)
   }
 
@@ -51,9 +47,8 @@ class ViewerPanel extends Component<IProps, IState> {
           </div>
           <span styleName="title">{title}</span>
           <div onClick={this.handlePrefClick} styleName="preference">
-            <Icon name="font" />
+            <Icon name="preference" />
           </div>
-          <div className="add">点击添加至书架</div>
           <Fade>
             {
               showViewerPreference ? (
