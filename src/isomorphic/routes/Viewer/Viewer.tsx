@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookPageList from './BookPageList'
-import * as viewerUtils from './Viewer.utils2'
+import * as viewerUtils from './Viewer.utils'
 import { fetchBook, fetchProgress, openDialog } from '../../store/actions'
 import _ from 'lodash'
-import ViewerScrollbar from './ViewerScrollbar'
 import ViewerPanel from './ViewerPanel'
 import BookPageWithRawHtml from './BookPageWithRawHtml'
 import CSSModules from 'react-css-modules'
 import api from '../../apis'
 import utils from '../../utils'
+import Body from '../../components/Body'
 const styles: any = require('./_viewer.scss')
 
 interface IAllProps {
@@ -30,6 +30,7 @@ interface IState {
   showViewerPreference?: boolean
   fluid?: boolean
   isTouchMode?: boolean
+  showPageInfo?: boolean
 }
 
 @CSSModules(styles)
@@ -76,8 +77,11 @@ class Viewer extends Component<IAllProps, IState> {
   handelViewerMouseMove(event) {
     if (!this.state.isCalcMode && !this.state.isTouchMode) {
       let y = event.pageY - document.body.scrollTop
+      let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
+
       this.setState({
-        showPanel: y < 90
+        showPanel: y < 90,
+        showPageInfo: dToScreenRight < 100
       })
     }
   }
@@ -159,7 +163,7 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   renderViewPanel() {
-    return (this.state.showPanel || this.state.showViewerPreference || true) && (
+    return (this.state.showPanel || this.state.showViewerPreference) && (
       <ViewerPanel
         title={this.props.book.title}
         showViewerPreference={this.state.showViewerPreference}
@@ -173,11 +177,11 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   renderBook() {
-    const { nodes, nodeHeights, fluid } = this.state
+    const { nodes, nodeHeights, fluid, showPageInfo } = this.state
     const { progress } = this.props
 
     if (nodes.length === 0) {
-      return <div>Loading ...</div>
+      return <div styleName="loading">Loading ...</div>
     }
 
     return this.state.isCalcMode
@@ -197,17 +201,19 @@ class Viewer extends Component<IAllProps, IState> {
           pageHeight={900}
           onProgressChange={this.handleProgressChange}
           fluid={fluid}
+          showPageInfo={showPageInfo}
           />
       )
   }
 
   render() {
     return (
-      <div styleName={`viewer--hd`} onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove } >
-        { this.renderViewPanel() }
-        { this.renderBook() }
-        <ViewerScrollbar current={20} total={309} />
-      </div>
+      <Body bodyClass="viewer">
+        <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove } >
+          { this.renderViewPanel() }
+          { this.renderBook() }
+        </div>
+      </Body>
     )
   }
 }

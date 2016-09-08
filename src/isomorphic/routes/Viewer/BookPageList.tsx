@@ -4,6 +4,7 @@ import * as utils from './BookPageList.utils'
 import _ from 'lodash'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
+import ViewerScrollbar from './ViewerScrollbar'
 const styles: any = require('./_book-page-list.scss')
 
 interface IProps {
@@ -17,6 +18,7 @@ interface IProps {
   onProgressChange?: (newProgress: number) => void
   fluid: boolean
   isCalcMode?: boolean
+  showPageInfo?: boolean
 }
 
 interface IState {
@@ -99,7 +101,7 @@ class BookPageList extends Component<IProps, IState> {
   render() {
     const { pages, totalHeight } = this.calcPages()
     const { currentPage } = this.state
-    const { pageCount, pageHeight, fluid } = this.props
+    const { pageCount, pageHeight, fluid, showPageInfo } = this.props
     const startPageIndex = currentPage - 1
     const endPageIndex = startPageIndex + pageCount
     const className = classnames({
@@ -108,21 +110,28 @@ class BookPageList extends Component<IProps, IState> {
     })
 
     return (
-      <ul ref={ref => { this.bookPageListDom = ref } } styleName={className} style={{ height: totalHeight }}>
-        {
-          _.slice(pages, startPageIndex, endPageIndex).map((page, index) => {
-            return (
-              <BookPage
-                key={index}
-                page={page}
-                pageHeight={pageHeight}
-                fluid={fluid}
-                ref={ref => { this.bookPage = ref } }
-                />
-            )
-          })
-        }
-      </ul>
+      <div>
+        <ul ref={ref => { this.bookPageListDom = ref } } styleName={className} style={{ height: totalHeight }}>
+          {
+            _.slice(pages, startPageIndex, endPageIndex).map((page, index) => {
+              return (
+                <BookPage
+                  key={index}
+                  page={page}
+                  pageHeight={pageHeight}
+                  fluid={fluid}
+                  ref={ref => { this.bookPage = ref } }
+                  />
+              )
+            })
+          }
+        </ul>
+        <ViewerScrollbar
+          visible={showPageInfo}
+          current={currentPage}
+          total={pages.length}
+          />
+      </div>
     )
   }
 }

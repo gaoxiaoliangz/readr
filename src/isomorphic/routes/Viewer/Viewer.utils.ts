@@ -1,190 +1,45 @@
-// 用 slice 就可以解决
-// export function filterPages(config) {
-//   let {startPage, quantity, offset, pages} = config
-//   let newPages = []
+import marked from 'marked'
+import $ from 'jquery'
 
-//   while (startPage - offset < 0) {
-//     offset--
-//   }
-//   startPage = startPage - offset
+// 暂不支持包含图片的计算
+// 计算没有等待图片加载完成，所以结果是不正确的
+export function getNodeHeights(nodes) {
+  console.log('dom ready, getNodeHeights')
+  let nodesHeight = []
 
-//   for (let i = startPage; i < quantity + startPage && i < pages.length; i++) {
-//     let page = pages[i]
-//     newPages.push(page)
-//   }
-
-//   return newPages
-// }
-
-
-export function htmlToPages(html, nodeHeights, view) {
-  let pageHeight = view.pageHeight
-  let nodes = parseHTML(html)
-  let pages = groupNodesByPage(nodes, nodeHeights, pageHeight)
-
-  return {
-    type: 'pages',
-    props: {
-      children: pages,
-      view
+  Array.prototype.forEach.call(nodes, (node, index) => {
+    if (node.className !== 'gb-line') {
+      console.error('Unsupported content found!')
     }
-  }
-}
-
-export function pagesToHtml(pages) {
-  let nodes = pages.props.children.reduce((a, b) => (a.concat(b.props.children)), [])
-  let uniqueNodes = []
-  let realIndex = 0
-
-  // remove duplicate nodes
-  for (let i = 0; i < nodes.length; i++) {
-    nodes[i]
-    if (nodes[i].props.index === realIndex) {
-      uniqueNodes.push(nodes[i])
-      realIndex++
-    }
-  }
-
-  let html = parseNodes(uniqueNodes)
-
-  return html
-}
-
-
-
-
-
-// funcs used internally
-
-function parseHTML(htmlString: string) {
-  let nodes = []
-  let $html = document.createElement('div')
-  let $htmlNodes
-
-  $html.innerHTML = htmlString
-  $htmlNodes = $html.childNodes
-
-  for (let i = 0; i < $htmlNodes.length; i++) {
-    if ($htmlNodes[i].nodeType != 1) {
-      continue
-    } else {
-      nodes.push({
-        type: $htmlNodes[i].tagName.toLowerCase(),
-        props: {
-          children: $htmlNodes[i].innerHTML
-        }
-      })
-    }
-  }
-  return nodes
-}
-
-function parseNodes(nodes) {
-  let html = ''
-
-  for (let i = 0; i < nodes.length; i++) {
-    if (nodes[i].type !== 'p') {
-      console.error('Unsupported node found!')
-      continue
-    } else {
-      html += `<p>${nodes[i].props.children}</p>`
-    }
-  }
-
-  return html
-}
-
-
-
-
-
-// original
-function groupNodesByPage(nodes, nodeHeights, pageHeight) {
-  let pages = []
-  let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
-  let pageSum = Math.ceil(pageHeightSum / pageHeight)
-
-  nodes = nodes.map((node, index) => {
-    node.props.index = index
-    return node
+    nodesHeight.push(node.clientHeight)
   })
 
-  // long paragraph situation doesn't seem to affect this function
-  // offset distance is always negtive or zero
-  // the index will be of the paragraph with this offset at the end
-  const getPageOffset = function (pageIndex) {
-    let offset = 0
-    let i = 0
-    let index
+  return nodesHeight
+}
 
-    if (pageIndex !== 0) {
-      let nodeHeightSum = 0
-      while (nodeHeightSum <= pageHeight * pageIndex) {
-        nodeHeightSum += nodeHeights[i]
-        i++
+
+export function markdownToNodeStringList(markdown: string): string[] {
+  console.log('start md')
+  let html = marked(markdown, {
+    gfm: true,
+    breaks: true
+  })
+  console.log('done marked')
+  const nodes = Array.prototype
+    .map.call($(html), (ele, index) => {
+      if (ele.nodeType === 3 && ele.nodeValue === '\n') {
+        // 移除 html 里的回车
+        return null
       }
-      offset = nodeHeightSum - nodeHeights[i - 1] - pageIndex * pageHeight
-      index = i - 1
-    } else {
-      index = 0
-    }
 
-    return {
-      offset,
-      index
-    }
-  }
-
-  const getNodesOfPage = function (pageIndex) {
-    let offsetObject = getPageOffset(pageIndex)
-    let nodeStartIndex = offsetObject.index
-    let offset = offsetObject.offset
-
-
-    let i = nodeStartIndex
-    let nodeEndIndex
-    let pageNodes = []
-
-    let nodeHeightSum = offset + nodeHeights[nodeStartIndex]
-    i++
-
-    if (nodeHeightSum < pageHeight) {
-      while (nodeHeightSum <= pageHeight && i !== nodes.length) {
-        nodeHeightSum += nodeHeights[i]
-        i++
+      if (ele.tagName === 'P') {
+        return `<p class="gb-line">${ele.innerHTML}</p>`
+      } else {
+        return `<div class="gb-line">${ele.outerHTML}</div>`
       }
-      nodeEndIndex = i - 1
-    } else {
-      nodeEndIndex = nodeStartIndex
-    }
-
-    for (let i = nodeStartIndex; i <= nodeEndIndex && i <= nodes.length - 1; i++) {
-      pageNodes.push(nodes[i])
-    }
-
-    return [pageNodes, offset]
-  }
-
-  // finally
-  for (let i = 0; i < pageSum; i++) {
-    let array = getNodesOfPage(i)
-    let nodes = array[0]
-    let offset = array[1]
-
-    pages.push({
-      props: {
-        children: nodes,
-        style: {
-          top: i * pageHeight,
-          position: 'absolute',
-          height: pageHeight
-        },
-        pageNo: i + 1,
-        offset
-      },
-      type: 'page'
     })
-  }
-
-  return pages
+    .filter(node => node)
+  // console.log(nodes)
+  console.log('end md')
+  return nodes
 }

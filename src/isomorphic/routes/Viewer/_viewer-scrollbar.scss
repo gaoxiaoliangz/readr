@@ -48,9 +48,9 @@ $size: 20px;
 
 .loc-info {
   text-align: center;
-  position: absolute;
+  position: fixed;
   right: 30px;
-  top: -13px;
+  bottom: 30px;
   background: $app_black;
   color: #ddd;
   box-shadow: $shadow-y1;
