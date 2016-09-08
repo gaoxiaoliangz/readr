@@ -33,18 +33,18 @@ const menus = [
       }
     ]
   },
-  {
-    component: 'database',
-    displayName: '',
-    path: '/console/db',
-    subMenu: []
-  },
-  {
-    component: 'statistics',
-    displayName: '',
-    path: '/console/statistics',
-    subMenu: []
-  }
+  // {
+  //   component: 'database',
+  //   displayName: '',
+  //   path: '/console/db',
+  //   subMenu: []
+  // },
+  // {
+  //   component: 'statistics',
+  //   displayName: '',
+  //   path: '/console/statistics',
+  //   subMenu: []
+  // }
 ]
 
 export default menus

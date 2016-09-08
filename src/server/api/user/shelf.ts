@@ -9,15 +9,9 @@ export default {
         return results
       }
 
-      // const fuck = results.sort(utils.sortByDate)
-      // console.log(fuck.map(f => {
-      //   return new Date(f.date_updated).valueOf()
-      // }))
-
       return Promise.all(
         results.sort(utils.sortByDate())
           .map(result => {
-            console.log(result.date_updated)
             return models.book.findById(result.book_id).list().then(res => {
               if (_.isEmpty(res)) {
                 return models.book.outputEmpty(result.book_id)

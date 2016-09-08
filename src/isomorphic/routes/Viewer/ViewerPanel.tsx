@@ -56,7 +56,6 @@ class ViewerPanel extends Component<IProps, IState> {
               ) : null
             }
           </Fade>
-          {/*<span className="loc">{book.currentPage+"/"+pages.length}</span>*/}
         </div>
       </div>
     )

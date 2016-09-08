@@ -107,6 +107,7 @@ export default {
     fields: {
       percentage: {
         required: true,
+        type: DataTypes.Number
       }
     }
   },
@@ -132,9 +133,9 @@ export default {
       email: {
         required: true,
         unique: true,
-        // validators: [
-        //   [validator.isEmail, i18n('errors.validation.valueLimit.invalidFormat', 'email')]
-        // ]
+        validators: [
+          [validator.isEmail, i18n('errors.validation.valueLimit.invalidFormat', 'email')]
+        ]
       },
       role: {
         required: true

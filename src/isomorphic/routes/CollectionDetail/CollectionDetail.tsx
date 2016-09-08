@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from '../../elements/_form'
-import { fetchCollection } from '../../store/actions'
+import { fetchCollection, sendNotification } from '../../store/actions'
 import BookList from '../../components/BookListSection'
 import { Container } from '../../elements/_layout'
 import CSSModules from 'react-css-modules'
@@ -12,6 +12,7 @@ interface Props {
   fetchCollection: any
   params: any
   bookCollection: any
+  sendNotification: any
 }
 
 @CSSModules(styles)
@@ -38,7 +39,9 @@ class CollectionDetail extends Component<Props, {}> {
             <div className="book-slider">
               <BookList bookEntities={items} />
             </div>
-            <Button>收藏</Button>
+            <Button onClick={() => {
+              this.props.sendNotification('功能开发中', 'warning')
+            }}>收藏</Button>
           </Container>
         </div>
         <div className="page-content">
@@ -55,5 +58,5 @@ export default connect(
   (state, ownProps: any) => {
     return { bookCollection: state.entities.bookCollections[ownProps.params.id] }
   },
-  { fetchCollection }
+  { fetchCollection, sendNotification }
 )(CollectionDetail as any)

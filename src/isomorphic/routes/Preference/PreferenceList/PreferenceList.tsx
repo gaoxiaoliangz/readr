@@ -32,7 +32,8 @@ class PreferenceList extends Component<IProps, IState> {
       <div styleName="settings">
         <div className="page-content">
           <div className="page-header">
-            <h1 className="page-title">设置</h1>
+            <h1 style={{marginBottom: 0}} className="page-title">设置</h1>
+            <span>功能开发中，暂为只读</span>
           </div>
           <ul styleName="options">
             <li styleName="option">

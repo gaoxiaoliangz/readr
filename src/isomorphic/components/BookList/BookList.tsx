@@ -21,21 +21,25 @@ class BookList extends Component<Props, {}> {
     return (
       <ul className="book-list clearfix">
         {
-          this.props.bookEntities ? (
-            this.props.bookEntities.map((book, index) => {
-              const { title, authors, description, cover } = book
-              return (
-                <Book
-                  id={book.id}
-                  key={index}
-                  title={title}
-                  authors={authors.map(author => author.name).join(', ')}
-                  description={description}
-                  cover={cover}
-                />
-              )
-            })
-          ) : null
+          this.props.bookEntities && this.props.bookEntities.length !== 0
+            ? (
+              this.props.bookEntities.map((book, index) => {
+                const { title, authors, description, cover } = book
+                return (
+                  <Book
+                    id={book.id}
+                    key={index}
+                    title={title}
+                    authors={authors.map(author => author.name).join(', ') }
+                    description={description}
+                    cover={cover}
+                    />
+                )
+              })
+            )
+            : (
+              <span>暂无记录</span>
+            )
         }
       </ul>
     )

@@ -1,6 +1,3 @@
-import Promise from 'bluebird'
-import errors from '../../errors'
-import i18n from '../../utils/i18n'
 import models from '../../models'
 import humps from 'humps'
 
@@ -10,7 +7,10 @@ export default {
 
     return models.progress.find(match).listRaw().then(res => {
       if (res.length === 0) {
-        return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound', 'progress')))
+        return models.progress.outputEmpty({
+          user_id: userId,
+          book_id: bookId
+        })
       }
       return res[0]
     })

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchCollections } from '../../store/actions'
-// import { Container } from '../../elements/_layout'
 import { CollectionList } from '../../components/CollectionSection'
-// import { Link } from 'react-router'
 
 interface Props {
   fetchCollections: any
@@ -37,7 +35,6 @@ class Collections extends Component<Props, {}> {
           <h2 className="page-title">往期书单</h2>
         </div>
         <CollectionList maxWidth={800} style="dark" list={list} />
-        <div className="page-load-more">加载更多</div>
       </div>
     )
   }
