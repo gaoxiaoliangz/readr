@@ -25,11 +25,10 @@ module.exports = {
       base.loaders.babel,
       base.loaders.sass({
         sourceMap: true,
-        extract: true
+        extract: false
       }),
       base.loaders.postcss({
         sourceMap: true,
-        extract: true
       }),
       base.loaders.ts({
         officialLoader: false
@@ -37,5 +36,6 @@ module.exports = {
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,
+  postcss: base.loaderConfig.postcss(),
   resolve: base.resolve,
 }

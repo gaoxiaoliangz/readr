@@ -6,7 +6,7 @@ module.exports = {
   entry: {
     'vendor.global': [`${paths.isomorphic}/styles/vendor.scss`],
     'base.global': [`${paths.isomorphic}/styles/base.scss`],
-    modifiers: [`${paths.isomorphic}/styles/modifiers.scss`],
+    'modifiers.global': [`${paths.isomorphic}/styles/modifiers.scss`],
   },
   output: {
     path: paths.built,
@@ -24,10 +24,10 @@ module.exports = {
         sourceMap: true,
         global: true
       }),
-      base.loaders.postcss({
-        global: true,
-        extract: true
-      })
+      // base.loaders.postcss({
+      //   global: true,
+      //   extract: true
+      // })
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,

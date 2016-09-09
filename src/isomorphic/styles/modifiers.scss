@@ -1,3 +1,14 @@
 @import "_variables";
-@import "modifiers/collections";
-@import "modifiers/app-home";
+
+body.home {
+  .colophon {
+    border: none;
+    margin: 0;
+  }
+}
+
+.page-collections {
+  .collection-item {
+    border-bottom: none;
+  }
+}

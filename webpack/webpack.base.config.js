@@ -124,6 +124,15 @@ module.exports = {
   },
 
   loaders: {
+    babel: {
+      test: /\.jsx?$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel',
+      query: {
+        presets: ['react', 'es2015'],
+      },
+    },
+    
     image({ emitFile } = { emitFile: true }) {
       const emitFileConfig = emitFile ? 'emitFile=true' : 'emitFile=false'
 
@@ -134,15 +143,6 @@ module.exports = {
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }
-    },
-
-    babel: {
-      test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015'],
-      },
     },
 
     ts({ officialLoader, isHot } = {}) {

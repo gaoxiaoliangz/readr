@@ -9,7 +9,7 @@ import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import CollectionSection from '../../components/CollectionSection'
 import { Container } from '../../elements/_layout'
-const styles = require('./_app-home.scss')
+const styles = require('./_app-home.css')
 
 interface IProps {
 }

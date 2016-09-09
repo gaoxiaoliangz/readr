@@ -44,7 +44,7 @@ class BookDetail extends Component<any, any> {
             {
               bookInfo.cover && (
                 <div styleName="book-cover">
-                  <img src={bookInfo.cover} />
+                  <img styleName="img" src={bookInfo.cover} />
                 </div>
               )
             }

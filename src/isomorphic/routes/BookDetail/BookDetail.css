@@ -30,17 +30,17 @@
   background: url(static/img/shadow.png) no-repeat top;
   transition: all 0.2s ease 0s;
   position: relative;
+}
 
-  & img {
-    width: 100px;
-    height: 150px;
-    display: block;
-    position: absolute;
-    border: none;
-    left: 17px;
-    top: 7px;
-    border-radius: 4px;
-  }
+.img {
+  width: 100px;
+  height: 150px;
+  display: block;
+  position: absolute;
+  border: none;
+  left: 17px;
+  top: 7px;
+  border-radius: 4px;
 }
 
 .desc {

@@ -1,19 +1,17 @@
-@import "styles/variables.css";
+@import "styles/_variables";
 
-:root {
-  --width: 134px;
-}
+$width: 134px;
 
 .popup {
   position: absolute;
   z-index: 999;
-  left: var(--width);
+  left: $width;
   top: 0;
   width: 300px;
   background: #fff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
   padding: 20px 20px 0;
-  border: 1px solid var(--gray);
+  border: 1px solid $gray;
 }
 
 .header {
@@ -21,7 +19,7 @@
 }
 
 .title {
-  @apply --page-title;
+  @extend %page-title;
   margin: 30px 0 10px 0;
 }
 
@@ -33,5 +31,5 @@
 .description {
   line-height: 1.6;
   padding: 10px 0;
-  border-top: 1px solid var(--gray);
+  border-top: 1px solid $gray;
 }

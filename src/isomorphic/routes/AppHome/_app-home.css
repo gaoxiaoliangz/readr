@@ -1,10 +1,8 @@
-@import "styles/_variables";
+/*@import "styles/_variables";*/
 
 .hero-image {
   text-align: center;
   height: 500px;
-  // background: $gray_l;
-  background: gray;
 }
 
 .logo {

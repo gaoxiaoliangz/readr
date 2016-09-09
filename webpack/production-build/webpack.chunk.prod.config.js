@@ -37,13 +37,23 @@ module.exports = {
   ],
   module: {
     loaders: [
-      // todo
-      base.loaders.imageWebpack,
+      base.loaders.image(),
       base.loaders.babel,
-      base.loaders.sassWithExtractText,
-      base.loaders.awesomeTs,
+      base.loaders.sass({
+        extract: true,
+        sourceMap: false
+      }),
+      base.loaders.postcss({
+        extract: true,
+        sourceMap: false,
+      }),
+      base.loaders.ts({
+        officialLoader: false,
+        isHot: false
+      }),
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,
+  postcss: base.loaderConfig.postcss(),
   resolve: base.resolve,
 }
