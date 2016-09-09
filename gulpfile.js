@@ -1,5 +1,6 @@
 'use strict'
-const gulp = require('gulp')
+// const gulp = require('gulp')
+const gulp = require('gulp-help')(require('gulp'))
 const sass = require('gulp-sass')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./webpack.config.js')
@@ -99,7 +100,7 @@ gulp.task('fonts', () => {
 //   return revd
 // })
 
-gulp.task('css', () => {
+gulp.task('css', 'build css', () => {
   return gulp.src(paths.src.css)
     .pipe(postcss([
       require('postcss-import')({
