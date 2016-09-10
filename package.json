@@ -132,7 +132,6 @@
     "isomorphic-style-loader": "^1.0.0",
     "jquery": "^2.2.2",
     "jspm": "^0.16.36",
-    "load-grunt-tasks": "^3.4.0",
     "muicss": "^0.4.7",
     "postcss": "^5.1.0",
     "postcss-cssnext": "^2.7.0",
