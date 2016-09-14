@@ -12,6 +12,7 @@ interface IProps {
   id: string
   cover: string
   disablePopup?: boolean
+  showDesc?: boolean
 }
 
 interface IState {
@@ -45,6 +46,8 @@ export default class Book extends Component<IProps, IState> {
   }
 
   render() {
+    const { showDesc, description } = this.props
+
     return (
       <li onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book">
         <Link to={'/book/' + this.props.id} >
@@ -52,6 +55,11 @@ export default class Book extends Component<IProps, IState> {
           <div styleName="book-meta">
             <span title={this.props.title} styleName="book-name">{this.props.title || '无标题'}</span>
             <span styleName="book-author">{this.props.authors || '作者不详'}</span>
+            {
+              showDesc && (
+                <span styleName="book-desc">{description || '空'}</span>
+              )
+            }
           </div>
         </Link>
         {

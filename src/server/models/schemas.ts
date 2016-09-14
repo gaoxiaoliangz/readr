@@ -94,7 +94,7 @@ export default {
       },
       slug: {
         includeInSearch: true,
-        required: true,
+        required: false,
         unique: true
       },
       description: {}
