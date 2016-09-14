@@ -1,4 +1,5 @@
 @import "styles/_variables";
+@import "styles/mixins/screens";
 
 $padding-v: 40px;
 $padding-h: 80px;
@@ -12,6 +13,10 @@ $padding-h: 80px;
 .book-info-container {
   width: 850px;
   margin: 0 auto;
+
+  // @include tablet {
+  //   width: 200px;
+  // }
 }
 
 .header {

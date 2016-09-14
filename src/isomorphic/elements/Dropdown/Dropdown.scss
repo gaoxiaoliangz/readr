@@ -1,8 +1,6 @@
-@import "styles/variables.css";
+@import "styles/_variables";
 
-:root {
-  --background: black;
-}
+$background: black;
 
 .light-link {
   color: #ddd;
@@ -27,13 +25,13 @@
   line-height: 2.2;
   font-size: 1rem;
   text-align: left;
-  background: var(--background);
+  background: $background;
   position: absolute;
   right: 0;
   width: 150px;
   overflow: hidden;
   padding: 5px 0;
-  z-index: var(--z-dropdown-menu);
+  z-index: $z-dropdown-menu;
 }
 
 .dropdown-caret {
@@ -53,34 +51,34 @@
   display: block;
   padding: 0 25px;
   transition: all 0s;
-  composes: text-overflow from "styles/_common.scss";
+  @extend %text-overflow;
 
   &:hover {
-    background: color(var(--background) l(+ 10%));
+    background: lighten($background, 10%);
   }
 
   &:active {
-    background: color(var(--background) l(- 10%));
+    background: lighten($background, 10%);
   }
 }
 
 .sep {
   margin: 5px 0;
   height: 1px;
-  background: color(var(--background) l(+ 10%));
+  background: lighten($background, 10%);
 }
 
 .dropdown-menu--dark {
   composes: dropdown-menu;
-  background: var(--blue);
+  background: $blue;
 
   & .sep {
-    background: color(var(--blue) l(+ 5%));
+    background: lighten($blue, 5%);
   }
 
   & .dropdown-item {
     &:hover {
-      background: color(var(--blue) l(+ 10%));
+      background: lighten($blue, 5%);
     }
   }
 }

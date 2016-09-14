@@ -33,7 +33,7 @@ class BookDetail extends Component<any, any> {
 
     return (
       <Body bodyClass="book-info">
-        <article styleName="book-info-container">
+        <article styleName="book-info-container" className="container">
           {
             _.isEmpty(bookInfo) && (
               <Loading />

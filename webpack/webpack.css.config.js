@@ -31,6 +31,6 @@ module.exports = {
     ],
   },
   sassLoader: base.loaderConfig.sassLoader,
-  postcss: base.loaderConfig.postcss(),
+  // postcss: base.loaderConfig.postcss(),
   resolve: base.resolve,
 }

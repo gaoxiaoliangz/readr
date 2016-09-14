@@ -18,7 +18,7 @@ const scriptsProd = ['react_kit.js', 'utils.js', 'app.js']
 const scriptsDev = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
 
 const styleSheetsProd = ['base.global.css', 'vendor.global.css', 'app.css', 'modifiers.global.css']
-const styleSheetsDev = ['base.global.css', 'vendor.global.css', 'app.css', 'modifiers.global.css']
+const styleSheetsDev = ['base.global.css', 'vendor.global.css', 'modifiers.global.css']
 
 function getHashedFilename(manifest) {
   return filename => {

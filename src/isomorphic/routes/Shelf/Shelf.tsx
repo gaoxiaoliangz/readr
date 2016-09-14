@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router'
 import { fetchShelf } from '../../store/actions'
 import BookList from '../../components/BookList'
 import Container from '../../elements/_layout/Container'
@@ -31,7 +30,7 @@ class Shelf extends Component<IProps, {}> {
 
     return (
       <Container>
-        <Tabs>
+        <Tabs style={{marginTop: 20}}>
           <Tab title="全部">
             <BookList bookEntities={bookList} />
           </Tab>

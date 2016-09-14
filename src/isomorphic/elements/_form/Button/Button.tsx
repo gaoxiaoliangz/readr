@@ -10,9 +10,10 @@ interface IProps {
   styleName?: any
   size?: 'small' | 'medium' | 'large'
   isFluid?: boolean
-  color?: 'red' | 'blue' | 'green' | 'orange'
+  color?: 'red' | 'blue' | 'green' | 'orange' | 'white'
   to?: string
   onClick?: any
+  width?: number | string
 }
 
 interface IState {
@@ -31,7 +32,8 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, className, color, size, isFluid } = this.props
+    let { onClick, className, color, size, isFluid, width } = this.props
+    let style = {}
 
     const styleName = classnames({
       'btn': true,
@@ -54,11 +56,18 @@ class Button extends Component<IProps, IState> {
       }
     }
 
+    if (typeof width !== 'undefined') {
+      style = {
+        width
+      }
+    }
+
     const props = _(this.props)
-      .omit(['to', 'color', 'size', 'isFluid'])
+      .omit(['to', 'color', 'size', 'isFluid', 'width'])
       .assign({}, {
         className: className || '',
-        onClick
+        onClick,
+        style
       })
       .value()
 

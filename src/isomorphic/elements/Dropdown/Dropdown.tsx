@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./Dropdown.css')
+const styles: any = require('./Dropdown.scss')
 
 interface IProps {
   title: string | JSX.Element

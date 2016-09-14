@@ -6,6 +6,7 @@ const styles = require('./_tab.scss')
 interface IProps {
   onTabSwitch?: (activeTabIndex: number) => void
   defaultActive?: number
+  style?: any
 }
 
 interface IState {
@@ -38,8 +39,10 @@ class Tabs extends Component<IProps, IState> {
   }
 
   render() {
+    const { style } = this.props
+
     return (
-      <div className="tabs">
+      <div className="tabs" {...style ? {style} : null}>
         <div styleName="tabs-header">
           <ul>
             {(this.props.children as any).map((child, index) => {

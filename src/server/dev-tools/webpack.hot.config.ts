@@ -25,10 +25,10 @@ export default {
     loaders: [
       base.loaders.image(),
       base.loaders.sass({
-        sourceMap: true,
+        sourceMap: true
       }),
       base.loaders.postcss({
-        sourceMap: true,
+        sourceMap: true
       }),
       base.loaders.babel,
       base.loaders.ts({
