@@ -49,7 +49,7 @@ export default class Book extends Component<IProps, IState> {
     const { showDesc, description } = this.props
 
     return (
-      <li onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book">
+      <div onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book--card">
         <Link to={'/book/' + this.props.id} >
           <div styleName="book-cover"><img src={this.props.cover}/></div>
           <div styleName="book-meta">
@@ -72,7 +72,7 @@ export default class Book extends Component<IProps, IState> {
             />
           )
         }
-      </li>
+      </div>
     )
   }
 }

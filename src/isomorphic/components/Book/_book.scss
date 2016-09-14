@@ -18,7 +18,7 @@ $width: 134px;
       opacity: .96;
     }
     
-    &:active {
+    &:active img {
       opacity: .8;
     }
   }
@@ -78,3 +78,60 @@ $width: 134px;
 .book-desc {
   color: $text-light;
 }
+
+.book--card {
+  composes: book;
+
+  width: auto;
+  background: #fff;
+  box-shadow: $shadow-z1;
+  padding: 10px;
+  float: none;
+
+  a {
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 1;
+
+    &:hover img {
+      opacity: 1;
+    }
+    
+    &:active img {
+      opacity: 1;
+    }
+  }
+
+  .book-cover {
+    width: auto;
+    height: auto;
+    height: 72px;
+    background: none;
+    overflow: hidden;
+    float: left;
+    border-radius: 4px;
+    margin-right: 20px;
+
+    &:hover {
+      top: 0;
+    }
+
+    img {
+      width: 50px;
+      height: auto;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .book-meta {
+    float: none;
+  }
+
+  .meta-item {
+    width: auto;
+  }
+}
+

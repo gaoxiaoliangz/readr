@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchBooks, fetchCollections, sendNotification } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
-import CandyBox from '../../components/CandyBox'
 import Body from '../../components/Body'
 import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-import CollectionSection from '../../components/CollectionSection'
 import { Container } from '../../elements/_layout'
-const styles = require('./_app-home.css')
+const styles = require('./_app-home.scss')
 
 interface IProps {
 }
@@ -58,7 +56,7 @@ class Home extends Component<IAllProps, IState> {
   }
 
   render() {
-    let { newestBooks, bookCollections, bookShelf } = this.props
+    let { newestBooks, bookCollections } = this.props
 
     bookCollections = bookCollections
       .map(item => ({
@@ -68,11 +66,6 @@ class Home extends Component<IAllProps, IState> {
         description: item.description
       }))
 
-    const bookShelfList = bookShelf.filter(book => Boolean(book)).map(book => ({
-      name: book.title,
-      link: '/'
-    }))
-
     return (
       <Body bodyClass="home">
         {
@@ -80,24 +73,18 @@ class Home extends Component<IAllProps, IState> {
             <div styleName="hero-image">
               <Container>
                 <div styleName="logo">- Readr -</div>
-                <h1 styleName="page-title">新的阅读体验</h1>
+                <h1 className="page-title">新的阅读体验</h1>
                 <Button to="/signup">现在加入</Button>
               </Container>
             </div>
           ) : null
         }
         <Container>
-          <BookListSection bookEntities={newestBooks} title="新书速递" />
-        </Container>
-        <CollectionSection title="书单" list={bookCollections} />
-        <Container>
-          <div className="col-md-12">
-            {
-              this.state.showRecentReading && (
-                <CandyBox title="最近阅读" list={bookShelfList} />
-              )
-            }
-          </div>
+          <BookListSection
+            bookEntities={newestBooks.slice(0, 6)}
+            title="新书速递"
+            moreLink="/browse"
+            />
         </Container>
       </Body>
     )
@@ -112,12 +99,6 @@ function mapStateToProps(state, ownProps) {
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
       : [],
     session: state.session,
-    // todo: collection pagination
-    // collection: (() => {
-    //   for (let prop in state.entities.bookCollections) {
-    //     return state.entities.bookCollections[prop]
-    //   }
-    // })()
     bookCollections: state.pagination.bookCollections.newest
       ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id])
       : [],

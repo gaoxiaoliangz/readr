@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router'
 import { fetchShelf } from '../../store/actions'
-import BookListSection from '../../components/BookListSection'
+import BookList from '../../components/BookList'
 import Container from '../../elements/_layout/Container'
+import { Tab, Tabs } from '../../elements/Tab'
 import _ from 'lodash'
 
 interface IProps {
@@ -30,7 +31,14 @@ class Shelf extends Component<IProps, {}> {
 
     return (
       <Container>
-        <BookListSection bookEntities={bookList} title="我的书架" />
+        <Tabs>
+          <Tab title="全部">
+            <BookList bookEntities={bookList} />
+          </Tab>
+          <Tab title="我的上传">
+            空
+          </Tab>
+        </Tabs>
       </Container>
     )
   }

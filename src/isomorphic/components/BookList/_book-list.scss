@@ -4,4 +4,11 @@
   margin: 0;
   margin-left: -10px;
   margin-right: -10px;
+
+  li {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }

@@ -1,0 +1,72 @@
+@import "styles/_variables";
+
+$padding-v: 40px;
+$padding-h: 80px;
+
+.book-detail {
+  background: #fff;
+  box-shadow: $shadow-z1;
+  margin-top: 40px;
+}
+
+.book-info-container {
+  width: 850px;
+  margin: 0 auto;
+}
+
+.header {
+  overflow: hidden;
+  padding: $padding-v $padding-h;
+  position: relative;
+}
+
+.btn-read {
+  position: absolute;
+  bottom: $padding-v;
+}
+
+.left-col {
+  float: left;
+  margin-right: 30px;
+}
+
+.right-col {
+  width: 100%;
+}
+
+.book-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: $text-dark;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+.book-author {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.book-cover {
+  margin: 0;
+  top: 0;
+  position: relative;
+}
+
+.img {
+  width: 100px;
+  height: auto;
+  display: block;
+}
+
+.content {
+  padding: $padding-v $padding-h;
+  border-top: 1px solid $gray;
+  line-height: 1.7;
+}
+
+.desc {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $text-dark;
+}

@@ -60,9 +60,6 @@ class Branding extends Component<IProps, IState> {
                 <li styleName="nav-item">
                   <Link styleName="nav-link" to="/browse">浏览</Link>
                 </li>
-                <li styleName="nav-item">
-                  <Link styleName="nav-link" to="/collections">书单</Link>
-                </li>
               </ul>
             </div>
             {
@@ -71,9 +68,9 @@ class Branding extends Component<IProps, IState> {
                   <div styleName="nav--user">
                     {
                       recentReading.length !== 0 && (
-                        <Dropdown styleName="dropdown-recent-reading" title="历史阅读">
+                        <Dropdown styleName="dropdown-recent-reading" title="最近阅读">
                           {
-                            recentReading.map((book, index) => {
+                            recentReading.slice(0, 5).map((book, index) => {
                               return (
                                 <DropdownItem key={index}>
                                   <Link to={`/viewer/book/${book.id}`}>{book.title}</Link>
@@ -81,6 +78,8 @@ class Branding extends Component<IProps, IState> {
                               )
                             })
                           }
+                          <DropdownItemSep />
+                          <DropdownItem><Link to={`/user/shelf`}>查看全部</Link></DropdownItem>
                         </Dropdown>
                       )
                     }

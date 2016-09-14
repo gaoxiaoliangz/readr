@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import withSideEffect from 'react-side-effect'
 
-interface BodyProps {
+interface Props {
   className?: string
   styleName?: string
   bodyClass: string
 }
 
-class Body extends Component<BodyProps, {}> {
+class Body extends Component<Props, {}> {
   render() {
     const { className } = this.props
 
     return (
-      <div className={className || ''}>
-        {this.props.children}
-      </div>
+      className
+        ? (
+          <div className={className}>
+            {this.props.children}
+          </div>
+        )
+        : <div>{this.props.children}</div>
     )
   }
 }

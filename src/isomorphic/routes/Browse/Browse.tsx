@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // import Switcher from '../../elements/Switcher'
 import BookListSection from '../../components/BookListSection'
 import { fetchBooks, fetchCollections } from '../../store/actions'
-import { Tab, Tabs } from '../../elements/Tab'
+import Container from '../../elements/_layout/Container'
 import _ from 'lodash'
 
 interface IProps {
@@ -30,23 +30,16 @@ class Browse extends Component<IProps, {}> {
     const { nextPage } = this.props
 
     return (
-      <div className="archive page-content">
+      <Container className="archive">
         <div className="page-header">
-          <Tabs>
-            <Tab title="全部">
-              <BookListSection bookEntities={this.props.newestBooks} />
-              {
-                nextPage !== 0 && (
-                  <div onClick={() => { this.loadMore(nextPage) } } className="page-load-more">加载更多</div>
-                )
-              }
-            </Tab>
-            <Tab title="其它分类">
-              空
-            </Tab>
-          </Tabs>
+          <BookListSection title="所有书籍" bookEntities={this.props.newestBooks} />
+          {
+            nextPage !== 0 && (
+              <div onClick={() => { this.loadMore(nextPage) } } className="page-load-more">加载更多</div>
+            )
+          }
         </div>
-      </div>
+      </Container>
     )
   }
 }

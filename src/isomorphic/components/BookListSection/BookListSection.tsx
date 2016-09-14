@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import BookList from '../BookList'
 import CSSModules from 'react-css-modules'
-const styles = require('./BookListSection.css')
+import Icon from '../../elements/Icon'
+const styles = require('./BookListSection.scss')
 
 interface IProps {
   bookEntities: any
@@ -22,13 +23,16 @@ class BookListSection extends Component<IProps, {}> {
       <div styleName="book-list-section">
         {
           this.props.title && (
-            <h2 styleName="section-title">{title}</h2>
+            moreLink
+              ? (
+                <h2 styleName="section-title">
+                  <Link to={moreLink}>{title}<Icon name="arrowRight" size={20} /></Link>
+                </h2>
+              )
+              : (
+                <h2 styleName="section-title">{title}</h2>
+              )
           )
-        }
-        {
-          moreLink ? (
-            <Link styleName="more" to={moreLink}>查看更多</Link>
-          ) : null
         }
         <BookList bookEntities={this.props.bookEntities} />
       </div>
