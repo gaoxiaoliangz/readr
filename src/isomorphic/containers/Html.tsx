@@ -6,6 +6,7 @@ type TProps = {
   styles?: string[]
   scripts?: string[]
   initialState?: any
+  bodyClass?: string
 }
 
 const assetPrefix = '/built'
@@ -29,7 +30,7 @@ function Script(props: TScriptProps) {
 }
 
 function Html(props: TProps) {
-  const { title, styles, scripts, initialState } = props
+  const { title, styles, scripts, initialState, bodyClass } = props
 
   return (
     <html>
@@ -44,7 +45,7 @@ function Html(props: TProps) {
           })
         }
       </head>
-      <body>
+      <body {...bodyClass && {className: bodyClass}}>
         <div id="root">
           {props.children}
         </div>

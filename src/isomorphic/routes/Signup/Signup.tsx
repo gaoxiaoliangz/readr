@@ -5,7 +5,7 @@ import ApiRoots from '../../config'
 import callApi from '../../utils/callApi'
 import { sendNotification } from '../../store/actions'
 import { Input, Button } from '../../elements/_form'
-import Body from '../../components/Body'
+import DocContainer from '../../containers/DocContainer'
 
 class Signup extends Component<any, any> {
   constructor(props) {
@@ -43,17 +43,16 @@ class Signup extends Component<any, any> {
 
   render() {
     return (
-      <div>
-        <Body className="signup" />
+      <DocContainer title="注册">
         <form className="content-container" method="post" action="/signup">
           <h1 className="page-title">加入 Readr</h1>
           <Input onChange={this.handleInput.bind(this) } value={this.state.username} name="username" placeholder="用户名" />
           <Input onChange={this.handleInput.bind(this) } value={this.state.email} name="email" placeholder="邮箱" />
           <Input onChange={this.handleInput.bind(this) } value={this.state.password} name="password" placeholder="密码 "type="password" />
           <Button className="z1" color="blue" onClick={this.handleSignup.bind(this) }>注册</Button>
-          <p className="hint">没有账号？<Link to="/signin">登录</Link></p>
+          <p className="hint">已有账号？<Link to="/signin">登录</Link></p>
         </form>
-      </div>
+      </DocContainer>
     )
   }
 }

@@ -2,11 +2,11 @@
   box-sizing: border-box;
 }
 html {
-  font-size: $font-size-root;
+  font-size: $root-font-size;
 }
 body {
   font-size: 1rem;
-  font-family: $font-family;
+  font-family: $sans-font;
   color: $text;
   -webkit-font-smoothing: antialiased;
 }

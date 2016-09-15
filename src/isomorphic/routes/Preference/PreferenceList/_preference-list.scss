@@ -11,7 +11,7 @@
     position: relative;
 
     h2 {
-      color: $text_d;
+      color: $text-dark;
       font-size: 1.2rem;
       margin: 0;
       margin-bottom: 5px;
@@ -45,7 +45,7 @@
   }
 
   .edit {
-    border: 1px solid $gray_d;
+    border: 1px solid $gray;
     padding: 6px 16px;
     border-radius: 100px;
     cursor: pointer;

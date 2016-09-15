@@ -5,7 +5,7 @@ import ApiRoots from '../../config'
 import callApi from '../../utils/callApi'
 import { sendNotification, userAuth } from '../../store/actions'
 import { Button, Input } from '../../elements/_form'
-import Body from '../../components/Body'
+import DocContainer from '../../containers/DocContainer'
 
 class Signin extends Component<any, any> {
   constructor(props) {
@@ -42,8 +42,7 @@ class Signin extends Component<any, any> {
 
   render() {
     return (
-      <div>
-        <Body className="signin" />
+      <DocContainer title="登录">
         <form className="content-container" action={`${ApiRoots.LOCAL}auth`} method="post">
           <h1 className="page-title">欢迎回来</h1>
           <Input onChange={this.handleInput.bind(this) } value={this.state.login} name="login" placeholder="用户名或邮箱" />
@@ -51,7 +50,7 @@ class Signin extends Component<any, any> {
           <Button className="z1" color="blue" onClick={this.handleSignin.bind(this) }>登录</Button>
           <p className="hint">没有账号？<Link to="/signup">注册</Link></p>
         </form>
-      </div>
+      </DocContainer>
     )
   }
 }

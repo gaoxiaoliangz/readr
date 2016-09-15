@@ -20,7 +20,7 @@ function BodyContent(props: TProps) {
             ? (
               <RouterContext {...renderProps} />
             )
-            : <div className="loading">Loading ...</div>
+            : <div className="text-loading">加载中 ...</div>
         }
       </Provider>
     )

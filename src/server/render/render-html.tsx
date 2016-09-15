@@ -7,6 +7,7 @@ import InternalServerErrorPage from '../../isomorphic/containers/InternalServerE
 import Page from '../../isomorphic/containers/Page'
 import print from '../utils/print'
 import _ from 'lodash'
+import DocContainer from '../../isomorphic/containers/DocContainer'
 const fs: any = require('fs')
 
 function getManifest() {
@@ -26,22 +27,32 @@ type RenderConfig = {
   routes: Object
   isProd: boolean
   fetchData: boolean
+  isHot: boolean
 }
 function renderHtml(config: RenderConfig) {
-  const { reqUrl, routes, isProd, fetchData } = config
+  const { reqUrl, routes, isProd, fetchData, isHot } = config
 
   return matchRoute(routes, reqUrl).then(result => {
     return getStore(result.renderProps, fetchData).then(store => {
-      return renderToStaticMarkup(
-        <Page
-          title="Readr"
-          store={store}
-          renderProps={result.renderProps}
-          isProd={isProd}
-          manifest={isProd && getManifest() }
-          renderPageContent={fetchData}
-          />
-      )
+      const page = (bodyClass, title) => <Page
+        title={title}
+        store={store}
+        renderProps={result.renderProps}
+        isProd={isProd}
+        manifest={isProd && getManifest() }
+        renderPageContent={fetchData}
+        includeLocalStylesheets={!isHot}
+        bodyClass={bodyClass}
+        />
+
+      let html = renderToStaticMarkup(page(null, null))
+      const data = DocContainer.rewind() || {}
+
+      // rewind 必须在 render 之后调用，所以只能调用两次 render
+      // 没有更好的方法之前先这样
+      html = renderToStaticMarkup(page(data.bodyClass, data.title))
+
+      return html
     }, err => {
       return Promise.reject({
         htmlString: renderToStaticMarkup(<InternalServerErrorPage message={err.message} />),

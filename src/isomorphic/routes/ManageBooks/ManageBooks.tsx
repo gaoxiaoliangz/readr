@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Body from '../../components/Body'
+import DocContainer from '../../containers/DocContainer'
 import apis from '../../apis'
 import { sendNotification, fetchBooks } from '../../store/actions'
 import CSSModules from 'react-css-modules'
@@ -33,9 +33,8 @@ class ManageBooks extends Component<Props, any> {
     let bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null
 
     return (
-      <div>
-        <Body className="manage-books" />
-        <table>
+      <DocContainer title="管理书籍">
+        <table className="info-table">
           <tbody>
             <tr>
               <td>ID</td>
@@ -66,7 +65,7 @@ class ManageBooks extends Component<Props, any> {
             }) : null}
           </tbody>
         </table>
-      </div>
+      </DocContainer>
     )
   }
 }

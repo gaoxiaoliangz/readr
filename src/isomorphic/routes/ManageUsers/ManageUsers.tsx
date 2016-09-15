@@ -13,17 +13,17 @@ class ManageUsers extends Component<any, any> {
   }
 
   render() {
-    let userListAll = this.props.userListAll?this.props.userListAll:[]
+    let userListAll = this.props.userListAll ? this.props.userListAll : []
 
     return (
       <div>
-        <table>
+        <table className="info-table">
           <tbody>
             <tr>
-              <td>ID</td>
-              <td>Name</td>
-              <td>Date created</td>
-              <td>Actions</td>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Date created</th>
+              <th>Actions</th>
             </tr>
             {userListAll.map((user, index) => {
               return (
@@ -34,7 +34,7 @@ class ManageUsers extends Component<any, any> {
                   <td><a href="#">Delete</a></td>
                 </tr>
               )
-            })}
+            }) }
           </tbody>
         </table>
       </div>
@@ -51,7 +51,7 @@ function mapStateToProps(state, ownProps) {
   } = state
 
   const userListPagination = userList[type]
-  const userListAll = userListPagination?userListPagination.ids.map(id => users[id]):[]
+  const userListAll = userListPagination ? userListPagination.ids.map(id => users[id]) : []
 
   return {
     userListAll

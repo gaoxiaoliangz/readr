@@ -10,8 +10,8 @@ import BookPageWithRawHtml from './BookPageWithRawHtml'
 import CSSModules from 'react-css-modules'
 import api from '../../apis'
 import utils from '../../utils'
-import Body from '../../components/Body'
-const styles: any = require('./_viewer.scss')
+import DocContainer from '../../containers/DocContainer'
+const styles = require('./_viewer.scss')
 
 interface IAllProps {
   fetchBook: any
@@ -181,7 +181,7 @@ class Viewer extends Component<IAllProps, IState> {
     const { progress } = this.props
 
     if (nodes.length === 0) {
-      return <div styleName="loading">Loading ...</div>
+      return <div className="text-loading">加载中 ...</div>
     }
 
     return this.state.isCalcMode
@@ -208,12 +208,12 @@ class Viewer extends Component<IAllProps, IState> {
 
   render() {
     return (
-      <Body bodyClass="viewer">
+      <DocContainer bodyClass="viewer" title={this.props.book.title}>
         <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove } >
           { this.renderViewPanel() }
           { this.renderBook() }
         </div>
-      </Body>
+      </DocContainer>
     )
   }
 }

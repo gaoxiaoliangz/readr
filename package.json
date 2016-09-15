@@ -22,7 +22,6 @@
     "webpack.css.prod": "webpack --progress --config ./webpack/production-build/webpack.css.prod.config.js",
     "start": "nodemon bin/server --production",
     "dev": "nodemon bin/server",
-    "prebuild": "npm run clean.all",
     "build": "npm run webpack.css.prod & npm run webpack.node & npm run webpack",
     "postbuild": "npm start",
     "clean.all": "rimraf -- assets/built bin",

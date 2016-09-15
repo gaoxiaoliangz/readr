@@ -12,13 +12,15 @@ type TProps = {
   isProd?: boolean
   manifest?: any
   renderPageContent?: boolean
+  includeLocalStylesheets?: boolean
+  bodyClass?: string
 }
 
 const scriptsProd = ['react_kit.js', 'utils.js', 'app.js']
 const scriptsDev = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
 
-const styleSheetsProd = ['base.global.css', 'vendor.global.css', 'app.css', 'modifiers.global.css']
-const styleSheetsDev = ['base.global.css', 'vendor.global.css', 'app.css', 'modifiers.global.css']
+const globalStyleSheets = ['base.global.css', 'vendor.global.css', 'modifiers.global.css']
+const localStyleSheets = ['app.css']
 
 function getHashedFilename(manifest) {
   return filename => {
@@ -32,27 +34,32 @@ function getHashedFilename(manifest) {
 }
 
 function Page(props: TProps) {
-  const { title, store, renderProps, manifest, renderPageContent } = props
+  const { title, store, renderProps, manifest, renderPageContent, includeLocalStylesheets, bodyClass } = props
   const scripts = props.isProd
     ? scriptsProd.map(getHashedFilename(manifest))
     : scriptsDev
 
   const styles = props.isProd
-    ? styleSheetsProd.map(getHashedFilename(manifest))
-    : styleSheetsDev
+    ? globalStyleSheets.concat(localStyleSheets).map(getHashedFilename(manifest))
+    : (
+      includeLocalStylesheets
+        ? globalStyleSheets.concat(localStyleSheets)
+        : globalStyleSheets
+    )
 
   return (
     <Html
       title={title}
       styles={styles}
       scripts={scripts}
-      initialState={store.getState()}
-    >
+      initialState={store.getState() }
+      bodyClass={bodyClass || null}
+      >
       <BodyContent
         store={store}
         renderProps={renderProps}
         renderPageContent={renderPageContent}
-      />
+        />
     </Html>
   )
 }

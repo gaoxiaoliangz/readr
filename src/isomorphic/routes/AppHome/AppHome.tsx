@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchBooks, fetchCollections, sendNotification } from '../../store/actions'
 import BookListSection from '../../components/BookListSection'
-import Body from '../../components/Body'
+import DocContainer from '../../containers/DocContainer'
 import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import { Container } from '../../elements/_layout'
-const styles = require('./_app-home.scss')
+const styles = require('./AppHome.scss')
 
 interface IProps {
 }
@@ -67,13 +67,13 @@ class Home extends Component<IAllProps, IState> {
       }))
 
     return (
-      <Body bodyClass="home">
+      <DocContainer bodyClass="home">
         {
           this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
             <div styleName="hero-image">
               <Container>
-                <div styleName="logo">- Readr -</div>
-                <h1 className="page-title">新的阅读体验</h1>
+                <div styleName="logo">Readr</div>
+                <h1 styleName="page-title">新的阅读体验</h1>
                 <Button to="/signup">现在加入</Button>
               </Container>
             </div>
@@ -86,7 +86,7 @@ class Home extends Component<IAllProps, IState> {
             moreLink="/browse"
             />
         </Container>
-      </Body>
+      </DocContainer>
     )
   }
 }

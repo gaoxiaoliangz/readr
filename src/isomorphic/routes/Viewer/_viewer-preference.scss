@@ -7,7 +7,7 @@
   width: 200px;
   background: #fff;
   box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);
-  color: $text_n;
+  color: $text;
   border-radius: 3px;
   -webkit-user-select: none;
   overflow: hidden;
@@ -15,7 +15,7 @@
 
 .option {
   padding: 10px 15px;
-  border-bottom: 1px solid $gray_d;
+  border-bottom: 1px solid $gray;
 
   &:last-child {
     border: none;
@@ -41,7 +41,7 @@
 
   span:first-child {
     font-size: .9rem;
-    border-right: 1px solid $gray_d;
+    border-right: 1px solid $gray;
   }
 }
 
@@ -65,7 +65,7 @@
 
   span {
     border-radius: 50%;
-    border: 2px solid $gray_d;
+    border: 2px solid $gray;
     text-indent: -999em;
     display: inline-block;
     width: 30px;

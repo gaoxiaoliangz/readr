@@ -4,7 +4,7 @@ import { fetchBook } from '../../store/actions'
 import Loading from '../../elements/Loading'
 import { Button } from '../../elements/_form'
 import _ from 'lodash'
-import Body from '../../components/Body'
+import DocContainer from '../../containers/DocContainer'
 import CSSModules from 'react-css-modules'
 const styles = require('./BookDetail.scss')
 
@@ -32,7 +32,7 @@ class BookDetail extends Component<any, any> {
     let bookInfo = this.props.bookInfo ? this.props.bookInfo : {}
 
     return (
-      <Body bodyClass="book-info">
+      <DocContainer bodyClass="book-info" title={bookInfo.title}>
         <article styleName="book-info-container" className="container">
           {
             _.isEmpty(bookInfo) && (
@@ -75,7 +75,7 @@ class BookDetail extends Component<any, any> {
             }
           </div>
         </article>
-      </Body>
+      </DocContainer>
     )
   }
 }

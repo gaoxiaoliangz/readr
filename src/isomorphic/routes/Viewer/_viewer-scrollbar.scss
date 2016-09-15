@@ -18,7 +18,7 @@ $size: 20px;
 
 .track {
   width: 2px;
-  background: darken($color: $gray_d, $amount: 10%);
+  background: darken($color: $gray, $amount: 10%);
   border-radius: 3px;
   position: absolute;
   left: 8px;
@@ -28,14 +28,14 @@ $size: 20px;
 
 .track--past {
   composes: track;
-  background: lighten($color: $app_blue, $amount: 30%);
+  background: lighten($color: $blue, $amount: 30%);
   z-index: 2;
 }
 
 .button {
   width: $size;
   height: $size;
-  background: $app_blue;
+  background: $blue;
   box-shadow: $shadow-y1;
   position: absolute;
   left: 0;
@@ -51,7 +51,7 @@ $size: 20px;
   position: fixed;
   right: 30px;
   bottom: 30px;
-  background: $app_black;
+  background: $dark;
   color: #ddd;
   box-shadow: $shadow-y1;
   padding: 7px 15px;

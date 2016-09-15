@@ -42,7 +42,7 @@ $padding_y: 15px;
   font-size: 1.1rem;
   font-weight: normal;
   margin: 0;
-  color: $text_d;
+  color: $text-dark;
 }
 
 .modal-sub-title {
@@ -50,7 +50,7 @@ $padding_y: 15px;
   margin-left: 15px;
   position: relative;
   top: 2px;
-  color: $text_l;
+  color: $text-light;
 }
 
 .modal-footer {

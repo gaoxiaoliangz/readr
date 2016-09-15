@@ -36,6 +36,10 @@ class Root extends Component<IAllProps, IState> {
     }
 
     if (routerChanged) {
+      // 返回顶部
+      window.document.body.scrollTop = 0
+
+      // 简单权限验证
       if (nextProps.routing.locationBeforeTransitions.pathname.indexOf('console') !== -1) {
         if (this.props.session.user.role !== 'admin') {
           browserHistory.push('/')

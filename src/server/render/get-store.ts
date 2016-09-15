@@ -3,6 +3,7 @@
  */
 
 import configureStore from '../../isomorphic/store/configureStore'
+
 const store = configureStore()
 
 function getStore(renderProps, fetchData?) {

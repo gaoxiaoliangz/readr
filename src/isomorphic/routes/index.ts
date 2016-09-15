@@ -32,13 +32,13 @@ export default {
             require('./Profile'),
           ]
         },
-        // require('./NoMatch'),
       ]
     }, {
       component: ConsoleMaster,
 
       path: 'console',
 
+      indexRoute: require('./ManageBooks'),
       childRoutes: [
         require('./ManageBooks'),
         require('./ManageUsers'),
