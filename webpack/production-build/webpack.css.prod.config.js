@@ -17,7 +17,9 @@ module.exports = {
     new ManifestPlugin({
       fileName: 'css.manifest.json',
     }),
-    new ExtractTextPlugin('[name].[chunkhash:10].css'),
+    new ExtractTextPlugin('[name].[chunkhash:10].css', {
+      allChunks: true
+    }),
     base.plugins.uglify
   ],
   module: {
@@ -27,11 +29,6 @@ module.exports = {
         sourceMap: true,
         global: true
       }),
-      // base.loaders.postcss({
-      //   extract: true,
-      //   sourceMap: true,
-      //   global: true
-      // }),
       base.loaders.image()
     ],
   },

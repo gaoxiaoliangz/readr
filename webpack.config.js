@@ -16,7 +16,9 @@ module.exports = {
   plugins: [
     base.plugins.envDev,
     ...base.plugins.dllReference(),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('[name].css', {
+      allChunks: true
+    }),
   ],
   devtool: 'inline-source-map',
   module: {
@@ -25,10 +27,11 @@ module.exports = {
       base.loaders.babel,
       base.loaders.sass({
         sourceMap: true,
-        extract: false
+        extract: true
       }),
       base.loaders.postcss({
         sourceMap: true,
+        extract: true
       }),
       base.loaders.ts({
         officialLoader: false

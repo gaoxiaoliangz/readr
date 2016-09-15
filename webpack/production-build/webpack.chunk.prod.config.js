@@ -21,7 +21,9 @@ module.exports = {
     new ManifestPlugin({
       fileName: 'chunks.manifest.json',
     }),
-    new ExtractTextPlugin('[name].[chunkhash:10].css'),
+    new ExtractTextPlugin('[name].[chunkhash:10].css', {
+      allChunks: true
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false

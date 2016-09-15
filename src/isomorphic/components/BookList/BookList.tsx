@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Book from '../Book'
 import CSSModules from 'react-css-modules'
-const styles = require('./_book-list.scss')
+const styles = require('./BookList.scss')
 
 interface Props {
   bookEntities: {
