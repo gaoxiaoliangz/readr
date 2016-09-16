@@ -1,0 +1,32 @@
+@import "styles/_variables";
+
+.dialog {
+  background: #fff;
+  padding: 20px 30px;
+
+  p {
+    font-size: 1.2rem;
+  }
+}
+
+.dialog-header {
+  margin: 10px 0 20px;
+}
+
+.dialog-title {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: $text-dark;
+  margin: 5px 0;
+}
+
+.dialog-content {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.dialog-footer {
+  button {
+    margin-right: 10px;
+  }
+}

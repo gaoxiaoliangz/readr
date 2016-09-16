@@ -2,14 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocContainer from '../../containers/DocContainer'
 import apis from '../../apis'
-import { sendNotification, fetchBooks } from '../../store/actions'
+import { sendNotification, fetchBooks, openDialog, closeDialog } from '../../store/actions'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./ManageBooks.css')
+const styles = require('./ManageBooks.css')
 
 interface Props {
   sendNotification?: any
-  fetchBooks?: any
+  fetchBooks?: (data?: fetchBooks) => void
   bookListNewest?: any
+  openDialog: (data: openDialog) => void
+  closeDialog: any
 }
 
 @CSSModules(styles, {
@@ -23,6 +25,20 @@ class ManageBooks extends Component<Props, any> {
 
   constructor(props) {
     super(props)
+  }
+
+  handleDeleteClick(id, bookName) {
+    this.props.openDialog({
+      title: '确认删除',
+      content: `将删除《${bookName}》`,
+      onConfirm: () => {
+        apis.deleteBook(id).then(res => {
+          this.props.closeDialog()
+          this.props.sendNotification('删除成功！')
+          this.props.fetchBooks({merge: false})
+        })
+      }
+    })
   }
 
   componentDidMount() {
@@ -52,10 +68,7 @@ class ManageBooks extends Component<Props, any> {
                     <a
                       onClick={e => {
                         e.preventDefault()
-                        apis.deleteBook(book.id).then(res => {
-                          this.props.sendNotification('删除成功！')
-                          this.props.fetchBooks()
-                        })
+                        this.handleDeleteClick(book.id, book.title)
                         return false
                       } }
                       href="#">Delete</a>
@@ -80,5 +93,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchBooks, sendNotification }
+  { fetchBooks, sendNotification, openDialog, closeDialog }
 )(ManageBooks as any)

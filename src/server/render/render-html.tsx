@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
+import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import getStore from './get-store'
 import matchRoute from './match-route'
 import NotFoundErrorPage from '../../isomorphic/containers/NotFoundErrorPage'
@@ -8,6 +8,7 @@ import Page from '../../isomorphic/containers/Page'
 import print from '../utils/print'
 import _ from 'lodash'
 import DocContainer from '../../isomorphic/containers/DocContainer'
+import ServerSideAppRoot from '../../isomorphic/containers/ServerSideAppRoot'
 const fs: any = require('fs')
 
 function getManifest() {
@@ -34,23 +35,28 @@ function renderHtml(config: RenderConfig) {
 
   return matchRoute(routes, reqUrl).then(result => {
     return getStore(result.renderProps, fetchData).then(store => {
-      const page = (bodyClass, title) => <Page
+      const page = (bodyClass, title, appMarkup) => <Page
         title={title}
         store={store}
-        renderProps={result.renderProps}
         isProd={isProd}
         manifest={isProd && getManifest() }
-        renderPageContent={fetchData}
         includeLocalStylesheets={!isHot}
         bodyClass={bodyClass}
+        appMarkup={appMarkup}
         />
 
-      let html = renderToStaticMarkup(page(null, null))
-      const data = DocContainer.rewind() || {}
+      const appRoot = <ServerSideAppRoot
+        renderPageContent={fetchData}
+        renderProps={result.renderProps}
+        store={store}
+      />
 
       // rewind 必须在 render 之后调用，所以只能调用两次 render
       // 没有更好的方法之前先这样
-      html = renderToStaticMarkup(page(data.bodyClass, data.title))
+      renderToStaticMarkup(appRoot)
+      const data = DocContainer.rewind() || {}
+      const appRootMarkup = renderToString(appRoot)
+      const html = renderToStaticMarkup(page(data.bodyClass, data.title, appRootMarkup))
 
       return html
     }, err => {

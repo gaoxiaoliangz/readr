@@ -69,7 +69,7 @@ class Home extends Component<IAllProps, IState> {
     return (
       <DocContainer bodyClass="home">
         {
-          this.props.session.user.role === 'visitor' && !this.props.session.isFetching ? (
+          this.props.session.user.role === 'visitor' && this.props.session.isFetching === false ? (
             <div styleName="hero-image">
               <Container>
                 <div styleName="logo">Readr</div>

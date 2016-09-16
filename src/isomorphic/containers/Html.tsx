@@ -7,6 +7,7 @@ type TProps = {
   scripts?: string[]
   initialState?: any
   bodyClass?: string
+  appMarkup: string
 }
 
 const assetPrefix = '/built'
@@ -30,7 +31,7 @@ function Script(props: TScriptProps) {
 }
 
 function Html(props: TProps) {
-  const { title, styles, scripts, initialState, bodyClass } = props
+  const { title, styles, scripts, initialState, bodyClass, appMarkup } = props
 
   return (
     <html>
@@ -45,13 +46,11 @@ function Html(props: TProps) {
           })
         }
       </head>
-      <body {...bodyClass && {className: bodyClass}}>
-        <div id="root">
-          {props.children}
-        </div>
+      <body {...bodyClass && { className: bodyClass }}>
+        <div id="root" dangerouslySetInnerHTML={{ __html: appMarkup }} />
         {
           initialState && (
-            <script dangerouslySetInnerHTML={{__html: `var __INITIAL_STATE__ = ${JSON.stringify(initialState)}`}} />
+            <script dangerouslySetInnerHTML={{ __html: `var __INITIAL_STATE__ = ${JSON.stringify(initialState)}` }} />
           )
         }
         {

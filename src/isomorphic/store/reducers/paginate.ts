@@ -3,9 +3,10 @@ import _ from 'lodash'
 // Creates a reducer managing pagination, given the action types to handle,
 // and a function telling how to extract the key from an action.
 // todo: types length should be 3
-export default function paginate({ types, mapActionToKey }: {
+export default function paginate({ types, mapActionToKey, merge }: {
   types: Array<string>
   mapActionToKey: (action: any) => string
+  merge?: (action: any) => boolean
 }) {
   const [ requestType, successType, failureType ] = types
 
@@ -23,7 +24,9 @@ export default function paginate({ types, mapActionToKey }: {
       case successType:
         return Object.assign({}, state, {
           isFetching: false,
-          ids: _.union(state.ids, action.response.result),
+          ids: !merge || merge(action)
+            ? _.union(state.ids, action.response.result)
+            : action.response.result,
           // 不使用 union 会导致 server rendering 问题？
           // ids: action.response.result,
           nextPageUrl: action.response.nextPageUrl,

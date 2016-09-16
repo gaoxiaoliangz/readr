@@ -18,10 +18,7 @@ interface IAllProps {
   session: any
 }
 
-interface IState {
-}
-
-class Root extends Component<IAllProps, IState> {
+class Root extends Component<IAllProps, {}> {
 
   constructor(props) {
     super(props)
@@ -62,7 +59,7 @@ class Root extends Component<IAllProps, IState> {
           title={dialog.title}
           onConfirm={dialog.onConfirm}
           onRequestClose={closeDialog}
-          width={300}
+          width={500}
           >
           {dialog.content}
         </Dialog>

@@ -1,12 +1,18 @@
 import { Schemas } from '../../schemas'
 
-export function fetchBooks({flowType, page }: {
-  flowType: 'newest' | 'hot'
-  page: number
-} = { flowType: 'newest', page: 1}) {
+export type fetchBooks = {
+  flowType?: 'newest' | 'hot'
+  page?: number
+  merge?: boolean
+}
+export function fetchBooks(config?: fetchBooks) {
+  const defaultConfig = { flowType: 'newest', page: 1, merge: true}
+  const { flowType, page, merge } = Object.assign(defaultConfig, config || {})
+
   return {
     // for paginate
     flowType,
+    merge,
     CALL_API: {
       types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
       endpoint: `books?exclude=content&page=${page}`,

@@ -1,21 +1,11 @@
 import errors from '../errors'
 import { match } from 'react-router'
 
-// function handleFrontendRouting() {
-//   router.get('*', middleware.parseContext, (req, res, next) => {
-//     let entry = req.url.indexOf('console') !== -1 ? 'console' : 'app'
-//     let data = {}
-//     // const routes = req.entry === 'console' ? consoleRoutes : appRoutes
-//     const routes = routesWithEnsure
-
-//     if (!req.context.userRole === 'admin' && entry === 'console') {
-//       res.redirect('/')
-//     }
-
 type TResult = {
   renderProps?: any
   redirectLocation?: any
 }
+
 function matchRoute(routes, reqUrl: string): Promise<TResult> {
   return new Promise((resolve, reject) => {
     match({ routes, location: reqUrl }, (error, redirectLocation, renderProps) => {

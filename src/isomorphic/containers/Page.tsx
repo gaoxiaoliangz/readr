@@ -1,6 +1,5 @@
 import React from 'react'
 import Html from './Html'
-import BodyContent from './BodyContent'
 import _ from 'lodash'
 import print from '../../server/utils/print'
 
@@ -8,12 +7,11 @@ type TProps = {
   children?: any
   title?: string
   store?: any
-  renderProps?: any
   isProd?: boolean
   manifest?: any
-  renderPageContent?: boolean
   includeLocalStylesheets?: boolean
   bodyClass?: string
+  appMarkup: string
 }
 
 const scriptsProd = ['react_kit.js', 'utils.js', 'app.js']
@@ -34,7 +32,7 @@ function getHashedFilename(manifest) {
 }
 
 function Page(props: TProps) {
-  const { title, store, renderProps, manifest, renderPageContent, includeLocalStylesheets, bodyClass } = props
+  const { title, store, manifest, includeLocalStylesheets, bodyClass, appMarkup } = props
   const scripts = props.isProd
     ? scriptsProd.map(getHashedFilename(manifest))
     : scriptsDev
@@ -54,13 +52,8 @@ function Page(props: TProps) {
       scripts={scripts}
       initialState={store.getState() }
       bodyClass={bodyClass || null}
-      >
-      <BodyContent
-        store={store}
-        renderProps={renderProps}
-        renderPageContent={renderPageContent}
-        />
-    </Html>
+      appMarkup={appMarkup}
+      />
   )
 }
 

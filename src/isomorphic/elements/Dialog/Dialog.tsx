@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Modal, { IProps as IModalProps } from '../Modal'
 import Button from '../_form/Button'
+import CSSModules from 'react-css-modules'
+const styles = require('./Dialog.scss')
 
 interface IProps extends IModalProps {
   onConfirm: any
@@ -10,6 +12,7 @@ interface IProps extends IModalProps {
 interface IState {
 }
 
+@CSSModules(styles)
 class Dialog extends Component<IProps, IState> {
 
   constructor(props) {
@@ -26,20 +29,20 @@ class Dialog extends Component<IProps, IState> {
         onRequestClose={this.props.onRequestClose}
         width={this.props.width}
       >
-        <div className="dialog">
+        <div styleName="dialog">
           {
             this.props.title && (
-              <div className="dialog-header">
-                <h1 className="dialog-title">{this.props.title}</h1>
+              <div styleName="dialog-header">
+                <h1 styleName="dialog-title">{this.props.title}</h1>
               </div>
             )
           }
-          <div className="dialog-content">
+          <div styleName="dialog-content">
             {this.props.children}
           </div>
-          <div className="dialog-footer">
+          <div styleName="dialog-footer">
             <Button color="blue" onClick={this.props.onConfirm}>确认</Button>
-            <Button onClick={this.props.onRequestClose}>取消</Button>
+            <Button color="white" onClick={this.props.onRequestClose}>取消</Button>
           </div>
         </div>
       </Modal>

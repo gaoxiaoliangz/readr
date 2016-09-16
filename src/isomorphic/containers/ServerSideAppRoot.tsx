@@ -9,7 +9,7 @@ type TProps = {
   renderPageContent?: boolean
 }
 
-function BodyContent(props: TProps) {
+function ServerSideAppRoot(props: TProps) {
   const { store, renderProps, renderPageContent } = props
 
   return (
@@ -27,4 +27,4 @@ function BodyContent(props: TProps) {
   )
 }
 
-export default BodyContent
+export default ServerSideAppRoot
