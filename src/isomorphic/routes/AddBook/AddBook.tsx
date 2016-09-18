@@ -8,6 +8,7 @@ import _ from 'lodash'
 import apis from '../../apis'
 import RInput from '../../elements/_wrapped/RInput'
 import RTextarea from '../../elements/_wrapped/RTextarea'
+import DocContainer from '../../containers/DocContainer'
 
 const fetchDoubanBooks = apis.fetchDoubanBooks
 
@@ -137,7 +138,7 @@ class AddBook extends Component<Props, State> {
 
   render() {
     return (
-      <form>
+      <DocContainer title="添加书籍">
         <Modal
           width={600}
           isVisible={this.state.isAddAuthorModalVisible}
@@ -214,7 +215,7 @@ class AddBook extends Component<Props, State> {
         <Button onClick={e => {
           e.preventDefault()
           this.addBook()}}>Add</Button>
-      </form>
+      </DocContainer>
     )
   }
 }
