@@ -61,6 +61,10 @@ const parseConfig = (originanConfig: CallApiConfig) => {
     }
 
     fetchConfig.body = body
+
+    // if (typeof window === 'undefined') {
+    //   fetchConfig.headers.cookie = '_ga=GA1.1.410132503.1453088618; CNZZDATA1257029607=442358406-1450870215-%7C1458711437; CNZZDATA1257570141=1358999760-1456132031-%7C1458714910; loginType=0; connect.sid=s%3ARq4fRaeI2ibNVEp6T-EX9GrmfJ_zdDew.NfHRTBDEPdeVj9heJIVqP45lCU94R4%2Fcr%2BFziRY3y9w'
+    // }
   }
 
   if (method === 'DELETE') {
@@ -68,6 +72,10 @@ const parseConfig = (originanConfig: CallApiConfig) => {
       'Access-Control-Request-Method': 'DELETE'
     }
   }
+
+  // fetchConfig.headers = {
+  //   cookie: '_ga=GA1.1.410132503.1453088618; CNZZDATA1257029607=442358406-1450870215-%7C1458711437; CNZZDATA1257570141=1358999760-1456132031-%7C1458714910; loginType=0; connect.sid=s%3ARq4fRaeI2ibNVEp6T-EX9GrmfJ_zdDew.NfHRTBDEPdeVj9heJIVqP45lCU94R4%2Fcr%2BFziRY3y9w'
+  // }
 
   return fetchConfig
 }

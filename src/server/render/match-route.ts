@@ -12,8 +12,6 @@ function matchRoute(routes, reqUrl: string): Promise<TResult> {
       if (error) {
         reject(error)
       } else if (redirectLocation) {
-        // TODO
-        // res.redirect(302, redirectLocation.pathname + redirectLocation.search)
         resolve({ redirectLocation })
       } else if (renderProps) {
         let wrappedComponent = (renderProps.components.slice(-1)[0] as any).WrappedComponent

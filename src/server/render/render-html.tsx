@@ -37,7 +37,13 @@ function renderHtml(config: RenderConfig) {
   const { reqUrl, routes, isProd, fetchData, isHot, userSession } = config
 
   return matchRoute(routes, reqUrl).then(result => {
-    return getStore(result.renderProps, fetchData, userSession).then(store => {
+    const { renderProps, redirectLocation } = result
+
+    if (redirectLocation) {
+      return Promise.resolve({ redirectLocation }) as any
+    }
+
+    return getStore(renderProps, fetchData, userSession).then(store => {
       const page = (bodyClass, title, appMarkup) => (
         <Page
           title={title}
@@ -72,7 +78,7 @@ function renderHtml(config: RenderConfig) {
 
       const html = renderToStaticMarkup(page(data.bodyClass, data.title, appRootMarkup))
 
-      return html
+      return { html }
     }, err => {
       return Promise.reject({
         htmlString: renderToStaticMarkup(<InternalServerErrorPage message={err.message} />),
