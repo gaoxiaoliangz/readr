@@ -21,6 +21,7 @@ export default {
       valueLimit: {
         notString: '{value}不是字符串',
         stringOnly: '输入项类型只能为字符串',
+        alphanumeric: '{value}只能为字母或数字',
         undefined: '{value}未定义',
         invalidFormat: '{value}格式不对',
         noPureNumber: '{value}不能为纯数字',

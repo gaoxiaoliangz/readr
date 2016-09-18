@@ -26,6 +26,9 @@ export default {
       slug: {
         includeInSearch: true,
         unique: true,
+        validators: [
+          [validator.isAlphanumeric, i18n('errors.validation.valueLimit.alphanumeric', 'slug')]
+        ]
       },
       description: {
       }

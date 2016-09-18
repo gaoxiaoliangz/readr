@@ -100,6 +100,9 @@ class Model {
           key,
           value: data[key]
         }))
+        .filter(fileld => {
+          return Boolean(fileld.value)
+        })
 
       // 过滤出和数据库中已存在数据相匹配的输入项
       if (dataToCheck.length !== 0) {
