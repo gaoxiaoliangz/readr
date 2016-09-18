@@ -12,12 +12,13 @@ $input-padding: 5px;
   border: 1px solid $gray;
   margin: 10px 0;
   box-sizing: border-box;
-  transition: $gray .3s;
+  transition: all 0s;
   cursor: text;
   background: #fff;
 
   input {
     background: transparent;
+    line-height: 22px;
   }
 }
 

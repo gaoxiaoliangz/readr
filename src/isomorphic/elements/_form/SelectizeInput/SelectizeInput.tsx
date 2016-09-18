@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Icon from '../../Icon'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
+import isDescendant from '../../../utils/dom/isDescendant'
 const styles = require('./SelectizeInput.scss')
 
 type TypeOption = {
@@ -32,7 +33,6 @@ interface IProps {
   onValuesChange: (newValues: Array<TypeValue>) => void
 
   // 额外功能
-  addNewValue?: boolean
   onAddNewValue?: (newValue: string) => void
   onOptionClick?: (selectedValue: TypeOption) => void
 }
@@ -49,7 +49,8 @@ interface IState {
 })
 class SelectizeInput extends Component<IProps, IState> {
 
-  input: any
+  input: HTMLInputElement
+  inputWrap: HTMLDivElement
 
   constructor(props) {
     super(props)
@@ -59,9 +60,9 @@ class SelectizeInput extends Component<IProps, IState> {
       value: '',
       expendedOptionIndex: 0
     }
-    this.hideOptions = this.hideOptions.bind(this)
+    this.handleOutsideClick = this.handleOutsideClick.bind(this)
     this.focusInput = this.focusInput.bind(this)
-    this.showOptions = this.showOptions.bind(this)
+    this.handleInputWrapClick = this.handleInputWrapClick.bind(this)
   }
 
   addValue(newValue) {
@@ -75,7 +76,9 @@ class SelectizeInput extends Component<IProps, IState> {
     if (typeof this.props.stayFocused === 'undefined' || this.props.stayFocused !== false) {
       this.focusInput()
     }
-    this.hideOptions()
+    this.setState({
+      showOptions: false
+    })
   }
 
   removeValue(index) {
@@ -117,41 +120,41 @@ class SelectizeInput extends Component<IProps, IState> {
   }
 
   focusInput() {
-    (this.input as any as HTMLInputElement).focus()
+    this.input.focus()
   }
 
-  hideOptions() {
-    this.setState({
-      showOptions: false
-    })
+  handleOutsideClick(e) {
+    if (!isDescendant(this.inputWrap, e.target)) {
+      this.setState({
+        showOptions: false
+      })
+    }
   }
 
-  showOptions(e) {
-    e.stopPropagation()
+  handleInputWrapClick() {
+    this.focusInput()
+
     this.setState({
       showOptions: true
     })
   }
 
   componentDidMount() {
-    window.addEventListener('click', this.hideOptions)
-  }
-
-  componentDidUpdate(prevProps, prevState) {
+    window.addEventListener('click', this.handleOutsideClick)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('click', this.hideOptions)
+    window.removeEventListener('click', this.handleOutsideClick)
   }
 
   render() {
-    let label = this.props.label ? this.props.label : null
-    let value = this.props.value ? this.props.value : ''
-    let values = this.props.values
-    let options = this.props.options ? this.props.options : []
+    const { label, values, onAddNewValue } = this.props
+
+    let value = this.props.value || ''
+    let options = this.props.options || []
+
     let inputWidth = values.length > 0 ? (value.length === 0 ? 16 : value.length * 16) : '100%'
     let placeholder = values.length > 0 ? '' : this.props.placeholder
-    let addNewValue = this.props.addNewValue ? this.props.addNewValue : undefined
 
     const selectizeInputStyleName = classnames({
       'selectize-input': true,
@@ -164,15 +167,13 @@ class SelectizeInput extends Component<IProps, IState> {
         {
           label ? (
             <label className="form-label">{label}</label>
-          ) :null
+          ) : null
         }
         <div
           styleName={selectizeInputStyleName}
-          onClick={e => {
-            this.focusInput()
-            this.showOptions(e)
-          }}
-        >
+          onClick={this.handleInputWrapClick}
+          ref={ref => { this.inputWrap = ref } }
+          >
           {
             values.map((v, index) => {
               return (
@@ -184,33 +185,33 @@ class SelectizeInput extends Component<IProps, IState> {
                     name="close"
                     onClick={e => {
                       this.removeValue(index)
-                    }}
-                  />
+                    } }
+                    />
                 </span>
               )
             })
           }
           <input
-            style={{width: inputWidth}}
-            ref={ref => {this.input = ref}}
+            style={{ width: inputWidth }}
+            ref={ref => { this.input = ref } }
             value={value}
             placeholder={placeholder}
             onBlur={e => {
               this.setState({ focus: false })
-            }}
+            } }
             onFocus={e => {
               this.setState({ focus: true })
-            }}
+            } }
             onChange={e => {
               this.props.onInputChange((e.target as any).value)
-            }}
+            } }
             onKeyDown={e => {
               this.handleKeyPress(e)
-            }}
-          />
+            } }
+            />
         </div>
         {
-          (this.state.showOptions) ? (
+          this.state.showOptions && (options.length !== 0 || onAddNewValue) ? (
             <ul styleName="query-results">
               {
                 options.map((option, index) => {
@@ -225,19 +226,19 @@ class SelectizeInput extends Component<IProps, IState> {
                         if (this.props.onOptionClick) {
                           this.props.onOptionClick(option)
                         }
-                      }}
-                    >
+                      } }
+                      >
                       <span>{option.name}</span>
                     </li>
                   )
                 })
               }
               {
-                addNewValue ? (
+                onAddNewValue ? (
                   <li
                     onClick={e => {
-                      this.props.onAddNewValue(this.props.value)
-                    }}
+                      onAddNewValue(this.props.value)
+                    } }
                     className="add">添加 <strong>{this.props.value}</strong></li>
                 ) : null
               }

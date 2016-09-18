@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./Dropdown.scss')
+import isDescendant from '../../utils/dom/isDescendant'
+const styles = require('./Dropdown.scss')
 
 interface IProps {
   title: string | JSX.Element
@@ -11,18 +12,6 @@ interface IProps {
 
 interface IState {
   showMenu?: boolean
-}
-
-// todo: 放到 utils/dom 里面
-function isDescendant(parent, child) {
-  let node = child.parentNode
-  while (node != null) {
-    if (node === parent) {
-      return true
-    }
-    node = node.parentNode
-  }
-  return false
 }
 
 @CSSModules(styles, {

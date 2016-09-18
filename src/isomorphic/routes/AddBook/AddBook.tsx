@@ -175,9 +175,6 @@ class AddBook extends Component<Props, State> {
           }}
           options={this.state.optionsOfBookTitle}
           values={this.state.bookTitle}
-          onAddNewValue={() => {
-            // todo
-          }}
           onOptionClick={option => {
             this.props.changeValue(syls.inputBookCover, option.additional.cover)
             this.props.changeValue(syls.inputBookAuthor, option.additional.author)
@@ -199,7 +196,6 @@ class AddBook extends Component<Props, State> {
           }}
           options={this.state.optionsOfBookAuthor}
           values={this.state.bookAuthor}
-          addNewValue={true}
           onAddNewValue={value => {
             this.props.changeValue(syls.inputAuthorName, value)
             // todo
