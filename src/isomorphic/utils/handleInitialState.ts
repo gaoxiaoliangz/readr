@@ -1,7 +1,7 @@
 function handleInitialState() {
-  let initialState
+  let initialState = {}
 
-  if(typeof (<any>window).__INITIAL_STATE__ !== 'undefined') {
+  if (typeof (<any>window).__INITIAL_STATE__ !== 'undefined') {
     initialState = (<any>window).__INITIAL_STATE__
   }
 

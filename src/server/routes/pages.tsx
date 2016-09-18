@@ -20,7 +20,8 @@ function pages(req, res) {
     routes: routesWithEnsure,
     isProd: runtimeOptions.env === 'production',
     fetchData: runtimeOptions.serverRendering,
-    isHot: runtimeOptions.hmr
+    isHot: runtimeOptions.hmr,
+    userSession: req.context.user
   }).then(htmlString => {
     res.send(htmlString)
   }, err => {

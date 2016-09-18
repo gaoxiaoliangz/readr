@@ -3,7 +3,9 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 import api from './middleware/api'
 import modifyResponse from './middleware/modifyResponse'
+import handleServerStore from './middleware/handleServerStore'
 import handleInitialState from '../utils/handleInitialState'
+import logActionTypes from './middleware/logActionTypes'
 import createLogger from 'redux-logger'
 
 const env = process.env.NODE_ENV
@@ -23,7 +25,7 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       {},
-      applyMiddleware(api, thunk, modifyResponse)
+      applyMiddleware(handleServerStore, api, modifyResponse, thunk, logActionTypes)
     )
 
     return store
@@ -33,14 +35,14 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       handleInitialState(),
-      applyMiddleware(api, thunk, modifyResponse)
+      applyMiddleware(handleServerStore, api, modifyResponse, thunk)
     )
   } else {
     store = createStore(
       rootReducer,
       handleInitialState(),
       compose(
-        applyMiddleware(api, thunk, modifyResponse, createLogger({collapsed: true}))
+        applyMiddleware(handleServerStore, api, modifyResponse, thunk, createLogger({collapsed: true}))
       )
     )
   }

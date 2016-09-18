@@ -6,24 +6,31 @@ import configureStore from '../../isomorphic/store/configureStore'
 
 const store = configureStore()
 
-function getStore(renderProps, fetchData?) {
-  // const query = renderProps.location.query
-  if (fetchData) {
+function getStore(renderProps, fetchData, userSession) {
+  if (fetchData === true) {
     const params = renderProps.params
-    const wrappedComponent = renderProps.components.slice(-1)[0].WrappedComponent
-      ? renderProps.components.slice(-1)[0].WrappedComponent
-      : null
+    const query = renderProps.location.query
 
-    if (wrappedComponent && wrappedComponent.fetchData) {
-      // 这边应该是对 store 做了 mutation
-      const result = wrappedComponent.fetchData({ store, params })
+    const fetchDataFns = renderProps.components
+      .map(comp => {
+        return comp.fetchData || null
+      })
+      .filter(comp => Boolean(comp))
 
-      if (Array.isArray(result)) {
-        return Promise.all(result).then(() => {
-          return store
+    if (fetchDataFns.length !== 0) {
+      return Promise.all(fetchDataFns.map(fetchDataFn => {
+        // 这边应该是对 store 做了 mutation
+        const result = fetchDataFn({ store, params, query, userSession })
+
+        if (Array.isArray(result)) {
+          return Promise.all(result).then(() => {
+            return 0
+          }, error => error)
+        }
+        return result.then(() => {
+          return 0
         }, error => error)
-      }
-      return result.then(res => {
+      })).then(() => {
         return store
       }, error => error)
     }

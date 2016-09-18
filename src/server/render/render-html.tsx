@@ -29,33 +29,47 @@ type RenderConfig = {
   isProd: boolean
   fetchData: boolean
   isHot: boolean
+  userSession: {
+    role: string
+  }
 }
 function renderHtml(config: RenderConfig) {
-  const { reqUrl, routes, isProd, fetchData, isHot } = config
+  const { reqUrl, routes, isProd, fetchData, isHot, userSession } = config
 
   return matchRoute(routes, reqUrl).then(result => {
-    return getStore(result.renderProps, fetchData).then(store => {
-      const page = (bodyClass, title, appMarkup) => <Page
-        title={title}
-        store={store}
-        isProd={isProd}
-        manifest={isProd && getManifest() }
-        includeLocalStylesheets={!isHot}
-        bodyClass={bodyClass}
-        appMarkup={appMarkup}
-        />
+    return getStore(result.renderProps, fetchData, userSession).then(store => {
+      const page = (bodyClass, title, appMarkup) => (
+        <Page
+          title={title}
+          store={store}
+          isProd={isProd}
+          manifest={isProd && getManifest() }
+          includeLocalStylesheets={!isHot}
+          bodyClass={bodyClass}
+          appMarkup={appMarkup}
+          />
+      )
 
-      const appRoot = <ServerSideAppRoot
-        renderPageContent={fetchData}
-        renderProps={result.renderProps}
-        store={store}
-      />
+      const appRoot = (
+        <ServerSideAppRoot
+          renderPageContent={fetchData}
+          renderProps={result.renderProps}
+          store={store}
+          />
+      )
 
       // rewind 必须在 render 之后调用，所以只能调用两次 render
       // 没有更好的方法之前先这样
       renderToStaticMarkup(appRoot)
       const data = DocContainer.rewind() || {}
-      const appRootMarkup = renderToString(appRoot)
+
+      let appRootMarkup
+      if (fetchData) {
+        appRootMarkup = renderToString(appRoot)
+      } else {
+        appRootMarkup = renderToStaticMarkup(appRoot)
+      }
+
       const html = renderToStaticMarkup(page(data.bodyClass, data.title, appRootMarkup))
 
       return html

@@ -1,6 +1,18 @@
 import { Schemas } from '../../schemas'
 
-export function userAuth() {
+export function userAuth(userSession?): Object {
+  // 服务端渲染 session
+  if (userSession) {
+    return {
+      SERVER_STORE: {
+        body: {
+          response: userSession,
+          type: 'USER_AUTH_SUCCESS'
+        }
+      }
+    }
+  }
+
   return {
     CALL_API: {
       types: ['USER_AUTH_REQUEST', 'USER_AUTH_SUCCESS', 'USER_AUTH_FAILURE'],

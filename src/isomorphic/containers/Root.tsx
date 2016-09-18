@@ -20,6 +20,10 @@ interface IAllProps {
 
 class Root extends Component<IAllProps, {}> {
 
+  static fetchData({ store, userSession }) {
+    return store.dispatch(userAuth(userSession))
+  }
+
   constructor(props) {
     super(props)
   }
