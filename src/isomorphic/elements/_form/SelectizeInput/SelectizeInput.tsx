@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Icon from '../../Icon'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
-const styles = require('./SelectizeInput.css')
+const styles = require('./SelectizeInput.scss')
 
 type TypeOption = {
   value: string
@@ -179,7 +179,7 @@ class SelectizeInput extends Component<IProps, IState> {
                 <span key={index} styleName="selectize-tag">
                   {v.name}
                   <Icon
-                    styleName="icon"
+                    styleName="icon-remove"
                     size={20}
                     name="close"
                     onClick={e => {
