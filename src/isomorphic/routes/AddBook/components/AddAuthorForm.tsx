@@ -7,6 +7,7 @@ import ModalFooter from '../../../elements/Modal/ModalFooter'
 
 interface Props {
   initialData?: any
+  onSave: (data: any) => void
 }
 
 interface AllProps extends Props {
@@ -37,7 +38,8 @@ class AddAuthorForm extends Component<AllProps, State> {
     const {
       fields: { name, slug, description },
       handleSubmit,
-      closeModal
+      closeModal,
+      onSave
     } = this.props
 
     return (
@@ -47,8 +49,7 @@ class AddAuthorForm extends Component<AllProps, State> {
         <Input placeholder="description" {...description} />
         <ModalFooter
           onConfirm={handleSubmit(data => {
-            console.log(data);
-            
+            onSave(data)
           })}
           onCancel={closeModal}
           />

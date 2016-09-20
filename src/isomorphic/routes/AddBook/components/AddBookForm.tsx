@@ -8,11 +8,13 @@ import Textarea from '../../../elements/_form/Textarea'
 import { Button, SelectizeInput} from '../../../elements/_form'
 import AddAuthorForm from './AddAuthorForm'
 import _ from 'lodash'
+import getFormValues from '../../../utils/getFormValues'
 
 interface Props {
   initialData?: any
   onTitleInputChange?: (newVal: string) => void
   onAuthorInputChange?: (newVal: string) => void
+  onSaveAuthor: (data: any) => void
 }
 
 interface AllProps extends Props {
@@ -24,14 +26,13 @@ interface AllProps extends Props {
   openModal: (data: openModal) => void
 }
 
-interface State {
-}
+const fields = ['_titleValue', '_titleValues', '_authorValue', '_authorValues', 'cover', 'description']
 
 @reduxForm({
   form: 'addBook',
-  fields: ['_titleValue', '_titleValues', '_authorValue', '_authorValues', 'cover', 'description'],
+  fields
 })
-class AddBookForm extends Component<AllProps, State> {
+class AddBookForm extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
@@ -63,7 +64,8 @@ class AddBookForm extends Component<AllProps, State> {
       handleSubmit,
       onTitleInputChange,
       onAuthorInputChange,
-      doubanBooksAsOptions
+      doubanBooksAsOptions,
+      onSaveAuthor
     } = this.props
 
     return (
@@ -105,7 +107,10 @@ class AddBookForm extends Component<AllProps, State> {
             // })
             this.props.openModal({
               title: 'Add Author',
-              content: <AddAuthorForm/>
+              content: <AddAuthorForm
+                initialData={{name: value}}
+                onSave={onSaveAuthor}
+              />
             })
           } }
           />
@@ -124,7 +129,7 @@ const mapStateToProps = (state, ownProps) => {
   const doubanBookQuery = _.get(state.form, 'addBook._titleValue.value', '')
 
   return {
-    initialValues: ownProps.initialData,
+    initialValues: Object.assign({}, getFormValues(state.form.addBook, fields), ownProps.initialData),
     routing: state.routing.locationBeforeTransitions,
     doubanBooksAsOptions: selectors.doubanBooksAsOptions(doubanBookQuery)(state)
   }

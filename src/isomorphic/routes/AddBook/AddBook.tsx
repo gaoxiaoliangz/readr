@@ -1,29 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue, openModal, searchDoubanBooks } from '../../store/actions'
-import { Button, SelectizeInput} from '../../elements/_form'
-import Modal from '../../elements/Modal'
+import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal } from '../../store/actions'
 import _ from 'lodash'
 import apis from '../../apis'
-import RInput from '../../elements/_wrapped/RInput'
-import RTextarea from '../../elements/_wrapped/RTextarea'
 import DocContainer from '../../containers/DocContainer'
-import AddAuthorForm from './components/AddAuthorForm'
 import AddBookForm from './components/AddBookForm'
-import { createSelector } from 'reselect'
-
-
-const syls = {
-  inputBookName: Symbol('inputBookName'),
-  inputBookAuthor: Symbol('inputBookAuthor'),
-  inputAuthorName: Symbol('inputAuthorName'),
-  inputAuthorSlug: Symbol('inputAuthorSlug'),
-  inputBookCover: Symbol('inputBookCover'),
-  textareaAuthorDesc: Symbol('textareaAuthorDesc'),
-  textareaBookDesc: Symbol('textareaBookDesc'),
-  textareaBookContent: Symbol('textareaBookContent')
-}
 
 interface Props {
   elements?: any
@@ -31,14 +13,11 @@ interface Props {
   sendNotification?: any
   openModal?: (data: openModal) => void
   searchDoubanBooks?: any
+  closeModal?: any
 }
 
 interface State {
-  bookTitle?: Array<any>
-  bookAuthor?: Array<any>
-  isAddAuthorModalVisible?: boolean
-  optionsOfBookTitle?: Array<any>
-  optionsOfBookAuthor?: Array<any>
+  addBookFormInitialData?: any
 }
 
 class AddBook extends Component<Props, State> {
@@ -54,22 +33,17 @@ class AddBook extends Component<Props, State> {
       authorResults: [],
       isAddAuthorModalVisible: false
     }
-    this.state = Object.assign({}, this.defaultState)
+    this.state = Object.assign({}, this.defaultState, {
+      AddBookFormInitialData: {}
+    })
 
     // todo
     // this.fetchDoubanBooks = _.debounce(fetchDoubanBooks, 150)
     this.handleTitleValueChange = this.handleTitleValueChange.bind(this)
+    this.addAuthor = this.addAuthor.bind(this)
   }
 
-  addBook() {
-    const data = {
-      title: this.state.bookTitle.length !== 0 ? this.state.bookTitle[0].value : '',
-      authors: this.state.bookAuthor.map(a => a.value),
-      description: this.props.elements[syls.textareaBookDesc].value,
-      cover: this.props.elements[syls.inputBookCover].value,
-      content: this.props.elements[syls.textareaBookContent].value
-    }
-
+  addBook(data) {
     apis.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
     }, error => {
@@ -77,42 +51,43 @@ class AddBook extends Component<Props, State> {
     })
   }
 
-  addAuthor() {
-    const data = {
-      name: this.props.elements[syls.inputAuthorName].value,
-      slug: this.props.elements[syls.inputAuthorSlug].value,
-      description: this.props.elements[syls.textareaAuthorDesc].value
-    }
-
+  addAuthor(data) {
     apis.addAuthor(data).then(result => {
       this.props.sendNotification('添加成功')
-      const id = result.ops[0].id
+      const id = result.json.ops[0]._id
+      const name = result.json.ops[0].name
 
       this.setState({
-        bookAuthor: [...this.state.bookAuthor, { name: data.name, value: id }],
-        isAddAuthorModalVisible: false
+        addBookFormInitialData: {
+          _authorValues: [{
+            name: name,
+            value: id
+          }],
+          _authorValue: ''
+        }
       })
-      this.props.changeValue(syls.inputBookAuthor, '')
+
+      this.props.closeModal()
     }, error => {
       this.props.sendNotification(error.message)
     })
   }
 
   searchAuthors(query) {
-    if (query !== '') {
-      apis.searchAuthors(query).then(response => {
-        this.setState({
-          optionsOfBookAuthor: response.map(r => ({
-            name: r.name,
-            value: r.id
-          }))
-        })
-      })
-    } else {
-      this.setState({
-        optionsOfBookAuthor: []
-      })
-    }
+    // if (query !== '') {
+    //   apis.searchAuthors(query).then(response => {
+    //     this.setState({
+    //       optionsOfBookAuthor: response.map(r => ({
+    //         name: r.name,
+    //         value: r.id
+    //       }))
+    //     })
+    //   })
+    // } else {
+    //   this.setState({
+    //     optionsOfBookAuthor: []
+    //   })
+    // }
   }
 
   handleTitleValueChange(newVal) {
@@ -127,6 +102,8 @@ class AddBook extends Component<Props, State> {
         <h1 className="page-title">Add Book</h1>
         <AddBookForm
           onTitleInputChange={this.handleTitleValueChange}
+          onSaveAuthor={this.addAuthor}
+          initialData={this.state.addBookFormInitialData}
         />
       </DocContainer>
     )
@@ -142,5 +119,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks }
+  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal }
 )(AddBook as any)
