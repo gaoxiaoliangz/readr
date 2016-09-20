@@ -1,8 +1,5 @@
 @import "styles/_variables";
 
-$padding_x: 30px;
-$padding_y: 15px;
-
 .modal {
   background: #fff;
   padding: 0;
@@ -18,39 +15,19 @@ $padding_y: 15px;
   z-index: $z-modal-backdrop;
 }
 
-.modal-header,
-.modal-footer,
 .modal-body {
-  padding: $padding_y $padding_x;
-}
-
-.modal-body {
-  padding: $padding_y/2 $padding_x;
+  margin: 10px 0 0;
 }
 
 .modal-header {
-  border-bottom: 3px solid #e9ebf2;
-  position: relative;
-  
-  .icon-close {
-    color: #74838f;
-    font-size: 1.4rem;
-  }
+  margin: 10px 0;
 }
 
 .modal-title {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-weight: normal;
-  margin: 0;
   color: $text-dark;
-}
-
-.modal-sub-title {
-  font-size: 0.9rem;
-  margin-left: 15px;
-  position: relative;
-  top: 2px;
-  color: $text-light;
+  margin: 5px 0;
 }
 
 .modal-footer {
@@ -66,4 +43,23 @@ $padding_y: 15px;
   button {
     margin: 5px 0 5px 10px;
   }
+}
+
+.modal-content {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+// wrap
+.confirm-modal {
+  background: #fff;
+  padding: 20px 30px;
+
+  p {
+    font-size: 1.2rem;
+  }
+}
+
+.modal-plus {
+  padding: 20px 30px;
 }

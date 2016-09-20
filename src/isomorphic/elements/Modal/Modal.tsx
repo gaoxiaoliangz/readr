@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom'
 import utils from '../../utils'
 import Fade from '../_animations/Fade'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_modal.scss')
+const styles = require('./Modal.scss')
 
-export interface IProps {
+export interface Props {
   width: number
-  onRequestClose?: () => void
-  isVisible: boolean
+  onRequestClose: () => void
+  open: boolean
   className?: string
 }
 
-interface IState {
+interface State {
   modalHeight?: number
   isModalHidden?: boolean
   isModalVerticalCenter?: boolean
@@ -20,9 +20,9 @@ interface IState {
 }
 
 @CSSModules(styles)
-class Modal extends Component<IProps, IState> {
+class Modal extends Component<Props, State> {
 
-  modal: any
+  modal: HTMLDivElement
 
   constructor(props) {
     super(props)
@@ -69,16 +69,16 @@ class Modal extends Component<IProps, IState> {
 
   componentDidUpdate(prevProps) {
     // modal show
-    if (!prevProps.isVisible && this.props.isVisible === true) {
+    if (!prevProps.open && this.props.open === true) {
       this.setView()
       utils.lockScroll()
       window.addEventListener('resize', this.setView)
     }
 
     // modal hide
-    if (prevProps.isVisible === true && this.props.isVisible === false) {
+    if (prevProps.open === true && this.props.open === false) {
       window.removeEventListener('resize', this.setView)
-      this.hideModal()
+      utils.unlockScroll()
     }
   }
 
@@ -87,6 +87,8 @@ class Modal extends Component<IProps, IState> {
   }
 
   render() {
+    const { open } = this.props
+
     const defaultClass = 'modal'
     const modalId = `modal-${(new Date()).valueOf()}`
 
@@ -100,7 +102,6 @@ class Modal extends Component<IProps, IState> {
       scroll: {},
       modal: {}
     }
-    let isVisible = this.props.isVisible ? this.props.isVisible : false
 
     style.backdrop = {
       position: 'fixed',
@@ -137,7 +138,7 @@ class Modal extends Component<IProps, IState> {
     return (
       <Fade>
         {
-          isVisible === true ? (
+          open === true ? (
             <div
               onClick={e => {
                 // 使用阻止冒泡会造成问题

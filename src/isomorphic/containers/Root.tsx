@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { sendNotification, hideNotification, closeDialog, userAuth } from '../store/actions'
+import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal } from '../store/actions'
 import { Alerts } from '../elements/Alert'
 import _ from 'lodash'
-import Dialog from '../elements/Dialog'
+import { ConfirmModal } from '../elements/Modal'
+import { ModalPlus } from '../elements/Modal'
 
 interface IAllProps {
   notifications: any
   hideNotification: any
   errorMessage: string
   sendNotification: any
-  dialog: any
-  closeDialog: any
+  confirmModal: any
+  closeConfirmModal: any
   userAuth: any
   routing: any
   session: any
+  modal: any
+  closeModal: any
 }
 
 class Root extends Component<IAllProps, {}> {
@@ -54,19 +57,27 @@ class Root extends Component<IAllProps, {}> {
   }
 
   render() {
-    const { dialog, closeDialog } = this.props
+    const { confirmModal, closeConfirmModal, modal, closeModal } = this.props
 
     return (
       <div className="app-root">
-        <Dialog
-          isVisible={dialog.isVisible}
-          title={dialog.title}
-          onConfirm={dialog.onConfirm}
-          onRequestClose={closeDialog}
+        <ConfirmModal
+          open={confirmModal.open}
+          title={confirmModal.title}
+          onConfirm={confirmModal.onConfirm}
+          onRequestClose={closeConfirmModal}
           width={500}
           >
-          {dialog.content}
-        </Dialog>
+          {confirmModal.content}
+        </ConfirmModal>
+        <ModalPlus
+          open={modal.open}
+          width={500}
+          onRequestClose={closeModal}
+          title={modal.title}
+        >
+          {modal.content}
+        </ModalPlus>
         {
           this.props.notifications.filter(noti => noti.visible).length > 0 && (
             <Alerts
@@ -90,9 +101,10 @@ export default connect<{}, {}, IAllProps>(
   state => ({
     notifications: state.components.notifications,
     errorMessage: state.errorMessage,
-    dialog: state.components.dialog,
+    confirmModal: state.components.confirmModal,
+    modal: state.components.modal,
     routing: state.routing,
     session: state.session,
   }),
-  { sendNotification, hideNotification, closeDialog, userAuth }
+  { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal }
 )(Root)

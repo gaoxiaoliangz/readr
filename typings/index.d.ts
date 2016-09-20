@@ -23,3 +23,4 @@
 /// <reference path="modules/express/index.d.ts" />
 /// <reference path="modules/react-router-redux/index.d.ts" />
 /// <reference path="modules/react-router/index.d.ts" />
+/// <reference path="modules/redux-form/index.d.ts" />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import ApiRoots from '../../config'
+import {ApiRoots} from '../../config'
 import callApi from '../../utils/callApi'
 import { sendNotification } from '../../store/actions'
 import { Input, Button } from '../../elements/_form'

@@ -1,6 +1,4 @@
-import handleResponse from './handleResponse'
-
-function jsonp(fullUrl, config: { schema?: {} }) {
+export default function jsonp(fullUrl) {
   if (fullUrl.indexOf('douban') !== -1) {
     let id = new Date().valueOf()
     let jsonpId = 'jsonp-' + id
@@ -20,12 +18,9 @@ function jsonp(fullUrl, config: { schema?: {} }) {
     return new Promise(resolve => {
       script.onload = function () {
         document.body.removeChild(document.getElementById(jsonpId))
-        let json = window[jsonpCallbackData]
 
-        resolve(handleResponse({ json }, config.schema))
+        resolve({ json: window[jsonpCallbackData]})
       }
     })
   }
 }
-
-export default jsonp

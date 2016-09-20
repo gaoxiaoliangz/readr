@@ -1,4 +1,4 @@
-import { Schemas } from '../../schemas'
+import { Schemas } from '../../../schemas'
 
 export function userAuth(userSession?): Object {
   // 服务端渲染 session

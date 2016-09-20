@@ -28,6 +28,7 @@
   "dependencies": {
     "express": "registry:npm/express#4.14.0+20160815112707",
     "react-router": "registry:npm/react-router#2.0.0+20160214194820",
-    "react-router-redux": "registry:npm/react-router-redux#3.0.0+20160214195458"
+    "react-router-redux": "registry:npm/react-router-redux#3.0.0+20160214195458",
+    "redux-form": "registry:npm/redux-form#4.0.3+20160310030142"
   }
 }

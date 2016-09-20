@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue } from '../../store/actions'
+import { sendNotification, changeValue, openModal, searchDoubanBooks } from '../../store/actions'
 import { Button, SelectizeInput} from '../../elements/_form'
 import Modal from '../../elements/Modal'
 import _ from 'lodash'
@@ -9,8 +9,10 @@ import apis from '../../apis'
 import RInput from '../../elements/_wrapped/RInput'
 import RTextarea from '../../elements/_wrapped/RTextarea'
 import DocContainer from '../../containers/DocContainer'
+import AddAuthorForm from './components/AddAuthorForm'
+import AddBookForm from './components/AddBookForm'
+import { createSelector } from 'reselect'
 
-const fetchDoubanBooks = apis.fetchDoubanBooks
 
 const syls = {
   inputBookName: Symbol('inputBookName'),
@@ -27,6 +29,8 @@ interface Props {
   elements?: any
   changeValue?: any
   sendNotification?: any
+  openModal?: (data: openModal) => void
+  searchDoubanBooks?: any
 }
 
 interface State {
@@ -54,13 +58,7 @@ class AddBook extends Component<Props, State> {
 
     // todo
     // this.fetchDoubanBooks = _.debounce(fetchDoubanBooks, 150)
-  }
-
-  resetForm() {
-    this.props.changeValue(syls.inputBookCover, '')
-    this.props.changeValue(syls.textareaBookDesc, '')
-    this.props.changeValue(syls.textareaBookContent, '')
-    this.setState(this.defaultState)
+    this.handleTitleValueChange = this.handleTitleValueChange.bind(this)
   }
 
   addBook() {
@@ -74,7 +72,6 @@ class AddBook extends Component<Props, State> {
 
     apis.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
-      this.resetForm()
     }, error => {
       this.props.sendNotification(error.message)
     })
@@ -101,24 +98,6 @@ class AddBook extends Component<Props, State> {
     })
   }
 
-  searchBooks(query) {
-    if (query !== '') {
-      fetchDoubanBooks(query).then(res => {
-        this.setState({
-          optionsOfBookTitle: (res as any).books.map(book => ({
-            name: book.title,
-            value: book.title,
-            additional: {
-              description: book.summary,
-              cover: book.images.large,
-              author: book.author.join(', ')
-            }
-          }))
-        })
-      })
-    }
-  }
-
   searchAuthors(query) {
     if (query !== '') {
       apis.searchAuthors(query).then(response => {
@@ -136,94 +115,32 @@ class AddBook extends Component<Props, State> {
     }
   }
 
+  handleTitleValueChange(newVal) {
+    if (!_.isEmpty(newVal)) {
+      this.props.searchDoubanBooks(newVal)
+    }
+  }
+
   render() {
     return (
       <DocContainer title="添加书籍">
-        <Modal
-          width={600}
-          isVisible={this.state.isAddAuthorModalVisible}
-          onRequestClose={() => {
-            this.setState({
-              isAddAuthorModalVisible: false
-            })
-          }}
-        >
-          <h1 className="page-title" style={{marginTop: 0}}>Add author</h1>
-          <RInput placeholder="Name" symbol={syls.inputAuthorName} />
-          <RInput placeholder="Slug" symbol={syls.inputAuthorSlug} />
-          <RTextarea
-            symbol={syls.textareaAuthorDesc}
-            placeholder="Description"
-          />
-          <Button onClick={e => {
-            e.preventDefault()
-            this.addAuthor()
-          }}>Add</Button>
-        </Modal>
-
         <h1 className="page-title">Add Book</h1>
-        <SelectizeInput
-          placeholder="Book title"
-          onInputChange={newValue => {
-            this.searchBooks(newValue)
-            this.props.changeValue(syls.inputBookName, newValue)
-          }}
-          value={_.get(this.props.elements[syls.inputBookName], 'value', '')}
-          onValuesChange={newValues => {
-            this.setState({
-              bookTitle: newValues
-            })
-          }}
-          options={this.state.optionsOfBookTitle}
-          values={this.state.bookTitle}
-          onOptionClick={option => {
-            this.props.changeValue(syls.inputBookCover, option.additional.cover)
-            this.props.changeValue(syls.inputBookAuthor, option.additional.author)
-            this.props.changeValue(syls.textareaBookDesc, option.additional.description)
-          }}
+        <AddBookForm
+          onTitleInputChange={this.handleTitleValueChange}
         />
-
-        <SelectizeInput
-          placeholder="Book author"
-          onInputChange={newValue => {
-            this.searchAuthors(newValue)
-            this.props.changeValue(syls.inputBookAuthor, newValue)
-          }}
-          value={_.get(this.props.elements[syls.inputBookAuthor], 'value', '')}
-          onValuesChange={newValues => {
-            this.setState({
-              bookAuthor: newValues
-            })
-          }}
-          options={this.state.optionsOfBookAuthor}
-          values={this.state.bookAuthor}
-          onAddNewValue={value => {
-            this.props.changeValue(syls.inputAuthorName, value)
-            // todo
-            this.props.changeValue(syls.inputAuthorSlug, value)
-            this.props.changeValue(syls.textareaAuthorDesc, '')
-            this.setState({
-              isAddAuthorModalVisible: true,
-            })
-          }}
-        />
-
-        <RInput placeholder="Cover" symbol={syls.inputBookCover} />
-        <RTextarea placeholder="Description" symbol={syls.textareaBookDesc} />
-        <RTextarea placeholder="Paste book content here" symbol={syls.textareaBookContent} />
-
-        <Button onClick={e => {
-          e.preventDefault()
-          this.addBook()}}>Add</Button>
       </DocContainer>
     )
   }
 }
 
-export default connect(
-  state => ({
+const mapStateToProps = state => {
+  return {
     notification: state.components.notification,
     elements: state.elements
-  }),
-  { sendNotification, changeValue}
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { sendNotification, changeValue, openModal, searchDoubanBooks }
 )(AddBook as any)

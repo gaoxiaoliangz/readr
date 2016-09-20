@@ -140,7 +140,7 @@ class AddBook extends Component<Props, State> {
       <form>
         <Modal
           width={600}
-          isVisible={this.state.isAddAuthorModalVisible}
+          open={this.state.isAddAuthorModalVisible}
           onRequestClose={() => {
             this.setState({
               isAddAuthorModalVisible: false

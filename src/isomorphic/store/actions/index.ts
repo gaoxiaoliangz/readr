@@ -1,19 +1,3 @@
-export * from '../actions/book'
-export * from '../actions/components'
-export * from '../actions/user'
-
-export function changeValue(name, value) {
-  return {
-    type: 'CHANGE_VALUE',
-    name,
-    value
-  }
-}
-
-export function updateElement(name, data) {
-  return {
-    type: 'UPDATE_ELEMENT',
-    name,
-    data
-  }
-}
+export * from './components'
+export * from './data-fetching'
+export * from './deprecatedActions'

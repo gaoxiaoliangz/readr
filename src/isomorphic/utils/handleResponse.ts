@@ -3,32 +3,43 @@ import humps from 'humps'
 import parseQueryString from './parseQueryString'
 import _ from 'lodash'
 
-function getNextPageUrl(response) {
+function getNextPage(response) {
+  const empty = { url: '', page: 0 }
+
+  if (!response) {
+    return empty
+  }
+
   const link = response.headers.get('link')
   if (!link) {
-    return ''
+    return empty
   }
 
   const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
   if (!nextLink) {
-    return ''
+    return empty
   }
 
-  return nextLink.split(';')[0].trim().slice(1, -1)
+  const url = nextLink.split(';')[0].trim().slice(1, -1)
+  const page = _.get(parseQueryString(url.split('?')[1] || ''), 'page', 0)
+
+  return {
+    url,
+    page
+  }
 }
 
-function handleResponse(data, schema) {
-  const { json, response } = data
+function handleResponse({ json, _response }, schema) {
   const camelizedJson = humps.camelizeKeys(json)
 
   if (typeof schema !== 'undefined') {
-    const nextPageUrl = getNextPageUrl(response)
+    const { url, page } = getNextPage(_response)
 
     return  Object.assign({},
       normalize(camelizedJson, schema),
       {
-        nextPageUrl,
-        nextPage: _.get(parseQueryString(nextPageUrl.split('?')[1] || ''), 'page', 0)
+        nextPageUrl: url,
+        nextPage: page
       }
     )
   }

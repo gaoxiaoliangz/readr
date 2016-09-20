@@ -3,6 +3,8 @@ import { routerReducer as routing } from 'react-router-redux'
 import components from './components'
 import paginate from './paginate'
 import _ from 'lodash'
+import {reducer as form} from 'redux-form'
+import * as actions from '../actions'
 
 // Updates an entity cache in response to any action with response.entities.
 function entities(state = { books: {}, users: {}, bookCollections: {} }, action) {
@@ -84,7 +86,7 @@ const pagination = combineReducers({
   }),
   doubanBookSearchResults: paginate({
     mapActionToKey: action => action.query,
-    types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE']
+    types: [actions.DOUBAN_BOOK_SEARCH_REQUEST, actions.DOUBAN_BOOK_SEARCH_SUCCESS, actions.DOUBAN_BOOK_SEARCH_FAILURE]
   }),
   bookSearchResults: paginate({
     mapActionToKey: action => action.query,
@@ -119,7 +121,8 @@ const rootReducer = combineReducers({
   entities,
   errorMessage,
   pagination,
-  session
+  session,
+  form
 })
 
 export default rootReducer

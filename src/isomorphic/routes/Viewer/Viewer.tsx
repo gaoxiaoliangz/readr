@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookPageList from './BookPageList'
 import * as viewerUtils from './Viewer.utils'
-import { fetchBook, fetchProgress, openDialog } from '../../store/actions'
+import { fetchBook, fetchProgress, openConfirmModal } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './ViewerPanel'
 import BookPageWithRawHtml from './BookPageWithRawHtml'
@@ -19,7 +19,7 @@ interface IAllProps {
   rawBookContent: string
   fetchProgress: (bookId: string) => void
   progress: number
-  openDialog: (data: openDialog) => void
+  openConfirmModal: (data: openConfirmModal) => void
 }
 
 interface IState {
@@ -229,5 +229,5 @@ export default connect(
       session: state.session
     }
   },
-  { fetchBook, fetchProgress, openDialog }
+  { fetchBook, fetchProgress, openConfirmModal }
 )(Viewer as any)

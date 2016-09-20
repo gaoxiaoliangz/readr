@@ -1,20 +1,33 @@
-import callApi from '../../utils/callApi'
-import ApiRoots from '../../config'
+import callApi, { CallApiOptions } from '../../utils/callApi'
+import { ApiRoots } from '../../config'
 import _ from 'lodash'
+import handleResponse from '../../utils/handleResponse'
+
+export type CALL_API_OBJ = {
+  // todo
+  // 可以是函数或者字符串，但是 ts 不知道怎么写能通过，所以先这样
+  endpoint: any
+
+  types: string[]
+  apiUrl?: string
+  schema?: any
+  options?: CallApiOptions
+}
 
 export default store => next => action => {
-  const CALL_API = action.CALL_API
+  const CALL_API: CALL_API_OBJ = action.CALL_API
   if (typeof CALL_API === 'undefined') {
     return next(action)
   }
 
-  let { endpoint, apiUrl, extendedOptions } = CALL_API
+  let { endpoint, apiUrl, options } = CALL_API
   const { types, schema } = CALL_API
   const [requestType, successType, failureType] = types
 
   function actionWith(data) {
-    const finalAction = Object.assign({}, action, data)
-    delete finalAction.CALL_API
+    let finalAction = Object.assign({}, action, data)
+    finalAction = _.omit(finalAction, ['CALL_API'])
+
     return finalAction
   }
 
@@ -29,17 +42,12 @@ export default store => next => action => {
   }
 
   const fullUrl = apiUrl + endpoint
-  let options = { schema }
 
-  if (typeof extendedOptions !== 'undefined') {
-    options = Object.assign({}, options, extendedOptions)
-  }
-
-  return callApi(fullUrl, options).then(
+  return callApi(fullUrl, options || {}).then(
     response => {
       return next(dispatch => {
         dispatch(actionWith({
-          response,
+          response: handleResponse(response, schema),
           type: successType
         }))
         return {

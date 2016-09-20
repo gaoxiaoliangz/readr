@@ -30,40 +30,42 @@ export function hideNotification(id: string) {
   }
 }
 
-// dialog
-export type openDialog = {
+// confirm modal
+export const OPEN_CONFIRM_MODAL = 'components/confirm-modal/OPEN'
+export const CLOSE_CONFIRM_MODAL = 'components/confirm-modal/CLOSE'
+export type openConfirmModal = {
   title?: string
   content: string
   onConfirm: () => void
 }
-export function openDialog(data: openDialog) {
+export function openConfirmModal(data: openConfirmModal) {
   return {
-    type: 'OPEN_DIALOG',
+    type: OPEN_CONFIRM_MODAL,
     data
   }
 }
 
-export function closeDialog() {
+export function closeConfirmModal() {
   return {
-    type: 'CLOSE_DIALOG'
+    type: CLOSE_CONFIRM_MODAL
   }
 }
 
-// basic modal
-export type openBasicModal = {
+// modal
+export type openModal = {
   title: string
   subTitle?: string
   content?: JSX.Element
 }
-export function openBasicModal(data: openBasicModal) {
+export function openModal(data: openModal) {
   return {
-    type: 'OPEN_BASIC_MODAL',
+    type: 'OPEN_MODAL',
     data
   }
 }
 
-export function closeBasicModal() {
+export function closeModal() {
   return {
-    type: 'CLOSE_BASIC_MODAL'
+    type: 'CLOSE_MODAL'
   }
 }

@@ -1,4 +1,6 @@
-import { Schemas } from '../../schemas'
+import { Schemas } from '../../../schemas'
+import { ApiRoots } from '../../../config'
+import { CALL_API_OBJ } from '../../middleware/api'
 
 export type fetchBooks = {
   flowType?: 'newest' | 'hot'
@@ -6,7 +8,7 @@ export type fetchBooks = {
   merge?: boolean
 }
 export function fetchBooks(config?: fetchBooks) {
-  const defaultConfig = { flowType: 'newest', page: 1, merge: true}
+  const defaultConfig = { flowType: 'newest', page: 1, merge: true }
   const { flowType, page, merge } = Object.assign(defaultConfig, config || {})
 
   return {
@@ -82,18 +84,24 @@ export function fetchCollection(collectionId) {
 //   }
 // }
 
-// export function fetchDoubanBookSearchResults(query) {
-//   return {
-//     query,
-//     CALL_API: {
-//       types: ['DOUBAN_BOOK_SEARCH_REQUEST', 'DOUBAN_BOOK_SEARCH_SUCCESS', 'DOUBAN_BOOK_SEARCH_FAILURE'],
-//       endpoint: `search?count=5&q=${query}`,
-//       apiUrl: ApiRoots.DOUBAN_BOOKS,
-//       schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
-//       extendedOptions: { useJsonp: true }
-//     }
-//   }
-// }
+
+export const DOUBAN_BOOK_SEARCH_REQUEST = 'data-fetching/douban-book-search/REQUEST'
+export const DOUBAN_BOOK_SEARCH_SUCCESS = 'data-fetching/douban-book-search/SUCCESS'
+export const DOUBAN_BOOK_SEARCH_FAILURE = 'data-fetching/douban-book-search/FAILURE'
+export function searchDoubanBooks(query) {
+  const CALL_API: CALL_API_OBJ = {
+    types: [DOUBAN_BOOK_SEARCH_REQUEST, DOUBAN_BOOK_SEARCH_SUCCESS, DOUBAN_BOOK_SEARCH_FAILURE],
+    endpoint: `search?count=5&q=${query}`,
+    apiUrl: ApiRoots.DOUBAN_BOOKS,
+    schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
+    options: { useJsonp: true }
+  }
+
+  return {
+    query,
+    CALL_API
+  }
+}
 
 // export function searchBooks(query) {
 //   return {
