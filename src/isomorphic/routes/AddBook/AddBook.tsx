@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal } from '../../store/actions'
+import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
 import _ from 'lodash'
 import apis from '../../apis'
 import DocContainer from '../../containers/DocContainer'
@@ -14,6 +14,7 @@ interface Props {
   openModal?: (data: openModal) => void
   searchDoubanBooks?: any
   closeModal?: any
+  fetchAuthors?: any
 }
 
 interface State {
@@ -40,14 +41,16 @@ class AddBook extends Component<Props, State> {
     // todo
     // this.fetchDoubanBooks = _.debounce(fetchDoubanBooks, 150)
     this.handleTitleValueChange = this.handleTitleValueChange.bind(this)
+    this.handleAuthorValueChange = this.handleAuthorValueChange.bind(this)
     this.addAuthor = this.addAuthor.bind(this)
+    this.addBook = this.addBook.bind(this)
   }
 
   addBook(data) {
     apis.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
     }, error => {
-      this.props.sendNotification(error.message)
+      this.props.sendNotification(error.message, 'error')
     })
   }
 
@@ -73,8 +76,11 @@ class AddBook extends Component<Props, State> {
     })
   }
 
-  searchAuthors(query) {
-    // if (query !== '') {
+  handleAuthorValueChange(query) {
+    if (query) {
+      this.props.fetchAuthors({
+        q: query
+      })
     //   apis.searchAuthors(query).then(response => {
     //     this.setState({
     //       optionsOfBookAuthor: response.map(r => ({
@@ -87,7 +93,7 @@ class AddBook extends Component<Props, State> {
     //   this.setState({
     //     optionsOfBookAuthor: []
     //   })
-    // }
+    }
   }
 
   handleTitleValueChange(newVal) {
@@ -102,8 +108,10 @@ class AddBook extends Component<Props, State> {
         <h1 className="page-title">Add Book</h1>
         <AddBookForm
           onTitleInputChange={this.handleTitleValueChange}
+          onAuthorInputChange={this.handleAuthorValueChange}
           onSaveAuthor={this.addAuthor}
           initialData={this.state.addBookFormInitialData}
+          onSaveBook={this.addBook}
         />
       </DocContainer>
     )
@@ -119,5 +127,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal }
+  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors }
 )(AddBook as any)

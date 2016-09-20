@@ -71,6 +71,10 @@ const pagination = combineReducers({
     types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
     merge: action => action.merge
   }),
+  authors: paginate({
+    mapActionToKey: action => action.filter,
+    types: [actions.AUTHOR_REQUEST, actions.AUTHOR_SUCCESS, actions.AUTHOR_FAILURE]
+  }),
   bookCollections: paginate({
     mapActionToKey: action => action.flowType,
     types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE']

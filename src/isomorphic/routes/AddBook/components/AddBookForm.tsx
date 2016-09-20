@@ -15,6 +15,7 @@ interface Props {
   onTitleInputChange?: (newVal: string) => void
   onAuthorInputChange?: (newVal: string) => void
   onSaveAuthor: (data: any) => void
+  onSaveBook: (data: any) => void
 }
 
 interface AllProps extends Props {
@@ -26,7 +27,7 @@ interface AllProps extends Props {
   openModal: (data: openModal) => void
 }
 
-const fields = ['_titleValue', '_titleValues', '_authorValue', '_authorValues', 'cover', 'description']
+const fields = ['_titleValue', '_titleValues', '_authorValue', '_authorValues', 'cover', 'description', 'content']
 
 @reduxForm({
   form: 'addBook',
@@ -60,12 +61,13 @@ class AddBookForm extends Component<AllProps, {}> {
 
   render() {
     const {
-      fields: { _titleValue, _titleValues, _authorValue, _authorValues, cover, description },
+      fields: { _titleValue, _titleValues, _authorValue, _authorValues, cover, description, content },
       handleSubmit,
       onTitleInputChange,
       onAuthorInputChange,
       doubanBooksAsOptions,
-      onSaveAuthor
+      onSaveAuthor,
+      onSaveBook
     } = this.props
 
     return (
@@ -116,9 +118,9 @@ class AddBookForm extends Component<AllProps, {}> {
           />
         <Input placeholder="Cover" {...cover} />
         <Textarea placeholder="Description" {...description} />
+        <Textarea placeholder="Paste book content here (markdown format)" {...content} />
         <Button onClick={handleSubmit(data => {
-          console.log(data);
-
+          onSaveBook(data)
         }) }>Add</Button>
       </div>
     )
