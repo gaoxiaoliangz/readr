@@ -10,12 +10,12 @@ export default function paginate({ types, mapActionToKey, merge }: {
 }) {
   const [ requestType, successType, failureType ] = types
 
-  function updatePagination(state = {
+  const updatePagination = (state = {
     isFetching: false,
     nextPageUrl: null,
     pageCount: 0,
     ids: []
-  }, action) {
+  }, action) => {
     switch (action.type) {
       case requestType:
         return Object.assign({}, state, {
@@ -47,7 +47,7 @@ export default function paginate({ types, mapActionToKey, merge }: {
       case requestType:
       case successType:
       case failureType:
-        const key: string = mapActionToKey(action)
+        const key: string = (mapActionToKey && mapActionToKey(action)) || 'default'
 
         if (typeof key !== 'string') {
           throw new Error('Expected key to be a string.')
