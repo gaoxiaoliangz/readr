@@ -1,7 +1,7 @@
 exports.ids = [13];
 exports.modules = {
 
-/***/ 525:
+/***/ 526:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12,11 +12,11 @@ exports.modules = {
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(102);
+	var _react = __webpack_require__(107);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(268);
+	var _reactRedux = __webpack_require__(273);
 	
 	var _actions = __webpack_require__(77);
 	
