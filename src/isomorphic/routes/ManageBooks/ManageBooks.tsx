@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocContainer from '../../containers/DocContainer'
 import apis from '../../apis'
+import * as selectors from '../../store/selectors'
 import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
 import CSSModules from 'react-css-modules'
 const styles = require('./ManageBooks.css')
@@ -85,9 +86,7 @@ class ManageBooks extends Component<Props, any> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    bookListNewest: state.pagination.books.newest
-      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
-      : [],
+    bookListNewest: selectors.booksSelector(state),
   }
 }
 

@@ -2,24 +2,28 @@ import { Schemas } from '../../../schemas'
 import { ApiRoots } from '../../../config'
 import { CALL_API_OBJ } from '../../middleware/api'
 
+export const BOOKS_REQUEST = 'data-fetching/books/REQUEST'
+export const BOOKS_SUCCESS = 'data-fetching/books/SUCCESS'
+export const BOOKS_FAILURE = 'data-fetching/books/FAILURE'
 export type fetchBooks = {
-  flowType?: 'newest' | 'hot'
   page?: number
   merge?: boolean
 }
 export function fetchBooks(config?: fetchBooks) {
-  const defaultConfig = { flowType: 'newest', page: 1, merge: true }
-  const { flowType, page, merge } = Object.assign(defaultConfig, config || {})
+  const defaultConfig = { page: 1, merge: true }
+  const { page, merge } = Object.assign(defaultConfig, config || {})
+  const CALL_API = {
+    types: [BOOKS_REQUEST, BOOKS_SUCCESS, BOOKS_FAILURE],
+    endpoint: `books?exclude=content&page=${page}`,
+    schema: Schemas.BOOK_ARRAY,
+    pagination: {
+      name: 'books',
+      merge
+    }
+  } as CALL_API_OBJ
 
   return {
-    // for paginate
-    flowType,
-    merge,
-    CALL_API: {
-      types: ['BOOKS_REQUEST', 'BOOKS_SUCCESS', 'BOOKS_FAILURE'],
-      endpoint: `books?exclude=content&page=${page}`,
-      schema: Schemas.BOOK_ARRAY,
-    }
+    CALL_API
   }
 }
 
@@ -94,7 +98,11 @@ export function searchDoubanBooks(query) {
     endpoint: `search?count=5&q=${query}`,
     apiUrl: ApiRoots.DOUBAN_BOOKS,
     schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
-    options: { useJsonp: true }
+    options: { useJsonp: true },
+    pagination: {
+      name: 'doubanBooks',
+      query
+    }
   }
 
   return {

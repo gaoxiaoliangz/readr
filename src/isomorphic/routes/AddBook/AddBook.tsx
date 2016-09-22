@@ -81,18 +81,6 @@ class AddBook extends Component<Props, State> {
       this.props.fetchAuthors({
         q: query
       })
-    //   apis.searchAuthors(query).then(response => {
-    //     this.setState({
-    //       optionsOfBookAuthor: response.map(r => ({
-    //         name: r.name,
-    //         value: r.id
-    //       }))
-    //     })
-    //   })
-    // } else {
-    //   this.setState({
-    //     optionsOfBookAuthor: []
-    //   })
     }
   }
 

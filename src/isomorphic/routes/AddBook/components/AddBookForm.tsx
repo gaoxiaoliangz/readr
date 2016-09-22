@@ -24,6 +24,7 @@ interface AllProps extends Props {
   handleSubmit: any
   fields: any
   doubanBooksAsOptions: any[]
+  authorsAsOptions: any[]
   openModal: (data: openModal) => void
 }
 
@@ -53,7 +54,6 @@ class AddBookForm extends Component<AllProps, {}> {
 
   handleAuthorOptionClick(option) {
     console.log('author');
-
   }
 
   componentDidMount() {
@@ -66,6 +66,7 @@ class AddBookForm extends Component<AllProps, {}> {
       onTitleInputChange,
       onAuthorInputChange,
       doubanBooksAsOptions,
+      authorsAsOptions,
       onSaveAuthor,
       onSaveBook
     } = this.props
@@ -96,17 +97,10 @@ class AddBookForm extends Component<AllProps, {}> {
           onValuesChange={newValues => {
             _authorValues.onChange(newValues)
           } }
-          options={[]}
+          options={authorsAsOptions}
           values={_authorValues.value || []}
           onOptionClick={this.handleAuthorOptionClick}
           onAddNewValue={value => {
-            // this.props.changeValue(syls.inputAuthorName, value)
-            // // todo
-            // this.props.changeValue(syls.inputAuthorSlug, value)
-            // this.props.changeValue(syls.textareaAuthorDesc, '')
-            // this.setState({
-            //   isAddAuthorModalVisible: true,
-            // })
             this.props.openModal({
               title: 'Add Author',
               content: <AddAuthorForm
@@ -129,11 +123,13 @@ class AddBookForm extends Component<AllProps, {}> {
 
 const mapStateToProps = (state, ownProps) => {
   const doubanBookQuery = _.get(state.form, 'addBook._titleValue.value', '')
+  const authorsQuery = _.get(state.form, 'addBook._authorValue.value', '')
 
   return {
     initialValues: Object.assign({}, getFormValues(state.form.addBook, fields), ownProps.initialData),
     routing: state.routing.locationBeforeTransitions,
-    doubanBooksAsOptions: selectors.doubanBooksAsOptions(doubanBookQuery)(state)
+    doubanBooksAsOptions: selectors.doubanBooksAsOptions(doubanBookQuery)(state),
+    authorsAsOptions: selectors.authorsAsOptions(authorsQuery)(state)
   }
 }
 

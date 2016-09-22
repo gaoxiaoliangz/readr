@@ -1,21 +1,24 @@
 import { createSelector } from 'reselect'
+import _ from 'lodash'
+import { selectPaginatedEntities } from './common'
 
-const doubanBooksEntitiesSelector = state2 => state2.entities.doubanBooks
-const doubanBooksIdsSelector = query => state2 => (
-  state2.pagination.doubanBookSearchResults[query]
-  && state2.pagination.doubanBookSearchResults[query].ids
-) || []
-
-export const filterDoubanBooks = query => createSelector(
-  doubanBooksEntitiesSelector,
-  doubanBooksIdsSelector(query),
-  (entities, ids) => {
-    return ids.map(id => entities[id])
-  }
+export const queryDoubanBooksSelector = query => createSelector(
+  selectPaginatedEntities({
+    entitiesName: 'doubanBooks',
+    paginationName: 'doubanBooks',
+    paginationQuery: query
+  }),
+  books => books
 )
 
+export const queryAuthorsSelector = query => selectPaginatedEntities({
+  entitiesName: 'authors',
+  paginationName: 'authors',
+  paginationQuery: query
+})
+
 export const doubanBooksAsOptions = query => createSelector(
-  filterDoubanBooks(query),
+  queryDoubanBooksSelector(query),
   books => {
     return books.map(book => ({
       name: book.title,
@@ -28,3 +31,24 @@ export const doubanBooksAsOptions = query => createSelector(
     }))
   }
 )
+
+export const authorsAsOptions = query => createSelector(
+  queryAuthorsSelector(query),
+  items => {
+    return items.map(item => ({
+      name: item.name,
+      value: item.id
+    }))
+  }
+)
+
+export const booksSelector = createSelector(
+  selectPaginatedEntities({
+    entitiesName: 'books',
+    paginationName: 'books',
+    paginationKey: 'default'
+  }),
+  books => books
+)
+
+export * from './common'

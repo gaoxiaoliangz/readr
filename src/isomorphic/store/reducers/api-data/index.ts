@@ -3,8 +3,7 @@ import pagination from './pagination'
 
 export { pagination, errorMessage }
 
-// Updates an entity cache in response to any action with response.entities.
-export function entities(state = { books: {}, users: {}, bookCollections: {} }, action) {
+export function entities(state = {}, action) {
   if (action.response && action.response.entities) {
     return _.merge({}, state, action.response.entities)
   }

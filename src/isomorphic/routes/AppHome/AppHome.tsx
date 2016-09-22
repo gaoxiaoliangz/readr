@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchBooks, fetchCollections, sendNotification } from '../../store/actions'
+import * as selectors from '../../store/selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../containers/DocContainer'
 import { Button } from '../../elements/_form'
@@ -93,14 +94,11 @@ class Home extends Component<IAllProps, IState> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    // todo: reselect
     userBooks: [],
-    newestBooks: state.pagination.books.newest
-      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
-      : [],
+    newestBooks: selectors.booksSelector(state),
     session: state.session,
-    bookCollections: state.pagination.bookCollections.newest
-      ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id])
+    bookCollections: _.get(state.pagination, 'bookCollections.default', null)
+      ? state.pagination.bookCollections.default.ids.map(id => state.entities.bookCollections[id])
       : [],
     bookShelf: _.get(state.payloads, 'bookShelf.data', [])
   }
