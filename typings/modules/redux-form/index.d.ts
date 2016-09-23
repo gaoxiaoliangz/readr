@@ -78,6 +78,8 @@ import { IDispatch as Dispatch, IReducer as Reducer } from '~redux-form~redux';
 
 namespace ReduxForm {
 
+    export const reset: any
+
     type ActionCreator =  (...args: any[]) => any;
 
     export type FieldValue = any;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import { reset } from 'redux-form'
 import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
 import _ from 'lodash'
 import apis from '../../apis'
@@ -15,6 +16,7 @@ interface Props {
   searchDoubanBooks?: any
   closeModal?: any
   fetchAuthors?: any
+  reset?: any
 }
 
 interface State {
@@ -28,18 +30,10 @@ class AddBook extends Component<Props, State> {
 
   constructor(props) {
     super(props)
-    this.defaultState = {
-      bookTitle: [],
-      bookAuthor: [],
-      authorResults: [],
-      isAddAuthorModalVisible: false
+    this.state = {
+      addBookFormInitialData: {}
     }
-    this.state = Object.assign({}, this.defaultState, {
-      AddBookFormInitialData: {}
-    })
 
-    // todo
-    // this.fetchDoubanBooks = _.debounce(fetchDoubanBooks, 150)
     this.handleTitleValueChange = this.handleTitleValueChange.bind(this)
     this.handleAuthorValueChange = this.handleAuthorValueChange.bind(this)
     this.addAuthor = this.addAuthor.bind(this)
@@ -49,6 +43,10 @@ class AddBook extends Component<Props, State> {
   addBook(data) {
     apis.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
+      this.props.reset('addBook')
+      this.setState({
+        addBookFormInitialData: {}
+      })
     }, error => {
       this.props.sendNotification(error.message, 'error')
     })
@@ -77,7 +75,7 @@ class AddBook extends Component<Props, State> {
   }
 
   handleAuthorValueChange(query) {
-    if (query) {
+    if (!_.isEmpty(query)) {
       this.props.fetchAuthors({
         q: query
       })
@@ -115,5 +113,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors }
+  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset }
 )(AddBook as any)

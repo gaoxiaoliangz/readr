@@ -8,7 +8,6 @@ import Textarea from '../../../elements/_form/Textarea'
 import { Button, SelectizeInput} from '../../../elements/_form'
 import AddAuthorForm from './AddAuthorForm'
 import _ from 'lodash'
-import getFormValues from '../../../utils/getFormValues'
 
 interface Props {
   initialData?: any
@@ -39,7 +38,6 @@ class AddBookForm extends Component<AllProps, {}> {
   constructor(props) {
     super(props)
     this.handleTitleOptionClick = this.handleTitleOptionClick.bind(this)
-    this.handleAuthorOptionClick = this.handleAuthorOptionClick.bind(this)
   }
 
   handleTitleOptionClick(option) {
@@ -50,13 +48,6 @@ class AddBookForm extends Component<AllProps, {}> {
     cover.onChange(option.additional.cover)
     _authorValue.onChange(option.additional.author)
     description.onChange(option.additional.description)
-  }
-
-  handleAuthorOptionClick(option) {
-    console.log('author');
-  }
-
-  componentDidMount() {
   }
 
   render() {
@@ -99,14 +90,13 @@ class AddBookForm extends Component<AllProps, {}> {
           } }
           options={authorsAsOptions}
           values={_authorValues.value || []}
-          onOptionClick={this.handleAuthorOptionClick}
           onAddNewValue={value => {
             this.props.openModal({
               title: 'Add Author',
               content: <AddAuthorForm
-                initialData={{name: value}}
+                initialData={{ name: value }}
                 onSave={onSaveAuthor}
-              />
+                />
             })
           } }
           />
@@ -114,7 +104,12 @@ class AddBookForm extends Component<AllProps, {}> {
         <Textarea placeholder="Description" {...description} />
         <Textarea placeholder="Paste book content here (markdown format)" {...content} />
         <Button onClick={handleSubmit(data => {
-          onSaveBook(data)
+          let postData = _.pick(data, ['cover', 'description', 'content'])
+          postData = _.assign({}, postData, {
+            title: _.get(_titleValues, 'value[0].name', ''),
+            authors: Array.isArray(_authorValues.value) ? _authorValues.value.map(v => v.value) : []
+          })
+          onSaveBook(postData)
         }) }>Add</Button>
       </div>
     )
@@ -126,7 +121,7 @@ const mapStateToProps = (state, ownProps) => {
   const authorsQuery = _.get(state.form, 'addBook._authorValue.value', '')
 
   return {
-    initialValues: Object.assign({}, getFormValues(state.form.addBook, fields), ownProps.initialData),
+    initialValues: ownProps.initialData,
     routing: state.routing.locationBeforeTransitions,
     doubanBooksAsOptions: selectors.doubanBooksAsOptions(doubanBookQuery)(state),
     authorsAsOptions: selectors.authorsAsOptions(authorsQuery)(state)
