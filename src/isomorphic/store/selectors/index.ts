@@ -17,6 +17,12 @@ export const queryAuthorsSelector = query => selectPaginatedEntities({
   paginationQuery: query
 })
 
+export const searchBooksSelector = query => selectPaginatedEntities({
+  entitiesName: 'books',
+  paginationName: 'books',
+  paginationQuery: query
+})
+
 export const doubanBooksAsOptions = query => createSelector(
   queryDoubanBooksSelector(query),
   books => {
@@ -37,6 +43,16 @@ export const authorsAsOptions = query => createSelector(
   items => {
     return items.map(item => ({
       name: item.name,
+      value: item.id
+    }))
+  }
+)
+
+export const booksSearchAsOptions = query => createSelector(
+  searchBooksSelector(query),
+  items => {
+    return items.map(item => ({
+      name: item.title,
       value: item.id
     }))
   }

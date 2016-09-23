@@ -1,115 +1,57 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, changeValue } from '../../store/actions'
-import { Button, SelectizeInput } from '../../elements/_form'
-import apis from '../../apis'
-import RInput from '../../elements/_wrapped/RInput'
-import RTextarea from '../../elements/_wrapped/RTextarea'
+import { sendNotification, reset, fetchBooks } from '../../store/actions'
 import _ from 'lodash'
-
-const syls = {
-  inputCollectionName: Symbol('inputCollectionName'),
-  inputBookName: Symbol('inputBookName'),
-  textareaCollectionDesc: Symbol('textareaCollectionDesc')
-}
+import AddCollectionForm from './components/AddCollectionForm'
+import apis from '../../apis'
 
 interface Props {
-  elements?: any
-  changeValue?: any
+  session: any
   sendNotification?: any
   notification?: any
-  session?: any
+  reset: any
+  fetchBooks?: (data: fetchBooks) => void
 }
 
-interface State {
-  optionsOfBooks?: Array<any>
-  valuesOfBooks?: Array<any>
-}
-
-class AddCollection extends Component<Props, State> {
-
-  defaultState: {}
+class AddCollection extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
-    this.defaultState = {
-      optionsOfBooks: [],
-      valuesOfBooks: [],
-    }
-    this.state = Object.assign({}, this.defaultState)
-    this.addCollection = this.addCollection.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    this.handleBooksValueChange = this.handleBooksValueChange.bind(this)
   }
 
-  resetForm() {
-    this.props.changeValue(syls.inputCollectionName, '')
-    this.props.changeValue(syls.textareaCollectionDesc, '')
-    this.setState(this.defaultState)
-  }
+  handleSave(data) {
+    const creator = this.props.session.user.id
+    const postData = Object.assign({}, data, {
+      creator
+    })
 
-  addCollection() {
-    let name = this.props.elements[syls.inputCollectionName].value
-    let items = this.state.valuesOfBooks.map(a => a.value) as any
-    let description = this.props.elements[syls.textareaCollectionDesc].value
-    const data = { name, items, description, creator: this.props.session.user.id }
-
-    apis.addCollection(data).then(result => {
+    apis.addCollection(postData).then(result => {
       this.props.sendNotification('添加成功！')
-      this.resetForm()
+      this.props.reset('addCollection')
     }, error => {
       this.props.sendNotification(error.message)
     })
   }
 
-  searchBooks(query) {
-    if (query !== '') {
-      apis.searchBooks(query).then(response => {
-        this.setState({
-          optionsOfBooks: response.map(r => ({
-            name: r.title,
-            value: r.id
-          }))
-        })
+  handleBooksValueChange(newVal) {
+    if (!_.isEmpty(newVal)) {
+      this.props.fetchBooks({
+        q: newVal
       })
     }
-  }
-
-  // searchTags(query) {
-  //   if(query !== '') {
-  //     apis.searchTags(query).then(response => {
-  //       console.log(response)
-  //       this.setState({
-  //         tagResults: response
-  //       })
-  //     })
-  //   }
-  // }
-
-  componentDidMount() {
   }
 
   render() {
     return (
       <form>
         <h1 className="page-title">Add Collection</h1>
-        <RInput symbol={syls.inputCollectionName} placeholder="Name" />
-        <SelectizeInput
-          placeholder="Books"
-          onInputChange={newValue => {
-            this.searchBooks(newValue)
-            this.props.changeValue(syls.inputBookName, newValue)
-          } }
-          value={_.get(this.props.elements[syls.inputBookName], 'value', '')}
-          onValuesChange={newValues => {
-            this.setState({
-              valuesOfBooks: newValues
-            })
-          } }
-          options={this.state.optionsOfBooks}
-          values={this.state.valuesOfBooks}
-        />
-        <RTextarea symbol={syls.textareaCollectionDesc}  placeholder="Description" />
-        <Button onClick={this.addCollection}>Add</Button>
+        <AddCollectionForm
+          onSave={this.handleSave}
+          onBooksValueChange={this.handleBooksValueChange}
+          />
       </form>
     )
   }
@@ -125,5 +67,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue }
+  { sendNotification, reset, fetchBooks }
 )(AddCollection as any)

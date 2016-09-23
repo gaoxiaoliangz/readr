@@ -1,6 +1,8 @@
 import { Schemas } from '../../../schemas'
 import { ApiRoots } from '../../../config'
 import { CALL_API_OBJ } from '../../middleware/api'
+import utils from '../../../utils'
+import _ from 'lodash'
 
 export const BOOKS_REQUEST = 'data-fetching/books/REQUEST'
 export const BOOKS_SUCCESS = 'data-fetching/books/SUCCESS'
@@ -8,17 +10,27 @@ export const BOOKS_FAILURE = 'data-fetching/books/FAILURE'
 export type fetchBooks = {
   page?: number
   merge?: boolean
+  q?: string
 }
-export function fetchBooks(config?: fetchBooks) {
+export function fetchBooks(options?: fetchBooks) {
   const defaultConfig = { page: 1, merge: true }
-  const { page, merge } = Object.assign(defaultConfig, config || {})
+  const mergedOptions = Object.assign(defaultConfig, options || {})
+  const { merge, q } = mergedOptions
+  let queryOptions = _.omit(mergedOptions, ['merge'])
+
+  queryOptions = _.assign({}, queryOptions, {
+    exclude: 'content'
+  })
+
+  const queryString = utils.parseFormData(queryOptions)
   const CALL_API = {
     types: [BOOKS_REQUEST, BOOKS_SUCCESS, BOOKS_FAILURE],
-    endpoint: `books?exclude=content&page=${page}`,
+    endpoint: `books?${queryString}`,
     schema: Schemas.BOOK_ARRAY,
     pagination: {
       name: 'books',
-      merge
+      merge,
+      query: q
     }
   } as CALL_API_OBJ
 
