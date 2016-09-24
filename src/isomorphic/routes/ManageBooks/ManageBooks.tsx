@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocContainer from '../../containers/DocContainer'
+import InfoTable from '../../components/InfoTable'
 import apis from '../../apis'
 import * as selectors from '../../store/selectors'
 import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
 import CSSModules from 'react-css-modules'
+import Icon from '../../elements/Icon'
 const styles = require('./ManageBooks.css')
 
 interface Props {
@@ -28,7 +30,7 @@ class ManageBooks extends Component<Props, any> {
     super(props)
   }
 
-  handleDeleteClick(id, bookName) {
+  deleteBook(id, bookName) {
     this.props.openConfirmModal({
       title: '确认删除',
       content: `将删除《${bookName}》`,
@@ -36,7 +38,7 @@ class ManageBooks extends Component<Props, any> {
         apis.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
-          this.props.fetchBooks({merge: false})
+          this.props.fetchBooks({ merge: false })
         })
       }
     })
@@ -51,34 +53,33 @@ class ManageBooks extends Component<Props, any> {
 
     return (
       <DocContainer title="管理书籍">
-        <table className="info-table">
-          <tbody>
-            <tr>
-              <td>ID</td>
-              <td>Name</td>
-              <td>Date created</td>
-              <td>Actions</td>
-            </tr>
-            {bookListNewest ? bookListNewest.map((book, index) => {
-              return (
-                <tr key={index}>
-                  <td>{book.id}</td>
-                  <td>{book.title}</td>
-                  <td>{book.dateCreated}</td>
-                  <td>
-                    <a
-                      onClick={e => {
-                        e.preventDefault()
-                        this.handleDeleteClick(book.id, book.title)
-                        return false
-                      } }
-                      href="#">Delete</a>
-                  </td>
-                </tr>
-              )
-            }) : null}
-          </tbody>
-        </table>
+        <InfoTable
+          data={bookListNewest.map(item => (Object.assign({}, item, {
+            authors: item.authors.map(author => author.name).join(', ')
+          })))}
+          header={[
+            {
+              key: 'id',
+              name: 'ID'
+            }, {
+              key: 'title',
+              name: 'Title'
+            }, {
+              key: 'dateCreated',
+              name: 'Date created'
+            }, {
+              key: 'authors',
+              name: 'Author(s)'
+            }
+          ]}
+          actions={[{
+            name: 'Delete',
+            fn: row => {
+              this.deleteBook(row.id, row.title)
+            }
+          }]}
+          operationLabel="Actions"
+          />
       </DocContainer>
     )
   }

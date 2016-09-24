@@ -137,32 +137,6 @@
   color: $text-light;
 }
 
-.info-table {
-  margin: 20px 0;
-  width: 100%;
-  line-height: 2.5;
-  font-size: 1rem;
-
-  >tbody {
-    >tr:first-child {
-      border-bottom: 2px solid $text;
-      font-weight: bold;
-      line-height: 2.5
-    }
-
-    >tr {
-      border-bottom: 1px solid $gray;
-      >td {
-        padding: 0 10px;
-      }
-    }
-
-    >tr:nth-child(even) {
-      background: #fff;
-    }
-  }
-}
-
 // page rendering
 .gb-line {
   overflow: hidden;
