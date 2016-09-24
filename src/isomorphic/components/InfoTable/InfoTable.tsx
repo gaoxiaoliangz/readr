@@ -82,12 +82,13 @@ class InfoTable extends Component<IProps, {}> {
                   {
                     actions.length !== 0 && (
                       <td
-                        className="actions"
+                        styleName="actions"
                         >
                         {
                           actions.length !== 0 && actions.map((action, index2) => {
                             return (
                               <div
+                                styleName="action"
                                 key={index2}
                                 onClick={e => {
                                   action.fn(data[index])

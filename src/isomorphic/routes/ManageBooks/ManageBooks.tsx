@@ -52,7 +52,7 @@ class ManageBooks extends Component<Props, any> {
     let bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null
 
     return (
-      <DocContainer title="管理书籍">
+      <DocContainer title="管理书籍" bodyClass="manage-books">
         <InfoTable
           data={bookListNewest.map(item => (Object.assign({}, item, {
             authors: item.authors.map(author => author.name).join(', ')

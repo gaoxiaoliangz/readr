@@ -5,6 +5,7 @@ import ConsoleBranding from '../../components/ConsoleBranding'
 import { userAuth, sendNotification } from '../../store/actions'
 import ConsoleSidebar from '../../components/ConsoleSidebar'
 import menus from '../../content/menus'
+import DocContainer from '../../containers/DocContainer'
 import CSSModules from 'react-css-modules'
 const styles = require('./ConsoleMaster.css')
 
@@ -30,7 +31,7 @@ class Console extends Component<Props, any> {
     let pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console'
 
     return (
-      <div>
+      <DocContainer bodyClass="console">
         <ConsoleBranding isAdmin={isAdmin} username={username} />
         <Container isFluid={true}>
           <ConsoleSidebar
@@ -41,7 +42,7 @@ class Console extends Component<Props, any> {
             {this.props.children}
           </div>
         </Container>
-      </div>
+      </DocContainer>
     )
   }
 }

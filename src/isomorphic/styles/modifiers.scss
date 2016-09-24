@@ -1,10 +1,18 @@
 @import "_variables";
 
+body {
+  background: #f2f2f2;
+}
+
 body.home {
   .colophon {
     border: none;
     margin: 0;
   }
+}
+
+body.console {
+  background: #fff;
 }
 
 .page-collections {
@@ -13,6 +21,3 @@ body.home {
   }
 }
 
-body {
-  background: #f2f2f2;
-}

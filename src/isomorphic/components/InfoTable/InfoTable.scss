@@ -30,9 +30,21 @@
         padding: 0 10px;
       }
     }
+  }
+}
 
-    // >tr:nth-child(even) {
-    //   background: #fff;
-    // }
+.actions {
+  .action {
+    cursor: pointer;
+    color: $blue;
+    display: inline-block;
+
+    &:hover {
+      color: lighten($blue, 20%);
+    }
+
+    &:active {
+      color: darken($blue, 20%);
+    }
   }
 }

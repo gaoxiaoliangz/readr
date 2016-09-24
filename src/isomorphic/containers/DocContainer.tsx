@@ -41,6 +41,11 @@ function reducePropsToState(propsList) {
     }
   }
 
+  data.bodyClass = propsList
+    .filter(prop => prop.bodyClass)
+    .map(prop => prop.bodyClass)
+    .join(' ')
+
   return data
 }
 
