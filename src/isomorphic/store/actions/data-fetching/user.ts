@@ -41,16 +41,6 @@ export function fetchProfile() {
 //   }
 // }
 
-export function fetchUserList() {
-  return {
-    CALL_API: {
-      types: ['USER_LIST_REQUEST', 'USER_LIST_SUCCESS', 'USER_LIST_FAILURE'],
-      endpoint: 'users',
-      schema: Schemas.USER_ARRAY
-    }
-  }
-}
-
 // export function fetchShelf(userId) {
 //   return {
 //     userId,

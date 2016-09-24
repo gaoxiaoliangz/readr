@@ -78,29 +78,6 @@ export function fetchCollection(collectionId) {
   }
 }
 
-// export function fetchBookContent(bookId) {
-//   return {
-//     bookId,
-//     CALL_API: {
-//       types: ['BOOK_CONTENT_REQUEST', 'BOOK_CONTENT_SUCCESS', 'BOOK_CONTENT_FAILURE'],
-//       endpoint: `books/${bookId}/content`,
-//       schema: Schemas.BOOK
-//     }
-//   }
-// }
-//
-// export function fetchBookInfo(bookId) {
-//   return {
-//     bookId,
-//     CALL_API:{
-//       types: ['BOOK_INFO_REQUEST', 'BOOK_INFO_SUCCESS', 'BOOK_INFO_FAILURE'],
-//       endpoint: `books/${bookId}`,
-//       schema: Schemas.BOOK_ARRAY
-//     }
-//   }
-// }
-
-
 export const DOUBAN_BOOK_SEARCH_REQUEST = 'data-fetching/douban-book-search/REQUEST'
 export const DOUBAN_BOOK_SEARCH_SUCCESS = 'data-fetching/douban-book-search/SUCCESS'
 export const DOUBAN_BOOK_SEARCH_FAILURE = 'data-fetching/douban-book-search/FAILURE'
@@ -122,15 +99,3 @@ export function searchDoubanBooks(query) {
     CALL_API
   }
 }
-
-// export function searchBooks(query) {
-//   return {
-//     query,
-//     CALL_API: {
-//       types: ['BOOK_SEARCH_REQUEST', 'BOOK_SEARCH_SUCCESS', 'BOOK_SEARCH_FAILURE'],
-//       endpoint: `search?q=${query}`,
-//       apiUrl: ApiRoots.LOCAL,
-//       schema: Schemas.MATCHED_BOOK_ARRAY
-//     }
-//   }
-// }

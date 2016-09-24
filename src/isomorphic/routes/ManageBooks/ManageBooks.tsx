@@ -6,7 +6,7 @@ import apis from '../../apis'
 import * as selectors from '../../store/selectors'
 import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
 import CSSModules from 'react-css-modules'
-import Icon from '../../elements/Icon'
+// import Icon from '../../elements/Icon'
 const styles = require('./ManageBooks.css')
 
 interface Props {
@@ -52,7 +52,7 @@ class ManageBooks extends Component<Props, any> {
     let bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null
 
     return (
-      <DocContainer title="管理书籍" bodyClass="manage-books">
+      <DocContainer title="书籍管理" bodyClass="manage-books">
         <InfoTable
           data={bookListNewest.map(item => (Object.assign({}, item, {
             authors: item.authors.map(author => author.name).join(', ')

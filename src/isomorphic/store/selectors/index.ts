@@ -67,4 +67,10 @@ export const booksSelector = createSelector(
   books => books
 )
 
+export const usersSelector = selectPaginatedEntities({
+  entitiesName: 'users',
+  paginationName: 'users',
+  paginationKey: 'default'
+})
+
 export * from './common'
