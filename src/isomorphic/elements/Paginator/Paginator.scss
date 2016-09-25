@@ -1,0 +1,18 @@
+@import "styles/_variables";
+
+.paginator {
+ ul {
+   li {
+     display: inline-block;
+     
+   }
+ }
+}
+
+.page-num {
+  background: $gray;
+}
+
+.page-num--current {
+  background: $blue;
+}

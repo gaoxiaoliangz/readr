@@ -19,13 +19,11 @@ const updatePagination = (state = {
     return Object.assign({}, state, {
       isFetching: false,
       ids: !merge
+        // 不使用 union 会导致 server rendering 问题？
         ? _.union(state.ids, action.response.result)
         : action.response.result,
-      // 不使用 union 会导致 server rendering 问题？
-      // ids: action.response.result,
-      nextPageUrl: action.response.nextPageUrl,
-      nextPage: action.response.nextPage,
-      pageCount: state.pageCount + 1
+      next: action.response._next,
+      last: action.response._last,
     })
   }
 }

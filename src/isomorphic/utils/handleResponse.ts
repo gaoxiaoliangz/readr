@@ -3,43 +3,51 @@ import humps from 'humps'
 import parseQueryString from './parseQueryString'
 import _ from 'lodash'
 
-function getNextPage(response) {
-  const empty = { url: '', page: 0 }
+const parseHeaderPageLinkByRel = (links: string, rel: string) => {
+  const link = links.split(',').find(s => s.indexOf(`rel="${rel}"`) > -1)
 
-  if (!response) {
-    return empty
-  }
-
-  const link = response.headers.get('link')
   if (!link) {
-    return empty
+    return undefined
   }
 
-  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
-  if (!nextLink) {
-    return empty
-  }
-
-  const url = nextLink.split(';')[0].trim().slice(1, -1)
-  const page = _.get(parseQueryString(url.split('?')[1] || ''), 'page', 0)
+  const url = link.split(';')[0].trim().slice(1, -1)
 
   return {
-    url,
-    page
+    // todo
+    page: parseInt(_.get(parseQueryString(url.split('?')[1] || ''), 'page', 0) as any, 10),
+    url
   }
+}
+
+function parseResHeaderToPagination(response) {
+  if (!response) {
+    return {}
+  }
+
+  const links = response.headers.get('link')
+  if (!links) {
+    return {}
+  }
+
+  const next = parseHeaderPageLinkByRel(links, 'next')
+  const last = parseHeaderPageLinkByRel(links, 'last')
+
+  return {
+    next,
+    last
+  } as any
 }
 
 function handleResponse({ json, _response }, schema) {
   const camelizedJson = humps.camelizeKeys(json)
+  const { next, last } = parseResHeaderToPagination(_response)
 
   if (typeof schema !== 'undefined') {
-    const { url, page } = getNextPage(_response)
-
     return  Object.assign({},
       normalize(camelizedJson, schema),
       {
-        nextPageUrl: url,
-        nextPage: page
+        _next: next,
+        _last: last
       }
     )
   }

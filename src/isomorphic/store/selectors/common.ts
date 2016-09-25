@@ -7,6 +7,12 @@ const entitiesSelector = name => state => {
 const paginationSelector = (name, key = 'default') => state => {
   return _.get(state.pagination, `${name}.${key}.ids`, [])
 }
+export const paginationLinkSelector = (name, key = 'default') => state => {
+  return {
+    next: _.get(state.pagination, `${name}.${key}.next`, []),
+    last: _.get(state.pagination, `${name}.${key}.last`, [])
+  }
+}
 const queryPaginationSelector = (name, query) => state => {
   return _.get(state.pagination, [name, 'query', query, 'ids'], [])
 }

@@ -5,6 +5,7 @@ import { sendNotification, reset, fetchBooks } from '../../store/actions'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
 import apis from '../../apis'
+import DocContainer from '../../containers/DocContainer'
 
 interface Props {
   session: any
@@ -46,13 +47,13 @@ class AddCollection extends Component<Props, {}> {
 
   render() {
     return (
-      <form>
+      <DocContainer title="添加合集">
         <h1 className="page-title">Add Collection</h1>
         <AddCollectionForm
           onSave={this.handleSave}
           onBooksValueChange={this.handleBooksValueChange}
           />
-      </form>
+      </DocContainer>
     )
   }
 }
