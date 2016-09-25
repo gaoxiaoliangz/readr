@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Paginator from '../../elements/Paginator'
 import { connect } from 'react-redux'
+import * as selectors from '../../store/selectors'
 
 type PaginationLink = {
   page: number
@@ -9,13 +10,17 @@ type PaginationLink = {
 
 interface Props {
   pagination: {
-    next: PaginationLink
-    last: PaginationLink
+    name: string
+    key?: string
   }
 }
 
 interface AllProps extends Props {
   routing: any
+  paginationLinks: {
+    next: PaginationLink
+    last: PaginationLink
+  }
 }
 
 class ContentPage extends Component<AllProps, {}> {
@@ -28,7 +33,7 @@ class ContentPage extends Component<AllProps, {}> {
   }
 
   render() {
-    const { children, routing, pagination: { next, last } } = this.props
+    const { children, routing, paginationLinks: { next, last } } = this.props
 
     return (
       <div>
@@ -46,9 +51,12 @@ class ContentPage extends Component<AllProps, {}> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const { pagination: { name, key } } = ownProps
+
   return {
     routing: state.routing.locationBeforeTransitions,
+    paginationLinks: selectors.paginationLinkSelector(name, key)(state)
   }
 }
 

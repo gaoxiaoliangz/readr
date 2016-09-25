@@ -5,11 +5,12 @@ import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../store/selectors'
 import DocContainer from '../../containers/DocContainer'
 import ContentPage from '../../components/ContentPage'
+import * as helpers from '../../helpers'
 
 interface Props {
   fetchUsers: (options?: fetchUsers) => void
   users: any[]
-  userPaginationLinks: any
+  routing: any
 }
 
 class ManageUsers extends Component<Props, {}> {
@@ -18,17 +19,23 @@ class ManageUsers extends Component<Props, {}> {
     super(props)
   }
 
+  componentWillReceiveProps(nextProps, nextState) {
+    let {users, routing} = this.props
+  }
+
   componentDidMount() {
     this.props.fetchUsers()
   }
 
   render() {
-    let {users, userPaginationLinks} = this.props
+    let {users, routing} = this.props
 
     return (
       <DocContainer title="用户管理">
         <ContentPage
-          pagination={userPaginationLinks}
+          pagination={{
+            name: 'users'
+          }}
           >
           <InfoTable
             data={users}
@@ -42,7 +49,7 @@ class ManageUsers extends Component<Props, {}> {
 function mapStateToProps(state, ownProps) {
   return {
     users: selectors.usersSelector(state),
-    userPaginationLinks: selectors.paginationLinkSelector('users')(state)
+    routing: state.routing.locationBeforeTransitions,
   }
 }
 
