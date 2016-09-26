@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import isDescendant from '../../utils/dom/isDescendant'
+// import $ from 'jquery'
 const styles = require('./Dropdown.scss')
 
 interface IProps {
@@ -41,6 +42,7 @@ class Dropdown extends Component<IProps, IState> {
     // 如果是那么就不做处理，而 toggleDropdown 会响应
     // 解决了页面上同时用两个 dropdown 时，其中一个展开，点击另一个前者不合上的问题
     if (!isDescendant(this.dropdown, e.target)) {
+    // if ($(this.dropdown).find(e.target).length === 0) {
       this.setState({
         showMenu: false
       })
