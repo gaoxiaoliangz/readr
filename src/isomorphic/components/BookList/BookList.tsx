@@ -27,8 +27,8 @@ class BookList extends Component<Props, {}> {
                   <li key={index}>
                     <Book
                       id={book.id}
-                      title={title}
-                      authors={authors.map(author => author.name).join(', ') }
+                      title={title || '无标题'}
+                      authors={authors && authors.map(author => author.name).join(', ') || '未知作者'}
                       description={description}
                       cover={cover}
                       disablePopup

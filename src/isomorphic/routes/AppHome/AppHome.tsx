@@ -104,7 +104,7 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(
+export default connect<{}, {}, {}>(
   mapStateToProps,
   { fetchBooks, fetchCollections, sendNotification }
-)(Home as any)
+)(Home)

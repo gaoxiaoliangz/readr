@@ -20,7 +20,7 @@ const updatePagination = (state = {
   } else {
     return _.omitBy(Object.assign({}, state, {
       isFetching: false,
-      ids: !merge
+      ids: merge
         // 不使用 union 会导致 server rendering 问题？
         ? _.union(state.ids, action.response.result)
         : action.response.result,
@@ -35,7 +35,8 @@ export default function pagination(state = {}, action) {
     const { name, query, key, merge } = action.pagination as Pagination
     const originalState = query
       ? (state[name] && state[name]['query'] && state[name]['query'][query]) || {}
-      : (state[name] && state[name][key]) || {}
+      : (state[name] && state[name][key || 'default']) || {}
+
     const paginationBody = updatePagination(originalState, action, merge)
 
     const paginationObj = query

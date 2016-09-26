@@ -10,6 +10,9 @@ import _ from 'lodash'
 import DocContainer from '../../isomorphic/containers/DocContainer'
 import ServerSideAppRoot from '../../isomorphic/containers/ServerSideAppRoot'
 const fs: any = require('fs')
+import { syncHistoryWithStore } from 'react-router-redux'
+import { createMemoryHistory } from 'react-router'
+import configureStore from '../../isomorphic/store/configureStore'
 
 function getManifest() {
   try {
@@ -35,19 +38,22 @@ type RenderConfig = {
 }
 function renderHtml(config: RenderConfig) {
   const { reqUrl, routes, isProd, fetchData, isHot, userSession } = config
+  const memoryHistory = createMemoryHistory(reqUrl)
+  const store = configureStore()
+  const history = syncHistoryWithStore(memoryHistory, store)
 
-  return matchRoute(routes, reqUrl).then(result => {
+  return matchRoute(routes, reqUrl, history).then(result => {
     const { renderProps, redirectLocation } = result
 
     if (redirectLocation) {
       return Promise.resolve({ redirectLocation }) as any
     }
 
-    return getStore(renderProps, fetchData, userSession).then(store => {
+    return getStore(renderProps, fetchData, userSession, store).then(storeWithFetchedData => {
       const page = (bodyClass, title, appMarkup) => (
         <Page
           title={title}
-          store={store}
+          store={storeWithFetchedData}
           isProd={isProd}
           manifest={isProd && getManifest() }
           includeLocalStylesheets={!isHot}
@@ -60,7 +66,7 @@ function renderHtml(config: RenderConfig) {
         <ServerSideAppRoot
           renderPageContent={fetchData}
           renderProps={result.renderProps}
-          store={store}
+          store={storeWithFetchedData}
           />
       )
 

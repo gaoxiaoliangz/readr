@@ -46,12 +46,16 @@ export default class Book extends Component<IProps, IState> {
   }
 
   render() {
-    const { showDesc, description } = this.props
+    const { showDesc, description, cover } = this.props
 
     return (
       <div onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book--card">
         <Link to={'/book/' + this.props.id} >
-          <div styleName="book-cover"><img src={this.props.cover}/></div>
+          {
+            cover && (
+              <div styleName="book-cover"><img src={this.props.cover}/></div>
+            )
+          }
           <div styleName="book-meta">
             <span title={this.props.title} styleName="book-name">{this.props.title || '无标题'}</span>
             <span styleName="book-author">{this.props.authors || '作者不详'}</span>
@@ -69,7 +73,7 @@ export default class Book extends Component<IProps, IState> {
               title={this.props.title}
               author={this.props.authors}
               description={this.props.description}
-            />
+              />
           )
         }
       </div>

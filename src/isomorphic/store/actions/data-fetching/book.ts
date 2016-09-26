@@ -13,7 +13,7 @@ export type fetchBooks = {
   q?: string
 }
 export function fetchBooks(options?: fetchBooks) {
-  const defaultConfig = { page: 1, merge: true }
+  const defaultConfig = { page: 1, merge: false }
   const mergedOptions = Object.assign(defaultConfig, options || {})
   const { merge, q } = mergedOptions
   let queryOptions = _.omit(mergedOptions, ['merge'])

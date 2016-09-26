@@ -6,9 +6,9 @@ type TResult = {
   redirectLocation?: any
 }
 
-function matchRoute(routes, reqUrl: string): Promise<TResult> {
+function matchRoute(routes, reqUrl: string, history): Promise<TResult> {
   return new Promise((resolve, reject) => {
-    match({ routes, location: reqUrl }, (error, redirectLocation, renderProps) => {
+    match({ history, routes, location: reqUrl }, (error, redirectLocation, renderProps) => {
       if (error) {
         reject(error)
       } else if (redirectLocation) {

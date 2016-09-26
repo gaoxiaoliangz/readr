@@ -51,18 +51,13 @@ class BookDetail extends Component<any, any> {
                 }
               </div>
               <div styleName="right-col">
-                <h1 styleName="book-name">{bookInfo.title}</h1>
+                <h1 styleName="book-name">{bookInfo.title || '无标题'}</h1>
                 <div styleName="book-author">
-                  <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') }</strong>
+                  <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
                 </div>
-                {
-                  bookInfo.title && (
-                    <div>
-                      <Button styleName="btn-read" to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
-                    </div>
-                  )
-                }
-                {/*<p><a target="_blank" href={`http://book.douban.com/subject/${bookInfo.book_id}`}>在豆瓣查看</a></p>*/}
+                <div>
+                  <Button styleName="btn-read" to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
+                </div>
               </div>
             </header>
             {

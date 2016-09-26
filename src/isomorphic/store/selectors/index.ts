@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 import { selectPaginatedEntities } from './common'
+import * as common from './common'
 
 export const queryDoubanBooksSelector = query => createSelector(
   selectPaginatedEntities({
@@ -74,3 +75,4 @@ export const usersSelector = selectPaginatedEntities({
 })
 
 export * from './common'
+export { common }

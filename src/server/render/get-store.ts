@@ -2,11 +2,11 @@
  * Get Redux store tree with initial fetched data
  */
 
-import configureStore from '../../isomorphic/store/configureStore'
+// import configureStore from '../../isomorphic/store/configureStore'
 
-const store = configureStore()
+// const store = configureStore()
 
-function getStore(renderProps, fetchData, userSession) {
+function getStore(renderProps, fetchData, userSession, store) {
   if (fetchData === true) {
     const params = renderProps.params
     const query = renderProps.location.query

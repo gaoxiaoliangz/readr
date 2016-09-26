@@ -11,12 +11,8 @@ $padding-h: 80px;
 }
 
 .book-info-container {
-  width: 850px;
+  max-width: 850px;
   margin: 0 auto;
-
-  // @include tablet {
-  //   width: 200px;
-  // }
 }
 
 .header {
@@ -37,6 +33,7 @@ $padding-h: 80px;
 
 .right-col {
   width: 100%;
+  min-height: 140px;
 }
 
 .book-name {

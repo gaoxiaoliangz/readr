@@ -48,7 +48,8 @@ class ManageBooks extends Component<Props, any> {
 
   loadBooks(props = this.props) {
     this.props.fetchBooks({
-      page: props.routing.query.page || '1'
+      page: props.routing.query.page || '1',
+      merge: false
     })
   }
 
@@ -113,7 +114,7 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(
+export default connect<{}, {}, {}>(
   mapStateToProps,
   { fetchBooks, sendNotification, openConfirmModal, closeConfirmModal }
-)(ManageBooks as any)
+)(ManageBooks)

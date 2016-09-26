@@ -5,11 +5,12 @@ import BookListSection from '../../components/BookListSection'
 import { fetchBooks, fetchCollections } from '../../store/actions'
 import Container from '../../elements/_layout/Container'
 import _ from 'lodash'
+import * as selectors from '../../store/selectors'
 import CSSModules from 'react-css-modules'
 const styles: any = require('./Browse.scss')
 
 interface IProps {
-  fetchBooks: any
+  fetchBooks: (data?: fetchBooks) => void
   newestBooks: any
   nextPage: number
 }
@@ -22,7 +23,7 @@ class Browse extends Component<IProps, {}> {
   }
 
   loadMore(page) {
-    this.props.fetchBooks({ flowType: 'newest', page })
+    this.props.fetchBooks({ merge: true, page })
   }
 
   componentDidMount() {
@@ -54,10 +55,8 @@ class Browse extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: state.pagination.books.newest
-      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
-      : [],
-    nextPage: _.get(state.pagination, 'books.newest.nextPage', 0)
+    newestBooks: selectors.booksSelector(state),
+    nextPage: _.get(selectors.common.paginationLinkSelector('books')(state), 'next.page', 0)
   }
 }
 

@@ -1,5 +1,6 @@
 import errorMessage from './errorMessage'
 import pagination from './pagination'
+import _ from 'lodash'
 
 export { pagination, errorMessage }
 
