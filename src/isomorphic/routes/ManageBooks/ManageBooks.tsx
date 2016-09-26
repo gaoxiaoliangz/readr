@@ -24,8 +24,10 @@ interface Props {
 })
 class ManageBooks extends Component<Props, any> {
 
-  static fetchData({store}) {
-    return store.dispatch(fetchBooks())
+  static fetchData({store, query}) {
+    return store.dispatch(fetchBooks({
+      page: query.page
+    }))
   }
 
   constructor(props) {

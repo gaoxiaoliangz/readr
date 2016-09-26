@@ -18,6 +18,10 @@ interface IProps {
 @CSSModules(styles)
 class Browse extends Component<IProps, {}> {
 
+  static fetchData({store}) {
+    return store.dispatch(fetchBooks())
+  }
+
   constructor(props) {
     super(props)
   }
