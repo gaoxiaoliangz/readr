@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export type Pagination = {
   name: string
   query?: string
@@ -16,7 +18,7 @@ const updatePagination = (state = {
       isFetching: true
     })
   } else {
-    return Object.assign({}, state, {
+    return _.omitBy(Object.assign({}, state, {
       isFetching: false,
       ids: !merge
         // 不使用 union 会导致 server rendering 问题？
@@ -24,7 +26,7 @@ const updatePagination = (state = {
         : action.response.result,
       next: action.response._next,
       last: action.response._last,
-    })
+    }), _.isEmpty)
   }
 }
 

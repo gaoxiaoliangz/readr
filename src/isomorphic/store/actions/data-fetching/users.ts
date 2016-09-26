@@ -7,7 +7,7 @@ export const USERS_REQUEST = 'data-fetching/users/REQUEST'
 export const USERS_SUCCESS = 'data-fetching/users/SUCCESS'
 export const USERS_FAILURE = 'data-fetching/users/FAILURE'
 export type fetchUsers = {
-  api?: { q: string },
+  api?: { q?: string, page?: number },
   merge?: boolean
 }
 export function fetchUsers(options: fetchUsers = {}) {

@@ -18,7 +18,7 @@ interface Props {
 interface AllProps extends Props {
   routing: any
   paginationLinks: {
-    next: PaginationLink
+    next?: PaginationLink
     last: PaginationLink
   }
 }
@@ -34,18 +34,22 @@ class ContentPage extends Component<AllProps, {}> {
 
   render() {
     const { children, routing, paginationLinks: { next, last } } = this.props
+    const all = last && last.page || 1
+    const current = next
+      ? next.page - 1
+      : all
 
     return (
       <div>
         {children}
         <Paginator
-          all={last.page || 1}
-          current={next.page - 1 || 1}
+          all={all}
+          current={current}
           url={{
             pathname: routing.pathname,
             query: routing.query || {}
           }}
-        />
+          />
       </div>
     )
   }

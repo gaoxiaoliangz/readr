@@ -6,7 +6,8 @@ import apis from '../../apis'
 import * as selectors from '../../store/selectors'
 import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
 import CSSModules from 'react-css-modules'
-// import Icon from '../../elements/Icon'
+import ContentPage from '../../components/ContentPage'
+import * as helpers from '../../helpers'
 const styles = require('./ManageBooks.css')
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
   bookListNewest?: any
   openConfirmModal: (data: openConfirmModal) => void
   closeConfirmModal: any
+  routing: any
 }
 
 @CSSModules(styles, {
@@ -44,8 +46,21 @@ class ManageBooks extends Component<Props, any> {
     })
   }
 
+  loadBooks(props = this.props) {
+    this.props.fetchBooks({
+      page: props.routing.query.page || '1'
+    })
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    helpers.onRoutingChange(routing => {
+      document.body.scrollTop = 0
+      this.loadBooks(nextProps)
+    })(nextProps, this.props)
+  }
+
   componentDidMount() {
-    this.props.fetchBooks()
+    this.loadBooks()
   }
 
   render() {
@@ -53,33 +68,39 @@ class ManageBooks extends Component<Props, any> {
 
     return (
       <DocContainer title="书籍管理" bodyClass="manage-books">
-        <InfoTable
-          data={bookListNewest.map(item => (Object.assign({}, item, {
-            authors: item.authors.map(author => author.name).join(', ')
-          })))}
-          header={[
-            {
-              key: 'id',
-              name: 'ID'
-            }, {
-              key: 'title',
-              name: 'Title'
-            }, {
-              key: 'dateCreated',
-              name: 'Date created'
-            }, {
-              key: 'authors',
-              name: 'Author(s)'
-            }
-          ]}
-          actions={[{
-            name: 'Delete',
-            fn: row => {
-              this.deleteBook(row.id, row.title)
-            }
-          }]}
-          operationLabel="Actions"
-          />
+        <ContentPage
+          pagination={{
+            name: 'books'
+          }}
+        >
+          <InfoTable
+            data={bookListNewest.map(item => (Object.assign({}, item, {
+              authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者'
+            }))) }
+            header={[
+              {
+                key: 'id',
+                name: 'ID'
+              }, {
+                key: 'title',
+                name: 'Title'
+              }, {
+                key: 'dateCreated',
+                name: 'Date created'
+              }, {
+                key: 'authors',
+                name: 'Author(s)'
+              }
+            ]}
+            actions={[{
+              name: 'Delete',
+              fn: row => {
+                this.deleteBook(row.id, row.title)
+              }
+            }]}
+            operationLabel="Actions"
+            />
+        </ContentPage>
       </DocContainer>
     )
   }
@@ -88,6 +109,7 @@ class ManageBooks extends Component<Props, any> {
 function mapStateToProps(state, ownProps) {
   return {
     bookListNewest: selectors.booksSelector(state),
+    routing: state.routing.locationBeforeTransitions,
   }
 }
 

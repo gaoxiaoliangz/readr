@@ -1,18 +1,44 @@
 @import "styles/_variables";
 
+%page-num-link {
+  display: inline-block;
+  padding: 8px 12px;
+  color: $text;
+  border: 1px solid $gray;
+  background: #fff;
+  min-width: 37px;
+  text-align: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
 .paginator {
- ul {
-   li {
-     display: inline-block;
-     
-   }
- }
+  margin: 20px 0;
+}
+
+.page-spread {
+  display: inline-block;
+  @extend %page-num-link;
+  cursor: default;
 }
 
 .page-num {
-  background: $gray;
+  display: inline-block;
+  margin: 0 3px;
+
+  a {
+    @extend %page-num-link;
+    
+    &:hover {
+      background: $blue;
+      color: #fff;
+    }
+  }
 }
 
 .page-num--current {
-  background: $blue;
+  @extend %page-num-link;
+  @extend .page-num;
+  background: $gray;
+  cursor: default;
 }

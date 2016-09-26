@@ -136,7 +136,7 @@ class Paginator extends Component<Props, {}> {
                 }
                 if (page.isSpread) {
                   return (
-                    <li key={index} className="page-spread">...</li>
+                    <li key={index} styleName="page-spread">...</li>
                   )
                 }
 

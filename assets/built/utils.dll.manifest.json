@@ -2,7 +2,7 @@
   "name": "_utils_dll",
   "content": {
     "./node_modules/webpack/buildin/module.js": 345,
-    "./node_modules/lodash/index.js": 678,
+    "./node_modules/lodash/lodash.js": 678,
     "./node_modules/jquery/dist/jquery.js": 679,
     "./node_modules/normalizr/lib/index.js": 680,
     "./node_modules/normalizr/lib/EntitySchema.js": 681,

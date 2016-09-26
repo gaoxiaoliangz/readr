@@ -75,7 +75,7 @@ class InfoTable extends Component<IProps, {}> {
                   {
                     _.map(header, (item, key) => {
                       return (
-                        <td key={key}>{row[item.key].toString() }</td>
+                        <td key={key}>{row[item.key] && row[item.key].toString()}</td>
                       )
                     })
                   }

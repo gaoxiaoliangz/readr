@@ -49,7 +49,7 @@
     "immutable": "^3.7.6",
     "isomorphic-fetch": "^2.2.1",
     "jade": "~1.11.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.16.1",
     "marked": "^0.3.6",
     "mongodb": "^2.1.2",
     "mongoose": "^4.4.20",

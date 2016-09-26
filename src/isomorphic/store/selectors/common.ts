@@ -8,10 +8,7 @@ const paginationSelector = (name, key = 'default') => state => {
   return _.get(state.pagination, `${name}.${key}.ids`, [])
 }
 export const paginationLinkSelector = (name, key = 'default') => state => {
-  return {
-    next: _.get(state.pagination, `${name}.${key}.next`, []),
-    last: _.get(state.pagination, `${name}.${key}.last`, [])
-  }
+  return _.pick(_.get(state.pagination, `${name}.${key}`, {}), ['next', 'last'])
 }
 const queryPaginationSelector = (name, query) => state => {
   return _.get(state.pagination, [name, 'query', query, 'ids'], [])
