@@ -48,7 +48,7 @@ class AddCollection extends Component<Props, {}> {
   render() {
     return (
       <DocContainer title="添加合集">
-        <h1 className="page-title">Add Collection</h1>
+        <h1 className="page-title">添加合集</h1>
         <AddCollectionForm
           onSave={this.handleSave}
           onBooksValueChange={this.handleBooksValueChange}

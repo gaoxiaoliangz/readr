@@ -65,7 +65,7 @@ class AddBookForm extends Component<AllProps, {}> {
     return (
       <div>
         <SelectizeInput
-          placeholder="Book title"
+          placeholder="书名"
           onInputChange={newValue => {
             onTitleInputChange(newValue)
             _titleValue.onChange(newValue)
@@ -79,7 +79,7 @@ class AddBookForm extends Component<AllProps, {}> {
           onOptionClick={this.handleTitleOptionClick}
           />
         <SelectizeInput
-          placeholder="Author"
+          placeholder="作者"
           onInputChange={newValue => {
             onAuthorInputChange(newValue)
             _authorValue.onChange(newValue)
@@ -92,7 +92,7 @@ class AddBookForm extends Component<AllProps, {}> {
           values={_authorValues.value || []}
           onAddNewValue={value => {
             this.props.openModal({
-              title: 'Add Author',
+              title: '添加作者',
               content: <AddAuthorForm
                 initialData={{ name: value }}
                 onSave={onSaveAuthor}
@@ -100,9 +100,9 @@ class AddBookForm extends Component<AllProps, {}> {
             })
           } }
           />
-        <Input placeholder="Cover" {...cover} />
-        <Textarea placeholder="Description" {...description} />
-        <Textarea placeholder="Paste book content here (markdown format)" {...content} />
+        <Input placeholder="封面图片地址" {...cover} />
+        <Textarea placeholder="描述" {...description} />
+        <Textarea placeholder="在此粘贴书籍内容 (markdown 格式)" {...content} />
         <Button onClick={handleSubmit(data => {
           let postData = _.pick(data, ['cover', 'description', 'content'])
           postData = _.assign({}, postData, {
@@ -110,7 +110,7 @@ class AddBookForm extends Component<AllProps, {}> {
             authors: Array.isArray(_authorValues.value) ? _authorValues.value.map(v => v.value) : []
           })
           onSaveBook(postData)
-        }) }>Add</Button>
+        }) }>添加</Button>
       </div>
     )
   }

@@ -85,7 +85,7 @@ class Branding extends Component<IProps, IState> {
                     }
                     <Dropdown
                       title={(
-                        <span>{username}{ isAdmin && <span className="badge">Admin</span> }</span>
+                        <span>{username}{ isAdmin && <span className="badge">管理员</span> }</span>
                       ) }
                       >
                       {

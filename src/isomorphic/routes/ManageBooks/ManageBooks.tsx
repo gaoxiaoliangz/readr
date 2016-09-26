@@ -86,22 +86,21 @@ class ManageBooks extends Component<Props, any> {
                 name: 'ID'
               }, {
                 key: 'title',
-                name: 'Title'
+                name: '书名'
               }, {
                 key: 'dateCreated',
-                name: 'Date created'
+                name: '创建日期'
               }, {
                 key: 'authors',
-                name: 'Author(s)'
+                name: '作者'
               }
             ]}
             actions={[{
-              name: 'Delete',
+              name: '删除',
               fn: row => {
                 this.deleteBook(row.id, row.title)
               }
             }]}
-            operationLabel="Actions"
             />
         </ContentPage>
       </DocContainer>

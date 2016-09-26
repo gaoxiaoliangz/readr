@@ -91,7 +91,7 @@ class AddBook extends Component<Props, State> {
   render() {
     return (
       <DocContainer title="添加书籍">
-        <h1 className="page-title">Add Book</h1>
+        <h1 className="page-title">添加书籍</h1>
         <AddBookForm
           onTitleInputChange={this.handleTitleValueChange}
           onAuthorInputChange={this.handleAuthorValueChange}

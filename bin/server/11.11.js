@@ -68,7 +68,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -193,7 +193,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -470,7 +470,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -599,7 +599,7 @@ exports.modules = {
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -650,7 +650,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -795,13 +795,13 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(276);
+	var _reactRedux = __webpack_require__(240);
 	
-	var _actions = __webpack_require__(78);
+	var _actions = __webpack_require__(248);
 	
 	var _form = __webpack_require__(460);
 	

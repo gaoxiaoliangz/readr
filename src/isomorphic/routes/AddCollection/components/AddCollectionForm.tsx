@@ -48,9 +48,9 @@ class AddCollectionForm extends Component<AllProps, State> {
 
     return (
       <div>
-        <Input placeholder="name" {...name} />
+        <Input placeholder="合集名称" {...name} />
         <SelectizeInput
-          placeholder="Books"
+          placeholder="选择书籍"
           onInputChange={newValue => {
             if (onBooksValueChange) {
               onBooksValueChange(newValue)
@@ -64,7 +64,7 @@ class AddCollectionForm extends Component<AllProps, State> {
           />
         <Textarea
           {...description}
-          placeholder="Description"
+          placeholder="描述"
           />
         <Button
           onClick={handleSubmit(data => {
@@ -74,7 +74,7 @@ class AddCollectionForm extends Component<AllProps, State> {
             })
             onSave(postData)
           }) }
-          >Add</Button>
+          >添加</Button>
       </div>
     )
   }

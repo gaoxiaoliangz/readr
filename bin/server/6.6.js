@@ -33,11 +33,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(108);
+	var _reactRouter = __webpack_require__(72);
 	
 	var _BookList = __webpack_require__(454);
 	
@@ -128,7 +128,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -222,11 +222,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(108);
+	var _reactRouter = __webpack_require__(72);
 	
 	var _BookInfoPopup = __webpack_require__(458);
 	
@@ -337,7 +337,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -463,7 +463,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -588,7 +588,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -865,7 +865,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -1130,15 +1130,15 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(110);
+	var _react = __webpack_require__(74);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(276);
+	var _reactRedux = __webpack_require__(240);
 	
 	var _form = __webpack_require__(460);
 	
-	var _actions = __webpack_require__(78);
+	var _actions = __webpack_require__(248);
 	
 	var _BookListSection = __webpack_require__(452);
 	

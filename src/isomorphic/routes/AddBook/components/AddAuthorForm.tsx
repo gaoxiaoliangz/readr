@@ -44,9 +44,9 @@ class AddAuthorForm extends Component<AllProps, State> {
 
     return (
       <div>
-        <Input placeholder="name" {...name} />
-        <Input placeholder="slug" {...slug} />
-        <Input placeholder="description" {...description} />
+        <Input placeholder="名字" {...name} />
+        <Input placeholder="唯一标识" {...slug} />
+        <Input placeholder="描述" {...description} />
         <ModalFooter
           onConfirm={handleSubmit(data => {
             onSave(data)

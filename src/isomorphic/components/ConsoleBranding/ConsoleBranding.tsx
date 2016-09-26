@@ -4,7 +4,6 @@ import Container from '../../elements/_layout/Container'
 import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
 import CSSModules from 'react-css-modules'
 import Logo from '../Logo'
-// const brandingStyles = require('../Branding/Branding.css')
 const styles = require('./ConsoleBranding.scss')
 
 @CSSModules(styles, {
@@ -35,7 +34,7 @@ class ConsoleBranding extends Component<any, any> {
           <div>
             <Logo to="/console" />
             <div styleName="sub-name">
-              <span styleName="sub">Console</span>
+              <span styleName="sub">控制台</span>
             </div>
             <div styleName="nav right">
               {
@@ -43,7 +42,7 @@ class ConsoleBranding extends Component<any, any> {
                   <Dropdown
                     style="dark"
                     title={(
-                      <span>{username}{ isAdmin && <span className="badge badge--dark">Admin</span> }</span>
+                      <span>{username}{ isAdmin && <span className="badge badge--dark">管理员</span> }</span>
                     ) }
                     >
                     <DropdownItem><Link to="/">回到 Readr</Link></DropdownItem>
