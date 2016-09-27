@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 // todo
-export default function objectToUrlencoded(originalObj) {
+export default function parseUrlencoded(originalObj) {
   if (_.isEmpty(originalObj)) {
     return ''
   }
@@ -14,7 +14,7 @@ export default function objectToUrlencoded(originalObj) {
       object[prop] = object[prop].toString()
     }
 
-    encodedurl = `${encodedurl}${prop}=${object[prop]}&`
+    encodedurl = `${encodedurl}${prop}=${encodeURI(object[prop])}&`
   }
 
   return encodedurl.substr(0, encodedurl.length - 1)

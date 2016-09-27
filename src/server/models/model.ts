@@ -74,12 +74,16 @@ class Model {
 
     return db.getCollection(this.tableName).then(collection => {
       return collection.find(match).toArray()
+    }, error => {
+      throw error
     })
   }
 
   list() {
     return this.listRaw().then(results => {
       return embedRef(results, this.schema)
+    }, error => {
+      throw error
     })
   }
 

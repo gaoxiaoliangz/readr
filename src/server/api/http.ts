@@ -2,6 +2,7 @@ import _ from 'lodash'
 import i18n from '../utils/i18n'
 import print from '../utils/print'
 import parseFormData from '../../isomorphic/utils/parseFormData'
+import { ApiRoots } from '../../isomorphic/config'
 
 function parsePagination({ fullPath, query }, { current, all }) {
   const links = {
@@ -33,13 +34,15 @@ function done(req, res) {
       res.status(201).send(result)
     } else {
       if (result._pagination) {
-        const host = 'http://readrweb.com'
+        const host = ApiRoots.LOCAL.substr(0, ApiRoots.LOCAL.length - 1)
 
         res.links(parsePagination({
           fullPath: host + req.path,
           query: req.query,
         }, result._pagination))
+
         res.status(200).send(result._response)
+        return false
       }
 
       res.status(200).send(result)

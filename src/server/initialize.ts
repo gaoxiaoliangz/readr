@@ -26,7 +26,7 @@ export default function initialize(basePath) {
     store: new MongoStore({ url: config.db.host + 'readr_session' })
   }))
 
-  // it won't work if placed in the wrong position
+  // 需要放在开始的位置
   if (runtimeOptions.hmr) {
     app.use(hotModuleReplacement())
   }
@@ -34,8 +34,6 @@ export default function initialize(basePath) {
   app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
   app.use(bodyParser.json({ limit: '5mb' }))
   app.use(cookieParser())
-  app.set('views', path.join(basePath, 'src/client/views'))
-  app.set('view engine', 'jade')
   app.use(express.static(path.join(basePath, 'assets')))
 
   // log error info
