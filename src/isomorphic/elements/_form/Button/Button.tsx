@@ -63,7 +63,7 @@ class Button extends Component<IProps, IState> {
     }
 
     const props = _(this.props)
-      .omit(['to', 'color', 'size', 'isFluid', 'width'])
+      .omit(['to', 'color', 'size', 'isFluid', 'width', 'styles'])
       .assign({}, {
         className: className || '',
         onClick,
