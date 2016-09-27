@@ -5,10 +5,10 @@ import user from './user'
 import users from './users'
 import http from './http'
 
-export default _.assign({}, {
+export default {
   books,
   user,
   users,
   http,
   basic
-})
+}

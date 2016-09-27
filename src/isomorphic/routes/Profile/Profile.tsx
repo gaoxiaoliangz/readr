@@ -7,6 +7,7 @@ import { Button } from '../../elements/_form'
 import { Tab, Tabs } from '../../elements/Tab'
 import Container from '../../elements/_layout/Container'
 import CSSModules from 'react-css-modules'
+import _ from 'lodash'
 const styles: any = require('./_profile.scss')
 
 interface IProps {
