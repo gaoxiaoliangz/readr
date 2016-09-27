@@ -8,6 +8,7 @@ import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } fro
 import CSSModules from 'react-css-modules'
 import ContentPage from '../../components/ContentPage'
 import * as helpers from '../../helpers'
+import moment from 'moment'
 const styles = require('./ManageBooks.css')
 
 interface Props {
@@ -78,7 +79,8 @@ class ManageBooks extends Component<Props, any> {
         >
           <InfoTable
             data={bookListNewest.map(item => (Object.assign({}, item, {
-              authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者'
+              authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者',
+              dateCreated: moment(new Date(item.dateCreated).valueOf()).format('YYYY年MM月DD日')
             }))) }
             header={[
               {

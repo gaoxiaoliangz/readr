@@ -6,6 +6,7 @@ import * as selectors from '../../store/selectors'
 import DocContainer from '../../containers/DocContainer'
 import ContentPage from '../../components/ContentPage'
 import * as helpers from '../../helpers'
+import moment from 'moment'
 
 interface Props {
   fetchUsers: (options?: fetchUsers) => void
@@ -49,7 +50,9 @@ class ManageUsers extends Component<Props, {}> {
           }}
           >
           <InfoTable
-            data={users}
+            data={users.map(user => (Object.assign({}, user, {
+              dateCreated: moment(new Date(user.dateCreated).valueOf()).format('YYYY年MM月DD日')
+            })))}
             />
         </ContentPage>
       </DocContainer>
