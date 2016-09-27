@@ -14,13 +14,13 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(242);
+	var _reactRedux = __webpack_require__(243);
 	
-	var _actions = __webpack_require__(250);
+	var _actions = __webpack_require__(251);
 	
 	var _selectors = __webpack_require__(451);
 	
@@ -30,7 +30,7 @@ exports.modules = {
 	
 	var _BookListSection2 = _interopRequireDefault(_BookListSection);
 	
-	var _DocContainer = __webpack_require__(239);
+	var _DocContainer = __webpack_require__(240);
 	
 	var _DocContainer2 = _interopRequireDefault(_DocContainer);
 	
@@ -345,11 +345,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(72);
+	var _reactRouter = __webpack_require__(73);
 	
 	var _BookList = __webpack_require__(456);
 	
@@ -440,7 +440,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -534,11 +534,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(72);
+	var _reactRouter = __webpack_require__(73);
 	
 	var _BookInfoPopup = __webpack_require__(460);
 	
@@ -649,7 +649,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -775,7 +775,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -900,7 +900,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -1177,7 +1177,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(74);
+	var _react = __webpack_require__(75);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
