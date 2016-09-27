@@ -1,5 +1,6 @@
 import utils from '../utils'
 import errors from '../errors'
+import _ from 'lodash'
 
 const reduceTasks = utils.reduceTasks
 const i18n = utils.i18n
@@ -9,7 +10,7 @@ export default function validate(data, schema, isEditing?): any {
     return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.emptyObject')))
   }
 
-  const suppliedFields = Object.keys(data)
+  const suppliedFields = Object.keys(data).filter(key => !_.isEmpty(data[key]))
   const allFields = Object.keys(schema.fields)
   const requiredFields = allFields.filter(key => Boolean(schema.fields[key].required))
   const unsupportedFields = suppliedFields.filter(key => allFields.indexOf(key) === -1)
