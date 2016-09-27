@@ -1,5 +1,4 @@
 // # 构建开发环境脚本
-// const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const base = require('./webpack/webpack.base.config')
 const paths = base.vars.paths

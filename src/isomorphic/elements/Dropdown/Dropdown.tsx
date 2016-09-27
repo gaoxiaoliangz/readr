@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import isDescendant from '../../utils/dom/isDescendant'
-// import $ from 'jquery'
 const styles = require('./Dropdown.scss')
 
 interface IProps {
@@ -27,43 +26,41 @@ class Dropdown extends Component<IProps, IState> {
     this.state = {
       showMenu: false
     }
-    this.toggleDropdown = this.toggleDropdown.bind(this)
-    this.hideExpended = this.hideExpended.bind(this)
+    this.handleGlobalClick = this.handleGlobalClick.bind(this)
   }
 
-  toggleDropdown(e) {
-    this.setState({
-      showMenu: !this.state.showMenu
-    })
-  }
-
-  hideExpended(e) {
+  handleGlobalClick(e) {
     // 检查点击的 dom 是否是 dropdown 的子元素
     // 如果是那么就不做处理，而 toggleDropdown 会响应
     // 解决了页面上同时用两个 dropdown 时，其中一个展开，点击另一个前者不合上的问题
     if (!isDescendant(this.dropdown, e.target)) {
-    // if ($(this.dropdown).find(e.target).length === 0) {
       this.setState({
         showMenu: false
+      })
+    } else {
+      // 如果使用了原生事件，尽量不要混合使用 synthetic 事件，react 的生产版本似乎会出现相关的 bug
+      this.setState({
+        showMenu: !this.state.showMenu
       })
     }
   }
 
   componentDidMount() {
-    window.addEventListener('click', this.hideExpended)
+    window.addEventListener('click', this.handleGlobalClick)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('click', this.hideExpended)
+    window.removeEventListener('click', this.handleGlobalClick)
   }
 
   render() {
     const { className, style } = this.props
 
     return (
-      <div ref={ref => { this.dropdown = ref } } onClick={this.toggleDropdown} styleName="dropdown" className={className || ''}>
+      <div ref={ref => { this.dropdown = ref } } styleName="dropdown" className={className || ''}>
         <span styleName="dropdown-toggle">
-          {this.props.title} <span styleName="dropdown-caret" />
+          <span>{this.props.title}</span>
+          <span styleName="dropdown-caret"/>
         </span>
         {
           this.state.showMenu && (

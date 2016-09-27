@@ -15,6 +15,9 @@ module.exports = {
     filename: '[name].[chunkhash:10].js',
     publicPath: '/built/'
   },
+  // externals: {
+  //   'react': 'React'
+  // },
   plugins: [
     base.plugins.occurenceOrder,
     base.plugins.envProd,

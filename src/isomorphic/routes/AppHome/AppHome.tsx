@@ -82,7 +82,7 @@ class Home extends Component<IAllProps, IState> {
         }
         <Container>
           <BookListSection
-            bookEntities={newestBooks.slice(0, 6)}
+            bookEntities={newestBooks.slice(0, 6) }
             title="新书速递"
             moreLink="/browse"
             />
