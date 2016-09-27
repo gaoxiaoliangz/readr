@@ -24,7 +24,7 @@ export const selectPaginatedEntities = (options: SelectPaginatedEntitiesOptions)
   const {entitiesName, paginationName, paginationKey, paginationQuery} = options
   let pagiSelector: (state: any) => any[]
 
-  if (paginationQuery) {
+  if (paginationQuery || paginationQuery === '') {
     pagiSelector = queryPaginationSelector(paginationName, paginationQuery)
   } else {
     pagiSelector = paginationSelector(paginationName, paginationKey)
