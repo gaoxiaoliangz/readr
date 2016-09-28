@@ -1,6 +1,6 @@
 import express from 'express'
 import session from 'express-session'
-import routes from './routes/index.ts'
+import routes from './routes'
 import bootServer from './bootstrap'
 import config from './config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
