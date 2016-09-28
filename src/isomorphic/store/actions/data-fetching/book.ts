@@ -39,6 +39,9 @@ export function fetchBooks(options?: fetchBooks) {
   }
 }
 
+export const BOOK_REQUEST = 'data-fetching/book/REQUEST'
+export const BOOK_SUCCESS = 'data-fetching/book/SUCCESS'
+export const BOOK_FAILURE = 'data-fetching/book/FAILURE'
 export function fetchBook(bookId, fields?: Array<any>) {
   let endpoint = `books/${bookId}`
 
@@ -46,13 +49,16 @@ export function fetchBook(bookId, fields?: Array<any>) {
     endpoint += `?fields=${fields.join(',')}`
   }
 
+  const CALL_API = {
+    types: [BOOK_REQUEST, BOOK_SUCCESS, BOOK_FAILURE],
+    endpoint,
+    schema: Schemas.BOOK,
+    cacheKey: bookId
+  } as CALL_API_OBJ
+
   return {
     bookId,
-    CALL_API: {
-      types: ['BOOK_REQUEST', 'BOOK_SUCCESS', 'BOOK_FAILURE'],
-      endpoint,
-      schema: Schemas.BOOK
-    }
+    CALL_API
   }
 }
 
