@@ -70,7 +70,12 @@ const reactKit = [
   'react-css-modules',
   'react-side-effect',
   'react-router-redux',
+  'immutable',
+  'react-motion',
+  'redux-form',
+  'reselect'
 ]
+
 const reactDevKit = [
   'redux-devtools-log-monitor',
   'redux-devtools-dock-monitor',
@@ -82,6 +87,9 @@ const utils = [
   'normalizr',
   'humps',
   'isomorphic-fetch',
+  'classnames',
+  'marked',
+  'moment',
 ]
 
 module.exports = {
