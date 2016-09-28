@@ -62,6 +62,11 @@ class AddBookForm extends Component<AllProps, {}> {
       onSaveBook
     } = this.props
 
+    const selectedAuthorIds = (_authorValues.value || []).map(author => author.value)
+    const filteredAuthorOptions = authorsAsOptions.filter(author => {
+      return selectedAuthorIds.indexOf(author.value) === -1
+    })
+
     return (
       <div>
         <SelectizeInput
@@ -88,7 +93,7 @@ class AddBookForm extends Component<AllProps, {}> {
           onValuesChange={newValues => {
             _authorValues.onChange(newValues)
           } }
-          options={authorsAsOptions}
+          options={filteredAuthorOptions}
           values={_authorValues.value || []}
           onAddNewValue={value => {
             this.props.openModal({

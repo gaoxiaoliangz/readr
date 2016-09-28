@@ -8,6 +8,7 @@ type TProps = {
   initialState?: any
   bodyClass?: string
   appMarkup: string
+  useFavicon?: boolean
 }
 
 const assetPrefix = '/built'
@@ -31,7 +32,7 @@ function Script(props: TScriptProps) {
 }
 
 function Html(props: TProps) {
-  const { title, styles, scripts, initialState, bodyClass, appMarkup } = props
+  const { title, styles, scripts, initialState, bodyClass, appMarkup, useFavicon } = props
 
   return (
     <html>
@@ -39,6 +40,10 @@ function Html(props: TProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta name="description" content="The next generation online reading app." />
+        <link rel="shortcut icon" type="image/png" href="/pictures/apple-touch-icon-60x60-1.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/pictures/apple-touch-icon-60x60-1.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
         <title>{title}</title>
         {
           styles && styles.map((stylesheetName, index) => {

@@ -38,7 +38,7 @@ class ConsoleBranding extends Component<any, any> {
             </div>
             <div styleName="nav right">
               {
-                username ? (
+                username && (
                   <Dropdown
                     style="dark"
                     title={(
@@ -51,16 +51,7 @@ class ConsoleBranding extends Component<any, any> {
                     <DropdownItemSep />
                     <DropdownItem><a href="/logout">退出</a></DropdownItem>
                   </Dropdown>
-                ) : (
-                    <ul className="nav-links">
-                      <li>
-                        <Link to="/signin">登录</Link>
-                      </li>
-                      <li>
-                        <Link to="/signup">注册</Link>
-                      </li>
-                    </ul>
-                  )
+                )
               }
             </div>
           </div>

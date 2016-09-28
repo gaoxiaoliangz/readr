@@ -62,7 +62,7 @@ class SelectizeInput extends Component<IProps, IState> {
     }
     this.handleOutsideClick = this.handleOutsideClick.bind(this)
     this.focusInput = this.focusInput.bind(this)
-    this.handleInputWrapClick = this.handleInputWrapClick.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   addValue(newValue) {
@@ -76,6 +76,16 @@ class SelectizeInput extends Component<IProps, IState> {
     if (typeof this.props.stayFocused === 'undefined' || this.props.stayFocused !== false) {
       this.focusInput()
     }
+    this.hideOptions()
+  }
+
+  showOptions() {
+    this.setState({
+      showOptions: true
+    })
+  }
+
+  hideOptions() {
     this.setState({
       showOptions: false
     })
@@ -119,24 +129,31 @@ class SelectizeInput extends Component<IProps, IState> {
     // }
   }
 
+  handleInputChange(e) {
+    this.props.onInputChange(e.target.value)
+    if ((this.props.options || []).length !== 0) {
+      this.showOptions()
+    }
+  }
+
   focusInput() {
     this.input.focus()
   }
 
   handleOutsideClick(e) {
-    if (!isDescendant(this.inputWrap, e.target)) {
-      this.setState({
-        showOptions: false
-      })
+    if (isDescendant(this.inputWrap, e.target) || this.inputWrap === e.target) {
+      this.focusInput()
+      this.showOptions()
+    } else {
+      this.hideOptions()
     }
   }
 
-  handleInputWrapClick() {
-    this.focusInput()
-
-    this.setState({
-      showOptions: true
-    })
+  componentWillReceiveProps(nextProps) {
+    const optionsLoaded = (nextProps.options || []).length !== 0 && (this.props.options || []).length === 0
+    if (optionsLoaded && this.state.focus) {
+      this.showOptions()
+    }
   }
 
   componentDidMount() {
@@ -171,7 +188,6 @@ class SelectizeInput extends Component<IProps, IState> {
         }
         <div
           styleName={selectizeInputStyleName}
-          onClick={this.handleInputWrapClick}
           ref={ref => { this.inputWrap = ref } }
           >
           {
@@ -202,9 +218,7 @@ class SelectizeInput extends Component<IProps, IState> {
             onFocus={e => {
               this.setState({ focus: true })
             } }
-            onChange={e => {
-              this.props.onInputChange((e.target as any).value)
-            } }
+            onChange={this.handleInputChange}
             onKeyDown={e => {
               this.handleKeyPress(e)
             } }
