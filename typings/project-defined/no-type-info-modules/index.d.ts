@@ -1,8 +1,3 @@
-declare module "react-side-effect" {
-  var noTypeInfoYet: any
-  export = noTypeInfoYet
-}
-
 declare module "humps" {
   var noTypeInfoYet: any
   export = noTypeInfoYet

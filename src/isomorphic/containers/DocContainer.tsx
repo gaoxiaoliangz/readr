@@ -65,7 +65,7 @@ function handleStateChangeOnClient(propList) {
   }
 }
 
-export default withSideEffect(
+export default withSideEffect<Props>(
   reducePropsToState,
   handleStateChangeOnClient
 )(DocContainer)
