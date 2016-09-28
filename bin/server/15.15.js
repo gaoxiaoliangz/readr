@@ -732,7 +732,7 @@ exports.modules = {
 
 /***/ },
 
-/***/ 553:
+/***/ 554:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -755,7 +755,7 @@ exports.modules = {
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _AddCollectionForm = __webpack_require__(554);
+	var _AddCollectionForm = __webpack_require__(555);
 	
 	var _AddCollectionForm2 = _interopRequireDefault(_AddCollectionForm);
 	
@@ -834,7 +834,7 @@ exports.modules = {
 
 /***/ },
 
-/***/ 554:
+/***/ 555:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

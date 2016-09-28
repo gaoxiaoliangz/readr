@@ -40,9 +40,9 @@ class Branding extends Component<IProps, IState> {
     })
   }
 
-  handleLogoutClick() {
+  handleLogoutClick(e) {
     this.props.onLogout()
-    return false
+    e.preventDefault()
   }
 
   render() {

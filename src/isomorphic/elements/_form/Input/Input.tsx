@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-const styles = require('./Input.css')
+import classnames from 'classnames'
+const styles = require('./Input.scss')
 
 export interface Props {
   className?: string
@@ -9,6 +10,8 @@ export interface Props {
   value?: string
   type?: string
   name?: string
+  error?: any
+  touched?: boolean
 }
 
 @CSSModules(styles, {
@@ -22,9 +25,12 @@ class Input extends Component<Props, any> {
   render() {
     let props = Object.assign({}, this.props)
     delete props.className
+    const { error, touched } = this.props
+
+    const showError = error && touched
 
     return (
-      <div styleName="input-wrap" className={this.props.className || ''}>
+      <div styleName={classnames({'input-wrap': !showError, 'input-wrap--error': showError})} className={this.props.className || ''}>
         <input
           styleName="input"
           placeholder={this.props.placeholder}
@@ -35,6 +41,11 @@ class Input extends Component<Props, any> {
           type={this.props.type ? this.props.type : 'text'}
           name={this.props.name ? this.props.name : null}
         />
+        {
+          showError && (
+            <div styleName="error-msg">{error}</div>
+          )
+        }
       </div>
     )
   }

@@ -1,7 +1,8 @@
 @import "styles/variables.css";
 
 .textarea-wrap {
-  composes: input-wrap from "../Input/Input.css";
+  margin: 10px 0;
+  position: relative;
 }
 
 .textarea {

@@ -732,7 +732,7 @@ exports.modules = {
 
 /***/ },
 
-/***/ 549:
+/***/ 550:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -765,7 +765,7 @@ exports.modules = {
 	
 	var _DocContainer2 = _interopRequireDefault(_DocContainer);
 	
-	var _AddBookForm = __webpack_require__(550);
+	var _AddBookForm = __webpack_require__(551);
 	
 	var _AddBookForm2 = _interopRequireDefault(_AddBookForm);
 	
@@ -869,7 +869,7 @@ exports.modules = {
 
 /***/ },
 
-/***/ 550:
+/***/ 551:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -906,7 +906,7 @@ exports.modules = {
 	
 	var _form = __webpack_require__(462);
 	
-	var _AddAuthorForm = __webpack_require__(551);
+	var _AddAuthorForm = __webpack_require__(552);
 	
 	var _AddAuthorForm2 = _interopRequireDefault(_AddAuthorForm);
 	
@@ -1039,7 +1039,7 @@ exports.modules = {
 
 /***/ },
 
-/***/ 551:
+/***/ 552:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
