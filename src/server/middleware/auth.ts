@@ -2,12 +2,12 @@ import _ from 'lodash'
 import errors from '../errors'
 import i18n from '../utils/i18n'
 import models from '../models'
-import API from '../api'
+import api from '../api'
 import humps from 'humps'
 
 const auth = {
   basic(req, res) {
-    return API.http(parsedReq => {
+    return api.http(parsedReq => {
       const login = parsedReq.body.login ? parsedReq.body.login.toLowerCase() : undefined
       const password = parsedReq.body.password
 
@@ -19,7 +19,9 @@ const auth = {
         return Promise.reject(new errors.ValidationError(i18n('errors.validation.preCheck.missRequiredFields', 'password')))
       }
 
-      return models.user.find({ $or: [{ slug: login, password }, { email: login, password }] }).listRaw().then(result => {
+      const match = { $or: [{ username: login, password }, { email: login, password }] }
+
+      return models.user.find(match).listRaw().then(result => {
         if (result.length === 0) {
           return Promise.reject(new errors.UnauthorizedError(i18n('errors.middleware.auth.wrongCombination')))
         }
