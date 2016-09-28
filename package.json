@@ -76,7 +76,8 @@
     "source-map-support": "^0.4.2",
     "validator": "^5.4.0",
     "webpack": "^1.13.1",
-    "whatwg-fetch": "^0.11.0"
+    "whatwg-fetch": "^0.11.0",
+    "colors": "^1.1.2"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^1.1.1",
@@ -90,7 +91,6 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
     "codelyzer": "0.0.23",
-    "colors": "^1.1.2",
     "css-loader": "^0.23.1",
     "eslint": "^2.12.0",
     "eslint-config-airbnb": "^9.0.1",
