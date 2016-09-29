@@ -21,6 +21,9 @@ export default store => next => action => {
     // return false
   }
 
+
+
+
   if (action.cacheKey && isSuccessAction(action)) {
     cacheResponseAction(action)
     next(action)

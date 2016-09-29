@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import {ApiRoots} from '../../config'
-import callApi from '../../utils/callApi'
 import { sendNotification, userAuth } from '../../store/actions'
 import DocContainer from '../../containers/DocContainer'
 import SigninForm from './components/SigninForm'
+import * as api from '../../api'
 
 interface Props {
   sendNotification?: any
@@ -19,7 +18,8 @@ class Signin extends Component<Props, {}> {
   }
 
   handleSubmit(data) {
-    callApi(`${ApiRoots.LOCAL}auth`, { method: 'POST', data }).then(res => {
+    // console.log(api.userLogin(data))
+    api.userLogin(data).then(res => {
       this.props.sendNotification('登录成功！', 'success', 1500)
       this.props.userAuth().then(() => {
         setTimeout(() => {

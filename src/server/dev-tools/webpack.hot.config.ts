@@ -34,7 +34,7 @@ const webpackConfig: any = {
       base.loaders.babel,
       base.loaders.ts({
         isHot: true,
-        officialLoader: true
+        officialLoader: false
       })
     ]
   },
