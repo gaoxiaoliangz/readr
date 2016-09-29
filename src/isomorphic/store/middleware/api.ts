@@ -20,7 +20,6 @@ export type CALL_API_OBJ = {
   schema?: any
   options?: CallApiOptions
   pagination?: Pagination
-  cacheKey?: string
 }
 
 export default store => next => action => {
@@ -51,10 +50,6 @@ export default store => next => action => {
     },
     hasPagination: Boolean(pagination)
   }))
-
-  next({
-    type: 'cache!!!'
-  })
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())

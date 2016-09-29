@@ -73,7 +73,8 @@ const reactKit = [
   'immutable',
   'react-motion',
   'redux-form',
-  'reselect'
+  'reselect',
+  'redux-saga'
 ]
 
 const reactDevKit = [

@@ -23,18 +23,21 @@ export function fetchBooks(options?: fetchBooks) {
   })
 
   const queryString = utils.parseFormData(queryOptions)
-  const CALL_API = {
-    types: [BOOKS_REQUEST, BOOKS_SUCCESS, BOOKS_FAILURE],
-    endpoint: `books?${queryString}`,
-    schema: Schemas.BOOK_ARRAY,
-    pagination: {
+  const pagination = {
       name: 'books',
       merge,
       query: q
     }
-  } as CALL_API_OBJ
+
+  const CALL_API: CALL_API_OBJ = {
+    types: [BOOKS_REQUEST, BOOKS_SUCCESS, BOOKS_FAILURE],
+    endpoint: `books?${queryString}`,
+    schema: Schemas.BOOK_ARRAY,
+    pagination
+  }
 
   return {
+    cacheKey: pagination,
     CALL_API
   }
 }
@@ -49,12 +52,11 @@ export function fetchBook(bookId, fields?: Array<any>) {
     endpoint += `?fields=${fields.join(',')}`
   }
 
-  const CALL_API = {
+  const CALL_API: CALL_API_OBJ = {
     types: [BOOK_REQUEST, BOOK_SUCCESS, BOOK_FAILURE],
     endpoint,
-    schema: Schemas.BOOK,
-    cacheKey: bookId
-  } as CALL_API_OBJ
+    schema: Schemas.BOOK
+  }
 
   return {
     bookId,

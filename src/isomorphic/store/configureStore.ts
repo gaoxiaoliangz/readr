@@ -7,6 +7,7 @@ import handleServerStore from './middleware/handleServerStore'
 import handleInitialState from '../utils/handleInitialState'
 import logActionTypes from './middleware/logActionTypes'
 import createLogger from 'redux-logger'
+import middleware from './middleware'
 
 const env = process.env.NODE_ENV
 
@@ -25,7 +26,7 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       {},
-      applyMiddleware(handleServerStore, api, modifyResponse, thunk, logActionTypes)
+      applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, thunk, logActionTypes)
     )
 
     return store
@@ -35,14 +36,14 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       handleInitialState(),
-      applyMiddleware(handleServerStore, api, modifyResponse, thunk)
+      applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, thunk)
     )
   } else {
     store = createStore(
       rootReducer,
       handleInitialState(),
       compose(
-        applyMiddleware(handleServerStore, api, modifyResponse, thunk, createLogger({collapsed: true}))
+        applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, thunk, createLogger({collapsed: true}))
       )
     )
   }
