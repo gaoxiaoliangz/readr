@@ -26,3 +26,15 @@ type FetchDataOptions = {
   query: any
   userSession: any
 }
+
+
+/**
+ * modified interface
+ */
+interface NodeModule {
+  hot: any
+}
+
+interface M_ReduxStore extends Redux.Store<{}> {
+  runSaga: any
+}

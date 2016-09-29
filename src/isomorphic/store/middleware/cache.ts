@@ -15,14 +15,19 @@ const cacheResponseAction = action => {
 
 export default store => next => action => {
   if (action.cacheKey) {
+
+    function* gen() {
+      yield 1
+    }
+
+    const fuck = gen()
+    console.log(fuck.next())
+
     next({
       type: 'cache'
     })
     // return false
   }
-
-
-
 
   if (action.cacheKey && isSuccessAction(action)) {
     cacheResponseAction(action)

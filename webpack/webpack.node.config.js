@@ -4,7 +4,7 @@ const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    index: [`${paths.server}/index`]
+    index: ['babel-polyfill', `${paths.server}/index`]
   },
   output: {
     path: `${paths.root}/bin/server`,

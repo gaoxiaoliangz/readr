@@ -8,45 +8,47 @@ import handleInitialState from '../utils/handleInitialState'
 import logActionTypes from './middleware/logActionTypes'
 import createLogger from 'redux-logger'
 import middleware from './middleware'
-
-const env = process.env.NODE_ENV
+import createSagaMiddleware, { END } from 'redux-saga'
 
 export default function configureStore() {
-  let store
+  const sagaMiddleware = createSagaMiddleware()
+  let store = {} as Redux.Store<{}>
 
-  // if(module.hot) {
-  //   module.hot.accept('../reducers', () => {
-  //     const nextRootReducer = require('../reducers').default
-  //     store.replaceReducer(nextRootReducer)
-  //   })
-  // }
-
-  // server side
   if (typeof window === 'undefined') {
+    // server side
     store = createStore(
       rootReducer,
       {},
-      applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, thunk, logActionTypes)
-    )
-
-    return store
-  }
-
-  if (env === 'production') {
-    store = createStore(
-      rootReducer,
-      handleInitialState(),
-      applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, thunk)
+      applyMiddleware(sagaMiddleware, handleServerStore, middleware.cache, api, modifyResponse, thunk, logActionTypes)
     )
   } else {
-    store = createStore(
-      rootReducer,
-      handleInitialState(),
-      compose(
-        applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, thunk, createLogger({collapsed: true}))
+    // client side
+    if (process.env.NODE_ENV === 'production') {
+      store = createStore(
+        rootReducer,
+        handleInitialState(),
+        applyMiddleware(sagaMiddleware, handleServerStore, middleware.cache, api, modifyResponse, thunk)
       )
-    )
+    } else {
+      store = createStore(
+        rootReducer,
+        handleInitialState(),
+        compose(
+          applyMiddleware(sagaMiddleware, handleServerStore, middleware.cache, api, modifyResponse, thunk, createLogger({ collapsed: true }))
+        )
+      )
+    }
   }
 
-  return store
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = (require('./reducers') as any).default
+      store.replaceReducer(nextRootReducer)
+    })
+  }
+
+  store['runSaga'] = sagaMiddleware.run
+  store['close'] = () => store.dispatch(END)
+
+  return store as M_ReduxStore
 }

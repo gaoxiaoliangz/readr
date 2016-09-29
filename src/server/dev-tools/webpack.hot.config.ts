@@ -6,7 +6,7 @@ const hot = base.vars.hot
 
 const webpackConfig: any = {
   entry: {
-    app: [hot, `${paths.entry}/app`]
+    app: [hot, 'babel-polyfill', `${paths.entry}/app`]
   },
   output: {
     path: paths.built,
