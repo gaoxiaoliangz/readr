@@ -1,13 +1,10 @@
-
-
-
 export function getCache(key) {
   if (typeof key !== 'string') {
-    console.error('Name should be string!');
+    console.error('Name should be string!')
   }
   let content = localStorage.getItem(key)
   if (!content) {
-    content = false
+    return undefined
   }
   return content
 }

@@ -2,8 +2,9 @@ import webpack from 'webpack'
 const base: any = require('../../../webpack/webpack.base.config')
 const paths = base.vars.paths
 const hot = base.vars.hot
+// require('regenerator-runtime/runtime')
 
-export default {
+const webpackConfig: any = {
   entry: {
     app: [hot, `${paths.entry}/app`]
   },
@@ -32,7 +33,8 @@ export default {
       }),
       base.loaders.babel,
       base.loaders.ts({
-        isHot: true
+        isHot: true,
+        officialLoader: true
       })
     ]
   },
@@ -40,3 +42,5 @@ export default {
   postcss: base.loaderConfig.postcss(),
   resolve: base.resolve
 }
+
+export default webpackConfig

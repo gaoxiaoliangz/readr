@@ -12,10 +12,12 @@ if (env === 'production' || appEnv === 'production') {
   env = 'production'
 }
 
-export default {
+const options: any = {
   hmr,
   serverRouting,
   serverRendering,
   webpackDevServer,
   env,
 }
+
+export default options

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Textarea, { Props as TextareaProps } from '../_form/Textarea/Textarea'
 import { changeValue } from '../../store/actions'
+import _ from 'lodash'
 
 interface Props extends TextareaProps {
   symbol?: symbol

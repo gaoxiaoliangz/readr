@@ -15,7 +15,6 @@ const cacheResponseAction = action => {
 
 export default store => next => action => {
   if (action.cacheKey) {
-    console.log(md5('hehehe'))
     next({
       type: 'cache'
     })

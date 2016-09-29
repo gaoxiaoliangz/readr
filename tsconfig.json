@@ -2,9 +2,9 @@
   "compileOnSave": true,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
+    "target": "es2015",
     "jsx": "react",
-    "outDir": "assets/built/es6",
+    "outDir": "assets/built/ts",
     "experimentalDecorators": true,
     "moduleResolution": "node"
   },

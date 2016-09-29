@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export default function getFormValues(formData, fields: string[]) {
   if (!formData) {
     return {}
