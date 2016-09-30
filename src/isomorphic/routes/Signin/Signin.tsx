@@ -4,7 +4,7 @@ import { Link, browserHistory } from 'react-router'
 import { sendNotification, userAuth } from '../../store/actions'
 import DocContainer from '../../containers/DocContainer'
 import SigninForm from './components/SigninForm'
-import * as api from '../../api'
+import api from '../../services/api'
 
 interface Props {
   sendNotification?: any

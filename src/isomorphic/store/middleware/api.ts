@@ -1,5 +1,5 @@
 import callApi, { CallApiOptions } from '../../services/utils/callApi'
-import { ApiRoots } from '../../config'
+import helpers from '../../helpers'
 import _ from 'lodash'
 import handleResponse from '../../services/utils/handleResponse'
 
@@ -56,10 +56,10 @@ export default store => next => action => {
   }
 
   if (typeof apiUrl === 'undefined') {
-    apiUrl = ApiRoots.LOCAL
+    apiUrl = helpers.getApiRoots().local
   }
 
-  const fullUrl = apiUrl + endpoint
+  const fullUrl = `${apiUrl}/${endpoint}`
 
   return callApi(fullUrl, options || {}).then(
     response => {

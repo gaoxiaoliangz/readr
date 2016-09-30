@@ -4,7 +4,7 @@ import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
 import { fetchShelf } from '../store/actions'
 import _ from 'lodash'
-import apis from '../apis'
+import api from '../services/api'
 
 interface Props {
   fetchShelf: any
@@ -19,7 +19,7 @@ class AppCommon extends Component<Props, {}> {
   }
 
   handleLogout() {
-    apis.logout().then(() => {
+    api.logout().then(() => {
       location.href = location.href
     })
   }

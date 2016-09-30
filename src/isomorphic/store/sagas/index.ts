@@ -1,7 +1,7 @@
 import { take, put, call, fork, select } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga'
 import * as actions from '../actions'
-import * as api from '../../api'
+import * as api from '../../services/api'
 
 // function* taskA() {
 //   console.log('task a')
@@ -12,14 +12,14 @@ import * as api from '../../api'
 //   console.log('task b')
 // }
 
-export function* fetchData(action) {
-   try {
-      const data = yield call(api.fetchDoubanBooks, action.payload.keyword)
-      yield put({type: 'FETCH_SUCCEEDED', data}) as any
-   } catch (error) {
-      yield put({type: 'FETCH_FAILED', error})
-   }
-}
+// export function* fetchData(action) {
+//    try {
+//       const data = yield call(api.fetchDoubanBooks, action.payload.keyword)
+//       yield put({type: 'FETCH_SUCCEEDED', data}) as any
+//    } catch (error) {
+//       yield put({type: 'FETCH_FAILED', error})
+//    }
+// }
 
 function* watchFetchData(param) {
   // console.log(param)

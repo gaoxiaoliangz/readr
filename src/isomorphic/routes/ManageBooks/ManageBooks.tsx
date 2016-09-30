@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocContainer from '../../containers/DocContainer'
 import InfoTable from '../../components/InfoTable'
-import apis from '../../apis'
+import api from '../../services/api'
 import * as selectors from '../../store/selectors'
 import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
 import CSSModules from 'react-css-modules'
 import ContentPage from '../../components/ContentPage'
-import * as helpers from '../../helpers'
+import helpers from '../../helpers'
 import moment from 'moment'
 const styles = require('./ManageBooks.css')
 
@@ -40,7 +40,7 @@ class ManageBooks extends Component<Props, any> {
       title: '确认删除',
       content: `将删除《${bookName}》`,
       onConfirm: () => {
-        apis.deleteBook(id).then(res => {
+        api.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
           this.props.fetchBooks({ merge: false })

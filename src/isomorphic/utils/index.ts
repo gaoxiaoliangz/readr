@@ -5,11 +5,9 @@ import parseUrlencoded from './parseUrlencoded'
 import dom from './dom'
 import browser from './browser'
 
-export default {
+export default Object.assign({
   getCurrentTime,
   padNumberWithZero,
   parseQuery,
-  parseUrlencoded,
-  dom,
-  browser
-}
+  parseUrlencoded
+}, dom, browser)

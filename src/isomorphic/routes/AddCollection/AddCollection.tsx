@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { sendNotification, reset, fetchBooks } from '../../store/actions'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
-import apis from '../../apis'
+import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
 
 interface Props {
@@ -29,7 +29,7 @@ class AddCollection extends Component<Props, {}> {
       creator
     })
 
-    apis.addCollection(postData).then(result => {
+    api.addCollection(postData).then(result => {
       this.props.sendNotification('添加成功！')
       this.props.reset('addCollection')
     }, error => {

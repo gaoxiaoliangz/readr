@@ -39,11 +39,11 @@ class Paginator extends Component<Props, {}> {
       : 'query'
 
     if (urlStyle === 'query') {
-      let queryPart = utils.parseFormData(_.omit(query, ['page']))
+      let queryPart = utils.parseUrlencoded(_.omit(query, ['page']))
       return `${pathname}${queryPart ? `?${queryPart}&` : '?'}page=${pageNum}`
     }
 
-    let queryPart = utils.parseFormData(query)
+    let queryPart = utils.parseUrlencoded(query)
     return `${pathname}/page/${pageNum}?${queryPart}`
   }
 

@@ -5,7 +5,7 @@ import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../store/selectors'
 import DocContainer from '../../containers/DocContainer'
 import ContentPage from '../../components/ContentPage'
-import * as helpers from '../../helpers'
+import helpers from '../../helpers'
 import moment from 'moment'
 
 interface Props {

@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import { ApiRoots } from '../../config'
-import callApi from '../../utils/callApi'
 import { sendNotification, userAuth } from '../../store/actions'
 import DocContainer from '../../containers/DocContainer'
 import SignupForm from './components/SignupForm'
+import api from '../../services/api'
 
 interface Props {
   sendNotification?: any
@@ -19,7 +18,7 @@ class Signup extends Component<Props, {}> {
   }
 
   handleSignup(data) {
-    callApi(`${ApiRoots.LOCAL}users`, { method: 'POST', data })
+    api.userSignup(data)
       .then(res => {
         this.props.sendNotification('注册成功！')
         // todo

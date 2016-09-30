@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { reset } from 'redux-form'
 import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, fetchDoubanBooks } from '../../store/actions'
 import _ from 'lodash'
-import apis from '../../apis'
+import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
 import AddBookForm from './components/AddBookForm'
 
@@ -42,7 +42,7 @@ class AddBook extends Component<Props, State> {
   }
 
   addBook(data) {
-    apis.addBook(data).then(result => {
+    api.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
       this.props.reset('addBook')
       this.setState({
@@ -54,7 +54,7 @@ class AddBook extends Component<Props, State> {
   }
 
   addAuthor(data) {
-    apis.addAuthor(data).then(result => {
+    api.addAuthor(data).then(result => {
       this.props.sendNotification('添加成功')
       const id = result.json.ops[0]._id
       const name = result.json.ops[0].name

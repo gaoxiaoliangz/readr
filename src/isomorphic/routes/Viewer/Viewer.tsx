@@ -8,7 +8,7 @@ import _ from 'lodash'
 import ViewerPanel from './ViewerPanel'
 import BookPageWithRawHtml from './BookPageWithRawHtml'
 import CSSModules from 'react-css-modules'
-import api from '../../apis'
+import api from '../../services/api'
 import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
 const styles = require('./_viewer.scss')

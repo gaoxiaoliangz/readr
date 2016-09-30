@@ -16,6 +16,22 @@ declare function escape(str: string): string;
 
 
 /**
+ * config
+ */
+// todo
+type ProjectConfig = {
+  api: {
+    prefix: string
+  },
+  vendorApi: {
+    [key: string]: string
+    douban: string
+    github: string
+  }
+}
+
+
+/**
  * types & interfaces
  */
 type FetchDataOptions = {

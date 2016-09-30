@@ -1,9 +1,11 @@
-// todo
-export const HOST = typeof window !== 'undefined'
-  ? window.location.origin
-  : 'http://localhost:3000'
-
-export const ApiRoots = {
-  LOCAL: `${HOST}/api/`,
-  DOUBAN_BOOKS: 'https://api.douban.com/v2/book/'
+const config: ProjectConfig = {
+  api: {
+    prefix: 'api'
+  },
+  vendorApi: {
+    douban: 'https://api.douban.com/v2',
+    github: 'https://api.github.com',
+  }
 }
+
+export default config
