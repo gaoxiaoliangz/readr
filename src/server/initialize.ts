@@ -45,7 +45,7 @@ export default function initialize(basePath) {
   app.use(routes.apiBaseUri, routes.api)
 
   // frontend routing
-  app.use(middleware.parseContext, routes.pages)
+  app.use(middleware.parseContext, routes.pages as any)
 
   return bootServer(app, runtimeOptions)
 }

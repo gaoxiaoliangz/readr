@@ -26,7 +26,8 @@
     "postbuild": "npm start",
     "clean.all": "rimraf -- assets/built bin",
     "clean.built": "rimraf -- assets/built",
-    "test": "mocha --require babel-register"
+    "test": "mocha --require babel-register",
+    "fe:hot": "node bin/server --hmr --noServerRouting"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

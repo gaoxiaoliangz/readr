@@ -36,7 +36,16 @@ type RenderConfig = {
     role: string
   }
 }
-function renderHtml(config: RenderConfig) {
+function renderHtml(config?: RenderConfig) {
+  if (!config) {
+    return Promise.resolve(renderToStaticMarkup(
+      <Page
+        title="Readr"
+        appMarkup=""
+        />
+    )) as any
+  }
+
   const { reqUrl, routes, isProd, fetchData, isHot, userSession } = config
   const memoryHistory = createMemoryHistory(reqUrl)
   const store = configureStore()
@@ -50,7 +59,7 @@ function renderHtml(config: RenderConfig) {
     }
 
     return getStore(renderProps, fetchData, userSession, store).then(storeWithFetchedData => {
-      const page = (bodyClass, title, appMarkup) => (
+      const genPageComp = (bodyClass, title, appMarkup) => (
         <Page
           title={title}
           store={storeWithFetchedData}
@@ -82,7 +91,7 @@ function renderHtml(config: RenderConfig) {
         appRootMarkup = renderToStaticMarkup(appRoot)
       }
 
-      const html = renderToStaticMarkup(page(data.bodyClass, data.title, appRootMarkup))
+      const html = renderToStaticMarkup(genPageComp(data.bodyClass, data.title, appRootMarkup))
 
       return { html }
     }, err => {

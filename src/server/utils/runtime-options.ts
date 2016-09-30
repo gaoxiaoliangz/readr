@@ -12,7 +12,7 @@ if (env === 'production' || appEnv === 'production') {
   env = 'production'
 }
 
-const options: any = {
+const options = {
   hmr,
   serverRouting,
   serverRendering,

@@ -50,7 +50,7 @@ function Page(props: TProps) {
       title={title}
       styles={styles}
       scripts={scripts}
-      initialState={store.getState() }
+      initialState={store && store.getState()}
       bodyClass={bodyClass || null}
       appMarkup={appMarkup}
       />
