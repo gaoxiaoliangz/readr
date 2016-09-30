@@ -18,12 +18,11 @@ class Signin extends Component<Props, {}> {
   }
 
   handleSubmit(data) {
-    // console.log(api.userLogin(data))
     api.userLogin(data).then(res => {
       this.props.sendNotification('登录成功！', 'success', 1500)
       this.props.userAuth().then(() => {
         setTimeout(() => {
-          browserHistory.push('/')
+          browserHistory.push('/abc')
         }, 600)
       })
     }).catch((err) => {
