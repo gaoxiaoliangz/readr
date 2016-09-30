@@ -1,17 +1,17 @@
 import React from 'react'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { createMemoryHistory } from 'react-router'
+import _ from 'lodash'
+import fs from 'fs'
+import print from '../utils/print'
 import getStore from './get-store'
 import matchRoute from './match-route'
 import NotFoundErrorPage from '../../isomorphic/containers/NotFoundErrorPage'
 import InternalServerErrorPage from '../../isomorphic/containers/InternalServerErrorPage'
 import Page from '../../isomorphic/containers/Page'
-import print from '../utils/print'
-import _ from 'lodash'
 import DocContainer from '../../isomorphic/containers/DocContainer'
 import ServerSideAppRoot from '../../isomorphic/containers/ServerSideAppRoot'
-const fs: any = require('fs')
-import { syncHistoryWithStore } from 'react-router-redux'
-import { createMemoryHistory } from 'react-router'
 import configureStore from '../../isomorphic/store/configureStore'
 
 function getManifest() {

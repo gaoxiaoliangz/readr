@@ -1,7 +1,7 @@
-import callApi, { CallApiOptions } from '../../utils/callApi'
+import callApi, { CallApiOptions } from '../../services/utils/callApi'
 import { ApiRoots } from '../../config'
 import _ from 'lodash'
-import handleResponse from '../../utils/handleResponse'
+import handleResponse from '../../services/utils/handleResponse'
 
 export type Pagination = {
   name: string

@@ -1,4 +1,4 @@
-import { Schemas } from '../../../schemas'
+import schemas from '../../../services/schemas'
 import utils from '../../../utils'
 import { CALL_API_OBJ } from '../../middleware/api'
 import _ from 'lodash'
@@ -11,12 +11,12 @@ export type fetchUsers = {
   merge?: boolean
 }
 export function fetchUsers(options: fetchUsers = {}) {
-  const queryString = utils.parseFormData(options.api)
+  const queryString = utils.parseUrlencoded(options.api)
 
   const CALL_API = {
     types: [USERS_REQUEST, USERS_SUCCESS, USERS_FAILURE],
     endpoint: `users?${queryString}`,
-    schema: Schemas.USER_ARRAY,
+    schema: schemas.USER_ARRAY,
     pagination: {
       name: 'users',
       merge: options.merge,

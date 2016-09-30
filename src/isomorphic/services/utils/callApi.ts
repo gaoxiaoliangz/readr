@@ -1,5 +1,5 @@
 import 'isomorphic-fetch'
-import objectToUrlencoded from '../utils/parseFormData'
+import parseUrlencoded from '../../utils/parseUrlencoded'
 import jsonp from './jsonp'
 
 export type CallApiOptions = {
@@ -53,7 +53,7 @@ const parseOptions = (originanOptions: CallApiOptions) => {
       body = JSON.stringify(data)
     } else {
       contentType = 'application/x-www-form-urlencoded'
-      body = objectToUrlencoded(data)
+      body = parseUrlencoded(data)
 
       if (dataType !== 'urlencoded') {
         console.warn('Unsupported dataType used "urlencoded" instead!')

@@ -2,7 +2,6 @@ const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
-
 export type RequestTypes = {
   REQUEST: string
   SUCCESS: string

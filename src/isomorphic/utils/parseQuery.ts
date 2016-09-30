@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export default function parseQueryString(queryString) {
+export default function parseQuery(queryString) {
   const params = queryString.split('&')
   let object = {}
 

@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr'
 import humps from 'humps'
-import parseQueryString from './parseQueryString'
+import parseQuery from '../../utils/parseQuery'
 import _ from 'lodash'
 
 const parseHeaderPageLinkByRel = (links: string, rel: string) => {
@@ -14,7 +14,7 @@ const parseHeaderPageLinkByRel = (links: string, rel: string) => {
 
   return {
     // todo
-    page: parseInt(_.get(parseQueryString(url.split('?')[1] || ''), 'page', 0) as any, 10),
+    page: parseInt(_.get(parseQuery(url.split('?')[1] || ''), 'page', 0) as any, 10),
     url
   }
 }

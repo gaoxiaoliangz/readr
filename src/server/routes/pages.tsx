@@ -1,10 +1,9 @@
 import render from '../render'
-import routesWithEnsure from '../../isomorphic/routes'
+// import routesWithEnsure from '../../isomorphic/routes'
 import React from 'react'
 import print from '../utils/print'
 import runtimeOptions from '../utils/runtime-options'
 import roles from '../models/roles'
-// const cookieParser: any = require('cookie-parser')
 
 function pages(req, res) {
   // 检查权限
@@ -15,14 +14,10 @@ function pages(req, res) {
     }
   }
 
-  // const cookies = req.cookies
-  // const c = cookieParser.JSONCookies(cookies)
-  // console.log(cookies)
-  // console.log(req.signedCookies)
-
   render({
     reqUrl: req.url,
-    routes: routesWithEnsure,
+    // routes: routesWithEnsure,
+    routes: {},
     isProd: runtimeOptions.env === 'production',
     fetchData: runtimeOptions.serverRendering,
     isHot: runtimeOptions.hmr,

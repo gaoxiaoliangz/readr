@@ -1,4 +1,4 @@
-import { Schemas } from '../../../schemas'
+// import schemas from '../../../services/schemas'
 
 export const AUTH_REQUEST = 'data-fetching/auth/REQUEST'
 export const AUTH_SUCCESS = 'data-fetching/auth/SUCCESS'

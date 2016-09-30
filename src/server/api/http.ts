@@ -1,15 +1,15 @@
 import _ from 'lodash'
 import i18n from '../utils/i18n'
 import print from '../utils/print'
-import parseFormData from '../../isomorphic/utils/parseFormData'
+import parseUrlencoded from '../../isomorphic/utils/parseUrlencoded'
 import { ApiRoots } from '../../isomorphic/config'
 
 function parsePagination({ fullPath, query }, { current, all }) {
   const links = {
-    first: `${fullPath}?${parseFormData(_.assign({}, query, { page: 1 }))}`,
-    last: `${fullPath}?${parseFormData(_.assign({}, query, { page: all }))}`,
-    prev: `${fullPath}?${parseFormData(_.assign({}, query, { page: current - 1 }))}`,
-    next: `${fullPath}?${parseFormData(_.assign({}, query, { page: current + 1 }))}`,
+    first: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: 1 }))}`,
+    last: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: all }))}`,
+    prev: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: current - 1 }))}`,
+    next: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: current + 1 }))}`,
   }
 
   if (current <= 1) {

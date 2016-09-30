@@ -1,4 +1,4 @@
-import { Schemas } from '../../../schemas'
+import schemas from '../../../services/schemas'
 import { CALL_API_OBJ } from '../../middleware/api'
 import utils from '../../../utils'
 
@@ -8,8 +8,8 @@ export const AUTHOR_FAILURE = 'data-fetching/authors/FAILURE'
 export function fetchAuthors(options) {
   const CALL_API: CALL_API_OBJ = {
     types: [AUTHOR_REQUEST, AUTHOR_SUCCESS, AUTHOR_FAILURE],
-    endpoint: `authors?${utils.parseFormData(options)}`,
-    schema: Schemas.AUTHOR_ARRAY,
+    endpoint: `authors?${utils.parseUrlencoded(options)}`,
+    schema: schemas.AUTHOR_ARRAY,
     pagination: {
       name: 'authors',
       query: options.q

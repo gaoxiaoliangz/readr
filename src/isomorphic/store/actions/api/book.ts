@@ -1,4 +1,4 @@
-import { Schemas } from '../../../schemas'
+import schemas from '../../../services/schemas'
 import { ApiRoots } from '../../../config'
 import { CALL_API_OBJ } from '../../middleware/api'
 import utils from '../../../utils'
@@ -22,7 +22,7 @@ export function fetchBooks(options?: fetchBooks) {
     exclude: 'content'
   })
 
-  const queryString = utils.parseFormData(queryOptions)
+  const queryString = utils.parseUrlencoded(queryOptions)
   const pagination = {
       name: 'books',
       merge,
@@ -32,7 +32,7 @@ export function fetchBooks(options?: fetchBooks) {
   const CALL_API: CALL_API_OBJ = {
     types: [BOOKS_REQUEST, BOOKS_SUCCESS, BOOKS_FAILURE],
     endpoint: `books?${queryString}`,
-    schema: Schemas.BOOK_ARRAY,
+    schema: schemas.BOOK_ARRAY,
     pagination
   }
 
@@ -55,7 +55,7 @@ export function fetchBook(bookId, fields?: Array<any>) {
   const CALL_API: CALL_API_OBJ = {
     types: [BOOK_REQUEST, BOOK_SUCCESS, BOOK_FAILURE],
     endpoint,
-    schema: Schemas.BOOK
+    schema: schemas.BOOK
   }
 
   return {
@@ -70,7 +70,7 @@ export function fetchCollections(flowType: 'newest' | 'hot' = 'newest') {
     CALL_API: {
       types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE'],
       endpoint: `collections`,
-      schema: Schemas.COLLECTION_ARRAY
+      schema: schemas.COLLECTION_ARRAY
     }
   }
 }
@@ -81,7 +81,7 @@ export function fetchCollection(collectionId) {
     CALL_API: {
       types: ['COLLECTION_REQUEST', 'COLLECTION_SUCCESS', 'COLLECTION_FAILURE'],
       endpoint: `collections/${collectionId}`,
-      schema: Schemas.COLLECTION
+      schema: schemas.COLLECTION
     }
   }
 }
@@ -94,7 +94,7 @@ export function searchDoubanBooks(query) {
     types: [DOUBAN_BOOK_SEARCH_REQUEST, DOUBAN_BOOK_SEARCH_SUCCESS, DOUBAN_BOOK_SEARCH_FAILURE],
     endpoint: `search?count=5&q=${query}`,
     apiUrl: ApiRoots.DOUBAN_BOOKS,
-    schema: Schemas.DOUBAN_BOOK_SEARCH_RESULTS,
+    schema: schemas.DOUBAN_BOOK_SEARCH_RESULTS,
     options: { useJsonp: true },
     pagination: {
       name: 'doubanBooks',

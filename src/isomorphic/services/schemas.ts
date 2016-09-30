@@ -32,7 +32,7 @@ const matchedBooks = new Schema('books', {
   idAttribute: 'bookId'
 })
 
-export const Schemas = {
+export default {
   BOOK: book,
   BOOK_PROGRESS: bookProgress,
   BOOK_ARRAY: arrayOf(book),
