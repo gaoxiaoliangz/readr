@@ -1,5 +1,8 @@
 import { Schemas } from '../../../schemas'
 
+export const AUTH_REQUEST = 'data-fetching/auth/REQUEST'
+export const AUTH_SUCCESS = 'data-fetching/auth/SUCCESS'
+export const AUTH_FAILURE = 'data-fetching/auth/FAILURE'
 export function userAuth(userSession?): Object {
   // 服务端渲染 session
   if (userSession) {
@@ -7,7 +10,7 @@ export function userAuth(userSession?): Object {
       SERVER_STORE: {
         body: {
           response: userSession,
-          type: 'USER_AUTH_SUCCESS'
+          type: AUTH_SUCCESS
         }
       }
     }
@@ -15,7 +18,7 @@ export function userAuth(userSession?): Object {
 
   return {
     CALL_API: {
-      types: ['USER_AUTH_REQUEST', 'USER_AUTH_SUCCESS', 'USER_AUTH_FAILURE'],
+      types: [AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE],
       endpoint: 'auth'
     }
   }

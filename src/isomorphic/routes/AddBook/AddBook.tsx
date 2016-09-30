@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { reset } from 'redux-form'
-import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
+import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, fetchDoubanBooks } from '../../store/actions'
 import _ from 'lodash'
 import apis from '../../apis'
 import DocContainer from '../../containers/DocContainer'
@@ -17,6 +17,7 @@ interface Props {
   closeModal?: any
   fetchAuthors?: any
   reset?: any
+  fetchDoubanBooks: any
 }
 
 interface State {
@@ -84,7 +85,8 @@ class AddBook extends Component<Props, State> {
 
   handleTitleValueChange(newVal) {
     if (!_.isEmpty(newVal)) {
-      this.props.searchDoubanBooks(newVal)
+      // this.props.searchDoubanBooks(newVal)
+      this.props.fetchDoubanBooks(newVal)
     }
   }
 
@@ -113,5 +115,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset }
+  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, fetchDoubanBooks }
 )(AddBook as any)

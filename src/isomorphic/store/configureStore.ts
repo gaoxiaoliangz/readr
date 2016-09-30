@@ -19,7 +19,7 @@ export default function configureStore() {
     store = createStore(
       rootReducer,
       {},
-      applyMiddleware(sagaMiddleware, handleServerStore, middleware.cache, api, modifyResponse, thunk, logActionTypes)
+      applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk, logActionTypes)
     )
   } else {
     // client side
@@ -27,14 +27,14 @@ export default function configureStore() {
       store = createStore(
         rootReducer,
         handleInitialState(),
-        applyMiddleware(sagaMiddleware, handleServerStore, middleware.cache, api, modifyResponse, thunk)
+        applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk)
       )
     } else {
       store = createStore(
         rootReducer,
         handleInitialState(),
         compose(
-          applyMiddleware(sagaMiddleware, handleServerStore, middleware.cache, api, modifyResponse, thunk, createLogger({ collapsed: true }))
+          applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk, createLogger({ collapsed: true }))
         )
       )
     }

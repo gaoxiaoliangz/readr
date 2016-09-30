@@ -6,12 +6,12 @@ import routes from '../isomorphic/routes'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from '../isomorphic/store/configureStore'
-import { helloSaga } from '../isomorphic/store/sagas'
+import rootSaga from '../isomorphic/store/sagas'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
-store.runSaga(helloSaga)
+store.runSaga(rootSaga)
 
 match({ history, routes }, (error, redirectLocation, renderProps) => {
   render(

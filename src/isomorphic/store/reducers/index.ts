@@ -3,7 +3,7 @@ import {reducer as form} from 'redux-form'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import components from './components'
-import * as apiDataReducers from './api-data'
+import * as entities from './entities'
 // import * as actions from '../actions'
 
 // deprecated
@@ -31,6 +31,6 @@ const rootReducer = combineReducers(Object.assign({}, {
   elements,
   routing,
   form
-}, apiDataReducers))
+}, entities))
 
 export default rootReducer

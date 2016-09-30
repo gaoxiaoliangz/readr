@@ -1,6 +1,7 @@
 import errorMessage from './errorMessage'
 import pagination from './pagination'
 import _ from 'lodash'
+import * as actions from '../../actions'
 
 export { pagination, errorMessage }
 
@@ -24,18 +25,18 @@ export function payloads(state = {}, action) {
 
 export function session(state = { user: { role: 'visitor' } }, action) {
   switch (action.type) {
-    case 'USER_AUTH_REQUEST':
+    case actions.AUTH_REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       })
 
-    case 'USER_AUTH_SUCCESS':
+    case actions.AUTH_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         user: action.response
       })
 
-    case 'USER_AUTH_FAILURE':
+    case actions.AUTH_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         user: action.response
