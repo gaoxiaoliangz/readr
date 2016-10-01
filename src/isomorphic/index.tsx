@@ -7,9 +7,14 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from '../isomorphic/store/configureStore'
 import rootSaga from '../isomorphic/store/sagas'
+import helpers from '../isomorphic/helpers'
+
+const routerHistory = helpers.isServerRoutingEnabled()
+  ? browserHistory
+  : hashHistory
 
 const store = configureStore()
-const history = syncHistoryWithStore(hashHistory, store)
+const history = syncHistoryWithStore(routerHistory, store)
 
 store.runSaga(rootSaga)
 

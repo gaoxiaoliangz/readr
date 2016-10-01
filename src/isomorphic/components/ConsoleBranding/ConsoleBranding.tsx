@@ -49,7 +49,7 @@ class ConsoleBranding extends Component<any, any> {
                     <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
                     <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
                     <DropdownItemSep />
-                    <DropdownItem><a href="/logout">退出</a></DropdownItem>
+                    <DropdownItem><a href="#">退出</a></DropdownItem>
                   </Dropdown>
                 )
               }

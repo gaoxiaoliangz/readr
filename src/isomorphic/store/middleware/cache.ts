@@ -35,5 +35,5 @@ export default store => next => action => {
   //   return false
   // }
 
-  next(action)
+  return next(action)
 }

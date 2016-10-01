@@ -6,5 +6,5 @@ export default store => next => action => {
     action.response.result = action.response.result.books
   }
 
-  next(action)
+  return next(action)
 }

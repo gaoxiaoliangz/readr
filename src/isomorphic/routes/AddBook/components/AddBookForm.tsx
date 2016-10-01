@@ -8,6 +8,7 @@ import Textarea from '../../../elements/_form/Textarea'
 import { Button, SelectizeInput} from '../../../elements/_form'
 import AddAuthorForm from './AddAuthorForm'
 import _ from 'lodash'
+import getFormValues from '../../../helpers/getFormValues'
 
 interface Props {
   initialData?: any
@@ -124,9 +125,11 @@ class AddBookForm extends Component<AllProps, {}> {
 const mapStateToProps = (state, ownProps) => {
   const doubanBookQuery = _.get(state.form, 'addBook._titleValue.value', '')
   const authorsQuery = _.get(state.form, 'addBook._authorValue.value', '')
+  const form = _.get(state.form, 'addBook', {})
+  const formData = getFormValues(form, fields)
 
   return {
-    initialValues: ownProps.initialData,
+    initialValues: Object.assign({}, formData, ownProps.initialData),
     routing: state.routing.locationBeforeTransitions,
     doubanBooksAsOptions: selectors.doubanBooksAsOptions(doubanBookQuery)(state),
     authorsAsOptions: selectors.authorsAsOptions(authorsQuery)(state)

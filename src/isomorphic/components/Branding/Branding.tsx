@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import { Container } from '../../elements/_layout'
 import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
 import Logo from '../Logo'
 import CSSModules from 'react-css-modules'
-import { Link, browserHistory } from 'react-router'
+import { Link } from 'react-router'
 const styles = require('./Branding.scss')
 
 interface IProps {
@@ -42,8 +41,7 @@ class Branding extends Component<IProps, IState> {
   }
 
   handleLogoutClick(e) {
-    // this.props.onLogout()
-    browserHistory.push('/fuck')
+    this.props.onLogout()
     e.preventDefault()
   }
 

@@ -1,8 +1,6 @@
-// import schemas from '../../../services/schemas'
-
-export const AUTH_REQUEST = 'data-fetching/auth/REQUEST'
-export const AUTH_SUCCESS = 'data-fetching/auth/SUCCESS'
-export const AUTH_FAILURE = 'data-fetching/auth/FAILURE'
+export const AUTH_REQUEST = 'api/auth/REQUEST'
+export const AUTH_SUCCESS = 'api/auth/SUCCESS'
+export const AUTH_FAILURE = 'api/auth/FAILURE'
 export function userAuth(userSession?): Object {
   // 服务端渲染 session
   if (userSession) {
@@ -34,27 +32,6 @@ export function fetchProfile() {
   }
 }
 
-// export function fetchPublicProfile() {
-//   return {
-//     CALL_API: {
-//       types: ['PROFILE_REQUEST', 'PROFILE_SUCCESS', 'PROFILE_FAILURE'],
-//       endpoint: `user/profile`,
-//       schema: Schemas.PROFILE
-//     }
-//   }
-// }
-
-// export function fetchShelf(userId) {
-//   return {
-//     userId,
-//     CALL_API: {
-//       types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
-//       endpoint: `users/${userId}/shelf`,
-//       schema: Schemas.BOOK_ARRAY,
-//     }
-//   }
-// }
-
 export function fetchShelf() {
   return {
     payload: 'bookShelf',
@@ -72,7 +49,6 @@ export function fetchProgress(bookId) {
     CALL_API: {
       types: ['PROGRESS_REQUEST', 'PROGRESS_SUCCESS', 'PROGRESS_FAILURE'],
       endpoint: `user/books/${bookId}/progress`,
-      // schema: Schemas.BOOK_PROGRESS
     }
   }
 }

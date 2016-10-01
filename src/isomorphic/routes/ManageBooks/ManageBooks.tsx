@@ -5,11 +5,9 @@ import InfoTable from '../../components/InfoTable'
 import api from '../../services/api'
 import * as selectors from '../../store/selectors'
 import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
-import CSSModules from 'react-css-modules'
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
 import moment from 'moment'
-const styles = require('./ManageBooks.css')
 
 interface Props {
   sendNotification?: any
@@ -20,9 +18,6 @@ interface Props {
   routing: any
 }
 
-@CSSModules(styles, {
-  allowMultiple: true
-})
 class ManageBooks extends Component<Props, any> {
 
   static fetchData({store, query}: FetchDataOptions) {

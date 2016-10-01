@@ -44,9 +44,10 @@ class AddBook extends Component<Props, State> {
   addBook(data) {
     api.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
-      this.props.reset('addBook')
       this.setState({
         addBookFormInitialData: {}
+      }, () => {
+        this.props.reset('addBook')
       })
     }, error => {
       this.props.sendNotification(error.message, 'error')
@@ -85,8 +86,8 @@ class AddBook extends Component<Props, State> {
 
   handleTitleValueChange(newVal) {
     if (!_.isEmpty(newVal)) {
-      // this.props.searchDoubanBooks(newVal)
-      this.props.fetchDoubanBooks(newVal)
+      this.props.searchDoubanBooks(newVal)
+      // this.props.fetchDoubanBooks(newVal)
     }
   }
 
