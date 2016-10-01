@@ -42,9 +42,7 @@ class Home extends Component<IAllProps, IState> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks().then(res => {
-      console.log(res)
-    })
+    this.props.fetchBooks()
     this.props.fetchCollections()
   }
 

@@ -20,7 +20,7 @@ class AppCommon extends Component<Props, {}> {
 
   handleLogout() {
     api.logout().then(() => {
-      location.href = location.href
+      location.href = '/'
     })
   }
 
