@@ -9,9 +9,13 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
     return apiFn.apply(null, apiArgs)
   })
   if (response) {
-    yield put(entity.success(response, apiArgs))
+    let action = entity.success(response, apiArgs)
+    yield put(action)
+    return action
   } else {
-    yield put(entity.failure(error, apiArgs))
+    let action = entity.failure(error, apiArgs)
+    yield put(action)
+    return action
   }
 }
 
@@ -20,7 +24,10 @@ export const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 function* watchFetchBooks(): any {
   while (true) {
     const { keyword } = yield take(actions.FETCH_BOOKS)
-    yield fork(fetchBooks, [keyword])
+    const {response, error} = yield call(fetchBooks, [keyword])
+    if (response) {
+      yield put(actions.paginateBooks(keyword, response))
+    }
   }
 }
 

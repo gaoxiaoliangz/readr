@@ -18,6 +18,14 @@ function action(type, payload = {}) {
   }, payload)
 }
 
+function createActionEntity(requestTypes: RequestTypes) {
+  return {
+    request: apiArgs => action(requestTypes.REQUEST, { apiArgs }),
+    success: (response, apiArgs) => action(requestTypes.SUCCESS, { response, apiArgs }),
+    failure: (error, apiArgs) => action(requestTypes.FAILURE, { error, apiArgs }),
+  }
+}
+
 export const DOUBAN_BOOKS = createRequestTypes('douban-books')
 export const fetchDoubanBooks = keyword => {
   return {
@@ -29,11 +37,13 @@ export const fetchDoubanBooks = keyword => {
 }
 
 export const BOOKS = createRequestTypes('books')
-export const books: ActionEntity = {
-  request: apiArgs => action(BOOKS.REQUEST, { apiArgs }),
-  success: (response, apiArgs) => action(BOOKS.SUCCESS, { response, apiArgs }),
-  failure: (error, apiArgs) => action(BOOKS.FAILURE, { error, apiArgs }),
-}
+export const books = createActionEntity(BOOKS)
+// export const books: ActionEntity = {
+//   request: apiArgs => action(BOOKS.REQUEST, { apiArgs }),
+//   success: (response, apiArgs) => action(BOOKS.SUCCESS, { response, apiArgs }),
+//   failure: (error, apiArgs) => action(BOOKS.FAILURE, { error, apiArgs }),
+// }
+
 
 // export type fetchBooks = {
 //   keyword?: string
@@ -41,7 +51,14 @@ export const books: ActionEntity = {
 export type fetchBooks = any
 export const FETCH_BOOKS = 'FETCH_BOOKS'
 export const fetchBooks = (options?: fetchBooks) => action(FETCH_BOOKS, options)
-
+export const PAGINATE_BOOKS = 'PAGINATE_BOOKS'
+export const paginateBooks = (keyword, response) => action(PAGINATE_BOOKS, {
+  pagination: {
+    name: 'books',
+    query: keyword
+  },
+  response
+})
 
 // export const BOOKS_REQUEST = 'data-fetching/books/REQUEST'
 // export const BOOKS_SUCCESS = 'data-fetching/books/SUCCESS'
