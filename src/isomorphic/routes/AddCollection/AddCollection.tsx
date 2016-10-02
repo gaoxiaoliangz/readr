@@ -40,7 +40,7 @@ class AddCollection extends Component<Props, {}> {
   handleBooksValueChange(newVal) {
     if (!_.isEmpty(newVal)) {
       this.props.fetchBooks({
-        q: newVal
+        keyword: newVal
       })
     }
   }

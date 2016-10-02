@@ -1,3 +1,16 @@
+type RequestTypes = {
+  REQUEST: string
+  SUCCESS: string
+  FAILURE: string
+}
+
+interface ActionEntity {
+  request: any
+  success: any
+  failure: any
+}
+
+
 /**
  * webpack require an require.ensure
  * https://github.com/TypeStrong/ts-loader/blob/master/test/codeSplitting/require.d.ts

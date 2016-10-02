@@ -1,35 +1,32 @@
-import { take, put, call, fork, select } from 'redux-saga/effects'
+import { take, put, call, fork, select, apply } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga'
 import * as actions from '../actions'
-import * as api from '../../services/api'
+import api from '../../services/api'
 
-// function* taskA() {
-//   console.log('task a')
-// }
-
-// function* taskB() {
-
-//   console.log('task b')
-// }
-
-// export function* fetchData(action) {
-//    try {
-//       const data = yield call(api.fetchDoubanBooks, action.payload.keyword)
-//       yield put({type: 'FETCH_SUCCEEDED', data}) as any
-//    } catch (error) {
-//       yield put({type: 'FETCH_FAILED', error})
-//    }
-// }
-
-function* watchFetchData(param) {
-  // console.log(param)
-  // yield* takeEvery(actions.DOUBAN_BOOKS.REQUEST, fetchData)
-  while (true) {
-    const wtf = yield take([actions.BOOKS_REQUEST, actions.AUTH_REQUEST])
-    console.log(wtf)
+function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
+  yield put(entity.request(apiArgs))
+  const {response, error} = yield call(() => {
+    return apiFn.apply(null, apiArgs)
+  })
+  if (response) {
+    yield put(entity.success(response, apiArgs))
+  } else {
+    yield put(entity.failure(error, apiArgs))
   }
 }
 
+export const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
+
+function* watchFetchBooks(): any {
+  while (true) {
+    const { keyword } = yield take(actions.FETCH_BOOKS)
+    yield fork(fetchBooks, [keyword])
+  }
+}
+
+
 export default function* rootSaga() {
-  yield fork(watchFetchData)
+  yield [
+    fork(watchFetchBooks)
+  ]
 }

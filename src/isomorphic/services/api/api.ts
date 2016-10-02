@@ -1,9 +1,22 @@
 import callApi from '../utils/callApi'
 import helpers from '../../helpers'
+import normalizeResponse from '../utils/normalizeResponse'
+import schemas from '../schemas'
 
 const { local: apiRoot, douban: doubanApiRoot } = helpers.getApiRoots()
 
-export const fetchBook = id => callApi(`${apiRoot}/books/${id}`)
+export function fetchNormalized(endpoint, schema, fetchOptions = {}) {
+  return normalizeResponse(callApi(`${apiRoot}/${endpoint}`, fetchOptions), schema)
+}
+
+export const fetchBook = ({ params }) => fetchNormalized(`book/${params[0]}`, schemas.BOOK)
+export const fetchBooks = (keyword?: string) => {
+  if (keyword) {
+    return fetchNormalized(`books?q=${keyword}`, schemas.BOOK_ARRAY)
+  }
+
+  return fetchNormalized('books', schemas.BOOK_ARRAY)
+}
 
 // auth
 export type userLogin = {

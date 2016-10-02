@@ -12,6 +12,10 @@ const collection = new Schema('bookCollections', {
   idAttribute: 'id'
 })
 
+collection.define({
+  items: arrayOf(book)
+})
+
 const profile = new Schema('profiles', {
   idAttribute: 'id'
 })
