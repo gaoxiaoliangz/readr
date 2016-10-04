@@ -2,6 +2,7 @@ import { take, put, call, fork, select, apply } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga'
 import * as actions from '../actions'
 import api from '../../services/api'
+import * as selectors from '../selectors'
 
 function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
   yield put(entity.request(apiArgs))
@@ -19,21 +20,24 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
   }
 }
 
-export const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
+const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 
-function* watchFetchBooks(): any {
-  while (true) {
-    const { keyword } = yield take(actions.FETCH_BOOKS)
-    const {response, error} = yield call(fetchBooks, [keyword])
-    if (response) {
-      yield put(actions.paginateBooks(keyword, response))
-    }
+function* loadBooks(options, callApi?: boolean): any {
+  // const books = yield select(selectors.common.entities('books'))
+  if (callApi) {
+    yield call(fetchBooks, [options])
   }
 }
 
+function* watchLoadBooks(): any {
+  while (true) {
+    const { options } = yield take(actions.LOAD_BOOKS)
+    yield loadBooks(options, true)
+  }
+}
 
 export default function* rootSaga() {
   yield [
-    fork(watchFetchBooks)
+    fork(watchLoadBooks)
   ]
 }

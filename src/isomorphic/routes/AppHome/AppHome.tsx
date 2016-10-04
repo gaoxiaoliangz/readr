@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchBooks, fetchCollections, sendNotification } from '../../store/actions'
+import { loadBooks, fetchCollections, sendNotification } from '../../store/actions'
 import * as selectors from '../../store/selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../containers/DocContainer'
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 interface IAllProps extends IProps {
-  fetchBooks: any
+  loadBooks: (data?: loadBooks) => void
   fetchCollections: any
   session: any
   newestBooks: any
@@ -31,7 +31,7 @@ interface IState {
 class Home extends Component<IAllProps, IState> {
 
   static fetchData({store}) {
-    return store.dispatch(fetchBooks())
+    return store.dispatch(loadBooks())
   }
 
   constructor(props) {
@@ -42,7 +42,7 @@ class Home extends Component<IAllProps, IState> {
   }
 
   componentDidMount() {
-    this.props.fetchBooks()
+    this.props.loadBooks()
     this.props.fetchCollections()
   }
 
@@ -95,7 +95,7 @@ class Home extends Component<IAllProps, IState> {
 function mapStateToProps(state, ownProps) {
   return {
     userBooks: [],
-    newestBooks: selectors.booksSelector(state),
+    newestBooks: selectors.books(state),
     session: state.session,
     bookCollections: _.get(state.pagination, 'bookCollections.default', null)
       ? state.pagination.bookCollections.default.ids.map(id => state.entities.bookCollections[id])
@@ -106,5 +106,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { fetchBooks, fetchCollections, sendNotification }
+  { loadBooks, fetchCollections, sendNotification }
 )(Home)

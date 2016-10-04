@@ -4,24 +4,25 @@ import DocContainer from '../../containers/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import api from '../../services/api'
 import * as selectors from '../../store/selectors'
-import { sendNotification, fetchBooks, openConfirmModal, closeConfirmModal } from '../../store/actions'
+import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity } from '../../store/actions'
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
 import moment from 'moment'
 
 interface Props {
   sendNotification?: any
-  fetchBooks?: (data?: fetchBooks) => void
+  loadBooks?: (data?: loadBooks) => void
   bookListNewest?: any
   openConfirmModal: (data: openConfirmModal) => void
   closeConfirmModal: any
   routing: any
+  removeEntity: removeEntity
 }
 
 class ManageBooks extends Component<Props, any> {
 
   static fetchData({store, query}: FetchDataOptions) {
-    return store.dispatch(fetchBooks({
+    return store.dispatch(loadBooks({
       page: query.page
     }))
   }
@@ -38,16 +39,15 @@ class ManageBooks extends Component<Props, any> {
         api.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
-          this.props.fetchBooks({ merge: false })
+          this.props.removeEntity('books', id)
         })
       }
     })
   }
 
   loadBooks(props = this.props) {
-    this.props.fetchBooks({
+    this.props.loadBooks({
       page: props.routing.query.page || '1',
-      merge: false
     })
   }
 
@@ -107,12 +107,12 @@ class ManageBooks extends Component<Props, any> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    bookListNewest: selectors.booksSelector(state),
+    bookListNewest: selectors.books()(state),
     routing: state.routing.locationBeforeTransitions,
   }
 }
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { fetchBooks, sendNotification, openConfirmModal, closeConfirmModal }
+  { loadBooks, sendNotification, openConfirmModal, closeConfirmModal, removeEntity }
 )(ManageBooks)

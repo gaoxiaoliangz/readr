@@ -1,33 +1,33 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
-import { selectPaginatedEntities } from './common'
+import { pagination } from './common'
 import * as common from './common'
 
-export const queryDoubanBooksSelector = query => createSelector(
-  selectPaginatedEntities({
+export const doubanBooks = key => createSelector(
+  pagination({
     entitiesName: 'doubanBooks',
     paginationName: 'doubanBooks',
-    paginationQuery: query
+    paginationKey: key
   }),
   books => books
 )
 
-export const queryAuthorsSelector = query => selectPaginatedEntities({
+export const authors = key => pagination({
   entitiesName: 'authors',
   paginationName: 'authors',
-  paginationQuery: query
+  paginationKey: key
 })
 
-export const searchBooksSelector = query => selectPaginatedEntities({
+export const books = (key?) => pagination({
   entitiesName: 'books',
   paginationName: 'books',
-  paginationQuery: query
+  paginationKey: key
 })
 
-export const doubanBooksAsOptions = query => createSelector(
-  queryDoubanBooksSelector(query),
-  books => {
-    return books.map(book => ({
+export const doubanBooksAsOptions = key => createSelector(
+  doubanBooks(key),
+  selectedBooks => {
+    return selectedBooks.map(book => ({
       name: book.title,
       value: book.id,
       additional: {
@@ -39,8 +39,8 @@ export const doubanBooksAsOptions = query => createSelector(
   }
 )
 
-export const authorsAsOptions = query => createSelector(
-  queryAuthorsSelector(query),
+export const authorsAsOptions = key => createSelector(
+  authors(key),
   items => {
     return items.map(item => ({
       name: item.name,
@@ -49,8 +49,8 @@ export const authorsAsOptions = query => createSelector(
   }
 )
 
-export const booksSearchAsOptions = query => createSelector(
-  searchBooksSelector(query),
+export const booksAsOptions = key => createSelector(
+  books(key),
   items => {
     return items.map(item => ({
       name: item.title,
@@ -59,19 +59,9 @@ export const booksSearchAsOptions = query => createSelector(
   }
 )
 
-export const booksSelector = createSelector(
-  selectPaginatedEntities({
-    entitiesName: 'books',
-    paginationName: 'books',
-    paginationKey: 'default'
-  }),
-  books => books
-)
-
-export const usersSelector = selectPaginatedEntities({
+export const users = pagination({
   entitiesName: 'users',
   paginationName: 'users',
-  paginationKey: 'default'
 })
 
 export * from './common'

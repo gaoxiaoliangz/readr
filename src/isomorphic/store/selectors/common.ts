@@ -1,40 +1,41 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 
-const entitiesSelector = name => state => {
+const defaultKey = 'default'
+
+export const entities = name => state => {
   return state.entities[name] || {}
 }
-const paginationSelector = (name, key = 'default') => state => {
+export const paginatedIds = (name, key = defaultKey) => state => {
   return _.get(state.pagination, `${name}.${key}.ids`, [])
 }
-export const paginationLinkSelector = (name, key = 'default') => state => {
+export const paginationLinks = (name, key = defaultKey) => state => {
   return _.pick(_.get(state.pagination, `${name}.${key}`, {}), ['next', 'last'])
 }
-const queryPaginationSelector = (name, query) => state => {
-  return _.get(state.pagination, [name, 'query', query, 'ids'], [])
-}
 
-type SelectPaginatedEntitiesOptions = {
+export const nextPage = (name, key = defaultKey) => createSelector(
+  paginationLinks(name, key),
+  selectedPaginationLinks => {
+    return _.get(selectedPaginationLinks, 'next.page', 0)
+  }
+)
+
+type PaginationOptions = {
   entitiesName: string
   paginationName: string
   paginationKey?: string
-  paginationQuery?: string
 }
-export const selectPaginatedEntities = (options: SelectPaginatedEntitiesOptions) => {
-  const {entitiesName, paginationName, paginationKey, paginationQuery} = options
-  let pagiSelector: (state: any) => any[]
-
-  if (paginationQuery || paginationQuery === '') {
-    pagiSelector = queryPaginationSelector(paginationName, paginationQuery)
-  } else {
-    pagiSelector = paginationSelector(paginationName, paginationKey)
-  }
+export const pagination = (options: PaginationOptions) => {
+  const {entitiesName, paginationName, paginationKey} = options
+  const pagiSelector = paginatedIds(paginationName, paginationKey)
 
   return createSelector(
-    entitiesSelector(entitiesName),
+    entities(entitiesName),
     pagiSelector,
-    (entities, ids) => {
-      return ids.map(id => entities[id])
+    (selectedEntities, ids) => {
+      return ids
+        .map(id => selectedEntities[id])
+        .filter(item => Boolean(item))
     }
   )
 }

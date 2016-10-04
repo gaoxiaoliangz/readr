@@ -4,6 +4,7 @@ import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import components from './components'
 import * as entities from './entities'
+import pagination from './pagination'
 // import * as actions from '../actions'
 
 // deprecated
@@ -30,7 +31,8 @@ const rootReducer = combineReducers(Object.assign({}, {
   components,
   elements,
   routing,
-  form
+  form,
+  pagination
 }, entities))
 
 export default rootReducer

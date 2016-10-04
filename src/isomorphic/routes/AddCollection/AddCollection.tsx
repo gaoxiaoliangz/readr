@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, reset, fetchBooks } from '../../store/actions'
+import { sendNotification, reset, loadBooks } from '../../store/actions'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
 import api from '../../services/api'
@@ -12,7 +12,7 @@ interface Props {
   sendNotification?: any
   notification?: any
   reset: any
-  fetchBooks?: (data: fetchBooks) => void
+  loadBooks?: (data: loadBooks) => void
 }
 
 class AddCollection extends Component<Props, {}> {
@@ -39,7 +39,7 @@ class AddCollection extends Component<Props, {}> {
 
   handleBooksValueChange(newVal) {
     if (!_.isEmpty(newVal)) {
-      this.props.fetchBooks({
+      this.props.loadBooks({
         keyword: newVal
       })
     }
@@ -68,5 +68,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, reset, fetchBooks }
+  { sendNotification, reset, loadBooks }
 )(AddCollection as any)

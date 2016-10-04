@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import utils from '../../../utils'
+import * as api from '../../../services/api'
 
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
@@ -48,17 +49,17 @@ export const books = createActionEntity(BOOKS)
 // export type fetchBooks = {
 //   keyword?: string
 // }
-export type fetchBooks = any
-export const FETCH_BOOKS = 'FETCH_BOOKS'
-export const fetchBooks = (options?: fetchBooks) => action(FETCH_BOOKS, options)
-export const PAGINATE_BOOKS = 'PAGINATE_BOOKS'
-export const paginateBooks = (keyword, response) => action(PAGINATE_BOOKS, {
-  pagination: {
-    name: 'books',
-    query: keyword
-  },
-  response
-})
+export type loadBooks = api.fetchBooks
+export const LOAD_BOOKS = 'LOAD_BOOKS'
+export const loadBooks = (options?: loadBooks) => action(LOAD_BOOKS, {options})
+// export const PAGINATE_BOOKS = 'PAGINATE_BOOKS'
+// export const paginateBooks = (keyword, response) => action(PAGINATE_BOOKS, {
+//   pagination: {
+//     name: 'books',
+//     query: keyword
+//   },
+//   response
+// })
 
 // export const BOOKS_REQUEST = 'data-fetching/books/REQUEST'
 // export const BOOKS_SUCCESS = 'data-fetching/books/SUCCESS'

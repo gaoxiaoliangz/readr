@@ -62,7 +62,7 @@ class ManageUsers extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    users: selectors.usersSelector(state),
+    users: selectors.users(state),
     routing: state.routing.locationBeforeTransitions,
   }
 }

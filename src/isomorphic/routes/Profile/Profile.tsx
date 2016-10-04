@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router'
-import { fetchBooks, fetchCollections, sendNotification, fetchProfile } from '../../store/actions'
+import { fetchCollections, sendNotification, fetchProfile } from '../../store/actions'
 // import BookListSection from '../../components/BookListSection'
 import { Button } from '../../elements/_form'
 import { Tab, Tabs } from '../../elements/Tab'
@@ -73,5 +73,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, fetchBooks, fetchCollections, fetchProfile }
+  { sendNotification, fetchCollections, fetchProfile }
 )(Profile as any)
