@@ -19,7 +19,7 @@ export default function paginate({ types, mapActionToKey }) {
   function updatePagination(state = {
     isFetching: false,
     pageCount: 0,
-    ids: []
+    pages: {}
   }, action) {
     switch (action.type) {
       case requestType:
@@ -27,9 +27,17 @@ export default function paginate({ types, mapActionToKey }) {
           isFetching: true
         })
       case successType:
+        const currentPage = action.response._next
+          ? action.response._next.page - 1
+          : action.response._last.page
+
+        const pages = _.assign({}, {
+          [currentPage]: action.response.result
+        })
+
         return _.assign({}, state, {
           isFetching: false,
-          ids: _.union(state.ids, action.response.result),
+          pages,
           next: action.response._next || null,
           last: action.response._last,
           pageCount: state.pageCount + 1

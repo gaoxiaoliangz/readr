@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
-import { pagination } from './common'
+import { pagedEntities } from './common'
 import * as common from './common'
 
 export const doubanBooks = key => createSelector(
-  pagination({
+  pagedEntities({
     entitiesName: 'doubanBooks',
     paginationName: 'doubanBooks',
     paginationKey: key
@@ -12,16 +12,17 @@ export const doubanBooks = key => createSelector(
   books => books
 )
 
-export const authors = key => pagination({
+export const authors = key => pagedEntities({
   entitiesName: 'authors',
   paginationName: 'authors',
   paginationKey: key
 })
 
-export const books = (key?) => pagination({
+export const books = (page?, key?) => pagedEntities({
   entitiesName: 'books',
   paginationName: 'books',
-  paginationKey: key
+  paginationKey: key,
+  page
 })
 
 export const doubanBooksAsOptions = key => createSelector(
@@ -59,7 +60,7 @@ export const booksAsOptions = key => createSelector(
   }
 )
 
-export const users = pagination({
+export const users = pagedEntities({
   entitiesName: 'users',
   paginationName: 'users',
 })

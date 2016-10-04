@@ -106,8 +106,10 @@ class ManageBooks extends Component<Props, any> {
 }
 
 function mapStateToProps(state, ownProps) {
+  const currentPage = selectors.common.currentPage('books')(state)
+
   return {
-    bookListNewest: selectors.books()(state),
+    bookListNewest: selectors.books(currentPage)(state),
     routing: state.routing.locationBeforeTransitions,
   }
 }
