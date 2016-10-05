@@ -18,7 +18,7 @@ export const authors = key => pagedEntities({
   paginationKey: key
 })
 
-export const books = (page?, key?) => pagedEntities({
+export const books = (key?, page?) => pagedEntities({
   entitiesName: 'books',
   paginationName: 'books',
   paginationKey: key,

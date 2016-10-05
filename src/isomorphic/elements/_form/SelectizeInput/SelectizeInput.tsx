@@ -120,13 +120,9 @@ class SelectizeInput extends Component<IProps, IState> {
   }
 
   handleKeyPress(e) {
-    if (e.keyCode === 8 && !this.props.value) {
-      this.removeValue(- 1)
+    if (e.keyCode === 8 && !this.props.value && this.props.values.length !== 0) {
+      this.removeValue(-1)
     }
-    // todo
-    // if (e.keyCode === 13 && this.state.showOptions) {
-    //   this.addValue()
-    // }
   }
 
   handleInputChange(e) {

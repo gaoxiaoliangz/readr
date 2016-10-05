@@ -7,7 +7,7 @@ export const entities = name => state => {
   return state.entities[name] || {}
 }
 
-export const paginatedPages = (name, key = defaultKey) => state => {
+export const paginationPages = (name, key = defaultKey) => state => {
   return _.get(state.pagination, `${name}.${key}.pages`, {})
 }
 
@@ -44,7 +44,7 @@ export const entityPages = (options: EntityPagesOptions) => {
 
   return createSelector(
     entities(entitiesName),
-    paginatedPages(paginationName, paginationKey),
+    paginationPages(paginationName, paginationKey),
     (selectedEntities, pages) => {
       return _.mapValues(pages, ids => {
         return (ids as string[])
@@ -60,6 +60,8 @@ interface PagedEntitiesOptions extends EntityPagesOptions {
 }
 export const pagedEntities = (options: PagedEntitiesOptions) => {
   const { page } = options
+
+  console.log(options)
 
   return createSelector(
     entityPages(options),
