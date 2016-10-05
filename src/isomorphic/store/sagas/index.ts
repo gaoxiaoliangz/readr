@@ -21,11 +21,18 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
 }
 
 const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
+const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
 
 function* loadBooks(options, callApi?: boolean): any {
   // const books = yield select(selectors.common.entities('books'))
   if (callApi) {
     yield call(fetchBooks, [options])
+  }
+}
+
+function* loadUsers(options, callApi?: boolean): any {
+  if (callApi) {
+    yield call(fetchUsers, [options])
   }
 }
 
@@ -36,8 +43,16 @@ function* watchLoadBooks(): any {
   }
 }
 
+function* watchLoadUsers(): any {
+  while (true) {
+    const { options } = yield take(actions.LOAD_USERS)
+    yield loadUsers(options, true)
+  }
+}
+
 export default function* rootSaga() {
   yield [
-    fork(watchLoadBooks)
+    fork(watchLoadBooks),
+    fork(watchLoadUsers)
   ]
 }

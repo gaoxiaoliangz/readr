@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../store/actions'
+import { loadUsers } from '../../store/actions'
 import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../store/selectors'
 import DocContainer from '../../containers/DocContainer'
@@ -9,7 +9,7 @@ import helpers from '../../helpers'
 import moment from 'moment'
 
 interface Props {
-  fetchUsers: (options?: fetchUsers) => void
+  loadUsers: loadUsers
   users: any[]
   routing: any
 }
@@ -21,10 +21,8 @@ class ManageUsers extends Component<Props, {}> {
   }
 
   loadUsers(props = this.props) {
-    this.props.fetchUsers({
-      api: {
-        page: props.routing.query.page || '1'
-      }
+    this.props.loadUsers({
+      page: props.routing.query.page || '1'
     })
   }
 
@@ -69,5 +67,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { fetchUsers }
+  { loadUsers }
 )(ManageUsers as any)
