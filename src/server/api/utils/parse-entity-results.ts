@@ -52,7 +52,7 @@ export default function parseEntityResults(results, options: Options) {
     _response: results.slice(startIndex, limit + startIndex),
     _pagination: {
       current: page,
-      all: Math.ceil(results.length / limit)
+      all: Math.ceil(results.length / limit) || 1
     }
   }
 

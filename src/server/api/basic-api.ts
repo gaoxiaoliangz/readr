@@ -54,9 +54,9 @@ class BasicApi {
       }
 
       return this.model.find(match2).list().then(results => {
-        if (results.length === 0) {
-          return results
-        }
+        // if (results.length === 0) {
+        //   return results
+        // }
         return utils.parseEntityResults(results, options)
       })
     }
