@@ -82,8 +82,6 @@ class AddCollectionForm extends Component<AllProps, State> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const booksQuery = _.get(state.form, 'addCollection._booksValue.value', '')
-
   return {
     initialValues: ownProps.initialData,
     routing: state.routing.locationBeforeTransitions,

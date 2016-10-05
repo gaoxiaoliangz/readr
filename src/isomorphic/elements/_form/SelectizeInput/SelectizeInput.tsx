@@ -3,6 +3,7 @@ import Icon from '../../Icon'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
 import isDescendant from '../../../utils/dom/isDescendant'
+import _ from 'lodash'
 const styles = require('./SelectizeInput.scss')
 
 type TypeOption = {
@@ -22,6 +23,7 @@ interface IProps {
   placeholder?: string
   label?: string
   stayFocused?: boolean // default true
+  omitSelectedValuesFromOptions?: boolean
 
   value: string
   onInputChange: (newValue: string) => void
@@ -161,13 +163,23 @@ class SelectizeInput extends Component<IProps, IState> {
   }
 
   render() {
-    const { label, values, onAddNewValue } = this.props
+    const { label, values, onAddNewValue, omitSelectedValuesFromOptions } = this.props
 
     let value = this.props.value || ''
     let options = this.props.options || []
 
     let inputWidth = values.length > 0 ? (value.length === 0 ? 16 : value.length * 16) : '100%'
     let placeholder = values.length > 0 ? '' : this.props.placeholder
+
+    let filteredOptions = options
+      .filter(option => {
+        if (omitSelectedValuesFromOptions) {
+          const valueOfValues = _.map(values, 'value')
+          return valueOfValues.indexOf(option.value) === -1
+        }
+
+        return true
+      })
 
     const selectizeInputStyleName = classnames({
       'selectize-input': true,
@@ -221,27 +233,28 @@ class SelectizeInput extends Component<IProps, IState> {
             />
         </div>
         {
-          this.state.showOptions && (options.length !== 0 || onAddNewValue) ? (
+          this.state.showOptions && (filteredOptions.length !== 0 || onAddNewValue) ? (
             <ul styleName="query-results">
               {
-                options.map((option, index) => {
-                  if (option.disabled) {
-                    return <li key={index} className="disabled">{option.name}</li>
-                  }
-                  return (
-                    <li
-                      key={index}
-                      onClick={e => {
-                        this.addValue(option)
-                        if (this.props.onOptionClick) {
-                          this.props.onOptionClick(option)
-                        }
-                      } }
-                      >
-                      <span>{option.name}</span>
-                    </li>
-                  )
-                })
+                filteredOptions
+                  .map((option, index) => {
+                    if (option.disabled) {
+                      return <li key={index} className="disabled">{option.name}</li>
+                    }
+                    return (
+                      <li
+                        key={index}
+                        onClick={e => {
+                          this.addValue(option)
+                          if (this.props.onOptionClick) {
+                            this.props.onOptionClick(option)
+                          }
+                        } }
+                        >
+                        <span>{option.name}</span>
+                      </li>
+                    )
+                  })
               }
               {
                 onAddNewValue ? (
@@ -258,6 +271,10 @@ class SelectizeInput extends Component<IProps, IState> {
       </div>
     )
   }
+}
+
+SelectizeInput['defaultProps'] = {
+  omitSelectedValuesFromOptions: true
 }
 
 export default SelectizeInput
