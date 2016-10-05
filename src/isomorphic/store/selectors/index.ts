@@ -50,7 +50,7 @@ export const authorsAsOptions = key => createSelector(
   }
 )
 
-export const booksAsOptions = key => createSelector(
+export const booksAsOptions = (key?) => createSelector(
   books(key),
   items => {
     return items.map(item => ({

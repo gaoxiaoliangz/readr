@@ -64,9 +64,8 @@ export const pagedEntities = (options: PagedEntitiesOptions) => {
   return createSelector(
     entityPages(options),
     pages => {
-      console.log(page)
       if (page) {
-        return pages[page]
+        return _.get(pages, [page], [])
       }
 
       let allEntities = []

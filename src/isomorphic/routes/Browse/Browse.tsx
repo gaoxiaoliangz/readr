@@ -60,7 +60,7 @@ class Browse extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: selectors.books('default')(state),
+    newestBooks: selectors.books()(state),
     nextPage: selectors.common.nextPage('books')(state)
   }
 }

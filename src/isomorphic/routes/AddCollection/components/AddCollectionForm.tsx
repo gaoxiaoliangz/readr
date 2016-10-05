@@ -87,7 +87,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     initialValues: ownProps.initialData,
     routing: state.routing.locationBeforeTransitions,
-    booksSearchAsOptions: selectors.booksAsOptions(booksQuery)(state)
+    booksSearchAsOptions: selectors.booksAsOptions()(state)
   }
 }
 

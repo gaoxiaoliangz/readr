@@ -13,7 +13,7 @@ export function fetchNormalized(endpoint, schema, fetchOptions = {}) {
 export const fetchBook = ({ params }) => fetchNormalized(`book/${params[0]}`, schemas.BOOK)
 
 export type fetchBooks  = {
-  keyword?: string
+  q?: string
   page?: number
 } | string
 export const fetchBooks = (options?: fetchBooks) => {

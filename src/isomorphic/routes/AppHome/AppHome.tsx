@@ -95,7 +95,7 @@ class Home extends Component<IAllProps, IState> {
 function mapStateToProps(state, ownProps) {
   return {
     userBooks: [],
-    newestBooks: selectors.books(state),
+    newestBooks: selectors.books('1')(state),
     session: state.session,
     bookCollections: _.get(state.pagination, 'bookCollections.default', null)
       ? state.pagination.bookCollections.default.ids.map(id => state.entities.bookCollections[id])
