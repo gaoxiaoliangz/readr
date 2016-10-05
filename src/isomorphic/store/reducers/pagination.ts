@@ -31,4 +31,5 @@ export default combineReducers({
     mapActionToKey: generalMapActionToKey,
     types: parseTypes(actions.USERS)
   }),
+  authors: () => ({})
 })

@@ -1,9 +1,8 @@
 import errorMessage from './errorMessage'
-import pagination2 from './pagination'
 import _ from 'lodash'
 import * as actions from '../../actions'
 
-export { pagination2, errorMessage }
+export { errorMessage }
 
 export function entities(state = {}, action) {
   if (action.response && action.response.entities) {
