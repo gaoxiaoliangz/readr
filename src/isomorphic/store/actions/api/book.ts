@@ -27,28 +27,6 @@ export function fetchBook(bookId, fields?: Array<any>) {
   }
 }
 
-export function fetchCollections(flowType: 'newest' | 'hot' = 'newest') {
-  return {
-    flowType,
-    CALL_API: {
-      types: ['COLLECTIONS_REQUEST', 'COLLECTIONS_SUCCESS', 'COLLECTIONS_FAILURE'],
-      endpoint: `collections`,
-      schema: schemas.COLLECTION_ARRAY
-    }
-  }
-}
-
-export function fetchCollection(collectionId) {
-  return {
-    collectionId,
-    CALL_API: {
-      types: ['COLLECTION_REQUEST', 'COLLECTION_SUCCESS', 'COLLECTION_FAILURE'],
-      endpoint: `collections/${collectionId}`,
-      schema: schemas.COLLECTION
-    }
-  }
-}
-
 export const DOUBAN_BOOK_SEARCH_REQUEST = 'data-fetching/douban-book-search/REQUEST'
 export const DOUBAN_BOOK_SEARCH_SUCCESS = 'data-fetching/douban-book-search/SUCCESS'
 export const DOUBAN_BOOK_SEARCH_FAILURE = 'data-fetching/douban-book-search/FAILURE'
