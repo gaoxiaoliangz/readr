@@ -29,7 +29,7 @@ export default function paginate({ types, mapActionToKey }) {
       case successType:
         const currentPage = action.response._next
           ? action.response._next.page - 1
-          : action.response._last.page
+          : action.response._last && action.response._last.page || 1
 
         const pages = _.assign({}, {
           [currentPage]: action.response.result

@@ -5,44 +5,6 @@ import helpers from '../../../helpers'
 
 const doubanApi = helpers.getApiRoots().douban
 
-// export const BOOKS_REQUEST = 'data-fetching/books/REQUEST'
-// export const BOOKS_SUCCESS = 'data-fetching/books/SUCCESS'
-// export const BOOKS_FAILURE = 'data-fetching/books/FAILURE'
-// export type fetchBooks = {
-//   page?: number
-//   merge?: boolean
-//   q?: string
-// }
-// export function fetchBooks(options?: fetchBooks) {
-//   const defaultConfig = { page: 1, merge: false }
-//   const mergedOptions = Object.assign(defaultConfig, options || {})
-//   const { merge, q } = mergedOptions
-//   let queryOptions = _.omit(mergedOptions, ['merge'])
-
-//   queryOptions = _.assign({}, queryOptions, {
-//     exclude: 'content'
-//   })
-
-//   const queryString = utils.parseUrlencoded(queryOptions)
-//   const pagination = {
-//       name: 'books',
-//       merge,
-//       query: q
-//     }
-
-//   const CALL_API: CALL_API_OBJ = {
-//     types: [BOOKS_REQUEST, BOOKS_SUCCESS, BOOKS_FAILURE],
-//     endpoint: `books?${queryString}`,
-//     schema: schemas.BOOK_ARRAY,
-//     pagination
-//   }
-
-//   return {
-//     cacheKey: pagination,
-//     CALL_API
-//   }
-// }
-
 export const BOOK_REQUEST = 'data-fetching/book/REQUEST'
 export const BOOK_SUCCESS = 'data-fetching/book/SUCCESS'
 export const BOOK_FAILURE = 'data-fetching/book/FAILURE'

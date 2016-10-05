@@ -4,7 +4,7 @@ import DocContainer from '../../containers/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import api from '../../services/api'
 import * as selectors from '../../store/selectors'
-import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity } from '../../store/actions'
+import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity, loadUsers } from '../../store/actions'
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
 import moment from 'moment'
@@ -17,6 +17,7 @@ interface Props {
   closeConfirmModal: any
   routing: any
   removeEntity: removeEntity
+  loadUsers: loadUsers
 }
 
 class ManageBooks extends Component<Props, any> {
@@ -60,6 +61,7 @@ class ManageBooks extends Component<Props, any> {
 
   componentDidMount() {
     this.loadBooks()
+    this.props.loadUsers()
   }
 
   render() {
@@ -117,5 +119,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, sendNotification, openConfirmModal, closeConfirmModal, removeEntity }
+  { loadBooks, sendNotification, openConfirmModal, closeConfirmModal, removeEntity, loadUsers }
 )(ManageBooks)

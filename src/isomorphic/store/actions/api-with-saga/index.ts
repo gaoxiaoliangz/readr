@@ -49,7 +49,7 @@ export const LOAD_BOOKS = 'LOAD_BOOKS'
 export const loadBooks = (options?: loadBooks) => action(LOAD_BOOKS, {options})
 
 export interface loadUsers {
-  (options: api.FetchUsersOptions): any
+  (options?: api.FetchUsersOptions): any
 }
 export const LOAD_USERS = 'LOAD_USERS'
-export const loadUsers = (options?: api.FetchUsersOptions) => action(LOAD_USERS, {options})
+export const loadUsers: loadUsers = (options) => action(LOAD_USERS, {options})
