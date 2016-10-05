@@ -38,6 +38,9 @@ export default function parseEntityResults(results, options: Options) {
   let { page, limit, order, exclude, fields } = Object.assign({}, defaultOptions, options)
   // query 里面传过来的都是 string
   page = parseInt(page as any, 10)
+  // 如果 page 小于 0 则当做 1 来处理，大于最大页面则不管
+  // 此逻辑参照 GitHub api
+  page = page <= 0 ? 1 : page
   limit = parseInt(limit as any, 10)
 
   if (order === 'new') {
@@ -49,8 +52,7 @@ export default function parseEntityResults(results, options: Options) {
     _response: results.slice(startIndex, limit + startIndex),
     _pagination: {
       current: page,
-      // todo: 可能有 bug
-      all: parseInt((results.length / limit) as any, 10) + 1
+      all: Math.ceil(results.length / limit)
     }
   }
 

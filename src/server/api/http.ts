@@ -2,26 +2,39 @@ import _ from 'lodash'
 import i18n from '../utils/i18n'
 import print from '../utils/print'
 import parseUrlencoded from '../../isomorphic/utils/parseUrlencoded'
-import { ApiRoots } from '../../isomorphic/config'
+import helpers from '../../isomorphic/helpers'
+
+const API_ROOT = helpers.getApiRoots().local
 
 function parsePagination({ fullPath, query }, { current, all }) {
+  const getLintByPage = page => (`${fullPath}?${parseUrlencoded(_.assign({}, query, { page }))}`)
+
   const links = {
-    first: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: 1 }))}`,
-    last: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: all }))}`,
-    prev: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: current - 1 }))}`,
-    next: `${fullPath}?${parseUrlencoded(_.assign({}, query, { page: current + 1 }))}`,
+    first: getLintByPage(1),
+    last: getLintByPage(all),
+    prev: getLintByPage(current - 1),
+    next: getLintByPage(current + 1),
+  }
+
+  if (current > all) {
+    links.prev = links.last
+  }
+
+  if (all === 1) {
+    if (current > 1) {
+      return _.omit(links, ['next'])
+    }
+
+    if (current === 1) {
+      return _.omit(links, ['prev', 'next'])
+    }
   }
 
   if (current <= 1) {
     return _.omit(links, ['prev'])
   }
 
-  if (current === all) {
-    return _.omit(links, ['next'])
-  }
-
-  if (current > all) {
-    links.prev = links.last
+  if (current >= all) {
     return _.omit(links, ['next'])
   }
 
@@ -34,7 +47,7 @@ function done(req, res) {
       res.status(201).send(result)
     } else {
       if (result._pagination) {
-        const host = ApiRoots.LOCAL.substr(0, ApiRoots.LOCAL.length - 1)
+        const host = API_ROOT
 
         res.links(parsePagination({
           fullPath: host + req.path,

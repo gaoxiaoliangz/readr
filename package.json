@@ -27,7 +27,8 @@
     "test": "mocha --require babel-register",
     "fe:hot": "node bin/server --hmr --noServerRouting",
     "build:node": "webpack --progress --config ./webpack/webpack.node.config.js",
-    "watch:node": "webpack --watch --progress --config ./webpack/webpack.node.config.js"
+    "watch:node": "webpack --watch --progress --config ./webpack/webpack.node.config.js",
+    "server:reload": "nodemon bin/server"
   },
   "dependencies": {
     "animate.css": "^3.5.1",
