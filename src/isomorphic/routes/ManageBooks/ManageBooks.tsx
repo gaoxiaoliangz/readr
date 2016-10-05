@@ -109,7 +109,8 @@ function mapStateToProps(state, ownProps) {
   const currentPage = selectors.common.currentPage('books')(state)
 
   return {
-    bookListNewest: selectors.books(currentPage)(state),
+    // 如果第一个参数传 null 会覆盖默认参数
+    bookListNewest: selectors.books(undefined, currentPage)(state),
     routing: state.routing.locationBeforeTransitions,
   }
 }

@@ -58,10 +58,10 @@ class Dropdown extends Component<IProps, IState> {
 
     return (
       <div ref={ref => { this.dropdown = ref } } styleName="dropdown" className={className || ''}>
-        <span styleName="dropdown-toggle">
+        <div styleName="dropdown-toggle">
           <span>{this.props.title}</span>
           <span styleName="dropdown-caret"/>
-        </span>
+        </div>
         {
           this.state.showMenu && (
             <div styleName={ style === 'dark' ? 'dropdown-menu--dark' : 'dropdown-menu'}>

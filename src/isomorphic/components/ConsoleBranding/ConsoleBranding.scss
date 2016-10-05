@@ -30,11 +30,17 @@
 
 .sub-name {
   float: left;
-  line-height: $branding-height;
-  color: #fff;
+  span {
+    display: inline-block;
+    line-height: $branding-height;
+    height: $branding-height;
+    color: #fff;
+  }
 }
 
 .nav {
   color: #fff;
+  line-height: $branding-height;
+  height: $branding-height;
   composes: nav from '../Branding/Branding.scss'
 }

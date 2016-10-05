@@ -8,7 +8,7 @@ export const entities = name => state => {
 }
 
 export const paginationPages = (name, key = defaultKey) => state => {
-  return _.get(state.pagination, `${name}.${key}.pages`, {})
+  return _.get(state, ['pagination', name, key, 'pages'], {})
 }
 
 export const paginationLinks = (name, key = defaultKey) => state => {
@@ -60,8 +60,6 @@ interface PagedEntitiesOptions extends EntityPagesOptions {
 }
 export const pagedEntities = (options: PagedEntitiesOptions) => {
   const { page } = options
-
-  console.log(options)
 
   return createSelector(
     entityPages(options),
