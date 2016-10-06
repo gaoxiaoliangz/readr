@@ -31,18 +31,18 @@ export function payloads(state = {}, action) {
 
 export function session(state = { user: { role: 'visitor' } }, action) {
   switch (action.type) {
-    case actions.AUTH_REQUEST:
+    case actions.AUTH.REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       })
 
-    case actions.AUTH_SUCCESS:
+    case actions.AUTH.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         user: action.response
       })
 
-    case actions.AUTH_FAILURE:
+    case actions.AUTH.FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         user: action.response

@@ -4,11 +4,9 @@ import * as actions from '../actions'
 import api from '../../services/api'
 import * as selectors from '../selectors'
 
-function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
+function* fetchEntity(entity: ActionEntity, apiFn, ...apiArgs): any {
   yield put(entity.request(apiArgs))
-  const {response, error} = yield call(() => {
-    return apiFn.apply(null, apiArgs)
-  })
+  const {response, error} = yield call(apiFn, ...apiArgs)
   if (response) {
     let action = entity.success(response, apiArgs)
     yield put(action)
@@ -20,19 +18,25 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiArgs): any {
   }
 }
 
+const fetchBook = fetchEntity.bind(null, actions.book, api.fetchBook)
 const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
 
+function* loadBook(id, callApi?: boolean): any {
+  if (callApi) {
+    yield call(fetchBook, id)
+  }
+}
+
 function* loadBooks(options, callApi?: boolean): any {
   if (callApi) {
-    // todo
-    yield call(fetchBooks, [options])
+    yield call(fetchBooks, options)
   }
 }
 
 function* loadUsers(options, callApi?: boolean): any {
   if (callApi) {
-    yield call(fetchUsers, [options])
+    yield call(fetchUsers, options)
   }
 }
 
@@ -40,7 +44,8 @@ function* watchAllLoadRequests(): any {
   while (true) {
     const action = yield take([
       actions.LOAD_BOOKS,
-      actions.LOAD_USERS
+      actions.LOAD_USERS,
+      actions.LOAD_BOOK
     ])
 
     switch (action.type) {
@@ -50,6 +55,10 @@ function* watchAllLoadRequests(): any {
 
       case actions.LOAD_USERS:
         yield fork(loadUsers, action.options, true)
+        break
+
+      case actions.LOAD_BOOK:
+        yield fork(loadBook, action.id, true)
         break
 
       default:

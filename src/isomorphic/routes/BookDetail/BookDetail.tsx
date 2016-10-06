@@ -1,22 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchBook } from '../../store/actions'
+import { loadBook } from '../../store/actions'
 import Loading from '../../elements/Loading'
 import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import DocContainer from '../../containers/DocContainer'
 import CSSModules from 'react-css-modules'
+import * as selectors from '../../store/selectors'
 const styles = require('./BookDetail.scss')
+
+interface Props {
+  loadBook: loadBook
+  bookInfo: any
+}
 
 @CSSModules(styles, {
   allowMultiple: true
 })
-class BookDetail extends Component<any, any> {
+class BookDetail extends Component<Props, {}> {
 
   bookId: string
 
   static fetchData({store, params}) {
-    return store.dispatch(fetchBook(params.id))
+    // return store.dispatch(loadBook(params.id))
   }
 
   constructor(props) {
@@ -25,7 +31,7 @@ class BookDetail extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.props.fetchBook(this.bookId)
+    this.props.loadBook(this.bookId)
   }
 
   render() {
@@ -75,9 +81,15 @@ class BookDetail extends Component<any, any> {
   }
 }
 
-export default connect(
-  (state, ownProps: any) => {
-    return { bookInfo: state.entities.books[ownProps.params.id] }
-  },
-  { fetchBook }
+const mapStateToProps = (state, ownProps: any) => {
+  const id = ownProps.params.id
+
+  return {
+    bookInfo: selectors.common.entity('books', id)(state)
+  }
+}
+
+export default connect<{}, {}, Props>(
+  mapStateToProps,
+  { loadBook }
 )(BookDetail)

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookPageList from './BookPageList'
 import * as viewerUtils from './Viewer.utils'
-import { fetchBook, fetchProgress, openConfirmModal } from '../../store/actions'
+import { loadBook, fetchProgress, openConfirmModal } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './ViewerPanel'
 import BookPageWithRawHtml from './BookPageWithRawHtml'
@@ -14,7 +14,7 @@ import DocContainer from '../../containers/DocContainer'
 const styles = require('./_viewer.scss')
 
 interface IAllProps {
-  fetchBook: any
+  loadBook: loadBook
   book: any
   rawBookContent: string
   fetchProgress: (bookId: string) => void
@@ -120,7 +120,7 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   loadRawBookContent() {
-    this.props.fetchBook(this.bookId).then(res => {
+    this.props.loadBook(this.bookId).then(res => {
       const nodes = viewerUtils.markdownToNodeStringList(this.props.rawBookContent)
 
       this.setState({
@@ -229,5 +229,5 @@ export default connect(
       session: state.session
     }
   },
-  { fetchBook, fetchProgress, openConfirmModal }
+  { loadBook, fetchProgress, openConfirmModal }
 )(Viewer as any)

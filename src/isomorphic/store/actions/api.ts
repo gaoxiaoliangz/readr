@@ -1,9 +1,9 @@
 import _ from 'lodash'
-import utils from '../../../utils'
-import * as api from '../../../services/api'
-import schemas from '../../../services/schemas'
-import { CALL_API_OBJ } from '../../middleware/api'
-import helpers from '../../../helpers'
+import utils from '../../utils'
+import * as api from '../../services/api'
+import schemas from '../../services/schemas'
+import { CALL_API_OBJ } from '../middleware/api'
+import helpers from '../../helpers'
 
 const DOUBAN_API = helpers.getApiRoots().douban
 
@@ -32,16 +32,25 @@ function createActionEntity(requestTypes: RequestTypes) {
   }
 }
 
+export const BOOK = createRequestTypes('book')
+export const book = createActionEntity(BOOK)
+
 export const BOOKS = createRequestTypes('books')
 export const books = createActionEntity(BOOKS)
 
 export const USERS = createRequestTypes('users')
 export const users = createActionEntity(USERS)
 
-
+// todo
 export type loadBooks = api.FetchBooksOptions
 export const LOAD_BOOKS = 'LOAD_BOOKS'
 export const loadBooks = (options?: loadBooks) => action(LOAD_BOOKS, { options })
+
+export interface loadBook {
+  (id: string): any
+}
+export const LOAD_BOOK = 'LOAD_BOOK'
+export const loadBook: loadBook = id => action(LOAD_BOOK, { id })
 
 export interface loadUsers {
   (options?: api.FetchUsersOptions): any
@@ -117,4 +126,48 @@ export function fetchProfile() {
     schema: schemas.PROFILE
   }
   return { CALL_API }
+}
+
+export const AUTH = createRequestTypes('auth')
+export function userAuth(userSession?): Object {
+  // 服务端渲染 session
+  if (userSession) {
+    return {
+      SERVER_STORE: {
+        body: {
+          response: userSession,
+          type: AUTH.SUCCESS
+        }
+      }
+    }
+  }
+
+  return {
+    CALL_API: {
+      types: [AUTH.REQUEST, AUTH.SUCCESS, AUTH.FAILURE],
+      endpoint: 'auth'
+    }
+  }
+}
+
+// payload
+export function fetchShelf() {
+  return {
+    payload: 'bookShelf',
+    CALL_API: {
+      types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
+      endpoint: `user/books/shelf`,
+    }
+  }
+}
+
+export function fetchProgress(bookId) {
+  return {
+    bookId,
+    payload: 'progress',
+    CALL_API: {
+      types: ['PROGRESS_REQUEST', 'PROGRESS_SUCCESS', 'PROGRESS_FAILURE'],
+      endpoint: `user/books/${bookId}/progress`,
+    }
+  }
 }
