@@ -22,16 +22,20 @@ const generalMapActionToKey = action => {
   return DEFAULT_KEY
 }
 
-export default combineReducers({
-  books: paginate({
-    mapActionToKey: generalMapActionToKey,
-    types: parseTypes(actions.BOOKS)
-  }),
-  users: paginate({
-    mapActionToKey: generalMapActionToKey,
-    types: parseTypes(actions.USERS)
-  }),
-  authors: () => ({}),
-  doubanBooks: () => ({}),
-  bookShelves: () => ({})
-})
+export default function pagination(state: any = {}, action) {
+  const combinedReducer = combineReducers({
+    books: paginate({
+      mapActionToKey: generalMapActionToKey,
+      types: parseTypes(actions.BOOKS)
+    }),
+    users: paginate({
+      mapActionToKey: generalMapActionToKey,
+      types: parseTypes(actions.USERS)
+    }),
+    authors: () => (state.authors || {}),
+    doubanBooks: () => (state.doubanBooks || {}),
+    bookShelves: () => (state.bookShelves || {}),
+  })
+
+  return combinedReducer(state, action)
+}

@@ -13,11 +13,7 @@ const rootReducer = combineReducers(Object.assign({}, {
   routing,
   form,
   pagination: (state, action) => {
-    let newState = pagination(state, action)
-    if (_.isEqual(state, newState)) {
-      return legacyPagination(state, action)
-    }
-    return newState
+    return pagination(legacyPagination(state, action), action)
   },
 
   // deprecated

@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import * as actions from '../actions'
 
 export function computePaginationState(state, action) {
   const currentPage = action.response._next
