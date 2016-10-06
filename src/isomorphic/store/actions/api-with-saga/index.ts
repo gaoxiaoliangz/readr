@@ -41,13 +41,13 @@ export const users = createActionEntity(USERS)
 
 export type loadBooks = api.FetchBooksOptions
 export const LOAD_BOOKS = 'LOAD_BOOKS'
-export const loadBooks = (options?: loadBooks) => action(LOAD_BOOKS, {options})
+export const loadBooks = (options?: loadBooks) => action(LOAD_BOOKS, { options })
 
 export interface loadUsers {
   (options?: api.FetchUsersOptions): any
 }
 export const LOAD_USERS = 'LOAD_USERS'
-export const loadUsers: loadUsers = (options) => action(LOAD_USERS, {options})
+export const loadUsers: loadUsers = (options) => action(LOAD_USERS, { options })
 
 
 /**
@@ -65,9 +65,7 @@ export function fetchAuthors(options) {
     }
   }
 
-  return {
-    CALL_API
-  }
+  return { CALL_API }
 }
 
 export const COLLECTIONS = createRequestTypes('collections')
@@ -108,8 +106,15 @@ export function searchDoubanBooks(q) {
     }
   }
 
-  return {
-    q,
-    CALL_API
+  return { q, CALL_API }
+}
+
+export const PROFILE = createRequestTypes('profile')
+export function fetchProfile() {
+  const CALL_API: CALL_API_OBJ = {
+    types: [PROFILE.REQUEST, PROFILE.SUCCESS, PROFILE.FAILURE],
+    endpoint: `user/profile`,
+    schema: schemas.PROFILE
   }
+  return { CALL_API }
 }

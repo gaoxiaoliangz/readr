@@ -7,6 +7,10 @@ export const entities = name => state => {
   return state.entities[name] || {}
 }
 
+export const entity = (name, id) => state => {
+  return _.get(state, ['entities', name, id], {})
+}
+
 export const paginationPages = (name, key = defaultKey) => state => {
   return _.get(state, ['pagination', name, key, 'pages'], {})
 }

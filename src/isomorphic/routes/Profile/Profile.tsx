@@ -8,6 +8,7 @@ import { Tab, Tabs } from '../../elements/Tab'
 import Container from '../../elements/_layout/Container'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
+import * as selectors from '../../store/selectors'
 const styles: any = require('./_profile.scss')
 
 interface IProps {
@@ -63,11 +64,13 @@ class Profile extends Component<IProps, {}> {
 }
 
 function mapStateToProps(state, ownProps) {
+  const userId = selectors.sessionUserId(state)
+
   return {
     newestBooks: state.pagination.books.newest
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
       : [],
-    profile: _.get(state.payloads, 'profile', {})
+    profile: selectors.common.entity('profiles', userId)(state)
   }
 }
 

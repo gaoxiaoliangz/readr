@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { reset } from 'redux-form'
-import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, fetchDoubanBooks } from '../../store/actions'
+import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
 import _ from 'lodash'
 import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
@@ -116,5 +116,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, fetchDoubanBooks }
+  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset }
 )(AddBook as any)

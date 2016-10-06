@@ -17,7 +17,7 @@ export default (
         <Route {...require('./CollectionDetail')} />
         <Route {...require('./Signin')} />
         <Route {...require('./Signup')} />
-        <Route path="user" component="div">
+        <Route path="user">
           <IndexRedirect to="/user/profile" />
           <Route {...require('./Shelf')} />
           <Route {...require('./Preference')} />

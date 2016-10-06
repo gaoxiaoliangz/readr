@@ -22,16 +22,6 @@ export function userAuth(userSession?): Object {
   }
 }
 
-export function fetchProfile() {
-  return {
-    payload: 'profile',
-    CALL_API: {
-      types: ['PROFILE_REQUEST', 'PROFILE_SUCCESS', 'PROFILE_FAILURE'],
-      endpoint: `user/profile`,
-    }
-  }
-}
-
 export function fetchShelf() {
   return {
     payload: 'bookShelf',
