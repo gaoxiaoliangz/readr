@@ -132,11 +132,11 @@ class Viewer extends Component<IAllProps, IState> {
     return !_.isEqual(this.state, nextState)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const bookContentLoaded = this.props.rawBookContent === '' && nextProps.rawBookContent !== ''
+  componentWillReceiveProps(nextProps, nextState) {
+    const shoudCalcNodes = (this.props.rawBookContent === '' && nextProps.rawBookContent !== '')
+      || this.state.nodes.length === 0 && this.props.rawBookContent !== ''
 
-    // calc nodes
-    if (bookContentLoaded) {
+    if (shoudCalcNodes) {
       const nodes = viewerUtils.markdownToNodeStringList(nextProps.rawBookContent)
 
       this.setState({
@@ -184,7 +184,7 @@ class Viewer extends Component<IAllProps, IState> {
     const { nodes, nodeHeights, fluid, showPageInfo } = this.state
     const { progress } = this.props
 
-    if (nodes.length === 0) {
+    if (nodes.length === 0 || typeof progress === 'undefined') {
       return <div className="text-loading">加载中 ...</div>
     }
 
@@ -225,12 +225,12 @@ class Viewer extends Component<IAllProps, IState> {
 const mapStateToProps = (state, ownProps: any) => {
   const bookId = ownProps.params.id
   const book = selectors.common.entity('books', bookId)(state)
-  const progressEntity = selectors.common.entity('booksProgress', bookId)
+  const progressEntity = selectors.common.entity('booksProgress', bookId)(state)
 
   return {
     book,
     rawBookContent: _.get(book, 'content.raw', ''),
-    progress: _.get(progressEntity, 'percentage', 0),
+    progress: _.get(progressEntity, 'percentage'),
     session: state.session
   }
 }

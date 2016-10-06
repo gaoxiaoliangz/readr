@@ -69,6 +69,7 @@ class BookPageList extends Component<IProps, IState> {
 
   removeEventListeners() {
     window.removeEventListener('scroll', this.deboundedHandleScroll)
+    console.log('removed')
   }
 
   calcPages() {
