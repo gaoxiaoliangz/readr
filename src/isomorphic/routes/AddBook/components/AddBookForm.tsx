@@ -123,16 +123,14 @@ class AddBookForm extends Component<AllProps, {}> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const doubanBookKeyword = _.get(state.form, 'addBook._titleValue.value', '')
-  const authorsQuery = _.get(state.form, 'addBook._authorValue.value', '')
   const form = _.get(state.form, 'addBook', {})
   const formData = getFormValues(form, fields)
 
   return {
     initialValues: Object.assign({}, formData, ownProps.initialData),
     routing: state.routing.locationBeforeTransitions,
-    doubanBooksAsOptions: selectors.doubanBooksAsOptions(`query.${doubanBookKeyword}`)(state),
-    authorsAsOptions: selectors.authorsAsOptions(authorsQuery)(state)
+    doubanBooksAsOptions: selectors.doubanBooksAsOptions('search')(state),
+    authorsAsOptions: selectors.authorsAsOptions('search')(state)
   }
 }
 
