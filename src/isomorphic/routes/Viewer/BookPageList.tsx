@@ -102,13 +102,24 @@ class BookPageList extends Component<IProps, IState> {
   render() {
     const { pages, totalHeight } = this.calcPages()
     const { currentPage } = this.state
-    const { pageCount, pageHeight, fluid, showPageInfo } = this.props
-    const startPageIndex = currentPage - 1
-    const endPageIndex = startPageIndex + pageCount
+    const { pageCount, pageHeight, fluid, showPageInfo, isCalcMode } = this.props
     const className = classnames({
       'pages': !fluid,
       'pages--fluid': fluid
     })
+
+    let startPageIndex
+    let endPageIndex
+
+    if (isCalcMode) {
+      startPageIndex = 0
+      endPageIndex = 1
+    } else {
+      startPageIndex = currentPage - Math.ceil(pageCount / 2)
+      startPageIndex = startPageIndex < 0 ? 0 : startPageIndex
+
+      endPageIndex = startPageIndex + pageCount
+    }
 
     return (
       <div>
