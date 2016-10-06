@@ -1,7 +1,24 @@
 import _ from 'lodash'
 import * as actions from '../actions'
 
-const DEFAULT_KEY = 'default'
+export function computePaginationState(state, action) {
+  const currentPage = action.response._next
+    ? action.response._next.page - 1
+    : action.response._last && action.response._last.page || 1
+
+  const pages = _.assign({}, {
+    [currentPage]: action.response.result
+  })
+
+  return _.assign({}, state, {
+    isFetching: false,
+    pages,
+    ids: _.union(state.ids, action.response.result),
+    next: action.response._next || null,
+    last: action.response._last,
+    pageCount: state.pageCount + 1
+  })
+}
 
 export default function paginate({ types, mapActionToKey }) {
   if (!Array.isArray(types) || types.length !== 3) {
@@ -19,7 +36,8 @@ export default function paginate({ types, mapActionToKey }) {
   function updatePagination(state = {
     isFetching: false,
     pageCount: 0,
-    pages: {}
+    pages: {},
+    ids: []
   }, action) {
     switch (action.type) {
       case requestType:
@@ -27,21 +45,7 @@ export default function paginate({ types, mapActionToKey }) {
           isFetching: true
         })
       case successType:
-        const currentPage = action.response._next
-          ? action.response._next.page - 1
-          : action.response._last && action.response._last.page || 1
-
-        const pages = _.assign({}, {
-          [currentPage]: action.response.result
-        })
-
-        return _.assign({}, state, {
-          isFetching: false,
-          pages,
-          next: action.response._next || null,
-          last: action.response._last,
-          pageCount: state.pageCount + 1
-        })
+        return computePaginationState(state, action)
       case failureType:
         return _.assign({}, state, {
           isFetching: false

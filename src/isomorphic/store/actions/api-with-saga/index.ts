@@ -3,6 +3,9 @@ import utils from '../../../utils'
 import * as api from '../../../services/api'
 import schemas from '../../../services/schemas'
 import { CALL_API_OBJ } from '../../middleware/api'
+import helpers from '../../../helpers'
+
+const DOUBAN_API = helpers.getApiRoots().douban
 
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
@@ -26,16 +29,6 @@ function createActionEntity(requestTypes: RequestTypes) {
     request: apiArgs => action(requestTypes.REQUEST, { apiArgs }),
     success: (response, apiArgs) => action(requestTypes.SUCCESS, { response, apiArgs }),
     failure: (error, apiArgs) => action(requestTypes.FAILURE, { error, apiArgs }),
-  }
-}
-
-export const DOUBAN_BOOKS = createRequestTypes('douban-books')
-export const fetchDoubanBooks = keyword => {
-  return {
-    type: DOUBAN_BOOKS.REQUEST,
-    payload: {
-      keyword
-    }
   }
 }
 
@@ -68,7 +61,7 @@ export function fetchAuthors(options) {
     schema: schemas.AUTHOR_ARRAY,
     pagination: {
       name: 'authors',
-      query: options.q
+      q: options.q
     }
   }
 
@@ -98,5 +91,25 @@ export function fetchCollection(collectionId) {
       endpoint: `collections/${collectionId}`,
       schema: schemas.COLLECTION
     }
+  }
+}
+
+export const DOUBAN_BOOKS = createRequestTypes('douban-books')
+export function searchDoubanBooks(q) {
+  const CALL_API: CALL_API_OBJ = {
+    types: [DOUBAN_BOOKS.REQUEST, DOUBAN_BOOKS.SUCCESS, DOUBAN_BOOKS.FAILURE],
+    endpoint: `book/search?count=10&q=${q}`,
+    apiUrl: DOUBAN_API,
+    schema: schemas.DOUBAN_BOOK_SEARCH_RESULTS,
+    options: { useJsonp: true },
+    pagination: {
+      name: 'doubanBooks',
+      q
+    }
+  }
+
+  return {
+    q,
+    CALL_API
   }
 }

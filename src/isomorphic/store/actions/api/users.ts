@@ -20,7 +20,7 @@ export function fetchUsers(options: fetchUsers = {}) {
     pagination: {
       name: 'users',
       merge: options.merge,
-      query: _.get(options, 'api.q', '')
+      q: _.get(options, 'api.q', '')
     }
   } as CALL_API_OBJ
 

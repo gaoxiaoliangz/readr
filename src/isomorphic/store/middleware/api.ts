@@ -5,7 +5,7 @@ import handleResponse from '../../services/utils/handleResponse'
 
 export type Pagination = {
   name: string
-  query?: string
+  q?: string
   key?: string
   merge?: boolean
 }
