@@ -19,16 +19,6 @@ export function entities(state = {}, action) {
   return state
 }
 
-export function payloads(state = {}, action) {
-  if ((action.response || action.error) && action.payload) {
-    return _.assign({}, state, {
-      [action.payload]: action.response
-    })
-  }
-
-  return state
-}
-
 export function session(state = { user: { role: 'visitor' } }, action) {
   switch (action.type) {
     case actions.AUTH.REQUEST:

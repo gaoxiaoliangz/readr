@@ -18,6 +18,12 @@ export const authors = key => pagedEntities({
   paginationKey: key
 })
 
+export const shelfBooks = (key?) => pagedEntities({
+  entitiesName: 'shelfBooks',
+  paginationName: 'bookShelves',
+  paginationKey: key
+})
+
 export const books = (key?, page?) => pagedEntities({
   entitiesName: 'books',
   paginationName: 'books',
@@ -69,5 +75,5 @@ export const sessionUserId = state => {
   return _.get(state, ['session', 'user', 'id'])
 }
 
-export * from './common'
+// export * from './common'
 export { common }

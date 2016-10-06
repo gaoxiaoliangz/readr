@@ -5,6 +5,7 @@ import BookList from '../../components/BookList'
 import Container from '../../elements/_layout/Container'
 import { Tab, Tabs } from '../../elements/Tab'
 import _ from 'lodash'
+import * as selectors from '../../store/selectors'
 
 interface IProps {
   shelf?: any
@@ -45,7 +46,7 @@ class Shelf extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    shelf: state.payloads.bookShelf || []
+    shelf: selectors.shelfBooks()(state)
   }
 }
 

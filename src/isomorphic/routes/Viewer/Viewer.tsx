@@ -11,6 +11,7 @@ import CSSModules from 'react-css-modules'
 import api from '../../services/api'
 import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
+import * as selectors from '../../store/selectors'
 const styles = require('./_viewer.scss')
 
 interface IAllProps {
@@ -119,18 +120,6 @@ class Viewer extends Component<IAllProps, IState> {
     })
   }
 
-  loadRawBookContent() {
-    this.props.loadBook(this.bookId).then(res => {
-      const nodes = viewerUtils.markdownToNodeStringList(this.props.rawBookContent)
-
-      this.setState({
-        nodes,
-        fluid: this.isViewFluid(),
-        isTouchMode: this.isTouchMode()
-      })
-    })
-  }
-
   addEventListeners() {
     window.addEventListener('resize', this.deboundedHandleResize)
   }
@@ -143,6 +132,21 @@ class Viewer extends Component<IAllProps, IState> {
     return !_.isEqual(this.state, nextState)
   }
 
+  componentWillReceiveProps(nextProps) {
+    const bookContentLoaded = this.props.rawBookContent === '' && nextProps.rawBookContent !== ''
+
+    // calc nodes
+    if (bookContentLoaded) {
+      const nodes = viewerUtils.markdownToNodeStringList(nextProps.rawBookContent)
+
+      this.setState({
+        nodes,
+        fluid: this.isViewFluid(),
+        isTouchMode: this.isTouchMode()
+      })
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const hasBookNodesLoaded = this.state.nodes.length !== 0 && prevState.nodes.length === 0
     const viewChanged = this.state.fluid !== prevState.fluid
@@ -153,7 +157,7 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   componentDidMount() {
-    this.loadRawBookContent()
+    this.props.loadBook(this.bookId)
     this.props.fetchProgress(this.bookId)
     this.addEventListeners()
   }
@@ -209,25 +213,29 @@ class Viewer extends Component<IAllProps, IState> {
   render() {
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
-        <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove } >
-          { this.renderViewPanel() }
-          { this.renderBook() }
+        <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
+          {this.renderViewPanel()}
+          {this.renderBook()}
         </div>
       </DocContainer>
     )
   }
 }
 
-export default connect(
-  (state, ownProps: any) => {
-    const book = state.entities.books[ownProps.params.id] || {}
+const mapStateToProps = (state, ownProps: any) => {
+  const bookId = ownProps.params.id
+  const book = selectors.common.entity('books', bookId)(state)
+  const progressEntity = selectors.common.entity('booksProgress', bookId)
 
-    return {
-      book,
-      rawBookContent: _.get(book, 'content.raw', ''),
-      progress: _.get(state.payloads, 'progress.percentage', 0),
-      session: state.session
-    }
-  },
+  return {
+    book,
+    rawBookContent: _.get(book, 'content.raw', ''),
+    progress: _.get(progressEntity, 'percentage', 0),
+    session: state.session
+  }
+}
+
+export default connect(
+  mapStateToProps,
   { loadBook, fetchProgress, openConfirmModal }
 )(Viewer as any)

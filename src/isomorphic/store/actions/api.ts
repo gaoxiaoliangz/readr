@@ -150,24 +150,26 @@ export function userAuth(userSession?): Object {
   }
 }
 
-// payload
+export const SHELF = createRequestTypes('shelf')
 export function fetchShelf() {
-  return {
-    payload: 'bookShelf',
-    CALL_API: {
-      types: ['SHELF_REQUEST', 'SHELF_SUCCESS', 'SHELF_FAILURE'],
-      endpoint: `user/books/shelf`,
+  const CALL_API: CALL_API_OBJ = {
+    types: [SHELF.REQUEST, SHELF.SUCCESS, SHELF.FAILURE],
+    endpoint: `user/books/shelf`,
+    schema: schemas.SHELF_BOOK_ARRAY,
+    pagination: {
+      name: 'bookShelves'
     }
   }
+  return { CALL_API }
 }
 
+export const BOOK_PROGRESS = createRequestTypes('book-progress')
 export function fetchProgress(bookId) {
-  return {
-    bookId,
-    payload: 'progress',
-    CALL_API: {
-      types: ['PROGRESS_REQUEST', 'PROGRESS_SUCCESS', 'PROGRESS_FAILURE'],
-      endpoint: `user/books/${bookId}/progress`,
-    }
+  const CALL_API: CALL_API_OBJ = {
+    types: [BOOK_PROGRESS.REQUEST, BOOK_PROGRESS.SUCCESS, BOOK_PROGRESS.FAILURE],
+    endpoint: `user/books/${bookId}/progress`,
+    schema: schemas.BOOK_PROGRESS
   }
+
+  return { bookId, CALL_API }
 }

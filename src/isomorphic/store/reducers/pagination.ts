@@ -32,5 +32,6 @@ export default combineReducers({
     types: parseTypes(actions.USERS)
   }),
   authors: () => ({}),
-  doubanBooks: () => ({})
+  doubanBooks: () => ({}),
+  bookShelves: () => ({})
 })

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { browserHistory } from 'react-router'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import _ from 'lodash'
+import helpers from '../../../helpers'
 const styles = require('./_button.scss')
 
 interface IProps {
@@ -32,7 +32,7 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, className, color, size, isFluid, width } = this.props
+    let { onClick, className, color, size, isFluid, width, to } = this.props
     let style = {}
 
     const styleName = classnames({
@@ -45,7 +45,7 @@ class Button extends Component<IProps, IState> {
     if (this.props.to) {
       onClick = e => {
         e.preventDefault()
-        browserHistory.push(this.props.to)
+        helpers.redirect(to)
       }
     } else {
       onClick = e => {

@@ -28,7 +28,11 @@ const doubanBook = new Schema('doubanBooks', {
   idAttribute: 'id'
 })
 
-const bookProgress = new Schema('books', {
+const shelfBook = new Schema('shelfBooks', {
+  idAttribute: 'id'
+})
+
+const bookProgress = new Schema('booksProgress', {
   idAttribute: 'bookId'
 })
 
@@ -47,5 +51,6 @@ export default {
   COLLECTION_ARRAY: arrayOf(collection),
   PROFILE: profile,
   AUTHOR: author,
-  AUTHOR_ARRAY: arrayOf(author)
+  AUTHOR_ARRAY: arrayOf(author),
+  SHELF_BOOK_ARRAY: arrayOf(shelfBook)
 }

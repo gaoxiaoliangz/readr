@@ -5,6 +5,7 @@ import Colophon from '../components/Colophon'
 import { fetchShelf } from '../store/actions'
 import _ from 'lodash'
 import api from '../services/api'
+import * as selectors from '../store/selectors'
 
 interface Props {
   fetchShelf: any
@@ -72,7 +73,7 @@ export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
     session: state.session,
-    bookShelf: state.payloads.bookShelf || []
+    bookShelf: selectors.shelfBooks()(state)
   }),
-  { fetchShelf } as any
+  { fetchShelf }
 )(AppCommon)
