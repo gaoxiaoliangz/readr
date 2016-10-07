@@ -3,11 +3,11 @@ import _ from 'lodash'
 import * as actions from '../actions'
 
 function notifications(state = [], action) {
-  if (action.type === 'HIDE_NOTIFICATION') {
+  if (action.type === actions.NOTIFICATION.HIDE) {
     return state.map(n => n.id === action.id ? Object.assign({}, n, { visible: false}) : n)
   }
 
-  if (action.type === 'SHOW_NOTIFICATION') {
+  if (action.type === actions.NOTIFICATION.SHOW) {
     return [...state, {
       visible: true,
       message: action.message,
@@ -18,7 +18,6 @@ function notifications(state = [], action) {
 
   return state
 }
-
 
 function confirmModal(state = {}, action) {
   if (action.type === actions.OPEN_CONFIRM_MODAL) {
@@ -35,11 +34,11 @@ function confirmModal(state = {}, action) {
 }
 
 function modal(state = {}, action) {
-  if (action.type === 'OPEN_MODAL') {
+  if (action.type === actions.MODAL.OPEN) {
     return Object.assign({}, state, {open: true}, action.data)
   }
 
-  if (action.type === 'CLOSE_MODAL') {
+  if (action.type === actions.MODAL.CLOSE) {
     return {
       open: false
     }

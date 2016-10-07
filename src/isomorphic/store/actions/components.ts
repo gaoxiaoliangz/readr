@@ -1,3 +1,5 @@
+const createActionType = (name, operation) => `/components/${name}/${operation}`
+
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
 export function sendNotification(message: string, msgType: MsgType = 'success', t = 2000) {
   return (dispatch, getState) => {
@@ -12,27 +14,28 @@ export function sendNotification(message: string, msgType: MsgType = 'success', 
   }
 }
 
-export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION'
+export const NOTIFICATION = {
+  SHOW: createActionType('notification', 'SHOW'),
+  HIDE: createActionType('notification', 'HIDE'),
+}
 export function showNotification(id: string, message: string, msgType: MsgType = 'success') {
   return {
-    type: SHOW_NOTIFICATION,
+    type: NOTIFICATION.SHOW,
     message,
     msgType,
     id
   }
 }
-
-export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
 export function hideNotification(id: string) {
   return {
-    type: HIDE_NOTIFICATION,
+    type: NOTIFICATION.HIDE,
     id
   }
 }
 
 // confirm modal
-export const OPEN_CONFIRM_MODAL = 'components/confirm-modal/OPEN'
-export const CLOSE_CONFIRM_MODAL = 'components/confirm-modal/CLOSE'
+export const OPEN_CONFIRM_MODAL = createActionType('confirm-modal', 'OPEN')
+export const CLOSE_CONFIRM_MODAL = createActionType('confirm-modal', 'CLOSE')
 export type openConfirmModal = {
   title?: string
   content: string
@@ -44,7 +47,6 @@ export function openConfirmModal(data: openConfirmModal) {
     data
   }
 }
-
 export function closeConfirmModal() {
   return {
     type: CLOSE_CONFIRM_MODAL
@@ -52,6 +54,10 @@ export function closeConfirmModal() {
 }
 
 // modal
+export const MODAL = {
+  OPEN: createActionType('notification', 'SHOW'),
+  CLOSE: createActionType('notification', 'HIDE'),
+}
 export type openModal = {
   title: string
   subTitle?: string
@@ -59,13 +65,12 @@ export type openModal = {
 }
 export function openModal(data: openModal) {
   return {
-    type: 'OPEN_MODAL',
+    type: MODAL.OPEN,
     data
   }
 }
-
 export function closeModal() {
   return {
-    type: 'CLOSE_MODAL'
+    type: MODAL.CLOSE
   }
 }

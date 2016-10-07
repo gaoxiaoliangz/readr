@@ -18,20 +18,15 @@ const updatePagination = (state = DEFAULT_PAGINATION_STATE, action, merge) => {
 export default function pagination(state = {}, action) {
   if (action.pagination) {
     const { name, q, key, merge } = action.pagination as Pagination
-    const originalState = q
-      ? (state[name] && state[name]['query'] && state[name]['query'][q]) || undefined
-      : (state[name] && state[name][key || 'default']) || undefined
-
-    const paginationBody = updatePagination(originalState, action, merge)
-
     const qKey = q ? SEARCH_KEY : null
+    const finalKey = qKey || key || DEFAULT_KEY
 
-    const paginationObj = {
-      [qKey || key || DEFAULT_KEY]: paginationBody
-    }
+    const originalState = (state[name] && state[name][finalKey]) || undefined
 
     return Object.assign({}, state, {
-      [name]: paginationObj
+      [name]: {
+        [finalKey]: updatePagination(originalState, action, merge)
+      }
     })
   }
 
