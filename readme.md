@@ -25,5 +25,5 @@ nodemon bin/server
 命名规范
 
 获取 API 数据的函数以 fetch 开头
-API 数据实体的标识和 query 分开传参，分别为 id, query
-数据提交 API 的参数为 payload
+API 数据实体的标识和 options 分开传参，分别为 id, options
+数据提交 API 的参数为 data

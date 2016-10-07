@@ -1,9 +1,16 @@
 import _ from 'lodash'
 
+export const DEFAULT_PAGINATION_STATE = {
+  isFetching: false,
+  pages: {},
+  ids: [],
+  pageCount: 0,
+}
+
 export function computePaginationState(state, action) {
   const currentPage = action.response._next
     ? action.response._next.page - 1
-    : action.response._last && action.response._last.page || 1
+    : (action.response._last && action.response._last.page || 1)
 
   const pages = _.assign({}, {
     [currentPage]: action.response.result
@@ -13,8 +20,9 @@ export function computePaginationState(state, action) {
     isFetching: false,
     pages,
     ids: _.union(state.ids, action.response.result),
+    // 如果不使用 null 在外层的 merge 会忽略 undefined 从而导致一些边缘问题
     next: action.response._next || null,
-    last: action.response._last,
+    last: action.response._last || null,
     pageCount: state.pageCount + 1
   })
 }
@@ -32,12 +40,7 @@ export default function paginate({ types, mapActionToKey }) {
 
   const [requestType, successType, failureType] = types
 
-  function updatePagination(state = {
-    isFetching: false,
-    pageCount: 0,
-    pages: {},
-    ids: []
-  }, action) {
+  function updatePagination(state = DEFAULT_PAGINATION_STATE, action) {
     switch (action.type) {
       case requestType:
         return _.assign({}, state, {

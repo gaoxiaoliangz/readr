@@ -10,7 +10,7 @@ import CSSModules from 'react-css-modules'
 const styles: any = require('./Browse.scss')
 
 interface IProps {
-  loadBooks: (data?: loadBooks) => void
+  loadBooks: loadBooks
   newestBooks: any
   nextPage: number
 }
@@ -27,7 +27,6 @@ class Browse extends Component<IProps, {}> {
   }
 
   loadMore(page) {
-    console.log(page)
     this.props.loadBooks({ page })
   }
 
@@ -59,8 +58,10 @@ class Browse extends Component<IProps, {}> {
 }
 
 function mapStateToProps(state, ownProps) {
+  const page = selectors.common.currentPage('books')(state)
+
   return {
-    newestBooks: selectors.books()(state),
+    newestBooks: selectors.books(undefined, page)(state),
     nextPage: selectors.common.nextPage('books')(state)
   }
 }

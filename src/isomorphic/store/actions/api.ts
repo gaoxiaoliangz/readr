@@ -42,9 +42,11 @@ export const USERS = createRequestTypes('users')
 export const users = createActionEntity(USERS)
 
 // todo
-export type loadBooks = api.FetchBooksOptions
+export interface loadBooks {
+  (options?: api.FetchBooksOptions, infinite?: boolean): any
+}
 export const LOAD_BOOKS = 'LOAD_BOOKS'
-export const loadBooks = (options?: loadBooks) => action(LOAD_BOOKS, { options })
+export const loadBooks: loadBooks = (options?, infinite?) => action(LOAD_BOOKS, { options, infinite })
 
 export interface loadBook {
   (id: string): any

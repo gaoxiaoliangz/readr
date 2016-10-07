@@ -12,7 +12,7 @@ interface Props {
   sendNotification?: any
   notification?: any
   reset: any
-  loadBooks?: (data: loadBooks) => void
+  loadBooks?: loadBooks
 }
 
 class AddCollection extends Component<Props, {}> {

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 
-const defaultKey = 'default'
+const DEFAULT_KEY = 'default'
 
 export const entities = name => state => {
   return state.entities[name] || {}
@@ -11,22 +11,22 @@ export const entity = (name, id) => state => {
   return _.get(state, ['entities', name, id], {})
 }
 
-export const paginationPages = (name, key = defaultKey) => state => {
+export const paginationPages = (name, key = DEFAULT_KEY) => state => {
   return _.get(state, ['pagination', name, key, 'pages'], {})
 }
 
-export const paginationLinks = (name, key = defaultKey) => state => {
+export const paginationLinks = (name, key = DEFAULT_KEY) => state => {
   return _.pick(_.get(state.pagination, `${name}.${key}`, {}), ['next', 'last'])
 }
 
-export const nextPage = (name, key = defaultKey) => createSelector(
+export const nextPage = (name, key = DEFAULT_KEY) => createSelector(
   paginationLinks(name, key),
   selectedPaginationLinks => {
     return _.get(selectedPaginationLinks, 'next.page', 0)
   }
 )
 
-export const currentPage = (name, key = defaultKey) => createSelector(
+export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
   paginationLinks(name, key),
   selectedPaginationLinks => {
     const next = _.get(selectedPaginationLinks, 'next.page')

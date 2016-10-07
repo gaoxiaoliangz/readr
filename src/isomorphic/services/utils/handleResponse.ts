@@ -43,7 +43,7 @@ function handleResponse({ json, _response }, schema) {
   const { next, last } = parseResHeaderToPagination(_response)
 
   if (typeof schema !== 'undefined') {
-    return  Object.assign({},
+    return  _.assign({},
       normalize(camelizedJson, schema),
       {
         _next: next,

@@ -11,7 +11,7 @@ import moment from 'moment'
 
 interface Props {
   sendNotification?: any
-  loadBooks?: (data?: loadBooks) => void
+  loadBooks?: loadBooks
   bookListNewest?: any
   openConfirmModal: (data: openConfirmModal) => void
   closeConfirmModal: any
