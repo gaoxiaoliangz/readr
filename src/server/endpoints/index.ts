@@ -21,7 +21,7 @@ _.keys(basicApi).forEach(key => {
       parser: req => {
         switch (methodKey) {
           case 'find':
-            return [idMatch(req)]
+            return [idMatch(req), req.query]
 
           case 'list':
             return [{}, req.query]

@@ -48,10 +48,10 @@ export const LOAD_BOOKS = 'LOAD_BOOKS'
 export const loadBooks: loadBooks = (options?, key?) => action(LOAD_BOOKS, { options, key })
 
 export interface loadBook {
-  (id: string): any
+  (id: string, options?: api.FetchBookOptions): any
 }
 export const LOAD_BOOK = 'LOAD_BOOK'
-export const loadBook: loadBook = id => action(LOAD_BOOK, { id })
+export const loadBook: loadBook = (id, options?) => action(LOAD_BOOK, { id, options })
 
 export interface loadUsers {
   (options?: api.FetchUsersOptions): any
@@ -59,6 +59,7 @@ export interface loadUsers {
 export const LOAD_USERS = 'LOAD_USERS'
 export const loadUsers: loadUsers = (options?) => action(LOAD_USERS, { options })
 
+export const LOAD_ACTIONS = [LOAD_BOOK, LOAD_BOOKS, LOAD_USERS]
 
 /**
  * legacy call api actions

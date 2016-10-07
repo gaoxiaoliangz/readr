@@ -3,13 +3,14 @@ import helpers from '../../helpers'
 import normalizeResponse from '../utils/normalizeResponse'
 import schemas from '../schemas'
 import utils from '../../utils'
+import _ from 'lodash'
 
 const { local: apiRoot, douban: doubanApiRoot } = helpers.getApiRoots()
 
-type GeneralApiOptions = {
+interface GeneralApiOptions {
   q?: string
   page?: number
-} | string
+}
 
 /**
  * general helper functions
@@ -35,12 +36,35 @@ export function fetchNormalized(endpoint, schema, fetchOptions = {}) {
 /**
  * specific api services
  */
-export const fetchBook = id => fetchNormalized(`books/${id}`, schemas.BOOK)
-
-export type FetchBooksOptions = GeneralApiOptions
-export const fetchBooks = (options?: FetchBooksOptions) => {
+export type FetchBookOptions = {
+  withContent?: boolean
+}
+export const fetchBook = (id, options: FetchBookOptions = {}) => {
+  const {withContent} = options
+  const apiOptions = !withContent
+    ? {
+      exclude: 'content'
+    }
+    : {}
   return fetchNormalized(
-    parseEndpointWithOptions('books', options)
+    parseEndpointWithOptions(`books/${id}`, apiOptions),
+    schemas.BOOK
+  )
+}
+
+export interface FetchBooksOptions extends GeneralApiOptions {
+  withContent?: boolean
+}
+export const fetchBooks = (options: FetchBooksOptions = {}) => {
+  const {withContent} = options
+  let apiOptions = !withContent
+    ? {
+      exclude: 'content'
+    }
+    : {}
+  apiOptions = _.assign({}, _.omit(options, ['withContent']), apiOptions)
+  return fetchNormalized(
+    parseEndpointWithOptions('books', apiOptions)
     , schemas.BOOK_ARRAY
   )
 }

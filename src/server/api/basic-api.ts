@@ -2,7 +2,7 @@ import errors from '../errors'
 import i18n from '../utils/i18n'
 import _ from 'lodash'
 import utils from './utils'
-import { Options } from './utils/parse-entity-results'
+import { ListingOptions, Fields, excludeFields, includeFields } from './utils/parse-entity-results'
 
 export const apiMethodNames = {
   find: 'find',
@@ -12,8 +12,13 @@ export const apiMethodNames = {
   remove: 'remove',
 }
 
-interface ListOptions extends Options {
+interface ListOptions extends ListingOptions {
   q: string
+}
+
+interface ItemOptions {
+  exclude?: Fields
+  fields?: Fields
 }
 
 class BasicApi {
@@ -24,12 +29,24 @@ class BasicApi {
     this.model = model
   }
 
-  find(match) {
+  find(match, options?: ItemOptions) {
+    const { exclude, fields } = options
+
     return this.list(match).then(res => {
       if (res.length === 0) {
         return Promise.reject(new errors.NotFoundError(i18n('errors.api.general.notFound')))
       }
-      return res._response[0]
+
+      let result = res._response[0]
+
+      if (exclude) {
+        result = excludeFields(exclude)(result)
+      }
+      if (fields) {
+        result = includeFields(fields)(result)
+      }
+
+      return result
     })
   }
 
@@ -54,15 +71,11 @@ class BasicApi {
       }
 
       return this.model.find(match2).list().then(results => {
-        // if (results.length === 0) {
-        //   return results
-        // }
         return utils.parseEntityResults(results, options)
       })
     }
 
-    const result = query()
-    return result
+    return query()
   }
 
   add(data) {

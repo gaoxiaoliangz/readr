@@ -36,11 +36,6 @@ const fetchBook = fetchEntity.bind(null, actions.book, api.fetchBook)
 const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
 
-function* loadBook(id, callApi?: boolean): any {
-  if (callApi) {
-    yield call(fetchBook, {id})
-  }
-}
 
 function* loadUsers(options, callApi?: boolean): any {
   if (callApi) {
@@ -58,11 +53,7 @@ function* handleLoad(fetchFn, parsedAction, callApi?): any {
 
 function* watchAllLoadRequests(): any {
   while (true) {
-    const action = yield take([
-      actions.LOAD_BOOKS,
-      actions.LOAD_USERS,
-      actions.LOAD_BOOK
-    ])
+    const action = yield take(actions.LOAD_ACTIONS)
 
     const apiConfig = _(action)
       .pick(action, RESERVED_ACTION_KYES_ARRAY)
@@ -72,20 +63,20 @@ function* watchAllLoadRequests(): any {
     const parsedAction = { apiConfig, payload }
 
     switch (action.type) {
-      case actions.LOAD_BOOKS:
-        yield fork(handleLoad, fetchBooks, parsedAction)
-        break
-
       case actions.LOAD_USERS:
         yield fork(loadUsers, action.options, true)
         break
 
+      case actions.LOAD_BOOKS:
+        yield fork(handleLoad, fetchBooks, parsedAction)
+        break
+
       case actions.LOAD_BOOK:
-        yield fork(loadBook, action.id, true)
+        yield fork(handleLoad, fetchBook, parsedAction)
         break
 
       default:
-      // nothing happens here
+        // nothing happens here
     }
   }
 }

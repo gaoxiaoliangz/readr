@@ -5,7 +5,7 @@ import _ from 'lodash'
  * 作为 model 返回结果数据数组方法的 iteratee 使用
  */
 
-type Fields = string[]
+export type Fields = string[]
 
 export function excludeFields(fieldsToExclude: Fields) {
   return res => {
@@ -20,7 +20,7 @@ export function includeFields(fieldsToInclude: Fields) {
   return res => _.pick(res, fieldsToInclude)
 }
 
-export interface Options {
+export interface ListingOptions {
   page?: number
   limit?: number
   order?: 'new' | 'old'
@@ -34,7 +34,7 @@ const defaultOptions = {
   order: 'new'
 }
 
-export default function parseEntityResults(results, options: Options) {
+export default function parseEntityResults(results, options: ListingOptions) {
   let { page, limit, order, exclude, fields } = Object.assign({}, defaultOptions, options)
   // query 里面传过来的都是 string
   page = parseInt(page as any, 10)

@@ -158,7 +158,7 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   componentDidMount() {
-    this.props.loadBook(this.bookId)
+    this.props.loadBook(this.bookId, { withContent: true })
     this.props.fetchProgress(this.bookId)
     this.addEventListeners()
   }
@@ -186,7 +186,7 @@ class Viewer extends Component<IAllProps, IState> {
     const { progress } = this.props
 
     if (nodes.length === 0 || typeof progress === 'undefined') {
-      return <Loading center/>
+      return <Loading center />
     }
 
     return this.state.isCalcMode
