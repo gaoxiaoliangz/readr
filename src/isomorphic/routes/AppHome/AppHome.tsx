@@ -8,19 +8,16 @@ import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import { Container } from '../../elements/_layout'
+// import Loading from '../../elements/Loading'
 const styles = require('./AppHome.scss')
 
-interface IProps {
-}
-
-interface IAllProps extends IProps {
+interface Props {
   loadBooks: (data?: loadBooks) => void
   fetchCollections: any
   session: any
   newestBooks: any
-  bookCollections: any
   sendNotification: any
-  bookShelf: any[]
+  isBooksFetching: boolean
 }
 
 interface IState {
@@ -28,7 +25,7 @@ interface IState {
 }
 
 @CSSModules(styles)
-class Home extends Component<IAllProps, IState> {
+class Home extends Component<Props, IState> {
 
   static fetchData({store}) {
     return store.dispatch(loadBooks())
@@ -57,15 +54,7 @@ class Home extends Component<IAllProps, IState> {
   }
 
   render() {
-    let { newestBooks, bookCollections } = this.props
-
-    bookCollections = bookCollections
-      .map(item => ({
-        name: item.name,
-        id: item.id,
-        bookCovers: item.items.map(book => book.cover),
-        description: item.description
-      }))
+    let { newestBooks, isBooksFetching } = this.props
 
     return (
       <DocContainer bodyClass="home">
@@ -85,6 +74,7 @@ class Home extends Component<IAllProps, IState> {
             bookEntities={newestBooks.slice(0, 6) }
             title="新书速递"
             moreLink="/browse"
+            isFetching={isBooksFetching}
             />
         </Container>
       </DocContainer>
@@ -94,13 +84,9 @@ class Home extends Component<IAllProps, IState> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    userBooks: [],
     newestBooks: selectors.books(undefined, '1')(state),
+    isBooksFetching: selectors.common.isPaginationFetching('books')(state),
     session: state.session,
-    bookCollections: _.get(state.pagination, 'bookCollections.default', null)
-      ? state.pagination.bookCollections.default.ids.map(id => state.entities.bookCollections[id])
-      : [],
-    bookShelf: _.get(state.payloads, 'bookShelf.data', [])
   }
 }
 

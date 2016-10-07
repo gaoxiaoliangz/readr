@@ -11,6 +11,10 @@ export const entity = (name, id) => state => {
   return _.get(state, ['entities', name, id], {})
 }
 
+export const isPaginationFetching = (name, key = DEFAULT_KEY) => state => {
+  return _.get(state, ['pagination', name, key, 'isFetching'], true)
+}
+
 export const paginationPages = (name, key = DEFAULT_KEY) => state => {
   return _.get(state, ['pagination', name, key, 'pages'], {})
 }

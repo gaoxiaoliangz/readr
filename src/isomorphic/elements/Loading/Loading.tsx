@@ -1,13 +1,27 @@
 import React, { Component } from 'react'
+import CSSModules from 'react-css-modules'
+const styles = require('./Loading.scss')
 
-class Loading extends Component<any, any> {
+interface Props {
+  backdrop?: boolean
+  text?: string
+}
+
+@CSSModules(styles)
+class Loading extends Component<Props, {}> {
   render() {
+    const { text } = this.props
+
     return (
       <div className="loading-wrap">
-        <span className="icon icon-loading" />
+        <span styleName="text-loading">{text}</span>
       </div>
     )
   }
+}
+
+Loading['defaultProps'] = {
+  text: '加载中 ...'
 }
 
 export default Loading

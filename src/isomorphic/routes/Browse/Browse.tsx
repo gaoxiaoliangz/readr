@@ -9,14 +9,15 @@ import * as selectors from '../../store/selectors'
 import CSSModules from 'react-css-modules'
 const styles: any = require('./Browse.scss')
 
-interface IProps {
+interface Props {
   loadBooks: loadBooks
   newestBooks: any
   nextPage: number
+  isBooksFetching: boolean
 }
 
 @CSSModules(styles)
-class Browse extends Component<IProps, {}> {
+class Browse extends Component<Props, {}> {
 
   static fetchData({store}) {
     return store.dispatch(loadBooks())
@@ -35,12 +36,16 @@ class Browse extends Component<IProps, {}> {
   }
 
   render() {
-    const { nextPage } = this.props
+    const { nextPage, isBooksFetching } = this.props
 
     return (
       <Container className="archive">
         <div className="page-header">
-          <BookListSection title="所有书籍" bookEntities={this.props.newestBooks} />
+          <BookListSection
+            title="所有书籍"
+            bookEntities={this.props.newestBooks}
+            isFetching={isBooksFetching}
+            />
           {
             nextPage !== 0 && (
               <Button
@@ -48,7 +53,7 @@ class Browse extends Component<IProps, {}> {
                 styleName="btn-load-more"
                 width={200}
                 color="white"
-              >加载更多</Button>
+                >加载更多</Button>
             )
           }
         </div>
@@ -60,6 +65,7 @@ class Browse extends Component<IProps, {}> {
 function mapStateToProps(state, ownProps) {
   return {
     newestBooks: selectors.books('browse')(state),
+    isBooksFetching: selectors.common.isPaginationFetching('books', 'browse')(state),
     nextPage: selectors.common.nextPage('books', 'browse')(state)
   }
 }

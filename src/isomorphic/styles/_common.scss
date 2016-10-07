@@ -130,11 +130,7 @@
 }
 
 .text-loading {
-  text-align: center;
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: normal;
-  color: $text-light;
+  @extend %text-loading;
 }
 
 // page rendering
