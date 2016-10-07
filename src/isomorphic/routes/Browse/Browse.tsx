@@ -26,12 +26,12 @@ class Browse extends Component<IProps, {}> {
     super(props)
   }
 
-  loadMore(page) {
-    this.props.loadBooks({ page })
+  loadMore(page = 1) {
+    this.props.loadBooks({ page }, 'browse')
   }
 
   componentDidMount() {
-    this.props.loadBooks()
+    this.loadMore()
   }
 
   render() {
@@ -58,11 +58,9 @@ class Browse extends Component<IProps, {}> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const page = selectors.common.currentPage('books')(state)
-
   return {
-    newestBooks: selectors.books(undefined, page)(state),
-    nextPage: selectors.common.nextPage('books')(state)
+    newestBooks: selectors.books('browse')(state),
+    nextPage: selectors.common.nextPage('books', 'browse')(state)
   }
 }
 

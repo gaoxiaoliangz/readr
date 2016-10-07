@@ -11,6 +11,12 @@ const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 
+function action(type, payload = {}) {
+  return Object.assign({}, {
+    type
+  }, payload)
+}
+
 function createRequestTypes(base) {
   return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
     acc[type] = `api/${base}/${type}`
@@ -18,17 +24,11 @@ function createRequestTypes(base) {
   }, {}) as RequestTypes
 }
 
-function action(type, payload = {}) {
-  return Object.assign({}, {
-    type
-  }, payload)
-}
-
 function createActionEntity(requestTypes: RequestTypes) {
   return {
-    request: apiArgs => action(requestTypes.REQUEST, { apiArgs }),
-    success: (response, apiArgs) => action(requestTypes.SUCCESS, { response, apiArgs }),
-    failure: (error, apiArgs) => action(requestTypes.FAILURE, { error, apiArgs }),
+    request: (payload: Object) => action(requestTypes.REQUEST, payload),
+    success: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload )),
+    failure: (error, payload: Object) => action(requestTypes.FAILURE, Object.assign({}, { error }, payload )),
   }
 }
 
@@ -41,12 +41,11 @@ export const books = createActionEntity(BOOKS)
 export const USERS = createRequestTypes('users')
 export const users = createActionEntity(USERS)
 
-// todo
 export interface loadBooks {
-  (options?: api.FetchBooksOptions, infinite?: boolean): any
+  (options?: api.FetchBooksOptions, key?: string): any
 }
 export const LOAD_BOOKS = 'LOAD_BOOKS'
-export const loadBooks: loadBooks = (options?, infinite?) => action(LOAD_BOOKS, { options, infinite })
+export const loadBooks: loadBooks = (options?, key?) => action(LOAD_BOOKS, { options, key })
 
 export interface loadBook {
   (id: string): any
@@ -58,7 +57,7 @@ export interface loadUsers {
   (options?: api.FetchUsersOptions): any
 }
 export const LOAD_USERS = 'LOAD_USERS'
-export const loadUsers: loadUsers = (options) => action(LOAD_USERS, { options })
+export const loadUsers: loadUsers = (options?) => action(LOAD_USERS, { options })
 
 
 /**

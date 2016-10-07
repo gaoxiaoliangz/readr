@@ -14,8 +14,11 @@ const parseTypes = actionTypes => {
 }
 
 const generalMapActionToKey = action => {
-  const {apiArgs} = action
-  const {q} = apiArgs[0] || {} as any
+  const {options, key} = action
+  const {q} = options || {} as any
+  if (key) {
+    return key
+  }
   if (q) {
     return SEARCH_KEY
   }
