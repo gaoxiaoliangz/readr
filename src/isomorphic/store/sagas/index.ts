@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga'
 import * as actions from '../actions'
 import api from '../../services/api'
 import * as selectors from '../selectors'
+import * as cache from '../../data/cache'
 import _ from 'lodash'
 
 const OPTIONS = 'options'
@@ -19,9 +20,29 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
   const options = apiConfig[OPTIONS]
   const apiArgs = [id, options].filter(arg => !_.isUndefined(arg))
 
+  let hasCache
+  let cacheId
+
+  if (id) {
+    cacheId = cache.createCacheId(apiFn + id + options)
+    let cacheContent = cache.getCache(cacheId)
+    hasCache = Boolean(cacheContent)
+
+    if (hasCache) {
+      let action = entity.loadCache(cacheContent, fullPayload)
+      yield put(entity.request(fullPayload))
+      yield put(action)
+      return action
+    }
+  }
+
   yield put(entity.request(fullPayload))
   const {response, error} = yield call(apiFn, ...apiArgs)
   if (response) {
+    if (hasCache === false) {
+      cache.setCache(cacheId, response)
+      console.log('cached')
+    }
     let action = entity.success(response, fullPayload)
     yield put(action)
     return action
@@ -36,10 +57,9 @@ const fetchBook = fetchEntity.bind(null, actions.book, api.fetchBook)
 const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
 
-
 function* loadUsers(options, callApi?: boolean): any {
   if (callApi) {
-    yield call(fetchUsers, {options})
+    yield call(fetchUsers, { options })
   }
 }
 
@@ -76,7 +96,7 @@ function* watchAllLoadRequests(): any {
         break
 
       default:
-        // nothing happens here
+      // nothing happens here
     }
   }
 }

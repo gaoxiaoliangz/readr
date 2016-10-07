@@ -42,6 +42,7 @@ function renderHtml(config?: RenderConfig) {
       <Page
         title="Readr"
         appMarkup=""
+        includeLocalStylesheets
         />
     )) as any
   }
@@ -65,9 +66,9 @@ function renderHtml(config?: RenderConfig) {
           store={storeWithFetchedData}
           isProd={isProd}
           manifest={isProd && getManifest() }
-          includeLocalStylesheets={!isHot}
           bodyClass={bodyClass}
           appMarkup={appMarkup}
+          includeLocalStylesheets
           />
       )
 

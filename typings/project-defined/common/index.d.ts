@@ -2,12 +2,14 @@ type RequestTypes = {
   REQUEST: string
   SUCCESS: string
   FAILURE: string
+  LOAD_CACHE: string
 }
 
 interface ActionEntity {
   request: any
   success: any
   failure: any
+  loadCache: any
 }
 
 
@@ -16,7 +18,7 @@ interface ActionEntity {
  * https://github.com/TypeStrong/ts-loader/blob/master/test/codeSplitting/require.d.ts
  */
 declare var require: {
-  <T>(path: string): T
+  (path: string): any
   (paths: string[], callback: (...modules: any[]) => void): void
   ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 }

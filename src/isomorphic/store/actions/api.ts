@@ -10,6 +10,7 @@ const DOUBAN_API = helpers.getApiRoots().douban
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
+const LOAD_CACHE = 'LOAD_CACHE'
 
 function action(type, payload = {}) {
   return Object.assign({}, {
@@ -18,7 +19,7 @@ function action(type, payload = {}) {
 }
 
 function createRequestTypes(base) {
-  return [REQUEST, SUCCESS, FAILURE].reduce((acc, type) => {
+  return [REQUEST, SUCCESS, FAILURE, LOAD_CACHE].reduce((acc, type) => {
     acc[type] = `api/${base}/${type}`
     return acc
   }, {}) as RequestTypes
@@ -28,6 +29,7 @@ function createActionEntity(requestTypes: RequestTypes) {
   return {
     request: (payload: Object) => action(requestTypes.REQUEST, payload),
     success: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload )),
+    loadCache: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload, { loadedFromCache: true } )),
     failure: (error, payload: Object) => action(requestTypes.FAILURE, Object.assign({}, { error }, payload )),
   }
 }

@@ -130,7 +130,7 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.state, nextState)
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -185,19 +185,24 @@ class Viewer extends Component<IAllProps, IState> {
     const { nodes, nodeHeights, fluid, showPageInfo } = this.state
     const { progress } = this.props
 
-    if (nodes.length === 0 || typeof progress === 'undefined') {
-      return <Loading center />
+    if (nodes.length === 0) {
+      return <Loading text="书籍获取中 ..." center />
     }
 
-    return this.state.isCalcMode
-      ? (
+    if (this.state.isCalcMode) {
+      return (
         <BookPageWithRawHtml
           nodes={nodes}
           ref={ref => { this.bookPageWithRawHtml = ref } }
           fluid={fluid}
           />
       )
-      : (
+    } else {
+      if (typeof progress === 'undefined') {
+        return <Loading text="阅读进度获取中 ..." center />
+      }
+
+      return (
         <BookPageList
           nodeHeights={nodeHeights}
           nodes={this.state.nodes}
@@ -209,6 +214,7 @@ class Viewer extends Component<IAllProps, IState> {
           showPageInfo={showPageInfo}
           />
       )
+    }
   }
 
   render() {

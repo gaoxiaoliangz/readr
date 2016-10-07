@@ -1,30 +1,43 @@
+import md5 from '../../vendor_modules/md5'
+import _ from 'lodash'
+
+export function createCacheId(identifier: any) {
+  if (_.isEmpty(identifier)) {
+    throw new Error('缓存标识符不能为空！')
+  }
+  return md5(identifier.toString())
+}
+
 export function getCache(key) {
   if (typeof key !== 'string') {
-    console.error('Name should be string!')
+    throw new Error('Name should be string!')
   }
   let content = localStorage.getItem(key)
   if (!content) {
     return undefined
   }
+
+  try {
+    content = JSON.parse(content)
+  } catch (error) {
+    throw error
+  }
   return content
 }
 
-export function setCache(name, content) {
-  if (typeof name !== 'string') {
-    console.error('Name should be string!')
+export function setCache(key, content) {
+  if (typeof key !== 'string') {
+    throw new Error('Name should be string!')
   }
-  if (typeof content !== 'string') {
-    console.error('Cache content should be string!')
+  if (typeof content !== 'object') {
+    throw new Error('Cache content type should be object!')
   }
-
-  let success = true
 
   try {
-    localStorage.setItem(name, content)
-  } catch (e) {
-    console.error(e)
-    success = false
+    localStorage.setItem(key, JSON.stringify(content))
+  } catch (error) {
+    throw error
   }
 
-  return success
+  return true
 }

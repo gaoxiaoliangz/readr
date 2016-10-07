@@ -1,7 +1,8 @@
 import webpack from 'webpack'
-const base: any = require('../../../webpack/webpack.base.config')
+const base = require('../../../webpack/webpack.base.config')
 const paths = base.vars.paths
 const hot = base.vars.hot
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 // require('regenerator-runtime/runtime')
 
 const webpackConfig: any = {
@@ -20,16 +21,21 @@ const webpackConfig: any = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     ...base.plugins.dllReference(),
+    new ExtractTextPlugin('[name].css', {
+      allChunks: true
+    }),
   ],
   devtool: 'inline-source-map',
   module: {
     loaders: [
       base.loaders.image(),
       base.loaders.sass({
-        sourceMap: true
+        sourceMap: true,
+        extract: true,
       }),
       base.loaders.postcss({
-        sourceMap: true
+        sourceMap: true,
+        extract: true,
       }),
       base.loaders.babel,
       base.loaders.ts({
