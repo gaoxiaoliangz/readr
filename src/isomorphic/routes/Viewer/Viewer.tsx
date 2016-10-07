@@ -12,6 +12,7 @@ import api from '../../services/api'
 import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
+import Loading from '../../elements/Loading'
 const styles = require('./_viewer.scss')
 
 interface IAllProps {
@@ -185,7 +186,7 @@ class Viewer extends Component<IAllProps, IState> {
     const { progress } = this.props
 
     if (nodes.length === 0 || typeof progress === 'undefined') {
-      return <div className="text-loading">加载中 ...</div>
+      return <Loading center/>
     }
 
     return this.state.isCalcMode
