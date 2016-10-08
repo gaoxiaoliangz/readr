@@ -23,15 +23,9 @@ module.exports = {
         extract: true,
         sourceMap: true,
         global: true
-      }),
-      // base.loaders.postcss({
-      //   global: true,
-      //   extract: true
-      // })
+      })
     ],
   },
-  // todo
-  sassLoader: base.loaderConfig.sassLoader,
-  // postcss: base.loaderConfig.postcss(),
-  resolve: base.resolve,
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  resolve: base.common.resolve,
 }

@@ -9,6 +9,29 @@ const parseLoadersForExtractTextPlugin = loaders => {
 }
 
 module.exports = {
+  loaderConfig: {
+    sassLoader() {
+      return {
+        // 用于 scss 文件里 import 其它文件
+        includePaths: [
+          vars.paths.isomorphic,
+          vars.paths.static
+        ]
+      }
+    },
+
+    postcss() {
+      return [
+        require('postcss-import')({
+          path: [
+            vars.paths.isomorphic
+          ]
+        }),
+        require('postcss-cssnext')
+      ]
+    },
+  },
+
   babel() {
     return {
       test: /\.jsx?$/,
@@ -33,7 +56,7 @@ module.exports = {
     }
   },
 
-  ts({ officialLoader, isHot } = {}) {
+  typescript({ officialLoader, isHot } = {}) {
     const tsLoader = officialLoader ? 'ts' : 'awesome-typescript'
 
     return {
@@ -44,7 +67,6 @@ module.exports = {
     }
   },
 
-  // css
   sass({ isomorphic, global, extract, sourceMap } = {}) {
     const styleLoader = isomorphic ? 'isomorphic-style' : 'style'
     const sourceMapConfig = sourceMap ? 'sourceMap=true' : 'sourceMap=false'
@@ -54,7 +76,6 @@ module.exports = {
       `${styleLoader}?${sourceMapConfig}`,
       `css?${sourceMapConfig}&modules&importLoaders=1&localIdentName=${localIdentName}`,
       `sass?${sourceMapConfig}`,
-      // 'resolve-url',
     ]
 
     return {
@@ -63,14 +84,6 @@ module.exports = {
         ? ExtractTextPlugin.extract.apply(null, parseLoadersForExtractTextPlugin(loaders))
         : loaders.join('!')
     }
-  },
-
-  sassConfig: {
-    // 用于 scss 文件里 import 其它文件
-    includePaths: [
-      vars.paths.isomorphic,
-      vars.paths.static
-    ]
   },
 
   postcss({ global, extract, sourceMap, isomorphic } = {}) {
@@ -82,7 +95,6 @@ module.exports = {
       `${styleLoader}?${sourceMapConfig}`,
       `css?${sourceMapConfig}&modules&importLoaders=1&localIdentName=${localIdentName}`,
       `postcss?${sourceMapConfig}`,
-      // 'resolve-url',
     ]
 
     return {
@@ -93,23 +105,15 @@ module.exports = {
     }
   },
 
-  postcssConfig() {
-    return [
-      require('postcss-import')({
-        path: [
-          vars.paths.isomorphic
-        ]
-      }),
-      require('postcss-cssnext')
-    ]
-  },
-
-  css: {
-    test: /\.css$/,
-    loaders: [
-      'style',
-      'css?modules&importLoaders=1&localIdentName=[local]',
-      'resolve-url',
-    ]
-  },
+  // 未经测试
+  css() {
+    return {
+      test: /\.css$/,
+      loaders: [
+        'style',
+        'css?modules&importLoaders=1&localIdentName=[local]',
+        'resolve-url',
+      ]
+    }
+  }
 }

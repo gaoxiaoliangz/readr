@@ -1,20 +1,18 @@
 const path = require('path')
 
-/**
- * ## 定义常用变量
- */
-
 const pathPrefix = process.cwd()
+
 const paths = {
   root: pathPrefix,
-  static: path.join(pathPrefix, 'src/static'),
   src: path.join(pathPrefix, 'src'),
-  entry: path.join(pathPrefix, 'src/entry'),
+  built: path.join(pathPrefix, 'assets/built'),
+  static: path.join(pathPrefix, 'src/static'),
   isomorphic: path.join(pathPrefix, 'src/isomorphic'),
-  server: path.join(pathPrefix, 'src/server'),
-  built: path.join(pathPrefix, 'assets/built')
+  server: path.join(pathPrefix, 'src/server')
 }
+
 const cssLocalIdentName = '[local]_[hash:base64:5]'
+
 const imageName = 'img/[name].[hash:10].[ext]'
 
 // 暴露到全局变量的名称
@@ -31,39 +29,41 @@ const dllNames = {
 }
 
 // code splitting
-const reactKit = [
-  'react',
-  'react-dom',
-  'react-addons-css-transition-group',
-  'redux',
-  'react-redux',
-  'react-router',
-  'redux-thunk',
-  'react-css-modules',
-  'react-side-effect',
-  'react-router-redux',
-  'immutable',
-  'react-motion',
-  'redux-form',
-  'reselect',
-  'redux-saga'
-]
+const libs = {
+  reactKit: [
+    'react',
+    'react-dom',
+    'react-addons-css-transition-group',
+    'redux',
+    'react-redux',
+    'react-router',
+    'redux-thunk',
+    'react-css-modules',
+    'react-side-effect',
+    'react-router-redux',
+    'immutable',
+    'react-motion',
+    'redux-form',
+    'reselect',
+    'redux-saga'
+  ],
 
-const reactDevKit = [
-  'redux-devtools-log-monitor',
-  'redux-devtools-dock-monitor',
-]
+  reactDevKit: [
+    'redux-devtools-log-monitor',
+    'redux-devtools-dock-monitor',
+  ],
 
-const utils = [
-  'lodash',
-  'jquery',
-  'normalizr',
-  'humps',
-  'isomorphic-fetch',
-  'classnames',
-  'marked',
-  'moment',
-]
+  utils: [
+    'lodash',
+    'jquery',
+    'normalizr',
+    'humps',
+    'isomorphic-fetch',
+    'classnames',
+    'marked',
+    'moment',
+  ]
+}
 
 module.exports = {
   pathPrefix,
@@ -72,9 +72,6 @@ module.exports = {
   imageName,
   vendorLibName,
   hot,
-
   dllNames,
-  reactKit,
-  reactDevKit,
-  utils
+  libs
 }
