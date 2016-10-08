@@ -9,7 +9,7 @@ const _ = require('lodash')
  *   [name: string]: string
  * }
  */
-const dllReference = (names) => {
+const createDllReference = (names) => {
   try {
     return _.map(names, name => {
       return new webpack.DllReferencePlugin({
@@ -24,31 +24,45 @@ const dllReference = (names) => {
 }
 
 module.exports = {
-  envProd: new webpack.DefinePlugin({
-    'process.env.NODE_ENV': '"production"',
-  }),
+  prodEnv() {
+    return new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"',
+    })
+  },
 
-  envDev: new webpack.DefinePlugin({
-    'process.env.NODE_ENV': '"development"',
-  }),
+  devEnv() {
+    return new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"development"',
+    })
+  },
 
-  nodeSourceMapSupport: new webpack.BannerPlugin(`require('source-map-support').install()`, {
-    raw: true,
-    entryOnly: true
-  }),
+  nodeSourceMapSupport() {
+    return new webpack.BannerPlugin(`require('source-map-support').install()`, {
+      raw: true,
+      entryOnly: true
+    })
+  },
 
-  occurenceOrder: new webpack.optimize.OccurenceOrderPlugin(),
+  occurenceOrder() {
+    return new webpack.optimize.OccurenceOrderPlugin()
+  },
 
-  dllReference: () => dllReference(vars.dllNames),
+  dllReference() {
+    return createDllReference(vars.dllNames)
+  },
 
-  dllDefinition: new webpack.DllPlugin({
-    path: `${vars.paths.built}/[name].dll.manifest.json`,
-    name: vars.vendorLibName
-  }),
+  dll() {
+    return new webpack.DllPlugin({
+      path: `${vars.paths.built}/[name].dll.manifest.json`,
+      name: vars.vendorLibName
+    })
+  },
 
-  uglify: new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }),
+  uglify() {
+    return new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  },
 }
