@@ -4,7 +4,7 @@ import routes from './routes'
 import bootServer from './bootstrap'
 import config from './config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
-import runtimeOptions from './utils/runtime-options'
+import options from './options'
 import path from 'path'
 import middleware from './middleware'
 const morgan = require('morgan')
@@ -33,7 +33,7 @@ export default function initialize(basePath) {
   }))
 
   // 需要放在开始的位置
-  if (runtimeOptions.hmr) {
+  if (options.hot) {
     app.use(hotModuleReplacement())
   }
 
@@ -51,7 +51,7 @@ export default function initialize(basePath) {
   app.use(routes.apiBaseUri, routes.api)
 
   // frontend routing
-  app.use(middleware.parseContext, routes.pages as any)
+  app.use(middleware.parseContext, routes.pages)
 
-  return bootServer(app, runtimeOptions)
+  return bootServer(app, options)
 }

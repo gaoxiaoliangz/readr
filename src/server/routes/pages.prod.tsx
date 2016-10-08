@@ -1,7 +1,7 @@
 import render from '../render'
 import React from 'react'
 import print from '../utils/print'
-import runtimeOptions from '../utils/runtime-options'
+import options from '../options'
 import roles from '../models/roles'
 import _ from 'lodash'
 
@@ -28,7 +28,7 @@ function pages(req, res) {
     }
   }
 
-  if (runtimeOptions.serverRouting === false) {
+  if (options.route === false) {
     if (!isRoot(req.url)) {
       res.status(404).send('404: DEV MODE - serverRouting/serverRendering disabled')
       return false
@@ -44,9 +44,9 @@ function pages(req, res) {
     reqUrl: req.url,
     // routes: require<{ default: {} }>('../../isomorphic/routes').default,
     routes: {},
-    isProd: runtimeOptions.env === 'production',
-    fetchData: runtimeOptions.serverRendering,
-    isHot: runtimeOptions.hmr,
+    isProd: options.production,
+    fetchData: options.render,
+    isHot: options.hot,
     userSession: req.context.user
   }).then(({ html, redirectLocation }) => {
     if (redirectLocation) {

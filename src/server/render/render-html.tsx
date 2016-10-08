@@ -14,10 +14,10 @@ import DocContainer from '../../isomorphic/containers/DocContainer'
 import ServerSideAppRoot from '../../isomorphic/containers/ServerSideAppRoot'
 import configureStore from '../../isomorphic/store/configureStore'
 
-function getManifest() {
+const getManifest = () => {
   try {
-    const chunkManifest = JSON.parse(fs.readFileSync(`${process.cwd()}/assets/built/chunks.manifest.json`, 'utf8'))
-    const cssManifest = JSON.parse(fs.readFileSync(`${process.cwd()}/assets/built/css.manifest.json`, 'utf8'))
+    const chunkManifest = JSON.parse(fs.readFileSync(`${process.cwd()}/public/built_prod/chunks.manifest.json`, 'utf8'))
+    const cssManifest = JSON.parse(fs.readFileSync(`${process.cwd()}/public/built_prod/css.manifest.json`, 'utf8'))
 
     return _.assign({}, chunkManifest, cssManifest)
   } catch (error) {

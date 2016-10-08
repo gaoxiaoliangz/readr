@@ -5,19 +5,15 @@
   "scripts": {
     "build": "npm run build:css.prod & npm run build:node & npm run build:chunks.prod",
     "postbuild": "npm start",
-
     "clean:all": "rimraf -- public/built public/built_prod bin",
     "clean:built": "rimraf -- public/built public/built_prod",
     "clean:prod": "rimraf -- __production__",
-
     "test": "mocha --require babel-register",
-
     "fe": "node bin/server --noServerRouting & npm run watch:css & npm run watch:chunks.dll",
     "fe:hot": "node bin/server --hmr --noServerRouting & npm run watch:css",
     "server:dev": "nodemon bin/server & npm run watch:node",
     "server:prod": "nodemon bin/server --production",
     "start": "npm run server:prod",
-
     "build:node": "webpack --progress --config ./webpack/node.config.js",
     "watch:node": "webpack --watch --progress --config ./webpack/node.config.js",
     "build:css": "webpack --progress --config ./webpack/css.config.js",
@@ -55,6 +51,7 @@
     "jquery": "^2.2.2",
     "lodash": "^4.16.1",
     "marked": "^0.3.6",
+    "minimist": "^1.2.0",
     "moment": "^2.15.1",
     "mongodb": "^2.1.2",
     "mongoose": "^4.4.20",

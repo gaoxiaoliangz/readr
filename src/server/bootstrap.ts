@@ -1,20 +1,22 @@
 import config from './config'
 import print from './utils/print'
-const http: any = require('http')
+const http = require('http')
 
 const port = config.port
 
-export default function bootstrap(app, { env, serverRendering, hmr, serverRouting }) {
-  let msg = `Server running in ${env} (${port})`
+export default function bootstrap(app, { production, render, hot, route }) {
+  let features = []
 
-  if (hmr) {
-    msg = msg + ' [HMR]'
+  if (hot) {
+    features.push('hot')
   }
-  if (serverRendering) {
-    msg = msg + ' [server rendering]'
-  }
-  if (!serverRouting) {
-    msg = msg + ' [hash routing]'
+
+  if (render) {
+    features.push('server rendering')
+  } else if (route) {
+    features.push('server routing')
+  } else {
+    features.push('hash routing')
   }
 
   app.set('port', port)
@@ -22,8 +24,11 @@ export default function bootstrap(app, { env, serverRendering, hmr, serverRoutin
   const server = http.createServer(app)
   server.listen(port)
 
-  print.info(msg)
-  if (hmr) {
+  features = features.map(feature => `[${feature}]`).join(' ') as any
+
+  print.info(`Server running in ${production ? 'production' : 'development'} (${port}) ${features}`)
+
+  if (hot) {
     console.info('webpack building...')
   }
 

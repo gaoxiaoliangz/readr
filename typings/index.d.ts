@@ -21,6 +21,7 @@
 /// <reference path="globals/whatwg-fetch/index.d.ts" />
 /// <reference path="modules/express/index.d.ts" />
 /// <reference path="modules/lodash/index.d.ts" />
+/// <reference path="modules/minimist/index.d.ts" />
 /// <reference path="modules/react-router-redux/index.d.ts" />
 /// <reference path="modules/react-router/index.d.ts" />
 /// <reference path="modules/redux-form/index.d.ts" />

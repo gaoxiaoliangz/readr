@@ -1,6 +1,6 @@
 import render from '../render'
 import React from 'react'
-import runtimeOptions from '../utils/runtime-options'
+import options from '../options'
 import roles from '../models/roles'
 import _ from 'lodash'
 
@@ -27,7 +27,7 @@ function pages(req, res) {
     }
   }
 
-  if (runtimeOptions.serverRouting === false) {
+  if (options.route === false) {
     if (!isRoot(req.url)) {
       res.status(404).send('404: DEV MODE - serverRouting/serverRendering disabled')
       return false
