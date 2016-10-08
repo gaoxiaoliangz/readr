@@ -1,11 +1,9 @@
-function handleInitialState() {
-  let initialState = {}
+import { INITIAL_STATE } from '../constants'
 
-  if (typeof (<any>window).__INITIAL_STATE__ !== 'undefined') {
-    initialState = (<any>window).__INITIAL_STATE__
+export default function handleInitialState() {
+  if (typeof window === 'undefined') {
+    return {}
   }
 
-  return initialState
+  return window[INITIAL_STATE] || {}
 }
-
-export default handleInitialState

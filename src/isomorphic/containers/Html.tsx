@@ -1,14 +1,17 @@
 import React from 'react'
+import { INITIAL_STATE } from '../../isomorphic/constants'
 
 type TProps = {
-  title: string
+  title?: string
   children?: any
   styles?: string[]
   scripts?: string[]
   initialState?: any
   bodyClass?: string
-  appMarkup: string
+  appMarkup?: string
   useFavicon?: boolean
+  scriptContent?: string
+  scriptContentId?: string
 }
 
 const assetPrefix = '/built'
@@ -31,8 +34,8 @@ function Script(props: TScriptProps) {
   )
 }
 
-function Html(props: TProps) {
-  const { title, styles, scripts, initialState, bodyClass, appMarkup, useFavicon } = props
+export default function Html(props: TProps) {
+  const { title, styles, scripts, initialState, bodyClass, appMarkup, useFavicon, scriptContent, scriptContentId } = props
 
   return (
     <html>
@@ -44,7 +47,7 @@ function Html(props: TProps) {
         <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-touch-icon-60x60-1.png" />
         <link rel="apple-touch-icon" sizes="120x120" href="/static/apple-touch-icon-120x120.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon-180x180.png" />
-        <title>{title}</title>
+        <title>{title || ''}</title>
         {
           styles && styles.map((stylesheetName, index) => {
             return <StyleLink filename={stylesheetName} key={index} />
@@ -52,10 +55,15 @@ function Html(props: TProps) {
         }
       </head>
       <body {...bodyClass && { className: bodyClass }}>
-        <div id="root" dangerouslySetInnerHTML={{ __html: appMarkup }} />
+        <div id="root" dangerouslySetInnerHTML={{ __html: appMarkup || '' }} />
+        {
+          scriptContent && (
+            <script id={scriptContentId} dangerouslySetInnerHTML={{ __html: scriptContent }} />
+          )
+        }
         {
           initialState && (
-            <script dangerouslySetInnerHTML={{ __html: `var __INITIAL_STATE__ = ${JSON.stringify(initialState)}` }} />
+            <script dangerouslySetInnerHTML={{ __html: `var ${INITIAL_STATE} = ${JSON.stringify(initialState)}` }} />
           )
         }
         {
@@ -67,5 +75,3 @@ function Html(props: TProps) {
     </html>
   )
 }
-
-export default Html

@@ -13,6 +13,7 @@ import Page from '../../isomorphic/containers/Page'
 import DocContainer from '../../isomorphic/containers/DocContainer'
 import ServerSideAppRoot from '../../isomorphic/containers/ServerSideAppRoot'
 import configureStore from '../../isomorphic/store/configureStore'
+import { ENABLE_SERVER_ROUTING } from '../../isomorphic/constants'
 
 const getManifest = () => {
   try {
@@ -36,15 +37,9 @@ type RenderConfig = {
     role: string
   }
 }
-function renderHtml(config?: RenderConfig) {
+function renderHtml(config?: RenderConfig): any {
   if (!config) {
-    return Promise.resolve(renderToStaticMarkup(
-      <Page
-        title="Readr"
-        appMarkup=""
-        includeLocalStylesheets
-        />
-    )) as any
+    return Promise.resolve(renderToStaticMarkup(<Page/>))
   }
 
   const { reqUrl, routes, isProd, fetchData, isHot, userSession } = config
@@ -68,7 +63,9 @@ function renderHtml(config?: RenderConfig) {
           manifest={isProd && getManifest() }
           bodyClass={bodyClass}
           appMarkup={appMarkup}
-          includeLocalStylesheets
+          scriptData={{
+            [ENABLE_SERVER_ROUTING]: true
+          }}
           />
       )
 

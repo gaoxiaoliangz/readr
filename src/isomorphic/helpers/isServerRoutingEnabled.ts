@@ -1,3 +1,5 @@
+import { ENABLE_SERVER_ROUTING } from '../constants'
+
 export default function isServerRoutingEnabled() {
-  return Boolean((window as any).__ENABLE_SERVER_ROUTING__)
+  return Boolean(window[ENABLE_SERVER_ROUTING])
 }

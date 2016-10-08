@@ -3,24 +3,16 @@ import Html from './Html'
 import _ from 'lodash'
 import print from '../../server/utils/print'
 
-type TProps = {
-  children?: any
-  title?: string
-  store?: any
-  isProd?: boolean
-  manifest?: any
-  includeLocalStylesheets?: boolean
-  bodyClass?: string
-  appMarkup: string
-}
+const DEFAULT_TITLE = 'Readr'
+const SCRIPT_CONTENT_ID = 'script-data'
 
-const scriptsProd = ['react_kit.js', 'utils.js', 'app.js']
-const scriptsDev = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
+const SCRIPTS_PROD = ['react_kit.js', 'utils.js', 'app.js']
+const SCRIPTS_DEV = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
 
-const globalStyleSheets = ['base.global.css', 'vendor.global.css', 'modifiers.global.css']
-const localStyleSheets = ['app.css']
+const GLOBAL_STYLES = ['base.global.css', 'vendor.global.css', 'modifiers.global.css']
+const LOCAL_STYLES = ['app.css']
 
-function getHashedFilename(manifest) {
+const getHashedFilename = manifest => {
   return filename => {
     if (manifest[filename]) {
       return manifest[filename]
@@ -31,19 +23,38 @@ function getHashedFilename(manifest) {
   }
 }
 
+type TProps = {
+  children?: any
+  title?: string
+  store?: any
+  isProd?: boolean
+  manifest?: any
+  includeLocalStylesheets?: boolean
+  bodyClass?: string
+  appMarkup?: string
+  scriptData?: {
+    [globalName: string]: any
+  }
+}
+
 function Page(props: TProps) {
-  const { title, store, manifest, includeLocalStylesheets, bodyClass, appMarkup } = props
+  const { title, store, manifest, includeLocalStylesheets, bodyClass, appMarkup, scriptData } = props
+
   const scripts = props.isProd
-    ? scriptsProd.map(getHashedFilename(manifest))
-    : scriptsDev
+    ? SCRIPTS_PROD.map(getHashedFilename(manifest))
+    : SCRIPTS_DEV
 
   const styles = props.isProd
-    ? globalStyleSheets.concat(localStyleSheets).map(getHashedFilename(manifest))
+    ? GLOBAL_STYLES.concat(LOCAL_STYLES).map(getHashedFilename(manifest))
     : (
       includeLocalStylesheets
-        ? globalStyleSheets.concat(localStyleSheets)
-        : globalStyleSheets
+        ? GLOBAL_STYLES.concat(LOCAL_STYLES)
+        : GLOBAL_STYLES
     )
+
+  const scriptContent = _.map(scriptData, (val, key) => {
+    return `var ${key} = ${val};`
+  }).join('')
 
   return (
     <Html
@@ -53,8 +64,15 @@ function Page(props: TProps) {
       initialState={store && store.getState()}
       bodyClass={bodyClass || null}
       appMarkup={appMarkup}
+      scriptContentId={SCRIPT_CONTENT_ID}
+      scriptContent={scriptContent}
       />
   )
+}
+
+Page['defaultProps'] = {
+  title: DEFAULT_TITLE,
+  includeLocalStylesheets: true
 }
 
 export default Page
