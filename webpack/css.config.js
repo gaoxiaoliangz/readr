@@ -1,5 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const base = require('./webpack.base.config')
+const base = require('./base')
 const paths = base.vars.paths
 
 module.exports = {
@@ -30,6 +30,7 @@ module.exports = {
       // })
     ],
   },
+  // todo
   sassLoader: base.loaderConfig.sassLoader,
   // postcss: base.loaderConfig.postcss(),
   resolve: base.resolve,
