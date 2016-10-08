@@ -1,5 +1,5 @@
 import api from './api-routes'
-const pages = require('./pages')
+import pages from './pages'
 
 export default {
   apiBaseUri: '/api/',

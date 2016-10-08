@@ -4,7 +4,7 @@ const paths = base.vars.paths
 const hot = base.vars.hot
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-export default {
+const config = {
   entry: {
     app: [hot, 'babel-polyfill', paths.isomorphic]
   },
@@ -47,3 +47,5 @@ export default {
   postcss: base.loaders.loaderConfig.postcss(),
   resolve: base.common.resolve
 }
+
+export default config
