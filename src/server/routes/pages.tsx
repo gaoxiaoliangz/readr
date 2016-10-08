@@ -4,6 +4,7 @@ import print from '../utils/print'
 import options from '../options'
 import roles from '../models/roles'
 import _ from 'lodash'
+import routes from '../../isomorphic/routes'
 
 const isRoot = url => {
   let urlParts = url.split('?')[0].split('/')
@@ -42,8 +43,7 @@ function pages(req, res) {
 
   render({
     reqUrl: req.url,
-    // routes: require<{ default: {} }>('../../isomorphic/routes').default,
-    routes: {},
+    routes,
     isProd: options.production,
     fetchData: options.render,
     isHot: options.hot,
