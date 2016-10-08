@@ -75,5 +75,4 @@ export const sessionUserId = state => {
   return _.get(state, ['session', 'user', 'id'])
 }
 
-// export * from './common'
 export { common }
