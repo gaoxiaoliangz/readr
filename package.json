@@ -11,7 +11,6 @@
     "server.c.h": "node bin/server --hmr --noServerRendering & npm run webpack.css.w",
     "server.s": "npm run webpack.node.w & nodemon --debug bin/server",
     "server.c.h.s": "npm run webpack.node.w & nodemon --debug bin/server --hmr & npm run webpack.css.w",
-    "webpack": "webpack --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.w": "webpack --progress --watch --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.chunk.w": "webpack --watch --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.css.w": "webpack --watch --progress --config ./webpack/webpack.css.config.js",
@@ -23,12 +22,13 @@
     "clean:built": "rimraf -- assets/built",
     "test": "mocha --require babel-register",
     "fe:hot": "node bin/server --hmr --noServerRouting",
-    "build:node": "webpack --progress --config ./webpack/webpack.node.config.js",
-    "watch:node": "webpack --watch --progress --config ./webpack/webpack.node.config.js",
+    "build:node": "webpack --progress --config ./webpack/node.config.js",
+    "watch:node": "webpack --watch --progress --config ./webpack/node.config.js",
     "server:dev": "nodemon bin/server",
     "build:css": "webpack --progress --config ./webpack/css.config.js",
     "build:css.prod": "webpack --progress --config ./webpack/css.prod.config.js",
-    "build:dll": "webpack --progress --config ./webpack/dll.config.js"
+    "build:dll": "webpack --progress --config ./webpack/dll.config.js",
+    "build:chunks.prod": "webpack --progress --config ./webpack/chunks.prod.config.js"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

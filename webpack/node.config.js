@@ -1,10 +1,9 @@
-// const webpack = require('webpack')
-const base = require('./webpack.base.config')
+const base = require('./base')
 const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    index: ['babel-polyfill', `${paths.server}/index`]
+    index: ['babel-polyfill', paths.server]
   },
   output: {
     path: `${paths.root}/bin/server`,
@@ -12,28 +11,28 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   plugins: [
-    base.plugins.nodeSourceMapSupport,
+    base.plugins.nodeSourceMapSupport(),
   ],
   module: {
     loaders: [
       base.loaders.image({
         emitFile: false
       }),
-      base.loaders.babel,
+      base.loaders.babel(),
       base.loaders.sass({
         isomorphic: true
       }),
       base.loaders.postcss({
         isomorphic: true
       }),
-      base.loaders.ts({
+      base.loaders.typescript({
         officialLoader: false
       }),
     ],
   },
   devtool: 'inline-source-map',
-  sassLoader: base.loaderConfig.sassLoader,
-  resolve: base.resolve,
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  resolve: base.common.resolve,
   target: 'node',
   node: {
     __filename: true,

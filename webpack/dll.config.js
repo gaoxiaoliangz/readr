@@ -14,6 +14,6 @@ module.exports = {
     library: base.vars.vendorLibName
   },
   plugins: [
-    base.plugins.dllDefinition
+    base.plugins.dll()
   ],
 }

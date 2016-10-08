@@ -1,26 +1,24 @@
 const webpack = require('webpack')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const base = require('../webpack.base.config')
+const base = require('./base')
 const paths = base.vars.paths
+const vars = base.vars
 
 module.exports = {
   entry: {
-    app: `${paths.entry}/app`,
-    react_kit: base.vars.reactKit,
-    utils: base.vars.utils
+    app: paths.isomorphic,
+    react_kit: base.vars.libs.reactKit,
+    utils: base.vars.libs.utils
   },
   output: {
     path: paths.built,
     filename: '[name].[chunkhash:10].js',
     publicPath: '/built/'
   },
-  // externals: {
-  //   'react': 'React'
-  // },
   plugins: [
-    base.plugins.occurenceOrder,
-    base.plugins.envProd,
+    base.plugins.occurenceOrder(),
+    base.plugins.prodEnv(),
     new ManifestPlugin({
       fileName: 'chunks.manifest.json',
     }),
@@ -36,14 +34,14 @@ module.exports = {
       // 顺序会产生影响
       // 目前这种顺序，react-kit 里面会包含 webpack 用来解析模块的逻辑
       // 所以如果在页面上两者顺序颠倒会出错
-      names: ['utils', 'react_kit'],
+      names: [vars.dllNames.utils, vars.dllNames.reactKit],
       minChunks: Infinity
     }),
   ],
   module: {
     loaders: [
       base.loaders.image(),
-      base.loaders.babel,
+      base.loaders.babel(),
       base.loaders.sass({
         extract: true,
         sourceMap: false
@@ -52,13 +50,13 @@ module.exports = {
         extract: true,
         sourceMap: false,
       }),
-      base.loaders.ts({
+      base.loaders.typescript({
         officialLoader: false,
         isHot: false
       }),
     ],
   },
-  sassLoader: base.loaderConfig.sassLoader,
-  postcss: base.loaderConfig.postcss(),
-  resolve: base.resolve,
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  postcss: base.loaders.loaderConfig.postcss(),
+  resolve: base.common.resolve,
 }
