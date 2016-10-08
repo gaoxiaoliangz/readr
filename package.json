@@ -28,7 +28,8 @@
     "build:css": "webpack --progress --config ./webpack/css.config.js",
     "build:css.prod": "webpack --progress --config ./webpack/css.prod.config.js",
     "build:dll": "webpack --progress --config ./webpack/dll.config.js",
-    "build:chunks.prod": "webpack --progress --config ./webpack/chunks.prod.config.js"
+    "build:chunks.prod": "webpack --progress --config ./webpack/chunks.prod.config.js",
+    "build:chunks.dll": "webpack --progress --config ./webpack/chunks.config.js"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

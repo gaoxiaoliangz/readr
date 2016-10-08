@@ -1,11 +1,10 @@
-// # 构建开发环境脚本
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const base = require('./webpack/webpack.base.config')
+const base = require('./base')
 const paths = base.vars.paths
 
 module.exports = {
   entry: {
-    app: `${paths.entry}/app`,
+    app: ['babel-polyfill', paths.isomorphic],
   },
   output: {
     path: paths.built,
@@ -13,8 +12,8 @@ module.exports = {
     publicPath: '/built/'
   },
   plugins: [
-    base.plugins.envDev,
-    ...base.plugins.dllReference(),
+    base.plugins.devEnv(),
+    ...base.plugins.dllReferences(),
     new ExtractTextPlugin('[name].css', {
       allChunks: true
     }),
@@ -23,7 +22,7 @@ module.exports = {
   module: {
     loaders: [
       base.loaders.image(),
-      base.loaders.babel,
+      base.loaders.babel(),
       base.loaders.sass({
         sourceMap: true,
         extract: true
@@ -32,12 +31,12 @@ module.exports = {
         sourceMap: true,
         extract: true
       }),
-      base.loaders.ts({
+      base.loaders.typescript({
         officialLoader: false
       }),
     ],
   },
-  sassLoader: base.loaderConfig.sassLoader,
-  postcss: base.loaderConfig.postcss(),
-  resolve: base.resolve,
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  postcss: base.loaders.loaderConfig.postcss(),
+  resolve: base.common.resolve,
 }

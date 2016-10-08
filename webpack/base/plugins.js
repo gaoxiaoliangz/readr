@@ -9,7 +9,7 @@ const _ = require('lodash')
  *   [name: string]: string
  * }
  */
-const createDllReference = (names) => {
+const createDllReferences = (names) => {
   try {
     return _.map(names, name => {
       return new webpack.DllReferencePlugin({
@@ -47,8 +47,8 @@ module.exports = {
     return new webpack.optimize.OccurenceOrderPlugin()
   },
 
-  dllReference() {
-    return createDllReference(vars.dllNames)
+  dllReferences() {
+    return createDllReferences(vars.dllNames)
   },
 
   dll() {

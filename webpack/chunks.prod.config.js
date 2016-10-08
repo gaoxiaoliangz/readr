@@ -7,7 +7,7 @@ const vars = base.vars
 
 module.exports = {
   entry: {
-    app: paths.isomorphic,
+    app: ['babel-polyfill', paths.isomorphic],
     react_kit: base.vars.libs.reactKit,
     utils: base.vars.libs.utils
   },
