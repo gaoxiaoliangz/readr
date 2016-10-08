@@ -7,10 +7,10 @@ import hotModuleReplacement from './dev-tools/hot-module-replacement'
 import runtimeOptions from './utils/runtime-options'
 import path from 'path'
 import middleware from './middleware'
-const morgan: any = require('morgan')
-const cookieParser: any = require('cookie-parser')
-const bodyParser: any = require('body-parser')
-const MongoStore: any = (require('connect-mongo') as any)(session)
+const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const MongoStore = (require('connect-mongo'))(session)
 
 const app = express()
 
