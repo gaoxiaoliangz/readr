@@ -1,7 +1,7 @@
+assets/built/
 node_modules/
 bower_components/
 .sass-cache/
 .idea/
-assets/built/
 .DS_Store
 npm-debug.log
