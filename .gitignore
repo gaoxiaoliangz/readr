@@ -1,4 +1,5 @@
-assets/built/
+public/built/
+public/built_prod/
 node_modules/
 bower_components/
 .sass-cache/
