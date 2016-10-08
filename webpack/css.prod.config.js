@@ -1,6 +1,6 @@
 const ManifestPlugin = require('webpack-manifest-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const base = require('../webpack.base.config')
+const base = require('./base')
 const paths = base.vars.paths
 
 module.exports = {
@@ -32,6 +32,6 @@ module.exports = {
       base.loaders.image()
     ],
   },
-  sassLoader: base.loaderConfig.sassLoader,
-  resolve: base.resolve,
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  resolve: base.common.resolve,
 }

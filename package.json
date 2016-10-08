@@ -29,7 +29,8 @@
     "build:node": "webpack --progress --config ./webpack/webpack.node.config.js",
     "watch:node": "webpack --watch --progress --config ./webpack/webpack.node.config.js",
     "server:reload": "nodemon bin/server",
-    "build:css": "webpack --progress --config ./webpack/css.config.js"
+    "build:css": "webpack --progress --config ./webpack/css.config.js",
+    "build:css.prod": "webpack --progress --config ./webpack/css.prod.config.js"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

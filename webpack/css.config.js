@@ -13,7 +13,9 @@ module.exports = {
     filename: '[name].css',
   },
   plugins: [
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css', {
+      allChunks: true
+    })
   ],
   devtool: 'inline-source-map',
   module: {
