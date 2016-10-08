@@ -1,13 +1,12 @@
 import webpack from 'webpack'
-const base = require('../../../webpack/webpack.base.config')
+const base = require('../../../webpack/base')
 const paths = base.vars.paths
 const hot = base.vars.hot
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-// require('regenerator-runtime/runtime')
 
-const webpackConfig: any = {
+export default {
   entry: {
-    app: [hot, 'babel-polyfill', `${paths.isomorphic}`]
+    app: [hot, 'babel-polyfill', paths.isomorphic]
   },
   output: {
     path: paths.built,
@@ -17,10 +16,10 @@ const webpackConfig: any = {
     filename: '[name].js',
   },
   plugins: [
-    base.plugins.envDev,
+    base.plugins.devEnv(),
+    ...base.plugins.dllReferences(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    ...base.plugins.dllReference(),
     new ExtractTextPlugin('[name].css', {
       allChunks: true
     }),
@@ -37,16 +36,14 @@ const webpackConfig: any = {
         sourceMap: true,
         extract: true,
       }),
-      base.loaders.babel,
-      base.loaders.ts({
+      base.loaders.babel(),
+      base.loaders.typescript({
         isHot: true,
         officialLoader: false
       })
     ]
   },
-  sassLoader: base.loaderConfig.sassLoader,
-  postcss: base.loaderConfig.postcss(),
-  resolve: base.resolve
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  postcss: base.loaders.loaderConfig.postcss(),
+  resolve: base.common.resolve
 }
-
-export default webpackConfig
