@@ -1,5 +1,6 @@
 public/built/
 public/built_prod/
+bin
 node_modules/
 bower_components/
 .sass-cache/
