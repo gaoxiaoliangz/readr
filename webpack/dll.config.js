@@ -3,10 +3,10 @@ const base = require('./base')
 module.exports = {
   entry: {
     [base.vars.dllNames.reactKit]: [
-      ...base.vars.reactKit,
-      ...base.vars.reactDevKit,
+      ...base.vars.libs.reactKit,
+      ...base.vars.libs.reactDevKit,
     ],
-    [base.vars.dllNames.utils]: base.vars.utils,
+    [base.vars.dllNames.utils]: base.vars.libs.utils,
   },
   output: {
     path: base.vars.paths.built,

@@ -14,10 +14,7 @@
     "webpack": "webpack --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.w": "webpack --progress --watch --config ./webpack/production-build/webpack.chunk.prod.config.js",
     "webpack.chunk.w": "webpack --watch --progress --config ./webpack/production-build/webpack.chunk.prod.config.js",
-    "webpack.dll": "webpack --progress --config ./webpack/webpack.dll.config.js",
-    "webpack.css": "webpack --progress --config ./webpack/webpack.css.config.js",
     "webpack.css.w": "webpack --watch --progress --config ./webpack/webpack.css.config.js",
-    "webpack.css.prod": "webpack --progress --config ./webpack/production-build/webpack.css.prod.config.js",
     "start": "nodemon bin/server --production",
     "dev": "nodemon bin/server",
     "build": "npm run webpack.css.prod & npm run webpack.node & npm run webpack",
@@ -28,9 +25,10 @@
     "fe:hot": "node bin/server --hmr --noServerRouting",
     "build:node": "webpack --progress --config ./webpack/webpack.node.config.js",
     "watch:node": "webpack --watch --progress --config ./webpack/webpack.node.config.js",
-    "server:reload": "nodemon bin/server",
+    "server:dev": "nodemon bin/server",
     "build:css": "webpack --progress --config ./webpack/css.config.js",
-    "build:css.prod": "webpack --progress --config ./webpack/css.prod.config.js"
+    "build:css.prod": "webpack --progress --config ./webpack/css.prod.config.js",
+    "build:dll": "webpack --progress --config ./webpack/dll.config.js"
   },
   "dependencies": {
     "animate.css": "^3.5.1",
