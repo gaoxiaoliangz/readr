@@ -6,8 +6,9 @@
     "build": "npm run build:css.prod & npm run build:node & npm run build:chunks.prod",
     "postbuild": "npm start",
 
-    "clean:all": "rimraf -- assets/built bin",
-    "clean:built": "rimraf -- assets/built",
+    "clean:all": "rimraf -- public/built public/built_prod bin",
+    "clean:built": "rimraf -- public/built public/built_prod",
+    "clean:prod": "rimraf -- __production__",
 
     "test": "mocha --require babel-register",
 

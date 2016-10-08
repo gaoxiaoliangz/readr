@@ -5,8 +5,9 @@ const pathPrefix = process.cwd()
 const paths = {
   root: pathPrefix,
   src: path.join(pathPrefix, 'src'),
-  built: path.join(pathPrefix, 'assets/built'),
-  static: path.join(pathPrefix, 'src/static'),
+  built: path.join(pathPrefix, 'public/built'),
+  builtProd: path.join(pathPrefix, 'public/built_prod'),
+  assets: path.join(pathPrefix, 'src/assets'),
   isomorphic: path.join(pathPrefix, 'src/isomorphic'),
   server: path.join(pathPrefix, 'src/server')
 }

@@ -10,7 +10,7 @@ module.exports = {
     'modifiers.global': [`${paths.isomorphic}/styles/modifiers.scss`],
   },
   output: {
-    path: paths.built,
+    path: paths.builtProd,
     filename: '[name].[chunkhash:10].css',
   },
   plugins: [

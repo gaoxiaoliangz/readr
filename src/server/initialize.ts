@@ -14,16 +14,22 @@ const MongoStore = (require('connect-mongo'))(session)
 
 const app = express()
 
+const PUBLIC_PATH_NAME = 'public'
+const SESSION_SECRET = 'key'
+const SESSION_MAX_AGE = 7 * 24 * 60 * 60 * 1000
+const REQ_SIZE_LIMIT = '5mb'
+const MONGO_STORE_URL = config.db.host + 'readr_session'
+
 export default function initialize(basePath) {
   app.use(session({
-    secret: 'key',
+    secret: SESSION_SECRET,
     cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      maxAge: SESSION_MAX_AGE,
+      expires: new Date(Date.now() + SESSION_MAX_AGE)
     },
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ url: config.db.host + 'readr_session' })
+    store: new MongoStore({ url: MONGO_STORE_URL })
   }))
 
   // 需要放在开始的位置
@@ -31,10 +37,10 @@ export default function initialize(basePath) {
     app.use(hotModuleReplacement())
   }
 
-  app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
-  app.use(bodyParser.json({ limit: '5mb' }))
+  app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
+  app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))
   app.use(cookieParser())
-  app.use(express.static(path.join(basePath, 'assets')))
+  app.use(express.static(path.join(basePath, PUBLIC_PATH_NAME)))
 
   // log error info
   app.use(morgan('dev', {
