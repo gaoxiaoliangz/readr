@@ -2,6 +2,7 @@ import React from 'react'
 import Html from './Html'
 import _ from 'lodash'
 import print from '../../server/utils/print'
+import fs from 'fs'
 
 const DEFAULT_TITLE = 'Readr'
 const SCRIPT_CONTENT_ID = 'script-data'
@@ -14,6 +15,23 @@ const SCRIPTS_DEV = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
 
 const GLOBAL_STYLES = ['base.global.css', 'vendor.global.css', 'modifiers.global.css']
 const LOCAL_STYLES = ['app.css']
+
+const CSS_MANIFEST_PATH = `${process.cwd()}/public/built_prod/css.manifest.json`
+const CHUNKS_MANIFEST_PATH = `${process.cwd()}/public/built_prod/chunks.manifest.json`
+
+const getManifest = () => {
+  let chunkManifest = {}
+  let cssManifest = {}
+
+  try {
+    cssManifest = JSON.parse(fs.readFileSync(CSS_MANIFEST_PATH, 'utf8'))
+    chunkManifest = JSON.parse(fs.readFileSync(CHUNKS_MANIFEST_PATH, 'utf8'))
+  } catch (error) {
+    print.error(error.message)
+  }
+
+  return _.assign({}, chunkManifest, cssManifest)
+}
 
 const getHashedFilename = manifest => {
   return filename => {
@@ -31,19 +49,29 @@ type TProps = {
   title?: string
   store?: any
   isProd?: boolean
-  manifest?: any
   includeLocalStylesheets?: boolean
   bodyClass?: string
   appMarkup?: string
   scriptData?: {
     [globalName: string]: any
   }
+  noScript?: boolean
 }
 
 function Page(props: TProps) {
-  const { title, store, manifest, includeLocalStylesheets, bodyClass, appMarkup, scriptData, isProd } = props
+  const {
+    title, store, includeLocalStylesheets,
+    bodyClass, appMarkup, scriptData, isProd,
+    noScript
+  } = props
 
-  const scripts = isProd
+  let manifest
+
+  if (isProd) {
+    manifest = getManifest()
+  }
+
+  let scripts = isProd
     ? SCRIPTS_PROD.map(getHashedFilename(manifest))
     : SCRIPTS_DEV
 
@@ -55,9 +83,14 @@ function Page(props: TProps) {
         : GLOBAL_STYLES
     )
 
-  const scriptContent = _.map(scriptData, (val, key) => {
+  let scriptContent = _.map(scriptData, (val, key) => {
     return `var ${key} = ${val};`
   }).join('')
+
+  if (noScript) {
+    scripts = []
+    scriptContent = ''
+  }
 
   const assetPath = isProd ? ASSET_PATH_PROD : ASSET_PATH
 

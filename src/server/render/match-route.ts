@@ -1,4 +1,3 @@
-import errors from '../errors'
 import { match } from 'react-router'
 
 type TResult = {
@@ -16,7 +15,7 @@ function matchRoute(routes, reqUrl: string, history): Promise<TResult> {
       } else if (renderProps) {
         resolve({ renderProps })
       } else {
-        reject(new errors.NotFoundError('routes 里不存在对 404 的处理'))
+        reject(new Error('routes 里不存在对 404 的处理'))
       }
     })
   })

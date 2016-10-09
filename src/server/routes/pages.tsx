@@ -1,10 +1,10 @@
-import render from '../render'
-import React from 'react'
-import print from '../utils/print'
 import options from '../options'
 import roles from '../models/roles'
 import _ from 'lodash'
 import routes from '../../isomorphic/routes'
+import render, { render500 } from '../render'
+
+const PROD_ERROR_MSG = '稍安勿躁，工程师正在解决问题 ...'
 
 const isRoot = url => {
   let urlParts = url.split('?')[0].split('/')
@@ -42,29 +42,29 @@ function pages(req, res) {
     return false
   }
 
-  render({
-    reqUrl: req.url,
-    routes,
-    isProd: options.production,
-    fetchData: options.render,
-    isHot: options.hot,
-    userSession: req.context.user
-  }).then(({ html, redirectLocation }) => {
-    if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
-    }
+  const isProd = options.production
 
-    res.send(html)
-  }, err => {
-    const statusCode = err.statusCode || 500
-    const htmlString = err.htmlString || err.message
+  try {
+    render({
+      reqUrl: req.url,
+      routes,
+      isProd,
+      fetchData: options.render,
+      isHot: options.hot,
+      userSession: req.context.user
+    }).then(({ html, redirectLocation }) => {
+      if (redirectLocation) {
+        res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+      }
 
-    if (!err.htmlString) {
-      print.error(err)
-    }
+      res.send(html)
+    })
+  } catch (error) {
+    const errorMsg = isProd ? PROD_ERROR_MSG : error.message
+    const htmlString = render500(errorMsg, isProd)
 
-    res.status(statusCode).send(htmlString)
-  })
+    res.status(500).send(htmlString)
+  }
 }
 
 export default pages

@@ -17,7 +17,7 @@
       "watch:css": "npm run build:css -- --watch",
       "watch:css.prod": "npm run build:css.prod -- --watch",
       "watch:chunks.prod": "npm run build:chunks.prod -- --watch",
-      "watch:chunks.dll": "npm run build:chunks.dll -- --watch",
+      "watch:chunks": "npm run build:chunks -- --watch",
     
     "build": "npm run build:css.prod & npm run build:node & npm run build:chunks.prod",
       "build:node": "webpack --progress --config ./webpack/node.config.js",
@@ -25,7 +25,7 @@
       "build:css.prod": "webpack --progress --config ./webpack/css.prod.config.js",
       "build:dll": "webpack --progress --config ./webpack/dll.config.js",
       "build:chunks.prod": "webpack --progress --config ./webpack/chunks.prod.config.js",
-      "build:chunks.dll": "webpack --progress --config ./webpack/chunks.dll.config.js",
+      "build:chunks": "webpack --progress --config ./webpack/chunks.config.js",
 
     "clean:all": "rimraf -- bin public/built public/built_prod __production__",
       "clean:bin": "rimraf -- bin",
