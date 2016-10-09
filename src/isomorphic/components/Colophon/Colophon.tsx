@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router'
 import Container from '../../elements/_layout/Container'
 import CSSModules from 'react-css-modules'
-const styles = require('./Colophon.css')
+const styles = require('./Colophon.scss')
 
 @CSSModules(styles, {
   allowMultiple: true

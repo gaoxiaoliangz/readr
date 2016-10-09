@@ -1,4 +1,5 @@
 @import "styles/_variables";
+@import "styles/mixins/screens";
 
 $alert-width: 700px;
 $alert-succes: #72efa8;
@@ -10,10 +11,10 @@ $alert-warning-text: darken(orange, 50%);
 
 .alerts {
   position: fixed;
-  width: $alert-width;
-  margin-left: -$alert-width/2;
+  width: 100%;
+  padding: 0 20px;
   top: 10px;
-  left: 50%;
+  left: 0;
   z-index: 9999;
 } 
 
@@ -22,16 +23,22 @@ $alert-warning-text: darken(orange, 50%);
   font-size: 16px;
   text-align: center;
   background: #fff;
-  margin-bottom: 10px;
   position: relative;
   box-shadow: $shadow-y1;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 3px;
+  width: $alert-width;
+  margin: 0 auto 10px;
+
+  @include phone {
+    max-width: 100%;
+  }
 }
 
 .content {
   overflow: hidden;
+  padding: 0 30px;
 }
 
 .alert-close {

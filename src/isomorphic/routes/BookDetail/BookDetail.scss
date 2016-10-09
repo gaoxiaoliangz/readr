@@ -2,7 +2,7 @@
 @import "styles/mixins/screens";
 
 $padding-v: 40px;
-$padding-h: 80px;
+$padding-h: 40px;
 
 .book-detail {
   background: #fff;
@@ -11,7 +11,7 @@ $padding-h: 80px;
 }
 
 .book-info-container {
-  max-width: 850px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -19,6 +19,20 @@ $padding-h: 80px;
   overflow: hidden;
   padding: $padding-v $padding-h;
   position: relative;
+
+  @include phone {
+    padding: 20px;
+  }
+}
+
+.content {
+  padding: $padding-v $padding-h;
+  border-top: 1px solid $gray;
+  line-height: 1.7;
+
+  @include phone {
+    padding: 20px;
+  }
 }
 
 .btn-read {
@@ -53,18 +67,15 @@ $padding-h: 80px;
   margin: 0;
   top: 0;
   position: relative;
+  box-shadow: $shadow-z1;
+  overflow: hidden;
+  border-radius: 3px;
 }
 
 .img {
   width: 100px;
   height: auto;
   display: block;
-}
-
-.content {
-  padding: $padding-v $padding-h;
-  border-top: 1px solid $gray;
-  line-height: 1.7;
 }
 
 .desc {

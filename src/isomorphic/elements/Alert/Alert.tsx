@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { MsgType } from '../../store/actions/components'
 import Icon from '../Icon'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_alert.scss')
+const styles: any = require('./Alert.scss')
 // import classnames from 'classnames'
 
 interface Props {

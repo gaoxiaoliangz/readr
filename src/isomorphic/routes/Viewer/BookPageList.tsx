@@ -5,7 +5,7 @@ import _ from 'lodash'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
 import ViewerScrollbar from './ViewerScrollbar'
-const styles: any = require('./BookPageList.scss')
+const styles = require('./BookPageList.scss')
 
 interface IProps {
   nodes: string[]

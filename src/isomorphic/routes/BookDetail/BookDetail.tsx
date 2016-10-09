@@ -39,43 +39,45 @@ class BookDetail extends Component<Props, {}> {
 
     return (
       <DocContainer bodyClass="book-info" title={bookInfo.title}>
-        <article styleName="book-info-container" className="container">
-          {
-            _.isEmpty(bookInfo) && (
-              <Loading />
-            )
-          }
-          <div styleName="book-detail">
-            <header styleName="header">
-              <div styleName="left-col">
-                {
-                  bookInfo.cover && (
-                    <div styleName="book-cover">
-                      <img styleName="img" src={bookInfo.cover} />
-                    </div>
-                  )
-                }
-              </div>
-              <div styleName="right-col">
-                <h1 styleName="book-name">{bookInfo.title || '无标题'}</h1>
-                <div styleName="book-author">
-                  <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
-                </div>
-                <div>
-                  <Button styleName="btn-read" to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
-                </div>
-              </div>
-            </header>
+        <div className="container">
+          <article styleName="book-info-container">
             {
-              bookInfo.description && (
-                <div styleName="content">
-                  <h2 styleName="desc">内容简介</h2>
-                  <p>{bookInfo.description}</p>
-                </div>
+              _.isEmpty(bookInfo) && (
+                <Loading />
               )
             }
-          </div>
-        </article>
+            <div styleName="book-detail">
+              <header styleName="header">
+                <div styleName="left-col">
+                  {
+                    bookInfo.cover && (
+                      <div styleName="book-cover">
+                        <img styleName="img" src={bookInfo.cover} />
+                      </div>
+                    )
+                  }
+                </div>
+                <div styleName="right-col">
+                  <h1 styleName="book-name">{bookInfo.title || '无标题'}</h1>
+                  <div styleName="book-author">
+                    <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
+                  </div>
+                  <div>
+                    <Button styleName="btn-read" to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
+                  </div>
+                </div>
+              </header>
+              {
+                bookInfo.description && (
+                  <div styleName="content">
+                    <h2 styleName="desc">内容简介</h2>
+                    <p>{bookInfo.description}</p>
+                  </div>
+                )
+              }
+            </div>
+          </article>
+        </div>
       </DocContainer>
     )
   }

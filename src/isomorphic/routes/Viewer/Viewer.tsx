@@ -102,7 +102,8 @@ class Viewer extends Component<IAllProps, IState> {
   handleViewerClick() {
     if (this.state.isTouchMode) {
       this.setState({
-        showPanel: !this.state.showPanel
+        showPanel: !this.state.showPanel,
+        showPageInfo: !this.state.showPageInfo
       })
     }
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Switcher from '../../../elements/Switcher'
 import CSSModules from 'react-css-modules'
-const styles = require('./_preference-list.scss')
+const styles = require('./PreferenceList.scss')
 
 interface IProps {
   username: string

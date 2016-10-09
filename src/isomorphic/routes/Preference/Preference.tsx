@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { sendNotification, fetchProfile } from '../../store/actions'
-// import Body from '../../../components/Body'
-// import { Link } from 'react-router'
 import _ from 'lodash'
 import PreferenceList from './PreferenceList'
+import DocContainer from '../../containers/DocContainer'
 
 interface IAllProps {
   fetchProfile?: any
@@ -37,9 +36,13 @@ class Preference extends Component<IAllProps, IState> {
 
   render() {
     return (
-      <PreferenceList
-        {...this.props.profile}
-      />
+      <DocContainer title="设置">
+        <div className="container">
+          <PreferenceList
+            {...this.props.profile}
+            />
+        </div>
+      </DocContainer>
     )
   }
 }
