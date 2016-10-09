@@ -51,7 +51,7 @@ class BasicApi {
   }
 
   list(match = {}, options?: ListOptions) {
-    const search = options && options.q ? options.q : ''
+    const keyword = options && options.q ? options.q : ''
 
     const getSearchableFields = (fields) => {
       return Object.keys(fields)
@@ -62,8 +62,8 @@ class BasicApi {
     const query = () => {
       let match2 = match
 
-      if (search !== '') {
-        const reg = new RegExp(search)
+      if (keyword !== '') {
+        const reg = new RegExp(keyword)
         const matchArray = getSearchableFields(this.model.schema.fields).map(key => ({
           [key]: reg
         }))
@@ -71,6 +71,10 @@ class BasicApi {
       }
 
       return this.model.find(match2).list().then(results => {
+        if (keyword === '' && results.length === 0) {
+          return results
+        }
+
         return utils.parseEntityResults(results, options)
       })
     }
