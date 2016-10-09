@@ -53,7 +53,7 @@ class Browse extends Component<Props, {}> {
                 styleName="btn-load-more"
                 width={200}
                 color="white"
-                >加载更多</Button>
+                >{isBooksFetching ? '加载中 ...' : '加载更多'}</Button>
             )
           }
         </div>

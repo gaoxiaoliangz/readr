@@ -18,7 +18,7 @@ interface IProps {
 })
 class BookListSection extends Component<IProps, {}> {
   render() {
-    const {isFetching, title, moreLink} = this.props
+    const {isFetching, title, moreLink, bookEntities} = this.props
 
     return (
       <div styleName="book-list-section">
@@ -36,9 +36,9 @@ class BookListSection extends Component<IProps, {}> {
           )
         }
         {
-          isFetching
+          isFetching && bookEntities.length === 0
             ? <Loading />
-            : <BookList bookEntities={this.props.bookEntities} />
+            : <BookList bookEntities={bookEntities} />
         }
       </div>
     )
