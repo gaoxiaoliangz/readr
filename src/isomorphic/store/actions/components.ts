@@ -55,8 +55,8 @@ export function closeConfirmModal() {
 
 // modal
 export const MODAL = {
-  OPEN: createActionType('notification', 'SHOW'),
-  CLOSE: createActionType('notification', 'HIDE'),
+  OPEN: createActionType('modal', 'SHOW'),
+  CLOSE: createActionType('modal', 'HIDE'),
 }
 export type openModal = {
   title: string
