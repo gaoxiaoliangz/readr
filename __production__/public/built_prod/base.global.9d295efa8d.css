@@ -1,0 +1,167 @@
+.text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
+
+.light-link {
+  color: #fff; }
+  .light-link:hover {
+    color: #ddd; }
+
+.text-link {
+  color: #666; }
+  .text-link:hover {
+    color: #1B267F; }
+
+.dark-link {
+  color: #333; }
+  .dark-link:hover {
+    color: #666; }
+
+.page-title {
+  margin: 35px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; }
+
+.sep {
+  margin: 0 5px;
+  color: #ddd; }
+
+.clearfix:after {
+  content: " ";
+  clear: both;
+  display: table; }
+
+.text-loading {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: #999; }
+
+* {
+  box-sizing: border-box; }
+
+html {
+  font-size: 16px; }
+
+body {
+  font-size: 1rem;
+  font-family: "roboto", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+  color: #666;
+  -webkit-font-smoothing: antialiased; }
+
+::selection {
+  background: rgba(47, 141, 246, 0.3);
+  color: #666;
+  text-shadow: none; }
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none; }
+
+a {
+  color: #1B267F;
+  transition: all .2s ease-in; }
+
+a:hover {
+  color: #666; }
+
+a:active {
+  color: #333;
+  transition: all 0s; }
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none; }
+
+table {
+  border-collapse: collapse; }
+
+.page-header {
+  margin: 35px 0;
+  position: relative; }
+
+.page-header > .page-title {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  line-height: 46px; }
+
+.page-content {
+  width: 700px;
+  margin: 0 auto; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.hidden {
+  display: none; }
+
+.center {
+  text-align: center; }
+
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative; }
+
+.content-container {
+  width: 700px;
+  margin: 0 auto; }
+  @media (max-width: 540px) {
+    .content-container {
+      width: 100%; } }
+
+.badge {
+  background: #1B267F;
+  border-radius: 3px;
+  padding: 3px 4px;
+  font-size: 0.8rem;
+  color: #fff;
+  margin: 0 5px; }
+
+.badge--dark {
+  background: black; }
+
+.tag {
+  background: #1B267F;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: 0 5px 5px 0;
+  color: #fff;
+  display: inline-block; }
+
+.tag-l {
+  background: #b7c0c7;
+  border-radius: 3px;
+  padding: 6px 20px;
+  margin: 0 15px 15px 0;
+  color: #fff;
+  display: inline-block; }
+  .tag-l .icon {
+    margin: 0 5px; }
+
+.circled {
+  min-width: 19px;
+  height: 19px;
+  box-sizing: border-box;
+  padding: 1px 4px 0;
+  line-height: 19px;
+  background: #00bcd5;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center; }
+
+.gb-line {
+  overflow: hidden; }
