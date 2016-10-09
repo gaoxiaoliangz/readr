@@ -1,17 +1,26 @@
-.text-overflow {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden; }
+.text-loading {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: #999; }
 
-.light-link {
-  color: #fff; }
-  .light-link:hover {
-    color: #ddd; }
+.border-link {
+  color: #333;
+  border-bottom: 1px solid #333; }
+  .border-link:hover {
+    color: #999;
+    border-color: #999; }
 
 .text-link {
   color: #666; }
   .text-link:hover {
     color: #1B267F; }
+
+.light-link {
+  color: #fff; }
+  .light-link:hover {
+    color: #ddd; }
 
 .dark-link {
   color: #333; }
@@ -33,12 +42,10 @@
   clear: both;
   display: table; }
 
-.text-loading {
-  text-align: center;
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: normal;
-  color: #999; }
+.text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
 
 * {
   box-sizing: border-box; }
@@ -93,8 +100,11 @@ table {
   line-height: 46px; }
 
 .page-content {
-  width: 700px;
+  max-width: 700px;
   margin: 0 auto; }
+  @media (max-width: 540px) {
+    .page-content {
+      max-width: 100%; } }
 
 .left {
   float: left; }
