@@ -29,9 +29,10 @@ function pages(req, res) {
     }
   }
 
+  // 服务端路由关闭（仅限开发模式）
   if (options.route === false) {
     if (!isRoot(req.url)) {
-      res.status(404).send('404: DEV MODE - serverRouting/serverRendering disabled')
+      res.status(404).send('404: DEV MODE (server routing disabled)')
       return false
     }
 

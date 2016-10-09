@@ -104,6 +104,7 @@ function renderHtml(config?: RenderConfig): any {
       })
     })
   }, err => {
+    console.log(err)
     return Promise.reject({
       htmlString: renderToStaticMarkup(<NotFoundErrorPage message={err.message} />),
       statusCode: 404

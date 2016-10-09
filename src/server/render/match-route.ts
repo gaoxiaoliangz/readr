@@ -14,17 +14,9 @@ function matchRoute(routes, reqUrl: string, history): Promise<TResult> {
       } else if (redirectLocation) {
         resolve({ redirectLocation })
       } else if (renderProps) {
-        let wrappedComponent = (renderProps.components.slice(-1)[0] as any).WrappedComponent
-          ? (renderProps.components.slice(-1)[0] as any).WrappedComponent
-          : null
-
-        if (!wrappedComponent) {
-          reject(new errors.NotFoundError('404 (defined in routes)'))
-        } else {
-          resolve({ renderProps })
-        }
+        resolve({ renderProps })
       } else {
-        reject(new errors.NotFoundError('404'))
+        reject(new errors.NotFoundError('routes 里不存在对 404 的处理'))
       }
     })
   })
