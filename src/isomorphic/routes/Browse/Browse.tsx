@@ -7,7 +7,7 @@ import Container from '../../elements/_layout/Container'
 import _ from 'lodash'
 import * as selectors from '../../store/selectors'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./Browse.scss')
+const styles = require('./Browse.scss')
 
 interface Props {
   loadBooks: loadBooks

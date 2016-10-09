@@ -6,9 +6,8 @@
   margin: 0;
   line-height: var(--branding-height);
   color: #fff;
-  margin-right: 15px;
   margin-top: -3px;
-  float: left;
+  display: inline-block;
 }
 
 .logo {
@@ -18,4 +17,10 @@
   background-size: 70px;
   text-indent: -999em;
   display: inline-block;
+}
+
+.logo--dark {
+  composes: logo;
+  background: url(assets/img/logo-dark.png) no-repeat left;
+  background-size: 70px;
 }

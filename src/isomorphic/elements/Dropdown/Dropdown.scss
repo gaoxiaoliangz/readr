@@ -1,6 +1,6 @@
 @import "styles/_variables";
 
-$background: black;
+$background: $dark;
 
 .light-link {
   color: #ddd;
@@ -47,6 +47,7 @@ $background: black;
   border-right-color: rgba(0, 0, 0, 0);
   border-bottom-color: rgba(0, 0, 0, 0);
   border-left-color: rgba(0, 0, 0, 0);
+  margin-left: 5px;
 }
 
 .dropdown-item {

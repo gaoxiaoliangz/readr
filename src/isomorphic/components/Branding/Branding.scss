@@ -1,10 +1,8 @@
 @import "styles/_variables";
 
-$background: black;
-
 .branding {
   min-height: $branding-height;
-  background: $background;
+  background: $dark;
 }
 
 .dropdown-menu {
@@ -25,7 +23,7 @@ $background: black;
   cursor: pointer;
   padding: 0 10px;
   line-height: $branding-height;
-  float: left;
+  display: inline-block;
 }
 
 .dropdown-recent-reading {

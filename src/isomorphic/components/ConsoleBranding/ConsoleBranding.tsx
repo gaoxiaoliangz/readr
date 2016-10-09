@@ -32,7 +32,9 @@ class ConsoleBranding extends Component<any, any> {
       <div styleName="branding">
         <Container isFluid={true} className="clearfix">
           <div>
-            <Logo to="/console" />
+            <div className="left">
+              <Logo to="/console" />
+            </div>
             <div styleName="sub-name">
               <span styleName="sub">控制台</span>
             </div>

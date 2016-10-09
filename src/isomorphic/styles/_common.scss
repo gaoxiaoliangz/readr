@@ -1,20 +1,11 @@
 // links
-.light-link {
-  @extend %light-link;
-}
-
-.text-link {
-  @extend %text-link;
-}
-
-.dark-link {
-  @extend %dark-link;
-}
+.light-link { @extend %light-link; }
+.text-link { @extend %text-link; }
+.dark-link { @extend %dark-link; }
+.border-link { @extend %border-link; }
 
 // page
-.page-title {
-  @extend %page-title;
-}
+.page-title { @extend %page-title; }
 
 .page-header {
   margin: 35px 0;
@@ -34,9 +25,7 @@
 }
 
 // layout
-.sep {
-  @extend %sep;
-}
+.sep { @extend %sep; }
 
 .left {
   float: left;
@@ -50,9 +39,7 @@
   display: none;
 }
 
-.clearfix {
-  @extend %clearfix;
-}
+.clearfix { @extend %clearfix; }
 
 .center {
   text-align: center;
@@ -75,9 +62,7 @@
   }
 }
 
-.text-overflow {
-  @extend %text-overflow;
-}
+.text-overflow { @extend %text-overflow; }
 
 // styled
 .badge {
@@ -129,9 +114,7 @@
   text-align: center;
 }
 
-.text-loading {
-  @extend %text-loading;
-}
+.text-loading { @extend %text-loading; }
 
 // page rendering
 .gb-line {

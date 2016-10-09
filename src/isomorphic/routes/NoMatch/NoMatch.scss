@@ -1,0 +1,22 @@
+@import "styles/_variables";
+
+.no-match {
+  background: #eee;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.6rem;
+  color: $dark;
+}
+
+.body {
+  text-align: center;
+  width: 500px;
+  margin: 0 auto;
+  padding: 150px 0;
+  font-size: 1.1rem;
+}

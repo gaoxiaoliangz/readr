@@ -54,8 +54,10 @@ class Branding extends Component<IProps, IState> {
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
-            <Logo to="/" />
-            <div styleName="nav">
+            <div className="left">
+              <Logo/>
+            </div>
+            <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName="nav-item">
                   <Link styleName="nav-link" to="/browse">浏览</Link>

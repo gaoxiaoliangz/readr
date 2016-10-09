@@ -58,17 +58,22 @@ $z-dropdown-menu: 900;
 $z-modal-backdrop: 900;
 
 // defined styles
-%text-overflow {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+%text-loading {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: $text-light;
 }
 
-%light-link {
-  color: #fff;
+// links
+%border-link {
+  color: $text-dark;
+  border-bottom: 1px solid $text-dark;
 
   &:hover {
-    color: #ddd;
+   color: $text-light;
+   border-color: $text-light
   }
 }
 
@@ -80,6 +85,14 @@ $z-modal-backdrop: 900;
   }
 }
 
+%light-link {
+  color: #fff;
+
+  &:hover {
+    color: #ddd;
+  }
+}
+
 %dark-link {
   color: $text-dark;
 
@@ -88,6 +101,7 @@ $z-modal-backdrop: 900;
   }
 }
 
+// layout
 %page-title {
   margin: 35px 0;
   font-size: 1.5rem;
@@ -108,10 +122,8 @@ $z-modal-backdrop: 900;
   }
 }
 
-%text-loading {
-  text-align: center;
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: normal;
-  color: $text-light;
+%text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
