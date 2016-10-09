@@ -12,9 +12,13 @@ import express from 'express'
 const app = express()
 const appEnv = app.get('env')
 
+let render = !Boolean(argv['noRender'])
 const hot = Boolean(argv['hot'])
-const render = !Boolean(argv['noRender'])
 const route = !Boolean(argv['noRoute'])
+
+if (route === false) {
+  render = false
+}
 
 let production = Boolean(argv['production'])
 
