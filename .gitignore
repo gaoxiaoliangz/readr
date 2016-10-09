@@ -1,9 +1,9 @@
-public/built/
-public/built_prod/
-bin
 node_modules/
 bower_components/
 .sass-cache/
 .idea/
 .DS_Store
 npm-debug.log
+/public/built/
+/public/built_prod/
+/bin/
