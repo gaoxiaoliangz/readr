@@ -1,6 +1,0 @@
-@import "styles/variables.css";
-
-.content {
-  margin-left: calc(var(--sidebar-width) + 20);
-  padding-top: var(--branding-height);
-}

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Container from '../../elements/_layout/Container'
-import ConsoleBranding from '../../components/ConsoleBranding'
-import { userAuth, sendNotification } from '../../store/actions'
-import ConsoleSidebar from '../../components/ConsoleSidebar'
-import menus from '../../content/menus'
-import DocContainer from '../../containers/DocContainer'
-import CSSModules from 'react-css-modules'
-const styles = require('./ConsoleMaster.css')
+import Container from '../elements/_layout/Container'
+import ConsoleBranding from '../components/ConsoleBranding'
+import { userAuth, sendNotification } from '../store/actions'
+import ConsoleSidebar from '../components/ConsoleSidebar'
+import menus from '../content/menus'
+import DocContainer from '../containers/DocContainer'
 
 interface Props {
   notifications?: any
@@ -16,9 +14,6 @@ interface Props {
   routing?: any
 }
 
-@CSSModules(styles, {
-  allowMultiple: true
-})
 class Console extends Component<Props, any> {
 
   componentDidMount() {
@@ -30,6 +25,11 @@ class Console extends Component<Props, any> {
     let username = this.props.session.user.username ? this.props.session.user.username : null
     let pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console'
 
+    const contentStyle = {
+      marginLeft: 320,
+      paddingTop: 60
+    }
+
     return (
       <DocContainer bodyClass="console">
         <ConsoleBranding isAdmin={isAdmin} username={username} />
@@ -37,8 +37,8 @@ class Console extends Component<Props, any> {
           <ConsoleSidebar
             menuMapping={menus}
             currentPath={pathname}
-          />
-          <div styleName="content">
+            />
+          <div style={contentStyle}>
             {this.props.children}
           </div>
         </Container>
