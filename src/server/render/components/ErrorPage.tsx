@@ -1,7 +1,7 @@
 import Page from './Page'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import AppError from './AppError'
+import AppError from '../../../isomorphic/components/AppError'
 
 type TProps = {
   isProd?: boolean

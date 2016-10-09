@@ -1,7 +1,7 @@
 import React from 'react'
 import Html from './Html'
 import _ from 'lodash'
-import print from '../../server/utils/print'
+import print from '../../utils/print'
 import fs from 'fs'
 
 const DEFAULT_TITLE = 'Readr'

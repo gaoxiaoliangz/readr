@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorPage from '../../isomorphic/containers/ErrorPage'
+import ErrorPage from './components/ErrorPage'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 const ERROR_DOC_TITLE = '服务器错误'
