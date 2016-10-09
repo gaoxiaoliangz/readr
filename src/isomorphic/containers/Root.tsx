@@ -7,11 +7,11 @@ import _ from 'lodash'
 import { ConfirmModal } from '../elements/Modal'
 import { ModalPlus } from '../elements/Modal'
 
-interface IAllProps {
+interface Props {
   notifications: any
   hideNotification: any
-  errorMessage: string
-  sendNotification: any
+  errorMessage: any[]
+  sendNotification: sendNotification
   confirmModal: any
   closeConfirmModal: any
   userAuth: any
@@ -21,7 +21,7 @@ interface IAllProps {
   closeModal: any
 }
 
-class Root extends Component<IAllProps, {}> {
+class Root extends Component<Props, {}> {
 
   static fetchData({ store, userSession }) {
     return store.dispatch(userAuth(userSession))
@@ -36,7 +36,7 @@ class Root extends Component<IAllProps, {}> {
     const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
 
     if (hasNewErrorMsg) {
-      this.props.sendNotification(_.last(nextProps.errorMessage), 'error')
+      this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
     }
 
     if (routerChanged) {
@@ -97,7 +97,7 @@ class Root extends Component<IAllProps, {}> {
   }
 }
 
-export default connect<{}, {}, IAllProps>(
+export default connect<{}, {}, Props>(
   state => ({
     notifications: state.components.notifications,
     errorMessage: state.errorMessage,

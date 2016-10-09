@@ -12,8 +12,8 @@ function errorMessage(state = [], action) {
   const { error } = action
 
   if (error) {
-    console.error(error)
-    return [...state, action.error]
+    console.error(error.message)
+    return [...state, action.error.message]
   }
 
   return state

@@ -14,6 +14,8 @@ const TYPE = 'type'
 export const RESERVED_ACTION_KYES_ARRAY = [OPTIONS, ID, DATA, TYPE]
 export const RESERVED_ACTION_KYES_OBJ = { OPTIONS, ID, DATA, TYPE }
 
+// TODO
+// 似乎需要优化，缓存的逻辑和获取的耦合太深了
 function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
   const fullPayload = _.assign({}, apiConfig, payload)
   const id = apiConfig[ID]
@@ -41,7 +43,6 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
   if (response) {
     if (hasCache === false) {
       cache.setCache(cacheId, response)
-      console.log('cached')
     }
     let action = entity.success(response, fullPayload)
     yield put(action)
