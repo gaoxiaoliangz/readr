@@ -15,16 +15,21 @@ import ServerSideAppRoot from '../../isomorphic/containers/ServerSideAppRoot'
 import configureStore from '../../isomorphic/store/configureStore'
 import { ENABLE_SERVER_ROUTING } from '../../isomorphic/constants'
 
-const getManifest = () => {
-  try {
-    const chunkManifest = JSON.parse(fs.readFileSync(`${process.cwd()}/public/built_prod/chunks.manifest.json`, 'utf8'))
-    const cssManifest = JSON.parse(fs.readFileSync(`${process.cwd()}/public/built_prod/css.manifest.json`, 'utf8'))
+const CSS_MANIFEST_PATH = `${process.cwd()}/public/built_prod/css.manifest.json`
+const CHUNKS_MANIFEST_PATH = `${process.cwd()}/public/built_prod/chunks.manifest.json`
 
-    return _.assign({}, chunkManifest, cssManifest)
+const getManifest = () => {
+  let chunkManifest = {}
+  let cssManifest = {}
+
+  try {
+    cssManifest = JSON.parse(fs.readFileSync(CSS_MANIFEST_PATH, 'utf8'))
+    chunkManifest = JSON.parse(fs.readFileSync(CHUNKS_MANIFEST_PATH, 'utf8'))
   } catch (error) {
-    print.error('Manifest file not found! ')
-    return {}
+    print.error(error.message)
   }
+
+  return _.assign({}, chunkManifest, cssManifest)
 }
 
 type RenderConfig = {

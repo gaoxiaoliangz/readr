@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: paths.builtProd,
     filename: '[name].[chunkhash:10].js',
-    publicPath: '/built/'
+    publicPath: '/built_prod/'
   },
   plugins: [
     base.plugins.occurenceOrder(),

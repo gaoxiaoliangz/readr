@@ -6,6 +6,9 @@ import print from '../../server/utils/print'
 const DEFAULT_TITLE = 'Readr'
 const SCRIPT_CONTENT_ID = 'script-data'
 
+const ASSET_PATH = '/built'
+const ASSET_PATH_PROD = '/built_prod'
+
 const SCRIPTS_PROD = ['react_kit.js', 'utils.js', 'app.js']
 const SCRIPTS_DEV = ['react_kit.dll.js', 'utils.dll.js', 'app.js']
 
@@ -38,13 +41,13 @@ type TProps = {
 }
 
 function Page(props: TProps) {
-  const { title, store, manifest, includeLocalStylesheets, bodyClass, appMarkup, scriptData } = props
+  const { title, store, manifest, includeLocalStylesheets, bodyClass, appMarkup, scriptData, isProd } = props
 
-  const scripts = props.isProd
+  const scripts = isProd
     ? SCRIPTS_PROD.map(getHashedFilename(manifest))
     : SCRIPTS_DEV
 
-  const styles = props.isProd
+  const styles = isProd
     ? GLOBAL_STYLES.concat(LOCAL_STYLES).map(getHashedFilename(manifest))
     : (
       includeLocalStylesheets
@@ -56,6 +59,8 @@ function Page(props: TProps) {
     return `var ${key} = ${val};`
   }).join('')
 
+  const assetPath = isProd ? ASSET_PATH_PROD : ASSET_PATH
+
   return (
     <Html
       title={title}
@@ -66,6 +71,7 @@ function Page(props: TProps) {
       appMarkup={appMarkup}
       scriptContentId={SCRIPT_CONTENT_ID}
       scriptContent={scriptContent}
+      assetPath={assetPath}
       />
   )
 }

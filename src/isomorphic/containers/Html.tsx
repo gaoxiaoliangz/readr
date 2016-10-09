@@ -12,30 +12,35 @@ type TProps = {
   useFavicon?: boolean
   scriptContent?: string
   scriptContentId?: string
+  assetPath?: string
 }
-
-const assetPrefix = '/built'
 
 type TStyleLinkProps = {
   filename: string
+  assetPath: string
 }
 function StyleLink(props: TStyleLinkProps) {
   return (
-    <link rel="stylesheet" href={`${assetPrefix}/${props.filename}`} />
+    <link rel="stylesheet" href={`${props.assetPath || ''}/${props.filename}`} />
   )
 }
 
 type TScriptProps = {
   filename: string
+  assetPath: string
 }
 function Script(props: TScriptProps) {
   return (
-    <script src={`${assetPrefix}/${props.filename}`}></script>
+    <script src={`${props.assetPath || ''}/${props.filename}`}></script>
   )
 }
 
 export default function Html(props: TProps) {
-  const { title, styles, scripts, initialState, bodyClass, appMarkup, useFavicon, scriptContent, scriptContentId } = props
+  const {
+    title, styles, scripts, initialState,
+    bodyClass, appMarkup, useFavicon, scriptContent,
+    scriptContentId, assetPath
+  } = props
 
   return (
     <html>
@@ -50,7 +55,7 @@ export default function Html(props: TProps) {
         <title>{title || ''}</title>
         {
           styles && styles.map((stylesheetName, index) => {
-            return <StyleLink filename={stylesheetName} key={index} />
+            return <StyleLink assetPath={assetPath} filename={stylesheetName} key={index} />
           })
         }
       </head>
@@ -63,12 +68,14 @@ export default function Html(props: TProps) {
         }
         {
           initialState && (
-            <script dangerouslySetInnerHTML={{ __html: `var ${INITIAL_STATE} = ${JSON.stringify(initialState)}` }} />
+            <script
+              dangerouslySetInnerHTML={{ __html: `var ${INITIAL_STATE} = ${JSON.stringify(initialState)}` }}
+              />
           )
         }
         {
           scripts && scripts.map((scriptName, index) => {
-            return <Script filename={scriptName} key={index} />
+            return <Script assetPath={assetPath} filename={scriptName} key={index} />
           })
         }
       </body>
