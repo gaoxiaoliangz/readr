@@ -40,23 +40,21 @@ class Browse extends Component<Props, {}> {
 
     return (
       <Container className="archive">
-        <div className="page-header">
-          <BookListSection
-            title="所有书籍"
-            bookEntities={this.props.newestBooks}
-            isFetching={isBooksFetching}
-            />
-          {
-            nextPage !== 0 && (
-              <Button
-                onClick={() => { this.loadMore(nextPage) } }
-                styleName="btn-load-more"
-                width={200}
-                color="white"
-                >{isBooksFetching ? '加载中 ...' : '加载更多'}</Button>
-            )
-          }
-        </div>
+        <BookListSection
+          title="所有书籍"
+          bookEntities={this.props.newestBooks}
+          isFetching={isBooksFetching}
+          />
+        {
+          nextPage !== 0 && (
+            <Button
+              onClick={() => { this.loadMore(nextPage) } }
+              styleName="btn-load-more"
+              width={200}
+              color="white"
+              >{isBooksFetching ? '加载中 ...' : '加载更多'}</Button>
+          )
+        }
       </Container>
     )
   }

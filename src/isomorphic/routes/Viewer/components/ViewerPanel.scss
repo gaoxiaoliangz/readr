@@ -1,8 +1,8 @@
 @import "styles/_variables";
 
-$panel_background: black;
+$panel_background: $dark;
 $panel_text: #fff;
-$height: 60px;
+$height: $branding-height;
 $icons_size: 30px;
 
 .viewer-panel {
@@ -20,7 +20,8 @@ $icons_size: 30px;
   max-width: 1200px;
   text-align: center;
   margin: 0 auto;
-  margin-top: ($height - $icons_size)/2;
+  height: $height;
+  line-height: $height;
   position: relative;
 }
 
@@ -32,15 +33,20 @@ $icons_size: 30px;
   a {
     color: $panel_text;
     display: inline-block;
+    height: $height;
+    line-height: $height;
     overflow: hidden;
     span {
       float: left;
+      margin-right: 5px;
     }
   }
 
   span {
     line-height: $icons_size;
     display: inline-block;
+    height: $height;
+    line-height: $height;
   }
 }
 

@@ -49,6 +49,7 @@ class AddAuthorForm extends Component<AllProps, State> {
         <Input placeholder="描述" {...description} />
         <ModalFooter
           onConfirm={handleSubmit(data => {
+            console.log(data)
             onSave(data)
           })}
           onCancel={closeModal}

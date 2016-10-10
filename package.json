@@ -11,6 +11,7 @@
       "server:fe": "npm run watch:css & npm run watch:chunks & node bin/server --noRoute",
       "server:dev": "nodemon bin/server",
       "server:prod": "nodemon bin/server --production",
+      "server:static:prod": "node bin/server --production",
 
     "watch": "npm run watch:node",
       "watch:fe": "npm run watch:css & npm run watch:chunks",

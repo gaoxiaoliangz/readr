@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 import svgIcons from './svg-icons'
 import CSSModules from 'react-css-modules'
-const styles = require('./Icon.css')
+const styles = require('./Icon.scss')
 
 interface IProps {
   name: string
@@ -30,11 +30,19 @@ class Icon extends Component<IProps, {}> {
 
     size = size || 30
 
+    const svgWrapStyle = {
+      position: 'absolute',
+      top: '50%',
+      marginTop: - size / 2
+    }
+
     return (
-      <span styleName="icon" className={className} onClick={onClick}>
-        <svg {...svgIcons[name].viewBox && {viewBox: svgIcons[name].viewBox}} width={size} height={size} styleName="svg-shape">
-          <path d={svgIcons[name].path}/>
-        </svg>
+      <span styleName="icon" style={{minWidth: size, minHeight: size}} className={className} onClick={onClick}>
+        <div style={svgWrapStyle}>
+          <svg {...svgIcons[name].viewBox && { viewBox: svgIcons[name].viewBox }} width={size} height={size} styleName="svg-shape">
+            <path d={svgIcons[name].path} />
+          </svg>
+        </div>
       </span>
     )
   }

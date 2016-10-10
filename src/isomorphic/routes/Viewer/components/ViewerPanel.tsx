@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Icon from '../../elements/Icon'
-import Fade from '../../elements/_animations/Fade'
-import ViewerPreference from './ViewerPreference'
+import Icon from '../../../elements/Icon'
+import Fade from '../../../elements/_animations/Fade'
+import ViewerPreference from '.././ViewerPreference'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_viewer-panel.scss')
+const styles = require('./ViewerPanel.scss')
 
 interface IProps {
   title: string
