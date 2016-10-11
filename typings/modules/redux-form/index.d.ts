@@ -78,6 +78,20 @@ import { IDispatch as Dispatch, IReducer as Reducer } from '~redux-form~redux';
 
 namespace ReduxForm {
 
+    // export const Field: __React.ComponentClass<{
+    //     name: string
+    //     component: any
+    // }>
+
+    export const Field: any
+
+    export const Fields: __React.ComponentClass<{
+        names: string[]
+        component: any
+    }>
+
+    export function getFormValues(formName: string): (state: any) => any
+
     export const reset: any
 
     type ActionCreator =  (...args: any[]) => any;

@@ -3,7 +3,7 @@ module.exports = {
 
   getComponent(nextState, fn) {
     require.ensure([], function (require) {
-      fn(null, (require('./AddBook') as any).default)
+      fn(null, require('./AddBook').default)
     })
   }
 }

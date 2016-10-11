@@ -50,7 +50,7 @@ class AddBook extends Component<Props, State> {
         this.props.reset('addBook')
       })
     }, error => {
-      this.props.sendNotification(error.message, 'error')
+      this.props.sendNotification(error.message, 'error', 0)
     })
   }
 
@@ -72,7 +72,7 @@ class AddBook extends Component<Props, State> {
 
       this.props.closeModal()
     }, error => {
-      this.props.sendNotification(error.message)
+      this.props.sendNotification(error.message, 'error')
     })
   }
 
