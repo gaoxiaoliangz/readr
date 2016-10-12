@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Fields } from 'redux-form'
 import { sendNotification, closeModal } from '../../../store/actions'
 import Input from '../../../elements/_form/Input'
 import ModalFooter from '../../../elements/Modal/ModalFooter'
@@ -18,38 +18,41 @@ interface AllProps extends Props {
   closeModal: () => void
 }
 
-interface State {
+const renderFields = fields2 => {
+  const { name, slug, description } = fields2
+
+  return (
+    <div>
+      <Input placeholder="名字" {...name.input} />
+      <Input placeholder="唯一标识" {...slug.input} />
+      <Input placeholder="描述" {...description.input} />
+    </div>
+  )
 }
+
+const fields = ['name', 'slug', 'description']
 
 @reduxForm({
   form: 'addAuthor',
-  fields: ['name', 'slug', 'description'],
+  fields
 })
-class AddAuthorForm extends Component<AllProps, State> {
+class AddAuthorForm extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
   }
 
-  componentDidMount() {
-  }
-
   render() {
-    const {
-      fields: { name, slug, description },
-      handleSubmit,
-      closeModal,
-      onSave
-    } = this.props
+    const { handleSubmit, closeModal, onSave } = this.props
 
     return (
       <div>
-        <Input placeholder="名字" {...name} />
-        <Input placeholder="唯一标识" {...slug} />
-        <Input placeholder="描述" {...description} />
+        <Fields
+          names={fields}
+          component={renderFields}
+        />
         <ModalFooter
           onConfirm={handleSubmit(data => {
-            console.log(data)
             onSave(data)
           })}
           onCancel={closeModal}

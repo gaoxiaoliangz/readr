@@ -74,7 +74,12 @@ class SelectizeInput extends Component<IProps, IState> {
         ? Object.assign({}, option, { disabled: true })
         : option)))
     }
-    this.clearInputValue()
+
+    // React setState 是异步的，如果都是用 state 管理则会出现同时调用 setState 的情况，从而造成问题
+    setTimeout(() => {
+      this.clearInputValue()
+    }, 1)
+
     if (typeof this.props.stayFocused === 'undefined' || this.props.stayFocused !== false) {
       this.focusInput()
     }

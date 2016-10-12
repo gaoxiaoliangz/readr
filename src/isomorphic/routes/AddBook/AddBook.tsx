@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { reset } from 'redux-form'
+import { reset, initialize } from 'redux-form'
 import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
 import _ from 'lodash'
 import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
-import AddBookForm from './components/AddBookForm'
+import AddBookForm, { SlData } from './components/AddBookForm'
 
 interface Props {
   elements?: any
@@ -18,10 +18,11 @@ interface Props {
   fetchAuthors?: any
   reset?: any
   fetchDoubanBooks: any
+  initialize?: any
 }
 
 interface State {
-  addBookFormInitialData?: any
+  slData?: SlData
 }
 
 class AddBook extends Component<Props, State> {
@@ -32,7 +33,9 @@ class AddBook extends Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      addBookFormInitialData: {}
+      slData: {
+        author: {}
+      }
     }
 
     this.handleTitleValueChange = this.handleTitleValueChange.bind(this)
@@ -44,11 +47,10 @@ class AddBook extends Component<Props, State> {
   addBook(data) {
     api.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
-      this.setState({
-        addBookFormInitialData: {}
-      }, () => {
-        this.props.reset('addBook')
-      })
+      this.props.reset('addBook')
+      setTimeout(function() {
+        location.href = location.href
+      }, 1000)
     }, error => {
       this.props.sendNotification(error.message, 'error', 0)
     })
@@ -61,12 +63,14 @@ class AddBook extends Component<Props, State> {
       const name = result.json.ops[0].name
 
       this.setState({
-        addBookFormInitialData: {
-          _authorValues: [{
-            name: name,
-            value: id
-          }],
-          _authorValue: ''
+        slData: {
+          author: {
+            value: '',
+            values: [{
+              name: name,
+              value: id
+            }]
+          }
         }
       })
 
@@ -87,7 +91,6 @@ class AddBook extends Component<Props, State> {
   handleTitleValueChange(newVal) {
     if (!_.isEmpty(newVal)) {
       this.props.searchDoubanBooks(newVal)
-      // this.props.fetchDoubanBooks(newVal)
     }
   }
 
@@ -99,9 +102,9 @@ class AddBook extends Component<Props, State> {
           onTitleInputChange={this.handleTitleValueChange}
           onAuthorInputChange={this.handleAuthorValueChange}
           onSaveAuthor={this.addAuthor}
-          initialData={this.state.addBookFormInitialData}
           onSaveBook={this.addBook}
-        />
+          slData={this.state.slData}
+          />
       </DocContainer>
     )
   }
@@ -116,5 +119,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset }
+  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, initialize }
 )(AddBook as any)

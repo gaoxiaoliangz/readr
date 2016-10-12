@@ -78,12 +78,13 @@ import { IDispatch as Dispatch, IReducer as Reducer } from '~redux-form~redux';
 
 namespace ReduxForm {
 
-    // export const Field: __React.ComponentClass<{
-    //     name: string
-    //     component: any
-    // }>
+    export const reset: any
+    export const initialize: any
 
-    export const Field: any
+    export const Field: __React.ComponentClass<{
+        name: string
+        component: any
+    }>
 
     export const Fields: __React.ComponentClass<{
         names: string[]
@@ -91,8 +92,6 @@ namespace ReduxForm {
     }>
 
     export function getFormValues(formName: string): (state: any) => any
-
-    export const reset: any
 
     type ActionCreator =  (...args: any[]) => any;
 
@@ -504,6 +503,9 @@ namespace ReduxForm {
          * Defaults to (values, props) => ({}).
          */
         validate?(values:FormData, props:{[fieldName:string]: FieldProp}):Object;
+
+        enableReinitialize?: boolean
+        keepDirtyOnReinitialize?: boolean
     }
 
     /**
