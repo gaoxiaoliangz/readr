@@ -91,6 +91,7 @@ const createForm: ClassDecorator = (config: FormConfig) => {
       }
 
       componentWillUnmount() {
+        // 生成版本的 React 会在初始化时执行一次 unmount 尚未查明原因
         this.props.destroy(formName)
       }
 

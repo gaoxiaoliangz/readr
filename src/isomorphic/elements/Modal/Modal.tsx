@@ -82,7 +82,7 @@ class Modal extends Component<Props, State> {
     }
   }
 
-  componentUnmount() {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.setView)
   }
 
@@ -136,7 +136,7 @@ class Modal extends Component<Props, State> {
     }
 
     return (
-      <Fade>
+      <div>
         {
           open === true ? (
             <div
@@ -161,7 +161,7 @@ class Modal extends Component<Props, State> {
             </div>
           ) : null
         }
-      </Fade>
+      </div>
     )
   }
 }

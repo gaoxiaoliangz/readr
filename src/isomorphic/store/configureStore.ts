@@ -27,7 +27,9 @@ export default function configureStore() {
       store = createStore(
         rootReducer,
         handleInitialState(),
-        applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk)
+        applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk, createLogger({
+          collapsed: true
+        }))
       )
     } else {
       store = createStore(
