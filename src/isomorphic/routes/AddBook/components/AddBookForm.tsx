@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { reduxForm, Fields, initialize } from 'redux-form'
-import { sendNotification, openModal } from '../../../store/actions'
+import { form } from '../../../form'
+import { sendNotification, openModal, initialize } from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import Input from '../../../elements/_form/Input'
 import Textarea from '../../../elements/_form/Textarea'
@@ -9,23 +9,12 @@ import { Button, SelectizeInput } from '../../../elements/_form'
 import AddAuthorForm from './AddAuthorForm'
 import _ from 'lodash'
 
-export interface SlData {
-  author?: {
-    value?: string
-    values?: {
-      name: string
-      value: string
-    }[]
-  }
-}
-
 interface Props {
   onTitleInputChange?: (newVal: string) => void
   onAuthorInputChange?: (newVal: string) => void
   onSaveAuthor: (data: any) => void
   onSaveBook: (data: any) => void
-  slData?: SlData
-  initialize?: any
+  initialize?: initialize
 }
 
 interface AllProps extends Props {
@@ -38,63 +27,25 @@ interface AllProps extends Props {
   openModal: (data: openModal) => void
 }
 
-interface SelectizeData {
-  value?: string
-  values?: {
-    name: string
-    value: string
-  }[]
-}
-
-interface State {
-  slTitle?: SelectizeData
-  slAuthor?: SelectizeData
-}
-
-const fields = ['cover', 'description', 'content']
-
-const RenderedFields = fields2 => {
-  const {cover, description, content } = fields2
-  return (
-    <div>
-      <Input placeholder="封面图片地址" {...cover.input} />
-      <Textarea placeholder="描述" {...description.input} />
-      <Textarea placeholder="在此粘贴书籍内容 (markdown 格式)" {...content.input} />
-    </div>
-  )
-}
-
-@reduxForm(
-  {
-    form: 'addBook',
-    fields,
-    enableReinitialize: true,
-  }
-)
-class AddBookForm extends Component<AllProps, State> {
+@form({
+  form: 'addBook',
+  fields: ['title', 'author', 'authors', 'cover', 'description', 'content']
+})
+class AddBookForm extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
-    this.state = {
-      slTitle: {
-        value: '',
-        values: []
-      },
-      slAuthor: {
-        value: '',
-        values: []
-      },
-    }
     this.handleTitleOptionClick = this.handleTitleOptionClick.bind(this)
-    this.handleAuthorValuesChange = this.handleAuthorValuesChange.bind(this)
+    this.handleAddNewAuthor = this.handleAddNewAuthor.bind(this)
   }
 
   handleTitleOptionClick(option) {
     const data = {
       cover: option.additional.cover,
-      description: option.additional.description
+      description: option.additional.description,
+      author: option.additional.author
     }
-    this.props.initialize(data)
+    this.props.initialize('addBook', data)
     this.setState({
       slAuthor: {
         value: option.additional.author,
@@ -103,101 +54,67 @@ class AddBookForm extends Component<AllProps, State> {
     })
   }
 
-  handleAuthorValuesChange(newValues) {
-    this.setState({
-      slAuthor: _.assign({}, this.state.slAuthor, {
-        values: newValues
-      })
+  handleAddNewAuthor(value) {
+    this.props.openModal({
+      title: '添加作者',
+      content: <AddAuthorForm
+        onSave={this.props.onSaveAuthor}
+        />
     })
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    const authorSlDataChanged = !_.isEmpty(nextProps.slData.author) && !_.isEqual(nextProps.slData, this.props.slData)
-
-    if (authorSlDataChanged) {
-      this.setState({
-        slAuthor: nextProps.slData.author
-      })
-    }
+    this.props.initialize('addAuthor', { name: value })
   }
 
   render() {
     const {
+      fields: {
+        title, author, authors, cover, description, content
+      },
       handleSubmit,
       onTitleInputChange,
       onAuthorInputChange,
       doubanBooksAsOptions,
       authorsAsOptions,
-      onSaveAuthor,
       onSaveBook,
     } = this.props
 
-    const { slTitle, slAuthor } = this.state
-
-    const selectedAuthorIds = slAuthor.values.map(author => author.value)
-    const filteredAuthorOptions = authorsAsOptions.filter(author => {
-      return selectedAuthorIds.indexOf(author.value) === -1
+    const selectedAuthorIds = authors.get([]).map(a => a.value)
+    const filteredAuthorOptions = authorsAsOptions.filter(a => {
+      return selectedAuthorIds.indexOf(a.value) === -1
     })
 
     return (
       <div>
         <SelectizeInput
           placeholder="书名"
-          value={slTitle.value}
-          values={slTitle.values}
+          value={title.value}
+          values={[]}
           options={doubanBooksAsOptions}
           onInputChange={newValue => {
             onTitleInputChange(newValue)
-            this.setState({
-              slTitle: _.assign({}, slTitle, {
-                value: newValue
-              })
-            })
+            title.set(newValue)
           } }
-          onValuesChange={newValues => {
-            this.setState({
-              slTitle: _.assign({}, slTitle, {
-                values: newValues
-              })
-            })
-          } }
+          useValue
           onOptionClick={this.handleTitleOptionClick}
           />
         <SelectizeInput
           placeholder="作者"
-          value={slAuthor.value}
-          values={slAuthor.values}
+          value={author.get()}
+          values={authors.get([])}
           options={filteredAuthorOptions}
           onInputChange={newValue => {
             onAuthorInputChange(newValue)
-            this.setState({
-              slAuthor: _.assign({}, slAuthor, {
-                value: newValue
-              })
-            })
+            author.set(newValue)
           } }
-          onValuesChange={this.handleAuthorValuesChange}
-          onAddNewValue={value => {
-            this.props.openModal({
-              title: '添加作者',
-              content: <AddAuthorForm
-                initialData={{ name: value }}
-                onSave={onSaveAuthor}
-                />
-            })
-          } }
+          onValuesChange={authors.onChange}
+          onAddNewValue={this.handleAddNewAuthor}
           />
-
-        <Fields
-          names={fields}
-          component={RenderedFields}
-          />
+        <Input placeholder="封面图片地址" {...cover} />
+        <Textarea placeholder="描述" {...description} />
+        <Textarea placeholder="在此粘贴书籍内容 (markdown 格式)" {...content} />
 
         <Button onClick={handleSubmit(data => {
-          const postData = _.assign({}, data, {
-            title: _.get(this.state.slTitle, 'values[0].name', '') || this.state.slTitle.value,
-            authors: Array.isArray(this.state.slAuthor.values) ? this.state.slAuthor.values.map(v => v.value) : []
-          })
+          const postData = _.omit(data, ['author'])
+          postData['authors'] = _.map(postData['authors'], 'value')
           onSaveBook(postData)
         })}>添加</Button>
       </div>

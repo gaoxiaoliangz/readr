@@ -33,7 +33,7 @@ class AddCollection extends Component<Props, {}> {
       this.props.sendNotification('添加成功！')
       this.props.reset('addCollection')
     }, error => {
-      this.props.sendNotification(error.message)
+      this.props.sendNotification(error.message, 'error')
     })
   }
 

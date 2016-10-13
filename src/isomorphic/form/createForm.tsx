@@ -74,7 +74,7 @@ const createForm: ClassDecorator = (config: FormConfig) => {
 
         return {
           [key]: {
-            get: () => value,
+            get: (defaultVal?) => value || defaultVal || '',
             set: events.onChange,
             value,
             onChange: events.onChange,
@@ -121,7 +121,7 @@ const createForm: ClassDecorator = (config: FormConfig) => {
           return e => {
             touch(formName, formDefinition.map(def => def.name))
             if (!hasError) {
-              fn(formValues)
+              fn(collectedValues)
             }
           }
         }

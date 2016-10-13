@@ -4,15 +4,33 @@ import _ from 'lodash'
 const FORM = actions.FORM
 
 const effects = {
+  [FORM.INITIALIZE](state, action) {
+    const {payload, meta: { keepDirty, form }} = action
+
+    const formState = {
+      [form]: {
+        values: payload
+      }
+    }
+
+    if (typeof keepDirty === 'undefined' || keepDirty) {
+      return _.merge({}, state, formState)
+    }
+
+    return _.assign({}, state, _.assign({}, state[form], formState))
+  },
+
   [FORM.CHANGE](state, action) {
     const {payload, meta: { field, form }} = action
 
-    return _.merge({}, state, {
-      [form]: {
-        values: {
+    // todo
+    // 应该有更好的算法
+    return _.assign({}, state, {
+      [form]: _.assign({}, state[form], {
+        values: _.assign({}, state[form]['values'] || {}, {
           [field]: payload
-        }
-      }
+        })
+      })
     })
   },
 

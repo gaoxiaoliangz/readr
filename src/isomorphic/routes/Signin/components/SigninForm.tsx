@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { reduxForm as form } from 'redux-form'
 import { form } from '../../../form'
 import { sendNotification } from '../../../store/actions'
 import { Input, Button } from '../../../elements/_form'
@@ -40,6 +39,8 @@ class SigninForm extends Component<AllProps, State> {
       handleSubmit,
       onSave
     } = this.props
+
+    console.log(this.props.fields)
 
     return (
       <div>

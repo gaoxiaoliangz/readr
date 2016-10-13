@@ -28,11 +28,14 @@ interface IProps {
   value: string
   onInputChange: (newValue: string) => void
 
+  // 使用 value 而不是 values 作为输入 
+  useValue?: boolean
+
   options: Array<TypeOption>
   onOptionsChange?: (newValues: Array<TypeOption>) => void
 
   values: Array<TypeValue>
-  onValuesChange: (newValues: Array<TypeValue>) => void
+  onValuesChange?: (newValues: Array<TypeValue>) => void
 
   // 额外功能
   onAddNewValue?: (newValue: string) => void
@@ -68,22 +71,27 @@ class SelectizeInput extends Component<IProps, IState> {
   }
 
   addValue(newValue) {
-    this.props.onValuesChange(this.props.values.concat(newValue))
-    if (this.props.onOptionsChange) {
-      this.props.onOptionsChange(this.props.options.map(option => (option.value === newValue.value
-        ? Object.assign({}, option, { disabled: true })
-        : option)))
-    }
+    if (!this.props.useValue) {
+      this.props.onValuesChange(this.props.values.concat(newValue))
+      if (this.props.onOptionsChange) {
+        this.props.onOptionsChange(this.props.options.map(option => (option.value === newValue.value
+          ? Object.assign({}, option, { disabled: true })
+          : option)))
+      }
 
-    // React setState 是异步的，如果都是用 state 管理则会出现同时调用 setState 的情况，从而造成问题
-    setTimeout(() => {
-      this.clearInputValue()
-    }, 1)
+      // React setState 是异步的，如果都是用 state 管理则会出现同时调用 setState 的情况，从而造成问题
+      setTimeout(() => {
+        this.clearInputValue()
+      }, 1)
 
-    if (typeof this.props.stayFocused === 'undefined' || this.props.stayFocused !== false) {
-      this.focusInput()
+      if (typeof this.props.stayFocused === 'undefined' || this.props.stayFocused !== false) {
+        this.focusInput()
+      }
+      this.hideOptions()
+    } else {
+      this.props.onInputChange(newValue.name)
+      this.hideOptions()
     }
-    this.hideOptions()
   }
 
   showOptions() {

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { reset, initialize } from 'redux-form'
-import { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
+import { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, initialize } from '../../store/actions'
 import _ from 'lodash'
 import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
-import AddBookForm, { SlData } from './components/AddBookForm'
+import AddBookForm from './components/AddBookForm'
 
 interface Props {
   elements?: any
@@ -16,16 +15,12 @@ interface Props {
   searchDoubanBooks?: any
   closeModal?: any
   fetchAuthors?: any
-  reset?: any
+  reset?: reset
   fetchDoubanBooks: any
-  initialize?: any
+  initialize?: initialize
 }
 
-interface State {
-  slData?: SlData
-}
-
-class AddBook extends Component<Props, State> {
+class AddBook extends Component<Props, {}> {
 
   defaultState: {}
   fetchDoubanBooks: any
@@ -47,14 +42,7 @@ class AddBook extends Component<Props, State> {
   addBook(data) {
     api.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
-      this.props.initialize('addBook', {
-        cover: '',
-        description: '',
-        content: ''
-      })
-      setTimeout(function() {
-        location.href = location.href
-      }, 1000)
+      this.props.reset('addBook')
     }, error => {
       this.props.sendNotification(error.message, 'error', 0)
     })
@@ -65,19 +53,13 @@ class AddBook extends Component<Props, State> {
       this.props.sendNotification('添加成功')
       const id = result.json.ops[0]._id
       const name = result.json.ops[0].name
-
-      this.setState({
-        slData: {
-          author: {
-            value: '',
-            values: [{
-              name: name,
-              value: id
-            }]
-          }
-        }
+      this.props.initialize('addBook', {
+        authors: [{
+          name: name,
+          value: id
+        }],
+        author: ''
       })
-
       this.props.closeModal()
     }, error => {
       this.props.sendNotification(error.message, 'error')
@@ -107,7 +89,6 @@ class AddBook extends Component<Props, State> {
           onAuthorInputChange={this.handleAuthorValueChange}
           onSaveAuthor={this.addAuthor}
           onSaveBook={this.addBook}
-          slData={this.state.slData}
           />
       </DocContainer>
     )

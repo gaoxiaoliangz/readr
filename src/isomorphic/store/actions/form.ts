@@ -3,8 +3,15 @@ export const FORM = {
   RESET: 'form/RESET',
   TOUCH: 'form/TOUCH',
   DEFINE_FIELD: 'form/DEFINE_FIELD',
-  DESTROY: 'form/DESTROY'
+  DESTROY: 'form/DESTROY',
+  INITIALIZE: 'form/INITIALIZE'
 }
+
+export interface initialize {
+  (form: string, values, keepDirty?: boolean): any
+}
+export const initialize: initialize = (form, values, keepDirty) =>
+  ({ type: FORM.INITIALIZE, meta: { form, keepDirty }, payload: values })
 
 export interface change {
   (form, field, value, touch, persistentSubmitErrors): any

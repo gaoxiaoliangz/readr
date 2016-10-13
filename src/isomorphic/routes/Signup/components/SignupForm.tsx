@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import { form } from '../../../form'
 import { sendNotification } from '../../../store/actions'
 import { Input, Button } from '../../../elements/_form'
 import validation from '../../../data/validation'
@@ -20,8 +20,8 @@ interface AllProps extends Props {
 interface State {
 }
 
-@reduxForm({
-  form: 'formName',
+@form({
+  form: 'signup',
   fields: ['username', 'email', 'password'],
   validate: values => {
     return validation(values)
