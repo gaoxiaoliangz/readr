@@ -5,17 +5,22 @@ import * as actions from '../store/actions'
 import * as selectors from '../store/selectors'
 
 const formActions = actions.form
-const VALUE = 'value'
 
 interface FormConfig {
   form: string
   fields: string[]
+  validate?: (values: any) => any
 }
 
 interface FormProps {
   change: actions.change
+  touch: actions.touch
+  defineField: actions.defineField
+  destroy: actions.destroy
   form: any
   formValues: any
+  formMeta: any
+  formDefinition: any
 }
 
 class ElementClass extends Component<any, any> {
@@ -25,53 +30,104 @@ interface ClassDecorator {
   <T extends (typeof ElementClass)>(config: FormConfig): T
 }
 
+const validateForm = (fields, formValues, validateFn) => {
+  if (validateFn) {
+    const errors = validateFn(formValues)
+
+    if (!_.isEmpty(errors)) {
+      const fieldsWithErrors = _.mapValues(errors, val => {
+        return {
+          error: val
+        }
+      })
+
+      return {
+        fields: _.merge({}, fields, fieldsWithErrors),
+        hasError: true
+      }
+    }
+  }
+
+  return { fields, hasError: false }
+}
+
 const createForm: ClassDecorator = (config: FormConfig) => {
-  const { fields: fieldsArr, form: formName } = config
+  const { fields: fieldsArr, form: formName, validate } = config
 
   return WrappedComponent => {
     class Form extends Component<FormProps, {}> {
+
+      createField(value, key) {
+        const { change } = this.props
+
+        const setFieldValue = val => {
+          let newVal = val
+          if (typeof val === 'object' && val.target) {
+            newVal = val.target.value || ''
+          }
+          change(formName, key, newVal, false, false)
+        }
+
+        const events = {
+          onChange: val => setFieldValue(val)
+        }
+
+        return {
+          [key]: {
+            get: () => value,
+            set: events.onChange,
+            value,
+            onChange: events.onChange,
+            events
+          }
+        }
+      }
+
+      componentDidMount() {
+        const { defineField } = this.props
+        fieldsArr.forEach(field => {
+          defineField(formName, field)
+        })
+      }
+
+      componentWillUnmount() {
+        this.props.destroy(formName)
+      }
+
       render() {
-        const { change, form, formValues } = this.props
+        let decoratedFields
+        const { touch, formValues, formDefinition, formMeta } = this.props
+
+        const fieldsObjArr = _.map(fieldsArr, key => {
+          const fieldValue = formValues[key] || ''
+          return this.createField(fieldValue, key)
+        })
+
+        fieldsObjArr.forEach(field => {
+          decoratedFields = _.assign({}, decoratedFields, field)
+        })
+
+        let collectedValues = {}
+        formDefinition.forEach(def => {
+          const key = def.name
+          collectedValues[key] = formValues[key]
+        })
+
+        const { fields: fieldsWithError, hasError } = validateForm(decoratedFields, collectedValues, validate)
+        decoratedFields = fieldsWithError
+        decoratedFields = _.merge({}, decoratedFields, formMeta)
 
         const handleSubmit = fn => {
           return e => {
-            fn(formValues)
+            touch(formName, formDefinition.map(def => def.name))
+            if (!hasError) {
+              fn(formValues)
+            }
           }
         }
 
-        const fieldsObjArr = _.map(fieldsArr, key => {
-          const fieldValue = _.get(form, [key, VALUE], '')
-          const setFieldValue = val => {
-            let newVal = val
-            if (typeof val === 'object' && val.target && val.target.value) {
-              newVal = val.target.value
-            }
-            change(formName, key, newVal, false, false)
-          }
-
-          const events = {
-            onChange: val => setFieldValue(val)
-          }
-
-          return {
-            [key]: {
-              get: () => fieldValue,
-              set: events.onChange,
-              value: fieldValue,
-              onChange: events.onChange,
-              events
-            }
-          }
-        })
-
-        let fields
-
-        fieldsObjArr.forEach(field => {
-          fields = _.assign({}, fields, field)
-        })
-
         return createElement(WrappedComponent, _.assign({}, this.props, {
-          fields,
+          fields: decoratedFields,
           handleSubmit
         }))
       }
@@ -81,7 +137,9 @@ const createForm: ClassDecorator = (config: FormConfig) => {
       state => {
         return {
           form: selectors.form.fullForm(formName)(state),
-          formValues: selectors.form.formValues(formName)(state)
+          formValues: selectors.form.formValues(formName)(state),
+          formDefinition: selectors.form.formDefinition(formName)(state),
+          formMeta: selectors.form.formMeta(formName)(state)
         }
       },
       formActions
