@@ -7,6 +7,7 @@ import components from './components'
 import pagination from './pagination'
 import legacyPagination from './legacyPagination'
 import elements from './elements'
+import form2 from './form'
 
 function errorMessage(state = [], action) {
   const { error } = action
@@ -65,6 +66,7 @@ const rootReducer = combineReducers({
   session,
   routing,
   form,
+  form2,
   pagination: (state, action) => pagination(legacyPagination(state, action), action),
 
   // deprecated

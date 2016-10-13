@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import { reset, initialize } from 'redux-form'
-import { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
+import { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors } from '../../store/actions'
 import _ from 'lodash'
 import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
@@ -47,7 +47,11 @@ class AddBook extends Component<Props, State> {
   addBook(data) {
     api.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
-      this.props.reset('addBook')
+      this.props.initialize('addBook', {
+        cover: '',
+        description: '',
+        content: ''
+      })
       setTimeout(function() {
         location.href = location.href
       }, 1000)
@@ -119,5 +123,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, changeValue, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, initialize }
+  { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, initialize }
 )(AddBook as any)

@@ -2,6 +2,7 @@ import { createSelector } from 'reselect'
 import _ from 'lodash'
 import { pagedEntities } from './common'
 import * as common from './common'
+import * as form from './form'
 
 export const doubanBooks = key => createSelector(
   pagedEntities({
@@ -75,4 +76,4 @@ export const sessionUserId = state => {
   return _.get(state, ['session', 'user', 'id'])
 }
 
-export { common }
+export { common, form }

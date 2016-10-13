@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, reset, loadBooks } from '../../store/actions'
+import { sendNotification, loadBooks, reset } from '../../store/actions'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
 import api from '../../services/api'

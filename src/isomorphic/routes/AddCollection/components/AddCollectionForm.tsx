@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
 import { sendNotification } from '../../../store/actions'
 import Input from '../../../elements/_form/Input'
 import SelectizeInput from '../../../elements/_form/SelectizeInput'
-import {Textarea, Button} from '../../../elements/_form'
+import { Textarea, Button } from '../../../elements/_form'
 import * as selectors from '../../../store/selectors'
 import _ from 'lodash'
+import { form } from '../../../form'
 
 interface Props {
   initialData?: any
@@ -25,7 +25,7 @@ interface AllProps extends Props {
 interface State {
 }
 
-@reduxForm({
+@form({
   form: 'addCollection',
   fields: ['name', '_booksValue', '_booksValues', '_booksOptions', 'description'],
 })
@@ -56,9 +56,9 @@ class AddCollectionForm extends Component<AllProps, State> {
             if (onBooksValueChange) {
               onBooksValueChange(newValue)
             }
-            _booksValue.onChange(newValue)
+            _booksValue.set(newValue)
           } }
-          value={_booksValue.value}
+          value={_booksValue.get()}
           onValuesChange={_booksValues.onChange}
           options={booksSearchAsOptions}
           values={_booksValues.value || []}
@@ -74,7 +74,7 @@ class AddCollectionForm extends Component<AllProps, State> {
               items: _booksValues.value ? _booksValues.value.map(item => item.value) : []
             })
             onSave(postData)
-          }) }
+          })}
           >添加</Button>
       </div>
     )
@@ -83,7 +83,6 @@ class AddCollectionForm extends Component<AllProps, State> {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    initialValues: ownProps.initialData,
     routing: state.routing.locationBeforeTransitions,
     booksSearchAsOptions: selectors.booksAsOptions('search')(state)
   }
