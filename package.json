@@ -176,7 +176,7 @@
     "vrsource-tslint-rules": "^0.12.0",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
+    "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.10.0",
     "webpack-stream": "^3.2.0"
   },

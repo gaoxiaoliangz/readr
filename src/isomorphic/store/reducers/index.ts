@@ -13,8 +13,7 @@ function errorMessage(state = [], action) {
   const { error } = action
 
   if (error) {
-    console.error(error.message)
-    return [...state, action.error.message]
+    return [...state, action.error.message || '发生未知错误！']
   }
 
   return state
@@ -50,8 +49,7 @@ export function session(state = { user: { role: 'visitor' } }, action) {
 
     case actions.AUTH.FAILURE:
       return Object.assign({}, state, {
-        isFetching: false,
-        user: action.response
+        isFetching: false
       })
 
     default:
