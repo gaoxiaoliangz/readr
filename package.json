@@ -131,6 +131,7 @@
     "image-webpack-loader": "^2.0.0",
     "isomorphic-style-loader": "^1.0.0",
     "jspm": "^0.16.36",
+    "node-sass": "^3.10.1",
     "postcss": "^5.1.0",
     "postcss-cssnext": "^2.7.0",
     "postcss-import": "^8.1.2",
