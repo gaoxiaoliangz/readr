@@ -2,7 +2,7 @@ import React from 'react'
 import Root from '../containers/Root'
 import AppMaster from '../containers/AppMaster'
 import ConsoleMaster from '../containers/ConsoleMaster'
-import Hehe from '../containers/Hehe'
+import Hehe from '../containers/App'
 import { Route, IndexRedirect } from 'react-router'
 
 // todo

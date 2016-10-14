@@ -7,8 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from '../isomorphic/store/configureStore'
 import rootSaga from '../isomorphic/store/sagas'
 import helpers from '../isomorphic/helpers'
-const hotLoader = require('react-hot-loader')
-const AppContainer = hotLoader.AppContainer
+import AppContainer from './containers/AppContainer'
 import Root2 from '../isomorphic/containers/Root2'
 
 const routerHistory = helpers.isServerRoutingEnabled()

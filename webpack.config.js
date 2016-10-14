@@ -1,13 +1,23 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
+const base = require('./webpack/base')
+const paths = base.vars.paths
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  devtool: 'eval',
   entry: [
+    // // 'babel-polyfill',
+    // 'webpack-dev-server/client?http://localhost:3000',
+    // 'webpack/hot/only-dev-server',
+    // // 'react-hot-loader/patch',
+    // // paths.isomorphic
+    // paths.isomorphic + '/containers/Hehe'
+
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './fuck/index'
+    // paths.isomorphic + '/containers'
+    paths.isomorphic
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -15,13 +25,38 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    base.plugins.devEnv(),
+    ...base.plugins.dllReferences(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('[name].css', {
+      allChunks: true
+    }),
   ],
+  devtool: 'inline-source-map',
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'fuck')
-    }]
-  }
-};
+    loaders: [
+      base.loaders.image(),
+      base.loaders.sass({
+        sourceMap: true,
+        extract: true,
+      }),
+      base.loaders.postcss({
+        sourceMap: true,
+        extract: true,
+      }),
+      base.loaders.babel(),
+      // base.loaders.typescript({
+      //   isHot: true,
+      //   officialLoader: false
+      // }),
+      {
+        test: /\.tsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loaders: ['babel', 'awesome-typescript'],
+      }]
+  },
+  sassLoader: base.loaders.loaderConfig.sassLoader(),
+  postcss: base.loaders.loaderConfig.postcss(),
+  resolve: base.common.resolve
+}
