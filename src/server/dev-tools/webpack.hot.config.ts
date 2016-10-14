@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const config = {
   entry: {
-    app: [hot, 'babel-polyfill', paths.isomorphic]
+    app: ['babel-polyfill', paths.isomorphic, 'webpack-hot-middleware/client', 'webpack/hot/dev-server']
   },
   output: {
     path: paths.built,
