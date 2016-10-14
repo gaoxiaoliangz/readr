@@ -39,5 +39,9 @@ module.exports = {
     __dirname: true,
     console: false
   },
-  externals: [/^[a-z][a-z\.\-0-9]*$/, 'colors/safe']
+  externals: [
+    /^[a-z][a-z\.\-0-9]*$/,
+    'colors/safe',
+    'react'
+  ]
 }

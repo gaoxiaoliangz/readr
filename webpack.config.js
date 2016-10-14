@@ -6,16 +6,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: [
-    // // 'babel-polyfill',
-    // 'webpack-dev-server/client?http://localhost:3000',
-    // 'webpack/hot/only-dev-server',
-    // // 'react-hot-loader/patch',
-    // // paths.isomorphic
-    // paths.isomorphic + '/containers/Hehe'
-
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
+    'babel-polyfill',
     // paths.isomorphic + '/containers'
     paths.isomorphic
   ],

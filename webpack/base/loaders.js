@@ -61,6 +61,7 @@ module.exports = {
 
     return {
       test: /\.tsx?$/,
+      exclude: /(node_modules|bower_components)/,
       loaders: isHot
         ? ['react-hot', 'babel', tsLoader]
         : ['babel', tsLoader]
