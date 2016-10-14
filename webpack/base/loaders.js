@@ -62,7 +62,7 @@ module.exports = {
     return {
       test: /\.tsx?$/,
       loaders: isHot
-        ? ['react-hot-loader/webpack', 'babel', tsLoader]
+        ? ['react-hot', 'babel', tsLoader]
         : ['babel', tsLoader]
     }
   },

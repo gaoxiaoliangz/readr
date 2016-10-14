@@ -36,7 +36,7 @@ class Signin extends Component<Props, {}> {
     return (
       <DocContainer title="登录">
         <div className="content-container">
-          <h1 className="page-title">欢迎回来22</h1>
+          <h1 className="page-title">欢迎回来</h1>
           <SigninForm
             onSave={this.handleSubmit}
           />

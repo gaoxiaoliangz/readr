@@ -1,15 +1,13 @@
-const path = require('path')
-const webpack = require('webpack')
-const base = require('./webpack/base')
-const paths = base.vars.paths
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
+  devtool: 'eval',
   entry: [
-    'babel-polyfill',
+    'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    paths.isomorphic
+    './fuck/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -17,34 +15,13 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    base.plugins.devEnv(),
-    ...base.plugins.dllReferences(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('[name].css', {
-      allChunks: true
-    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
-  devtool: 'inline-source-map',
   module: {
-    loaders: [
-      base.loaders.image(),
-      base.loaders.sass({
-        sourceMap: true,
-        extract: true,
-      }),
-      base.loaders.postcss({
-        sourceMap: true,
-        extract: true,
-      }),
-      base.loaders.babel(),
-      base.loaders.typescript({
-        isHot: true,
-        officialLoader: false
-      })
-    ]
-  },
-  sassLoader: base.loaders.loaderConfig.sassLoader(),
-  postcss: base.loaders.loaderConfig.postcss(),
-  resolve: base.common.resolve
-}
+    loaders: [{
+      test: /\.js$/,
+      loaders: ['babel'],
+      include: path.join(__dirname, 'fuck')
+    }]
+  }
+};

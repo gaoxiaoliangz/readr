@@ -2,10 +2,14 @@ import React from 'react'
 import Root from '../containers/Root'
 import AppMaster from '../containers/AppMaster'
 import ConsoleMaster from '../containers/ConsoleMaster'
+import Hehe from '../containers/Hehe'
 import { Route, IndexRedirect } from 'react-router'
 
+// todo
+// path 写到 Route 上
 export default (
   <Route component={Root}>
+    <Route path="/hehe" component={Hehe} />
     <Route {...require('./Viewer') } />
     <Route component={AppMaster}>
       <Route {...require('./AppHome') } />
