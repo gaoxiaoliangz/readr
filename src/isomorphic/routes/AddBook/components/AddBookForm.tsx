@@ -29,7 +29,8 @@ interface AllProps extends Props {
 
 @form({
   form: 'addBook',
-  fields: ['title', 'author', 'authors', 'cover', 'description', 'content']
+  fields: ['title', 'author', 'authors', 'cover', 'description', 'content'],
+  destroyOnUnmount: true
 })
 class AddBookForm extends Component<AllProps, {}> {
 

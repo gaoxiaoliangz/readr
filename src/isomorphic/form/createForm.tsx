@@ -10,6 +10,7 @@ interface FormConfig {
   form: string
   fields: string[]
   validate?: (values: any) => any
+  destroyOnUnmount?: boolean
 }
 
 interface FormProps {
@@ -52,7 +53,7 @@ const validateForm = (fields, formValues, validateFn) => {
 }
 
 const createForm: ClassDecorator = (config: FormConfig) => {
-  const { fields: fieldsArr, form: formName, validate } = config
+  const { fields: fieldsArr, form: formName, validate, destroyOnUnmount } = config
 
   return WrappedComponent => {
     class Form extends Component<FormProps, {}> {
@@ -91,8 +92,11 @@ const createForm: ClassDecorator = (config: FormConfig) => {
       }
 
       componentWillUnmount() {
+        // TODO
         // 生成版本的 React 会在初始化时执行一次 unmount 尚未查明原因
-        this.props.destroy(formName)
+        if (destroyOnUnmount) {
+          this.props.destroy(formName)
+        }
       }
 
       render() {

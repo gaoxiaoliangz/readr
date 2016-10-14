@@ -61,9 +61,6 @@ class Modal extends Component<Props, State> {
     })
   }
 
-  componentDidMount() {
-  }
-
   componentWillReceiveProps(nextProps) {
   }
 
@@ -136,7 +133,7 @@ class Modal extends Component<Props, State> {
     }
 
     return (
-      <div>
+      <Fade>
         {
           open === true ? (
             <div
@@ -161,7 +158,7 @@ class Modal extends Component<Props, State> {
             </div>
           ) : null
         }
-      </div>
+      </Fade>
     )
   }
 }
