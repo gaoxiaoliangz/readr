@@ -56,15 +56,12 @@ module.exports = {
     }
   },
 
-  typescript({ officialLoader, isHot } = {}) {
+  typescript({ officialLoader } = {}) {
     const tsLoader = officialLoader ? 'ts' : 'awesome-typescript'
 
     return {
       test: /\.tsx?$/,
-      exclude: /(node_modules|bower_components)/,
-      loaders: isHot
-        ? ['react-hot', 'babel', tsLoader]
-        : ['babel', tsLoader]
+      loaders: ['babel', tsLoader]
     }
   },
 

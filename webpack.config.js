@@ -39,15 +39,10 @@ module.exports = {
         extract: true,
       }),
       base.loaders.babel(),
-      // base.loaders.typescript({
-      //   isHot: true,
-      //   officialLoader: false
-      // }),
-      {
-        test: /\.tsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loaders: ['babel', 'awesome-typescript'],
-      }]
+      base.loaders.typescript({
+        officialLoader: false
+      })
+    ]
   },
   sassLoader: base.loaders.loaderConfig.sassLoader(),
   postcss: base.loaders.loaderConfig.postcss(),

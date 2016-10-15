@@ -1,19 +1,24 @@
 import webpack from 'webpack'
 const base = require('../../../webpack/base')
 const paths = base.vars.paths
-const hot = base.vars.hot
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const config = {
   entry: {
-    app: ['babel-polyfill', paths.isomorphic, 'webpack-hot-middleware/client', 'webpack/hot/dev-server']
+    app: [
+      // 需要放在第一个
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client',
+      'babel-polyfill',
+      paths.isomorphic
+    ]
   },
   output: {
     path: paths.built,
     filename: '[name].js',
-    publicPath: 'http://localhost:3000/built/',
+    // publicPath: 'http://localhost:3000/built/',
     // publicPath: 'http://192.168.0.102:3000/built/',
-    // publicPath: '/built/',
+    publicPath: '/built/',
   },
   plugins: [
     base.plugins.devEnv(),
@@ -38,7 +43,6 @@ const config = {
       }),
       base.loaders.babel(),
       base.loaders.typescript({
-        isHot: true,
         officialLoader: false
       })
     ]
