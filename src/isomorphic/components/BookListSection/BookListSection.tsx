@@ -22,6 +22,7 @@ class BookListSection extends Component<IProps, {}> {
 
     return (
       <div styleName="book-list-section">
+        <Loading />
         {
           this.props.title && (
             moreLink
