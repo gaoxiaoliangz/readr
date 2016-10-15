@@ -33,10 +33,22 @@ export function setCache(key, content) {
     throw new Error('Cache content type should be object!')
   }
 
-  try {
+  const save = () => {
     localStorage.setItem(key, JSON.stringify(content))
+  }
+
+  try {
+    save()
   } catch (error) {
-    throw error
+    if (error.name === 'QuotaExceededError') {
+      // todo
+      // 能否只清除最旧的
+      console.warn('本地缓存已满，旧的缓存将被清除！')
+      localStorage.clear()
+      save()
+    } else {
+      console.error(error)
+    }
   }
 
   return true
