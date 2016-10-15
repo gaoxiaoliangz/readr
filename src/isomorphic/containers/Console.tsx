@@ -6,6 +6,8 @@ import { userAuth, sendNotification } from '../store/actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../containers/DocContainer'
+import api from '../services/api'
+import helpers from '../helpers'
 
 interface Props {
   notifications?: any
@@ -14,7 +16,18 @@ interface Props {
   routing?: any
 }
 
-class Console extends Component<Props, any> {
+class Console extends Component<Props, {}> {
+
+  constructor(props) {
+    super(props)
+  }
+
+  handleLogout() {
+    api.logout().then(() => {
+      // location.href = '/'
+      helpers.redirect('/')
+    })
+  }
 
   componentDidMount() {
     this.props.userAuth()
@@ -32,7 +45,7 @@ class Console extends Component<Props, any> {
 
     return (
       <DocContainer bodyClass="console">
-        <ConsoleBranding isAdmin={isAdmin} username={username} />
+        <ConsoleBranding isAdmin={isAdmin} username={username} onLogout={this.handleLogout} />
         <Container isFluid={true}>
           <ConsoleSidebar
             menuMapping={menus}

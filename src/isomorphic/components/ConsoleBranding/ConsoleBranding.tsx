@@ -6,16 +6,32 @@ import CSSModules from 'react-css-modules'
 import Logo from '../Logo'
 const styles = require('./ConsoleBranding.scss')
 
+interface Props {
+  username: string
+  isAdmin?: boolean
+  onLogout: () => void
+}
+
+interface State {
+  isDropdownMenuVisible: boolean
+}
+
 @CSSModules(styles, {
   allowMultiple: true
 })
-class ConsoleBranding extends Component<any, any> {
+class ConsoleBranding extends Component<Props, State> {
 
   constructor(props) {
     super(props)
     this.state = {
       isDropdownMenuVisible: false
     }
+    this.handleLogoutClick = this.handleLogoutClick.bind(this)
+  }
+
+  handleLogoutClick(e) {
+    this.props.onLogout()
+    e.preventDefault()
   }
 
   toggleDropdownMenu() {
@@ -51,7 +67,7 @@ class ConsoleBranding extends Component<any, any> {
                     <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
                     <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
                     <DropdownItemSep />
-                    <DropdownItem><a href="#">退出</a></DropdownItem>
+                    <DropdownItem><a onClick={this.handleLogoutClick} href="#">退出</a></DropdownItem>
                   </Dropdown>
                 )
               }
