@@ -187,7 +187,7 @@ class Viewer extends Component<IAllProps, IState> {
     const { progress } = this.props
 
     if (nodes.length === 0) {
-      return <Loading text="书籍获取中 ..." center />
+      return <Loading text="书籍获取中" center />
     }
 
     if (this.state.isCalcMode) {

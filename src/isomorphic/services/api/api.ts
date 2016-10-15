@@ -97,7 +97,7 @@ export type UserSignupOptions = {
   email: string
   password: string
 }
-export const userSignup = (data: UserSignupOptions) => callApi(`${apiRoot}/auth`, {
+export const userSignup = (data: UserSignupOptions) => callApi(`${apiRoot}/users`, {
   method: 'POST',
   data
 })

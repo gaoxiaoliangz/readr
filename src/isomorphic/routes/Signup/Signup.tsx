@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, browserHistory } from 'react-router'
+import { Link } from 'react-router'
 import { sendNotification, userAuth } from '../../store/actions'
 import DocContainer from '../../containers/DocContainer'
 import SignupForm from './components/SignupForm'
 import api from '../../services/api'
+import helpers from '../../helpers'
 
 interface Props {
   sendNotification?: any
@@ -21,12 +22,12 @@ class Signup extends Component<Props, {}> {
     api.userSignup(data)
       .then(res => {
         this.props.sendNotification('注册成功！')
-        // todo
-        // 登录
-        this.props.userAuth().then(() => {
-          setTimeout(() => {
-            browserHistory.push('/')
-          }, 600)
+        api.userLogin({ login: data.username, password: data.password }).then(() => {
+          this.props.userAuth().then(() => {
+            setTimeout(() => {
+              helpers.redirect('/')
+            }, 600)
+          })
         })
       }, err => {
         this.props.sendNotification(err.message, 'error')
