@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const base = require('./webpack/base')
+const base = require('../webpack/base')
 const paths = base.vars.paths
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
