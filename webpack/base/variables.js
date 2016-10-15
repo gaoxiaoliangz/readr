@@ -44,7 +44,6 @@ const libs = {
     'react-router-redux',
     'immutable',
     'react-motion',
-    'redux-form',
     'reselect',
     'redux-saga'
   ],

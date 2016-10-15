@@ -1,5 +1,4 @@
 import _ from 'lodash'
-// import { reducer as form } from 'redux-form'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import * as actions from '../actions'
