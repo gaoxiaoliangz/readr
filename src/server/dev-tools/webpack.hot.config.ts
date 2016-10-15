@@ -43,7 +43,8 @@ const config = {
       }),
       base.loaders.babel(),
       base.loaders.typescript({
-        officialLoader: false
+        officialLoader: false,
+        isHot: true
       })
     ]
   },
