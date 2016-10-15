@@ -36,11 +36,7 @@ module.exports = {
     return {
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/,
-      loader: 'babel',
-      // query: {
-      //   presets: ['es2015', 'react', 'stage-3'],
-      //   plugins: ['transform-regenerator']
-      // }
+      loader: 'babel'
     }
   },
 
@@ -58,12 +54,13 @@ module.exports = {
 
   typescript({ officialLoader, isHot } = {}) {
     const tsLoader = officialLoader ? 'ts' : 'awesome-typescript'
+    const babel = isHot
+      ? 'babel?plugins=react-hot-loader/babel'
+      : 'babel'
 
     return {
       test: /\.tsx?$/,
-      loaders: isHot
-        ? ['react-hot-loader/webpack', 'babel', tsLoader]
-        : ['babel', tsLoader]
+      loaders: [babel, `${tsLoader}`]
     }
   },
 

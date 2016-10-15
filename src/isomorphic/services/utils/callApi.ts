@@ -102,23 +102,4 @@ export function callApi(fullUrl: string, options: CallApiOptions = {}): any {
     })
 }
 
-// export function callApi(fullUrl: string, options: CallApiOptions = {}) {
-//   return fetch(fullUrl, parseOptions(options))
-//     .then(response => {
-//       if (response.status !== 204) {
-//         return response.json().then(json => {
-//           return { json, response }
-//         })
-//       }
-//       return { response, json: {} }
-//     })
-//     .then(({ json, response }) => {
-//       if (response.ok) {
-//         return handleResponse({ json, response }, options.schema)
-//       } else {
-//         return Promise.reject(json)
-//       }
-//     })
-// }
-
 export default callApi

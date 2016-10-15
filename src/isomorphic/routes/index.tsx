@@ -1,13 +1,17 @@
 import React from 'react'
-import Root from '../containers/Root'
-import AppMaster from '../containers/AppMaster'
-import ConsoleMaster from '../containers/ConsoleMaster'
+import Master from '../containers/Master'
+import App from '../containers/App'
+import Console from '../containers/Console'
+import Test from '../containers/Test'
 import { Route, IndexRedirect } from 'react-router'
 
+// todo
+// path 写到 Route 上
 export default (
-  <Route component={Root}>
+  <Route component={Master}>
+    <Route path="/test" component={Test} />
     <Route {...require('./Viewer') } />
-    <Route component={AppMaster}>
+    <Route component={App}>
       <Route {...require('./AppHome') } />
       <Route {...require('./Browse') } />
       <Route {...require('./BookDetail') } />
@@ -22,7 +26,7 @@ export default (
         <Route {...require('./Profile') } />
       </Route>
     </Route>
-    <Route path="console" component={ConsoleMaster}>
+    <Route path="console" component={Console}>
       <IndexRedirect to="/console/books" />
       <Route {...require('./ManageBooks') } />
       <Route {...require('./ManageUsers') } />

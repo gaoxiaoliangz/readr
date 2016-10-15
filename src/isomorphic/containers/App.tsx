@@ -13,7 +13,7 @@ interface Props {
   bookShelf: any
 }
 
-class AppMaster extends Component<Props, {}> {
+class App extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
@@ -76,4 +76,4 @@ export default connect<{}, {}, Props>(
     bookShelf: selectors.shelfBooks()(state)
   }),
   { fetchShelf }
-)(AppMaster)
+)(App)

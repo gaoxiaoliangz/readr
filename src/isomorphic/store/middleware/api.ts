@@ -83,15 +83,13 @@ export default store => next => action => {
         data: {
           type: failureType,
           pagination,
-          error: error.message || '发生未知 API 错误！(Code 1000)'
+          error
         },
         hasPagination: Boolean(pagination)
       }))
       return {
         ok: false,
-        error: {
-          message: error.message
-        }
+        error
       }
     })
   )

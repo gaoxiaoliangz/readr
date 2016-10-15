@@ -53,7 +53,8 @@ export default function configureStore() {
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      const nextRootReducer = (require('./reducers') as any).default
+      console.info('hot updating reducers')
+      const nextRootReducer = require('./reducers').default
       store.replaceReducer(nextRootReducer)
     })
   }
