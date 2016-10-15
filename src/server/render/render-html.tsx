@@ -32,7 +32,7 @@ function renderHtml(config?: RenderConfig): any {
   const history = syncHistoryWithStore(memoryHistory, store)
 
   return matchRoute(routes, reqUrl, history).then(result => {
-    const { renderProps, redirectLocation } = result
+    const { renderProps, redirectLocation, statusCode } = result
 
     if (redirectLocation) {
       return Promise.resolve({ redirectLocation }) as any
@@ -74,7 +74,7 @@ function renderHtml(config?: RenderConfig): any {
 
       const html = renderToStaticMarkup(genPageComp(data.bodyClass, data.title, appRootMarkup))
 
-      return { html }
+      return { html, statusCode }
     })
   })
 }

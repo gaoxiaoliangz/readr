@@ -52,12 +52,12 @@ function pages(req, res) {
       fetchData: options.render,
       isHot: options.hot,
       userSession: req.context.user
-    }).then(({ html, redirectLocation }) => {
+    }).then(({ html, redirectLocation, statusCode }) => {
       if (redirectLocation) {
         res.redirect(302, redirectLocation.pathname + redirectLocation.search)
       }
 
-      res.send(html)
+      res.status(statusCode).send(html)
     })
   } catch (error) {
     const errorMsg = isProd ? PROD_ERROR_MSG : error.message

@@ -1,8 +1,10 @@
 import { match } from 'react-router'
+import _ from 'lodash'
 
 type TResult = {
   renderProps?: any
   redirectLocation?: any
+  statusCode?: number
 }
 
 function matchRoute(routes, reqUrl: string, history): Promise<TResult> {
@@ -11,9 +13,14 @@ function matchRoute(routes, reqUrl: string, history): Promise<TResult> {
       if (error) {
         reject(error)
       } else if (redirectLocation) {
-        resolve({ redirectLocation })
+        resolve({ redirectLocation, statusCode: 302 })
       } else if (renderProps) {
-        resolve({ renderProps })
+        const wrappedComponent = _.last(renderProps.components)['WrappedComponent']
+        const statusCode = wrappedComponent
+          ? 200
+          : 404
+
+        resolve({ renderProps, statusCode })
       } else {
         reject(new Error('routes 里不存在对 404 的处理'))
       }
