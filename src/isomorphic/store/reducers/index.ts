@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { reducer as form } from 'redux-form'
+// import { reducer as form } from 'redux-form'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import * as actions from '../actions'
@@ -65,7 +65,7 @@ const rootReducer = combineReducers({
   errorMessage,
   session,
   routing,
-  form,
+  // form,
   form2,
   pagination: (state, action) => pagination(legacyPagination(state, action), action),
 
