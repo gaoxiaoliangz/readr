@@ -13,7 +13,7 @@ export default (
     <Route {...require('./Viewer') } />
     <Route component={App}>
       <Route {...require('./AppHome') } />
-      <Route {...require('./Browse') } />
+      <Route path="browse" {...require('./Browse') } />
       <Route {...require('./BookDetail') } />
       <Route {...require('./Collections') } />
       <Route {...require('./CollectionDetail') } />
