@@ -1,9 +1,7 @@
-require('babel-polyfill')
 import { render } from 'react-dom'
 import React from 'react'
 import { browserHistory, hashHistory, match } from 'react-router'
-import routes from '../isomorphic/routes'
-// import syncRoutes from '../isomorphic/routes/index.sync'
+import createRoutes from '../isomorphic/routes/createRoutes'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from '../isomorphic/store/configureStore'
 import rootSaga from '../isomorphic/store/sagas'
@@ -36,12 +34,12 @@ const renderApp = routes => {
 }
 
 if (module.hot) {
-  module.hot.accept('../isomorphic/routes', () => {
+  module.hot.accept('../isomorphic/routes/createRoutes', () => {
     console.info('hot patching')
 
-    const nextRoutes = require('../isomorphic/routes').default
-    renderApp(nextRoutes)
+    const createRoutesNext = require('../isomorphic/routes/createRoutes').default
+    renderApp(createRoutesNext())
   })
 }
 
-renderApp(routes)
+renderApp(createRoutes())

@@ -34,16 +34,11 @@ class Console extends Component<Props, {}> {
   }
 
   componentWillReceiveProps(nextProps) {
-    const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
     const userRoleChanged = this.props.session.user.role !== nextProps.session.user.role
 
-    if (userRoleChanged || routerChanged) {
+    if (userRoleChanged) {
       this.redirectIfNotAdmin(nextProps)
     }
-  }
-
-  componentDidMount() {
-    this.redirectIfNotAdmin()
   }
 
   render() {
@@ -75,7 +70,7 @@ class Console extends Component<Props, {}> {
           </DocContainer>
         )
         : (
-          <div>无访问权限！</div>
+          <div style={{textAlign: 'center', margin: '20px 0'}}>ACCESS DENIED!</div>
         )
     )
   }

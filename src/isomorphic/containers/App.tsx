@@ -4,7 +4,6 @@ import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
 import { fetchShelf, userLogout } from '../store/actions'
 import _ from 'lodash'
-import api from '../services/api'
 import * as selectors from '../store/selectors'
 
 interface Props {
@@ -32,7 +31,9 @@ class App extends Component<Props, {}> {
   }
 
   componentWillReceiveProps(nextProps) {
-    const userLoggedIn = this.props.session.user.role === 'visitor' && nextProps.session.user.role !== 'visitor'
+    const userLoggedIn = this.props.session.user.role === 'visitor'
+      && nextProps.session.user.role !== 'visitor'
+
     if (userLoggedIn) {
       this.props.fetchShelf()
     }
@@ -61,7 +62,7 @@ class App extends Component<Props, {}> {
           isAdmin={isAdmin}
           username={username}
           onLogout={this.handleLogout}
-        />
+          />
         {this.props.children}
         <Colophon />
       </div>

@@ -102,7 +102,13 @@ export const userSignup = (data: UserSignupOptions) => callApi(`${apiRoot}/users
   data
 })
 
-export function logout() {
+export const auth = () => {
+  return callApi(`${apiRoot}/auth`, {
+    method: 'GET'
+  })
+}
+
+export const logout = () => {
   return callApi(`${apiRoot}/auth/revoke`, {
     method: 'PUT'
   })

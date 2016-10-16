@@ -6,16 +6,32 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router'
 import api from '../services/api'
 import roles from '../../server/models/roles'
 
-const createRoutes = (context?) => {
-  const { request, response } = context
+const createRoutes = (context = {}) => {
+  const { request, response } = context as any
 
   const handleConsoleEnter = (nextState, replace, callback?) => {
     if (request) {
+      // 服务端校验方式
       const { context: { user: { role } } } = request
       if (role !== roles.admin) {
         response.redirect('/')
       }
       callback()
+    } else {
+      // 客户端校验方式
+      try {
+        api.auth().then(res => {
+          if (res.json.role === roles.admin) {
+            callback()
+          } else {
+            replace('/')
+            callback()
+          }
+        })
+      } catch (error) {
+        alert('服务器异常，请稍后再试！')
+        console.error(error)
+      }
     }
   }
 
