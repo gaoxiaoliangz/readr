@@ -5,7 +5,6 @@ import { Alerts } from '../elements/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../elements/Modal'
 import { ModalPlus } from '../elements/Modal'
-import helpers from '../helpers'
 
 interface Props {
   notifications: any
@@ -31,44 +30,26 @@ class Master extends Component<Props, {}> {
     super(props)
   }
 
-  redirectIfNotAdmin(props = this.props) {
-    if (props.routing.locationBeforeTransitions.pathname.indexOf('console') !== -1) {
-      if (props.session.user.role !== 'admin') {
-        helpers.redirect('/')
-      }
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
     const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
-    const userRoleChanged = this.props.session.user.role !== nextProps.session.user.role
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
     }
 
-    // 管理员登出后自动跳转页面
-    if (userRoleChanged) {
-      this.redirectIfNotAdmin(nextProps)
-    }
-
     if (routerChanged) {
       // 返回顶部
       window.document.body.scrollTop = 0
-
-      // 简单权限验证
-      this.redirectIfNotAdmin(nextProps)
     }
   }
 
   componentDidMount() {
     this.props.userAuth()
-    this.redirectIfNotAdmin()
   }
 
   render() {
-    const { confirmModal, closeConfirmModal, modal, closeModal, session: { user: { role } } } = this.props
+    const { confirmModal, closeConfirmModal, modal, closeModal } = this.props
 
     return (
       <div className="app-root">

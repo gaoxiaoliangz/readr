@@ -6,6 +6,7 @@ import { userAuth, sendNotification, userLogout } from '../store/actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../containers/DocContainer'
+import helpers from '../helpers'
 
 interface Props {
   notifications?: any
@@ -22,18 +23,35 @@ class Console extends Component<Props, {}> {
     this.handleLogout = this.handleLogout.bind(this)
   }
 
+  redirectIfNotAdmin(props = this.props) {
+    if (props.session.user.role !== 'admin') {
+      helpers.redirect('/')
+    }
+  }
+
   handleLogout() {
     this.props.userLogout()
   }
 
+  componentWillReceiveProps(nextProps) {
+    const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
+    const userRoleChanged = this.props.session.user.role !== nextProps.session.user.role
+
+    if (userRoleChanged || routerChanged) {
+      this.redirectIfNotAdmin(nextProps)
+    }
+  }
+
   componentDidMount() {
-    this.props.userAuth()
+    this.redirectIfNotAdmin()
   }
 
   render() {
-    let isAdmin = this.props.session.user.role === 'admin' ? true : false
-    let username = this.props.session.user.username ? this.props.session.user.username : null
-    let pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console'
+    let isAdmin = this.props.session.user.role === 'admin'
+    let username = this.props.session.user.username
+    let pathname = this.props.routing.locationBeforeTransitions
+      ? this.props.routing.locationBeforeTransitions.pathname
+      : 'console'
 
     const contentStyle = {
       marginLeft: 320,
@@ -41,20 +59,24 @@ class Console extends Component<Props, {}> {
     }
 
     return (
-      isAdmin && (
-        <DocContainer bodyClass="console">
-          <ConsoleBranding isAdmin={isAdmin} username={username} onLogout={this.handleLogout} />
-          <Container isFluid={true}>
-            <ConsoleSidebar
-              menuMapping={menus}
-              currentPath={pathname}
-              />
-            <div style={contentStyle}>
-              {this.props.children}
-            </div>
-          </Container>
-        </DocContainer>
-      )
+      isAdmin
+        ? (
+          <DocContainer bodyClass="console">
+            <ConsoleBranding isAdmin={isAdmin} username={username} onLogout={this.handleLogout} />
+            <Container isFluid={true}>
+              <ConsoleSidebar
+                menuMapping={menus}
+                currentPath={pathname}
+                />
+              <div style={contentStyle}>
+                {this.props.children}
+              </div>
+            </Container>
+          </DocContainer>
+        )
+        : (
+          <div>无访问权限！</div>
+        )
     )
   }
 }

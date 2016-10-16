@@ -2,15 +2,13 @@ import React from 'react'
 import Master from '../containers/Master'
 import App from '../containers/App'
 import Console from '../containers/Console'
-import { Route, IndexRedirect } from 'react-router'
+import { Route, IndexRedirect, IndexRoute } from 'react-router'
 
-// todo
-// path 写到 Route 上
 export default (
-  <Route component={Master}>
+  <Route path="/" component={Master}>
     <Route path="viewer/book/:id" {...require('./Viewer') } />
     <Route component={App}>
-      <Route path="/" {...require('./AppHome') } />
+      <IndexRoute {...require('./AppHome') } />
       <Route path="browse" {...require('./Browse') } />
       <Route path="book/:id" {...require('./BookDetail') } />
       <Route path="collections" {...require('./Collections') } />
@@ -24,7 +22,7 @@ export default (
         <Route path="profile" {...require('./Profile') } />
       </Route>
     </Route>
-    <Route path="/console" component={Console}>
+    <Route path="console" component={Console}>
       <IndexRedirect to="/console/books" />
       <Route path="books" {...require('./ManageBooks') } />
       <Route path="users" {...require('./ManageUsers') } />
