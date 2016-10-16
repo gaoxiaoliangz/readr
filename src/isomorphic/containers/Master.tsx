@@ -68,7 +68,7 @@ class Master extends Component<Props, {}> {
   }
 
   render() {
-    const { confirmModal, closeConfirmModal, modal, closeModal } = this.props
+    const { confirmModal, closeConfirmModal, modal, closeModal, session: { user: { role } } } = this.props
 
     return (
       <div className="app-root">
@@ -102,7 +102,7 @@ class Master extends Component<Props, {}> {
               />
           )
         }
-        {this.props.children}
+        { this.props.children }
       </div>
     )
   }

@@ -41,18 +41,20 @@ class Console extends Component<Props, {}> {
     }
 
     return (
-      <DocContainer bodyClass="console">
-        <ConsoleBranding isAdmin={isAdmin} username={username} onLogout={this.handleLogout} />
-        <Container isFluid={true}>
-          <ConsoleSidebar
-            menuMapping={menus}
-            currentPath={pathname}
-            />
-          <div style={contentStyle}>
-            {this.props.children}
-          </div>
-        </Container>
-      </DocContainer>
+      isAdmin && (
+        <DocContainer bodyClass="console">
+          <ConsoleBranding isAdmin={isAdmin} username={username} onLogout={this.handleLogout} />
+          <Container isFluid={true}>
+            <ConsoleSidebar
+              menuMapping={menus}
+              currentPath={pathname}
+              />
+            <div style={contentStyle}>
+              {this.props.children}
+            </div>
+          </Container>
+        </DocContainer>
+      )
     )
   }
 }
