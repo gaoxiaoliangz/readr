@@ -34,6 +34,8 @@
 }
 
 .actions {
+  min-width: 80px;
+
   .action {
     cursor: pointer;
     color: $blue;

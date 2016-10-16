@@ -61,7 +61,7 @@ class InfoTable extends Component<IProps, {}> {
                   }
                   {
                     actions.length !== 0 && (
-                      <th>{ operationLabel || '操作' }</th>
+                      <th styleName="actions">{ operationLabel || '操作' }</th>
                     )
                   }
                 </tr>
