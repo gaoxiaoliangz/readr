@@ -21,12 +21,10 @@ const createRoutes = (context = {}) => {
       // 客户端校验方式
       try {
         api.auth().then(res => {
-          if (res.json.role === roles.admin) {
-            callback()
-          } else {
+          if (res.json.role !== roles.admin) {
             replace('/')
-            callback()
           }
+          callback()
         })
       } catch (error) {
         alert('服务器异常，请稍后再试！')
