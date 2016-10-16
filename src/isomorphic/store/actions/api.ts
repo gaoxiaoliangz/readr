@@ -12,6 +12,9 @@ const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
 const LOAD_CACHE = 'LOAD_CACHE'
 
+/**
+ * helpers
+ */
 function action(type, payload = {}) {
   return Object.assign({}, {
     type
@@ -27,40 +30,53 @@ function createRequestTypes(base) {
 
 function createActionEntity(requestTypes: RequestTypes) {
   return {
-    request: (payload: Object) => action(requestTypes.REQUEST, payload),
-    success: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload )),
+    request: (payload?: Object) => action(requestTypes.REQUEST, payload),
+    success: (response?, payload?: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload )),
+    // todo
     loadCache: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload, { loadedFromCache: true } )),
-    failure: (error, payload: Object) => action(requestTypes.FAILURE, Object.assign({}, { error }, payload )),
+    failure: (error, payload?: Object) => action(requestTypes.FAILURE, Object.assign({}, { error }, payload )),
   }
 }
 
+/**
+ * action types & actions
+ */
 export const BOOK = createRequestTypes('book')
 export const book = createActionEntity(BOOK)
-
-export const BOOKS = createRequestTypes('books')
-export const books = createActionEntity(BOOKS)
-
-export const USERS = createRequestTypes('users')
-export const users = createActionEntity(USERS)
-
-export interface loadBooks {
-  (options?: api.FetchBooksOptions, key?: string): any
-}
-export const LOAD_BOOKS = 'LOAD_BOOKS'
-export const loadBooks: loadBooks = (options?, key?) => action(LOAD_BOOKS, { options, key })
-
 export interface loadBook {
   (id: string, options?: api.FetchBookOptions): any
 }
 export const LOAD_BOOK = 'LOAD_BOOK'
 export const loadBook: loadBook = (id, options?) => action(LOAD_BOOK, { id, options })
 
+
+export const BOOKS = createRequestTypes('books')
+export const books = createActionEntity(BOOKS)
+export interface loadBooks {
+  (options?: api.FetchBooksOptions, key?: string): any
+}
+export const LOAD_BOOKS = 'LOAD_BOOKS'
+export const loadBooks: loadBooks = (options?, key?) => action(LOAD_BOOKS, { options, key })
+
+
+export const USERS = createRequestTypes('users')
+export const users = createActionEntity(USERS)
 export interface loadUsers {
   (options?: api.FetchUsersOptions): any
 }
 export const LOAD_USERS = 'LOAD_USERS'
 export const loadUsers: loadUsers = (options?) => action(LOAD_USERS, { options })
 
+
+export const LOGOUT = createRequestTypes('revoke')
+export const logout = createActionEntity(LOGOUT)
+export const USER_LOGOUT = 'USER_LOGOUT'
+export interface userLogout {
+  (): any
+}
+export const userLogout: userLogout = () => action(USER_LOGOUT)
+
+// define load actions handled in sagas
 export const LOAD_ACTIONS = [LOAD_BOOK, LOAD_BOOKS, LOAD_USERS]
 
 /**

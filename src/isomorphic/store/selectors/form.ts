@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 
-const FORM = 'form2'
+const FORM = 'form'
 
 export const fullForm = name => state => _.get(state, [FORM, name], {})
 

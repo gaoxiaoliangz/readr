@@ -6,7 +6,7 @@ import components from './components'
 import pagination from './pagination'
 import legacyPagination from './legacyPagination'
 import elements from './elements'
-import form2 from './form'
+import form from './form'
 
 function errorMessage(state = [], action) {
   const { error } = action
@@ -33,7 +33,8 @@ export function entities(state = {}, action) {
   return state
 }
 
-export function session(state = { user: { role: 'visitor' } }, action) {
+const DEFAULT_VISTOR_STATE = { user: { role: 'visitor' }, isFetching: false }
+export function session(state = DEFAULT_VISTOR_STATE, action) {
   switch (action.type) {
     case actions.AUTH.REQUEST:
       return Object.assign({}, state, {
@@ -51,6 +52,9 @@ export function session(state = { user: { role: 'visitor' } }, action) {
         isFetching: false
       })
 
+    case actions.LOGOUT.SUCCESS:
+      return DEFAULT_VISTOR_STATE
+
     default:
       return state
   }
@@ -62,12 +66,8 @@ const rootReducer = combineReducers({
   errorMessage,
   session,
   routing,
-  // form,
-  form2,
+  form,
   pagination: (state, action) => pagination(legacyPagination(state, action), action),
-
-  // deprecated
-  elements
 })
 
 export default rootReducer

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { fetchShelf } from '../store/actions'
+import { fetchShelf, userLogout } from '../store/actions'
 import _ from 'lodash'
 import api from '../services/api'
 import * as selectors from '../store/selectors'
@@ -11,18 +11,18 @@ interface Props {
   fetchShelf: any
   session: any
   bookShelf: any
+  userLogout: userLogout
 }
 
 class App extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   handleLogout() {
-    api.logout().then(() => {
-      location.href = '/'
-    })
+    this.props.userLogout()
   }
 
   componentDidMount() {
@@ -75,5 +75,5 @@ export default connect<{}, {}, Props>(
     session: state.session,
     bookShelf: selectors.shelfBooks()(state)
   }),
-  { fetchShelf }
+  { fetchShelf, userLogout }
 )(App)

@@ -8,7 +8,6 @@ import { Button } from '../../elements/_form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import { Container } from '../../elements/_layout'
-// import Loading from '../../elements/Loading'
 const styles = require('./AppHome.scss')
 
 interface Props {

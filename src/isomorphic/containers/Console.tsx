@@ -2,31 +2,28 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Container from '../elements/_layout/Container'
 import ConsoleBranding from '../components/ConsoleBranding'
-import { userAuth, sendNotification } from '../store/actions'
+import { userAuth, sendNotification, userLogout } from '../store/actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../containers/DocContainer'
-import api from '../services/api'
-import helpers from '../helpers'
 
 interface Props {
   notifications?: any
   userAuth?: any
   session?: any
   routing?: any
+  userLogout: userLogout
 }
 
 class Console extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   handleLogout() {
-    api.logout().then(() => {
-      // location.href = '/'
-      helpers.redirect('/')
-    })
+    this.props.userLogout()
   }
 
   componentDidMount() {
@@ -66,5 +63,5 @@ export default connect(
     session: state.session,
     routing: state.routing
   }),
-  { sendNotification, userAuth }
+  { sendNotification, userAuth, userLogout }
 )(Console as any)

@@ -16,9 +16,9 @@ const config = {
   output: {
     path: paths.built,
     filename: '[name].js',
-    // publicPath: 'http://localhost:3000/built/',
+    publicPath: 'http://localhost:3000/built/',
     // publicPath: 'http://192.168.0.102:3000/built/',
-    publicPath: '/built/',
+    // publicPath: '/built/',
   },
   plugins: [
     base.plugins.devEnv(),

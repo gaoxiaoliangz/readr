@@ -72,6 +72,21 @@ function* handleLoad(fetchFn, parsedAction, callApi?): any {
   }
 }
 
+function* watchLoginFlow(): any {
+  // 使用 fetchEntity 会更好么？
+  // 目前因为这种 put 类型的请求的返回值和一般的 entity 不一样所以不能直接使用
+  while (true) {
+    yield take(actions.USER_LOGOUT)
+    yield put(actions.logout.request())
+    try {
+      yield call(api.logout)
+      yield put(actions.logout.success())
+    } catch (error) {
+      yield put(actions.logout.failure(error))
+    }
+  }
+}
+
 function* watchAllLoadRequests(): any {
   while (true) {
     const action = yield take(actions.LOAD_ACTIONS)
@@ -104,6 +119,7 @@ function* watchAllLoadRequests(): any {
 
 export default function* rootSaga() {
   yield [
-    fork(watchAllLoadRequests)
+    fork(watchAllLoadRequests),
+    fork(watchLoginFlow)
   ]
 }
