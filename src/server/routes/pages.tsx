@@ -1,7 +1,6 @@
 import options from '../options'
-import roles from '../models/roles'
 import _ from 'lodash'
-import routes from '../../isomorphic/routes'
+import createRoutes from '../../isomorphic/routes/createRoutes'
 import render, { render500 } from '../render'
 
 const PROD_ERROR_MSG = '稍安勿躁，工程师正在解决问题 ...'
@@ -20,19 +19,15 @@ const isRoot = url => {
 }
 
 function pages(req, res) {
-  // 检查权限
-  // todo: 能否使用 react-router 统一前后端权限校验
-  if (req.url.indexOf('console') !== -1) {
-    if (req.context.user.role !== roles.admin) {
-      res.redirect('/')
-      return false
-    }
-  }
-
   // 服务端路由关闭（仅限开发模式）
   if (options.route === false) {
     if (!isRoot(req.url)) {
-      res.status(404).send('404: DEV MODE (server routing disabled)')
+      res.status(404).send(`
+        <div style="margin: 60px auto; width: 600px; padding: 5px 20px; border: 1px solid #222;">
+          <h1 style="font-weight: bold; font-size: 22px; margin: 10px 0;">404 Not Found</h1>
+          <p style="margin: 10px 0;">Dev mode with server routing disabled</p>
+        </div>
+      `)
       return false
     }
 
@@ -47,7 +42,7 @@ function pages(req, res) {
   try {
     render({
       reqUrl: req.url,
-      routes,
+      routes: createRoutes({ request: req, response: res }),
       isProd,
       fetchData: options.render,
       isHot: options.hot,

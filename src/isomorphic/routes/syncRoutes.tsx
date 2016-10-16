@@ -3,12 +3,9 @@ import Master from '../containers/Master'
 import Console from '../containers/Console'
 import App from '../containers/App'
 import { Route, IndexRedirect } from 'react-router'
-
 import AppHome from './AppHome/AppHome'
 import Browse from './Browse/Browse'
 
-// todo
-// path 写到 Route 上
 export default (
   <Route component={Master}>
     <Route component={App}>

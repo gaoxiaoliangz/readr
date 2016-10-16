@@ -40,8 +40,6 @@ class SigninForm extends Component<AllProps, State> {
       onSave
     } = this.props
 
-    console.log(this.props.fields)
-
     return (
       <div>
         <Input placeholder="用户名/邮箱" {...login} />
