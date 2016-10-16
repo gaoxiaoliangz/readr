@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal } from '../store/actions'
 import { Alerts } from '../elements/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../elements/Modal'
 import { ModalPlus } from '../elements/Modal'
+import helpers from '../helpers'
 
 interface Props {
   notifications: any
@@ -31,12 +31,26 @@ class Master extends Component<Props, {}> {
     super(props)
   }
 
+  redirectIfNotAdmin(props = this.props) {
+    if (props.routing.locationBeforeTransitions.pathname.indexOf('console') !== -1) {
+      if (props.session.user.role !== 'admin') {
+        helpers.redirect('/')
+      }
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
     const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
+    const userRoleChanged = this.props.session.user.role !== nextProps.session.user.role
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
+    }
+
+    // 管理员登出后自动跳转页面
+    if (userRoleChanged) {
+      this.redirectIfNotAdmin(nextProps)
     }
 
     if (routerChanged) {
@@ -44,16 +58,13 @@ class Master extends Component<Props, {}> {
       window.document.body.scrollTop = 0
 
       // 简单权限验证
-      if (nextProps.routing.locationBeforeTransitions.pathname.indexOf('console') !== -1) {
-        if (this.props.session.user.role !== 'admin') {
-          browserHistory.push('/')
-        }
-      }
+      this.redirectIfNotAdmin(nextProps)
     }
   }
 
   componentDidMount() {
     this.props.userAuth()
+    this.redirectIfNotAdmin()
   }
 
   render() {
@@ -75,7 +86,7 @@ class Master extends Component<Props, {}> {
           width={500}
           onRequestClose={closeModal}
           title={modal.title}
-        >
+          >
           {modal.content}
         </ModalPlus>
         {
@@ -87,7 +98,7 @@ class Master extends Component<Props, {}> {
                 type: noti.type,
                 visible: noti.visible,
                 id: noti.id
-              })) }
+              }))}
               />
           )
         }
