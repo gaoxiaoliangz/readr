@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Icon from '../../../elements/Icon'
 import Fade from '../../../elements/_animations/Fade'
-import ViewerPreference from '.././ViewerPreference'
+import ViewerPreference from './ViewerPreference'
 import CSSModules from 'react-css-modules'
 const styles = require('./ViewerPanel.scss')
 

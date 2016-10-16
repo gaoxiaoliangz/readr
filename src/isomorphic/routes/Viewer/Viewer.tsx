@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import BookPageList from './BookPageList'
+import BookPageList from './components/BookPageList'
 import * as viewerUtils from './Viewer.utils'
 import { loadBook, fetchProgress, openConfirmModal } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
-import BookPageWithRawHtml from './BookPageWithRawHtml'
+import BookPageWithRawHtml from './components/BookPageWithRawHtml'
 import CSSModules from 'react-css-modules'
 import api from '../../services/api'
 import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
-const styles = require('./_viewer.scss')
+const styles = require('./Viewer.scss')
 
 interface IAllProps {
   loadBook: loadBook

@@ -3,7 +3,7 @@ import * as utils from './BookPageList.utils'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_book-page.scss')
+const styles: any = require('./BookPage.scss')
 
 interface IProps {
   page: utils.TPage

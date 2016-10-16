@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router'
 import { fetchCollections, sendNotification, fetchProfile } from '../../store/actions'
-// import BookListSection from '../../components/BookListSection'
 import { Button } from '../../elements/_form'
 import { Tab, Tabs } from '../../elements/Tab'
 import Container from '../../elements/_layout/Container'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
 import * as selectors from '../../store/selectors'
-const styles: any = require('./_profile.scss')
+const styles = require('./Profile.scss')
 
 interface IProps {
   fetchBooks?: any

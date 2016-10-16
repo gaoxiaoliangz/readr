@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { sendNotification, fetchProfile } from '../../store/actions'
 import _ from 'lodash'
-import PreferenceList from './PreferenceList'
+import PreferenceList from './components/PreferenceList'
 import DocContainer from '../../containers/DocContainer'
 
 interface IAllProps {

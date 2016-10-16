@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./_viewer-scrollbar.scss')
+const styles = require('./ViewerScrollbar.scss')
 
 interface Props {
   current: number
