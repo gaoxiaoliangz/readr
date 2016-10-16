@@ -8,29 +8,29 @@ import { Route, IndexRedirect } from 'react-router'
 // path 写到 Route 上
 export default (
   <Route component={Master}>
-    <Route {...require('./Viewer') } />
+    <Route path="viewer/book/:id" {...require('./Viewer') } />
     <Route component={App}>
-      <Route {...require('./AppHome') } />
+      <Route path="/" {...require('./AppHome') } />
       <Route path="browse" {...require('./Browse') } />
-      <Route {...require('./BookDetail') } />
-      <Route {...require('./Collections') } />
-      <Route {...require('./CollectionDetail') } />
-      <Route {...require('./Signin') } />
-      <Route {...require('./Signup') } />
+      <Route path="book/:id" {...require('./BookDetail') } />
+      <Route path="collections" {...require('./Collections') } />
+      <Route path="collections/:id" {...require('./CollectionDetail') } />
+      <Route path="signin" {...require('./Signin') } />
+      <Route path="signup" {...require('./Signup') } />
       <Route path="user">
         <IndexRedirect to="/user/profile" />
-        <Route {...require('./Shelf') } />
-        <Route {...require('./Preference') } />
-        <Route {...require('./Profile') } />
+        <Route path="shelf" {...require('./Shelf') } />
+        <Route path="preference" {...require('./Preference') } />
+        <Route path="profile" {...require('./Profile') } />
       </Route>
     </Route>
-    <Route path="console" component={Console}>
+    <Route path="/console" component={Console}>
       <IndexRedirect to="/console/books" />
-      <Route {...require('./ManageBooks') } />
-      <Route {...require('./ManageUsers') } />
-      <Route {...require('./AddBook') } />
-      <Route {...require('./AddCollection') } />
+      <Route path="books" {...require('./ManageBooks') } />
+      <Route path="users" {...require('./ManageUsers') } />
+      <Route path="books/new" {...require('./AddBook') } />
+      <Route path="collections/new" {...require('./AddCollection') } />
     </Route>
-    <Route {...require('./NoMatch') } />
+    <Route path="*" {...require('./NoMatch') } />
   </Route>
 )
