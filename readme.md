@@ -66,5 +66,4 @@ API 数据实体的标识和 options 分开传参，分别为 id, options
 ### api payload 保留字段名
 options, data, id, response, error
 
-## 文件路径
-
+未完待续 ...
