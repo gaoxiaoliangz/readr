@@ -22,6 +22,7 @@ interface IAllProps {
   fetchProgress: (bookId: string) => void
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
+  session: any
 }
 
 interface IState {
@@ -138,6 +139,12 @@ class Viewer extends Component<IAllProps, IState> {
     const shoudCalcNodes = (this.props.rawBookContent === '' && nextProps.rawBookContent !== '')
       || this.state.nodes.length === 0 && this.props.rawBookContent !== ''
 
+    if (this.props.session.isFetching && !nextProps.session.isFetching) {
+      if (nextProps.session.user.role !== 'visitor') {
+        this.props.fetchProgress(this.bookId)
+      }
+    }
+
     if (shoudCalcNodes) {
       const nodes = viewerUtils.markdownToNodeStringList(nextProps.rawBookContent)
 
@@ -160,7 +167,6 @@ class Viewer extends Component<IAllProps, IState> {
 
   componentDidMount() {
     this.props.loadBook(this.bookId, { withContent: true })
-    this.props.fetchProgress(this.bookId)
     this.addEventListeners()
   }
 
@@ -184,7 +190,7 @@ class Viewer extends Component<IAllProps, IState> {
 
   renderBook() {
     const { nodes, nodeHeights, fluid, showPageInfo } = this.state
-    const { progress } = this.props
+    const { progress, session } = this.props
 
     if (nodes.length === 0) {
       return <Loading text="书籍获取中" center />
@@ -199,8 +205,8 @@ class Viewer extends Component<IAllProps, IState> {
           />
       )
     } else {
-      if (typeof progress === 'undefined') {
-        return <Loading text="阅读进度获取中 ..." center />
+      if (session.isFetching || typeof progress === 'undefined') {
+        return <Loading text="阅读进度获取中" center />
       }
 
       return (
