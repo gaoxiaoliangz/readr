@@ -5,7 +5,6 @@ import * as actions from '../actions'
 import components from './components'
 import pagination from './pagination'
 import legacyPagination from './legacyPagination'
-import elements from './elements'
 import form from './form'
 
 function errorMessage(state = [], action) {
@@ -33,7 +32,7 @@ export function entities(state = {}, action) {
   return state
 }
 
-const DEFAULT_VISTOR_STATE = { user: { role: 'visitor' }, isFetching: false }
+const DEFAULT_VISTOR_STATE = { user: { role: 'visitor' }, isFetching: false, determined: false }
 export function session(state = DEFAULT_VISTOR_STATE, action) {
   switch (action.type) {
     case actions.AUTH.REQUEST:
@@ -44,16 +43,20 @@ export function session(state = DEFAULT_VISTOR_STATE, action) {
     case actions.AUTH.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
+        determined: true,
         user: action.response
       })
 
     case actions.AUTH.FAILURE:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        determined: true
       })
 
     case actions.LOGOUT.SUCCESS:
-      return DEFAULT_VISTOR_STATE
+      return Object.assign({}, DEFAULT_VISTOR_STATE, {
+        determined: true
+      })
 
     default:
       return state

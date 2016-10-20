@@ -77,3 +77,18 @@ export function closeModal() {
     type: MODAL.CLOSE
   }
 }
+
+// viewer
+export const BOOK_PROGRESS_INITIALIZE = createActionType('viewer/progress', 'INITIALIZE')
+export const initializeBookProgress = () => {
+  return {
+    type: BOOK_PROGRESS_INITIALIZE,
+  }
+}
+
+export const BOOK_PROGRESS_DESTROY = createActionType('viewer/progress', 'DESTROY')
+export const destroyBookProgress = () => {
+  return {
+    type: BOOK_PROGRESS_DESTROY,
+  }
+}

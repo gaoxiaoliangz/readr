@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookPageList from './components/BookPageList'
 import * as viewerUtils from './Viewer.utils'
-import { loadBook, fetchProgress, openConfirmModal } from '../../store/actions'
+import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookPageWithRawHtml from './components/BookPageWithRawHtml'
@@ -15,7 +15,7 @@ import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 const styles = require('./Viewer.scss')
 
-interface IAllProps {
+interface AllProps {
   loadBook: loadBook
   book: any
   rawBookContent: string
@@ -23,9 +23,12 @@ interface IAllProps {
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
   session: any
+  isFetchingProgress: boolean
+  initializeBookProgress: any
+  destroyBookProgress: any
 }
 
-interface IState {
+interface State {
   showPanel?: boolean
   isCalcMode?: boolean
   nodeHeights?: number[]
@@ -37,7 +40,7 @@ interface IState {
 }
 
 @CSSModules(styles)
-class Viewer extends Component<IAllProps, IState> {
+class Viewer extends Component<AllProps, State> {
 
   constructor(props) {
     super(props)
@@ -50,7 +53,7 @@ class Viewer extends Component<IAllProps, IState> {
       nodes: [],
       showViewerPreference: false,
       fluid: false,
-      isTouchMode: false
+      isTouchMode: false,
     }
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
@@ -97,7 +100,12 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   handleProgressChange(newProgress) {
-    this.setProgress(newProgress)
+    const { isFetchingProgress, session: { user: { role } } } = this.props
+    const progressDetermined = typeof isFetchingProgress !== 'undefined' || this.props.isFetchingProgress !== false
+
+    if (progressDetermined && role !== 'visitor') {
+      this.setProgress(newProgress)
+    }
   }
 
   handleViewerClick() {
@@ -139,10 +147,14 @@ class Viewer extends Component<IAllProps, IState> {
     const shoudCalcNodes = (this.props.rawBookContent === '' && nextProps.rawBookContent !== '')
       || this.state.nodes.length === 0 && this.props.rawBookContent !== ''
 
-    if (this.props.session.isFetching && !nextProps.session.isFetching) {
-      if (nextProps.session.user.role !== 'visitor') {
-        this.props.fetchProgress(this.bookId)
-      }
+    const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
+
+    if (sessionDetermined && nextProps.session.user.role !== 'visitor') {
+      this.props.fetchProgress(this.bookId)
+    }
+
+    if (sessionDetermined && nextProps.session.user.role === 'visitor') {
+      this.props.initializeBookProgress()
     }
 
     if (shoudCalcNodes) {
@@ -166,12 +178,19 @@ class Viewer extends Component<IAllProps, IState> {
   }
 
   componentDidMount() {
+    const { session } = this.props
     this.props.loadBook(this.bookId, { withContent: true })
     this.addEventListeners()
+
+    // 从其他页面直接进来的话 session 一开始就是确定的
+    if (session.determined && session.user.role !== 'visitor') {
+      this.props.fetchProgress(this.bookId)
+    }
   }
 
   componentWillUnmount() {
     this.removeEventListeners()
+    this.props.destroyBookProgress()
   }
 
   renderViewPanel() {
@@ -190,7 +209,7 @@ class Viewer extends Component<IAllProps, IState> {
 
   renderBook() {
     const { nodes, nodeHeights, fluid, showPageInfo } = this.state
-    const { progress, session } = this.props
+    const { progress } = this.props
 
     if (nodes.length === 0) {
       return <Loading text="书籍获取中" center />
@@ -205,10 +224,8 @@ class Viewer extends Component<IAllProps, IState> {
           />
       )
     } else {
-      if (session.isFetching || typeof progress === 'undefined') {
-        return <Loading text="阅读进度获取中" center />
-      }
-
+      // 移除了获取等待
+      // 一旦获取到进度，会使页面直接跳转过去
       return (
         <BookPageList
           nodeHeights={nodeHeights}
@@ -239,17 +256,17 @@ class Viewer extends Component<IAllProps, IState> {
 const mapStateToProps = (state, ownProps: any) => {
   const bookId = ownProps.params.id
   const book = selectors.common.entity('books', bookId)(state)
-  const progressEntity = selectors.common.entity('booksProgress', bookId)(state)
 
   return {
     book,
     rawBookContent: _.get(book, 'content.raw', ''),
-    progress: _.get(progressEntity, 'percentage'),
+    progress: state.components.viewer.bookProgress.percentage,
+    isFetchingProgress: state.components.viewer.bookProgress.isFetching,
     session: state.session
   }
 }
 
-export default connect(
+export default connect<{}, {}, AllProps>(
   mapStateToProps,
-  { loadBook, fetchProgress, openConfirmModal }
-)(Viewer as any)
+  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress }
+)(Viewer)

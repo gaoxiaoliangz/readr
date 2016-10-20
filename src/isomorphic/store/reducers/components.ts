@@ -4,7 +4,7 @@ import * as actions from '../actions'
 
 function notifications(state = [], action) {
   if (action.type === actions.NOTIFICATION.HIDE) {
-    return state.map(n => n.id === action.id ? Object.assign({}, n, { visible: false}) : n)
+    return state.map(n => n.id === action.id ? Object.assign({}, n, { visible: false }) : n)
   }
 
   if (action.type === actions.NOTIFICATION.SHOW) {
@@ -21,7 +21,7 @@ function notifications(state = [], action) {
 
 function confirmModal(state = {}, action) {
   if (action.type === actions.OPEN_CONFIRM_MODAL) {
-    return Object.assign({}, state, {open: true}, action.data)
+    return Object.assign({}, state, { open: true }, action.data)
   }
 
   if (action.type === actions.CLOSE_CONFIRM_MODAL) {
@@ -35,7 +35,7 @@ function confirmModal(state = {}, action) {
 
 function modal(state = {}, action) {
   if (action.type === actions.MODAL.OPEN) {
-    return Object.assign({}, state, {open: true}, action.data)
+    return Object.assign({}, state, { open: true }, action.data)
   }
 
   if (action.type === actions.MODAL.CLOSE) {
@@ -47,10 +47,50 @@ function modal(state = {}, action) {
   return state
 }
 
+// specific components
+const viewer = combineReducers({
+  bookProgress
+})
+
+function bookProgress(state = {}, action): any {
+  switch (action.type) {
+    case actions.BOOK_PROGRESS_INITIALIZE:
+      return {
+        isFetching: false,
+        percentage: 0
+      }
+
+    case actions.BOOK_PROGRESS_DESTROY:
+      return {}
+
+    case actions.BOOK_PROGRESS.REQUEST:
+      return {
+        isFetching: true
+      }
+
+    case actions.BOOK_PROGRESS.SUCCESS:
+      const { entities, result: id } = action.response
+      const percentage = entities.booksProgress[id].percentage
+
+      return {
+        isFetching: false,
+        percentage
+      }
+
+    case actions.BOOK_PROGRESS.FAILURE:
+      return {
+        isFetching: false
+      }
+    default:
+      return state
+  }
+}
+
 const components = combineReducers({
   notifications,
   confirmModal,
-  modal
+  modal,
+  viewer
 })
 
 export default components

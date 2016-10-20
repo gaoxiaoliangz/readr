@@ -80,8 +80,8 @@ class BookPageList extends Component<IProps, IState> {
     return { pages, totalHeight: pages.length * pageHeight }
   }
 
-  componentDidMount() {
-    const { pageHeight, initialPage, initialProgress } = this.props
+  scrollPage(props = this.props) {
+    const { pageHeight, initialPage, initialProgress } = props
     const { totalHeight } = this.calcPages()
     let scrollTop = 0
 
@@ -92,6 +92,18 @@ class BookPageList extends Component<IProps, IState> {
     }
 
     document.body.scrollTop = scrollTop
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    const initialProgressChanged = this.props.initialProgress !== nextProps.initialProgress
+
+    if (initialProgressChanged) {
+      this.scrollPage(nextProps)
+    }
+  }
+
+  componentDidMount() {
+    this.scrollPage()
     this.addEventListeners()
   }
 
