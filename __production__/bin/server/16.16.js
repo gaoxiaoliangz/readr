@@ -1,7 +1,7 @@
 exports.ids = [16];
 exports.modules = {
 
-/***/ 383:
+/***/ 381:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18,11 +18,11 @@ exports.modules = {
 	
 	var _reactRouter = __webpack_require__(69);
 	
-	var _DocContainer = __webpack_require__(245);
+	var _DocContainer = __webpack_require__(238);
 	
 	var _DocContainer2 = _interopRequireDefault(_DocContainer);
 	
-	var _AppError = __webpack_require__(384);
+	var _AppError = __webpack_require__(382);
 	
 	var _AppError2 = _interopRequireDefault(_AppError);
 	
