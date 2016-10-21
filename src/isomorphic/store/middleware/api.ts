@@ -56,7 +56,7 @@ export default store => next => action => {
   }
 
   if (typeof apiUrl === 'undefined') {
-    apiUrl = helpers.getApiRoots().local
+    apiUrl = helpers.getApiRoot()
   }
 
   const fullUrl = `${apiUrl}/${endpoint}`

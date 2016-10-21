@@ -4,8 +4,9 @@ import normalizeResponse from '../utils/normalizeResponse'
 import schemas from '../schemas'
 import utils from '../../utils'
 import _ from 'lodash'
+import { DOUBAN_API_ROOT } from '../../constants'
 
-const { local: apiRoot, douban: doubanApiRoot } = helpers.getApiRoots()
+const API_ROOT = helpers.getApiRoot()
 
 interface GeneralApiOptions {
   q?: string
@@ -29,7 +30,7 @@ export function fetchNormalized(endpoint, schema, fetchOptions = {}) {
     return normalizeResponse(callApi(endpoint, fetchOptions), schema)
   }
 
-  return normalizeResponse(callApi(`${apiRoot}/${endpoint}`, fetchOptions), schema)
+  return normalizeResponse(callApi(`${API_ROOT}/${endpoint}`, fetchOptions), schema)
 }
 
 
@@ -78,7 +79,7 @@ export const fetchUsers = (options?: FetchUsersOptions) => {
 }
 
 // external apis
-export const fetchDoubanBooks = keyword => callApi(`${doubanApiRoot}/book/search?count=10&q=${keyword}`, {
+export const fetchDoubanBooks = keyword => callApi(`${DOUBAN_API_ROOT}/book/search?count=10&q=${keyword}`, {
   useJsonp: true
 })
 
@@ -87,7 +88,7 @@ export type UserLoginOptions = {
   login: string
   password: string
 }
-export const userLogin = (data: UserLoginOptions) => callApi(`${apiRoot}/auth`, {
+export const userLogin = (data: UserLoginOptions) => callApi(`${API_ROOT}/auth`, {
   method: 'POST',
   data
 })
@@ -97,19 +98,19 @@ export type UserSignupOptions = {
   email: string
   password: string
 }
-export const userSignup = (data: UserSignupOptions) => callApi(`${apiRoot}/users`, {
+export const userSignup = (data: UserSignupOptions) => callApi(`${API_ROOT}/users`, {
   method: 'POST',
   data
 })
 
 export const auth = () => {
-  return callApi(`${apiRoot}/auth`, {
+  return callApi(`${API_ROOT}/auth`, {
     method: 'GET'
   })
 }
 
 export const logout = () => {
-  return callApi(`${apiRoot}/auth/revoke`, {
+  return callApi(`${API_ROOT}/auth/revoke`, {
     method: 'PUT'
   })
 }
@@ -121,7 +122,7 @@ export interface AddCollectionData {
   description: string
 }
 export function addCollection(data: AddCollectionData) {
-  return callApi(`${apiRoot}/collections`, { method: 'POST', data })
+  return callApi(`${API_ROOT}/collections`, { method: 'POST', data })
 }
 
 export interface AddBookData {
@@ -132,7 +133,7 @@ export interface AddBookData {
   content: string
 }
 export function addBook(data: AddBookData) {
-  return callApi(`${apiRoot}/books`, { method: 'POST', data })
+  return callApi(`${API_ROOT}/books`, { method: 'POST', data })
 }
 
 export interface AddAuthorData {
@@ -141,18 +142,18 @@ export interface AddAuthorData {
   description?: string
 }
 export function addAuthor(data: AddAuthorData) {
-  return callApi(`${apiRoot}/authors`, { method: 'POST', data })
+  return callApi(`${API_ROOT}/authors`, { method: 'POST', data })
 }
 
 export type SetProgressData = {
   percentage: number
 }
 export function setProgress(bookId, data: SetProgressData) {
-  callApi(`${apiRoot}/user/books/${bookId}/progress`, { method: 'PUT', data })
+  callApi(`${API_ROOT}/user/books/${bookId}/progress`, { method: 'PUT', data })
 }
 
 export function deleteBook(id) {
-  return callApi(`${apiRoot}/books/${id}`, {
+  return callApi(`${API_ROOT}/books/${id}`, {
     method: 'DELETE'
   })
 }

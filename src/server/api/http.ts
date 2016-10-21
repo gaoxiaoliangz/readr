@@ -4,7 +4,7 @@ import print from '../utils/print'
 import parseUrlencoded from '../../isomorphic/utils/parseUrlencoded'
 import helpers from '../../isomorphic/helpers'
 
-const API_ROOT = helpers.getApiRoots().local
+const API_ROOT = helpers.getApiRoot()
 
 function parsePagination({ fullPath, query }, { current, all }) {
   const getLintByPage = page => (`${fullPath}?${parseUrlencoded(_.assign({}, query, { page }))}`)

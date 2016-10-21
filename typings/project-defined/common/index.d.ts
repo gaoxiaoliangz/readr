@@ -12,28 +12,19 @@ interface ActionEntity {
   loadCache: any
 }
 
-
-/**
- * webpack require an require.ensure
- * https://github.com/TypeStrong/ts-loader/blob/master/test/codeSplitting/require.d.ts
- */
-declare var require: {
-  (path: string): any
-  (paths: string[], callback: (...modules: any[]) => void): void
-  ensure: (paths: string[], callback: (require: (path: string) => any) => void) => void
+interface AppConfig {
+  api: {
+    prefix: string
+  },
+  database: {
+    host: string
+    name: string
+    mongoStoreName: string
+  },
+  siteUrl: string
+  port: number,
 }
 
-
-/**
- * 全局函数
- */
-declare function escape(str: string): string;
-
-
-/**
- * config
- */
-// todo
 type ProjectConfig = {
   api: {
     prefix: string
@@ -56,16 +47,4 @@ type FetchDataOptions = {
   params: any
   query: any
   userSession: any
-}
-
-
-/**
- * modified interface
- */
-interface NodeModule {
-  hot: any
-}
-
-interface M_ReduxStore extends Redux.Store<{}> {
-  runSaga: any
 }

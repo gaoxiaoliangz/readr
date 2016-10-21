@@ -1,8 +1,8 @@
-import config from './config'
+import appConfig from '../app.config'
 import print from './utils/print'
 const http = require('http')
 
-const port = config.port
+const port = appConfig.port
 
 export default function bootstrap(app, { production, render, hot, route }) {
   let features = []

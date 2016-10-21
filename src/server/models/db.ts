@@ -1,9 +1,9 @@
-import config from '../config'
-const mongodb: any = require('mongodb')
-const MongoClient = mongodb.MongoClient
+import appConfig from '../../app.config'
 import schemas from './schemas'
 import _ from 'lodash'
 import utils from './utils'
+const mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient
 
 function getSchemaByTable(table): {
   fields: {
@@ -26,7 +26,7 @@ function doesRefTableHaveRefInItsSchema(table) {
 }
 
 function getCollection(table) {
-  const dbConnect = MongoClient.connect(config.db.host + config.db.name)
+  const dbConnect = MongoClient.connect(appConfig.database.host + appConfig.database.name)
   return dbConnect.then(db => {
     return Promise.resolve(db.collection(table))
   })

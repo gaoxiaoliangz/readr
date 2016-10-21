@@ -3,9 +3,7 @@ import utils from '../../utils'
 import * as api from '../../services/api'
 import schemas from '../../services/schemas'
 import { CALL_API_OBJ } from '../middleware/api'
-import helpers from '../../helpers'
-
-const DOUBAN_API = helpers.getApiRoots().douban
+import { DOUBAN_API_ROOT } from '../../constants'
 
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
@@ -126,7 +124,7 @@ export function searchDoubanBooks(q) {
   const CALL_API: CALL_API_OBJ = {
     types: [DOUBAN_BOOKS.REQUEST, DOUBAN_BOOKS.SUCCESS, DOUBAN_BOOKS.FAILURE],
     endpoint: `book/search?count=10&q=${q}`,
-    apiUrl: DOUBAN_API,
+    apiUrl: DOUBAN_API_ROOT,
     schema: schemas.DOUBAN_BOOK_SEARCH_RESULTS,
     options: { useJsonp: true },
     pagination: {

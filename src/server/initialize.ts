@@ -2,7 +2,7 @@ import express from 'express'
 import session from 'express-session'
 import routes from './routes'
 import bootServer from './bootstrap'
-import config from './config'
+import appConfig from '../app.config'
 import hotModuleReplacement from './dev-tools/hot-module-replacement'
 import options from './options'
 import path from 'path'
@@ -18,7 +18,7 @@ const PUBLIC_PATH_NAME = 'public'
 const SESSION_SECRET = 'key'
 const SESSION_MAX_AGE = 7 * 24 * 60 * 60 * 1000
 const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = config.db.host + 'readr_session'
+const MONGO_STORE_URL = appConfig.database.host + appConfig.database.mongoStoreName
 
 export default function initialize(basePath) {
   app.use(session({

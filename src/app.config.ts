@@ -1,12 +1,11 @@
-// todo
-// 应用这个 config
-const appConfig = {
+const appConfig: AppConfig = {
   api: {
     prefix: 'api'
   },
   database: {
     host: 'mongodb://localhost:27017/',
-    name: 'readr'
+    name: 'readr',
+    mongoStoreName: 'readr_session'
   },
   siteUrl: 'http://readrweb.com',
   port: 3000,
