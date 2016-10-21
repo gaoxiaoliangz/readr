@@ -18,7 +18,7 @@ const PUBLIC_PATH_NAME = 'public'
 const SESSION_SECRET = 'key'
 const SESSION_MAX_AGE = 7 * 24 * 60 * 60 * 1000
 const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = appConfig.database.host + appConfig.database.mongoStoreName
+const MONGO_STORE_URL = `${appConfig.database.host}/${appConfig.database.mongoStoreName}`
 
 export default function initialize(basePath) {
   app.use(session({
@@ -48,7 +48,7 @@ export default function initialize(basePath) {
   }))
 
   // api routing
-  app.use(routes.apiBaseUri, routes.api)
+  app.use(`/${appConfig.api.prefix}`, routes.api)
 
   // frontend routing
   app.use(middleware.parseContext, routes.pages)

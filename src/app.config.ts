@@ -3,7 +3,7 @@ const appConfig: AppConfig = {
     prefix: 'api'
   },
   database: {
-    host: 'mongodb://localhost:27017/',
+    host: 'mongodb://localhost:27017',
     name: 'readr',
     mongoStoreName: 'readr_session'
   },

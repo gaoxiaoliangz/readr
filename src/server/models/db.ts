@@ -26,7 +26,7 @@ function doesRefTableHaveRefInItsSchema(table) {
 }
 
 function getCollection(table) {
-  const dbConnect = MongoClient.connect(appConfig.database.host + appConfig.database.name)
+  const dbConnect = MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
   return dbConnect.then(db => {
     return Promise.resolve(db.collection(table))
   })
