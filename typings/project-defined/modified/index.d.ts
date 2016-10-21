@@ -20,3 +20,6 @@ interface NodeModule {
 interface M_ReduxStore extends Redux.Store<{}> {
   runSaga: any
 }
+
+declare var describe: any
+declare var it: any

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run server:prod",
-    "test": "mocha --require babel-register",
+    "test": "mocha --compilers ts:ts-node/register,tsx:ts-node/register",
 
     "server": "npm run server:fe:hot",
       "server:fe:hot": "npm run watch:css & node bin/server --hot --noRoute",
