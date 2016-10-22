@@ -4,8 +4,8 @@ import assert from 'assert'
 
 const apiRoot = '/api'
 
-try {
-  describe('API tests', () => {
+describe('API tests', () => {
+  describe('books', () => {
     describe('GET /books', () => {
       it('respond with json', done => {
         request(app)
@@ -16,6 +16,18 @@ try {
       })
     })
 
+    describe('GET /book/:book', () => {
+      it('404', done => {
+        request(app)
+          .get(`${apiRoot}/books/10000`)
+          .set('Accept', 'application/json')
+          .expect(404)
+          .expect('Content-Type', /json/, done)
+      })
+    })
+  })
+
+  describe('users', () => {
     describe('GET /users', () => {
       it('forbiden vistor mode and respond with json', done => {
         request(app)
@@ -26,6 +38,5 @@ try {
       })
     })
   })
-} catch (error) {
-  console.error(error)
-}
+})
+
