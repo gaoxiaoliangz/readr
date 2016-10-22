@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import getApiRoot from '../../utils/getApiRoot'
-// import helpers from '../../helpers'
+import helpers from '../../helpers'
 import $ from 'jquery'
 
-let apiRoot = getApiRoot()
+let API_ROOT = helpers.getApiRoot()
 
 interface Callback {
   (data: any): any
@@ -59,7 +58,7 @@ class FileUploader extends Component<Props, State> {
     })
 
     $.ajax({
-      url: `${apiRoot}/${endpoint}`,
+      url: `${API_ROOT}/${endpoint}`,
       type: 'POST',
       data,
       cache: false,
@@ -105,12 +104,18 @@ class FileUploader extends Component<Props, State> {
     // 如果页面上有两个上传组件可能会出错
     // input value 设为空会使得每次选中文件后都触发 onChange
     return (
-      <div className="file-trigger" onClick={e => {
-        if (!noAjax) {
-          $(this.fileInput).click()
-        }
-      } }>
-        <form action={`${apiRoot}/${endpoint}`} method="post" encType="multipart/form-data" style={noAjax ? {} : {display: 'none'}}>
+      <div
+        className="file-trigger"
+        onClick={e => {
+          if (!noAjax) {
+            $(this.fileInput).click()
+          }
+        } }
+        style={{
+          cursor: 'pointer'
+        }}
+        >
+        <form action={`${API_ROOT}/${endpoint}`} method="post" encType="multipart/form-data" style={noAjax ? {} : { display: 'none' }}>
           <input
             type="file"
             name="file"
@@ -126,7 +131,7 @@ class FileUploader extends Component<Props, State> {
             />
           <input type="submit" value="提交" />
         </form>
-        { children }
+        {children}
       </div>
     )
   }

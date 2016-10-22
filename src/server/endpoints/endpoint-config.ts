@@ -25,6 +25,12 @@ const endpointConfig: EndpointConfig[] = [
     parser: request => [{_id: request.params.book }, request.query]
   },
 
+  {
+    url: '/bookfiles',
+    apiMethod: 'api.bookfiles.add',
+    parser: request => [request]
+  },
+
   /**
    * user
    */

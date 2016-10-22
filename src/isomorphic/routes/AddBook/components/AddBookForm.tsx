@@ -8,6 +8,7 @@ import Textarea from '../../../elements/_form/Textarea'
 import { Button, SelectizeInput } from '../../../elements/_form'
 import AddAuthorForm from './AddAuthorForm'
 import _ from 'lodash'
+import FileUploader from '../../../elements/FileUploader'
 
 interface Props {
   onTitleInputChange?: (newVal: string) => void
@@ -112,6 +113,12 @@ class AddBookForm extends Component<AllProps, {}> {
         <Input placeholder="封面图片地址" {...cover} />
         <Textarea placeholder="描述" {...description} />
         <Textarea placeholder="在此粘贴书籍内容 (markdown 格式)" {...content} />
+        <FileUploader
+          endpoint="bookfiles"
+          fileType="txt"
+        >
+          上传 txt
+        </FileUploader>
 
         <Button onClick={handleSubmit(data => {
           const postData = _.omit(data, ['author'])
