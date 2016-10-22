@@ -5,5 +5,6 @@ bower_components/
 .DS_Store
 npm-debug.log
 /public/built/
+/public/built_es6/
 /public/built_prod/
 /bin/

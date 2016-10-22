@@ -4,12 +4,12 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "jsx": "react",
-    "outDir": "assets/built/ts",
+    "outDir": "public/built_es6",
     "experimentalDecorators": true,
     "moduleResolution": "node"
   },
   "exclude": [
     "node_modules",
-    "assets"
+    "public"
   ]
 }

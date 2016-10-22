@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "npm run server:prod",
-    "test": "mocha --compilers ts:ts-node/register,tsx:ts-node/register",
+
+    "test": "npm run mocha --silent",
+    "test:ts": "mocha --compilers ts:ts-node/register,tsx:ts-node/register",
+    "mocha": "mocha --require babel-register",
 
     "server": "npm run server:fe:hot",
       "server:fe:hot": "npm run watch:css & node bin/server --hot --noRoute",
@@ -30,6 +33,7 @@
       "build:dll": "webpack --progress --config ./webpack/dll.config.js",
       "build:chunks:prod": "webpack --progress --config ./webpack/chunks.prod.config.js",
       "build:chunks": "webpack --progress --config ./webpack/chunks.config.js",
+      "build:es6": "tsc",
 
     "clean:all": "rimraf -- bin public/built public/built_prod __production__",
       "clean:bin": "rimraf -- bin",
