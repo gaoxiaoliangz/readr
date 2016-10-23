@@ -114,8 +114,9 @@ class AddBookForm extends Component<AllProps, {}> {
         <Textarea placeholder="描述" {...description} />
         <Textarea placeholder="在此粘贴书籍内容 (markdown 格式)" {...content} />
         <FileUploader
-          endpoint="bookfiles"
+          url="/upload"
           fileType="txt"
+          name="book-file"
         >
           上传 txt
         </FileUploader>
@@ -137,6 +138,8 @@ const mapStateToProps = (state, ownProps) => {
     authorsAsOptions: selectors.authorsAsOptions('search')(state),
   }
 }
+
+console.log('wtf');
 
 export default connect<{}, {}, Props>(
   mapStateToProps,

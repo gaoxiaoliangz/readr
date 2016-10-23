@@ -1,20 +1,18 @@
 import React, { Component } from 'react'
-import helpers from '../../helpers'
 import $ from 'jquery'
-
-let API_ROOT = helpers.getApiRoot()
 
 interface Callback {
   (data: any): any
 }
 
 interface Props {
-  endpoint: string
+  url: string
   fileType: string
   noAjax?: boolean
   onSuccess?: Callback
   onError?: Callback
   onComplete?: Callback
+  name?: string
 }
 
 interface State {
@@ -48,7 +46,7 @@ class FileUploader extends Component<Props, State> {
     // })
 
     // jquery 文件上传
-    const { endpoint, onComplete, onSuccess, onError } = this.props
+    const { url, onComplete, onSuccess, onError } = this.props
 
     const files = e.target.files
     const data = new FormData()
@@ -58,7 +56,7 @@ class FileUploader extends Component<Props, State> {
     })
 
     $.ajax({
-      url: `${API_ROOT}/${endpoint}`,
+      url,
       type: 'POST',
       data,
       cache: false,
@@ -77,14 +75,8 @@ class FileUploader extends Component<Props, State> {
         }
       },
       success: function (data2, textStatus, jqXHR) {
-        const result = JSON.parse(data2)
-
-        if (result.error === 0 && onSuccess) {
+        if (onSuccess) {
           onSuccess(data2)
-        }
-
-        if (result.error !== 0 && onError) {
-          onError(result.message)
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -99,7 +91,7 @@ class FileUploader extends Component<Props, State> {
   }
 
   render() {
-    const { endpoint, fileType, noAjax, children } = this.props
+    const { url, fileType, noAjax, children, name } = this.props
 
     // 如果页面上有两个上传组件可能会出错
     // input value 设为空会使得每次选中文件后都触发 onChange
@@ -115,10 +107,10 @@ class FileUploader extends Component<Props, State> {
           cursor: 'pointer'
         }}
         >
-        <form action={`${API_ROOT}/${endpoint}`} method="post" encType="multipart/form-data" style={noAjax ? {} : { display: 'none' }}>
+        <form action={url} method="post" encType="multipart/form-data" style={noAjax ? {} : { display: 'none' }}>
           <input
             type="file"
-            name="file"
+            name={name || 'file'}
             id="upload-file"
             value={noAjax ? undefined : ''}
             ref={ref => { this.fileInput = ref } }
@@ -127,7 +119,7 @@ class FileUploader extends Component<Props, State> {
                 this.handleFileChange(e)
               }
             } }
-            accept={fileType || '.*'}
+            accept={`.${fileType}` || '.*'}
             />
           <input type="submit" value="提交" />
         </form>

@@ -11,6 +11,9 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const MongoStore = (require('connect-mongo'))(session)
+const Busboy = require('busboy')
+let multer  = require('multer')
+let upload = multer({ dest: 'uploads/' })
 
 const app = express()
 
@@ -41,6 +44,42 @@ export default function initialize(basePath) {
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))
   app.use(cookieParser())
   app.use(express.static(path.join(basePath, PUBLIC_PATH_NAME)))
+
+  // busboy middleware
+  // app.use((req, res, next) => {
+  //   if (req.method === 'POST') {
+  //     console.log('here');
+
+  //     let busboy = new Busboy({ headers: req.headers })
+
+  //     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+  //       console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+  //       file.on('data', function (data) {
+  //         console.log('File [' + fieldname + '] got ' + data.length + ' bytes')
+  //       })
+  //       file.on('end', function () {
+  //         console.log('File [' + fieldname + '] Finished')
+  //       })
+  //     })
+
+  //     busboy.on('field', function (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
+  //       console.log('Field [' + fieldname + ']: value: ' + val)
+  //     })
+
+  //     busboy.on('finish', function () {
+  //       console.log('Done parsing form!')
+  //       res.send('done')
+  //     })
+  //   } else {
+  //     next()
+  //   }
+  // })
+
+  // 所有上传统一接收
+  app.post('/upload', upload.single('0'), function (req, res, next) {
+    res.send(req.file)
+  })
+
 
   // log error info
   app.use(morgan('dev', {
