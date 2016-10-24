@@ -1,3 +1,5 @@
+import { DataType } from '../data/types'
+
 export interface Validator {
   (value: any): boolean
 }
@@ -11,6 +13,7 @@ export interface Field {
   unique?: boolean
   required?: boolean
   ref?: Schema
+  type?: DataType
 }
 
 type FieldDefinition = Field[]

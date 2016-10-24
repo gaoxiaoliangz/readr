@@ -1,4 +1,4 @@
-class Type {
+export class DataType {
   mark: string
   isTypeArray: boolean
 
@@ -21,14 +21,14 @@ class Type {
   }
 }
 
+export const arrayOf = (type: DataType) => {
+  return new DataType(type.mark, true)
+}
+
 const DataTypes = {
-  String: new Type('STRING'),
-  Number: new Type('NUMBER'),
-  ID: new Type('ID'),
-  Text: new Type('TEXT'),
-  arrayOf(type) {
-    return new Type(type.mark, true)
-  }
+  String: new DataType('STRING'),
+  Number: new DataType('NUMBER'),
+  ID: new DataType('ID'),
 }
 
 export default DataTypes

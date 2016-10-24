@@ -8,6 +8,7 @@ const router = express.Router()
 
 export default function apiRoutes() {
   router.get('/books', endpoints.listBooks, apiResponse)
+  router.get('/collections', endpoints.listCollections, apiResponse)
 
   // auth
   router.post('/auth', middleware.auth.basic)

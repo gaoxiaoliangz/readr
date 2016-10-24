@@ -2,23 +2,24 @@ import appConfig from '../../app.config'
 import _ from 'lodash'
 import Schema, { Field } from './schema'
 import outputEmptyEntity from './output-empty-entity'
+// import DataTypes from '../data/types'
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 
-function getCollection(table) {
+export function getCollection(table) {
   const dbConnect = MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
   return dbConnect.then(db => {
     return Promise.resolve(db.collection(table))
   })
 }
 
-function getRowByMatch(match, table) {
+export function getRowByMatch(match, table) {
   return getCollection(table).then(collection => {
     return collection.find(match).toArray()
   })
 }
 
-function getRowById(id, table) {
+export function getRowById(id, table) {
   return getRowByMatch({ _id: id }, table)
 }
 
@@ -60,83 +61,68 @@ const doesRefHaveRefInside = (ref: Schema) => {
   return _.filter(ref.fields, field => Boolean(field.ref)).length !== 0
 }
 
-function embedRef(rawResults: any[], schema: Schema) {
+export function embedRef(rawResults: any[], schema: Schema) {
   if (rawResults.length === 0) {
     return Promise.resolve([])
   }
 
   // 获取 ref 数据，生成由 ref 字段组成的对象
   const getRefFieldsWithData = (fieldsWithRefIds: FieldWithIds[]) => {
-    return fieldsWithRefIds.map(field => {
-      // 一个 field 里面的 ids 返回的查询结果
-      return Promise.all(
-        field.ids.map(id => {
-          return getRowById(id, field.ref.name)
-            .then(results => {
-              const isRefInRef = doesRefHaveRefInside(field.ref)
-              const refSchema = field.ref
+    const fieldsWithData = fieldsWithRefIds
+      .map(field => {
+        // 一个 field 里面的 ids 返回的查询结果
+        return Promise
+          .all(field.ids
+            .map(id => {
+              return getRowById(id, field.ref.name)
+                .then(results => {
+                  const isRefInRef = doesRefHaveRefInside(field.ref)
+                  const refSchema = field.ref
 
-              if (isRefInRef) {
-                // 递归很强大！！
-                return embedRef(results, refSchema).then(reRefedResult =>
-                  handleRefResult(reRefedResult[0], refSchema, id))
-              }
+                  if (isRefInRef) {
+                    // 递归！！
+                    return embedRef(results, refSchema).then(reRefedResult =>
+                      handleRefResult(reRefedResult[0], refSchema, id))
+                  }
 
-              return handleRefResult(results[0], refSchema, id)
+                  return handleRefResult(results[0], refSchema, id)
+                })
             })
-        })
-      ).then(dataResults => {
-        let fieldData
+          )
+          .then(refResults => {
+            // 处理单个 ref field 数据，都是数组形式，最终是否为数组取决于 ref field 的 type
+            let fieldData = refResults
 
-        if (field['type'] && field['type'].isArray()) {
-          const resultWithNoEmptyItem = dataResults.filter(r => {
-            return !_.isEmpty(r)
+            if (!field.type || !field.type.isArray()) {
+              fieldData = refResults[0]
+            }
+
+            return {
+              name: field.name,
+              data: fieldData,
+            }
           })
-
-          if (resultWithNoEmptyItem.length !== 0) {
-            fieldData = resultWithNoEmptyItem
-          } else {
-            fieldData = null
-          }
-        } else {
-          fieldData = dataResults[0]
-        }
-
-        const dataToResolve = {
-          [field.name]: fieldData
-        }
-
-        return Promise.resolve(dataToResolve)
       })
+
+    return Promise.all(fieldsWithData).then(fields => {
+      const refObj = {}
+
+      fields.forEach(field => {
+        refObj[field.name] = field.data
+      })
+
+      return refObj
     })
   }
 
-  return Promise.all(
-    rawResults.map(rawResult => {
+  return Promise.all(rawResults
+    .map(rawResult => {
       const fieldsWithIds = getRefFieldsWithIds(rawResult, schema)
 
-      return Promise.all(getRefFieldsWithData(fieldsWithIds))
-        .then(refResults => {
-          console.log('refResults', refResults);
-          
-          // todo
-          let embedResult = {}
-
-          refResults.forEach(refResult => {
-            embedResult = Object.assign({}, embedResult, refResult)
-          })
-
-          return Promise.resolve(Object.assign({}, rawResult, embedResult))
-        })
-    })
-  )
-}
-
-export {
-  embedRef,
-  getCollection,
-  getRowByMatch,
-  getRowById
+      return getRefFieldsWithData(fieldsWithIds).then(refObj => {
+        return _.assign({}, rawResult, refObj)
+      })
+    }))
 }
 
 export default {

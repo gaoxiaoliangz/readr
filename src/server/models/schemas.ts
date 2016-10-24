@@ -1,4 +1,4 @@
-import DataTypes from '../data/types'
+import DataTypes, { arrayOf } from '../data/types'
 import validator from '../utils/validator'
 import i18n from '../utils/i18n'
 
@@ -45,7 +45,7 @@ export default {
       authors: {
         includeInSearch: true,
         required: true,
-        type: DataTypes.arrayOf(DataTypes.ID),
+        type: arrayOf(DataTypes.ID),
         ref: {
           table: 'authors',
           fields: []
@@ -55,7 +55,7 @@ export default {
       cover: {},
       content: {
         required: true,
-        type: DataTypes.Text
+        type: DataTypes.String
       },
     }
   },
@@ -70,7 +70,7 @@ export default {
       },
       items: {
         required: true,
-        type: DataTypes.arrayOf(DataTypes.ID),
+        type: arrayOf(DataTypes.ID),
         ref: {
           table: 'books',
           fields: ['_id', 'title', 'authors', 'description', 'cover']
