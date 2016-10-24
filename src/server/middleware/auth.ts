@@ -33,8 +33,6 @@ const auth = {
   },
 
   check(req, res) {
-    console.log(_.keys(req));
-    
     res.send(humps.decamelizeKeys(req.context.user))
   },
 

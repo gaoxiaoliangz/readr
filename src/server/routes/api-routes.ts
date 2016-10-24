@@ -5,7 +5,7 @@ import _ from 'lodash'
 
 const router = express.Router()
 
-function apiRoutes() {
+export default function apiRoutes() {
   _.forEach(endpoints, endpoint => {
     if (typeof endpoint.handler !== 'function') {
       throw new Error('Should be a function!')
@@ -34,5 +34,3 @@ function apiRoutes() {
 
   return router
 }
-
-export default apiRoutes()

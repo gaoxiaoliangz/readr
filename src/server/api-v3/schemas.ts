@@ -2,6 +2,18 @@ import Schema from '../models-v3/schema'
 import i18n from '../utils/i18n'
 import validator from '../utils/validator'
 
+export const author = new Schema('authors', [
+  {
+    name: 'name',
+    required: true
+  }, {
+    name: 'slug'
+  },
+  {
+    name: 'description'
+  }
+])
+
 export const book = new Schema('books', [
   {
     name: 'title',
@@ -13,7 +25,8 @@ export const book = new Schema('books', [
       }
     ]
   }, {
-    name: 'authors'
+    name: 'authors',
+    ref: author
   },
   {
     name: 'description'

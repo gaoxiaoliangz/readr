@@ -60,8 +60,7 @@ const doesRefHaveRefInside = (ref: Schema) => {
   return _.filter(ref.fields, field => Boolean(field.ref)).length !== 0
 }
 
-// rawResults 必须为数组
-function embedRef(rawResults, schema: Schema) {
+function embedRef(rawResults: any[], schema: Schema) {
   if (rawResults.length === 0) {
     return Promise.resolve([])
   }
@@ -118,6 +117,8 @@ function embedRef(rawResults, schema: Schema) {
 
       return Promise.all(getRefFieldsWithData(fieldsWithIds))
         .then(refResults => {
+          console.log('refResults', refResults);
+          
           // todo
           let embedResult = {}
 

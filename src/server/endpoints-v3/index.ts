@@ -4,7 +4,8 @@ import _ from 'lodash'
 
 export const listBooks = (req, res, next) => {
   api.listBooks({}).then(entities => {
-    req.apiResults = paginate(_.omit(entities, 'content'))
+    req.apiResults = paginate(_.map(entities, entity =>
+      _.omit(entity, 'content')))
     next()
   }, err => {
     req.apiError = err
