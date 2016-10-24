@@ -87,6 +87,7 @@ export default function initialize(basePath) {
   }))
 
   // api routing
+  app.use(`/${appConfig.api.prefix}/v3`, routes.apiv3)
   app.use(`/${appConfig.api.prefix}`, routes.api)
 
   // frontend routing

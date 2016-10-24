@@ -139,8 +139,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-console.log('wtf');
-
 export default connect<{}, {}, Props>(
   mapStateToProps,
   { sendNotification, openModal, initialize }
