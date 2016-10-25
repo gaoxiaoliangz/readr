@@ -71,7 +71,7 @@ const handleSuccess = (apiResults, req, res) => {
         query: req.query,
       }, apiResults._pagination))
 
-      res.status(200).send(apiResults._response)
+      res.status(200).send(apiResults.entities)
       return false
     }
 
@@ -80,13 +80,13 @@ const handleSuccess = (apiResults, req, res) => {
 }
 
 function apiResponse(req, res) {
-  const { apiResults, apiError } = req
+  const { apiResults } = req
 
-  if (apiResults) {
-    handleSuccess(apiResults, req, res)
-  } else {
-    handleError(apiError, res)
-  }
+  apiResults.then(results => {
+    handleSuccess(results, req, res)
+  }, error => {
+    handleError(error, res)
+  })
 }
 
 export default apiResponse

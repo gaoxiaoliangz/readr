@@ -2,7 +2,8 @@ import appConfig from '../../app.config'
 import _ from 'lodash'
 import Schema, { Field } from './schema'
 import outputEmptyEntity from './output-empty-entity'
-const mongodb = require('mongodb')
+import mongodb from 'mongodb'
+
 const MongoClient = mongodb.MongoClient
 
 export function getCollection(table) {

@@ -7,6 +7,12 @@ import i18n from '../utils/i18n'
 import utils from '../utils'
 import validate from './validate'
 import Schema from './schema'
+import outputEmptyEntity from './output-empty-entity'
+import paginate from './paginate'
+
+function notFoundError(itemName) {
+  return new errors.NotFoundError(i18n('errors.api.general.notFound', itemName))
+}
 
 // todo
 // function dataConvention(schema, data) {
@@ -34,6 +40,14 @@ import Schema from './schema'
 //   })
 // }
 
+interface ListOptions {
+  raw?: boolean
+  disablePagination?: boolean
+  page?: number
+  filter?: (entity, index: number) => boolean
+  mapping?: (entity, index: number) => any
+}
+
 class Model {
   _schema: Schema
   _tableName: string
@@ -43,35 +57,60 @@ class Model {
     this._tableName = schema.name
   }
 
-  // todo
-  // outputEmpty(id) {
-  //   return modelUtils.outputEmptyEntity(this._schema.fields, id)
-  // }
-
-  findById(id, raw: boolean) {
-    return this.list({ _id: id}, raw)[0]
+  outputEmpty(id) {
+    return outputEmptyEntity(this._schema.fields, id)
   }
 
-  list(match, raw?: boolean) {
-    const listRaw = listRawMatch => {
-      return db.getCollection(this._tableName).then(collection => {
-        return collection.find(listRawMatch).toArray()
-      }, error => {
-        throw error
-      })
+  findById(id, raw?: boolean) {
+    return this.list({ raw }, { _id: id }).then(result => {
+      const entity = result[0]
+
+      if (!entity) {
+        return Promise.reject(notFoundError('book'))
+      }
+
+      return entity
+    })
+  }
+
+  list(options: ListOptions = {}, match = {}) {
+    const { raw, page, disablePagination, filter, mapping } = options
+
+    const doQuery = () => {
+      const listRaw = listRawMatch => {
+        return db.getCollection(this._tableName).then(collection => {
+          return collection.find(listRawMatch).toArray()
+        }, error => {
+          throw error
+        })
+      }
+
+      const rawResults = listRaw(match)
+
+      if (raw) {
+        return rawResults
+      } else {
+        return rawResults.then(results => {
+          return embedRef(results, this._schema)
+        }, error => {
+          throw error
+        })
+      }
     }
 
-    const rawResults = listRaw(match)
+    return doQuery().then(entities => {
+      const modifiedEntities = entities
+        .filter(filter || (() => true))
+        .map(mapping || (entity => entity))
 
-    if (raw) {
-      return rawResults
-    } else {
-      return rawResults.then(results => {
-        return embedRef(results, this._schema)
-      }, error => {
-        throw error
-      })
-    }
+      if (!disablePagination) {
+        return paginate(modifiedEntities, {
+          page: page || 1
+        })
+      }
+
+      return modifiedEntities
+    })
   }
 
   add(data) {

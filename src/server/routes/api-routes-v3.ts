@@ -7,6 +7,7 @@ import apiResponse from '../api-v3/api-response'
 const router = express.Router()
 
 export default function apiRoutes() {
+  router.get('/books/:book', endpoints.findBook, apiResponse)
   router.get('/books', endpoints.listBooks, apiResponse)
   router.get('/collections', endpoints.listCollections, apiResponse)
 

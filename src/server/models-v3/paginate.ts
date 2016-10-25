@@ -30,7 +30,7 @@ export default function paginate(results, options?: ListingOptions) {
   const startIndex = (page - 1) * limit
 
   return {
-    _response: results.slice(startIndex, limit + startIndex),
+    entities: results.slice(startIndex, limit + startIndex),
     _pagination: {
       current: page,
       all: Math.ceil(results.length / limit) || 1
