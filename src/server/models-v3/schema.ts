@@ -4,12 +4,14 @@ export interface Validator {
   (value: any): boolean
 }
 
+export type Validators = {
+  fn: Validator
+  errorMsg: string
+}[]
+
 export interface Field {
   name: string
-  validators?: {
-    fn: Validator
-    errorMsg: string
-  }[]
+  validators?: Validators
   unique?: boolean
   required?: boolean
   ref?: Schema

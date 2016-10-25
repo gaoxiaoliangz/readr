@@ -8,7 +8,7 @@ export default function reduceTasks(tasks: (any)[]) {
       return task.call(this)
     }
     // 如果 task 是 Promise blue bird 貌似会自动把 promise resolve 出来，是 reject 直接就终止执行
-    // 所以 写 task#then 会出错
+    // 所以 写 task()#then 会出错
     return task
   })
 }

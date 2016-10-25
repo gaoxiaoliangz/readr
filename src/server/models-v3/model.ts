@@ -123,11 +123,11 @@ class Model {
       // data2 = dataConvention(this._schema, data2)
 
       // 检查是否需要确认唯一性
-      const dataToCheck = Object.keys(this._schema.fields)
-        .filter(key => this._schema.fields[key].unique)
-        .map(key => ({
-          key,
-          value: data[key]
+      const dataToCheck = this._schema.fields
+        .filter(field => Boolean(field.unique))
+        .map(field => ({
+          key: field.name,
+          value: data[field.name]
         }))
         .filter(fileld => {
           return Boolean(fileld.value)
