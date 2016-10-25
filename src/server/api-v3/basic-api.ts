@@ -18,7 +18,7 @@ class BasicApi {
   list(page, keyword?: string) {
     return this._model.list({
       page,
-      disablePagination: _.isEmpty(page),
+      disablePagination: _.isNil(page),
       // todo
       filter: entity => true
     })

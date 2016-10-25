@@ -8,7 +8,6 @@
     "express-session": "registry:dt/express-session#0.0.0+20160819134112",
     "jquery": "registry:dt/jquery#1.10.0+20160908203239",
     "marked": "registry:dt/marked#0.0.0+20160325085301",
-    "node": "registry:dt/node#6.0.0+20160831021119",
     "normalizr": "registry:dt/normalizr#2.0.1+20160501130729",
     "react": "registry:dt/react#0.14.0+20160526134601",
     "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",

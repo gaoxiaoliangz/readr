@@ -9,7 +9,6 @@ const makeBasicEndpoint = (apiFns: BasicApi) => {
   }
 
   const list = (req, res, next) => {
-    console.log(req.query.page)
     req.apiResults = apiFns.list(req.query.page || 1)
     next()
   }

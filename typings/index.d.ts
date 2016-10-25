@@ -4,7 +4,6 @@
 /// <reference path="globals/express-session/index.d.ts" />
 /// <reference path="globals/jquery/index.d.ts" />
 /// <reference path="globals/marked/index.d.ts" />
-/// <reference path="globals/node/index.d.ts" />
 /// <reference path="globals/normalizr/index.d.ts" />
 /// <reference path="globals/react-addons-css-transition-group/index.d.ts" />
 /// <reference path="globals/react-dom/index.d.ts" />

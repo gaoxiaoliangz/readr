@@ -1,9 +1,4 @@
-/**
- * webpack require an require.ensure
- * https://github.com/TypeStrong/ts-loader/blob/master/test/codeSplitting/require.d.ts
- */
-declare var require: {
-  (path: string): any
+declare interface NodeRequire {
   (paths: string[], callback: (...modules: any[]) => void): void
   ensure: (paths: string[], callback: (require: (path: string) => any) => void) => void
 }
