@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router'
-import { Button } from '../../elements/_form'
+import { Button } from '../../elements/form'
 import CSSModules from 'react-css-modules'
 const styles = require('./BookInfoPopup.scss')
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
-import { Container } from '../../elements/_layout'
+import { Container } from '../../elements/layout'
 import CollectionList from './CollectionList'
 import { ICollectionEntity } from './CollectionItem'
 const styles: any = require('./Collection.css')

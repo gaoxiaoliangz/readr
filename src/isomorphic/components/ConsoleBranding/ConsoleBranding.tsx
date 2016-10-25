@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Container from '../../elements/_layout/Container'
+import Container from '../../elements/Container'
 import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
 import CSSModules from 'react-css-modules'
 import Logo from '../Logo'

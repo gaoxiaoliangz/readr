@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Container from '../../elements/_layout/Container'
+import Container from '../../elements/Container'
 import CSSModules from 'react-css-modules'
 const styles = require('./Colophon.scss')
 

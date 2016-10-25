@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Container from '../elements/_layout/Container'
+import { Container } from '../elements/layout'
 import ConsoleBranding from '../components/ConsoleBranding'
 import { userAuth, sendNotification, userLogout } from '../store/actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'

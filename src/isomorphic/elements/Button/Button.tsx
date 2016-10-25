@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import _ from 'lodash'
-import helpers from '../../../helpers'
+import helpers from '../../helpers'
 const styles = require('./_button.scss')
 
 interface IProps {

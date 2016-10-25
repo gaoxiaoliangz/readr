@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import utils from '../../utils'
-import Fade from '../_animations/Fade'
+import Fade from '../Fade'
 import CSSModules from 'react-css-modules'
 const styles = require('./Modal.scss')
 

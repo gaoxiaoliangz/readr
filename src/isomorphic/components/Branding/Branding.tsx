@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container } from '../../elements/_layout'
+import { Container } from '../../elements/layout'
 import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
 import Logo from '../Logo'
 import CSSModules from 'react-css-modules'

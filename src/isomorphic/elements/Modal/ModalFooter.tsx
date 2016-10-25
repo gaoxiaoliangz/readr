@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../_form/Button'
+import { Button } from '../form'
 const styles = require('./ModalFooter.scss')
 
 type Props = {

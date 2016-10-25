@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Icon from '../../Icon'
+import Icon from '../Icon'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
-import isDescendant from '../../../utils/dom/isDescendant'
+import isDescendant from '../../utils/dom/isDescendant'
 import _ from 'lodash'
 const styles = require('./SelectizeInput.scss')
 

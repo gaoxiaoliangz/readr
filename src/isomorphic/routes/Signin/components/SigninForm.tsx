@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { form } from '../../../form'
 import { sendNotification } from '../../../store/actions'
-import { Input, Button } from '../../../elements/_form'
+import { Input, Button } from '../../../elements/form'
 import validation from '../../../data/validation'
 
 interface Props {

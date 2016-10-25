@@ -4,10 +4,10 @@ import { loadBooks, fetchCollections, sendNotification } from '../../store/actio
 import * as selectors from '../../store/selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../containers/DocContainer'
-import { Button } from '../../elements/_form'
+import { Button } from '../../elements/form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-import { Container } from '../../elements/_layout'
+import { Container } from '../../elements/layout'
 const styles = require('./AppHome.scss')
 
 interface Props {

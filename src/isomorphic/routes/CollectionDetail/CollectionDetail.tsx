@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button } from '../../elements/_form'
+import { Button } from '../../elements/form'
 import { fetchCollection, sendNotification } from '../../store/actions'
 import BookList from '../../components/BookListSection'
-import { Container } from '../../elements/_layout'
+import { Container } from '../../elements/layout'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./CollectionDetail.css')
+const styles = require('./CollectionDetail.css')
 
 interface Props {
   name: string
