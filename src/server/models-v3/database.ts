@@ -104,7 +104,7 @@ export function embedRef(rawResults: any[], schema: Schema) {
           })
       })
 
-    return Promise.all(fieldsWithData).then(fields => {
+    return Promise.all<{name: string; data: any}>(fieldsWithData).then(fields => {
       return fields.reduce((fieldsObj, field) => {
         return Object.assign({}, fieldsObj, {
           [field.name]: field.data

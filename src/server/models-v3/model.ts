@@ -169,7 +169,7 @@ class Model {
   }
 
   // @multi: boolean
-  update(match, data, updateConfig) {
+  update(match, data, updateConfig?) {
     let multi = false
     let upsert = false
 
