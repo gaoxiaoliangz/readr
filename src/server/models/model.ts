@@ -8,30 +8,30 @@ import utils from '../utils'
 import validate from './validate'
 import modelUtils from './utils'
 
-function dataConvention(schema, data) {
-  const arrayTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
-    && schema.fields[key].type.isArray())
+// function dataConvention(schema, data) {
+//   const arrayTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
+//     && schema.fields[key].type.isArray())
 
-  const textTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
-    && schema.fields[key].type.equals(DataTypes.Text))
+//   const textTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
+//     && schema.fields[key].type.equals(DataTypes.Text))
 
-  // 处理特殊格式
-  return _.mapValues(data, (val, key) => {
-    if (arrayTypedFieldKeys.indexOf(key) !== -1 && !Array.isArray(val)) {
-      return val.split(',')
-    }
+//   // 处理特殊格式
+//   return _.mapValues(data, (val, key) => {
+//     if (arrayTypedFieldKeys.indexOf(key) !== -1 && !Array.isArray(val)) {
+//       return val.split(',')
+//     }
 
-    // convert Text type to raw and html
-    if (textTypedFieldKeys.indexOf(key) !== -1) {
-      return {
-        html: parseTextToHtml(val),
-        raw: val
-      }
-    }
+//     // convert Text type to raw and html
+//     if (textTypedFieldKeys.indexOf(key) !== -1) {
+//       return {
+//         html: parseTextToHtml(val),
+//         raw: val
+//       }
+//     }
 
-    return val
-  })
-}
+//     return val
+//   })
+// }
 
 class Model {
   schema: any
@@ -95,7 +95,7 @@ class Model {
         date_created: new Date().toString()
       })
 
-      data2 = dataConvention(this.schema, data2)
+      // data2 = dataConvention(this.schema, data2)
 
       // 检查是否需要确认唯一性
       const dataToCheck = Object.keys(this.schema.fields)

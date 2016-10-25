@@ -1,7 +1,7 @@
 import { normalize } from 'normalizr'
-import humps from 'humps'
 import parseQuery from '../../utils/parseQuery'
 import _ from 'lodash'
+import humps from 'humps'
 
 const parseHeaderPageLinkByRel = (links: string, rel: string) => {
   const link = links.split(',').find(s => s.indexOf(`rel="${rel}"`) > -1)
