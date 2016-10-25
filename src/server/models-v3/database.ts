@@ -2,7 +2,6 @@ import appConfig from '../../app.config'
 import _ from 'lodash'
 import Schema, { Field } from './schema'
 import outputEmptyEntity from './output-empty-entity'
-// import DataTypes from '../data/types'
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 
@@ -105,13 +104,11 @@ export function embedRef(rawResults: any[], schema: Schema) {
       })
 
     return Promise.all(fieldsWithData).then(fields => {
-      const refObj = {}
-
-      fields.forEach(field => {
-        refObj[field.name] = field.data
-      })
-
-      return refObj
+      return fields.reduce((fieldsObj, field) => {
+        return Object.assign({}, fieldsObj, {
+          [field.name]: field.data
+        })
+      }, {})
     })
   }
 
