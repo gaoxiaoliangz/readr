@@ -1,14 +1,10 @@
-const appConfig: AppConfig = {
-  api: {
-    prefix: 'api'
-  },
-  database: {
-    host: 'mongodb://localhost:27017',
-    name: 'readr',
-    mongoStoreName: 'readr_session'
-  },
-  siteUrl: 'http://readrweb.com',
-  port: 3000,
+import appConfigDev from './app.config.dev'
+import appConfigProd from './app.config.prod'
+
+let appConfig = appConfigDev
+
+if (process.env.NODE_ENV === 'production') {
+  appConfig = appConfigProd
 }
 
 export default appConfig

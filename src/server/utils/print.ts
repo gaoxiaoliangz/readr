@@ -1,4 +1,4 @@
-const colors: any = require('colors/safe')
+const colors = require('colors/safe')
 
 const print = {
   info(message) {

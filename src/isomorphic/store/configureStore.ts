@@ -1,4 +1,4 @@
-import { createStore, compose, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 import api from './middleware/api'
@@ -9,45 +9,40 @@ import logActionTypes from './middleware/logActionTypes'
 import createLogger from 'redux-logger'
 import middleware from './middleware'
 import createSagaMiddleware, { END } from 'redux-saga'
+import helpers from '../helpers'
+
+const sagaMiddleware = createSagaMiddleware()
+
+const SERVER_MIDDLEWARES_DEV = [handleServerStore, sagaMiddleware, api, middleware.cache, modifyResponse, thunk, logActionTypes]
+const SERVER_MIDDLEWARES_PROD = [handleServerStore, sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
+const MIDDLEWARES_DEV = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk, createLogger({ collapsed: true })]
+const MIDDLEWARES_PROD = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
+
+const handleStore = (middlewares: any[]) => {
+  return createStore(
+    rootReducer,
+    handleInitialState(),
+    applyMiddleware.apply(null, middlewares)
+  )
+}
 
 export default function configureStore() {
-  const sagaMiddleware = createSagaMiddleware()
+
   let store = {} as Redux.Store<{}>
 
-  if (typeof window === 'undefined') {
+  if (helpers.isServerEnv()) {
     // server side
-    store = createStore(
-      rootReducer,
-      {},
-      applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk, logActionTypes)
-    )
+    if (process.env.NODE_ENV === 'production') {
+      store = handleStore(SERVER_MIDDLEWARES_PROD)
+    } else {
+      store = handleStore(SERVER_MIDDLEWARES_DEV)
+    }
   } else {
     // client side
     if (process.env.NODE_ENV === 'production') {
-      store = createStore(
-        rootReducer,
-        handleInitialState(),
-        applyMiddleware(handleServerStore, middleware.cache, api, modifyResponse, sagaMiddleware, thunk, createLogger({
-          collapsed: true
-        }))
-      )
+      store = handleStore(MIDDLEWARES_PROD)
     } else {
-      store = createStore(
-        rootReducer,
-        handleInitialState(),
-        compose(
-          applyMiddleware(
-            sagaMiddleware,
-            handleServerStore,
-            api,
-            middleware.cache,
-            modifyResponse,
-            thunk,
-            createLogger({
-              collapsed: true
-            }))
-        )
-      )
+      store = handleStore(MIDDLEWARES_DEV)
     }
   }
 

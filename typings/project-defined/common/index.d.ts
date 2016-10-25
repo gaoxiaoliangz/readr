@@ -23,6 +23,7 @@ interface AppConfig {
   },
   siteUrl: string
   port: number,
+  enableEntityCache: boolean
 }
 
 type ProjectConfig = {

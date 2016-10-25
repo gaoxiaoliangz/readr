@@ -1,4 +1,6 @@
 import initialize from './initialize'
-const baseDir = process.cwd()
 
-export default initialize(baseDir)
+const baseDir = process.cwd()
+const app = initialize(baseDir)
+
+export default app

@@ -5,14 +5,15 @@ import api from '../../services/api'
 import * as selectors from '../selectors'
 import * as cache from '../../data/cache'
 import _ from 'lodash'
+import appConfig from '../../../app.config'
 
 const OPTIONS = 'options'
 const ID = 'id'
 const DATA = 'data'
 const TYPE = 'type'
 
-export const RESERVED_ACTION_KYES_ARRAY = [OPTIONS, ID, DATA, TYPE]
-export const RESERVED_ACTION_KYES_OBJ = { OPTIONS, ID, DATA, TYPE }
+export const API_CONFIG_KEYS = [OPTIONS, ID, DATA]
+export const RESERVED_ACTION_KYES = [TYPE, ...API_CONFIG_KEYS]
 
 // TODO
 // 似乎需要优化，缓存的逻辑和获取的耦合太深了
@@ -25,9 +26,10 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
   let hasCache
   let cacheId
 
-  if (id) {
+  if (id && appConfig.enableEntityCache) {
     cacheId = cache.createCacheId(apiFn + id + options)
     let cacheContent = cache.getCache(cacheId)
+
     hasCache = Boolean(cacheContent)
 
     if (hasCache) {
@@ -40,11 +42,15 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
 
   yield put(entity.request(fullPayload))
   const {response, error} = yield call(apiFn, ...apiArgs)
+
   if (response) {
+    // 如果是 undefined 也不会有任何处理
     if (hasCache === false) {
       cache.setCache(cacheId, response)
     }
+
     let action = entity.success(response, fullPayload)
+
     yield put(action)
     return action
   } else {
@@ -57,12 +63,6 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
 const fetchBook = fetchEntity.bind(null, actions.book, api.fetchBook)
 const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
-
-function* loadUsers(options, callApi?: boolean): any {
-  if (callApi) {
-    yield call(fetchUsers, { options })
-  }
-}
 
 function* handleLoad(fetchFn, parsedAction, callApi?): any {
   const {apiConfig, payload} = parsedAction
@@ -90,17 +90,17 @@ function* watchLoginFlow(): any {
 function* watchAllLoadRequests(): any {
   while (true) {
     const action = yield take(actions.LOAD_ACTIONS)
+    const apiConfig = _.pick(action, API_CONFIG_KEYS)
 
-    const apiConfig = _(action)
-      .pick(action, RESERVED_ACTION_KYES_ARRAY)
-      .omit(TYPE)
-      .value()
-    const payload = _.omit(action, RESERVED_ACTION_KYES_ARRAY)
+    // 如果直接使用 payload 可能在 pagination 之类的 reducer 里面会有一些麻烦
+    // 因为可能比较难判断哪个是 key
+    const payload = _.omit(action, RESERVED_ACTION_KYES)
+
     const parsedAction = { apiConfig, payload }
 
     switch (action.type) {
       case actions.LOAD_USERS:
-        yield fork(loadUsers, action.options, true)
+        yield fork(handleLoad, fetchUsers, parsedAction)
         break
 
       case actions.LOAD_BOOKS:
