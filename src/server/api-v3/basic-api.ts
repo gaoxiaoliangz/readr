@@ -12,7 +12,7 @@ class BasicApi {
   }
 
   findById(id) {
-    this._model.findById(id)
+    return this._model.findById(id)
   }
 
   list(page, keyword?: string) {

@@ -10,7 +10,7 @@ import Schema from './schema'
 import outputEmptyEntity from './output-empty-entity'
 import paginate from './paginate'
 
-function notFoundError(itemName) {
+function notFoundError(itemName?) {
   return new errors.NotFoundError(i18n('errors.api.general.notFound', itemName))
 }
 
@@ -62,11 +62,11 @@ class Model {
   }
 
   findById(id, raw?: boolean) {
-    return this.list({ raw }, { _id: id }).then(result => {
+    return this.list({ raw, disablePagination: true }, { _id: id }).then(result => {
       const entity = result[0]
 
       if (!entity) {
-        return Promise.reject(notFoundError('book'))
+        return Promise.reject(notFoundError())
       }
 
       return entity
@@ -80,8 +80,6 @@ class Model {
       const listRaw = listRawMatch => {
         return db.getCollection(this._tableName).then(collection => {
           return collection.find(listRawMatch).toArray()
-        }, error => {
-          throw error
         })
       }
 
@@ -92,8 +90,6 @@ class Model {
       } else {
         return rawResults.then(results => {
           return embedRef(results, this._schema)
-        }, error => {
-          throw error
         })
       }
     }

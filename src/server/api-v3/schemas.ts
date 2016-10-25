@@ -50,13 +50,44 @@ export const user = new Schema('users', [
   }
 ])
 
+export const progress = new Schema('reading_progress', [
+  {
+    name: 'percentage',
+    required: true,
+    type: DataTypes.Number
+  },
+  {
+    name: 'user_id',
+    type: DataTypes.ID
+  },
+  {
+    name: 'book_id',
+    type: DataTypes.ID
+  }
+])
+
+export const tag = new Schema('tags', [
+  {
+    name: 'name',
+    required: true
+  },
+  {
+    name: 'slug',
+    unique: true
+  },
+  {
+    name: 'description'
+  }
+])
+
 export const author = new Schema('authors', [
   {
     name: 'name',
     required: true
   },
   {
-    name: 'slug'
+    name: 'slug',
+    unique: true
   },
   {
     name: 'description'

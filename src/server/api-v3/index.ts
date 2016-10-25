@@ -3,26 +3,35 @@ import * as schemas from './schemas'
 import _ from 'lodash'
 import BasicApi from './basic-api'
 
+// basic api start
 export const author = new BasicApi(schemas.author)
+export const collection = new BasicApi(schemas.collection)
+// todo: excludedMethods: ['add']
+export const book = new BasicApi(schemas.book)
+export const tag = new BasicApi(schemas.tag)
+// todo: excludedMethods: ['add', 'find', 'update', 'remove']
+export const user = new BasicApi(schemas.user)
 
-const book = new Model(schemas.book)
+// end of basic api
 
-export function findBook(id) {
-  return book.findById(id)
-}
+const bookModel = new Model(schemas.book)
+
+// export function findBook(id) {
+//   return bookModel.findById(id)
+// }
 
 export function listBooks(page?) {
-  return book.list({
+  return bookModel.list({
     page,
     disablePagination: _.isNil(page),
     mapping: entity => _.omit(entity, 'content')
   })
 }
 
-const collection = new Model(schemas.collection)
+const collectionModel = new Model(schemas.collection)
 
 export function listCollection(page?) {
-  return collection.list({
+  return collectionModel.list({
     page,
     disablePagination: _.isNil(page),
     mapping: entity => {
