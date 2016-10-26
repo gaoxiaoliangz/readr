@@ -4,7 +4,7 @@ import App from '../containers/App'
 import Console from '../containers/Console'
 import { Route, IndexRedirect, IndexRoute } from 'react-router'
 import api from '../services/api'
-import roles from '../../server/models/roles'
+import { ROLES } from '../constants'
 
 const createRoutes = (context = {}) => {
   const { request, response } = context as any
@@ -13,7 +13,7 @@ const createRoutes = (context = {}) => {
     if (request) {
       // 服务端校验方式
       const { context: { user: { role } } } = request
-      if (role !== roles.admin) {
+      if (role !== ROLES.ADMIN) {
         response.redirect('/')
       }
       callback()
@@ -21,7 +21,7 @@ const createRoutes = (context = {}) => {
       // 客户端校验方式
       try {
         api.auth().then(res => {
-          if (res.json.role !== roles.admin) {
+          if (res.json.role !== ROLES.ADMIN) {
             replace('/')
           }
           callback()

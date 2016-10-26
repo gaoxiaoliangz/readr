@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import Schema from '../models-v3/schema'
-import Model from '../models-v3/model'
+import Schema from '../models/schema'
+import Model from '../models/model'
 
 class BasicApi {
   _model: Model

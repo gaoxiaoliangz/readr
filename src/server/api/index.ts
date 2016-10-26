@@ -1,4 +1,4 @@
-import Model from '../models-v3/model'
+import Model from '../models/model'
 import * as schemas from './schemas'
 import _ from 'lodash'
 import BasicApi from './basic-api'

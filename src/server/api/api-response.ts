@@ -89,4 +89,14 @@ function apiResponse(req, res) {
   })
 }
 
+export function respondWithJson(promise) {
+  return (req, res) => {
+    promise.then(results => {
+      handleSuccess(results, req, res)
+    }, error => {
+      handleError(error, res)
+    })
+  }
+}
+
 export default apiResponse

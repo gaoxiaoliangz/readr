@@ -1,4 +1,4 @@
-import * as api from '../api-v3'
+import * as api from '../api'
 import _ from 'lodash'
 import makeBasicEndpoint from './make-basic-endpoint'
 

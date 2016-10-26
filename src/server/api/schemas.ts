@@ -1,4 +1,4 @@
-import Schema from '../models-v3/schema'
+import Schema from '../models/schema'
 import i18n from '../utils/i18n'
 import validator from '../utils/validator'
 import DataTypes, { arrayOf } from '../data/types'

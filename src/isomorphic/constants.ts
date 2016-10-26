@@ -5,3 +5,9 @@ export const INITIAL_STATE = '__INITIAL_STATE__'
 // 其他常量
 export const DOUBAN_API_ROOT = 'https://api.douban.com/v2'
 export const GITHUB_API_ROOT = 'https://api.github.com'
+
+export const ROLES = {
+  USER: 'user',
+  ADMIN: 'admin',
+  VISITOR: 'visitor'
+}

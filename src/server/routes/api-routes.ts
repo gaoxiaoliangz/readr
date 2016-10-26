@@ -1,9 +1,9 @@
 import express from 'express'
 import middleware from '../middleware'
 import _ from 'lodash'
-import * as endpoints from '../endpoints-v3'
-import apiResponse from '../api-v3/api-response'
-import roles from '../models/roles'
+import * as endpoints from '../endpoints'
+import apiResponse from '../api/api-response'
+import { ROLES } from '../../isomorphic/constants'
 
 const router = express.Router()
 
@@ -38,13 +38,13 @@ export default function apiRoutes() {
   router.delete('/tags/:id', endpoints.tag.remove, apiResponse)
 
   // users
-  router.get('/users', middleware.parseContext, middleware.requirePermissionsOf(roles.admin), endpoints.user.list, apiResponse)
+  router.get('/users', middleware.parseContext, middleware.requirePermissionsOf(ROLES.ADMIN), endpoints.user.list, apiResponse)
 
   // progress
-  router.get('/user/books/:book/progress', middleware.parseContext, middleware.requirePermissionsOf(roles.user), endpoints.getReadingProgress, apiResponse)
+  router.get('/user/books/:book/progress', middleware.parseContext, middleware.requirePermissionsOf(ROLES.USER), endpoints.getReadingProgress, apiResponse)
 
   // auth
-  router.post('/auth', middleware.auth.basic)
+  // router.post('/auth', middleware.auth.basic)
   router.get('/auth', middleware.parseContext, middleware.auth.check)
   router.put('/auth/revoke', middleware.auth.revoke)
 

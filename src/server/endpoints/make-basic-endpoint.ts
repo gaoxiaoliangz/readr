@@ -1,4 +1,4 @@
-import BasicApi from '../api-v3/basic-api'
+import BasicApi from '../api/basic-api'
 
 const makeBasicEndpoint = (apiFns: BasicApi) => {
   const findOne = (req, res, next) => {
