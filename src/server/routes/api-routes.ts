@@ -7,46 +7,60 @@ import { ROLES } from '../../isomorphic/constants'
 
 const router = express.Router()
 
+const authenticatePrivate = [
+  middleware.parseContext,
+  middleware.requirePermissionsOf(ROLES.USER)
+]
+
+const authenticateAdmin = [
+  middleware.parseContext,
+  middleware.requirePermissionsOf(ROLES.ADMIN)
+]
+
 export default function apiRoutes() {
   // authors
-  router.get('/authors/:id', endpoints.author.findOne, apiResponse)
-  router.get('/authors', endpoints.author.list, apiResponse)
-  router.post('/authors', endpoints.author.add, apiResponse)
-  router.put('/authors/:id', endpoints.author.update, apiResponse)
-  router.delete('/authors/:id', endpoints.author.remove, apiResponse)
+  router.get('/authors/:id', endpoints.author.findOne)
+  router.get('/authors', endpoints.author.list)
+  router.post('/authors', endpoints.author.add)
+  router.put('/authors/:id', endpoints.author.update)
+  router.delete('/authors/:id', endpoints.author.remove)
 
   // collections
-  router.get('/collections/:id', endpoints.collection.findOne, apiResponse)
-  router.get('/collections', endpoints.listCollections, apiResponse) // special
-  router.post('/collections', endpoints.collection.add, apiResponse)
-  router.put('/collections/:id', endpoints.collection.update, apiResponse)
-  router.delete('/collections/:id', endpoints.collection.remove, apiResponse)
+  router.get('/collections/:id', endpoints.collection.findOne)
+  router.get('/collections', endpoints.listCollections) // special
+  router.post('/collections', endpoints.collection.add)
+  router.put('/collections/:id', endpoints.collection.update)
+  router.delete('/collections/:id', endpoints.collection.remove)
 
   // books
-  router.get('/books/:id', endpoints.book.findOne, apiResponse)
-  router.get('/books', endpoints.listBooks, apiResponse) // special
+  router.get('/books/:id', endpoints.book.findOne)
+  router.get('/books', endpoints.listBooks) // special
   // todo
-  // router.post('/books', endpoints.book.add, apiResponse)
-  router.put('/books/:id', endpoints.book.update, apiResponse)
-  router.delete('/books/:id', endpoints.book.remove, apiResponse)
+  // router.post('/books', endpoints.book.add)
+  router.put('/books/:id', endpoints.book.update)
+  router.delete('/books/:id', endpoints.book.remove)
 
   // tags
-  router.get('/tags/:id', endpoints.tag.findOne, apiResponse)
-  router.get('/tags', endpoints.tag.list, apiResponse)
-  router.post('/tags', endpoints.tag.add, apiResponse)
-  router.put('/tags/:id', endpoints.tag.update, apiResponse)
-  router.delete('/tags/:id', endpoints.tag.remove, apiResponse)
+  router.get('/tags/:id', endpoints.tag.findOne)
+  router.get('/tags', endpoints.tag.list)
+  router.post('/tags', endpoints.tag.add)
+  router.put('/tags/:id', endpoints.tag.update)
+  router.delete('/tags/:id', endpoints.tag.remove)
 
   // users
-  router.get('/users', middleware.parseContext, middleware.requirePermissionsOf(ROLES.ADMIN), endpoints.user.list, apiResponse)
+  router.get('/users', authenticateAdmin, endpoints.user.list)
 
   // progress
-  router.get('/user/books/:book/progress', middleware.parseContext, middleware.requirePermissionsOf(ROLES.USER), endpoints.getReadingProgress, apiResponse)
+  router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
 
+  router.get('/test', endpoints.testNext)
   // auth
   // router.post('/auth', middleware.auth.basic)
   router.get('/auth', middleware.parseContext, middleware.auth.check)
   router.put('/auth/revoke', middleware.auth.revoke)
+
+  router.use(apiResponse)
+  router.use(middleware.handleError)
 
   return router
 }

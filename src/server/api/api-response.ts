@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import i18n from '../utils/i18n'
-import print from '../utils/print'
+
+
 import parseUrlencoded from '../../isomorphic/utils/parseUrlencoded'
 import helpers from '../../isomorphic/helpers'
 
@@ -41,24 +41,6 @@ function parsePagination({ fullPath, query }, { current, all }) {
   return links
 }
 
-function handleError(error, res) {
-  const statusCode = error.statusCode || 500
-  let errorJson = error
-
-  if (Error.prototype.isPrototypeOf(error)) {
-    errorJson = {
-      message: error.message || i18n('errors.general.unknownErrorOccurred'),
-      type: error.name,
-    }
-  }
-
-  if (!error.statusCode) {
-    print.error(error)
-  }
-
-  res.status(statusCode).send(_.omit(errorJson, ['statusCode', 'name', 'stack']))
-}
-
 const handleSuccess = (apiResults, req, res) => {
   if (req.method === 'POST') {
     res.status(201).send(apiResults)
@@ -79,24 +61,14 @@ const handleSuccess = (apiResults, req, res) => {
   }
 }
 
-function apiResponse(req, res) {
+function apiResponse(req, res, next) {
   const { apiResults } = req
 
   apiResults.then(results => {
     handleSuccess(results, req, res)
   }, error => {
-    handleError(error, res)
+    next(error)
   })
-}
-
-export function respondWithJson(promise) {
-  return (req, res) => {
-    promise.then(results => {
-      handleSuccess(results, req, res)
-    }, error => {
-      handleError(error, res)
-    })
-  }
 }
 
 export default apiResponse
