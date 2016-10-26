@@ -64,6 +64,10 @@ const handleSuccess = (apiResults, req, res) => {
 function apiResponse(req, res, next) {
   const { apiResults } = req
 
+  if (!apiResults) {
+    next(new Error('"apiResults" is not present!'))
+  }
+
   apiResults.then(results => {
     handleSuccess(results, req, res)
   }, error => {

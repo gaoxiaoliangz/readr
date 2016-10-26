@@ -33,9 +33,9 @@ export default function apiRoutes() {
   router.delete('/collections/:id', endpoints.collection.remove)
 
   // books
+  // todo
   router.get('/books/:id', endpoints.book.findOne)
   router.get('/books', endpoints.listBooks) // special
-  // todo
   // router.post('/books', endpoints.book.add)
   router.put('/books/:id', endpoints.book.update)
   router.delete('/books/:id', endpoints.book.remove)
@@ -53,9 +53,8 @@ export default function apiRoutes() {
   // progress
   router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
 
-  router.get('/test', endpoints.testNext)
   // auth
-  // router.post('/auth', middleware.auth.basic)
+  router.post('/auth', middleware.auth.basicAuth)
   router.get('/auth', middleware.parseContext, middleware.auth.check)
   router.put('/auth/revoke', middleware.auth.revoke)
 

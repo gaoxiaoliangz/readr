@@ -12,8 +12,12 @@ export const tag = new BasicApi(schemas.tag)
 export const user = new BasicApi(schemas.user)
 // end of basic api
 
+// 实例化 Model
 const bookModel = new Model(schemas.book)
+const collectionModel = new Model(schemas.collection)
+const progressModel = new Model(schemas.progress)
 
+// api
 // export function findBook(id) {
 //   return bookModel.findById(id)
 // }
@@ -25,8 +29,6 @@ export function listBooks(page?) {
     mapping: entity => _.omit(entity, 'content')
   })
 }
-
-const collectionModel = new Model(schemas.collection)
 
 export function listCollection(page?) {
   return collectionModel.list({
@@ -40,14 +42,12 @@ export function listCollection(page?) {
   })
 }
 
-const progress = new Model(schemas.progress)
-
 export function getReadingProgress(userId, bookId) {
   const query = humps.decamelizeKeys({ userId, bookId })
 
-  return progress.list({ disablePagination: true, raw: true, query }).then(res => {
+  return progressModel.list({ disablePagination: true, raw: true, query }).then(res => {
     if ((<any[]>res).length === 0) {
-      return progress.outputEmpty({
+      return progressModel.outputEmpty({
         user_id: userId,
         book_id: bookId
       })

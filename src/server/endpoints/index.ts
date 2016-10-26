@@ -29,7 +29,3 @@ export const getReadingProgress = (req, res, next) => {
   req.apiResults = api.getReadingProgress(req.context.user.id, req.params.book)
   next()
 }
-
-export const testNext = (req, res, next) => {
-  next(new Error('test error'))
-}
