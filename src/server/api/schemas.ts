@@ -87,7 +87,13 @@ export const author = new Schema('authors', [
   },
   {
     name: 'slug',
-    unique: true
+    unique: true,
+    validators: [
+      {
+        fn: validator.isAlphanumeric,
+        errorMsg: i18n('errors.validation.valueLimit.alphanumeric', 'slug')
+      }
+    ]
   },
   {
     name: 'description'
@@ -97,13 +103,7 @@ export const author = new Schema('authors', [
 export const book = new Schema('books', [
   {
     name: 'title',
-    required: true,
-    validators: [
-      {
-        fn: validator.lengthMin(6),
-        errorMsg: i18n('errors.validation.valueLimit.minLength', 'title')
-      }
-    ]
+    required: true
   },
   {
     name: 'authors',
@@ -125,16 +125,11 @@ export const book = new Schema('books', [
 export const collection = new Schema('collections', [
   {
     name: 'name',
-    required: true,
-    validators: [
-      {
-        fn: validator.lengthMin(6),
-        errorMsg: i18n('errors.validation.valueLimit.minLength', 'name')
-      }
-    ]
+    required: true
   },
   {
     name: 'items',
+    required: true,
     ref: book,
     type: arrayOf(DataTypes.ID)
   },
@@ -143,6 +138,7 @@ export const collection = new Schema('collections', [
   },
   {
     name: 'creator',
+    required: true,
     ref: user
   }
 ])
