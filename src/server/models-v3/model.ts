@@ -46,6 +46,7 @@ interface ListOptions {
   page?: number
   filter?: (entity, index: number) => boolean
   mapping?: (entity, index: number) => any
+  query?: Object
 }
 
 class Model {
@@ -61,8 +62,12 @@ class Model {
     return outputEmptyEntity(this._schema.fields, id)
   }
 
-  findById(id, raw?: boolean) {
-    return this.list({ raw, disablePagination: true }, { _id: id }).then(result => {
+  findOne(idOrQuery: string | Object, raw?: boolean) {
+    const query = typeof idOrQuery === 'string'
+      ? { _id: idOrQuery }
+      : idOrQuery
+
+    return this.list({ raw, disablePagination: true, query }).then(result => {
       const entity = result[0]
 
       if (!entity) {
@@ -73,17 +78,17 @@ class Model {
     })
   }
 
-  list(options: ListOptions = {}, match = {}) {
-    const { raw, page, disablePagination, filter, mapping } = options
+  list(options: ListOptions = {}) {
+    const { raw, page, disablePagination, filter, mapping, query } = options
 
     const doQuery = () => {
-      const listRaw = listRawMatch => {
+      const listRaw = listRawQuery => {
         return db.getCollection(this._tableName).then(collection => {
-          return collection.find(listRawMatch).toArray()
+          return collection.find(listRawQuery).toArray()
         })
       }
 
-      const rawResults = listRaw(match)
+      const rawResults = listRaw(query || {})
 
       if (raw) {
         return rawResults

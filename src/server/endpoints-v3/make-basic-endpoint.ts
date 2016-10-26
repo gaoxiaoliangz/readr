@@ -1,8 +1,8 @@
 import BasicApi from '../api-v3/basic-api'
 
 const makeBasicEndpoint = (apiFns: BasicApi) => {
-  const findById = (req, res, next) => {
-    req.apiResults = apiFns.findById(req.params.id)
+  const findOne = (req, res, next) => {
+    req.apiResults = apiFns.findOne(req.params.id)
     next()
   }
 
@@ -26,7 +26,7 @@ const makeBasicEndpoint = (apiFns: BasicApi) => {
     next()
   }
 
-  return { findById, list, add, update, remove }
+  return { findOne, list, add, update, remove }
 }
 
 export default makeBasicEndpoint

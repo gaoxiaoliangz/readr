@@ -11,8 +11,8 @@ class BasicApi {
     this._model = new Model(schema)
   }
 
-  findById(id) {
-    return this._model.findById(id)
+  findOne(id) {
+    return this._model.findOne(id)
   }
 
   list(page, keyword?: string) {
