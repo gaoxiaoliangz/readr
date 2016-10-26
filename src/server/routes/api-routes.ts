@@ -58,6 +58,9 @@ export default function apiRoutes() {
   router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
   router.put('/user/books/:book/progress', authenticatePrivate, endpoints.setReadingProgress)
 
+  // file
+  router.get('/files/:file', endpoints.readFile)
+
   // auth
   router.post('/auth', middleware.auth.basicAuth)
   router.get('/auth', middleware.parseContext, middleware.auth.check)

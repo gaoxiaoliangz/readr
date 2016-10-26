@@ -55,3 +55,8 @@ export const setReadingProgress = (req, res, next) => {
   req.apiResults = api.setReadingProgress(req.context.user.id, req.params.book, req.body)
   next()
 }
+
+export const readFile = (req, res, next) => {
+  req.apiResults = api.readFile(req.params.file, req.__basePath)
+  next()
+}

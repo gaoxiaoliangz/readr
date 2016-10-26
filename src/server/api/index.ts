@@ -6,6 +6,7 @@ import BasicApi from './basic-api'
 import humps from 'humps'
 import { ROLES } from '../../isomorphic/constants'
 import utils from '../utils'
+import fs from 'fs'
 
 // basic api start
 export const author = new BasicApi(schemas.author)
@@ -20,6 +21,7 @@ const bookModel = new Model(schemas.book)
 const collectionModel = new Model(schemas.collection)
 const progressModel = new Model(schemas.progress)
 const userModel = new Model(schemas.user)
+const fileModel = new Model(schemas.file)
 
 // api
 // export function findBook(id) {
@@ -103,5 +105,17 @@ export function setReadingProgress(userId, bookId, data) {
 
   return progressModel.update(query, data, {
     upsert: true
+  })
+}
+
+export function readFile(fileId, basePath) {
+  return fileModel.findOne(fileId).then(result => {
+    const filename = result.name
+    const filepath = `${basePath}/__uploads__/${filename}`
+    const file = fs.readFileSync(filepath, 'utf8')
+
+    return _.assign({}, result, {
+      content: file
+    })
   })
 }
