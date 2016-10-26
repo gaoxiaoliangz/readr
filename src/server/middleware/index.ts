@@ -2,5 +2,7 @@ import parseContext from './parse-context'
 import auth from './auth'
 import requirePermissionsOf from './require-permissions-of'
 import handleError from './handle-error'
+import handleJSONResponse from './handle-json-response'
+import logFile from './log-file'
 
-export default { parseContext, auth, requirePermissionsOf, handleError }
+export default { parseContext, auth, requirePermissionsOf, handleError, handleJSONResponse, logFile }

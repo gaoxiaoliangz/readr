@@ -142,3 +142,20 @@ export const collection = new Schema('collections', [
     ref: user
   }
 ])
+
+export const file = new Schema('files', [
+  {
+    name: 'name',
+    required: true
+  },
+  {
+    name: 'originalname',
+    required: true
+  },
+  {
+    name: 'mimetype'
+  },
+  {
+    name: 'size'
+  }
+])

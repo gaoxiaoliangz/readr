@@ -8,3 +8,4 @@ npm-debug.log
 /public/built_es6/
 /public/built_prod/
 /bin/
+/__uploads__/

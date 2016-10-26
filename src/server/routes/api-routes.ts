@@ -2,7 +2,6 @@ import express from 'express'
 import middleware from '../middleware'
 import _ from 'lodash'
 import * as endpoints from '../endpoints'
-import apiResponse from '../api/api-response'
 import { ROLES } from '../../isomorphic/constants'
 
 const router = express.Router()
@@ -64,7 +63,7 @@ export default function apiRoutes() {
   router.get('/auth', middleware.parseContext, middleware.auth.check)
   router.put('/auth/revoke', middleware.auth.revoke)
 
-  router.use(apiResponse)
+  router.use(middleware.handleJSONResponse)
   router.use(middleware.handleError)
 
   return router

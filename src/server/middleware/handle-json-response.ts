@@ -61,7 +61,7 @@ const handleSuccess = (apiResults, req, res) => {
   }
 }
 
-function apiResponse(req, res, next) {
+function handleJSONResponse(req, res, next) {
   const { apiResults } = req
 
   if (!apiResults) {
@@ -75,4 +75,4 @@ function apiResponse(req, res, next) {
   })
 }
 
-export default apiResponse
+export default handleJSONResponse

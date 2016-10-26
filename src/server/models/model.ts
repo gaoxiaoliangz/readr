@@ -184,7 +184,7 @@ class Model {
     return utils.reduceTasks([
       validate(data, this._schema),
       query
-    ])
+    ]) as any
   }
 
   update(query, data, updateConfig: {

@@ -13,6 +13,7 @@
       "server:fe:hot": "npm run watch:css & node bin/server --hot --noRoute",
       "server:fe": "npm run watch:css & npm run watch:chunks & node bin/server --noRoute",
       "server:dev": "nodemon --watch bin/server bin/server",
+      "server:dev:watch": "npm run watch & nodemon --watch bin/server bin/server",
       "server:prod": "nodemon --watch bin/server bin/server --production",
 
     "watch": "npm run watch:node",
