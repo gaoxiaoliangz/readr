@@ -40,6 +40,12 @@ function notFoundError(itemName?) {
 //   })
 // }
 
+interface ListRawOptions {
+  filter?: (entity, index: number) => boolean
+  mapping?: (entity, index: number) => any
+  query?: Object
+}
+
 interface ListOptions {
   raw?: boolean
   disablePagination?: boolean
@@ -114,6 +120,18 @@ class Model {
     })
   }
 
+  listRaw(options: ListRawOptions = {}): Promise<any[]> {
+    const { filter, mapping, query } = options
+
+    return this.list({
+      disablePagination: true,
+      raw: true,
+      filter,
+      mapping,
+      query: query || {}
+    })
+  }
+
   add(data) {
     const query = () => {
       let data2 = Object.assign({}, data, {
@@ -169,41 +187,30 @@ class Model {
     ])
   }
 
-  // @multi: boolean
-  update(match, data, updateConfig?) {
-    let multi = false
-    let upsert = false
+  update(query, data, updateConfig: {
+    multi?: boolean
+    upsert?: boolean
+  } = {}) {
+    const { multi, upsert } = updateConfig
 
-    const query = () => {
-      if (updateConfig) {
-        multi = updateConfig.multi || false
-        upsert = updateConfig.upsert || false
-      }
-
-      // todo: 添加特殊格式处理
+    const doQuery = () => {
+      // todo
+      // 添加特殊格式处理
       const data2 = Object.assign({}, data, {
         date_updated: new Date().toString()
       })
-      let enableMulti = false
-
-      if (Object.keys(match).length === 0) {
-        enableMulti = true
-      }
-      if (typeof multi !== 'undefined') {
-        enableMulti = multi
-      }
 
       return db.getCollection(this._tableName).then(collection => {
-        return collection.update(match, { $set: data2 }, {
-          upsert: typeof upsert !== undefined ? upsert : false,
-          multi: enableMulti
+        return collection.update(query, { $set: data2 }, {
+          upsert: Boolean(upsert),
+          multi: Boolean(multi)
         })
       })
     }
 
     return utils.reduceTasks([
       validate(data, this._schema, true),
-      query
+      doQuery
     ])
   }
 

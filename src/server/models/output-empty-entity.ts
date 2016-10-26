@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import DataTypes from '../data/types'
 import { Field } from './schema'
 
 export default function outputEmptyEntity(fields: Field[], idObjOrIdString = {}) {
@@ -7,7 +6,7 @@ export default function outputEmptyEntity(fields: Field[], idObjOrIdString = {})
   let idObj = idObjOrIdString
 
   if (typeof idObjOrIdString === 'string') {
-    idObj = { idObjOrIdString }
+    idObj = { _id: idObjOrIdString }
   }
 
   const entity = {}

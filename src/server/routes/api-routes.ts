@@ -49,9 +49,15 @@ export default function apiRoutes() {
 
   // users
   router.get('/users', authenticateAdmin, endpoints.user.list)
+  router.post('/users', endpoints.addUser)
+
+  // user
+  router.get('/user/profile', authenticatePrivate, endpoints.findUser)
+  router.get('/user/books/shelf', authenticatePrivate, endpoints.listShelfBooks)
 
   // progress
   router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
+  router.put('/user/books/:book/progress', authenticatePrivate, endpoints.setReadingProgress)
 
   // auth
   router.post('/auth', middleware.auth.basicAuth)
