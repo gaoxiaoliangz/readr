@@ -1,6 +1,4 @@
 import _ from 'lodash'
-import DataTypes from '../data/types'
-import parseTextToHtml from '../utils/parseTextToHtml'
 import db, { embedRef } from './database'
 import errors from '../errors'
 import i18n from '../utils/i18n'
@@ -10,36 +8,6 @@ import Schema from './schema'
 import outputEmptyEntity from './output-empty-entity'
 import paginate from './paginate'
 import { notFoundIn } from '../helpers'
-
-// function notFoundError(itemName?) {
-//   return new errors.NotFoundError(i18n('errors.api.general.notFound', itemName))
-// }
-
-// todo
-// function dataConvention(schema, data) {
-//   const arrayTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
-//     && schema.fields[key].type.isArray())
-
-//   const textTypedFieldKeys = Object.keys(schema.fields).filter(key => schema.fields[key].type
-//     && schema.fields[key].type.equals(DataTypes.Text))
-
-//   // 处理特殊格式
-//   return _.mapValues(data, (val, key) => {
-//     if (arrayTypedFieldKeys.indexOf(key) !== -1 && !Array.isArray(val)) {
-//       return val.split(',')
-//     }
-
-//     // convert Text type to raw and html
-//     if (textTypedFieldKeys.indexOf(key) !== -1) {
-//       return {
-//         html: parseTextToHtml(val),
-//         raw: val
-//       }
-//     }
-
-//     return val
-//   })
-// }
 
 interface ListRawOptions {
   filter?: (entity, index: number) => boolean
