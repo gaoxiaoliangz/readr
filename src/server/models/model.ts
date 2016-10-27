@@ -30,11 +30,6 @@ class Model {
   _schema: Schema
   _tableName: string
 
-  // todo
-  // static paginate() {
-  //   paginate()
-  // }
-
   static parseQuery(idOrQuery: Match) {
     if (typeof idOrQuery === 'undefined') {
       throw new Error('Param idOrQuery is undefined!')
@@ -199,7 +194,6 @@ class Model {
 
   remove(idOrQuery: Match) {
     const query = Model.parseQuery(idOrQuery)
-    console.log(query);
 
     return db.getCollection(this._tableName).then(collection => {
       return collection.remove(query)
