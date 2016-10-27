@@ -9,6 +9,8 @@ import utils from '../utils'
 import fs from 'fs'
 import { notFoundError } from '../helpers'
 
+const UPLOADS_DIR = '__uploads__'
+
 // basic api start
 export const author = new BasicApi(schemas.author)
 export const collection = new BasicApi(schemas.collection)
@@ -138,7 +140,7 @@ export function setReadingProgress(userId, bookId, data) {
 export function readFile(fileId, basePath) {
   return fileModel.findOne(fileId).then(result => {
     const filename = result.name
-    const filepath = `${basePath}/__uploads__/${filename}`
+    const filepath = `${basePath}/${UPLOADS_DIR}/${filename}`
     const file = fs.readFileSync(filepath, 'utf8')
 
     return _.assign({}, result, {
@@ -151,15 +153,13 @@ export function delFile(fileId, basePath) {
   return fileModel.findOne(fileId).then(resultFile => {
     return fileModel.remove(fileId).then(result => {
       const filename = resultFile.name
-      // console.log(filename);
-      const filepath = `${basePath}/__uploads__/${filename}`
-      // const file = fs.readFileSync(filepath, 'utf8')
-      console.log(filepath)
-      fs.unlink(filepath, error => {
-        return Promise.reject(error)
-      })
+      const filepath = `${basePath}/${UPLOADS_DIR}/${filename}`
 
-      return { result }
+      // 这边用 Sync，出错会抛出异常，如果用异步方法还要写一个 Promise 实例，做 error 判断，很麻烦
+      // 不过那样的话能获取更多的控制权
+      // 不过话说回来 Sync 用 try catch 也能实现同样的效果
+      fs.unlinkSync(filepath)
+      return result
     })
   }, error => {
     if (error.type === 'NotFoundError') {
