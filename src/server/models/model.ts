@@ -172,8 +172,6 @@ class Model {
     const query = Model.parseQuery(idOrQuery)
 
     const doQuery = () => {
-      // todo
-      // 添加特殊格式处理
       const data2 = Object.assign({}, data, {
         date_updated: new Date().toString()
       })

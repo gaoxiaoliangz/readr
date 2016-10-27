@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Fields } from 'redux-form'
 import { sendNotification, closeModal } from '../../../store/actions'
-import Input from '../../../elements/_form/Input'
+import Input from '../../../elements/Input'
 import ModalFooter from '../../../elements/Modal/ModalFooter'
 
 interface Props {

@@ -116,7 +116,7 @@ class AddBookForm extends Component<AllProps, {}> {
           fileType="txt"
           name="book-file"
         >
-          上传 txt
+          上传书籍（支持 txt）
         </FileUploader>
 
         <Button onClick={handleSubmit(data => {
