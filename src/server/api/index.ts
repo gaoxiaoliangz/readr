@@ -17,6 +17,7 @@ export const tag = new BasicApi(schemas.tag)
 export const user = new BasicApi(schemas.user)
 // end of basic api
 
+
 // 实例化 Model
 const bookModel = new Model(schemas.book)
 const collectionModel = new Model(schemas.collection)

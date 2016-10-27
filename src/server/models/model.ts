@@ -28,6 +28,11 @@ class Model {
   _schema: Schema
   _tableName: string
 
+  // todo
+  // static paginate() {
+  //   paginate()
+  // }
+
   constructor(schema: Schema) {
     this._schema = schema
     this._tableName = schema.name
@@ -39,7 +44,7 @@ class Model {
 
   findOne(idOrQuery: string | Object, raw?: boolean) {
     if (typeof idOrQuery === 'undefined') {
-      throw new Error('Param idOrQuery cannot be undefined!')
+      throw new Error('Param idOrQuery is undefined!')
     }
 
     const query = typeof idOrQuery === 'string'
@@ -111,8 +116,6 @@ class Model {
         _id: Math.random().toFixed(8).substr(2),
         date_created: new Date().toString()
       })
-
-      // data2 = dataConvention(this._schema, data2)
 
       // 检查是否需要确认唯一性
       const dataToCheck = this._schema.fields
