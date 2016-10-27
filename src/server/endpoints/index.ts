@@ -54,3 +54,8 @@ export const readFile = (req, res, next) => {
   req.apiResults = api.readFile(req.params.file, req.__basePath)
   next()
 }
+
+export const delFile = (req, res, next) => {
+  req.apiResults = api.delFile(req.params.file, req.__basePath)
+  next()
+}

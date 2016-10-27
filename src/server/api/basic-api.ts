@@ -28,15 +28,15 @@ class BasicApi {
     return this._model.add(data)
   }
 
-  update(id, data) {
+  update(id: string, data) {
     // todo
     // 无法提前知道是否为 upsert，所以无法预先决定是否验证 fields
     // 可能会造成 upsert 的数据 fields 不全的问题
-    return this._model.update({_id: id}, data)
+    return this._model.update(id, data)
   }
 
-  remove(id) {
-    return this._model.remove({_id: id})
+  remove(id: string) {
+    return this._model.remove(id)
   }
 }
 

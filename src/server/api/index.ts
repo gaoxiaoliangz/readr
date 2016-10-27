@@ -146,3 +146,27 @@ export function readFile(fileId, basePath) {
     }) as any
   })
 }
+
+export function delFile(fileId, basePath) {
+  return fileModel.findOne(fileId).then(resultFile => {
+    return fileModel.remove(fileId).then(result => {
+      const filename = resultFile.name
+      // console.log(filename);
+      const filepath = `${basePath}/__uploads__/${filename}`
+      // const file = fs.readFileSync(filepath, 'utf8')
+      console.log(filepath)
+      fs.unlink(filepath, error => {
+        return Promise.reject(error)
+      })
+
+      return { result }
+    })
+  }, error => {
+    if (error.type === 'NotFoundError') {
+      return {
+        message: 'File record not found, probably because it doesn\'t exist, or hasn\'t been created in the first place!'
+      }
+    }
+    return Promise.reject(error) as any
+  })
+}

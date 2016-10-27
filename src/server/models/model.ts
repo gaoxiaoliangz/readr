@@ -24,6 +24,8 @@ interface ListOptions {
   query?: Object
 }
 
+type Match = string | Object
+
 class Model {
   _schema: Schema
   _tableName: string
@@ -32,6 +34,16 @@ class Model {
   // static paginate() {
   //   paginate()
   // }
+
+  static parseQuery(idOrQuery: Match) {
+    if (typeof idOrQuery === 'undefined') {
+      throw new Error('Param idOrQuery is undefined!')
+    }
+
+    return typeof idOrQuery === 'string'
+      ? { _id: idOrQuery }
+      : idOrQuery
+  }
 
   constructor(schema: Schema) {
     this._schema = schema
@@ -42,14 +54,8 @@ class Model {
     return outputEmptyEntity(this._schema.fields, id)
   }
 
-  findOne(idOrQuery: string | Object, raw?: boolean) {
-    if (typeof idOrQuery === 'undefined') {
-      throw new Error('Param idOrQuery is undefined!')
-    }
-
-    const query = typeof idOrQuery === 'string'
-      ? { _id: idOrQuery }
-      : idOrQuery
+  findOne(idOrQuery: Match, raw?: boolean) {
+    const query = Model.parseQuery(idOrQuery)
 
     return this.list({ raw, disablePagination: true, query }).then(result => {
       const entity = result[0]
@@ -163,11 +169,12 @@ class Model {
     ]) as any
   }
 
-  update(query, data, updateConfig: {
+  update(idOrQuery: Match, data, updateConfig: {
     multi?: boolean
     upsert?: boolean
   } = {}) {
     const { multi, upsert } = updateConfig
+    const query = Model.parseQuery(idOrQuery)
 
     const doQuery = () => {
       // todo
@@ -190,9 +197,12 @@ class Model {
     ])
   }
 
-  remove(match) {
+  remove(idOrQuery: Match) {
+    const query = Model.parseQuery(idOrQuery)
+    console.log(query);
+
     return db.getCollection(this._tableName).then(collection => {
-      return collection.remove(match)
+      return collection.remove(query)
     })
   }
 }

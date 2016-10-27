@@ -65,7 +65,8 @@ function apiRoutes() {
   router.put('/user/books/:book/progress', authenticatePrivate, endpoints.setReadingProgress)
 
   // file
-  router.get('/files/:file', authenticatePublic, endpoints.readFile)
+  router.get('/files/:file', authenticateAdmin, endpoints.readFile)
+  router.delete('/files/:file', authenticateAdmin, endpoints.delFile)
 
   // auth
   router.post('/auth', authenticatePublic, middleware.auth.basicAuth)
