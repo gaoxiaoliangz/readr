@@ -10,17 +10,6 @@ export const tag = makeBasicEndpoint(api.tag)
 export const user = makeBasicEndpoint(api.user)
 // end of basic endpoint
 
-// 模板
-// export const fn = (req, res, next) => {
-//   req.apiResults = api.someFn()
-//   next()
-// }
-
-// export const findBook = (req, res, next) => {
-//   req.apiResults = api.findBook(req.params.book)
-//   next()
-// }
-
 export const findUser = (req, res, next) => {
   req.apiResults = api.findUser(req.context.user.id)
   next()
@@ -28,6 +17,11 @@ export const findUser = (req, res, next) => {
 
 export const addUser = (req, res, next) => {
   req.apiResults = api.addUser(req.body)
+  next()
+}
+
+export const findBook = (req, res, next) => {
+  req.apiResults = api.findBook(req.params.book, true, req.__basePath)
   next()
 }
 

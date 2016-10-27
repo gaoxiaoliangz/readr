@@ -7,6 +7,7 @@ import humps from 'humps'
 import { ROLES } from '../../isomorphic/constants'
 import utils from '../utils'
 import fs from 'fs'
+import { notFoundError } from '../helpers'
 
 // basic api start
 export const author = new BasicApi(schemas.author)
@@ -24,10 +25,6 @@ const userModel = new Model(schemas.user)
 const fileModel = new Model(schemas.file)
 
 // api
-// export function findBook(id) {
-//   return bookModel.findById(id)
-// }
-
 export function findUser(id) {
   return userModel.findOne(id).then(entity => {
     return _.omit(entity, ['password'])
@@ -38,6 +35,35 @@ export function addUser(userInfo) {
   return userModel.add(_.assign({}, userInfo, {
     role: ROLES.USER
   }))
+}
+
+export function findBook(id, content?: boolean, basePath?: string) {
+  if (content) {
+    return bookModel.findOne(id).then(result => {
+      const fileId = result.file._id
+
+      if (!fileId) {
+        // 从这边报出的 404 和下面的提示会不一样
+        // 下面报的 404 可能是文件被删了
+        // 这边报 404 则是一开始数据库里就没存 file
+        return Promise.reject(notFoundError('book'))
+      }
+
+      return readFile(fileId, basePath).then(fileResult => {
+        const fileContent = fileResult.content
+
+        return _(result)
+          .omit(['file'])
+          .assign({
+            content: {
+              raw: fileContent
+            }
+          })
+          .value()
+      })
+    })
+  }
+  return bookModel.findOne(id)
 }
 
 export function listBooks(page?) {
@@ -116,6 +142,6 @@ export function readFile(fileId, basePath) {
 
     return _.assign({}, result, {
       content: file
-    })
+    }) as any
   })
 }

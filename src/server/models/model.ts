@@ -9,10 +9,11 @@ import validate from './validate'
 import Schema from './schema'
 import outputEmptyEntity from './output-empty-entity'
 import paginate from './paginate'
+import { notFoundIn } from '../helpers'
 
-function notFoundError(itemName?) {
-  return new errors.NotFoundError(i18n('errors.api.general.notFound', itemName))
-}
+// function notFoundError(itemName?) {
+//   return new errors.NotFoundError(i18n('errors.api.general.notFound', itemName))
+// }
 
 // todo
 // function dataConvention(schema, data) {
@@ -69,6 +70,10 @@ class Model {
   }
 
   findOne(idOrQuery: string | Object, raw?: boolean) {
+    if (typeof idOrQuery === 'undefined') {
+      throw new Error('Param idOrQuery cannot be undefined!')
+    }
+
     const query = typeof idOrQuery === 'string'
       ? { _id: idOrQuery }
       : idOrQuery
@@ -77,7 +82,7 @@ class Model {
       const entity = result[0]
 
       if (!entity) {
-        return Promise.reject(notFoundError())
+        return Promise.reject(notFoundIn(this._schema._baseTable))
       }
 
       return entity

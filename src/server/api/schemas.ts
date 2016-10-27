@@ -50,6 +50,23 @@ export const user = new Schema('users', [
   }
 ])
 
+export const file = new Schema('files', [
+  {
+    name: 'name',
+    required: true
+  },
+  {
+    name: 'originalname',
+    required: true
+  },
+  {
+    name: 'mimetype'
+  },
+  {
+    name: 'size'
+  }
+])
+
 export const progress = new Schema('reading_progress', [
   {
     name: 'percentage',
@@ -117,7 +134,8 @@ export const book = new Schema('books', [
     name: 'cover'
   },
   {
-    name: 'content',
+    name: 'file',
+    ref: file,
     required: true
   }
 ])
@@ -140,22 +158,5 @@ export const collection = new Schema('collections', [
     name: 'creator',
     required: true,
     ref: user
-  }
-])
-
-export const file = new Schema('files', [
-  {
-    name: 'name',
-    required: true
-  },
-  {
-    name: 'originalname',
-    required: true
-  },
-  {
-    name: 'mimetype'
-  },
-  {
-    name: 'size'
   }
 ])

@@ -13,7 +13,11 @@ export default {
       title: '标题',
       progress: '进度',
       user: '用户',
-      admin: '管理员'
+      admin: '管理员',
+      file: '文件',
+      files: '文件',
+      book: '书籍',
+      books: '书籍'
     },
   },
   errors: {
@@ -43,6 +47,7 @@ export default {
     api: {
       general: {
         notFound: '{value}未找到',
+        notFoundIn: '在{value}中未找到',
         exists: '{value}已存在',
       },
       auth: {
