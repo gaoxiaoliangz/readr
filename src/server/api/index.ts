@@ -8,6 +8,7 @@ import { ROLES } from '../../isomorphic/constants'
 import utils from '../utils'
 import fs from 'fs'
 import { notFoundError } from '../helpers'
+const epubParser = require('epub-parser')
 
 const UPLOADS_DIR = '__uploads__'
 
@@ -52,18 +53,32 @@ export function findBook(id, content?: boolean, basePath?: string) {
         return Promise.reject(notFoundError('book'))
       }
 
-      return readFile(fileId, basePath).then(fileResult => {
-        const fileContent = fileResult.content
+      return readLoggedEpub(fileId, basePath).then(fileResult => {
+        return fileResult
+        // const fileContent = fileResult.content
 
-        return _(result)
-          .omit(['file'])
-          .assign({
-            content: {
-              raw: fileContent
-            }
-          })
-          .value()
+        // return _(result)
+        //   .omit(['file'])
+        //   .assign({
+        //     content: {
+        //       raw: fileContent
+        //     }
+        //   })
+        //   .value()
       })
+
+      // return readFile(fileId, basePath).then(fileResult => {
+      //   const fileContent = fileResult.content
+
+      //   return _(result)
+      //     .omit(['file'])
+      //     .assign({
+      //       content: {
+      //         raw: fileContent
+      //       }
+      //     })
+      //     .value()
+      // })
     })
   }
   return bookModel.findOne(id)
@@ -168,5 +183,25 @@ export function delFile(fileId, basePath) {
       }
     }
     return Promise.reject(error) as any
+  })
+}
+
+export function readLoggedEpub(fileId, basePath) {
+  return fileModel.findOne(fileId).then(result => {
+    const filename = result.name
+    const filepath = `${basePath}/${UPLOADS_DIR}/${filename}`
+
+    return readEpub(filepath)
+  })
+}
+
+export function readEpub(fullPath) {
+  return new Promise((resolve, reject) => {
+    epubParser.open(fullPath, function (err, epubData) {
+      if (err) {
+        reject(err)
+      }
+      resolve(epubData)
+    })
   })
 }

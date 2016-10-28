@@ -125,7 +125,7 @@ class AddBookForm extends Component<AllProps, {}> {
             : (
               <FileUploader
                 url="/upload"
-                fileType="txt"
+                fileType=""
                 name="book-file"
                 onSuccess={result => {
                   file.set(result)
