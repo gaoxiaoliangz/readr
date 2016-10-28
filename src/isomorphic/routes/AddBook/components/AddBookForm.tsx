@@ -28,7 +28,7 @@ interface AllProps extends Props {
 
 @form({
   form: 'addBook',
-  fields: ['title', 'author', 'authors', 'cover', 'description', 'content'],
+  fields: ['title', 'author', 'authors', 'cover', 'description', 'file'],
   destroyOnUnmount: true
 })
 class AddBookForm extends Component<AllProps, {}> {
@@ -67,7 +67,7 @@ class AddBookForm extends Component<AllProps, {}> {
   render() {
     const {
       fields: {
-        title, author, authors, cover, description, content
+        title, author, authors, cover, description, file
       },
       handleSubmit,
       onTitleInputChange,
@@ -110,18 +110,35 @@ class AddBookForm extends Component<AllProps, {}> {
           />
         <Input placeholder="封面图片地址" {...cover} />
         <Textarea placeholder="描述" {...description} />
-        <Textarea placeholder="在此粘贴书籍内容 (markdown 格式)" {...content} />
-        <FileUploader
-          url="/upload"
-          fileType="txt"
-          name="book-file"
-        >
-          上传书籍（支持 txt）
-        </FileUploader>
-
+        {
+          !_.isEmpty(file.value)
+            ? (
+              <div>
+                <span>{file.value.originalname} </span>
+                <Button
+                  color="white"
+                  onClick={() => {
+                    file.set({})
+                  } }>重新选择</Button>
+              </div>
+            )
+            : (
+              <FileUploader
+                url="/upload"
+                fileType="txt"
+                name="book-file"
+                onSuccess={result => {
+                  file.set(result)
+                } }
+                >
+                <Button color="white">选择书籍（支持 txt）</Button>
+              </FileUploader>
+            )
+        }
         <Button onClick={handleSubmit(data => {
           const postData = _.omit(data, ['author'])
           postData['authors'] = _.map(postData['authors'], 'value')
+          postData['file'] = data.file._id
           onSaveBook(postData)
         })}>添加</Button>
       </div>

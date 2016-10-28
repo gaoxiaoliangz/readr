@@ -12,6 +12,7 @@ export default function validate(data, schema: Schema, isEditing?): any {
   }
 
   const suppliedFields = Object.keys(data).filter(key => !_.isEmpty(data[key]))
+  const suppliedFieldsInSchema = schema.fields.filter(field => !_.isEmpty(data[field.name]))
   const allFields = _.map(schema.fields, 'name')
   const requiredFields = schema.fields
     .filter(field => Boolean(field.required))
@@ -38,7 +39,7 @@ export default function validate(data, schema: Schema, isEditing?): any {
   }
 
   // 所有 fields 验证一遍
-  return reduceTasks(schema.fields.map(field => {
+  return reduceTasks(suppliedFieldsInSchema.map(field => {
     const validators = field.validators
 
     if (validators) {
@@ -47,13 +48,4 @@ export default function validate(data, schema: Schema, isEditing?): any {
     // 跳过未定义 validation 的 filed
     return Promise.resolve(true)
   }))
-
-  // return reduceTasks(Object.keys(data).map(key => {
-  //   const validators = schema.fields[key].validators
-  //   if (validators) {
-  //     return validateField(key, data[key], validators)
-  //   }
-  //   // 跳过未定义 validation 的 filed
-  //   return Promise.resolve(true)
-  // }))
 }

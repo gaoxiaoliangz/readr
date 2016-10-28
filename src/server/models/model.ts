@@ -113,7 +113,7 @@ class Model {
 
   add(data) {
     const query = () => {
-      let data2 = Object.assign({}, data, {
+      let dataWithID = Object.assign({}, data, {
         _id: Math.random().toFixed(8).substr(2),
         date_created: new Date().toString()
       })
@@ -131,10 +131,10 @@ class Model {
 
       // 过滤出和数据库中已存在数据相匹配的输入项
       if (dataToCheck.length !== 0) {
-        const checkingResult = Promise.all(dataToCheck.map(data3 => {
-          return db.getRowByMatch({ [data3.key]: data3.value }, this._tableName).then(res => {
+        const checkingResult = Promise.all(dataToCheck.map(dataItem => {
+          return db.getRowByMatch({ [dataItem.key]: dataItem.value }, this._tableName).then(res => {
             if (res.length !== 0) {
-              return data3
+              return dataItem
             }
             return false as any
           })
@@ -148,13 +148,13 @@ class Model {
           }
 
           return db.getCollection(this._tableName).then(collection => {
-            return collection.insert([data2])
+            return collection.insert([dataWithID])
           })
         })
       }
 
       return db.getCollection(this._tableName).then(collection => {
-        return collection.insert([data2])
+        return collection.insert([dataWithID])
       })
     }
 
