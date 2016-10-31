@@ -9,6 +9,8 @@ import utils from '../utils'
 import { notFoundError } from '../helpers'
 import { readLoggedEpub, readFile } from './file'
 
+export * from './file'
+
 // basic api start
 export const author = new BasicApi(schemas.author)
 export const collection = new BasicApi(schemas.collection)
