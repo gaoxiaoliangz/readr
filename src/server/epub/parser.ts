@@ -10,12 +10,13 @@ const hTagConverter = {
   replacement: function (innerHTML, node) {
     let hLevel = node.tagName.charAt(1)
     let hPrefix = ''
+    const hEnd = ' TODO'
 
     for (let i = 0; i < hLevel; i++) {
       hPrefix += '#'
     }
 
-    return '\n' + hPrefix + ' ' + innerHTML + ' h-tag' + '\n\n'
+    return '\n' + hPrefix + ' ' + innerHTML + hEnd + '\n\n'
   }
 }
 
@@ -23,7 +24,11 @@ const parseToc = tocObj => {
   const rootNavPoints = _.get(tocObj, ['ncx', 'navMap', '0', 'navPoint'], [])
 
   function parseNavPoint(navPoint) {
-    const src = _.get(navPoint, ['content', '0', '$', 'src'])
+    const url = _.get(navPoint, ['content', '0', '$', 'src'], '')
+    const hash = url.split('#')[1]
+    const fileSrc = url.split('#')[0]
+    const src = fileSrc.split('/')[1].split('.')[0]
+
     const label = _.get(navPoint, ['navLabel', '0', 'text', '0'])
     const id = _.get(navPoint, ['$', 'id'])
     const order = _.get(navPoint, ['$', 'playOrder'])
@@ -36,6 +41,8 @@ const parseToc = tocObj => {
 
     return {
       src,
+      fileSrc,
+      hash,
       label,
       id,
       order,
@@ -53,10 +60,15 @@ const parseToc = tocObj => {
 }
 
 const resolveContent = zipPath => zipInstance => {
-  const content = zipInstance.file(zipPath).asText()
-  return toMarkdown(content, {
-    converters: [hTagConverter]
-  })
+  const content = zipInstance.file(zipPath)
+
+  if (content) {
+    return toMarkdown(content.asText(), {
+      converters: [hTagConverter]
+    })
+  }
+
+  return ''
 }
 
 const flattenToc = parsedToc => {
@@ -79,24 +91,26 @@ export default function parser(fullPath) {
   return new Promise((resolve, reject) => {
     const file = fs.readFileSync(fullPath, 'binary')
     const zip = new nodeZip(file, { binary: true, base64: false, checkCRC32: true })
-
-    // const content = zip.file('META-INF/container.xml')
-    // const content = zip.file('content.opf').asText()
-    // console.log(_.keys(zip.files))
-
     const tocFile = zip.file('toc.ncx').asText()
 
-    // resolve(content)
     xml2js.parseString(tocFile, (err, result) => {
       const parsedToc = parseToc(result)
       const flatToc = flattenToc(parsedToc)
 
+      const content = _(flatToc)
+        .map(item => _.pick(item, ['src', 'fileSrc']))
+        .union()
+        .map(item => ({
+          src: item['src'],
+          markdown: resolveContent(item['fileSrc'])(zip)
+        }))
+        .value()
+
       resolve({
-        toc: parsedToc,
-        flatToc,
-        content: resolveContent('text/part0006_split_001.html')(zip)
+        toc: parsedToc.map(item => _.omit(item, ['fileSrc'])),
+        flatToc: flatToc.map(item => _.omit(item, ['fileSrc'])),
+        content
       })
-      // resolve(result)
     })
   })
 }
