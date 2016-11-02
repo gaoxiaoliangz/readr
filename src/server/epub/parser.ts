@@ -4,33 +4,75 @@ import _ from 'lodash'
 const nodeZip = require('node-zip')
 const toMarkdown = require('to-markdown')
 
+const hTagConverter = {
+  filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
-function parseToc(tocObj) {
-  const navMap = tocObj.ncx.navMap
-  const rootNavPoint = navMap[0].navPoint
+  replacement: function (innerHTML, node) {
+    let hLevel = node.tagName.charAt(1)
+    let hPrefix = ''
 
-  console.log('navMap length', navMap.length);
-
-  const toc = []
-
-  const parseNavPoint = (navPoints) => {
-    console.log(navPoints);
-    
-    const link = navPoints[0].content[0].$.src
-    // const link = _.get(navPoints)
-
-    if (navPoints.length > 1) {
-      navPoints.slice(1).forEach(navPoint => {
-        parseNavPoint(navPoint)
-      })
+    for (let i = 0; i < hLevel; i++) {
+      hPrefix += '#'
     }
 
-    toc.push(link)
+    return '\n' + hPrefix + ' ' + innerHTML + ' h-tag' + '\n\n'
+  }
+}
+
+const parseToc = tocObj => {
+  const rootNavPoints = _.get(tocObj, ['ncx', 'navMap', '0', 'navPoint'], [])
+
+  function parseNavPoint(navPoint) {
+    const src = _.get(navPoint, ['content', '0', '$', 'src'])
+    const label = _.get(navPoint, ['navLabel', '0', 'text', '0'])
+    const id = _.get(navPoint, ['$', 'id'])
+    const order = _.get(navPoint, ['$', 'playOrder'])
+
+    let children = navPoint.navPoint
+
+    if (children) {
+      children = parseNavPoints(children)
+    }
+
+    return {
+      src,
+      label,
+      id,
+      order,
+      children
+    }
   }
 
-  parseNavPoint(rootNavPoint)
+  function parseNavPoints(navPoints) {
+    return navPoints.map(point => {
+      return parseNavPoint(point)
+    })
+  }
 
-  return toc
+  return parseNavPoints(rootNavPoints)
+}
+
+const resolveContent = zipPath => zipInstance => {
+  const content = zipInstance.file(zipPath).asText()
+  return toMarkdown(content, {
+    converters: [hTagConverter]
+  })
+}
+
+const flattenToc = parsedToc => {
+  const list = []
+
+  const push = infoList => {
+    infoList.forEach(item => {
+      list.push(_.omit(item, 'children'))
+      if (item.children) {
+        push(item.children)
+      }
+    })
+  }
+
+  push(parsedToc)
+  return list
 }
 
 export default function parser(fullPath) {
@@ -42,15 +84,19 @@ export default function parser(fullPath) {
     // const content = zip.file('content.opf').asText()
     // console.log(_.keys(zip.files))
 
-    // const content = zip.file('text/part0002.html').asText()
-    const content = zip.file('toc.ncx').asText()
-
-    // resolve(toMarkdown(content))
+    const tocFile = zip.file('toc.ncx').asText()
 
     // resolve(content)
-    xml2js.parseString(content, (err, result) => {
-      // resolve(parseToc(result))
-      resolve(result)
+    xml2js.parseString(tocFile, (err, result) => {
+      const parsedToc = parseToc(result)
+      const flatToc = flattenToc(parsedToc)
+
+      resolve({
+        toc: parsedToc,
+        flatToc,
+        content: resolveContent('text/part0006_split_001.html')(zip)
+      })
+      // resolve(result)
     })
   })
 }
