@@ -1,4 +1,4 @@
-import * as schemas from '../api/schemas'
+import * as schemas from '../data/schemas'
 import Model from '../models/model'
 
 const fileModel = new Model(schemas.file)

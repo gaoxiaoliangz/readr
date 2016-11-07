@@ -3,7 +3,7 @@ import errors from '../errors'
 import i18n from '../utils/i18n'
 import Model from '../models/model'
 import humps from 'humps'
-import * as schemas from '../api/schemas'
+import * as schemas from '../data/schemas'
 
 export function basicAuth(req, res, next) {
   const user = new Model(schemas.user)

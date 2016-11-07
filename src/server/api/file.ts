@@ -1,9 +1,8 @@
 import Model from '../models/model'
 import fs from 'fs'
-import * as schemas from './schemas'
+import * as schemas from '../data/schemas'
 import _ from 'lodash'
-const epubParser = require('epub-parser')
-import epubParser2 from '../epub/parser'
+import epubParser from '../epub/parser'
 
 const UPLOADS_DIR = '__uploads__'
 
@@ -55,13 +54,5 @@ export function readLoggedEpub(fileId, basePath) {
 }
 
 export function readEpub(fullPath) {
-  return Promise.resolve(epubParser2(fullPath))
-  // return new Promise((resolve, reject) => {
-  //   epubParser.open(fullPath, function (err, epubData) {
-  //     if (err) {
-  //       reject(err)
-  //     }
-  //     resolve(epubData)
-  //   })
-  // })
+  return epubParser(fullPath)
 }
