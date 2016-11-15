@@ -2,14 +2,31 @@ import * as api from '../api'
 import _ from 'lodash'
 import makeBasicEndpoint from './make-basic-endpoint'
 
-// basic endpoint start
+// basic endpoints
 export const author = makeBasicEndpoint(api.author)
 export const collection = makeBasicEndpoint(api.collection)
 export const book = makeBasicEndpoint(api.book)
 export const tag = makeBasicEndpoint(api.tag)
 export const user = makeBasicEndpoint(api.user)
-// end of basic endpoint
 
+// common endpoints
+// books
+export const findBook = (req, res, next) => {
+  req.apiResults = api.findBook(req.params.book)
+  next()
+}
+
+export const resolveBookContent = (req, res, next) => {
+  req.apiResults = api.resolveBookContent(req.params.book, req.__basePath)
+  next()
+}
+
+export const listBooks = (req, res, next) => {
+  req.apiResults = api.listBooks(req.query.page || 1)
+  next()
+}
+
+// user
 export const findUser = (req, res, next) => {
   req.apiResults = api.findUser(req.context.user.id)
   next()
@@ -20,23 +37,8 @@ export const addUser = (req, res, next) => {
   next()
 }
 
-export const findBook = (req, res, next) => {
-  req.apiResults = api.findBook(req.params.book, true, req.__basePath)
-  next()
-}
-
-export const listBooks = (req, res, next) => {
-  req.apiResults = api.listBooks(req.query.page || 1)
-  next()
-}
-
 export const listShelfBooks = (req, res, next) => {
   req.apiResults = api.listShelfBooks(req.context.user.id, req.query.page || 1)
-  next()
-}
-
-export const listCollections = (req, res, next) => {
-  req.apiResults = api.listCollection(req.query.page || 1)
   next()
 }
 
@@ -50,6 +52,7 @@ export const setReadingProgress = (req, res, next) => {
   next()
 }
 
+// file
 export const readFile = (req, res, next) => {
   req.apiResults = api.readFile(req.params.file, req.__basePath)
   next()
@@ -57,5 +60,11 @@ export const readFile = (req, res, next) => {
 
 export const delFile = (req, res, next) => {
   req.apiResults = api.delFile(req.params.file, req.__basePath)
+  next()
+}
+
+// other
+export const listCollections = (req, res, next) => {
+  req.apiResults = api.listCollection(req.query.page || 1)
   next()
 }

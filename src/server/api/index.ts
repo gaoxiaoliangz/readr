@@ -13,13 +13,12 @@ export * from './file'
 export * from './books'
 export * from './user'
 
-// basic api start
+// basic api
 export const author = new BasicApi(schemas.author)
 export const collection = new BasicApi(schemas.collection)
 export const book = new BasicApi(schemas.book)
 export const tag = new BasicApi(schemas.tag)
 export const user = new BasicApi(schemas.user)
-// end of basic api
 
 
 // 实例化 Model

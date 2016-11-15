@@ -40,6 +40,7 @@ function apiRoutes() {
 
   // books
   router.get('/books/:book', authenticatePublic, endpoints.findBook)
+  router.get('/books/:book/content', authenticatePublic, endpoints.resolveBookContent)
   router.get('/books', authenticatePublic, endpoints.listBooks)
   router.post('/books', authenticateAdmin, endpoints.book.add) // basic
   router.put('/books/:id', authenticateAdmin, endpoints.book.update) // basic
