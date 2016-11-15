@@ -47,6 +47,41 @@ export function findBook(id, content?: boolean, basePath?: string) {
   return bookModel.findOne(id)
 }
 
+export function resolveBookContent(id, content?: boolean, basePath?: string) {
+  if (content) {
+    return bookModel.findOne(id).then(result => {
+      const fileId = result.file._id
+
+      if (!fileId) {
+        // 从这边报出的 404 和下面的提示会不一样
+        // 下面报的 404 可能是文件被删了
+        // 这边报 404 则是一开始数据库里就没存 file
+        return Promise.reject(notFoundError('book'))
+      }
+
+      if (result.file.mimetype === 'application/epub+zip') {
+        return readLoggedEpub(fileId, basePath).then(fileResult => {
+          return fileResult
+        })
+      }
+
+      return readFile(fileId, basePath).then(fileResult => {
+        const fileContent = fileResult.content
+
+        return _(result)
+          .omit(['file'])
+          .assign({
+            content: {
+              raw: fileContent
+            }
+          })
+          .value()
+      })
+    })
+  }
+  return bookModel.findOne(id)
+}
+
 export function listBooks(page?) {
   return bookModel.list({
     page,

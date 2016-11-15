@@ -1,2 +1,4 @@
 test/*
 public/*
+__production__/**/**
+bin/**/**

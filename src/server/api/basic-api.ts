@@ -19,7 +19,7 @@ class BasicApi {
     return this._model.list({
       page,
       disablePagination: _.isNil(page),
-      // todo
+      // TODO
       filter: entity => true
     })
   }

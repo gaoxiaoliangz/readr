@@ -22,8 +22,7 @@ function getStore(renderProps, fetchData, userSession, store) {
         // 这边应该是对 store 做了 mutation
         const result = fetchDataFn({ store, params, query, userSession })
 
-        // todo
-        // 遇到请求数组会报错
+        // todo: 遇到请求数组会报错
         if (Array.isArray(result)) {
           return Promise.all(result).then(() => {
             return 0
