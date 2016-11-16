@@ -9,6 +9,7 @@ import { epubBinaryParser } from '../epub/parser'
 
 const bookModel = new Model(schemas.book)
 const progressModel = new Model(schemas.progress)
+const authorModel = new Model(schemas.author)
 
 export function findBook(id) {
   return bookModel.findOne(id).then(result => {
@@ -27,14 +28,32 @@ export function findBook(id) {
   })
 }
 
-export function addBook(meta, binaryFile?) {
+export function addBook(meta, fileId /* use md5 to resolve */, binaryFile?) {
   // resolve file to get book meta
   if (binaryFile) {
     return epubBinaryParser(binaryFile).then(parsedContent => {
-      const mergedMeta = _.assign({}, parsedContent.meta, meta)
-      // todo
-      // author, cover 处理
-      return bookModel.add(mergedMeta)
+      const author = parsedContent.meta.author
+      const mergeMeta = authorId => {
+        return _.assign({}, {
+          title: parsedContent.meta.title,
+          authors: [authorId],
+          file: fileId
+        }, meta)
+      }
+
+      return authorModel.findOne({ name: author }).then(authorEntity => {
+        const authorId = authorEntity._id
+        return bookModel.add(mergeMeta(authorId))
+      }, err => {
+        return authorModel
+          .add({
+            name: author
+          })
+          .then(result => {
+            const authorId = result.ops[0]._id
+            return bookModel.add(mergeMeta(authorId))
+          })
+      })
     })
   }
 
