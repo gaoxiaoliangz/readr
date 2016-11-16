@@ -87,11 +87,11 @@ const flattenToc = parsedToc => {
   return list
 }
 
-export default function parser(fullPath) {
-  return new Promise((resolve, reject) => {
-    const file = fs.readFileSync(fullPath, 'binary')
-    const zip = new nodeZip(file, { binary: true, base64: false, checkCRC32: true })
+export function epubBinaryParser(binaryFile) {
+  return new Promise<{meta; toc; flatToc; content}>((resolve, reject) => {
+    const zip = new nodeZip(binaryFile, { binary: true, base64: false, checkCRC32: true })
     const tocFile = zip.file('toc.ncx').asText()
+    const contentFile = zip.file('content.opf').asText()
 
     xml2js.parseString(tocFile, (err, result) => {
       const parsedToc = parseToc(result)
@@ -106,11 +106,34 @@ export default function parser(fullPath) {
         }))
         .value()
 
-      resolve({
-        toc: parsedToc.map(item => _.omit(item, ['fileSrc'])),
-        flatToc: flatToc.map(item => _.omit(item, ['fileSrc'])),
-        content
+      xml2js.parseString(contentFile, (err2, result2) => {
+        const metadata = _.get(result2, ['package', 'metadata'], [])
+        const title = _.get(metadata[0], ['dc:title', 0])
+        let author = _.get(metadata[0], ['dc:creator', 0])
+
+        if (typeof author === 'object') {
+          author = _.get(author, ['_'])
+        }
+
+        const publisher = _.get(metadata[0], ['dc:publisher', 0])
+        const meta = {
+          title,
+          author,
+          publisher
+        }
+
+        resolve({
+          meta,
+          toc: parsedToc.map(item => _.omit(item, ['fileSrc'])),
+          flatToc: flatToc.map(item => _.omit(item, ['fileSrc'])),
+          content
+        })
       })
     })
   })
+}
+
+export default function parser(fullPath) {
+  const binaryFile = fs.readFileSync(fullPath, 'binary')
+  return epubBinaryParser(binaryFile)
 }

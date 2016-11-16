@@ -1,13 +1,9 @@
 import Model from '../models/model'
-import paginate from '../models/paginate'
 import * as schemas from '../data/schemas'
 import _ from 'lodash'
 import BasicApi from './basic-api'
-import humps from 'humps'
+
 import { ROLES } from '../../isomorphic/constants'
-import utils from '../utils'
-import { notFoundError } from '../helpers'
-import { readLoggedEpub, readFile } from './file'
 
 export * from './file'
 export * from './books'
@@ -22,7 +18,6 @@ export const user = new BasicApi(schemas.user)
 
 
 // 实例化 Model
-const bookModel = new Model(schemas.book)
 const collectionModel = new Model(schemas.collection)
 
 const userModel = new Model(schemas.user)

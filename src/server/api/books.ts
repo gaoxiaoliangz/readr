@@ -5,6 +5,7 @@ import _ from 'lodash'
 import utils from '../utils'
 import { notFoundError } from '../helpers'
 import { readLoggedEpub, readFile } from './file'
+import { epubBinaryParser } from '../epub/parser'
 
 const bookModel = new Model(schemas.book)
 const progressModel = new Model(schemas.progress)
@@ -26,7 +27,21 @@ export function findBook(id) {
   })
 }
 
-export function resolveBookContent(id, basePath?: string) {
+export function addBook(meta, binaryFile?) {
+  // resolve file to get book meta
+  if (binaryFile) {
+    return epubBinaryParser(binaryFile).then(parsedContent => {
+      const mergedMeta = _.assign({}, parsedContent.meta, meta)
+      // todo
+      // author, cover 处理
+      return bookModel.add(mergedMeta)
+    })
+  }
+
+  return bookModel.add(meta)
+}
+
+export function resolveBookContent(id) {
   return bookModel.findOne(id).then(result => {
     const fileId = result.file._id
 
@@ -38,12 +53,12 @@ export function resolveBookContent(id, basePath?: string) {
     }
 
     if (result.file.mimetype === 'application/epub+zip') {
-      return readLoggedEpub(fileId, basePath).then(fileResult => {
+      return readLoggedEpub(fileId).then(fileResult => {
         return fileResult
       })
     }
 
-    return readFile(fileId, basePath).then(fileResult => {
+    return readFile(fileId).then(fileResult => {
       const fileContent = fileResult.content
 
       return _(result)

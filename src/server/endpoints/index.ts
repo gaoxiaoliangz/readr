@@ -1,5 +1,6 @@
 import * as api from '../api'
 import _ from 'lodash'
+import fs from 'fs'
 import makeBasicEndpoint from './make-basic-endpoint'
 
 // basic endpoints
@@ -11,13 +12,20 @@ export const user = makeBasicEndpoint(api.user)
 
 // common endpoints
 // books
+export const addBook = (req, res, next) => {
+  const filepath = `${req.__basePath}/${req.file.path}`
+  const binaryFile = fs.readFileSync(filepath, 'binary')
+  req.apiResults = api.addBook(req.body, binaryFile)
+  next()
+}
+
 export const findBook = (req, res, next) => {
   req.apiResults = api.findBook(req.params.book)
   next()
 }
 
 export const resolveBookContent = (req, res, next) => {
-  req.apiResults = api.resolveBookContent(req.params.book, req.__basePath)
+  req.apiResults = api.resolveBookContent(req.params.book)
   next()
 }
 
@@ -54,12 +62,12 @@ export const setReadingProgress = (req, res, next) => {
 
 // file
 export const readFile = (req, res, next) => {
-  req.apiResults = api.readFile(req.params.file, req.__basePath)
+  req.apiResults = api.readFile(req.params.file)
   next()
 }
 
 export const delFile = (req, res, next) => {
-  req.apiResults = api.delFile(req.params.file, req.__basePath)
+  req.apiResults = api.delFile(req.params.file)
   next()
 }
 

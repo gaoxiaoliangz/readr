@@ -5,15 +5,16 @@ import _ from 'lodash'
 import epubParser from '../epub/parser'
 
 const UPLOADS_DIR = '__uploads__'
+const BASE_DIR = process.cwd()
 
 const fileModel = new Model(schemas.file)
 
 // todo
 // 拆分 parser
-export function readFile(fileId, basePath) {
+export function readFile(fileId) {
   return fileModel.findOne(fileId).then(result => {
     const filename = result.name
-    const filepath = `${basePath}/${UPLOADS_DIR}/${filename}`
+    const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
     const file = fs.readFileSync(filepath, 'utf8')
 
     return _.assign({}, result, {
@@ -22,11 +23,11 @@ export function readFile(fileId, basePath) {
   })
 }
 
-export function delFile(fileId, basePath) {
+export function delFile(fileId) {
   return fileModel.findOne(fileId).then(resultFile => {
     return fileModel.remove(fileId).then(result => {
       const filename = resultFile.name
-      const filepath = `${basePath}/${UPLOADS_DIR}/${filename}`
+      const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
 
       // 这边用 Sync，出错会抛出异常，如果用异步方法还要写一个 Promise 实例，做 error 判断，很麻烦
       // 不过那样的话能获取更多的控制权
@@ -44,15 +45,15 @@ export function delFile(fileId, basePath) {
   })
 }
 
-export function readLoggedEpub(fileId, basePath) {
+export function readLoggedEpub(fileId) {
   return fileModel.findOne(fileId).then(result => {
     const filename = result.name
-    const filepath = `${basePath}/${UPLOADS_DIR}/${filename}`
+    const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
 
     return readEpub(filepath)
   })
 }
 
-export function readEpub(fullPath) {
-  return epubParser(fullPath)
+export function readEpub(fullPathOrBinaryFile) {
+  return epubParser(fullPathOrBinaryFile)
 }

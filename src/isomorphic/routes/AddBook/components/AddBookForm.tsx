@@ -124,11 +124,14 @@ class AddBookForm extends Component<AllProps, {}> {
             )
             : (
               <FileUploader
-                url="/upload"
+                url="/api/books"
                 fileType=""
                 name="book-file"
                 onSuccess={result => {
                   file.set(result)
+                } }
+                onError={error => {
+                  this.props.sendNotification(error.message, 'error')
                 } }
                 >
                 <Button color="white">选择书籍（支持 txt）</Button>
