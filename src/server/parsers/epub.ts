@@ -127,7 +127,8 @@ const xmlToJs = xml => {
   })
 }
 
-export function epubBinaryParser(binaryFile) {
+export function binaryParser(binaryFile) {
+  // todo: 添加 try catch
   const zip = new nodeZip(binaryFile, { binary: true, base64: false, checkCRC32: true })
   const containerXml = extractZipContent('META-INF/container.xml')(zip)
 
@@ -177,7 +178,10 @@ export function epubBinaryParser(binaryFile) {
   })
 }
 
-export default function parser(fullPath) {
-  const binaryFile = fs.readFileSync(fullPath, 'binary')
-  return epubBinaryParser(binaryFile)
+export default function parser(pathOrBinary, useBinary: boolean = false) {
+  if (useBinary) {
+    return binaryParser(pathOrBinary)
+  }
+  const binaryFile = fs.readFileSync(pathOrBinary, 'binary')
+  return binaryParser(binaryFile)
 }

@@ -1,13 +1,7 @@
 import Model from '../models/model'
-import paginate from '../models/paginate'
 import * as schemas from '../data/schemas'
 import _ from 'lodash'
-import BasicApi from './basic-api'
 import humps from 'humps'
-import { ROLES } from '../../isomorphic/constants'
-import utils from '../utils'
-import { notFoundError } from '../helpers'
-import { readLoggedEpub, readFile } from './file'
 
 const progressModel = new Model(schemas.progress)
 

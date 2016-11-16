@@ -2,24 +2,28 @@ import Model from '../models/model'
 import fs from 'fs'
 import * as schemas from '../data/schemas'
 import _ from 'lodash'
-import epubParser from '../epub/parser'
 
 const UPLOADS_DIR = '__uploads__'
 const BASE_DIR = process.cwd()
 
 const fileModel = new Model(schemas.file)
 
-// todo
-// 拆分 parser
-export function readFile(fileId) {
-  return fileModel.findOne(fileId).then(result => {
-    const filename = result.name
+export function readFile(fileId, parser?: (file: any) => Promise<{ any }>): Promise<any> {
+  return fileModel.findOne(fileId).then(fileResult => {
+    const filename = fileResult.name
     const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
-    const file = fs.readFileSync(filepath, 'utf8')
 
-    return _.assign({}, result, {
-      content: file
-    }) as any
+    if (parser && typeof parser === 'function') {
+      const binaryFile = fs.readFileSync(filepath, 'binary')
+      return parser(binaryFile).then(content => {
+        return _.assign({}, fileResult, {
+          content
+        })
+      })
+    }
+    return _.assign({}, fileResult, {
+      content: fs.readFileSync(filepath, 'utf8')
+    })
   })
 }
 
@@ -43,17 +47,4 @@ export function delFile(fileId) {
     }
     return Promise.reject(error) as any
   })
-}
-
-export function readLoggedEpub(fileId) {
-  return fileModel.findOne(fileId).then(result => {
-    const filename = result.name
-    const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
-
-    return readEpub(filepath)
-  })
-}
-
-export function readEpub(fullPathOrBinaryFile) {
-  return epubParser(fullPathOrBinaryFile)
 }

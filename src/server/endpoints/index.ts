@@ -13,10 +13,10 @@ export const user = makeBasicEndpoint(api.user)
 // common endpoints
 // books
 export const addBook = (req, res, next) => {
-  const filepath = `${req.__basePath}/${req.file.path}`
-  const binaryFile = fs.readFileSync(filepath, 'binary')
+  // const filepath = `${req.__basePath}/${req.file.path}`
+  // const binaryFile = fs.readFileSync(filepath, 'binary')
   req.apiResults.then(loggedFileId => {
-    req.apiResults = api.addBook(req.body, loggedFileId, binaryFile)
+    req.apiResults = api.addBook(req.body, loggedFileId)
     next()
   })
 }

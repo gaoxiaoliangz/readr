@@ -4,8 +4,8 @@ import * as schemas from '../data/schemas'
 import _ from 'lodash'
 import utils from '../utils'
 import { notFoundError } from '../helpers'
-import { readLoggedEpub, readFile } from './file'
-import { epubBinaryParser } from '../epub/parser'
+import { readFile } from './file'
+import parsers from '../parsers'
 
 const bookModel = new Model(schemas.book)
 const progressModel = new Model(schemas.progress)
@@ -28,32 +28,40 @@ export function findBook(id) {
   })
 }
 
-export function addBook(meta, fileId /* use md5 to resolve */, binaryFile?) {
-  // resolve file to get book meta
-  if (binaryFile) {
-    return epubBinaryParser(binaryFile).then(parsedContent => {
-      const author = parsedContent.meta.author
-      const mergeMeta = authorId => {
-        return _.assign({}, {
-          title: parsedContent.meta.title,
-          authors: [authorId],
-          file: fileId
-        }, meta)
-      }
+export function addBook(meta, fileId) {
+  if (fileId) { // resolve file to get book meta
+    return readFile(fileId).then(fileResult => {
+      if (fileResult.mimetype === 'application/epub+zip') {
+        return readFile(fileId, parsers.epubBinary).then(file => {
+          const parsedContent = file.content
+          const author = parsedContent.meta.author
+          const mergeMeta = authorId => {
+            return _.assign({}, {
+              title: parsedContent.meta.title,
+              authors: [authorId],
+              file: fileId
+            }, meta)
+          }
 
-      return authorModel.findOne({ name: author }).then(authorEntity => {
-        const authorId = authorEntity._id
-        return bookModel.add(mergeMeta(authorId))
-      }, err => {
-        return authorModel
-          .add({
-            name: author
-          })
-          .then(result => {
-            const authorId = result.ops[0]._id
+          return authorModel.findOne({ name: author }).then(authorEntity => {
+            const authorId = authorEntity._id
             return bookModel.add(mergeMeta(authorId))
+          }, err => {
+            return authorModel
+              .add({
+                name: author
+              })
+              .then(result => {
+                const authorId = result.ops[0]._id
+                return bookModel.add(mergeMeta(authorId))
+              })
           })
-      })
+        })
+      } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
+
+      } else {
+        return Promise.reject(new Error('Unsupported file type!'))
+      }
     })
   }
 
@@ -72,7 +80,7 @@ export function resolveBookContent(id) {
     }
 
     if (result.file.mimetype === 'application/epub+zip') {
-      return readLoggedEpub(fileId).then(fileResult => {
+      return readFile(fileId, parsers.epubBinary).then(fileResult => {
         return fileResult
       })
     }
