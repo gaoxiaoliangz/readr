@@ -4,6 +4,8 @@ import _ from 'lodash'
 const nodeZip = require('node-zip')
 const toMarkdown = require('to-markdown')
 
+const xmlParser = new xml2js.Parser()
+
 const hTagConverter = {
   filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
@@ -87,14 +89,56 @@ const flattenToc = parsedToc => {
   return list
 }
 
-export function epubBinaryParser(binaryFile) {
-  return new Promise<{meta; toc; flatToc; content}>((resolve, reject) => {
-    const zip = new nodeZip(binaryFile, { binary: true, base64: false, checkCRC32: true })
-    const tocFile = zip.file('toc.ncx').asText()
-    const contentFile = zip.file('content.opf').asText()
+const extractZipContent = filepath => zip => {
+  const file = zip.file(filepath)
+  if (file) {
+    return file.asText()
+  } else {
+    throw `${filepath} not found!`
+  }
+}
 
-    xml2js.parseString(tocFile, (err, result) => {
-      const parsedToc = parseToc(result)
+const getOpsRoot = opfPath => {
+  let opsRoot = ''
+  // set the opsRoot for resolving paths
+  if (opfPath.match(/\//)) { // not at top level
+    opsRoot = opfPath.replace(/\/([^\/]+)\.opf/i, '')
+    if (!opsRoot.match(/\/$/)) { // does not end in slash, but we want it to
+      opsRoot += '/'
+    }
+    if (opsRoot.match(/^\//)) {
+      opsRoot = opsRoot.replace(/^\//, '')
+    }
+    // 去掉 '/'
+    opsRoot = opsRoot.substr(0, opsRoot.length - 1)
+  }
+  return opsRoot
+}
+
+const xmlToJs = xml => {
+  return new Promise<any>((resolve, reject) => {
+    xmlParser.parseString(xml, (err, object) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(object)
+      }
+    })
+  })
+}
+
+export function epubBinaryParser(binaryFile) {
+  const zip = new nodeZip(binaryFile, { binary: true, base64: false, checkCRC32: true })
+  const containerXml = extractZipContent('META-INF/container.xml')(zip)
+
+  return xmlToJs(containerXml).then(containerJSON => {
+    const opfPath = containerJSON.container.rootfiles[0].rootfile[0]['$']['full-path']
+    const root = getOpsRoot(opfPath)
+    const contentXml = extractZipContent(`${root}/content.opf`)(zip)
+    const tocXml = extractZipContent(`${root}/toc.ncx`)(zip)
+
+    return xmlToJs(tocXml).then(tocJSON => {
+      const parsedToc = parseToc(tocJSON)
       const flatToc = flattenToc(parsedToc)
 
       const content = _(flatToc)
@@ -106,8 +150,8 @@ export function epubBinaryParser(binaryFile) {
         }))
         .value()
 
-      xml2js.parseString(contentFile, (err2, result2) => {
-        const metadata = _.get(result2, ['package', 'metadata'], [])
+      return xmlToJs(contentXml).then(contentJSON => {
+        const metadata = _.get(contentJSON, ['package', 'metadata'], [])
         const title = _.get(metadata[0], ['dc:title', 0])
         let author = _.get(metadata[0], ['dc:creator', 0])
 
@@ -122,7 +166,7 @@ export function epubBinaryParser(binaryFile) {
           publisher
         }
 
-        resolve({
+        return ({
           meta,
           toc: parsedToc.map(item => _.omit(item, ['fileSrc'])),
           flatToc: flatToc.map(item => _.omit(item, ['fileSrc'])),

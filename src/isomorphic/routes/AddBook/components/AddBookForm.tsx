@@ -123,19 +123,22 @@ class AddBookForm extends Component<AllProps, {}> {
               </div>
             )
             : (
-              <FileUploader
-                url="/api/books"
-                fileType=""
-                name="book-file"
-                onSuccess={result => {
-                  file.set(result)
-                } }
-                onError={error => {
-                  this.props.sendNotification(error.message, 'error')
-                } }
-                >
-                <Button color="white">选择书籍（支持 txt）</Button>
-              </FileUploader>
+              <div>
+                <FileUploader
+                  url="/api/books"
+                  accept=".txt,.epub"
+                  name="book-file"
+                  onSuccess={result => {
+                    file.set(result)
+                  } }
+                  onError={error => {
+                    this.props.sendNotification(error.message, 'error')
+                  } }
+                  >
+                  <Button color="white">选择书籍</Button>
+                </FileUploader>
+                <p>支持 txt 和 epub 格式</p>
+              </div>
             )
         }
         <Button onClick={handleSubmit(data => {

@@ -7,13 +7,13 @@ interface Callback {
 
 interface Props {
   url: string
-  fileType: string
   noAjax?: boolean
   onSuccess?: Callback
   onError?: Callback
   onComplete?: Callback
   name?: string
   multiple?: boolean
+  accept?: string
 }
 
 interface State {
@@ -72,7 +72,7 @@ class FileUploader extends Component<Props, State> {
       },
       error: function (jqXHR, textStatus, errorThrown) {
         if (onError) {
-          onError(errorThrown)
+          onError(jqXHR.responseJSON)
         }
       }
     })
@@ -82,7 +82,7 @@ class FileUploader extends Component<Props, State> {
   }
 
   render() {
-    const { url, fileType, noAjax, children, name, multiple } = this.props
+    const { url, accept, noAjax, children, name, multiple } = this.props
 
     // 如果页面上有两个上传组件可能会出错
     // input value 设为空会使得每次选中文件后都触发 onChange
@@ -95,7 +95,7 @@ class FileUploader extends Component<Props, State> {
           }
         } }
         style={{
-          cursor: 'pointer'
+          display: 'inline-block'
         }}
         >
         <form action={url} method="post" encType="multipart/form-data" style={noAjax ? {} : { display: 'none' }}>
@@ -111,7 +111,7 @@ class FileUploader extends Component<Props, State> {
                 this.handleFileChange(e)
               }
             } }
-            accept={`.${fileType}` || '.*'}
+            accept={accept || '.*'}
             />
           <input type="submit" value="提交" />
         </form>

@@ -75,7 +75,7 @@ class Master extends Component<Props, {}> {
             <Alerts
               onRequestClose={this.props.hideNotification}
               messages={this.props.notifications.map(noti => ({
-                content: noti.message,
+                content: noti.message || '发生错误！',
                 type: noti.type,
                 visible: noti.visible,
                 id: noti.id
