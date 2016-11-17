@@ -28,21 +28,17 @@ export function findBook(id) {
   })
 }
 
-export function addBook(meta, fileId) {
-  const getAuthorId = authorName => {
-    return authorModel
-      .findOne({ name: authorName })
-      .then(authorEntity => {
-        return authorEntity._id
-      }, err => {
-        return authorModel
-          .add({
-            name: authorName
-          })
-          .then(result => {
-            return result.ops[0]._id
-          })
+export async function addBook(meta, fileId) {
+  async function getAuthorId(authorName) {
+    try {
+      const authorEntity = await authorModel.findOne({ name: authorName })
+      return authorEntity._id
+    } catch (error) {
+      const result = await authorModel.add({
+        name: authorName
       })
+      return result.ops[0]._id
+    }
   }
 
   const mergeMeta = (title, authorId) => {
@@ -53,33 +49,29 @@ export function addBook(meta, fileId) {
     }, meta)
   }
 
-  const doSave = (title, authorName) => {
-    return getAuthorId(authorName)
-      .then(authorId => {
-        return bookModel.add(mergeMeta(title, authorId))
-      })
+  async function doSave(title, authorName) {
+    const authorId = await getAuthorId(authorName)
+    return bookModel.add(mergeMeta(title, authorId))
   }
 
   if (fileId) { // resolve file to get book meta
-    return readFile(fileId).then(fileResult => {
-      if (fileResult.mimetype === 'application/epub+zip') {
-        return readFile(fileId, parsers.epubBinary).then(file => {
-          const parsedContent = file.content
-          const authorName = parsedContent.meta.author
+    const fileResult = await readFile(fileId)
 
-          return doSave(parsedContent.meta.title, authorName)
-        })
-      } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
-        return readFile(fileId).then(file => {
-          const title = file.content.split('\n')[0]
-          const authorName = file.content.split('\n')[1]
+    if (fileResult.mimetype === 'application/epub+zip') {
+      const file = await readFile(fileId, parsers.epubBinary)
+      const parsedContent = file.content
+      const authorName = parsedContent.meta.author
 
-          return doSave(title, authorName)
-        })
-      } else {
-        return Promise.reject(new Error('Unsupported file type!'))
-      }
-    })
+      return doSave(parsedContent.meta.title, authorName)
+    } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
+      const file = await readFile(fileId)
+      const title = file.content.split('\n')[0]
+      const authorName = file.content.split('\n')[1]
+
+      return doSave(title, authorName)
+    } else {
+      return Promise.reject(new Error('Unsupported file type!'))
+    }
   }
 
   return bookModel.add(meta)
