@@ -29,36 +29,53 @@ export function findBook(id) {
 }
 
 export function addBook(meta, fileId) {
+  const getAuthorId = authorName => {
+    return authorModel
+      .findOne({ name: authorName })
+      .then(authorEntity => {
+        return authorEntity._id
+      }, err => {
+        return authorModel
+          .add({
+            name: authorName
+          })
+          .then(result => {
+            return result.ops[0]._id
+          })
+      })
+  }
+
+  const mergeMeta = (title, authorId) => {
+    return _.assign({}, {
+      title,
+      authors: [authorId],
+      file: fileId
+    }, meta)
+  }
+
+  const doSave = (title, authorName) => {
+    return getAuthorId(authorName)
+      .then(authorId => {
+        return bookModel.add(mergeMeta(title, authorId))
+      })
+  }
+
   if (fileId) { // resolve file to get book meta
     return readFile(fileId).then(fileResult => {
       if (fileResult.mimetype === 'application/epub+zip') {
         return readFile(fileId, parsers.epubBinary).then(file => {
           const parsedContent = file.content
-          const author = parsedContent.meta.author
-          const mergeMeta = authorId => {
-            return _.assign({}, {
-              title: parsedContent.meta.title,
-              authors: [authorId],
-              file: fileId
-            }, meta)
-          }
+          const authorName = parsedContent.meta.author
 
-          return authorModel.findOne({ name: author }).then(authorEntity => {
-            const authorId = authorEntity._id
-            return bookModel.add(mergeMeta(authorId))
-          }, err => {
-            return authorModel
-              .add({
-                name: author
-              })
-              .then(result => {
-                const authorId = result.ops[0]._id
-                return bookModel.add(mergeMeta(authorId))
-              })
-          })
+          return doSave(parsedContent.meta.title, authorName)
         })
       } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
+        return readFile(fileId).then(file => {
+          const title = file.content.split('\n')[0]
+          const authorName = file.content.split('\n')[1]
 
+          return doSave(title, authorName)
+        })
       } else {
         return Promise.reject(new Error('Unsupported file type!'))
       }
