@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookPageList from './components/BookPageList'
 import * as viewerUtils from './Viewer.utils'
-import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress } from '../../store/actions'
+import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookPageWithRawHtml from './components/BookPageWithRawHtml'
@@ -17,8 +17,9 @@ const styles = require('./Viewer.scss')
 
 interface AllProps {
   loadBook: loadBook
+  loadBookContent: loadBookContent
   book: any
-  rawBookContent: string
+  bookContent: any
   fetchProgress: (bookId: string) => void
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
@@ -144,8 +145,8 @@ class Viewer extends Component<AllProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const shoudCalcNodes = (this.props.rawBookContent === '' && nextProps.rawBookContent !== '')
-      || this.state.nodes.length === 0 && this.props.rawBookContent !== ''
+    const shoudCalcNodes = (_.isEmpty(this.props.bookContent) && !_.isEmpty(nextProps.bookContent))
+      || this.state.nodes.length === 0 && !_.isEmpty(this.props.bookContent)
 
     const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
 
@@ -158,7 +159,8 @@ class Viewer extends Component<AllProps, State> {
     }
 
     if (shoudCalcNodes) {
-      const nodes = viewerUtils.markdownToNodeStringList(nextProps.rawBookContent)
+      const allContentStr = nextProps.bookContent.flesh.map(item => item.markdown).join('')
+      const nodes = viewerUtils.markdownToNodeStringList(allContentStr)
 
       this.setState({
         nodes,
@@ -179,7 +181,8 @@ class Viewer extends Component<AllProps, State> {
 
   componentDidMount() {
     const { session } = this.props
-    this.props.loadBook(this.bookId, { withContent: true })
+    this.props.loadBook(this.bookId)
+    this.props.loadBookContent(this.bookId)
     this.addEventListeners()
 
     // 从其他页面直接进来的话 session 一开始就是确定的
@@ -256,10 +259,11 @@ class Viewer extends Component<AllProps, State> {
 const mapStateToProps = (state, ownProps: any) => {
   const bookId = ownProps.params.id
   const book = selectors.common.entity('books', bookId)(state)
+  const bookContent = selectors.common.entity('bookContents', bookId)(state)
 
   return {
     book,
-    rawBookContent: _.get(book, 'content.raw', ''),
+    bookContent,
     progress: state.components.viewer.bookProgress.percentage,
     isFetchingProgress: state.components.viewer.bookProgress.isFetching,
     session: state.session
@@ -268,5 +272,5 @@ const mapStateToProps = (state, ownProps: any) => {
 
 export default connect<{}, {}, AllProps>(
   mapStateToProps,
-  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress }
+  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent }
 )(Viewer)

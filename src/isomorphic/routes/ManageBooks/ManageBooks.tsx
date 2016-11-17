@@ -8,6 +8,8 @@ import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, remov
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
 import moment from 'moment'
+import FileUploader from '../../elements/FileUploader'
+import { Button } from '../../elements/form'
 
 interface Props {
   sendNotification?: any
@@ -73,12 +75,25 @@ class ManageBooks extends Component<Props, any> {
           pagination={{
             name: 'books'
           }}
-        >
+          >
+          <FileUploader
+            url="/api/books"
+            accept=".txt,.epub"
+            name="book-file"
+            onSuccess={result => {
+              this.loadBooks()
+            } }
+            onError={error => {
+              this.props.sendNotification(error.message, 'error')
+            } }
+            >
+            <Button color="blue">添加书籍</Button>
+          </FileUploader>
           <InfoTable
             data={bookListNewest.map(item => (Object.assign({}, item, {
               authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者',
               dateCreated: moment(new Date(item.dateCreated).valueOf()).format('YYYY年MM月DD日')
-            }))) }
+            })))}
             header={[
               {
                 key: 'id',

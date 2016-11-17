@@ -4,6 +4,10 @@ const book = new Schema('books', {
   idAttribute: 'id'
 })
 
+const bookContent = new Schema('bookContents', {
+  idAttribute: 'id'
+})
+
 const author = new Schema('authors', {
   idAttribute: 'id'
 })
@@ -42,6 +46,7 @@ const matchedBooks = new Schema('books', {
 
 export default {
   BOOK: book,
+  BOOK_CONTENT: bookContent,
   BOOK_PROGRESS: bookProgress,
   BOOK_ARRAY: arrayOf(book),
   DOUBAN_BOOK_SEARCH_RESULTS: {books: arrayOf(doubanBook)},

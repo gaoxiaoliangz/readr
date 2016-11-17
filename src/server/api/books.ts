@@ -77,8 +77,8 @@ export async function addBook(meta, fileId) {
   return bookModel.add(meta)
 }
 
-export async function resolveBookContent(id) {
-  const bookEntity = await bookModel.findOne(id)
+export async function resolveBookContent(bookId) {
+  const bookEntity = await bookModel.findOne(bookId)
   const fileId = bookEntity.file._id
   let bookContent
 
@@ -99,7 +99,7 @@ export async function resolveBookContent(id) {
     return Promise.reject(new Error('Unsupported file type!'))
   }
 
-  return bookContent
+  return _.assign({}, bookContent, { _id: bookId, content_id: fileId })
 }
 
 export function listBooks(page?) {

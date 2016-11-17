@@ -61,6 +61,7 @@ function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): any {
 }
 
 const fetchBook = fetchEntity.bind(null, actions.book, api.fetchBook)
+const fetchBookContent = fetchEntity.bind(null, actions.bookContent, api.fetchBookContent)
 const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
 const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
 
@@ -109,6 +110,10 @@ function* watchAllLoadRequests(): any {
 
       case actions.LOAD_BOOK:
         yield fork(handleLoad, fetchBook, parsedAction)
+        break
+
+      case actions.LOAD_BOOK_CONTENT:
+        yield fork(handleLoad, fetchBookContent, parsedAction)
         break
 
       default:

@@ -42,10 +42,19 @@ function createActionEntity(requestTypes: RequestTypes) {
 export const BOOK = createRequestTypes('book')
 export const book = createActionEntity(BOOK)
 export interface loadBook {
-  (id: string, options?: api.FetchBookOptions): any
+  (id: string): any
 }
 export const LOAD_BOOK = 'LOAD_BOOK'
-export const loadBook: loadBook = (id, options?) => action(LOAD_BOOK, { id, options })
+export const loadBook: loadBook = id => action(LOAD_BOOK, { id })
+
+
+export const BOOK_CONTENT = createRequestTypes('book-content')
+export const bookContent = createActionEntity(BOOK_CONTENT)
+export interface loadBookContent {
+  (id: string): any
+}
+export const LOAD_BOOK_CONTENT = 'LOAD_BOOK_CONTENT'
+export const loadBookContent: loadBookContent = id => action(LOAD_BOOK_CONTENT, { id })
 
 
 export const BOOKS = createRequestTypes('books')
@@ -75,7 +84,7 @@ export interface userLogout {
 export const userLogout: userLogout = () => action(USER_LOGOUT)
 
 // define load actions handled in sagas
-export const LOAD_ACTIONS = [LOAD_BOOK, LOAD_BOOKS, LOAD_USERS]
+export const LOAD_ACTIONS = [LOAD_BOOK, LOAD_BOOK_CONTENT, LOAD_BOOKS, LOAD_USERS]
 
 /**
  * legacy call api actions

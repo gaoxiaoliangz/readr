@@ -37,19 +37,17 @@ export function fetchNormalized(endpoint, schema, fetchOptions = {}) {
 /**
  * specific api services
  */
-export type FetchBookOptions = {
-  withContent?: boolean
-}
-export const fetchBook = (id, options: FetchBookOptions = {}) => {
-  const {withContent} = options
-  const apiOptions = !withContent
-    ? {
-      exclude: 'content'
-    }
-    : {}
+export const fetchBook = id => {
   return fetchNormalized(
-    parseEndpointWithOptions(`books/${id}`, apiOptions),
+    `books/${id}`,
     schemas.BOOK
+  )
+}
+
+export const fetchBookContent = id => {
+  return fetchNormalized(
+    `books/${id}/content`,
+    schemas.BOOK_CONTENT
   )
 }
 
