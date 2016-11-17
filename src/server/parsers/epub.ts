@@ -47,7 +47,7 @@ const resolveContent = zipPath => zipInstance => {
 
   if (content) {
     return toMarkdown(content.asText(), {
-      converters: [mdConverters.h, mdConverters.span, mdConverters.div]
+      converters: [mdConverters.h, mdConverters.span, mdConverters.div, mdConverters.img]
     })
   }
 

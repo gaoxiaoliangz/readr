@@ -4,13 +4,12 @@ export const h = {
   replacement: function (innerHTML, node) {
     let hLevel = node.tagName.charAt(1)
     let hPrefix = ''
-    const hEnd = ' TODO'
 
     for (let i = 0; i < hLevel; i++) {
       hPrefix += '#'
     }
 
-    return '\n' + hPrefix + ' ' + innerHTML + hEnd + '\n\n'
+    return `\n${hPrefix} ${innerHTML.trim()}\n\n`
   }
 }
 
@@ -26,6 +25,14 @@ export const div = {
   filter: ['div'],
 
   replacement: function (innerHTML, node) {
-    return innerHTML
+    return `\n${innerHTML}\n\n`
+  }
+}
+
+export const img = {
+  filter: ['img'],
+
+  replacement: function (innerHTML, node) {
+    return `\n[图]\n\n`
   }
 }

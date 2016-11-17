@@ -124,7 +124,6 @@ class Viewer extends Component<AllProps, State> {
     }, () => {
       const contentHtml = this.bookPageWithRawHtml.getContentHtml()
       const nodeHeights = viewerUtils.getNodeHeights(contentHtml.childNodes)
-      console.log('calc done')
       this.setState({
         nodeHeights,
         isCalcMode: false
@@ -159,7 +158,7 @@ class Viewer extends Component<AllProps, State> {
     }
 
     if (shoudCalcNodes) {
-      const allContentStr = nextProps.bookContent.flesh.map(item => item.markdown).join('')
+      const allContentStr = nextProps.bookContent.flesh.map(item => item.markdown).join('\n\n')
       const nodes = viewerUtils.markdownToNodeStringList(allContentStr)
 
       this.setState({
