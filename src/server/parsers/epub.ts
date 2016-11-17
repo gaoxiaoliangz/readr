@@ -94,7 +94,7 @@ const extractZipContent = filepath => zip => {
   if (file) {
     return file.asText()
   } else {
-    throw `${filepath} not found!`
+    throw new Error(`${filepath} not found!`)
   }
 }
 
@@ -103,14 +103,14 @@ const getOpsRoot = opfPath => {
   // set the opsRoot for resolving paths
   if (opfPath.match(/\//)) { // not at top level
     opsRoot = opfPath.replace(/\/([^\/]+)\.opf/i, '')
-    if (!opsRoot.match(/\/$/)) { // does not end in slash, but we want it to
+    if (!opsRoot.match(/\/$/)) { // 以 '/' 结尾，下面的 zip 路径写法会简单很多
       opsRoot += '/'
     }
     if (opsRoot.match(/^\//)) {
       opsRoot = opsRoot.replace(/^\//, '')
     }
     // 去掉 '/'
-    opsRoot = opsRoot.substr(0, opsRoot.length - 1)
+    // opsRoot = opsRoot.substr(0, opsRoot.length - 1)
   }
   return opsRoot
 }
@@ -135,8 +135,8 @@ export function binaryParser(binaryFile) {
   return xmlToJs(containerXml).then(containerJSON => {
     const opfPath = containerJSON.container.rootfiles[0].rootfile[0]['$']['full-path']
     const root = getOpsRoot(opfPath)
-    const contentXml = extractZipContent(`${root}/content.opf`)(zip)
-    const tocXml = extractZipContent(`${root}/toc.ncx`)(zip)
+    const contentXml = extractZipContent(`${root}content.opf`)(zip)
+    const tocXml = extractZipContent(`${root}toc.ncx`)(zip)
 
     return xmlToJs(tocXml).then(tocJSON => {
       const parsedToc = parseToc(tocJSON)
