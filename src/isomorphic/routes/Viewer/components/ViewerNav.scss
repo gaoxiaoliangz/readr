@@ -1,0 +1,11 @@
+@import "styles/_variables";
+
+.viewer-nav {
+  position: fixed;
+  top: 50px;
+  left: 20px;
+
+  ul {
+    margin-left: 20px;
+  }
+}

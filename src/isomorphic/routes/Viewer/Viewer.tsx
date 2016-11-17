@@ -7,6 +7,7 @@ import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, dest
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookPageWithRawHtml from './components/BookPageWithRawHtml'
+import ViewerNav from './components/ViewerNav'
 import CSSModules from 'react-css-modules'
 import api from '../../services/api'
 import utils from '../../utils'
@@ -244,9 +245,14 @@ class Viewer extends Component<AllProps, State> {
   }
 
   render() {
+    const { bookContent } = this.props
+
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
         <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
+          <ViewerNav
+            nav={bookContent.nav || []}
+          />
           {this.renderViewPanel()}
           {this.renderBook()}
         </div>
