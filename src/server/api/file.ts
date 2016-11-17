@@ -22,7 +22,7 @@ export function readFile(fileId, parser?: (file: any) => Promise<{ any }>): Prom
       })
     }
     return _.assign({}, fileResult, {
-      content: fs.readFileSync(filepath, 'utf8')
+      content: fs.readFileSync(filepath)
     })
   })
 }

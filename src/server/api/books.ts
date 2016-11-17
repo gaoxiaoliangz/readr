@@ -77,36 +77,29 @@ export async function addBook(meta, fileId) {
   return bookModel.add(meta)
 }
 
-export function resolveBookContent(id) {
-  return bookModel.findOne(id).then(result => {
-    const fileId = result.file._id
+export async function resolveBookContent(id) {
+  const bookEntity = await bookModel.findOne(id)
+  const fileId = bookEntity.file._id
+  let bookContent
 
-    if (!fileId) {
-      // 从这边报出的 404 和下面的提示会不一样
-      // 下面报的 404 可能是文件被删了
-      // 这边报 404 则是一开始数据库里就没存 file
-      return Promise.reject(notFoundError('book'))
-    }
+  if (!fileId) {
+    // 从这边报出的 404 和下面的提示会不一样
+    // 下面报的 404 可能是文件被删了
+    // 这边报 404 则是一开始数据库里就没存 file
+    return Promise.reject(notFoundError('book'))
+  }
 
-    if (result.file.mimetype === 'application/epub+zip') {
-      return readFile(fileId, parsers.epubBinary).then(fileResult => {
-        return fileResult
-      })
-    }
+  if (bookEntity.file.mimetype === 'application/epub+zip') {
+    const fileResult = await readFile(fileId, parsers.epubBinary)
+    bookContent = _.omit(fileResult.content, ['meta'])
+  } else if (bookEntity.file.mimetype === 'text/plain') {
+    const fileResult = await readFile(fileId, parsers.txtBinary)
+    bookContent = fileResult.content
+  } else {
+    return Promise.reject(new Error('Unsupported file type!'))
+  }
 
-    return readFile(fileId).then(fileResult => {
-      const fileContent = fileResult.content
-
-      return _(result)
-        .omit(['file'])
-        .assign({
-          content: {
-            raw: fileContent
-          }
-        })
-        .value()
-    })
-  })
+  return bookContent
 }
 
 export function listBooks(page?) {

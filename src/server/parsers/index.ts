@@ -1,2 +1,3 @@
 import epub, { binaryParser as epubBinary} from './epub'
-export default { epub, epubBinary }
+import txtBinary from './txt'
+export default { epub, epubBinary, txtBinary }
