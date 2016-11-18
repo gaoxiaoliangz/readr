@@ -8,10 +8,10 @@ export default async function txtBinary(binaryFile) {
   const buffer = new Buffer(binaryFile, 'binary')
   const txt = buffer.toString()
 
-  const flesh = {
+  const flesh = [{
     src: 'part01',
     markdown: txt
-  }
+  }]
 
   return { nav, flesh }
 }

@@ -35,17 +35,17 @@ export function markdownToNodeStringList(markdown: string): string[] {
   const nodes = Array.prototype
     .map.call($(html), (ele, index) => {
       if (ele.nodeType === 3 && ele.nodeValue === '\n') {
-        // 移除 html 里的回车
+        // 移除元素间的回车
         return null
       }
 
       if (ele.tagName === 'P') {
         return `<p class="gb-line">${ele.innerHTML}</p>`
       } else {
-        return `<div class="gb-line">${ele.outerHTML}</div>`
+        return `<div class="gb-line">${ele.outerHTML || ele.innerHTML || ele.textContent}</div>`
       }
     })
-    .filter(node => node)
+    .filter(node => Boolean(node))
 
   const endModHtmlTime = new Date().valueOf()
 

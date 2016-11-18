@@ -159,7 +159,8 @@ class Viewer extends Component<AllProps, State> {
     }
 
     if (shoudCalcNodes) {
-      const allContentStr = nextProps.bookContent.flesh.map(item => item.markdown).join('\n\n')
+      const mdArr = nextProps.bookContent.flesh.map(item => item.markdown)
+      const allContentStr = mdArr.join('\n\n')
       const nodes = viewerUtils.markdownToNodeStringList(allContentStr)
 
       this.setState({
