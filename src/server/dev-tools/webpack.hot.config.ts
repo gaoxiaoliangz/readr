@@ -45,7 +45,8 @@ const config = {
       base.loaders.typescript({
         officialLoader: false,
         isHot: true
-      })
+      }),
+      base.loaders.json()
     ]
   },
   sassLoader: base.loaders.loaderConfig.sassLoader(),

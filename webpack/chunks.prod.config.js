@@ -54,6 +54,7 @@ module.exports = {
         officialLoader: false,
         isHot: false
       }),
+      base.loaders.json()
     ],
   },
   sassLoader: base.loaders.loaderConfig.sassLoader(),

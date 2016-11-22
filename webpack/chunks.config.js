@@ -34,6 +34,7 @@ module.exports = {
       base.loaders.typescript({
         officialLoader: false
       }),
+      base.loaders.json()
     ],
   },
   sassLoader: base.loaders.loaderConfig.sassLoader(),

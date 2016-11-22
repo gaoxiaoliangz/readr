@@ -28,6 +28,7 @@ module.exports = {
       base.loaders.typescript({
         officialLoader: false
       }),
+      base.loaders.json()
     ],
   },
   devtool: 'inline-source-map',
