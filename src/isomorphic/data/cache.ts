@@ -41,8 +41,7 @@ export function setCache(key, content) {
     save()
   } catch (error) {
     if (error.name === 'QuotaExceededError') {
-      // todo
-      // 能否只清除最旧的
+      // TODO: 能否只清除最旧的
       console.warn('本地缓存已满，旧的缓存将被清除！')
       localStorage.clear()
       save()

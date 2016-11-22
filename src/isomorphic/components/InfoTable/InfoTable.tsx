@@ -10,7 +10,7 @@ interface IProps {
     name: string | JSX.Element
   }[]
   data: any[]
-  // todo
+  // TODO: 实现控制显示
   enableTooltip?: boolean
   style?: any
   actions?: {

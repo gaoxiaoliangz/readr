@@ -233,7 +233,7 @@ class Viewer extends Component<AllProps, State> {
       return (
         <BookPageList
           nodeHeights={nodeHeights}
-          nodes={this.state.nodes}
+          nodes={nodes}
           pageCount={5}
           initialProgress={progress}
           pageHeight={900}
