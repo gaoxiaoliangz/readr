@@ -69,11 +69,10 @@ class BookPageList extends Component<IProps, IState> {
 
   removeEventListeners() {
     window.removeEventListener('scroll', this.deboundedHandleScroll)
-    console.log('removed')
   }
 
   calcPages() {
-    // todo: 添加缓存
+    // TODO: 添加缓存
     const { nodeHeights, nodes, pageHeight } = this.props
     const pages = utils.groupNodesByPage(nodes, nodeHeights, pageHeight)
 

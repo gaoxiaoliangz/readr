@@ -6,7 +6,6 @@ import * as viewerUtils from './Viewer.utils'
 import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
-import BookChapters from './components/BookChapters'
 import BookPageWithRawHtml from './components/BookPageWithRawHtml'
 import ViewerNav from './components/ViewerNav'
 import CSSModules from 'react-css-modules'
@@ -21,13 +20,7 @@ interface AllProps {
   loadBook: loadBook
   loadBookContent: loadBookContent
   book: any
-  bookContent: {
-    nav: any
-    flesh: {
-      markdown: string
-      id: string
-    }[]
-  }
+  bookContent: any
   fetchProgress: (bookId: string) => void
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
@@ -46,7 +39,6 @@ interface State {
   fluid?: boolean
   isTouchMode?: boolean
   showPageInfo?: boolean
-  computedChapters?: any[]
 }
 
 @CSSModules(styles)
@@ -64,7 +56,6 @@ class Viewer extends Component<AllProps, State> {
       showViewerPreference: false,
       fluid: false,
       isTouchMode: false,
-      computedChapters: []
     }
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
@@ -73,7 +64,6 @@ class Viewer extends Component<AllProps, State> {
     this.deboundedHandleResize = _.debounce(this.handleResize, 500, {
       maxWait: 1000
     })
-    this.handleChapterMount = this.handleChapterMount.bind(this)
   }
 
   bookId: string
@@ -129,36 +119,17 @@ class Viewer extends Component<AllProps, State> {
     }
   }
 
-  calcDom(wrap: HTMLElement) {
-    const computedChapters = Array.prototype
-      .map.call(wrap.childNodes, child => {
-        const childDiv = child as HTMLDivElement
-        const id = childDiv.getAttribute('id')
-        const nodeHeights = viewerUtils.getNodeHeights(childDiv.querySelector('.lines').childNodes)
-
-        return {
-          id,
-          nodeHeights
-        }
-      })
-
+  calcDom() {
     this.setState({
-      computedChapters
+      isCalcMode: true
+    }, () => {
+      const contentHtml = this.bookPageWithRawHtml.getContentHtml()
+      const nodeHeights = viewerUtils.getNodeHeights(contentHtml.childNodes)
+      this.setState({
+        nodeHeights,
+        isCalcMode: false
+      })
     })
-    // this.setState({
-    //   isCalcMode: true
-    // }, () => {
-    //   const contentHtml = this.bookPageWithRawHtml.getContentHtml()
-    //   const nodeHeights = viewerUtils.getNodeHeights(contentHtml.childNodes)
-    //   this.setState({
-    //     nodeHeights,
-    //     isCalcMode: false
-    //   })
-    // })
-  }
-
-  handleChapterMount(ele: HTMLElement) {
-    this.calcDom(ele)
   }
 
   addEventListeners() {
@@ -174,39 +145,39 @@ class Viewer extends Component<AllProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    // const shoudCalcNodes = (_.isEmpty(this.props.bookContent) && !_.isEmpty(nextProps.bookContent))
-    //   || this.state.nodes.length === 0 && !_.isEmpty(this.props.bookContent)
+    const shoudCalcNodes = (_.isEmpty(this.props.bookContent) && !_.isEmpty(nextProps.bookContent))
+      || this.state.nodes.length === 0 && !_.isEmpty(this.props.bookContent)
 
-    // const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
+    const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
 
-    // if (sessionDetermined && nextProps.session.user.role !== 'visitor') {
-    //   this.props.fetchProgress(this.bookId)
-    // }
+    if (sessionDetermined && nextProps.session.user.role !== 'visitor') {
+      this.props.fetchProgress(this.bookId)
+    }
 
-    // if (sessionDetermined && nextProps.session.user.role === 'visitor') {
-    //   this.props.initializeBookProgress()
-    // }
+    if (sessionDetermined && nextProps.session.user.role === 'visitor') {
+      this.props.initializeBookProgress()
+    }
 
-    // if (shoudCalcNodes) {
-    //   const mdArr = nextProps.bookContent.flesh.map(item => item.markdown)
-    //   const allContentStr = mdArr.join('\n\n')
-    //   const nodes = viewerUtils.markdownToNodeStringList(allContentStr)
+    if (shoudCalcNodes) {
+      const mdArr = nextProps.bookContent.flesh.map(item => item.markdown)
+      const allContentStr = mdArr.join('\n\n')
+      const nodes = viewerUtils.markdownToNodeStringList(allContentStr)
 
-    //   this.setState({
-    //     nodes,
-    //     fluid: this.isViewFluid(),
-    //     isTouchMode: this.isTouchMode()
-    //   })
-    // }
+      this.setState({
+        nodes,
+        fluid: this.isViewFluid(),
+        isTouchMode: this.isTouchMode()
+      })
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // const hasBookNodesLoaded = this.state.nodes.length !== 0 && prevState.nodes.length === 0
-    // const viewChanged = this.state.fluid !== prevState.fluid
+    const hasBookNodesLoaded = this.state.nodes.length !== 0 && prevState.nodes.length === 0
+    const viewChanged = this.state.fluid !== prevState.fluid
 
-    // if (hasBookNodesLoaded || viewChanged) {
-    //   this.calcDom()
-    // }
+    if (hasBookNodesLoaded || viewChanged) {
+      this.calcDom()
+    }
   }
 
   componentDidMount() {
@@ -242,43 +213,36 @@ class Viewer extends Component<AllProps, State> {
 
   renderBook() {
     const { nodes, nodeHeights, fluid, showPageInfo } = this.state
-    const { progress, bookContent } = this.props
+    const { progress } = this.props
 
-    // if (nodes.length === 0) {
-    //   return <Loading text="书籍获取中" center />
-    // }
+    if (nodes.length === 0) {
+      return <Loading text="书籍获取中" center />
+    }
 
-    // if (this.state.isCalcMode) {
-    //   return (
-    //     <BookPageWithRawHtml
-    //       nodes={nodes}
-    //       ref={ref => { this.bookPageWithRawHtml = ref } }
-    //       fluid={fluid}
-    //       />
-    //   )
-    // } else {
-    //   // 移除了获取等待
-    //   // 一旦获取到进度，会使页面直接跳转过去
-    //   return (
-    //     <BookPageList
-    //       nodeHeights={nodeHeights}
-    //       nodes={nodes}
-    //       pageCount={5}
-    //       initialProgress={progress}
-    //       pageHeight={900}
-    //       onProgressChange={this.handleProgressChange}
-    //       fluid={fluid}
-    //       showPageInfo={showPageInfo}
-    //       />
-    //   )
-    // }
-
-    return (
-      <BookChapters
-        bookFlesh={bookContent.flesh}
-        onUpdate={this.handleChapterMount}
-        />
-    )
+    if (this.state.isCalcMode) {
+      return (
+        <BookPageWithRawHtml
+          nodes={nodes}
+          ref={ref => { this.bookPageWithRawHtml = ref } }
+          fluid={fluid}
+          />
+      )
+    } else {
+      // 移除了获取等待
+      // 一旦获取到进度，会使页面直接跳转过去
+      return (
+        <BookPageList
+          nodeHeights={nodeHeights}
+          nodes={nodes}
+          pageCount={5}
+          initialProgress={progress}
+          pageHeight={900}
+          onProgressChange={this.handleProgressChange}
+          fluid={fluid}
+          showPageInfo={showPageInfo}
+          />
+      )
+    }
   }
 
   render() {
@@ -289,7 +253,7 @@ class Viewer extends Component<AllProps, State> {
         <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
           <ViewerNav
             nav={bookContent.nav || []}
-            />
+          />
           {this.renderViewPanel()}
           {this.renderBook()}
         </div>

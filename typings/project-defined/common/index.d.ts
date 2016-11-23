@@ -37,6 +37,14 @@ type ProjectConfig = {
   }
 }
 
+type TBookPage = {
+  nodes: string[]
+  meta?: {
+    pageNo?: number
+    offset?: number
+  }
+}
+
 
 /**
  * types & interfaces
