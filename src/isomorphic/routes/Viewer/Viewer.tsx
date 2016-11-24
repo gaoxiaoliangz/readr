@@ -17,6 +17,7 @@ import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 import * as bookPageListUtils from './components/BookPageList.utils'
+import $ from 'jquery'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -170,7 +171,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleChapterUpdate(ele: HTMLElement) {
-    this.calcDom(ele)
+    // this.calcDom(ele)
   }
 
   addEventListeners() {
@@ -231,6 +232,8 @@ class Viewer extends Component<AllProps, State> {
     if (session.determined && session.user.role !== 'visitor') {
       this.props.fetchProgress(this.bookId)
     }
+
+    // $('body').on('click', '')
   }
 
   componentWillUnmount() {
@@ -285,14 +288,14 @@ class Viewer extends Component<AllProps, State> {
     //   )
     // }
 
-    if (computedPages.length !== 0) {
-      return (
-        <BookPages
-          pages={computedPages.slice(0, 10)}
-          pageHeight={900}
-        />
-      )
-    }
+    // if (computedPages.length !== 0) {
+    //   return (
+    //     <BookPages
+    //       pages={computedPages.slice(0, 10)}
+    //       pageHeight={900}
+    //     />
+    //   )
+    // }
 
     return (
       <BookChapters

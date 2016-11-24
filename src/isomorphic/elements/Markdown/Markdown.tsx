@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import marked from 'marked'
 import $ from 'jquery'
 const ReactMarkdown = require('react-markdown')
+const renderer = new marked.Renderer()
 
 interface Props {
   input: string
@@ -11,6 +12,7 @@ interface Props {
    * 'P': (node) => void
    * 'ALL': 优先级比任何具体的标签都要低
    */
+  markedRenderers?: any
   renderers?: any
   safe?: boolean
   className?: string
@@ -29,19 +31,25 @@ class Markdown extends Component<Props, {}> {
     const { input, renderers } = this.props
 
     return (
-      <ReactMarkdown className={className} source={input} renderers={renderers || {}} />
+      <ReactMarkdown
+        className={className}
+        source={input}
+        renderers={renderers || {}}
+        escapeHtml={false}
+        skipHtml={false}
+        />
     )
   }
 
   renderUnSafely(className) {
-    const { input, renderers } = this.props
+    const { input, markedRenderers } = this.props
 
     let html = marked(input, {
       gfm: true,
       breaks: true
     })
 
-    if (renderers) {
+    if (markedRenderers) {
       html = Array.prototype
         .filter.call($(html), ele => {
           // 移除元素间的回车及字符串
@@ -50,12 +58,12 @@ class Markdown extends Component<Props, {}> {
         .map(ele => {
           const tagName = ele.tagName
 
-          if (renderers[tagName]) {
-            return renderers[tagName](ele)
+          if (markedRenderers[tagName]) {
+            return markedRenderers[tagName](ele)
           }
 
-          if (renderers['ALL']) {
-            return renderers['ALL'](ele)
+          if (markedRenderers['ALL']) {
+            return markedRenderers['ALL'](ele)
           }
 
           return ele.outerHTML

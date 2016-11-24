@@ -11,6 +11,10 @@ interface Props {
   fluid: boolean
 }
 
+const Para = () => {
+  return <p>hehehheheheh</p>
+}
+
 @CSSModules(styles)
 class BookPage extends Component<Props, {}> {
 
@@ -49,8 +53,18 @@ class BookPage extends Component<Props, {}> {
           <Markdown
             className="lines"
             input={mdInput}
-            safe={false}
+            safe={true}
             renderers={{
+              'Paragraph': p => {
+                console.log(p)
+                return <p>yes</p>
+              }
+              // 'Link': link => {
+              //   console.log(link)
+              //   return <span>a link</span>
+              // }
+            }}
+            markedRenderers={{
               'P': ele => {
                 return `<p class="gb-line">${ele.innerHTML}</p>`
               },
