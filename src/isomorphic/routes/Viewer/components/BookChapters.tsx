@@ -34,14 +34,20 @@ class BookChapters extends Component<Props, {}> {
     return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
-  componentDidUpdate() {
+  triggerUpdate() {
     const { onUpdate } = this.props
     if (onUpdate) {
+      console.log('updated in BookChapters')
       onUpdate(this.chapters)
     }
   }
 
+  componentDidUpdate() {
+    this.triggerUpdate()
+  }
+
   componentDidMount() {
+    this.triggerUpdate()
   }
 
   render() {

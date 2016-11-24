@@ -7,10 +7,8 @@ const ReactMarkdown = require('react-markdown')
 interface Props {
   input: string
   /**
-   * 如果不使用 safe
-   * 那么 renderers 是一个由全大写标签名作为 key 组成的 object，值是一个回调函数，参数是 marked 的返回值
-   * 'P': (node) => void
-   * 'ALL': 优先级比任何具体的标签都要低
+   * line 为自定义的 renderer, 在 marked 完成后运行，可能对性能有影响
+   * line(node)
    */
   markedRenderers?: any
   renderers?: any
@@ -45,43 +43,31 @@ class Markdown extends Component<Props, {}> {
     const { input, markedRenderers } = this.props
     let renderer = new marked.Renderer()
 
-    // renderer.paragraph = text => {
-    //   return `<p class="hehe">${text}</p>`
-    // }
-
     if (markedRenderers) {
       _.forEach(markedRenderers, (val, key) => {
-        renderer[key] = val
+        if (key !== 'line') {
+          renderer[key] = val
+        }
       })
     }
 
-    const html = marked(input, {
-      gfm: true,
+    let html = marked(input, {
+      gfm: false,
       breaks: true,
       renderer
     })
 
-    // if (markedRenderers) {
-    //   html = Array.prototype
-    //     .filter.call($(html), ele => {
-    //       // 移除元素间的回车及字符串
-    //       return ele.nodeType !== 3
-    //     })
-    //     .map(ele => {
-    //       const tagName = ele.tagName
-
-    //       if (markedRenderers[tagName]) {
-    //         return markedRenderers[tagName](ele)
-    //       }
-
-    //       if (markedRenderers['ALL']) {
-    //         return markedRenderers['ALL'](ele)
-    //       }
-
-    //       return ele.outerHTML
-    //     })
-    //     .join('')
-    // }
+    if (markedRenderers && markedRenderers.line) {
+      html = Array.prototype
+        .filter.call($(html), ele => {
+          // 移除元素间的回车及字符串
+          return ele.nodeType !== 3
+        })
+        .map(ele => {
+          return markedRenderers.line(ele)
+        })
+        .join('')
+    }
 
     return <div className={className} dangerouslySetInnerHTML={{ __html: html }} />
   }

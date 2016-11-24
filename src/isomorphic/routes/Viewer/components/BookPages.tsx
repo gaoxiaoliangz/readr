@@ -10,6 +10,7 @@ interface Props {
   pages: TBookPage[]
   pageHeight?: number
   fluid?: boolean
+  totalHeight?: number
 }
 
 interface AllProps extends Props {
@@ -28,35 +29,27 @@ class BookPages extends Component<AllProps, {}> {
   }
 
   render() {
-    const { pages, fluid, pageHeight } = this.props
+    const { pages, fluid, pageHeight, totalHeight } = this.props
     const className = classnames({
       'pages': !fluid,
       'pages--fluid': fluid
     })
 
-    let ulStyle = {}
-
-    if (pageHeight) {
-      ulStyle = { height: pages.length * pageHeight }
-    }
-
     return (
-      <div>
-        <ul styleName={className} style={ulStyle}>
-          {
-            pages.map((page, index) => {
-              return (
-                <BookPage
-                  fluid={fluid}
-                  page={page}
-                  pageHeight={pageHeight}
-                  key={index}
-                  />
-              )
-            })
-          }
-        </ul>
-      </div>
+      <ul styleName={className} style={{height: totalHeight || 'auto'}}>
+        {
+          pages.map((page, index) => {
+            return (
+              <BookPage
+                fluid={fluid}
+                page={page}
+                pageHeight={pageHeight}
+                key={index}
+                />
+            )
+          })
+        }
+      </ul>
     )
   }
 }

@@ -50,31 +50,24 @@ class BookPage extends Component<Props, {}> {
             className="lines"
             input={mdInput}
             safe={false}
-            renderers={{
-              'Paragraph': p => {
-                console.log(p)
-                return <p>yes</p>
-              }
-              // 'Link': link => {
-              //   console.log(link)
-              //   return <span>a link</span>
-              // }
-            }}
             markedRenderers={{
               paragraph(text) {
                 return `<p class="gb-line">${text}</p>`
               },
               link(href, title, text) {
-                console.log(href, title, text)
                 if (href.indexOf('http://') === -1) {
-                  return `<a href="${href}" class="js-link-nav" title="${title}">${text}</a>`
+                  return `<a href="${href}" class="js-book-nav">${text}</a>`
                 }
 
-                return `<a href="${href}" title="${title}">${text}</a>`
+                return `<a href="${href}" target="_blank">${text}</a>`
+              },
+              line(ele: HTMLElement) {
+                const tagName = ele.tagName
+                if (tagName !== 'P') {
+                  return `<div class="gb-line">${ele.outerHTML || ele.innerHTML || ele.textContent}</div>`
+                }
+                return ele.outerHTML
               }
-              // 'ALL': ele => {
-              //   return `<div class="gb-line">${ele.outerHTML || ele.innerHTML || ele.textContent}</div>`
-              // }
             }}
             />
         </div>

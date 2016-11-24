@@ -34,14 +34,16 @@ class ViewerNav extends Component<Props, State> {
             if (item.children) {
               return (
                 <li key={index}>
-                  {item.label}
+                  <a className="js-book-nav" href={item.ref}>{item.label}</a>
                   {this.renderNav(item.children)}
                 </li>
               )
             }
 
             return (
-              <li key={index}>{item.label}</li>
+              <li key={index}>
+                <a className="js-book-nav" href={item.ref}>{item.label}</a>
+              </li>
             )
           })
         }
