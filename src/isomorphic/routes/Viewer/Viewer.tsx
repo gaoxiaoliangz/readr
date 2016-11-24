@@ -33,6 +33,7 @@ interface AllProps {
   isFetchingProgress: boolean
   initializeBookProgress: any
   destroyBookProgress: any
+  sendNotification: sendNotification
 }
 
 interface State {
@@ -159,18 +160,25 @@ class Viewer extends Component<AllProps, State> {
   resolveBookLocation(href) {
     const { computedPages } = this.state
     const chapterId = href.split('$')[0]
+    const hash = href.split('$')[1]
 
-    let found = false
     let i = 0
-    while (!found) {
+    while (i < computedPages.length) {
       const page = computedPages[i]
-      if (page.meta.chapterId === chapterId) {
-        return page.meta.pageNo
+      if (`#${page.meta.chapterId}` === chapterId) {
+        if (hash) {
+          if (page.meta.hash && page.meta.hash.indexOf(hash) !== -1) {
+            console.log(page.meta.pageNo)
+            return page.meta.pageNo
+          }
+        } else {
+          return page.meta.pageNo
+        }
       }
       i++
     }
 
-    // this.props.sendNotification()
+    this.props.sendNotification('未找到位置！', 'error')
   }
 
   addEventListeners() {
@@ -222,7 +230,9 @@ class Viewer extends Component<AllProps, State> {
       e.preventDefault()
       const href = e.target.getAttribute('href')
       const pageNo = this.resolveBookLocation(href)
-      this.props.updateBookProgress(pageNo / this.state.computedPages.length)
+      if (pageNo) {
+        this.props.updateBookProgress(pageNo / this.state.computedPages.length)
+      }
     })
   }
 

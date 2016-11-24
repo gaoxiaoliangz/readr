@@ -6,6 +6,7 @@ interface Nav {
   index: number
   label: string
   ref: string
+  hash?: string
   children?: Nav[]
 }
 
@@ -26,6 +27,13 @@ class ViewerNav extends Component<Props, State> {
   componentDidMount() {
   }
 
+  renderLink(ref, hash, label) {
+    if (hash) {
+      return <a className="js-book-nav" href={`#${ref}$${hash}`}>{label}</a>
+    }
+    return <a className="js-book-nav" href={`#${ref}`}>{label}</a>
+  }
+
   renderNav(navList: Nav[]) {
     return (
       <ul>
@@ -34,7 +42,7 @@ class ViewerNav extends Component<Props, State> {
             if (item.children) {
               return (
                 <li key={index}>
-                  <a className="js-book-nav" href={item.ref}>{item.label}</a>
+                  {this.renderLink(item.ref, item.hash, item.label)}
                   {this.renderNav(item.children)}
                 </li>
               )
@@ -42,7 +50,7 @@ class ViewerNav extends Component<Props, State> {
 
             return (
               <li key={index}>
-                <a className="js-book-nav" href={item.ref}>{item.label}</a>
+                {this.renderLink(item.ref, item.hash, item.label)}
               </li>
             )
           })
