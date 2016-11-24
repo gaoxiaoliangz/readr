@@ -60,6 +60,12 @@ function bookProgress(state = {}, action): any {
         percentage: 0
       }
 
+    case actions.BOOK_PROGRESS_UPDATE:
+      return {
+        isFetching: false,
+        percentage: action.percentage
+      }
+
     case actions.BOOK_PROGRESS_DESTROY:
       return {}
 

@@ -86,6 +86,17 @@ export const initializeBookProgress = () => {
   }
 }
 
+export interface updateBookProgress {
+  (percentage: number): any
+}
+export const BOOK_PROGRESS_UPDATE = createActionType('viewer/progress', 'UPDATE')
+export const updateBookProgress: updateBookProgress = percentage => {
+  return {
+    percentage,
+    type: BOOK_PROGRESS_UPDATE,
+  }
+}
+
 export const BOOK_PROGRESS_DESTROY = createActionType('viewer/progress', 'DESTROY')
 export const destroyBookProgress = () => {
   return {

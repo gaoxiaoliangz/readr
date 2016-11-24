@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookContainer from './components/BookContainer'
 import * as viewerUtils from './Viewer.utils'
-import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent } from '../../store/actions'
+import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
@@ -26,6 +26,7 @@ interface AllProps {
     flesh: TBookFlesh
   }
   fetchProgress: (bookId: string) => void
+  updateBookProgress: updateBookProgress
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
   session: any
@@ -155,6 +156,21 @@ class Viewer extends Component<AllProps, State> {
     this.calcDom(ele)
   }
 
+  resolveBookLocation(href) {
+    const { computedPages } = this.state
+    const chapterId = href.split('$')[0]
+
+    let found = false
+    let i = 0
+    while (!found) {
+      const page = computedPages[i]
+      if (page.meta.chapterId === chapterId) {
+        return page.meta.pageNo
+      }
+      i++
+    }
+  }
+
   addEventListeners() {
     window.addEventListener('resize', this.resizeLazily)
   }
@@ -202,7 +218,9 @@ class Viewer extends Component<AllProps, State> {
 
     $('body').on('click', 'a.js-book-nav', e => {
       e.preventDefault()
-      console.log(e.target.getAttribute('href'))
+      const href = e.target.getAttribute('href')
+      const pageNo = this.resolveBookLocation(href)
+      this.props.updateBookProgress(pageNo / this.state.computedPages.length)
     })
   }
 
@@ -294,5 +312,5 @@ const mapStateToProps = (state, ownProps: any) => {
 
 export default connect<{}, {}, AllProps>(
   mapStateToProps,
-  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent }
+  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress }
 )(Viewer)
