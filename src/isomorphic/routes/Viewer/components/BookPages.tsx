@@ -4,7 +4,7 @@ import { sendNotification } from '../../../store/actions'
 import BookPage from './BookPage'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-const styles = require('./BookPageList.scss')
+const styles = require('./BookPages.scss')
 
 interface Props {
   pages: TBookPage[]

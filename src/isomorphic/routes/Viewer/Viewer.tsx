@@ -14,7 +14,6 @@ import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
-import * as bookPageListUtils from './components/BookPageList.utils'
 import $ from 'jquery'
 const styles = require('./Viewer.scss')
 
@@ -142,7 +141,7 @@ class Viewer extends Component<AllProps, State> {
       console.info(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
     }
 
-    const computedPages = bookPageListUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
+    const computedPages = viewerUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
 
     this.setState({
       computedPages,

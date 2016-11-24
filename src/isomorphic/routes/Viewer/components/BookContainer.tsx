@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import BookPages from './BookPages'
 import ViewerScrollbar from './ViewerScrollbar'
-import * as utils from './BookPageList.utils'
+import * as utils from '../Viewer.utils'
 import _ from 'lodash'
 
 interface Props {
