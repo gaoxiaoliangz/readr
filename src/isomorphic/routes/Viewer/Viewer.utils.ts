@@ -15,41 +15,6 @@ export function getNodeHeights(nodes) {
   return nodesHeight
 }
 
-// export function markdownToNodeStringList(markdown: string): string[] {
-//   const startTime = new Date().valueOf()
-//   let html = marked(markdown, {
-//     gfm: true,
-//     breaks: true
-//   })
-//   const endMarkedTime = new Date().valueOf()
-//   if (process.env.NODE_ENV !== 'production') {
-//     console.info(`Marked takes ${endMarkedTime - startTime}ms`)
-//   }
-//   const nodes = Array.prototype
-//     .map.call($(html), (ele, index) => {
-//       if (ele.nodeType === 3 && ele.nodeValue === '\n') {
-//         // 移除元素间的回车
-//         return null
-//       }
-
-//       if (ele.tagName === 'P') {
-//         return `<p class="gb-line">${ele.innerHTML}</p>`
-//       } else {
-//         return `<div class="gb-line">${ele.outerHTML || ele.innerHTML || ele.textContent}</div>`
-//       }
-//     })
-//     .filter(node => Boolean(node))
-
-//   const endModHtmlTime = new Date().valueOf()
-
-//   if (process.env.NODE_ENV !== 'production') {
-//     console.info(`Modifying html takes ${endModHtmlTime - endMarkedTime}ms`)
-//   }
-
-//   return nodes
-// }
-
-
 // long paragraph situation doesn't seem to affect this function
 // offset distance is always negtive or zero
 // the index will be of the paragraph with this offset at the end
@@ -135,12 +100,25 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   for (let i = 0; i < pageSum; i++) {
     const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes, nodeHeights, pageHeight })
 
+    const findIdOfHTags = (mdNode: string) => {
+      const id = ''
+
+      return id
+    }
+
+    const hash = pageNodes
+      .map(node => {
+        return findIdOfHTags(node)
+      })
+      .filter(id => Boolean(id))
+
     pages.push({
       nodes: pageNodes,
       meta: {
         pageNo: pageStartFrom + i + 1,
         offset,
-        chapterId
+        chapterId,
+        hash
       },
     })
   }

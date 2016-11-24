@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookContainer from './components/BookContainer'
 import * as viewerUtils from './Viewer.utils'
-import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress } from '../../store/actions'
+import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress, sendNotification } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
@@ -169,6 +169,8 @@ class Viewer extends Component<AllProps, State> {
       }
       i++
     }
+
+    // this.props.sendNotification()
   }
 
   addEventListeners() {
@@ -312,5 +314,5 @@ const mapStateToProps = (state, ownProps: any) => {
 
 export default connect<{}, {}, AllProps>(
   mapStateToProps,
-  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress }
+  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress, sendNotification }
 )(Viewer)
