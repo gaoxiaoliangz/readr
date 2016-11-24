@@ -10,6 +10,8 @@ export const resolveInlineNavHref = href => {
 
     return `#${parsed.name}`
   }
+
+  return href
 }
 
 export const h = {
@@ -26,6 +28,10 @@ export const h = {
     // return `\n${hPrefix} ${innerHTML.trim()}\n\n`
     const hTag = node.tagName.toLowerCase()
     const id = node.getAttribute('id')
+
+    if (!id) {
+      return `\n${hPrefix} ${innerHTML}\n\n`
+    }
 
     // 块级元素若保留原标签需添加换行符，否则临近元素渲染会出现问题
     return `\n<${hTag} id="${id}">${innerHTML.trim().split('\n').join(' ')}</${hTag}>\n\n`
@@ -44,8 +50,8 @@ export const a = {
   filter: ['a'],
 
   replacement: function (innerHTML, node: HTMLEmbedElement) {
-    let href = node.getAttribute('href')
-    return `\n<a href="${resolveInlineNavHref(href)}">${innerHTML}</a>\n\n`
+    const href = node.getAttribute('href')
+    return `\n[${innerHTML}](${resolveInlineNavHref(href)})\n\n`
   }
 }
 

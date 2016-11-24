@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import marked from 'marked'
 import $ from 'jquery'
+import _ from 'lodash'
 const ReactMarkdown = require('react-markdown')
-const renderer = new marked.Renderer()
 
 interface Props {
   input: string
@@ -43,33 +43,45 @@ class Markdown extends Component<Props, {}> {
 
   renderUnSafely(className) {
     const { input, markedRenderers } = this.props
+    let renderer = new marked.Renderer()
 
-    let html = marked(input, {
-      gfm: true,
-      breaks: true
-    })
+    // renderer.paragraph = text => {
+    //   return `<p class="hehe">${text}</p>`
+    // }
 
     if (markedRenderers) {
-      html = Array.prototype
-        .filter.call($(html), ele => {
-          // 移除元素间的回车及字符串
-          return ele.nodeType !== 3
-        })
-        .map(ele => {
-          const tagName = ele.tagName
-
-          if (markedRenderers[tagName]) {
-            return markedRenderers[tagName](ele)
-          }
-
-          if (markedRenderers['ALL']) {
-            return markedRenderers['ALL'](ele)
-          }
-
-          return ele.outerHTML
-        })
-        .join('')
+      _.forEach(markedRenderers, (val, key) => {
+        renderer[key] = val
+      })
     }
+
+    const html = marked(input, {
+      gfm: true,
+      breaks: true,
+      renderer
+    })
+
+    // if (markedRenderers) {
+    //   html = Array.prototype
+    //     .filter.call($(html), ele => {
+    //       // 移除元素间的回车及字符串
+    //       return ele.nodeType !== 3
+    //     })
+    //     .map(ele => {
+    //       const tagName = ele.tagName
+
+    //       if (markedRenderers[tagName]) {
+    //         return markedRenderers[tagName](ele)
+    //       }
+
+    //       if (markedRenderers['ALL']) {
+    //         return markedRenderers['ALL'](ele)
+    //       }
+
+    //       return ele.outerHTML
+    //     })
+    //     .join('')
+    // }
 
     return <div className={className} dangerouslySetInnerHTML={{ __html: html }} />
   }
