@@ -101,9 +101,14 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
     const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes, nodeHeights, pageHeight })
 
     const findIdOfHTags = (mdNode: string) => {
-      const id = ''
+      const pattern = /<h\d id="(.*)">(.*)<\/h\d>/
+      const result = mdNode.match(pattern)
 
-      return id
+      if (result) {
+        return result[1]
+      }
+
+      return null
     }
 
     const hash = pageNodes
