@@ -65,23 +65,18 @@ export type TPage = {
   meta: any
 }
 export type TPageList = TPage[]
-export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: number): TPageList {
+export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: number, pageStartFrom = 0, chapterId?): TPageList {
   let pages = []
   let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
   let pageSum = Math.ceil(pageHeightSum / pageHeight)
-
-  console.log('todo: group nodes')
-  // nodes = nodes.map((node, index) => {
-  //   node.props.index = index
-  //   return node
-  // })
 
   if (nodeHeights.length === 0) {
     return [{
       nodes,
       meta: {
-        pageNo: 1,
-        offset: 0
+        pageNo: 1 + pageStartFrom,
+        offset: 0,
+        chapterId
       }
     }]
   }
@@ -93,8 +88,9 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
     pages.push({
       nodes: pageNodes,
       meta: {
-        pageNo: i + 1,
-        offset
+        pageNo: pageStartFrom + i + 1,
+        offset,
+        chapterId
       },
     })
   }
@@ -102,9 +98,31 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   return pages
 }
 
+export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeightsOfChapters: {
+  id: string
+  nodeHeights: number[]
+}[], pageHeight: number) {
+  let pageStartFrom = 0
+  let allPages = []
+  const t0 = new Date().valueOf()
+
+  contentOfChapters.forEach((chapter, index) => {
+    const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
+    allPages = allPages.concat(pages)
+    pageStartFrom = pageStartFrom + pages.length
+  })
+
+  const t1 = new Date().valueOf()
+  if (process.env.NODE_ENV !== 'production') {
+    console.info(`Grouping nodes takes ${t1 - t0}ms`)
+  }
+
+  return allPages
+}
+
 export function percentageToPage(p: number, pageSum: number) {
   if (p > 1) {
-    console.error('Wrong parameter!')
+    console.error('Percentage should be less than 1!')
     return null
   } else {
     return parseInt((p * pageSum) as any) + 1

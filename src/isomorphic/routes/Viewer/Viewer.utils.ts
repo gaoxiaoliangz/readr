@@ -5,7 +5,6 @@ import $ from 'jquery'
 // 计算没有等待图片加载完成，所以结果是不正确的
 export function getNodeHeights(nodes) {
   let nodesHeight = []
-  const startCalcHtmlTime = new Date().valueOf()
 
   Array.prototype.forEach.call(nodes, (node, index) => {
     if (node.className !== 'gb-line') {
@@ -13,11 +12,6 @@ export function getNodeHeights(nodes) {
     }
     nodesHeight.push(node.clientHeight)
   })
-  const endCalcHtmlTime = new Date().valueOf()
-
-  if (process.env.NODE_ENV !== 'production') {
-    console.info(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
-  }
 
   return nodesHeight
 }

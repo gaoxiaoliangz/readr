@@ -8,6 +8,7 @@ import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
 import BookPageWithRawHtml from './components/BookPageWithRawHtml'
+import BookPages from './components/BookPages'
 import ViewerNav from './components/ViewerNav'
 import CSSModules from 'react-css-modules'
 import api from '../../services/api'
@@ -15,6 +16,7 @@ import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
+import * as bookPageListUtils from './components/BookPageList.utils'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -23,10 +25,7 @@ interface AllProps {
   book: any
   bookContent: {
     nav: any
-    flesh: {
-      markdown: string
-      id: string
-    }[]
+    flesh: TBookFlesh
   }
   fetchProgress: (bookId: string) => void
   progress: number
@@ -47,6 +46,7 @@ interface State {
   isTouchMode?: boolean
   showPageInfo?: boolean
   computedChapters?: any[]
+  computedPages?: any[]
 }
 
 @CSSModules(styles)
@@ -64,7 +64,8 @@ class Viewer extends Component<AllProps, State> {
       showViewerPreference: false,
       fluid: false,
       isTouchMode: false,
-      computedChapters: []
+      computedChapters: [],
+      computedPages: []
     }
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
@@ -73,7 +74,7 @@ class Viewer extends Component<AllProps, State> {
     this.deboundedHandleResize = _.debounce(this.handleResize, 500, {
       maxWait: 1000
     })
-    this.handleChapterMount = this.handleChapterMount.bind(this)
+    this.handleChapterUpdate = this.handleChapterUpdate.bind(this)
   }
 
   bookId: string
@@ -130,6 +131,8 @@ class Viewer extends Component<AllProps, State> {
   }
 
   calcDom(wrap: HTMLElement) {
+    const { bookContent } = this.props
+    const startCalcHtmlTime = new Date().valueOf()
     const computedChapters = Array.prototype
       .map.call(wrap.childNodes, child => {
         const childDiv = child as HTMLDivElement
@@ -141,10 +144,19 @@ class Viewer extends Component<AllProps, State> {
           nodeHeights
         }
       })
+    const endCalcHtmlTime = new Date().valueOf()
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.info(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
+    }
+
+    const computedPages = bookPageListUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
 
     this.setState({
-      computedChapters
+      computedChapters,
+      computedPages
     })
+
     // this.setState({
     //   isCalcMode: true
     // }, () => {
@@ -157,7 +169,7 @@ class Viewer extends Component<AllProps, State> {
     // })
   }
 
-  handleChapterMount(ele: HTMLElement) {
+  handleChapterUpdate(ele: HTMLElement) {
     this.calcDom(ele)
   }
 
@@ -241,7 +253,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   renderBook() {
-    const { nodes, nodeHeights, fluid, showPageInfo } = this.state
+    const { nodes, nodeHeights, fluid, showPageInfo, computedChapters, computedPages } = this.state
     const { progress, bookContent } = this.props
 
     // if (nodes.length === 0) {
@@ -273,10 +285,19 @@ class Viewer extends Component<AllProps, State> {
     //   )
     // }
 
+    if (computedPages.length !== 0) {
+      return (
+        <BookPages
+          pages={computedPages.slice(0, 10)}
+          pageHeight={900}
+        />
+      )
+    }
+
     return (
       <BookChapters
         bookFlesh={bookContent.flesh}
-        onUpdate={this.handleChapterMount}
+        onUpdate={this.handleChapterUpdate}
         />
     )
   }

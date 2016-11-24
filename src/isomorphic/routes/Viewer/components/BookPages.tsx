@@ -34,9 +34,15 @@ class BookPages extends Component<AllProps, {}> {
       'pages--fluid': fluid
     })
 
+    let ulStyle = {}
+
+    if (pageHeight) {
+      ulStyle = { height: pages.length * pageHeight }
+    }
+
     return (
       <div>
-        <ul styleName={className}>
+        <ul styleName={className} style={ulStyle}>
           {
             pages.map((page, index) => {
               return (

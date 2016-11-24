@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import BookPages from './BookPages'
+import _ from 'lodash'
 
 const BookChapter = ({ id, markdown}) => {
   return (
@@ -27,6 +28,10 @@ class BookChapters extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   componentDidUpdate() {

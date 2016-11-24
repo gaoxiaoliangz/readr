@@ -45,6 +45,11 @@ type TBookPage = {
   }
 }
 
+type TBookFlesh = {
+  markdown: string
+  id: string
+}[]
+
 
 /**
  * types & interfaces
