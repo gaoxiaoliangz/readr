@@ -42,7 +42,6 @@ interface State {
   fluid?: boolean
   isTouchMode?: boolean
   showPageInfo?: boolean
-  computedChapters?: any[]
   computedPages?: any[]
 }
 
@@ -59,22 +58,20 @@ class Viewer extends Component<AllProps, State> {
       showViewerPreference: false,
       fluid: false,
       isTouchMode: false,
-      computedChapters: [],
       computedPages: []
     }
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
     this.handleProgressChange = this.handleProgressChange.bind(this)
     this.handleResize = this.handleResize.bind(this)
-    this.deboundedHandleResize = _.debounce(this.handleResize, 500, {
+    this.resizeLazily = _.debounce(this.handleResize, 500, {
       maxWait: 1000
     })
     this.handleChapterUpdate = this.handleChapterUpdate.bind(this)
   }
 
   bookId: string
-  bookPageWithRawHtml: any
-  deboundedHandleResize: any
+  resizeLazily: any
 
   isViewFluid(): boolean {
     return utils.getScreenInfo().view.width < 700
@@ -148,7 +145,6 @@ class Viewer extends Component<AllProps, State> {
     const computedPages = bookPageListUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
 
     this.setState({
-      computedChapters,
       computedPages,
       isCalcMode: false,
       fluid: this.isViewFluid(),
@@ -161,11 +157,11 @@ class Viewer extends Component<AllProps, State> {
   }
 
   addEventListeners() {
-    window.addEventListener('resize', this.deboundedHandleResize)
+    window.addEventListener('resize', this.resizeLazily)
   }
 
   removeEventListeners() {
-    window.removeEventListener('resize', this.deboundedHandleResize)
+    window.removeEventListener('resize', this.resizeLazily)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -187,10 +183,11 @@ class Viewer extends Component<AllProps, State> {
   componentDidUpdate(prevProps, prevState) {
     const viewChanged = this.state.fluid !== prevState.fluid
 
-    // TODO
-    // if (viewChanged) {
-    //   this.calcDom()
-    // }
+    if (viewChanged) {
+      this.setState({
+        isCalcMode: true
+      })
+    }
   }
 
   componentDidMount() {
@@ -237,11 +234,18 @@ class Viewer extends Component<AllProps, State> {
       return <Loading text="书籍获取中" center />
     }
 
-    // TODO
-    // if (this.state.isCalcMode) {
-    // }
-
-    if (computedPages.length !== 0) {
+    if (this.state.isCalcMode) {
+      return (
+        <div>
+          <Loading text="书籍排版中" center />
+          <BookChapters
+            bookFlesh={bookContent.flesh}
+            onUpdate={this.handleChapterUpdate}
+            fluid={fluid}
+            />
+        </div>
+      )
+    } else if (computedPages.length !== 0) {
       return (
         <BookContainer
           allPages={computedPages}
@@ -253,17 +257,9 @@ class Viewer extends Component<AllProps, State> {
           pageLimit={5}
           />
       )
+    } else {
+      return <Loading text="准备中" center />
     }
-
-    return (
-      <div>
-        <Loading text="书籍排版中" center />
-        <BookChapters
-          bookFlesh={bookContent.flesh}
-          onUpdate={this.handleChapterUpdate}
-          />
-      </div>
-    )
   }
 
   render() {

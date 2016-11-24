@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import _ from 'lodash'
 
-const BookChapter = ({ id, markdown}) => {
+const BookChapter = ({ id, markdown, fluid}) => {
   return (
     <div id={id}>
       <BookPages
         pages={[{
           nodes: [markdown]
         }]}
+        fluid={fluid}
         />
     </div>
   )
@@ -20,6 +21,7 @@ interface Props {
     id: string
   }[]
   onUpdate?: (ref: HTMLElement) => void
+  fluid: boolean
 }
 
 class BookChapters extends Component<Props, {}> {
@@ -37,7 +39,6 @@ class BookChapters extends Component<Props, {}> {
   triggerUpdate() {
     const { onUpdate } = this.props
     if (onUpdate) {
-      console.log('updated in BookChapters')
       onUpdate(this.chapters)
     }
   }
@@ -51,7 +52,7 @@ class BookChapters extends Component<Props, {}> {
   }
 
   render() {
-    const { bookFlesh } = this.props
+    const { bookFlesh, fluid } = this.props
 
     return (
       <div ref={ref => this.chapters = ref}>
@@ -62,6 +63,7 @@ class BookChapters extends Component<Props, {}> {
                 id={item.id}
                 markdown={item.markdown}
                 key={item.id}
+                fluid={fluid}
                 />
             )
           })
