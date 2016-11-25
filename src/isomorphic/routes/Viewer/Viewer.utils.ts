@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import helpers from '../../helpers'
 
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的
@@ -146,9 +147,7 @@ export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeights
   })
 
   const t1 = new Date().valueOf()
-  if (process.env.NODE_ENV !== 'production') {
-    console.info(`Grouping nodes takes ${t1 - t0}ms`)
-  }
+  helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
 
   return allPages
 }

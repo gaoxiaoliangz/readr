@@ -15,6 +15,7 @@ import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 import $ from 'jquery'
+import helpers from '../../helpers'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -138,10 +139,7 @@ class Viewer extends Component<AllProps, State> {
         }
       })
     const endCalcHtmlTime = new Date().valueOf()
-
-    if (process.env.NODE_ENV !== 'production') {
-      console.info(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
-    }
+    helpers.print(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
 
     const computedPages = viewerUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
 
@@ -163,22 +161,34 @@ class Viewer extends Component<AllProps, State> {
     const hash = href.split('$')[1]
 
     let i = 0
+    let foundChapterPage
+
     while (i < computedPages.length) {
       const page = computedPages[i]
       if (`#${page.meta.chapterId}` === chapterId) {
+        foundChapterPage = page.meta.pageNo
+
         if (hash) {
           if (page.meta.hash && page.meta.hash.indexOf(hash) !== -1) {
-            console.log(page.meta.pageNo)
+            helpers.print('with hash', page.meta.pageNo)
             return page.meta.pageNo
           }
         } else {
+          helpers.print('without hash', page.meta.pageNo)
           return page.meta.pageNo
         }
       }
       i++
     }
 
-    this.props.sendNotification('未找到位置！', 'error')
+    if (!foundChapterPage) {
+      this.props.sendNotification('未找到位置！', 'error')
+      return false
+    }
+
+    this.props.sendNotification('所在章节未找到位置，已跳转至章节！', 'warning')
+    helpers.print('foundChapterPage', foundChapterPage)
+    return foundChapterPage
   }
 
   addEventListeners() {
@@ -217,6 +227,8 @@ class Viewer extends Component<AllProps, State> {
 
   componentDidMount() {
     const { session } = this.props
+    const context = this
+
     this.props.loadBook(this.bookId)
     this.props.loadBookContent(this.bookId)
     this.addEventListeners()
@@ -226,12 +238,12 @@ class Viewer extends Component<AllProps, State> {
       this.props.fetchProgress(this.bookId)
     }
 
-    $('body').on('click', 'a.js-book-nav', e => {
+    $('body').on('click', 'a.js-book-nav', function(e) {
       e.preventDefault()
-      const href = e.target.getAttribute('href')
-      const pageNo = this.resolveBookLocation(href)
+      const href = $(this).attr('href')
+      const pageNo = context.resolveBookLocation(href)
       if (pageNo) {
-        this.props.updateBookProgress(pageNo / this.state.computedPages.length)
+        context.props.updateBookProgress(pageNo / context.state.computedPages.length)
       }
     })
   }
