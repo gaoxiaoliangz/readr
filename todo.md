@@ -6,5 +6,5 @@
 	✔ viewer 支持新的数据结构 @done (November 25th 2016, 9:31)
 	☐ parser opf 查找逻辑更通用
 	✔ bookcontent id @done (November 25th 2016, 9:31)
-	☐ print helper
+	✔ print helper @done (November 25th 2016, 10:19)
 	
