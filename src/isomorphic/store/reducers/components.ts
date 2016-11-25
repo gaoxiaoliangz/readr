@@ -49,8 +49,21 @@ function modal(state = {}, action) {
 
 // specific components
 const viewer = combineReducers({
+  basicInfo: viewerBasicInfo,
   bookProgress
 })
+
+function viewerBasicInfo(state = {}, action): any {
+  switch (action.type) {
+    case actions.VIEWER_INITIALIZE:
+      return {
+        bookId: action.bookId
+      }
+
+    default:
+      return state
+  }
+}
 
 function bookProgress(state = {}, action): any {
   switch (action.type) {

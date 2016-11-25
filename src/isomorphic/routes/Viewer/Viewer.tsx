@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookContainer from './components/BookContainer'
 import * as viewerUtils from './Viewer.utils'
-import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress, sendNotification } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
@@ -16,6 +15,17 @@ import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 import $ from 'jquery'
 import helpers from '../../helpers'
+import {
+  loadBook,
+  fetchProgress,
+  openConfirmModal,
+  initializeBookProgress,
+  destroyBookProgress,
+  loadBookContent,
+  updateBookProgress,
+  sendNotification,
+  initializeViewer
+} from '../../store/actions'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -35,6 +45,7 @@ interface AllProps {
   initializeBookProgress: any
   destroyBookProgress: any
   sendNotification: sendNotification
+  initializeViewer: initializeViewer
 }
 
 interface State {
@@ -111,7 +122,7 @@ class Viewer extends Component<AllProps, State> {
     const progressDetermined = typeof isFetchingProgress !== 'undefined' || this.props.isFetchingProgress !== false
 
     if (progressDetermined && role !== 'visitor') {
-      this.setProgress(newProgress)
+      // this.setProgress(newProgress)
     }
   }
 
@@ -226,24 +237,25 @@ class Viewer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    const { session } = this.props
+    const { session, initializeViewer, loadBook, loadBookContent, fetchProgress, updateBookProgress } = this.props
     const context = this
 
-    this.props.loadBook(this.bookId)
-    this.props.loadBookContent(this.bookId)
+    initializeViewer(this.bookId)
+    loadBook(this.bookId)
+    loadBookContent(this.bookId)
     this.addEventListeners()
 
     // 从其他页面直接进来的话 session 一开始就是确定的
     if (session.determined && session.user.role !== 'visitor') {
-      this.props.fetchProgress(this.bookId)
+      fetchProgress(this.bookId)
     }
 
-    $('body').on('click', 'a.js-book-nav', function(e) {
+    $('body').on('click', 'a.js-book-nav', function (e) {
       e.preventDefault()
       const href = $(this).attr('href')
       const pageNo = context.resolveBookLocation(href)
       if (pageNo) {
-        context.props.updateBookProgress(pageNo / context.state.computedPages.length)
+        updateBookProgress(pageNo / context.state.computedPages.length)
       }
     })
   }
@@ -336,5 +348,15 @@ const mapStateToProps = (state, ownProps: any) => {
 
 export default connect<{}, {}, AllProps>(
   mapStateToProps,
-  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress, sendNotification }
+  {
+    loadBook,
+    fetchProgress,
+    openConfirmModal,
+    initializeBookProgress,
+    destroyBookProgress,
+    loadBookContent,
+    updateBookProgress,
+    sendNotification,
+    initializeViewer
+  }
 )(Viewer)

@@ -79,6 +79,17 @@ export function closeModal() {
 }
 
 // viewer
+export const VIEWER_INITIALIZE = createActionType('viewer', 'INITIALIZE')
+export interface initializeViewer {
+  (bookId: string): any
+}
+export const initializeViewer: initializeViewer = (bookId) => {
+  return {
+    bookId,
+    type: VIEWER_INITIALIZE,
+  }
+}
+
 export const BOOK_PROGRESS_INITIALIZE = createActionType('viewer/progress', 'INITIALIZE')
 export const initializeBookProgress = () => {
   return {
@@ -97,6 +108,7 @@ export const updateBookProgress: updateBookProgress = percentage => {
   }
 }
 
+// TODO: 无需 destroy
 export const BOOK_PROGRESS_DESTROY = createActionType('viewer/progress', 'DESTROY')
 export const destroyBookProgress = () => {
   return {
