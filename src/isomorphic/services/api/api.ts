@@ -37,6 +37,13 @@ export function fetchNormalized(endpoint, schema, fetchOptions = {}) {
 /**
  * specific api services
  */
+export const fetchBookProgress = id => {
+  return fetchNormalized(
+    `user/books/${id}/progress`,
+    schemas.BOOK_PROGRESS
+  )
+}
+
 export const fetchBook = id => {
   return fetchNormalized(
     `books/${id}`,

@@ -3,6 +3,10 @@ import _ from 'lodash'
 
 const DEFAULT_KEY = 'default'
 
+export const session = state => {
+  return _.get(state, ['session'], {})
+}
+
 export const entities = name => state => {
   return state.entities[name] || {}
 }

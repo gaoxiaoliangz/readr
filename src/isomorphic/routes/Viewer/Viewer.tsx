@@ -17,7 +17,7 @@ import $ from 'jquery'
 import helpers from '../../helpers'
 import {
   loadBook,
-  fetchProgress,
+  loadBookProgress,
   openConfirmModal,
   initializeBookProgress,
   destroyBookProgress,
@@ -36,7 +36,7 @@ interface AllProps {
     nav: any
     flesh: TBookFlesh
   }
-  fetchProgress: (bookId: string) => void
+  loadBookProgress: loadBookProgress
   updateBookProgress: updateBookProgress
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
@@ -218,7 +218,7 @@ class Viewer extends Component<AllProps, State> {
     const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
 
     if (sessionDetermined && nextProps.session.user.role !== 'visitor') {
-      this.props.fetchProgress(this.bookId)
+      this.props.loadBookProgress(this.bookId)
     }
 
     if (sessionDetermined && nextProps.session.user.role === 'visitor') {
@@ -237,7 +237,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    const { session, initializeViewer, loadBook, loadBookContent, fetchProgress, updateBookProgress } = this.props
+    const { session, initializeViewer, loadBook, loadBookContent, loadBookProgress, updateBookProgress } = this.props
     const context = this
 
     initializeViewer(this.bookId)
@@ -246,9 +246,10 @@ class Viewer extends Component<AllProps, State> {
     this.addEventListeners()
 
     // 从其他页面直接进来的话 session 一开始就是确定的
-    if (session.determined && session.user.role !== 'visitor') {
-      fetchProgress(this.bookId)
-    }
+    // if (session.determined && session.user.role !== 'visitor') {
+    //   fetchProgress(this.bookId)
+    // }
+    loadBookProgress(this.bookId)
 
     $('body').on('click', 'a.js-book-nav', function (e) {
       e.preventDefault()
@@ -350,7 +351,7 @@ export default connect<{}, {}, AllProps>(
   mapStateToProps,
   {
     loadBook,
-    fetchProgress,
+    loadBookProgress,
     openConfirmModal,
     initializeBookProgress,
     destroyBookProgress,

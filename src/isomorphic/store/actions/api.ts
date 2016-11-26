@@ -83,6 +83,26 @@ export interface userLogout {
 }
 export const userLogout: userLogout = () => action(USER_LOGOUT)
 
+
+// todo
+export const BOOK_PROGRESS = createRequestTypes('book-progress')
+export const progress = createActionEntity(BOOK_PROGRESS)
+export interface loadBookProgress {
+  (id: string): any
+}
+export const LOAD_BOOK_PROGRESS = 'LOAD_BOOK_PROGRESS'
+export const loadBookProgress: loadBookProgress = id => action(LOAD_BOOK_PROGRESS, { id })
+// export function fetchProgress(bookId) {
+//   const CALL_API: CALL_API_OBJ = {
+//     types: [BOOK_PROGRESS.REQUEST, BOOK_PROGRESS.SUCCESS, BOOK_PROGRESS.FAILURE],
+//     endpoint: `user/books/${bookId}/progress`,
+//     schema: schemas.BOOK_PROGRESS
+//   }
+
+//   return { bookId, CALL_API }
+// }
+
+
 // define load actions handled in sagas
 export const LOAD_ACTIONS = [LOAD_BOOK, LOAD_BOOK_CONTENT, LOAD_BOOKS, LOAD_USERS]
 
@@ -188,15 +208,4 @@ export function fetchShelf() {
     }
   }
   return { CALL_API }
-}
-
-export const BOOK_PROGRESS = createRequestTypes('book-progress')
-export function fetchProgress(bookId) {
-  const CALL_API: CALL_API_OBJ = {
-    types: [BOOK_PROGRESS.REQUEST, BOOK_PROGRESS.SUCCESS, BOOK_PROGRESS.FAILURE],
-    endpoint: `user/books/${bookId}/progress`,
-    schema: schemas.BOOK_PROGRESS
-  }
-
-  return { bookId, CALL_API }
 }

@@ -3,12 +3,16 @@ import { takeEvery } from 'redux-saga'
 import _ from 'lodash'
 import watchAllLoadRequests from './loadRequests'
 import watchLoginFlow from './loginFlow'
-import watchViewer from './viewer'
+import watchViewer, { watchUpdateProgress } from './viewer'
+import watchTest, { watchTest2 } from './test'
 
 export default function* rootSaga() {
   yield [
     fork(watchAllLoadRequests),
     fork(watchLoginFlow),
-    fork(watchViewer)
+    fork(watchViewer),
+    fork(watchUpdateProgress),
+    fork(watchTest2),
+    fork(watchTest)
   ]
 }

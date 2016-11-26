@@ -9,6 +9,18 @@ export const removeEntity: removeEntity = (name, id) => ({
   }
 )
 
+export const loadSomething = () => {
+  return {
+    type: 'LOAD'
+  }
+}
+
+export const saveSomething = () => {
+  return {
+    type: 'SAVE'
+  }
+}
+
 export * from './components'
 export * from './api'
 export * from './form'
