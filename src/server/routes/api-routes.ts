@@ -60,7 +60,7 @@ function apiRoutes() {
 
   // users
   router.get('/users', authenticateAdmin, endpoints.user.list) // basic
-  router.post('/users', endpoints.addUser)
+  router.post('/users', authenticatePublic, endpoints.addUser)
 
   // user
   router.get('/user/profile', authenticatePrivate, endpoints.findUser)
