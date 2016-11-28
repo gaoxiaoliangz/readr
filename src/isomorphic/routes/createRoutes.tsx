@@ -36,6 +36,7 @@ const createRoutes = (context = {}) => {
   return (
     <Route path="/" component={Master}>
       <Route path="viewer/book/:id" {...require('./Viewer') } />
+      <Route path="test" {...require('./TestPlace') } />
       <Route component={App}>
         <IndexRoute {...require('./AppHome') } />
         <Route path="browse" {...require('./Browse') } />

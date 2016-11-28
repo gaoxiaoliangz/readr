@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadBooks, fetchCollections, sendNotification, loadSomething, saveSomething } from '../../store/actions'
+import { loadBooks, fetchCollections, sendNotification } from '../../store/actions'
 import * as selectors from '../../store/selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../containers/DocContainer'
@@ -17,8 +17,6 @@ interface Props {
   newestBooks: any
   sendNotification: any
   isBooksFetching: boolean
-  loadSomething: any
-  saveSomething: any
 }
 
 interface IState {
@@ -71,8 +69,6 @@ class Home extends Component<Props, IState> {
           ) : null
         }
         <Container>
-          <Button onClick={e => {this.props.loadSomething()}}>load</Button>
-          <Button onClick={e => {this.props.saveSomething()}}>save</Button>
           <BookListSection
             bookEntities={newestBooks.slice(0, 6) }
             title="新书速递"
@@ -95,5 +91,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, fetchCollections, sendNotification, loadSomething, saveSomething }
+  { loadBooks, fetchCollections, sendNotification }
 )(Home)
