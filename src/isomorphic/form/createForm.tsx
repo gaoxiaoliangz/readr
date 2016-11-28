@@ -28,7 +28,8 @@ class ElementClass extends Component<any, any> {
 }
 
 interface ClassDecorator {
-  <T extends (typeof ElementClass)>(config: FormConfig): T
+  // <T extends (typeof ElementClass)>(config: FormConfig): T
+  <T extends Function>(config: FormConfig): T
 }
 
 const validateForm = (fields, formValues, validateFn) => {
