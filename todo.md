@@ -7,4 +7,5 @@
 	☐ parser opf 查找逻辑更通用
 	✔ bookcontent id @done (November 25th 2016, 9:31)
 	✔ print helper @done (November 25th 2016, 10:19)
+	☐ connect & form 装饰器 type 的问题
 	
