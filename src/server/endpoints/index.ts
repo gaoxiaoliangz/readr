@@ -13,8 +13,6 @@ export const user = makeBasicEndpoint(api.user)
 // common endpoints
 // books
 export const addBook = (req, res, next) => {
-  // const filepath = `${req.__basePath}/${req.file.path}`
-  // const binaryFile = fs.readFileSync(filepath, 'binary')
   req.apiResults.then(loggedFileId => {
     req.apiResults = api.addBook(req.body, loggedFileId)
     next()
@@ -36,7 +34,7 @@ export const listBooks = (req, res, next) => {
   next()
 }
 
-// user
+// users
 export const findUser = (req, res, next) => {
   req.apiResults = api.findUser(req.context.user.id)
   next()
@@ -47,6 +45,7 @@ export const addUser = (req, res, next) => {
   next()
 }
 
+// user
 export const listShelfBooks = (req, res, next) => {
   req.apiResults = api.listShelfBooks(req.context.user.id, req.query.page || 1)
   next()
