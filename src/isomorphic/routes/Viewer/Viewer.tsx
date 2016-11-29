@@ -7,7 +7,6 @@ import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
 import ViewerNav from './components/ViewerNav'
 import CSSModules from 'react-css-modules'
-import api from '../../services/api'
 import utils from '../../utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
@@ -24,8 +23,10 @@ import {
   updateBookProgress,
   sendNotification,
   initializeViewer,
-  calcBook
+  calcBook,
+  initializeViewerSuccess
 } from '../../store/actions'
+import { ROLES } from '../../constants'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -47,16 +48,19 @@ interface AllProps {
   sendNotification: sendNotification
   initializeViewer: initializeViewer
   calcBook: calcBook
+  computedPages?: any[]
+  basicInfo: {
+    isCalcMode?: boolean
+    fluid?: boolean
+    isTouchMode?: boolean
+  }
+  initializeViewerSuccess: initializeViewerSuccess
 }
 
 interface State {
   showPanel?: boolean
-  isCalcMode?: boolean
-  showViewerPreference?: boolean
-  fluid?: boolean
-  isTouchMode?: boolean
   showPageInfo?: boolean
-  computedPages?: any[]
+  showViewerPreference?: boolean
 }
 
 @CSSModules(styles)
@@ -68,11 +72,7 @@ class Viewer extends Component<AllProps, State> {
     this.bookId = props.params.id
     this.state = {
       showPanel: false,
-      isCalcMode: true,
       showViewerPreference: false,
-      fluid: false,
-      isTouchMode: false,
-      computedPages: []
     }
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
@@ -87,20 +87,10 @@ class Viewer extends Component<AllProps, State> {
   bookId: string
   resizeLazily: any
 
-  isViewFluid(): boolean {
-    return utils.getScreenInfo().view.width < 700
-  }
-
-  isTouchMode(): boolean {
-    return utils.getScreenInfo().view.width < 700
-  }
-
-  // setProgress(percentage) {
-  //   api.setProgress(this.bookId, { percentage })
-  // }
-
   handelViewerMouseMove(event) {
-    if (!this.state.isCalcMode && !this.state.isTouchMode) {
+    const { basicInfo: { isCalcMode, isTouchMode } } = this.props
+
+    if (!isCalcMode && !isTouchMode) {
       let y = event.pageY - document.body.scrollTop
       let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
 
@@ -112,10 +102,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleResize() {
-    this.setState({
-      fluid: this.isViewFluid(),
-      isTouchMode: this.isTouchMode()
-    })
+    this.props.initializeViewer(this.bookId)
   }
 
   handleProgressChange(newProgress) {
@@ -123,7 +110,9 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleViewerClick() {
-    if (this.state.isTouchMode) {
+    const { basicInfo: { isTouchMode } } = this.props
+
+    if (isTouchMode) {
       this.setState({
         showPanel: !this.state.showPanel,
         showPageInfo: !this.state.showPageInfo
@@ -132,12 +121,11 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleChapterUpdate(ele: HTMLElement) {
-    // this.calcDom(ele)
     this.props.calcBook(this.bookId, ele)
   }
 
   resolveBookLocation(href) {
-    const { computedPages } = this.state
+    const { computedPages } = this.props
     const chapterId = href.split('$')[0]
     const hash = href.split('$')[1]
 
@@ -187,21 +175,26 @@ class Viewer extends Component<AllProps, State> {
   componentWillReceiveProps(nextProps, nextState) {
     const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
 
-    if (sessionDetermined && nextProps.session.user.role !== 'visitor') {
+    // TODO: rxjs or react prop listener?
+    if (sessionDetermined && nextProps.session.user.role !== ROLES.VISITOR) {
       this.props.loadBookProgress(this.bookId)
     }
 
-    if (sessionDetermined && nextProps.session.user.role === 'visitor') {
+    if (sessionDetermined && nextProps.session.user.role === ROLES.VISITOR) {
       this.props.initializeBookProgress()
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const viewChanged = this.state.fluid !== prevState.fluid
+    const viewChanged = this.props.basicInfo.fluid !== prevProps.basicInfo.fluid
 
     if (viewChanged) {
-      this.setState({
+      this.props.initializeViewer(this.bookId, {
         isCalcMode: true
+      })
+      this.setState({
+        showPageInfo: false,
+        showPanel: false
       })
     }
   }
@@ -223,7 +216,7 @@ class Viewer extends Component<AllProps, State> {
       const href = $(this).attr('href')
       const pageNo = context.resolveBookLocation(href)
       if (pageNo) {
-        updateBookProgress(context.bookId, pageNo / context.state.computedPages.length)
+        updateBookProgress(context.bookId, pageNo / context.props.computedPages.length)
       }
     })
   }
@@ -248,14 +241,14 @@ class Viewer extends Component<AllProps, State> {
   }
 
   renderBook() {
-    const { fluid, showPageInfo, computedPages } = this.state
-    const { progress, bookContent } = this.props
+    const { showPageInfo } = this.state
+    const { progress, bookContent, computedPages, basicInfo: { fluid, isCalcMode } } = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
     }
 
-    if (this.state.isCalcMode) {
+    if (isCalcMode) {
       return (
         <div>
           <Loading text="书籍排版中" center />
@@ -304,13 +297,17 @@ const mapStateToProps = (state, ownProps: any) => {
   const bookId = ownProps.params.id
   const book = selectors.common.entity('books', bookId)(state)
   const bookContent = selectors.common.entity('bookContents', bookId)(state)
+  const computedPages = selectors.viewer.computed(bookId)(state)
+  const basicInfo = selectors.viewer.basicInfo(state)
 
   return {
     book,
     bookContent,
     progress: state.components.viewer.bookProgress.percentage,
     isFetchingProgress: state.components.viewer.bookProgress.isFetching,
-    session: state.session
+    session: state.session,
+    computedPages,
+    basicInfo
   }
 }
 
@@ -326,6 +323,7 @@ export default connect<{}, {}, AllProps>(
     updateBookProgress,
     sendNotification,
     initializeViewer,
-    calcBook
+    calcBook,
+    initializeViewerSuccess
   }
 )(Viewer)

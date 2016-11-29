@@ -79,14 +79,28 @@ export function closeModal() {
 }
 
 // viewer
-export const VIEWER_INITIALIZE = createActionType('viewer', 'INITIALIZE')
+export const VIEWER_INITIALIZE_BEGIN = createActionType('viewer', 'INITIALIZE_BEGIN')
 export interface initializeViewer {
-  (bookId: string): any
+  (bookId: string, config?): any
 }
-export const initializeViewer: initializeViewer = bookId => {
+export const initializeViewer: initializeViewer = (bookId, config = {}) => {
   return {
     bookId,
-    type: VIEWER_INITIALIZE,
+    config,
+    type: VIEWER_INITIALIZE_BEGIN,
+  }
+}
+
+// TODO: 改名为 config
+export const VIEWER_INITIALIZE_SUCCESS = createActionType('viewer', 'INITIALIZE_SUCCESS')
+export interface initializeViewerSuccess {
+  (bookId: string, payload): any
+}
+export const initializeViewerSuccess: initializeViewerSuccess = (bookId, payload) => {
+  return {
+    bookId,
+    payload,
+    type: VIEWER_INITIALIZE_SUCCESS,
   }
 }
 

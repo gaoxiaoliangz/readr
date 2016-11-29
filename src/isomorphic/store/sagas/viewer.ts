@@ -8,8 +8,38 @@ import { fetchEntity } from './utils'
 import helpers from '../../helpers'
 // TODO
 import * as viewerUtils from '../../routes/Viewer/Viewer.utils'
+import utils from '../../utils'
 
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
+
+function* setViewer(bookId, config = {}): any {
+  const isSmallScreen = utils.getScreenInfo().view.width < 700
+
+  let initialized = {
+    bookId,
+    isCalcMode: true,
+    fluid: isSmallScreen,
+    isTouchMode: isSmallScreen
+  }
+
+  const computed = yield select(selectors.viewer.computed(bookId))
+
+  if (computed.length > 0) {
+    initialized.isCalcMode = false
+  }
+
+  initialized = _.merge({}, initialized, config)
+
+  yield put(actions.initializeViewerSuccess(bookId, initialized))
+}
+
+function* watchInitViewer(): any {
+  while (true) {
+    const action = yield take(actions.VIEWER_INITIALIZE_BEGIN)
+    const bookId = action.bookId
+    yield setViewer(bookId, action.config)
+  }
+}
 
 function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
   const startCalcHtmlTime = new Date().valueOf()
@@ -30,12 +60,6 @@ function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
   const computedPages = viewerUtils.groupPageFromChapters(flesh, computedChapters, 900)
 
   return computedPages
-  // this.setState({
-  //   computedPages,
-  //   isCalcMode: false,
-  //   fluid: this.isViewFluid(),
-  //   isTouchMode: this.isTouchMode()
-  // })
 }
 
 function* updateProgress(bookId, percentage): any {
@@ -52,7 +76,7 @@ function* updateProgress(bookId, percentage): any {
   }
 }
 
-function* handleCalcBook(): any {
+function* watchCalcBook(): any {
   while (true) {
     const { bookId, wrap } = yield take(actions.VIEWER_CALC_BEGIN)
     const bookContent = yield select(selectors.common.entity('bookContents', bookId))
@@ -61,13 +85,14 @@ function* handleCalcBook(): any {
     try {
       const computed = calcBook(wrap, flesh)
       yield put(actions.calcBookSuccess(bookId, computed))
+      yield setViewer(bookId)
     } catch (error) {
       yield put(actions.calcBookFailure(bookId, error))
     }
   }
 }
 
-function* handleProgress(): any {
+function* watchProgressOperations(): any {
   while (true) {
     const action = yield take([actions.BOOK_PROGRESS_UPDATE, actions.LOAD_BOOK_PROGRESS])
     const session = yield select(selectors.common.session)
@@ -89,7 +114,8 @@ function* handleProgress(): any {
 
 export default function* watchViewer() {
   yield [
-    fork(handleProgress),
-    fork(handleCalcBook)
+    fork(watchProgressOperations),
+    fork(watchCalcBook),
+    fork(watchInitViewer)
   ]
 }

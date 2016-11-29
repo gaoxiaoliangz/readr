@@ -69,11 +69,22 @@ function viewerContents(state = {}, action) {
 }
 
 function viewerBasicInfo(state = {}, action): any {
+  const defaultViewerConfig = {
+    isCalcMode: true,
+    fluid: false,
+    isTouchMode: false
+  }
+
   switch (action.type) {
-    case actions.VIEWER_INITIALIZE:
-      return {
+    case actions.VIEWER_INITIALIZE_BEGIN:
+      return _.merge({}, state, {
         bookId: action.bookId
-      }
+      }, defaultViewerConfig)
+
+    case actions.VIEWER_INITIALIZE_SUCCESS:
+      return _.merge({}, state, {
+        bookId: action.bookId
+      }, action.payload)
 
     default:
       return state
