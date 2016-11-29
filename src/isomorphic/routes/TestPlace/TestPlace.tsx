@@ -16,6 +16,12 @@ interface AllProps extends Props {
 interface State {
 }
 
+// @connect<{}, {}, Props>(
+//   state => ({
+//     routing: state.routing.locationBeforeTransitions
+//   }),
+//   { sendNotification, loadSomething, saveSomething }
+// )
 class TestPlace extends Component<AllProps, State> {
 
   constructor(props) {
@@ -37,6 +43,7 @@ class TestPlace extends Component<AllProps, State> {
   }
 }
 
+// export default TestPlace
 export default connect<{}, {}, Props>(
   state => ({
     routing: state.routing.locationBeforeTransitions
