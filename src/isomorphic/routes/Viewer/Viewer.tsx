@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookContainer from './components/BookContainer'
-import * as viewerUtils from './Viewer.utils'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
@@ -24,7 +23,8 @@ import {
   loadBookContent,
   updateBookProgress,
   sendNotification,
-  initializeViewer
+  initializeViewer,
+  calcBook
 } from '../../store/actions'
 const styles = require('./Viewer.scss')
 
@@ -46,6 +46,7 @@ interface AllProps {
   destroyBookProgress: any
   sendNotification: sendNotification
   initializeViewer: initializeViewer
+  calcBook: calcBook
 }
 
 interface State {
@@ -94,9 +95,9 @@ class Viewer extends Component<AllProps, State> {
     return utils.getScreenInfo().view.width < 700
   }
 
-  setProgress(percentage) {
-    api.setProgress(this.bookId, { percentage })
-  }
+  // setProgress(percentage) {
+  //   api.setProgress(this.bookId, { percentage })
+  // }
 
   handelViewerMouseMove(event) {
     if (!this.state.isCalcMode && !this.state.isTouchMode) {
@@ -118,12 +119,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleProgressChange(newProgress) {
-    const { isFetchingProgress, session: { user: { role } } } = this.props
-    const progressDetermined = typeof isFetchingProgress !== 'undefined' || this.props.isFetchingProgress !== false
-
-    if (progressDetermined && role !== 'visitor') {
-      // this.setProgress(newProgress)
-    }
+    this.props.updateBookProgress(this.bookId, newProgress)
   }
 
   handleViewerClick() {
@@ -135,35 +131,9 @@ class Viewer extends Component<AllProps, State> {
     }
   }
 
-  calcDom(wrap: HTMLElement) {
-    const { bookContent } = this.props
-    const startCalcHtmlTime = new Date().valueOf()
-    const computedChapters = Array.prototype
-      .map.call(wrap.childNodes, child => {
-        const childDiv = child as HTMLDivElement
-        const id = childDiv.getAttribute('id')
-        const nodeHeights = viewerUtils.getNodeHeights(childDiv.querySelector('.lines').childNodes)
-
-        return {
-          id,
-          nodeHeights
-        }
-      })
-    const endCalcHtmlTime = new Date().valueOf()
-    helpers.print(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
-
-    const computedPages = viewerUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
-
-    this.setState({
-      computedPages,
-      isCalcMode: false,
-      fluid: this.isViewFluid(),
-      isTouchMode: this.isTouchMode()
-    })
-  }
-
   handleChapterUpdate(ele: HTMLElement) {
-    this.calcDom(ele)
+    // this.calcDom(ele)
+    this.props.calcBook(this.bookId, ele)
   }
 
   resolveBookLocation(href) {
@@ -355,6 +325,7 @@ export default connect<{}, {}, AllProps>(
     loadBookContent,
     updateBookProgress,
     sendNotification,
-    initializeViewer
+    initializeViewer,
+    calcBook
   }
 )(Viewer)

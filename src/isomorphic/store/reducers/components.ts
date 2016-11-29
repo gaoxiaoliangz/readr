@@ -50,8 +50,23 @@ function modal(state = {}, action) {
 // specific components
 const viewer = combineReducers({
   basicInfo: viewerBasicInfo,
-  bookProgress
+  bookProgress,
+  contents: viewerContents
 })
+
+function viewerContents(state = {}, action) {
+  switch (action.type) {
+    case actions.VIEWER_CALC_SUCCESS:
+      return _.merge({}, state, {
+        [action.bookId]: {
+          computed: action.computed
+        }
+      })
+
+    default:
+      return state
+  }
+}
 
 function viewerBasicInfo(state = {}, action): any {
   switch (action.type) {

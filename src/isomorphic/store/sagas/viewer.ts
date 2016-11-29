@@ -6,8 +6,37 @@ import * as selectors from '../../store/selectors'
 import * as constants from '../../constants'
 import { fetchEntity } from './utils'
 import helpers from '../../helpers'
+// TODO
+import * as viewerUtils from '../../routes/Viewer/Viewer.utils'
 
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
+
+function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
+  const startCalcHtmlTime = new Date().valueOf()
+  const computedChapters = Array.prototype
+    .map.call(wrap.childNodes, child => {
+      const childDiv = child as HTMLDivElement
+      const id = childDiv.getAttribute('id')
+      const nodeHeights = viewerUtils.getNodeHeights(childDiv.querySelector('.lines').childNodes)
+
+      return {
+        id,
+        nodeHeights
+      }
+    })
+  const endCalcHtmlTime = new Date().valueOf()
+  helpers.print(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
+
+  const computedPages = viewerUtils.groupPageFromChapters(flesh, computedChapters, 900)
+
+  return computedPages
+  // this.setState({
+  //   computedPages,
+  //   isCalcMode: false,
+  //   fluid: this.isViewFluid(),
+  //   isTouchMode: this.isTouchMode()
+  // })
+}
 
 function* updateProgress(bookId, percentage): any {
   try {
@@ -19,6 +48,21 @@ function* updateProgress(bookId, percentage): any {
   } finally {
     if (yield cancelled()) {
       helpers.print('updateProgress canceled')
+    }
+  }
+}
+
+function* handleCalcBook(): any {
+  while (true) {
+    const { bookId, wrap } = yield take(actions.VIEWER_CALC_BEGIN)
+    const bookContent = yield select(selectors.common.entity('bookContents', bookId))
+    const flesh = bookContent.flesh || {}
+
+    try {
+      const computed = calcBook(wrap, flesh)
+      yield put(actions.calcBookSuccess(bookId, computed))
+    } catch (error) {
+      yield put(actions.calcBookFailure(bookId, error))
     }
   }
 }
@@ -45,6 +89,7 @@ function* handleProgress(): any {
 
 export default function* watchViewer() {
   yield [
-    fork(handleProgress)
+    fork(handleProgress),
+    fork(handleCalcBook)
   ]
 }

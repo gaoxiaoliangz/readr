@@ -83,10 +83,46 @@ export const VIEWER_INITIALIZE = createActionType('viewer', 'INITIALIZE')
 export interface initializeViewer {
   (bookId: string): any
 }
-export const initializeViewer: initializeViewer = (bookId) => {
+export const initializeViewer: initializeViewer = bookId => {
   return {
     bookId,
     type: VIEWER_INITIALIZE,
+  }
+}
+
+export const VIEWER_CALC_BEGIN = createActionType('viewer', 'CALC_BEGIN')
+export interface calcBook {
+  (bookId: string, wrap: HTMLElement): any
+}
+export const calcBook: calcBook = (bookId, wrap) => {
+  return {
+    bookId,
+    wrap,
+    type: VIEWER_CALC_BEGIN,
+  }
+}
+
+export const VIEWER_CALC_SUCCESS = createActionType('viewer', 'CALC_SUCCESS')
+export interface calcBookSuccess {
+  (bookId: string, computed): any
+}
+export const calcBookSuccess: calcBookSuccess = (bookId, computed) => {
+  return {
+    bookId,
+    computed,
+    type: VIEWER_CALC_SUCCESS,
+  }
+}
+
+export const VIEWER_CALC_FAILURE = createActionType('viewer', 'CALC_FAILURE')
+export interface calcBookFailure {
+  (bookId: string, error: Error): any
+}
+export const calcBookFailure: calcBookFailure = (bookId, error) => {
+  return {
+    bookId,
+    error,
+    type: VIEWER_CALC_FAILURE,
   }
 }
 
