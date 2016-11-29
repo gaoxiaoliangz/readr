@@ -42,6 +42,8 @@ type TBookPage = {
   meta?: {
     pageNo?: number
     offset?: number
+    chapterId: string
+    hash?: string
   }
 }
 

@@ -8,6 +8,7 @@ import BookChapters from './components/BookChapters'
 import ViewerNav from './components/ViewerNav'
 import CSSModules from 'react-css-modules'
 import utils from '../../utils'
+import * as viewerUtils from './Viewer.utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
@@ -48,7 +49,7 @@ interface AllProps {
   sendNotification: sendNotification
   initializeViewer: initializeViewer
   calcBook: calcBook
-  computedPages?: any[]
+  computedPages?: TBookPage[]
   basicInfo: {
     isCalcMode?: boolean
     fluid?: boolean
@@ -124,48 +125,26 @@ class Viewer extends Component<AllProps, State> {
     this.props.calcBook(this.bookId, ele)
   }
 
-  resolveBookLocation(href) {
-    const { computedPages } = this.props
-    const chapterId = href.split('$')[0]
-    const hash = href.split('$')[1]
-
-    let i = 0
-    let foundChapterPage
-
-    while (i < computedPages.length) {
-      const page = computedPages[i]
-      if (`#${page.meta.chapterId}` === chapterId) {
-        foundChapterPage = page.meta.pageNo
-
-        if (hash) {
-          if (page.meta.hash && page.meta.hash.indexOf(hash) !== -1) {
-            helpers.print('with hash', page.meta.pageNo)
-            return page.meta.pageNo
-          }
-        } else {
-          helpers.print('without hash', page.meta.pageNo)
-          return page.meta.pageNo
-        }
-      }
-      i++
-    }
-
-    if (!foundChapterPage) {
-      this.props.sendNotification('未找到位置！', 'error')
-      return false
-    }
-
-    this.props.sendNotification('所在章节未找到位置，已跳转至章节！', 'warning')
-    helpers.print('foundChapterPage', foundChapterPage)
-    return foundChapterPage
-  }
-
   addEventListeners() {
     window.addEventListener('resize', this.resizeLazily)
+
+    const context = this
+
+    $('body').on('click', 'a.js-book-nav', function (e) {
+      e.preventDefault()
+      const href = $(this).attr('href')
+      try {
+        const pageNo = viewerUtils.resolveBookLocation(href, context.props.computedPages)
+        context.props.updateBookProgress(context.bookId, pageNo / context.props.computedPages.length)
+      } catch (error) {
+        context.props.sendNotification(error.message, 'error')
+      }
+    })
   }
 
   removeEventListeners() {
     window.removeEventListener('resize', this.resizeLazily)
+    // TODO: 移除 jquery 事件委托
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -200,29 +179,18 @@ class Viewer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    const { initializeViewer, loadBook, loadBookContent, loadBookProgress, updateBookProgress } = this.props
-    const context = this
-
-    initializeViewer(this.bookId)
-    loadBook(this.bookId)
-    loadBookContent(this.bookId)
+    this.props.initializeViewer(this.bookId)
+    this.props.loadBook(this.bookId)
+    this.props.loadBookContent(this.bookId)
     this.addEventListeners()
 
     // 是否登录的判断逻辑放到 saga 里面了
-    loadBookProgress(this.bookId)
-
-    $('body').on('click', 'a.js-book-nav', function (e) {
-      e.preventDefault()
-      const href = $(this).attr('href')
-      const pageNo = context.resolveBookLocation(href)
-      if (pageNo) {
-        updateBookProgress(context.bookId, pageNo / context.props.computedPages.length)
-      }
-    })
+    this.props.loadBookProgress(this.bookId)
   }
 
   componentWillUnmount() {
     this.removeEventListeners()
+    // TODO
     this.props.destroyBookProgress()
   }
 
