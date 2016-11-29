@@ -5,11 +5,9 @@ import _ from 'lodash'
 import * as selectors from '../../store/selectors'
 import * as constants from '../../constants'
 import { fetchEntity } from './utils'
+import helpers from '../../helpers'
 
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
-
-// function* fetchProgress(bookId: string): any {
-// }
 
 function* updateProgress(bookId, percentage): any {
   try {
@@ -20,59 +18,33 @@ function* updateProgress(bookId, percentage): any {
     // TODO
   } finally {
     if (yield cancelled()) {
-      console.log('updateProgress canceled')
+      helpers.print('updateProgress canceled')
     }
   }
 }
 
-export function* watchLoadProgress(): any {
-  // const loadProgressAction = yield take(actions.LOAD_BOOK_PROGRESS)
-
-}
-
-export function* watchUpdateProgress(): any {
+function* handleProgress(): any {
   while (true) {
     const action = yield take([actions.BOOK_PROGRESS_UPDATE, actions.LOAD_BOOK_PROGRESS])
+    const session = yield select(selectors.common.session)
+    const userRole = _.get(session, 'user.role')
 
-    if (action.type === actions.LOAD_BOOK_PROGRESS) {
-      
+    if (userRole !== constants.ROLES.VISITOR) {
+      if (action.type === actions.LOAD_BOOK_PROGRESS) {
+        yield call(fetchBookProgress, { id: action.id })
+      }
+
+      if (action.type === actions.BOOK_PROGRESS_UPDATE) {
+        yield updateProgress(action.id, action.percentage)
+      }
+    } else {
+      helpers.print('Not logged in, progress will not be fetched!')
     }
-    console.log(action)
-    yield put({ type: 'fuck' })
   }
 }
 
-export default function* watchViewer(): any {
-  while (true) {
-    // const a = yield take(actions.BOOK_PROGRESS_UPDATE)
-    // console.log(a)
-    const loadProgressAction = yield take(actions.LOAD_BOOK_PROGRESS)
-    console.log('here')
-    // const updateAction = yield take(actions.BOOK_PROGRESS_UPDATE)
-    // const session = yield select(selectors.common.session)
-    // const userRole = _.get(session, 'user.role')
-    // const { bookId: bookIdFromBasicInfo } = yield select(selectors.viewer.basicInfo)
-    // console.log('h1')
-
-
-    // console.log(updateAction, loadProgressAction)
-    // console.log(updateAction)
-    yield put({ type: 'fuck' })
-    // console.log(updateAction)
-
-    // if (userRole !== constants.ROLES.VISITOR) {
-    //   console.log('h2')
-    //   const updateTask = yield fork(updateProgress, bookIdFromBasicInfo, updateAction.percentage)
-
-    //   // if (loadProgressAction.type === actions.LOAD_BOOK_PROGRESS) {
-    //   //   console.log('canceling')
-    //   //   yield cancel(updateTask)
-    //   // }
-    //   console.log('fetch progress')
-    //   // yield fork(fetchBookProgress, { id: loadProgressAction.id })
-    //   console.log('loggined in')
-    // }
-
-    // console.log('not logged in!')
-  }
+export default function* watchViewer() {
+  yield [
+    fork(handleProgress)
+  ]
 }

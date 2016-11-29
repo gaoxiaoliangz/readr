@@ -237,7 +237,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    const { session, initializeViewer, loadBook, loadBookContent, loadBookProgress, updateBookProgress } = this.props
+    const { initializeViewer, loadBook, loadBookContent, loadBookProgress, updateBookProgress } = this.props
     const context = this
 
     initializeViewer(this.bookId)
@@ -245,10 +245,7 @@ class Viewer extends Component<AllProps, State> {
     loadBookContent(this.bookId)
     this.addEventListeners()
 
-    // 从其他页面直接进来的话 session 一开始就是确定的
-    // if (session.determined && session.user.role !== 'visitor') {
-    //   fetchProgress(this.bookId)
-    // }
+    // 是否登录的判断逻辑放到 saga 里面了
     loadBookProgress(this.bookId)
 
     $('body').on('click', 'a.js-book-nav', function (e) {
@@ -256,7 +253,7 @@ class Viewer extends Component<AllProps, State> {
       const href = $(this).attr('href')
       const pageNo = context.resolveBookLocation(href)
       if (pageNo) {
-        updateBookProgress(pageNo / context.state.computedPages.length)
+        updateBookProgress(context.bookId, pageNo / context.state.computedPages.length)
       }
     })
   }

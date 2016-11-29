@@ -98,11 +98,12 @@ export const initializeBookProgress = () => {
 }
 
 export interface updateBookProgress {
-  (percentage: number): any
+  (id: string, percentage: number): any
 }
 export const BOOK_PROGRESS_UPDATE = createActionType('viewer/progress', 'UPDATE')
-export const updateBookProgress: updateBookProgress = percentage => {
+export const updateBookProgress: updateBookProgress = (id, percentage) => {
   return {
+    id,
     percentage,
     type: BOOK_PROGRESS_UPDATE,
   }
