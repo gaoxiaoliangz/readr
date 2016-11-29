@@ -6,23 +6,32 @@ import { Button } from '../../elements/form'
 interface Props {
 }
 
-interface AllProps extends Props {
-  routing: any
-  sendNotification: any
-  loadSomething: any
-  saveSomething: any
-}
+// interface AllProps extends Props {
+//   routing: any
+//   sendNotification: any
+//   loadSomething: any
+//   saveSomething: any
+// }
 
 interface State {
 }
 
-// @connect<{}, {}, Props>(
-//   state => ({
-//     routing: state.routing.locationBeforeTransitions
-//   }),
-//   { sendNotification, loadSomething, saveSomething }
-// )
-class TestPlace extends Component<AllProps, State> {
+function mapStateToProps(state) {
+  return {
+    routing: state.routing.locationBeforeTransitions
+  }
+}
+
+function mapDispatchToProps(dispatch): any {
+  return 'sdfsf' as any
+}
+
+@connect<{}, {}, Props>(
+  mapStateToProps,
+  mapDispatchToProps
+  // { sendNotification, loadSomething, saveSomething }
+)
+class TestPlace extends Component<Props, State> {
 
   constructor(props) {
     super(props)
@@ -43,10 +52,14 @@ class TestPlace extends Component<AllProps, State> {
   }
 }
 
-// export default TestPlace
-export default connect<{}, {}, Props>(
-  state => ({
-    routing: state.routing.locationBeforeTransitions
-  }),
-  { sendNotification, loadSomething, saveSomething }
-)(TestPlace)
+// const a: typeof TestPlace = {
+//   prototype: {}
+// }
+
+export default TestPlace
+// export default connect<{}, {}, Props>(
+//   state => ({
+//     routing: state.routing.locationBeforeTransitions
+//   }),
+//   { sendNotification, loadSomething, saveSomething }
+// )(TestPlace)
