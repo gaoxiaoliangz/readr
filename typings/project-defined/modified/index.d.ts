@@ -3,6 +3,18 @@ declare interface NodeRequire {
   ensure: (paths: string[], callback: (require: (path: string) => any) => void) => void
 }
 
+declare interface JSX {
+  IntrinsicElements: {
+    div: any
+  }
+}
+
+interface React {
+  HTMLAttributes: {
+    styleName: string
+  }
+}
+
 /**
  * 全局函数
  */

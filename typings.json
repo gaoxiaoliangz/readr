@@ -9,10 +9,7 @@
     "marked": "registry:dt/marked#0.0.0+20160325085301",
     "normalizr": "registry:dt/normalizr#2.0.1+20160501130729",
     "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",
-    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-motion": "registry:dt/react-motion#0.0.0+20160705193226",
-    "react-router": "registry:dt/react-router#2.0.0+20160813233016",
-    "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160724070902",
     "redux": "registry:dt/redux#3.5.2+20160703092728",
     "redux-logger": "registry:dt/redux-logger#2.6.0+20160316155526",
     "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921",
@@ -24,9 +21,6 @@
   "dependencies": {
     "express": "registry:npm/express#4.14.0+20160815112707",
     "lodash": "registry:npm/lodash#4.0.0+20160723033700",
-    "minimist": "registry:npm/minimist#1.0.0+20160723033700",
-    "react-router": "registry:npm/react-router#2.0.0+20160214194820",
-    "react-router-redux": "registry:npm/react-router-redux#3.0.0+20160214195458",
-    "redux-form": "registry:npm/redux-form#4.0.3+20160310030142"
+    "minimist": "registry:npm/minimist#1.0.0+20160723033700"
   }
 }
