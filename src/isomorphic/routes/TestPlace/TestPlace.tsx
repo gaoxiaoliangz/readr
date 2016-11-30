@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, loadSomething, saveSomething } from '../../store/actions'
-// import * as actions from '../../store/actions'
+// import { sendNotification, loadSomething, saveSomething } from '../../store/actions'
+import * as actions from '../../store/actions'
 import { bindActionCreators } from 'redux'
 import { Button } from '../../elements/form'
+import _ from 'lodash'
 
 interface Props {
 }
@@ -13,9 +14,10 @@ interface LocalState {
 
 interface AllProps extends Props {
   routing: any
-  sendNotification: any
-  loadSomething: any
-  saveSomething: any
+  // sendNotification: any
+  // loadSomething: any
+  // saveSomething: any
+  actions: typeof actions
 }
 
 function mapStateToProps(state) {
@@ -24,13 +26,19 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ sendNotification, loadSomething, saveSomething }, dispatch)
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: bindActionCreators(_.assign({}, actions), dispatch)
+//   }
+// }
 
 @connect<AllProps>(
   mapStateToProps,
-  mapDispatchToProps
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+  // mapDispatchToProps
+  // { actions: _.assign({}, actions) }
 )
 export default class TestPlace extends Component<AllProps, LocalState> {
 
@@ -38,16 +46,17 @@ export default class TestPlace extends Component<AllProps, LocalState> {
     super(props)
   }
 
-  componentDidMount() {
-  }
+  // componentDidMount() {
+  //   this.props.actions.updateBookProgress(89)
+  // }
 
   render() {
     return (
       <div>
         <h1>Test Place</h1>
-        <Button onClick={e => { this.props.loadSomething() } }>load</Button>
+        <Button onClick={e => { this.props.actions.loadSomething() } }>load</Button>
         <span> </span>
-        <Button onClick={e => { this.props.saveSomething() } }>save</Button>
+        <Button onClick={e => { this.props.actions.saveSomething() } }>save</Button>
       </div>
     )
   }

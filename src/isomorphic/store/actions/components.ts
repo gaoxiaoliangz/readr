@@ -1,3 +1,5 @@
+import * as selectors from '../selectors'
+
 const createActionType = (name, operation) => `/components/${name}/${operation}`
 
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
@@ -148,15 +150,21 @@ export const initializeBookProgress = () => {
 }
 
 export interface updateBookProgress {
-  (id: string, percentage: number): any
+  (percentage: number): any
 }
 export const BOOK_PROGRESS_UPDATE = createActionType('viewer/progress', 'UPDATE')
-export const updateBookProgress: updateBookProgress = (id, percentage) => {
-  return {
-    id,
+export const updateBookProgress: updateBookProgress = percentage => (dispatch, getState) => {
+  const state = getState()
+  const { bookId } = selectors.viewer.basicInfo(state)
+  const computed = selectors.viewer.computed(bookId)(state)
+  const pageNo = Math.floor(computed.length * percentage) + 1
+
+  return dispatch({
+    id: bookId,
     percentage,
+    pageNo,
     type: BOOK_PROGRESS_UPDATE,
-  }
+  })
 }
 
 // TODO: 无需 destroy

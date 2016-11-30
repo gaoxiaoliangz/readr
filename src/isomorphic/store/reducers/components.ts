@@ -102,7 +102,8 @@ function bookProgress(state = {}, action): any {
     case actions.BOOK_PROGRESS_UPDATE:
       return {
         isFetching: false,
-        percentage: action.percentage
+        percentage: action.percentage,
+        pageNo: action.pageNo
       }
 
     case actions.BOOK_PROGRESS_DESTROY:

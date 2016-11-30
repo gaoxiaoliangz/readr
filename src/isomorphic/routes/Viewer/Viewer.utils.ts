@@ -152,15 +152,6 @@ export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeights
   return allPages
 }
 
-export function percentageToPage(p: number, pageSum: number) {
-  if (p > 1) {
-    console.error('Percentage should be less than 1!')
-    return null
-  } else {
-    return parseInt((p * pageSum) as any) + 1
-  }
-}
-
 export function resolveBookLocation(href, computedPages: TBookPage[]) {
   const chapterId = href.split('$')[0]
   const hash = href.split('$')[1]

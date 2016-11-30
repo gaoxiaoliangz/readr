@@ -13,7 +13,6 @@ import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 import $ from 'jquery'
-import helpers from '../../helpers'
 import {
   loadBook,
   loadBookProgress,
@@ -64,8 +63,42 @@ interface State {
   showViewerPreference?: boolean
 }
 
+const mapStateToProps = (state, ownProps: any) => {
+  const bookId = ownProps.params.id
+  const book = selectors.common.entity('books', bookId)(state)
+  const bookContent = selectors.common.entity('bookContents', bookId)(state)
+  const computedPages = selectors.viewer.computed(bookId)(state)
+  const basicInfo = selectors.viewer.basicInfo(state)
+
+  return {
+    book,
+    bookContent,
+    progress: state.components.viewer.bookProgress.percentage,
+    isFetchingProgress: state.components.viewer.bookProgress.isFetching,
+    session: state.session,
+    computedPages,
+    basicInfo
+  }
+}
+
+@connect<AllProps>(
+  mapStateToProps,
+  {
+    loadBook,
+    loadBookProgress,
+    openConfirmModal,
+    initializeBookProgress,
+    destroyBookProgress,
+    loadBookContent,
+    updateBookProgress,
+    sendNotification,
+    initializeViewer,
+    calcBook,
+    initializeViewerSuccess
+  }
+)
 @CSSModules(styles)
-class Viewer extends Component<AllProps, State> {
+export default class Viewer extends Component<AllProps, State> {
 
   constructor(props) {
     super(props)
@@ -107,7 +140,7 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleProgressChange(newProgress) {
-    this.props.updateBookProgress(this.bookId, newProgress)
+    this.props.updateBookProgress(newProgress)
   }
 
   handleViewerClick() {
@@ -135,7 +168,7 @@ class Viewer extends Component<AllProps, State> {
       const href = $(this).attr('href')
       try {
         const pageNo = viewerUtils.resolveBookLocation(href, context.props.computedPages)
-        context.props.updateBookProgress(context.bookId, pageNo / context.props.computedPages.length)
+        context.props.updateBookProgress((pageNo - 1) / context.props.computedPages.length)
       } catch (error) {
         context.props.sendNotification(error.message, 'error')
       }
@@ -210,7 +243,7 @@ class Viewer extends Component<AllProps, State> {
 
   renderBook() {
     const { showPageInfo } = this.state
-    const { progress, bookContent, computedPages, basicInfo: { fluid, isCalcMode } } = this.props
+    const { bookContent, computedPages, basicInfo: { fluid, isCalcMode } } = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
@@ -233,7 +266,6 @@ class Viewer extends Component<AllProps, State> {
           allPages={computedPages}
           pageHeight={900}
           fluid={fluid}
-          initialProgress={progress}
           onProgressChange={this.handleProgressChange}
           showPageInfo={showPageInfo}
           pageLimit={5}
@@ -260,38 +292,3 @@ class Viewer extends Component<AllProps, State> {
     )
   }
 }
-
-const mapStateToProps = (state, ownProps: any) => {
-  const bookId = ownProps.params.id
-  const book = selectors.common.entity('books', bookId)(state)
-  const bookContent = selectors.common.entity('bookContents', bookId)(state)
-  const computedPages = selectors.viewer.computed(bookId)(state)
-  const basicInfo = selectors.viewer.basicInfo(state)
-
-  return {
-    book,
-    bookContent,
-    progress: state.components.viewer.bookProgress.percentage,
-    isFetchingProgress: state.components.viewer.bookProgress.isFetching,
-    session: state.session,
-    computedPages,
-    basicInfo
-  }
-}
-
-export default connect<{}, {}, AllProps>(
-  mapStateToProps,
-  {
-    loadBook,
-    loadBookProgress,
-    openConfirmModal,
-    initializeBookProgress,
-    destroyBookProgress,
-    loadBookContent,
-    updateBookProgress,
-    sendNotification,
-    initializeViewer,
-    calcBook,
-    initializeViewerSuccess
-  }
-)(Viewer)

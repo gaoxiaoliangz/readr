@@ -1,9 +1,12 @@
 import _ from 'lodash'
 
 export const basicInfo = state => {
-  return _.get(state, ['components', 'viewer', 'basicInfo'], {})
+  // TODO
+  return _.get(state, ['components', 'viewer', 'basicInfo'], {}) as {
+    bookId: string
+  }
 }
 
 export const computed = bookId => state => {
-  return _.get(state, ['components', 'viewer', 'contents', bookId, 'computed'], [])
+  return _.get(state, ['components', 'viewer', 'contents', bookId, 'computed'], []) as TBookPage[]
 }
