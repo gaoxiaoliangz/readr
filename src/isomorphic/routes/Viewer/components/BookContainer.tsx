@@ -3,12 +3,15 @@ import BookPages from './BookPages'
 import ViewerScrollbar from './ViewerScrollbar'
 import * as utils from '../Viewer.utils'
 import _ from 'lodash'
-
+import { connect } from 'react-redux'
+import {
+  initializeViewerSuccess
+} from '../../../store/actions'
 interface Props {
   allPages: TBookPage[]
   isScrollMode?: boolean
-  initialPage?: number
-  initialProgress?: number
+  // initialPage?: number
+  // initialProgress?: number
   pageHeight: number
   onProgressChange?: (newProgress: number) => void
   fluid: boolean
@@ -16,12 +19,20 @@ interface Props {
   pageLimit: number
 }
 
-interface State {
-  scrollTop?: number
-  currentPage?: number
+interface AllProps extends Props {
+  percentage?: number
 }
 
-class BookContainer extends Component<Props, State> {
+const mapStateToProps = state => {
+  return {
+    percentage: state.components.viewer.bookProgress.percentage
+  }
+}
+
+@connect<AllProps>(
+  mapStateToProps
+)
+export default class BookContainer extends Component<AllProps, {}> {
 
   handleScrollLazily: any
 
@@ -42,15 +53,11 @@ class BookContainer extends Component<Props, State> {
     const pageCount = allPages.length
     const totalHeight = pageCount * pageHeight
     const scrollTop = document.body.scrollTop
-    const currentPage = utils.percentageToPage(scrollTop / totalHeight, allPages.length)
+    // const currentPage = utils.percentageToPage(scrollTop / totalHeight, allPages.length)
 
     if (onProgressChange) {
       onProgressChange(scrollTop / totalHeight)
     }
-
-    this.setState({
-      currentPage
-    })
   }
 
   addEventListeners() {
@@ -62,24 +69,19 @@ class BookContainer extends Component<Props, State> {
   }
 
   scrollPage(props = this.props) {
-    const { allPages, pageHeight, initialPage, initialProgress } = props
+    const { allPages, pageHeight, percentage } = props
     const pageCount = allPages.length
     const totalHeight = pageCount * pageHeight
-    let scrollTop = 0
 
-    if (initialProgress) {
-      scrollTop = totalHeight * initialProgress
-    } else if (initialPage) {
-      scrollTop = pageHeight * (initialPage - 1)
-    }
-
-    document.body.scrollTop = scrollTop
+    document.body.scrollTop = percentage
+      ? totalHeight * percentage
+      : 0
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const initialProgressChanged = this.props.initialProgress !== nextProps.initialProgress
+    const percentageChanged = this.props.percentage !== nextProps.percentage
 
-    if (initialProgressChanged) {
+    if (percentageChanged) {
       this.scrollPage(nextProps)
     }
   }
@@ -94,9 +96,9 @@ class BookContainer extends Component<Props, State> {
   }
 
   render() {
-    const { currentPage } = this.state
-    const { allPages, pageHeight, fluid, showPageInfo, pageLimit } = this.props
+    const { allPages, pageHeight, fluid, showPageInfo, pageLimit, percentage } = this.props
     const pageCount = allPages.length
+    const currentPage = Math.floor(pageCount * percentage) + 1
     const totalHeight = pageCount * pageHeight
 
     let startPageIndex
@@ -123,5 +125,3 @@ class BookContainer extends Component<Props, State> {
     )
   }
 }
-
-export default BookContainer

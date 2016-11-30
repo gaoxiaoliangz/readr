@@ -21,7 +21,7 @@ class ViewerScrollbar extends Component<Props, {}> {
 
     return (
       this.props.visible && (
-        <div styleName="loc-info">
+        <div {...{ styleName: 'loc-info' }}>
           <div><strong>{current}</strong>/{total}</div>
           <div styleName="sub-info">{percentage}</div>
         </div>

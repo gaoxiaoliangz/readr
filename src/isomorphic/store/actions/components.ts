@@ -1,3 +1,5 @@
+import * as selectors from '../selectors'
+
 const createActionType = (name, operation) => `/components/${name}/${operation}`
 
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
@@ -79,6 +81,67 @@ export function closeModal() {
 }
 
 // viewer
+export const VIEWER_INITIALIZE_BEGIN = createActionType('viewer', 'INITIALIZE_BEGIN')
+export interface initializeViewer {
+  (bookId: string, config?): any
+}
+export const initializeViewer: initializeViewer = (bookId, config = {}) => {
+  return {
+    bookId,
+    config,
+    type: VIEWER_INITIALIZE_BEGIN,
+  }
+}
+
+// TODO: 改名为 config
+export const VIEWER_INITIALIZE_SUCCESS = createActionType('viewer', 'INITIALIZE_SUCCESS')
+export interface initializeViewerSuccess {
+  (bookId: string, payload): any
+}
+export const initializeViewerSuccess: initializeViewerSuccess = (bookId, payload) => {
+  return {
+    bookId,
+    payload,
+    type: VIEWER_INITIALIZE_SUCCESS,
+  }
+}
+
+export const VIEWER_CALC_BEGIN = createActionType('viewer', 'CALC_BEGIN')
+export interface calcBook {
+  (bookId: string, wrap: HTMLElement): any
+}
+export const calcBook: calcBook = (bookId, wrap) => {
+  return {
+    bookId,
+    wrap,
+    type: VIEWER_CALC_BEGIN,
+  }
+}
+
+export const VIEWER_CALC_SUCCESS = createActionType('viewer', 'CALC_SUCCESS')
+export interface calcBookSuccess {
+  (bookId: string, computed): any
+}
+export const calcBookSuccess: calcBookSuccess = (bookId, computed) => {
+  return {
+    bookId,
+    computed,
+    type: VIEWER_CALC_SUCCESS,
+  }
+}
+
+export const VIEWER_CALC_FAILURE = createActionType('viewer', 'CALC_FAILURE')
+export interface calcBookFailure {
+  (bookId: string, error: Error): any
+}
+export const calcBookFailure: calcBookFailure = (bookId, error) => {
+  return {
+    bookId,
+    error,
+    type: VIEWER_CALC_FAILURE,
+  }
+}
+
 export const BOOK_PROGRESS_INITIALIZE = createActionType('viewer/progress', 'INITIALIZE')
 export const initializeBookProgress = () => {
   return {
@@ -90,13 +153,21 @@ export interface updateBookProgress {
   (percentage: number): any
 }
 export const BOOK_PROGRESS_UPDATE = createActionType('viewer/progress', 'UPDATE')
-export const updateBookProgress: updateBookProgress = percentage => {
-  return {
+export const updateBookProgress: updateBookProgress = percentage => (dispatch, getState) => {
+  const state = getState()
+  const { bookId } = selectors.viewer.basicInfo(state)
+  const computed = selectors.viewer.computed(bookId)(state)
+  const pageNo = Math.floor(computed.length * percentage) + 1
+
+  return dispatch({
+    id: bookId,
     percentage,
+    pageNo,
     type: BOOK_PROGRESS_UPDATE,
-  }
+  })
 }
 
+// TODO: 无需 destroy
 export const BOOK_PROGRESS_DESTROY = createActionType('viewer/progress', 'DESTROY')
 export const destroyBookProgress = () => {
   return {

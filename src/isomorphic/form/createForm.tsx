@@ -27,8 +27,10 @@ interface FormProps {
 class ElementClass extends Component<any, any> {
 }
 
-interface ClassDecorator {
-  <T extends (typeof ElementClass)>(config: FormConfig): T
+interface CreateFormClassDecorator {
+  // TODO: why so?
+  // <T extends (typeof ElementClass)>(config: FormConfig): T
+  <T extends Function>(config: FormConfig): T
 }
 
 const validateForm = (fields, formValues, validateFn) => {
@@ -52,7 +54,7 @@ const validateForm = (fields, formValues, validateFn) => {
   return { fields, hasError: false }
 }
 
-const createForm: ClassDecorator = (config: FormConfig) => {
+const createForm: CreateFormClassDecorator = (config: FormConfig) => {
   const { fields: fieldsArr, form: formName, validate, destroyOnUnmount } = config
 
   return WrappedComponent => {

@@ -2,20 +2,31 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookContainer from './components/BookContainer'
-import * as viewerUtils from './Viewer.utils'
-import { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress, sendNotification } from '../../store/actions'
 import _ from 'lodash'
 import ViewerPanel from './components/ViewerPanel'
 import BookChapters from './components/BookChapters'
 import ViewerNav from './components/ViewerNav'
 import CSSModules from 'react-css-modules'
-import api from '../../services/api'
 import utils from '../../utils'
+import * as viewerUtils from './Viewer.utils'
 import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 import $ from 'jquery'
-import helpers from '../../helpers'
+import {
+  loadBook,
+  loadBookProgress,
+  openConfirmModal,
+  initializeBookProgress,
+  destroyBookProgress,
+  loadBookContent,
+  updateBookProgress,
+  sendNotification,
+  initializeViewer,
+  calcBook,
+  initializeViewerSuccess
+} from '../../store/actions'
+import { ROLES } from '../../constants'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -26,7 +37,7 @@ interface AllProps {
     nav: any
     flesh: TBookFlesh
   }
-  fetchProgress: (bookId: string) => void
+  loadBookProgress: loadBookProgress
   updateBookProgress: updateBookProgress
   progress: number
   openConfirmModal: (data: openConfirmModal) => void
@@ -35,20 +46,59 @@ interface AllProps {
   initializeBookProgress: any
   destroyBookProgress: any
   sendNotification: sendNotification
+  initializeViewer: initializeViewer
+  calcBook: calcBook
+  computedPages?: TBookPage[]
+  basicInfo: {
+    isCalcMode?: boolean
+    fluid?: boolean
+    isTouchMode?: boolean
+  }
+  initializeViewerSuccess: initializeViewerSuccess
 }
 
 interface State {
   showPanel?: boolean
-  isCalcMode?: boolean
-  showViewerPreference?: boolean
-  fluid?: boolean
-  isTouchMode?: boolean
   showPageInfo?: boolean
-  computedPages?: any[]
+  showViewerPreference?: boolean
 }
 
+const mapStateToProps = (state, ownProps: any) => {
+  const bookId = ownProps.params.id
+  const book = selectors.common.entity('books', bookId)(state)
+  const bookContent = selectors.common.entity('bookContents', bookId)(state)
+  const computedPages = selectors.viewer.computed(bookId)(state)
+  const basicInfo = selectors.viewer.basicInfo(state)
+
+  return {
+    book,
+    bookContent,
+    progress: state.components.viewer.bookProgress.percentage,
+    isFetchingProgress: state.components.viewer.bookProgress.isFetching,
+    session: state.session,
+    computedPages,
+    basicInfo
+  }
+}
+
+@connect<AllProps>(
+  mapStateToProps,
+  {
+    loadBook,
+    loadBookProgress,
+    openConfirmModal,
+    initializeBookProgress,
+    destroyBookProgress,
+    loadBookContent,
+    updateBookProgress,
+    sendNotification,
+    initializeViewer,
+    calcBook,
+    initializeViewerSuccess
+  }
+)
 @CSSModules(styles)
-class Viewer extends Component<AllProps, State> {
+export default class Viewer extends Component<AllProps, State> {
 
   constructor(props) {
     super(props)
@@ -56,11 +106,7 @@ class Viewer extends Component<AllProps, State> {
     this.bookId = props.params.id
     this.state = {
       showPanel: false,
-      isCalcMode: true,
       showViewerPreference: false,
-      fluid: false,
-      isTouchMode: false,
-      computedPages: []
     }
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
@@ -75,20 +121,10 @@ class Viewer extends Component<AllProps, State> {
   bookId: string
   resizeLazily: any
 
-  isViewFluid(): boolean {
-    return utils.getScreenInfo().view.width < 700
-  }
-
-  isTouchMode(): boolean {
-    return utils.getScreenInfo().view.width < 700
-  }
-
-  setProgress(percentage) {
-    api.setProgress(this.bookId, { percentage })
-  }
-
   handelViewerMouseMove(event) {
-    if (!this.state.isCalcMode && !this.state.isTouchMode) {
+    const { basicInfo: { isCalcMode, isTouchMode } } = this.props
+
+    if (!isCalcMode && !isTouchMode) {
       let y = event.pageY - document.body.scrollTop
       let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
 
@@ -100,23 +136,17 @@ class Viewer extends Component<AllProps, State> {
   }
 
   handleResize() {
-    this.setState({
-      fluid: this.isViewFluid(),
-      isTouchMode: this.isTouchMode()
-    })
+    this.props.initializeViewer(this.bookId)
   }
 
   handleProgressChange(newProgress) {
-    const { isFetchingProgress, session: { user: { role } } } = this.props
-    const progressDetermined = typeof isFetchingProgress !== 'undefined' || this.props.isFetchingProgress !== false
-
-    if (progressDetermined && role !== 'visitor') {
-      this.setProgress(newProgress)
-    }
+    this.props.updateBookProgress(newProgress)
   }
 
   handleViewerClick() {
-    if (this.state.isTouchMode) {
+    const { basicInfo: { isTouchMode } } = this.props
+
+    if (isTouchMode) {
       this.setState({
         showPanel: !this.state.showPanel,
         showPageInfo: !this.state.showPageInfo
@@ -124,79 +154,30 @@ class Viewer extends Component<AllProps, State> {
     }
   }
 
-  calcDom(wrap: HTMLElement) {
-    const { bookContent } = this.props
-    const startCalcHtmlTime = new Date().valueOf()
-    const computedChapters = Array.prototype
-      .map.call(wrap.childNodes, child => {
-        const childDiv = child as HTMLDivElement
-        const id = childDiv.getAttribute('id')
-        const nodeHeights = viewerUtils.getNodeHeights(childDiv.querySelector('.lines').childNodes)
-
-        return {
-          id,
-          nodeHeights
-        }
-      })
-    const endCalcHtmlTime = new Date().valueOf()
-    helpers.print(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
-
-    const computedPages = viewerUtils.groupPageFromChapters(bookContent.flesh, computedChapters, 900)
-
-    this.setState({
-      computedPages,
-      isCalcMode: false,
-      fluid: this.isViewFluid(),
-      isTouchMode: this.isTouchMode()
-    })
-  }
-
   handleChapterUpdate(ele: HTMLElement) {
-    this.calcDom(ele)
-  }
-
-  resolveBookLocation(href) {
-    const { computedPages } = this.state
-    const chapterId = href.split('$')[0]
-    const hash = href.split('$')[1]
-
-    let i = 0
-    let foundChapterPage
-
-    while (i < computedPages.length) {
-      const page = computedPages[i]
-      if (`#${page.meta.chapterId}` === chapterId) {
-        foundChapterPage = page.meta.pageNo
-
-        if (hash) {
-          if (page.meta.hash && page.meta.hash.indexOf(hash) !== -1) {
-            helpers.print('with hash', page.meta.pageNo)
-            return page.meta.pageNo
-          }
-        } else {
-          helpers.print('without hash', page.meta.pageNo)
-          return page.meta.pageNo
-        }
-      }
-      i++
-    }
-
-    if (!foundChapterPage) {
-      this.props.sendNotification('未找到位置！', 'error')
-      return false
-    }
-
-    this.props.sendNotification('所在章节未找到位置，已跳转至章节！', 'warning')
-    helpers.print('foundChapterPage', foundChapterPage)
-    return foundChapterPage
+    this.props.calcBook(this.bookId, ele)
   }
 
   addEventListeners() {
     window.addEventListener('resize', this.resizeLazily)
+
+    const context = this
+
+    $('body').on('click', 'a.js-book-nav', function (e) {
+      e.preventDefault()
+      const href = $(this).attr('href')
+      try {
+        const pageNo = viewerUtils.resolveBookLocation(href, context.props.computedPages)
+        context.props.updateBookProgress((pageNo - 1) / context.props.computedPages.length)
+      } catch (error) {
+        context.props.sendNotification(error.message, 'error')
+      }
+    })
   }
 
   removeEventListeners() {
     window.removeEventListener('resize', this.resizeLazily)
+    // TODO: 移除 jquery 事件委托
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -206,50 +187,43 @@ class Viewer extends Component<AllProps, State> {
   componentWillReceiveProps(nextProps, nextState) {
     const sessionDetermined = this.props.session.determined === false && nextProps.session.determined === true
 
-    if (sessionDetermined && nextProps.session.user.role !== 'visitor') {
-      this.props.fetchProgress(this.bookId)
+    // TODO: rxjs or react prop listener?
+    if (sessionDetermined && nextProps.session.user.role !== ROLES.VISITOR) {
+      this.props.loadBookProgress(this.bookId)
     }
 
-    if (sessionDetermined && nextProps.session.user.role === 'visitor') {
+    if (sessionDetermined && nextProps.session.user.role === ROLES.VISITOR) {
       this.props.initializeBookProgress()
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const viewChanged = this.state.fluid !== prevState.fluid
+    const viewChanged = this.props.basicInfo.fluid !== prevProps.basicInfo.fluid
 
     if (viewChanged) {
-      this.setState({
+      this.props.initializeViewer(this.bookId, {
         isCalcMode: true
+      })
+      this.setState({
+        showPageInfo: false,
+        showPanel: false
       })
     }
   }
 
   componentDidMount() {
-    const { session } = this.props
-    const context = this
-
+    this.props.initializeViewer(this.bookId)
     this.props.loadBook(this.bookId)
     this.props.loadBookContent(this.bookId)
     this.addEventListeners()
 
-    // 从其他页面直接进来的话 session 一开始就是确定的
-    if (session.determined && session.user.role !== 'visitor') {
-      this.props.fetchProgress(this.bookId)
-    }
-
-    $('body').on('click', 'a.js-book-nav', function(e) {
-      e.preventDefault()
-      const href = $(this).attr('href')
-      const pageNo = context.resolveBookLocation(href)
-      if (pageNo) {
-        context.props.updateBookProgress(pageNo / context.state.computedPages.length)
-      }
-    })
+    // 是否登录的判断逻辑放到 saga 里面了
+    this.props.loadBookProgress(this.bookId)
   }
 
   componentWillUnmount() {
     this.removeEventListeners()
+    // TODO
     this.props.destroyBookProgress()
   }
 
@@ -268,14 +242,14 @@ class Viewer extends Component<AllProps, State> {
   }
 
   renderBook() {
-    const { fluid, showPageInfo, computedPages } = this.state
-    const { progress, bookContent } = this.props
+    const { showPageInfo } = this.state
+    const { bookContent, computedPages, basicInfo: { fluid, isCalcMode } } = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
     }
 
-    if (this.state.isCalcMode) {
+    if (isCalcMode) {
       return (
         <div>
           <Loading text="书籍排版中" center />
@@ -292,7 +266,6 @@ class Viewer extends Component<AllProps, State> {
           allPages={computedPages}
           pageHeight={900}
           fluid={fluid}
-          initialProgress={progress}
           onProgressChange={this.handleProgressChange}
           showPageInfo={showPageInfo}
           pageLimit={5}
@@ -319,22 +292,3 @@ class Viewer extends Component<AllProps, State> {
     )
   }
 }
-
-const mapStateToProps = (state, ownProps: any) => {
-  const bookId = ownProps.params.id
-  const book = selectors.common.entity('books', bookId)(state)
-  const bookContent = selectors.common.entity('bookContents', bookId)(state)
-
-  return {
-    book,
-    bookContent,
-    progress: state.components.viewer.bookProgress.percentage,
-    isFetchingProgress: state.components.viewer.bookProgress.isFetching,
-    session: state.session
-  }
-}
-
-export default connect<{}, {}, AllProps>(
-  mapStateToProps,
-  { loadBook, fetchProgress, openConfirmModal, initializeBookProgress, destroyBookProgress, loadBookContent, updateBookProgress, sendNotification }
-)(Viewer)

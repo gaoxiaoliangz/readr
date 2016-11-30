@@ -12,6 +12,10 @@ interface Props {
   useAsMasterTitle?: boolean
 }
 
+@withSideEffect(
+  reducePropsToState,
+  handleStateChangeOnClient
+)
 class DocContainer extends Component<Props, {}> {
   render() {
     const { className } = this.props
@@ -65,7 +69,4 @@ function handleStateChangeOnClient(propList) {
   }
 }
 
-export default withSideEffect<Props>(
-  reducePropsToState,
-  handleStateChangeOnClient
-)(DocContainer)
+export default DocContainer

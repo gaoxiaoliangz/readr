@@ -49,8 +49,47 @@ function modal(state = {}, action) {
 
 // specific components
 const viewer = combineReducers({
-  bookProgress
+  basicInfo: viewerBasicInfo,
+  bookProgress,
+  contents: viewerContents
 })
+
+function viewerContents(state = {}, action) {
+  switch (action.type) {
+    case actions.VIEWER_CALC_SUCCESS:
+      return _.merge({}, state, {
+        [action.bookId]: {
+          computed: action.computed
+        }
+      })
+
+    default:
+      return state
+  }
+}
+
+function viewerBasicInfo(state = {}, action): any {
+  const defaultViewerConfig = {
+    isCalcMode: true,
+    fluid: false,
+    isTouchMode: false
+  }
+
+  switch (action.type) {
+    case actions.VIEWER_INITIALIZE_BEGIN:
+      return _.merge({}, state, {
+        bookId: action.bookId
+      }, defaultViewerConfig)
+
+    case actions.VIEWER_INITIALIZE_SUCCESS:
+      return _.merge({}, state, {
+        bookId: action.bookId
+      }, action.payload)
+
+    default:
+      return state
+  }
+}
 
 function bookProgress(state = {}, action): any {
   switch (action.type) {
@@ -63,7 +102,8 @@ function bookProgress(state = {}, action): any {
     case actions.BOOK_PROGRESS_UPDATE:
       return {
         isFetching: false,
-        percentage: action.percentage
+        percentage: action.percentage,
+        pageNo: action.pageNo
       }
 
     case actions.BOOK_PROGRESS_DESTROY:
