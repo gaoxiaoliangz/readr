@@ -14,11 +14,17 @@ interface Props {
 }
 
 interface AllProps extends Props {
-  routing: any
-  sendNotification: any
+  routing?: any
+  sendNotification?: any
 }
 
 @CSSModules(styles)
+@connect<AllProps>(
+  state => ({
+    routing: state.routing.locationBeforeTransitions
+  }),
+  { sendNotification }
+)
 class BookPages extends Component<AllProps, {}> {
 
   constructor(props) {
@@ -54,9 +60,10 @@ class BookPages extends Component<AllProps, {}> {
   }
 }
 
-export default connect<{}, {}, Props>(
-  state => ({
-    routing: state.routing.locationBeforeTransitions
-  }),
-  { sendNotification }
-)(BookPages)
+export default BookPages
+// export default connect<{}, {}, Props>(
+//   state => ({
+//     routing: state.routing.locationBeforeTransitions
+//   }),
+//   { sendNotification }
+// )(BookPages)

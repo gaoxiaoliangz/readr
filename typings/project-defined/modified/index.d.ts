@@ -15,6 +15,7 @@ interface React {
   }
 }
 
+
 /**
  * 全局函数
  */
@@ -30,3 +31,20 @@ interface M_ReduxStore extends Redux.Store<{}> {
 
 declare var describe: any
 declare var it: any
+
+
+
+////////////////////////////// MODIFIED IN @TYPES //////////////////////////////
+
+// // START USER DEFINED
+// declare class ElementClass extends React.Component<any, any> {}
+
+// interface ClassDecorator<TOwnProps> {
+//     <T extends (typeof ElementClass)>(component:T): T;
+// }
+
+// export declare function connect<TOwnProps>(
+//     mapStateToProps: FuncOrSelf<MapStateToProps<{}, TOwnProps>>,
+//     mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<{}, TOwnProps> | MapDispatchToPropsObject>
+// ): ClassDecorator<TOwnProps>;
+// // END USER DEFINED
