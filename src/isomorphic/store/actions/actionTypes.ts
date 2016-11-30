@@ -1,6 +1,8 @@
 import { createRequestTypes, createComponentActionType } from './utils'
 
-// api
+/**
+ * api
+ */
 export const REMOVE_ENTITY = 'REMOVE_ENTITY'
 
 export const BOOK = createRequestTypes('book')
@@ -32,6 +34,7 @@ export const SHELF = createRequestTypes('shelf')
 /**
  * components
  */
+
 // general
 export const NOTIFICATION = {
   SHOW: createComponentActionType('notification', 'SHOW'),

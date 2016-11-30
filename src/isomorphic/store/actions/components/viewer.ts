@@ -1,5 +1,5 @@
-import * as selectors from '../../store/selectors'
-import * as ActionTypes from '../actions/actionTypes'
+import * as selectors from '../../selectors'
+import * as ActionTypes from '../actionTypes'
 
 // viewer
 export const initializeViewer = (bookId: string, config = {}) => {

@@ -1,4 +1,6 @@
-import * as ActionTypes from '../actions/actionTypes'
+import * as ActionTypes from '../actionTypes'
+
+export * from './viewer'
 
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
 export const sendNotification = (message: string, msgType: MsgType = 'success', t: number = 2000) => {
