@@ -48,7 +48,7 @@ const mapStateToProps = (state, ownProps) => {
   })
 )
 @CSSModules(styles)
-export default class Viewer extends Component<AllProps, {}> {
+export default class Viewer extends Component<AllProps, void> {
 
   bookId: string
 
@@ -57,14 +57,15 @@ export default class Viewer extends Component<AllProps, {}> {
     this.bookId = props.params.id
     this.handleProgressChange = this.handleProgressChange.bind(this)
     this.handleSessionDetermined = this.handleSessionDetermined.bind(this)
+    this.handleConfigChange = this.handleConfigChange.bind(this)
+  }
+
+  handleConfigChange(newConfig) {
+    // this.props.actions.initializeViewer(this.bookId, newConfig)
   }
 
   handleProgressChange(newProgress) {
     this.props.actions.updateBookProgress(newProgress)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   handleSessionDetermined(userRole) {
@@ -75,18 +76,8 @@ export default class Viewer extends Component<AllProps, {}> {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const viewChanged = this.props.basicInfo.fluid !== prevProps.basicInfo.fluid
-
-    if (viewChanged) {
-      this.props.actions.initializeViewer(this.bookId, {
-        isCalcMode: true
-      })
-      this.setState({
-        showPageInfo: false,
-        showPanel: false
-      })
-    }
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   componentDidMount() {
@@ -102,6 +93,7 @@ export default class Viewer extends Component<AllProps, {}> {
           bookId={this.bookId}
           onProgressChange={this.handleProgressChange}
           onSessionDetermined={this.handleSessionDetermined}
+          onConfigChange={this.handleConfigChange}
         />
       </DocContainer>
     )

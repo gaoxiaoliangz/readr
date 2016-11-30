@@ -30,8 +30,10 @@ function* setViewer(bookId, config: ViewerConfig = {}): any {
   if (computed.length > 0) {
     initialized.isCalcMode = false
   }
-
+  // console.log(initialized, config)
+  console.log(config)
   initialized = _.merge({}, initialized, config)
+  // console.log(initialized)
 
   yield put(actions.configViewer(bookId, initialized))
 }
@@ -40,6 +42,7 @@ function* watchInitViewer(): any {
   while (true) {
     const action = yield take(ActionTypes.VIEWER_INITIALIZE)
     const bookId = action.bookId
+    console.log(action.config)
     yield setViewer(bookId, action.config)
   }
 }

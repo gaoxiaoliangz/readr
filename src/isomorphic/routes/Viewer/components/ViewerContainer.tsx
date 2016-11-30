@@ -21,6 +21,7 @@ interface Props {
   bookId: string
   onProgressChange: (percentage: number) => void
   onSessionDetermined?: (userRole: string) => void
+  onConfigChange?: (newConfig, oldConfig) => void
 }
 
 interface State {
@@ -90,6 +91,7 @@ export default class SomeComponent extends Component<AllProps, State> {
     this.handleViewerClick = this.handleViewerClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
     this.handleResize = this.handleResize.bind(this)
+    this.resizeLazily = this.resizeLazily.bind(this)
     this.handleChapterUpdate = this.handleChapterUpdate.bind(this)
   }
 
@@ -136,7 +138,9 @@ export default class SomeComponent extends Component<AllProps, State> {
   }
 
   handleResize() {
-    this.props.actions.initializeViewer(this.props.bookId)
+    this.props.actions.initializeViewer(this.props.bookId, {
+      isCalcMode: false
+    })
   }
 
   addEventListeners() {
@@ -160,6 +164,25 @@ export default class SomeComponent extends Component<AllProps, State> {
 
     if (sessionDetermined && onSessionDetermined) {
       onSessionDetermined(nextProps.session.user.role)
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { onConfigChange } = this.props
+    const configChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
+      if (key === 'isTouchMode' || key === 'isCalcMode') {
+        return true
+      }
+    })
+
+    if (configChanged) {
+      if (onConfigChange) {
+        onConfigChange(this.props.config, prevProps.config)
+      }
+      this.setState({
+        showPageInfo: false,
+        showPanel: false
+      })
     }
   }
 
