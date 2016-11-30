@@ -47,6 +47,7 @@ interface ViewerConfig {
   isCalcMode?: boolean
   fluid?: boolean
   isTouchMode?: boolean
+  pageHeight?: number
 }
 
 

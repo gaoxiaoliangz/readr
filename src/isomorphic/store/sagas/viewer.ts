@@ -10,6 +10,8 @@ import helpers from '../../helpers'
 import * as viewerUtils from '../../routes/Viewer/Viewer.utils'
 import utils from '../../utils'
 
+const DEFAULT_PAGE_HEIGHT = 900
+
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
 
 function* setViewer(bookId, config: ViewerConfig = {}): any {
@@ -19,7 +21,8 @@ function* setViewer(bookId, config: ViewerConfig = {}): any {
     bookId,
     isCalcMode: true,
     fluid: isSmallScreen,
-    isTouchMode: isSmallScreen
+    isTouchMode: isSmallScreen,
+    pageHeight: DEFAULT_PAGE_HEIGHT
   }
 
   const computed = yield select(selectors.viewer.computed(bookId))
