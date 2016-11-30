@@ -7,13 +7,12 @@ import * as selectors from '../../store/selectors'
 import * as constants from '../../constants'
 import { fetchEntity } from './utils'
 import helpers from '../../helpers'
-// TODO
 import * as viewerUtils from '../../routes/Viewer/Viewer.utils'
 import utils from '../../utils'
 
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
 
-function* setViewer(bookId, config = {}): any {
+function* setViewer(bookId, config: ViewerConfig = {}): any {
   const isSmallScreen = utils.getScreenInfo().view.width < 700
 
   let initialized = {
@@ -31,12 +30,12 @@ function* setViewer(bookId, config = {}): any {
 
   initialized = _.merge({}, initialized, config)
 
-  yield put(actions.initializeViewerSuccess(bookId, initialized))
+  yield put(actions.configViewer(bookId, initialized))
 }
 
 function* watchInitViewer(): any {
   while (true) {
-    const action = yield take(ActionTypes.VIEWER_INITIALIZE_BEGIN)
+    const action = yield take(ActionTypes.VIEWER_INITIALIZE)
     const bookId = action.bookId
     yield setViewer(bookId, action.config)
   }
@@ -79,7 +78,7 @@ function* updateProgress(bookId, percentage): any {
 
 function* watchCalcBook(): any {
   while (true) {
-    const { bookId, wrap } = yield take(ActionTypes.VIEWER_CALC_BEGIN)
+    const { bookId, wrap } = yield take(ActionTypes.VIEWER_CALC_START)
     const bookContent = yield select(selectors.common.entity('bookContents', bookId))
     const flesh = bookContent.flesh || {}
 

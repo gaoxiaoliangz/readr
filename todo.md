@@ -9,4 +9,5 @@
 	✔ connect & form 装饰器 type 的问题 @done (November 30th 2016, 12:59)
 	☐ action types 常量分离
 	☐ action typing 优化
+	☐ react-hot runtime error sourcemap
 	

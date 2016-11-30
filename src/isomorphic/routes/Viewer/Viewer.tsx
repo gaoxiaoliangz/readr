@@ -38,7 +38,6 @@ interface AllProps {
     fluid?: boolean
     isTouchMode?: boolean
   }
-  progress: number
   actions: typeof actions
 }
 
@@ -53,13 +52,13 @@ const mapStateToProps = (state, ownProps: any) => {
   const book = selectors.common.entity('books', bookId)(state)
   const bookContent = selectors.common.entity('bookContents', bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)
-  const basicInfo = selectors.viewer.basicInfo(state)
+  const basicInfo = selectors.viewer.config(state)
+  const { isFetching } = selectors.viewer.progress(bookId)(state)
 
   return {
     book,
     bookContent,
-    progress: state.components.viewer.bookProgress.percentage,
-    isFetchingProgress: state.components.viewer.bookProgress.isFetching,
+    isFetchingProgress: isFetching,
     session: state.session,
     computedPages,
     basicInfo

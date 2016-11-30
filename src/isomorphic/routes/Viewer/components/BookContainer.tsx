@@ -3,6 +3,7 @@ import BookPages from './BookPages'
 import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
 import { connect } from 'react-redux'
+import * as selectors from '../../../store/selectors'
 
 interface Props {
   allPages: TBookPage[]
@@ -20,9 +21,12 @@ interface AllProps extends Props {
 }
 
 const mapStateToProps = state => {
+  const { bookId } = selectors.viewer.config(state)
+  const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
+
   return {
-    percentage: state.components.viewer.bookProgress.percentage,
-    pageNo: state.components.viewer.bookProgress.pageNo
+    percentage,
+    pageNo
   }
 }
 

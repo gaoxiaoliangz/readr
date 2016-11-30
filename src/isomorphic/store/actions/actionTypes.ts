@@ -48,9 +48,9 @@ export const MODAL = {
 }
 
 // viewer
-export const VIEWER_INITIALIZE_BEGIN = createComponentActionType('viewer', 'INITIALIZE_BEGIN')
-export const VIEWER_INITIALIZE_SUCCESS = createComponentActionType('viewer', 'INITIALIZE_SUCCESS')
-export const VIEWER_CALC_BEGIN = createComponentActionType('viewer', 'CALC_BEGIN')
+export const VIEWER_INITIALIZE = createComponentActionType('viewer', 'INITIALIZE')
+export const VIEWER_CONFIG = createComponentActionType('viewer', 'CONFIG')
+export const VIEWER_CALC_START = createComponentActionType('viewer', 'CALC_START')
 export const VIEWER_CALC_SUCCESS = createComponentActionType('viewer', 'CALC_SUCCESS')
 export const VIEWER_CALC_FAILURE = createComponentActionType('viewer', 'CALC_FAILURE')
 export const BOOK_PROGRESS_INITIALIZE = createComponentActionType('viewer/progress', 'INITIALIZE')
