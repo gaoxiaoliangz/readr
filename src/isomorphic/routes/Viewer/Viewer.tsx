@@ -18,6 +18,8 @@ import * as actions from '../../store/actions'
 import { ROLES } from '../../constants'
 const styles = require('./Viewer.scss')
 
+const JS_NAV_HOOK = 'a.js-book-nav'
+
 interface AllProps {
   book: {
     title: string
@@ -89,6 +91,7 @@ export default class Viewer extends Component<AllProps, State> {
       maxWait: 1000
     })
     this.handleChapterUpdate = this.handleChapterUpdate.bind(this)
+    this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
   }
 
   bookId: string
@@ -131,26 +134,27 @@ export default class Viewer extends Component<AllProps, State> {
     this.props.actions.calcBook(this.bookId, ele)
   }
 
+  handleNavLinkClick(e) {
+    e.preventDefault()
+    const { computedPages, } = this.props
+    const href = $(e.target).attr('href')
+
+    try {
+      const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
+      this.props.actions.updateBookProgress((pageNo - 1) / computedPages.length)
+    } catch (error) {
+      this.props.actions.sendNotification(error.message, 'error')
+    }
+  }
+
   addEventListeners() {
     window.addEventListener('resize', this.resizeLazily)
-
-    const context = this
-
-    $('body').on('click', 'a.js-book-nav', function (e) {
-      e.preventDefault()
-      const href = $(this).attr('href')
-      try {
-        const pageNo = viewerUtils.resolveBookLocation(href, context.props.computedPages)
-        context.props.actions.updateBookProgress((pageNo - 1) / context.props.computedPages.length)
-      } catch (error) {
-        context.props.actions.sendNotification(error.message, 'error')
-      }
-    })
+    $('body').on('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   removeEventListeners() {
     window.removeEventListener('resize', this.resizeLazily)
-    // TODO: 移除 jquery 事件委托
+    $('body').off('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
