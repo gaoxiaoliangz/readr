@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { MsgType } from '../../store/actions/components'
 import Icon from '../Icon'
 import CSSModules from 'react-css-modules'
-const styles: any = require('./Alert.scss')
-// import classnames from 'classnames'
+const styles = require('./Alert.scss')
 
 interface Props {
   message: string

@@ -9,7 +9,7 @@ import helpers from '../../helpers'
 import moment from 'moment'
 
 interface Props {
-  loadUsers: loadUsers
+  loadUsers: typeof loadUsers
   users: any[]
   routing: any
 }
@@ -68,4 +68,4 @@ function mapStateToProps(state, ownProps) {
 export default connect(
   mapStateToProps,
   { loadUsers }
-)(ManageUsers as any)
+)(ManageUsers)

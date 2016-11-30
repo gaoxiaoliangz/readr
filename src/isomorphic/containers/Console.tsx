@@ -13,7 +13,7 @@ interface Props {
   userAuth?: any
   session?: any
   routing?: any
-  userLogout: userLogout
+  userLogout: typeof userLogout
 }
 
 class Console extends Component<Props, {}> {
@@ -83,4 +83,4 @@ export default connect(
     routing: state.routing
   }),
   { sendNotification, userAuth, userLogout }
-)(Console as any)
+)(Console)

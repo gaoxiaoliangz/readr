@@ -13,16 +13,16 @@ import { Button } from '../../elements/form'
 
 interface Props {
   sendNotification?: any
-  loadBooks?: loadBooks
+  loadBooks?: typeof loadBooks
   bookListNewest?: any
-  openConfirmModal: (data: openConfirmModal) => void
+  openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
   routing: any
-  removeEntity: removeEntity
-  loadUsers: loadUsers
+  removeEntity: typeof removeEntity
+  loadUsers: typeof loadUsers
 }
 
-class ManageBooks extends Component<Props, any> {
+class ManageBooks extends Component<Props, {}> {
 
   static fetchData({store, query}: FetchDataOptions) {
     return store.dispatch(loadBooks({

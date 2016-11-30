@@ -14,10 +14,10 @@ interface FormConfig {
 }
 
 interface FormProps {
-  change: actions.change
-  touch: actions.touch
-  defineField: actions.defineField
-  destroy: actions.destroy
+  change: typeof actions.change
+  touch: typeof actions.touch
+  defineField: typeof actions.defineField
+  destroy: typeof actions.destroy
   form: any
   formValues: any
   formMeta: any

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import BookContainer from './components/BookContainer'
 import _ from 'lodash'
@@ -13,48 +14,32 @@ import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import Loading from '../../elements/Loading'
 import $ from 'jquery'
-import {
-  loadBook,
-  loadBookProgress,
-  openConfirmModal,
-  initializeBookProgress,
-  destroyBookProgress,
-  loadBookContent,
-  updateBookProgress,
-  sendNotification,
-  initializeViewer,
-  calcBook,
-  initializeViewerSuccess
-} from '../../store/actions'
+import * as actions from '../../store/actions'
 import { ROLES } from '../../constants'
 const styles = require('./Viewer.scss')
 
+const JS_NAV_HOOK = 'a.js-book-nav'
+
 interface AllProps {
-  loadBook: loadBook
-  loadBookContent: loadBookContent
-  book: any
+  book: {
+    title: string
+  }
   bookContent: {
     nav: any
     flesh: TBookFlesh
   }
-  loadBookProgress: loadBookProgress
-  updateBookProgress: updateBookProgress
-  progress: number
-  openConfirmModal: (data: openConfirmModal) => void
-  session: any
+  session: {
+    determined: boolean
+  }
   isFetchingProgress: boolean
-  initializeBookProgress: any
-  destroyBookProgress: any
-  sendNotification: sendNotification
-  initializeViewer: initializeViewer
-  calcBook: calcBook
   computedPages?: TBookPage[]
   basicInfo: {
     isCalcMode?: boolean
     fluid?: boolean
     isTouchMode?: boolean
   }
-  initializeViewerSuccess: initializeViewerSuccess
+  progress: number
+  actions: typeof actions
 }
 
 interface State {
@@ -83,19 +68,9 @@ const mapStateToProps = (state, ownProps: any) => {
 
 @connect<AllProps>(
   mapStateToProps,
-  {
-    loadBook,
-    loadBookProgress,
-    openConfirmModal,
-    initializeBookProgress,
-    destroyBookProgress,
-    loadBookContent,
-    updateBookProgress,
-    sendNotification,
-    initializeViewer,
-    calcBook,
-    initializeViewerSuccess
-  }
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
 )
 @CSSModules(styles)
 export default class Viewer extends Component<AllProps, State> {
@@ -116,6 +91,7 @@ export default class Viewer extends Component<AllProps, State> {
       maxWait: 1000
     })
     this.handleChapterUpdate = this.handleChapterUpdate.bind(this)
+    this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
   }
 
   bookId: string
@@ -136,11 +112,11 @@ export default class Viewer extends Component<AllProps, State> {
   }
 
   handleResize() {
-    this.props.initializeViewer(this.bookId)
+    this.props.actions.initializeViewer(this.bookId)
   }
 
   handleProgressChange(newProgress) {
-    this.props.updateBookProgress(newProgress)
+    this.props.actions.updateBookProgress(newProgress)
   }
 
   handleViewerClick() {
@@ -155,29 +131,30 @@ export default class Viewer extends Component<AllProps, State> {
   }
 
   handleChapterUpdate(ele: HTMLElement) {
-    this.props.calcBook(this.bookId, ele)
+    this.props.actions.calcBook(this.bookId, ele)
+  }
+
+  handleNavLinkClick(e) {
+    e.preventDefault()
+    const { computedPages, } = this.props
+    const href = $(e.target).attr('href')
+
+    try {
+      const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
+      this.props.actions.updateBookProgress((pageNo - 1) / computedPages.length)
+    } catch (error) {
+      this.props.actions.sendNotification(error.message, 'error')
+    }
   }
 
   addEventListeners() {
     window.addEventListener('resize', this.resizeLazily)
-
-    const context = this
-
-    $('body').on('click', 'a.js-book-nav', function (e) {
-      e.preventDefault()
-      const href = $(this).attr('href')
-      try {
-        const pageNo = viewerUtils.resolveBookLocation(href, context.props.computedPages)
-        context.props.updateBookProgress((pageNo - 1) / context.props.computedPages.length)
-      } catch (error) {
-        context.props.sendNotification(error.message, 'error')
-      }
-    })
+    $('body').on('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   removeEventListeners() {
     window.removeEventListener('resize', this.resizeLazily)
-    // TODO: 移除 jquery 事件委托
+    $('body').off('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -189,11 +166,11 @@ export default class Viewer extends Component<AllProps, State> {
 
     // TODO: rxjs or react prop listener?
     if (sessionDetermined && nextProps.session.user.role !== ROLES.VISITOR) {
-      this.props.loadBookProgress(this.bookId)
+      this.props.actions.loadBookProgress(this.bookId)
     }
 
     if (sessionDetermined && nextProps.session.user.role === ROLES.VISITOR) {
-      this.props.initializeBookProgress()
+      this.props.actions.initializeBookProgress()
     }
   }
 
@@ -201,7 +178,7 @@ export default class Viewer extends Component<AllProps, State> {
     const viewChanged = this.props.basicInfo.fluid !== prevProps.basicInfo.fluid
 
     if (viewChanged) {
-      this.props.initializeViewer(this.bookId, {
+      this.props.actions.initializeViewer(this.bookId, {
         isCalcMode: true
       })
       this.setState({
@@ -212,19 +189,19 @@ export default class Viewer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    this.props.initializeViewer(this.bookId)
-    this.props.loadBook(this.bookId)
-    this.props.loadBookContent(this.bookId)
+    this.props.actions.initializeViewer(this.bookId)
+    this.props.actions.loadBook(this.bookId)
+    this.props.actions.loadBookContent(this.bookId)
     this.addEventListeners()
 
     // 是否登录的判断逻辑放到 saga 里面了
-    this.props.loadBookProgress(this.bookId)
+    this.props.actions.loadBookProgress(this.bookId)
   }
 
   componentWillUnmount() {
     this.removeEventListeners()
     // TODO
-    this.props.destroyBookProgress()
+    this.props.actions.destroyBookProgress()
   }
 
   renderViewPanel() {

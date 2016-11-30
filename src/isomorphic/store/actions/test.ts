@@ -1,16 +1,10 @@
-interface loadSomething {
-  (): any
-}
-export const loadSomething: loadSomething = () => {
+export const loadSomething = () => {
   return {
     type: 'LOAD'
   }
 }
 
-interface saveSomething {
-  (): any
-}
-export const saveSomething: saveSomething = () => {
+export const saveSomething = () => {
   return {
     type: 'SAVE'
   }

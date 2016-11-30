@@ -10,7 +10,7 @@ interface Props {
   notifications: any
   hideNotification: any
   errorMessage: any[]
-  sendNotification: sendNotification
+  sendNotification: typeof sendNotification
   confirmModal: any
   closeConfirmModal: any
   userAuth: any

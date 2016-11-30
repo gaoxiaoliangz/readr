@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
-import * as actions from '../actions'
 import components from './components'
 import pagination from './pagination'
 import legacyPagination from './legacyPagination'
 import form from './form'
+import * as ActionTypes from '../actions/actionTypes'
 
 function errorMessage(state = [], action) {
   const { error } = action
@@ -22,7 +22,7 @@ export function entities(state = {}, action) {
     return _.merge({}, state, action.response.entities)
   }
 
-  if (action.type === actions.REMOVE_ENTITY) {
+  if (action.type === ActionTypes.REMOVE_ENTITY) {
     const {name, id} = action
     return _.assign({}, state, {
       [name]: _.omit(state[name], [id])
@@ -35,25 +35,25 @@ export function entities(state = {}, action) {
 const DEFAULT_VISTOR_STATE = { user: { role: 'visitor' }, isFetching: false, determined: false }
 export function session(state = DEFAULT_VISTOR_STATE, action) {
   switch (action.type) {
-    case actions.AUTH.REQUEST:
+    case ActionTypes.AUTH.REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       })
 
-    case actions.AUTH.SUCCESS:
+    case ActionTypes.AUTH.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         determined: true,
         user: action.response
       })
 
-    case actions.AUTH.FAILURE:
+    case ActionTypes.AUTH.FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         determined: true
       })
 
-    case actions.LOGOUT.SUCCESS:
+    case ActionTypes.LOGOUT.SUCCESS:
       return Object.assign({}, DEFAULT_VISTOR_STATE, {
         determined: true
       })

@@ -7,40 +7,22 @@ export const FORM = {
   INITIALIZE: 'form/INITIALIZE'
 }
 
-export interface initialize {
-  (form: string, values, keepDirty?: boolean): any
-}
-export const initialize: initialize = (form, values, keepDirty) =>
+export const initialize = (form: string, values, keepDirty?: boolean) =>
   ({ type: FORM.INITIALIZE, meta: { form, keepDirty }, payload: values })
 
-export interface change {
-  (form, field, value, touch, persistentSubmitErrors): any
-}
-export const change: change = (form, field, value, touch, persistentSubmitErrors) =>
+export const change = (form, field, value, touch, persistentSubmitErrors) =>
   ({ type: FORM.CHANGE, meta: { form, field, touch, persistentSubmitErrors }, payload: value })
 
-export interface touch {
-  (form, fields: string[]): any
-}
-export const touch: touch = (form, fields) =>
+export const touch = (form, fields: string[]) =>
   ({ type: FORM.TOUCH, meta: { form, fields } })
 
-export interface defineField {
-  (form, name): any
-}
-export const defineField: defineField = (form, name) =>
+export const defineField = (form, name) =>
   ({ type: FORM.DEFINE_FIELD, meta: { form }, payload: { name } })
 
-export interface reset {
-  (form: string): any
-}
-export const reset: reset = form =>
+export const reset = (form: string) =>
   ({ type: FORM.RESET, meta: { form } })
 
-export interface destroy {
-  (form: string): any
-}
-export const destroy: destroy = (form) =>
+export const destroy = (form: string) =>
   ({ type: FORM.DESTROY, meta: { form } })
 
 export const form = {

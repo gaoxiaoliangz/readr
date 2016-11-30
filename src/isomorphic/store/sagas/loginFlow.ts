@@ -2,12 +2,13 @@ import { take, put, call } from 'redux-saga/effects'
 import * as actions from '../actions'
 import api from '../../services/api'
 import _ from 'lodash'
+import * as ActionTypes from '../actions/actionTypes'
 
 export default function* watchLoginFlow(): any {
   // 使用 fetchEntity 会更好么？
   // 目前因为这种 put 类型的请求的返回值和一般的 entity 不一样所以不能直接使用
   while (true) {
-    yield take(actions.USER_LOGOUT)
+    yield take(ActionTypes.USER_LOGOUT)
     yield put(actions.logout.request())
     try {
       yield call(api.logout)

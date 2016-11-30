@@ -1,17 +1,12 @@
 import React, { Component } from 'react'
 import BookPages from './BookPages'
 import ViewerScrollbar from './ViewerScrollbar'
-import * as utils from '../Viewer.utils'
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import {
-  initializeViewerSuccess
-} from '../../../store/actions'
+
 interface Props {
   allPages: TBookPage[]
   isScrollMode?: boolean
-  // initialPage?: number
-  // initialProgress?: number
   pageHeight: number
   onProgressChange?: (newProgress: number) => void
   fluid: boolean
@@ -21,11 +16,13 @@ interface Props {
 
 interface AllProps extends Props {
   percentage?: number
+  pageNo?: number
 }
 
 const mapStateToProps = state => {
   return {
-    percentage: state.components.viewer.bookProgress.percentage
+    percentage: state.components.viewer.bookProgress.percentage,
+    pageNo: state.components.viewer.bookProgress.pageNo
   }
 }
 
@@ -38,10 +35,6 @@ export default class BookContainer extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
-    this.state = {
-      scrollTop: 0,
-      currentPage: 1
-    }
     this.handleScroll = this.handleScroll.bind(this)
     this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
       maxWait: 1000
@@ -53,7 +46,6 @@ export default class BookContainer extends Component<AllProps, {}> {
     const pageCount = allPages.length
     const totalHeight = pageCount * pageHeight
     const scrollTop = document.body.scrollTop
-    // const currentPage = utils.percentageToPage(scrollTop / totalHeight, allPages.length)
 
     if (onProgressChange) {
       onProgressChange(scrollTop / totalHeight)
@@ -96,14 +88,13 @@ export default class BookContainer extends Component<AllProps, {}> {
   }
 
   render() {
-    const { allPages, pageHeight, fluid, showPageInfo, pageLimit, percentage } = this.props
+    const { allPages, pageHeight, fluid, showPageInfo, pageLimit, pageNo } = this.props
     const pageCount = allPages.length
-    const currentPage = Math.floor(pageCount * percentage) + 1
     const totalHeight = pageCount * pageHeight
 
     let startPageIndex
 
-    startPageIndex = currentPage - Math.ceil(pageLimit / 2)
+    startPageIndex = pageNo - Math.ceil(pageLimit / 2)
     startPageIndex = startPageIndex < 0 ? 0 : startPageIndex
 
     const endPageIndex = startPageIndex + pageLimit
@@ -118,7 +109,7 @@ export default class BookContainer extends Component<AllProps, {}> {
           />
         <ViewerScrollbar
           visible={showPageInfo}
-          current={currentPage}
+          current={pageNo}
           total={allPages.length}
           />
       </div>
