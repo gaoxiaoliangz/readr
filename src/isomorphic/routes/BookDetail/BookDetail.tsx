@@ -10,7 +10,7 @@ import * as selectors from '../../store/selectors'
 const styles = require('./BookDetail.scss')
 
 interface Props {
-  loadBook: loadBook
+  loadBook: typeof loadBook
   bookInfo: any
 }
 

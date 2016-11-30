@@ -1,8 +1,8 @@
-import * as actions from '../actions'
+import * as ActionTypes from '../actions/actionTypes'
 
 export default store => next => action => {
 
-  if (action.type === actions.DOUBAN_BOOKS.SUCCESS) {
+  if (action.type === ActionTypes.DOUBAN_BOOKS.SUCCESS) {
     action.response.result = action.response.result.books
   }
 

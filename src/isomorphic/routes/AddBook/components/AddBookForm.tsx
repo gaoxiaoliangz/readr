@@ -13,7 +13,7 @@ interface Props {
   onAuthorInputChange?: (newVal: string) => void
   onSaveAuthor: (data: any) => void
   onSaveBook: (data: any) => void
-  initialize?: initialize
+  initialize?: typeof initialize
 }
 
 interface AllProps extends Props {

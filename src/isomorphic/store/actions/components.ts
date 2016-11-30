@@ -1,10 +1,7 @@
-const createActionType = (name, operation) => `/components/${name}/${operation}`
+import * as ActionTypes from '../actions/actionTypes'
 
 export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
-export interface sendNotification {
-  (message: string, msgType: MsgType, t?: number): any
-}
-export const sendNotification: sendNotification = (message: string, msgType: MsgType = 'success', t = 2000) => {
+export const sendNotification = (message: string, msgType: MsgType = 'success', t: number = 2000) => {
   return (dispatch, getState) => {
     const id = Math.random().toFixed(8).substr(2)
 
@@ -17,13 +14,9 @@ export const sendNotification: sendNotification = (message: string, msgType: Msg
   }
 }
 
-export const NOTIFICATION = {
-  SHOW: createActionType('notification', 'SHOW'),
-  HIDE: createActionType('notification', 'HIDE'),
-}
 export function showNotification(id: string, message: string, msgType: MsgType = 'success') {
   return {
-    type: NOTIFICATION.SHOW,
+    type: ActionTypes.NOTIFICATION.SHOW,
     message,
     msgType,
     id
@@ -31,36 +24,30 @@ export function showNotification(id: string, message: string, msgType: MsgType =
 }
 export function hideNotification(id: string) {
   return {
-    type: NOTIFICATION.HIDE,
+    type: ActionTypes.NOTIFICATION.HIDE,
     id
   }
 }
 
 // confirm modal
-export const OPEN_CONFIRM_MODAL = createActionType('confirm-modal', 'OPEN')
-export const CLOSE_CONFIRM_MODAL = createActionType('confirm-modal', 'CLOSE')
-export type openConfirmModal = {
+type openConfirmModal = {
   title?: string
   content: string
   onConfirm: () => void
 }
 export function openConfirmModal(data: openConfirmModal) {
   return {
-    type: OPEN_CONFIRM_MODAL,
+    type: ActionTypes.OPEN_CONFIRM_MODAL,
     data
   }
 }
 export function closeConfirmModal() {
   return {
-    type: CLOSE_CONFIRM_MODAL
+    type: ActionTypes.CLOSE_CONFIRM_MODAL
   }
 }
 
 // modal
-export const MODAL = {
-  OPEN: createActionType('modal', 'SHOW'),
-  CLOSE: createActionType('modal', 'HIDE'),
-}
 export type openModal = {
   title: string
   subTitle?: string
@@ -68,12 +55,12 @@ export type openModal = {
 }
 export function openModal(data: openModal) {
   return {
-    type: MODAL.OPEN,
+    type: ActionTypes.MODAL.OPEN,
     data
   }
 }
 export function closeModal() {
   return {
-    type: MODAL.CLOSE
+    type: ActionTypes.MODAL.CLOSE
   }
 }

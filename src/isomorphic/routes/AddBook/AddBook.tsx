@@ -15,9 +15,9 @@ interface Props {
   searchDoubanBooks?: any
   closeModal?: any
   fetchAuthors?: any
-  reset?: reset
+  reset?: typeof reset
   fetchDoubanBooks: any
-  initialize?: initialize
+  initialize?: typeof initialize
 }
 
 class AddBook extends Component<Props, {}> {

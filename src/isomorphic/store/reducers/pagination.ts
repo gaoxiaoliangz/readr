@@ -1,6 +1,6 @@
-import * as actions from '../actions'
 import paginate from './paginate'
 import { combineReducers } from 'redux'
+import * as ActionTypes from '../actions/actionTypes'
 
 const DEFAULT_KEY = 'default'
 const SEARCH_KEY = 'search'
@@ -29,11 +29,11 @@ export default function pagination(state: any = {}, action) {
   const combinedReducer = combineReducers({
     books: paginate({
       mapActionToKey: generalMapActionToKey,
-      types: parseTypes(actions.BOOKS)
+      types: parseTypes(ActionTypes.BOOKS)
     }),
     users: paginate({
       mapActionToKey: generalMapActionToKey,
-      types: parseTypes(actions.USERS)
+      types: parseTypes(ActionTypes.USERS)
     }),
     authors: () => (state.authors || {}),
     doubanBooks: () => (state.doubanBooks || {}),

@@ -1,5 +1,6 @@
 import { take, put, call, select, fork, cancel, cancelled } from 'redux-saga/effects'
 import * as actions from '../actions'
+import * as ActionTypes from '../actions/actionTypes'
 import api from '../../services/api'
 import _ from 'lodash'
 import * as selectors from '../../store/selectors'
@@ -35,7 +36,7 @@ function* setViewer(bookId, config = {}): any {
 
 function* watchInitViewer(): any {
   while (true) {
-    const action = yield take(actions.VIEWER_INITIALIZE_BEGIN)
+    const action = yield take(ActionTypes.VIEWER_INITIALIZE_BEGIN)
     const bookId = action.bookId
     yield setViewer(bookId, action.config)
   }
@@ -78,7 +79,7 @@ function* updateProgress(bookId, percentage): any {
 
 function* watchCalcBook(): any {
   while (true) {
-    const { bookId, wrap } = yield take(actions.VIEWER_CALC_BEGIN)
+    const { bookId, wrap } = yield take(ActionTypes.VIEWER_CALC_BEGIN)
     const bookContent = yield select(selectors.common.entity('bookContents', bookId))
     const flesh = bookContent.flesh || {}
 
@@ -94,16 +95,16 @@ function* watchCalcBook(): any {
 
 function* watchProgressOperations(): any {
   while (true) {
-    const action = yield take([actions.BOOK_PROGRESS_UPDATE, actions.LOAD_BOOK_PROGRESS])
+    const action = yield take([ActionTypes.BOOK_PROGRESS_UPDATE, ActionTypes.LOAD_BOOK_PROGRESS])
     const session = yield select(selectors.common.session)
     const userRole = _.get(session, 'user.role')
 
     if (userRole !== constants.ROLES.VISITOR) {
-      if (action.type === actions.LOAD_BOOK_PROGRESS) {
+      if (action.type === ActionTypes.LOAD_BOOK_PROGRESS) {
         yield call(fetchBookProgress, { id: action.id })
       }
 
-      if (action.type === actions.BOOK_PROGRESS_UPDATE) {
+      if (action.type === ActionTypes.BOOK_PROGRESS_UPDATE) {
         yield updateProgress(action.id, action.percentage)
       }
     } else {

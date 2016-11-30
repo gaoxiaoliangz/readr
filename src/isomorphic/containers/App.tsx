@@ -10,7 +10,7 @@ interface Props {
   fetchShelf: any
   session: any
   bookShelf: any
-  userLogout: userLogout
+  userLogout: typeof userLogout
 }
 
 class App extends Component<Props, {}> {

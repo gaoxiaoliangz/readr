@@ -10,7 +10,7 @@ import CSSModules from 'react-css-modules'
 const styles = require('./Browse.scss')
 
 interface Props {
-  loadBooks: loadBooks
+  loadBooks: typeof loadBooks
   newestBooks: any
   nextPage: number
   isBooksFetching: boolean

@@ -12,7 +12,7 @@ interface Props {
   sendNotification?: any
   notification?: any
   reset: any
-  loadBooks?: loadBooks
+  loadBooks?: typeof loadBooks
 }
 
 class AddCollection extends Component<Props, {}> {
@@ -69,4 +69,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { sendNotification, reset, loadBooks }
-)(AddCollection as any)
+)(AddCollection)

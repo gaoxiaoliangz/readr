@@ -11,7 +11,7 @@ import { Container } from '../../elements/layout'
 const styles = require('./AppHome.scss')
 
 interface Props {
-  loadBooks: (data?: loadBooks) => void
+  loadBooks: typeof loadBooks
   fetchCollections: any
   session: any
   newestBooks: any
