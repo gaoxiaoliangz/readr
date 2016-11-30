@@ -10,6 +10,7 @@ export const removeEntity: removeEntity = (name, id) => ({
 )
 
 export * from './components'
+export * from './viewer'
 export * from './api'
 export * from './form'
 export * from './test'

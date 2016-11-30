@@ -26,16 +26,6 @@ interface AppConfig {
   enableEntityCache: boolean
 }
 
-type ProjectConfig = {
-  api: {
-    prefix: string
-  },
-  vendorApi: {
-    [key: string]: string
-    douban: string
-    github: string
-  }
-}
 
 type TBookPage = {
   nodes: string[]
