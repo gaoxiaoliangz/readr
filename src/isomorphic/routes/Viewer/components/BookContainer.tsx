@@ -77,7 +77,10 @@ export default class BookContainer extends Component<AllProps, {}> {
   componentWillReceiveProps(nextProps, nextState) {
     const percentageChanged = this.props.percentage !== nextProps.percentage
 
+    // console.log(this.props.percentage, nextProps.percentage)
+
     if (percentageChanged) {
+      console.log('changed')
       this.scrollPage(nextProps)
     }
   }

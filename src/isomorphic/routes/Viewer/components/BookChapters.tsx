@@ -20,7 +20,7 @@ interface Props {
     markdown: string
     id: string
   }[]
-  onUpdate?: (ref: HTMLElement) => void
+  onRawDataMount?: (ref: HTMLElement) => void
   fluid: boolean
 }
 
@@ -37,9 +37,9 @@ class BookChapters extends Component<Props, {}> {
   }
 
   triggerUpdate() {
-    const { onUpdate } = this.props
-    if (onUpdate) {
-      onUpdate(this.chapters)
+    const { onRawDataMount } = this.props
+    if (onRawDataMount) {
+      onRawDataMount(this.chapters)
     }
   }
 

@@ -21,7 +21,9 @@ interface Props {
   bookId: string
   onProgressChange: (percentage: number) => void
   onSessionDetermined?: (userRole: string) => void
-  onReinitializeRequest?: (newConfig, oldConfig) => void
+  // onReinitializeRequest?: (newConfig, oldConfig) => void
+  onReinitializeRequest?: () => void
+  onCloudProgressChange?: (newPercentage, oldPercentage) => void
 }
 
 interface State {
@@ -48,12 +50,15 @@ interface AllProps extends Props {
   computedPages?: TBookPage[]
   config?: ViewerConfig
   actions?: typeof actions
+  cloudProgress?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
   const bookId = ownProps.bookId
   const book = selectors.common.entity('books', bookId)(state)
   const bookContent = selectors.common.entity('bookContents', bookId)(state)
+  const bookProgress = selectors.common.entity('bookProgress', bookId)(state)
+  const cloudProgress = _.get(bookProgress, 'percentage', 0)
   const computedPages = selectors.viewer.computed(bookId)(state)
   const config = selectors.viewer.config(state)
   const { isFetching } = selectors.viewer.progress(bookId)(state)
@@ -64,7 +69,8 @@ const mapStateToProps = (state, ownProps) => {
     isFetchingProgress: isFetching,
     session: state.session,
     computedPages,
-    config
+    config,
+    cloudProgress
   }
 }
 
@@ -74,7 +80,7 @@ const mapStateToProps = (state, ownProps) => {
     actions: bindActionCreators(actions as {}, dispatch)
   })
 )
-export default class SomeComponent extends Component<AllProps, State> {
+export default class ViewerContainer extends Component<AllProps, State> {
 
   resizeLazily: any
 
@@ -92,10 +98,10 @@ export default class SomeComponent extends Component<AllProps, State> {
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
     this.handleResize = this.handleResize.bind(this)
     this.resizeLazily = this.resizeLazily.bind(this)
-    this.handleChapterUpdate = this.handleChapterUpdate.bind(this)
+    this.handleRawDataMount = this.handleRawDataMount.bind(this)
   }
 
-  handleChapterUpdate(ele: HTMLElement) {
+  handleRawDataMount(ele: HTMLElement) {
     this.props.actions.calcBook(this.props.bookId, ele)
   }
 
@@ -158,12 +164,18 @@ export default class SomeComponent extends Component<AllProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { onSessionDetermined, session } = this.props
+    const { onSessionDetermined, session, cloudProgress, onCloudProgressChange } = this.props
     const sessionDetermined = session.determined === false
       && nextProps.session.determined === true
 
+    const cloudProgressChanged = cloudProgress !== nextProps.cloudProgress
+
     if (sessionDetermined && onSessionDetermined) {
       onSessionDetermined(nextProps.session.user.role)
+    }
+
+    if (cloudProgressChanged && onCloudProgressChange) {
+      onCloudProgressChange(nextProps.cloudProgress, cloudProgress)
     }
   }
 
@@ -177,7 +189,8 @@ export default class SomeComponent extends Component<AllProps, State> {
 
     if (viewChanged) {
       if (onReinitializeRequest) {
-        onReinitializeRequest(this.props.config, prevProps.config)
+        // onReinitializeRequest(this.props.config, prevProps.config)
+        onReinitializeRequest()
       }
       this.setState({
         showPageInfo: false,
@@ -227,7 +240,7 @@ export default class SomeComponent extends Component<AllProps, State> {
           <Loading text="书籍排版中" center />
           <BookChapters
             bookFlesh={bookContent.flesh}
-            onUpdate={this.handleChapterUpdate}
+            onRawDataMount={this.handleRawDataMount}
             fluid={fluid}
             />
         </div>

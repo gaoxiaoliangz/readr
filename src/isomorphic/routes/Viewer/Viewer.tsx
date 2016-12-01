@@ -53,7 +53,7 @@ export default class Viewer extends Component<AllProps, void> {
     this.handleReinitializeRequest = this.handleReinitializeRequest.bind(this)
   }
 
-  handleReinitializeRequest(newConfig) {
+  handleReinitializeRequest() {
     this.props.actions.initializeViewer(this.bookId, {
       // saga 里面判断 computed 为非空会自动设为 false
       // 所以这里要覆盖
@@ -91,6 +91,9 @@ export default class Viewer extends Component<AllProps, void> {
           onProgressChange={this.handleProgressChange}
           onSessionDetermined={this.handleSessionDetermined}
           onReinitializeRequest={this.handleReinitializeRequest}
+          onCloudProgressChange={(newVal, oldVal) => {
+            this.props.actions.updateBookProgress(newVal)
+          }}
         />
       </DocContainer>
     )
