@@ -50,6 +50,18 @@ $icons_size: 30px;
   }
 }
 
+.contents {
+  display: inline-block;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  cursor: pointer;
+
+  span {
+    color: #fff;
+  }
+}
+
 .title {
   font-size: 1.2rem;
 }

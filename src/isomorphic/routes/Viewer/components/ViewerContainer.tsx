@@ -142,7 +142,8 @@ export default class ViewerContainer extends Component<AllProps, State> {
       let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
 
       this.setState({
-        showPanel: y < 90,
+        // showPanel: y < 90,
+        showPanel: true,
         showPageInfo: dToScreenRight < 100
       })
     }

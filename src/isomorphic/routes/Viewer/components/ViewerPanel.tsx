@@ -45,6 +45,9 @@ class ViewerPanel extends Component<IProps, IState> {
               <span>返回</span>
             </Link>
           </div>
+          <div styleName="contents">
+            <span>目录</span>
+          </div>
           <span styleName="title">{title}</span>
           <div onClick={this.handlePrefClick} styleName="preference">
             <Icon name="preference" />
