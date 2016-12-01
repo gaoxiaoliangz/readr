@@ -122,7 +122,7 @@ function* watchProgressOperations(): any {
   }
 }
 
-function* jumpTo(action) {
+function* jumpTo(action): any {
   const { percentage } = action
   const { bookId, pageHeight } = yield select(selectors.viewer.config)
   const allPages = yield select(selectors.viewer.computed(bookId))
@@ -132,17 +132,35 @@ function* jumpTo(action) {
   document.body.scrollTop = percentage
     ? totalHeight * percentage
     : 0
+
+  // yield put(actions.updateBookProgress(percentage) as any)
 }
 
 function* watchJumpRequest() {
   yield* takeEvery(ActionTypes.VIEW_JUMP, jumpTo)
 }
 
+function* fetchProgressAndJump(bookId): any {
+  yield put(actions.loadBookProgress(bookId))
+  yield take(ActionTypes.BOOK_PROGRESS.SUCCESS)
+  const { percentage } = yield select(selectors.common.entity('bookProgress', bookId))
+  yield put(actions.viewerJumpTo(percentage))
+}
+
 function* initializeViewer(): any {
   while (true) {
     const { bookId } = yield take(ActionTypes.VIEWER_INITIALIZE)
+    const computed = yield select(selectors.viewer.computed(bookId))
 
-    yield put(actions.loadBook(bookId))
+    if (_.isEmpty(computed)) {
+      yield [put(actions.loadBook(bookId)), put(actions.loadBookContent(bookId))]
+      yield put(actions.initializeViewerConfig(bookId))
+
+      yield take(ActionTypes.VIEWER_CALC_SUCCESS)
+      yield fetchProgressAndJump(bookId)
+    } else {
+      yield fetchProgressAndJump(bookId)
+    }
   }
 }
 

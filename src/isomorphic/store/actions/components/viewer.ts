@@ -1,5 +1,6 @@
 import * as selectors from '../../selectors'
 import * as ActionTypes from '../actionTypes'
+import helpers from '../../../helpers'
 
 // viewer
 export const initializeViewerConfig = (bookId: string, config: ViewerConfig = {}) =>
@@ -42,6 +43,7 @@ export const initializeBookProgress = () =>
 
 // progress
 export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
+  helpers.print('Action updateBookProgress')
   const state = getState()
   const { bookId } = selectors.viewer.config(state)
   const computed = selectors.viewer.computed(bookId)(state)

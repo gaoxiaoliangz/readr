@@ -55,6 +55,6 @@ export const VIEWER_CALC_START = createSagaTriggerActionType(createComponentActi
 export const VIEWER_CALC_SUCCESS = createComponentActionType('viewer', 'CALC_SUCCESS')
 export const VIEWER_CALC_FAILURE = createComponentActionType('viewer', 'CALC_FAILURE')
 export const BOOK_PROGRESS_INITIALIZE = createComponentActionType('viewer/progress', 'INITIALIZE')
-export const BOOK_PROGRESS_UPDATE = createComponentActionType('viewer/progress', 'UPDATE')
+export const BOOK_PROGRESS_UPDATE = createSagaTriggerActionType(createComponentActionType('viewer/progress', 'UPDATE'))
 export const BOOK_PROGRESS_DESTROY = createComponentActionType('viewer/progress', 'DESTROY')
 export const VIEW_JUMP = createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP'))
