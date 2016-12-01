@@ -42,6 +42,14 @@ type TBookFlesh = {
   id: string
 }[]
 
+// viewer
+interface ViewerConfig {
+  isCalcMode?: boolean
+  fluid?: boolean
+  isTouchMode?: boolean
+  pageHeight?: number
+}
+
 
 /**
  * types & interfaces

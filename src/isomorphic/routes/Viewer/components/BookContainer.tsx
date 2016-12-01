@@ -3,6 +3,7 @@ import BookPages from './BookPages'
 import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
 import { connect } from 'react-redux'
+import * as selectors from '../../../store/selectors'
 
 interface Props {
   allPages: TBookPage[]
@@ -20,9 +21,12 @@ interface AllProps extends Props {
 }
 
 const mapStateToProps = state => {
+  const { bookId } = selectors.viewer.config(state)
+  const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
+
   return {
-    percentage: state.components.viewer.bookProgress.percentage,
-    pageNo: state.components.viewer.bookProgress.pageNo
+    percentage,
+    pageNo
   }
 }
 
@@ -60,26 +64,7 @@ export default class BookContainer extends Component<AllProps, {}> {
     window.removeEventListener('scroll', this.handleScrollLazily)
   }
 
-  scrollPage(props = this.props) {
-    const { allPages, pageHeight, percentage } = props
-    const pageCount = allPages.length
-    const totalHeight = pageCount * pageHeight
-
-    document.body.scrollTop = percentage
-      ? totalHeight * percentage
-      : 0
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    const percentageChanged = this.props.percentage !== nextProps.percentage
-
-    if (percentageChanged) {
-      this.scrollPage(nextProps)
-    }
-  }
-
   componentDidMount() {
-    this.scrollPage()
     this.addEventListeners()
   }
 

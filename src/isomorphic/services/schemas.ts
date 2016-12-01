@@ -36,7 +36,7 @@ const shelfBook = new Schema('shelfBooks', {
   idAttribute: 'id'
 })
 
-const bookProgress = new Schema('booksProgress', {
+const bookProgress = new Schema('bookProgress', {
   idAttribute: 'bookId'
 })
 

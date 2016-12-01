@@ -63,7 +63,7 @@ function renderHtml(config?: RenderConfig): any {
       // rewind 必须在 render 之后调用，所以只能调用两次 render
       // 没有更好的方法之前先这样
       renderToStaticMarkup(appRoot)
-      const data = DocContainer.rewind() || {}
+      const data = DocContainer['rewind']() || {}
 
       let appRootMarkup
       if (fetchData) {
