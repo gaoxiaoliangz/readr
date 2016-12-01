@@ -9,6 +9,7 @@ import * as selectors from '../../store/selectors'
 import * as actions from '../../store/actions'
 import { ROLES } from '../../constants'
 import ViewContainer from './components/ViewerContainer'
+import { JUMP_REQUEST_TYPES } from './Viewer.constants'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
@@ -69,7 +70,13 @@ export default class Viewer extends Component<AllProps, void> {
     if (userRole !== ROLES.VISITOR) {
       // 是否登录的判断逻辑放到 saga 里面了
       // 这边其实可以不用判断
-      this.props.actions.loadBookProgress(this.bookId)
+
+      // 这边如果先获取到进度下面的 computed 事件里面获取的进度就会和这边一样
+      // 从而不触发 change
+      // 所以这种 load 只能执行一次
+      // 但是虽然 session 里面的请求先发送
+      // 如果 session 的请求很慢很慢，那么下面 computed 里面的 progress 获取请求发送就会不成功
+      // this.props.actions.loadBookProgress(this.bookId)
     }
   }
 
@@ -93,8 +100,19 @@ export default class Viewer extends Component<AllProps, void> {
           onReinitializeRequest={this.handleReinitializeRequest}
           onCloudProgressChange={(newVal, oldVal) => {
             this.props.actions.updateBookProgress(newVal)
-          }}
-        />
+          } }
+          onComputedMount={() => {
+            // TODO: 在 session 确定时已经发送过一次
+            console.log('computed mount')
+            this.props.actions.loadBookProgress(this.bookId)
+          } }
+          onJumpRequest={(newLoc, oldLoc, type) => {
+            if (type !== JUMP_REQUEST_TYPES.LOC_CHANGE) {
+              console.log(newLoc, oldLoc, type)
+              this.props.actions.viewerJumpTo(newLoc)
+            }
+          } }
+          />
       </DocContainer>
     )
   }

@@ -122,10 +122,27 @@ function* watchProgressOperations(): any {
   }
 }
 
+function* jumpTo(action) {
+  const { percentage } = action
+  const { bookId, pageHeight } = yield select(selectors.viewer.config)
+  const allPages = yield select(selectors.viewer.computed(bookId))
+  const pageCount = allPages.length
+  const totalHeight = pageCount * pageHeight
+
+  document.body.scrollTop = percentage
+    ? totalHeight * percentage
+    : 0
+}
+
+function* watchJumpRequest() {
+  yield* takeEvery(ActionTypes.VIEW_JUMP, jumpTo)
+}
+
 export default function* watchViewer() {
   yield [
     fork(watchProgressOperations),
     fork(watchCalcBook),
-    fork(watchInitViewer)
+    fork(watchInitViewer),
+    fork(watchJumpRequest)
   ]
 }

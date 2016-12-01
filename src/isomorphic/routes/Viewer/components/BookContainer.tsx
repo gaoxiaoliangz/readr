@@ -64,29 +64,7 @@ export default class BookContainer extends Component<AllProps, {}> {
     window.removeEventListener('scroll', this.handleScrollLazily)
   }
 
-  scrollPage(props = this.props) {
-    const { allPages, pageHeight, percentage } = props
-    const pageCount = allPages.length
-    const totalHeight = pageCount * pageHeight
-
-    document.body.scrollTop = percentage
-      ? totalHeight * percentage
-      : 0
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    const percentageChanged = this.props.percentage !== nextProps.percentage
-
-    // console.log(this.props.percentage, nextProps.percentage)
-
-    if (percentageChanged) {
-      console.log('changed')
-      this.scrollPage(nextProps)
-    }
-  }
-
   componentDidMount() {
-    this.scrollPage()
     this.addEventListeners()
   }
 

@@ -12,6 +12,7 @@ import _ from 'lodash'
 import utils from '../../../utils'
 import Loading from '../../../elements/Loading'
 import $ from 'jquery'
+import { JUMP_REQUEST_TYPES } from '../Viewer.constants'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
 const $body = $('body')
@@ -21,9 +22,10 @@ interface Props {
   bookId: string
   onProgressChange: (percentage: number) => void
   onSessionDetermined?: (userRole: string) => void
-  // onReinitializeRequest?: (newConfig, oldConfig) => void
-  onReinitializeRequest?: () => void
+  onReinitializeRequest?: (newConfig, oldConfig) => void
   onCloudProgressChange?: (newPercentage, oldPercentage) => void
+  onJumpRequest?: (newLoc, oldLoc, jumpRequestType) => void
+  onComputedMount?: () => void
 }
 
 interface State {
@@ -51,6 +53,7 @@ interface AllProps extends Props {
   config?: ViewerConfig
   actions?: typeof actions
   cloudProgress?: number
+  viewerPercentage?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -62,6 +65,7 @@ const mapStateToProps = (state, ownProps) => {
   const computedPages = selectors.viewer.computed(bookId)(state)
   const config = selectors.viewer.config(state)
   const { isFetching } = selectors.viewer.progress(bookId)(state)
+  const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
 
   return {
     book,
@@ -70,7 +74,8 @@ const mapStateToProps = (state, ownProps) => {
     session: state.session,
     computedPages,
     config,
-    cloudProgress
+    cloudProgress,
+    viewerPercentage
   }
 }
 
@@ -107,12 +112,15 @@ export default class ViewerContainer extends Component<AllProps, State> {
 
   handleNavLinkClick(e) {
     e.preventDefault()
-    const { computedPages, } = this.props
+    const { computedPages, onJumpRequest, viewerPercentage } = this.props
     const href = $(e.target).attr('href')
 
     try {
       const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
-      this.props.actions.updateBookProgress((pageNo - 1) / computedPages.length)
+      const percentage = (pageNo - 1) / computedPages.length
+      if (onJumpRequest) {
+        onJumpRequest(percentage, viewerPercentage, JUMP_REQUEST_TYPES.NAV)
+      }
     } catch (error) {
       this.props.actions.sendNotification(error.message, 'error')
     }
@@ -164,18 +172,38 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { onSessionDetermined, session, cloudProgress, onCloudProgressChange } = this.props
+    const { onSessionDetermined, session, cloudProgress, onCloudProgressChange,
+      viewerPercentage, onJumpRequest, onComputedMount, computedPages } = this.props
+
     const sessionDetermined = session.determined === false
       && nextProps.session.determined === true
 
     const cloudProgressChanged = cloudProgress !== nextProps.cloudProgress
 
+    const viewerPercentageChanged = viewerPercentage !== nextProps.viewerPercentage
+
+    const computed = _.isEmpty(computedPages) && !_.isEmpty(nextProps.computedPages)
+
     if (sessionDetermined && onSessionDetermined) {
       onSessionDetermined(nextProps.session.user.role)
     }
 
+    console.log('nextProps.cloudProgress', nextProps.cloudProgress)
     if (cloudProgressChanged && onCloudProgressChange) {
       onCloudProgressChange(nextProps.cloudProgress, cloudProgress)
+      if (viewerPercentageChanged) {
+        console.warn('viewerPercentageChanged within cloudProgressChanged, used old viewerPercentage!')
+      }
+      console.log('cloud change')
+      onJumpRequest(nextProps.cloudProgress, viewerPercentage, JUMP_REQUEST_TYPES.CLOUD)
+    }
+
+    if (viewerPercentageChanged && onJumpRequest) {
+      onJumpRequest(nextProps.viewerPercentage, viewerPercentage, JUMP_REQUEST_TYPES.LOC_CHANGE)
+    }
+
+    if (computed && onComputedMount) {
+      onComputedMount()
     }
   }
 
@@ -189,8 +217,7 @@ export default class ViewerContainer extends Component<AllProps, State> {
 
     if (viewChanged) {
       if (onReinitializeRequest) {
-        // onReinitializeRequest(this.props.config, prevProps.config)
-        onReinitializeRequest()
+        onReinitializeRequest(this.props.config, prevProps.config)
       }
       this.setState({
         showPageInfo: false,
@@ -200,11 +227,16 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    const { onSessionDetermined, session } = this.props
+    const { onSessionDetermined, session, computedPages, onComputedMount } = this.props
 
     if (session.determined === true && onSessionDetermined) {
       onSessionDetermined(session.user.role)
     }
+
+    if (!_.isEmpty(computedPages) && onComputedMount) {
+      onComputedMount()
+    }
+
     this.addEventListeners()
   }
 

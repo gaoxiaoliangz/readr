@@ -60,3 +60,10 @@ export const destroyBookProgress = () => {
     type: ActionTypes.BOOK_PROGRESS_DESTROY,
   }
 }
+
+export const viewerJumpTo = (percentage: number) => {
+  return {
+    type: ActionTypes.VIEW_JUMP,
+    percentage
+  }
+}

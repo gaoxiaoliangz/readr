@@ -56,3 +56,4 @@ export const VIEWER_CALC_FAILURE = createComponentActionType('viewer', 'CALC_FAI
 export const BOOK_PROGRESS_INITIALIZE = createComponentActionType('viewer/progress', 'INITIALIZE')
 export const BOOK_PROGRESS_UPDATE = createComponentActionType('viewer/progress', 'UPDATE')
 export const BOOK_PROGRESS_DESTROY = createComponentActionType('viewer/progress', 'DESTROY')
+export const VIEW_JUMP = createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP'))
