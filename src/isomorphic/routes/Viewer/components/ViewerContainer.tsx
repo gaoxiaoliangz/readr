@@ -21,11 +21,8 @@ const PAGE_LIMIT = 5
 interface Props {
   bookId: string
   onProgressChange: (percentage: number) => void
-  onSessionDetermined?: (userRole: string) => void
   onReinitializeRequest?: (newConfig, oldConfig) => void
-  onCloudProgressChange?: (newPercentage, oldPercentage) => void
   onJumpRequest?: (newLoc, oldLoc, jumpRequestType) => void
-  onComputedMount?: () => void
 }
 
 interface State {
@@ -87,7 +84,7 @@ const mapStateToProps = (state, ownProps) => {
 )
 export default class ViewerContainer extends Component<AllProps, State> {
 
-  resizeLazily: any
+  resizeLazily: typeof _.debounce
 
   constructor(props) {
     super(props)
@@ -152,7 +149,7 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   handleResize() {
-    this.props.actions.initializeViewer(this.props.bookId, {
+    this.props.actions.initializeViewerConfig(this.props.bookId, {
       isCalcMode: false
     })
   }
@@ -172,38 +169,11 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { onSessionDetermined, session, cloudProgress, onCloudProgressChange,
-      viewerPercentage, onJumpRequest, onComputedMount, computedPages } = this.props
-
-    const sessionDetermined = session.determined === false
-      && nextProps.session.determined === true
-
-    const cloudProgressChanged = cloudProgress !== nextProps.cloudProgress
-
+    const { viewerPercentage, onJumpRequest } = this.props
     const viewerPercentageChanged = viewerPercentage !== nextProps.viewerPercentage
-
-    const computed = _.isEmpty(computedPages) && !_.isEmpty(nextProps.computedPages)
-
-    if (sessionDetermined && onSessionDetermined) {
-      onSessionDetermined(nextProps.session.user.role)
-    }
-
-    console.log('nextProps.cloudProgress', nextProps.cloudProgress)
-    if (cloudProgressChanged && onCloudProgressChange) {
-      onCloudProgressChange(nextProps.cloudProgress, cloudProgress)
-      if (viewerPercentageChanged) {
-        console.warn('viewerPercentageChanged within cloudProgressChanged, used old viewerPercentage!')
-      }
-      console.log('cloud change')
-      onJumpRequest(nextProps.cloudProgress, viewerPercentage, JUMP_REQUEST_TYPES.CLOUD)
-    }
 
     if (viewerPercentageChanged && onJumpRequest) {
       onJumpRequest(nextProps.viewerPercentage, viewerPercentage, JUMP_REQUEST_TYPES.LOC_CHANGE)
-    }
-
-    if (computed && onComputedMount) {
-      onComputedMount()
     }
   }
 
@@ -227,16 +197,6 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   componentDidMount() {
-    const { onSessionDetermined, session, computedPages, onComputedMount } = this.props
-
-    if (session.determined === true && onSessionDetermined) {
-      onSessionDetermined(session.user.role)
-    }
-
-    if (!_.isEmpty(computedPages) && onComputedMount) {
-      onComputedMount()
-    }
-
     this.addEventListeners()
   }
 
@@ -260,7 +220,9 @@ export default class ViewerContainer extends Component<AllProps, State> {
 
   renderBook() {
     const { showPageInfo } = this.state
-    const { bookContent, computedPages, config: { fluid, isCalcMode, pageHeight }, onProgressChange } = this.props
+    const { bookContent, computedPages,
+      config: { fluid, isCalcMode, pageHeight },
+      onProgressChange } = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
