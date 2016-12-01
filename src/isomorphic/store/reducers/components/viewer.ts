@@ -17,17 +17,17 @@ function contents(state = {}, action) {
 }
 
 function config(state = {}, action): any {
-  const defaultViewerConfig = {
-    isCalcMode: true,
-    fluid: false,
-    isTouchMode: false
-  }
+  // const defaultViewerConfig = {
+  //   isCalcMode: true,
+  //   fluid: false,
+  //   isTouchMode: false
+  // }
 
   switch (action.type) {
-    case ActionTypes.VIEWER_INITIALIZE:
-      return _.merge({}, state, {
-        bookId: action.bookId
-      }, defaultViewerConfig)
+    // case ActionTypes.VIEWER_INITIALIZE:
+    //   return _.merge({}, state, {
+    //     bookId: action.bookId
+    //   }, defaultViewerConfig)
 
     case ActionTypes.VIEWER_CONFIG:
       return _.merge({}, state, {

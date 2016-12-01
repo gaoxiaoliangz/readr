@@ -21,7 +21,7 @@ interface Props {
   bookId: string
   onProgressChange: (percentage: number) => void
   onSessionDetermined?: (userRole: string) => void
-  onConfigChange?: (newConfig, oldConfig) => void
+  onReinitializeRequest?: (newConfig, oldConfig) => void
 }
 
 interface State {
@@ -168,16 +168,16 @@ export default class SomeComponent extends Component<AllProps, State> {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { onConfigChange } = this.props
-    const configChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
+    const { onReinitializeRequest } = this.props
+    const viewChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
       if (key === 'isTouchMode' || key === 'isCalcMode') {
         return true
       }
     })
 
-    if (configChanged) {
-      if (onConfigChange) {
-        onConfigChange(this.props.config, prevProps.config)
+    if (viewChanged) {
+      if (onReinitializeRequest) {
+        onReinitializeRequest(this.props.config, prevProps.config)
       }
       this.setState({
         showPageInfo: false,

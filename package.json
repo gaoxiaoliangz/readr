@@ -8,6 +8,7 @@
     "test:ts": "mocha --compilers ts:ts-node/register,tsx:ts-node/register",
     "mocha": "mocha --require babel-register",
     "server": "npm run server:fe:hot",
+    "server:fe:file": "npm run watch:css & npm run watch:chunks & npm run server:dev",
     "server:fe:hot": "npm run watch:css & node bin/server --hot --noRoute",
     "server:fe": "npm run watch:css & npm run watch:chunks & node bin/server --noRoute",
     "server:dev": "nodemon --watch bin/server bin/server",

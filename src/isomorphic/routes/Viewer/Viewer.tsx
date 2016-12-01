@@ -26,17 +26,10 @@ interface AllProps {
 const mapStateToProps = (state, ownProps) => {
   const bookId = ownProps.params.id
   const book = selectors.common.entity('books', bookId)(state)
-  const bookContent = selectors.common.entity('bookContents', bookId)(state)
-  const computedPages = selectors.viewer.computed(bookId)(state)
   const basicInfo = selectors.viewer.config(state)
-  const { isFetching } = selectors.viewer.progress(bookId)(state)
 
   return {
     book,
-    bookContent,
-    isFetchingProgress: isFetching,
-    session: state.session,
-    computedPages,
     basicInfo
   }
 }
@@ -57,11 +50,15 @@ export default class Viewer extends Component<AllProps, void> {
     this.bookId = props.params.id
     this.handleProgressChange = this.handleProgressChange.bind(this)
     this.handleSessionDetermined = this.handleSessionDetermined.bind(this)
-    this.handleConfigChange = this.handleConfigChange.bind(this)
+    this.handleReinitializeRequest = this.handleReinitializeRequest.bind(this)
   }
 
-  handleConfigChange(newConfig) {
-    // this.props.actions.initializeViewer(this.bookId, newConfig)
+  handleReinitializeRequest(newConfig) {
+    this.props.actions.initializeViewer(this.bookId, {
+      // saga 里面判断 computed 为非空会自动设为 false
+      // 所以这里要覆盖
+      isCalcMode: true
+    })
   }
 
   handleProgressChange(newProgress) {
@@ -93,7 +90,7 @@ export default class Viewer extends Component<AllProps, void> {
           bookId={this.bookId}
           onProgressChange={this.handleProgressChange}
           onSessionDetermined={this.handleSessionDetermined}
-          onConfigChange={this.handleConfigChange}
+          onReinitializeRequest={this.handleReinitializeRequest}
         />
       </DocContainer>
     )
