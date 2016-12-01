@@ -48,7 +48,7 @@ function* setViewerWithAction(action): any {
 }
 
 function* watchInitViewer() {
-  yield* takeEvery(ActionTypes.VIEWER_INITIALIZE, setViewerWithAction)
+  yield* takeEvery(ActionTypes.VIEWER_INITIALIZE_CONFIG, setViewerWithAction)
 }
 
 function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
@@ -138,11 +138,20 @@ function* watchJumpRequest() {
   yield* takeEvery(ActionTypes.VIEW_JUMP, jumpTo)
 }
 
+function* initializeViewer(): any {
+  while (true) {
+    const { bookId } = yield take(ActionTypes.VIEWER_INITIALIZE)
+
+    yield put(actions.loadBook(bookId))
+  }
+}
+
 export default function* watchViewer() {
   yield [
     fork(watchProgressOperations),
     fork(watchCalcBook),
     fork(watchInitViewer),
-    fork(watchJumpRequest)
+    fork(watchJumpRequest),
+    fork(initializeViewer)
   ]
 }

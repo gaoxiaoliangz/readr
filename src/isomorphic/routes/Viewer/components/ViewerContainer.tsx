@@ -152,7 +152,7 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   handleResize() {
-    this.props.actions.initializeViewer(this.props.bookId, {
+    this.props.actions.initializeViewerConfig(this.props.bookId, {
       isCalcMode: false
     })
   }

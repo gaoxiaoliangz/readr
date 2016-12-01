@@ -2,8 +2,11 @@ import * as selectors from '../../selectors'
 import * as ActionTypes from '../actionTypes'
 
 // viewer
-export const initializeViewer = (bookId: string, config: ViewerConfig = {}) =>
-  ({ bookId, config, type: ActionTypes.VIEWER_INITIALIZE })
+export const initializeViewerConfig = (bookId: string, config: ViewerConfig = {}) =>
+  ({ bookId, config, type: ActionTypes.VIEWER_INITIALIZE_CONFIG })
+
+export const initializeViewer = (bookId: string) =>
+  ({ bookId, type: ActionTypes.VIEWER_INITIALIZE })
 
 export const configViewer = (bookId: string, payload) => ({
   bookId,
@@ -34,11 +37,8 @@ export const calcBookFailure = (bookId: string, error: Error) => {
   }
 }
 
-export const initializeBookProgress = () => {
-  return {
-    type: ActionTypes.BOOK_PROGRESS_INITIALIZE,
-  }
-}
+export const initializeBookProgress = () =>
+  ({ type: ActionTypes.BOOK_PROGRESS_INITIALIZE })
 
 // progress
 export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
