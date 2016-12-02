@@ -58,3 +58,11 @@ export const BOOK_PROGRESS_INITIALIZE = createComponentActionType('viewer/progre
 export const BOOK_PROGRESS_UPDATE = createSagaTriggerActionType(createComponentActionType('viewer/progress', 'UPDATE'))
 export const BOOK_PROGRESS_DESTROY = createComponentActionType('viewer/progress', 'DESTROY')
 export const VIEW_JUMP = createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP'))
+// viewer components
+export const VIEWER = {
+  COMPONENTS: {
+    PANEL: {
+      TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE')
+    }
+  }
+}

@@ -42,6 +42,14 @@ type TBookFlesh = {
   id: string
 }[]
 
+type TBookNav = {
+  index: number
+  label: string
+  ref: string
+  hash?: string
+  children?: TBookNav[]
+}
+
 // viewer
 interface ViewerConfig {
   isCalcMode?: boolean

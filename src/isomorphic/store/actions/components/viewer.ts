@@ -63,9 +63,17 @@ export const destroyBookProgress = () => {
   }
 }
 
-export const viewerJumpTo = (percentage: number) => {
-  return {
-    type: ActionTypes.VIEW_JUMP,
-    percentage
-  }
-}
+export const viewerJumpTo = (percentage: number) =>
+  ({ type: ActionTypes.VIEW_JUMP, percentage })
+
+// sub components
+export const toggleViewerPanel = (reset?: boolean) =>
+  ({ type: ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE, reset })
+
+// export const viewer = {
+//   components: {
+//     panel: {
+//       toggle: (reset?: boolean) => ({ type: ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE, reset })
+//     }
+//   }
+// }

@@ -94,8 +94,33 @@ function progress(state = {}, action): any {
   }
 }
 
+const panel = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE:
+      const reset = action.reset
+
+      if (reset) {
+        return {
+          show: reset
+        }
+      }
+
+      return {
+        show: !state.show
+      }
+
+    default:
+      return state
+  }
+}
+
+const components = combineReducers({
+  panel
+})
+
 export default combineReducers({
   config,
   contents,
-  progress
+  progress,
+  components
 })
