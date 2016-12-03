@@ -63,6 +63,12 @@ export const VIEWER = {
   COMPONENTS: {
     PANEL: {
       TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE')
+    },
+    PREFERENCE: {
+      TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE')
+    },
+    NAVIGATION: {
+      TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE')
     }
   }
 }

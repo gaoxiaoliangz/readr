@@ -24,9 +24,8 @@ interface Props {
   onJumpRequest?: (newLoc, oldLoc, jumpRequestType) => void
 }
 
-interface State {
+interface LocalState {
   showPageInfo?: boolean
-  showViewerPreference?: boolean
 }
 
 interface AllProps extends Props {
@@ -83,15 +82,14 @@ const mapStateToProps = (state, ownProps) => {
     actions: bindActionCreators(actions as {}, dispatch)
   })
 )
-export default class ViewerContainer extends Component<AllProps, State> {
+export default class ViewerContainer extends Component<AllProps, LocalState> {
 
   resizeLazily: typeof _.debounce
 
   constructor(props) {
     super(props)
     this.state = {
-      // showPanel: false,
-      showViewerPreference: false
+      showPageInfo: false
     }
     this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
     this.resizeLazily = _.debounce(this.handleResize, 500, {
@@ -130,7 +128,6 @@ export default class ViewerContainer extends Component<AllProps, State> {
     if (isTouchMode) {
       this.props.actions.toggleViewerPanel()
       this.setState({
-        // showPanel: !this.state.showPanel,
         showPageInfo: !this.state.showPageInfo
       })
     }
@@ -187,7 +184,6 @@ export default class ViewerContainer extends Component<AllProps, State> {
       }
       this.setState({
         showPageInfo: false,
-        // showPanel: false
       })
       this.props.actions.toggleViewerPanel(false)
     }
@@ -202,29 +198,9 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   renderViewPanel() {
-    // const { showPanel } = this.props
     return (
-      <ViewerPanel
-        title={this.props.book.title}
-        showViewerPreference={this.state.showViewerPreference}
-        onPrefVisibilityChange={newVisibility => {
-          this.setState({
-            showViewerPreference: newVisibility
-          })
-        } }
-        />
+      <ViewerPanel />
     )
-    // return (showPanel || this.state.showViewerPreference) && (
-    //   <ViewerPanel
-    //     title={this.props.book.title}
-    //     showViewerPreference={this.state.showViewerPreference}
-    //     onPrefVisibilityChange={newVisibility => {
-    //       this.setState({
-    //         showViewerPreference: newVisibility
-    //       })
-    //     } }
-    //     />
-    // )
   }
 
   renderBook() {

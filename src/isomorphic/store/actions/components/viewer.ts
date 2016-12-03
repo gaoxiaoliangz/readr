@@ -70,10 +70,9 @@ export const viewerJumpTo = (percentage: number) =>
 export const toggleViewerPanel = (reset?: boolean) =>
   ({ type: ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE, reset })
 
-// export const viewer = {
-//   components: {
-//     panel: {
-//       toggle: (reset?: boolean) => ({ type: ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE, reset })
-//     }
-//   }
-// }
+export const toggleViewerPreference = (reset?: boolean) =>
+  ({ type: ActionTypes.VIEWER.COMPONENTS.PREFERENCE.TOGGLE, reset })
+
+export const toggleViewerNavigation = (reset?: boolean) =>
+  ({ type: ActionTypes.VIEWER.COMPONENTS.NAVIGATION.TOGGLE, reset })
+  

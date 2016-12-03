@@ -114,8 +114,50 @@ const panel = (state = { show: false }, action) => {
   }
 }
 
+const preference = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ActionTypes.VIEWER.COMPONENTS.PREFERENCE.TOGGLE:
+      const reset = action.reset
+
+      if (reset) {
+        return {
+          show: reset
+        }
+      }
+
+      return {
+        show: !state.show
+      }
+
+    default:
+      return state
+  }
+}
+
+const navigation = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ActionTypes.VIEWER.COMPONENTS.NAVIGATION.TOGGLE:
+      const reset = action.reset
+
+      if (reset) {
+        return {
+          show: reset
+        }
+      }
+
+      return {
+        show: !state.show
+      }
+
+    default:
+      return state
+  }
+}
+
 const components = combineReducers({
-  panel
+  panel,
+  preference,
+  navigation
 })
 
 export default combineReducers({

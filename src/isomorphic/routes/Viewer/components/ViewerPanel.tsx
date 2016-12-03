@@ -11,22 +11,26 @@ import * as actions from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 const styles = require('./ViewerPanel.scss')
 
-interface Props {
-  title: string
-  showViewerPreference: boolean
-  onPrefVisibilityChange: (newVisibility: boolean) => void
-}
+interface Props { }
 
 interface AllProps extends Props {
   showPanel?: boolean
+  showPreference?: boolean
+  showNavigation?: boolean
   config?: ViewerConfig
   actions?: typeof actions
+  title?: string
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const { show: showPanel } = selectors.viewer.panel(state)
-  return { config, showPanel }
+  const { show: showPreference } = selectors.viewer.preference(state)
+  const { show: showNavigation } = selectors.viewer.navigation(state)
+  const bookId = config.bookId
+  const { title } = selectors.common.entity('books', bookId)(state) as any
+
+  return { config, showPanel, showPreference, title, showNavigation }
 }
 
 @connect<AllProps>(
@@ -40,15 +44,16 @@ export default class ViewerPanel extends Component<AllProps, void> {
 
   constructor(props) {
     super(props)
-    // this.state = {
-    //   showViewerPreference: false
-    // }
     this.handlePrefClick = this.handlePrefClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
   }
 
   handlePrefClick() {
-    this.props.onPrefVisibilityChange(!this.props.showViewerPreference)
+    this.props.actions.toggleViewerPreference()
+  }
+
+  handleNavClick() {
+    this.props.actions.toggleViewerNavigation()
   }
 
   handelViewerMouseMove(event) {
@@ -72,9 +77,9 @@ export default class ViewerPanel extends Component<AllProps, void> {
   }
 
   render() {
-    const { title, showViewerPreference, showPanel } = this.props
+    const { title, showPanel, showPreference, showNavigation } = this.props
 
-    return showPanel && (
+    return (showPanel || showPreference || showNavigation) && (
       <div styleName="viewer-panel">
         <div styleName="container">
           <div styleName="back">
@@ -83,10 +88,14 @@ export default class ViewerPanel extends Component<AllProps, void> {
               <span>返回</span>
             </Link>
           </div>
-          <div styleName="contents">
+          <div onClick={this.handleNavClick.bind(this)} styleName="contents">
             <span>目录</span>
             <Fade>
-              <ViewerNav />
+              {
+                showNavigation && (
+                  <ViewerNav />
+                )
+              }
             </Fade>
           </div>
           <span styleName="title">{title}</span>
@@ -95,7 +104,7 @@ export default class ViewerPanel extends Component<AllProps, void> {
           </div>
           <Fade>
             {
-              showViewerPreference && (
+              showPreference && (
                 <ViewerPreference />
               )
             }

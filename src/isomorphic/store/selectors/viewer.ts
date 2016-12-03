@@ -35,3 +35,15 @@ export const panel = createSelector(self, _self => {
     show: boolean
   }
 })
+
+export const preference = createSelector(self, _self => {
+  return _.get(_self, ['components', 'preference'], {}) as {
+    show: boolean
+  }
+})
+
+export const navigation = createSelector(self, _self => {
+  return _.get(_self, ['components', 'navigation'], {}) as {
+    show: boolean
+  }
+})
