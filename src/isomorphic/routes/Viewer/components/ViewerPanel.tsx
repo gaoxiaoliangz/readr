@@ -24,10 +24,10 @@ interface AllProps extends Props {
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
+  const bookId = config.bookId
   const { show: showPanel } = selectors.viewer.panel(state)
   const { show: showPreference } = selectors.viewer.preference(state)
   const { show: showNavigation } = selectors.viewer.navigation(state)
-  const bookId = config.bookId
   const { title } = selectors.common.entity('books', bookId)(state) as any
 
   return { config, showPanel, showPreference, title, showNavigation }
