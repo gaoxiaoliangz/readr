@@ -7,12 +7,11 @@ import * as viewerUtils from '../Viewer.utils'
 import BookContainer from './BookContainer'
 import ViewerPanel from './ViewerPanel'
 import BookChapters from './BookChapters'
-import ViewerNav from './ViewerNav'
 import _ from 'lodash'
-import utils from '../../../utils'
 import Loading from '../../../elements/Loading'
 import $ from 'jquery'
 import { JUMP_REQUEST_TYPES } from '../Viewer.constants'
+import utils from '../../../utils'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
 const $body = $('body')
@@ -25,10 +24,8 @@ interface Props {
   onJumpRequest?: (newLoc, oldLoc, jumpRequestType) => void
 }
 
-interface State {
-  showPanel?: boolean
+interface LocalState {
   showPageInfo?: boolean
-  showViewerPreference?: boolean
 }
 
 interface AllProps extends Props {
@@ -51,6 +48,7 @@ interface AllProps extends Props {
   actions?: typeof actions
   cloudProgress?: number
   viewerPercentage?: number
+  showPanel?: boolean
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -63,6 +61,7 @@ const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const { isFetching } = selectors.viewer.progress(bookId)(state)
   const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
+  const { show: showPanel } = selectors.viewer.panel(state)
 
   return {
     book,
@@ -72,7 +71,8 @@ const mapStateToProps = (state, ownProps) => {
     computedPages,
     config,
     cloudProgress,
-    viewerPercentage
+    viewerPercentage,
+    showPanel
   }
 }
 
@@ -82,25 +82,24 @@ const mapStateToProps = (state, ownProps) => {
     actions: bindActionCreators(actions as {}, dispatch)
   })
 )
-export default class ViewerContainer extends Component<AllProps, State> {
+export default class ViewerContainer extends Component<AllProps, LocalState> {
 
   resizeLazily: typeof _.debounce
 
   constructor(props) {
     super(props)
     this.state = {
-      showPanel: false,
-      showViewerPreference: false,
+      showPageInfo: false
     }
     this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
     this.resizeLazily = _.debounce(this.handleResize, 500, {
       maxWait: 1000
     })
     this.handleViewerClick = this.handleViewerClick.bind(this)
-    this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
     this.handleResize = this.handleResize.bind(this)
     this.resizeLazily = this.resizeLazily.bind(this)
     this.handleRawDataMount = this.handleRawDataMount.bind(this)
+    this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
   }
 
   handleRawDataMount(ele: HTMLElement) {
@@ -127,23 +126,9 @@ export default class ViewerContainer extends Component<AllProps, State> {
     const { config: { isTouchMode } } = this.props
 
     if (isTouchMode) {
+      this.props.actions.toggleViewerPanel()
       this.setState({
-        showPanel: !this.state.showPanel,
         showPageInfo: !this.state.showPageInfo
-      })
-    }
-  }
-
-  handelViewerMouseMove(event) {
-    const { config: { isCalcMode, isTouchMode } } = this.props
-
-    if (!isCalcMode && !isTouchMode) {
-      let y = event.pageY - document.body.scrollTop
-      let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
-
-      this.setState({
-        showPanel: y < 90,
-        showPageInfo: dToScreenRight < 100
       })
     }
   }
@@ -153,6 +138,14 @@ export default class ViewerContainer extends Component<AllProps, State> {
       isCalcMode: false
     })
   }
+
+  handelViewerMouseMove(event) {
+    let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
+    this.setState({
+      showPageInfo: dToScreenRight < 100
+    })
+  }
+
 
   addEventListeners() {
     window.addEventListener('resize', this.resizeLazily)
@@ -191,8 +184,8 @@ export default class ViewerContainer extends Component<AllProps, State> {
       }
       this.setState({
         showPageInfo: false,
-        showPanel: false
       })
+      this.props.actions.toggleViewerPanel(false)
     }
   }
 
@@ -205,16 +198,8 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   renderViewPanel() {
-    return (this.state.showPanel || this.state.showViewerPreference) && (
-      <ViewerPanel
-        title={this.props.book.title}
-        showViewerPreference={this.state.showViewerPreference}
-        onPrefVisibilityChange={newVisibility => {
-          this.setState({
-            showViewerPreference: newVisibility
-          })
-        } }
-        />
+    return (
+      <ViewerPanel />
     )
   }
 
@@ -227,6 +212,12 @@ export default class ViewerContainer extends Component<AllProps, State> {
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
     }
+
+    // return <BookChapters
+    //   bookFlesh={bookContent.flesh}
+    //   onRawDataMount={this.handleRawDataMount}
+    //   fluid={fluid}
+    //   />
 
     if (isCalcMode) {
       return (
@@ -256,13 +247,8 @@ export default class ViewerContainer extends Component<AllProps, State> {
   }
 
   render() {
-    const { bookContent } = this.props
-
     return (
       <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
-        <ViewerNav
-          nav={bookContent.nav || []}
-          />
         {this.renderViewPanel()}
         {this.renderBook()}
       </div>

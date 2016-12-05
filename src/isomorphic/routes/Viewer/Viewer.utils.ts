@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import helpers from '../../helpers'
+const styles = require('./components/BookPage.scss')
 
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的
@@ -7,7 +8,7 @@ export function getNodeHeights(nodes) {
   let nodesHeight = []
 
   Array.prototype.forEach.call(nodes, (node, index) => {
-    if (node.className !== 'gb-line') {
+    if (node.className !== styles['gb-line']) {
       console.error('Unsupported content found!')
     }
     nodesHeight.push(node.clientHeight)

@@ -21,7 +21,6 @@ $icons_size: 30px;
   text-align: center;
   margin: 0 auto;
   height: $height;
-  line-height: $height;
   position: relative;
 }
 
@@ -29,6 +28,7 @@ $icons_size: 30px;
   position: absolute;
   left: 5px;
   top: 0;
+  line-height: $height;
 
   a {
     color: $panel_text;
@@ -50,14 +50,28 @@ $icons_size: 30px;
   }
 }
 
+.contents {
+  display: inline-block;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  cursor: pointer;
+  line-height: $height;
+
+  span {
+    color: #fff;
+  }
+}
+
 .title {
   font-size: 1.2rem;
+  line-height: $height;
 }
 
 .preference {
   position: absolute;
   right: 15px;
-  top: 0;
+  top: 15px;
   cursor: pointer;
-  display: none;
+  display: inline-block;
 }

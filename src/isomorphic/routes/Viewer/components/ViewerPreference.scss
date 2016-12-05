@@ -3,9 +3,10 @@
 .viewer-preference {
   position: absolute;
   right: 0;
-  top: 60px;
+  top: 80px;
   width: 200px;
   background: #fff;
+  // TODO
   box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);
   color: $text;
   border-radius: 3px;
@@ -28,7 +29,7 @@
   overflow: hidden;
   padding: 0;
 
-  span {
+  .btn {
     font-size: 1.2rem;
     width: 50%;
     float: left;
@@ -39,9 +40,14 @@
     cursor: pointer;
   }
 
-  span:first-child {
+  .btn:first-child {
     font-size: .9rem;
     border-right: 1px solid $gray;
+  }
+
+  .btn--disabled {
+    @extend .btn;
+    color: $gray;
   }
 }
 

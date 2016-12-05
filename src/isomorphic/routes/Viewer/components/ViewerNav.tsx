@@ -1,24 +1,33 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import CSSModules from 'react-css-modules'
+import * as actions from '../../../store/actions'
+import * as selectors from '../../../store/selectors'
 const styles = require('./ViewerNav.scss')
 
-interface Nav {
-  index: number
-  label: string
-  ref: string
-  hash?: string
-  children?: Nav[]
-}
-
 interface Props {
-  nav: Nav[]
 }
 
-interface State {
+interface AllProps {
+  nav?: TBookNav[]
 }
 
+const mapStateToProps = (state, ownProps) => {
+  const { bookId } = selectors.viewer.config(state)
+  const nav = selectors.viewer.navData(bookId)(state)
+
+  return { nav }
+}
+
+@connect<AllProps>(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)
 @CSSModules(styles)
-class ViewerNav extends Component<Props, State> {
+class ViewerNav extends Component<AllProps, void> {
 
   constructor(props) {
     super(props)
@@ -34,7 +43,7 @@ class ViewerNav extends Component<Props, State> {
     return <a className="js-book-nav" href={`#${ref}`}>{label}</a>
   }
 
-  renderNav(navList: Nav[]) {
+  renderNav(navList: TBookNav[]) {
     return (
       <ul>
         {

@@ -58,3 +58,19 @@ export const BOOK_PROGRESS_INITIALIZE = createComponentActionType('viewer/progre
 export const BOOK_PROGRESS_UPDATE = createSagaTriggerActionType(createComponentActionType('viewer/progress', 'UPDATE'))
 export const BOOK_PROGRESS_DESTROY = createComponentActionType('viewer/progress', 'DESTROY')
 export const VIEW_JUMP = createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP'))
+export const VIEWER_FONT_CHANGE = createComponentActionType('viewer/preference', 'CHANGE_FONT_SIZE')
+// viewer components
+// TODO: 还是不要用这种结构的好，有时候一些状态不知道要放到什么位置
+export const VIEWER = {
+  COMPONENTS: {
+    PANEL: {
+      TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE')
+    },
+    PREFERENCE: {
+      TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE')
+    },
+    NAVIGATION: {
+      TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE')
+    }
+  }
+}

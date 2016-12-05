@@ -17,17 +17,11 @@ function contents(state = {}, action) {
 }
 
 function config(state = {}, action): any {
-  // const defaultViewerConfig = {
-  //   isCalcMode: true,
-  //   fluid: false,
-  //   isTouchMode: false
-  // }
-
   switch (action.type) {
-    // case ActionTypes.VIEWER_INITIALIZE:
-    //   return _.merge({}, state, {
-    //     bookId: action.bookId
-    //   }, defaultViewerConfig)
+    case ActionTypes.VIEWER_FONT_CHANGE:
+      return _.merge({}, state, {
+        fontSize: action.fontSize
+      })
 
     case ActionTypes.VIEWER_CONFIG:
       return _.merge({}, state, {
@@ -41,12 +35,6 @@ function config(state = {}, action): any {
 
 function progress(state = {}, action): any {
   switch (action.type) {
-    // case ActionTypes.BOOK_PROGRESS_INITIALIZE:
-    //   return {
-    //     isFetching: false,
-    //     percentage: 0
-    //   }
-
     case ActionTypes.BOOK_PROGRESS_UPDATE:
       return _.merge({}, state, {
         [action.id]: {
@@ -63,39 +51,80 @@ function progress(state = {}, action): any {
         }
       })
 
-    // 获取相关
-    // case ActionTypes.BOOK_PROGRESS.REQUEST:
-    //   return _.merge({}, state, {
-    //     [action.id]: {
-    //       isFetching: true
-    //     }
-    //   })
+    default:
+      return state
+  }
+}
 
-    // case ActionTypes.BOOK_PROGRESS.SUCCESS:
-    //   const { entities, result: id } = action.response
-    //   const percentage = entities.booksProgress[id].percentage
+const panel = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE:
+      const reset = action.reset
 
-    //   return _.merge({}, state, {
-    //     [action.id]: {
-    //       isFetching: false,
-    //       percentage
-    //     }
-    //   })
+      if (reset) {
+        return {
+          show: reset
+        }
+      }
 
-    // case ActionTypes.BOOK_PROGRESS.FAILURE:
-    //   return _.merge({}, state, {
-    //     [action.id]: {
-    //       isFetching: false
-    //     }
-    //   })
+      return {
+        show: !state.show
+      }
 
     default:
       return state
   }
 }
 
+const preference = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ActionTypes.VIEWER.COMPONENTS.PREFERENCE.TOGGLE:
+      const reset = action.reset
+
+      if (reset) {
+        return {
+          show: reset
+        }
+      }
+
+      return {
+        show: !state.show
+      }
+
+    default:
+      return state
+  }
+}
+
+const navigation = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ActionTypes.VIEWER.COMPONENTS.NAVIGATION.TOGGLE:
+      const reset = action.reset
+
+      if (reset) {
+        return {
+          show: reset
+        }
+      }
+
+      return {
+        show: !state.show
+      }
+
+    default:
+      return state
+  }
+}
+
+const components = combineReducers({
+  panel,
+  preference,
+  navigation
+})
+
 export default combineReducers({
   config,
   contents,
-  progress
+  progress,
+  components
 })
