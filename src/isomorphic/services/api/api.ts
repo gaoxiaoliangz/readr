@@ -4,7 +4,7 @@ import normalizeResponse from '../utils/normalizeResponse'
 import schemas from '../schemas'
 import utils from '../../utils'
 import _ from 'lodash'
-import { DOUBAN_API_ROOT } from '../../constants'
+import { DOUBAN_API_ROOT } from '../../constants/common'
 
 const API_ROOT = helpers.getApiRoot()
 

@@ -1,11 +1,11 @@
 import { takeEvery, takeLatest } from 'redux-saga'
 import { take, put, call, select, fork, cancel, cancelled } from 'redux-saga/effects'
 import * as actions from '../actions'
-import * as ActionTypes from '../actions/actionTypes'
+import * as ACTION_TYPES from '../../constants/actionTypes'
 import api from '../../services/api'
 import _ from 'lodash'
 import * as selectors from '../../store/selectors'
-import * as constants from '../../constants'
+import { ROLES } from '../../constants/common'
 import { fetchEntity } from './utils'
 import helpers from '../../helpers'
 import * as viewerUtils from '../../routes/Viewer/Viewer.utils'
@@ -50,7 +50,7 @@ function* setViewerWithAction(action): any {
 }
 
 function* watchInitViewer() {
-  yield* takeEvery(ActionTypes.VIEWER_INITIALIZE_CONFIG, setViewerWithAction)
+  yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
 }
 
 function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
@@ -90,7 +90,7 @@ function* updateProgress(bookId, percentage): any {
 
 function* watchCalcBook(): any {
   while (true) {
-    const { bookId, wrap } = yield take(ActionTypes.VIEWER_CALC_START)
+    const { bookId, wrap } = yield take(ACTION_TYPES.VIEWER.CALC_START)
     const bookContent = yield select(selectors.common.entity('bookContents', bookId))
     const flesh = bookContent.flesh || {}
 
@@ -109,16 +109,16 @@ function* watchCalcBook(): any {
 
 function* watchProgressOperations(): any {
   while (true) {
-    const action = yield take([ActionTypes.BOOK_PROGRESS_UPDATE, ActionTypes.LOAD_BOOK_PROGRESS])
+    const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
     const session = yield select(selectors.common.session)
     const userRole = _.get(session, 'user.role')
 
-    if (userRole !== constants.ROLES.VISITOR) {
-      if (action.type === ActionTypes.LOAD_BOOK_PROGRESS) {
+    if (userRole !== ROLES.VISITOR) {
+      if (action.type === ACTION_TYPES.LOAD_BOOK_PROGRESS) {
         yield call(fetchBookProgress, { id: action.id })
       }
 
-      if (action.type === ActionTypes.BOOK_PROGRESS_UPDATE) {
+      if (action.type === ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE) {
         yield updateProgress(action.id, action.percentage)
       }
     } else {
@@ -142,26 +142,26 @@ function* jumpTo(action): any {
 }
 
 function* watchJumpRequest() {
-  yield* takeEvery(ActionTypes.VIEW_JUMP, jumpTo)
+  yield* takeEvery(ACTION_TYPES.VIEWER.JUMP, jumpTo)
 }
 
 function* fetchProgressAndJump(bookId): any {
   yield put(actions.loadBookProgress(bookId))
-  yield take(ActionTypes.BOOK_PROGRESS.SUCCESS)
+  yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
   const { percentage } = yield select(selectors.common.entity('bookProgress', bookId))
   yield put(actions.viewerJumpTo(percentage))
 }
 
 function* initializeViewer(): any {
   while (true) {
-    const { bookId } = yield take(ActionTypes.VIEWER_INITIALIZE)
+    const { bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
     const computed = yield select(selectors.viewer.computed(bookId))
 
     if (_.isEmpty(computed)) {
       yield [put(actions.loadBook(bookId)), put(actions.loadBookContent(bookId))]
       yield put(actions.initializeViewerConfig(bookId))
 
-      yield take(ActionTypes.VIEWER_CALC_SUCCESS)
+      yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
       yield fetchProgressAndJump(bookId)
     } else {
       yield fetchProgressAndJump(bookId)

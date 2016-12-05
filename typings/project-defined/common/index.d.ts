@@ -1,3 +1,9 @@
+/**
+ * General types
+ */
+
+type TNotification = 'success' | 'error' | 'warning' | 'ongoing'
+
 type RequestTypes = {
   REQUEST: string
   SUCCESS: string
@@ -11,6 +17,20 @@ interface ActionEntity {
   failure: any
   loadCache: any
 }
+
+type FetchDataOptions = {
+  store: {
+    dispatch: (action: any) => any
+  }
+  params: any
+  query: any
+  userSession: any
+}
+
+
+/**
+ * App config file
+ */
 
 interface AppConfig {
   api: {
@@ -26,6 +46,9 @@ interface AppConfig {
   enableEntityCache: boolean
 }
 
+/**
+ * Viewer components & data types
+ */
 
 type TBookPage = {
   nodes: string[]
@@ -50,24 +73,10 @@ type TBookNav = {
   children?: TBookNav[]
 }
 
-// viewer
 interface ViewerConfig {
   isCalcMode?: boolean
   fluid?: boolean
   isTouchMode?: boolean
   pageHeight?: number
   fontSize?: number
-}
-
-
-/**
- * types & interfaces
- */
-type FetchDataOptions = {
-  store: {
-    dispatch: (action: any) => any
-  }
-  params: any
-  query: any
-  userSession: any
 }

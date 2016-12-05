@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { MsgType } from '../../store/actions/components'
 import Icon from '../Icon'
 import CSSModules from 'react-css-modules'
 const styles = require('./Alert.scss')
 
 interface Props {
   message: string
-  type?: MsgType
+  type?: TNotification
   onRequestClose?: () => void
   visible: boolean
 }

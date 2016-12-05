@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import _ from 'lodash'
-import * as ActionTypes from '../../actions/actionTypes'
+import * as ACTION_TYPES from '../../../constants/actionTypes'
 
 function contents(state = {}, action) {
   switch (action.type) {
-    case ActionTypes.VIEWER_CALC_SUCCESS:
+    case ACTION_TYPES.VIEWER.CALC_SUCCESS:
       return _.merge({}, state, {
         [action.bookId]: {
           computed: action.computed
@@ -18,12 +18,12 @@ function contents(state = {}, action) {
 
 function config(state = {}, action): any {
   switch (action.type) {
-    case ActionTypes.VIEWER_FONT_CHANGE:
+    case ACTION_TYPES.VIEWER.FONT_CHANGE:
       return _.merge({}, state, {
         fontSize: action.fontSize
       })
 
-    case ActionTypes.VIEWER_CONFIG:
+    case ACTION_TYPES.VIEWER.CONFIG:
       return _.merge({}, state, {
         bookId: action.bookId
       }, action.payload)
@@ -35,7 +35,7 @@ function config(state = {}, action): any {
 
 function progress(state = {}, action): any {
   switch (action.type) {
-    case ActionTypes.BOOK_PROGRESS_UPDATE:
+    case ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE:
       return _.merge({}, state, {
         [action.id]: {
           isFetching: false,
@@ -44,7 +44,7 @@ function progress(state = {}, action): any {
         }
       })
 
-    case ActionTypes.BOOK_PROGRESS_DESTROY:
+    case ACTION_TYPES.VIEWER.BOOK_PROGRESS_DESTROY:
       return _.assign({}, state, {
         [action.id]: {
           isFetching: false
@@ -58,7 +58,7 @@ function progress(state = {}, action): any {
 
 const panel = (state = { show: false }, action) => {
   switch (action.type) {
-    case ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE:
+    case ACTION_TYPES.VIEWER.PANEL_TOGGLE:
       const reset = action.reset
 
       if (reset) {
@@ -78,7 +78,7 @@ const panel = (state = { show: false }, action) => {
 
 const preference = (state = { show: false }, action) => {
   switch (action.type) {
-    case ActionTypes.VIEWER.COMPONENTS.PREFERENCE.TOGGLE:
+    case ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE:
       const reset = action.reset
 
       if (reset) {
@@ -98,7 +98,7 @@ const preference = (state = { show: false }, action) => {
 
 const navigation = (state = { show: false }, action) => {
   switch (action.type) {
-    case ActionTypes.VIEWER.COMPONENTS.NAVIGATION.TOGGLE:
+    case ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE:
       const reset = action.reset
 
       if (reset) {
