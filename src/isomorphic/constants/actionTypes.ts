@@ -48,29 +48,24 @@ export const MODAL = {
 }
 
 // viewer
-export const VIEWER_INITIALIZE = createSagaTriggerActionType(createComponentActionType('viewer', 'INITIALIZE'))
-export const VIEWER_INITIALIZE_CONFIG = createSagaTriggerActionType(createComponentActionType('viewer', 'INITIALIZE_CONFIG'))
-export const VIEWER_CONFIG = createComponentActionType('viewer', 'CONFIG')
-export const VIEWER_CALC_START = createSagaTriggerActionType(createComponentActionType('viewer', 'CALC_START'))
-export const VIEWER_CALC_SUCCESS = createComponentActionType('viewer', 'CALC_SUCCESS')
-export const VIEWER_CALC_FAILURE = createComponentActionType('viewer', 'CALC_FAILURE')
-export const BOOK_PROGRESS_INITIALIZE = createComponentActionType('viewer/progress', 'INITIALIZE')
-export const BOOK_PROGRESS_UPDATE = createSagaTriggerActionType(createComponentActionType('viewer/progress', 'UPDATE'))
-export const BOOK_PROGRESS_DESTROY = createComponentActionType('viewer/progress', 'DESTROY')
-export const VIEW_JUMP = createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP'))
-export const VIEWER_FONT_CHANGE = createComponentActionType('viewer/preference', 'CHANGE_FONT_SIZE')
-// viewer components
-// TODO: 还是不要用这种结构的好，有时候一些状态不知道要放到什么位置
 export const VIEWER = {
-  COMPONENTS: {
-    PANEL: {
-      TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE')
-    },
-    PREFERENCE: {
-      TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE')
-    },
-    NAVIGATION: {
-      TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE')
-    }
-  }
+  INITIALIZE: createSagaTriggerActionType(createComponentActionType('viewer', 'INITIALIZE')),
+  INITIALIZE_CONFIG: createSagaTriggerActionType(createComponentActionType('viewer', 'INITIALIZE_CONFIG')),
+  CONFIG: createComponentActionType('viewer', 'CONFIG'),
+  CALC_START: createSagaTriggerActionType(createComponentActionType('viewer', 'CALC_START')),
+  CALC_SUCCESS: createComponentActionType('viewer', 'CALC_SUCCESS'),
+  CALC_FAILURE: createComponentActionType('viewer', 'CALC_FAILURE'),
+  BOOK_PROGRESS_UPDATE: createSagaTriggerActionType(createComponentActionType('viewer/progress', 'UPDATE')),
+
+  // TODO: 这个好像没用
+  BOOK_PROGRESS_INITIALIZE: createComponentActionType('viewer/progress', 'INITIALIZE'),
+
+  // TODO: 这个好像也没用
+  BOOK_PROGRESS_DESTROY: createComponentActionType('viewer/progress', 'DESTROY'),
+
+  JUMP: createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP')),
+  FONT_CHANGE: createComponentActionType('viewer/preference', 'CHANGE_FONT_SIZE'),
+  PANEL_TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE'),
+  PREFERENCE_TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE'),
+  NAVIGATION_TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE')
 }
