@@ -54,9 +54,12 @@ export default class Viewer extends Component<AllProps, void> {
   }
 
   handleReinitializeRequest() {
-    this.props.actions.initializeViewerConfig(this.bookId, {
-      // saga 里面判断 computed 为非空会自动设为 false
-      // 所以这里要覆盖
+    // this.props.actions.initializeViewerConfig(this.bookId, {
+    //   // saga 里面判断 computed 为非空会自动设为 false
+    //   // 所以这里要覆盖
+    //   isCalcMode: true
+    // })
+    this.props.actions.configViewer(this.bookId, {
       isCalcMode: true
     })
   }

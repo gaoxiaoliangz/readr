@@ -213,6 +213,12 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
       return <Loading text="书籍获取中" center />
     }
 
+    // return <BookChapters
+    //   bookFlesh={bookContent.flesh}
+    //   onRawDataMount={this.handleRawDataMount}
+    //   fluid={fluid}
+    //   />
+
     if (isCalcMode) {
       return (
         <div>

@@ -56,6 +56,7 @@ interface ViewerConfig {
   fluid?: boolean
   isTouchMode?: boolean
   pageHeight?: number
+  fontSize?: number
 }
 
 

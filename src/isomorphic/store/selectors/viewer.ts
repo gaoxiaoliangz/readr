@@ -7,7 +7,7 @@ export const self = state => {
 }
 
 export const config = state => {
-  return _.get(state, ['components', 'viewer', 'config'], {}) as {
+  return _.get(state, ['components', 'viewer', 'config'], {}) as ViewerConfig & {
     bookId: string
   }
 }

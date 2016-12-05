@@ -29,7 +29,7 @@
   overflow: hidden;
   padding: 0;
 
-  span {
+  .btn {
     font-size: 1.2rem;
     width: 50%;
     float: left;
@@ -40,9 +40,14 @@
     cursor: pointer;
   }
 
-  span:first-child {
+  .btn:first-child {
     font-size: .9rem;
     border-right: 1px solid $gray;
+  }
+
+  .btn--disabled {
+    @extend .btn;
+    color: $gray;
   }
 }
 

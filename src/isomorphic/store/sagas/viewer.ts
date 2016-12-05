@@ -12,6 +12,7 @@ import * as viewerUtils from '../../routes/Viewer/Viewer.utils'
 import utils from '../../utils'
 
 const DEFAULT_PAGE_HEIGHT = 900
+const DEFAULT_FONT_SIZE = 16
 
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
 
@@ -25,6 +26,7 @@ function* setViewer(bookId, config: ViewerConfig = {}): any {
     fluid: isSmallScreen,
     isTouchMode: isSmallScreen,
     pageHeight: DEFAULT_PAGE_HEIGHT,
+    fontSize: DEFAULT_FONT_SIZE,
     width: isSmallScreen
       ? viewerWidth
       : 'max'
@@ -95,7 +97,10 @@ function* watchCalcBook(): any {
     try {
       const computed = calcBook(wrap, flesh)
       yield put(actions.calcBookSuccess(bookId, computed))
-      yield setViewer(bookId)
+      yield put(actions.configViewer(bookId, {
+        isCalcMode: false
+      }))
+      // yield setViewer(bookId)
     } catch (error) {
       yield put(actions.calcBookFailure(bookId, error))
     }
