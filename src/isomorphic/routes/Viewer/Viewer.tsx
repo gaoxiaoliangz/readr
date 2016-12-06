@@ -50,18 +50,6 @@ export default class Viewer extends Component<AllProps, void> {
     super(props)
     this.bookId = props.params.id
     this.handleProgressChange = this.handleProgressChange.bind(this)
-    this.handleReinitializeRequest = this.handleReinitializeRequest.bind(this)
-  }
-
-  handleReinitializeRequest() {
-    // this.props.actions.initializeViewerConfig(this.bookId, {
-    //   // saga 里面判断 computed 为非空会自动设为 false
-    //   // 所以这里要覆盖
-    //   isCalcMode: true
-    // })
-    this.props.actions.configViewer(this.bookId, {
-      isCalcMode: true
-    })
   }
 
   handleProgressChange(newProgress) {
@@ -81,15 +69,7 @@ export default class Viewer extends Component<AllProps, void> {
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
         <ViewContainer
-          bookId={this.bookId}
           onProgressChange={this.handleProgressChange}
-          onReinitializeRequest={this.handleReinitializeRequest}
-          onJumpRequest={(newLoc, oldLoc, type) => {
-            helpers.print('onJumpRequest', newLoc, oldLoc, type)
-            if (type !== JUMP_REQUEST_TYPES.LOC_CHANGE) {
-              this.props.actions.viewerJumpTo(newLoc)
-            }
-          } }
           />
       </DocContainer>
     )
