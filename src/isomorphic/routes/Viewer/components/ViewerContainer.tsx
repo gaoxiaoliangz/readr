@@ -200,7 +200,7 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
   renderBook() {
     const { showPageInfo } = this.state
     const { bookContent, computedPages,
-      config: { fluid, isCalcMode, pageHeight },
+      config: { isCalcMode, pageHeight },
       onProgressChange } = this.props
 
     if (!bookContent.flesh) {
@@ -220,7 +220,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
           <BookChapters
             bookFlesh={bookContent.flesh}
             onRawDataMount={this.handleRawDataMount}
-            fluid={fluid}
             />
         </div>
       )
@@ -229,7 +228,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
         <BookContainer
           allPages={computedPages}
           pageHeight={pageHeight}
-          fluid={fluid}
           onProgressChange={val => onProgressChange(val)}
           showPageInfo={showPageInfo}
           pageLimit={PAGE_LIMIT}

@@ -100,7 +100,6 @@ function* watchCalcBook(): any {
       yield put(actions.configViewer(bookId, {
         isCalcMode: false
       }))
-      // yield setViewer(bookId)
     } catch (error) {
       yield put(actions.calcBookFailure(bookId, error))
     }
@@ -129,16 +128,18 @@ function* watchProgressOperations(): any {
 
 function* jumpTo(action): any {
   const { percentage } = action
-  const { bookId, pageHeight } = yield select(selectors.viewer.config)
+  const { bookId, pageHeight, isScrollMode } = yield select(selectors.viewer.config)
   const allPages = yield select(selectors.viewer.computed(bookId))
   const pageCount = allPages.length
   const totalHeight = pageCount * pageHeight
 
-  document.body.scrollTop = percentage
-    ? totalHeight * percentage
-    : 0
-
-  // yield put(actions.updateBookProgress(percentage) as any)
+  if (isScrollMode) {
+    document.body.scrollTop = percentage
+      ? totalHeight * percentage
+      : 0
+  } else {
+    yield put(actions.updateBookProgress(percentage) as any)
+  }
 }
 
 function* watchJumpRequest() {

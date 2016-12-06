@@ -1,3 +1,6 @@
+
+	☐ 进度跳转不准确的问题
+
 	☐ api 返回字段风格问题
 	✔ fileuploader 文件类型限制参数 @done (November 25th 2016, 9:32)
 	✔ epub parser 返回数据优化 @done (November 17th 2016, 15:33)
