@@ -97,38 +97,44 @@ export default class ViewerPanel extends Component<AllProps, void> {
   render() {
     const { title, showPanel, showPreference, showNavigation } = this.props
 
-    return (showPanel || showPreference || showNavigation) && (
-      <div styleName="viewer-panel">
-        <div styleName="container">
-          <div styleName="back">
-            <Link to="/">
-              <Icon name="back" />
-              <span>返回</span>
-            </Link>
-          </div>
-          <div ref={ref => { this.nav = ref } } styleName="contents">
-            <span>目录</span>
-            <Fade>
-              {
-                showNavigation && (
-                  <ViewerNav />
-                )
-              }
-            </Fade>
-          </div>
-          <span styleName="title">{title}</span>
-          <div ref={ref => { this.pref = ref } } styleName="preference">
-            <Icon name="preference" />
-          </div>
-          <Fade>
-            {
-              showPreference && (
-                <ViewerPreference />
-              )
-            }
-          </Fade>
-        </div>
-      </div>
+    return (
+      <Fade>
+        {
+          (showPanel || showPreference || showNavigation) && (
+            <div styleName="viewer-panel">
+              <div styleName="container">
+                <div styleName="back">
+                  <Link to="/">
+                    <Icon name="back" />
+                    <span>返回</span>
+                  </Link>
+                </div>
+                <div ref={ref => { this.nav = ref } } styleName="contents">
+                  <span>目录</span>
+                  <Fade>
+                    {
+                      showNavigation && (
+                        <ViewerNav />
+                      )
+                    }
+                  </Fade>
+                </div>
+                <span styleName="title">{title}</span>
+                <div ref={ref => { this.pref = ref } } styleName="preference">
+                  <Icon name="preference" />
+                </div>
+                <Fade>
+                  {
+                    showPreference && (
+                      <ViewerPreference />
+                    )
+                  }
+                </Fade>
+              </div>
+            </div>
+          )
+        }
+      </Fade>
     )
   }
 }

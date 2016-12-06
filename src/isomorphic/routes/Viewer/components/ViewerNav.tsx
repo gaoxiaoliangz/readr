@@ -4,12 +4,12 @@ import { bindActionCreators } from 'redux'
 import CSSModules from 'react-css-modules'
 import * as actions from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
+import preventScroll from '../../../utils/browser/preventScroll'
 const styles = require('./ViewerNav.scss')
 
-interface Props {
-}
+interface Props {}
 
-interface AllProps {
+interface AllProps extends Props {
   nav?: TBookNav[]
 }
 
@@ -34,6 +34,12 @@ class ViewerNav extends Component<AllProps, void> {
   }
 
   componentDidMount() {
+    // TODO: js hook 常量
+    preventScroll.init('.js-nav-scroll')
+  }
+
+  componentWillUnmount() {
+    preventScroll.destroy('.js-nav-scroll')
   }
 
   renderLink(ref, hash, label) {
@@ -72,7 +78,7 @@ class ViewerNav extends Component<AllProps, void> {
     const { nav } = this.props
 
     return (
-      <div styleName="viewer-nav">
+      <div className="js-nav-scroll" styleName="viewer-nav">
         {this.renderNav(nav)}
       </div>
     )

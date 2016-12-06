@@ -42,12 +42,10 @@ interface AllProps extends Props {
   fontSize?: number
   theme?: string
   isScrollMode?: boolean
-  // currentPageNo?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
   const { fontSize, theme, isScrollMode } = selectors.viewer.config(state)
-  // const currentPageNo = selectors.viewer.progress(config.bookId)(state)
 
   return { fontSize, theme, isScrollMode }
 }
@@ -87,7 +85,6 @@ export default class BookPage extends Component<AllProps, {}> {
           position: 'absolute',
           top: 0,
           display: active ? 'block' : 'none',
-          // display: currentPageNo === meta.pageNo ? 'block' : 'none',
           height: pageHeight || 'auto'
         }
       }
