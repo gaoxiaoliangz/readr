@@ -18,12 +18,13 @@ interface Props { }
 interface AllProps extends Props {
   actions?: typeof actions
   fontSize?: number
+  isScrollMode?: boolean
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { fontSize } = selectors.viewer.config(state)
+  const { fontSize, isScrollMode } = selectors.viewer.config(state)
 
-  return { fontSize }
+  return { fontSize, isScrollMode }
 }
 
 @connect<AllProps>(
@@ -61,6 +62,10 @@ export default class ViewerPreference extends Component<AllProps, {}> {
     this.props.actions.changeViewerTheme(key)
   }
 
+  handleToggleScrollModeClick(val) {
+    this.props.actions.toggleViewerScrollMode(val)
+  }
+
   getBtnStatus() {
     const { fontSize } = this.props
     const isDecDisabled = fontSize <= MIN_FONT_SIZE
@@ -71,6 +76,7 @@ export default class ViewerPreference extends Component<AllProps, {}> {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
+    const { isScrollMode } = this.props
 
     const btnDecClass = classnames({
       'btn': !isDecDisabled,
@@ -91,7 +97,10 @@ export default class ViewerPreference extends Component<AllProps, {}> {
           </li>
           <li styleName="option-scroll">
             <span className="label">滚动模式</span>
-            <Switcher value={true} />
+            <Switcher
+              value={isScrollMode}
+              onChange={this.handleToggleScrollModeClick.bind(this)}
+              />
           </li>
           <li styleName="option-theme">
             {

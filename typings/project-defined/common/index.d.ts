@@ -75,8 +75,9 @@ type TBookNav = {
 
 interface ViewerConfig {
   isCalcMode?: boolean
-  fluid?: boolean
   isTouchMode?: boolean
+  isScrollMode?: boolean
+  fluid?: boolean
   pageHeight?: number
   fontSize?: number
   theme?: string

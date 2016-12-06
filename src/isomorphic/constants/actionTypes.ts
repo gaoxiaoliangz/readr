@@ -68,5 +68,6 @@ export const VIEWER = {
   PANEL_TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE'),
   PREFERENCE_TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE'),
   NAVIGATION_TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE'),
-  THEME_CHANGE: createComponentActionType('viewer/theme', 'CHANGE')
+  THEME_CHANGE: createComponentActionType('viewer/theme', 'CHANGE'),
+  SCROLL_MODE_TOGGLE: createComponentActionType('viewer/scroll-mode', 'TOGGLE')
 }

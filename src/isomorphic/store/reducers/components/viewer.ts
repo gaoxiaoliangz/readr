@@ -3,6 +3,14 @@ import _ from 'lodash'
 import * as ACTION_TYPES from '../../../constants/actionTypes'
 import * as CONSTANTS from '../../../constants'
 
+const getFlag = (reset, currentFlag) => {
+  if (typeof reset === 'undefined') {
+    return !currentFlag
+  }
+
+  return reset
+}
+
 function contents(state = {}, action) {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.CALC_SUCCESS:
@@ -17,8 +25,15 @@ function contents(state = {}, action) {
   }
 }
 
-function config(state = { theme: CONSTANTS.VIEWER_DEFS.THEMES.WHITE }, action): any {
+function config(state = { theme: CONSTANTS.VIEWER_DEFS.THEMES.WHITE, isScrollMode: true }, action): any {
   switch (action.type) {
+    case ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE:
+      const { reset } = action
+
+      return _.merge({}, state, {
+        isScrollMode: getFlag(reset, state.isScrollMode)
+      })
+
     case ACTION_TYPES.VIEWER.THEME_CHANGE:
       return _.merge({}, state, {
         theme: action.theme
@@ -65,16 +80,12 @@ function progress(state = {}, action): any {
 const panel = (state = { show: false }, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.PANEL_TOGGLE:
-      const reset = action.reset
+      const { reset } = action
 
-      if (reset) {
-        return {
-          show: reset
-        }
-      }
+      const a = getFlag(reset, state.show)
 
       return {
-        show: !state.show
+        show: a
       }
 
     default:
@@ -85,16 +96,10 @@ const panel = (state = { show: false }, action) => {
 const preference = (state = { show: false }, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE:
-      const reset = action.reset
-
-      if (reset) {
-        return {
-          show: reset
-        }
-      }
+      const { reset } = action
 
       return {
-        show: !state.show
+        show: getFlag(reset, state.show)
       }
 
     default:
@@ -105,16 +110,10 @@ const preference = (state = { show: false }, action) => {
 const navigation = (state = { show: false }, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE:
-      const reset = action.reset
-
-      if (reset) {
-        return {
-          show: reset
-        }
-      }
+      const { reset } = action
 
       return {
-        show: !state.show
+        show: getFlag(reset, state.show)
       }
 
     default:

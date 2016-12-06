@@ -82,3 +82,6 @@ export const changeViewerFontSize = (fontSizeInPixel: number) =>
 
 export const changeViewerTheme = (themeName: string) =>
   ({ type: ACTION_TYPES.VIEWER.THEME_CHANGE, theme: themeName })
+
+export const toggleViewerScrollMode = (reset?: boolean) =>
+  ({ type: ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE, reset })
