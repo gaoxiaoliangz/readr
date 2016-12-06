@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Icon from '../../../elements/Icon'
-import Fade from '../../../elements/Fade'
+import { Fade, Slide } from '../../../elements/animations'
 import ViewerPreference from './ViewerPreference'
 import ViewerNav from './ViewerNav'
 import CSSModules from 'react-css-modules'
@@ -98,7 +98,7 @@ export default class ViewerPanel extends Component<AllProps, void> {
     const { title, showPanel, showPreference, showNavigation } = this.props
 
     return (
-      <Fade>
+      <Slide>
         {
           (showPanel || showPreference || showNavigation) && (
             <div styleName="viewer-panel">
@@ -134,7 +134,7 @@ export default class ViewerPanel extends Component<AllProps, void> {
             </div>
           )
         }
-      </Fade>
+      </Slide>
     )
   }
 }

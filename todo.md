@@ -15,6 +15,7 @@
 	☐ react-hot runtime error sourcemap
 	☐ 目录组件样式
 	☐ panel 显示隐藏动效
+	☐ 使用 react motion 写动画
 	☐ 完善新的添加书籍（添加后确认信息）
 	☐ 移除旧的添加书籍
 	☐ 增加首页头图
