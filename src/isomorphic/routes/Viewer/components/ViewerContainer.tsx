@@ -197,12 +197,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
     this.removeEventListeners()
   }
 
-  renderViewPanel() {
-    return (
-      <ViewerPanel />
-    )
-  }
-
   renderBook() {
     const { showPageInfo } = this.state
     const { bookContent, computedPages,
@@ -249,7 +243,7 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
   render() {
     return (
       <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
-        {this.renderViewPanel()}
+        <ViewerPanel />
         {this.renderBook()}
       </div>
     )

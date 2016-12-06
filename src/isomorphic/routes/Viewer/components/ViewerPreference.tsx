@@ -6,13 +6,14 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import classnames from 'classnames'
+import { THEMES as THEME_DEFS } from '../../../constants/viewerDefs'
+import _ from 'lodash'
 const styles = require('./ViewerPreference.scss')
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
 
-interface Props {
-}
+interface Props { }
 
 interface AllProps extends Props {
   actions?: typeof actions
@@ -56,6 +57,10 @@ export default class ViewerPreference extends Component<AllProps, {}> {
     }
   }
 
+  handleChangeThemeClick(key) {
+    this.props.actions.changeViewerTheme(key)
+  }
+
   getBtnStatus() {
     const { fontSize } = this.props
     const isDecDisabled = fontSize <= MIN_FONT_SIZE
@@ -89,9 +94,19 @@ export default class ViewerPreference extends Component<AllProps, {}> {
             <Switcher value={true} />
           </li>
           <li styleName="option-theme">
-            <span style={{ background: '#fff' }}>theme1</span>
-            <span style={{ background: '#eee' }}>theme2</span>
-            <span style={{ background: '#222' }}>theme3</span>
+            {
+              _.keys(THEME_DEFS).map((key, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={styles[key.toLowerCase()]}
+                    onClick={this.handleChangeThemeClick.bind(this, key)}
+                    >
+                    {key}
+                  </span>
+                )
+              })
+            }
           </li>
         </ul>
       </div>

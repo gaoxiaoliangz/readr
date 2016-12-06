@@ -24,7 +24,7 @@ interface Props {
   fluid: boolean
 }
 
-class BookChapters extends Component<Props, {}> {
+export default class BookChapters extends Component<Props, {}> {
 
   chapters: HTMLElement
 
@@ -72,5 +72,3 @@ class BookChapters extends Component<Props, {}> {
     )
   }
 }
-
-export default BookChapters

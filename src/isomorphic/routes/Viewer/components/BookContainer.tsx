@@ -4,6 +4,8 @@ import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import * as selectors from '../../../store/selectors'
+import CSSModules from 'react-css-modules'
+const styles = require('./BookContainer.scss')
 
 interface Props {
   allPages: TBookPage[]
@@ -18,21 +20,24 @@ interface Props {
 interface AllProps extends Props {
   percentage?: number
   pageNo?: number
+  theme?: string
 }
 
 const mapStateToProps = state => {
-  const { bookId } = selectors.viewer.config(state)
+  const { bookId, theme } = selectors.viewer.config(state)
   const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
 
   return {
     percentage,
-    pageNo
+    pageNo,
+    theme
   }
 }
 
 @connect<AllProps>(
   mapStateToProps
 )
+@CSSModules(styles)
 export default class BookContainer extends Component<AllProps, {}> {
 
   handleScrollLazily: any
@@ -73,7 +78,7 @@ export default class BookContainer extends Component<AllProps, {}> {
   }
 
   render() {
-    const { allPages, pageHeight, fluid, showPageInfo, pageLimit, pageNo } = this.props
+    const { allPages, pageHeight, fluid, showPageInfo, pageLimit, pageNo, theme } = this.props
     const pageCount = allPages.length
     const totalHeight = pageCount * pageHeight
 
@@ -85,7 +90,7 @@ export default class BookContainer extends Component<AllProps, {}> {
     const endPageIndex = startPageIndex + pageLimit
 
     return (
-      <div style={{ height: totalHeight }}>
+      <div styleName={theme.toLowerCase()} style={{ height: totalHeight }}>
         <BookPages
           pages={_.slice(allPages, startPageIndex, endPageIndex) as TBookPage[]}
           pageHeight={pageHeight}

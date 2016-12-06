@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import _ from 'lodash'
 import * as ACTION_TYPES from '../../../constants/actionTypes'
+import * as CONSTANTS from '../../../constants'
 
 function contents(state = {}, action) {
   switch (action.type) {
@@ -16,8 +17,13 @@ function contents(state = {}, action) {
   }
 }
 
-function config(state = {}, action): any {
+function config(state = { theme: CONSTANTS.VIEWER_DEFS.THEMES.WHITE }, action): any {
   switch (action.type) {
+    case ACTION_TYPES.VIEWER.THEME_CHANGE:
+      return _.merge({}, state, {
+        theme: action.theme
+      })
+
     case ACTION_TYPES.VIEWER.FONT_CHANGE:
       return _.merge({}, state, {
         fontSize: action.fontSize

@@ -67,5 +67,6 @@ export const VIEWER = {
   FONT_CHANGE: createComponentActionType('viewer/preference', 'CHANGE_FONT_SIZE'),
   PANEL_TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE'),
   PREFERENCE_TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE'),
-  NAVIGATION_TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE')
+  NAVIGATION_TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE'),
+  THEME_CHANGE: createComponentActionType('viewer/theme', 'CHANGE')
 }

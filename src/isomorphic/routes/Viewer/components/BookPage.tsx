@@ -17,12 +17,13 @@ interface Props {
 
 interface AllProps extends Props {
   fontSize?: number
+  theme?: string
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { fontSize } = selectors.viewer.config(state)
+  const { fontSize, theme } = selectors.viewer.config(state)
 
-  return { fontSize }
+  return { fontSize, theme }
 }
 
 @connect<AllProps>(
@@ -31,13 +32,15 @@ const mapStateToProps = (state, ownProps) => {
     actions: bindActionCreators(actions as {}, dispatch)
   })
 )
-@CSSModules(styles)
+@CSSModules(styles, {
+  allowMultiple: true
+})
 export default class BookPage extends Component<AllProps, {}> {
 
   bookPageDom: HTMLDivElement
 
   render() {
-    const { page: { nodes, meta }, pageHeight, fluid, fontSize } = this.props
+    const { page: { nodes, meta }, pageHeight, fluid, fontSize, theme } = this.props
     const mdInput = nodes.join('\n\n')
     const contentStyle = { fontSize } as {
       marginTop?: number
@@ -59,7 +62,8 @@ export default class BookPage extends Component<AllProps, {}> {
 
     const className = classnames({
       'page': !fluid,
-      'page--fluid': fluid
+      'page--fluid': fluid,
+      [theme && theme.toLocaleLowerCase()]: Boolean(theme)
     })
 
     return (

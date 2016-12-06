@@ -79,4 +79,5 @@ interface ViewerConfig {
   isTouchMode?: boolean
   pageHeight?: number
   fontSize?: number
+  theme?: string
 }

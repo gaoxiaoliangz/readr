@@ -76,5 +76,9 @@ export const toggleViewerPreference = (reset?: boolean) =>
 export const toggleViewerNavigation = (reset?: boolean) =>
   ({ type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset })
 
+// config
 export const changeViewerFontSize = (fontSizeInPixel: number) =>
   ({ type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel })
+
+export const changeViewerTheme = (themeName: string) =>
+  ({ type: ACTION_TYPES.VIEWER.THEME_CHANGE, theme: themeName })

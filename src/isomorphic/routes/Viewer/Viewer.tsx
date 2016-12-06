@@ -77,6 +77,7 @@ export default class Viewer extends Component<AllProps, void> {
   }
 
   render() {
+    // TODO: 移除回调函数
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
         <ViewContainer
