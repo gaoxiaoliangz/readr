@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import _ from 'lodash'
 
-const BookChapter = ({ id, markdown, fluid}) => {
+const BookChapter = ({ id, markdown}) => {
   return (
     <div id={id}>
       <BookPages
         pages={[{
           nodes: [markdown]
         }]}
-        fluid={fluid}
         />
     </div>
   )
@@ -21,10 +20,9 @@ interface Props {
     id: string
   }[]
   onRawDataMount?: (ref: HTMLElement) => void
-  fluid: boolean
 }
 
-class BookChapters extends Component<Props, {}> {
+export default class BookChapters extends Component<Props, {}> {
 
   chapters: HTMLElement
 
@@ -52,7 +50,7 @@ class BookChapters extends Component<Props, {}> {
   }
 
   render() {
-    const { bookFlesh, fluid } = this.props
+    const { bookFlesh } = this.props
 
     return (
       <div ref={ref => this.chapters = ref}>
@@ -63,7 +61,6 @@ class BookChapters extends Component<Props, {}> {
                 id={item.id}
                 markdown={item.markdown}
                 key={item.id}
-                fluid={fluid}
                 />
             )
           })
@@ -72,5 +69,3 @@ class BookChapters extends Component<Props, {}> {
     )
   }
 }
-
-export default BookChapters

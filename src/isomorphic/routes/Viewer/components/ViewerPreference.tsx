@@ -6,23 +6,25 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import classnames from 'classnames'
+import { THEMES as THEME_DEFS } from '../../../constants/viewerDefs'
+import _ from 'lodash'
 const styles = require('./ViewerPreference.scss')
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
 
-interface Props {
-}
+interface Props { }
 
 interface AllProps extends Props {
   actions?: typeof actions
   fontSize?: number
+  isScrollMode?: boolean
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { fontSize } = selectors.viewer.config(state)
+  const { fontSize, isScrollMode } = selectors.viewer.config(state)
 
-  return { fontSize }
+  return { fontSize, isScrollMode }
 }
 
 @connect<AllProps>(
@@ -56,6 +58,14 @@ export default class ViewerPreference extends Component<AllProps, {}> {
     }
   }
 
+  handleChangeThemeClick(key) {
+    this.props.actions.changeViewerTheme(key)
+  }
+
+  handleToggleScrollModeClick(val) {
+    this.props.actions.toggleViewerScrollMode(val)
+  }
+
   getBtnStatus() {
     const { fontSize } = this.props
     const isDecDisabled = fontSize <= MIN_FONT_SIZE
@@ -66,6 +76,7 @@ export default class ViewerPreference extends Component<AllProps, {}> {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
+    const { isScrollMode } = this.props
 
     const btnDecClass = classnames({
       'btn': !isDecDisabled,
@@ -86,12 +97,25 @@ export default class ViewerPreference extends Component<AllProps, {}> {
           </li>
           <li styleName="option-scroll">
             <span className="label">滚动模式</span>
-            <Switcher value={true} />
+            <Switcher
+              value={isScrollMode}
+              onChange={this.handleToggleScrollModeClick.bind(this)}
+              />
           </li>
           <li styleName="option-theme">
-            <span style={{ background: '#fff' }}>theme1</span>
-            <span style={{ background: '#eee' }}>theme2</span>
-            <span style={{ background: '#222' }}>theme3</span>
+            {
+              _.keys(THEME_DEFS).map((key, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={styles[key.toLowerCase()]}
+                    onClick={this.handleChangeThemeClick.bind(this, key)}
+                    >
+                    {key}
+                  </span>
+                )
+              })
+            }
           </li>
         </ul>
       </div>

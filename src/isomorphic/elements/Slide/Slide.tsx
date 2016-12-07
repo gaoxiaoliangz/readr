@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-const styles = require('./Fade.scss')
+const styles = require('./Slide.scss')
 
 export default props => {
   return (

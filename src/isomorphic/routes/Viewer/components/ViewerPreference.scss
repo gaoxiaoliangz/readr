@@ -3,7 +3,7 @@
 .viewer-preference {
   position: absolute;
   right: 0;
-  top: 80px;
+  top: 65px;
   width: 200px;
   background: #fff;
   // TODO
@@ -79,4 +79,17 @@
     margin: 5px;
     cursor: pointer;
   }
+}
+
+// themes
+.white {
+  background: #fff;
+}
+
+.night {
+  background: #222;
+}
+
+.sepia {
+  background: #f9f1e5;
 }

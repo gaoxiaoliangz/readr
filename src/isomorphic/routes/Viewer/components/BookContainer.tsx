@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as selectors from '../../../store/selectors'
+import NavArrow from './NavArrow'
+import * as actions from '../../../store/actions'
+import CSSModules from 'react-css-modules'
+const styles = require('./BookContainer.scss')
 
 interface Props {
   allPages: TBookPage[]
-  isScrollMode?: boolean
   pageHeight: number
-  onProgressChange?: (newProgress: number) => void
-  fluid: boolean
   showPageInfo?: boolean
   pageLimit: number
 }
@@ -18,21 +20,32 @@ interface Props {
 interface AllProps extends Props {
   percentage?: number
   pageNo?: number
+  theme?: string
+  isScrollMode?: boolean
+  isCalcMode?: boolean
+  actions?: typeof actions
 }
 
 const mapStateToProps = state => {
-  const { bookId } = selectors.viewer.config(state)
+  const { bookId, theme, isScrollMode, isCalcMode } = selectors.viewer.config(state)
   const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
 
   return {
     percentage,
-    pageNo
+    pageNo,
+    theme,
+    isScrollMode,
+    isCalcMode
   }
 }
 
 @connect<AllProps>(
-  mapStateToProps
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
 )
+@CSSModules(styles)
 export default class BookContainer extends Component<AllProps, {}> {
 
   handleScrollLazily: any
@@ -46,14 +59,26 @@ export default class BookContainer extends Component<AllProps, {}> {
   }
 
   handleScroll() {
-    const { allPages, pageHeight, onProgressChange } = this.props
+    const { allPages, pageHeight, isScrollMode } = this.props
     const pageCount = allPages.length
     const totalHeight = pageCount * pageHeight
     const scrollTop = document.body.scrollTop
 
-    if (onProgressChange) {
-      onProgressChange(scrollTop / totalHeight)
+    if (isScrollMode) {
+      this.props.actions.updateBookProgress(scrollTop / totalHeight)
     }
+  }
+
+  handleForward() {
+    const { allPages, pageNo } = this.props
+    this.props.actions.viewerJumpTo(pageNo / allPages.length)
+    document.body.scrollTop = 0
+  }
+
+  handlebackward() {
+    const { allPages, pageNo } = this.props
+    this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length)
+    document.body.scrollTop = 0
   }
 
   addEventListeners() {
@@ -73,9 +98,8 @@ export default class BookContainer extends Component<AllProps, {}> {
   }
 
   render() {
-    const { allPages, pageHeight, fluid, showPageInfo, pageLimit, pageNo } = this.props
-    const pageCount = allPages.length
-    const totalHeight = pageCount * pageHeight
+    const { allPages, pageHeight, showPageInfo, pageLimit, pageNo,
+      theme, isScrollMode, isCalcMode } = this.props
 
     let startPageIndex
 
@@ -84,13 +108,22 @@ export default class BookContainer extends Component<AllProps, {}> {
 
     const endPageIndex = startPageIndex + pageLimit
 
+    const divHeight = isCalcMode
+      ? 'auto'
+      : (
+        isScrollMode
+          ? allPages.length * pageHeight
+          : pageHeight
+      )
+
     return (
-      <div style={{ height: totalHeight }}>
+      <div styleName={theme.toLowerCase()} style={{ height: divHeight }}>
         <BookPages
           pages={_.slice(allPages, startPageIndex, endPageIndex) as TBookPage[]}
-          pageHeight={pageHeight}
-          fluid={fluid}
-          totalHeight={totalHeight}
+          />
+        <NavArrow
+          forward={this.handleForward.bind(this)}
+          backward={this.handlebackward.bind(this)}
           />
         <ViewerScrollbar
           visible={showPageInfo}

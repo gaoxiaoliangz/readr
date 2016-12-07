@@ -4,7 +4,7 @@ import App from '../containers/App'
 import Console from '../containers/Console'
 import { Route, IndexRedirect, IndexRoute } from 'react-router'
 import api from '../services/api'
-import { ROLES } from '../constants'
+import { ROLES } from '../constants/common'
 
 const createRoutes = (context = {}) => {
   const { request, response } = context as any

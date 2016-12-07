@@ -4,20 +4,30 @@ import { bindActionCreators } from 'redux'
 import CSSModules from 'react-css-modules'
 import * as actions from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
+import preventScroll from '../../../utils/browser/preventScroll'
+import * as viewerUtils from '../Viewer.utils'
+import $ from 'jquery'
 const styles = require('./ViewerNav.scss')
 
-interface Props {
-}
+const JS_NAV_HOOK = 'a.js-book-nav'
+const $body = $('body')
 
-interface AllProps {
+interface Props { }
+
+interface AllProps extends Props {
   nav?: TBookNav[]
+  actions?: typeof actions
+  computedPages?: TBookPage[]
+  viewerPercentage?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
   const { bookId } = selectors.viewer.config(state)
   const nav = selectors.viewer.navData(bookId)(state)
+  const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
+  const computedPages = selectors.viewer.computed(bookId)(state)
 
-  return { nav }
+  return { nav, viewerPercentage, computedPages }
 }
 
 @connect<AllProps>(
@@ -27,13 +37,37 @@ const mapStateToProps = (state, ownProps) => {
   })
 )
 @CSSModules(styles)
-class ViewerNav extends Component<AllProps, void> {
+export default class ViewerNav extends Component<AllProps, void> {
 
   constructor(props) {
     super(props)
+    this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
+  }
+
+  handleNavLinkClick(e) {
+    e.preventDefault()
+    const { computedPages, viewerPercentage /* 也许会用到 */ } = this.props
+    const href = $(e.target).attr('href')
+
+    try {
+      const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
+      const percentage = (pageNo - 1) / computedPages.length
+
+      this.props.actions.viewerJumpTo(percentage)
+    } catch (error) {
+      this.props.actions.sendNotification(error.message, 'error')
+    }
   }
 
   componentDidMount() {
+    // TODO: js hook 常量
+    preventScroll.init('.js-nav-scroll')
+    $body.on('click', JS_NAV_HOOK, this.handleNavLinkClick)
+  }
+
+  componentWillUnmount() {
+    preventScroll.destroy('.js-nav-scroll')
+    $body.off('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   renderLink(ref, hash, label) {
@@ -72,11 +106,9 @@ class ViewerNav extends Component<AllProps, void> {
     const { nav } = this.props
 
     return (
-      <div styleName="viewer-nav">
+      <div className="js-nav-scroll" styleName="viewer-nav">
         {this.renderNav(nav)}
       </div>
     )
   }
 }
-
-export default ViewerNav

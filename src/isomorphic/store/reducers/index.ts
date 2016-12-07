@@ -3,9 +3,8 @@ import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import components from './components'
 import pagination from './pagination'
-import legacyPagination from './legacyPagination'
 import form from './form'
-import * as ActionTypes from '../actions/actionTypes'
+import * as ActionTypes from '../../constants/actionTypes'
 
 function errorMessage(state = [], action) {
   const { error } = action
@@ -70,7 +69,7 @@ const rootReducer = combineReducers({
   session,
   routing,
   form,
-  pagination: (state, action) => pagination(legacyPagination(state, action), action),
+  pagination
 })
 
 export default rootReducer

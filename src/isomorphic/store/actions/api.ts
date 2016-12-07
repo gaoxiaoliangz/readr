@@ -3,9 +3,9 @@ import utils from '../../utils'
 import * as api from '../../services/api'
 import schemas from '../../services/schemas'
 import { CALL_API_OBJ } from '../middleware/api'
-import { DOUBAN_API_ROOT } from '../../constants'
+import { DOUBAN_API_ROOT } from '../../constants/common'
 import { createActionEntity, action } from './utils'
-import * as ActionTypes from './actionTypes'
+import * as ActionTypes from '../../constants/actionTypes'
 
 export const removeEntity = (name: string, id: string) =>
   ({ type: ActionTypes.REMOVE_ENTITY, name, id })

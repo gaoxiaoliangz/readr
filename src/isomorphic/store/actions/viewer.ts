@@ -1,32 +1,32 @@
-import * as selectors from '../../selectors'
-import * as ActionTypes from '../actionTypes'
-import helpers from '../../../helpers'
+import * as selectors from '../selectors'
+import * as ACTION_TYPES from '../../constants/actionTypes'
+import helpers from '../../helpers'
 
 // viewer
 export const initializeViewerConfig = (bookId: string, config: ViewerConfig = {}) =>
-  ({ bookId, config, type: ActionTypes.VIEWER_INITIALIZE_CONFIG })
+  ({ bookId, config, type: ACTION_TYPES.VIEWER.INITIALIZE_CONFIG })
 
 export const initializeViewer = (bookId: string) =>
-  ({ bookId, type: ActionTypes.VIEWER_INITIALIZE })
+  ({ bookId, type: ACTION_TYPES.VIEWER.INITIALIZE })
 
 export const configViewer = (bookId: string, payload) => ({
   bookId,
   payload,
-  type: ActionTypes.VIEWER_CONFIG,
+  type: ACTION_TYPES.VIEWER.CONFIG,
 })
 
 // book
 export const calcBook = (bookId: string, wrap: HTMLElement) => ({
   bookId,
   wrap,
-  type: ActionTypes.VIEWER_CALC_START,
+  type: ACTION_TYPES.VIEWER.CALC_START,
 })
 
 export const calcBookSuccess = (bookId: string, computed) => {
   return {
     bookId,
     computed,
-    type: ActionTypes.VIEWER_CALC_SUCCESS,
+    type: ACTION_TYPES.VIEWER.CALC_SUCCESS,
   }
 }
 
@@ -34,12 +34,12 @@ export const calcBookFailure = (bookId: string, error: Error) => {
   return {
     bookId,
     error,
-    type: ActionTypes.VIEWER_CALC_FAILURE,
+    type: ACTION_TYPES.VIEWER.CALC_FAILURE,
   }
 }
 
 export const initializeBookProgress = () =>
-  ({ type: ActionTypes.BOOK_PROGRESS_INITIALIZE })
+  ({ type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_INITIALIZE })
 
 // progress
 export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
@@ -53,28 +53,35 @@ export const updateBookProgress = (percentage: number) => (dispatch, getState) =
     id: bookId,
     percentage,
     pageNo,
-    type: ActionTypes.BOOK_PROGRESS_UPDATE,
+    type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE,
   })
 }
 
 export const destroyBookProgress = () => {
   return {
-    type: ActionTypes.BOOK_PROGRESS_DESTROY,
+    type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_DESTROY,
   }
 }
 
 export const viewerJumpTo = (percentage: number) =>
-  ({ type: ActionTypes.VIEW_JUMP, percentage })
+  ({ type: ACTION_TYPES.VIEWER.JUMP, percentage })
 
 // sub components
 export const toggleViewerPanel = (reset?: boolean) =>
-  ({ type: ActionTypes.VIEWER.COMPONENTS.PANEL.TOGGLE, reset })
+  ({ type: ACTION_TYPES.VIEWER.PANEL_TOGGLE, reset })
 
 export const toggleViewerPreference = (reset?: boolean) =>
-  ({ type: ActionTypes.VIEWER.COMPONENTS.PREFERENCE.TOGGLE, reset })
+  ({ type: ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE, reset })
 
 export const toggleViewerNavigation = (reset?: boolean) =>
-  ({ type: ActionTypes.VIEWER.COMPONENTS.NAVIGATION.TOGGLE, reset })
+  ({ type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset })
 
+// config
 export const changeViewerFontSize = (fontSizeInPixel: number) =>
-  ({ type: ActionTypes.VIEWER_FONT_CHANGE, fontSize: fontSizeInPixel })
+  ({ type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel })
+
+export const changeViewerTheme = (themeName: string) =>
+  ({ type: ACTION_TYPES.VIEWER.THEME_CHANGE, theme: themeName })
+
+export const toggleViewerScrollMode = (reset?: boolean) =>
+  ({ type: ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE, reset })

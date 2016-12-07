@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Icon from '../../../elements/Icon'
-import Fade from '../../../elements/Fade'
+import { Fade, Slide } from '../../../elements/animations'
 import ViewerPreference from './ViewerPreference'
 import ViewerNav from './ViewerNav'
 import CSSModules from 'react-css-modules'
@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
+import isDescendant from '../../../utils/dom/isDescendant'
 const styles = require('./ViewerPanel.scss')
 
 interface Props { }
@@ -42,18 +43,33 @@ const mapStateToProps = (state, ownProps) => {
 @CSSModules(styles)
 export default class ViewerPanel extends Component<AllProps, void> {
 
+  nav: HTMLDivElement
+  pref: HTMLDivElement
+
   constructor(props) {
     super(props)
-    this.handlePrefClick = this.handlePrefClick.bind(this)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
+    this.handleGlobalClick = this.handleGlobalClick.bind(this)
   }
 
-  handlePrefClick() {
-    this.props.actions.toggleViewerPreference()
-  }
+  handleGlobalClick(e) {
+    const { showPreference, showNavigation } = this.props
 
-  handleNavClick() {
-    this.props.actions.toggleViewerNavigation()
+    if (!isDescendant(this.nav, e.target)) {
+      if (showNavigation) {
+        this.props.actions.toggleViewerNavigation(false)
+      }
+    } else {
+      this.props.actions.toggleViewerNavigation()
+    }
+
+    if (!isDescendant(this.pref, e.target)) {
+      if (showPreference) {
+        this.props.actions.toggleViewerPreference(false)
+      }
+    } else {
+      this.props.actions.toggleViewerPreference()
+    }
   }
 
   handelViewerMouseMove(event) {
@@ -70,47 +86,58 @@ export default class ViewerPanel extends Component<AllProps, void> {
 
   componentDidMount() {
     window.addEventListener('mousemove', this.handelViewerMouseMove)
+    window.addEventListener('click', this.handleGlobalClick)
   }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handelViewerMouseMove)
+    window.removeEventListener('click', this.handleGlobalClick)
   }
 
   render() {
     const { title, showPanel, showPreference, showNavigation } = this.props
 
-    return (showPanel || showPreference || showNavigation) && (
-      <div styleName="viewer-panel">
-        <div styleName="container">
-          <div styleName="back">
-            <Link to="/">
-              <Icon name="back" />
-              <span>返回</span>
-            </Link>
-          </div>
-          <div onClick={this.handleNavClick.bind(this)} styleName="contents">
-            <span>目录</span>
-            <Fade>
-              {
-                showNavigation && (
-                  <ViewerNav />
-                )
-              }
-            </Fade>
-          </div>
-          <span styleName="title">{title}</span>
-          <div onClick={this.handlePrefClick} styleName="preference">
-            <Icon name="preference" />
-          </div>
-          <Fade>
-            {
-              showPreference && (
-                <ViewerPreference />
-              )
-            }
-          </Fade>
-        </div>
-      </div>
+    return (
+      <Slide>
+        {
+          (showPanel || showPreference || showNavigation) && (
+            <div styleName="viewer-panel">
+              <div styleName="container">
+                <div styleName="back">
+                  <Link to="/">
+                    <Icon name="back" />
+                    <span>返回</span>
+                  </Link>
+                </div>
+
+                <div ref={ref => { this.nav = ref } } styleName="contents">
+                  <span>目录</span>
+                  <Fade>
+                    {
+                      showNavigation && (
+                        <ViewerNav />
+                      )
+                    }
+                  </Fade>
+                </div>
+
+                <span styleName="title">{title}</span>
+
+                <div ref={ref => { this.pref = ref } } styleName="preference">
+                  <Icon name="preference" />
+                  <Fade>
+                    {
+                      showPreference && (
+                        <ViewerPreference />
+                      )
+                    }
+                  </Fade>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </Slide>
     )
   }
 }

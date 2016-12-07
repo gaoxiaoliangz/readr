@@ -1,3 +1,4 @@
 import Fade from './Fade'
+import Slide from './Slide'
 
-export { Fade }
+export { Fade, Slide }

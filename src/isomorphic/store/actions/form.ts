@@ -25,6 +25,7 @@ export const reset = (form: string) =>
 export const destroy = (form: string) =>
   ({ type: FORM.DESTROY, meta: { form } })
 
+// 方便取出所有的 form 命名空间下的所有 action
 export const form = {
   change,
   touch,

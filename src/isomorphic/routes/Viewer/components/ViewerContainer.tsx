@@ -3,32 +3,23 @@ import { connect } from 'react-redux'
 import * as actions from '../../../store/actions'
 import { bindActionCreators } from 'redux'
 import * as selectors from '../../../store/selectors'
-import * as viewerUtils from '../Viewer.utils'
 import BookContainer from './BookContainer'
 import ViewerPanel from './ViewerPanel'
 import BookChapters from './BookChapters'
 import _ from 'lodash'
 import Loading from '../../../elements/Loading'
-import $ from 'jquery'
-import { JUMP_REQUEST_TYPES } from '../Viewer.constants'
 import utils from '../../../utils'
 
-const JS_NAV_HOOK = 'a.js-book-nav'
-const $body = $('body')
 const PAGE_LIMIT = 5
 
-interface Props {
-  bookId: string
-  onProgressChange: (percentage: number) => void
-  onReinitializeRequest?: (newConfig, oldConfig) => void
-  onJumpRequest?: (newLoc, oldLoc, jumpRequestType) => void
-}
+interface Props {}
 
 interface LocalState {
   showPageInfo?: boolean
 }
 
 interface AllProps extends Props {
+  bookId?: string
   book?: {
     title: string
   }
@@ -52,18 +43,18 @@ interface AllProps extends Props {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const bookId = ownProps.bookId
+  const config = selectors.viewer.config(state)
+  const bookId = config.bookId
   const book = selectors.common.entity('books', bookId)(state)
   const bookContent = selectors.common.entity('bookContents', bookId)(state)
   const bookProgress = selectors.common.entity('bookProgress', bookId)(state)
   const cloudProgress = _.get(bookProgress, 'percentage', 0)
   const computedPages = selectors.viewer.computed(bookId)(state)
-  const config = selectors.viewer.config(state)
-  const { isFetching } = selectors.viewer.progress(bookId)(state)
-  const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
+  const { percentage: viewerPercentage, isFetching } = selectors.viewer.progress(bookId)(state)
   const { show: showPanel } = selectors.viewer.panel(state)
 
   return {
+    bookId,
     book,
     bookContent,
     isFetchingProgress: isFetching,
@@ -91,7 +82,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
     this.state = {
       showPageInfo: false
     }
-    this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
     this.resizeLazily = _.debounce(this.handleResize, 500, {
       maxWait: 1000
     })
@@ -104,22 +94,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
 
   handleRawDataMount(ele: HTMLElement) {
     this.props.actions.calcBook(this.props.bookId, ele)
-  }
-
-  handleNavLinkClick(e) {
-    e.preventDefault()
-    const { computedPages, onJumpRequest, viewerPercentage } = this.props
-    const href = $(e.target).attr('href')
-
-    try {
-      const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
-      const percentage = (pageNo - 1) / computedPages.length
-      if (onJumpRequest) {
-        onJumpRequest(percentage, viewerPercentage, JUMP_REQUEST_TYPES.NAV)
-      }
-    } catch (error) {
-      this.props.actions.sendNotification(error.message, 'error')
-    }
   }
 
   handleViewerClick() {
@@ -146,78 +120,51 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
     })
   }
 
+  reinitializeViewer() {
+    const { bookId } = this.props
 
-  addEventListeners() {
-    window.addEventListener('resize', this.resizeLazily)
-    $body.on('click', JS_NAV_HOOK, this.handleNavLinkClick)
-  }
+    this.props.actions.configViewer(bookId, {
+      isCalcMode: true
+    })
 
-  removeEventListeners() {
-    window.removeEventListener('resize', this.resizeLazily)
-    $body.off('click', JS_NAV_HOOK, this.handleNavLinkClick)
+    this.setState({
+      showPageInfo: false,
+    })
+    this.props.actions.toggleViewerPanel(false)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    const { viewerPercentage, onJumpRequest } = this.props
-    const viewerPercentageChanged = viewerPercentage !== nextProps.viewerPercentage
-
-    if (viewerPercentageChanged && onJumpRequest) {
-      onJumpRequest(nextProps.viewerPercentage, viewerPercentage, JUMP_REQUEST_TYPES.LOC_CHANGE)
-    }
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    const { onReinitializeRequest } = this.props
     const viewChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
-      if (key === 'isTouchMode' || key === 'isCalcMode') {
+      if (key === 'isTouchMode' || key === 'isCalcMode' || key === 'isScrollMode' || key === 'theme') {
         return true
       }
     })
 
     if (viewChanged) {
-      if (onReinitializeRequest) {
-        onReinitializeRequest(this.props.config, prevProps.config)
-      }
-      this.setState({
-        showPageInfo: false,
-      })
-      this.props.actions.toggleViewerPanel(false)
+      this.reinitializeViewer()
     }
   }
 
   componentDidMount() {
-    this.addEventListeners()
+    window.addEventListener('resize', this.resizeLazily)
   }
 
   componentWillUnmount() {
-    this.removeEventListeners()
-  }
-
-  renderViewPanel() {
-    return (
-      <ViewerPanel />
-    )
+    window.removeEventListener('resize', this.resizeLazily)
   }
 
   renderBook() {
     const { showPageInfo } = this.state
     const { bookContent, computedPages,
-      config: { fluid, isCalcMode, pageHeight },
-      onProgressChange } = this.props
+      config: { isCalcMode, pageHeight }} = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
     }
-
-    // return <BookChapters
-    //   bookFlesh={bookContent.flesh}
-    //   onRawDataMount={this.handleRawDataMount}
-    //   fluid={fluid}
-    //   />
 
     if (isCalcMode) {
       return (
@@ -226,7 +173,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
           <BookChapters
             bookFlesh={bookContent.flesh}
             onRawDataMount={this.handleRawDataMount}
-            fluid={fluid}
             />
         </div>
       )
@@ -235,8 +181,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
         <BookContainer
           allPages={computedPages}
           pageHeight={pageHeight}
-          fluid={fluid}
-          onProgressChange={val => onProgressChange(val)}
           showPageInfo={showPageInfo}
           pageLimit={PAGE_LIMIT}
           />
@@ -249,7 +193,7 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
   render() {
     return (
       <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
-        {this.renderViewPanel()}
+        <ViewerPanel />
         {this.renderBook()}
       </div>
     )

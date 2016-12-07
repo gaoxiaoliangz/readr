@@ -1,3 +1,6 @@
+
+	☐ 进度跳转不准确的问题
+
 	☐ api 返回字段风格问题
 	✔ fileuploader 文件类型限制参数 @done (November 25th 2016, 9:32)
 	✔ epub parser 返回数据优化 @done (November 17th 2016, 15:33)
@@ -12,6 +15,7 @@
 	☐ react-hot runtime error sourcemap
 	☐ 目录组件样式
 	☐ panel 显示隐藏动效
+	☐ 使用 react motion 写动画
 	☐ 完善新的添加书籍（添加后确认信息）
 	☐ 移除旧的添加书籍
 	☐ 增加首页头图
@@ -19,6 +23,7 @@
 	☐ 上传文件后计算 md5 在记录表里面不重复记录
 	☐ 创建文件时文件夹不存在的问题
 	☐ 阅读进度有时候会被清零的问题（在书籍首页触发 updateProgress, 可以用 trace 来调适）
+	☐ 书内导航如果 a 标签下有子元素会出错
 
 可能会有些难
 	☐ 线上版本隔一段时间就会出现怎么也无法登录的问题（和 session 过期有关？）

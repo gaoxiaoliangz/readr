@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
 import _ from 'lodash'
-import * as ActionTypes from '../../actions/actionTypes'
+import * as ACTION_TYPES from '../../../constants/actionTypes'
 import viewer from './viewer'
 
 function notifications(state = [], action) {
-  if (action.type === ActionTypes.NOTIFICATION.HIDE) {
+  if (action.type === ACTION_TYPES.NOTIFICATION.HIDE) {
     return state.map(n => n.id === action.id ? Object.assign({}, n, { visible: false }) : n)
   }
 
-  if (action.type === ActionTypes.NOTIFICATION.SHOW) {
+  if (action.type === ACTION_TYPES.NOTIFICATION.SHOW) {
     return [...state, {
       visible: true,
       message: action.message,
@@ -21,11 +21,11 @@ function notifications(state = [], action) {
 }
 
 function confirmModal(state = {}, action) {
-  if (action.type === ActionTypes.OPEN_CONFIRM_MODAL) {
+  if (action.type === ACTION_TYPES.OPEN_CONFIRM_MODAL) {
     return Object.assign({}, state, { open: true }, action.data)
   }
 
-  if (action.type === ActionTypes.CLOSE_CONFIRM_MODAL) {
+  if (action.type === ACTION_TYPES.CLOSE_CONFIRM_MODAL) {
     return {
       open: false
     }
@@ -35,11 +35,11 @@ function confirmModal(state = {}, action) {
 }
 
 function modal(state = {}, action) {
-  if (action.type === ActionTypes.MODAL.OPEN) {
+  if (action.type === ACTION_TYPES.MODAL.OPEN) {
     return Object.assign({}, state, { open: true }, action.data)
   }
 
-  if (action.type === ActionTypes.MODAL.CLOSE) {
+  if (action.type === ACTION_TYPES.MODAL.CLOSE) {
     return {
       open: false
     }

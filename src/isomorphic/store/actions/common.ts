@@ -1,9 +1,6 @@
-import * as ActionTypes from '../actionTypes'
+import * as ActionTypes from '../../constants/actionTypes'
 
-export * from './viewer'
-
-export type MsgType = 'success' | 'error' | 'warning' | 'ongoing'
-export const sendNotification = (message: string, msgType: MsgType = 'success', t: number = 2000) => {
+export const sendNotification = (message: string, msgType: TNotification = 'success', t: number = 2000) => {
   return (dispatch, getState) => {
     const id = Math.random().toFixed(8).substr(2)
 
@@ -16,7 +13,7 @@ export const sendNotification = (message: string, msgType: MsgType = 'success', 
   }
 }
 
-export function showNotification(id: string, message: string, msgType: MsgType = 'success') {
+export function showNotification(id: string, message: string, msgType: TNotification = 'success') {
   return {
     type: ActionTypes.NOTIFICATION.SHOW,
     message,

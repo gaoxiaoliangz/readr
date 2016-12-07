@@ -3,7 +3,7 @@ import * as actions from '../actions'
 import api from '../../services/api'
 import _ from 'lodash'
 import { fetchEntity } from './utils'
-import * as ActionTypes from '../actions/actionTypes'
+import * as ACTION_TYPES from '../../constants/actionTypes'
 
 const OPTIONS = 'options'
 const ID = 'id'
@@ -38,19 +38,19 @@ export default function* watchAllLoadRequests(): any {
     const parsedAction = { apiConfig, payload }
 
     switch (action.type) {
-      case ActionTypes.LOAD_USERS:
+      case ACTION_TYPES.LOAD_USERS:
         yield fork(handleLoad, fetchUsers, parsedAction)
         break
 
-      case ActionTypes.LOAD_BOOKS:
+      case ACTION_TYPES.LOAD_BOOKS:
         yield fork(handleLoad, fetchBooks, parsedAction)
         break
 
-      case ActionTypes.LOAD_BOOK:
+      case ACTION_TYPES.LOAD_BOOK:
         yield fork(handleLoad, fetchBook, parsedAction)
         break
 
-      case ActionTypes.LOAD_BOOK_CONTENT:
+      case ACTION_TYPES.LOAD_BOOK_CONTENT:
         yield fork(handleLoad, fetchBookContent, parsedAction)
         break
 

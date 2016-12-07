@@ -5,7 +5,6 @@
   width: 550px;
   position: relative;
   overflow: hidden;
-  color: $text;
   line-height: 1.9;
 
   p {
@@ -50,4 +49,22 @@
   padding: 0 10px;
   color: lighten($text, 50%);
   font-size: 0.8rem;
+}
+
+// themes
+.white {
+  color: $text-dark;
+}
+
+.night {
+  color: #eee;
+
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+.sepia {
+  color: #503220;
 }
