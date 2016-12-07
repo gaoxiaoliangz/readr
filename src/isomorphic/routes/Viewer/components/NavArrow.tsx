@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import CSSModules from 'react-css-modules'
+const styles = require('./NavArrow.scss')
 
 interface Props {
   forward: () => void
   backward: () => void
 }
 
+@CSSModules(styles)
 export default class NavArrow extends Component<Props, void> {
 
   constructor(props) {
@@ -24,9 +27,9 @@ export default class NavArrow extends Component<Props, void> {
 
   render() {
     return (
-      <div>
-        <div onClick={this.handleBackwardClick.bind(this)}>-</div>
-        <div onClick={this.handleForwardClick.bind(this)}>+</div>
+      <div styleName="navs">
+        <div styleName="nav-left" onClick={this.handleBackwardClick.bind(this)}>-</div>
+        <div styleName="nav-right" onClick={this.handleForwardClick.bind(this)}>+</div>
       </div>
     )
   }

@@ -1,0 +1,42 @@
+@import "styles/_variables";
+
+$height: 120px;
+
+.navs {
+  position: fixed;
+  top: 50%;
+  width: 750px;
+  left: 50%;
+  margin-left: -375px;
+  height: $height;
+  margin-top: - $height / 2;
+}
+
+.nav-arrow {
+  width: 20px;
+  height: $height;
+  line-height: $height;
+  text-align: center;
+  background: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    box-shadow: $shadow-z1;
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.nav-left {
+  composes: nav-arrow;
+  float: left;
+}
+
+.nav-right {
+  composes: nav-arrow;
+  float: right;
+}
