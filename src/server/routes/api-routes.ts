@@ -2,7 +2,7 @@ import express from 'express'
 import middleware from '../middleware'
 import _ from 'lodash'
 import * as endpoints from '../endpoints'
-import { ROLES } from '../../isomorphic/constants'
+import { ROLES } from '../../isomorphic/constants/common'
 const multer = require('multer')
 
 const UPLOADS_DIR = '__uploads__'

@@ -9,7 +9,7 @@ import Page from './components/Page'
 import DocContainer from '../../isomorphic/containers/DocContainer'
 import ServerSideAppRoot from './components/ServerSideAppRoot'
 import configureStore from '../../isomorphic/store/configureStore'
-import { ENABLE_SERVER_ROUTING } from '../../isomorphic/constants'
+import { ENABLE_SERVER_ROUTING } from '../../isomorphic/constants/common'
 
 type RenderConfig = {
   reqUrl: string

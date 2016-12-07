@@ -1,5 +1,5 @@
 import React from 'react'
-import { INITIAL_STATE } from '../../../isomorphic/constants'
+import { INITIAL_STATE } from '../../../isomorphic/constants/common'
 
 type TProps = {
   title?: string
