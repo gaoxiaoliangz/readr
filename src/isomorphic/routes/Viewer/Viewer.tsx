@@ -8,18 +8,11 @@ import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import * as actions from '../../store/actions'
 import ViewContainer from './components/ViewerContainer'
-import { JUMP_REQUEST_TYPES } from './Viewer.constants'
-import helpers from '../../helpers'
 const styles = require('./Viewer.scss')
 
 interface AllProps {
   book: {
     title: string
-  }
-  basicInfo: {
-    isCalcMode?: boolean
-    fluid?: boolean
-    isTouchMode?: boolean
   }
   actions: typeof actions
 }
@@ -27,11 +20,9 @@ interface AllProps {
 const mapStateToProps = (state, ownProps) => {
   const bookId = ownProps.params.id
   const book = selectors.common.entity('books', bookId)(state)
-  const basicInfo = selectors.viewer.config(state)
 
   return {
-    book,
-    basicInfo
+    book
   }
 }
 
@@ -49,11 +40,6 @@ export default class Viewer extends Component<AllProps, void> {
   constructor(props) {
     super(props)
     this.bookId = props.params.id
-    this.handleProgressChange = this.handleProgressChange.bind(this)
-  }
-
-  handleProgressChange(newProgress) {
-    this.props.actions.updateBookProgress(newProgress)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -65,12 +51,9 @@ export default class Viewer extends Component<AllProps, void> {
   }
 
   render() {
-    // TODO: 移除回调函数
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
-        <ViewContainer
-          onProgressChange={this.handleProgressChange}
-          />
+        <ViewContainer/>
       </DocContainer>
     )
   }

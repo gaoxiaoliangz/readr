@@ -8,16 +8,11 @@ import ViewerPanel from './ViewerPanel'
 import BookChapters from './BookChapters'
 import _ from 'lodash'
 import Loading from '../../../elements/Loading'
-// import { JUMP_REQUEST_TYPES } from '../Viewer.constants'
 import utils from '../../../utils'
 
 const PAGE_LIMIT = 5
 
-interface Props {
-  onProgressChange: (percentage: number) => void
-  onReinitializeRequest?: (newConfig, oldConfig) => void
-  // onJumpRequest?: (newLoc, oldLoc, jumpRequestType) => void
-}
+interface Props {}
 
 interface LocalState {
   showPageInfo?: boolean
@@ -48,13 +43,13 @@ interface AllProps extends Props {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const bookId = ownProps.bookId
+  const config = selectors.viewer.config(state)
+  const bookId = config.bookId
   const book = selectors.common.entity('books', bookId)(state)
   const bookContent = selectors.common.entity('bookContents', bookId)(state)
   const bookProgress = selectors.common.entity('bookProgress', bookId)(state)
   const cloudProgress = _.get(bookProgress, 'percentage', 0)
   const computedPages = selectors.viewer.computed(bookId)(state)
-  const config = selectors.viewer.config(state)
   const { percentage: viewerPercentage, isFetching } = selectors.viewer.progress(bookId)(state)
   const { show: showPanel } = selectors.viewer.panel(state)
 
@@ -142,15 +137,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
     return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
-  // componentWillReceiveProps(nextProps, nextState) {
-  //   const { viewerPercentage, onJumpRequest } = this.props
-  //   const viewerPercentageChanged = viewerPercentage !== nextProps.viewerPercentage
-
-  //   if (viewerPercentageChanged && onJumpRequest) {
-  //     onJumpRequest(nextProps.viewerPercentage, viewerPercentage, JUMP_REQUEST_TYPES.LOC_CHANGE)
-  //   }
-  // }
-
   componentDidUpdate(prevProps, prevState) {
     const viewChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
       if (key === 'isTouchMode' || key === 'isCalcMode' || key === 'isScrollMode' || key === 'theme') {
@@ -174,18 +160,11 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
   renderBook() {
     const { showPageInfo } = this.state
     const { bookContent, computedPages,
-      config: { isCalcMode, pageHeight },
-      onProgressChange } = this.props
+      config: { isCalcMode, pageHeight }} = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
     }
-
-    // return <BookChapters
-    //   bookFlesh={bookContent.flesh}
-    //   onRawDataMount={this.handleRawDataMount}
-    //   fluid={fluid}
-    //   />
 
     if (isCalcMode) {
       return (
@@ -202,7 +181,6 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
         <BookContainer
           allPages={computedPages}
           pageHeight={pageHeight}
-          onProgressChange={val => onProgressChange(val)}
           showPageInfo={showPageInfo}
           pageLimit={PAGE_LIMIT}
           />

@@ -13,7 +13,6 @@ const styles = require('./BookContainer.scss')
 interface Props {
   allPages: TBookPage[]
   pageHeight: number
-  onProgressChange?: (newProgress: number) => void
   showPageInfo?: boolean
   pageLimit: number
 }
@@ -60,13 +59,13 @@ export default class BookContainer extends Component<AllProps, {}> {
   }
 
   handleScroll() {
-    const { allPages, pageHeight, onProgressChange, isScrollMode } = this.props
+    const { allPages, pageHeight, isScrollMode } = this.props
     const pageCount = allPages.length
     const totalHeight = pageCount * pageHeight
     const scrollTop = document.body.scrollTop
 
-    if (onProgressChange && isScrollMode) {
-      onProgressChange(scrollTop / totalHeight)
+    if (isScrollMode) {
+      this.props.actions.updateBookProgress(scrollTop / totalHeight)
     }
   }
 

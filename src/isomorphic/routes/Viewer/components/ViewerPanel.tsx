@@ -109,6 +109,7 @@ export default class ViewerPanel extends Component<AllProps, void> {
                     <span>返回</span>
                   </Link>
                 </div>
+
                 <div ref={ref => { this.nav = ref } } styleName="contents">
                   <span>目录</span>
                   <Fade>
@@ -119,17 +120,19 @@ export default class ViewerPanel extends Component<AllProps, void> {
                     }
                   </Fade>
                 </div>
+
                 <span styleName="title">{title}</span>
+
                 <div ref={ref => { this.pref = ref } } styleName="preference">
                   <Icon name="preference" />
+                  <Fade>
+                    {
+                      showPreference && (
+                        <ViewerPreference />
+                      )
+                    }
+                  </Fade>
                 </div>
-                <Fade>
-                  {
-                    showPreference && (
-                      <ViewerPreference />
-                    )
-                  }
-                </Fade>
               </div>
             </div>
           )
