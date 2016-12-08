@@ -25,6 +25,7 @@
 	☐ i18n 添加空格不准确问题
 	☐ 阅读进度有时候会被清零的问题（在书籍首页触发 updateProgress, 可以用 trace 来调适）
 	☐ 书内导航如果 a 标签下有子元素会出错
+	✔ webpack node externals @done (December 8th 2016, 15:37)
 
 不重要但是记录下来
 	☐ /built/objectUnfreeze.js.map 404 的原因
@@ -43,7 +44,6 @@
 	☐ node 环境用类似 babel register
 	☐ node 编译优化
 	☐ 前端编译优化，主要是速度
-	☐ webpack node externals
 
 Feature
 	☐ 后台数据库管理
