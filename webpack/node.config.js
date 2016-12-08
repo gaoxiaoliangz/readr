@@ -1,3 +1,4 @@
+const nodeExternals = require('webpack-node-externals')
 const base = require('./base')
 const paths = base.vars.paths
 
@@ -40,9 +41,10 @@ module.exports = {
     __dirname: true,
     console: false
   },
-  externals: [
-    /^[a-z][a-z\.\-0-9]*$/,
-    'colors/safe',
-    'react'
-  ]
+  // externals: [
+  //   /^[a-z][a-z\.\-0-9]*$/,
+  //   'colors/safe',
+  //   'react'
+  // ]
+  externals: [nodeExternals()]
 }
