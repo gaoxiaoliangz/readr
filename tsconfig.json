@@ -6,7 +6,8 @@
     "jsx": "react",
     "outDir": "public/built_es6",
     "experimentalDecorators": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noImplicitAny": false
   },
   "exclude": [
     "node_modules",

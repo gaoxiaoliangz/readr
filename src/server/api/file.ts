@@ -8,7 +8,7 @@ const BASE_DIR = process.cwd()
 
 const fileModel = new Model(schemas.file)
 
-export function readFile(fileId, parser?: (file: any) => Promise<{ any }>): Promise<any> {
+export function readFile(fileId, parser?: (file: any) => Promise<any>): Promise<any> {
   return fileModel.findOne(fileId).then(fileResult => {
     const filename = fileResult.name
     const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
