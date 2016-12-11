@@ -8,7 +8,7 @@ import DocContainer from '../../containers/DocContainer'
 import * as selectors from '../../store/selectors'
 import * as actions from '../../store/actions'
 import ViewContainer from './components/ViewerContainer'
-const styles = require('./Viewer.scss')
+import styles from './Viewer.scss'
 
 interface AllProps {
   book: {

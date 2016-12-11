@@ -82,3 +82,12 @@ interface ViewerConfig {
   fontSize?: number
   theme?: string
 }
+
+
+/**
+ * special file types
+ */
+declare module '*.scss' {
+  const content: any;
+  export default content;
+}
