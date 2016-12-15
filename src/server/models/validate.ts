@@ -11,8 +11,8 @@ export default function validate(data, schema: Schema, isEditing?): any {
     return Promise.reject(new errors.BadRequestError(i18n('errors.validation.preCheck.emptyObject')))
   }
 
-  const suppliedFields = Object.keys(data).filter(key => !_.isEmpty(data[key]))
-  const suppliedFieldsInSchema = schema.fields.filter(field => !_.isEmpty(data[field.name]))
+  const suppliedFields = Object.keys(data).filter(key => !_.isUndefined(data[key]))
+  const suppliedFieldsInSchema = schema.fields.filter(field => !_.isUndefined(data[field.name]))
   const allFields = _.map(schema.fields, 'name')
   const requiredFields = schema.fields
     .filter(field => Boolean(field.required))

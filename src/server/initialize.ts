@@ -16,7 +16,8 @@ const app = express()
 
 const PUBLIC_PATH_NAME = 'public'
 const SESSION_SECRET = 'key'
-const SESSION_MAX_AGE = 7 * 24 * 60 * 60 * 1000
+// TODO: what happens when max age exceeds
+const SESSION_MAX_AGE = 70 * 24 * 60 * 60 * 1000 // 70 days
 const REQ_SIZE_LIMIT = '5mb'
 const MONGO_STORE_URL = `${appConfig.database.host}/${appConfig.database.mongoStoreName}`
 const REQ_BASE_PATH = '__basePath'

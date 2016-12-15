@@ -7,6 +7,8 @@
 	☐ 上传文件后计算 md5 在记录表里面不重复记录
 	☐ 创建文件时文件夹不存在的问题
 	☐ 线上版本隔一段时间就会出现怎么也无法登录的问题（和 session 过期有关？）
+	✔ 编辑条目 404 @done (December 15th 2016, 19:31)
+	✔ 编辑时添加无效字段 @done (December 15th 2016, 17:57)
 
 	✔ 进度跳转不准确的问题 @done (December 7th 2016, 17:08)
 	✔ fileuploader 文件类型限制参数 @done (November 25th 2016, 9:32)

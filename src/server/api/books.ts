@@ -6,7 +6,6 @@ import utils from '../utils'
 import { notFoundError } from '../helpers'
 import { readFile } from './file'
 import parsers from '../parsers'
-// import epubParser from 'simple-epub-parser'
 
 const bookModel = new Model(schemas.book)
 const progressModel = new Model(schemas.progress)

@@ -176,12 +176,22 @@ class Model {
         date_updated: new Date().toString()
       })
 
-      return db.getCollection(this._tableName).then(collection => {
-        return collection.update(query, { $set: data2 }, {
-          upsert: Boolean(upsert),
-          multi: Boolean(multi)
+      const doIt = () => {
+        return db.getCollection(this._tableName).then(collection => {
+          return collection.update(query, { $set: data2 }, {
+            upsert: Boolean(upsert),
+            multi: Boolean(multi)
+          })
         })
-      })
+      }
+
+      if (!upsert) {
+        return this.findOne(idOrQuery, true).then(result => {
+          return doIt()
+        })
+      }
+
+      return doIt()
     }
 
     return utils.reduceTasks([
