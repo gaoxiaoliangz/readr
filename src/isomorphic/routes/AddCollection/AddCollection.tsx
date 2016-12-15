@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, loadBooks, reset } from '../../store/actions'
+import { sendNotification, loadBooks, resetForm } from '../../store/actions'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
 import api from '../../services/api'
@@ -9,9 +9,9 @@ import DocContainer from '../../containers/DocContainer'
 
 interface Props {
   session: any
-  sendNotification?: any
   notification?: any
-  reset: any
+  sendNotification?: typeof sendNotification
+  resetForm: typeof resetForm
   loadBooks?: typeof loadBooks
 }
 
@@ -31,7 +31,7 @@ class AddCollection extends Component<Props, {}> {
 
     api.addCollection(postData).then(result => {
       this.props.sendNotification('添加成功！')
-      this.props.reset('addCollection')
+      this.props.resetForm('addCollection')
     }, error => {
       this.props.sendNotification(error.message, 'error')
     })
@@ -68,5 +68,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, reset, loadBooks }
+  { sendNotification, resetForm, loadBooks }
 )(AddCollection)

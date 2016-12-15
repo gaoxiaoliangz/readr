@@ -74,6 +74,7 @@
     "app-module-path": "^1.0.6",
     "babel-polyfill": "^6.16.0",
     "babel-register": "^6.8.0",
+    "better-redux-form": "^0.1.0",
     "bluebird": "^3.1.1",
     "body-parser": "~1.13.2",
     "bootstrap-grid-sass": "^0.1.0",
@@ -135,7 +136,7 @@
   },
   "devDependencies": {
     "@types/expect.js": "^0.3.28",
-    "awesome-typescript-loader": "^2.2.4",
+    "awesome-typescript-loader": "^3.0.0-beta.12",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.6.5",
     "babel-loader": "^6.2.4",

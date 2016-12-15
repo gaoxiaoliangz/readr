@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-const styles = require('./Loading.scss')
+import styles from './Loading.scss'
 
 interface Props {
   backdrop?: boolean
@@ -16,7 +16,7 @@ interface State {
 @CSSModules(styles)
 class Loading extends Component<Props, State> {
 
-  intervalId: NodeJS.Timer
+  intervalId: any
 
   constructor(props) {
     super(props)

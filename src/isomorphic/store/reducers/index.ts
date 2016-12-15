@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import components from './components'
 import pagination from './pagination'
-import form from './form'
+import { reducer as form } from 'better-redux-form'
 import * as ActionTypes from '../../constants/actionTypes'
 
 function errorMessage(state = [], action) {

@@ -1,5 +1,5 @@
 import * as common from './common'
-import * as form from './form'
+import { selectors as form } from 'better-redux-form'
 import * as viewer from './viewer'
 
 export * from './entities'

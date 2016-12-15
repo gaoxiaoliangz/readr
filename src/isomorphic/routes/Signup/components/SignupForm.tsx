@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { form } from '../../../form'
+import form from 'better-redux-form'
 import { sendNotification } from '../../../store/actions'
 import { Input, Button } from '../../../elements/form'
 import validation from '../../../data/validation'

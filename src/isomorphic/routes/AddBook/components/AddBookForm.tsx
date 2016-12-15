@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { form } from '../../../form'
-import { sendNotification, openModal, initialize } from '../../../store/actions'
+import form from 'better-redux-form'
+import { sendNotification, openModal, initializeForm } from '../../../store/actions'
 import * as selectors from '../../../store/selectors'
 import { Textarea, Button, SelectizeInput, Input } from '../../../elements/form'
 import AddAuthorForm from './AddAuthorForm'
@@ -13,7 +13,7 @@ interface Props {
   onAuthorInputChange?: (newVal: string) => void
   onSaveAuthor: (data: any) => void
   onSaveBook: (data: any) => void
-  initialize?: typeof initialize
+  initializeForm?: typeof initializeForm
 }
 
 interface AllProps extends Props {
@@ -45,7 +45,7 @@ class AddBookForm extends Component<AllProps, {}> {
       description: option.additional.description,
       author: option.additional.author
     }
-    this.props.initialize('addBook', data)
+    this.props.initializeForm('addBook', data)
     this.setState({
       slAuthor: {
         value: option.additional.author,
@@ -61,7 +61,7 @@ class AddBookForm extends Component<AllProps, {}> {
         onSave={this.props.onSaveAuthor}
         />
     })
-    this.props.initialize('addAuthor', { name: value })
+    this.props.initializeForm('addAuthor', { name: value })
   }
 
   render() {
@@ -162,5 +162,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect<{}, {}, Props>(
   mapStateToProps,
-  { sendNotification, openModal, initialize }
+  { sendNotification, openModal, initializeForm }
 )(AddBookForm)

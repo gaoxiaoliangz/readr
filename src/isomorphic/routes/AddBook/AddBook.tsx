@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, initialize } from '../../store/actions'
+import { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, resetForm, initializeForm } from '../../store/actions'
 import _ from 'lodash'
 import api from '../../services/api'
 import DocContainer from '../../containers/DocContainer'
@@ -15,9 +15,9 @@ interface Props {
   searchDoubanBooks?: any
   closeModal?: any
   fetchAuthors?: any
-  reset?: typeof reset
+  resetForm?: typeof resetForm
   fetchDoubanBooks: any
-  initialize?: typeof initialize
+  initializeForm?: typeof initializeForm
 }
 
 class AddBook extends Component<Props, {}> {
@@ -42,7 +42,7 @@ class AddBook extends Component<Props, {}> {
   addBook(data) {
     api.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
-      this.props.reset('addBook')
+      this.props.resetForm('addBook')
     }, error => {
       this.props.sendNotification(error.message, 'error', 0)
     })
@@ -53,7 +53,7 @@ class AddBook extends Component<Props, {}> {
       this.props.sendNotification('添加成功')
       const id = result.json.ops[0]._id
       const name = result.json.ops[0].name
-      this.props.initialize('addBook', {
+      this.props.initializeForm('addBook', {
         authors: [{
           name: name,
           value: id
@@ -104,5 +104,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, reset, initialize }
+  { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, resetForm, initializeForm }
 )(AddBook as any)

@@ -4,7 +4,7 @@ import { sendNotification } from '../../../store/actions'
 import { Textarea, Button, SelectizeInput, Input } from '../../../elements/form'
 import * as selectors from '../../../store/selectors'
 import _ from 'lodash'
-import { form } from '../../../form'
+import form from 'better-redux-form'
 
 interface Props {
   initialData?: any
