@@ -7,11 +7,12 @@ import hotModuleReplacement from './dev-tools/hot-module-replacement'
 import options from './options'
 import path from 'path'
 import middleware from './middleware'
-const morgan = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const MongoStore = (require('connect-mongo'))(session)
+import morgan from 'morgan'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import connectMongo from 'connect-mongo'
 
+const MongoStore = connectMongo(session)
 const app = express()
 
 const PUBLIC_PATH_NAME = 'public'

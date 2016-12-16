@@ -3,10 +3,11 @@ import middleware from '../middleware'
 import _ from 'lodash'
 import * as endpoints from '../endpoints'
 import { ROLES } from '../../isomorphic/constants/common'
-const multer = require('multer')
+import multer from 'multer'
 
 const UPLOADS_DIR = '__uploads__'
 const upload = multer({ dest: UPLOADS_DIR })
+// const upload = multer()
 
 const authenticatePublic = [
   middleware.prepareApi,
@@ -86,7 +87,6 @@ export default function setupApiApp() {
   const apiApp = express()
 
   apiApp.use(apiRoutes())
-
   apiApp.use(middleware.handleApiNotFound)
   apiApp.use(middleware.handleJSONResponse)
   apiApp.use(middleware.handleError)

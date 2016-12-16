@@ -136,6 +136,7 @@
   },
   "devDependencies": {
     "@types/expect.js": "^0.3.28",
+    "@types/multer": "0.0.32",
     "awesome-typescript-loader": "^3.0.0-beta.12",
     "babel-cli": "^6.8.0",
     "babel-core": "^6.6.5",

@@ -1,6 +1,4 @@
 import _ from 'lodash'
-
-
 import parseUrlencoded from '../../isomorphic/utils/parseUrlencoded'
 import helpers from '../../isomorphic/helpers'
 

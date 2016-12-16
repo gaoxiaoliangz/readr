@@ -1,6 +1,5 @@
 import * as api from '../api'
 import _ from 'lodash'
-import fs from 'fs'
 import makeBasicEndpoint from './make-basic-endpoint'
 
 // basic endpoints
@@ -13,10 +12,8 @@ export const user = makeBasicEndpoint(api.user)
 // common endpoints
 // books
 export const addBook = (req, res, next) => {
-  req.apiResults.then(loggedFileId => {
-    req.apiResults = api.addBook(req.body, loggedFileId)
-    next()
-  })
+  req.apiResults = api.addBook(req.body, req.loggedFileId)
+  next()
 }
 
 export const findBook = (req, res, next) => {

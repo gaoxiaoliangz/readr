@@ -1,10 +1,13 @@
 import * as schemas from '../data/schemas'
 import Model from '../models/model'
+import _ from 'lodash'
 
 const fileModel = new Model(schemas.file)
 
+// @req#loggedFileId
 export default function logFile(req, res, next) {
   const file = req.file
+
   req.apiResults = fileModel
     .add({
       name: file.filename,
@@ -13,8 +16,18 @@ export default function logFile(req, res, next) {
       size: file.size
     })
     .then(result => {
-      return result.ops[0]
+      const loggedFileId = _.get(result, ['ops', 0])
+      if (!loggedFileId) {
+        // TODO
+        // throw new Error('File not Found!')
+        const err = new Error('File not Found!')
+        next(err)
+      } else {
+        req.loggedFileId = loggedFileId
+        next()
+      }
     })
-
-  next()
+    .catch(error => {
+      next(error)
+    })
 }
