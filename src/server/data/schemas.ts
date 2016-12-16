@@ -52,11 +52,11 @@ export const user = new Schema('users', [
 
 export const file = new Schema('files', [
   {
-    name: 'name',
+    name: 'filename',
     required: true
   },
   {
-    name: 'originalname',
+    name: 'content',
     required: true
   },
   {
@@ -64,6 +64,13 @@ export const file = new Schema('files', [
   },
   {
     name: 'size'
+  },
+  {
+    name: 'encoding'
+  },
+  {
+    name: 'hash',
+    unique: true
   }
 ])
 

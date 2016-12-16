@@ -10,23 +10,25 @@ const fileModel = new Model(schemas.file)
 
 export function readFile(fileId, parser?: (file: any) => Promise<any>): Promise<any> {
   return fileModel.findOne(fileId).then(fileResult => {
-    const filename = fileResult.name
-    const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
-
     if (parser && typeof parser === 'function') {
-      const binaryFile = fs.readFileSync(filepath, 'binary')
+      const binaryFile = fileResult.content.buffer
+
       return parser(binaryFile).then(content => {
         return _.assign({}, fileResult, {
           content
         })
       })
     }
-    return _.assign({}, fileResult, {
-      content: fs.readFileSync(filepath)
-    })
+
+    return fileResult
+    // return _.assign({}, fileResult, {
+    //   // TODO: 验证可用性
+    //   content: fileResult.content.buffer.toString('utf-8')
+    // })
   })
 }
 
+// TODO
 export function delFile(fileId) {
   return fileModel.findOne(fileId).then(resultFile => {
     return fileModel.remove(fileId).then(result => {
