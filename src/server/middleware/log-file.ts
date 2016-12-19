@@ -30,7 +30,7 @@ export default function logFile(req, res, next) {
     fileModel
       .add(data)
       .then(result => {
-        const loggedFileId = _.get(result, ['ops', 0])
+        const loggedFileId = _.get(result, ['ops', 0, '_id'])
         if (!loggedFileId) {
           // TODO
           // throw new Error('File not Found!')

@@ -51,21 +51,9 @@ export async function addBook(meta, fileId) {
 
   async function doSave(title, authorName) {
     const authorId = await getAuthorId(authorName)
-    return bookModel.add(mergeMeta(title, authorId)).then(result => {
-      return {
-        ...result,
-        ...{
-          ops: result.ops.map(item => {
-            return {
-              ...item,
-              ...{
-                file: _.omit(item.file, ['content'])
-              }
-            }
-          })
-        }
-      }
-    })
+    const bookData = mergeMeta(title, authorId)
+
+    return bookModel.add(bookData)
   }
 
   if (fileId) { // resolve file to get book meta
@@ -135,7 +123,7 @@ export function listShelfBooks(userId, page?) {
       .all(results
         .sort(utils.sortByDate())
         .map(result => {
-          return bookModel.findOne(result.book_id).then(res => {
+          return bookModel.findOne(result.book_id, true).then(res => {
             return res
           }, error => {
             // 如果错误不是 404 也输出空的 entity
@@ -153,7 +141,7 @@ export function listShelfBooks(userId, page?) {
 
 export async function removeBook(bookId: string) {
   const book = await bookModel.findOne(bookId, true)
-  const fileId = book.file._id
+  const fileId = book.file
   await bookModel.remove(bookId)
   return delFile(fileId)
 }

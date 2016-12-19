@@ -1,10 +1,6 @@
 import Model from '../models/model'
-import fs from 'fs'
 import * as schemas from '../data/schemas'
 import _ from 'lodash'
-
-const UPLOADS_DIR = '__uploads__'
-const BASE_DIR = process.cwd()
 
 const fileModel = new Model(schemas.file)
 
@@ -21,10 +17,6 @@ export function readFile(fileId, parser?: (file: any) => Promise<any>): Promise<
     }
 
     return fileResult
-    // return _.assign({}, fileResult, {
-    //   // TODO: 验证可用性
-    //   content: fileResult.content.buffer.toString('utf-8')
-    // })
   })
 }
 
