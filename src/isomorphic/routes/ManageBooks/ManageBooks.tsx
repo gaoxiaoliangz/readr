@@ -4,7 +4,7 @@ import DocContainer from '../../containers/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import api from '../../services/api'
 import * as selectors from '../../store/selectors'
-import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm } from '../../store/actions'
+import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm, closeModal } from '../../store/actions'
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
 import moment from 'moment'
@@ -13,7 +13,7 @@ import { Button } from '../../elements/form'
 import BookMetaForm from './components/BookMetaForm'
 
 interface Props {
-  sendNotification?: any
+  sendNotification?: typeof sendNotification
   loadBooks?: typeof loadBooks
   bookListNewest?: any
   openConfirmModal: typeof openConfirmModal
@@ -22,6 +22,7 @@ interface Props {
   removeEntity: typeof removeEntity
   loadUsers: typeof loadUsers
   openModal: typeof openModal
+  closeModal: typeof closeModal
   initializeForm: typeof initializeForm
   bookEntities: any
 }
@@ -59,7 +60,11 @@ class ManageBooks extends Component<Props, {}> {
       title: '编辑书籍信息',
       content: <BookMetaForm
         onSave={data => {
-          api.editBookMeta(bookId, data)
+          api.editBookMeta(bookId, data).then(result => {
+            this.loadBooks()
+            this.props.closeModal()
+            this.props.sendNotification('修改成功！', 'success')
+          })
         } }
         />
     })
@@ -166,5 +171,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, sendNotification, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm }
+  { loadBooks, sendNotification, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm, closeModal }
 )(ManageBooks)

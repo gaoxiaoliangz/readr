@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import form from 'better-redux-form'
 import { sendNotification, closeModal } from '../../../store/actions'
-import Input from '../../../elements/Input'
+import { Input, Textarea } from '../../../elements/form'
 import ModalFooter from '../../../elements/Modal/ModalFooter'
 
 interface Props {
@@ -18,7 +18,8 @@ interface AllProps extends Props {
 
 @form({
   form: 'bookMeta',
-  fields: ['title', 'authors', 'description', 'cover']
+  fields: ['title', 'authors', 'description', 'cover'],
+  destroyOnUnmount: true
 })
 class BookMetaForm extends Component<AllProps, {}> {
 
@@ -36,7 +37,7 @@ class BookMetaForm extends Component<AllProps, {}> {
       <div>
         <Input placeholder="书名" {...title} />
         <Input placeholder="作者" {...authors} />
-        <Input placeholder="描述" {...description} />
+        <Textarea placeholder="描述" {...description} />
         <Input placeholder="封面" {...cover} />
         <ModalFooter
           onConfirm={handleSubmit(data => {

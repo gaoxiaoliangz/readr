@@ -132,16 +132,21 @@ export function addCollection(data: AddCollectionData) {
 
 export interface AddBookData {
   title: string
-  author?: string
+  authors?: string
   description?: string
   cover?: string
-  content: string
 }
 export function addBook(data: AddBookData) {
   return callApi(`${API_ROOT}/books`, { method: 'POST', data })
 }
 
-export function editBookMeta(bookId: string, data: AddBookData) {
+export interface BookMeta {
+  title?: string
+  authors?: string
+  description?: string
+  cover?: string
+}
+export function editBookMeta(bookId: string, data: BookMeta) {
   return callApi(`${API_ROOT}/books/${bookId}`, { method: 'PUT', data })
 }
 
