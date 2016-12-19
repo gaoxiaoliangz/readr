@@ -27,7 +27,7 @@ module.exports = {
         isomorphic: true
       }),
       base.loaders.typescript({
-        officialLoader: false
+        officialLoader: true
       }),
       base.loaders.json()
     ],

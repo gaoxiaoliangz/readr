@@ -51,7 +51,7 @@ module.exports = {
         sourceMap: false,
       }),
       base.loaders.typescript({
-        officialLoader: false,
+        officialLoader: true,
         isHot: false
       }),
       base.loaders.json()
