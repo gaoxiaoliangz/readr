@@ -42,6 +42,7 @@
     cursor: pointer;
     color: $blue;
     display: inline-block;
+    margin-right: 5px;
 
     &:hover {
       color: lighten($blue, 20%);

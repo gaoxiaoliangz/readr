@@ -131,7 +131,7 @@ export function addCollection(data: AddCollectionData) {
 }
 
 export interface AddBookData {
-  name: string
+  title: string
   author?: string
   description?: string
   cover?: string
@@ -139,6 +139,10 @@ export interface AddBookData {
 }
 export function addBook(data: AddBookData) {
   return callApi(`${API_ROOT}/books`, { method: 'POST', data })
+}
+
+export function editBookMeta(bookId: string, data: AddBookData) {
+  return callApi(`${API_ROOT}/books/${bookId}`, { method: 'PUT', data })
 }
 
 export interface AddAuthorData {

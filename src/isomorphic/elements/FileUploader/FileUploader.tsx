@@ -14,6 +14,7 @@ interface Props {
   name?: string
   multiple?: boolean
   accept?: string
+  style?: React.CSSProperties
 }
 
 interface State {
@@ -82,7 +83,7 @@ class FileUploader extends Component<Props, State> {
   }
 
   render() {
-    const { url, accept, noAjax, children, name, multiple } = this.props
+    const { url, accept, noAjax, children, name, multiple, style } = this.props
 
     // 如果页面上有两个上传组件可能会出错
     // input value 设为空会使得每次选中文件后都触发 onChange
@@ -94,9 +95,14 @@ class FileUploader extends Component<Props, State> {
             $(this.fileInput).click()
           }
         } }
-        style={{
-          display: 'inline-block'
-        }}
+        style={
+          {
+            ...{
+              display: 'inline-block'
+            },
+            ...style
+          }
+        }
         >
         <form action={url} method="post" encType="multipart/form-data" style={noAjax ? {} : { display: 'none' }}>
           <input
