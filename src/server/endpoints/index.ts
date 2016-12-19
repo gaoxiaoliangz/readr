@@ -31,6 +31,11 @@ export const listBooks = (req, res, next) => {
   next()
 }
 
+export const editBookMeta = (req, res, next) => {
+  req.apiResults = api.editBookMeta(req.params.book, req.body)
+  next()
+}
+
 export const removeBook = (req, res, next) => {
   req.apiResults = api.removeBook(req.params.book)
   next()

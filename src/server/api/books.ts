@@ -11,6 +11,24 @@ const bookModel = new Model(schemas.book)
 const progressModel = new Model(schemas.progress)
 const authorModel = new Model(schemas.author)
 
+/**
+ * helpers
+ */
+async function getAuthorId(authorName) {
+  try {
+    const authorEntity = await authorModel.findOne({ name: authorName })
+    return authorEntity._id
+  } catch (error) {
+    const result = await authorModel.add({
+      name: authorName
+    })
+    return result.ops[0]._id
+  }
+}
+
+/**
+ * apis
+ */
 export function findBook(id) {
   return bookModel.findOne(id).then(result => {
     const data = _.omit(result, ['file'])
@@ -29,19 +47,7 @@ export function findBook(id) {
 }
 
 export async function addBook(meta, fileId) {
-  async function getAuthorId(authorName) {
-    try {
-      const authorEntity = await authorModel.findOne({ name: authorName })
-      return authorEntity._id
-    } catch (error) {
-      const result = await authorModel.add({
-        name: authorName
-      })
-      return result.ops[0]._id
-    }
-  }
-
-  const mergeMeta = (title, authorId) => {
+  const mergeBookMeta = (title, authorId) => {
     return _.assign({}, {
       title,
       authors: [authorId],
@@ -51,7 +57,7 @@ export async function addBook(meta, fileId) {
 
   async function doSave(title, authorName) {
     const authorId = await getAuthorId(authorName)
-    const bookData = mergeMeta(title, authorId)
+    const bookData = mergeBookMeta(title, authorId)
 
     return bookModel.add(bookData)
   }
@@ -78,6 +84,28 @@ export async function addBook(meta, fileId) {
   }
 
   return bookModel.add(meta)
+}
+
+interface BookMeta {
+  authors: string
+  cover: string
+  description: string
+  title: string
+}
+export async function editBookMeta(bookId, meta: BookMeta) {
+  await bookModel.findOne(bookId, true)
+  // todo: 多个作者情况
+  const authorId = await getAuthorId(meta.authors)
+  const bookMeta = {
+    ...meta,
+    ...{
+      authors: [authorId]
+    }
+  }
+
+  return bookModel.update(bookId, bookMeta, {
+    upsert: false
+  })
 }
 
 export async function resolveBookContent(bookId) {
