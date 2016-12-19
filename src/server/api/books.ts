@@ -4,7 +4,7 @@ import * as schemas from '../data/schemas'
 import _ from 'lodash'
 import utils from '../utils'
 import { notFoundError } from '../helpers'
-import { readFile } from './file'
+import { readFile, delFile } from './file'
 import parsers from '../parsers'
 
 const bookModel = new Model(schemas.book)
@@ -79,8 +79,9 @@ export async function addBook(meta, fileId) {
       return doSave(parsedContent.meta.title, authorName)
     } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
       const file = await readFile(fileId)
-      const title = file.content.split('\n')[0]
-      const authorName = file.content.split('\n')[1]
+      const fileContentArray = file.content.buffer.toString('utf-8').split('\n')
+      const title = fileContentArray[0]
+      const authorName = fileContentArray[1]
 
       return doSave(title, authorName)
     } else {
@@ -148,4 +149,11 @@ export function listShelfBooks(userId, page?) {
         }) as Object
       })
   })
+}
+
+export async function removeBook(bookId: string) {
+  const book = await bookModel.findOne(bookId, true)
+  const fileId = book.file._id
+  await bookModel.remove(bookId)
+  return delFile(fileId)
 }

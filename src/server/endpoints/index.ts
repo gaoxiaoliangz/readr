@@ -31,6 +31,11 @@ export const listBooks = (req, res, next) => {
   next()
 }
 
+export const removeBook = (req, res, next) => {
+  req.apiResults = api.removeBook(req.params.book)
+  next()
+}
+
 // users
 export const findUser = (req, res, next) => {
   req.apiResults = api.findUser(req.context.user.id)

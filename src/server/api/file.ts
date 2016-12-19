@@ -31,16 +31,7 @@ export function readFile(fileId, parser?: (file: any) => Promise<any>): Promise<
 // TODO
 export function delFile(fileId) {
   return fileModel.findOne(fileId).then(resultFile => {
-    return fileModel.remove(fileId).then(result => {
-      const filename = resultFile.name
-      const filepath = `${BASE_DIR}/${UPLOADS_DIR}/${filename}`
-
-      // 这边用 Sync，出错会抛出异常，如果用异步方法还要写一个 Promise 实例，做 error 判断，很麻烦
-      // 不过那样的话能获取更多的控制权
-      // 不过话说回来 Sync 用 try catch 也能实现同样的效果
-      fs.unlinkSync(filepath)
-      return result
-    })
+    return fileModel.remove(fileId)
   }, error => {
     if (error.type === 'NotFoundError') {
       return {

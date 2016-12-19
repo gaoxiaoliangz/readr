@@ -51,7 +51,7 @@ function apiRoutes() {
   // router.post('/books', authenticateAdmin, endpoints.book.add) // basic
   router.post('/books', authenticateAdmin, upload.single(FORM_DATA_FILE_KEY), middleware.logFile, endpoints.addBook) // 处理文件
   router.put('/books/:id', authenticateAdmin, endpoints.book.update) // basic
-  router.delete('/books/:id', authenticateAdmin, endpoints.book.remove) // basic
+  router.delete('/books/:book', authenticateAdmin, endpoints.removeBook)
 
   // tags
   router.get('/tags/:id', authenticatePublic, endpoints.tag.findOne) // basic
