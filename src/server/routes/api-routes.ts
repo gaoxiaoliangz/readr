@@ -5,9 +5,10 @@ import * as endpoints from '../endpoints'
 import { ROLES } from '../../isomorphic/constants/common'
 import multer from 'multer'
 
-const UPLOADS_DIR = '__uploads__'
-const upload = multer({ dest: UPLOADS_DIR })
-// const upload = multer()
+const FORM_DATA_FILE_KEY = 'file'
+// const UPLOADS_DIR = '__uploads__'
+// const upload = multer({ dest: UPLOADS_DIR })
+const upload = multer()
 
 const authenticatePublic = [
   middleware.prepareApi,
@@ -48,9 +49,9 @@ function apiRoutes() {
   router.get('/books/:book/content', authenticatePublic, endpoints.resolveBookContent)
   router.get('/books', authenticatePublic, endpoints.listBooks)
   // router.post('/books', authenticateAdmin, endpoints.book.add) // basic
-  router.post('/books', authenticateAdmin, upload.single('file'), middleware.logFile, endpoints.addBook) // 处理文件
+  router.post('/books', authenticateAdmin, upload.single(FORM_DATA_FILE_KEY), middleware.logFile, endpoints.addBook) // 处理文件
   router.put('/books/:id', authenticateAdmin, endpoints.book.update) // basic
-  router.delete('/books/:id', authenticateAdmin, endpoints.book.remove) // basic
+  router.delete('/books/:book', authenticateAdmin, endpoints.removeBook)
 
   // tags
   router.get('/tags/:id', authenticatePublic, endpoints.tag.findOne) // basic

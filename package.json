@@ -36,7 +36,10 @@
     "clean:built-prod": "rimraf -- public/built_prod",
     "clean:deploy": "rimraf -- __production__",
     "deploy": "gulp copy",
-    "predeploy": "npm run clean:built-prod & npm run clean:deploy & npm run build"
+    "predeploy": "npm run clean:built-prod & npm run clean:deploy & npm run build",
+    "preupdate-own-pack": "npm config set registry https://registry.npmjs.org/",
+    "update-own-pack": "npm update simple-epub-parser better-redux-form --save",
+    "postupdate-own-pack": "npm config set registry https://registry.npm.taobao.org"
   },
   "dependencies": {
     "@types/bluebird": "^3.0.36",
@@ -126,7 +129,7 @@
     "redux-thunk": "^2.0.1",
     "request": "^2.67.0",
     "reselect": "^2.5.3",
-    "simple-epub-parser": "^0.2.2",
+    "simple-epub-parser": "^0.3.2",
     "source-map-support": "^0.4.2",
     "to-markdown": "^3.0.3",
     "validator": "^5.4.0",
