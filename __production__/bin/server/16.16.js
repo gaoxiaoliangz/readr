@@ -1,7 +1,7 @@
 exports.ids = [16];
 exports.modules = {
 
-/***/ 350:
+/***/ 351:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24,7 +24,7 @@ exports.modules = {
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _AddCollectionForm = __webpack_require__(351);
+	var _AddCollectionForm = __webpack_require__(352);
 	
 	var _AddCollectionForm2 = _interopRequireDefault(_AddCollectionForm);
 	
@@ -103,7 +103,7 @@ exports.modules = {
 
 /***/ },
 
-/***/ 351:
+/***/ 352:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
