@@ -9,11 +9,11 @@ const menus = [
         displayName: '书籍管理',
         path: '/console/books'
       },
-      {
-        component: 'addbook',
-        displayName: '添加书籍',
-        path: '/console/books/new'
-      },
+      // {
+      //   component: 'addbook',
+      //   displayName: '添加书籍',
+      //   path: '/console/books/new'
+      // },
       {
         component: 'addcollection',
         displayName: '添加合集',

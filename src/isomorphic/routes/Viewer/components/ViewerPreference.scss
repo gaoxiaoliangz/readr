@@ -38,6 +38,13 @@
     height: $height;
     line-height: $height;
     cursor: pointer;
+
+    &:hover {
+      color: $text-dark;
+    }
+    &:active {
+      color: $text-light;
+    }
   }
 
   .btn:first-child {
@@ -68,28 +75,46 @@
 .option-theme {
   composes: option;
   padding: 5px 0;
-
-  span {
-    border-radius: 50%;
-    border: 2px solid $gray;
-    text-indent: -999em;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin: 5px;
-    cursor: pointer;
-  }
 }
 
 // themes
+.theme-btn {
+  border-radius: 50%;
+  border: 2px solid $gray;
+  text-indent: -999em;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
+}
+
 .white {
+  composes: theme-btn;
   background: #fff;
+}
+.white--active {
+  composes: theme-btn;
+  background: #fff;
+  border-color: $blue;
 }
 
 .night {
+  composes: theme-btn;
   background: #222;
+}
+.night--active {
+  composes: theme-btn;
+  background: #222;
+  border-color: $blue;
 }
 
 .sepia {
+  composes: theme-btn;
   background: #f9f1e5;
+}
+.sepia--active {
+  composes: theme-btn;
+  background: #f9f1e5;
+  border-color: $blue;
 }

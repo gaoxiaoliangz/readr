@@ -19,12 +19,13 @@ interface AllProps extends Props {
   actions?: typeof actions
   fontSize?: number
   isScrollMode?: boolean
+  theme?: string
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { fontSize, isScrollMode } = selectors.viewer.config(state)
+  const { fontSize, isScrollMode, theme } = selectors.viewer.config(state)
 
-  return { fontSize, isScrollMode }
+  return { fontSize, isScrollMode, theme }
 }
 
 @connect<AllProps>(
@@ -76,7 +77,7 @@ export default class ViewerPreference extends Component<AllProps, {}> {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
-    const { isScrollMode } = this.props
+    const { isScrollMode, theme } = this.props
 
     const btnDecClass = classnames({
       'btn': !isDecDisabled,
@@ -105,10 +106,13 @@ export default class ViewerPreference extends Component<AllProps, {}> {
           <li styleName="option-theme">
             {
               _.keys(THEME_DEFS).map((key, index) => {
+                const className = key.toLowerCase() + (theme === key ? '--active' : '')
+                console.log(className, theme, key)
+
                 return (
                   <span
                     key={index}
-                    className={styles[key.toLowerCase()]}
+                    className={styles[className]}
                     onClick={this.handleChangeThemeClick.bind(this, key)}
                     >
                     {key}

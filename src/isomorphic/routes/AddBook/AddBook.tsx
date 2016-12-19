@@ -105,4 +105,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, resetForm, initializeForm }
-)(AddBook as any)
+)(AddBook)

@@ -124,6 +124,7 @@ export default class BookContainer extends Component<AllProps, {}> {
         <NavArrow
           forward={this.handleForward.bind(this)}
           backward={this.handlebackward.bind(this)}
+          show={!isScrollMode}
           />
         <ViewerScrollbar
           visible={showPageInfo}
