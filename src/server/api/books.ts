@@ -51,14 +51,28 @@ export async function addBook(meta, fileId) {
 
   async function doSave(title, authorName) {
     const authorId = await getAuthorId(authorName)
-    return bookModel.add(mergeMeta(title, authorId))
+    return bookModel.add(mergeMeta(title, authorId)).then(result => {
+      return {
+        ...result,
+        ...{
+          ops: result.ops.map(item => {
+            return {
+              ...item,
+              ...{
+                file: _.omit(item.file, ['content'])
+              }
+            }
+          })
+        }
+      }
+    })
   }
 
   if (fileId) { // resolve file to get book meta
     const fileResult = await readFile(fileId)
 
     if (fileResult.mimetype === 'application/epub+zip') {
-      const file = await readFile(fileId, parsers.epubBinary)
+      const file = await readFile(fileId, parsers.epub)
       const parsedContent = file.content
       const authorName = parsedContent.meta.author
 
@@ -90,10 +104,10 @@ export async function resolveBookContent(bookId) {
   }
 
   if (bookEntity.file.mimetype === 'application/epub+zip') {
-    const fileResult = await readFile(fileId, parsers.epubBinary)
+    const fileResult = await readFile(fileId, parsers.epub)
     bookContent = _.omit(fileResult.content, ['meta'])
   } else if (bookEntity.file.mimetype === 'text/plain') {
-    const fileResult = await readFile(fileId, parsers.txtBinary)
+    const fileResult = await readFile(fileId, parsers.txtContent)
     bookContent = fileResult.content
   } else {
     return Promise.reject(new Error('Unsupported file type!'))
@@ -106,7 +120,7 @@ export function listBooks(page?) {
   return bookModel.list({
     page,
     disablePagination: _.isNil(page),
-    mapping: entity => _.omit(entity, 'content')
+    mapping: entity => _.omit(entity, ['content', 'file'])
   })
 }
 

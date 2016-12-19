@@ -20,8 +20,10 @@ export default function logFile(req, res, next) {
   }
 
   fileModel.findOne({ hash }).then(result => {
-    req.loggedFileId = result._id
-    next()
+    // req.loggedFileId = result._id
+    // TODO: 404 处理
+    const err = new Error('File already exists!')
+    next(err)
   }, notFoundError => {
     // TODO: 不使用 404
     // 为了确定是未找到而不是其他错误需要做额外的判断
