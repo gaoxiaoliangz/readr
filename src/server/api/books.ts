@@ -8,6 +8,7 @@ import { readFile, delFile } from './file'
 import parsers from '../parsers'
 
 const bookModel = new Model(schemas.book)
+const fileModel = new Model(schemas.file)
 const progressModel = new Model(schemas.progress)
 const authorModel = new Model(schemas.author)
 
@@ -66,11 +67,16 @@ export async function addBook(meta, fileId) {
     const fileResult = await readFile(fileId)
 
     if (fileResult.mimetype === 'application/epub+zip') {
-      const file = await readFile(fileId, parsers.epub)
-      const parsedContent = file.content
-      const authorName = parsedContent.meta.author
+      try {
+        const file = await readFile(fileId, parsers.epub)
+        const parsedContent = file.content
+        const authorName = parsedContent.meta.author
 
-      return doSave(parsedContent.meta.title, authorName)
+        return doSave(parsedContent.meta.title, authorName)
+      } catch (error) {
+        await fileModel.remove(fileId)
+        throw error
+      }
     } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
       const file = await readFile(fileId)
       const fileContentArray = file.content.buffer.toString('utf-8').split('\n')

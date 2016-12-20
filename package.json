@@ -100,7 +100,7 @@
     "redux-thunk": "^2.0.1",
     "request": "^2.67.0",
     "reselect": "^2.5.3",
-    "simple-epub-parser": "^0.3.2",
+    "simple-epub-parser": "^0.4.0",
     "source-map-support": "^0.4.2",
     "to-markdown": "^3.0.3",
     "validator": "^5.4.0",

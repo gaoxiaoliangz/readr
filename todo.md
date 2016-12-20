@@ -1,14 +1,15 @@
 
 	☐ 修复服务端渲染错误
 	☐ parser opf 查找逻辑更通用
-	☐ 完善新的添加书籍（添加后确认信息）
-	☐ 移除旧的添加书籍
+	✔ 完善新的添加书籍 @done (December 20th 2016, 21:38)
+	✔ 移除旧的添加书籍 @done (December 20th 2016, 21:37)
 	☐ 增加首页头图
 	✔ 上传文件后计算 md5 在记录表里面不重复记录 @done (December 19th 2016, 11:01)
 	☐ 线上版本隔一段时间就会出现怎么也无法登录的问题（和 session 过期有关？）
 	✔ 编辑条目 404 @done (December 15th 2016, 19:31)
 	✔ 编辑时添加无效字段 @done (December 15th 2016, 17:57)
 	☐ schema 类型校验
+	☐ 添加文件流程修改，文件校验后再存数据库，不在 middleware 里面存
 
 	✔ 进度跳转不准确的问题 @done (December 7th 2016, 17:08)
 	✔ fileuploader 文件类型限制参数 @done (November 25th 2016, 9:32)
