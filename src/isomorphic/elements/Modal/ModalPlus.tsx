@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Modal from './Modal'
-import CSSModules from 'react-css-modules'
-const styles = require('./Modal.scss')
+import styles from './Modal.scss'
 
 interface Props {
   title?: string
@@ -11,18 +10,7 @@ interface Props {
   actions?: JSX.Element[]
 }
 
-interface State {
-}
-
-@CSSModules(styles)
-class ModalPlus extends Component<Props, State> {
-
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-  }
+class ModalPlus extends Component<Props, void> {
 
   render() {
     const { title, open, onRequestClose, width, actions } = this.props
@@ -33,15 +21,15 @@ class ModalPlus extends Component<Props, State> {
         onRequestClose={onRequestClose}
         width={width || 600}
         >
-        <div styleName="modal-plus">
+        <div className={styles['modal-plus']}>
           {
             title && (
-              <div styleName="modal-header">
-                <h1 styleName="modal-title">{title}</h1>
+              <div className={styles['modal-header']}>
+                <h1 className={styles['modal-title']}>{title}</h1>
               </div>
             )
           }
-          <div styleName="modal-body">
+          <div className={styles['modal-body']}>
             {
               this.props.children
             }

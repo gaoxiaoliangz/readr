@@ -10,12 +10,16 @@ interface Props {
 }
 
 interface AllProps extends Props {
-  sendNotification: any
-  handleSubmit: any
-  fields: any
-  closeModal: () => void
+  sendNotification?: typeof sendNotification
+  handleSubmit?: any
+  fields?: any
+  closeModal?: typeof closeModal
 }
 
+@connect<AllProps>(
+  state => state,
+  { sendNotification, closeModal }
+)
 @form({
   form: 'bookMeta',
   fields: ['title', 'authors', 'description', 'cover'],
@@ -50,7 +54,4 @@ class BookMetaForm extends Component<AllProps, {}> {
   }
 }
 
-export default connect<{}, {}, Props>(
-  state => state,
-  { sendNotification, closeModal }
-)(BookMetaForm)
+export default BookMetaForm

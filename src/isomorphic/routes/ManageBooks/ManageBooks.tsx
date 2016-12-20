@@ -27,7 +27,9 @@ interface Props {
   bookEntities: any
 }
 
-class ManageBooks extends Component<Props, {}> {
+class ManageBooks extends Component<Props, {
+  showModal: boolean
+}> {
 
   static fetchData({store, query}: FetchDataOptions) {
     return store.dispatch(loadBooks({
@@ -37,6 +39,9 @@ class ManageBooks extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
+    this.state = {
+      showModal: false
+    }
   }
 
   deleteBook(id, bookName) {
@@ -54,19 +59,24 @@ class ManageBooks extends Component<Props, {}> {
   }
 
   editBookMeta(bookId) {
+    this.setState({
+      showModal: true
+    })
     const { bookEntities } = this.props
 
     this.props.openModal({
       title: '编辑书籍信息',
-      content: <BookMetaForm
-        onSave={data => {
-          api.editBookMeta(bookId, data).then(result => {
-            this.loadBooks()
-            this.props.closeModal()
-            this.props.sendNotification('修改成功！', 'success')
-          })
-        } }
-        />
+      content: (
+        <BookMetaForm
+          onSave={data => {
+            api.editBookMeta(bookId, data).then(result => {
+              this.loadBooks()
+              this.props.closeModal()
+              this.props.sendNotification('修改成功！', 'success')
+            })
+          } }
+          />
+      )
     })
     const bookMeta = bookEntities[bookId]
     this.props.initializeForm('bookMeta', {

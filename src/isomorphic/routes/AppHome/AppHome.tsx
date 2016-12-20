@@ -8,7 +8,7 @@ import { Button } from '../../elements/form'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import { Container } from '../../elements/layout'
-const styles = require('./AppHome.scss')
+import styles from './AppHome.scss'
 
 interface Props {
   loadBooks: typeof loadBooks
@@ -20,7 +20,7 @@ interface Props {
 }
 
 interface IState {
-  showRecentReading: boolean
+  showRecentReading?: boolean
 }
 
 @CSSModules(styles)
@@ -58,7 +58,7 @@ class Home extends Component<Props, IState> {
     return (
       <DocContainer bodyClass="home">
         {
-          this.props.session.user.role === 'visitor' && this.props.session.isFetching === false ? (
+          this.props.session.user.role === 'visitor' && this.props.session.isFetching === false && (
             <div styleName="hero-image">
               <Container>
                 <div styleName="logo">Readr</div>
@@ -66,11 +66,11 @@ class Home extends Component<Props, IState> {
                 <Button to="/signup">现在加入</Button>
               </Container>
             </div>
-          ) : null
+          )
         }
         <Container>
           <BookListSection
-            bookEntities={newestBooks.slice(0, 6) }
+            bookEntities={newestBooks.slice(0, 6)}
             title="新书速递"
             moreLink="/browse"
             isFetching={isBooksFetching}

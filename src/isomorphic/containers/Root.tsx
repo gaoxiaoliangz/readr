@@ -11,6 +11,11 @@ interface Props {
 }
 
 class Root extends Component<Props, {}> {
+
+  defaultProps: {
+    renderProps: {}
+  }
+
   render() {
     let { store, renderProps, routes, history } = this.props
 
@@ -19,7 +24,7 @@ class Root extends Component<Props, {}> {
         renderProps.routes = routes
 
         if (!history) {
-          console.error('没用给 Router 提供 history！')
+          console.error('没有给 Router 提供 history！')
         } else {
           renderProps.history = history
         }
@@ -32,10 +37,6 @@ class Root extends Component<Props, {}> {
       </Provider>
     )
   }
-}
-
-Root['defaultProps'] = {
-  renderProps: {}
 }
 
 export default Root

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import utils from '../../utils'
 import Fade from '../Fade'
-import CSSModules from 'react-css-modules'
-const styles = require('./Modal.scss')
+import _ from 'lodash'
+import styles from './Modal.scss'
 
 export interface Props {
   width: number
@@ -17,9 +17,9 @@ interface State {
   isModalHidden?: boolean
   isModalVerticalCenter?: boolean
   documentHeight?: number
+  clicks?: number
 }
 
-@CSSModules(styles)
 class Modal extends Component<Props, State> {
 
   modal: HTMLDivElement
@@ -29,7 +29,8 @@ class Modal extends Component<Props, State> {
     this.state = {
       modalHeight: 0,
       isModalHidden: false,
-      isModalVerticalCenter: true
+      isModalVerticalCenter: true,
+      clicks: 0
     }
     this.setView = this.setView.bind(this)
     this.hideModal = this.hideModal.bind(this)
@@ -38,7 +39,6 @@ class Modal extends Component<Props, State> {
   hideModal() {
     this.props.onRequestClose()
     utils.unlockScroll()
-    window.removeEventListener('resize', this.setView)
   }
 
   setView() {
@@ -62,6 +62,10 @@ class Modal extends Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps) {
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   componentDidUpdate(prevProps) {
@@ -135,7 +139,7 @@ class Modal extends Component<Props, State> {
     return (
       <Fade>
         {
-          open === true ? (
+          open === true && (
             <div
               onClick={e => {
                 // 使用阻止冒泡会造成问题
@@ -143,20 +147,19 @@ class Modal extends Component<Props, State> {
                   this.hideModal()
                 }
               } }
-              styleName="modal-backdrop"
+              className={styles['modal-backdrop']}
               style={style.backdrop}
               >
               <div
                 id={modalId}
                 style={style.modal}
-                className={className}
-                styleName="modal"
+                className={`${styles['modal']} ${className}`}
                 ref={ref => { this.modal = ref } }
                 >
                 {this.props.children}
               </div>
             </div>
-          ) : null
+          )
         }
       </Fade>
     )

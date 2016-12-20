@@ -16,7 +16,7 @@ const sagaMiddleware = createSagaMiddleware()
 const SERVER_MIDDLEWARES_DEV = [handleServerStore, sagaMiddleware, api, middleware.cache, modifyResponse, thunk, logActionTypes]
 const SERVER_MIDDLEWARES_PROD = [handleServerStore, sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
 const MIDDLEWARES_DEV = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk, createLogger({ collapsed: true })]
-const MIDDLEWARES_PROD = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
+const MIDDLEWARES_PROD = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk, createLogger({ collapsed: true })]
 
 const handleStore = (middlewares: any[]) => {
   return createStore(
