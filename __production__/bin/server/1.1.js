@@ -14,11 +14,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
 	var _redux = __webpack_require__(212);
 	
@@ -26,19 +26,19 @@ exports.modules = {
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _DocContainer = __webpack_require__(201);
+	var _DocContainer = __webpack_require__(204);
 	
 	var _DocContainer2 = _interopRequireDefault(_DocContainer);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -129,19 +129,19 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
 	var _redux = __webpack_require__(212);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
@@ -165,7 +165,7 @@ exports.modules = {
 	
 	var _Loading2 = _interopRequireDefault(_Loading);
 	
-	var _utils = __webpack_require__(92);
+	var _utils = __webpack_require__(95);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -367,7 +367,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -385,9 +385,9 @@ exports.modules = {
 	
 	var _redux = __webpack_require__(212);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
@@ -395,11 +395,11 @@ exports.modules = {
 	
 	var _NavArrow2 = _interopRequireDefault(_NavArrow);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -560,27 +560,27 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var _BookPage = __webpack_require__(216);
 	
 	var _BookPage2 = _interopRequireDefault(_BookPage);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _classnames2 = __webpack_require__(120);
+	var _classnames2 = __webpack_require__(123);
 	
 	var _classnames3 = _interopRequireDefault(_classnames2);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
@@ -681,15 +681,15 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _classnames2 = __webpack_require__(120);
+	var _classnames2 = __webpack_require__(123);
 	
 	var _classnames3 = _interopRequireDefault(_classnames2);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -697,15 +697,15 @@ exports.modules = {
 	
 	var _Markdown2 = _interopRequireDefault(_Markdown);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
 	var _redux = __webpack_require__(212);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
@@ -858,7 +858,7 @@ exports.modules = {
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -982,7 +982,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(225);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -998,7 +998,7 @@ exports.modules = {
 /***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1029,11 +1029,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -1097,7 +1097,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(228);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -1113,7 +1113,7 @@ exports.modules = {
 /***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1145,11 +1145,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -1209,7 +1209,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(231);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -1225,7 +1225,7 @@ exports.modules = {
 /***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1247,7 +1247,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(233);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -1263,7 +1263,7 @@ exports.modules = {
 /***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1292,13 +1292,13 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRouter = __webpack_require__(63);
 	
-	var _Icon = __webpack_require__(118);
+	var _Icon = __webpack_require__(121);
 	
 	var _Icon2 = _interopRequireDefault(_Icon);
 	
@@ -1312,23 +1312,23 @@ exports.modules = {
 	
 	var _ViewerNav2 = _interopRequireDefault(_ViewerNav);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
 	var _redux = __webpack_require__(212);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
-	var _isDescendant = __webpack_require__(97);
+	var _isDescendant = __webpack_require__(100);
 	
 	var _isDescendant2 = _interopRequireDefault(_isDescendant);
 	
@@ -1478,7 +1478,7 @@ exports.modules = {
 	});
 	exports.Slide = exports.Fade = undefined;
 	
-	var _Fade = __webpack_require__(137);
+	var _Fade = __webpack_require__(140);
 	
 	var _Fade2 = _interopRequireDefault(_Fade);
 	
@@ -1521,11 +1521,11 @@ exports.modules = {
 	    value: true
 	});
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(139);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(142);
 	
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 	
@@ -1544,7 +1544,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(239);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -1560,7 +1560,7 @@ exports.modules = {
 /***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1590,7 +1590,7 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -1598,23 +1598,23 @@ exports.modules = {
 	
 	var _Switcher2 = _interopRequireDefault(_Switcher);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
 	var _redux = __webpack_require__(212);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
-	var _classnames = __webpack_require__(120);
+	var _classnames = __webpack_require__(123);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -1781,11 +1781,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -1893,7 +1893,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(244);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -1909,7 +1909,7 @@ exports.modules = {
 /***/ 244:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1933,7 +1933,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(247);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -1949,7 +1949,7 @@ exports.modules = {
 /***/ 247:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -1991,23 +1991,23 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
 	var _redux = __webpack_require__(212);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _selectors = __webpack_require__(110);
+	var _selectors = __webpack_require__(113);
 	
 	var selectors = _interopRequireWildcard(_selectors);
 	
@@ -2198,7 +2198,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(252);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -2214,7 +2214,7 @@ exports.modules = {
 /***/ 252:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -2233,7 +2233,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(254);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -2249,7 +2249,7 @@ exports.modules = {
 /***/ 254:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -2279,7 +2279,7 @@ exports.modules = {
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
@@ -2395,15 +2395,15 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
-	var _classnames = __webpack_require__(120);
+	var _classnames = __webpack_require__(123);
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
@@ -2493,7 +2493,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(259);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -2509,7 +2509,7 @@ exports.modules = {
 /***/ 259:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	
@@ -2530,7 +2530,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(261);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -2546,7 +2546,7 @@ exports.modules = {
 /***/ 261:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
 	
 	

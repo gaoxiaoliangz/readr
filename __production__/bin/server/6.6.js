@@ -12,13 +12,13 @@ exports.modules = {
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
 	var _CollectionSection = __webpack_require__(295);
 	
@@ -120,17 +120,17 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
 	var _reactRouter = __webpack_require__(63);
 	
-	var _layout = __webpack_require__(170);
+	var _layout = __webpack_require__(173);
 	
 	var _CollectionList = __webpack_require__(297);
 	
@@ -197,11 +197,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -282,11 +282,11 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactCssModules = __webpack_require__(122);
+	var _reactCssModules = __webpack_require__(125);
 	
 	var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 	
@@ -351,7 +351,7 @@ exports.modules = {
 
 	
 	    var content = __webpack_require__(300);
-	    var insertCss = __webpack_require__(126);
+	    var insertCss = __webpack_require__(129);
 	
 	    if (typeof content === 'string') {
 	      content = [[module.id, content, '']];
@@ -367,9 +367,9 @@ exports.modules = {
 /***/ 300:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(125)();
+	exports = module.exports = __webpack_require__(128)();
 	// imports
-	exports.i(__webpack_require__(164), "");
+	exports.i(__webpack_require__(167), "");
 	
 	// module
 	exports.push([module.id, ":root {\n  --cover-size: 100px;\n  \\--light-link: {\n    color: #fff;\n\n    &:hover {\n      color: #ddd;\n    }\n  };\n  \\--dark: {\n    color: var(--text);\n  };\n}\n\n.item_23Tis {\n  width: 100%;\n  min-height: 200px;\n  position: relative;\n  border-bottom: 1px solid color(var(--dark-blue) l(- 10%));\n  padding: 0 0 30px 0;\n}\n\n.item--light_2o150 {\n}\n\n.section_1Bdj3 {\n  background: var(--dark-blue);\n  overflow: hidden;\n  margin: 40px 0;\n}\n\n.covers_l92ZZ {\n  overflow: hidden;\n  position: absolute;\n  right: 30px;\n  top: 30px;\n\n  & li {\n    float: left;\n    margin: 0 10px;\n\n    & img {\n      max-width: 70px;\n      box-shadow: var(--shadow-y1);\n      overflow: hidden;\n      border-radius: 3px;\n    }\n  }\n}\n\n.name_jeo6l {\n  font-size: 1.2rem;\n  color: #fff;\n  margin-bottom: 1em;\n}\n\n.link_1OO-g {\n  @apply --light-link;\n}\n\n.desc_MOBvr {\n  color: gray(180);\n  font-size: 1rem;\n}\n\n.title_bDgfw {\n  @apply --page-title;\n  color: #fff;\n}\n\n.list_1p40A {\n  width: 100%;\n}\n\n.view-more_QQcb3 {\n  margin: 20px 0;\n  display: inline-block;\n}\n\n/* style 2 */\n.item--dark_1cOX3 {\n  border-color: var(--gray);\n\n  & .link_1OO-g {\n    color: var(--text-dark);\n\n    &:hover {\n      color: var(--text);\n    }\n  }\n\n  & .desc_MOBvr {\n    @apply --dark;\n  }\n}\n", ""]);

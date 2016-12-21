@@ -40,17 +40,17 @@ exports.modules = {
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
 	var _reactRouter = __webpack_require__(63);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
-	var _DocContainer = __webpack_require__(201);
+	var _DocContainer = __webpack_require__(204);
 	
 	var _DocContainer2 = _interopRequireDefault(_DocContainer);
 	
@@ -58,7 +58,7 @@ exports.modules = {
 	
 	var _SignupForm2 = _interopRequireDefault(_SignupForm);
 	
-	var _api = __webpack_require__(203);
+	var _api = __webpack_require__(206);
 	
 	var _api2 = _interopRequireDefault(_api);
 	
@@ -136,19 +136,19 @@ exports.modules = {
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _react = __webpack_require__(87);
+	var _react = __webpack_require__(90);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(89);
+	var _reactRedux = __webpack_require__(92);
 	
-	var _betterReduxForm = __webpack_require__(114);
+	var _betterReduxForm = __webpack_require__(117);
 	
 	var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 	
-	var _actions = __webpack_require__(90);
+	var _actions = __webpack_require__(93);
 	
-	var _form = __webpack_require__(147);
+	var _form = __webpack_require__(150);
 	
 	var _validation = __webpack_require__(308);
 	
