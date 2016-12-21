@@ -1,6 +1,6 @@
 
-	☐ 修复服务端渲染错误
-	☐ parser opf 查找逻辑更通用
+	✔ 修复服务端渲染错误 @done (December 21st 2016, 12:55)
+	✔ parser opf 查找逻辑更通用 @done (December 21st 2016, 12:54)
 	✔ 完善新的添加书籍 @done (December 20th 2016, 21:38)
 	✔ 移除旧的添加书籍 @done (December 20th 2016, 21:37)
 	☐ 增加首页头图

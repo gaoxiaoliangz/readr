@@ -6,6 +6,7 @@ import utils from '../utils'
 import { notFoundError } from '../helpers'
 import { readFile, delFile } from './file'
 import parsers from '../parsers'
+import callApi from '../../isomorphic/services/utils/callApi'
 
 const bookModel = new Model(schemas.book)
 const fileModel = new Model(schemas.file)
@@ -15,17 +16,39 @@ const authorModel = new Model(schemas.author)
 /**
  * helpers
  */
-async function getAuthorId(authorName) {
+async function getAuthorId(authorName, description) {
   try {
     const authorEntity = await authorModel.findOne({ name: authorName })
     return authorEntity._id
   } catch (error) {
     const result = await authorModel.add({
-      name: authorName
+      name: authorName,
+      description
     })
     return result.ops[0]._id
   }
 }
+
+
+/**
+ * 3rd party
+ */
+async function fetchBookByTitle(title: string) {
+  const keyword = title
+
+  const { json: bookJson } = await callApi(`https://api.douban.com/v2/book/search?q=${encodeURI(keyword)}&count=1`)
+  return _.get(bookJson, ['books', 0], {})
+}
+
+async function fetchBookMetaByTitle(title: string) {
+  const book = await fetchBookByTitle(title)
+  return {
+    cover: _.get(book, ['images', 'large']),
+    description: _.get(book, 'summary'),
+    authorInfo: _.get(book, 'author_intro'),
+  }
+}
+
 
 /**
  * apis
@@ -48,17 +71,18 @@ export function findBook(id) {
 }
 
 export async function addBook(meta, fileId) {
-  const mergeBookMeta = (title, authorId) => {
+  const mergeBookMeta = (title, authorId, extMeta) => {
     return _.assign({}, {
       title,
       authors: [authorId],
       file: fileId
-    }, meta)
+    }, meta, extMeta)
   }
 
   async function doSave(title, authorName) {
-    const authorId = await getAuthorId(authorName)
-    const bookData = mergeBookMeta(title, authorId)
+    const bookMeta = await fetchBookMetaByTitle(title)
+    const authorId = await getAuthorId(authorName, bookMeta.authorInfo)
+    const bookData = mergeBookMeta(title, authorId, _.omit(bookMeta, 'authorInfo'))
 
     return bookModel.add(bookData)
   }
@@ -89,6 +113,7 @@ export async function addBook(meta, fileId) {
     }
   }
 
+  // TODO: 好像不对吧
   return bookModel.add(meta)
 }
 
@@ -101,7 +126,8 @@ interface BookMeta {
 export async function editBookMeta(bookId, meta: BookMeta) {
   await bookModel.findOne(bookId, true)
   // todo: 多个作者情况
-  const authorId = await getAuthorId(meta.authors)
+  const { authorInfo } = await fetchBookMetaByTitle(meta.authors)
+  const authorId = await getAuthorId(meta.authors, authorInfo)
   const bookMeta = {
     ...meta,
     ...{
