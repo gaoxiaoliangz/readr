@@ -16,7 +16,7 @@ const DEFAULT_FONT_SIZE = 16
 
 const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
 
-function* setViewer(bookId, config: ViewerConfig = {}): any {
+function* setViewer(bookId, config: ViewerConfig = {}) {
   const viewerWidth = utils.getScreenInfo().view.width
   const isSmallScreen = viewerWidth < 700
 
@@ -42,7 +42,7 @@ function* setViewer(bookId, config: ViewerConfig = {}): any {
   yield put(actions.configViewer(bookId, initialized))
 }
 
-function* setViewerWithAction(action): any {
+function* setViewerWithAction(action) {
   const bookId = action.bookId
   const config: ViewerConfig = action.config
 
@@ -74,7 +74,7 @@ function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
   return computedPages
 }
 
-function* updateProgress(bookId, percentage): any {
+function* updateProgress(bookId, percentage) {
   try {
     yield call(api.setProgress, bookId, {
       percentage
@@ -88,7 +88,7 @@ function* updateProgress(bookId, percentage): any {
   }
 }
 
-function* watchCalcBook(): any {
+function* watchCalcBook() {
   while (true) {
     const { bookId, wrap } = yield take(ACTION_TYPES.VIEWER.CALC_START)
     const bookContent = yield select(selectors.common.entity('bookContents', bookId))
@@ -106,7 +106,7 @@ function* watchCalcBook(): any {
   }
 }
 
-function* watchProgressOperations(): any {
+function* watchProgressOperations() {
   while (true) {
     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
     const session = yield select(selectors.common.session)
@@ -126,7 +126,7 @@ function* watchProgressOperations(): any {
   }
 }
 
-function* jumpTo(action): any {
+function* jumpTo(action) {
   const { percentage } = action
   const { bookId, pageHeight, isScrollMode } = yield select(selectors.viewer.config)
   const allPages = yield select(selectors.viewer.computed(bookId))
@@ -146,14 +146,14 @@ function* watchJumpRequest() {
   yield* takeEvery(ACTION_TYPES.VIEWER.JUMP, jumpTo)
 }
 
-function* fetchProgressAndJump(bookId): any {
+function* fetchProgressAndJump(bookId) {
   yield put(actions.loadBookProgress(bookId))
   yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
   const { percentage } = yield select(selectors.common.entity('bookProgress', bookId))
   yield put(actions.viewerJumpTo(percentage))
 }
 
-function* initializeViewer(): any {
+function* initializeViewer() {
   while (true) {
     const { bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
     const computed = yield select(selectors.viewer.computed(bookId))
