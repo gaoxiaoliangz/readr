@@ -22,8 +22,7 @@ interface AllProps extends Props {
 )
 @form({
   form: 'bookMeta',
-  fields: ['title', 'authors', 'description', 'cover'],
-  destroyOnUnmount: true
+  fields: ['title', 'authors', 'description', 'cover']
 })
 class BookMetaForm extends Component<AllProps, {}> {
 
