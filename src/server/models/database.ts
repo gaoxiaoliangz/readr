@@ -10,51 +10,30 @@ export const connect = () => {
   return MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
 }
 
-// export const connect = (table) => {
-//   class Connect {
-//     _table: string
-//     _db: mongodb.Db
-//     _connection: mongodb.Collection
-
-//     constructor(dbTable) {
-//       this._table = dbTable
-//       const dbConnect = MongoClient
-//         .connect(`${appConfig.database.host}/${appConfig.database.name}`)
-//         .then(db => {
-//           this._db = db
-//           this._connection = db.collection(table)
-//         })
-//     }
-
-//     get collection() {
-//       return this._connection
-//     }
-
-//     close() {
-//       this._db.close()
-//     }
-//   }
-
-//   const connectInst = new Connect(table)
-//   return connectInst
+// export function getCollection(table) {
+//   const dbConnect = MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
+//   return dbConnect.then(db => {
+//     const collection = db.collection(table)
+//     return collection
+//   })
 // }
 
-export function getCollection(table) {
-  const dbConnect = MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
-  return dbConnect.then(db => {
-    const collection = db.collection(table)
-    return collection
-  })
-}
-
-export function getRowByMatch(match, table) {
-  return getCollection(table).then(collection => {
-    return collection.find(match).toArray()
-  })
-}
+// export function getRowByMatch(match, table) {
+//   return getCollection(table).then(collection => {
+//     return collection.find(match).toArray()
+//   })
+// }
 
 export function getRowById(id, table) {
   return getRowByMatch({ _id: id }, table)
+}
+
+export function getRowByMatch(match, table) {
+  return connect().then(connection => {
+    const results = connection.collection(table).find(match).toArray()
+    connection.close()
+    return results
+  })
 }
 
 
@@ -159,7 +138,7 @@ export function embedRef(rawResults: any[], schema: Schema) {
 
 export default {
   embedRef,
-  getCollection,
+  // getCollection,
   getRowByMatch,
   getRowById
 }

@@ -130,6 +130,15 @@ class Model {
           return Boolean(fileld.value)
         })
 
+      const exec = () => {
+        return connect()
+          .then(connection => {
+            const result = connection.collection(this._tableName).insert([dataWithID])
+            connection.close()
+            return result
+          })
+      }
+
       // 过滤出和数据库中已存在数据相匹配的输入项
       if (dataToCheck.length !== 0) {
         const checkingResult = Promise.all(dataToCheck.map(dataItem => {
@@ -148,15 +157,11 @@ class Model {
             return Promise.reject(new errors.BadRequestError(i18n('errors.schema.unique', res[0].key)))
           }
 
-          return db.getCollection(this._tableName).then(collection => {
-            return collection.insert([dataWithID])
-          })
+          return exec()
         })
       }
 
-      return db.getCollection(this._tableName).then(collection => {
-        return collection.insert([dataWithID])
-      })
+      return exec()
     }
 
     return utils.reduceTasks([
@@ -177,22 +182,27 @@ class Model {
         date_updated: new Date().toString()
       })
 
-      const doIt = () => {
-        return db.getCollection(this._tableName).then(collection => {
-          return collection.update(query, { $set: data2 }, {
-            upsert: Boolean(upsert),
-            multi: Boolean(multi)
+      const exec = () => {
+        return connect()
+          .then(connection => {
+            const result = connection.collection(this._tableName).update(query, { $set: data2 }, {
+              upsert: Boolean(upsert),
+              multi: Boolean(multi)
+            })
+
+            connection.close()
+
+            return result
           })
-        })
       }
 
       if (!upsert) {
         return this.findOne(idOrQuery, true).then(result => {
-          return doIt()
+          return exec()
         })
       }
 
-      return doIt()
+      return exec()
     }
 
     return utils.reduceTasks([
@@ -204,9 +214,12 @@ class Model {
   remove(idOrQuery: Match) {
     const query = Model.parseQuery(idOrQuery)
 
-    return db.getCollection(this._tableName).then(collection => {
-      return collection.remove(query)
-    })
+    return connect()
+      .then(connection => {
+        const result = connection.collection(this._tableName).remove(query)
+        connection.close()
+        return result
+      })
   }
 }
 
