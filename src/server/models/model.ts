@@ -112,7 +112,7 @@ class Model {
     })
   }
 
-  add(data) {
+  add(data): any {
     const query = () => {
       let dataWithID = Object.assign({}, data, {
         _id: Math.random().toFixed(8).substr(2),
@@ -141,16 +141,21 @@ class Model {
 
       // 过滤出和数据库中已存在数据相匹配的输入项
       if (dataToCheck.length !== 0) {
-        const checkingResult = Promise.all(dataToCheck.map(dataItem => {
-          return db.getRowByMatch({ [dataItem.key]: dataItem.value }, this._tableName).then(res => {
-            if (res.length !== 0) {
-              return dataItem
-            }
-            return false as any
+        const checkingResult = Promise
+          .all(dataToCheck
+            .map(dataItem => {
+              return db
+                .getRowByMatch({ [dataItem.key]: dataItem.value }, this._tableName)
+                .then(res => {
+                  if (res.length !== 0) {
+                    return dataItem
+                  }
+                  return false as any
+                })
+            }))
+          .then(res => {
+            return res.filter(r => r !== false)
           })
-        })).then(res => {
-          return res.filter(r => r !== false)
-        })
 
         return checkingResult.then(res => {
           if (res.length !== 0) {
@@ -167,7 +172,7 @@ class Model {
     return utils.reduceTasks([
       validate(data, this._schema),
       query
-    ]) as any
+    ])
   }
 
   update(idOrQuery: Match, data, updateConfig: {

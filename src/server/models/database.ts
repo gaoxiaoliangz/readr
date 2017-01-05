@@ -6,23 +6,9 @@ import mongodb from 'mongodb'
 
 const MongoClient = mongodb.MongoClient
 
-export const connect = () => {
+export function connect() {
   return MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
 }
-
-// export function getCollection(table) {
-//   const dbConnect = MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
-//   return dbConnect.then(db => {
-//     const collection = db.collection(table)
-//     return collection
-//   })
-// }
-
-// export function getRowByMatch(match, table) {
-//   return getCollection(table).then(collection => {
-//     return collection.find(match).toArray()
-//   })
-// }
 
 export function getRowById(id, table) {
   return getRowByMatch({ _id: id }, table)
@@ -138,7 +124,6 @@ export function embedRef(rawResults: any[], schema: Schema) {
 
 export default {
   embedRef,
-  // getCollection,
   getRowByMatch,
   getRowById
 }
