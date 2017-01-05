@@ -5,6 +5,9 @@ import * as endpoints from '../endpoints'
 import { ROLES } from '../../isomorphic/constants/common'
 import multer from 'multer'
 
+import Model from '../models/model'
+import * as schemas from '../data/schemas'
+
 const FORM_DATA_FILE_KEY = 'file'
 // const UPLOADS_DIR = '__uploads__'
 // const upload = multer({ dest: UPLOADS_DIR })
@@ -80,6 +83,21 @@ function apiRoutes() {
   router.post('/auth', authenticatePublic, middleware.auth.basicAuth)
   router.get('/auth', authenticatePublic, middleware.auth.check)
   router.put('/auth/revoke', authenticatePublic, middleware.auth.revoke)
+
+  // test
+  router.get('/testepipe', authenticatePublic, (req, res, next) => {
+    req['apiResults'] = Promise
+      .all(_.times(2000, num => {
+        const authorModel = new Model(schemas.author)
+        return authorModel.listRaw()
+      }))
+      .then(result => {
+        return {
+          len: result.length
+        }
+      })
+    next()
+  })
 
   return router
 }
