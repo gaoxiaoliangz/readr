@@ -6,10 +6,44 @@ import mongodb from 'mongodb'
 
 const MongoClient = mongodb.MongoClient
 
+export const connect = () => {
+  return MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
+}
+
+// export const connect = (table) => {
+//   class Connect {
+//     _table: string
+//     _db: mongodb.Db
+//     _connection: mongodb.Collection
+
+//     constructor(dbTable) {
+//       this._table = dbTable
+//       const dbConnect = MongoClient
+//         .connect(`${appConfig.database.host}/${appConfig.database.name}`)
+//         .then(db => {
+//           this._db = db
+//           this._connection = db.collection(table)
+//         })
+//     }
+
+//     get collection() {
+//       return this._connection
+//     }
+
+//     close() {
+//       this._db.close()
+//     }
+//   }
+
+//   const connectInst = new Connect(table)
+//   return connectInst
+// }
+
 export function getCollection(table) {
   const dbConnect = MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
   return dbConnect.then(db => {
-    return Promise.resolve(db.collection(table))
+    const collection = db.collection(table)
+    return collection
   })
 }
 
@@ -104,7 +138,7 @@ export function embedRef(rawResults: any[], schema: Schema) {
           })
       })
 
-    return Promise.all<{name: string; data: any}>(fieldsWithData).then(fields => {
+    return Promise.all<{ name: string; data: any }>(fieldsWithData).then(fields => {
       return fields.reduce((fieldsObj, field) => {
         return Object.assign({}, fieldsObj, {
           [field.name]: field.data

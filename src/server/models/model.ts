@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import db, { embedRef } from './database'
+import db, { embedRef, connect } from './database'
 import errors from '../errors'
 import i18n from '../utils/i18n'
 import utils from '../utils'
@@ -65,37 +65,38 @@ class Model {
 
   list(options: ListOptions = {}) {
     const { raw, page, disablePagination, filter, mapping, query } = options
+    return connect().then(connection => {
+      const doQuery = () => {
+        const listRaw = listRawQuery => {
+          return connection.collection(this._tableName).find(listRawQuery).toArray()
+        }
 
-    const doQuery = () => {
-      const listRaw = listRawQuery => {
-        return db.getCollection(this._tableName).then(collection => {
-          return collection.find(listRawQuery).toArray()
-        })
+        const rawResults = listRaw(query || {})
+
+        if (raw) {
+          return rawResults
+        } else {
+          return rawResults.then(results => {
+            return embedRef(results, this._schema)
+          })
+        }
       }
 
-      const rawResults = listRaw(query || {})
+      return doQuery().then(entities => {
+        const modifiedEntities = entities
+          .filter(filter || (() => true))
+          .map(mapping || (entity => entity))
 
-      if (raw) {
-        return rawResults
-      } else {
-        return rawResults.then(results => {
-          return embedRef(results, this._schema)
-        })
-      }
-    }
+        connection.close()
 
-    return doQuery().then(entities => {
-      const modifiedEntities = entities
-        .filter(filter || (() => true))
-        .map(mapping || (entity => entity))
+        if (!disablePagination) {
+          return paginate(modifiedEntities, {
+            page: page || 1
+          })
+        }
 
-      if (!disablePagination) {
-        return paginate(modifiedEntities, {
-          page: page || 1
-        })
-      }
-
-      return modifiedEntities
+        return modifiedEntities
+      })
     })
   }
 
