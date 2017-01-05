@@ -18,18 +18,18 @@ const app = express()
 const PUBLIC_PATH_NAME = 'public'
 const SESSION_SECRET = 'key'
 // TODO: what happens when max age exceeds
-const SESSION_MAX_AGE = 70 * 24 * 60 * 60 * 1000 // 70 days
+// const SESSION_MAX_AGE = 70 * 24 * 60 * 60 * 1000 // 70 days
 const REQ_SIZE_LIMIT = '5mb'
 const MONGO_STORE_URL = `${appConfig.database.host}/${appConfig.database.mongoStoreName}`
+// todo: put it in locals
 const REQ_BASE_PATH = '__basePath'
 
 export default function initialize(basePath) {
   app.use(session({
     secret: SESSION_SECRET,
-    cookie: {
-      maxAge: SESSION_MAX_AGE,
-      expires: new Date(Date.now() + SESSION_MAX_AGE)
-    },
+    // cookie: {
+    //   maxAge: SESSION_MAX_AGE
+    // },
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ url: MONGO_STORE_URL })

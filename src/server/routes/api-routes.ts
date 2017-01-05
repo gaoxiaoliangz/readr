@@ -6,8 +6,6 @@ import { ROLES } from '../../isomorphic/constants/common'
 import multer from 'multer'
 
 const FORM_DATA_FILE_KEY = 'file'
-// const UPLOADS_DIR = '__uploads__'
-// const upload = multer({ dest: UPLOADS_DIR })
 const upload = multer()
 
 const authenticatePublic = [
