@@ -79,7 +79,7 @@ const parseOptions = (originanOptions: CallApiOptions) => {
 
 // type Result = {
 //   json: any
-//   response: any
+//   _response: any
 // }
 export function callApi(fullUrl: string, options: CallApiOptions = {}): any {
   if (options.useJsonp) {
