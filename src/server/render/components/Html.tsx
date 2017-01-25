@@ -35,6 +35,16 @@ function Script(props: TScriptProps) {
   )
 }
 
+const baiduTrafficCode = `
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?d16c533053b2d1229b591554207de4c7";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+`
+
 export default function Html(props: TProps) {
   const {
     title, styles, scripts, initialState,
@@ -78,6 +88,9 @@ export default function Html(props: TProps) {
             return <Script assetPath={assetPath} filename={scriptName} key={index} />
           })
         }
+        <script
+          dangerouslySetInnerHTML={{ __html: baiduTrafficCode }}
+          />
       </body>
     </html>
   )
