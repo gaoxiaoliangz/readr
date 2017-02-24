@@ -3,6 +3,11 @@
   "plugins": [
     "react"
   ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
   "rules": {
     "semi": [2, "never"],
     "strict": [0],
