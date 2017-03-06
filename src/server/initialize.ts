@@ -1,66 +1,70 @@
 import express from 'express'
 import session from 'express-session'
-import routes from './routes'
-import bootServer from './bootstrap'
-import appConfig from '../app.config'
-import hotModuleReplacement from './dev-tools/hot-module-replacement'
-import options from './options'
 import path from 'path'
-import middleware from './middleware'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
+import render from './middleware/render'
+import bootServer from './bootstrap'
+import appConfig from '../app.config'
+import routes from './routes'
+// import render, { render500 } from './render'
 
 const MongoStore = connectMongo(session)
 const app = express()
 
-const PUBLIC_PATH_NAME = 'public'
+const PUBLIC_DIR = 'build/static'
+const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
-// TODO: what happens when max age exceeds
-// const SESSION_MAX_AGE = 70 * 24 * 60 * 60 * 1000 // 70 days
 const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = `${appConfig.database.host}/${appConfig.database.mongoStoreName}`
-// todo: put it in locals
-const REQ_BASE_PATH = '__basePath'
+const MONGO_STORE_URL = path.join(appConfig.database.host, appConfig.database.mongoStoreName)
 
-export default function initialize(basePath) {
+console.log(MONGO_STORE_URL);
+
+interface InitConfig {
+  basePath: string
+  serviceName: 'assets' | 'api' | 'pages'
+  isProduction: boolean
+}
+
+export default function initialize(config: InitConfig) {
+  const { basePath, serviceName, isProduction } = config
+
+  // locals
+  app.locals.basePath = basePath
+
   app.use(session({
     secret: SESSION_SECRET,
-    // cookie: {
-    //   maxAge: SESSION_MAX_AGE
-    // },
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ url: MONGO_STORE_URL })
   }))
 
-  // 需要放在开始的位置
-  if (options.hot) {
-    app.use(hotModuleReplacement())
-  }
-
   app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))
   app.use(cookieParser())
-  app.use(express.static(path.join(basePath, PUBLIC_PATH_NAME)))
+  app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
 
-  // set basePath
-  app.use((req, res, next) => {
-    req[REQ_BASE_PATH] = basePath
-    next()
-  })
+  switch (serviceName) {
+    case 'api':
+      // api routing
+      app.use(`/${appConfig.api.prefix}`, routes.api())
+      break
+
+    case 'pages':
+    default:
+      app.use(render(isProduction))
+      break
+  }
 
   // log error info
   app.use(morgan('dev', {
     skip(req, res) { return res.statusCode < 400 }
   }))
 
-  // api routing
-  app.use(`/${appConfig.api.prefix}`, routes.api())
-
-  // frontend routing
-  app.use(middleware.parseContext, routes.pages)
-
-  return bootServer(app, options)
+  return bootServer(app, {
+    serviceName,
+    isProduction
+  })
 }

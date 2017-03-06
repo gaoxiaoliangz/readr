@@ -1,34 +1,43 @@
+import http from 'http'
 import appConfig from '../app.config'
 import print from './utils/print'
-const http = require('http')
 
-const port = appConfig.port
+interface BootstrapConfig {
+  port?: number
+  serviceName: 'assets' | 'api' | 'pages'
+  isProduction: boolean
+}
 
-export default function bootstrap(app, { production, render, hot, route }) {
-  let features = []
+export default function bootstrap(app, config: BootstrapConfig) {
+  let portInConfigFile
+  const { port: overidePort, serviceName, isProduction } = config
+  const server = http.createServer(app)
 
-  if (hot) {
-    features.push('hot')
+  switch (serviceName) {
+    case 'api':
+      portInConfigFile = appConfig.apiPort
+      break
+
+    case 'assets':
+      portInConfigFile = appConfig.assetsPort
+      break
+
+    case 'pages':
+      portInConfigFile = appConfig.pagesPort
+      break
+
+    default:
+      throw new Error('Port undefined!')
   }
 
-  if (render) {
-    features.push('server rendering')
-  } else if (route) {
-    features.push('server routing')
-  } else {
-    features.push('hash routing')
-  }
+  const port = overidePort || portInConfigFile
 
   app.set('port', port)
-
-  const server = http.createServer(app)
   server.listen(port)
 
-  features = features.map(feature => `[${feature}]`).join(' ') as any
+  print.info(`Service[${serviceName}] running in ${isProduction ? 'production' : 'development'} at port ${port}`)
 
-  print.info(`Server running in ${production ? 'production' : 'development'} (${port}) ${features}`)
-
-  if (hot) {
+  if (serviceName === 'assets') {
     console.info('webpack building...')
   }
 

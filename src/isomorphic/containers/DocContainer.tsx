@@ -1,71 +1,54 @@
 import React, { Component } from 'react'
-import withSideEffect from 'react-side-effect'
 import _ from 'lodash'
-
-const defaultTitle = 'Readr'
+import Helmet from 'react-helmet'
+import BodyClass from './BodyClass'
 
 interface Props {
   className?: string
   styleName?: string
   bodyClass?: string
-  title?: string
-  useAsMasterTitle?: boolean
+
+  // from helmet
+  head: {
+    base?: any
+    defaultTitle?: string
+    htmlAttributes?: any
+    title?: string
+    link?: Array<any>
+    meta?: Array<any>
+    script?: Array<any>
+    style?: Array<any>
+    titleTemplate?: string
+    onChangeClientState?: (newState: any) => void
+  }
 }
 
-@withSideEffect(
-  reducePropsToState,
-  handleStateChangeOnClient
-)
-class DocContainer extends Component<Props, {}> {
+class DocContainer extends Component<Props, void> {
+
+  static rewind: () => {
+    bodyClass: string
+    head: object
+  }
+
   render() {
-    const { className } = this.props
+    const { bodyClass } = this.props
 
     return (
-      className
-        ? (
-          <div className={'gb-doc-container' + className}>
-            {this.props.children}
-          </div>
-        )
-        : <div className="gb-doc-container">{this.props.children}</div>
+      <div className={'gb-doc-container'}>
+        <Helmet {...this.props.head} />
+        <BodyClass className={bodyClass}>{this.props.children}</BodyClass>
+      </div>
     )
   }
 }
 
-function reducePropsToState(propsList) {
-  const innermostProps = propsList[propsList.length - 1]
-  let data: any = {}
+DocContainer.rewind = () => {
+  const bodyClass = BodyClass.rewind()
+  const head = Helmet.rewind()
 
-  if (innermostProps) {
-    data = _.pick(innermostProps, ['title', 'bodyClass'])
-    if (data.title && !innermostProps.useAsMasterTitle) {
-      data.title = `${data.title} | ${defaultTitle}`
-    } else {
-      data.title = data.title || defaultTitle
-    }
-  }
-
-  data.bodyClass = propsList
-    .filter(prop => prop.bodyClass)
-    .map(prop => prop.bodyClass)
-    .join(' ')
-
-  return data
-}
-
-function handleStateChangeOnClient(propList) {
-  const { title, bodyClass } = propList
-
-  if (typeof bodyClass !== 'undefined') {
-    document.body.className = bodyClass
-  } else {
-    document.body.removeAttribute('class')
-  }
-
-  if (typeof title !== 'undefined') {
-    document.title = title
-  } else {
-    document.title = defaultTitle
+  return {
+    head,
+    bodyClass
   }
 }
 

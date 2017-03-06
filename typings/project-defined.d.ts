@@ -32,19 +32,37 @@ type FetchDataOptions = {
  * App config file
  */
 
+// interface AppConfig {
+//   api: {
+//     prefix: string
+//   },
+//   database: {
+//     host: string
+//     name: string
+//     mongoStoreName: string
+//   },
+//   siteUrl: string
+//   port: number,
+//   enableEntityCache: boolean
+// }
+
 interface AppConfig {
   api: {
     prefix: string
   },
   database: {
-    host: string
-    name: string
+    host: string,
+    name: string,
     mongoStoreName: string
   },
-  siteUrl: string
-  port: number,
+  siteUrl: string,
+  siteName: string,
+  apiPort: number,
+  assetsPort: number,
+  pagesPort: number,
   enableEntityCache: boolean
 }
+
 
 /**
  * Viewer components & data types
