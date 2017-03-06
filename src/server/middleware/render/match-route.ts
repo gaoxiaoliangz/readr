@@ -1,12 +1,12 @@
 import { match } from 'react-router'
 import _ from 'lodash'
-import makeRoutes from '../../../isomorphic/routes/makeRoutes'
+import createRoutes from '../../../isomorphic/routes/createRoutes'
 
 function matchRoute(req, res, next) {
   match(
     {
       history: req.locals.history,
-      routes: makeRoutes(),
+      routes: createRoutes(),
       location: req.url
     },
     (error, redirectLocation, renderProps) => {

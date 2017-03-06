@@ -1,34 +1,60 @@
 {
-  "version": "0.2.0",
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.1.0",
   "configurations": [
     {
-      "name": "启动服务端开发环境",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/index.js",
-      "stopOnEntry": false,
-      "args": [],
+      "name": "Serve pages in production",
+      "program": "${workspaceRoot}/src/server/index.ts",
       "cwd": "${workspaceRoot}",
-      "preLaunchTask": null,
-      "runtimeExecutable": null,
-      "runtimeArgs": [
-        "--nolazy"
+      "sourceMaps": true,
+      "args": [
+        "--serve=pages",
+        "--production"
       ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "externalConsole": false,
-      "sourceMaps": false,
-      "outDir": null
+      "outFiles": [
+        "${workspaceRoot}/build/bin/index.js",
+        "${workspaceRoot}/build/bin/**/*.js"
+      ]
     },
     {
-      "name": "附加调试",
+      "type": "node",
+      "request": "launch",
+      "name": "Serve pages in development",
+      "program": "${workspaceRoot}/src/server/index.ts",
+      "cwd": "${workspaceRoot}",
+      "sourceMaps": true,
+      "args": [
+        "--serve=pages"
+      ],
+      "outFiles": [
+        "${workspaceRoot}/build/bin/index.js",
+        "${workspaceRoot}/build/bin/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Serve api in development",
+      "program": "${workspaceRoot}/src/server/index.ts",
+      "cwd": "${workspaceRoot}",
+      "sourceMaps": true,
+      "args": [
+        "--serve=api"
+      ],
+      "outFiles": [
+        "${workspaceRoot}/build/bin/index.ts",
+        "${workspaceRoot}/build/bin/**/*.js"
+      ]
+    },
+    {
       "type": "node",
       "request": "attach",
-      "port": 5858,
-      "address": "localhost",
-      "restart": true,
-      "sourceMaps": true
+      "name": "附加到进程",
+      "port": 5858
     }
   ]
 }

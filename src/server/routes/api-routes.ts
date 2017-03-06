@@ -1,9 +1,9 @@
 import express from 'express'
-import middleware from '../middleware'
 import _ from 'lodash'
+import multer from 'multer'
 import * as endpoints from '../endpoints'
 import { ROLES } from '../../isomorphic/constants/common'
-import multer from 'multer'
+import middleware from '../middleware'
 
 const FORM_DATA_FILE_KEY = 'file'
 const upload = multer()
@@ -85,6 +85,7 @@ function apiRoutes() {
 export default function setupApiApp() {
   const apiApp = express()
 
+  apiApp.use(middleware.setHeader)
   apiApp.use(apiRoutes())
   apiApp.use(middleware.handleApiNotFound)
   apiApp.use(middleware.handleJSONResponse)

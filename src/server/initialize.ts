@@ -18,9 +18,8 @@ const PUBLIC_DIR = 'build/static'
 const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
 const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = path.join(appConfig.database.host, appConfig.database.mongoStoreName)
-
-console.log(MONGO_STORE_URL);
+// resolve url
+const MONGO_STORE_URL = appConfig.database.host + '/' + appConfig.database.mongoStoreName
 
 interface InitConfig {
   basePath: string
