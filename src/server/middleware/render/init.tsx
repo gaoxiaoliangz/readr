@@ -27,7 +27,7 @@ import configureStore from '../../../isomorphic/store/configureStore'
 export default function init(req, res, next) {
   const memoryHistory = createMemoryHistory(req.url)
   const store = configureStore()
-  const history = syncHistoryWithStore(memoryHistory, store)
+  const history = syncHistoryWithStore(memoryHistory as any, store)
   req.locals = {}
   req.locals.history = history
   req.locals.store = store

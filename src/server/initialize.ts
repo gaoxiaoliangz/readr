@@ -9,7 +9,6 @@ import render from './middleware/render'
 import bootServer from './bootstrap'
 import appConfig from '../app.config'
 import routes from './routes'
-// import render, { render500 } from './render'
 
 const MongoStore = connectMongo(session)
 const app = express()
@@ -18,12 +17,12 @@ const PUBLIC_DIR = 'build/static'
 const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
 const REQ_SIZE_LIMIT = '5mb'
-// resolve url
+// todo: resolve url
 const MONGO_STORE_URL = appConfig.database.host + '/' + appConfig.database.mongoStoreName
 
 interface InitConfig {
   basePath: string
-  serviceName: 'assets' | 'api' | 'pages'
+  serviceName: 'api' | 'pages'
   isProduction: boolean
 }
 

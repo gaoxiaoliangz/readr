@@ -4,7 +4,7 @@ import print from './utils/print'
 
 interface BootstrapConfig {
   port?: number
-  serviceName: 'assets' | 'api' | 'pages'
+  serviceName: 'api' | 'pages'
   isProduction: boolean
 }
 
@@ -16,10 +16,6 @@ export default function bootstrap(app, config: BootstrapConfig) {
   switch (serviceName) {
     case 'api':
       portInConfigFile = appConfig.apiPort
-      break
-
-    case 'assets':
-      portInConfigFile = appConfig.assetsPort
       break
 
     case 'pages':
@@ -36,10 +32,6 @@ export default function bootstrap(app, config: BootstrapConfig) {
   server.listen(port)
 
   print.info(`Service[${serviceName}] running in ${isProduction ? 'production' : 'development'} at port ${port}`)
-
-  if (serviceName === 'assets') {
-    console.info('webpack building...')
-  }
 
   return app
 }

@@ -100,7 +100,7 @@ class Model {
     })
   }
 
-  listRaw(options: ListRawOptions = {}): Promise<any[]> {
+  listRaw(options: ListRawOptions = {}) {
     const { filter, mapping, query } = options
 
     return this.list({
@@ -109,7 +109,7 @@ class Model {
       filter,
       mapping,
       query: query || {}
-    })
+    }) as any as Promise<any[]>
   }
 
   add(data): any {
