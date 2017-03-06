@@ -1,4 +1,4 @@
-@import "styles/_variables";
+@import "~styles/variables";
 
 $width: 134px;
 
@@ -55,7 +55,7 @@ $width: 134px;
   width: $width;
   height: 184px;
   top: 0;
-  background: url("assets/img/shadow.png") no-repeat top;
+  background: url(./shadow.png) no-repeat top;
   transition: all 0.2s ease 0s;
   position: relative;
   

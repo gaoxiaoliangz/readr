@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Props as InputProps } from '../Input/Input'
 import CSSModules from 'react-css-modules'
-const styles = require('./Textarea.css')
+const styles = require('./Textarea.scss')
 
 export interface Props extends InputProps {
 }

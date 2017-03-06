@@ -1,4 +1,4 @@
-import md5 from '../../vendor_modules/md5'
+import md5 from '../../../vendor_modules/md5'
 import _ from 'lodash'
 
 export function createCacheId(identifier: any) {

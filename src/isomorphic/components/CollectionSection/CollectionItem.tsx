@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
-const styles: any = require('./Collection.css')
+const styles = require('./Collection.scss')
 
 export interface ICollectionEntity {
   cover?: string

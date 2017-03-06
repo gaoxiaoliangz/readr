@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-const styles = require('./Logo.css')
+import styles from './Logo.scss'
 
 type TProps = {
   children?: any

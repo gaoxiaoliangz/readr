@@ -1,7 +1,7 @@
-@import "styles/_variables.scss";
-@import "styles/mixins/hover";
-@import "styles/mixins/border-radius";
-@import "./_button.mixin.scss";
+@import "~styles/variables";
+@import "~styles/mixins/hover";
+@import "~styles/mixins/border-radius";
+@import "button.mixin";
 
 $btn_blue: $blue;
 $btn_orange: rgb(238, 147, 51);

@@ -1,19 +1,17 @@
-:root {
-  --branding-height: 60px;
-}
+$branding-height: 60px;
 
 .logo-wrap {
   margin: 0;
-  line-height: var(--branding-height);
+  line-height: $branding-height;
   color: #fff;
   margin-top: -3px;
   display: inline-block;
 }
 
 .logo {
-  background: url(assets/img/logo.png) no-repeat left;
+  background: url(./logo.png) no-repeat left;
   width: 70px;
-  height: var(--branding-height);
+  height: $branding-height;
   background-size: 70px;
   text-indent: -999em;
   display: inline-block;
@@ -21,6 +19,6 @@
 
 .logo--dark {
   composes: logo;
-  background: url(assets/img/logo-dark.png) no-repeat left;
+  background: url(./logo-dark.png) no-repeat left;
   background-size: 70px;
 }

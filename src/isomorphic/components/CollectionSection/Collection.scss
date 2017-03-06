@@ -1,24 +1,24 @@
-@import "styles/variables.css";
+@import "~styles/variables";
 
-:root {
-  --cover-size: 100px;
-  --light-link: {
-    color: #fff;
+$cover-size: 100px;
 
-    &:hover {
-      color: #ddd;
-    }
-  };
-  --dark: {
-    color: var(--text);
-  };
-}
+%light-link {
+  color: #fff;
+
+  &:hover {
+    color: #ddd;
+  }
+};
+
+%dark {
+  color: $text;
+};
 
 .item {
   width: 100%;
   min-height: 200px;
   position: relative;
-  border-bottom: 1px solid color(var(--dark-blue) l(- 10%));
+  border-bottom: 1px solid lighten($dark-blue, 10%);
   padding: 0 0 30px 0;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .section {
-  background: var(--dark-blue);
+  background: $dark-blue;
   overflow: hidden;
   margin: 40px 0;
 }
@@ -44,7 +44,7 @@
 
     & img {
       max-width: 70px;
-      box-shadow: var(--shadow-y1);
+      box-shadow: $shadow-y1;
       overflow: hidden;
       border-radius: 3px;
     }
@@ -58,7 +58,7 @@
 }
 
 .link {
-  @apply --light-link;
+  @extend %light-link;
 }
 
 .desc {
@@ -67,7 +67,7 @@
 }
 
 .title {
-  @apply --page-title;
+  @extend %page-title;
   color: #fff;
 }
 
@@ -84,17 +84,17 @@
 /* style 2 */
 .item--dark {
   composes: item;
-  border-color: var(--gray);
+  border-color: $gray;
 
   & .link {
-    color: var(--text-dark);
+    color: $text-dark;
 
     &:hover {
-      color: var(--text);
+      color: $text;
     }
   }
 
   & .desc {
-    @apply --dark;
+    @extend %dark;
   }
 }

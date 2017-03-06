@@ -1,4 +1,4 @@
-@import "styles/variables.css";
+@import "~styles/variables";
 
 .textarea-wrap {
   margin: 10px 0;
@@ -8,12 +8,12 @@
 .textarea {
   width: 100%;
   padding: 5px;
-  border: 1px solid var(--gray);
+  border: 1px solid $gray;
   outline: none;
   height: 100px;
   transition: border-color .3s;
 }
 
 .textarea:focus {
-  border-color: var(--blue);
+  border-color: $blue;
 }

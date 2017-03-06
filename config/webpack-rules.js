@@ -29,14 +29,16 @@ module.exports = {
   },
 
   ts({ officialLoader, isHot } = {}) {
-    const tsLoader = officialLoader ? 'ts' : 'awesome-typescript'
+    const tsLoader = officialLoader ? 'ts-loader' : 'awesome-typescript-loader'
     const babel = isHot
-      ? 'babel?plugins=react-hot-loader/babel'
-      : 'babel'
+      ? 'babel-loader?plugins=react-hot-loader/babel'
+      : {
+        loader: 'babel-loader'
+      }
 
     return {
       test: /\.tsx?$/,
-      loaders: [babel, `${tsLoader}`]
+      use: [babel, tsLoader]
     }
   },
 

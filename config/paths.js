@@ -67,7 +67,7 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/isomorphic/index.jsx'),
+  appIndexJs: resolveApp('src/isomorphic/index.tsx'),
   appPackageJson: resolveApp('package.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveApp('src/setupTests.js'),

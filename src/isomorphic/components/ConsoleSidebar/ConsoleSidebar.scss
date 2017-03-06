@@ -1,16 +1,14 @@
-@import "styles/variables.css";
+@import "~styles/variables";
 
-:root {
-  --nav-root-width: 80px;
-  --item-line-height: 50px;
-}
+$nav-root-width: 80px;
+$item-line-height: 50px;
 
 .sidebar-left {
   position: fixed;
   left: 0;
-  top: var(--branding-height);
+  top: $branding-height;
   height: 100%;
-  width: var(--sidebar-width);
+  width: $sidebar-width;
   background: #E4E4E4;
 }
 
@@ -22,7 +20,7 @@
 
 .nav-side-root {
   composes: nav-side;
-  width: var(--nav-root-width);
+  width: $nav-root-width;
   background: #04082E;
 }
 
@@ -33,20 +31,20 @@
 
 .nav-side-sub {
   composes: nav-side;
-  width: calc(var(--sidebar-width) - var(--nav-root-width));
-  left: var(--nav-root-width);
+  width: $sidebar-width - $nav-root-width;
+  left: $nav-root-width;
 }
 
 /* item */
 .nav-item {
-  height: var(--item-line-height);
-  line-height: var(--item-line-height);
+  height: $item-line-height;
+  line-height: $item-line-height;
 
   & a {
     display: block;
     padding: 0 15px;
     color: #fff;
-    height: var(--item-line-height);
+    height: $item-line-height;
   }
 }
 
@@ -59,22 +57,22 @@
   text-align: center;
 
   & a:hover {
-    background: color(var(--dark-blue) l(+ 10%));
+    background: darken($dark-blue, 10%);
   }
 }
 
 .root-item--current {
   composes: root-item;
-  background: var(--blue);
+  background: $blue;
 }
 
 .sub-item {
   composes: nav-item;
 
-  & a {
-    color: var(--text);
+  a {
+    color: $text;
   }
-  & a:hover {
+  a:hover {
     background: gray(200);
   }
 }
@@ -82,9 +80,9 @@
 .sub-item--current {
   composes: sub-item;
 
-  & a,
-  & a:hover {
-    color: var(--blue);
+  a,
+  a:hover {
+    color: $blue;
     background: #fff;
   }
 }

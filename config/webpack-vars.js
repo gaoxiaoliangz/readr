@@ -41,6 +41,6 @@ module.exports = {
     modules: [
       'node_modules'
     ],
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   }
 }
