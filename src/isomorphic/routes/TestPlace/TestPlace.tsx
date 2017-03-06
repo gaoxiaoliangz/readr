@@ -32,15 +32,7 @@ function mapStateToProps(state) {
 //   }
 // }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-  // mapDispatchToProps
-  // { actions: _.assign({}, actions) }
-)
-export default class TestPlace extends Component<AllProps, LocalState> {
+class TestPlace extends Component<AllProps, LocalState> {
 
   constructor(props) {
     super(props)
@@ -61,3 +53,12 @@ export default class TestPlace extends Component<AllProps, LocalState> {
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+  // mapDispatchToProps
+  // { actions: _.assign({}, actions) }
+)(TestPlace)

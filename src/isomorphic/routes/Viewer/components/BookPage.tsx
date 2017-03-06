@@ -31,14 +31,14 @@ const renderers = {
   }
 }
 
-interface Props {
+interface OwnProps {
   page: TBookPage
   pageHeight?: number
   fluid: boolean
   active?: boolean
 }
 
-interface AllProps extends Props {
+interface StateProps {
   fontSize?: number
   theme?: string
   isScrollMode?: boolean
@@ -50,16 +50,10 @@ const mapStateToProps = (state, ownProps) => {
   return { fontSize, theme, isScrollMode }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
 @CSSModules(styles, {
   allowMultiple: true
 })
-export default class BookPage extends Component<AllProps, {}> {
+class BookPage extends Component<OwnProps & StateProps, {}> {
 
   bookPageDom: HTMLDivElement
 
@@ -123,3 +117,10 @@ export default class BookPage extends Component<AllProps, {}> {
     )
   }
 }
+
+export default connect<StateProps, {}, OwnProps>(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(BookPage)

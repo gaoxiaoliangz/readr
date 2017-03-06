@@ -29,7 +29,7 @@ function renderHtml(config?: RenderConfig): any {
   const { reqUrl, routes, isProd, fetchData, isHot, userSession } = config
   const memoryHistory = createMemoryHistory(reqUrl)
   const store = configureStore()
-  const history = syncHistoryWithStore(memoryHistory, store)
+  const history = syncHistoryWithStore(memoryHistory as any, store)
 
   return matchRoute(routes, reqUrl, history).then(result => {
     const { renderProps, redirectLocation, statusCode } = result

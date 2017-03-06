@@ -18,7 +18,7 @@ interface LocalState {
   showPageInfo?: boolean
 }
 
-interface AllProps extends Props {
+interface OtherProps {
   bookId?: string
   book?: {
     title: string
@@ -67,13 +67,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
-export default class ViewerContainer extends Component<AllProps, LocalState> {
+class ViewerContainer extends Component<Props & OtherProps, LocalState> {
 
   resizeLazily: typeof _.debounce
 
@@ -199,3 +193,10 @@ export default class ViewerContainer extends Component<AllProps, LocalState> {
     )
   }
 }
+
+export default connect<OtherProps, {}, Props>(
+  mapStateToProps as any,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(ViewerContainer)

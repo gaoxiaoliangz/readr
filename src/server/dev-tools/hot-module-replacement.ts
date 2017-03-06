@@ -5,7 +5,7 @@ const webpackDevMiddleware: any = require('webpack-dev-middleware')
 const webpackHotMiddleware: any = require('webpack-hot-middleware')
 
 export default function hotModuleReplacement() {
-  const compiler = webpack(webpackConfig)
+  const compiler = webpack(webpackConfig as any)
 
   return combineMiddleware([
     webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }),

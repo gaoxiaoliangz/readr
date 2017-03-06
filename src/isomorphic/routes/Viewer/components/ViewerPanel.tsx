@@ -12,9 +12,7 @@ import * as selectors from '../../../store/selectors'
 import isDescendant from '../../../utils/dom/isDescendant'
 const styles = require('./ViewerPanel.scss')
 
-interface Props { }
-
-interface AllProps extends Props {
+interface AllProps {
   showPanel?: boolean
   showPreference?: boolean
   showNavigation?: boolean
@@ -34,14 +32,8 @@ const mapStateToProps = (state, ownProps) => {
   return { config, showPanel, showPreference, title, showNavigation }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
 @CSSModules(styles)
-export default class ViewerPanel extends Component<AllProps, void> {
+class ViewerPanel extends Component<AllProps, void> {
 
   nav: HTMLDivElement
   pref: HTMLDivElement
@@ -141,3 +133,10 @@ export default class ViewerPanel extends Component<AllProps, void> {
     )
   }
 }
+
+export default connect<AllProps, {}, {}>(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(ViewerPanel)

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import md5 from '../../../vendor_modules/md5'
+// import md5 from '../../../../vendor_modules/md5'
 
 const SUCCESS = 'SUCCESS'
 

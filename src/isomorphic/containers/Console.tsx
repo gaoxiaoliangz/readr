@@ -76,7 +76,7 @@ class Console extends Component<Props, {}> {
   }
 }
 
-export default connect(
+export default connect<{}, {}, {}>(
   state => ({
     notifications: state.components.notifications,
     session: state.session,
