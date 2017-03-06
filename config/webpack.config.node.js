@@ -28,6 +28,7 @@ module.exports = {
     rules: [
       rules.img({ emitFile: false }),
       rules.js(),
+      rules.ts({ officialLoader: false }),
       rules.scssLocal({ isomorphic: true, extract: false }),
       rules.css({ isomorphic: true })
     ]

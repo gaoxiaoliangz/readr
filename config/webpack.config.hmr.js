@@ -57,7 +57,7 @@ const config = {
       rules.css({ extract: true, global: false, isomorphic: false }),
       // rules.lint(),
       rules.js(),
-      rules.ts({ officialLoader: true, isHot: true }),
+      rules.ts({ officialLoader: true }),
     ]
   },
   resolve: vars.resolve

@@ -28,17 +28,12 @@ module.exports = {
     }
   },
 
-  ts({ officialLoader, isHot } = {}) {
+  ts({ officialLoader } = {}) {
     const tsLoader = officialLoader ? 'ts-loader' : 'awesome-typescript-loader'
-    const babel = isHot
-      ? 'babel-loader?plugins=react-hot-loader/babel'
-      : {
-        loader: 'babel-loader'
-      }
 
     return {
       test: /\.tsx?$/,
-      use: [babel, tsLoader]
+      use: ['babel-loader', tsLoader]
     }
   },
 

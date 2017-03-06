@@ -8,8 +8,12 @@ interface Props {
   styleName?: string
   bodyClass?: string
 
+  // shortcut for head
+  // override title in head
+  title?: string
+
   // from helmet
-  head: {
+  head?: {
     base?: any
     defaultTitle?: string
     htmlAttributes?: any
@@ -31,11 +35,17 @@ class DocContainer extends Component<Props, void> {
   }
 
   render() {
-    const { bodyClass } = this.props
+    const { bodyClass, title, head } = this.props
+    const helmetProps = {
+      ...head,
+      ...{
+        title
+      }
+    }
 
     return (
       <div className={'gb-doc-container'}>
-        <Helmet {...this.props.head} />
+        <Helmet {...helmetProps} />
         <BodyClass className={bodyClass}>{this.props.children}</BodyClass>
       </div>
     )
