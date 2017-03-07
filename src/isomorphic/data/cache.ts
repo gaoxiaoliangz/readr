@@ -1,5 +1,5 @@
-import md5 from '../../../vendor_modules/md5'
 import _ from 'lodash'
+import md5 from 'vendor/md5'
 
 export function createCacheId(identifier: any) {
   if (_.isEmpty(identifier)) {

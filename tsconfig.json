@@ -14,8 +14,7 @@
     "node_modules"
   ],
   "include": [
-    "src/**/*",
-    "typings",
-    "vendor_modules"
+    "src",
+    "typings"
   ]
 }

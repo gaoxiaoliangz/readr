@@ -22,6 +22,6 @@ options, data, id, response, error
 	✔ make tests work @done (March 7th 2017, 19:10)
 	✔ summarize built files @done (March 7th 2017, 15:19)
 	✔ categorize css, js and media files @done (March 7th 2017, 14:43)
-	☐ vendor_modules
+	✔ vendor_modules @done (March 7th 2017, 22:39)
 
 to be continued...

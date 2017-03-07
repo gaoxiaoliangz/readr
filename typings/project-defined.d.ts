@@ -1,7 +1,6 @@
 /**
  * General types
  */
-
 type TNotification = 'success' | 'error' | 'warning' | 'ongoing'
 
 type RequestTypes = {
@@ -31,21 +30,6 @@ type FetchDataOptions = {
 /**
  * App config file
  */
-
-// interface AppConfig {
-//   api: {
-//     prefix: string
-//   },
-//   database: {
-//     host: string
-//     name: string
-//     mongoStoreName: string
-//   },
-//   siteUrl: string
-//   port: number,
-//   enableEntityCache: boolean
-// }
-
 interface AppConfig {
   api: {
     prefix: string
@@ -63,11 +47,9 @@ interface AppConfig {
   enableEntityCache: boolean
 }
 
-
 /**
  * Viewer components & data types
  */
-
 type TBookPage = {
   nodes: string[]
   meta?: {
@@ -99,20 +81,4 @@ interface ViewerConfig {
   pageHeight?: number
   fontSize?: number
   theme?: string
-}
-
-
-/**
- * special file types
- * https://github.com/Microsoft/TypeScript/wiki/What's-new-in-TypeScript#wildcard-character-in-module-names
- */
-
-declare module '*.scss' {
-  const content: any;
-  export default content;
-}
-
-declare module '*.json' {
-  const content: any;
-  export default content;
 }
