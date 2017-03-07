@@ -30,6 +30,30 @@ const useYarn = fs.existsSync(paths.yarnLockFile)
 const cli = useYarn ? 'yarn' : 'npm'
 const isInteractive = process.stdout.isTTY
 
+const htmlString = `
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link href="/static/css/base.global.css" rel="stylesheet" />
+  <link href="/static/css/vendor.global.css" rel="stylesheet" />
+  <link href="/static/css/modifiers.global.css" rel="stylesheet" />
+  <link href="/static/css/app.css" rel="stylesheet" />
+  <title>universal-typescript-react-starter</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script src="/js/vendor.dll.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+
+</html>
+`
+
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1)
@@ -245,7 +269,7 @@ function runDevServer(host, port, protocol) {
     // for files like `favicon.ico`, `manifest.json`, and libraries that are
     // for some reason broken when imported through Webpack. If you just want to
     // use an image, put it in `src` and `import` it from JavaScript instead.
-    contentBase: [paths.appPublic, paths.appBuild],
+    contentBase: paths.buildStatic,
     // Enable hot reloading server. It will provide /sockjs-node/ endpoint
     // for the WebpackDevServer client so it can learn when the files were
     // updated. The WebpackDevServer client is included as an entry point
@@ -265,7 +289,14 @@ function runDevServer(host, port, protocol) {
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
-    host
+    host,
+
+    // access to express
+    setup(app) {
+      app.get('/', (req, res) => {
+        res.send(htmlString)
+      })
+    }
   })
 
   // Our custom middleware proxies requests to /index.html or a remote API.
@@ -310,7 +341,7 @@ detect(DEFAULT_PORT).then(port => {
     const question =
       chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.' +
         ((existingProcess) ? ' Probably:\n  ' + existingProcess : '')) +
-        '\n\nWould you like to run the app on another port instead?'
+      '\n\nWould you like to run the app on another port instead?'
 
     prompt(question, true).then(shouldChangePort => {
       if (shouldChangePort) {

@@ -30,7 +30,7 @@ const config = {
   },
   output: {
     path: paths.appBuild,
-    filename: '[name].js',
+    filename: 'js/[name].js',
     publicPath: paths.publicPath
   },
   plugins: [
@@ -45,7 +45,7 @@ const config = {
     }),
 
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: 'css/[name].css',
       disable: false,
       allChunks: true
     }),
