@@ -3,7 +3,8 @@
   "version": "0.9.2",
   "private": true,
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "npm run dev:fe",
+    "dev:fe": "npm run serve:api & node scripts/start.js",
     "serve": "npm run serve:api",
     "serve:api": "nodemon build/bin --serve=api",
     "serve:pages": "nodemon build/bin --serve=pages",
@@ -16,6 +17,7 @@
     "clean:bin": "node scripts/clean.js -f=build/bin",
     "clean:static": "node scripts/clean.js -f=build/static",
     "lint": "eslint src",
+    "pretest": "tsc --watch",
     "test": "jest --no-cache --watchAll --config=jestrc.json",
     "deploy": "npm run clean && npm run clean:deploy && npm run build",
     "postdeploy": "gulp copy"

@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     path: paths.buildStatic,
-    filename: '[name].dll.js',
+    filename: 'js/[name].dll.js',
     library: '__dll_[name]__'
   },
   plugins: [
