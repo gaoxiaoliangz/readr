@@ -1,9 +1,11 @@
 const webpack = require('webpack')
 const path = require('path')
+const fs = require('fs')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const rules = require('./webpack-rules')
 const paths = require('./paths')
 const vars = require('./webpack-vars')
+const dllVendorManifest = require('../build/static/dll.vendor.manifest.json')
 
 const config = {
   entry: {
@@ -46,6 +48,11 @@ const config = {
       filename: '[name].css',
       disable: false,
       allChunks: true
+    }),
+
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: dllVendorManifest
     })
   ],
   devtool: 'inline-source-map',

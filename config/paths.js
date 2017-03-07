@@ -79,8 +79,10 @@ module.exports = {
 
   // additional
   appRoot: resolveApp('./'),
+  config: resolveApp('config'),
   appSrc: resolveApp('src'),
   buildStatic: resolveApp('build/static'),
+  buildBin: resolveApp('build/bin'),
   isomorphicSrc: resolveApp('src/isomorphic'),
   stylesSrc: resolveApp('src/styles'),
   serverSrc: resolveApp('src/server'),

@@ -9,7 +9,7 @@ module.exports = {
     index: ['babel-polyfill', paths.serverSrc]
   },
   output: {
-    path: `${paths.appBuild}/bin`,
+    path: paths.buildBin,
     filename: '[name].js',
     libraryTarget: 'commonjs2',
 

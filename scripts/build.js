@@ -1,21 +1,21 @@
 /**
  * args
+ * targetName (node, assets, dll)
  * -w, --watch
- * --target=targetName (node, assets)
  */
 
-const webpack = require('webpack')
+const webpack = require('webpack') // eslint-disable-line
 const chalk = require('chalk') // eslint-disable-line
 const minimist = require('minimist')
 const moment = require('moment')
+const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles') // eslint-disable-line
+const path = require('path')
+const paths = require('../config/paths')
 
-// require('./utils/env')
-
-const TARGETS = ['node', 'assets']
-
+// const targetsToBuild = ['node', 'assets']
+const defaultBuildTargets = ['node', 'dll']
 const argv = minimist(process.argv.slice(2))
 const isWatching = argv.w || argv.watch
-// const env = (argv.p || argv.production) ? 'production' : 'development'
 
 if (argv.target === 'assets') {
   process.env.NODE_ENV = 'production'
@@ -26,31 +26,21 @@ function printErrors(summary, errors) {
   console.info(chalk.red(summary))
   console.info()
   errors.forEach(err => {
-    // new version of loader seems to output the right error info
-    // this may be removed in the future
-    // const file = _.get(err, ['module', 'context'])
-    // console.info(file)
-
     console.info(err.message || err)
     console.info()
   })
 }
 
 function getWebpackConfig(target) {
-  let wpConfig
-  switch (target) {
-    case 'node':
-      wpConfig = require('../config/webpack.config.node')
-      break
+  const absolutePath = path.join(paths.config, `webpack.config.${target}.js`)
+  const doesExist = checkRequiredFiles([absolutePath])
 
-    case 'assets':
-      wpConfig = require('../config/webpack.config.assets')
-      break
-
-    default:
-      wpConfig = null
+  if (doesExist) {
+    return require(absolutePath) // eslint-disable-line
   }
-  return wpConfig
+
+  process.exit(0)
+  return null
 }
 
 function build(target, cb) {
@@ -113,7 +103,7 @@ function build(target, cb) {
 
     compiler.plugin('invalid', () => {
       startCompilingTime = new Date().valueOf()
-      console.info('Compiling...')
+      console.info(`Compiling ${target}...`)
     })
   } else {
     compiler.run(handleCompilerCb())
@@ -123,21 +113,28 @@ function build(target, cb) {
 }
 
 function runTasks(handler, tasks, taskIndex = 0) {
+  if (taskIndex === 0 && tasks.length !== 1) {
+    console.info(`🚀 Starting ${tasks.length} tasks(${tasks.join(', ')})...`)
+    console.info()
+  }
   if (taskIndex <= tasks.length - 1) {
     handler.call(null, tasks[taskIndex], () => {
       runTasks(handler, tasks, taskIndex + 1)
     })
-  } else {
+  } else if (tasks.length !== 1) {
     console.info(chalk.green('🎉 Tasks complete!'))
   }
 }
 
-function handleBuild() {
-  if (argv.target) {
-    build(argv.target)
+function handleBuild(targets) {
+  const targetsToBuild = targets.length === 0 ? defaultBuildTargets : targets
+
+  if (!isWatching) {
+    runTasks(build, targetsToBuild)
   } else {
-    console.info('🚀 Building start...')
-    runTasks(build, TARGETS)
+    targetsToBuild.forEach(t => {
+      build(t)
+    })
   }
 }
 
@@ -149,4 +146,4 @@ function handleBuild() {
 //   });
 // }
 
-handleBuild()
+handleBuild(argv._)

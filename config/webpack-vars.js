@@ -2,9 +2,7 @@ const paths = require('./paths')
 
 module.exports = {
   cssLocalIdentName: '[local]_[hash:base64:5]',
-
   mediaFilename: 'media/[name].[hash:10].[ext]',
-
   vendorLibs: [
     // react
     'react',
@@ -32,7 +30,10 @@ module.exports = {
     'marked',
     'moment'
   ],
-
+  devLibs: [
+    'redux-devtools-log-monitor',
+    'redux-devtools-dock-monitor',
+  ],
   resolve: {
     alias: {
       styles: paths.stylesSrc,
