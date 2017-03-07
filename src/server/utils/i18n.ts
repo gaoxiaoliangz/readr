@@ -2,9 +2,8 @@
  * referenced ghost i18n.js, it's a simplified version
  * and I used js to store local translations instead of json
  */
-
-import cnTranslations from '../translations/cn'
 import _ from 'lodash'
+import cnTranslations from '../translations/cn'
 
 function addPadding(str) {
   if (!str) {

@@ -1,4 +1,5 @@
-test/*
-public/*
-__production__/**/**
-bin/**/**
+tests
+public
+__production__
+vendor_modules
+build

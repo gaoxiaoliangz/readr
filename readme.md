@@ -19,8 +19,9 @@ options, data, id, response, error
 	✔ remove legacy render module @done (March 7th 2017, 14:21)
 	✔ add dll webpack plugin @done (March 7th 2017, 14:21)
 	✔ fix build error @done (March 7th 2017, 14:42)
-	☐ make tests work
+	✔ make tests work @done (March 7th 2017, 19:10)
 	✔ summarize built files @done (March 7th 2017, 15:19)
 	✔ categorize css, js and media files @done (March 7th 2017, 14:43)
+	☐ vendor_modules
 
 to be continued...

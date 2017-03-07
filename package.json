@@ -23,7 +23,7 @@
     "clean:bin": "node scripts/clean.js -f=build/bin",
     "clean:static": "node scripts/clean.js -f=build/static",
     "lint": "eslint src",
-    "jest": "jest --no-cache"
+    "jest": "jest --no-cache --watchAll --config=jestrc.json"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

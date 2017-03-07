@@ -2,6 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "allowJs": false,
     "target": "es2015",
     "jsx": "react",
     "outDir": "build/es",
@@ -10,7 +11,11 @@
     "noImplicitAny": false
   },
   "exclude": [
-    "node_modules",
-    "public"
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*",
+    "typings",
+    "vendor_modules"
   ]
 }
