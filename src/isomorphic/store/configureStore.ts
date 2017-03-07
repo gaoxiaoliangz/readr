@@ -18,33 +18,30 @@ const SERVER_MIDDLEWARES_PROD = [handleServerStore, sagaMiddleware, api, middlew
 const MIDDLEWARES_DEV = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk, createLogger({ collapsed: true })]
 const MIDDLEWARES_PROD = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
 
-const handleStore = (middlewares: any[]) => {
-  return createStore(
-    rootReducer,
-    handleInitialState(),
-    applyMiddleware.apply(null, middlewares)
-  )
-}
-
 export default function configureStore() {
-
-  let store = {} as Redux.Store<{}>
+  let middlewares
 
   if (helpers.isServerEnv()) {
     // server side
     if (process.env.NODE_ENV === 'production') {
-      store = handleStore(SERVER_MIDDLEWARES_PROD)
+      middlewares = SERVER_MIDDLEWARES_PROD
     } else {
-      store = handleStore(SERVER_MIDDLEWARES_DEV)
+      middlewares = SERVER_MIDDLEWARES_DEV
     }
   } else {
     // client side
     if (process.env.NODE_ENV === 'production') {
-      store = handleStore(MIDDLEWARES_PROD)
+      middlewares = MIDDLEWARES_PROD
     } else {
-      store = handleStore(MIDDLEWARES_DEV)
+      middlewares = MIDDLEWARES_DEV
     }
   }
+
+  const store = createStore(
+    rootReducer,
+    handleInitialState(),
+    applyMiddleware.apply(null, middlewares)
+  )
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
@@ -54,8 +51,11 @@ export default function configureStore() {
     })
   }
 
-  store['runSaga'] = sagaMiddleware.run
-  store['close'] = () => store.dispatch(END)
-
-  return store as M_ReduxStore
+  return {
+    ...store,
+    ...{
+      runSaga: sagaMiddleware.run,
+      close: () => store.dispatch(END)
+    }
+  }
 }
