@@ -12,6 +12,7 @@ module.exports = {
     path: paths.buildBin,
     filename: '[name].js',
     libraryTarget: 'commonjs2',
+    chunkFilename: 'chunk.[id].js',
 
     // editor break point support
     devtoolModuleFilenameTemplate: '../../[resource-path]'

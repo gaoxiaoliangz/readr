@@ -18,8 +18,8 @@ module.exports = {
   },
   output: {
     path: paths.buildStatic,
-    filename: '[name].[chunkhash:10].js',
-    chunkFilename: 'chunk.[chunkhash:10].[id].js',
+    filename: 'js/[name].[chunkhash:10].js',
+    chunkFilename: 'js/chunk.[chunkhash:10].[id].js',
     publicPath: paths.publicPath
   },
   plugins: [
@@ -28,7 +28,7 @@ module.exports = {
     }),
 
     new ExtractTextPlugin({
-      filename: '[name].[chunkhash:10].css',
+      filename: 'css/[name].[chunkhash:10].css',
       disable: false,
       allChunks: true
     }),
@@ -58,6 +58,7 @@ module.exports = {
   module: {
     rules: [
       rules.js(),
+      rules.ts({ officialLoader: false }),
       rules.scssLocal({ extract: true, isomorphic: false, sourceMap: false }),
       rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: false }),
       rules.css({ extract: true, isomorphic: false }),

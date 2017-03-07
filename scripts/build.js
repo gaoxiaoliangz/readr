@@ -10,15 +10,23 @@ const minimist = require('minimist')
 const moment = require('moment')
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles') // eslint-disable-line
 const path = require('path')
+const fs = require('fs')
+const _ = require('lodash')
 const paths = require('../config/paths')
 
-// const targetsToBuild = ['node', 'assets']
-const defaultBuildTargets = ['node', 'dll']
+// order matters, node requires manifest file created when building assets
+const defaultBuildTargets = ['assets', 'node']
 const argv = minimist(process.argv.slice(2))
 const isWatching = argv.w || argv.watch
 
 if (argv.target === 'assets') {
   process.env.NODE_ENV = 'production'
+}
+
+function getFilesizeInBytes(filename) {
+  const stats = fs.statSync(filename)
+  const fileSizeInBytes = stats.size
+  return fileSizeInBytes
 }
 
 // Print out errors
@@ -44,9 +52,8 @@ function getWebpackConfig(target) {
 }
 
 function build(target, cb) {
-  let compiler
   let startCompilingTime = new Date().valueOf()
-  const wpConfig = getWebpackConfig(target)
+  const compiler = webpack(getWebpackConfig(target))
 
   const handleCompilerCb = () => (err, stats) => {
     const endTime = new Date().valueOf()
@@ -76,6 +83,16 @@ function build(target, cb) {
 
     if (!err && !stats.compilation.errors.length && !(process.env.CI && stats.compilation.warnings.length)) {
       console.info(chalk.green(`${currentTime} Compiled ${target} successfully, took ${totalTime}s`))
+      console.info()
+      console.info(`Generating file report...`)
+      // print built file size info
+      if (!isWatching) {
+        _.forEach(stats.compilation.assets, (val, key) => {
+          const fileSizeInKB = (getFilesizeInBytes(val.existsAt) / 1000).toFixed(1)
+          console.info(`${key}: ${fileSizeInKB}KB`)
+        })
+      }
+
       if (cb) {
         cb()
       }
@@ -86,13 +103,6 @@ function build(target, cb) {
     console.info(`Watching ${target} changes...`)
   } else {
     console.info(`Creating ${target} build...`)
-  }
-
-  if (wpConfig) {
-    compiler = webpack(wpConfig)
-  } else {
-    console.info('Target undefined!')
-    return false
   }
 
   if (isWatching) {

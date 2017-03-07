@@ -14,12 +14,13 @@
 options, data, id, response, error
 
 ## Todos
-  ☐ remove legacy webpack config
-	☐ remove legacy hmr module
-	☐ remove legacy render module
-	☐ add dll webpack plugin
-	☐ fix build error
+  ✔ remove legacy webpack config @done (March 7th 2017, 14:21)
+	✔ remove legacy hmr module @done (March 7th 2017, 14:21)
+	✔ remove legacy render module @done (March 7th 2017, 14:21)
+	✔ add dll webpack plugin @done (March 7th 2017, 14:21)
+	✔ fix build error @done (March 7th 2017, 14:42)
 	☐ make tests work
-	☐ summarize built files
+	✔ summarize built files @done (March 7th 2017, 15:19)
+	✔ categorize css, js and media files @done (March 7th 2017, 14:43)
 
 to be continued...
