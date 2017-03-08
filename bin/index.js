@@ -4,18 +4,17 @@
  * -p, --production
  * --port=portNum
  */
-const minimist = require('minimist')
+require('dotenv').config()
+
+const minimist = require('minimist') // eslint-disable-line
+const argv = minimist(process.argv.slice(2))
+const isProduction = argv.p || argv.production || process.env.NODE_ENV === 'production'
+
+process.env.NODE_ENV = isProduction ? 'production' : 'development'
+
 const initialize = require('../build/node').default
 
-const argv = minimist(process.argv.slice(2))
-const serviceName = argv.serve
-const isProduction = argv.p || argv.production
 const basePath = process.cwd()
-
-if (isProduction) {
-  process.env.NODE_ENV = 'production'
-} else {
-  process.env.NODE_ENV = 'development'
-}
+const serviceName = argv.serve
 
 initialize({ basePath, isProduction, serviceName })

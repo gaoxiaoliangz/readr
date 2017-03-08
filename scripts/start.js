@@ -1,5 +1,4 @@
 /* eslint-disable no-alert, no-console */
-process.env.NODE_ENV = 'development'
 
 // Load environment variables from .env file. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables
@@ -8,6 +7,8 @@ process.env.NODE_ENV = 'development'
 
 /* eslint-disable */
 require('dotenv').config({ silent: true })
+// Override .env config
+process.env.NODE_ENV = 'development'
 
 const chalk = require('chalk')
 const express = require('express')

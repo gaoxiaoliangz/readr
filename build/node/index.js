@@ -4482,9 +4482,9 @@ var appConfig = {
     },
     siteUrl: 'http://localhost',
     siteName: 'readr',
-    apiPort: 4001,
-    assetsPort: 4000,
-    pagesPort: 4002,
+    apiPort: 3091,
+    assetsPort: 3090,
+    pagesPort: 3000,
     enableEntityCache: false
 };
 var _default = appConfig;
@@ -12154,7 +12154,8 @@ function bootstrap(app, config) {
         isProduction = config.isProduction;
 
     var server = _http2.default.createServer(app);
-    switch (serviceName) {
+    var serviceName2 = serviceName || 'pages';
+    switch (serviceName2) {
         case 'api':
             portInConfigFile = _app2.default.apiPort;
             break;
@@ -12162,12 +12163,12 @@ function bootstrap(app, config) {
             portInConfigFile = _app2.default.pagesPort;
             break;
         default:
-            throw new Error('Port undefined!');
+            throw new Error('serviceName undefined!');
     }
     var port = overidePort || portInConfigFile;
     app.set('port', port);
     server.listen(port);
-    _print2.default.info('Service[' + serviceName + '] running in ' + (isProduction ? 'production' : 'development') + ' at port ' + port);
+    _print2.default.info('Service[' + serviceName2 + '] running in ' + (isProduction ? 'production' : 'development') + ' at port ' + port);
     return app;
 }
 ;

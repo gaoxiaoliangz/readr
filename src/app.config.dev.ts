@@ -9,9 +9,9 @@ const appConfig: AppConfig = {
   },
   siteUrl: 'http://localhost',
   siteName: 'readr',
-  apiPort: 4001,
-  assetsPort: 4000,
-  pagesPort: 4002,
+  apiPort: 3091,
+  assetsPort: 3090,
+  pagesPort: 3000,
   enableEntityCache: false
 }
 

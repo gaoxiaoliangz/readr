@@ -12,8 +12,9 @@ export default function bootstrap(app, config: BootstrapConfig) {
   let portInConfigFile
   const { port: overidePort, serviceName, isProduction } = config
   const server = http.createServer(app)
+  const serviceName2 = serviceName || 'pages'
 
-  switch (serviceName) {
+  switch (serviceName2) {
     case 'api':
       portInConfigFile = appConfig.apiPort
       break
@@ -23,7 +24,7 @@ export default function bootstrap(app, config: BootstrapConfig) {
       break
 
     default:
-      throw new Error('Port undefined!')
+      throw new Error('serviceName undefined!')
   }
 
   const port = overidePort || portInConfigFile
@@ -31,7 +32,7 @@ export default function bootstrap(app, config: BootstrapConfig) {
   app.set('port', port)
   server.listen(port)
 
-  print.info(`Service[${serviceName}] running in ${isProduction ? 'production' : 'development'} at port ${port}`)
+  print.info(`Service[${serviceName2}] running in ${isProduction ? 'production' : 'development'} at port ${port}`)
 
   return app
 }

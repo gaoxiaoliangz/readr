@@ -38,9 +38,13 @@ module.exports = {
   resolve: vars.resolve,
   target: 'node',
   node: {
-    __filename: true,
-    __dirname: true,
-    console: false
+    console: false,
+    global: false,
+    process: false,
+    Buffer: false,
+    __filename: false,
+    __dirname: false,
+    setImmediate: false
   },
   externals: [nodeExternals()]
 }

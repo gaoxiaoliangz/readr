@@ -19,10 +19,6 @@ const defaultBuildTargets = ['static', 'node']
 const argv = minimist(process.argv.slice(2))
 const isWatching = argv.w || argv.watch
 
-if (argv.target === 'static') {
-  process.env.NODE_ENV = 'production'
-}
-
 function getFilesizeInBytes(filename) {
   const stats = fs.statSync(filename)
   const fileSizeInBytes = stats.size
