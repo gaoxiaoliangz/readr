@@ -31,7 +31,7 @@ class DocContainer extends Component<Props, void> {
 
   static rewind: () => {
     bodyClass: string
-    head: object
+    head: Object
   }
 
   render() {

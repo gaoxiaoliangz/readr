@@ -3,8 +3,8 @@ import { INITIAL_STATE } from '../constants/common'
 
 interface Props {
   bodyClass?: string
-  appMarkup: string | object
-  initialState?: object
+  appMarkup: string | JSX.Element
+  initialState?: Object
   helmetHeadObject?: {
     htmlAttributes?
     title?
@@ -30,7 +30,7 @@ interface Props {
     href: string
   } | string)[]
 
-  children?: object
+  children?: Object
 }
 
 const AppDoc = (props: Props) => {

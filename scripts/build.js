@@ -1,6 +1,6 @@
 /**
  * args
- * targetName (node, assets, dll)
+ * targetName (node, static, dll)
  * -w, --watch
  */
 
@@ -14,12 +14,12 @@ const fs = require('fs')
 const _ = require('lodash')
 const paths = require('../config/paths')
 
-// order matters, node requires manifest file created when building assets
-const defaultBuildTargets = ['assets', 'node']
+// order matters, node requires manifest file created when building static
+const defaultBuildTargets = ['static', 'node']
 const argv = minimist(process.argv.slice(2))
 const isWatching = argv.w || argv.watch
 
-if (argv.target === 'assets') {
+if (argv.target === 'static') {
   process.env.NODE_ENV = 'production'
 }
 

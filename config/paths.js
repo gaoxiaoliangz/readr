@@ -2,8 +2,6 @@ const path = require('path')
 const fs = require('fs')
 const url = require('url')
 
-const isProduction = process.env.NODE_ENV === 'production'
-
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd())
@@ -86,6 +84,9 @@ module.exports = {
   isomorphicSrc: resolveApp('src/isomorphic'),
   stylesSrc: resolveApp('src/styles'),
   serverSrc: resolveApp('src/server'),
-  publicPath: isProduction ? '/static/' : 'http://localhost:4000/static/', // for webpack use only
-  vendorModules: resolveApp('vendor_modules')
+  publicPath: '/static/', // for webpack use only
+  vendorModules: resolveApp('vendor_modules'),
+
+  // not so sure about it
+  fullDevPublicPath: 'http://localhost:4000/static/'
 }

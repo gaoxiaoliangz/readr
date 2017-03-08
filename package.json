@@ -6,11 +6,12 @@
     "start": "npm run dev:fe",
     "dev:fe": "node scripts/start.js",
     "serve": "npm run serve:api",
-    "serve:api": "nodemon build/bin --serve=api",
-    "serve:pages": "nodemon build/bin --serve=pages",
+    "serve:api": "nodemon bin --serve=api",
+    "serve:pages": "nodemon bin --serve=pages",
+    "prebuild": "npm run clean",
     "build": "node scripts/build.js",
     "build:node": "node scripts/build.js node",
-    "build:assets": "node scripts/build.js assets",
+    "build:static": "node scripts/build.js static",
     "build:dll": "node scripts/build.js dll",
     "watch:node": "npm run build:node -- --watch",
     "watch:es": "tsc --watch",
@@ -18,9 +19,8 @@
     "clean:bin": "node scripts/clean.js -f=build/bin",
     "clean:static": "node scripts/clean.js -f=build/static",
     "lint": "eslint src",
-    "test": "jest --no-cache --watchAll --config=jestrc.json",
-    "deploy": "npm run clean && npm run clean:deploy && npm run build",
-    "postdeploy": "gulp copy"
+    "tsc": "tsc",
+    "test": "jest --no-cache --watchAll --config=jestrc.json"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

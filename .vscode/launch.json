@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Serve pages in production",
-      "program": "${workspaceRoot}/src/server/index.ts",
+      "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
       "args": [
@@ -16,38 +16,35 @@
         "--production"
       ],
       "outFiles": [
-        "${workspaceRoot}/build/bin/index.js",
-        "${workspaceRoot}/build/bin/**/*.js"
+        "${workspaceRoot}/build/node/**/*.js"
       ]
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Serve pages in development",
-      "program": "${workspaceRoot}/src/server/index.ts",
+      "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
       "args": [
         "--serve=pages"
       ],
       "outFiles": [
-        "${workspaceRoot}/build/bin/index.js",
-        "${workspaceRoot}/build/bin/**/*.js"
+        "${workspaceRoot}/build/node/**/*.js"
       ]
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Serve api in development",
-      "program": "${workspaceRoot}/src/server/index.ts",
+      "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
       "args": [
         "--serve=api"
       ],
       "outFiles": [
-        "${workspaceRoot}/build/bin/index.ts",
-        "${workspaceRoot}/build/bin/**/*.js"
+        "${workspaceRoot}/build/node/**/*.js"
       ]
     },
     {

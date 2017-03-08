@@ -18,15 +18,21 @@ function renderView(isProduction) {
       path.join(prefix, manifest['modifiers.global.css']),
       path.join(prefix, manifest['app.css'])
     ]
-    jsAssets = [path.join(prefix, manifest['app.js'])]
+    jsAssets = [
+      path.join(prefix, manifest['vendor.js']),
+      path.join(prefix, manifest['app.js'])
+    ]
   } else {
     cssAssets = [
-      'http://localhost:4000/static/base.global.css',
-      'http://localhost:4000/static/vendor.global.css',
-      'http://localhost:4000/static/modifiers.global.css',
-      'http://localhost:4000/static/app.css'
+      'http://localhost:4000/static/css/base.global.css',
+      'http://localhost:4000/static/css/vendor.global.css',
+      'http://localhost:4000/static/css/modifiers.global.css',
+      'http://localhost:4000/static/css/app.css'
     ]
-    jsAssets = ['http://localhost:4000/static/app.js']
+    jsAssets = [
+      'http://localhost:4002/static/js/vendor.dll.js',
+      'http://localhost:4000/static/js/app.js'
+    ]
   }
 
   return (req, res) => {

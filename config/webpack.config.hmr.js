@@ -31,7 +31,7 @@ const config = {
   output: {
     path: paths.appBuild,
     filename: 'js/[name].js',
-    publicPath: paths.publicPath
+    publicPath: paths.fullDevPublicPath
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
