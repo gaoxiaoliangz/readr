@@ -23,9 +23,8 @@ options, data, id, response, error
 	✔ summarize built files @done (March 7th 2017, 15:19)
 	✔ categorize css, js and media files @done (March 7th 2017, 14:43)
 	✔ vendor_modules @done (March 7th 2017, 22:39)
-	☐ build assets
 	☐ api tests
-	☐ use public folder
-	☐ vendor.dll resolve
+	✔ use public folder @done (March 8th 2017, 9:40)
+	✔ vendor.dll resolve @done (March 8th 2017, 9:41)
 
 to be continued...

@@ -10,6 +10,7 @@ process.env.NODE_ENV = 'development'
 require('dotenv').config({ silent: true })
 
 const chalk = require('chalk')
+const express = require('express')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const historyApiFallback = require('connect-history-api-fallback')
@@ -22,37 +23,10 @@ const getProcessForPort = require('react-dev-utils/getProcessForPort')
 const openBrowser = require('react-dev-utils/openBrowser')
 const prompt = require('react-dev-utils/prompt')
 /* eslint-enable */
-const fs = require('fs')
 const config = require('../config/webpack.config.hmr')
 const paths = require('../config/paths')
 
-const useYarn = fs.existsSync(paths.yarnLockFile)
-const cli = useYarn ? 'yarn' : 'npm'
 const isInteractive = process.stdout.isTTY
-
-const htmlString = `
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-  <meta charset="utf-8">
-  <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <link href="/static/css/base.global.css" rel="stylesheet" />
-  <link href="/static/css/vendor.global.css" rel="stylesheet" />
-  <link href="/static/css/modifiers.global.css" rel="stylesheet" />
-  <link href="/static/css/app.css" rel="stylesheet" />
-  <title>universal-typescript-react-starter</title>
-</head>
-
-<body>
-  <div id="root"></div>
-  <script src="/js/vendor.dll.js"></script>
-  <script src="/static/js/app.js"></script>
-</body>
-
-</html>
-`
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
@@ -90,7 +64,7 @@ function setupCompiler(host, port, protocol) {
   compiler.plugin('invalid', () => {
     startTime = new Date().valueOf()
     if (isInteractive) {
-      clearConsole()
+      // clearConsole()
     }
     console.log('Compiling...')
   })
@@ -102,7 +76,7 @@ function setupCompiler(host, port, protocol) {
   compiler.plugin('done', (stats) => {
     const endTime = new Date().valueOf()
     if (isInteractive) {
-      clearConsole()
+      // clearConsole()
     }
 
     // We have switched off the default Webpack output in WebpackDevServer
@@ -119,12 +93,7 @@ function setupCompiler(host, port, protocol) {
 
     if (showInstructions) {
       console.log()
-      console.log('The app is running at:')
-      console.log()
-      console.log('  ' + chalk.cyan(protocol + '://' + host + ':' + port + '/'))
-      console.log()
-      console.log('Note that the development build is not optimized.')
-      console.log('To create a production build, use ' + chalk.cyan(cli + ' run build') + '.')
+      console.log('The app is running at ' + chalk.cyan(protocol + '://' + host + ':' + port + '/'))
       console.log()
       isFirstCompile = false
     }
@@ -269,7 +238,7 @@ function runDevServer(host, port, protocol) {
     // for files like `favicon.ico`, `manifest.json`, and libraries that are
     // for some reason broken when imported through Webpack. If you just want to
     // use an image, put it in `src` and `import` it from JavaScript instead.
-    contentBase: paths.buildStatic,
+    contentBase: paths.appPublic,
     // Enable hot reloading server. It will provide /sockjs-node/ endpoint
     // for the WebpackDevServer client so it can learn when the files were
     // updated. The WebpackDevServer client is included as an entry point
@@ -293,9 +262,8 @@ function runDevServer(host, port, protocol) {
 
     // access to express
     setup(app) {
-      app.get('/', (req, res) => {
-        res.send(htmlString)
-      })
+      // todo: use a variable
+      app.use('/static', express.static(paths.buildStatic))
     }
   })
 
@@ -309,7 +277,7 @@ function runDevServer(host, port, protocol) {
     }
 
     if (isInteractive) {
-      clearConsole()
+      // clearConsole()
     }
     console.log(chalk.cyan('Starting the development server...'))
     console.log()
@@ -336,7 +304,7 @@ detect(DEFAULT_PORT).then(port => {
   }
 
   if (isInteractive) {
-    clearConsole()
+    // clearConsole()
     const existingProcess = getProcessForPort(DEFAULT_PORT)
     const question =
       chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.' +
