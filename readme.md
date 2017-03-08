@@ -28,5 +28,6 @@ options, data, id, response, error
 	✔ vendor.dll resolve @done (March 8th 2017, 9:41)
 	☐ beautify build file report
 	☐ split bin
+	☐ deploy solution
 
 to be continued...
