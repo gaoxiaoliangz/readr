@@ -82,7 +82,7 @@ module.exports = {
   config: resolveApp('config'),
   appSrc: resolveApp('src'),
   buildStatic: resolveApp('build/static'),
-  buildBin: resolveApp('build/bin'),
+  buildNode: resolveApp('build/node'),
   isomorphicSrc: resolveApp('src/isomorphic'),
   stylesSrc: resolveApp('src/styles'),
   serverSrc: resolveApp('src/server'),

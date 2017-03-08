@@ -1,5 +1,5 @@
 import request from 'supertest'
-import initialize from '../build/bin/initialize'
+import initialize from '../build/node'
 
 const apiRoot = 'http://localhost:4001/api'
 

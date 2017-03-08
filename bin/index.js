@@ -5,7 +5,7 @@
  * --port=portNum
  */
 const minimist = require('minimist')
-const initialize = require('../build/bin/initialize').default
+const initialize = require('../build/node').default
 
 const argv = minimist(process.argv.slice(2))
 const serviceName = argv.serve

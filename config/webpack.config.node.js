@@ -6,11 +6,10 @@ const vars = require('./webpack-vars')
 
 module.exports = {
   entry: {
-    index: ['babel-polyfill', paths.serverSrc],
-    initialize: ['babel-polyfill', `${paths.serverSrc}/initialize.ts`]
+    index: ['babel-polyfill', paths.serverSrc]
   },
   output: {
-    path: paths.buildBin,
+    path: paths.buildNode,
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     chunkFilename: 'chunk.[id].js',
