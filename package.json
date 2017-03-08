@@ -13,11 +13,11 @@
     "build:assets": "node scripts/build.js assets",
     "build:dll": "node scripts/build.js dll",
     "watch:node": "npm run build:node -- --watch",
+    "watch:es": "tsc --watch",
     "clean": "node scripts/clean.js -f=build",
     "clean:bin": "node scripts/clean.js -f=build/bin",
     "clean:static": "node scripts/clean.js -f=build/static",
     "lint": "eslint src",
-    "pretest": "tsc --watch",
     "test": "jest --no-cache --watchAll --config=jestrc.json",
     "deploy": "npm run clean && npm run clean:deploy && npm run build",
     "postdeploy": "gulp copy"

@@ -1,6 +1,7 @@
 {
   "roots": [
-    "<rootDir>/build/es/"
+    "<rootDir>/build/es/",
+    "<rootDir>/tests/"
   ],
   "testRegex": "(/__tests__/.*|(\\.|/)(test_|spec))\\.jsx?$"
 }

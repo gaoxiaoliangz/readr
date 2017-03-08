@@ -84,9 +84,10 @@ function build(target, cb) {
     if (!err && !stats.compilation.errors.length && !(process.env.CI && stats.compilation.warnings.length)) {
       console.info(chalk.green(`${currentTime} Compiled ${target} successfully, took ${totalTime}s`))
       console.info()
-      console.info(`Generating file report...`)
       // print built file size info
       if (!isWatching) {
+        // todo: beautify report
+        console.info(`File report`)
         _.forEach(stats.compilation.assets, (val, key) => {
           const fileSizeInKB = (getFilesizeInBytes(val.existsAt) / 1000).toFixed(1)
           console.info(`${key}: ${fileSizeInKB}KB`)

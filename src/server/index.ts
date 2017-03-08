@@ -18,6 +18,11 @@ if (isProduction) {
   process.env.NODE_ENV = 'development'
 }
 
+console.log('wtfffff!!');
+
+console.log(process.argv);
+
+
 const app = initialize({ basePath, isProduction, serviceName })
 
 export default app

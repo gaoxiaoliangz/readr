@@ -1,8 +1,12 @@
 import request from 'supertest'
-import app from '../bin/server'
-import assert from 'assert'
+import initialize from '../build/bin/initialize'
 
-const apiRoot = '/api'
+const apiRoot = 'http://localhost:4001/api'
+
+const app = initialize({
+  basePath: process.cwd(),
+  serviceName: 'api'
+})
 
 describe('API tests', () => {
   describe('books', () => {

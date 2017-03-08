@@ -3,6 +3,10 @@
   "plugins": [
     "react"
   ],
+  "globals": {
+    "describe": true,
+    "it": true
+  },
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
