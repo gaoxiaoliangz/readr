@@ -29,5 +29,6 @@ options, data, id, response, error
 	☐ beautify build file report
 	☐ split bin
 	☐ deploy solution
+	✔ remove gulp @done (March 8th 2017, 14:10)
 
 to be continued...
