@@ -101,7 +101,6 @@
     "@types/mongodb": "^2.1.36",
     "@types/multer": "0.0.32",
     "@types/node": "^6.0.45",
-    "@types/normalizr": "^2.0.16",
     "@types/react": "^0.14.51",
     "@types/react-addons-css-transition-group": "^0.14.18",
     "@types/react-css-modules": "^3.7.5",
