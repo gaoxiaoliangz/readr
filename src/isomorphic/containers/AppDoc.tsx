@@ -1,6 +1,8 @@
 import React from 'react'
 import { INITIAL_STATE } from '../constants/common'
 
+export const DOCTYPE = '<!DOCTYPE html>'
+
 interface Props {
   bodyClass?: string
   appMarkup: string | JSX.Element
@@ -106,7 +108,12 @@ const AppDoc = (props: Props) => {
               const { src, type, innerHTML } = script
 
               return (
-                <script key={index} src={src} type={type || 'text/javascript'}>{innerHTML}</script>
+                <script
+                  key={index}
+                  src={src}
+                  type={type || 'text/javascript'}
+                  dangerouslySetInnerHTML={{ __html: innerHTML }}
+                />
               )
             })
           )

@@ -27,9 +27,11 @@ options, data, id, response, error
 	✔ use public folder @done (March 8th 2017, 9:40)
 	✔ vendor.dll resolve @done (March 8th 2017, 9:41)
 	☐ beautify build file report
-	☐ split bin
-	☐ deploy solution
+	✔ split bin @done (March 9th 2017, 0:19)
+	✔ deploy solution @done (March 9th 2017, 0:19)
 	✔ remove gulp @done (March 8th 2017, 14:10)
 	☐ port
+	☐ isomorphic env solution
+	☐ webpack port
 
 to be continued...

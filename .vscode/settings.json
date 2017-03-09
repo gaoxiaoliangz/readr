@@ -7,5 +7,9 @@
     "__production__": true
   },
   "files.exclude": {
+  },
+  "files.associations": {
+    ".env": "yaml",
+    ".env-sample": "yaml"
   }
 }

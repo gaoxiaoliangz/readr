@@ -1,5 +1,5 @@
 import http from 'http'
-import appConfig from '../app.config'
+// import appConfig from '../app.config'
 import print from './utils/print'
 
 interface BootstrapConfig {
@@ -16,11 +16,11 @@ export default function bootstrap(app, config: BootstrapConfig) {
 
   switch (serviceName2) {
     case 'api':
-      portInConfigFile = appConfig.apiPort
+      portInConfigFile = process.env.API_PORT
       break
 
     case 'pages':
-      portInConfigFile = appConfig.pagesPort
+      portInConfigFile = process.env.SERVER_PORT
       break
 
     default:

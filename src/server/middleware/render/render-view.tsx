@@ -1,10 +1,19 @@
 import React from 'react'
 import path from 'path'
+import _ from 'lodash'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import DocContainer from '../../../isomorphic/containers/DocContainer'
 import ServerSideAppRoot from '../../../isomorphic/containers/ServerSideAppRoot'
-import AppDoc from '../../../isomorphic/containers/AppDoc'
+import AppDoc, { DOCTYPE } from '../../../isomorphic/containers/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
+
+const CLIENT_ENV_VARS = ['API_PORT', 'SERVER_PORT', 'API_PREFIX']
+
+const resolveDevAssets = (assetName) => {
+  const assetUrl = `http://localhost:${process.env.WEBPACK_PORT}/static/`
+
+  return assetUrl + assetName
+}
 
 function renderView(isProduction) {
   let cssAssets
@@ -24,16 +33,18 @@ function renderView(isProduction) {
     ]
   } else {
     cssAssets = [
-      'http://localhost:4000/static/css/base.global.css',
-      'http://localhost:4000/static/css/vendor.global.css',
-      'http://localhost:4000/static/css/modifiers.global.css',
-      'http://localhost:4000/static/css/app.css'
+      resolveDevAssets('css/base.global.css'),
+      resolveDevAssets('css/vendor.global.css'),
+      resolveDevAssets('css/modifiers.global.css'),
+      resolveDevAssets('css/app.css')
     ]
     jsAssets = [
-      'http://localhost:4002/static/js/vendor.dll.js',
-      'http://localhost:4000/static/js/app.js'
+      resolveDevAssets('js/vendor.dll.js'),
+      resolveDevAssets('js/app.js')
     ]
   }
+
+  const clientEnv = _.pick(process.env, CLIENT_ENV_VARS)
 
   return (req, res) => {
     // test 500 page
@@ -52,6 +63,7 @@ function renderView(isProduction) {
     // 不调用 rewind 会造成内存泄漏
     const { bodyClass, head } = DocContainer.rewind()
 
+    // todo: global var name
     const html = renderToStaticMarkup(
       <AppDoc
         appMarkup={appRootMarkup}
@@ -60,11 +72,12 @@ function renderView(isProduction) {
         initialState={req.locals.store.getState()}
         link={cssAssets}
         script={[
-          { innerHTML: 'var __ENABLE_SERVER_ROUTING__ = true;' }
+          { innerHTML: 'var __ENABLE_SERVER_ROUTING__ = true;' },
+          { innerHTML: `var __ENV__ = ${JSON.stringify(clientEnv)}` }
         ].concat(jsAssets)}
       />
     )
-    res.status(statusCode).send('<!DOCTYPE html>\n' + html)
+    res.status(statusCode).send(DOCTYPE + html)
   }
 }
 

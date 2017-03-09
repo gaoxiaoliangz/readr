@@ -9,6 +9,7 @@ import DocContainer from '../../containers/DocContainer'
 import { Button } from '../../elements/form'
 import { Container } from '../../elements/layout'
 import styles from './AppHome.scss'
+// import getEvn from '../../../context/getEnv'
 
 interface Props {
   loadBooks: typeof loadBooks

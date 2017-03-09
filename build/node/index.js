@@ -2341,6 +2341,7 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.DOCTYPE = undefined;
 
 var _react = __webpack_require__(0);
 
@@ -2350,6 +2351,7 @@ var _common = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var DOCTYPE = exports.DOCTYPE = '<!DOCTYPE html>';
 var AppDoc = function AppDoc(props) {
     var bodyScript = props.script,
         otherLink = props.link,
@@ -2383,7 +2385,7 @@ var AppDoc = function AppDoc(props) {
             type = script.type,
             innerHTML = script.innerHTML;
 
-        return _react2.default.createElement("script", { key: index, src: src, type: type || 'text/javascript' }, innerHTML);
+        return _react2.default.createElement("script", { key: index, src: src, type: type || 'text/javascript', dangerouslySetInnerHTML: { __html: innerHTML } });
     })));
 };
 AppDoc['defaultProps'] = {
@@ -2397,6 +2399,8 @@ var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
+
+    __REACT_HOT_LOADER__.register(DOCTYPE, 'DOCTYPE', '/Users/liang/Projects/readr/src/isomorphic/containers/AppDoc.tsx');
 
     __REACT_HOT_LOADER__.register(AppDoc, 'AppDoc', '/Users/liang/Projects/readr/src/isomorphic/containers/AppDoc.tsx');
 
@@ -12137,10 +12141,6 @@ var _http = __webpack_require__(273);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _app = __webpack_require__(18);
-
-var _app2 = _interopRequireDefault(_app);
-
 var _print = __webpack_require__(70);
 
 var _print2 = _interopRequireDefault(_print);
@@ -12157,10 +12157,10 @@ function bootstrap(app, config) {
     var serviceName2 = serviceName || 'pages';
     switch (serviceName2) {
         case 'api':
-            portInConfigFile = _app2.default.apiPort;
+            portInConfigFile = process.env.API_PORT;
             break;
         case 'pages':
-            portInConfigFile = _app2.default.pagesPort;
+            portInConfigFile = process.env.SERVER_PORT;
             break;
         default:
             throw new Error('serviceName undefined!');
@@ -12171,6 +12171,7 @@ function bootstrap(app, config) {
     _print2.default.info('Service[' + serviceName2 + '] running in ' + (isProduction ? 'production' : 'development') + ' at port ' + port);
     return app;
 }
+// import appConfig from '../app.config'
 ;
 
 var _temp = function () {
@@ -14055,6 +14056,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _pick2 = __webpack_require__(32);
+
+var _pick3 = _interopRequireDefault(_pick2);
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -14083,6 +14088,11 @@ var _assetsManifest2 = _interopRequireDefault(_assetsManifest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var CLIENT_ENV_VARS = ['API_PORT', 'SERVER_PORT', 'API_PREFIX'];
+var resolveDevAssets = function resolveDevAssets(assetName) {
+    var assetUrl = 'http://localhost:' + process.env.WEBPACK_PORT + '/static/';
+    return assetUrl + assetName;
+};
 function renderView(isProduction) {
     var cssAssets = void 0;
     var jsAssets = void 0;
@@ -14091,9 +14101,10 @@ function renderView(isProduction) {
         cssAssets = [_path2.default.join(prefix, _assetsManifest2.default['base.global.css']), _path2.default.join(prefix, _assetsManifest2.default['vendor.global.css']), _path2.default.join(prefix, _assetsManifest2.default['modifiers.global.css']), _path2.default.join(prefix, _assetsManifest2.default['app.css'])];
         jsAssets = [_path2.default.join(prefix, _assetsManifest2.default['vendor.js']), _path2.default.join(prefix, _assetsManifest2.default['app.js'])];
     } else {
-        cssAssets = ['http://localhost:4000/static/css/base.global.css', 'http://localhost:4000/static/css/vendor.global.css', 'http://localhost:4000/static/css/modifiers.global.css', 'http://localhost:4000/static/css/app.css'];
-        jsAssets = ['http://localhost:4002/static/js/vendor.dll.js', 'http://localhost:4000/static/js/app.js'];
+        cssAssets = [resolveDevAssets('css/base.global.css'), resolveDevAssets('css/vendor.global.css'), resolveDevAssets('css/modifiers.global.css'), resolveDevAssets('css/app.css')];
+        jsAssets = [resolveDevAssets('js/vendor.dll.js'), resolveDevAssets('js/app.js')];
     }
+    var clientEnv = (0, _pick3.default)(process.env, CLIENT_ENV_VARS);
     return function (req, res) {
         // test 500 page
         // if (req) {
@@ -14110,9 +14121,11 @@ function renderView(isProduction) {
         var _DocContainer$rewind = _DocContainer2.default.rewind(),
             bodyClass = _DocContainer$rewind.bodyClass,
             head = _DocContainer$rewind.head;
+        // todo: global var name
 
-        var html = (0, _server.renderToStaticMarkup)(_react2.default.createElement(_AppDoc2.default, { appMarkup: appRootMarkup, helmetHeadObject: head, bodyClass: bodyClass, initialState: req.locals.store.getState(), link: cssAssets, script: [{ innerHTML: 'var __ENABLE_SERVER_ROUTING__ = true;' }].concat(jsAssets) }));
-        res.status(statusCode).send('<!DOCTYPE html>\n' + html);
+
+        var html = (0, _server.renderToStaticMarkup)(_react2.default.createElement(_AppDoc2.default, { appMarkup: appRootMarkup, helmetHeadObject: head, bodyClass: bodyClass, initialState: req.locals.store.getState(), link: cssAssets, script: [{ innerHTML: 'var __ENABLE_SERVER_ROUTING__ = true;' }, { innerHTML: 'var __ENV__ = ' + JSON.stringify(clientEnv) }].concat(jsAssets) }));
+        res.status(statusCode).send(_AppDoc.DOCTYPE + html);
     };
 }
 var _default = renderView;
@@ -14123,6 +14136,10 @@ var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
+
+    __REACT_HOT_LOADER__.register(CLIENT_ENV_VARS, 'CLIENT_ENV_VARS', '/Users/liang/Projects/readr/src/server/middleware/render/render-view.tsx');
+
+    __REACT_HOT_LOADER__.register(resolveDevAssets, 'resolveDevAssets', '/Users/liang/Projects/readr/src/server/middleware/render/render-view.tsx');
 
     __REACT_HOT_LOADER__.register(renderView, 'renderView', '/Users/liang/Projects/readr/src/server/middleware/render/render-view.tsx');
 
