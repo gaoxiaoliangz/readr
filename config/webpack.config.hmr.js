@@ -6,13 +6,13 @@ const paths = require('./paths')
 const vars = require('./webpack-vars')
 const dllVendorManifest = require('../build/static/dll.vendor.manifest.json')
 
-const config = {
+const config = ({ port }) => ({
   entry: {
     app: [
       'react-hot-loader/patch',
       // activate HMR for React
 
-      'webpack-dev-server/client?http://localhost:4000',
+      `webpack-dev-server/client?http://localhost:${port}`,
       // bundle the client for webpack-dev-server
       // and connect to the provided endpoint
 
@@ -30,10 +30,8 @@ const config = {
   output: {
     path: paths.appBuild,
     filename: 'js/[name].js',
-
-    // publicPath is set in start.js
-    // for cases that port is in use
-    // port will be changed dynamicly, so it doesn't make sense to hardcode publicPath here
+    // todo: url join
+    publicPath: `http://localhost:${port}${paths.publicPath}`
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -70,6 +68,6 @@ const config = {
     ]
   },
   resolve: vars.resolve
-}
+})
 
 module.exports = config

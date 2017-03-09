@@ -36,6 +36,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = Number(process.env.WEBPACK_PORT) || 4000
+
 let compiler
 let handleCompile
 
@@ -56,9 +57,7 @@ function setupCompiler(host, port, protocol) {
   // "Compiler" is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
   let startTime = new Date().valueOf()
-  // todo: url join
-  config.output.publicPath = `http://localhost:${port}${paths.publicPath}`
-  compiler = webpack(config, handleCompile)
+  compiler = webpack(config({ port }), handleCompile)
 
   // "invalid" event fires when you have changed a file, and Webpack is
   // recompiling a bundle. WebpackDevServer takes care to pause serving the
@@ -250,7 +249,7 @@ function runDevServer(host, port, protocol) {
     hot: true,
     // It is important to tell WebpackDevServer to use the same "root" path
     // as we specified in the config. In development, we always serve from /.
-    publicPath: config.output.publicPath,
+    publicPath: config({ port }).output.publicPath,
     // WebpackDevServer is noisy by default so we emit custom message instead
     // by listening to the compiler events with `compiler.plugin` calls above.
     quiet: true,
