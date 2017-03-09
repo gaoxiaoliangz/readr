@@ -26,12 +26,13 @@ options, data, id, response, error
 	✔ api tests @done (March 8th 2017, 11:17)
 	✔ use public folder @done (March 8th 2017, 9:40)
 	✔ vendor.dll resolve @done (March 8th 2017, 9:41)
-	☐ beautify build file report
 	✔ split bin @done (March 9th 2017, 0:19)
 	✔ deploy solution @done (March 9th 2017, 0:19)
 	✔ remove gulp @done (March 8th 2017, 14:10)
-	☐ port
-	☐ isomorphic env solution
-	☐ webpack port
+	✔ port @done (March 9th 2017, 15:07)
+	✔ isomorphic env solution @done (March 9th 2017, 15:07)
+	✔ webpack port @done (March 9th 2017, 15:07)
+	☐ beautify build file report
+	☐ manage node process in one console
 
 to be continued...
