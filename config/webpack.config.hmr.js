@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const path = require('path')
-const fs = require('fs')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const rules = require('./webpack-rules')
 const paths = require('./paths')
@@ -31,7 +30,10 @@ const config = {
   output: {
     path: paths.appBuild,
     filename: 'js/[name].js',
-    publicPath: paths.fullDevPublicPath
+
+    // publicPath is set in start.js
+    // for cases that port is in use
+    // port will be changed dynamicly, so it doesn't make sense to hardcode publicPath here
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

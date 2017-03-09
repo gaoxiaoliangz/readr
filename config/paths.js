@@ -85,8 +85,5 @@ module.exports = {
   stylesSrc: resolveApp('src/styles'),
   serverSrc: resolveApp('src/server'),
   publicPath: '/static/', // for webpack use only
-  vendorModules: resolveApp('vendor_modules'),
-
-  // not so sure about it
-  fullDevPublicPath: 'http://localhost:4000/static/'
+  vendorModules: resolveApp('vendor_modules')
 }

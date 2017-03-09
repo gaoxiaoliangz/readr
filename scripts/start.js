@@ -35,7 +35,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 }
 
 // Tools like Cloud9 rely on this.
-const DEFAULT_PORT = process.env.PORT || 4000
+const DEFAULT_PORT = Number(process.env.WEBPACK_PORT) || 4000
 let compiler
 let handleCompile
 
@@ -56,6 +56,8 @@ function setupCompiler(host, port, protocol) {
   // "Compiler" is a low-level interface to Webpack.
   // It lets us listen to some events and provide our own custom messages.
   let startTime = new Date().valueOf()
+  // todo: url join
+  config.output.publicPath = `http://localhost:${port}${paths.publicPath}`
   compiler = webpack(config, handleCompile)
 
   // "invalid" event fires when you have changed a file, and Webpack is
