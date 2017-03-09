@@ -10,14 +10,14 @@ import * as actions from '../../../store/actions'
 import CSSModules from 'react-css-modules'
 const styles = require('./BookContainer.scss')
 
-interface Props {
+interface OwnProps {
   allPages: TBookPage[]
   pageHeight: number
   showPageInfo?: boolean
   pageLimit: number
 }
 
-interface AllProps extends Props {
+interface StateProps {
   percentage?: number
   pageNo?: number
   theme?: string
@@ -39,14 +39,8 @@ const mapStateToProps = state => {
   }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
 @CSSModules(styles)
-export default class BookContainer extends Component<AllProps, {}> {
+class BookContainer extends Component<OwnProps & StateProps, {}> {
 
   handleScrollLazily: any
 
@@ -135,3 +129,10 @@ export default class BookContainer extends Component<AllProps, {}> {
     )
   }
 }
+
+export default  connect<StateProps, {}, OwnProps>(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(BookContainer)

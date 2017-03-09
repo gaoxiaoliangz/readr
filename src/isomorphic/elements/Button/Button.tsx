@@ -62,14 +62,12 @@ class Button extends Component<IProps, IState> {
       }
     }
 
-    const props = _(this.props)
-      .omit(['to', 'color', 'size', 'isFluid', 'width', 'styles'])
-      .assign({}, {
-        className: className || '',
-        onClick,
-        style
-      })
-      .value()
+    let props = _.omit(this.props, ['to', 'color', 'size', 'isFluid', 'width', 'styles'])
+    props = _.assign({}, props, {
+      className: className || '',
+      onClick,
+      style
+    })
 
     return (
       <button

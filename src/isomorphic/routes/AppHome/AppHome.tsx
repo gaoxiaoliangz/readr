@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CSSModules from 'react-css-modules'
+import _ from 'lodash'
 import { loadBooks, fetchCollections, sendNotification } from '../../store/actions'
 import * as selectors from '../../store/selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../containers/DocContainer'
 import { Button } from '../../elements/form'
-import _ from 'lodash'
-import CSSModules from 'react-css-modules'
 import { Container } from '../../elements/layout'
 import styles from './AppHome.scss'
+// import getEvn from '../../../context/getEnv'
 
 interface Props {
   loadBooks: typeof loadBooks

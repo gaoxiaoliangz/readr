@@ -8,11 +8,11 @@ import * as selectors from '../../../store/selectors'
 import _ from 'lodash'
 const styles = require('./BookPages.scss')
 
-interface Props {
+interface OwnProps {
   pages: TBookPage[]
 }
 
-interface AllProps extends Props {
+interface StateProps {
   sendNotification?: typeof sendNotification
   theme?: string
   isScrollMode?: boolean
@@ -31,14 +31,10 @@ const mapStateToProps = (state, ownProps) => {
   return _.assign({}, config, { computed, currentPageNo })
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  { sendNotification }
-)
 @CSSModules(styles, {
   allowMultiple: true
 })
-export default class BookPages extends Component<AllProps, {}> {
+class BookPages extends Component<OwnProps & StateProps, {}> {
 
   constructor(props) {
     super(props)
@@ -89,3 +85,8 @@ export default class BookPages extends Component<AllProps, {}> {
     )
   }
 }
+
+export default connect<StateProps, {}, OwnProps>(
+  mapStateToProps,
+  { sendNotification }
+)(BookPages)

@@ -14,7 +14,7 @@ const routerHistory = helpers.isServerRoutingEnabled()
   : hashHistory
 
 const store = configureStore()
-const history = syncHistoryWithStore(routerHistory, store)
+const history = syncHistoryWithStore(routerHistory as any, store) as any
 const rootEle = document.getElementById('root')
 
 store.runSaga(rootSaga)

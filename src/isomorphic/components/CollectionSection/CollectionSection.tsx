@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { Container } from '../../elements/layout'
 import CollectionList from './CollectionList'
 import { ICollectionEntity } from './CollectionItem'
-const styles: any = require('./Collection.css')
+const styles = require('./Collection.scss')
 
 interface IProps {
   list: ICollectionEntity[]

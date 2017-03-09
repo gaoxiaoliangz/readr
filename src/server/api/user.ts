@@ -9,7 +9,7 @@ export function getReadingProgress(userId, bookId) {
   const query = humps.decamelizeKeys({ userId, bookId })
 
   return progressModel.list({ disablePagination: true, raw: true, query }).then(res => {
-    if ((<any[]>res).length === 0) {
+    if (res['length'] === 0) {
       return progressModel.outputEmpty({
         user_id: userId,
         book_id: bookId

@@ -26,14 +26,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
 @CSSModules(styles)
-export default class Viewer extends Component<AllProps, void> {
+class Viewer extends Component<AllProps, void> {
 
   bookId: string
 
@@ -58,3 +52,10 @@ export default class Viewer extends Component<AllProps, void> {
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(Viewer)

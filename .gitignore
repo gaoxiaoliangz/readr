@@ -1,11 +1,7 @@
-node_modules/
-bower_components/
-.sass-cache/
-.idea/
+node_modules
+bower_components
+.sass-cache
+.idea
 .DS_Store
 npm-debug.log
-/public/built/
-/public/built_es6/
-/public/built_prod/
-/bin/
-/__uploads__/
+build/es

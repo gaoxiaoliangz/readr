@@ -69,4 +69,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { sendNotification, resetForm, loadBooks }
-)(AddCollection)
+)(AddCollection as any)

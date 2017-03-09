@@ -5,26 +5,25 @@ import { sendNotification, closeModal } from '../../../store/actions'
 import { Input, Textarea } from '../../../elements/form'
 import ModalFooter from '../../../elements/Modal/ModalFooter'
 
-interface Props {
+interface OwnProps {
   onSave: (data: any) => void
 }
 
-interface AllProps extends Props {
-  sendNotification?: typeof sendNotification
-  handleSubmit?: any
+interface StateProps {
   fields?: any
+  handleSubmit?: any
+}
+
+interface DispatchProps {
+  sendNotification?: typeof sendNotification
   closeModal?: typeof closeModal
 }
 
-@connect<AllProps>(
-  state => state,
-  { sendNotification, closeModal }
-)
 @form({
   form: 'bookMeta',
   fields: ['title', 'authors', 'description', 'cover']
 })
-class BookMetaForm extends Component<AllProps, {}> {
+class BookMetaForm extends Component<OwnProps & StateProps & DispatchProps, {}> {
 
   constructor(props) {
     super(props)
@@ -53,4 +52,7 @@ class BookMetaForm extends Component<AllProps, {}> {
   }
 }
 
-export default BookMetaForm
+export default connect<StateProps, DispatchProps, OwnProps> (
+  state => state,
+  { sendNotification, closeModal }
+)(BookMetaForm)

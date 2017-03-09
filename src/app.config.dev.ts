@@ -7,8 +7,11 @@ const appConfig: AppConfig = {
     name: 'readr',
     mongoStoreName: 'readr_session'
   },
-  siteUrl: 'http://readrweb.com',
-  port: 3000,
+  siteUrl: 'http://localhost',
+  siteName: 'readr',
+  apiPort: 3091,
+  assetsPort: 3090,
+  pagesPort: 3000,
   enableEntityCache: false
 }
 

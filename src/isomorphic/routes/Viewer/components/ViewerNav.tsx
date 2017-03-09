@@ -12,9 +12,9 @@ const styles = require('./ViewerNav.scss')
 const JS_NAV_HOOK = 'a.js-book-nav'
 const $body = $('body')
 
-interface Props { }
+interface Props {}
 
-interface AllProps extends Props {
+interface AllProps {
   nav?: TBookNav[]
   actions?: typeof actions
   computedPages?: TBookPage[]
@@ -30,14 +30,8 @@ const mapStateToProps = (state, ownProps) => {
   return { nav, viewerPercentage, computedPages }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
 @CSSModules(styles)
-export default class ViewerNav extends Component<AllProps, void> {
+class ViewerNav extends Component<AllProps, void> {
 
   constructor(props) {
     super(props)
@@ -112,3 +106,10 @@ export default class ViewerNav extends Component<AllProps, void> {
     )
   }
 }
+
+export default connect<AllProps, {}, {}>(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(ViewerNav)

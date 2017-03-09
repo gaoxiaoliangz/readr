@@ -1,0 +1,138 @@
+@import "~styles/variables";
+
+$width: 134px;
+
+.book {
+  float: left;
+  transition: all 0.2s ease 0s;
+  position: relative;
+  width: 150px;
+  padding: 0 10px;
+
+  & a {
+    display: block;
+    padding-top: 10px;
+    position: relative;
+
+    &:hover img {
+      opacity: .96;
+    }
+    
+    &:active img {
+      opacity: .8;
+    }
+  }
+}
+
+.book-meta {
+  background: transparent;
+}
+
+.meta-item {
+  width: 100%;
+  text-align: left;
+  display: block;
+  line-height: 1.5;
+  margin-left: 17px;
+  width: $width;
+  @extend %text-overflow;
+}
+
+.book-name {
+  composes: meta-item;
+  font-size: 1.3rem;
+  color: $text-dark;
+}
+
+.book-author {
+  composes: meta-item;
+  color: $text-light;
+}
+
+.book-cover {
+  position: relative;
+  margin: 0;
+  width: $width;
+  height: 184px;
+  top: 0;
+  background: url(./shadow.png) no-repeat top;
+  transition: all 0.2s ease 0s;
+  position: relative;
+  
+  & img {
+    width: 100px;
+    height: 150px;
+    display: block;
+    position: absolute;
+    border: none;
+    left: 17px;
+    top: 7px;
+    border-radius: 4px;
+  }
+
+  &:hover {
+    top: -7px;
+  }
+}
+
+.book-desc {
+  color: $text-light;
+}
+
+.book--card {
+  composes: book;
+
+  width: auto;
+  background: #fff;
+  box-shadow: $shadow-z1;
+  padding: 10px;
+  float: none;
+  height: 100px;
+
+  a {
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 1;
+
+    &:hover img {
+      opacity: 1;
+    }
+    
+    &:active img {
+      opacity: 1;
+    }
+  }
+
+  .book-cover {
+    width: auto;
+    height: auto;
+    height: 72px;
+    background: none;
+    overflow: hidden;
+    float: left;
+    border-radius: 4px;
+    margin-right: 20px;
+
+    &:hover {
+      top: 0;
+    }
+
+    img {
+      width: 50px;
+      height: auto;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .book-meta {
+    float: none;
+  }
+
+  .meta-item {
+    width: auto;
+  }
+}
+

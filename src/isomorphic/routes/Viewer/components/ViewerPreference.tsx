@@ -13,9 +13,7 @@ const styles = require('./ViewerPreference.scss')
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
 
-interface Props { }
-
-interface AllProps extends Props {
+interface AllProps {
   actions?: typeof actions
   fontSize?: number
   isScrollMode?: boolean
@@ -28,14 +26,8 @@ const mapStateToProps = (state, ownProps) => {
   return { fontSize, isScrollMode, theme }
 }
 
-@connect<AllProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)
 @CSSModules(styles)
-export default class ViewerPreference extends Component<AllProps, {}> {
+class ViewerPreference extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
@@ -126,3 +118,10 @@ export default class ViewerPreference extends Component<AllProps, {}> {
     )
   }
 }
+
+export default connect<AllProps, {}, {}>(
+  mapStateToProps,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(ViewerPreference)

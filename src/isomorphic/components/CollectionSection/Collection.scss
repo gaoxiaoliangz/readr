@@ -1,0 +1,100 @@
+@import "~styles/variables";
+
+$cover-size: 100px;
+
+%light-link {
+  color: #fff;
+
+  &:hover {
+    color: #ddd;
+  }
+};
+
+%dark {
+  color: $text;
+};
+
+.item {
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+  border-bottom: 1px solid lighten($dark-blue, 10%);
+  padding: 0 0 30px 0;
+}
+
+.item--light {
+  composes: item;
+}
+
+.section {
+  background: $dark-blue;
+  overflow: hidden;
+  margin: 40px 0;
+}
+
+.covers {
+  overflow: hidden;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+
+  & li {
+    float: left;
+    margin: 0 10px;
+
+    & img {
+      max-width: 70px;
+      box-shadow: $shadow-y1;
+      overflow: hidden;
+      border-radius: 3px;
+    }
+  }
+}
+
+.name {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 1em;
+}
+
+.link {
+  @extend %light-link;
+}
+
+.desc {
+  color: gray(180);
+  font-size: 1rem;
+}
+
+.title {
+  @extend %page-title;
+  color: #fff;
+}
+
+.list {
+  width: 100%;
+}
+
+.view-more {
+  margin: 20px 0;
+  display: inline-block;
+  composes: link;
+}
+
+/* style 2 */
+.item--dark {
+  composes: item;
+  border-color: $gray;
+
+  & .link {
+    color: $text-dark;
+
+    &:hover {
+      color: $text;
+    }
+  }
+
+  & .desc {
+    @extend %dark;
+  }
+}

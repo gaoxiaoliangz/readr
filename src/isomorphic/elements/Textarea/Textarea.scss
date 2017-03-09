@@ -1,0 +1,19 @@
+@import "~styles/variables";
+
+.textarea-wrap {
+  margin: 10px 0;
+  position: relative;
+}
+
+.textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid $gray;
+  outline: none;
+  height: 100px;
+  transition: border-color .3s;
+}
+
+.textarea:focus {
+  border-color: $blue;
+}
