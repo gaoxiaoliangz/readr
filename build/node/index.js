@@ -4434,8 +4434,8 @@ module.exports = require("react-addons-css-transition-group");
 /***/ (function(module, exports) {
 
 module.exports = {
-	"app.css": "css/app.c0ad828ecd.css",
-	"app.js": "js/app.c0ad828ecd.js",
+	"app.css": "css/app.37a0fcc52e.css",
+	"app.js": "js/app.37a0fcc52e.js",
 	"base.global.css": "css/base.global.30e3ea3a4f.css",
 	"base.global.js": "js/base.global.30e3ea3a4f.js",
 	"js/chunk.0b7ce24747.12.js": "js/chunk.0b7ce24747.12.js",
@@ -4462,7 +4462,7 @@ module.exports = {
 	"modifiers.global.js": "js/modifiers.global.d52679eb9d.js",
 	"vendor.global.css": "css/vendor.global.cab0d0e8a2.css",
 	"vendor.global.js": "js/vendor.global.cab0d0e8a2.js",
-	"vendor.js": "js/vendor.ee5dcf7869.js"
+	"vendor.js": "js/vendor.5fb394e9cb.js"
 };
 
 /***/ }),
@@ -7293,18 +7293,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getApiRoot;
 
-var _app = __webpack_require__(18);
+var _getEnv = __webpack_require__(422);
 
-var _app2 = _interopRequireDefault(_app);
+var _getEnv2 = _interopRequireDefault(_getEnv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var env = (0, _getEnv2.default)();
 function getApiRoot() {
-    // const host = typeof window !== 'undefined'
-    //   ? window.location.origin
-    //   : 'http://localhost:3000'
-    var host = 'http://localhost:4001';
-    return host + '/' + _app2.default.api.prefix;
+    var API_HOST = env.API_HOST,
+        API_PORT = env.API_PORT,
+        API_PREFIX = env.API_PREFIX;
+
+    return 'http://' + API_HOST + ':' + API_PORT + '/' + API_PREFIX;
 }
 ;
 
@@ -7312,6 +7313,8 @@ var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
+
+    __REACT_HOT_LOADER__.register(env, 'env', '/Users/liang/Projects/readr/src/isomorphic/helpers/getApiRoot.ts');
 
     __REACT_HOT_LOADER__.register(getApiRoot, 'getApiRoot', '/Users/liang/Projects/readr/src/isomorphic/helpers/getApiRoot.ts');
 }();
@@ -12157,10 +12160,10 @@ function bootstrap(app, config) {
     var serviceName2 = serviceName || 'pages';
     switch (serviceName2) {
         case 'api':
-            portInConfigFile = process.env.API_PORT;
+            portInConfigFile = Number(process.env.API_PORT);
             break;
         case 'pages':
-            portInConfigFile = process.env.SERVER_PORT;
+            portInConfigFile = Number(process.env.MAIN_PORT);
             break;
         default:
             throw new Error('serviceName undefined!');
@@ -14088,7 +14091,7 @@ var _assetsManifest2 = _interopRequireDefault(_assetsManifest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var CLIENT_ENV_VARS = ['API_PORT', 'SERVER_PORT', 'API_PREFIX'];
+var CLIENT_ENV_VARS = ['API_PORT', 'API_HOST', 'API_PREFIX'];
 var resolveDevAssets = function resolveDevAssets(assetName) {
     var assetUrl = 'http://localhost:' + process.env.WEBPACK_PORT + '/static/';
     return assetUrl + assetName;
@@ -14224,8 +14227,18 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-// todo
-var ALLOWED_ORIGINS = ['http://localhost:4000', 'http://localhost:4001', 'http://localhost:4002'];
+var _process$env = process.env,
+    API_HOST = _process$env.API_HOST,
+    API_PORT = _process$env.API_PORT,
+    MAIN_HOST = _process$env.MAIN_HOST,
+    MAIN_PORT = _process$env.MAIN_PORT,
+    WEBPACK_HOST = _process$env.WEBPACK_HOST,
+    WEBPACK_PORT = _process$env.WEBPACK_PORT;
+
+var makeOrigin = function makeOrigin(host, port) {
+    return 'http://' + host + ':' + port;
+};
+var ALLOWED_ORIGINS = [makeOrigin(API_HOST, API_PORT), makeOrigin(MAIN_HOST, MAIN_PORT), makeOrigin(WEBPACK_HOST, WEBPACK_PORT)];
 var setHeader = function setHeader(req, res, next) {
     var origin = req.headers.origin;
     if (ALLOWED_ORIGINS.indexOf(origin) !== -1) {
@@ -14241,6 +14254,20 @@ var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
+
+    __REACT_HOT_LOADER__.register(API_HOST, 'API_HOST', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
+
+    __REACT_HOT_LOADER__.register(API_PORT, 'API_PORT', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
+
+    __REACT_HOT_LOADER__.register(MAIN_HOST, 'MAIN_HOST', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
+
+    __REACT_HOT_LOADER__.register(MAIN_PORT, 'MAIN_PORT', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
+
+    __REACT_HOT_LOADER__.register(WEBPACK_HOST, 'WEBPACK_HOST', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
+
+    __REACT_HOT_LOADER__.register(WEBPACK_PORT, 'WEBPACK_PORT', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
+
+    __REACT_HOT_LOADER__.register(makeOrigin, 'makeOrigin', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
 
     __REACT_HOT_LOADER__.register(ALLOWED_ORIGINS, 'ALLOWED_ORIGINS', '/Users/liang/Projects/readr/src/server/middleware/set-header.ts');
 
@@ -16486,6 +16513,48 @@ module.exports = require("marked");
 /***/ (function(module, exports) {
 
 module.exports = require("react-markdown");
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isServerEnv = __webpack_require__(130);
+
+var _isServerEnv2 = _interopRequireDefault(_isServerEnv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GLOBAL_ENV_VAR = '__ENV__';
+var getEnv = function getEnv() {
+    if ((0, _isServerEnv2.default)()) {
+        return process.env;
+    }
+    return window[GLOBAL_ENV_VAR];
+};
+var _default = getEnv;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(GLOBAL_ENV_VAR, 'GLOBAL_ENV_VAR', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+
+    __REACT_HOT_LOADER__.register(getEnv, 'getEnv', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+}();
+
+;
 
 /***/ })
 /******/ ]);

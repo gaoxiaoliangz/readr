@@ -1,11 +1,9 @@
-import appConfig from '../../app.config'
+import getEnv from '../../context/getEnv'
+
+const env = getEnv()
 
 export default function getApiRoot() {
-  // const host = typeof window !== 'undefined'
-  //   ? window.location.origin
-  //   : 'http://localhost:3000'
+  const { API_HOST, API_PORT, API_PREFIX } = env
 
-  const host = 'http://localhost:4001'
-
-  return `${host}/${appConfig.api.prefix}`
+  return `http://${API_HOST}:${API_PORT}/${API_PREFIX}`
 }

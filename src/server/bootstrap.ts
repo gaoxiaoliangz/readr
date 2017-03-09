@@ -16,11 +16,11 @@ export default function bootstrap(app, config: BootstrapConfig) {
 
   switch (serviceName2) {
     case 'api':
-      portInConfigFile = process.env.API_PORT
+      portInConfigFile = Number(process.env.API_PORT)
       break
 
     case 'pages':
-      portInConfigFile = process.env.SERVER_PORT
+      portInConfigFile = Number(process.env.MAIN_PORT)
       break
 
     default:

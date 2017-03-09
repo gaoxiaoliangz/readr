@@ -1,8 +1,13 @@
-// todo
+const { API_HOST, API_PORT, MAIN_HOST, MAIN_PORT, WEBPACK_HOST, WEBPACK_PORT } = process.env
+
+const makeOrigin = (host, port) => {
+  return `http://${host}:${port}`
+}
+
 const ALLOWED_ORIGINS = [
-  'http://localhost:4000',
-  'http://localhost:4001',
-  'http://localhost:4002',
+  makeOrigin(API_HOST, API_PORT),
+  makeOrigin(MAIN_HOST, MAIN_PORT),
+  makeOrigin(WEBPACK_HOST, WEBPACK_PORT)
 ]
 
 const setHeader = (req, res, next) => {
