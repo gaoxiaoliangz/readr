@@ -65,7 +65,7 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/isomorphic/index.tsx'),
+  appIndex: resolveApp('src/isomorphic/index.tsx'),
   appPackageJson: resolveApp('package.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveApp('src/setupTests.js'),
@@ -81,7 +81,6 @@ module.exports = {
   appSrc: resolveApp('src'),
   buildStatic: resolveApp('build/static'),
   buildNode: resolveApp('build/node'),
-  isomorphicSrc: resolveApp('src/isomorphic'),
   stylesSrc: resolveApp('src/styles'),
   serverSrc: resolveApp('src/server'),
   publicPath: '/static/', // for webpack use only
