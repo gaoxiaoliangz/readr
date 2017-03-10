@@ -34,7 +34,21 @@ options, data, id, response, error
 	✔ isomorphic env solution @done (March 9th 2017, 15:07)
 	✔ webpack port @done (March 9th 2017, 15:07)
 	☐ beautify build file report
-	☐ manage node process in one console
-	☐ merge api with main server
+	✔ manage node process in one console @done (March 10th 2017, 13:14)
+	✔ merge api with main server @done (March 10th 2017, 13:14)
+
+### Refactor
+	☐ api flow
+	☐ redux actions
+	☐ fetching state
+	☐ pagination
+	☐ file tree
+
+### Optimization
+	☐ File handling flow, something to do with validation and middleware
+
+### UX
+	☐ Changing theme status
+	☐ disable page flip in mobile mode
 
 to be continued...
