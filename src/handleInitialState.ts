@@ -1,4 +1,4 @@
-import { INITIAL_STATE } from '../constants/common'
+import { INITIAL_STATE } from './constants/common'
 
 export default function handleInitialState() {
   if (typeof window === 'undefined') {
