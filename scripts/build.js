@@ -15,7 +15,7 @@ const _ = require('lodash')
 const paths = require('../config/paths')
 
 // order matters, node requires manifest file created when building static
-const defaultBuildTargets = ['static', 'node']
+const defaultBuildTargets = ['static', 'node', 'dll']
 const argv = minimist(process.argv.slice(2))
 const isWatching = argv.w || argv.watch
 

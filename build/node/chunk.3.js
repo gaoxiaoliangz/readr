@@ -69,6 +69,9 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
 var AppHome = function (_Component) {
     _inherits(AppHome, _Component);
 
+    // static fetchData({store}) {
+    //   return store.dispatch(loadBooks())
+    // }
     function AppHome(props) {
         _classCallCheck(this, AppHome);
 
@@ -81,10 +84,10 @@ var AppHome = function (_Component) {
     }
 
     _createClass(AppHome, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
+        key: "componentWillMount",
+        value: function componentWillMount() {
             this.props.loadBooks();
-            this.props.fetchCollections();
+            // this.props.fetchCollections()
         }
     }, {
         key: "componentWillReceiveProps",
@@ -105,13 +108,6 @@ var AppHome = function (_Component) {
                 isBooksFetching = _props.isBooksFetching;
 
             return _react2.default.createElement(_DocContainer2.default, { bodyClass: "home" }, this.props.session.user.role === 'visitor' && this.props.session.isFetching === false && _react2.default.createElement("div", { styleName: "hero-image" }, _react2.default.createElement(_layout.Container, null, _react2.default.createElement("div", { styleName: "logo" }, "Readr"), _react2.default.createElement("h1", { styleName: "page-title" }, "\u65B0\u7684\u9605\u8BFB\u4F53\u9A8C"), _react2.default.createElement(_form.Button, { to: "/signup" }, "\u73B0\u5728\u52A0\u5165"))), _react2.default.createElement(_layout.Container, null, _react2.default.createElement(_BookListSection2.default, { bookEntities: newestBooks.slice(0, 6), title: "新书速递", moreLink: "/browse", isFetching: isBooksFetching })));
-        }
-    }], [{
-        key: "fetchData",
-        value: function fetchData(_ref) {
-            var store = _ref.store;
-
-            return store.dispatch((0, _actions.loadBooks)());
         }
     }]);
 

@@ -431,7 +431,8 @@ var VIEWER = exports.VIEWER = {
     PREFERENCE_TOGGLE: (0, _utils.createComponentActionType)('viewer/components/preference', 'TOGGLE'),
     NAVIGATION_TOGGLE: (0, _utils.createComponentActionType)('viewer/components/navigation', 'TOGGLE'),
     THEME_CHANGE: (0, _utils.createComponentActionType)('viewer/theme', 'CHANGE'),
-    SCROLL_MODE_TOGGLE: (0, _utils.createComponentActionType)('viewer/scroll-mode', 'TOGGLE')
+    SCROLL_MODE_TOGGLE: (0, _utils.createComponentActionType)('viewer/scroll-mode', 'TOGGLE'),
+    PAGE_PROGRESS_INFO_TOGGLE: (0, _utils.createComponentActionType)('viewer/progress-info', 'TOGGLE')
 };
 ;
 
@@ -4841,7 +4842,7 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.toggleViewerScrollMode = exports.changeViewerTheme = exports.changeViewerFontSize = exports.toggleViewerNavigation = exports.toggleViewerPreference = exports.toggleViewerPanel = exports.viewerJumpTo = exports.destroyBookProgress = exports.updateBookProgress = exports.initializeBookProgress = exports.calcBookFailure = exports.calcBookSuccess = exports.calcBook = exports.configViewer = exports.initializeViewer = exports.initializeViewerConfig = undefined;
+exports.toggleViewerScrollMode = exports.changeViewerTheme = exports.changeViewerFontSize = exports.toggleViewerPageProgressInfo = exports.toggleViewerNavigation = exports.toggleViewerPreference = exports.toggleViewerPanel = exports.viewerJumpTo = exports.destroyBookProgress = exports.updateBookProgress = exports.initializeBookProgress = exports.calcBookFailure = exports.calcBookSuccess = exports.calcBook = exports.configViewer = exports.initializeViewer = exports.initializeViewerConfig = undefined;
 
 var _selectors = __webpack_require__(27);
 
@@ -4936,6 +4937,9 @@ var toggleViewerPreference = exports.toggleViewerPreference = function toggleVie
 var toggleViewerNavigation = exports.toggleViewerNavigation = function toggleViewerNavigation(reset) {
     return { type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset: reset };
 };
+var toggleViewerPageProgressInfo = exports.toggleViewerPageProgressInfo = function toggleViewerPageProgressInfo(reset) {
+    return { type: ACTION_TYPES.VIEWER.PAGE_PROGRESS_INFO_TOGGLE, payload: reset };
+};
 // config
 var changeViewerFontSize = exports.changeViewerFontSize = function changeViewerFontSize(fontSizeInPixel) {
     return { type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel };
@@ -4978,6 +4982,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(toggleViewerPreference, 'toggleViewerPreference', '/Users/liang/Projects/readr/src/actions/viewer.ts');
 
     __REACT_HOT_LOADER__.register(toggleViewerNavigation, 'toggleViewerNavigation', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(toggleViewerPageProgressInfo, 'toggleViewerPageProgressInfo', '/Users/liang/Projects/readr/src/actions/viewer.ts');
 
     __REACT_HOT_LOADER__.register(changeViewerFontSize, 'changeViewerFontSize', '/Users/liang/Projects/readr/src/actions/viewer.ts');
 
@@ -8239,10 +8245,26 @@ var navigation = function navigation() {
             return state;
     }
 };
+var progressComponent = function progressComponent() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { show: false };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case ACTION_TYPES.VIEWER.PAGE_PROGRESS_INFO_TOGGLE:
+            var payload = action.payload;
+
+            return {
+                show: getFlag(payload, state.show)
+            };
+        default:
+            return state;
+    }
+};
 var components = (0, _redux.combineReducers)({
     panel: panel,
     preference: preference,
-    navigation: navigation
+    navigation: navigation,
+    progress: progressComponent
 });
 
 var _default = (0, _redux.combineReducers)({
@@ -8273,6 +8295,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(preference, 'preference', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
     __REACT_HOT_LOADER__.register(navigation, 'navigation', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(progressComponent, 'progressComponent', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
     __REACT_HOT_LOADER__.register(components, 'components', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
@@ -10378,7 +10402,7 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.navigation = exports.preference = exports.panel = exports.progress = exports.navData = exports.computed = exports.config = exports.self = undefined;
+exports.progressComponent = exports.navigation = exports.preference = exports.panel = exports.progress = exports.navData = exports.computed = exports.config = exports.self = undefined;
 
 var _get2 = __webpack_require__(13);
 
@@ -10426,6 +10450,9 @@ var preference = exports.preference = (0, _reselect.createSelector)(self, functi
 var navigation = exports.navigation = (0, _reselect.createSelector)(self, function (_self) {
     return (0, _get3.default)(_self, ['components', 'navigation'], {});
 });
+var progressComponent = exports.progressComponent = (0, _reselect.createSelector)(self, function (_self) {
+    return (0, _get3.default)(_self, ['components', 'progress'], {});
+});
 ;
 
 var _temp = function () {
@@ -10448,6 +10475,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(preference, 'preference', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
     __REACT_HOT_LOADER__.register(navigation, 'navigation', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(progressComponent, 'progressComponent', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 }();
 
 ;
@@ -13079,21 +13108,10 @@ function fetchData(req, res, next) {
     var renderProps = req.locals.matchedResults.renderProps;
 
     var store = req.locals.store;
-    var fetchDataFns = renderProps.components.map(function (comp) {
-        return comp && comp.fetchData || null;
-    }).filter(function (comp) {
-        return Boolean(comp);
-    });
-    if (fetchDataFns.length === 0) {
-        var rootComponent = _react2.default.createElement(_ServerSideAppRoot2.default, { renderPageContent: true, renderProps: renderProps, store: req.locals.store });
-        store.runSaga(_sagas2.default).done.then(function () {
-            next();
-        });
-        (0, _server.renderToString)(rootComponent);
-        store.close();
-    } else {
-        next();
-    }
+    var rootComponent = _react2.default.createElement(_ServerSideAppRoot2.default, { renderPageContent: true, renderProps: renderProps, store: req.locals.store });
+    store.runSaga(_sagas2.default).done.then(next);
+    (0, _server.renderToString)(rootComponent);
+    store.close();
 }
 var _default = fetchData;
 exports.default = _default;

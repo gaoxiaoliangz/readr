@@ -1148,6 +1148,10 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
+var _BookContainer = __webpack_require__(407);
+
+var _BookContainer2 = _interopRequireDefault(_BookContainer);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1167,7 +1171,6 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(407);
 var mapStateToProps = function mapStateToProps(state) {
     var _selectors$viewer$con = selectors.viewer.config(state),
         bookId = _selectors$viewer$con.bookId,
@@ -1179,7 +1182,11 @@ var mapStateToProps = function mapStateToProps(state) {
         percentage = _selectors$viewer$pro.percentage,
         pageNo = _selectors$viewer$pro.pageNo;
 
+    var _selectors$viewer$pro2 = selectors.viewer.progressComponent(state),
+        showPageInfo = _selectors$viewer$pro2.show;
+
     return {
+        showPageInfo: showPageInfo,
         percentage: percentage,
         pageNo: pageNo,
         theme: theme,
@@ -1281,7 +1288,7 @@ var BookContainer = function (_Component) {
 
     return BookContainer;
 }(_react.Component);
-BookContainer = __decorate([(0, _reactCssModules2.default)(styles)], BookContainer);
+BookContainer = __decorate([(0, _reactCssModules2.default)(_BookContainer2.default)], BookContainer);
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
     return {
@@ -1694,9 +1701,6 @@ var ViewerContainer = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (ViewerContainer.__proto__ || Object.getPrototypeOf(ViewerContainer)).call(this, props));
 
-        _this.state = {
-            showPageInfo: false
-        };
         _this.resizeLazily = (0, _debounce3.default)(_this.handleResize, 500, {
             maxWait: 1000
         });
@@ -1720,9 +1724,7 @@ var ViewerContainer = function (_Component) {
 
             if (isTouchMode) {
                 this.props.actions.toggleViewerPanel();
-                this.setState({
-                    showPageInfo: !this.state.showPageInfo
-                });
+                this.props.actions.toggleViewerPageProgressInfo();
             }
         }
     }, {
@@ -1752,6 +1754,7 @@ var ViewerContainer = function (_Component) {
                 showPageInfo: false
             });
             this.props.actions.toggleViewerPanel(false);
+            this.props.actions.toggleViewerPageProgressInfo(false);
         }
     }, {
         key: 'shouldComponentUpdate',
@@ -1783,7 +1786,6 @@ var ViewerContainer = function (_Component) {
     }, {
         key: 'renderBook',
         value: function renderBook() {
-            var showPageInfo = this.state.showPageInfo;
             var _props = this.props,
                 bookContent = _props.bookContent,
                 computedPages = _props.computedPages,
@@ -1797,7 +1799,7 @@ var ViewerContainer = function (_Component) {
             if (isCalcMode) {
                 return _react2.default.createElement("div", null, _react2.default.createElement(_Loading2.default, { text: "书籍排版中", center: true }), _react2.default.createElement(_BookChapters2.default, { bookFlesh: bookContent.flesh, onRawDataMount: this.handleRawDataMount }));
             } else if (computedPages.length !== 0) {
-                return _react2.default.createElement(_BookContainer2.default, { allPages: computedPages, pageHeight: pageHeight, showPageInfo: showPageInfo, pageLimit: PAGE_LIMIT });
+                return _react2.default.createElement("div", { onClick: this.handleViewerClick }, _react2.default.createElement(_BookContainer2.default, { allPages: computedPages, pageHeight: pageHeight, pageLimit: PAGE_LIMIT }));
             } else {
                 return _react2.default.createElement(_Loading2.default, { text: "准备中", center: true });
             }
@@ -1805,7 +1807,7 @@ var ViewerContainer = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement("div", { onClick: this.handleViewerClick, onMouseMove: this.handelViewerMouseMove }, _react2.default.createElement(_ViewerPanel2.default, null), this.renderBook());
+            return _react2.default.createElement("div", { onMouseMove: this.handelViewerMouseMove }, _react2.default.createElement(_ViewerPanel2.default, null), this.renderBook());
         }
     }]);
 
@@ -1885,6 +1887,10 @@ var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _ViewerNav = __webpack_require__(410);
+
+var _ViewerNav2 = _interopRequireDefault(_ViewerNav);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1904,9 +1910,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(410);
 var JS_NAV_HOOK = 'a.js-book-nav';
-var $body = (0, _jquery2.default)('body');
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     var _selectors$viewer$con = selectors.viewer.config(state),
         bookId = _selectors$viewer$con.bookId;
@@ -1951,15 +1955,16 @@ var ViewerNav = function (_Component) {
     }, {
         key: "componentDidMount",
         value: function componentDidMount() {
+            this.$body = (0, _jquery2.default)('body');
             // TODO: js hook 常量
             _preventScroll2.default.init('.js-nav-scroll');
-            $body.on('click', JS_NAV_HOOK, this.handleNavLinkClick);
+            this.$body.on('click', JS_NAV_HOOK, this.handleNavLinkClick);
         }
     }, {
         key: "componentWillUnmount",
         value: function componentWillUnmount() {
             _preventScroll2.default.destroy('.js-nav-scroll');
-            $body.off('click', JS_NAV_HOOK, this.handleNavLinkClick);
+            this.$body.off('click', JS_NAV_HOOK, this.handleNavLinkClick);
         }
     }, {
         key: "renderLink",
@@ -1992,7 +1997,7 @@ var ViewerNav = function (_Component) {
 
     return ViewerNav;
 }(_react.Component);
-ViewerNav = __decorate([(0, _reactCssModules2.default)(styles)], ViewerNav);
+ViewerNav = __decorate([(0, _reactCssModules2.default)(_ViewerNav2.default)], ViewerNav);
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
     return {
@@ -2011,8 +2016,6 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
     __REACT_HOT_LOADER__.register(JS_NAV_HOOK, "JS_NAV_HOOK", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
-
-    __REACT_HOT_LOADER__.register($body, "$body", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
     __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
@@ -2192,7 +2195,9 @@ var ViewerPanel = function (_Component) {
                 showPreference = _props3.showPreference,
                 showNavigation = _props3.showNavigation;
 
-            return _react2.default.createElement(_animations.Slide, null, (showPanel || showPreference || showNavigation) && _react2.default.createElement("div", { styleName: "viewer-panel" }, _react2.default.createElement("div", { styleName: "container" }, _react2.default.createElement("div", { styleName: "back" }, _react2.default.createElement(_reactRouter.Link, { to: "/" }, _react2.default.createElement(_Icon2.default, { name: "back" }), _react2.default.createElement("span", null, "\u8FD4\u56DE"))), _react2.default.createElement("div", { ref: function ref(_ref) {
+            return _react2.default.createElement(_animations.Slide, null,
+            /*(showPanel || showPreference || showNavigation) && (*/
+            showPanel && _react2.default.createElement("div", { styleName: "viewer-panel" }, _react2.default.createElement("div", { styleName: "container" }, _react2.default.createElement("div", { styleName: "back" }, _react2.default.createElement(_reactRouter.Link, { to: "/" }, _react2.default.createElement(_Icon2.default, { name: "back" }), _react2.default.createElement("span", null, "\u8FD4\u56DE"))), _react2.default.createElement("div", { ref: function ref(_ref) {
                     _this2.nav = _ref;
                 }, styleName: "contents" }, _react2.default.createElement("span", null, "\u76EE\u5F55"), _react2.default.createElement(_animations.Fade, null, showNavigation && _react2.default.createElement(_ViewerNav2.default, null))), _react2.default.createElement("span", { styleName: "title" }, title), _react2.default.createElement("div", { ref: function ref(_ref2) {
                     _this2.pref = _ref2;

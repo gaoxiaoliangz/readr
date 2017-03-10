@@ -26,9 +26,9 @@ interface IState {
 @CSSModules(styles)
 class AppHome extends Component<Props, IState> {
 
-  static fetchData({store}) {
-    return store.dispatch(loadBooks())
-  }
+  // static fetchData({store}) {
+  //   return store.dispatch(loadBooks())
+  // }
 
   constructor(props) {
     super(props)
@@ -37,9 +37,9 @@ class AppHome extends Component<Props, IState> {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadBooks()
-    this.props.fetchCollections()
+    // this.props.fetchCollections()
   }
 
   componentWillReceiveProps(nextProps) {

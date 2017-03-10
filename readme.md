@@ -37,10 +37,13 @@ options, data, id, response, error
 	✔ merge api with main server @done (March 10th 2017, 13:14)
 	✔ remove app.config @done (March 10th 2017, 18:01)
 	☐ test 500 error
-	☐ test 404 fe
-	☐ test 404 server
+	✔ test 404 fe @done (March 10th 2017, 19:57)
+	✔ test 404 server @done (March 10th 2017, 19:57)
 	☐ books page promise rejection (Error: only absolute urls are supported)
-	☐ mobile progress label bug
+	✔ mobile progress label bug @done (March 10th 2017, 19:34)
+	✔ jquery error @done (March 10th 2017, 19:57)
+	✔ fetch saga data server side @done (March 10th 2017, 19:57)
+	☐ render server side login state
 
 ### Refactor
 	☐ api flow
