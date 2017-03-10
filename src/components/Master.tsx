@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal } from '../store/actions'
-import { Alerts } from '../elements/Alert'
+import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal } from '../actions'
+import { Alerts } from '../components/Alert'
 import _ from 'lodash'
-import { ConfirmModal } from '../elements/Modal'
-import { ModalPlus } from '../elements/Modal'
+import { ConfirmModal } from '../components/Modal'
+import { ModalPlus } from '../components/Modal'
 
 interface Props {
   notifications: any

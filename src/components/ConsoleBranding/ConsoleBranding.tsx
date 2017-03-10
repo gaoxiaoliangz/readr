@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Container from '../../elements/Container'
-import { Dropdown, DropdownItem, DropdownItemSep } from '../../elements/Dropdown'
+import Container from '../../components/Container'
+import { Dropdown, DropdownItem, DropdownItemSep } from '../../components/Dropdown'
 import CSSModules from 'react-css-modules'
 import Logo from '../Logo'
 const styles = require('./ConsoleBranding.scss')

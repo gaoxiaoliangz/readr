@@ -1,4 +1,4 @@
-import { createRequestTypes, createComponentActionType, createSagaTriggerActionType } from '../store/actions/utils'
+import { createRequestTypes, createComponentActionType, createSagaTriggerActionType } from '../actions/utils'
 
 /**
  * api

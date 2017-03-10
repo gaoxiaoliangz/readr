@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import BookList from '../BookList'
-import Loading from '../../elements/Loading'
+import Loading from '../../components/Loading'
 import CSSModules from 'react-css-modules'
-import Icon from '../../elements/Icon'
+import Icon from '../../components/Icon'
 const styles = require('./BookListSection.scss')
 
 interface IProps {

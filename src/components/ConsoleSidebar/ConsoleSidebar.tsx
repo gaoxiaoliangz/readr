@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Icon from '../../elements/Icon'
+import Icon from '../../components/Icon'
 import CSSModules from 'react-css-modules'
 const styles = require('./ConsoleSidebar.scss')
 

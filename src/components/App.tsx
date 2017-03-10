@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { fetchShelf, userLogout } from '../store/actions'
+import { fetchShelf, userLogout } from '../actions'
 import _ from 'lodash'
-import * as selectors from '../store/selectors'
+import * as selectors from '../selectors'
 
 interface Props {
   fetchShelf: any

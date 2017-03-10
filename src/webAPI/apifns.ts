@@ -1,10 +1,10 @@
-import callApi from '../utils/callApi'
-import helpers from '../../helpers'
-import normalizeResponse from '../utils/normalizeResponse'
-import schemas from '../schemas'
-import utils from '../../utils'
 import _ from 'lodash'
-import { DOUBAN_API_ROOT } from '../../constants/common'
+import callApi from '../utils/api/callApi'
+import helpers from '../helpers'
+import normalizeResponse from '../utils/api/normalizeResponse'
+import schemas from '../schemas'
+import utils from '../utils'
+import { DOUBAN_API_ROOT } from '../constants/common'
 
 const API_ROOT = helpers.getApiRoot()
 

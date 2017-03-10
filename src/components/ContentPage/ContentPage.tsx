@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Paginator from '../../elements/Paginator'
+import Paginator from '../../components/Paginator'
 import { connect } from 'react-redux'
-import * as selectors from '../../store/selectors'
+import * as selectors from '../../selectors'
 
 type PaginationLink = {
   page: number

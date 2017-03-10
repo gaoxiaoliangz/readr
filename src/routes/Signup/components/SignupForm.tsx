@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import form from 'better-redux-form'
-import { sendNotification } from '../../../store/actions'
-import { Input, Button } from '../../../elements/form'
-import validation from '../../../data/validation'
+import { sendNotification } from '../../../actions'
+import { Input, Button } from '../../../components/form'
+import validation from '../../../utils/validation'
 
 interface Props {
   initialValues?: any

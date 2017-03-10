@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container } from '../elements/layout'
+import { Container } from '../components/layout'
 import ConsoleBranding from '../components/ConsoleBranding'
-import { userAuth, sendNotification, userLogout } from '../store/actions'
+import { userAuth, sendNotification, userLogout } from '../actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
-import DocContainer from '../containers/DocContainer'
+import DocContainer from '../components/DocContainer'
 import helpers from '../helpers'
 
 interface Props {

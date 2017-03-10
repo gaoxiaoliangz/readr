@@ -34,10 +34,10 @@ const renderApp = routes => {
 }
 
 if (module.hot) {
-  module.hot.accept('../isomorphic/routes/createRoutes', () => {
+  module.hot.accept('./routes/createRoutes', () => {
     console.info('hot patching')
 
-    const createRoutesNext = require('../isomorphic/routes/createRoutes').default
+    const createRoutesNext = require('./routes/createRoutes').default
     renderApp(createRoutesNext())
   })
 }
