@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import form from 'better-redux-form'
-import { sendNotification, openModal, initializeForm } from '../../../store/actions'
-import * as selectors from '../../../store/selectors'
-import { Textarea, Button, SelectizeInput, Input } from '../../../elements/form'
+import { sendNotification, openModal, initializeForm } from '../../../actions'
+import * as selectors from '../../../selectors'
+import { Textarea, Button, SelectizeInput, Input } from '../../../components/form'
 import AddAuthorForm from './AddAuthorForm'
 import _ from 'lodash'
-import FileUploader from '../../../elements/FileUploader'
+import FileUploader from '../../../components/FileUploader'
 
 interface Props {
   onTitleInputChange?: (newVal: string) => void

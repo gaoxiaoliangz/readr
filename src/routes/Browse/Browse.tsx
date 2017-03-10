@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Button from '../../elements/Button'
+import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
-import { loadBooks, fetchCollections } from '../../store/actions'
-import Container from '../../elements/Container'
+import { loadBooks, fetchCollections } from '../../actions'
+import Container from '../../components/Container'
 import _ from 'lodash'
-import * as selectors from '../../store/selectors'
+import * as selectors from '../../selectors'
 import CSSModules from 'react-css-modules'
 const styles = require('./Browse.scss')
 

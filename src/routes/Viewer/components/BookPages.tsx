@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification } from '../../../store/actions'
+import { sendNotification } from '../../../actions'
 import BookPage from './BookPage'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-import * as selectors from '../../../store/selectors'
+import * as selectors from '../../../selectors'
 import _ from 'lodash'
 const styles = require('./BookPages.scss')
 

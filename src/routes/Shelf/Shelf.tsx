@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchShelf } from '../../store/actions'
+import { fetchShelf } from '../../actions'
 import BookList from '../../components/BookList'
-import Container from '../../elements/Container'
-import { Tab, Tabs } from '../../elements/Tab'
+import Container from '../../components/Container'
+import { Tab, Tabs } from '../../components/Tab'
 import _ from 'lodash'
-import * as selectors from '../../store/selectors'
+import * as selectors from '../../selectors'
 
 interface IProps {
   shelf?: any

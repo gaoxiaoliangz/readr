@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, loadBooks, resetForm } from '../../store/actions'
+import { sendNotification, loadBooks, resetForm } from '../../actions'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
-import api from '../../services/api'
-import DocContainer from '../../containers/DocContainer'
+import api from '../../apifns'
+import DocContainer from '../../components/DocContainer'
 
 interface Props {
   session: any

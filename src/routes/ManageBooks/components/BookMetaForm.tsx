@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import form from 'better-redux-form'
-import { sendNotification, closeModal } from '../../../store/actions'
-import { Input, Textarea } from '../../../elements/form'
-import ModalFooter from '../../../elements/Modal/ModalFooter'
+import { sendNotification, closeModal } from '../../../actions'
+import { Input, Textarea } from '../../../components/form'
+import ModalFooter from '../../../components/Modal/ModalFooter'
 
 interface OwnProps {
   onSave: (data: any) => void

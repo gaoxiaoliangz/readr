@@ -1,7 +1,7 @@
-import * as cache from '../../data/cache'
+import * as cache from '../utils/browser/cache'
 import { put, call } from 'redux-saga/effects'
 import _ from 'lodash'
-import appConfig from '../../../app.config'
+// import appConfig from '../../../app.config'
 
 const OPTIONS = 'options'
 const ID = 'id'

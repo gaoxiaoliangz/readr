@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button } from '../../elements/form'
-import { fetchCollection, sendNotification } from '../../store/actions'
+import { Button } from '../../components/form'
+import { fetchCollection, sendNotification } from '../../actions'
 import BookList from '../../components/BookListSection'
-import { Container } from '../../elements/layout'
+import { Container } from '../../components/layout'
 import CSSModules from 'react-css-modules'
 const styles = require('./CollectionDetail.css')
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import form from 'better-redux-form'
-import { sendNotification, closeModal } from '../../../store/actions'
-import Input from '../../../elements/Input'
-import ModalFooter from '../../../elements/Modal/ModalFooter'
+import { sendNotification, closeModal } from '../../../actions'
+import Input from '../../../components/Input'
+import ModalFooter from '../../../components/Modal/ModalFooter'
 
 interface Props {
   onSave: (data: any) => void

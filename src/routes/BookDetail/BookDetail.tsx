@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadBook } from '../../store/actions'
-import Loading from '../../elements/Loading'
-import { Button } from '../../elements/form'
+import { loadBook } from '../../actions'
+import Loading from '../../components/Loading'
+import { Button } from '../../components/form'
 import _ from 'lodash'
-import DocContainer from '../../containers/DocContainer'
+import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
-import * as selectors from '../../store/selectors'
+import * as selectors from '../../selectors'
 const styles = require('./BookDetail.scss')
 
 interface Props {

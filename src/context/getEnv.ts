@@ -1,4 +1,4 @@
-import isServerEnv from '../isomorphic/helpers/isServerEnv'
+import isServerEnv from '../helpers/isServerEnv'
 
 const GLOBAL_ENV_VAR = '__ENV__'
 

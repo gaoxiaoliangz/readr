@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { sendNotification, loadSomething, saveSomething } from '../../store/actions'
-import * as actions from '../../store/actions'
+import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
-import { Button } from '../../elements/form'
 import _ from 'lodash'
 
 interface Props {
@@ -38,17 +36,10 @@ class TestPlace extends Component<AllProps, LocalState> {
     super(props)
   }
 
-  // componentDidMount() {
-  //   this.props.actions.updateBookProgress(89)
-  // }
-
   render() {
     return (
       <div>
         <h1>Test Place</h1>
-        <Button onClick={e => { this.props.actions.loadSomething() } }>load</Button>
-        <span> </span>
-        <Button onClick={e => { this.props.actions.saveSomething() } }>save</Button>
       </div>
     )
   }

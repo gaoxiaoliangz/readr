@@ -1,6 +1,6 @@
 import * as selectors from '../selectors'
-import * as ACTION_TYPES from '../../constants/actionTypes'
-import helpers from '../../helpers'
+import * as ACTION_TYPES from '../constants/actionTypes'
+import helpers from '../helpers'
 
 // viewer
 export const initializeViewerConfig = (bookId: string, config: ViewerConfig = {}) =>

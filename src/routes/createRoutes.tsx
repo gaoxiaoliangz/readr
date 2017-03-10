@@ -1,9 +1,9 @@
 import React from 'react'
-import Master from '../containers/Master'
-import App from '../containers/App'
-import Console from '../containers/Console'
 import { Route, IndexRedirect, IndexRoute } from 'react-router'
-import api from '../services/api'
+import Master from '../components/Master'
+import App from '../components/App'
+import Console from '../components/Console'
+import api from '../apifns'
 import { ROLES } from '../constants/common'
 
 const createRoutes = (context = {}) => {

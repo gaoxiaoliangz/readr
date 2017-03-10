@@ -1,6 +1,4 @@
 import { take, put, call, cancelled, fork, cancel } from 'redux-saga/effects'
-import * as actions from '../actions'
-import api from '../../services/api'
 import _ from 'lodash'
 
 function someAsyncTask() {

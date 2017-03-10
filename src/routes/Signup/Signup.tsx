@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification, userAuth } from '../../store/actions'
-import DocContainer from '../../containers/DocContainer'
+import { sendNotification, userAuth } from '../../actions'
+import DocContainer from '../../components/DocContainer'
 import SignupForm from './components/SignupForm'
-import api from '../../services/api'
+import api from '../../apifns'
 import helpers from '../../helpers'
 
 interface Props {

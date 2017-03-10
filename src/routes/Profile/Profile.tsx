@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCollections, sendNotification, fetchProfile } from '../../store/actions'
-import { Button } from '../../elements/form'
-import { Tab, Tabs } from '../../elements/Tab'
-import { Container } from '../../elements/layout'
+import { fetchCollections, sendNotification, fetchProfile } from '../../actions'
+import { Button } from '../../components/form'
+import { Tab, Tabs } from '../../components/Tab'
+import { Container } from '../../components/layout'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
-import * as selectors from '../../store/selectors'
+import * as selectors from '../../selectors'
 const styles = require('./Profile.scss')
 
 interface IProps {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification } from '../../../store/actions'
-import { Textarea, Button, SelectizeInput, Input } from '../../../elements/form'
-import * as selectors from '../../../store/selectors'
+import { sendNotification } from '../../../actions'
+import { Textarea, Button, SelectizeInput, Input } from '../../../components/form'
+import * as selectors from '../../../selectors'
 import _ from 'lodash'
 import form from 'better-redux-form'
 

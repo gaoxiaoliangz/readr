@@ -1,9 +1,9 @@
 import { take, call, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
-import api from '../../services/api'
+import api from '../apifns'
 import _ from 'lodash'
 import { fetchEntity } from './utils'
-import * as ACTION_TYPES from '../../constants/actionTypes'
+import * as ACTION_TYPES from '../constants/actionTypes'
 
 const OPTIONS = 'options'
 const ID = 'id'

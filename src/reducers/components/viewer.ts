@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import _ from 'lodash'
-import * as ACTION_TYPES from '../../../constants/actionTypes'
-import * as CONSTANTS from '../../../constants'
+import * as ACTION_TYPES from '../../constants/actionTypes'
+import * as CONSTANTS from '../../constants'
 
 const getFlag = (reset, currentFlag) => {
   if (typeof reset === 'undefined') {

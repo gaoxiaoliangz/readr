@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../constants/actionTypes'
+import * as ActionTypes from '../constants/actionTypes'
 
 export const sendNotification = (message: string, msgType: TNotification = 'success', t: number = 2000) => {
   return (dispatch, getState) => {

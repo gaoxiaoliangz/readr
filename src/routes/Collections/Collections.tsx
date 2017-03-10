@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCollections } from '../../store/actions'
+import { fetchCollections } from '../../actions'
 import { CollectionList } from '../../components/CollectionSection'
 
 interface Props {

@@ -9,7 +9,7 @@ import logActionTypes from './middleware/logActionTypes'
 import createLogger from 'redux-logger'
 import middleware from './middleware'
 import createSagaMiddleware, { END } from 'redux-saga'
-import helpers from '../helpers'
+import helpers from './helpers'
 
 const sagaMiddleware = createSagaMiddleware()
 

@@ -1,8 +1,8 @@
 import { take, put, call } from 'redux-saga/effects'
 import * as actions from '../actions'
-import api from '../../services/api'
+import api from '../apifns'
 import _ from 'lodash'
-import * as ACTION_TYPES from '../../constants/actionTypes'
+import * as ACTION_TYPES from '../constants/actionTypes'
 
 export default function* watchLoginFlow(): any {
   // 使用 fetchEntity 会更好么？

@@ -1,7 +1,7 @@
-import callApi, { CallApiOptions } from '../../services/utils/callApi'
-import helpers from '../../helpers'
+import callApi, { CallApiOptions } from '../utils/api/callApi'
+import helpers from '../helpers'
 import _ from 'lodash'
-import handleResponse from '../../services/utils/handleResponse'
+import handleResponse from '../utils/api/handleResponse'
 
 export type Pagination = {
   name: string

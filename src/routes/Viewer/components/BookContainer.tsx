@@ -4,9 +4,9 @@ import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as selectors from '../../../store/selectors'
+import * as selectors from '../../../selectors'
 import NavArrow from './NavArrow'
-import * as actions from '../../../store/actions'
+import * as actions from '../../../actions'
 import CSSModules from 'react-css-modules'
 const styles = require('./BookContainer.scss')
 

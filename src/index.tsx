@@ -1,13 +1,13 @@
 import { render } from 'react-dom'
 import React from 'react'
 import { browserHistory, hashHistory, match } from 'react-router'
-import createRoutes from '../isomorphic/routes/createRoutes'
+import createRoutes from './routes/createRoutes'
 import { syncHistoryWithStore } from 'react-router-redux'
-import configureStore from '../isomorphic/store/configureStore'
-import rootSaga from '../isomorphic/store/sagas'
-import helpers from '../isomorphic/helpers'
-import AppContainer from './containers/AppContainer'
-import Root from '../isomorphic/containers/Root'
+import configureStore from './configureStore'
+import rootSaga from './sagas'
+import helpers from './helpers'
+import AppContainer from './components/AppContainer'
+import Root from './components/Root'
 
 const routerHistory = helpers.isServerRoutingEnabled()
   ? browserHistory

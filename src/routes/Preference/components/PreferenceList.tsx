@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Switcher from '../../../elements/Switcher'
+import Switcher from '../../../components/Switcher'
 import CSSModules from 'react-css-modules'
 const styles = require('./PreferenceList.scss')
 

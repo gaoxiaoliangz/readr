@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
-import Markdown from '../../../elements/Markdown'
+import Markdown from '../../../components/Markdown'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../../../store/actions'
-import * as selectors from '../../../store/selectors'
+import * as actions from '../../../actions'
+import * as selectors from '../../../selectors'
 const styles = require('./BookPage.scss')
 
 const renderers = {

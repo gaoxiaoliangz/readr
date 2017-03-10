@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import Icon from '../../../elements/Icon'
-import { Fade, Slide } from '../../../elements/animations'
+import Icon from '../../../components/Icon'
+import { Fade, Slide } from '../../../components/animations'
 import ViewerPreference from './ViewerPreference'
 import ViewerNav from './ViewerNav'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../../../store/actions'
-import * as selectors from '../../../store/selectors'
+import * as actions from '../../../actions'
+import * as selectors from '../../../selectors'
 import isDescendant from '../../../utils/dom/isDescendant'
 const styles = require('./ViewerPanel.scss')
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../../store/actions'
+import * as actions from '../../../actions'
 import { bindActionCreators } from 'redux'
-import * as selectors from '../../../store/selectors'
+import * as selectors from '../../../selectors'
 import BookContainer from './BookContainer'
 import ViewerPanel from './ViewerPanel'
 import BookChapters from './BookChapters'
 import _ from 'lodash'
-import Loading from '../../../elements/Loading'
+import Loading from '../../../components/Loading'
 import utils from '../../../utils'
 
 const PAGE_LIMIT = 5

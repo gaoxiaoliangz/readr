@@ -4,7 +4,7 @@ import { routerReducer as routing } from 'react-router-redux'
 import components from './components'
 import pagination from './pagination'
 import { reducer as form } from 'better-redux-form'
-import * as ActionTypes from '../../constants/actionTypes'
+import * as ActionTypes from '../constants/actionTypes'
 
 function errorMessage(state = [], action) {
   const { error } = action

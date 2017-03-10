@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, fetchProfile } from '../../store/actions'
+import { sendNotification, fetchProfile } from '../../actions'
 import _ from 'lodash'
 import PreferenceList from './components/PreferenceList'
-import DocContainer from '../../containers/DocContainer'
+import DocContainer from '../../components/DocContainer'
 
 interface IAllProps {
   fetchProfile?: any

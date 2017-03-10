@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import DocContainer from '../../containers/DocContainer'
+import DocContainer from '../../components/DocContainer'
 import AppError from '../../components/AppError'
 
 interface IProps {
