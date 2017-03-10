@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
+import urljoin from 'url-join'
 import render from './middleware/render'
 import bootServer from './bootstrap'
 import appConfig from '../app.config'
@@ -17,8 +18,7 @@ const PUBLIC_DIR = 'build/static'
 const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
 const REQ_SIZE_LIMIT = '5mb'
-// todo: resolve url
-const MONGO_STORE_URL = appConfig.database.host + '/' + appConfig.database.mongoStoreName
+const MONGO_STORE_URL = urljoin(appConfig.database.host, appConfig.database.mongoStoreName)
 
 interface InitConfig {
   basePath: string
@@ -44,17 +44,11 @@ export default function initialize(config: InitConfig) {
   app.use(cookieParser())
   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
 
-  switch (serviceName) {
-    case 'api':
-      // api routing
-      app.use(`/${appConfig.api.prefix}`, routes.api())
-      break
+  // api routing
+  app.use(`/${appConfig.api.prefix}`, routes.api())
 
-    case 'pages':
-    default:
-      app.use(render(isProduction))
-      break
-  }
+  // render view
+  app.use(render(isProduction))
 
   // log error info
   app.use(morgan('dev', {
@@ -62,7 +56,6 @@ export default function initialize(config: InitConfig) {
   }))
 
   return bootServer(app, {
-    serviceName,
     isProduction
   })
 }

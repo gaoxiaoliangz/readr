@@ -1,13 +1,19 @@
-const { API_HOST, API_PORT, MAIN_HOST, MAIN_PORT, WEBPACK_HOST, WEBPACK_PORT } = process.env
+const { PORT, API_HOST, WEBPACK_PORT } = process.env
 
-const makeOrigin = (host, port) => {
-  return `http://${host}:${port}`
+const LOCALHOST = 'localhost'
+
+const makeOrigin = (host, port?) => {
+  if (port) {
+    return `http://${host}:${port}`
+  }
+  return `http://${host}`
 }
 
 const ALLOWED_ORIGINS = [
-  makeOrigin(API_HOST, API_PORT),
-  makeOrigin(MAIN_HOST, MAIN_PORT),
-  makeOrigin(WEBPACK_HOST, WEBPACK_PORT)
+  // for production, using domain
+  makeOrigin(API_HOST),
+  makeOrigin(LOCALHOST, PORT),
+  makeOrigin(LOCALHOST, WEBPACK_PORT)
 ]
 
 const setHeader = (req, res, next) => {

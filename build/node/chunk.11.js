@@ -1,7 +1,7 @@
 exports.ids = [11];
 exports.modules = {
 
-/***/ 291:
+/***/ 293:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEmpty2 = __webpack_require__(23);
+var _isEmpty2 = __webpack_require__(22);
 
 var _isEmpty3 = _interopRequireDefault(_isEmpty2);
 
@@ -21,11 +21,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _api = __webpack_require__(22);
+var _api = __webpack_require__(21);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -33,7 +33,7 @@ var _DocContainer = __webpack_require__(45);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _AddBookForm = __webpack_require__(366);
+var _AddBookForm = __webpack_require__(368);
 
 var _AddBookForm2 = _interopRequireDefault(_AddBookForm);
 
@@ -152,7 +152,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 335:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -168,7 +168,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _jquery = __webpack_require__(329);
+var _jquery = __webpack_require__(331);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -298,7 +298,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 336:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -308,7 +308,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FileUploader = __webpack_require__(335);
+var _FileUploader = __webpack_require__(337);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
@@ -330,7 +330,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 365:
+/***/ 367:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -348,7 +348,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _betterReduxForm = __webpack_require__(28);
 
@@ -356,11 +356,11 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _Input = __webpack_require__(88);
+var _Input = __webpack_require__(89);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _ModalFooter = __webpack_require__(84);
+var _ModalFooter = __webpack_require__(85);
 
 var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
@@ -438,7 +438,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 366:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -456,7 +456,7 @@ var _omit2 = __webpack_require__(7);
 
 var _omit3 = _interopRequireDefault(_omit2);
 
-var _isEmpty2 = __webpack_require__(23);
+var _isEmpty2 = __webpack_require__(22);
 
 var _isEmpty3 = _interopRequireDefault(_isEmpty2);
 
@@ -468,7 +468,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _betterReduxForm = __webpack_require__(28);
 
@@ -480,13 +480,13 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(83);
 
-var _AddAuthorForm = __webpack_require__(365);
+var _AddAuthorForm = __webpack_require__(367);
 
 var _AddAuthorForm2 = _interopRequireDefault(_AddAuthorForm);
 
-var _FileUploader = __webpack_require__(336);
+var _FileUploader = __webpack_require__(338);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 

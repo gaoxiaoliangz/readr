@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals') // eslint-disable-line
+const WebpackMd5Hash = require('webpack-md5-hash') // eslint-disable-line
 const paths = require('./paths')
 const rules = require('./webpack-rules')
 const vars = require('./webpack-vars')
@@ -23,7 +24,9 @@ module.exports = {
       banner: `require('source-map-support').install()`,
       raw: true,
       entryOnly: true
-    })
+    }),
+
+    new WebpackMd5Hash(),
   ],
   module: {
     rules: [

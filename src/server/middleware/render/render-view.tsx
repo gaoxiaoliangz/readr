@@ -7,7 +7,7 @@ import ServerSideAppRoot from '../../../isomorphic/containers/ServerSideAppRoot'
 import AppDoc, { DOCTYPE } from '../../../isomorphic/containers/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
 
-const CLIENT_ENV_VARS = ['API_PORT', 'API_HOST', 'API_PREFIX']
+const CLIENT_ENV_VARS = ['PORT']
 
 const resolveDevAssets = (assetName) => {
   const assetUrl = `http://localhost:${process.env.WEBPACK_PORT}/static/`

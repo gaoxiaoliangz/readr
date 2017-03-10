@@ -1,8 +1,6 @@
 /**
  * args
- * --serve=serviceName, (serviceName: assets, api, pages)
  * -p, --production
- * --port=portNum
  */
 require('dotenv').config()
 
@@ -15,6 +13,5 @@ process.env.NODE_ENV = isProduction ? 'production' : 'development'
 const initialize = require('../build/node').default
 
 const basePath = process.cwd()
-const serviceName = argv.serve
 
-initialize({ basePath, isProduction, serviceName })
+initialize({ basePath, isProduction })

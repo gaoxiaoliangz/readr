@@ -7,12 +7,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Serve pages in production",
+      "name": "Server(production)",
       "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
       "args": [
-        "--serve=pages",
         "--production"
       ],
       "outFiles": [
@@ -22,27 +21,10 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Serve pages in development",
+      "name": "Server",
       "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
-      "args": [
-        "--serve=pages"
-      ],
-      "outFiles": [
-        "${workspaceRoot}/build/node/**/*.js"
-      ]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Serve api in development",
-      "program": "${workspaceRoot}/bin/index.js",
-      "cwd": "${workspaceRoot}",
-      "sourceMaps": true,
-      "args": [
-        "--serve=api"
-      ],
       "outFiles": [
         "${workspaceRoot}/build/node/**/*.js"
       ]
@@ -50,7 +32,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "附加到进程",
+      "name": "Attach",
       "port": 5858
     }
   ]

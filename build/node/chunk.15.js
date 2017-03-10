@@ -1,7 +1,7 @@
 exports.ids = [15];
 exports.modules = {
 
-/***/ 292:
+/***/ 294:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEmpty2 = __webpack_require__(23);
+var _isEmpty2 = __webpack_require__(22);
 
 var _isEmpty3 = _interopRequireDefault(_isEmpty2);
 
@@ -21,15 +21,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _AddCollectionForm = __webpack_require__(367);
+var _AddCollectionForm = __webpack_require__(369);
 
 var _AddCollectionForm2 = _interopRequireDefault(_AddCollectionForm);
 
-var _api = __webpack_require__(22);
+var _api = __webpack_require__(21);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -122,7 +122,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 367:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -132,7 +132,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _pick2 = __webpack_require__(32);
+var _pick2 = __webpack_require__(24);
 
 var _pick3 = _interopRequireDefault(_pick2);
 
@@ -144,11 +144,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(83);
 
 var _selectors = __webpack_require__(27);
 

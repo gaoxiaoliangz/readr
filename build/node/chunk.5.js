@@ -1,7 +1,7 @@
 exports.ids = [5];
 exports.modules = {
 
-/***/ 298:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17,17 +17,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _DocContainer = __webpack_require__(45);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _InfoTable = __webpack_require__(333);
+var _InfoTable = __webpack_require__(335);
 
 var _InfoTable2 = _interopRequireDefault(_InfoTable);
 
-var _api = __webpack_require__(22);
+var _api = __webpack_require__(21);
 
 var _api2 = _interopRequireDefault(_api);
 
@@ -37,7 +37,7 @@ var selectors = _interopRequireWildcard(_selectors);
 
 var _actions = __webpack_require__(15);
 
-var _ContentPage = __webpack_require__(331);
+var _ContentPage = __webpack_require__(333);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -45,17 +45,17 @@ var _helpers = __webpack_require__(10);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
-var _moment = __webpack_require__(416);
+var _moment = __webpack_require__(418);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _FileUploader = __webpack_require__(336);
+var _FileUploader = __webpack_require__(338);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(83);
 
-var _BookMetaForm = __webpack_require__(368);
+var _BookMetaForm = __webpack_require__(370);
 
 var _BookMetaForm2 = _interopRequireDefault(_BookMetaForm);
 
@@ -247,7 +247,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 330:
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -263,11 +263,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Paginator = __webpack_require__(338);
+var _Paginator = __webpack_require__(340);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _selectors = __webpack_require__(27);
 
@@ -349,7 +349,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 331:
+/***/ 333:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -359,7 +359,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ContentPage = __webpack_require__(330);
+var _ContentPage = __webpack_require__(332);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -381,7 +381,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 332:
+/***/ 334:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -395,7 +395,7 @@ var _map2 = __webpack_require__(48);
 
 var _map3 = _interopRequireDefault(_map2);
 
-var _keys2 = __webpack_require__(83);
+var _keys2 = __webpack_require__(84);
 
 var _keys3 = _interopRequireDefault(_keys2);
 
@@ -407,7 +407,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(21);
+var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -432,7 +432,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(349);
+var styles = __webpack_require__(351);
 var InfoTable = function (_Component) {
     _inherits(InfoTable, _Component);
 
@@ -503,7 +503,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 333:
+/***/ 335:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -513,7 +513,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _InfoTable = __webpack_require__(332);
+var _InfoTable = __webpack_require__(334);
 
 var _InfoTable2 = _interopRequireDefault(_InfoTable);
 
@@ -535,7 +535,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 335:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -551,7 +551,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _jquery = __webpack_require__(329);
+var _jquery = __webpack_require__(331);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -681,7 +681,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 336:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,7 +691,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FileUploader = __webpack_require__(335);
+var _FileUploader = __webpack_require__(337);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
@@ -713,7 +713,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 337:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -737,7 +737,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _utils = __webpack_require__(24);
+var _utils = __webpack_require__(23);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -762,7 +762,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(350);
+var styles = __webpack_require__(352);
 var Paginator = function (_Component) {
     _inherits(Paginator, _Component);
 
@@ -884,7 +884,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 338:
+/***/ 340:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -894,7 +894,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Paginator = __webpack_require__(337);
+var _Paginator = __webpack_require__(339);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -916,7 +916,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 344:
+/***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -936,7 +936,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 345:
+/***/ 347:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -956,11 +956,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 349:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(344);
+    var content = __webpack_require__(346);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -992,11 +992,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 350:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(345);
+    var content = __webpack_require__(347);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -1028,7 +1028,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 368:
+/***/ 370:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1046,7 +1046,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _betterReduxForm = __webpack_require__(28);
 
@@ -1054,9 +1054,9 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(83);
 
-var _ModalFooter = __webpack_require__(84);
+var _ModalFooter = __webpack_require__(85);
 
 var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
