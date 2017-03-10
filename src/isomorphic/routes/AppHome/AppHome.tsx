@@ -9,7 +9,6 @@ import DocContainer from '../../containers/DocContainer'
 import { Button } from '../../elements/form'
 import { Container } from '../../elements/layout'
 import styles from './AppHome.scss'
-// import getEvn from '../../../context/getEnv'
 
 interface Props {
   loadBooks: typeof loadBooks
@@ -25,7 +24,7 @@ interface IState {
 }
 
 @CSSModules(styles)
-class Home extends Component<Props, IState> {
+class AppHome extends Component<Props, IState> {
 
   static fetchData({store}) {
     return store.dispatch(loadBooks())
@@ -93,4 +92,4 @@ function mapStateToProps(state, ownProps) {
 export default connect<{}, {}, {}>(
   mapStateToProps,
   { loadBooks, fetchCollections, sendNotification }
-)(Home)
+)(AppHome)

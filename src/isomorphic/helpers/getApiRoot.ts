@@ -3,7 +3,12 @@ import getEnv from '../../context/getEnv'
 const env = getEnv()
 
 export default function getApiRoot() {
-  const { API_HOST, API_PORT, API_PREFIX } = env
+  const { PORT } = env
 
-  return `http://${API_HOST}:${API_PORT}/${API_PREFIX}`
+  if (process.env.NODE_ENV === 'production') {
+    // todo: domain
+    return `http://localhost:${PORT}/api`
+  }
+
+  return `http://localhost:${PORT}/api`
 }

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes as pt } from 'react'
+import React, { Component } from 'react'
 import withSideEffect from 'react-side-effect'
 import _ from 'lodash'
 
@@ -20,10 +20,6 @@ class BodyClass extends Component<Props, void> { // eslint-disable-line
       <div className="body-class">{this.props.children}</div>
     )
   }
-}
-
-BodyClass['propTypes'] = {
-  children: pt.object
 }
 
 function reducePropsToState(propsList) {

@@ -1,7 +1,7 @@
 exports.ids = [9];
 exports.modules = {
 
-/***/ 294:
+/***/ 296:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEmpty2 = __webpack_require__(23);
+var _isEmpty2 = __webpack_require__(22);
 
 var _isEmpty3 = _interopRequireDefault(_isEmpty2);
 
@@ -23,15 +23,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _Loading = __webpack_require__(309);
+var _Loading = __webpack_require__(311);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(83);
 
 var _DocContainer = __webpack_require__(45);
 
@@ -64,7 +64,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(402);
+var styles = __webpack_require__(404);
 var BookDetail = function (_Component) {
     _inherits(BookDetail, _Component);
 
@@ -132,7 +132,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 308:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -154,11 +154,11 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _classnames = __webpack_require__(21);
+var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Loading = __webpack_require__(311);
+var _Loading = __webpack_require__(313);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -255,7 +255,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 309:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -265,7 +265,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Loading = __webpack_require__(308);
+var _Loading = __webpack_require__(310);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -287,7 +287,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 310:
+/***/ 312:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -306,11 +306,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 311:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(310);
+    var content = __webpack_require__(312);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -342,7 +342,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 387:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -370,11 +370,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 402:
+/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(387);
+    var content = __webpack_require__(389);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {

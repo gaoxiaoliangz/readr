@@ -14,6 +14,7 @@
 options, data, id, response, error
 
 ## Todos
+
   ✔ remove legacy webpack config @done (March 7th 2017, 14:21)
 	✔ remove legacy hmr module @done (March 7th 2017, 14:21)
 	✔ remove legacy render module @done (March 7th 2017, 14:21)
@@ -34,5 +35,6 @@ options, data, id, response, error
 	✔ webpack port @done (March 9th 2017, 15:07)
 	☐ beautify build file report
 	☐ manage node process in one console
+	☐ merge api with main server
 
 to be continued...

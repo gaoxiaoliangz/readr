@@ -4,8 +4,7 @@ import initialize from '../build/node'
 const apiRoot = 'http://localhost:4001/api'
 
 const app = initialize({
-  basePath: process.cwd(),
-  serviceName: 'api'
+  basePath: process.cwd()
 })
 
 describe('API tests', () => {
