@@ -4460,8 +4460,8 @@ module.exports = require("react-addons-css-transition-group");
 /***/ (function(module, exports) {
 
 module.exports = {
-	"app.css": "css/app.a67c5b4c33.css",
-	"app.js": "js/app.a67c5b4c33.js",
+	"app.css": "css/app.cffd75d7fe.css",
+	"app.js": "js/app.cffd75d7fe.js",
 	"base.global.css": "css/base.global.30e3ea3a4f.css",
 	"base.global.js": "js/base.global.30e3ea3a4f.js",
 	"js/chunk.0b7ce24747.12.js": "js/chunk.0b7ce24747.12.js",
@@ -7370,7 +7370,7 @@ function getApiRoot() {
 
     if (process.env.NODE_ENV === 'production') {
         // todo: domain
-        return 'http://localhost:' + PORT + '/api';
+        return '/api';
     }
     return 'http://localhost:' + PORT + '/api';
 }

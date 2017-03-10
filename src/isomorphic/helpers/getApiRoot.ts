@@ -7,7 +7,7 @@ export default function getApiRoot() {
 
   if (process.env.NODE_ENV === 'production') {
     // todo: domain
-    return `http://localhost:${PORT}/api`
+    return `/api`
   }
 
   return `http://localhost:${PORT}/api`
