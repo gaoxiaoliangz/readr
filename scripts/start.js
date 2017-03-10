@@ -30,7 +30,7 @@ const paths = require('../config/paths')
 const isInteractive = process.stdout.isTTY
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
+if (!checkRequiredFiles([paths.appHtml, paths.appIndex])) {
   process.exit(1)
 }
 
