@@ -39,6 +39,7 @@ options, data, id, response, error
 	☐ test 500 error
 	☐ test 404 fe
 	☐ test 404 server
+	☐ books page promise rejection (Error: only absolute urls are supported)
 
 ### Refactor
 	☐ api flow
