@@ -2,9 +2,9 @@ import React from 'react'
 import path from 'path'
 import _ from 'lodash'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
-import DocContainer from '../../../isomorphic/containers/DocContainer'
-import ServerSideAppRoot from '../../../isomorphic/containers/ServerSideAppRoot'
-import AppDoc, { DOCTYPE } from '../../../isomorphic/containers/AppDoc'
+import DocContainer from '../../../components/DocContainer'
+import ServerSideAppRoot from '../../../components/ServerSideAppRoot'
+import AppDoc, { DOCTYPE } from '../../../components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
 
 const CLIENT_ENV_VARS = ['PORT']

@@ -2,7 +2,7 @@ import express from 'express'
 import _ from 'lodash'
 import multer from 'multer'
 import * as endpoints from '../endpoints'
-import { ROLES } from '../../isomorphic/constants/common'
+import { ROLES } from '../../constants/common'
 import middleware from '../middleware'
 
 const FORM_DATA_FILE_KEY = 'file'

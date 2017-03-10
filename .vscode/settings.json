@@ -10,6 +10,7 @@
   },
   "files.associations": {
     ".env": "yaml",
-    ".env-sample": "yaml"
+    ".env-sample": "yaml",
+    ".env-example": "yaml"
   }
 }

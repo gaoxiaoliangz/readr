@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import utils from '../utils'
-import * as api from '../apifns'
+import * as webAPI from '../webAPI/apifns'
 import schemas from '../schemas'
 import { CALL_API_OBJ } from '../middleware/api'
 import { DOUBAN_API_ROOT } from '../constants/common'
@@ -17,11 +17,11 @@ export const bookContent = createActionEntity(ActionTypes.BOOK_CONTENT)
 export const loadBookContent = (id: string) => action(ActionTypes.LOAD_BOOK_CONTENT, { id })
 
 export const books = createActionEntity(ActionTypes.BOOKS)
-export const loadBooks = (options?: api.FetchBooksOptions, key?: string) =>
+export const loadBooks = (options?: webAPI.FetchBooksOptions, key?: string) =>
   action(ActionTypes.LOAD_BOOKS, { options, key })
 
 export const users = createActionEntity(ActionTypes.USERS)
-export const loadUsers = (options?: api.FetchUsersOptions) =>
+export const loadUsers = (options?: webAPI.FetchUsersOptions) =>
   action(ActionTypes.LOAD_USERS, { options })
 
 export const logout = createActionEntity(ActionTypes.LOGOUT)
