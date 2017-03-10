@@ -12,10 +12,10 @@ import utils from '../../../utils'
 
 const PAGE_LIMIT = 5
 
-interface Props {}
+interface Props { }
 
 interface LocalState {
-  showPageInfo?: boolean
+  // showPageInfo?: boolean
 }
 
 interface OtherProps {
@@ -73,9 +73,6 @@ class ViewerContainer extends Component<Props & OtherProps, LocalState> {
 
   constructor(props) {
     super(props)
-    this.state = {
-      showPageInfo: false
-    }
     this.resizeLazily = _.debounce(this.handleResize, 500, {
       maxWait: 1000
     })
@@ -95,9 +92,7 @@ class ViewerContainer extends Component<Props & OtherProps, LocalState> {
 
     if (isTouchMode) {
       this.props.actions.toggleViewerPanel()
-      this.setState({
-        showPageInfo: !this.state.showPageInfo
-      })
+      this.props.actions.toggleViewerPageProgressInfo()
     }
   }
 
@@ -125,6 +120,7 @@ class ViewerContainer extends Component<Props & OtherProps, LocalState> {
       showPageInfo: false,
     })
     this.props.actions.toggleViewerPanel(false)
+    this.props.actions.toggleViewerPageProgressInfo(false)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -152,9 +148,8 @@ class ViewerContainer extends Component<Props & OtherProps, LocalState> {
   }
 
   renderBook() {
-    const { showPageInfo } = this.state
     const { bookContent, computedPages,
-      config: { isCalcMode, pageHeight }} = this.props
+      config: { isCalcMode, pageHeight } } = this.props
 
     if (!bookContent.flesh) {
       return <Loading text="书籍获取中" center />
@@ -167,17 +162,18 @@ class ViewerContainer extends Component<Props & OtherProps, LocalState> {
           <BookChapters
             bookFlesh={bookContent.flesh}
             onRawDataMount={this.handleRawDataMount}
-            />
+          />
         </div>
       )
     } else if (computedPages.length !== 0) {
       return (
-        <BookContainer
-          allPages={computedPages}
-          pageHeight={pageHeight}
-          showPageInfo={showPageInfo}
-          pageLimit={PAGE_LIMIT}
+        <div onClick={this.handleViewerClick}>
+          <BookContainer
+            allPages={computedPages}
+            pageHeight={pageHeight}
+            pageLimit={PAGE_LIMIT}
           />
+        </div>
       )
     } else {
       return <Loading text="准备中" center />
@@ -186,7 +182,7 @@ class ViewerContainer extends Component<Props & OtherProps, LocalState> {
 
   render() {
     return (
-      <div onClick={this.handleViewerClick} onMouseMove={this.handelViewerMouseMove} >
+      <div onMouseMove={this.handelViewerMouseMove} >
         <ViewerPanel />
         {this.renderBook()}
       </div>

@@ -92,7 +92,8 @@ class ViewerPanel extends Component<AllProps, void> {
     return (
       <Slide>
         {
-          (showPanel || showPreference || showNavigation) && (
+          /*(showPanel || showPreference || showNavigation) && (*/
+          (showPanel) && (
             <div styleName="viewer-panel">
               <div styleName="container">
                 <div styleName="back">

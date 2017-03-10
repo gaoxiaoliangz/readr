@@ -8,12 +8,11 @@ import * as selectors from '../../../selectors'
 import NavArrow from './NavArrow'
 import * as actions from '../../../actions'
 import CSSModules from 'react-css-modules'
-const styles = require('./BookContainer.scss')
+import styles from './BookContainer.scss'
 
 interface OwnProps {
   allPages: TBookPage[]
   pageHeight: number
-  showPageInfo?: boolean
   pageLimit: number
 }
 
@@ -24,13 +23,16 @@ interface StateProps {
   isScrollMode?: boolean
   isCalcMode?: boolean
   actions?: typeof actions
+  showPageInfo?: boolean
 }
 
 const mapStateToProps = state => {
   const { bookId, theme, isScrollMode, isCalcMode } = selectors.viewer.config(state)
   const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
+  const { show: showPageInfo } = selectors.viewer.progressComponent(state)
 
   return {
+    showPageInfo,
     percentage,
     pageNo,
     theme,

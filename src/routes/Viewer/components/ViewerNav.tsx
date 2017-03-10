@@ -7,10 +7,9 @@ import * as selectors from '../../../selectors'
 import preventScroll from '../../../utils/browser/preventScroll'
 import * as viewerUtils from '../Viewer.utils'
 import $ from 'jquery'
-const styles = require('./ViewerNav.scss')
+import styles from './ViewerNav.scss'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
-const $body = $('body')
 
 interface Props {}
 
@@ -33,6 +32,8 @@ const mapStateToProps = (state, ownProps) => {
 @CSSModules(styles)
 class ViewerNav extends Component<AllProps, void> {
 
+  $body: any
+
   constructor(props) {
     super(props)
     this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
@@ -54,14 +55,15 @@ class ViewerNav extends Component<AllProps, void> {
   }
 
   componentDidMount() {
+    this.$body = $('body')
     // TODO: js hook 常量
     preventScroll.init('.js-nav-scroll')
-    $body.on('click', JS_NAV_HOOK, this.handleNavLinkClick)
+    this.$body.on('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   componentWillUnmount() {
     preventScroll.destroy('.js-nav-scroll')
-    $body.off('click', JS_NAV_HOOK, this.handleNavLinkClick)
+    this.$body.off('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
 
   renderLink(ref, hash, label) {

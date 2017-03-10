@@ -35,11 +35,12 @@ options, data, id, response, error
 	☐ beautify build file report
 	✔ manage node process in one console @done (March 10th 2017, 13:14)
 	✔ merge api with main server @done (March 10th 2017, 13:14)
-	☐ remove app.config
+	✔ remove app.config @done (March 10th 2017, 18:01)
 	☐ test 500 error
 	☐ test 404 fe
 	☐ test 404 server
 	☐ books page promise rejection (Error: only absolute urls are supported)
+	☐ mobile progress label bug
 
 ### Refactor
 	☐ api flow

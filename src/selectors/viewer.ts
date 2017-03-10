@@ -47,3 +47,9 @@ export const navigation = createSelector(self, _self => {
     show: boolean
   }
 })
+
+export const progressComponent = createSelector(self, _self => {
+  return _.get(_self, ['components', 'progress'], {}) as {
+    show: boolean
+  }
+})

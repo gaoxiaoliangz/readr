@@ -76,6 +76,9 @@ export const toggleViewerPreference = (reset?: boolean) =>
 export const toggleViewerNavigation = (reset?: boolean) =>
   ({ type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset })
 
+export const toggleViewerPageProgressInfo = (reset?: boolean) =>
+  ({ type: ACTION_TYPES.VIEWER.PAGE_PROGRESS_INFO_TOGGLE, payload: reset })
+
 // config
 export const changeViewerFontSize = (fontSizeInPixel: number) =>
   ({ type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel })

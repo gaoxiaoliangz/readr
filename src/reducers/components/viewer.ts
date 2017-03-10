@@ -121,10 +121,25 @@ const navigation = (state = { show: false }, action) => {
   }
 }
 
+const progressComponent = (state = { show: false }, action) => {
+  switch (action.type) {
+    case ACTION_TYPES.VIEWER.PAGE_PROGRESS_INFO_TOGGLE:
+      const { payload } = action
+
+      return {
+        show: getFlag(payload, state.show)
+      }
+
+    default:
+      return state
+  }
+}
+
 const components = combineReducers({
   panel,
   preference,
-  navigation
+  navigation,
+  progress: progressComponent
 })
 
 export default combineReducers({
