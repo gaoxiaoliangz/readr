@@ -1,7 +1,7 @@
 exports.ids = [13];
 exports.modules = {
 
-/***/ 260:
+/***/ 302:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13,19 +13,31 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(22);
+var _reactRedux = __webpack_require__(19);
 
-var _DocContainer = __webpack_require__(134);
+var _reactRouter = __webpack_require__(9);
+
+var _actions = __webpack_require__(15);
+
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _AppError = __webpack_require__(319);
+var _SignupForm = __webpack_require__(368);
 
-var _AppError2 = _interopRequireDefault(_AppError);
+var _SignupForm2 = _interopRequireDefault(_SignupForm);
+
+var _webAPI = __webpack_require__(21);
+
+var _webAPI2 = _interopRequireDefault(_webAPI);
+
+var _helpers = __webpack_require__(10);
+
+var _helpers2 = _interopRequireDefault(_helpers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,26 +47,53 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var NoMatch = function (_Component) {
-    _inherits(NoMatch, _Component);
+var Signup = function (_Component) {
+    _inherits(Signup, _Component);
 
-    function NoMatch() {
-        _classCallCheck(this, NoMatch);
+    function Signup(props) {
+        _classCallCheck(this, Signup);
 
-        return _possibleConstructorReturn(this, (NoMatch.__proto__ || Object.getPrototypeOf(NoMatch)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+        _this.handleSignup = _this.handleSignup.bind(_this);
+        return _this;
     }
 
-    _createClass(NoMatch, [{
+    _createClass(Signup, [{
+        key: 'handleSignup',
+        value: function handleSignup(data) {
+            var _this2 = this;
+
+            _webAPI2.default.userSignup(data).then(function (res) {
+                _this2.props.sendNotification('注册成功！');
+                _webAPI2.default.userLogin({ login: data.username, password: data.password }).then(function () {
+                    _this2.props.userAuth().then(function () {
+                        setTimeout(function () {
+                            _helpers2.default.redirect('/');
+                        }, 600);
+                    });
+                });
+            }, function (err) {
+                _this2.props.sendNotification(err.message, 'error');
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(_DocContainer2.default, { title: "页面未找到" }, _react2.default.createElement(_AppError2.default, { title: "抱歉，页面未找到！", message: _react2.default.createElement("div", null, '\u4F60\u53EF\u4EE5', _react2.default.createElement(_reactRouter.Link, { className: "border-link", to: "/" }, '\u8FD4\u56DE\u9996\u9875'), '\u7EE7\u7EED\u6D4F\u89C8') }));
+            return _react2.default.createElement(_DocContainer2.default, { title: "注册" }, _react2.default.createElement("div", { className: "content-container" }, _react2.default.createElement("h1", { className: "page-title" }, '\u52A0\u5165 Readr'), _react2.default.createElement(_SignupForm2.default, { onSave: this.handleSignup }), _react2.default.createElement("p", { className: "hint" }, '\u5DF2\u6709\u8D26\u53F7\uFF1F', _react2.default.createElement(_reactRouter.Link, { to: "/signin" }, '\u767B\u5F55'))));
         }
     }]);
 
-    return NoMatch;
+    return Signup;
 }(_react.Component);
 
-var _default = NoMatch;
+var _default = (0, _reactRedux.connect)(function (state) {
+    return {
+        notification: state.components.notification,
+        user: state.user
+    };
+}, { sendNotification: _actions.sendNotification, userAuth: _actions.userAuth })(Signup);
+
 exports.default = _default;
 ;
 
@@ -63,16 +102,57 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(NoMatch, 'NoMatch', '/Users/liang/Projects/readr/src/routes/NoMatch/NoMatch.tsx');
+    __REACT_HOT_LOADER__.register(Signup, 'Signup', '/Users/liang/Projects/readr/src/routes/Signup/Signup.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/NoMatch/NoMatch.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Signup/Signup.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 318:
+/***/ 340:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _keys2 = __webpack_require__(83);
+
+var _keys3 = _interopRequireDefault(_keys2);
+
+exports.default = validation;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function validation(values, config) {
+    var errors = {};
+    (0, _keys3.default)(values).forEach(function (key) {
+        if (!values[key]) {
+            errors[key] = '\u4E0D\u80FD\u4E3A\u7A7A\uFF01';
+        }
+    });
+    return errors;
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(validation, 'validation', '/Users/liang/Projects/readr/src/utils/validation.ts');
+}();
+
+;
+
+/***/ }),
+
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86,17 +166,23 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(100);
+var _reactRedux = __webpack_require__(19);
 
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+var _betterReduxForm = __webpack_require__(28);
 
-var _Logo = __webpack_require__(119);
+var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
-var _Logo2 = _interopRequireDefault(_Logo);
+var _actions = __webpack_require__(15);
+
+var _form = __webpack_require__(82);
+
+var _validation = __webpack_require__(340);
+
+var _validation2 = _interopRequireDefault(_validation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -115,31 +201,49 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(364);
-var AppError = function (_Component) {
-    _inherits(AppError, _Component);
+var SignupForm = function (_Component) {
+    _inherits(SignupForm, _Component);
 
-    function AppError() {
-        _classCallCheck(this, AppError);
+    function SignupForm(props) {
+        _classCallCheck(this, SignupForm);
 
-        return _possibleConstructorReturn(this, (AppError.__proto__ || Object.getPrototypeOf(AppError)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (SignupForm.__proto__ || Object.getPrototypeOf(SignupForm)).call(this, props));
     }
 
-    _createClass(AppError, [{
+    _createClass(SignupForm, [{
         key: "render",
         value: function render() {
             var _props = this.props,
-                title = _props.title,
-                message = _props.message;
+                _props$fields = _props.fields,
+                username = _props$fields.username,
+                email = _props$fields.email,
+                password = _props$fields.password,
+                handleSubmit = _props.handleSubmit,
+                onSave = _props.onSave;
 
-            return _react2.default.createElement("div", null, _react2.default.createElement("div", { styleName: "header" }, _react2.default.createElement(_Logo2.default, { dark: true })), _react2.default.createElement("div", { styleName: "body" }, _react2.default.createElement("h1", { styleName: "title" }, title), _react2.default.createElement("div", null, message)));
+            return _react2.default.createElement("div", null, _react2.default.createElement(_form.Input, Object.assign({ placeholder: "用户名" }, username)), _react2.default.createElement(_form.Input, Object.assign({ placeholder: "邮箱" }, email)), _react2.default.createElement(_form.Input, Object.assign({ placeholder: "密码", type: "password" }, password)), _react2.default.createElement(_form.Button, { color: "blue", onClick: handleSubmit(function (data) {
+                    onSave(data);
+                }) }, "\u6CE8\u518C"));
         }
     }]);
 
-    return AppError;
+    return SignupForm;
 }(_react.Component);
-AppError = __decorate([(0, _reactCssModules2.default)(styles)], AppError);
-var _default = AppError;
+SignupForm = __decorate([(0, _betterReduxForm2.default)({
+    form: 'signup',
+    fields: ['username', 'email', 'password'],
+    validate: function validate(values) {
+        return (0, _validation2.default)(values);
+    }
+})], SignupForm);
+
+var _default = (0, _reactRedux.connect)(function (state, ownProps) {
+    return {
+        initialValues: ownProps.initialValues,
+        routing: state.routing.locationBeforeTransitions
+    };
+}, { sendNotification: _actions.sendNotification })(SignupForm);
+
 exports.default = _default;
 ;
 
@@ -148,101 +252,14 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Signup/components/SignupForm.tsx");
 
-    __REACT_HOT_LOADER__.register(AppError, "AppError", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
+    __REACT_HOT_LOADER__.register(SignupForm, "SignupForm", "/Users/liang/Projects/readr/src/routes/Signup/components/SignupForm.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Signup/components/SignupForm.tsx");
 }();
 
 ;
-
-/***/ }),
-
-/***/ 319:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _AppError = __webpack_require__(318);
-
-var _AppError2 = _interopRequireDefault(_AppError);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _AppError2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/AppError/index.ts');
-}();
-
-;
-
-/***/ }),
-
-/***/ 347:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(98)();
-// imports
-
-
-// module
-exports.push([module.i, ".header_3lPrK {\n  text-align: center; }\n\n.title_1S9ou {\n  font-size: 1.6rem;\n  color: #222; }\n\n.body_1NxBf {\n  text-align: center;\n  width: 500px;\n  margin: 0 auto;\n  padding: 150px 0;\n  font-size: 1.1rem; }\n", ""]);
-
-// exports
-exports.locals = {
-	"header": "header_3lPrK",
-	"title": "title_1S9ou",
-	"body": "body_1NxBf"
-};
-
-/***/ }),
-
-/***/ 364:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(347);
-    var insertCss = __webpack_require__(99);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppError.scss", function() {
-        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppError.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
 
 /***/ })
 

@@ -1,13 +1,13 @@
-import appConfig from '../../app.config'
+import mongodb from 'mongodb'
 import _ from 'lodash'
 import Schema, { Field } from './schema'
 import outputEmptyEntity from './output-empty-entity'
-import mongodb from 'mongodb'
+import getMongoDBUrl from '../helpers/getMongoDBUrl'
 
 const MongoClient = mongodb.MongoClient
 
 export function connect() {
-  return MongoClient.connect(`${appConfig.database.host}/${appConfig.database.name}`)
+  return MongoClient.connect(getMongoDBUrl())
 }
 
 export function getRowById(id, table) {
@@ -21,7 +21,6 @@ export function getRowByMatch(match, table) {
     return results
   })
 }
-
 
 /**
  * embedRef & its little functions

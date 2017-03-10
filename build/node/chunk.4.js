@@ -1,7 +1,7 @@
 exports.ids = [4];
 exports.modules = {
 
-/***/ 253:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13,39 +13,27 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(103);
+var _reactRedux = __webpack_require__(19);
 
-var _reactCssModules = __webpack_require__(100);
+var _actions = __webpack_require__(15);
 
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+var _BookList = __webpack_require__(314);
 
-var _actions = __webpack_require__(104);
+var _BookList2 = _interopRequireDefault(_BookList);
 
-var _selectors = __webpack_require__(115);
+var _Container = __webpack_require__(30);
+
+var _Container2 = _interopRequireDefault(_Container);
+
+var _Tab = __webpack_require__(339);
+
+var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
-
-var _BookListSection = __webpack_require__(287);
-
-var _BookListSection2 = _interopRequireDefault(_BookListSection);
-
-var _DocContainer = __webpack_require__(134);
-
-var _DocContainer2 = _interopRequireDefault(_DocContainer);
-
-var _form = __webpack_require__(133);
-
-var _layout = __webpack_require__(117);
-
-var _AppHome = __webpack_require__(366);
-
-var _AppHome2 = _interopRequireDefault(_AppHome);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -57,76 +45,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
+var Shelf = function (_Component) {
+    _inherits(Shelf, _Component);
 
-var AppHome = function (_Component) {
-    _inherits(AppHome, _Component);
-
-    function AppHome(props) {
-        _classCallCheck(this, AppHome);
-
-        var _this = _possibleConstructorReturn(this, (AppHome.__proto__ || Object.getPrototypeOf(AppHome)).call(this, props));
-
-        _this.state = {
-            showRecentReading: false
-        };
-        return _this;
-    }
-
-    _createClass(AppHome, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this.props.loadBooks();
-            this.props.fetchCollections();
-        }
-    }, {
-        key: "componentWillReceiveProps",
-        value: function componentWillReceiveProps(nextProps) {
-            if (this.props.session.isFetching && !nextProps.session.isFetching) {
-                if (nextProps.session.user.role !== 'visitor') {
-                    this.setState({
-                        showRecentReading: true
-                    });
-                }
-            }
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                newestBooks = _props.newestBooks,
-                isBooksFetching = _props.isBooksFetching;
-
-            return _react2.default.createElement(_DocContainer2.default, { bodyClass: "home" }, this.props.session.user.role === 'visitor' && this.props.session.isFetching === false && _react2.default.createElement("div", { styleName: "hero-image" }, _react2.default.createElement(_layout.Container, null, _react2.default.createElement("div", { styleName: "logo" }, "Readr"), _react2.default.createElement("h1", { styleName: "page-title" }, "\u65B0\u7684\u9605\u8BFB\u4F53\u9A8C"), _react2.default.createElement(_form.Button, { to: "/signup" }, "\u73B0\u5728\u52A0\u5165"))), _react2.default.createElement(_layout.Container, null, _react2.default.createElement(_BookListSection2.default, { bookEntities: newestBooks.slice(0, 6), title: "新书速递", moreLink: "/browse", isFetching: isBooksFetching })));
-        }
-    }], [{
-        key: "fetchData",
+    _createClass(Shelf, null, [{
+        key: 'fetchData',
         value: function fetchData(_ref) {
-            var store = _ref.store;
+            var store = _ref.store,
+                params = _ref.params;
 
-            return store.dispatch((0, _actions.loadBooks)());
+            return store.dispatch((0, _actions.fetchShelf)());
         }
     }]);
 
-    return AppHome;
+    function Shelf(props) {
+        _classCallCheck(this, Shelf);
+
+        return _possibleConstructorReturn(this, (Shelf.__proto__ || Object.getPrototypeOf(Shelf)).call(this, props));
+    }
+
+    _createClass(Shelf, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchShelf();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var bookList = this.props.shelf;
+            return _react2.default.createElement(_Container2.default, null, _react2.default.createElement(_Tab.Tabs, { style: { marginTop: 20 } }, _react2.default.createElement(_Tab.Tab, { title: "全部" }, _react2.default.createElement(_BookList2.default, { bookEntities: bookList })), _react2.default.createElement(_Tab.Tab, { title: "我的上传" }, '\u7A7A')));
+        }
+    }]);
+
+    return Shelf;
 }(_react.Component);
-AppHome = __decorate([(0, _reactCssModules2.default)(_AppHome2.default)], AppHome);
+
 function mapStateToProps(state, ownProps) {
     return {
-        newestBooks: selectors.books(undefined, '1')(state),
-        isBooksFetching: selectors.common.isPaginationFetching('books')(state),
-        session: state.session
+        shelf: selectors.shelfBooks()(state)
     };
 }
 
-var _default = (0, _reactRedux.connect)(mapStateToProps, { loadBooks: _actions.loadBooks, fetchCollections: _actions.fetchCollections, sendNotification: _actions.sendNotification })(AppHome);
+var _default = (0, _reactRedux.connect)(mapStateToProps, { fetchShelf: _actions.fetchShelf })(Shelf);
 
 exports.default = _default;
 ;
@@ -136,20 +96,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/AppHome/AppHome.tsx");
+    __REACT_HOT_LOADER__.register(Shelf, 'Shelf', '/Users/liang/Projects/readr/src/routes/Shelf/Shelf.tsx');
 
-    __REACT_HOT_LOADER__.register(AppHome, "AppHome", "/Users/liang/Projects/readr/src/routes/AppHome/AppHome.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/Shelf/Shelf.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/AppHome/AppHome.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/AppHome/AppHome.tsx");
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Shelf/Shelf.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 268:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -163,231 +121,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(100);
+var _reactRouter = __webpack_require__(9);
 
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-var _classnames = __webpack_require__(101);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _Loading = __webpack_require__(271);
-
-var _Loading2 = _interopRequireDefault(_Loading);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var Loading = function (_Component) {
-    _inherits(Loading, _Component);
-
-    function Loading(props) {
-        _classCallCheck(this, Loading);
-
-        var _this = _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, props));
-
-        _this.state = {
-            dynamicText: ''
-        };
-        return _this;
-    }
-
-    _createClass(Loading, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            this.intervalId = setInterval(function () {
-                if (_this2.state.dynamicText.length === 3) {
-                    _this2.setState({ dynamicText: '' });
-                } else {
-                    _this2.setState({
-                        dynamicText: _this2.state.dynamicText + '.'
-                    });
-                }
-            }, 500);
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            clearInterval(this.intervalId);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                text = _props.text,
-                center = _props.center;
-            var dynamicText = this.state.dynamicText;
-
-            var wrapClass = (0, _classnames2.default)({
-                'loading-wrap--center': center,
-                'loading-wrap': !center
-            });
-            return _react2.default.createElement("div", { styleName: wrapClass }, _react2.default.createElement("span", { styleName: "text-loading" }, text + dynamicText));
-        }
-    }]);
-
-    return Loading;
-}(_react.Component);
-Loading = __decorate([(0, _reactCssModules2.default)(_Loading2.default)], Loading);
-Loading['defaultProps'] = {
-    text: '加载中'
-};
-var _default = Loading;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
-
-    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
-}();
-
-;
-
-/***/ }),
-
-/***/ 269:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Loading = __webpack_require__(268);
-
-var _Loading2 = _interopRequireDefault(_Loading);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Loading2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Loading/index.ts');
-}();
-
-;
-
-/***/ }),
-
-/***/ 270:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(98)();
-// imports
-
-
-// module
-exports.push([module.i, ".text-loading_3Q6vh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3Q6vh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_7G2oJ {\n  text-align: left; }\n\n.loading-wrap--center_3AyTV {\n  text-align: center; }\n", ""]);
-
-// exports
-exports.locals = {
-	"text-loading": "text-loading_3Q6vh",
-	"loading-wrap": "loading-wrap_7G2oJ",
-	"loading-wrap--center": "loading-wrap--center_3AyTV"
-};
-
-/***/ }),
-
-/***/ 271:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(270);
-    var insertCss = __webpack_require__(99);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
-        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-
-/***/ 272:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(10);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = __webpack_require__(22);
-
-var _BookInfoPopup = __webpack_require__(275);
+var _BookInfoPopup = __webpack_require__(312);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
-var _reactCssModules = __webpack_require__(100);
+var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _Book = __webpack_require__(282);
+var _Book = __webpack_require__(319);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -475,7 +223,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 273:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -485,7 +233,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Book = __webpack_require__(272);
+var _Book = __webpack_require__(309);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -507,7 +255,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 274:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -521,13 +269,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _form = __webpack_require__(133);
+var _form = __webpack_require__(82);
 
-var _reactCssModules = __webpack_require__(100);
+var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -548,7 +296,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(283);
+var styles = __webpack_require__(320);
 var BookInfoPopup = function (_Component) {
     _inherits(BookInfoPopup, _Component);
 
@@ -596,7 +344,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 275:
+/***/ 312:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -606,7 +354,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookInfoPopup = __webpack_require__(274);
+var _BookInfoPopup = __webpack_require__(311);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
@@ -628,7 +376,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 276:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -642,15 +390,15 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Book = __webpack_require__(273);
+var _Book = __webpack_require__(310);
 
 var _Book2 = _interopRequireDefault(_Book);
 
-var _reactCssModules = __webpack_require__(100);
+var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -671,7 +419,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(284);
+var styles = __webpack_require__(321);
 var BookList = function (_Component) {
     _inherits(BookList, _Component);
 
@@ -720,7 +468,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 277:
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -730,7 +478,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookList = __webpack_require__(276);
+var _BookList = __webpack_require__(313);
 
 var _BookList2 = _interopRequireDefault(_BookList);
 
@@ -752,15 +500,15 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 278:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(98)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
 // module
-exports.push([module.i, ".meta-item_29Oj5 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.book_1Mhus {\n  float: left;\n  transition: all 0.2s ease 0s;\n  position: relative;\n  width: 150px;\n  padding: 0 10px; }\n  .book_1Mhus a {\n    display: block;\n    padding-top: 10px;\n    position: relative; }\n    .book_1Mhus a:hover img {\n      opacity: .96; }\n    .book_1Mhus a:active img {\n      opacity: .8; }\n\n.book-meta_2_-SN {\n  background: transparent; }\n\n.meta-item_29Oj5 {\n  width: 100%;\n  text-align: left;\n  display: block;\n  line-height: 1.5;\n  margin-left: 17px;\n  width: 134px; }\n\n.book-name_2xm-_ {\n  font-size: 1.3rem;\n  color: #333; }\n\n.book-author_2uQ57 {\n  color: #999; }\n\n.book-cover_2Njlt {\n  position: relative;\n  margin: 0;\n  width: 134px;\n  height: 184px;\n  top: 0;\n  background: url(" + __webpack_require__(281) + ") no-repeat top;\n  transition: all 0.2s ease 0s;\n  position: relative; }\n  .book-cover_2Njlt img {\n    width: 100px;\n    height: 150px;\n    display: block;\n    position: absolute;\n    border: none;\n    left: 17px;\n    top: 7px;\n    border-radius: 4px; }\n  .book-cover_2Njlt:hover {\n    top: -7px; }\n\n.book-desc_qmKU9 {\n  color: #999; }\n\n.book--card_SUxdP {\n  width: auto;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  padding: 10px;\n  float: none;\n  height: 100px; }\n  .book--card_SUxdP a {\n    padding: 0;\n    display: block;\n    overflow: hidden;\n    opacity: 1; }\n    .book--card_SUxdP a:hover img {\n      opacity: 1; }\n    .book--card_SUxdP a:active img {\n      opacity: 1; }\n  .book--card_SUxdP .book-cover_2Njlt {\n    width: auto;\n    height: auto;\n    height: 72px;\n    background: none;\n    overflow: hidden;\n    float: left;\n    border-radius: 4px;\n    margin-right: 20px; }\n    .book--card_SUxdP .book-cover_2Njlt:hover {\n      top: 0; }\n    .book--card_SUxdP .book-cover_2Njlt img {\n      width: 50px;\n      height: auto;\n      position: relative;\n      top: 0;\n      left: 0; }\n  .book--card_SUxdP .book-meta_2_-SN {\n    float: none; }\n  .book--card_SUxdP .meta-item_29Oj5 {\n    width: auto; }\n", ""]);
+exports.push([module.i, ".meta-item_29Oj5 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.book_1Mhus {\n  float: left;\n  transition: all 0.2s ease 0s;\n  position: relative;\n  width: 150px;\n  padding: 0 10px; }\n  .book_1Mhus a {\n    display: block;\n    padding-top: 10px;\n    position: relative; }\n    .book_1Mhus a:hover img {\n      opacity: .96; }\n    .book_1Mhus a:active img {\n      opacity: .8; }\n\n.book-meta_2_-SN {\n  background: transparent; }\n\n.meta-item_29Oj5 {\n  width: 100%;\n  text-align: left;\n  display: block;\n  line-height: 1.5;\n  margin-left: 17px;\n  width: 134px; }\n\n.book-name_2xm-_ {\n  font-size: 1.3rem;\n  color: #333; }\n\n.book-author_2uQ57 {\n  color: #999; }\n\n.book-cover_2Njlt {\n  position: relative;\n  margin: 0;\n  width: 134px;\n  height: 184px;\n  top: 0;\n  background: url(" + __webpack_require__(318) + ") no-repeat top;\n  transition: all 0.2s ease 0s;\n  position: relative; }\n  .book-cover_2Njlt img {\n    width: 100px;\n    height: 150px;\n    display: block;\n    position: absolute;\n    border: none;\n    left: 17px;\n    top: 7px;\n    border-radius: 4px; }\n  .book-cover_2Njlt:hover {\n    top: -7px; }\n\n.book-desc_qmKU9 {\n  color: #999; }\n\n.book--card_SUxdP {\n  width: auto;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  padding: 10px;\n  float: none;\n  height: 100px; }\n  .book--card_SUxdP a {\n    padding: 0;\n    display: block;\n    overflow: hidden;\n    opacity: 1; }\n    .book--card_SUxdP a:hover img {\n      opacity: 1; }\n    .book--card_SUxdP a:active img {\n      opacity: 1; }\n  .book--card_SUxdP .book-cover_2Njlt {\n    width: auto;\n    height: auto;\n    height: 72px;\n    background: none;\n    overflow: hidden;\n    float: left;\n    border-radius: 4px;\n    margin-right: 20px; }\n    .book--card_SUxdP .book-cover_2Njlt:hover {\n      top: 0; }\n    .book--card_SUxdP .book-cover_2Njlt img {\n      width: 50px;\n      height: auto;\n      position: relative;\n      top: 0;\n      left: 0; }\n  .book--card_SUxdP .book-meta_2_-SN {\n    float: none; }\n  .book--card_SUxdP .meta-item_29Oj5 {\n    width: auto; }\n", ""]);
 
 // exports
 exports.locals = {
@@ -776,10 +524,10 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 279:
+/***/ 316:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(98)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
@@ -797,10 +545,10 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 280:
+/***/ 317:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(98)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
@@ -814,19 +562,19 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 281:
+/***/ 318:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 282:
+/***/ 319:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(278);
-    var insertCss = __webpack_require__(99);
+    var content = __webpack_require__(315);
+    var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -857,12 +605,12 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 283:
+/***/ 320:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(279);
-    var insertCss = __webpack_require__(99);
+    var content = __webpack_require__(316);
+    var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -893,12 +641,12 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 284:
+/***/ 321:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(280);
-    var insertCss = __webpack_require__(99);
+    var content = __webpack_require__(317);
+    var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -929,7 +677,71 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 286:
+/***/ 337:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Tab = function (_Component) {
+    _inherits(Tab, _Component);
+
+    function Tab(props) {
+        _classCallCheck(this, Tab);
+
+        return _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
+    }
+
+    _createClass(Tab, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {}
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement("div", { className: "tab" }, this.props.children);
+        }
+    }]);
+
+    return Tab;
+}(_react.Component);
+
+var _default = Tab;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Tab, "Tab", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
+}();
+
+;
+
+/***/ }),
+
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -943,27 +755,17 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(22);
+var _classnames = __webpack_require__(20);
 
-var _BookList = __webpack_require__(277);
+var _classnames2 = _interopRequireDefault(_classnames);
 
-var _BookList2 = _interopRequireDefault(_BookList);
-
-var _Loading = __webpack_require__(269);
-
-var _Loading2 = _interopRequireDefault(_Loading);
-
-var _reactCssModules = __webpack_require__(100);
+var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-var _Icon = __webpack_require__(105);
-
-var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -982,35 +784,61 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(289);
-var BookListSection = function (_Component) {
-    _inherits(BookListSection, _Component);
+var styles = __webpack_require__(349);
+var Tabs = function (_Component) {
+    _inherits(Tabs, _Component);
 
-    function BookListSection() {
-        _classCallCheck(this, BookListSection);
+    function Tabs(props) {
+        _classCallCheck(this, Tabs);
 
-        return _possibleConstructorReturn(this, (BookListSection.__proto__ || Object.getPrototypeOf(BookListSection)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
+
+        _this.state = {
+            active: _this.props.defaultActive
+        };
+        _this.handleTabClick = _this.handleTabClick.bind(_this);
+        return _this;
     }
 
-    _createClass(BookListSection, [{
+    _createClass(Tabs, [{
+        key: "handleTabClick",
+        value: function handleTabClick(index) {
+            this.setState({
+                active: index
+            });
+            if (this.props.onTabSwitch) {
+                this.props.onTabSwitch(index);
+            }
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {}
+    }, {
         key: "render",
         value: function render() {
-            var _props = this.props,
-                isFetching = _props.isFetching,
-                title = _props.title,
-                moreLink = _props.moreLink,
-                bookEntities = _props.bookEntities;
+            var _this2 = this;
 
-            return _react2.default.createElement("div", { styleName: "book-list-section" }, this.props.title && (moreLink ? _react2.default.createElement("h2", { styleName: "section-title" }, _react2.default.createElement(_reactRouter.Link, { to: moreLink }, title, _react2.default.createElement(_Icon2.default, { name: "arrowRight", size: 20 }))) : _react2.default.createElement("h2", { styleName: "section-title" }, title)), isFetching && bookEntities.length === 0 ? _react2.default.createElement(_Loading2.default, null) : _react2.default.createElement(_BookList2.default, { bookEntities: bookEntities }));
+            var style = this.props.style;
+
+            return _react2.default.createElement("div", Object.assign({ className: "tabs" }, style ? { style: style } : null), _react2.default.createElement("div", { styleName: "tabs-header" }, _react2.default.createElement("ul", null, this.props.children.map(function (child, index) {
+                return _react2.default.createElement("li", { styleName: (0, _classnames2.default)({ 'active': index === _this2.state.active }), key: index, onClick: _this2.handleTabClick.bind(_this2, index) }, child.props.title);
+            }))), this.props.children.filter(function (child, index) {
+                return index === _this2.state.active;
+            }).map(function (child) {
+                return child.props.children;
+            })[0]);
         }
     }]);
 
-    return BookListSection;
+    return Tabs;
 }(_react.Component);
-BookListSection = __decorate([(0, _reactCssModules2.default)(styles, {
+Tabs = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
-})], BookListSection);
-var _default = BookListSection;
+})], Tabs);
+Tabs.defaultProps = {
+    defaultActive: 0
+};
+var _default = Tabs;
 exports.default = _default;
 ;
 
@@ -1019,18 +847,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BookListSection/BookListSection.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
 
-    __REACT_HOT_LOADER__.register(BookListSection, "BookListSection", "/Users/liang/Projects/readr/src/components/BookListSection/BookListSection.tsx");
+    __REACT_HOT_LOADER__.register(Tabs, "Tabs", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BookListSection/BookListSection.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 287:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1039,14 +867,21 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Tabs = exports.Tab = undefined;
 
-var _BookListSection = __webpack_require__(286);
+var _Tab = __webpack_require__(337);
 
-var _BookListSection2 = _interopRequireDefault(_BookListSection);
+var _Tab2 = _interopRequireDefault(_Tab);
+
+var _Tabs = __webpack_require__(338);
+
+var _Tabs2 = _interopRequireDefault(_Tabs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _BookListSection2.default;
+exports.Tab = _Tab2.default;
+exports.Tabs = _Tabs2.default;
+var _default = _Tab2.default;
 exports.default = _default;
 ;
 
@@ -1055,38 +890,37 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/BookListSection/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Tab/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 288:
+/***/ 344:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(98)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
 // module
-exports.push([module.i, ".section-title_pTGd6 {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.book-list-section_2tEA- {\n  position: relative; }\n\n.more_1c3vt {\n  position: absolute;\n  right: 0;\n  top: 0;\n  line-height: 32px; }\n\n.section-title_pTGd6 {\n  margin-bottom: 10px; }\n  .section-title_pTGd6 a {\n    color: #333; }\n    .section-title_pTGd6 a:hover {\n      color: #666; }\n", ""]);
+exports.push([module.i, ".tabs-header_sMcX1 {\n  margin-bottom: 15px;\n  font-size: 1.2rem; }\n  .tabs-header_sMcX1 ul {\n    border-bottom: 1px solid #ddd; }\n    .tabs-header_sMcX1 ul li {\n      margin-bottom: -2px;\n      display: inline-block;\n      margin-right: 15px;\n      cursor: pointer;\n      padding: 10px 0; }\n      .tabs-header_sMcX1 ul li.active_1FiRT {\n        font-weight: bold;\n        color: #1B267F;\n        border-bottom: 2px solid #1B267F; }\n", ""]);
 
 // exports
 exports.locals = {
-	"section-title": "section-title_pTGd6",
-	"book-list-section": "book-list-section_2tEA-",
-	"more": "more_1c3vt"
+	"tabs-header": "tabs-header_sMcX1",
+	"active": "active_1FiRT"
 };
 
 /***/ }),
 
-/***/ 289:
+/***/ 349:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(288);
-    var insertCss = __webpack_require__(99);
+    var content = __webpack_require__(344);
+    var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
       content = [[module.i, content, '']];
@@ -1102,64 +936,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookListSection.scss", function() {
-        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookListSection.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-
-/***/ 350:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(98)();
-// imports
-
-
-// module
-exports.push([module.i, ".page-title_24K24 {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.hero-image_3QjtQ {\n  text-align: center;\n  height: 500px; }\n\n.logo_aaCgX {\n  text-align: center;\n  padding-top: 150px;\n  font-size: 1.2rem; }\n\n.btn_jz_rk {\n  margin: 0 auto; }\n\n.page-title_24K24 {\n  margin: 10px 0 20px;\n  font-size: 2rem; }\n", ""]);
-
-// exports
-exports.locals = {
-	"page-title": "page-title_24K24",
-	"hero-image": "hero-image_3QjtQ",
-	"logo": "logo_aaCgX",
-	"btn": "btn_jz_rk"
-};
-
-/***/ }),
-
-/***/ 366:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(350);
-    var insertCss = __webpack_require__(99);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppHome.scss", function() {
-        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppHome.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_tab.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_tab.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

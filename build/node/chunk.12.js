@@ -1,7 +1,7 @@
 exports.ids = [12];
 exports.modules = {
 
-/***/ 251:
+/***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,31 +11,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEmpty2 = __webpack_require__(137);
-
-var _isEmpty3 = _interopRequireDefault(_isEmpty2);
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(10);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(103);
+var _reactRouter = __webpack_require__(9);
 
-var _actions = __webpack_require__(104);
-
-var _webAPI = __webpack_require__(135);
-
-var _webAPI2 = _interopRequireDefault(_webAPI);
-
-var _DocContainer = __webpack_require__(134);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _AddBookForm = __webpack_require__(329);
+var _AppError = __webpack_require__(354);
 
-var _AddBookForm2 = _interopRequireDefault(_AddBookForm);
+var _AppError2 = _interopRequireDefault(_AppError);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45,94 +35,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AddBook = function (_Component) {
-    _inherits(AddBook, _Component);
+var NoMatch = function (_Component) {
+    _inherits(NoMatch, _Component);
 
-    function AddBook(props) {
-        _classCallCheck(this, AddBook);
+    function NoMatch() {
+        _classCallCheck(this, NoMatch);
 
-        var _this = _possibleConstructorReturn(this, (AddBook.__proto__ || Object.getPrototypeOf(AddBook)).call(this, props));
-
-        _this.state = {
-            slData: {
-                author: {}
-            }
-        };
-        _this.handleTitleValueChange = _this.handleTitleValueChange.bind(_this);
-        _this.handleAuthorValueChange = _this.handleAuthorValueChange.bind(_this);
-        _this.addAuthor = _this.addAuthor.bind(_this);
-        _this.addBook = _this.addBook.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (NoMatch.__proto__ || Object.getPrototypeOf(NoMatch)).apply(this, arguments));
     }
 
-    _createClass(AddBook, [{
-        key: 'addBook',
-        value: function addBook(data) {
-            var _this2 = this;
-
-            _webAPI2.default.addBook(data).then(function (result) {
-                _this2.props.sendNotification('添加成功');
-                _this2.props.resetForm('addBook');
-            }, function (error) {
-                _this2.props.sendNotification(error.message, 'error', 0);
-            });
-        }
-    }, {
-        key: 'addAuthor',
-        value: function addAuthor(data) {
-            var _this3 = this;
-
-            _webAPI2.default.addAuthor(data).then(function (result) {
-                _this3.props.sendNotification('添加成功');
-                var id = result.json.ops[0]._id;
-                var name = result.json.ops[0].name;
-                _this3.props.initializeForm('addBook', {
-                    authors: [{
-                        name: name,
-                        value: id
-                    }],
-                    author: ''
-                });
-                _this3.props.closeModal();
-            }, function (error) {
-                _this3.props.sendNotification(error.message, 'error');
-            });
-        }
-    }, {
-        key: 'handleAuthorValueChange',
-        value: function handleAuthorValueChange(query) {
-            if (!(0, _isEmpty3.default)(query)) {
-                this.props.fetchAuthors({
-                    q: query
-                });
-            }
-        }
-    }, {
-        key: 'handleTitleValueChange',
-        value: function handleTitleValueChange(newVal) {
-            if (!(0, _isEmpty3.default)(newVal)) {
-                this.props.searchDoubanBooks(newVal);
-            }
-        }
-    }, {
+    _createClass(NoMatch, [{
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(_DocContainer2.default, { title: "添加书籍" }, _react2.default.createElement("h1", { className: "page-title" }, '\u6DFB\u52A0\u4E66\u7C4D'), _react2.default.createElement(_AddBookForm2.default, { onTitleInputChange: this.handleTitleValueChange, onAuthorInputChange: this.handleAuthorValueChange, onSaveAuthor: this.addAuthor, onSaveBook: this.addBook }));
+            return _react2.default.createElement(_DocContainer2.default, { title: "页面未找到" }, _react2.default.createElement(_AppError2.default, { title: "抱歉，页面未找到！", message: _react2.default.createElement("div", null, '\u4F60\u53EF\u4EE5', _react2.default.createElement(_reactRouter.Link, { className: "border-link", to: "/" }, '\u8FD4\u56DE\u9996\u9875'), '\u7EE7\u7EED\u6D4F\u89C8') }));
         }
     }]);
 
-    return AddBook;
+    return NoMatch;
 }(_react.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        notification: state.components.notification,
-        elements: state.elements
-    };
-};
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, { sendNotification: _actions.sendNotification, openModal: _actions.openModal, searchDoubanBooks: _actions.searchDoubanBooks, closeModal: _actions.closeModal, fetchAuthors: _actions.fetchAuthors, resetForm: _actions.resetForm, initializeForm: _actions.initializeForm })(AddBook);
-
+var _default = NoMatch;
 exports.default = _default;
 ;
 
@@ -141,18 +63,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(AddBook, 'AddBook', '/Users/liang/Projects/readr/src/routes/AddBook/AddBook.tsx');
+    __REACT_HOT_LOADER__.register(NoMatch, 'NoMatch', '/Users/liang/Projects/readr/src/routes/NoMatch/NoMatch.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/AddBook/AddBook.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/AddBook/AddBook.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/NoMatch/NoMatch.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 293:
+/***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -164,13 +84,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(10);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _jquery = __webpack_require__(290);
+var _reactCssModules = __webpack_require__(5);
 
-var _jquery2 = _interopRequireDefault(_jquery);
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+var _Logo = __webpack_require__(48);
+
+var _Logo2 = _interopRequireDefault(_Logo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -180,107 +106,40 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FileUploader = function (_Component) {
-    _inherits(FileUploader, _Component);
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 
-    function FileUploader(props) {
-        _classCallCheck(this, FileUploader);
+var styles = __webpack_require__(396);
+var AppError = function (_Component) {
+    _inherits(AppError, _Component);
 
-        var _this = _possibleConstructorReturn(this, (FileUploader.__proto__ || Object.getPrototypeOf(FileUploader)).call(this, props));
+    function AppError() {
+        _classCallCheck(this, AppError);
 
-        _this.state = {
-            value: null
-        };
-        _this.handleFileChange = _this.handleFileChange.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (AppError.__proto__ || Object.getPrototypeOf(AppError)).apply(this, arguments));
     }
 
-    _createClass(FileUploader, [{
-        key: 'handleFileChange',
-        value: function handleFileChange(e) {
-            var _props = this.props,
-                url = _props.url,
-                onComplete = _props.onComplete,
-                onSuccess = _props.onSuccess,
-                onError = _props.onError;
-
-            var files = e.target.files;
-            var data = new FormData();
-            if (files.length > 1) {
-                _jquery2.default.each(files, function (key, value) {
-                    data.append(key, value);
-                });
-            } else {
-                data.append('file', files[0]);
-            }
-            _jquery2.default.ajax({
-                url: url,
-                type: 'POST',
-                data: data,
-                cache: false,
-                processData: false,
-                // 如果这么设置 contentType 会导致不存在 boundary 的问题, 需要设置为 false
-                // contentType: 'multipart/form-data',
-                contentType: false,
-                xhrFields: {
-                    withCredentials: true
-                },
-                complete: function complete(data2) {
-                    if (onComplete) {
-                        onComplete(data2);
-                    }
-                },
-                success: function success(data2, textStatus, jqXHR) {
-                    if (onSuccess) {
-                        onSuccess(data2);
-                    }
-                },
-                error: function error(jqXHR, textStatus, errorThrown) {
-                    if (onError) {
-                        onError(jqXHR.responseJSON);
-                    }
-                }
-            });
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
-        key: 'render',
+    _createClass(AppError, [{
+        key: "render",
         value: function render() {
-            var _this2 = this;
+            var _props = this.props,
+                title = _props.title,
+                message = _props.message;
 
-            var _props2 = this.props,
-                url = _props2.url,
-                accept = _props2.accept,
-                noAjax = _props2.noAjax,
-                children = _props2.children,
-                name = _props2.name,
-                multiple = _props2.multiple,
-                style = _props2.style;
-            // 如果页面上有两个上传组件可能会出错
-            // input value 设为空会使得每次选中文件后都触发 onChange
-
-            return _react2.default.createElement("div", { className: "file-trigger", onClick: function onClick(e) {
-                    if (!noAjax) {
-                        (0, _jquery2.default)(_this2.fileInput).click();
-                    }
-                }, style: Object.assign({
-                    display: 'inline-block'
-                }, style) }, _react2.default.createElement("form", { action: url, method: "post", encType: "multipart/form-data", style: noAjax ? {} : { display: 'none' } }, _react2.default.createElement("input", { multiple: multiple, type: "file", name: name || 'file', id: "upload-file", value: noAjax ? undefined : '', ref: function ref(_ref) {
-                    _this2.fileInput = _ref;
-                }, onChange: function onChange(e) {
-                    if (!noAjax) {
-                        _this2.handleFileChange(e);
-                    }
-                }, accept: accept || '.*' }), _react2.default.createElement("input", { type: "submit", value: "提交" })), children);
+            return _react2.default.createElement("div", null, _react2.default.createElement("div", { styleName: "header" }, _react2.default.createElement(_Logo2.default, { dark: true })), _react2.default.createElement("div", { styleName: "body" }, _react2.default.createElement("h1", { styleName: "title" }, title), _react2.default.createElement("div", null, message)));
         }
     }]);
 
-    return FileUploader;
+    return AppError;
 }(_react.Component);
-
-var _default = FileUploader;
+AppError = __decorate([(0, _reactCssModules2.default)(styles)], AppError);
+var _default = AppError;
 exports.default = _default;
 ;
 
@@ -289,16 +148,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(FileUploader, 'FileUploader', '/Users/liang/Projects/readr/src/components/FileUploader/FileUploader.tsx');
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/FileUploader/FileUploader.tsx');
+    __REACT_HOT_LOADER__.register(AppError, "AppError", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 294:
+/***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -308,13 +169,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FileUploader = __webpack_require__(293);
+var _AppError = __webpack_require__(353);
 
-var _FileUploader2 = _interopRequireDefault(_FileUploader);
+var _AppError2 = _interopRequireDefault(_AppError);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _FileUploader2.default;
+var _default = _AppError2.default;
 exports.default = _default;
 ;
 
@@ -323,312 +184,65 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/FileUploader/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/AppError/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 328:
+/***/ 380:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+exports = module.exports = __webpack_require__(1)();
+// imports
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+// module
+exports.push([module.i, ".header_3lPrK {\n  text-align: center; }\n\n.title_1S9ou {\n  font-size: 1.6rem;\n  color: #222; }\n\n.body_1NxBf {\n  text-align: center;\n  width: 500px;\n  margin: 0 auto;\n  padding: 150px 0;\n  font-size: 1.1rem; }\n", ""]);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(10);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(103);
-
-var _betterReduxForm = __webpack_require__(116);
-
-var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
-
-var _actions = __webpack_require__(104);
-
-var _Input = __webpack_require__(141);
-
-var _Input2 = _interopRequireDefault(_Input);
-
-var _ModalFooter = __webpack_require__(138);
-
-var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+// exports
+exports.locals = {
+	"header": "header_3lPrK",
+	"title": "title_1S9ou",
+	"body": "body_1NxBf"
 };
-
-var AddAuthorForm = function (_Component) {
-    _inherits(AddAuthorForm, _Component);
-
-    function AddAuthorForm(props) {
-        _classCallCheck(this, AddAuthorForm);
-
-        return _possibleConstructorReturn(this, (AddAuthorForm.__proto__ || Object.getPrototypeOf(AddAuthorForm)).call(this, props));
-    }
-
-    _createClass(AddAuthorForm, [{
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                _props$fields = _props.fields,
-                name = _props$fields.name,
-                slug = _props$fields.slug,
-                description = _props$fields.description,
-                handleSubmit = _props.handleSubmit,
-                closeModal = _props.closeModal,
-                onSave = _props.onSave;
-
-            return _react2.default.createElement("div", null, _react2.default.createElement(_Input2.default, Object.assign({ placeholder: "名字" }, name)), _react2.default.createElement(_Input2.default, Object.assign({ placeholder: "唯一标识" }, slug)), _react2.default.createElement(_Input2.default, Object.assign({ placeholder: "描述" }, description)), _react2.default.createElement(_ModalFooter2.default, { onConfirm: handleSubmit(function (data) {
-                    onSave(data);
-                }), onCancel: closeModal }));
-        }
-    }]);
-
-    return AddAuthorForm;
-}(_react.Component);
-AddAuthorForm = __decorate([(0, _betterReduxForm2.default)({
-    form: 'addAuthor',
-    fields: ['name', 'slug', 'description']
-})], AddAuthorForm);
-
-var _default = (0, _reactRedux.connect)(function (state) {
-    return state;
-}, { sendNotification: _actions.sendNotification, closeModal: _actions.closeModal })(AddAuthorForm);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddAuthorForm.tsx");
-
-    __REACT_HOT_LOADER__.register(AddAuthorForm, "AddAuthorForm", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddAuthorForm.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddAuthorForm.tsx");
-}();
-
-;
 
 /***/ }),
 
-/***/ 329:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 
+    var content = __webpack_require__(380);
+    var insertCss = __webpack_require__(2);
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _map2 = __webpack_require__(87);
-
-var _map3 = _interopRequireDefault(_map2);
-
-var _omit2 = __webpack_require__(5);
-
-var _omit3 = _interopRequireDefault(_omit2);
-
-var _isEmpty2 = __webpack_require__(137);
-
-var _isEmpty3 = _interopRequireDefault(_isEmpty2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(10);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(103);
-
-var _betterReduxForm = __webpack_require__(116);
-
-var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
-
-var _actions = __webpack_require__(104);
-
-var _selectors = __webpack_require__(115);
-
-var selectors = _interopRequireWildcard(_selectors);
-
-var _form = __webpack_require__(133);
-
-var _AddAuthorForm = __webpack_require__(328);
-
-var _AddAuthorForm2 = _interopRequireDefault(_AddAuthorForm);
-
-var _FileUploader = __webpack_require__(294);
-
-var _FileUploader2 = _interopRequireDefault(_FileUploader);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var AddBookForm = function (_Component) {
-    _inherits(AddBookForm, _Component);
-
-    function AddBookForm(props) {
-        _classCallCheck(this, AddBookForm);
-
-        var _this = _possibleConstructorReturn(this, (AddBookForm.__proto__ || Object.getPrototypeOf(AddBookForm)).call(this, props));
-
-        _this.handleTitleOptionClick = _this.handleTitleOptionClick.bind(_this);
-        _this.handleAddNewAuthor = _this.handleAddNewAuthor.bind(_this);
-        return _this;
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
     }
 
-    _createClass(AddBookForm, [{
-        key: "handleTitleOptionClick",
-        value: function handleTitleOptionClick(option) {
-            var data = {
-                cover: option.additional.cover,
-                description: option.additional.description,
-                author: option.additional.author
-            };
-            this.props.initializeForm('addBook', data);
-            this.setState({
-                slAuthor: {
-                    value: option.additional.author,
-                    values: []
-                }
-            });
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppError.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppError.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
         }
-    }, {
-        key: "handleAddNewAuthor",
-        value: function handleAddNewAuthor(value) {
-            this.props.openModal({
-                title: '添加作者',
-                content: _react2.default.createElement(_AddAuthorForm2.default, { onSave: this.props.onSaveAuthor })
-            });
-            this.props.initializeForm('addAuthor', { name: value });
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
 
-            var _props = this.props,
-                _props$fields = _props.fields,
-                title = _props$fields.title,
-                author = _props$fields.author,
-                authors = _props$fields.authors,
-                cover = _props$fields.cover,
-                description = _props$fields.description,
-                file = _props$fields.file,
-                handleSubmit = _props.handleSubmit,
-                onTitleInputChange = _props.onTitleInputChange,
-                onAuthorInputChange = _props.onAuthorInputChange,
-                doubanBooksAsOptions = _props.doubanBooksAsOptions,
-                authorsAsOptions = _props.authorsAsOptions,
-                onSaveBook = _props.onSaveBook;
-
-            var selectedAuthorIds = authors.get([]).map(function (a) {
-                return a.value;
-            });
-            var filteredAuthorOptions = authorsAsOptions.filter(function (a) {
-                return selectedAuthorIds.indexOf(a.value) === -1;
-            });
-            return _react2.default.createElement("div", null, _react2.default.createElement(_form.SelectizeInput, { placeholder: "书名", value: title.value, values: [], options: doubanBooksAsOptions, onInputChange: function onInputChange(newValue) {
-                    onTitleInputChange(newValue);
-                    title.set(newValue);
-                }, useValue: true, onOptionClick: this.handleTitleOptionClick }), _react2.default.createElement(_form.SelectizeInput, { placeholder: "作者", value: author.get(), values: authors.get([]), options: filteredAuthorOptions, onInputChange: function onInputChange(newValue) {
-                    onAuthorInputChange(newValue);
-                    author.set(newValue);
-                }, onValuesChange: authors.onChange, onAddNewValue: this.handleAddNewAuthor }), _react2.default.createElement(_form.Input, Object.assign({ placeholder: "封面图片地址" }, cover)), _react2.default.createElement(_form.Textarea, Object.assign({ placeholder: "描述" }, description)), !(0, _isEmpty3.default)(file.value) ? _react2.default.createElement("div", null, _react2.default.createElement("span", null, file.value.originalname, " "), _react2.default.createElement(_form.Button, { color: "white", onClick: function onClick() {
-                    file.set({});
-                } }, "\u91CD\u65B0\u9009\u62E9")) : _react2.default.createElement("div", null, _react2.default.createElement(_FileUploader2.default, { url: "/api/books", accept: ".txt,.epub", name: "book-file", onSuccess: function onSuccess(result) {
-                    file.set(result);
-                }, onError: function onError(error) {
-                    _this2.props.sendNotification(error.message, 'error');
-                } }, _react2.default.createElement(_form.Button, { color: "white" }, "\u9009\u62E9\u4E66\u7C4D")), _react2.default.createElement("p", null, "\u652F\u6301 txt \u548C epub \u683C\u5F0F")), _react2.default.createElement(_form.Button, { onClick: handleSubmit(function (data) {
-                    var postData = (0, _omit3.default)(data, ['author']);
-                    postData['authors'] = (0, _map3.default)(postData['authors'], 'value');
-                    postData['file'] = data.file._id;
-                    onSaveBook(postData);
-                }) }, "\u6DFB\u52A0"));
-        }
-    }]);
-
-    return AddBookForm;
-}(_react.Component);
-AddBookForm = __decorate([(0, _betterReduxForm2.default)({
-    form: 'addBook',
-    fields: ['title', 'author', 'authors', 'cover', 'description', 'file'],
-    destroyOnUnmount: true
-})], AddBookForm);
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    return {
-        routing: state.routing.locationBeforeTransitions,
-        doubanBooksAsOptions: selectors.doubanBooksAsOptions('search')(state),
-        authorsAsOptions: selectors.authorsAsOptions('search')(state)
-    };
-};
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, { sendNotification: _actions.sendNotification, openModal: _actions.openModal, initializeForm: _actions.initializeForm })(AddBookForm);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
     }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddBookForm.tsx");
-
-    __REACT_HOT_LOADER__.register(AddBookForm, "AddBookForm", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddBookForm.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddBookForm.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/AddBook/components/AddBookForm.tsx");
-}();
-
-;
+  
 
 /***/ })
 

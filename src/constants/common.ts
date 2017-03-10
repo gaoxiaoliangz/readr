@@ -11,3 +11,5 @@ export const ROLES = {
   ADMIN: 'admin',
   VISITOR: 'visitor'
 }
+
+export const API_PREFIX = 'api'

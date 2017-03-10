@@ -5,11 +5,11 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
-import urljoin from 'url-join'
 import render from './middleware/render'
 import bootServer from './bootstrap'
-import appConfig from '../app.config'
 import routes from './routes'
+import * as CONSTANTS from '../constants'
+import getMongoStoreUrl from './helpers/getMongoStoreUrl'
 
 const MongoStore = connectMongo(session)
 const app = express()
@@ -18,7 +18,8 @@ const PUBLIC_DIR = 'build/static'
 const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
 const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = urljoin(appConfig.database.host, appConfig.database.mongoStoreName)
+// const MONGO_STORE_URL = urljoin(appConfig.database.host, appConfig.database.mongoStoreName)
+const MONGO_STORE_URL = getMongoStoreUrl()
 
 interface InitConfig {
   basePath: string
@@ -45,7 +46,7 @@ export default function initialize(config: InitConfig) {
   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
 
   // api routing
-  app.use(`/${appConfig.api.prefix}`, routes.api())
+  app.use(`/${CONSTANTS.COMMON.API_PREFIX}`, routes.api())
 
   // render view
   app.use(render(isProduction))

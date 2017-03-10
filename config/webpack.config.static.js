@@ -10,7 +10,7 @@ const vars = require('./webpack-vars')
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill', paths.isomorphicSrc],
+    app: ['babel-polyfill', paths.appIndex],
     vendor: vars.vendorLibs,
     'vendor.global': path.join(paths.stylesSrc, 'vendor.global.scss'),
     'base.global': path.join(paths.stylesSrc, 'base.global.scss'),

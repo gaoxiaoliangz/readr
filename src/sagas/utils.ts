@@ -1,7 +1,9 @@
 import * as cache from '../utils/browser/cache'
 import { put, call } from 'redux-saga/effects'
 import _ from 'lodash'
-// import appConfig from '../../../app.config'
+import getEnv from '../context/getEnv'
+
+const { ENABLE_ENTITY_CACHE } = getEnv()
 
 const OPTIONS = 'options'
 const ID = 'id'
@@ -22,7 +24,7 @@ export function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): a
   let hasCache
   let cacheId
 
-  if (id && appConfig.enableEntityCache) {
+  if (id && ENABLE_ENTITY_CACHE) {
     cacheId = cache.createCacheId(apiFn + id + options)
     let cacheContent = cache.getCache(cacheId)
 
