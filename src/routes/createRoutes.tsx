@@ -3,7 +3,7 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router'
 import Master from '../components/Master'
 import App from '../components/App'
 import Console from '../components/Console'
-import api from '../apifns'
+import api from '../webAPI'
 import { ROLES } from '../constants/common'
 
 const createRoutes = (context = {}) => {

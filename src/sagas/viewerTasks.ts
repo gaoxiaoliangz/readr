@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga'
 import { take, put, call, select, fork, cancelled } from 'redux-saga/effects'
 import * as actions from '../actions'
 import * as ACTION_TYPES from '../constants/actionTypes'
-import api from '../apifns'
+import webAPI from '../webAPI'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 import { ROLES } from '../constants/common'
@@ -14,7 +14,7 @@ import utils from '../utils'
 const DEFAULT_PAGE_HEIGHT = 900
 const DEFAULT_FONT_SIZE = 16
 
-const fetchBookProgress = fetchEntity.bind(null, actions.progress, api.fetchBookProgress)
+const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
 
 function* setViewer(bookId, config: ViewerConfig = {}) {
   const viewerWidth = utils.getScreenInfo().view.width
@@ -76,7 +76,7 @@ function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
 
 function* updateProgress(bookId, percentage) {
   try {
-    yield call(api.setProgress, bookId, {
+    yield call(webAPI.setProgress, bookId, {
       percentage
     })
   } catch (error) {

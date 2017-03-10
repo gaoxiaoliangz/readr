@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { sendNotification, userAuth } from '../../actions'
 import DocContainer from '../../components/DocContainer'
 import SignupForm from './components/SignupForm'
-import api from '../../apifns'
+import webAPI from '../../webAPI'
 import helpers from '../../helpers'
 
 interface Props {
@@ -19,10 +19,10 @@ class Signup extends Component<Props, {}> {
   }
 
   handleSignup(data) {
-    api.userSignup(data)
+    webAPI.userSignup(data)
       .then(res => {
         this.props.sendNotification('注册成功！')
-        api.userLogin({ login: data.username, password: data.password }).then(() => {
+        webAPI.userLogin({ login: data.username, password: data.password }).then(() => {
           this.props.userAuth().then(() => {
             setTimeout(() => {
               helpers.redirect('/')

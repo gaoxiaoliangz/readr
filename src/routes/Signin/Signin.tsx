@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { sendNotification, userAuth } from '../../actions'
 import DocContainer from '../../components/DocContainer'
 import SigninForm from './components/SigninForm'
-import api from '../../apifns'
+import webAPI from '../../webAPI'
 import helpers from '../../helpers'
 
 interface Props {
@@ -19,7 +19,7 @@ class Signin extends Component<Props, {}> {
   }
 
   handleSubmit(data) {
-    api.userLogin(data).then(res => {
+    webAPI.userLogin(data).then(res => {
       this.props.sendNotification('登录成功！', 'success', 1500)
       this.props.userAuth().then(() => {
         setTimeout(() => {

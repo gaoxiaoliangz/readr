@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
-import api from '../../apifns'
+import webAPI from '../../webAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm, closeModal } from '../../actions'
 import ContentPage from '../../components/ContentPage'
@@ -49,7 +49,7 @@ class ManageBooks extends Component<Props, {
       title: '确认删除',
       content: `将删除《${bookName}》`,
       onConfirm: () => {
-        api.deleteBook(id).then(res => {
+        webAPI.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
           this.props.removeEntity('books', id)
@@ -69,7 +69,7 @@ class ManageBooks extends Component<Props, {
       content: (
         <BookMetaForm
           onSave={data => {
-            api.editBookMeta(bookId, data).then(result => {
+            webAPI.editBookMeta(bookId, data).then(result => {
               this.loadBooks()
               this.props.closeModal()
               this.props.sendNotification('修改成功！', 'success')

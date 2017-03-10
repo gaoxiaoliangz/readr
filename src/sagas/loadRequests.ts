@@ -1,6 +1,6 @@
 import { take, call, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
-import api from '../apifns'
+import webAPI from '../webAPI'
 import _ from 'lodash'
 import { fetchEntity } from './utils'
 import * as ACTION_TYPES from '../constants/actionTypes'
@@ -13,10 +13,10 @@ const TYPE = 'type'
 export const API_CONFIG_KEYS = [OPTIONS, ID, DATA]
 export const RESERVED_ACTION_KYES = [TYPE, ...API_CONFIG_KEYS]
 
-const fetchBook = fetchEntity.bind(null, actions.book, api.fetchBook)
-const fetchBookContent = fetchEntity.bind(null, actions.bookContent, api.fetchBookContent)
-const fetchBooks = fetchEntity.bind(null, actions.books, api.fetchBooks)
-const fetchUsers = fetchEntity.bind(null, actions.users, api.fetchUsers)
+const fetchBook = fetchEntity.bind(null, actions.book, webAPI.fetchBook)
+const fetchBookContent = fetchEntity.bind(null, actions.bookContent, webAPI.fetchBookContent)
+const fetchBooks = fetchEntity.bind(null, actions.books, webAPI.fetchBooks)
+const fetchUsers = fetchEntity.bind(null, actions.users, webAPI.fetchUsers)
 
 function* handleLoad(fetchFn, parsedAction, callApi?): any {
   const {apiConfig, payload} = parsedAction
