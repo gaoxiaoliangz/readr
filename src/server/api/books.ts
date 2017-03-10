@@ -6,7 +6,7 @@ import utils from '../utils'
 import { notFoundError } from '../helpers'
 import { readFile, delFile } from './file'
 import parsers from '../parsers'
-import callApi from '../../isomorphic/services/utils/callApi'
+import callApi from '../../utils/api/callApi'
 
 const bookModel = new Model(schemas.book)
 const fileModel = new Model(schemas.file)

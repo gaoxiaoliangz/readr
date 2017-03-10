@@ -1,7 +1,7 @@
 exports.ids = [12];
 exports.modules = {
 
-/***/ 302:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19,11 +19,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _AppError = __webpack_require__(359);
+var _AppError = __webpack_require__(357);
 
 var _AppError2 = _interopRequireDefault(_AppError);
 
@@ -63,16 +63,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(NoMatch, 'NoMatch', '/Users/liang/Projects/readr/src/isomorphic/routes/NoMatch/NoMatch.tsx');
+    __REACT_HOT_LOADER__.register(NoMatch, 'NoMatch', '/Users/liang/Projects/readr/src/routes/NoMatch/NoMatch.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/NoMatch/NoMatch.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/NoMatch/NoMatch.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 358:
+/***/ 356:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,7 +94,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _Logo = __webpack_require__(49);
+var _Logo = __webpack_require__(48);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -115,7 +115,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(401);
+var styles = __webpack_require__(399);
 var AppError = function (_Component) {
     _inherits(AppError, _Component);
 
@@ -148,18 +148,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/AppError/AppError.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
 
-    __REACT_HOT_LOADER__.register(AppError, "AppError", "/Users/liang/Projects/readr/src/isomorphic/components/AppError/AppError.tsx");
+    __REACT_HOT_LOADER__.register(AppError, "AppError", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/AppError/AppError.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/AppError/AppError.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 359:
+/***/ 357:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -169,7 +169,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AppError = __webpack_require__(358);
+var _AppError = __webpack_require__(356);
 
 var _AppError2 = _interopRequireDefault(_AppError);
 
@@ -184,14 +184,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/AppError/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/AppError/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 385:
+/***/ 383:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -199,22 +199,22 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".header_3jAuQ {\n  text-align: center; }\n\n.title_17FS5 {\n  font-size: 1.6rem;\n  color: #222; }\n\n.body_3v-hj {\n  text-align: center;\n  width: 500px;\n  margin: 0 auto;\n  padding: 150px 0;\n  font-size: 1.1rem; }\n", ""]);
+exports.push([module.i, ".header_3lPrK {\n  text-align: center; }\n\n.title_1S9ou {\n  font-size: 1.6rem;\n  color: #222; }\n\n.body_1NxBf {\n  text-align: center;\n  width: 500px;\n  margin: 0 auto;\n  padding: 150px 0;\n  font-size: 1.1rem; }\n", ""]);
 
 // exports
 exports.locals = {
-	"header": "header_3jAuQ",
-	"title": "title_17FS5",
-	"body": "body_3v-hj"
+	"header": "header_3lPrK",
+	"title": "title_1S9ou",
+	"body": "body_1NxBf"
 };
 
 /***/ }),
 
-/***/ 401:
+/***/ 399:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(385);
+    var content = __webpack_require__(383);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -231,8 +231,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./AppError.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./AppError.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppError.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./AppError.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import parseUrlencoded from '../../isomorphic/utils/parseUrlencoded'
-import helpers from '../../isomorphic/helpers'
+import parseUrlencoded from '../../utils/parseUrlencoded'
+import helpers from '../../helpers'
 
 const API_ROOT = helpers.getApiRoot()
 

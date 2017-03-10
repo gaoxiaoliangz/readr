@@ -1,7 +1,7 @@
 exports.ids = [9];
 exports.modules = {
 
-/***/ 296:
+/***/ 294:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27,13 +27,13 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _Loading = __webpack_require__(311);
+var _Loading = __webpack_require__(309);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
@@ -64,7 +64,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(404);
+var styles = __webpack_require__(402);
 var BookDetail = function (_Component) {
     _inherits(BookDetail, _Component);
 
@@ -119,20 +119,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/BookDetail/BookDetail.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/BookDetail/BookDetail.tsx");
 
-    __REACT_HOT_LOADER__.register(BookDetail, "BookDetail", "/Users/liang/Projects/readr/src/isomorphic/routes/BookDetail/BookDetail.tsx");
+    __REACT_HOT_LOADER__.register(BookDetail, "BookDetail", "/Users/liang/Projects/readr/src/routes/BookDetail/BookDetail.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/BookDetail/BookDetail.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/BookDetail/BookDetail.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/BookDetail/BookDetail.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/BookDetail/BookDetail.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 310:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -158,7 +158,7 @@ var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Loading = __webpack_require__(313);
+var _Loading = __webpack_require__(311);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -244,18 +244,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 
-    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 311:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -265,7 +265,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Loading = __webpack_require__(310);
+var _Loading = __webpack_require__(308);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -280,14 +280,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Loading/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Loading/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 312:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -295,22 +295,22 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".text-loading_3efqh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3efqh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_htyYz {\n  text-align: left; }\n\n.loading-wrap--center_3PEIh {\n  text-align: center; }\n", ""]);
+exports.push([module.i, ".text-loading_3Q6vh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3Q6vh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_7G2oJ {\n  text-align: left; }\n\n.loading-wrap--center_3AyTV {\n  text-align: center; }\n", ""]);
 
 // exports
 exports.locals = {
-	"text-loading": "text-loading_3efqh",
-	"loading-wrap": "loading-wrap_htyYz",
-	"loading-wrap--center": "loading-wrap--center_3PEIh"
+	"text-loading": "text-loading_3Q6vh",
+	"loading-wrap": "loading-wrap_7G2oJ",
+	"loading-wrap--center": "loading-wrap--center_3AyTV"
 };
 
 /***/ }),
 
-/***/ 313:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(312);
+    var content = __webpack_require__(310);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -327,8 +327,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Loading.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -342,7 +342,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 389:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -350,31 +350,31 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".book-detail_2izVJ {\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  margin-top: 40px; }\n\n.book-info-container_2FwVR {\n  max-width: 700px;\n  margin: 0 auto; }\n\n.header_1vo0K {\n  overflow: hidden;\n  padding: 40px 40px;\n  position: relative; }\n  @media (max-width: 540px) {\n    .header_1vo0K {\n      padding: 20px; } }\n\n.content_1uo-e {\n  padding: 40px 40px;\n  border-top: 1px solid #ddd;\n  line-height: 1.7; }\n  @media (max-width: 540px) {\n    .content_1uo-e {\n      padding: 20px; } }\n\n.btn-read_3Euwb {\n  position: absolute;\n  bottom: 40px; }\n\n.left-col_2GWeo {\n  float: left;\n  margin-right: 30px; }\n\n.right-col_2_r1p {\n  width: 100%;\n  min-height: 140px; }\n\n.book-name_jLvuB {\n  font-size: 1.6rem;\n  font-weight: bold;\n  margin: 0 0 10px 0;\n  color: #333;\n  line-height: 1.2;\n  word-wrap: break-word; }\n\n.book-author_-eVvW {\n  font-size: 1rem;\n  margin-bottom: 10px; }\n\n.book-cover_1QJYy {\n  margin: 0;\n  top: 0;\n  position: relative;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  overflow: hidden;\n  border-radius: 3px; }\n\n.img_2XZDg {\n  width: 100px;\n  height: auto;\n  display: block; }\n\n.desc_3yZtT {\n  font-size: 1.2rem;\n  font-weight: bold;\n  color: #333; }\n", ""]);
+exports.push([module.i, ".book-detail_Iinfr {\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  margin-top: 40px; }\n\n.book-info-container_12Cuh {\n  max-width: 700px;\n  margin: 0 auto; }\n\n.header_kUeRW {\n  overflow: hidden;\n  padding: 40px 40px;\n  position: relative; }\n  @media (max-width: 540px) {\n    .header_kUeRW {\n      padding: 20px; } }\n\n.content_QQ2OP {\n  padding: 40px 40px;\n  border-top: 1px solid #ddd;\n  line-height: 1.7; }\n  @media (max-width: 540px) {\n    .content_QQ2OP {\n      padding: 20px; } }\n\n.btn-read_A9Lcq {\n  position: absolute;\n  bottom: 40px; }\n\n.left-col_1xTZr {\n  float: left;\n  margin-right: 30px; }\n\n.right-col_3qf9k {\n  width: 100%;\n  min-height: 140px; }\n\n.book-name_30SJM {\n  font-size: 1.6rem;\n  font-weight: bold;\n  margin: 0 0 10px 0;\n  color: #333;\n  line-height: 1.2;\n  word-wrap: break-word; }\n\n.book-author_1ShCb {\n  font-size: 1rem;\n  margin-bottom: 10px; }\n\n.book-cover_3h02j {\n  margin: 0;\n  top: 0;\n  position: relative;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  overflow: hidden;\n  border-radius: 3px; }\n\n.img_HM3eq {\n  width: 100px;\n  height: auto;\n  display: block; }\n\n.desc_26hRG {\n  font-size: 1.2rem;\n  font-weight: bold;\n  color: #333; }\n", ""]);
 
 // exports
 exports.locals = {
-	"book-detail": "book-detail_2izVJ",
-	"book-info-container": "book-info-container_2FwVR",
-	"header": "header_1vo0K",
-	"content": "content_1uo-e",
-	"btn-read": "btn-read_3Euwb",
-	"left-col": "left-col_2GWeo",
-	"right-col": "right-col_2_r1p",
-	"book-name": "book-name_jLvuB",
-	"book-author": "book-author_-eVvW",
-	"book-cover": "book-cover_1QJYy",
-	"img": "img_2XZDg",
-	"desc": "desc_3yZtT"
+	"book-detail": "book-detail_Iinfr",
+	"book-info-container": "book-info-container_12Cuh",
+	"header": "header_kUeRW",
+	"content": "content_QQ2OP",
+	"btn-read": "btn-read_A9Lcq",
+	"left-col": "left-col_1xTZr",
+	"right-col": "right-col_3qf9k",
+	"book-name": "book-name_30SJM",
+	"book-author": "book-author_1ShCb",
+	"book-cover": "book-cover_3h02j",
+	"img": "img_HM3eq",
+	"desc": "desc_26hRG"
 };
 
 /***/ }),
 
-/***/ 404:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(389);
+    var content = __webpack_require__(387);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -391,8 +391,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookDetail.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookDetail.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookDetail.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookDetail.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

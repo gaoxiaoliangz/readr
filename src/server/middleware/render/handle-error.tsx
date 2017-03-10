@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import Page500 from '../../../isomorphic/containers/Page500'
+import Page500 from '../../../components/Page500'
 
 function handleError(error, req, res, next) {
   const html = renderToStaticMarkup(

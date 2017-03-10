@@ -1,1 +1,1 @@
-webpackJsonp([19],{1199:function(o,c){o.exports={home:"home",colophon:"colophon",console:"console","page-collections":"page-collections","collection-item":"collection-item"}}},[1199]);
+webpackJsonp([19],{1195:function(o,c){o.exports={home:"home",colophon:"colophon",console:"console","page-collections":"page-collections","collection-item":"collection-item"}}},[1195]);

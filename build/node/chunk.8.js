@@ -1,7 +1,7 @@
 exports.ids = [8];
 exports.modules = {
 
-/***/ 303:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,11 +25,11 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _PreferenceList = __webpack_require__(371);
+var _PreferenceList = __webpack_require__(369);
 
 var _PreferenceList2 = _interopRequireDefault(_PreferenceList);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
@@ -90,16 +90,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Preference, 'Preference', '/Users/liang/Projects/readr/src/isomorphic/routes/Preference/Preference.tsx');
+    __REACT_HOT_LOADER__.register(Preference, 'Preference', '/Users/liang/Projects/readr/src/routes/Preference/Preference.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/Preference/Preference.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Preference/Preference.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 341:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -138,7 +138,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(353);
+var styles = __webpack_require__(351);
 var Switcher = function (_Component) {
     _inherits(Switcher, _Component);
 
@@ -225,18 +225,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/Switcher.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
 
-    __REACT_HOT_LOADER__.register(Switcher, "Switcher", "/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/Switcher.tsx");
+    __REACT_HOT_LOADER__.register(Switcher, "Switcher", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/Switcher.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 342:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -246,7 +246,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switcher = __webpack_require__(341);
+var _Switcher = __webpack_require__(338);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
@@ -261,14 +261,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Switcher/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 348:
+/***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -276,25 +276,25 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".switcher-wrap_3UMAU {\n  display: inline-block; }\n\n.switcher_G3n4_, .switcher--off_1EoOU, .switcher--on_2xiwO {\n  display: inline-block;\n  width: 40px;\n  position: relative;\n  cursor: pointer;\n  margin: 0 5px;\n  color: green; }\n\n.switcher-button_2kHGL {\n  background: #1B267F;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  position: absolute;\n  top: 0;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32); }\n\n.switcher-track_xvhjg {\n  height: 10px;\n  margin-top: 5px;\n  border-radius: 50px; }\n\n.switcher--off_1EoOU .switcher-track_xvhjg {\n  background: #ddd; }\n\n.switcher--off_1EoOU .switcher-button_2kHGL {\n  left: 0; }\n\n.switcher--on_2xiwO .switcher-button_2kHGL {\n  left: 20px; }\n\n.switcher--on_2xiwO .switcher-track_xvhjg {\n  background: #2e40d2; }\n", ""]);
+exports.push([module.i, ".switcher-wrap_2IpN8 {\n  display: inline-block; }\n\n.switcher_3dC-Z, .switcher--off_3PpBE, .switcher--on_3j_eP {\n  display: inline-block;\n  width: 40px;\n  position: relative;\n  cursor: pointer;\n  margin: 0 5px;\n  color: green; }\n\n.switcher-button_p5hGG {\n  background: #1B267F;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  position: absolute;\n  top: 0;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32); }\n\n.switcher-track_3djr0 {\n  height: 10px;\n  margin-top: 5px;\n  border-radius: 50px; }\n\n.switcher--off_3PpBE .switcher-track_3djr0 {\n  background: #ddd; }\n\n.switcher--off_3PpBE .switcher-button_p5hGG {\n  left: 0; }\n\n.switcher--on_3j_eP .switcher-button_p5hGG {\n  left: 20px; }\n\n.switcher--on_3j_eP .switcher-track_3djr0 {\n  background: #2e40d2; }\n", ""]);
 
 // exports
 exports.locals = {
-	"switcher-wrap": "switcher-wrap_3UMAU",
-	"switcher": "switcher_G3n4_",
-	"switcher--off": "switcher--off_1EoOU",
-	"switcher--on": "switcher--on_2xiwO",
-	"switcher-button": "switcher-button_2kHGL",
-	"switcher-track": "switcher-track_xvhjg"
+	"switcher-wrap": "switcher-wrap_2IpN8",
+	"switcher": "switcher_3dC-Z",
+	"switcher--off": "switcher--off_3PpBE",
+	"switcher--on": "switcher--on_3j_eP",
+	"switcher-button": "switcher-button_p5hGG",
+	"switcher-track": "switcher-track_3djr0"
 };
 
 /***/ }),
 
-/***/ 353:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(348);
+    var content = __webpack_require__(346);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -311,8 +311,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_switcher.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_switcher.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_switcher.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_switcher.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -326,7 +326,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 371:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -344,7 +344,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Switcher = __webpack_require__(342);
+var _Switcher = __webpack_require__(339);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
@@ -369,7 +369,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(406);
+var styles = __webpack_require__(404);
 var PreferenceList = function (_Component) {
     _inherits(PreferenceList, _Component);
 
@@ -415,18 +415,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Preference/components/PreferenceList.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Preference/components/PreferenceList.tsx");
 
-    __REACT_HOT_LOADER__.register(PreferenceList, "PreferenceList", "/Users/liang/Projects/readr/src/isomorphic/routes/Preference/components/PreferenceList.tsx");
+    __REACT_HOT_LOADER__.register(PreferenceList, "PreferenceList", "/Users/liang/Projects/readr/src/routes/Preference/components/PreferenceList.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Preference/components/PreferenceList.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Preference/components/PreferenceList.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 391:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -434,27 +434,27 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".settings_3CH2Q .options_27WIw {\n  margin-top: -35px; }\n\n.settings_3CH2Q .option_Ieczx {\n  padding: 30px 0;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.14);\n  position: relative; }\n  .settings_3CH2Q .option_Ieczx h2 {\n    color: #333;\n    font-size: 1.2rem;\n    margin: 0;\n    margin-bottom: 5px; }\n  .settings_3CH2Q .option_Ieczx:last-child {\n    display: none; }\n\n.settings_3CH2Q .option-input_2bEd9,\n.settings_3CH2Q .option-desc_2NmbV {\n  display: block; }\n\n.settings_3CH2Q .user-avatar_2AVO5 {\n  width: 100px;\n  height: 100px; }\n\n.settings_3CH2Q .edit_23Cpr,\n.settings_3CH2Q .switcher_1KFFw {\n  position: absolute;\n  right: 0;\n  top: 50%;\n  margin-top: -19px; }\n\n.settings_3CH2Q .switcher_1KFFw {\n  margin-top: -8px; }\n\n.settings_3CH2Q .edit_23Cpr {\n  border: 1px solid #ddd;\n  padding: 6px 16px;\n  border-radius: 100px;\n  cursor: pointer;\n  display: none; }\n", ""]);
+exports.push([module.i, ".settings_1BQPk .options_EBw_K {\n  margin-top: -35px; }\n\n.settings_1BQPk .option_l8jNG {\n  padding: 30px 0;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.14);\n  position: relative; }\n  .settings_1BQPk .option_l8jNG h2 {\n    color: #333;\n    font-size: 1.2rem;\n    margin: 0;\n    margin-bottom: 5px; }\n  .settings_1BQPk .option_l8jNG:last-child {\n    display: none; }\n\n.settings_1BQPk .option-input_1aVAP,\n.settings_1BQPk .option-desc_3BP9p {\n  display: block; }\n\n.settings_1BQPk .user-avatar_2dFQG {\n  width: 100px;\n  height: 100px; }\n\n.settings_1BQPk .edit_NlaUS,\n.settings_1BQPk .switcher_7p_UC {\n  position: absolute;\n  right: 0;\n  top: 50%;\n  margin-top: -19px; }\n\n.settings_1BQPk .switcher_7p_UC {\n  margin-top: -8px; }\n\n.settings_1BQPk .edit_NlaUS {\n  border: 1px solid #ddd;\n  padding: 6px 16px;\n  border-radius: 100px;\n  cursor: pointer;\n  display: none; }\n", ""]);
 
 // exports
 exports.locals = {
-	"settings": "settings_3CH2Q",
-	"options": "options_27WIw",
-	"option": "option_Ieczx",
-	"option-input": "option-input_2bEd9",
-	"option-desc": "option-desc_2NmbV",
-	"user-avatar": "user-avatar_2AVO5",
-	"edit": "edit_23Cpr",
-	"switcher": "switcher_1KFFw"
+	"settings": "settings_1BQPk",
+	"options": "options_EBw_K",
+	"option": "option_l8jNG",
+	"option-input": "option-input_1aVAP",
+	"option-desc": "option-desc_3BP9p",
+	"user-avatar": "user-avatar_2dFQG",
+	"edit": "edit_NlaUS",
+	"switcher": "switcher_7p_UC"
 };
 
 /***/ }),
 
-/***/ 406:
+/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(391);
+    var content = __webpack_require__(389);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -471,8 +471,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./PreferenceList.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./PreferenceList.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./PreferenceList.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./PreferenceList.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

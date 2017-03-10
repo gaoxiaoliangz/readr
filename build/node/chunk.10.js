@@ -1,7 +1,7 @@
 exports.ids = [10];
 exports.modules = {
 
-/***/ 299:
+/***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21,7 +21,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _CollectionSection = __webpack_require__(361);
+var _CollectionSection = __webpack_require__(359);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83,20 +83,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Collections, 'Collections', '/Users/liang/Projects/readr/src/isomorphic/routes/Collections/Collections.tsx');
+    __REACT_HOT_LOADER__.register(Collections, 'Collections', '/Users/liang/Projects/readr/src/routes/Collections/Collections.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/Collections/Collections.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Collections/Collections.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 350:
+/***/ 348:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(386);
+    var content = __webpack_require__(384);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -113,8 +113,8 @@ var _temp = function () {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Collection.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Collection.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Collection.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Collection.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -128,7 +128,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 355:
+/***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -169,7 +169,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(350);
+var styles = __webpack_require__(348);
 var CollectionItem = function (_Component) {
     _inherits(CollectionItem, _Component);
 
@@ -211,18 +211,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionItem.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionItem.tsx");
 
-    __REACT_HOT_LOADER__.register(CollectionItem, "CollectionItem", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionItem.tsx");
+    __REACT_HOT_LOADER__.register(CollectionItem, "CollectionItem", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionItem.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionItem.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionItem.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 356:
+/***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -244,7 +244,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _CollectionItem = __webpack_require__(355);
+var _CollectionItem = __webpack_require__(353);
 
 var _CollectionItem2 = _interopRequireDefault(_CollectionItem);
 
@@ -265,7 +265,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(350);
+var styles = __webpack_require__(348);
 var CollectionList = function (_Component) {
     _inherits(CollectionList, _Component);
 
@@ -304,18 +304,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionList.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionList.tsx");
 
-    __REACT_HOT_LOADER__.register(CollectionList, "CollectionList", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionList.tsx");
+    __REACT_HOT_LOADER__.register(CollectionList, "CollectionList", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionList.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionList.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionList.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 360:
+/***/ 358:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -339,9 +339,9 @@ var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 var _reactRouter = __webpack_require__(9);
 
-var _layout = __webpack_require__(46);
+var _layout = __webpack_require__(45);
 
-var _CollectionList = __webpack_require__(356);
+var _CollectionList = __webpack_require__(354);
 
 var _CollectionList2 = _interopRequireDefault(_CollectionList);
 
@@ -362,7 +362,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(350);
+var styles = __webpack_require__(348);
 var CollectionSection = function (_Component) {
     _inherits(CollectionSection, _Component);
 
@@ -398,18 +398,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionSection.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionSection.tsx");
 
-    __REACT_HOT_LOADER__.register(CollectionSection, "CollectionSection", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionSection.tsx");
+    __REACT_HOT_LOADER__.register(CollectionSection, "CollectionSection", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionSection.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/CollectionSection.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionSection.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 361:
+/***/ 359:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -420,15 +420,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CollectionSection = exports.CollectionList = exports.CollectionItem = undefined;
 
-var _CollectionSection = __webpack_require__(360);
+var _CollectionSection = __webpack_require__(358);
 
 var _CollectionSection2 = _interopRequireDefault(_CollectionSection);
 
-var _CollectionItem = __webpack_require__(355);
+var _CollectionItem = __webpack_require__(353);
 
 var _CollectionItem2 = _interopRequireDefault(_CollectionItem);
 
-var _CollectionList = __webpack_require__(356);
+var _CollectionList = __webpack_require__(354);
 
 var _CollectionList2 = _interopRequireDefault(_CollectionList);
 
@@ -446,14 +446,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/CollectionSection/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/CollectionSection/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 386:
+/***/ 384:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -461,21 +461,21 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".link_2bXcD {\n  color: #fff; }\n  .link_2bXcD:hover {\n    color: #ddd; }\n\n.title_Zjber {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.link_2bXcD {\n  color: #fff; }\n  .link_2bXcD:hover {\n    color: #ddd; }\n\n.item--dark_IIv1a .desc_3Qi4o {\n  color: #666; }\n\n.item_1UDRG {\n  width: 100%;\n  min-height: 200px;\n  position: relative;\n  border-bottom: 1px solid #08105d;\n  padding: 0 0 30px 0; }\n\n.item--light_LGMjQ { }\n\n.section_2hKEP {\n  background: #04082E;\n  overflow: hidden;\n  margin: 40px 0; }\n\n.covers_1y8IM {\n  overflow: hidden;\n  position: absolute;\n  right: 30px;\n  top: 30px; }\n  .covers_1y8IM li {\n    float: left;\n    margin: 0 10px; }\n    .covers_1y8IM li img {\n      max-width: 70px;\n      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n      overflow: hidden;\n      border-radius: 3px; }\n\n.name_3_CO7 {\n  font-size: 1.2rem;\n  color: #fff;\n  margin-bottom: 1em; }\n\n.desc_3Qi4o {\n  color: gray(180);\n  font-size: 1rem; }\n\n.title_Zjber {\n  color: #fff; }\n\n.list_2s5OR {\n  width: 100%; }\n\n.view-more_aJ8ph {\n  margin: 20px 0;\n  display: inline-block; }\n\n/* style 2 */\n.item--dark_IIv1a {\n  border-color: #ddd; }\n  .item--dark_IIv1a .link_2bXcD {\n    color: #333; }\n    .item--dark_IIv1a .link_2bXcD:hover {\n      color: #666; }\n", ""]);
+exports.push([module.i, ".link_2j3vY {\n  color: #fff; }\n  .link_2j3vY:hover {\n    color: #ddd; }\n\n.title_1DW7V {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.link_2j3vY {\n  color: #fff; }\n  .link_2j3vY:hover {\n    color: #ddd; }\n\n.item--dark_2UvSB .desc_3xXSM {\n  color: #666; }\n\n.item_1VC-O {\n  width: 100%;\n  min-height: 200px;\n  position: relative;\n  border-bottom: 1px solid #08105d;\n  padding: 0 0 30px 0; }\n\n.item--light_1OlEo { }\n\n.section_2K6ue {\n  background: #04082E;\n  overflow: hidden;\n  margin: 40px 0; }\n\n.covers_3CFy3 {\n  overflow: hidden;\n  position: absolute;\n  right: 30px;\n  top: 30px; }\n  .covers_3CFy3 li {\n    float: left;\n    margin: 0 10px; }\n    .covers_3CFy3 li img {\n      max-width: 70px;\n      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n      overflow: hidden;\n      border-radius: 3px; }\n\n.name_21WWD {\n  font-size: 1.2rem;\n  color: #fff;\n  margin-bottom: 1em; }\n\n.desc_3xXSM {\n  color: gray(180);\n  font-size: 1rem; }\n\n.title_1DW7V {\n  color: #fff; }\n\n.list_1jgXC {\n  width: 100%; }\n\n.view-more_3pDdp {\n  margin: 20px 0;\n  display: inline-block; }\n\n/* style 2 */\n.item--dark_2UvSB {\n  border-color: #ddd; }\n  .item--dark_2UvSB .link_2j3vY {\n    color: #333; }\n    .item--dark_2UvSB .link_2j3vY:hover {\n      color: #666; }\n", ""]);
 
 // exports
 exports.locals = {
-	"link": "link_2bXcD",
-	"title": "title_Zjber",
-	"item--dark": "item--dark_IIv1a item_1UDRG",
-	"desc": "desc_3Qi4o",
-	"item": "item_1UDRG",
-	"item--light": "item--light_LGMjQ item_1UDRG",
-	"section": "section_2hKEP",
-	"covers": "covers_1y8IM",
-	"name": "name_3_CO7",
-	"list": "list_2s5OR",
-	"view-more": "view-more_aJ8ph link_2bXcD"
+	"link": "link_2j3vY",
+	"title": "title_1DW7V",
+	"item--dark": "item--dark_2UvSB item_1VC-O",
+	"desc": "desc_3xXSM",
+	"item": "item_1VC-O",
+	"item--light": "item--light_1OlEo item_1VC-O",
+	"section": "section_2K6ue",
+	"covers": "covers_3CFy3",
+	"name": "name_21WWD",
+	"list": "list_1jgXC",
+	"view-more": "view-more_3pDdp link_2j3vY"
 };
 
 /***/ })

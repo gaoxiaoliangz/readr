@@ -1,7 +1,7 @@
 exports.ids = [7];
 exports.modules = {
 
-/***/ 304:
+/***/ 302:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23,11 +23,11 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
-var _Tab = __webpack_require__(345);
+var _Tab = __webpack_require__(342);
 
-var _layout = __webpack_require__(46);
+var _layout = __webpack_require__(45);
 
 var _reactCssModules = __webpack_require__(5);
 
@@ -56,7 +56,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(407);
+var styles = __webpack_require__(405);
 var Profile = function (_Component) {
     _inherits(Profile, _Component);
 
@@ -111,20 +111,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Profile/Profile.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
 
-    __REACT_HOT_LOADER__.register(Profile, "Profile", "/Users/liang/Projects/readr/src/isomorphic/routes/Profile/Profile.tsx");
+    __REACT_HOT_LOADER__.register(Profile, "Profile", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Profile/Profile.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Profile/Profile.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 343:
+/***/ 340:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -179,16 +179,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Tab, "Tab", "/Users/liang/Projects/readr/src/isomorphic/elements/Tab/Tab.tsx");
+    __REACT_HOT_LOADER__.register(Tab, "Tab", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Tab/Tab.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 344:
+/***/ 341:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -231,7 +231,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(354);
+var styles = __webpack_require__(352);
 var Tabs = function (_Component) {
     _inherits(Tabs, _Component);
 
@@ -294,18 +294,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Tab/Tabs.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
 
-    __REACT_HOT_LOADER__.register(Tabs, "Tabs", "/Users/liang/Projects/readr/src/isomorphic/elements/Tab/Tabs.tsx");
+    __REACT_HOT_LOADER__.register(Tabs, "Tabs", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Tab/Tabs.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 345:
+/***/ 342:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -316,11 +316,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Tabs = exports.Tab = undefined;
 
-var _Tab = __webpack_require__(343);
+var _Tab = __webpack_require__(340);
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
-var _Tabs = __webpack_require__(344);
+var _Tabs = __webpack_require__(341);
 
 var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -337,14 +337,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Tab/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Tab/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 349:
+/***/ 347:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -352,21 +352,21 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".tabs-header_y5nSI {\n  margin-bottom: 15px;\n  font-size: 1.2rem; }\n  .tabs-header_y5nSI ul {\n    border-bottom: 1px solid #ddd; }\n    .tabs-header_y5nSI ul li {\n      margin-bottom: -2px;\n      display: inline-block;\n      margin-right: 15px;\n      cursor: pointer;\n      padding: 10px 0; }\n      .tabs-header_y5nSI ul li.active_3bbAo {\n        font-weight: bold;\n        color: #1B267F;\n        border-bottom: 2px solid #1B267F; }\n", ""]);
+exports.push([module.i, ".tabs-header_sMcX1 {\n  margin-bottom: 15px;\n  font-size: 1.2rem; }\n  .tabs-header_sMcX1 ul {\n    border-bottom: 1px solid #ddd; }\n    .tabs-header_sMcX1 ul li {\n      margin-bottom: -2px;\n      display: inline-block;\n      margin-right: 15px;\n      cursor: pointer;\n      padding: 10px 0; }\n      .tabs-header_sMcX1 ul li.active_1FiRT {\n        font-weight: bold;\n        color: #1B267F;\n        border-bottom: 2px solid #1B267F; }\n", ""]);
 
 // exports
 exports.locals = {
-	"tabs-header": "tabs-header_y5nSI",
-	"active": "active_3bbAo"
+	"tabs-header": "tabs-header_sMcX1",
+	"active": "active_1FiRT"
 };
 
 /***/ }),
 
-/***/ 354:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(349);
+    var content = __webpack_require__(347);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -383,8 +383,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_tab.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_tab.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_tab.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_tab.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -398,7 +398,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 392:
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -406,25 +406,25 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".profile_1fQHZ {\n  min-height: 500px;\n  position: relative; }\n\n.page-header_1cNGe {\n  text-align: center;\n  margin: 30px 0; }\n  .page-header_1cNGe span {\n    display: block; }\n\n.username_5A6Jt {\n  margin-top: 20px;\n  font-size: 1.6rem;\n  font-weight: bold;\n  color: #333; }\n\n.edit_3JHc0 {\n  position: absolute;\n  right: 0;\n  top: 0; }\n\n.user-avatar_3zB5i {\n  width: 160px;\n  height: 160px;\n  display: inline-block; }\n  .user-avatar_3zB5i img {\n    width: 100%;\n    height: auto;\n    border-radius: 100%;\n    overflow: hidden;\n    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32); }\n\n.tagline_3EM1H {\n  font-size: 1.2rem; }\n", ""]);
+exports.push([module.i, ".profile_2_txM {\n  min-height: 500px;\n  position: relative; }\n\n.page-header_8_W8w {\n  text-align: center;\n  margin: 30px 0; }\n  .page-header_8_W8w span {\n    display: block; }\n\n.username_Oq29Q {\n  margin-top: 20px;\n  font-size: 1.6rem;\n  font-weight: bold;\n  color: #333; }\n\n.edit_2eg-9 {\n  position: absolute;\n  right: 0;\n  top: 0; }\n\n.user-avatar__RLgV {\n  width: 160px;\n  height: 160px;\n  display: inline-block; }\n  .user-avatar__RLgV img {\n    width: 100%;\n    height: auto;\n    border-radius: 100%;\n    overflow: hidden;\n    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32); }\n\n.tagline_3Hzua {\n  font-size: 1.2rem; }\n", ""]);
 
 // exports
 exports.locals = {
-	"profile": "profile_1fQHZ",
-	"page-header": "page-header_1cNGe",
-	"username": "username_5A6Jt",
-	"edit": "edit_3JHc0",
-	"user-avatar": "user-avatar_3zB5i",
-	"tagline": "tagline_3EM1H"
+	"profile": "profile_2_txM",
+	"page-header": "page-header_8_W8w",
+	"username": "username_Oq29Q",
+	"edit": "edit_2eg-9",
+	"user-avatar": "user-avatar__RLgV",
+	"tagline": "tagline_3Hzua"
 };
 
 /***/ }),
 
-/***/ 407:
+/***/ 405:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(392);
+    var content = __webpack_require__(390);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -441,8 +441,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Profile.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Profile.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Profile.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Profile.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

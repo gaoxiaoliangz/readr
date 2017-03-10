@@ -1,6 +1,6 @@
 import { syncHistoryWithStore } from 'react-router-redux'
 import { createMemoryHistory } from 'react-router'
-import configureStore from '../../../isomorphic/store/configureStore'
+import configureStore from '../../../configureStore'
 
 // import createRoutes from '../../isomorphic/routes/createRoutes'
 // import render, { render500 } from '../render'

@@ -1,7 +1,7 @@
 exports.ids = [2];
 exports.modules = {
 
-/***/ 297:
+/***/ 295:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21,11 +21,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(19);
 
-var _Button = __webpack_require__(87);
+var _Button = __webpack_require__(88);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _BookListSection = __webpack_require__(328);
+var _BookListSection = __webpack_require__(326);
 
 var _BookListSection2 = _interopRequireDefault(_BookListSection);
 
@@ -62,7 +62,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(405);
+var styles = __webpack_require__(403);
 var Browse = function (_Component) {
     _inherits(Browse, _Component);
 
@@ -127,20 +127,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Browse/Browse.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Browse/Browse.tsx");
 
-    __REACT_HOT_LOADER__.register(Browse, "Browse", "/Users/liang/Projects/readr/src/isomorphic/routes/Browse/Browse.tsx");
+    __REACT_HOT_LOADER__.register(Browse, "Browse", "/Users/liang/Projects/readr/src/routes/Browse/Browse.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Browse/Browse.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Browse/Browse.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Browse/Browse.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Browse/Browse.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 310:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -166,7 +166,7 @@ var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Loading = __webpack_require__(313);
+var _Loading = __webpack_require__(311);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -252,18 +252,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 
-    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 311:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -273,7 +273,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Loading = __webpack_require__(310);
+var _Loading = __webpack_require__(308);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -288,14 +288,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Loading/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Loading/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 312:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -303,22 +303,22 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".text-loading_3efqh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3efqh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_htyYz {\n  text-align: left; }\n\n.loading-wrap--center_3PEIh {\n  text-align: center; }\n", ""]);
+exports.push([module.i, ".text-loading_3Q6vh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3Q6vh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_7G2oJ {\n  text-align: left; }\n\n.loading-wrap--center_3AyTV {\n  text-align: center; }\n", ""]);
 
 // exports
 exports.locals = {
-	"text-loading": "text-loading_3efqh",
-	"loading-wrap": "loading-wrap_htyYz",
-	"loading-wrap--center": "loading-wrap--center_3PEIh"
+	"text-loading": "text-loading_3Q6vh",
+	"loading-wrap": "loading-wrap_7G2oJ",
+	"loading-wrap--center": "loading-wrap--center_3AyTV"
 };
 
 /***/ }),
 
-/***/ 313:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(312);
+    var content = __webpack_require__(310);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -335,8 +335,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Loading.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -350,7 +350,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 314:
+/***/ 312:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -370,7 +370,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _BookInfoPopup = __webpack_require__(317);
+var _BookInfoPopup = __webpack_require__(315);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
@@ -378,7 +378,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _Book = __webpack_require__(324);
+var _Book = __webpack_require__(322);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -455,18 +455,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/Book/Book.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Book/Book.tsx");
 
-    __REACT_HOT_LOADER__.register(Book, "Book", "/Users/liang/Projects/readr/src/isomorphic/components/Book/Book.tsx");
+    __REACT_HOT_LOADER__.register(Book, "Book", "/Users/liang/Projects/readr/src/components/Book/Book.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/Book/Book.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Book/Book.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 315:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -476,7 +476,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Book = __webpack_require__(314);
+var _Book = __webpack_require__(312);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -491,14 +491,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/Book/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Book/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 316:
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -516,7 +516,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
 var _reactCssModules = __webpack_require__(5);
 
@@ -539,7 +539,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(325);
+var styles = __webpack_require__(323);
 var BookInfoPopup = function (_Component) {
     _inherits(BookInfoPopup, _Component);
 
@@ -576,18 +576,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/BookInfoPopup/BookInfoPopup.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BookInfoPopup/BookInfoPopup.tsx");
 
-    __REACT_HOT_LOADER__.register(BookInfoPopup, "BookInfoPopup", "/Users/liang/Projects/readr/src/isomorphic/components/BookInfoPopup/BookInfoPopup.tsx");
+    __REACT_HOT_LOADER__.register(BookInfoPopup, "BookInfoPopup", "/Users/liang/Projects/readr/src/components/BookInfoPopup/BookInfoPopup.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/BookInfoPopup/BookInfoPopup.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BookInfoPopup/BookInfoPopup.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 317:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -597,7 +597,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookInfoPopup = __webpack_require__(316);
+var _BookInfoPopup = __webpack_require__(314);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
@@ -612,14 +612,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/BookInfoPopup/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/BookInfoPopup/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 318:
+/***/ 316:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -637,7 +637,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Book = __webpack_require__(315);
+var _Book = __webpack_require__(313);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -662,7 +662,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(326);
+var styles = __webpack_require__(324);
 var BookList = function (_Component) {
     _inherits(BookList, _Component);
 
@@ -700,18 +700,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/BookList/BookList.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BookList/BookList.tsx");
 
-    __REACT_HOT_LOADER__.register(BookList, "BookList", "/Users/liang/Projects/readr/src/isomorphic/components/BookList/BookList.tsx");
+    __REACT_HOT_LOADER__.register(BookList, "BookList", "/Users/liang/Projects/readr/src/components/BookList/BookList.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/BookList/BookList.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BookList/BookList.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 319:
+/***/ 317:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -721,7 +721,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookList = __webpack_require__(318);
+var _BookList = __webpack_require__(316);
 
 var _BookList2 = _interopRequireDefault(_BookList);
 
@@ -736,10 +736,55 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/BookList/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/BookList/index.ts');
 }();
 
 ;
+
+/***/ }),
+
+/***/ 318:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+// imports
+
+
+// module
+exports.push([module.i, ".meta-item_29Oj5 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.book_1Mhus {\n  float: left;\n  transition: all 0.2s ease 0s;\n  position: relative;\n  width: 150px;\n  padding: 0 10px; }\n  .book_1Mhus a {\n    display: block;\n    padding-top: 10px;\n    position: relative; }\n    .book_1Mhus a:hover img {\n      opacity: .96; }\n    .book_1Mhus a:active img {\n      opacity: .8; }\n\n.book-meta_2_-SN {\n  background: transparent; }\n\n.meta-item_29Oj5 {\n  width: 100%;\n  text-align: left;\n  display: block;\n  line-height: 1.5;\n  margin-left: 17px;\n  width: 134px; }\n\n.book-name_2xm-_ {\n  font-size: 1.3rem;\n  color: #333; }\n\n.book-author_2uQ57 {\n  color: #999; }\n\n.book-cover_2Njlt {\n  position: relative;\n  margin: 0;\n  width: 134px;\n  height: 184px;\n  top: 0;\n  background: url(" + __webpack_require__(321) + ") no-repeat top;\n  transition: all 0.2s ease 0s;\n  position: relative; }\n  .book-cover_2Njlt img {\n    width: 100px;\n    height: 150px;\n    display: block;\n    position: absolute;\n    border: none;\n    left: 17px;\n    top: 7px;\n    border-radius: 4px; }\n  .book-cover_2Njlt:hover {\n    top: -7px; }\n\n.book-desc_qmKU9 {\n  color: #999; }\n\n.book--card_SUxdP {\n  width: auto;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  padding: 10px;\n  float: none;\n  height: 100px; }\n  .book--card_SUxdP a {\n    padding: 0;\n    display: block;\n    overflow: hidden;\n    opacity: 1; }\n    .book--card_SUxdP a:hover img {\n      opacity: 1; }\n    .book--card_SUxdP a:active img {\n      opacity: 1; }\n  .book--card_SUxdP .book-cover_2Njlt {\n    width: auto;\n    height: auto;\n    height: 72px;\n    background: none;\n    overflow: hidden;\n    float: left;\n    border-radius: 4px;\n    margin-right: 20px; }\n    .book--card_SUxdP .book-cover_2Njlt:hover {\n      top: 0; }\n    .book--card_SUxdP .book-cover_2Njlt img {\n      width: 50px;\n      height: auto;\n      position: relative;\n      top: 0;\n      left: 0; }\n  .book--card_SUxdP .book-meta_2_-SN {\n    float: none; }\n  .book--card_SUxdP .meta-item_29Oj5 {\n    width: auto; }\n", ""]);
+
+// exports
+exports.locals = {
+	"meta-item": "meta-item_29Oj5",
+	"book": "book_1Mhus",
+	"book-meta": "book-meta_2_-SN",
+	"book-name": "book-name_2xm-_ meta-item_29Oj5",
+	"book-author": "book-author_2uQ57 meta-item_29Oj5",
+	"book-cover": "book-cover_2Njlt",
+	"book-desc": "book-desc_qmKU9",
+	"book--card": "book--card_SUxdP book_1Mhus"
+};
+
+/***/ }),
+
+/***/ 319:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+// imports
+
+
+// module
+exports.push([module.i, ".title_r5Pz7 {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.popup_2QR4_ {\n  position: absolute;\n  z-index: 999;\n  left: 134px;\n  top: 0;\n  width: 300px;\n  background: #fff;\n  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);\n  padding: 20px 20px 0;\n  border: 1px solid #ddd; }\n\n.header_2DiuQ {\n  margin-bottom: 20px; }\n\n.title_r5Pz7 {\n  margin: 30px 0 10px 0; }\n\n.author_1IeQO {\n  font-size: 0.9rem;\n  margin: 0 0 2em 0; }\n\n.description_i8oqq {\n  line-height: 1.6;\n  padding: 10px 0;\n  border-top: 1px solid #ddd; }\n", ""]);
+
+// exports
+exports.locals = {
+	"title": "title_r5Pz7",
+	"popup": "popup_2QR4_",
+	"header": "header_2DiuQ",
+	"author": "author_1IeQO",
+	"description": "description_i8oqq"
+};
 
 /***/ }),
 
@@ -751,18 +796,11 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".meta-item_27HBb {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.book_3oO5g {\n  float: left;\n  transition: all 0.2s ease 0s;\n  position: relative;\n  width: 150px;\n  padding: 0 10px; }\n  .book_3oO5g a {\n    display: block;\n    padding-top: 10px;\n    position: relative; }\n    .book_3oO5g a:hover img {\n      opacity: .96; }\n    .book_3oO5g a:active img {\n      opacity: .8; }\n\n.book-meta_3NZ17 {\n  background: transparent; }\n\n.meta-item_27HBb {\n  width: 100%;\n  text-align: left;\n  display: block;\n  line-height: 1.5;\n  margin-left: 17px;\n  width: 134px; }\n\n.book-name_2wUnN {\n  font-size: 1.3rem;\n  color: #333; }\n\n.book-author_10qBa {\n  color: #999; }\n\n.book-cover_2-mLB {\n  position: relative;\n  margin: 0;\n  width: 134px;\n  height: 184px;\n  top: 0;\n  background: url(" + __webpack_require__(323) + ") no-repeat top;\n  transition: all 0.2s ease 0s;\n  position: relative; }\n  .book-cover_2-mLB img {\n    width: 100px;\n    height: 150px;\n    display: block;\n    position: absolute;\n    border: none;\n    left: 17px;\n    top: 7px;\n    border-radius: 4px; }\n  .book-cover_2-mLB:hover {\n    top: -7px; }\n\n.book-desc_1Jzf7 {\n  color: #999; }\n\n.book--card_2kgeY {\n  width: auto;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  padding: 10px;\n  float: none;\n  height: 100px; }\n  .book--card_2kgeY a {\n    padding: 0;\n    display: block;\n    overflow: hidden;\n    opacity: 1; }\n    .book--card_2kgeY a:hover img {\n      opacity: 1; }\n    .book--card_2kgeY a:active img {\n      opacity: 1; }\n  .book--card_2kgeY .book-cover_2-mLB {\n    width: auto;\n    height: auto;\n    height: 72px;\n    background: none;\n    overflow: hidden;\n    float: left;\n    border-radius: 4px;\n    margin-right: 20px; }\n    .book--card_2kgeY .book-cover_2-mLB:hover {\n      top: 0; }\n    .book--card_2kgeY .book-cover_2-mLB img {\n      width: 50px;\n      height: auto;\n      position: relative;\n      top: 0;\n      left: 0; }\n  .book--card_2kgeY .book-meta_3NZ17 {\n    float: none; }\n  .book--card_2kgeY .meta-item_27HBb {\n    width: auto; }\n", ""]);
+exports.push([module.i, ".book-list_1On2y {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  margin-left: -10px;\n  margin-right: -10px; }\n  .book-list_1On2y li {\n    float: left;\n    width: 50%;\n    padding: 10px;\n    box-sizing: border-box; }\n    @media (max-width: 540px) {\n      .book-list_1On2y li {\n        width: 100%; } }\n", ""]);
 
 // exports
 exports.locals = {
-	"meta-item": "meta-item_27HBb",
-	"book": "book_3oO5g",
-	"book-meta": "book-meta_3NZ17",
-	"book-name": "book-name_2wUnN meta-item_27HBb",
-	"book-author": "book-author_10qBa meta-item_27HBb",
-	"book-cover": "book-cover_2-mLB",
-	"book-desc": "book-desc_1Jzf7",
-	"book--card": "book--card_2kgeY book_3oO5g"
+	"book-list": "book-list_1On2y"
 };
 
 /***/ }),
@@ -770,45 +808,79 @@ exports.locals = {
 /***/ 321:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, ".title_BVO7e {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.popup_MPCqr {\n  position: absolute;\n  z-index: 999;\n  left: 134px;\n  top: 0;\n  width: 300px;\n  background: #fff;\n  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);\n  padding: 20px 20px 0;\n  border: 1px solid #ddd; }\n\n.header_1InIf {\n  margin-bottom: 20px; }\n\n.title_BVO7e {\n  margin: 30px 0 10px 0; }\n\n.author_28BiA {\n  font-size: 0.9rem;\n  margin: 0 0 2em 0; }\n\n.description_D9rVN {\n  line-height: 1.6;\n  padding: 10px 0;\n  border-top: 1px solid #ddd; }\n", ""]);
-
-// exports
-exports.locals = {
-	"title": "title_BVO7e",
-	"popup": "popup_MPCqr",
-	"header": "header_1InIf",
-	"author": "author_28BiA",
-	"description": "description_D9rVN"
-};
+module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
 /***/ 322:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)();
-// imports
 
+    var content = __webpack_require__(318);
+    var insertCss = __webpack_require__(2);
 
-// module
-exports.push([module.i, ".book-list_2s_Jl {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  margin-left: -10px;\n  margin-right: -10px; }\n  .book-list_2s_Jl li {\n    float: left;\n    width: 50%;\n    padding: 10px;\n    box-sizing: border-box; }\n    @media (max-width: 540px) {\n      .book-list_2s_Jl li {\n        width: 100%; } }\n", ""]);
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
 
-// exports
-exports.locals = {
-	"book-list": "book-list_2s_Jl"
-};
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Book.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Book.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
 
 /***/ }),
 
 /***/ 323:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
+
+    var content = __webpack_require__(319);
+    var insertCss = __webpack_require__(2);
+
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
+
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookInfoPopup.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookInfoPopup.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
 
 /***/ }),
 
@@ -833,8 +905,8 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Book.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Book.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookList.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookList.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -849,78 +921,6 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 /***/ }),
 
 /***/ 325:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(321);
-    var insertCss = __webpack_require__(2);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookInfoPopup.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookInfoPopup.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-
-/***/ 326:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(322);
-    var insertCss = __webpack_require__(2);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookList.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookList.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-
-/***/ 327:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -940,11 +940,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _BookList = __webpack_require__(319);
+var _BookList = __webpack_require__(317);
 
 var _BookList2 = _interopRequireDefault(_BookList);
 
-var _Loading = __webpack_require__(311);
+var _Loading = __webpack_require__(309);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -973,7 +973,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(330);
+var styles = __webpack_require__(328);
 var BookListSection = function (_Component) {
     _inherits(BookListSection, _Component);
 
@@ -1010,18 +1010,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/BookListSection/BookListSection.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BookListSection/BookListSection.tsx");
 
-    __REACT_HOT_LOADER__.register(BookListSection, "BookListSection", "/Users/liang/Projects/readr/src/isomorphic/components/BookListSection/BookListSection.tsx");
+    __REACT_HOT_LOADER__.register(BookListSection, "BookListSection", "/Users/liang/Projects/readr/src/components/BookListSection/BookListSection.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/BookListSection/BookListSection.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BookListSection/BookListSection.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 328:
+/***/ 326:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1031,7 +1031,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookListSection = __webpack_require__(327);
+var _BookListSection = __webpack_require__(325);
 
 var _BookListSection2 = _interopRequireDefault(_BookListSection);
 
@@ -1046,14 +1046,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/BookListSection/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/BookListSection/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 329:
+/***/ 327:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -1061,22 +1061,22 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".section-title_2Kv3D {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.book-list-section_2CfDe {\n  position: relative; }\n\n.more_mgQHg {\n  position: absolute;\n  right: 0;\n  top: 0;\n  line-height: 32px; }\n\n.section-title_2Kv3D {\n  margin-bottom: 10px; }\n  .section-title_2Kv3D a {\n    color: #333; }\n    .section-title_2Kv3D a:hover {\n      color: #666; }\n", ""]);
+exports.push([module.i, ".section-title_pTGd6 {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.book-list-section_2tEA- {\n  position: relative; }\n\n.more_1c3vt {\n  position: absolute;\n  right: 0;\n  top: 0;\n  line-height: 32px; }\n\n.section-title_pTGd6 {\n  margin-bottom: 10px; }\n  .section-title_pTGd6 a {\n    color: #333; }\n    .section-title_pTGd6 a:hover {\n      color: #666; }\n", ""]);
 
 // exports
 exports.locals = {
-	"section-title": "section-title_2Kv3D",
-	"book-list-section": "book-list-section_2CfDe",
-	"more": "more_mgQHg"
+	"section-title": "section-title_pTGd6",
+	"book-list-section": "book-list-section_2tEA-",
+	"more": "more_1c3vt"
 };
 
 /***/ }),
 
-/***/ 330:
+/***/ 328:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(329);
+    var content = __webpack_require__(327);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -1093,8 +1093,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookListSection.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookListSection.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookListSection.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./BookListSection.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -1108,7 +1108,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 390:
+/***/ 388:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -1116,20 +1116,20 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".btn-load-more_26sdQ {\n  margin: 20px auto;\n  display: block; }\n", ""]);
+exports.push([module.i, ".btn-load-more_6-FiD {\n  margin: 20px auto;\n  display: block; }\n", ""]);
 
 // exports
 exports.locals = {
-	"btn-load-more": "btn-load-more_26sdQ"
+	"btn-load-more": "btn-load-more_6-FiD"
 };
 
 /***/ }),
 
-/***/ 405:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(390);
+    var content = __webpack_require__(388);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -1146,8 +1146,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Browse.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Browse.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Browse.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Browse.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

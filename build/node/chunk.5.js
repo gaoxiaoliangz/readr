@@ -1,7 +1,7 @@
 exports.ids = [5];
 exports.modules = {
 
-/***/ 300:
+/***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19,7 +19,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(19);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
@@ -27,9 +27,9 @@ var _InfoTable = __webpack_require__(335);
 
 var _InfoTable2 = _interopRequireDefault(_InfoTable);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
 var _selectors = __webpack_require__(27);
 
@@ -37,7 +37,7 @@ var selectors = _interopRequireWildcard(_selectors);
 
 var _actions = __webpack_require__(15);
 
-var _ContentPage = __webpack_require__(333);
+var _ContentPage = __webpack_require__(331);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -45,17 +45,17 @@ var _helpers = __webpack_require__(10);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
-var _moment = __webpack_require__(418);
+var _moment = __webpack_require__(416);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _FileUploader = __webpack_require__(338);
+var _FileUploader = __webpack_require__(333);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
-var _BookMetaForm = __webpack_require__(370);
+var _BookMetaForm = __webpack_require__(368);
 
 var _BookMetaForm2 = _interopRequireDefault(_BookMetaForm);
 
@@ -104,7 +104,7 @@ var ManageBooks = function (_Component) {
                 title: '确认删除',
                 content: '\u5C06\u5220\u9664\u300A' + bookName + '\u300B',
                 onConfirm: function onConfirm() {
-                    _api2.default.deleteBook(id).then(function (res) {
+                    _webAPI2.default.deleteBook(id).then(function (res) {
                         _this2.props.closeConfirmModal();
                         _this2.props.sendNotification('删除成功！');
                         _this2.props.removeEntity('books', id);
@@ -125,7 +125,7 @@ var ManageBooks = function (_Component) {
             this.props.openModal({
                 title: '编辑书籍信息',
                 content: _react2.default.createElement(_BookMetaForm2.default, { onSave: function onSave(data) {
-                        _api2.default.editBookMeta(bookId, data).then(function (result) {
+                        _webAPI2.default.editBookMeta(bookId, data).then(function (result) {
                             _this3.loadBooks();
                             _this3.props.closeModal();
                             _this3.props.sendNotification('修改成功！', 'success');
@@ -236,18 +236,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ManageBooks, 'ManageBooks', '/Users/liang/Projects/readr/src/isomorphic/routes/ManageBooks/ManageBooks.tsx');
+    __REACT_HOT_LOADER__.register(ManageBooks, 'ManageBooks', '/Users/liang/Projects/readr/src/routes/ManageBooks/ManageBooks.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/isomorphic/routes/ManageBooks/ManageBooks.tsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/ManageBooks/ManageBooks.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/ManageBooks/ManageBooks.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/ManageBooks/ManageBooks.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 332:
+/***/ 330:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -263,7 +263,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Paginator = __webpack_require__(340);
+var _Paginator = __webpack_require__(337);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -338,18 +338,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ContentPage, 'ContentPage', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/ContentPage.tsx');
+    __REACT_HOT_LOADER__.register(ContentPage, 'ContentPage', '/Users/liang/Projects/readr/src/components/ContentPage/ContentPage.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/ContentPage.tsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/components/ContentPage/ContentPage.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/ContentPage.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ContentPage/ContentPage.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 333:
+/***/ 331:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -359,7 +359,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ContentPage = __webpack_require__(332);
+var _ContentPage = __webpack_require__(330);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -374,168 +374,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ContentPage/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 334:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _map2 = __webpack_require__(48);
-
-var _map3 = _interopRequireDefault(_map2);
-
-var _keys2 = __webpack_require__(84);
-
-var _keys3 = _interopRequireDefault(_keys2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = __webpack_require__(20);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _reactCssModules = __webpack_require__(5);
-
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var styles = __webpack_require__(351);
-var InfoTable = function (_Component) {
-    _inherits(InfoTable, _Component);
-
-    function InfoTable(props) {
-        _classCallCheck(this, InfoTable);
-
-        return _possibleConstructorReturn(this, (InfoTable.__proto__ || Object.getPrototypeOf(InfoTable)).call(this, props));
-    }
-
-    _createClass(InfoTable, [{
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                header = _props.header,
-                data = _props.data,
-                enableTooltip = _props.enableTooltip,
-                style = _props.style,
-                actions = _props.actions,
-                operationLabel = _props.operationLabel;
-
-            actions = actions || [];
-            if (!header) {
-                header = data.length !== 0 && (0, _keys3.default)(data[0]).map(function (key) {
-                    return {
-                        key: key,
-                        name: key
-                    };
-                }) || [];
-            }
-            var className = (0, _classnames2.default)({
-                'info-table': true,
-                'info-table--no-header': !header
-            });
-            return _react2.default.createElement("table", { styleName: className, style: style || {} }, _react2.default.createElement("tbody", null, header ? _react2.default.createElement("tr", null, header.map(function (item, index) {
-                return _react2.default.createElement("th", { key: index }, item.name);
-            }), actions.length !== 0 && _react2.default.createElement("th", { styleName: "actions" }, operationLabel || '操作')) : _react2.default.createElement("tr", null), data.map(function (row, index) {
-                return _react2.default.createElement("tr", { key: index }, (0, _map3.default)(header, function (item, key) {
-                    return _react2.default.createElement("td", { key: key }, row[item.key] && row[item.key].toString());
-                }), actions.length !== 0 && _react2.default.createElement("td", { styleName: "actions" }, actions.length !== 0 && actions.map(function (action, index2) {
-                    return _react2.default.createElement("div", { styleName: "action", key: index2, onClick: function onClick(e) {
-                            action.fn(data[index]);
-                        } }, action.name);
-                })));
-            })));
-        }
-    }]);
-
-    return InfoTable;
-}(_react.Component);
-InfoTable = __decorate([(0, _reactCssModules2.default)(styles)], InfoTable);
-var _default = InfoTable;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/InfoTable.tsx");
-
-    __REACT_HOT_LOADER__.register(InfoTable, "InfoTable", "/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/InfoTable.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/InfoTable.tsx");
-}();
-
-;
-
-/***/ }),
-
-/***/ 335:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _InfoTable = __webpack_require__(334);
-
-var _InfoTable2 = _interopRequireDefault(_InfoTable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _InfoTable2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/index.ts');
-}();
-
-;
-
-/***/ }),
-
-/***/ 337:
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -551,7 +397,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _jquery = __webpack_require__(331);
+var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -672,16 +518,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(FileUploader, 'FileUploader', '/Users/liang/Projects/readr/src/isomorphic/elements/FileUploader/FileUploader.tsx');
+    __REACT_HOT_LOADER__.register(FileUploader, 'FileUploader', '/Users/liang/Projects/readr/src/components/FileUploader/FileUploader.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/FileUploader/FileUploader.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/FileUploader/FileUploader.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 338:
+/***/ 333:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,7 +537,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FileUploader = __webpack_require__(337);
+var _FileUploader = __webpack_require__(332);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
@@ -706,14 +552,168 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/FileUploader/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/FileUploader/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 339:
+/***/ 334:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _map2 = __webpack_require__(47);
+
+var _map3 = _interopRequireDefault(_map2);
+
+var _keys2 = __webpack_require__(86);
+
+var _keys3 = _interopRequireDefault(_keys2);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(20);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactCssModules = __webpack_require__(5);
+
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var styles = __webpack_require__(349);
+var InfoTable = function (_Component) {
+    _inherits(InfoTable, _Component);
+
+    function InfoTable(props) {
+        _classCallCheck(this, InfoTable);
+
+        return _possibleConstructorReturn(this, (InfoTable.__proto__ || Object.getPrototypeOf(InfoTable)).call(this, props));
+    }
+
+    _createClass(InfoTable, [{
+        key: "render",
+        value: function render() {
+            var _props = this.props,
+                header = _props.header,
+                data = _props.data,
+                enableTooltip = _props.enableTooltip,
+                style = _props.style,
+                actions = _props.actions,
+                operationLabel = _props.operationLabel;
+
+            actions = actions || [];
+            if (!header) {
+                header = data.length !== 0 && (0, _keys3.default)(data[0]).map(function (key) {
+                    return {
+                        key: key,
+                        name: key
+                    };
+                }) || [];
+            }
+            var className = (0, _classnames2.default)({
+                'info-table': true,
+                'info-table--no-header': !header
+            });
+            return _react2.default.createElement("table", { styleName: className, style: style || {} }, _react2.default.createElement("tbody", null, header ? _react2.default.createElement("tr", null, header.map(function (item, index) {
+                return _react2.default.createElement("th", { key: index }, item.name);
+            }), actions.length !== 0 && _react2.default.createElement("th", { styleName: "actions" }, operationLabel || '操作')) : _react2.default.createElement("tr", null), data.map(function (row, index) {
+                return _react2.default.createElement("tr", { key: index }, (0, _map3.default)(header, function (item, key) {
+                    return _react2.default.createElement("td", { key: key }, row[item.key] && row[item.key].toString());
+                }), actions.length !== 0 && _react2.default.createElement("td", { styleName: "actions" }, actions.length !== 0 && actions.map(function (action, index2) {
+                    return _react2.default.createElement("div", { styleName: "action", key: index2, onClick: function onClick(e) {
+                            action.fn(data[index]);
+                        } }, action.name);
+                })));
+            })));
+        }
+    }]);
+
+    return InfoTable;
+}(_react.Component);
+InfoTable = __decorate([(0, _reactCssModules2.default)(styles)], InfoTable);
+var _default = InfoTable;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/InfoTable/InfoTable.tsx");
+
+    __REACT_HOT_LOADER__.register(InfoTable, "InfoTable", "/Users/liang/Projects/readr/src/components/InfoTable/InfoTable.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/InfoTable/InfoTable.tsx");
+}();
+
+;
+
+/***/ }),
+
+/***/ 335:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _InfoTable = __webpack_require__(334);
+
+var _InfoTable2 = _interopRequireDefault(_InfoTable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _InfoTable2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/InfoTable/index.ts');
+}();
+
+;
+
+/***/ }),
+
+/***/ 336:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -762,7 +762,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(352);
+var styles = __webpack_require__(350);
 var Paginator = function (_Component) {
     _inherits(Paginator, _Component);
 
@@ -873,18 +873,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/Paginator.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Paginator/Paginator.tsx");
 
-    __REACT_HOT_LOADER__.register(Paginator, "Paginator", "/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/Paginator.tsx");
+    __REACT_HOT_LOADER__.register(Paginator, "Paginator", "/Users/liang/Projects/readr/src/components/Paginator/Paginator.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/Paginator.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Paginator/Paginator.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 340:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -894,7 +894,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Paginator = __webpack_require__(339);
+var _Paginator = __webpack_require__(336);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -909,14 +909,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Paginator/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 346:
+/***/ 344:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -924,19 +924,19 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".info-table_B7JYU > tbody > tr > td, .info-table_B7JYU > tbody > tr th {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.info-table--no-header_2v3xx {\n  position: relative; }\n\n.info-table_B7JYU {\n  margin: 20px 0;\n  width: 100%;\n  line-height: 2.5;\n  font-size: 1rem;\n  position: relative; }\n  .info-table_B7JYU > tbody > tr:first-child {\n    border-bottom: 2px solid #666;\n    font-weight: bold;\n    line-height: 2.5; }\n  .info-table_B7JYU > tbody > tr {\n    border-bottom: 1px solid #ddd; }\n    .info-table_B7JYU > tbody > tr > th {\n      text-align: left;\n      border-bottom: 1px solid #ddd; }\n    .info-table_B7JYU > tbody > tr > td, .info-table_B7JYU > tbody > tr th {\n      padding: 0 10px;\n      max-width: 250px; }\n\n.actions_pR_Nz {\n  min-width: 80px; }\n  .actions_pR_Nz .action_3DLKy {\n    cursor: pointer;\n    color: #1B267F;\n    display: inline-block;\n    margin-right: 5px; }\n    .actions_pR_Nz .action_3DLKy:hover {\n      color: #2e40d2; }\n    .actions_pR_Nz .action_3DLKy:active {\n      color: #090d2b; }\n", ""]);
+exports.push([module.i, ".info-table_20Mpg > tbody > tr > td, .info-table_20Mpg > tbody > tr th {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.info-table--no-header_kMU9t {\n  position: relative; }\n\n.info-table_20Mpg {\n  margin: 20px 0;\n  width: 100%;\n  line-height: 2.5;\n  font-size: 1rem;\n  position: relative; }\n  .info-table_20Mpg > tbody > tr:first-child {\n    border-bottom: 2px solid #666;\n    font-weight: bold;\n    line-height: 2.5; }\n  .info-table_20Mpg > tbody > tr {\n    border-bottom: 1px solid #ddd; }\n    .info-table_20Mpg > tbody > tr > th {\n      text-align: left;\n      border-bottom: 1px solid #ddd; }\n    .info-table_20Mpg > tbody > tr > td, .info-table_20Mpg > tbody > tr th {\n      padding: 0 10px;\n      max-width: 250px; }\n\n.actions_ApREx {\n  min-width: 80px; }\n  .actions_ApREx .action_1te-v {\n    cursor: pointer;\n    color: #1B267F;\n    display: inline-block;\n    margin-right: 5px; }\n    .actions_ApREx .action_1te-v:hover {\n      color: #2e40d2; }\n    .actions_ApREx .action_1te-v:active {\n      color: #090d2b; }\n", ""]);
 
 // exports
 exports.locals = {
-	"info-table": "info-table_B7JYU",
-	"info-table--no-header": "info-table--no-header_2v3xx",
-	"actions": "actions_pR_Nz",
-	"action": "action_3DLKy"
+	"info-table": "info-table_20Mpg",
+	"info-table--no-header": "info-table--no-header_kMU9t",
+	"actions": "actions_ApREx",
+	"action": "action_1te-v"
 };
 
 /***/ }),
 
-/***/ 347:
+/***/ 345:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -944,23 +944,23 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".page-spread_2INHU, .page-num_2oPQU a, .page-num--current_1Y2mE a, .page-num--current_1Y2mE {\n  display: inline-block;\n  padding: 8px 12px;\n  color: #666;\n  border: 1px solid #ddd;\n  background: #fff;\n  min-width: 37px;\n  text-align: center;\n  border-radius: 3px;\n  box-sizing: border-box; }\n\n.paginator_1RHAm {\n  margin: 20px 0; }\n\n.page-spread_2INHU {\n  display: inline-block;\n  cursor: default; }\n\n.page-num_2oPQU, .page-num--current_1Y2mE {\n  display: inline-block;\n  margin: 0 3px; }\n  .page-num_2oPQU a:hover, .page-num--current_1Y2mE a:hover {\n    background: #1B267F;\n    color: #fff; }\n\n.page-num--current_1Y2mE {\n  background: #ddd;\n  cursor: default; }\n", ""]);
+exports.push([module.i, ".page-spread_1Zy4Q, .page-num_1fJwI a, .page-num--current_3liok a, .page-num--current_3liok {\n  display: inline-block;\n  padding: 8px 12px;\n  color: #666;\n  border: 1px solid #ddd;\n  background: #fff;\n  min-width: 37px;\n  text-align: center;\n  border-radius: 3px;\n  box-sizing: border-box; }\n\n.paginator_1KZC2 {\n  margin: 20px 0; }\n\n.page-spread_1Zy4Q {\n  display: inline-block;\n  cursor: default; }\n\n.page-num_1fJwI, .page-num--current_3liok {\n  display: inline-block;\n  margin: 0 3px; }\n  .page-num_1fJwI a:hover, .page-num--current_3liok a:hover {\n    background: #1B267F;\n    color: #fff; }\n\n.page-num--current_3liok {\n  background: #ddd;\n  cursor: default; }\n", ""]);
 
 // exports
 exports.locals = {
-	"page-spread": "page-spread_2INHU",
-	"page-num": "page-num_2oPQU",
-	"page-num--current": "page-num--current_1Y2mE",
-	"paginator": "paginator_1RHAm"
+	"page-spread": "page-spread_1Zy4Q",
+	"page-num": "page-num_1fJwI",
+	"page-num--current": "page-num--current_3liok",
+	"paginator": "paginator_1KZC2"
 };
 
 /***/ }),
 
-/***/ 351:
+/***/ 349:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(346);
+    var content = __webpack_require__(344);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -977,8 +977,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./InfoTable.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./InfoTable.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./InfoTable.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./InfoTable.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -992,11 +992,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 352:
+/***/ 350:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(347);
+    var content = __webpack_require__(345);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -1013,8 +1013,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Paginator.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Paginator.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Paginator.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Paginator.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -1028,7 +1028,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 370:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1054,9 +1054,9 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
-var _ModalFooter = __webpack_require__(85);
+var _ModalFooter = __webpack_require__(87);
 
 var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
@@ -1124,11 +1124,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/ManageBooks/components/BookMetaForm.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/ManageBooks/components/BookMetaForm.tsx");
 
-    __REACT_HOT_LOADER__.register(BookMetaForm, "BookMetaForm", "/Users/liang/Projects/readr/src/isomorphic/routes/ManageBooks/components/BookMetaForm.tsx");
+    __REACT_HOT_LOADER__.register(BookMetaForm, "BookMetaForm", "/Users/liang/Projects/readr/src/routes/ManageBooks/components/BookMetaForm.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/ManageBooks/components/BookMetaForm.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/ManageBooks/components/BookMetaForm.tsx");
 }();
 
 ;

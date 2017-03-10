@@ -1,7 +1,7 @@
 exports.ids = [13];
 exports.modules = {
 
-/***/ 307:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23,17 +23,17 @@ var _reactRouter = __webpack_require__(9);
 
 var _actions = __webpack_require__(15);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _SignupForm = __webpack_require__(373);
+var _SignupForm = __webpack_require__(371);
 
 var _SignupForm2 = _interopRequireDefault(_SignupForm);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
 var _helpers = __webpack_require__(10);
 
@@ -64,9 +64,9 @@ var Signup = function (_Component) {
         value: function handleSignup(data) {
             var _this2 = this;
 
-            _api2.default.userSignup(data).then(function (res) {
+            _webAPI2.default.userSignup(data).then(function (res) {
                 _this2.props.sendNotification('注册成功！');
-                _api2.default.userLogin({ login: data.username, password: data.password }).then(function () {
+                _webAPI2.default.userLogin({ login: data.username, password: data.password }).then(function () {
                     _this2.props.userAuth().then(function () {
                         setTimeout(function () {
                             _helpers2.default.redirect('/');
@@ -102,16 +102,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Signup, 'Signup', '/Users/liang/Projects/readr/src/isomorphic/routes/Signup/Signup.tsx');
+    __REACT_HOT_LOADER__.register(Signup, 'Signup', '/Users/liang/Projects/readr/src/routes/Signup/Signup.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/Signup/Signup.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Signup/Signup.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 336:
+/***/ 343:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -121,7 +121,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _keys2 = __webpack_require__(84);
+var _keys2 = __webpack_require__(86);
 
 var _keys3 = _interopRequireDefault(_keys2);
 
@@ -145,14 +145,14 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(validation, 'validation', '/Users/liang/Projects/readr/src/isomorphic/data/validation.ts');
+    __REACT_HOT_LOADER__.register(validation, 'validation', '/Users/liang/Projects/readr/src/utils/validation.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 373:
+/***/ 371:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -178,9 +178,9 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
-var _validation = __webpack_require__(336);
+var _validation = __webpack_require__(343);
 
 var _validation2 = _interopRequireDefault(_validation);
 
@@ -252,11 +252,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Signup/components/SignupForm.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Signup/components/SignupForm.tsx");
 
-    __REACT_HOT_LOADER__.register(SignupForm, "SignupForm", "/Users/liang/Projects/readr/src/isomorphic/routes/Signup/components/SignupForm.tsx");
+    __REACT_HOT_LOADER__.register(SignupForm, "SignupForm", "/Users/liang/Projects/readr/src/routes/Signup/components/SignupForm.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Signup/components/SignupForm.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Signup/components/SignupForm.tsx");
 }();
 
 ;

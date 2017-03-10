@@ -1,7 +1,7 @@
 exports.ids = [14];
 exports.modules = {
 
-/***/ 306:
+/***/ 304:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23,17 +23,17 @@ var _reactRouter = __webpack_require__(9);
 
 var _actions = __webpack_require__(15);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _SigninForm = __webpack_require__(372);
+var _SigninForm = __webpack_require__(370);
 
 var _SigninForm2 = _interopRequireDefault(_SigninForm);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
 var _helpers = __webpack_require__(10);
 
@@ -64,7 +64,7 @@ var Signin = function (_Component) {
         value: function handleSubmit(data) {
             var _this2 = this;
 
-            _api2.default.userLogin(data).then(function (res) {
+            _webAPI2.default.userLogin(data).then(function (res) {
                 _this2.props.sendNotification('登录成功！', 'success', 1500);
                 _this2.props.userAuth().then(function () {
                     setTimeout(function () {
@@ -101,16 +101,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Signin, 'Signin', '/Users/liang/Projects/readr/src/isomorphic/routes/Signin/Signin.tsx');
+    __REACT_HOT_LOADER__.register(Signin, 'Signin', '/Users/liang/Projects/readr/src/routes/Signin/Signin.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/Signin/Signin.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Signin/Signin.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 336:
+/***/ 343:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -120,7 +120,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _keys2 = __webpack_require__(84);
+var _keys2 = __webpack_require__(86);
 
 var _keys3 = _interopRequireDefault(_keys2);
 
@@ -144,14 +144,14 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(validation, 'validation', '/Users/liang/Projects/readr/src/isomorphic/data/validation.ts');
+    __REACT_HOT_LOADER__.register(validation, 'validation', '/Users/liang/Projects/readr/src/utils/validation.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 372:
+/***/ 370:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -177,9 +177,9 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
-var _validation = __webpack_require__(336);
+var _validation = __webpack_require__(343);
 
 var _validation2 = _interopRequireDefault(_validation);
 
@@ -250,11 +250,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Signin/components/SigninForm.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Signin/components/SigninForm.tsx");
 
-    __REACT_HOT_LOADER__.register(SigninForm, "SigninForm", "/Users/liang/Projects/readr/src/isomorphic/routes/Signin/components/SigninForm.tsx");
+    __REACT_HOT_LOADER__.register(SigninForm, "SigninForm", "/Users/liang/Projects/readr/src/routes/Signin/components/SigninForm.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Signin/components/SigninForm.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Signin/components/SigninForm.tsx");
 }();
 
 ;

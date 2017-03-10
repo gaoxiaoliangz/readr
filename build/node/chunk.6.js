@@ -1,7 +1,7 @@
 exports.ids = [6];
 exports.modules = {
 
-/***/ 301:
+/***/ 299:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29,11 +29,11 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _ContentPage = __webpack_require__(333);
+var _ContentPage = __webpack_require__(331);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -41,7 +41,7 @@ var _helpers = __webpack_require__(10);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
-var _moment = __webpack_require__(418);
+var _moment = __webpack_require__(416);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -123,18 +123,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ManageUsers, 'ManageUsers', '/Users/liang/Projects/readr/src/isomorphic/routes/ManageUsers/ManageUsers.tsx');
+    __REACT_HOT_LOADER__.register(ManageUsers, 'ManageUsers', '/Users/liang/Projects/readr/src/routes/ManageUsers/ManageUsers.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/isomorphic/routes/ManageUsers/ManageUsers.tsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/ManageUsers/ManageUsers.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/ManageUsers/ManageUsers.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/ManageUsers/ManageUsers.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 332:
+/***/ 330:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -150,7 +150,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Paginator = __webpack_require__(340);
+var _Paginator = __webpack_require__(337);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -225,18 +225,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ContentPage, 'ContentPage', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/ContentPage.tsx');
+    __REACT_HOT_LOADER__.register(ContentPage, 'ContentPage', '/Users/liang/Projects/readr/src/components/ContentPage/ContentPage.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/ContentPage.tsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/components/ContentPage/ContentPage.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/ContentPage.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ContentPage/ContentPage.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 333:
+/***/ 331:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -246,7 +246,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ContentPage = __webpack_require__(332);
+var _ContentPage = __webpack_require__(330);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -261,7 +261,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/ContentPage/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ContentPage/index.ts');
 }();
 
 ;
@@ -278,11 +278,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _map2 = __webpack_require__(48);
+var _map2 = __webpack_require__(47);
 
 var _map3 = _interopRequireDefault(_map2);
 
-var _keys2 = __webpack_require__(84);
+var _keys2 = __webpack_require__(86);
 
 var _keys3 = _interopRequireDefault(_keys2);
 
@@ -319,7 +319,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(351);
+var styles = __webpack_require__(349);
 var InfoTable = function (_Component) {
     _inherits(InfoTable, _Component);
 
@@ -379,11 +379,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/InfoTable.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/InfoTable/InfoTable.tsx");
 
-    __REACT_HOT_LOADER__.register(InfoTable, "InfoTable", "/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/InfoTable.tsx");
+    __REACT_HOT_LOADER__.register(InfoTable, "InfoTable", "/Users/liang/Projects/readr/src/components/InfoTable/InfoTable.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/InfoTable.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/InfoTable/InfoTable.tsx");
 }();
 
 ;
@@ -415,14 +415,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/InfoTable/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/InfoTable/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 339:
+/***/ 336:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -471,7 +471,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(352);
+var styles = __webpack_require__(350);
 var Paginator = function (_Component) {
     _inherits(Paginator, _Component);
 
@@ -582,18 +582,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/Paginator.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Paginator/Paginator.tsx");
 
-    __REACT_HOT_LOADER__.register(Paginator, "Paginator", "/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/Paginator.tsx");
+    __REACT_HOT_LOADER__.register(Paginator, "Paginator", "/Users/liang/Projects/readr/src/components/Paginator/Paginator.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/Paginator.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Paginator/Paginator.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 340:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -603,7 +603,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Paginator = __webpack_require__(339);
+var _Paginator = __webpack_require__(336);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -618,14 +618,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Paginator/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Paginator/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 346:
+/***/ 344:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -633,19 +633,19 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".info-table_B7JYU > tbody > tr > td, .info-table_B7JYU > tbody > tr th {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.info-table--no-header_2v3xx {\n  position: relative; }\n\n.info-table_B7JYU {\n  margin: 20px 0;\n  width: 100%;\n  line-height: 2.5;\n  font-size: 1rem;\n  position: relative; }\n  .info-table_B7JYU > tbody > tr:first-child {\n    border-bottom: 2px solid #666;\n    font-weight: bold;\n    line-height: 2.5; }\n  .info-table_B7JYU > tbody > tr {\n    border-bottom: 1px solid #ddd; }\n    .info-table_B7JYU > tbody > tr > th {\n      text-align: left;\n      border-bottom: 1px solid #ddd; }\n    .info-table_B7JYU > tbody > tr > td, .info-table_B7JYU > tbody > tr th {\n      padding: 0 10px;\n      max-width: 250px; }\n\n.actions_pR_Nz {\n  min-width: 80px; }\n  .actions_pR_Nz .action_3DLKy {\n    cursor: pointer;\n    color: #1B267F;\n    display: inline-block;\n    margin-right: 5px; }\n    .actions_pR_Nz .action_3DLKy:hover {\n      color: #2e40d2; }\n    .actions_pR_Nz .action_3DLKy:active {\n      color: #090d2b; }\n", ""]);
+exports.push([module.i, ".info-table_20Mpg > tbody > tr > td, .info-table_20Mpg > tbody > tr th {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.info-table--no-header_kMU9t {\n  position: relative; }\n\n.info-table_20Mpg {\n  margin: 20px 0;\n  width: 100%;\n  line-height: 2.5;\n  font-size: 1rem;\n  position: relative; }\n  .info-table_20Mpg > tbody > tr:first-child {\n    border-bottom: 2px solid #666;\n    font-weight: bold;\n    line-height: 2.5; }\n  .info-table_20Mpg > tbody > tr {\n    border-bottom: 1px solid #ddd; }\n    .info-table_20Mpg > tbody > tr > th {\n      text-align: left;\n      border-bottom: 1px solid #ddd; }\n    .info-table_20Mpg > tbody > tr > td, .info-table_20Mpg > tbody > tr th {\n      padding: 0 10px;\n      max-width: 250px; }\n\n.actions_ApREx {\n  min-width: 80px; }\n  .actions_ApREx .action_1te-v {\n    cursor: pointer;\n    color: #1B267F;\n    display: inline-block;\n    margin-right: 5px; }\n    .actions_ApREx .action_1te-v:hover {\n      color: #2e40d2; }\n    .actions_ApREx .action_1te-v:active {\n      color: #090d2b; }\n", ""]);
 
 // exports
 exports.locals = {
-	"info-table": "info-table_B7JYU",
-	"info-table--no-header": "info-table--no-header_2v3xx",
-	"actions": "actions_pR_Nz",
-	"action": "action_3DLKy"
+	"info-table": "info-table_20Mpg",
+	"info-table--no-header": "info-table--no-header_kMU9t",
+	"actions": "actions_ApREx",
+	"action": "action_1te-v"
 };
 
 /***/ }),
 
-/***/ 347:
+/***/ 345:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -653,23 +653,23 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".page-spread_2INHU, .page-num_2oPQU a, .page-num--current_1Y2mE a, .page-num--current_1Y2mE {\n  display: inline-block;\n  padding: 8px 12px;\n  color: #666;\n  border: 1px solid #ddd;\n  background: #fff;\n  min-width: 37px;\n  text-align: center;\n  border-radius: 3px;\n  box-sizing: border-box; }\n\n.paginator_1RHAm {\n  margin: 20px 0; }\n\n.page-spread_2INHU {\n  display: inline-block;\n  cursor: default; }\n\n.page-num_2oPQU, .page-num--current_1Y2mE {\n  display: inline-block;\n  margin: 0 3px; }\n  .page-num_2oPQU a:hover, .page-num--current_1Y2mE a:hover {\n    background: #1B267F;\n    color: #fff; }\n\n.page-num--current_1Y2mE {\n  background: #ddd;\n  cursor: default; }\n", ""]);
+exports.push([module.i, ".page-spread_1Zy4Q, .page-num_1fJwI a, .page-num--current_3liok a, .page-num--current_3liok {\n  display: inline-block;\n  padding: 8px 12px;\n  color: #666;\n  border: 1px solid #ddd;\n  background: #fff;\n  min-width: 37px;\n  text-align: center;\n  border-radius: 3px;\n  box-sizing: border-box; }\n\n.paginator_1KZC2 {\n  margin: 20px 0; }\n\n.page-spread_1Zy4Q {\n  display: inline-block;\n  cursor: default; }\n\n.page-num_1fJwI, .page-num--current_3liok {\n  display: inline-block;\n  margin: 0 3px; }\n  .page-num_1fJwI a:hover, .page-num--current_3liok a:hover {\n    background: #1B267F;\n    color: #fff; }\n\n.page-num--current_3liok {\n  background: #ddd;\n  cursor: default; }\n", ""]);
 
 // exports
 exports.locals = {
-	"page-spread": "page-spread_2INHU",
-	"page-num": "page-num_2oPQU",
-	"page-num--current": "page-num--current_1Y2mE",
-	"paginator": "paginator_1RHAm"
+	"page-spread": "page-spread_1Zy4Q",
+	"page-num": "page-num_1fJwI",
+	"page-num--current": "page-num--current_3liok",
+	"paginator": "paginator_1KZC2"
 };
 
 /***/ }),
 
-/***/ 351:
+/***/ 349:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(346);
+    var content = __webpack_require__(344);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -686,8 +686,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./InfoTable.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./InfoTable.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./InfoTable.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./InfoTable.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -701,11 +701,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 352:
+/***/ 350:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(347);
+    var content = __webpack_require__(345);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -722,8 +722,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Paginator.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Paginator.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Paginator.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Paginator.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

@@ -21,7 +21,7 @@ const config = ({ port }) => ({
       // only- means to only hot reload for successful updates
 
       'babel-polyfill',
-      paths.isomorphicSrc
+      paths.appIndex
     ],
     'vendor.global': path.join(paths.stylesSrc, 'vendor.global.scss'),
     'base.global': path.join(paths.stylesSrc, 'base.global.scss'),

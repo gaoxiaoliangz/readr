@@ -1,7 +1,7 @@
 exports.ids = [0];
 exports.modules = {
 
-/***/ 309:
+/***/ 307:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEqual2 = __webpack_require__(47);
+var _isEqual2 = __webpack_require__(46);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
@@ -31,7 +31,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
@@ -43,11 +43,11 @@ var _actions = __webpack_require__(15);
 
 var actions = _interopRequireWildcard(_actions);
 
-var _ViewerContainer = __webpack_require__(378);
+var _ViewerContainer = __webpack_require__(376);
 
 var _ViewerContainer2 = _interopRequireDefault(_ViewerContainer);
 
-var _Viewer = __webpack_require__(408);
+var _Viewer = __webpack_require__(406);
 
 var _Viewer2 = _interopRequireDefault(_Viewer);
 
@@ -124,20 +124,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
 
-    __REACT_HOT_LOADER__.register(Viewer, "Viewer", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.tsx");
+    __REACT_HOT_LOADER__.register(Viewer, "Viewer", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 310:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -163,7 +163,7 @@ var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Loading = __webpack_require__(313);
+var _Loading = __webpack_require__(311);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -249,18 +249,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 
-    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Loading/Loading.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 311:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -270,7 +270,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Loading = __webpack_require__(310);
+var _Loading = __webpack_require__(308);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -285,14 +285,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Loading/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Loading/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 312:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -300,22 +300,22 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".text-loading_3efqh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3efqh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_htyYz {\n  text-align: left; }\n\n.loading-wrap--center_3PEIh {\n  text-align: center; }\n", ""]);
+exports.push([module.i, ".text-loading_3Q6vh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3Q6vh {\n  margin: 30px 0;\n  display: inline-block; }\n\n.loading-wrap_7G2oJ {\n  text-align: left; }\n\n.loading-wrap--center_3AyTV {\n  text-align: center; }\n", ""]);
 
 // exports
 exports.locals = {
-	"text-loading": "text-loading_3efqh",
-	"loading-wrap": "loading-wrap_htyYz",
-	"loading-wrap--center": "loading-wrap--center_3PEIh"
+	"text-loading": "text-loading_3Q6vh",
+	"loading-wrap": "loading-wrap_7G2oJ",
+	"loading-wrap--center": "loading-wrap--center_3AyTV"
 };
 
 /***/ }),
 
-/***/ 313:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(312);
+    var content = __webpack_require__(310);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -332,8 +332,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Loading.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Loading.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -347,7 +347,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 341:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -386,7 +386,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(353);
+var styles = __webpack_require__(351);
 var Switcher = function (_Component) {
     _inherits(Switcher, _Component);
 
@@ -473,18 +473,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/Switcher.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
 
-    __REACT_HOT_LOADER__.register(Switcher, "Switcher", "/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/Switcher.tsx");
+    __REACT_HOT_LOADER__.register(Switcher, "Switcher", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/Switcher.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 342:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -494,7 +494,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switcher = __webpack_require__(341);
+var _Switcher = __webpack_require__(338);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
@@ -509,14 +509,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Switcher/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Switcher/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 348:
+/***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -524,25 +524,25 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".switcher-wrap_3UMAU {\n  display: inline-block; }\n\n.switcher_G3n4_, .switcher--off_1EoOU, .switcher--on_2xiwO {\n  display: inline-block;\n  width: 40px;\n  position: relative;\n  cursor: pointer;\n  margin: 0 5px;\n  color: green; }\n\n.switcher-button_2kHGL {\n  background: #1B267F;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  position: absolute;\n  top: 0;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32); }\n\n.switcher-track_xvhjg {\n  height: 10px;\n  margin-top: 5px;\n  border-radius: 50px; }\n\n.switcher--off_1EoOU .switcher-track_xvhjg {\n  background: #ddd; }\n\n.switcher--off_1EoOU .switcher-button_2kHGL {\n  left: 0; }\n\n.switcher--on_2xiwO .switcher-button_2kHGL {\n  left: 20px; }\n\n.switcher--on_2xiwO .switcher-track_xvhjg {\n  background: #2e40d2; }\n", ""]);
+exports.push([module.i, ".switcher-wrap_2IpN8 {\n  display: inline-block; }\n\n.switcher_3dC-Z, .switcher--off_3PpBE, .switcher--on_3j_eP {\n  display: inline-block;\n  width: 40px;\n  position: relative;\n  cursor: pointer;\n  margin: 0 5px;\n  color: green; }\n\n.switcher-button_p5hGG {\n  background: #1B267F;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  position: absolute;\n  top: 0;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32); }\n\n.switcher-track_3djr0 {\n  height: 10px;\n  margin-top: 5px;\n  border-radius: 50px; }\n\n.switcher--off_3PpBE .switcher-track_3djr0 {\n  background: #ddd; }\n\n.switcher--off_3PpBE .switcher-button_p5hGG {\n  left: 0; }\n\n.switcher--on_3j_eP .switcher-button_p5hGG {\n  left: 20px; }\n\n.switcher--on_3j_eP .switcher-track_3djr0 {\n  background: #2e40d2; }\n", ""]);
 
 // exports
 exports.locals = {
-	"switcher-wrap": "switcher-wrap_3UMAU",
-	"switcher": "switcher_G3n4_",
-	"switcher--off": "switcher--off_1EoOU",
-	"switcher--on": "switcher--on_2xiwO",
-	"switcher-button": "switcher-button_2kHGL",
-	"switcher-track": "switcher-track_xvhjg"
+	"switcher-wrap": "switcher-wrap_2IpN8",
+	"switcher": "switcher_3dC-Z",
+	"switcher--off": "switcher--off_3PpBE",
+	"switcher--on": "switcher--on_3j_eP",
+	"switcher-button": "switcher-button_p5hGG",
+	"switcher-track": "switcher-track_3djr0"
 };
 
 /***/ }),
 
-/***/ 353:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(348);
+    var content = __webpack_require__(346);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -559,8 +559,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_switcher.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_switcher.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_switcher.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_switcher.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -574,7 +574,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 357:
+/***/ 355:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -584,7 +584,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEqual2 = __webpack_require__(47);
+var _isEqual2 = __webpack_require__(46);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
@@ -604,7 +604,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _BookPage = __webpack_require__(376);
+var _BookPage = __webpack_require__(374);
 
 var _BookPage2 = _interopRequireDefault(_BookPage);
 
@@ -641,7 +641,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(410);
+var styles = __webpack_require__(408);
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     var config = selectors.viewer.config(state);
     var computed = selectors.viewer.computed(config.bookId)(state);
@@ -707,20 +707,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPages.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPages.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
 
-    __REACT_HOT_LOADER__.register(BookPages, "BookPages", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPages.tsx");
+    __REACT_HOT_LOADER__.register(BookPages, "BookPages", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPages.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 362:
+/***/ 360:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -730,7 +730,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _forEach2 = __webpack_require__(419);
+var _forEach2 = __webpack_require__(417);
 
 var _forEach3 = _interopRequireDefault(_forEach2);
 
@@ -740,11 +740,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _marked = __webpack_require__(422);
+var _marked = __webpack_require__(420);
 
 var _marked2 = _interopRequireDefault(_marked);
 
-var _jquery = __webpack_require__(331);
+var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -756,7 +756,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ReactMarkdown = __webpack_require__(423);
+var ReactMarkdown = __webpack_require__(421);
 
 var Markdown = function (_Component) {
     _inherits(Markdown, _Component);
@@ -835,9 +835,82 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Markdown, 'Markdown', '/Users/liang/Projects/readr/src/isomorphic/elements/Markdown/Markdown.tsx');
+    __REACT_HOT_LOADER__.register(Markdown, 'Markdown', '/Users/liang/Projects/readr/src/components/Markdown/Markdown.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Markdown/Markdown.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Markdown/Markdown.tsx');
+}();
+
+;
+
+/***/ }),
+
+/***/ 361:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Markdown = __webpack_require__(360);
+
+var _Markdown2 = _interopRequireDefault(_Markdown);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _Markdown2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Markdown/index.ts');
+}();
+
+;
+
+/***/ }),
+
+/***/ 362:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAddonsCssTransitionGroup = __webpack_require__(94);
+
+var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = __webpack_require__(400);
+
+var _default = function _default(props) {
+    return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: styles, transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, props.children);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Slide/Slide.tsx');
 }();
 
 ;
@@ -854,80 +927,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Markdown = __webpack_require__(362);
-
-var _Markdown2 = _interopRequireDefault(_Markdown);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Markdown2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Markdown/index.ts');
-}();
-
-;
-
-/***/ }),
-
-/***/ 364:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactAddonsCssTransitionGroup = __webpack_require__(92);
-
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = __webpack_require__(402);
-
-var _default = function _default(props) {
-    return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: styles, transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, props.children);
-};
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Slide/Slide.tsx');
-}();
-
-;
-
-/***/ }),
-
-/***/ 365:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Slide = __webpack_require__(364);
+var _Slide = __webpack_require__(362);
 
 var _Slide2 = _interopRequireDefault(_Slide);
 
@@ -942,14 +942,14 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Slide/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Slide/index.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 366:
+/***/ 364:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -960,11 +960,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Slide = exports.Fade = undefined;
 
-var _Fade = __webpack_require__(88);
+var _Fade = __webpack_require__(89);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
-var _Slide = __webpack_require__(365);
+var _Slide = __webpack_require__(363);
 
 var _Slide2 = _interopRequireDefault(_Slide);
 
@@ -984,7 +984,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 374:
+/***/ 372:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -995,7 +995,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _isEqual2 = __webpack_require__(47);
+var _isEqual2 = __webpack_require__(46);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
@@ -1005,7 +1005,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BookPages = __webpack_require__(357);
+var _BookPages = __webpack_require__(355);
 
 var _BookPages2 = _interopRequireDefault(_BookPages);
 
@@ -1085,16 +1085,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(BookChapter, 'BookChapter', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookChapters.tsx');
+    __REACT_HOT_LOADER__.register(BookChapter, 'BookChapter', '/Users/liang/Projects/readr/src/routes/Viewer/components/BookChapters.tsx');
 
-    __REACT_HOT_LOADER__.register(BookChapters, 'BookChapters', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookChapters.tsx');
+    __REACT_HOT_LOADER__.register(BookChapters, 'BookChapters', '/Users/liang/Projects/readr/src/routes/Viewer/components/BookChapters.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 375:
+/***/ 373:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1104,11 +1104,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slice2 = __webpack_require__(421);
+var _slice2 = __webpack_require__(419);
 
 var _slice3 = _interopRequireDefault(_slice2);
 
-var _debounce2 = __webpack_require__(417);
+var _debounce2 = __webpack_require__(415);
 
 var _debounce3 = _interopRequireDefault(_debounce2);
 
@@ -1120,11 +1120,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _BookPages = __webpack_require__(357);
+var _BookPages = __webpack_require__(355);
 
 var _BookPages2 = _interopRequireDefault(_BookPages);
 
-var _ViewerScrollbar = __webpack_require__(382);
+var _ViewerScrollbar = __webpack_require__(380);
 
 var _ViewerScrollbar2 = _interopRequireDefault(_ViewerScrollbar);
 
@@ -1136,7 +1136,7 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _NavArrow = __webpack_require__(377);
+var _NavArrow = __webpack_require__(375);
 
 var _NavArrow2 = _interopRequireDefault(_NavArrow);
 
@@ -1167,7 +1167,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(409);
+var styles = __webpack_require__(407);
 var mapStateToProps = function mapStateToProps(state) {
     var _selectors$viewer$con = selectors.viewer.config(state),
         bookId = _selectors$viewer$con.bookId,
@@ -1297,20 +1297,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookContainer.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookContainer.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
 
-    __REACT_HOT_LOADER__.register(BookContainer, "BookContainer", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookContainer.tsx");
+    __REACT_HOT_LOADER__.register(BookContainer, "BookContainer", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookContainer.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 376:
+/***/ 374:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1336,7 +1336,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _Markdown = __webpack_require__(363);
+var _Markdown = __webpack_require__(361);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
@@ -1373,7 +1373,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(91);
+var styles = __webpack_require__(93);
 var renderers = {
     paragraph: function paragraph(text) {
         return "<p class=\"" + styles['gb-line'] + "\">" + text + "</p>";
@@ -1477,22 +1477,22 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPage.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
 
-    __REACT_HOT_LOADER__.register(renderers, "renderers", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPage.tsx");
+    __REACT_HOT_LOADER__.register(renderers, "renderers", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPage.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
 
-    __REACT_HOT_LOADER__.register(BookPage, "BookPage", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPage.tsx");
+    __REACT_HOT_LOADER__.register(BookPage, "BookPage", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/BookPage.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 377:
+/***/ 375:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1531,7 +1531,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(411);
+var styles = __webpack_require__(409);
 var NavArrow = function (_Component) {
     _inherits(NavArrow, _Component);
 
@@ -1570,18 +1570,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/NavArrow.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/NavArrow.tsx");
 
-    __REACT_HOT_LOADER__.register(NavArrow, "NavArrow", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/NavArrow.tsx");
+    __REACT_HOT_LOADER__.register(NavArrow, "NavArrow", "/Users/liang/Projects/readr/src/routes/Viewer/components/NavArrow.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/NavArrow.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/NavArrow.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 378:
+/***/ 376:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1591,15 +1591,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEqualWith2 = __webpack_require__(420);
+var _isEqualWith2 = __webpack_require__(418);
 
 var _isEqualWith3 = _interopRequireDefault(_isEqualWith2);
 
-var _isEqual2 = __webpack_require__(47);
+var _isEqual2 = __webpack_require__(46);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
-var _debounce2 = __webpack_require__(417);
+var _debounce2 = __webpack_require__(415);
 
 var _debounce3 = _interopRequireDefault(_debounce2);
 
@@ -1625,19 +1625,19 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _BookContainer = __webpack_require__(375);
+var _BookContainer = __webpack_require__(373);
 
 var _BookContainer2 = _interopRequireDefault(_BookContainer);
 
-var _ViewerPanel = __webpack_require__(380);
+var _ViewerPanel = __webpack_require__(378);
 
 var _ViewerPanel2 = _interopRequireDefault(_ViewerPanel);
 
-var _BookChapters = __webpack_require__(374);
+var _BookChapters = __webpack_require__(372);
 
 var _BookChapters2 = _interopRequireDefault(_BookChapters);
 
-var _Loading = __webpack_require__(311);
+var _Loading = __webpack_require__(309);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -1826,20 +1826,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(PAGE_LIMIT, 'PAGE_LIMIT', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerContainer.tsx');
+    __REACT_HOT_LOADER__.register(PAGE_LIMIT, 'PAGE_LIMIT', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerContainer.tsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
 
-    __REACT_HOT_LOADER__.register(ViewerContainer, 'ViewerContainer', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerContainer.tsx');
+    __REACT_HOT_LOADER__.register(ViewerContainer, 'ViewerContainer', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerContainer.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 379:
+/***/ 377:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1873,15 +1873,15 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _preventScroll = __webpack_require__(383);
+var _preventScroll = __webpack_require__(381);
 
 var _preventScroll2 = _interopRequireDefault(_preventScroll);
 
-var _Viewer = __webpack_require__(90);
+var _Viewer = __webpack_require__(92);
 
 var viewerUtils = _interopRequireWildcard(_Viewer);
 
-var _jquery = __webpack_require__(331);
+var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -1904,7 +1904,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(412);
+var styles = __webpack_require__(410);
 var JS_NAV_HOOK = 'a.js-book-nav';
 var $body = (0, _jquery2.default)('body');
 var mapStateToProps = function mapStateToProps(state, ownProps) {
@@ -2008,24 +2008,24 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerNav.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
-    __REACT_HOT_LOADER__.register(JS_NAV_HOOK, "JS_NAV_HOOK", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerNav.tsx");
+    __REACT_HOT_LOADER__.register(JS_NAV_HOOK, "JS_NAV_HOOK", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
-    __REACT_HOT_LOADER__.register($body, "$body", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerNav.tsx");
+    __REACT_HOT_LOADER__.register($body, "$body", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerNav.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
-    __REACT_HOT_LOADER__.register(ViewerNav, "ViewerNav", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerNav.tsx");
+    __REACT_HOT_LOADER__.register(ViewerNav, "ViewerNav", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerNav.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 380:
+/***/ 378:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2049,13 +2049,13 @@ var _Icon = __webpack_require__(29);
 
 var _Icon2 = _interopRequireDefault(_Icon);
 
-var _animations = __webpack_require__(366);
+var _animations = __webpack_require__(364);
 
-var _ViewerPreference = __webpack_require__(381);
+var _ViewerPreference = __webpack_require__(379);
 
 var _ViewerPreference2 = _interopRequireDefault(_ViewerPreference);
 
-var _ViewerNav = __webpack_require__(379);
+var _ViewerNav = __webpack_require__(377);
 
 var _ViewerNav2 = _interopRequireDefault(_ViewerNav);
 
@@ -2098,7 +2098,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(413);
+var styles = __webpack_require__(411);
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     var config = selectors.viewer.config(state);
     var bookId = config.bookId;
@@ -2218,20 +2218,20 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPanel.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPanel.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
 
-    __REACT_HOT_LOADER__.register(ViewerPanel, "ViewerPanel", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPanel.tsx");
+    __REACT_HOT_LOADER__.register(ViewerPanel, "ViewerPanel", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPanel.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 381:
+/***/ 379:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2241,7 +2241,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _keys2 = __webpack_require__(84);
+var _keys2 = __webpack_require__(86);
 
 var _keys3 = _interopRequireDefault(_keys2);
 
@@ -2253,7 +2253,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Switcher = __webpack_require__(342);
+var _Switcher = __webpack_require__(339);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
@@ -2277,7 +2277,7 @@ var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _viewerDefs = __webpack_require__(86);
+var _viewerDefs = __webpack_require__(91);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -2298,7 +2298,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(414);
+var styles = __webpack_require__(412);
 var MAX_FONT_SIZE = 20;
 var MIN_FONT_SIZE = 12;
 var mapStateToProps = function mapStateToProps(state, ownProps) {
@@ -2408,24 +2408,24 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPreference.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
 
-    __REACT_HOT_LOADER__.register(MAX_FONT_SIZE, "MAX_FONT_SIZE", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPreference.tsx");
+    __REACT_HOT_LOADER__.register(MAX_FONT_SIZE, "MAX_FONT_SIZE", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
 
-    __REACT_HOT_LOADER__.register(MIN_FONT_SIZE, "MIN_FONT_SIZE", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPreference.tsx");
+    __REACT_HOT_LOADER__.register(MIN_FONT_SIZE, "MIN_FONT_SIZE", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPreference.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
 
-    __REACT_HOT_LOADER__.register(ViewerPreference, "ViewerPreference", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPreference.tsx");
+    __REACT_HOT_LOADER__.register(ViewerPreference, "ViewerPreference", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerPreference.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 382:
+/***/ 380:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2464,7 +2464,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(415);
+var styles = __webpack_require__(413);
 var ViewerScrollbar = function (_Component) {
     _inherits(ViewerScrollbar, _Component);
 
@@ -2498,18 +2498,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerScrollbar.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerScrollbar.tsx");
 
-    __REACT_HOT_LOADER__.register(ViewerScrollbar, "ViewerScrollbar", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerScrollbar.tsx");
+    __REACT_HOT_LOADER__.register(ViewerScrollbar, "ViewerScrollbar", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerScrollbar.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/components/ViewerScrollbar.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerScrollbar.tsx");
 }();
 
 ;
 
 /***/ }),
 
-/***/ 383:
+/***/ 381:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2519,7 +2519,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _jquery = __webpack_require__(331);
+var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -2567,16 +2567,16 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(scrollHandler, 'scrollHandler', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/preventScroll.ts');
+    __REACT_HOT_LOADER__.register(scrollHandler, 'scrollHandler', '/Users/liang/Projects/readr/src/utils/browser/preventScroll.ts');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/preventScroll.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/browser/preventScroll.ts');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 387:
+/***/ 385:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -2584,19 +2584,19 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".enter_2KePm {\n  transform: translateY(-100%);\n  opacity: 0.01;\n  transition: all .3s; }\n\n.enterActive_7JG-H {\n  transform: translateY(0);\n  opacity: 1; }\n\n.leave_3Afeg {\n  transform: translateY(0);\n  opacity: 1;\n  transition: all .3s; }\n\n.seaveActive_1RtTs {\n  transform: translateY(-100%);\n  opacity: 0; }\n", ""]);
+exports.push([module.i, ".enter_1v5B1 {\n  transform: translateY(-100%);\n  opacity: 0.01;\n  transition: all .3s; }\n\n.enterActive_26TbM {\n  transform: translateY(0);\n  opacity: 1; }\n\n.leave_a2XRB {\n  transform: translateY(0);\n  opacity: 1;\n  transition: all .3s; }\n\n.seaveActive_9yLLN {\n  transform: translateY(-100%);\n  opacity: 0; }\n", ""]);
 
 // exports
 exports.locals = {
-	"enter": "enter_2KePm",
-	"enterActive": "enterActive_7JG-H",
-	"leave": "leave_3Afeg",
-	"seaveActive": "seaveActive_1RtTs"
+	"enter": "enter_1v5B1",
+	"enterActive": "enterActive_26TbM",
+	"leave": "leave_a2XRB",
+	"seaveActive": "seaveActive_9yLLN"
 };
 
 /***/ }),
 
-/***/ 393:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -2611,6 +2611,46 @@ exports.push([module.i, ".viewer {\n  background: #eee; }\n", ""]);
 
 /***/ }),
 
+/***/ 392:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+// imports
+
+
+// module
+exports.push([module.i, ".white_2z99Y {\n  background: #eee; }\n\n.night_37Qro {\n  background: #222; }\n\n.sepia_1cfSe {\n  background: #f9f1e5; }\n", ""]);
+
+// exports
+exports.locals = {
+	"white": "white_2z99Y",
+	"night": "night_37Qro",
+	"sepia": "sepia_1cfSe"
+};
+
+/***/ }),
+
+/***/ 393:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+// imports
+
+
+// module
+exports.push([module.i, ".pages_19v_x {\n  position: relative;\n  width: 700px;\n  margin: 0 auto;\n  background: #fff; }\n\n.pages--fluid_1dnEL {\n  width: 100%; }\n\n.white_1oLZj {\n  background: #fff; }\n\n.night_ZSdxF {\n  background: #333; }\n\n.sepia_3Vs2d {\n  background: #fbf7f1; }\n", ""]);
+
+// exports
+exports.locals = {
+	"pages": "pages_19v_x",
+	"pages--fluid": "pages--fluid_1dnEL pages_19v_x",
+	"white": "white_1oLZj",
+	"night": "night_ZSdxF",
+	"sepia": "sepia_3Vs2d"
+};
+
+/***/ }),
+
 /***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2619,13 +2659,14 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".white_3Dnqh {\n  background: #eee; }\n\n.night_1NqxS {\n  background: #222; }\n\n.sepia_1Z2BH {\n  background: #f9f1e5; }\n", ""]);
+exports.push([module.i, ".navs_28W6W {\n  position: fixed;\n  top: 50%;\n  width: 750px;\n  left: 50%;\n  margin-left: -375px;\n  height: 120px;\n  margin-top: -60px; }\n\n.nav-arrow_RW2Xi {\n  width: 20px;\n  height: 120px;\n  line-height: 120px;\n  text-align: center;\n  background: #fff;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none; }\n  .nav-arrow_RW2Xi:hover {\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n  .nav-arrow_RW2Xi:active {\n    box-shadow: none; }\n\n.nav-left_3g8Om {\n  float: left; }\n\n.nav-right_2FsBq {\n  float: right; }\n", ""]);
 
 // exports
 exports.locals = {
-	"white": "white_3Dnqh",
-	"night": "night_1NqxS",
-	"sepia": "sepia_1Z2BH"
+	"navs": "navs_28W6W",
+	"nav-arrow": "nav-arrow_RW2Xi",
+	"nav-left": "nav-left_3g8Om nav-arrow_RW2Xi",
+	"nav-right": "nav-right_2FsBq nav-arrow_RW2Xi"
 };
 
 /***/ }),
@@ -2638,15 +2679,11 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".pages_2fddI {\n  position: relative;\n  width: 700px;\n  margin: 0 auto;\n  background: #fff; }\n\n.pages--fluid_3sn_F {\n  width: 100%; }\n\n.white_2-zJw {\n  background: #fff; }\n\n.night_1SlW1 {\n  background: #333; }\n\n.sepia_EVYx8 {\n  background: #fbf7f1; }\n", ""]);
+exports.push([module.i, ".viewer-nav_2OoUT {\n  position: absolute;\n  top: 80px;\n  left: -20px;\n  height: 100%;\n  background: #fff;\n  overflow-y: scroll;\n  padding: 20px 20px 20px 0;\n  border-radius: 3px;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  width: 300px;\n  height: 400px; }\n  .viewer-nav_2OoUT ul {\n    margin-left: 20px;\n    text-align: left;\n    line-height: 1.8; }\n    .viewer-nav_2OoUT ul li a {\n      display: block;\n      border-bottom: 1px solid #ddd; }\n", ""]);
 
 // exports
 exports.locals = {
-	"pages": "pages_2fddI",
-	"pages--fluid": "pages--fluid_3sn_F pages_2fddI",
-	"white": "white_2-zJw",
-	"night": "night_1SlW1",
-	"sepia": "sepia_EVYx8"
+	"viewer-nav": "viewer-nav_2OoUT"
 };
 
 /***/ }),
@@ -2659,14 +2696,16 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".navs_P8Nmy {\n  position: fixed;\n  top: 50%;\n  width: 750px;\n  left: 50%;\n  margin-left: -375px;\n  height: 120px;\n  margin-top: -60px; }\n\n.nav-arrow_2Vrt- {\n  width: 20px;\n  height: 120px;\n  line-height: 120px;\n  text-align: center;\n  background: #fff;\n  border-radius: 3px;\n  cursor: pointer;\n  user-select: none; }\n  .nav-arrow_2Vrt-:hover {\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n  .nav-arrow_2Vrt-:active {\n    box-shadow: none; }\n\n.nav-left_2rSGX {\n  float: left; }\n\n.nav-right_23LtN {\n  float: right; }\n", ""]);
+exports.push([module.i, ".viewer-panel_28Idq {\n  width: 100%;\n  position: fixed;\n  top: 0;\n  z-index: 990;\n  background: #222;\n  color: #fff;\n  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);\n  height: 60px; }\n\n.container_3HjnD {\n  max-width: 1200px;\n  text-align: center;\n  margin: 0 auto;\n  height: 60px;\n  position: relative; }\n\n.back_4XY67 {\n  position: absolute;\n  left: 5px;\n  top: 0;\n  line-height: 60px; }\n  .back_4XY67 a {\n    color: #fff;\n    display: inline-block;\n    height: 60px;\n    line-height: 60px;\n    overflow: hidden; }\n    .back_4XY67 a span {\n      float: left;\n      margin-right: 5px; }\n  .back_4XY67 span {\n    line-height: 30px;\n    display: inline-block;\n    height: 60px;\n    line-height: 60px; }\n\n.contents_VJwYc {\n  display: inline-block;\n  position: absolute;\n  left: 100px;\n  top: 0;\n  cursor: pointer;\n  line-height: 60px; }\n  .contents_VJwYc span {\n    color: #fff; }\n\n.title_3Vi5B {\n  font-size: 1.2rem;\n  line-height: 60px; }\n\n.preference_3S7CO {\n  position: absolute;\n  right: 15px;\n  top: 15px;\n  cursor: pointer;\n  display: inline-block; }\n", ""]);
 
 // exports
 exports.locals = {
-	"navs": "navs_P8Nmy",
-	"nav-arrow": "nav-arrow_2Vrt-",
-	"nav-left": "nav-left_2rSGX nav-arrow_2Vrt-",
-	"nav-right": "nav-right_23LtN nav-arrow_2Vrt-"
+	"viewer-panel": "viewer-panel_28Idq",
+	"container": "container_3HjnD",
+	"back": "back_4XY67",
+	"contents": "contents_VJwYc",
+	"title": "title_3Vi5B",
+	"preference": "preference_3S7CO"
 };
 
 /***/ }),
@@ -2679,11 +2718,26 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".viewer-nav_SL2MS {\n  position: absolute;\n  top: 80px;\n  left: -20px;\n  height: 100%;\n  background: #fff;\n  overflow-y: scroll;\n  padding: 20px 20px 20px 0;\n  border-radius: 3px;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  width: 300px;\n  height: 400px; }\n  .viewer-nav_SL2MS ul {\n    margin-left: 20px;\n    text-align: left;\n    line-height: 1.8; }\n    .viewer-nav_SL2MS ul li a {\n      display: block;\n      border-bottom: 1px solid #ddd; }\n", ""]);
+exports.push([module.i, ".viewer-preference_1KDgt {\n  position: absolute;\n  right: 0;\n  top: 65px;\n  width: 200px;\n  background: #fff;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  color: #666;\n  border-radius: 3px;\n  -webkit-user-select: none;\n  overflow: hidden; }\n\n.option_H-ecf {\n  padding: 10px 15px;\n  border-bottom: 1px solid #ddd; }\n  .option_H-ecf:last-child {\n    border: none; }\n\n.option-font-size_2-R30 {\n  overflow: hidden;\n  padding: 0; }\n  .option-font-size_2-R30 .btn_3_tRz, .option-font-size_2-R30 .btn--disabled_2LRO5 {\n    font-size: 1.2rem;\n    width: 50%;\n    float: left;\n    box-sizing: border-box;\n    padding: 0 5px;\n    height: 40px;\n    line-height: 40px;\n    cursor: pointer; }\n    .option-font-size_2-R30 .btn_3_tRz:hover, .option-font-size_2-R30 .btn--disabled_2LRO5:hover {\n      color: #333; }\n    .option-font-size_2-R30 .btn_3_tRz:active, .option-font-size_2-R30 .btn--disabled_2LRO5:active {\n      color: #999; }\n  .option-font-size_2-R30 .btn_3_tRz:first-child, .option-font-size_2-R30 .btn--disabled_2LRO5:first-child {\n    font-size: .9rem;\n    border-right: 1px solid #ddd; }\n  .option-font-size_2-R30 .btn--disabled_2LRO5 {\n    color: #ddd; }\n\n.option-scroll_3MxdL {\n  overflow: hidden;\n  text-align: left; }\n  .option-scroll_3MxdL .label_i6lv1 {\n    float: left; }\n  .option-scroll_3MxdL .switcher_3Llvj {\n    float: right; }\n\n.option-theme_30Vrz {\n  padding: 5px 0; }\n\n.theme-btn_2xsxR {\n  border-radius: 50%;\n  border: 2px solid #ddd;\n  text-indent: -999em;\n  display: inline-block;\n  width: 30px;\n  height: 30px;\n  margin: 5px;\n  cursor: pointer; }\n\n.white_3yn4t {\n  background: #fff; }\n\n.white--active_Fu40U {\n  background: #fff;\n  border-color: #1B267F; }\n\n.night_2Elp2 {\n  background: #222; }\n\n.night--active_ShZrb {\n  background: #222;\n  border-color: #1B267F; }\n\n.sepia_2Mzyq {\n  background: #f9f1e5; }\n\n.sepia--active_2rCX_ {\n  background: #f9f1e5;\n  border-color: #1B267F; }\n", ""]);
 
 // exports
 exports.locals = {
-	"viewer-nav": "viewer-nav_SL2MS"
+	"viewer-preference": "viewer-preference_1KDgt",
+	"option": "option_H-ecf",
+	"option-font-size": "option-font-size_2-R30 option_H-ecf",
+	"btn": "btn_3_tRz",
+	"btn--disabled": "btn--disabled_2LRO5",
+	"option-scroll": "option-scroll_3MxdL option_H-ecf",
+	"label": "label_i6lv1",
+	"switcher": "switcher_3Llvj",
+	"option-theme": "option-theme_30Vrz option_H-ecf",
+	"theme-btn": "theme-btn_2xsxR",
+	"white": "white_3yn4t theme-btn_2xsxR",
+	"white--active": "white--active_Fu40U theme-btn_2xsxR",
+	"night": "night_2Elp2 theme-btn_2xsxR",
+	"night--active": "night--active_ShZrb theme-btn_2xsxR",
+	"sepia": "sepia_2Mzyq theme-btn_2xsxR",
+	"sepia--active": "sepia--active_2rCX_ theme-btn_2xsxR"
 };
 
 /***/ }),
@@ -2696,48 +2750,16 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".viewer-panel_107MY {\n  width: 100%;\n  position: fixed;\n  top: 0;\n  z-index: 990;\n  background: #222;\n  color: #fff;\n  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);\n  height: 60px; }\n\n.container_3L78R {\n  max-width: 1200px;\n  text-align: center;\n  margin: 0 auto;\n  height: 60px;\n  position: relative; }\n\n.back_1mVrC {\n  position: absolute;\n  left: 5px;\n  top: 0;\n  line-height: 60px; }\n  .back_1mVrC a {\n    color: #fff;\n    display: inline-block;\n    height: 60px;\n    line-height: 60px;\n    overflow: hidden; }\n    .back_1mVrC a span {\n      float: left;\n      margin-right: 5px; }\n  .back_1mVrC span {\n    line-height: 30px;\n    display: inline-block;\n    height: 60px;\n    line-height: 60px; }\n\n.contents_16iGQ {\n  display: inline-block;\n  position: absolute;\n  left: 100px;\n  top: 0;\n  cursor: pointer;\n  line-height: 60px; }\n  .contents_16iGQ span {\n    color: #fff; }\n\n.title_3MIpP {\n  font-size: 1.2rem;\n  line-height: 60px; }\n\n.preference_2JQRi {\n  position: absolute;\n  right: 15px;\n  top: 15px;\n  cursor: pointer;\n  display: inline-block; }\n", ""]);
+exports.push([module.i, ".scrollbar_2JIsC {\n  width: 2px;\n  min-height: 400px;\n  position: fixed;\n  right: 40px;\n  top: 100px; }\n  .scrollbar_2JIsC:hover .button_2_Um5 {\n    display: block; }\n\n.track_2Pcg_ {\n  width: 2px;\n  background: #c4c4c4;\n  border-radius: 3px;\n  position: absolute;\n  left: 8px;\n  top: 0;\n  z-index: 1; }\n\n.track--past_1xR9T {\n  background: #5866db;\n  z-index: 2; }\n\n.button_2_Um5 {\n  width: 20px;\n  height: 20px;\n  background: #1B267F;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  position: absolute;\n  left: 0;\n  top: 84px;\n  cursor: pointer;\n  border-radius: 50%;\n  z-index: 3;\n  display: none; }\n\n.loc-info_2mooY {\n  text-align: center;\n  position: fixed;\n  right: 30px;\n  bottom: 30px;\n  background: #222;\n  color: #ddd;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  padding: 7px 15px; }\n\n.sub-info_3Sjr- {\n  font-size: 0.8rem;\n  color: #aaa; }\n", ""]);
 
 // exports
 exports.locals = {
-	"viewer-panel": "viewer-panel_107MY",
-	"container": "container_3L78R",
-	"back": "back_1mVrC",
-	"contents": "contents_16iGQ",
-	"title": "title_3MIpP",
-	"preference": "preference_2JQRi"
-};
-
-/***/ }),
-
-/***/ 399:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, ".viewer-preference_kLYVW {\n  position: absolute;\n  right: 0;\n  top: 65px;\n  width: 200px;\n  background: #fff;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  color: #666;\n  border-radius: 3px;\n  -webkit-user-select: none;\n  overflow: hidden; }\n\n.option_3oCQo {\n  padding: 10px 15px;\n  border-bottom: 1px solid #ddd; }\n  .option_3oCQo:last-child {\n    border: none; }\n\n.option-font-size_12HR2 {\n  overflow: hidden;\n  padding: 0; }\n  .option-font-size_12HR2 .btn_o5Fp4, .option-font-size_12HR2 .btn--disabled_1i197 {\n    font-size: 1.2rem;\n    width: 50%;\n    float: left;\n    box-sizing: border-box;\n    padding: 0 5px;\n    height: 40px;\n    line-height: 40px;\n    cursor: pointer; }\n    .option-font-size_12HR2 .btn_o5Fp4:hover, .option-font-size_12HR2 .btn--disabled_1i197:hover {\n      color: #333; }\n    .option-font-size_12HR2 .btn_o5Fp4:active, .option-font-size_12HR2 .btn--disabled_1i197:active {\n      color: #999; }\n  .option-font-size_12HR2 .btn_o5Fp4:first-child, .option-font-size_12HR2 .btn--disabled_1i197:first-child {\n    font-size: .9rem;\n    border-right: 1px solid #ddd; }\n  .option-font-size_12HR2 .btn--disabled_1i197 {\n    color: #ddd; }\n\n.option-scroll_2EQ0n {\n  overflow: hidden;\n  text-align: left; }\n  .option-scroll_2EQ0n .label_iDRgB {\n    float: left; }\n  .option-scroll_2EQ0n .switcher_37lfk {\n    float: right; }\n\n.option-theme_4kqAY {\n  padding: 5px 0; }\n\n.theme-btn_3aKct {\n  border-radius: 50%;\n  border: 2px solid #ddd;\n  text-indent: -999em;\n  display: inline-block;\n  width: 30px;\n  height: 30px;\n  margin: 5px;\n  cursor: pointer; }\n\n.white_3_Vvc {\n  background: #fff; }\n\n.white--active_39AK8 {\n  background: #fff;\n  border-color: #1B267F; }\n\n.night_3cMtg {\n  background: #222; }\n\n.night--active_2i1GO {\n  background: #222;\n  border-color: #1B267F; }\n\n.sepia_-SGHv {\n  background: #f9f1e5; }\n\n.sepia--active_2XOo1 {\n  background: #f9f1e5;\n  border-color: #1B267F; }\n", ""]);
-
-// exports
-exports.locals = {
-	"viewer-preference": "viewer-preference_kLYVW",
-	"option": "option_3oCQo",
-	"option-font-size": "option-font-size_12HR2 option_3oCQo",
-	"btn": "btn_o5Fp4",
-	"btn--disabled": "btn--disabled_1i197",
-	"option-scroll": "option-scroll_2EQ0n option_3oCQo",
-	"label": "label_iDRgB",
-	"switcher": "switcher_37lfk",
-	"option-theme": "option-theme_4kqAY option_3oCQo",
-	"theme-btn": "theme-btn_3aKct",
-	"white": "white_3_Vvc theme-btn_3aKct",
-	"white--active": "white--active_39AK8 theme-btn_3aKct",
-	"night": "night_3cMtg theme-btn_3aKct",
-	"night--active": "night--active_2i1GO theme-btn_3aKct",
-	"sepia": "sepia_-SGHv theme-btn_3aKct",
-	"sepia--active": "sepia--active_2XOo1 theme-btn_3aKct"
+	"scrollbar": "scrollbar_2JIsC",
+	"button": "button_2_Um5",
+	"track": "track_2Pcg_",
+	"track--past": "track--past_1xR9T track_2Pcg_",
+	"loc-info": "loc-info_2mooY",
+	"sub-info": "sub-info_3Sjr-"
 };
 
 /***/ }),
@@ -2745,30 +2767,8 @@ exports.locals = {
 /***/ 400:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)();
-// imports
 
-
-// module
-exports.push([module.i, ".scrollbar_3nI1M {\n  width: 2px;\n  min-height: 400px;\n  position: fixed;\n  right: 40px;\n  top: 100px; }\n  .scrollbar_3nI1M:hover .button_1ys08 {\n    display: block; }\n\n.track_3l7Dy {\n  width: 2px;\n  background: #c4c4c4;\n  border-radius: 3px;\n  position: absolute;\n  left: 8px;\n  top: 0;\n  z-index: 1; }\n\n.track--past_2_8Sr {\n  background: #5866db;\n  z-index: 2; }\n\n.button_1ys08 {\n  width: 20px;\n  height: 20px;\n  background: #1B267F;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  position: absolute;\n  left: 0;\n  top: 84px;\n  cursor: pointer;\n  border-radius: 50%;\n  z-index: 3;\n  display: none; }\n\n.loc-info_15nWB {\n  text-align: center;\n  position: fixed;\n  right: 30px;\n  bottom: 30px;\n  background: #222;\n  color: #ddd;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  padding: 7px 15px; }\n\n.sub-info_3bYj5 {\n  font-size: 0.8rem;\n  color: #aaa; }\n", ""]);
-
-// exports
-exports.locals = {
-	"scrollbar": "scrollbar_3nI1M",
-	"button": "button_1ys08",
-	"track": "track_3l7Dy",
-	"track--past": "track--past_2_8Sr track_3l7Dy",
-	"loc-info": "loc-info_15nWB",
-	"sub-info": "sub-info_3bYj5"
-};
-
-/***/ }),
-
-/***/ 402:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(387);
+    var content = __webpack_require__(385);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -2785,8 +2785,80 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Slide.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Slide.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Slide.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Slide.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
+
+/***/ }),
+
+/***/ 406:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var content = __webpack_require__(391);
+    var insertCss = __webpack_require__(2);
+
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
+
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Viewer.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Viewer.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
+
+/***/ }),
+
+/***/ 407:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var content = __webpack_require__(392);
+    var insertCss = __webpack_require__(2);
+
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
+
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookContainer.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookContainer.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -2821,8 +2893,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Viewer.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Viewer.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookPages.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookPages.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -2857,8 +2929,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./BookContainer.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./BookContainer.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./NavArrow.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./NavArrow.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -2893,8 +2965,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./BookPages.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./BookPages.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerNav.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerNav.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -2929,8 +3001,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./NavArrow.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./NavArrow.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerPanel.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerPanel.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -2965,8 +3037,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerNav.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerNav.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerPreference.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerPreference.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -3001,80 +3073,8 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerPanel.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerPanel.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-
-/***/ 414:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(399);
-    var insertCss = __webpack_require__(2);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerPreference.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerPreference.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-
-/***/ 415:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(400);
-    var insertCss = __webpack_require__(2);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerScrollbar.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./ViewerScrollbar.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerScrollbar.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ViewerScrollbar.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];

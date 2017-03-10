@@ -93,7 +93,7 @@ module.exports =
 /******/ 	};
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 292);
+/******/ 	return __webpack_require__(__webpack_require__.s = 290);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -165,15 +165,15 @@ module.exports = function() {
 "use strict";
 
 
-var _stringify = __webpack_require__(266);
+var _stringify = __webpack_require__(265);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _slicedToArray2 = __webpack_require__(267);
+var _slicedToArray2 = __webpack_require__(266);
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _getIterator2 = __webpack_require__(265);
+var _getIterator2 = __webpack_require__(264);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -373,7 +373,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.VIEWER = exports.MODAL = exports.CLOSE_CONFIRM_MODAL = exports.OPEN_CONFIRM_MODAL = exports.NOTIFICATION = exports.SHELF = exports.AUTH = exports.PROFILE = exports.DOUBAN_BOOKS = exports.COLLECTION = exports.COLLECTIONS = exports.AUTHORS = exports.LOAD_BOOK_PROGRESS = exports.BOOK_PROGRESS = exports.USER_LOGOUT = exports.LOGOUT = exports.LOAD_USERS = exports.USERS = exports.LOAD_BOOKS = exports.BOOKS = exports.LOAD_BOOK_CONTENT = exports.BOOK_CONTENT = exports.LOAD_BOOK = exports.BOOK = exports.REMOVE_ENTITY = undefined;
 
-var _utils = __webpack_require__(60);
+var _utils = __webpack_require__(49);
 
 /**
  * api
@@ -440,55 +440,55 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(REMOVE_ENTITY, 'REMOVE_ENTITY', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(REMOVE_ENTITY, 'REMOVE_ENTITY', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(BOOK, 'BOOK', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(BOOK, 'BOOK', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(LOAD_BOOK, 'LOAD_BOOK', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(LOAD_BOOK, 'LOAD_BOOK', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(BOOK_CONTENT, 'BOOK_CONTENT', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(BOOK_CONTENT, 'BOOK_CONTENT', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(LOAD_BOOK_CONTENT, 'LOAD_BOOK_CONTENT', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(LOAD_BOOK_CONTENT, 'LOAD_BOOK_CONTENT', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(BOOKS, 'BOOKS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(BOOKS, 'BOOKS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(LOAD_BOOKS, 'LOAD_BOOKS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(LOAD_BOOKS, 'LOAD_BOOKS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(USERS, 'USERS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(USERS, 'USERS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(LOAD_USERS, 'LOAD_USERS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(LOAD_USERS, 'LOAD_USERS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(LOGOUT, 'LOGOUT', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(LOGOUT, 'LOGOUT', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(USER_LOGOUT, 'USER_LOGOUT', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(USER_LOGOUT, 'USER_LOGOUT', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(BOOK_PROGRESS, 'BOOK_PROGRESS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(BOOK_PROGRESS, 'BOOK_PROGRESS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(LOAD_BOOK_PROGRESS, 'LOAD_BOOK_PROGRESS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(LOAD_BOOK_PROGRESS, 'LOAD_BOOK_PROGRESS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(AUTHORS, 'AUTHORS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(AUTHORS, 'AUTHORS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(COLLECTIONS, 'COLLECTIONS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(COLLECTIONS, 'COLLECTIONS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(COLLECTION, 'COLLECTION', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(COLLECTION, 'COLLECTION', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(DOUBAN_BOOKS, 'DOUBAN_BOOKS', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(DOUBAN_BOOKS, 'DOUBAN_BOOKS', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(PROFILE, 'PROFILE', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(PROFILE, 'PROFILE', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(AUTH, 'AUTH', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(AUTH, 'AUTH', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(SHELF, 'SHELF', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(SHELF, 'SHELF', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(NOTIFICATION, 'NOTIFICATION', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(NOTIFICATION, 'NOTIFICATION', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(OPEN_CONFIRM_MODAL, 'OPEN_CONFIRM_MODAL', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(OPEN_CONFIRM_MODAL, 'OPEN_CONFIRM_MODAL', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(CLOSE_CONFIRM_MODAL, 'CLOSE_CONFIRM_MODAL', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(CLOSE_CONFIRM_MODAL, 'CLOSE_CONFIRM_MODAL', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(MODAL, 'MODAL', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(MODAL, 'MODAL', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 
-    __REACT_HOT_LOADER__.register(VIEWER, 'VIEWER', '/Users/liang/Projects/readr/src/isomorphic/constants/actionTypes.ts');
+    __REACT_HOT_LOADER__.register(VIEWER, 'VIEWER', '/Users/liang/Projects/readr/src/constants/actionTypes.ts');
 }();
 
 ;
@@ -521,6 +521,7 @@ var ROLES = exports.ROLES = {
     ADMIN: 'admin',
     VISITOR: 'visitor'
 };
+var API_PREFIX = exports.API_PREFIX = 'api';
 ;
 
 var _temp = function () {
@@ -528,15 +529,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ENABLE_SERVER_ROUTING, 'ENABLE_SERVER_ROUTING', '/Users/liang/Projects/readr/src/isomorphic/constants/common.ts');
+    __REACT_HOT_LOADER__.register(ENABLE_SERVER_ROUTING, 'ENABLE_SERVER_ROUTING', '/Users/liang/Projects/readr/src/constants/common.ts');
 
-    __REACT_HOT_LOADER__.register(INITIAL_STATE, 'INITIAL_STATE', '/Users/liang/Projects/readr/src/isomorphic/constants/common.ts');
+    __REACT_HOT_LOADER__.register(INITIAL_STATE, 'INITIAL_STATE', '/Users/liang/Projects/readr/src/constants/common.ts');
 
-    __REACT_HOT_LOADER__.register(DOUBAN_API_ROOT, 'DOUBAN_API_ROOT', '/Users/liang/Projects/readr/src/isomorphic/constants/common.ts');
+    __REACT_HOT_LOADER__.register(DOUBAN_API_ROOT, 'DOUBAN_API_ROOT', '/Users/liang/Projects/readr/src/constants/common.ts');
 
-    __REACT_HOT_LOADER__.register(GITHUB_API_ROOT, 'GITHUB_API_ROOT', '/Users/liang/Projects/readr/src/isomorphic/constants/common.ts');
+    __REACT_HOT_LOADER__.register(GITHUB_API_ROOT, 'GITHUB_API_ROOT', '/Users/liang/Projects/readr/src/constants/common.ts');
 
-    __REACT_HOT_LOADER__.register(ROLES, 'ROLES', '/Users/liang/Projects/readr/src/isomorphic/constants/common.ts');
+    __REACT_HOT_LOADER__.register(ROLES, 'ROLES', '/Users/liang/Projects/readr/src/constants/common.ts');
+
+    __REACT_HOT_LOADER__.register(API_PREFIX, 'API_PREFIX', '/Users/liang/Projects/readr/src/constants/common.ts');
 }();
 
 ;
@@ -558,27 +561,27 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _lifecircle = __webpack_require__(132);
+var _lifecircle = __webpack_require__(134);
 
 var lifecircle = _interopRequireWildcard(_lifecircle);
 
-var _getApiRoot = __webpack_require__(131);
+var _getApiRoot = __webpack_require__(133);
 
 var _getApiRoot2 = _interopRequireDefault(_getApiRoot);
 
-var _isServerRoutingEnabled = __webpack_require__(57);
+var _isServerRoutingEnabled = __webpack_require__(59);
 
 var _isServerRoutingEnabled2 = _interopRequireDefault(_isServerRoutingEnabled);
 
-var _redirect = __webpack_require__(134);
+var _redirect = __webpack_require__(136);
 
 var _redirect2 = _interopRequireDefault(_redirect);
 
-var _isServerEnv = __webpack_require__(56);
+var _isServerEnv = __webpack_require__(58);
 
 var _isServerEnv2 = _interopRequireDefault(_isServerEnv);
 
-var _print = __webpack_require__(133);
+var _print = __webpack_require__(135);
 
 var _print2 = _interopRequireDefault(_print);
 
@@ -602,7 +605,7 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/helpers/index.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/helpers/index.ts');
 }();
 
 ;
@@ -619,7 +622,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.collection = exports.book = exports.author = exports.tag = exports.progress = exports.file = exports.user = undefined;
 
-var _schema = __webpack_require__(224);
+var _schema = __webpack_require__(212);
 
 var _schema2 = _interopRequireDefault(_schema);
 
@@ -627,11 +630,11 @@ var _i18n = __webpack_require__(14);
 
 var _i18n2 = _interopRequireDefault(_i18n);
 
-var _validator = __webpack_require__(72);
+var _validator = __webpack_require__(70);
 
 var _validator2 = _interopRequireDefault(_validator);
 
-var _types = __webpack_require__(190);
+var _types = __webpack_require__(176);
 
 var _types2 = _interopRequireDefault(_types);
 
@@ -787,7 +790,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _database = __webpack_require__(223);
+var _database = __webpack_require__(211);
 
 var _database2 = _interopRequireDefault(_database);
 
@@ -799,19 +802,19 @@ var _i18n = __webpack_require__(14);
 
 var _i18n2 = _interopRequireDefault(_i18n);
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(33);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _validate = __webpack_require__(225);
+var _validate = __webpack_require__(213);
 
 var _validate2 = _interopRequireDefault(_validate);
 
-var _outputEmptyEntity = __webpack_require__(69);
+var _outputEmptyEntity = __webpack_require__(67);
 
 var _outputEmptyEntity2 = _interopRequireDefault(_outputEmptyEntity);
 
-var _paginate = __webpack_require__(70);
+var _paginate = __webpack_require__(68);
 
 var _paginate2 = _interopRequireDefault(_paginate);
 
@@ -1055,13 +1058,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isNull2 = __webpack_require__(278);
+var _isNull2 = __webpack_require__(277);
 
 var _isNull3 = _interopRequireDefault(_isNull2);
 
 exports.default = i18n;
 
-var _cn = __webpack_require__(230);
+var _cn = __webpack_require__(218);
 
 var _cn2 = _interopRequireDefault(_cn);
 
@@ -1152,7 +1155,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.resetForm = exports.initializeForm = undefined;
 
-var _api = __webpack_require__(156);
+var _api = __webpack_require__(96);
 
 Object.keys(_api).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -1164,7 +1167,7 @@ Object.keys(_api).forEach(function (key) {
   });
 });
 
-var _common = __webpack_require__(157);
+var _common = __webpack_require__(97);
 
 Object.keys(_common).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -1176,19 +1179,7 @@ Object.keys(_common).forEach(function (key) {
   });
 });
 
-var _test = __webpack_require__(158);
-
-Object.keys(_test).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _test[key];
-    }
-  });
-});
-
-var _viewer = __webpack_require__(159);
+var _viewer = __webpack_require__(98);
 
 Object.keys(_viewer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -1202,7 +1193,6 @@ Object.keys(_viewer).forEach(function (key) {
 
 var _betterReduxForm = __webpack_require__(28);
 
-// form
 var initializeForm = exports.initializeForm = _betterReduxForm.actions.initialize;
 var resetForm = exports.resetForm = _betterReduxForm.actions.reset;
 ;
@@ -1212,9 +1202,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(initializeForm, 'initializeForm', '/Users/liang/Projects/readr/src/isomorphic/store/actions/index.ts');
+  __REACT_HOT_LOADER__.register(initializeForm, 'initializeForm', '/Users/liang/Projects/readr/src/actions/index.ts');
 
-  __REACT_HOT_LOADER__.register(resetForm, 'resetForm', '/Users/liang/Projects/readr/src/isomorphic/store/actions/index.ts');
+  __REACT_HOT_LOADER__.register(resetForm, 'resetForm', '/Users/liang/Projects/readr/src/actions/index.ts');
 }();
 
 ;
@@ -1242,51 +1232,51 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _notFoundError = __webpack_require__(198);
+var _notFoundError = __webpack_require__(184);
 
 var _notFoundError2 = _interopRequireDefault(_notFoundError);
 
-var _validationError = __webpack_require__(204);
+var _validationError = __webpack_require__(190);
 
 var _validationError2 = _interopRequireDefault(_validationError);
 
-var _badRequestError = __webpack_require__(193);
+var _badRequestError = __webpack_require__(179);
 
 var _badRequestError2 = _interopRequireDefault(_badRequestError);
 
-var _internalServerError = __webpack_require__(195);
+var _internalServerError = __webpack_require__(181);
 
 var _internalServerError2 = _interopRequireDefault(_internalServerError);
 
-var _noPermissionError = __webpack_require__(197);
+var _noPermissionError = __webpack_require__(183);
 
 var _noPermissionError2 = _interopRequireDefault(_noPermissionError);
 
-var _unauthorizedError = __webpack_require__(202);
+var _unauthorizedError = __webpack_require__(188);
 
 var _unauthorizedError2 = _interopRequireDefault(_unauthorizedError);
 
-var _requestTooLargeError = __webpack_require__(199);
+var _requestTooLargeError = __webpack_require__(185);
 
 var _requestTooLargeError2 = _interopRequireDefault(_requestTooLargeError);
 
-var _unsupportedFileTypeError = __webpack_require__(203);
+var _unsupportedFileTypeError = __webpack_require__(189);
 
 var _unsupportedFileTypeError2 = _interopRequireDefault(_unsupportedFileTypeError);
 
-var _emailError = __webpack_require__(194);
+var _emailError = __webpack_require__(180);
 
 var _emailError2 = _interopRequireDefault(_emailError);
 
-var _methodNotAllowedError = __webpack_require__(196);
+var _methodNotAllowedError = __webpack_require__(182);
 
 var _methodNotAllowedError2 = _interopRequireDefault(_methodNotAllowedError);
 
-var _tooManyRequestsError = __webpack_require__(201);
+var _tooManyRequestsError = __webpack_require__(187);
 
 var _tooManyRequestsError2 = _interopRequireDefault(_tooManyRequestsError);
 
-var _tokenRevocationError = __webpack_require__(200);
+var _tokenRevocationError = __webpack_require__(186);
 
 var _tokenRevocationError2 = _interopRequireDefault(_tokenRevocationError);
 
@@ -1347,23 +1337,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _api = __webpack_require__(153);
+var _apifns = __webpack_require__(232);
 
-Object.keys(_api).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _api[key];
-    }
-  });
-});
-
-var api = _interopRequireWildcard(_api);
+var apifns = _interopRequireWildcard(_apifns);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var _default = Object.assign({}, api);
+var _default = Object.assign({}, apifns);
 
 exports.default = _default;
 ;
@@ -1373,7 +1353,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/services/api/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/webAPI/index.ts');
 }();
 
 ;
@@ -1395,15 +1375,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _getCurrentTime = __webpack_require__(182);
+var _getCurrentTime = __webpack_require__(231);
 
 var _getCurrentTime2 = _interopRequireDefault(_getCurrentTime);
 
-var _padNumberWithZero = __webpack_require__(66);
+var _padNumberWithZero = __webpack_require__(72);
 
 var _padNumberWithZero2 = _interopRequireDefault(_padNumberWithZero);
 
-var _parseQuery = __webpack_require__(67);
+var _parseQuery = __webpack_require__(73);
 
 var _parseQuery2 = _interopRequireDefault(_parseQuery);
 
@@ -1411,11 +1391,11 @@ var _parseUrlencoded = __webpack_require__(35);
 
 var _parseUrlencoded2 = _interopRequireDefault(_parseUrlencoded);
 
-var _dom = __webpack_require__(181);
+var _dom = __webpack_require__(230);
 
 var _dom2 = _interopRequireDefault(_dom);
 
-var _browser = __webpack_require__(177);
+var _browser = __webpack_require__(226);
 
 var _browser2 = _interopRequireDefault(_browser);
 
@@ -1436,7 +1416,7 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/utils/index.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/index.ts');
 }();
 
 ;
@@ -1469,7 +1449,7 @@ var _i18n = __webpack_require__(14);
 
 var _i18n2 = _interopRequireDefault(_i18n);
 
-var _computeHash = __webpack_require__(205);
+var _computeHash = __webpack_require__(191);
 
 var _computeHash2 = _interopRequireDefault(_computeHash);
 
@@ -1514,7 +1494,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.viewer = exports.form = exports.common = undefined;
 
-var _entities = __webpack_require__(174);
+var _entities = __webpack_require__(167);
 
 Object.keys(_entities).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -1526,13 +1506,13 @@ Object.keys(_entities).forEach(function (key) {
   });
 });
 
-var _common = __webpack_require__(34);
+var _common = __webpack_require__(32);
 
 var common = _interopRequireWildcard(_common);
 
 var _betterReduxForm = __webpack_require__(28);
 
-var _viewer = __webpack_require__(175);
+var _viewer = __webpack_require__(168);
 
 var viewer = _interopRequireWildcard(_viewer);
 
@@ -1568,7 +1548,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Icon = __webpack_require__(122);
+var _Icon = __webpack_require__(118);
 
 var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -1583,7 +1563,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Icon/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Icon/index.ts');
 }();
 
 ;
@@ -1599,7 +1579,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Container = __webpack_require__(117);
+var _Container = __webpack_require__(113);
 
 var _Container2 = _interopRequireDefault(_Container);
 
@@ -1614,7 +1594,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Container/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Container/index.ts');
 }();
 
 ;
@@ -1647,7 +1627,7 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(isDescendant, "isDescendant", "/Users/liang/Projects/readr/src/isomorphic/utils/dom/isDescendant.ts");
+    __REACT_HOT_LOADER__.register(isDescendant, "isDescendant", "/Users/liang/Projects/readr/src/utils/dom/isDescendant.ts");
 }();
 
 ;
@@ -1662,23 +1642,103 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.pagedEntities = exports.entityPages = exports.currentPage = exports.nextPage = exports.paginationLinks = exports.paginationPages = exports.isPaginationFetching = exports.entity = exports.entities = exports.session = undefined;
 
-var _appConfig = __webpack_require__(94);
+var _keys2 = __webpack_require__(86);
 
-var _appConfig2 = _interopRequireDefault(_appConfig);
+var _keys3 = _interopRequireDefault(_keys2);
 
-var _appConfig3 = __webpack_require__(95);
+var _mapValues2 = __webpack_require__(278);
 
-var _appConfig4 = _interopRequireDefault(_appConfig3);
+var _mapValues3 = _interopRequireDefault(_mapValues2);
+
+var _pick2 = __webpack_require__(24);
+
+var _pick3 = _interopRequireDefault(_pick2);
+
+var _get2 = __webpack_require__(13);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _reselect = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var appConfig = _appConfig2.default;
-if (process.env.NODE_ENV === 'production') {
-    appConfig = _appConfig4.default;
-}
-var _default = appConfig;
-exports.default = _default;
+var DEFAULT_KEY = 'default';
+var session = exports.session = function session(state) {
+    return (0, _get3.default)(state, ['session'], {});
+};
+var entities = exports.entities = function entities(name) {
+    return function (state) {
+        return state.entities[name] || {};
+    };
+};
+var entity = exports.entity = function entity(name, id) {
+    return function (state) {
+        return (0, _get3.default)(state, ['entities', name, id], {});
+    };
+};
+var isPaginationFetching = exports.isPaginationFetching = function isPaginationFetching(name) {
+    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
+    return function (state) {
+        return (0, _get3.default)(state, ['pagination', name, key, 'isFetching'], true);
+    };
+};
+var paginationPages = exports.paginationPages = function paginationPages(name) {
+    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
+    return function (state) {
+        return (0, _get3.default)(state, ['pagination', name, key, 'pages'], {});
+    };
+};
+var paginationLinks = exports.paginationLinks = function paginationLinks(name) {
+    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
+    return function (state) {
+        return (0, _pick3.default)((0, _get3.default)(state.pagination, name + '.' + key, {}), ['next', 'last']);
+    };
+};
+var nextPage = exports.nextPage = function nextPage(name) {
+    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
+    return (0, _reselect.createSelector)(paginationLinks(name, key), function (selectedPaginationLinks) {
+        return (0, _get3.default)(selectedPaginationLinks, 'next.page', 0);
+    });
+};
+var currentPage = exports.currentPage = function currentPage(name) {
+    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
+    return (0, _reselect.createSelector)(paginationLinks(name, key), function (selectedPaginationLinks) {
+        var next = (0, _get3.default)(selectedPaginationLinks, 'next.page');
+        var last = (0, _get3.default)(selectedPaginationLinks, 'last.page');
+        return next ? next - 1 : last;
+    });
+};
+var entityPages = exports.entityPages = function entityPages(options) {
+    var entitiesName = options.entitiesName,
+        paginationName = options.paginationName,
+        paginationKey = options.paginationKey;
+
+    return (0, _reselect.createSelector)(entities(entitiesName), paginationPages(paginationName, paginationKey), function (selectedEntities, pages) {
+        return (0, _mapValues3.default)(pages, function (ids) {
+            return ids.map(function (id) {
+                return selectedEntities[id];
+            }).filter(function (item) {
+                return Boolean(item);
+            });
+        });
+    });
+};
+var pagedEntities = exports.pagedEntities = function pagedEntities(options) {
+    var page = options.page;
+
+    return (0, _reselect.createSelector)(entityPages(options), function (pages) {
+        if (page) {
+            return (0, _get3.default)(pages, [page], []);
+        }
+        var allEntities = [];
+        (0, _keys3.default)(pages).forEach(function (p) {
+            allEntities = allEntities.concat(pages[p]);
+        });
+        return allEntities;
+    });
+};
 ;
 
 var _temp = function () {
@@ -1686,9 +1746,27 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(appConfig, 'appConfig', '/Users/liang/Projects/readr/src/app.config.ts');
+    __REACT_HOT_LOADER__.register(DEFAULT_KEY, 'DEFAULT_KEY', '/Users/liang/Projects/readr/src/selectors/common.ts');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/app.config.ts');
+    __REACT_HOT_LOADER__.register(session, 'session', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(entities, 'entities', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(entity, 'entity', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(isPaginationFetching, 'isPaginationFetching', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(paginationPages, 'paginationPages', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(paginationLinks, 'paginationLinks', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(nextPage, 'nextPage', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(currentPage, 'currentPage', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(entityPages, 'entityPages', '/Users/liang/Projects/readr/src/selectors/common.ts');
+
+    __REACT_HOT_LOADER__.register(pagedEntities, 'pagedEntities', '/Users/liang/Projects/readr/src/selectors/common.ts');
 }();
 
 ;
@@ -1701,17 +1779,64 @@ var _temp = function () {
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _validator = __webpack_require__(70);
+
+var _validator2 = _interopRequireDefault(_validator);
+
+var _i18n = __webpack_require__(14);
+
+var _i18n2 = _interopRequireDefault(_i18n);
+
+var _pipeline = __webpack_require__(219);
+
+var _pipeline2 = _interopRequireDefault(_pipeline);
+
+var _reduceTasks = __webpack_require__(220);
+
+var _reduceTasks2 = _interopRequireDefault(_reduceTasks);
+
+var _sortByDate = __webpack_require__(221);
+
+var _sortByDate2 = _interopRequireDefault(_sortByDate);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = { validator: _validator2.default, i18n: _i18n2.default, pipeline: _pipeline2.default, reduceTasks: _reduceTasks2.default, sortByDate: _sortByDate2.default };
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/server/utils/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.callApi = callApi;
 
-__webpack_require__(275);
+__webpack_require__(274);
 
 var _parseUrlencoded = __webpack_require__(35);
 
 var _parseUrlencoded2 = _interopRequireDefault(_parseUrlencoded);
 
-var _jsonp = __webpack_require__(154);
+var _jsonp = __webpack_require__(222);
 
 var _jsonp2 = _interopRequireDefault(_jsonp);
 
@@ -1801,152 +1926,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(defaultOptions, 'defaultOptions', '/Users/liang/Projects/readr/src/isomorphic/services/utils/callApi.ts');
+    __REACT_HOT_LOADER__.register(defaultOptions, 'defaultOptions', '/Users/liang/Projects/readr/src/utils/api/callApi.ts');
 
-    __REACT_HOT_LOADER__.register(parseOptions, 'parseOptions', '/Users/liang/Projects/readr/src/isomorphic/services/utils/callApi.ts');
+    __REACT_HOT_LOADER__.register(parseOptions, 'parseOptions', '/Users/liang/Projects/readr/src/utils/api/callApi.ts');
 
-    __REACT_HOT_LOADER__.register(callApi, 'callApi', '/Users/liang/Projects/readr/src/isomorphic/services/utils/callApi.ts');
+    __REACT_HOT_LOADER__.register(callApi, 'callApi', '/Users/liang/Projects/readr/src/utils/api/callApi.ts');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/services/utils/callApi.ts');
-}();
-
-;
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.pagedEntities = exports.entityPages = exports.currentPage = exports.nextPage = exports.paginationLinks = exports.paginationPages = exports.isPaginationFetching = exports.entity = exports.entities = exports.session = undefined;
-
-var _keys2 = __webpack_require__(84);
-
-var _keys3 = _interopRequireDefault(_keys2);
-
-var _mapValues2 = __webpack_require__(279);
-
-var _mapValues3 = _interopRequireDefault(_mapValues2);
-
-var _pick2 = __webpack_require__(24);
-
-var _pick3 = _interopRequireDefault(_pick2);
-
-var _get2 = __webpack_require__(13);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _reselect = __webpack_require__(44);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var DEFAULT_KEY = 'default';
-var session = exports.session = function session(state) {
-    return (0, _get3.default)(state, ['session'], {});
-};
-var entities = exports.entities = function entities(name) {
-    return function (state) {
-        return state.entities[name] || {};
-    };
-};
-var entity = exports.entity = function entity(name, id) {
-    return function (state) {
-        return (0, _get3.default)(state, ['entities', name, id], {});
-    };
-};
-var isPaginationFetching = exports.isPaginationFetching = function isPaginationFetching(name) {
-    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
-    return function (state) {
-        return (0, _get3.default)(state, ['pagination', name, key, 'isFetching'], true);
-    };
-};
-var paginationPages = exports.paginationPages = function paginationPages(name) {
-    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
-    return function (state) {
-        return (0, _get3.default)(state, ['pagination', name, key, 'pages'], {});
-    };
-};
-var paginationLinks = exports.paginationLinks = function paginationLinks(name) {
-    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
-    return function (state) {
-        return (0, _pick3.default)((0, _get3.default)(state.pagination, name + '.' + key, {}), ['next', 'last']);
-    };
-};
-var nextPage = exports.nextPage = function nextPage(name) {
-    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
-    return (0, _reselect.createSelector)(paginationLinks(name, key), function (selectedPaginationLinks) {
-        return (0, _get3.default)(selectedPaginationLinks, 'next.page', 0);
-    });
-};
-var currentPage = exports.currentPage = function currentPage(name) {
-    var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_KEY;
-    return (0, _reselect.createSelector)(paginationLinks(name, key), function (selectedPaginationLinks) {
-        var next = (0, _get3.default)(selectedPaginationLinks, 'next.page');
-        var last = (0, _get3.default)(selectedPaginationLinks, 'last.page');
-        return next ? next - 1 : last;
-    });
-};
-var entityPages = exports.entityPages = function entityPages(options) {
-    var entitiesName = options.entitiesName,
-        paginationName = options.paginationName,
-        paginationKey = options.paginationKey;
-
-    return (0, _reselect.createSelector)(entities(entitiesName), paginationPages(paginationName, paginationKey), function (selectedEntities, pages) {
-        return (0, _mapValues3.default)(pages, function (ids) {
-            return ids.map(function (id) {
-                return selectedEntities[id];
-            }).filter(function (item) {
-                return Boolean(item);
-            });
-        });
-    });
-};
-var pagedEntities = exports.pagedEntities = function pagedEntities(options) {
-    var page = options.page;
-
-    return (0, _reselect.createSelector)(entityPages(options), function (pages) {
-        if (page) {
-            return (0, _get3.default)(pages, [page], []);
-        }
-        var allEntities = [];
-        (0, _keys3.default)(pages).forEach(function (p) {
-            allEntities = allEntities.concat(pages[p]);
-        });
-        return allEntities;
-    });
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(DEFAULT_KEY, 'DEFAULT_KEY', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(session, 'session', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(entities, 'entities', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(entity, 'entity', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(isPaginationFetching, 'isPaginationFetching', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(paginationPages, 'paginationPages', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(paginationLinks, 'paginationLinks', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(nextPage, 'nextPage', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(currentPage, 'currentPage', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(entityPages, 'entityPages', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
-
-    __REACT_HOT_LOADER__.register(pagedEntities, 'pagedEntities', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/common.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/api/callApi.ts');
 }();
 
 ;
@@ -1962,7 +1948,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _cloneDeep2 = __webpack_require__(276);
+var _cloneDeep2 = __webpack_require__(275);
 
 var _cloneDeep3 = _interopRequireDefault(_cloneDeep2);
 
@@ -1998,7 +1984,7 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(parseUrlencoded, 'parseUrlencoded', '/Users/liang/Projects/readr/src/isomorphic/utils/parseUrlencoded.ts');
+    __REACT_HOT_LOADER__.register(parseUrlencoded, 'parseUrlencoded', '/Users/liang/Projects/readr/src/utils/parseUrlencoded.ts');
 }();
 
 ;
@@ -2007,80 +1993,33 @@ var _temp = function () {
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _validator = __webpack_require__(72);
-
-var _validator2 = _interopRequireDefault(_validator);
-
-var _i18n = __webpack_require__(14);
-
-var _i18n2 = _interopRequireDefault(_i18n);
-
-var _pipeline = __webpack_require__(231);
-
-var _pipeline2 = _interopRequireDefault(_pipeline);
-
-var _reduceTasks = __webpack_require__(232);
-
-var _reduceTasks2 = _interopRequireDefault(_reduceTasks);
-
-var _sortByDate = __webpack_require__(233);
-
-var _sortByDate2 = _interopRequireDefault(_sortByDate);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = { validator: _validator2.default, i18n: _i18n2.default, pipeline: _pipeline2.default, reduceTasks: _reduceTasks2.default, sortByDate: _sortByDate2.default };
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/server/utils/index.ts');
-}();
-
-;
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
 exports = module.exports = __webpack_require__(1)();
 // imports
 
 
 // module
-exports.push([module.i, ".nav-link_3X0T8 {\n  color: #fff; }\n  .nav-link_3X0T8:hover {\n    color: #ddd; }\n\n.branding_8EVAt {\n  min-height: 60px;\n  background: #222; }\n\n.dropdown-menu_5Sc50 {\n  position: absolute;\n  top: 60px;\n  right: 0;\n  z-index: 999; }\n\n.username_3Mm6z,\n.nav-links_2wTYY {\n  line-height: 60px; }\n\n.nav_1oj1z, .nav--user_1L7Lb {\n  position: relative;\n  color: #fff;\n  cursor: pointer;\n  padding: 0 10px;\n  line-height: 60px;\n  display: inline-block; }\n\n.dropdown-recent-reading_2oyjH {\n  margin-right: 15px; }\n\n.nav--user_1L7Lb {\n  float: right; }\n\n.nav-link_3X0T8 {\n  padding: 0 5px; }\n\n.nav-item_f83bh {\n  display: inline-block; }\n\n.recent-reading_1kJKh {\n  margin-right: 15px; }\n", ""]);
+exports.push([module.i, ".nav-link_cjTwO {\n  color: #fff; }\n  .nav-link_cjTwO:hover {\n    color: #ddd; }\n\n.branding_1IEww {\n  min-height: 60px;\n  background: #222; }\n\n.dropdown-menu_21i1D {\n  position: absolute;\n  top: 60px;\n  right: 0;\n  z-index: 999; }\n\n.username_kfL62,\n.nav-links_ujJ6c {\n  line-height: 60px; }\n\n.nav_UkZSx, .nav--user_zzwPX {\n  position: relative;\n  color: #fff;\n  cursor: pointer;\n  padding: 0 10px;\n  line-height: 60px;\n  display: inline-block; }\n\n.dropdown-recent-reading_3q8TW {\n  margin-right: 15px; }\n\n.nav--user_zzwPX {\n  float: right; }\n\n.nav-link_cjTwO {\n  padding: 0 5px; }\n\n.nav-item_2DQyO {\n  display: inline-block; }\n\n.recent-reading_2gBvL {\n  margin-right: 15px; }\n", ""]);
 
 // exports
 exports.locals = {
-	"nav-link": "nav-link_3X0T8",
-	"branding": "branding_8EVAt",
-	"dropdown-menu": "dropdown-menu_5Sc50",
-	"username": "username_3Mm6z",
-	"nav-links": "nav-links_2wTYY",
-	"nav": "nav_1oj1z",
-	"nav--user": "nav--user_1L7Lb",
-	"dropdown-recent-reading": "dropdown-recent-reading_2oyjH",
-	"nav-item": "nav-item_f83bh",
-	"recent-reading": "recent-reading_1kJKh"
+	"nav-link": "nav-link_cjTwO",
+	"branding": "branding_1IEww",
+	"dropdown-menu": "dropdown-menu_21i1D",
+	"username": "username_kfL62",
+	"nav-links": "nav-links_ujJ6c",
+	"nav": "nav_UkZSx",
+	"nav--user": "nav--user_zzwPX",
+	"dropdown-recent-reading": "dropdown-recent-reading_3q8TW",
+	"nav-item": "nav-item_2DQyO",
+	"recent-reading": "recent-reading_2gBvL"
 };
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(242);
+    var content = __webpack_require__(240);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -2097,8 +2036,43 @@ exports.locals = {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Dropdown.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Dropdown.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Dropdown.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Dropdown.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var content = __webpack_require__(245);
+    var insertCss = __webpack_require__(2);
+
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
+
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Modal.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Modal.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -2112,71 +2086,36 @@ exports.locals = {
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(246);
-    var insertCss = __webpack_require__(2);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Modal.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Modal.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("humps");
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/isNil");
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/last");
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("reselect");
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2192,11 +2131,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactHelmet = __webpack_require__(285);
+var _reactHelmet = __webpack_require__(284);
 
 var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 
-var _BodyClass = __webpack_require__(108);
+var _BodyClass = __webpack_require__(102);
 
 var _BodyClass2 = _interopRequireDefault(_BodyClass);
 
@@ -2252,15 +2191,15 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(DocContainer, 'DocContainer', '/Users/liang/Projects/readr/src/isomorphic/containers/DocContainer.tsx');
+    __REACT_HOT_LOADER__.register(DocContainer, 'DocContainer', '/Users/liang/Projects/readr/src/components/DocContainer.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/containers/DocContainer.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/DocContainer.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2289,19 +2228,19 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/isEqual");
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/map");
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2311,7 +2250,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Logo = __webpack_require__(105);
+var _Logo = __webpack_require__(121);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -2326,13 +2265,176 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/Logo/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Logo/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var REQUEST = 'REQUEST';
+var SUCCESS = 'SUCCESS';
+var FAILURE = 'FAILURE';
+var LOAD_CACHE = 'LOAD_CACHE';
+var action = exports.action = function action(type) {
+    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    return Object.assign({}, {
+        type: type
+    }, payload);
+};
+var createRequestTypes = exports.createRequestTypes = function createRequestTypes(base) {
+    return [REQUEST, SUCCESS, FAILURE, LOAD_CACHE].reduce(function (acc, type) {
+        acc[type] = 'api/' + base + '/' + type;
+        return acc;
+    }, {});
+};
+var createComponentActionType = exports.createComponentActionType = function createComponentActionType(name, operation) {
+    return 'components/' + name + '/' + operation;
+};
+var createSagaTriggerActionType = exports.createSagaTriggerActionType = function createSagaTriggerActionType(operation) {
+    return 'saga-triggers/' + operation;
+};
+var createActionEntity = exports.createActionEntity = function createActionEntity(requestTypes) {
+    return {
+        request: function request(payload) {
+            return action(requestTypes.REQUEST, payload);
+        },
+        success: function success(response, payload) {
+            return action(requestTypes.SUCCESS, Object.assign({}, { response: response }, payload));
+        },
+        // TODO
+        loadCache: function loadCache(response, payload) {
+            return action(requestTypes.SUCCESS, Object.assign({}, { response: response }, payload, { loadedFromCache: true }));
+        },
+        failure: function failure(error, payload) {
+            return action(requestTypes.FAILURE, Object.assign({}, { error: error }, payload));
+        }
+    };
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(REQUEST, 'REQUEST', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(SUCCESS, 'SUCCESS', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(FAILURE, 'FAILURE', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(LOAD_CACHE, 'LOAD_CACHE', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(action, 'action', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(createRequestTypes, 'createRequestTypes', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(createComponentActionType, 'createComponentActionType', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(createSagaTriggerActionType, 'createSagaTriggerActionType', '/Users/liang/Projects/readr/src/actions/utils.ts');
+
+    __REACT_HOT_LOADER__.register(createActionEntity, 'createActionEntity', '/Users/liang/Projects/readr/src/actions/utils.ts');
 }();
 
 ;
 
 /***/ }),
 /* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Icon = __webpack_require__(29);
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _reactCssModules = __webpack_require__(5);
+
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var styles = __webpack_require__(74);
+var Alert = function (_Component) {
+    _inherits(Alert, _Component);
+
+    function Alert() {
+        _classCallCheck(this, Alert);
+
+        return _possibleConstructorReturn(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).apply(this, arguments));
+    }
+
+    _createClass(Alert, [{
+        key: "render",
+        value: function render() {
+            var type = this.props.type ? this.props.type : 'success';
+            return _react2.default.createElement("div", null, this.props.visible && _react2.default.createElement("div", { styleName: "alert--" + type }, _react2.default.createElement("div", { styleName: "alert-close" }, _react2.default.createElement(_Icon2.default, { onClick: this.props.onRequestClose, name: "close", size: 15 })), _react2.default.createElement("div", { styleName: "content" }, this.props.message)));
+        }
+    }]);
+
+    return Alert;
+}(_react.Component);
+Alert = __decorate([(0, _reactCssModules2.default)(styles, {
+    allowMultiple: true
+})], Alert);
+var _default = Alert;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Alert/Alert.tsx");
+
+    __REACT_HOT_LOADER__.register(Alert, "Alert", "/Users/liang/Projects/readr/src/components/Alert/Alert.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Alert/Alert.tsx");
+}();
+
+;
+
+/***/ }),
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2400,64 +2502,11 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(DOCTYPE, 'DOCTYPE', '/Users/liang/Projects/readr/src/isomorphic/containers/AppDoc.tsx');
+    __REACT_HOT_LOADER__.register(DOCTYPE, 'DOCTYPE', '/Users/liang/Projects/readr/src/components/AppDoc.tsx');
 
-    __REACT_HOT_LOADER__.register(AppDoc, 'AppDoc', '/Users/liang/Projects/readr/src/isomorphic/containers/AppDoc.tsx');
+    __REACT_HOT_LOADER__.register(AppDoc, 'AppDoc', '/Users/liang/Projects/readr/src/components/AppDoc.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/containers/AppDoc.tsx');
-}();
-
-;
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _isEmpty2 = __webpack_require__(22);
-
-var _isEmpty3 = _interopRequireDefault(_isEmpty2);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(19);
-
-var _reactRouter = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// type TProps = {
-//   store: any
-//   renderProps: any
-//   renderPageContent?: boolean
-// }
-var ServerSideAppRoot = function ServerSideAppRoot(props) {
-    var store = props.store,
-        renderProps = props.renderProps,
-        renderPageContent = props.renderPageContent;
-
-    return !(0, _isEmpty3.default)(renderProps) && _react2.default.createElement(_reactRedux.Provider, { store: store }, renderPageContent ? _react2.default.createElement(_reactRouter.RouterContext, Object.assign({}, renderProps)) : _react2.default.createElement("div", { className: "text-loading" }, "Loading..."));
-};
-var _default = ServerSideAppRoot;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(ServerSideAppRoot, 'ServerSideAppRoot', '/Users/liang/Projects/readr/src/isomorphic/containers/ServerSideAppRoot.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/containers/ServerSideAppRoot.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/AppDoc.tsx');
 }();
 
 ;
@@ -2470,104 +2519,19 @@ var _temp = function () {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Icon = __webpack_require__(29);
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
-var _reactCssModules = __webpack_require__(5);
-
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var styles = __webpack_require__(73);
-var Alert = function (_Component) {
-    _inherits(Alert, _Component);
-
-    function Alert() {
-        _classCallCheck(this, Alert);
-
-        return _possibleConstructorReturn(this, (Alert.__proto__ || Object.getPrototypeOf(Alert)).apply(this, arguments));
-    }
-
-    _createClass(Alert, [{
-        key: "render",
-        value: function render() {
-            var type = this.props.type ? this.props.type : 'success';
-            return _react2.default.createElement("div", null, this.props.visible && _react2.default.createElement("div", { styleName: "alert--" + type }, _react2.default.createElement("div", { styleName: "alert-close" }, _react2.default.createElement(_Icon2.default, { onClick: this.props.onRequestClose, name: "close", size: 15 })), _react2.default.createElement("div", { styleName: "content" }, this.props.message)));
-        }
-    }]);
-
-    return Alert;
-}(_react.Component);
-Alert = __decorate([(0, _reactCssModules2.default)(styles, {
-    allowMultiple: true
-})], Alert);
-var _default = Alert;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Alert/Alert.tsx");
-
-    __REACT_HOT_LOADER__.register(Alert, "Alert", "/Users/liang/Projects/readr/src/isomorphic/elements/Alert/Alert.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Alert/Alert.tsx");
-}();
-
-;
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.DropdownItemSep = exports.Dropdown = exports.DropdownItem = undefined;
 
-var _Dropdown = __webpack_require__(118);
+var _Dropdown = __webpack_require__(114);
 
 var _Dropdown2 = _interopRequireDefault(_Dropdown);
 
-var _DropdownItem = __webpack_require__(119);
+var _DropdownItem = __webpack_require__(115);
 
 var _DropdownItem2 = _interopRequireDefault(_DropdownItem);
 
-var _DropdownItemSep = __webpack_require__(120);
+var _DropdownItemSep = __webpack_require__(116);
 
 var _DropdownItemSep2 = _interopRequireDefault(_DropdownItemSep);
 
@@ -2585,13 +2549,13 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Dropdown/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2601,7 +2565,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEqual2 = __webpack_require__(47);
+var _isEqual2 = __webpack_require__(46);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
@@ -2611,7 +2575,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(284);
+var _reactDom = __webpack_require__(283);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -2619,11 +2583,11 @@ var _utils = __webpack_require__(23);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _Fade = __webpack_require__(88);
+var _Fade = __webpack_require__(89);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
-var _Modal = __webpack_require__(39);
+var _Modal = __webpack_require__(38);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -2774,15 +2738,15 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Modal, 'Modal', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/Modal.tsx');
+    __REACT_HOT_LOADER__.register(Modal, 'Modal', '/Users/liang/Projects/readr/src/components/Modal/Modal.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/Modal.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Modal/Modal.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2793,7 +2757,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ConfirmModal = exports.ModalPlus = undefined;
 
-var _Modal = __webpack_require__(54);
+var _Modal = __webpack_require__(53);
 
 Object.keys(_Modal).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -2807,11 +2771,11 @@ Object.keys(_Modal).forEach(function (key) {
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _ModalPlus = __webpack_require__(126);
+var _ModalPlus = __webpack_require__(124);
 
 var _ModalPlus2 = _interopRequireDefault(_ModalPlus);
 
-var _ConfirmModal = __webpack_require__(125);
+var _ConfirmModal = __webpack_require__(123);
 
 var _ConfirmModal2 = _interopRequireDefault(_ConfirmModal);
 
@@ -2828,13 +2792,147 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Modal/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isEmpty2 = __webpack_require__(22);
+
+var _isEmpty3 = _interopRequireDefault(_isEmpty2);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(19);
+
+var _reactRouter = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// type TProps = {
+//   store: any
+//   renderProps: any
+//   renderPageContent?: boolean
+// }
+var ServerSideAppRoot = function ServerSideAppRoot(props) {
+    var store = props.store,
+        renderProps = props.renderProps,
+        renderPageContent = props.renderPageContent;
+
+    return !(0, _isEmpty3.default)(renderProps) && _react2.default.createElement(_reactRedux.Provider, { store: store }, renderPageContent ? _react2.default.createElement(_reactRouter.RouterContext, Object.assign({}, renderProps)) : _react2.default.createElement("div", { className: "text-loading" }, "Loading..."));
+};
+var _default = ServerSideAppRoot;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(ServerSideAppRoot, 'ServerSideAppRoot', '/Users/liang/Projects/readr/src/components/ServerSideAppRoot.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ServerSideAppRoot.tsx');
 }();
 
 ;
 
 /***/ }),
 /* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.VIEWER_DEFS = exports.COMMON = exports.ACTION_TYPES = undefined;
+
+var _actionTypes = __webpack_require__(6);
+
+var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
+
+var _common = __webpack_require__(8);
+
+var COMMON = _interopRequireWildcard(_common);
+
+var _viewerDefs = __webpack_require__(91);
+
+var VIEWER_DEFS = _interopRequireWildcard(_viewerDefs);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.ACTION_TYPES = ACTION_TYPES;
+exports.COMMON = COMMON;
+exports.VIEWER_DEFS = VIEWER_DEFS;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+}();
+
+;
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isServerEnv = __webpack_require__(58);
+
+var _isServerEnv2 = _interopRequireDefault(_isServerEnv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GLOBAL_ENV_VAR = '__ENV__';
+var getEnv = function getEnv() {
+    if ((0, _isServerEnv2.default)()) {
+        return process.env;
+    }
+    return window[GLOBAL_ENV_VAR];
+};
+var _default = getEnv;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(GLOBAL_ENV_VAR, 'GLOBAL_ENV_VAR', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+
+    __REACT_HOT_LOADER__.register(getEnv, 'getEnv', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+}();
+
+;
+
+/***/ }),
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2854,13 +2952,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(isServerEnv, 'isServerEnv', '/Users/liang/Projects/readr/src/isomorphic/helpers/isServerEnv.ts');
+    __REACT_HOT_LOADER__.register(isServerEnv, 'isServerEnv', '/Users/liang/Projects/readr/src/helpers/isServerEnv.ts');
 }();
 
 ;
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2883,283 +2981,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(isServerRoutingEnabled, 'isServerRoutingEnabled', '/Users/liang/Projects/readr/src/isomorphic/helpers/isServerRoutingEnabled.ts');
-}();
-
-;
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _normalizr = __webpack_require__(77);
-
-var book = new _normalizr.Schema('books', {
-    idAttribute: 'id'
-});
-var bookContent = new _normalizr.Schema('bookContents', {
-    idAttribute: 'id'
-});
-var author = new _normalizr.Schema('authors', {
-    idAttribute: 'id'
-});
-var collection = new _normalizr.Schema('bookCollections', {
-    idAttribute: 'id'
-});
-collection.define({
-    items: (0, _normalizr.arrayOf)(book)
-});
-var profile = new _normalizr.Schema('profiles', {
-    idAttribute: 'id'
-});
-var user = new _normalizr.Schema('users', {
-    idAttribute: 'id'
-});
-var doubanBook = new _normalizr.Schema('doubanBooks', {
-    idAttribute: 'id'
-});
-var shelfBook = new _normalizr.Schema('shelfBooks', {
-    idAttribute: 'id'
-});
-var bookProgress = new _normalizr.Schema('bookProgress', {
-    idAttribute: 'bookId'
-});
-var matchedBooks = new _normalizr.Schema('books', {
-    idAttribute: 'bookId'
-});
-var _default = {
-    BOOK: book,
-    BOOK_CONTENT: bookContent,
-    BOOK_PROGRESS: bookProgress,
-    BOOK_ARRAY: (0, _normalizr.arrayOf)(book),
-    DOUBAN_BOOK_SEARCH_RESULTS: { books: (0, _normalizr.arrayOf)(doubanBook) },
-    USER_ARRAY: (0, _normalizr.arrayOf)(user),
-    MATCHED_BOOK_ARRAY: (0, _normalizr.arrayOf)(matchedBooks),
-    COLLECTION: collection,
-    COLLECTION_ARRAY: (0, _normalizr.arrayOf)(collection),
-    PROFILE: profile,
-    AUTHOR: author,
-    AUTHOR_ARRAY: (0, _normalizr.arrayOf)(author),
-    SHELF_BOOK_ARRAY: (0, _normalizr.arrayOf)(shelfBook)
-};
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(book, 'book', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(bookContent, 'bookContent', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(author, 'author', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(collection, 'collection', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(profile, 'profile', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(user, 'user', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(doubanBook, 'doubanBook', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(shelfBook, 'shelfBook', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(bookProgress, 'bookProgress', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(matchedBooks, 'matchedBooks', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/services/schemas.ts');
-}();
-
-;
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _assign2 = __webpack_require__(3);
-
-var _assign3 = _interopRequireDefault(_assign2);
-
-var _get2 = __webpack_require__(13);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _normalizr = __webpack_require__(77);
-
-var _parseQuery = __webpack_require__(67);
-
-var _parseQuery2 = _interopRequireDefault(_parseQuery);
-
-var _humps = __webpack_require__(40);
-
-var _humps2 = _interopRequireDefault(_humps);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var parseHeaderPageLinkByRel = function parseHeaderPageLinkByRel(links, rel) {
-    var link = links.split(',').find(function (s) {
-        return s.indexOf('rel="' + rel + '"') > -1;
-    });
-    if (!link) {
-        return undefined;
-    }
-    var url = link.split(';')[0].trim().slice(1, -1);
-    return {
-        // todo
-        page: parseInt((0, _get3.default)((0, _parseQuery2.default)(url.split('?')[1] || ''), 'page', 0), 10),
-        url: url
-    };
-};
-function parseResHeaderToPagination(response) {
-    if (!response) {
-        return {};
-    }
-    var links = response.headers.get('link');
-    if (!links) {
-        return {};
-    }
-    var next = parseHeaderPageLinkByRel(links, 'next');
-    var last = parseHeaderPageLinkByRel(links, 'last');
-    return {
-        next: next,
-        last: last
-    };
-}
-function handleResponse(_ref, schema) {
-    var json = _ref.json,
-        _response = _ref._response;
-
-    var camelizedJson = _humps2.default.camelizeKeys(json);
-
-    var _parseResHeaderToPagi = parseResHeaderToPagination(_response),
-        next = _parseResHeaderToPagi.next,
-        last = _parseResHeaderToPagi.last;
-
-    if (typeof schema !== 'undefined') {
-        return (0, _assign3.default)({}, (0, _normalizr.normalize)(camelizedJson, schema), {
-            _next: next,
-            _last: last
-        });
-    }
-    return camelizedJson;
-}
-var _default = handleResponse;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(parseHeaderPageLinkByRel, 'parseHeaderPageLinkByRel', '/Users/liang/Projects/readr/src/isomorphic/services/utils/handleResponse.ts');
-
-    __REACT_HOT_LOADER__.register(parseResHeaderToPagination, 'parseResHeaderToPagination', '/Users/liang/Projects/readr/src/isomorphic/services/utils/handleResponse.ts');
-
-    __REACT_HOT_LOADER__.register(handleResponse, 'handleResponse', '/Users/liang/Projects/readr/src/isomorphic/services/utils/handleResponse.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/services/utils/handleResponse.ts');
+    __REACT_HOT_LOADER__.register(isServerRoutingEnabled, 'isServerRoutingEnabled', '/Users/liang/Projects/readr/src/helpers/isServerRoutingEnabled.ts');
 }();
 
 ;
 
 /***/ }),
 /* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var REQUEST = 'REQUEST';
-var SUCCESS = 'SUCCESS';
-var FAILURE = 'FAILURE';
-var LOAD_CACHE = 'LOAD_CACHE';
-var action = exports.action = function action(type) {
-    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    return Object.assign({}, {
-        type: type
-    }, payload);
-};
-var createRequestTypes = exports.createRequestTypes = function createRequestTypes(base) {
-    return [REQUEST, SUCCESS, FAILURE, LOAD_CACHE].reduce(function (acc, type) {
-        acc[type] = 'api/' + base + '/' + type;
-        return acc;
-    }, {});
-};
-var createComponentActionType = exports.createComponentActionType = function createComponentActionType(name, operation) {
-    return 'components/' + name + '/' + operation;
-};
-var createSagaTriggerActionType = exports.createSagaTriggerActionType = function createSagaTriggerActionType(operation) {
-    return 'saga-triggers/' + operation;
-};
-var createActionEntity = exports.createActionEntity = function createActionEntity(requestTypes) {
-    return {
-        request: function request(payload) {
-            return action(requestTypes.REQUEST, payload);
-        },
-        success: function success(response, payload) {
-            return action(requestTypes.SUCCESS, Object.assign({}, { response: response }, payload));
-        },
-        // TODO
-        loadCache: function loadCache(response, payload) {
-            return action(requestTypes.SUCCESS, Object.assign({}, { response: response }, payload, { loadedFromCache: true }));
-        },
-        failure: function failure(error, payload) {
-            return action(requestTypes.FAILURE, Object.assign({}, { error: error }, payload));
-        }
-    };
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(REQUEST, 'REQUEST', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(SUCCESS, 'SUCCESS', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(FAILURE, 'FAILURE', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(LOAD_CACHE, 'LOAD_CACHE', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(action, 'action', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(createRequestTypes, 'createRequestTypes', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(createComponentActionType, 'createComponentActionType', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(createSagaTriggerActionType, 'createSagaTriggerActionType', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-
-    __REACT_HOT_LOADER__.register(createActionEntity, 'createActionEntity', '/Users/liang/Projects/readr/src/isomorphic/store/actions/utils.ts');
-}();
-
-;
-
-/***/ }),
-/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3175,7 +3003,7 @@ var _omit3 = _interopRequireDefault(_omit2);
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _callApi = __webpack_require__(33);
+var _callApi = __webpack_require__(34);
 
 var _callApi2 = _interopRequireDefault(_callApi);
 
@@ -3183,7 +3011,7 @@ var _helpers = __webpack_require__(10);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
-var _handleResponse = __webpack_require__(59);
+var _handleResponse = __webpack_require__(71);
 
 var _handleResponse2 = _interopRequireDefault(_handleResponse);
 
@@ -3275,13 +3103,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/api.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/middleware/api.ts');
 }();
 
 ;
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3321,13 +3149,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/handleServerStore.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/middleware/handleServerStore.ts');
 }();
 
 ;
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3354,13 +3182,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/store/middleware/logActionTypes.ts");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/middleware/logActionTypes.ts");
 }();
 
 ;
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3395,13 +3223,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/modifyResponse.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/middleware/modifyResponse.ts');
 }();
 
 ;
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3412,7 +3240,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.RESERVED_ACTION_KYES = exports.API_CONFIG_KEYS = undefined;
 
-var _isUndefined2 = __webpack_require__(76);
+var _isUndefined2 = __webpack_require__(77);
 
 var _isUndefined3 = _interopRequireDefault(_isUndefined2);
 
@@ -3422,15 +3250,15 @@ var _assign3 = _interopRequireDefault(_assign2);
 
 exports.fetchEntity = fetchEntity;
 
-var _cache = __webpack_require__(113);
+var _cache = __webpack_require__(224);
 
 var cache = _interopRequireWildcard(_cache);
 
 var _effects = __webpack_require__(16);
 
-var _app = __webpack_require__(32);
+var _getEnv2 = __webpack_require__(57);
 
-var _app2 = _interopRequireDefault(_app);
+var _getEnv3 = _interopRequireDefault(_getEnv2);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3439,6 +3267,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _marked = [fetchEntity].map(regeneratorRuntime.mark);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var _getEnv = (0, _getEnv3.default)(),
+    ENABLE_ENTITY_CACHE = _getEnv.ENABLE_ENTITY_CACHE;
 
 var OPTIONS = 'options';
 var ID = 'id';
@@ -3464,7 +3295,7 @@ function fetchEntity(entity, apiFn, apiConfig, payload) {
                     hasCache = void 0;
                     cacheId = void 0;
 
-                    if (!(id && _app2.default.enableEntityCache)) {
+                    if (!(id && ENABLE_ENTITY_CACHE)) {
                         _context.next = 17;
                         break;
                     }
@@ -3541,90 +3372,121 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(OPTIONS, 'OPTIONS', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(ENABLE_ENTITY_CACHE, 'ENABLE_ENTITY_CACHE', '/Users/liang/Projects/readr/src/sagas/utils.ts');
 
-    __REACT_HOT_LOADER__.register(ID, 'ID', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(OPTIONS, 'OPTIONS', '/Users/liang/Projects/readr/src/sagas/utils.ts');
 
-    __REACT_HOT_LOADER__.register(DATA, 'DATA', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(ID, 'ID', '/Users/liang/Projects/readr/src/sagas/utils.ts');
 
-    __REACT_HOT_LOADER__.register(TYPE, 'TYPE', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(DATA, 'DATA', '/Users/liang/Projects/readr/src/sagas/utils.ts');
 
-    __REACT_HOT_LOADER__.register(API_CONFIG_KEYS, 'API_CONFIG_KEYS', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(TYPE, 'TYPE', '/Users/liang/Projects/readr/src/sagas/utils.ts');
 
-    __REACT_HOT_LOADER__.register(RESERVED_ACTION_KYES, 'RESERVED_ACTION_KYES', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(API_CONFIG_KEYS, 'API_CONFIG_KEYS', '/Users/liang/Projects/readr/src/sagas/utils.ts');
 
-    __REACT_HOT_LOADER__.register(fetchEntity, 'fetchEntity', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/utils.ts');
+    __REACT_HOT_LOADER__.register(RESERVED_ACTION_KYES, 'RESERVED_ACTION_KYES', '/Users/liang/Projects/readr/src/sagas/utils.ts');
+
+    __REACT_HOT_LOADER__.register(fetchEntity, 'fetchEntity', '/Users/liang/Projects/readr/src/sagas/utils.ts');
+}();
+
+;
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _normalizr = __webpack_require__(78);
+
+var book = new _normalizr.Schema('books', {
+    idAttribute: 'id'
+});
+var bookContent = new _normalizr.Schema('bookContents', {
+    idAttribute: 'id'
+});
+var author = new _normalizr.Schema('authors', {
+    idAttribute: 'id'
+});
+var collection = new _normalizr.Schema('bookCollections', {
+    idAttribute: 'id'
+});
+collection.define({
+    items: (0, _normalizr.arrayOf)(book)
+});
+var profile = new _normalizr.Schema('profiles', {
+    idAttribute: 'id'
+});
+var user = new _normalizr.Schema('users', {
+    idAttribute: 'id'
+});
+var doubanBook = new _normalizr.Schema('doubanBooks', {
+    idAttribute: 'id'
+});
+var shelfBook = new _normalizr.Schema('shelfBooks', {
+    idAttribute: 'id'
+});
+var bookProgress = new _normalizr.Schema('bookProgress', {
+    idAttribute: 'bookId'
+});
+var matchedBooks = new _normalizr.Schema('books', {
+    idAttribute: 'bookId'
+});
+var _default = {
+    BOOK: book,
+    BOOK_CONTENT: bookContent,
+    BOOK_PROGRESS: bookProgress,
+    BOOK_ARRAY: (0, _normalizr.arrayOf)(book),
+    DOUBAN_BOOK_SEARCH_RESULTS: { books: (0, _normalizr.arrayOf)(doubanBook) },
+    USER_ARRAY: (0, _normalizr.arrayOf)(user),
+    MATCHED_BOOK_ARRAY: (0, _normalizr.arrayOf)(matchedBooks),
+    COLLECTION: collection,
+    COLLECTION_ARRAY: (0, _normalizr.arrayOf)(collection),
+    PROFILE: profile,
+    AUTHOR: author,
+    AUTHOR_ARRAY: (0, _normalizr.arrayOf)(author),
+    SHELF_BOOK_ARRAY: (0, _normalizr.arrayOf)(shelfBook)
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(book, 'book', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(bookContent, 'bookContent', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(author, 'author', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(collection, 'collection', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(profile, 'profile', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(user, 'user', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(doubanBook, 'doubanBook', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(shelfBook, 'shelfBook', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(bookProgress, 'bookProgress', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(matchedBooks, 'matchedBooks', '/Users/liang/Projects/readr/src/schemas.ts');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/schemas.ts');
 }();
 
 ;
 
 /***/ }),
 /* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = padNumberWithZero;
-function padNumberWithZero(num) {
-    var numStrWithZero = void 0;
-    if (num < 10) {
-        numStrWithZero = '0' + num.toString();
-    } else {
-        numStrWithZero = num.toString();
-    }
-    return numStrWithZero;
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(padNumberWithZero, 'padNumberWithZero', '/Users/liang/Projects/readr/src/isomorphic/utils/padNumberWithZero.ts');
-}();
-
-;
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = parseQuery;
-function parseQuery(queryString) {
-    var params = queryString.split('&');
-    var object = {};
-    params.forEach(function (param) {
-        var key = param.split('=')[0];
-        var val = param.split('=')[1];
-        object[key] = val;
-    });
-    return object;
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(parseQuery, 'parseQuery', '/Users/liang/Projects/readr/src/isomorphic/utils/parseQuery.ts');
-}();
-
-;
-
-/***/ }),
-/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3697,7 +3559,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 69 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3744,7 +3606,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 70 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3799,7 +3661,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 71 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3811,7 +3673,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var colors = __webpack_require__(269);
+var colors = __webpack_require__(268);
 var print = {
     info: function info(message) {
         console.info('\n' + colors.bgGreen.bold.white(' INFO '), colors.green(message));
@@ -3843,7 +3705,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 72 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3852,7 +3714,7 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var validator = __webpack_require__(291);
+var validator = __webpack_require__(289);
 var additionalValidators = {
     lengthMin: function lengthMin(len) {
         return function (input) {
@@ -3884,11 +3746,174 @@ var _temp = function () {
 ;
 
 /***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _assign2 = __webpack_require__(3);
+
+var _assign3 = _interopRequireDefault(_assign2);
+
+var _get2 = __webpack_require__(13);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _normalizr = __webpack_require__(78);
+
+var _parseQuery = __webpack_require__(73);
+
+var _parseQuery2 = _interopRequireDefault(_parseQuery);
+
+var _humps = __webpack_require__(39);
+
+var _humps2 = _interopRequireDefault(_humps);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var parseHeaderPageLinkByRel = function parseHeaderPageLinkByRel(links, rel) {
+    var link = links.split(',').find(function (s) {
+        return s.indexOf('rel="' + rel + '"') > -1;
+    });
+    if (!link) {
+        return undefined;
+    }
+    var url = link.split(';')[0].trim().slice(1, -1);
+    return {
+        // todo
+        page: parseInt((0, _get3.default)((0, _parseQuery2.default)(url.split('?')[1] || ''), 'page', 0), 10),
+        url: url
+    };
+};
+function parseResHeaderToPagination(response) {
+    if (!response) {
+        return {};
+    }
+    var links = response.headers.get('link');
+    if (!links) {
+        return {};
+    }
+    var next = parseHeaderPageLinkByRel(links, 'next');
+    var last = parseHeaderPageLinkByRel(links, 'last');
+    return {
+        next: next,
+        last: last
+    };
+}
+function handleResponse(_ref, schema) {
+    var json = _ref.json,
+        _response = _ref._response;
+
+    var camelizedJson = _humps2.default.camelizeKeys(json);
+
+    var _parseResHeaderToPagi = parseResHeaderToPagination(_response),
+        next = _parseResHeaderToPagi.next,
+        last = _parseResHeaderToPagi.last;
+
+    if (typeof schema !== 'undefined') {
+        return (0, _assign3.default)({}, (0, _normalizr.normalize)(camelizedJson, schema), {
+            _next: next,
+            _last: last
+        });
+    }
+    return camelizedJson;
+}
+var _default = handleResponse;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(parseHeaderPageLinkByRel, 'parseHeaderPageLinkByRel', '/Users/liang/Projects/readr/src/utils/api/handleResponse.ts');
+
+    __REACT_HOT_LOADER__.register(parseResHeaderToPagination, 'parseResHeaderToPagination', '/Users/liang/Projects/readr/src/utils/api/handleResponse.ts');
+
+    __REACT_HOT_LOADER__.register(handleResponse, 'handleResponse', '/Users/liang/Projects/readr/src/utils/api/handleResponse.ts');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/api/handleResponse.ts');
+}();
+
+;
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = padNumberWithZero;
+function padNumberWithZero(num) {
+    var numStrWithZero = void 0;
+    if (num < 10) {
+        numStrWithZero = '0' + num.toString();
+    } else {
+        numStrWithZero = num.toString();
+    }
+    return numStrWithZero;
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(padNumberWithZero, 'padNumberWithZero', '/Users/liang/Projects/readr/src/utils/padNumberWithZero.ts');
+}();
+
+;
+
+/***/ }),
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-    var content = __webpack_require__(240);
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = parseQuery;
+function parseQuery(queryString) {
+    var params = queryString.split('&');
+    var object = {};
+    params.forEach(function (param) {
+        var key = param.split('=')[0];
+        var val = param.split('=')[1];
+        object[key] = val;
+    });
+    return object;
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(parseQuery, 'parseQuery', '/Users/liang/Projects/readr/src/utils/parseQuery.ts');
+}();
+
+;
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var content = __webpack_require__(235);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -3905,8 +3930,8 @@ var _temp = function () {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Alert.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Alert.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Alert.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Alert.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -3919,49 +3944,55 @@ var _temp = function () {
   
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/isUndefined");
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = require("normalizr");
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-redux");
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-saga");
 
 /***/ }),
-/* 81 */
+/* 82 */
+/***/ (function(module, exports) {
+
+module.exports = require("url-join");
+
+/***/ }),
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3971,7 +4002,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _initialize = __webpack_require__(206);
+var _initialize = __webpack_require__(194);
 
 var _initialize2 = _interopRequireDefault(_initialize);
 
@@ -3992,13 +4023,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4009,19 +4040,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Textarea = exports.SelectizeInput = exports.Input = exports.Button = undefined;
 
-var _Button = __webpack_require__(87);
+var _Button = __webpack_require__(88);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Input = __webpack_require__(89);
+var _Input = __webpack_require__(90);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _SelectizeInput = __webpack_require__(128);
+var _SelectizeInput = __webpack_require__(127);
 
 var _SelectizeInput2 = _interopRequireDefault(_SelectizeInput);
 
-var _Textarea = __webpack_require__(130);
+var _Textarea = __webpack_require__(129);
 
 var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -4042,13 +4073,13 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/keys");
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4062,11 +4093,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var styles = __webpack_require__(262);
+var styles = __webpack_require__(261);
 function ModalFooter(props) {
     var onConfirm = props.onConfirm,
         onCancel = props.onCancel;
@@ -4082,15 +4113,108 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ModalFooter, 'ModalFooter', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ModalFooter.tsx');
+    __REACT_HOT_LOADER__.register(ModalFooter, 'ModalFooter', '/Users/liang/Projects/readr/src/components/Modal/ModalFooter.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ModalFooter.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Modal/ModalFooter.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 86 */
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Button = __webpack_require__(105);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _Button2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Button/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Fade = __webpack_require__(117);
+
+var _Fade2 = _interopRequireDefault(_Fade);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _Fade2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Fade/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Input = __webpack_require__(120);
+
+var _Input2 = _interopRequireDefault(_Input);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _Input2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Input/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4111,106 +4235,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(THEMES, 'THEMES', '/Users/liang/Projects/readr/src/isomorphic/constants/viewerDefs.ts');
+    __REACT_HOT_LOADER__.register(THEMES, 'THEMES', '/Users/liang/Projects/readr/src/constants/viewerDefs.ts');
 }();
 
 ;
 
 /***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Button = __webpack_require__(116);
-
-var _Button2 = _interopRequireDefault(_Button);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Button2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Button/index.ts');
-}();
-
-;
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Fade = __webpack_require__(121);
-
-var _Fade2 = _interopRequireDefault(_Fade);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Fade2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Fade/index.ts');
-}();
-
-;
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Input = __webpack_require__(124);
-
-var _Input2 = _interopRequireDefault(_Input);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = _Input2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Input/index.ts');
-}();
-
-;
-
-/***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4230,7 +4261,7 @@ var _helpers2 = _interopRequireDefault(_helpers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var styles = __webpack_require__(91);
+var styles = __webpack_require__(93);
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的
 function getNodeHeights(nodes) {
@@ -4399,27 +4430,27 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(getNodeHeights, 'getNodeHeights', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.utils.ts');
+    __REACT_HOT_LOADER__.register(getNodeHeights, 'getNodeHeights', '/Users/liang/Projects/readr/src/routes/Viewer/Viewer.utils.ts');
 
-    __REACT_HOT_LOADER__.register(getPageOffset, 'getPageOffset', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.utils.ts');
+    __REACT_HOT_LOADER__.register(getPageOffset, 'getPageOffset', '/Users/liang/Projects/readr/src/routes/Viewer/Viewer.utils.ts');
 
-    __REACT_HOT_LOADER__.register(getNodesOfPage, 'getNodesOfPage', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.utils.ts');
+    __REACT_HOT_LOADER__.register(getNodesOfPage, 'getNodesOfPage', '/Users/liang/Projects/readr/src/routes/Viewer/Viewer.utils.ts');
 
-    __REACT_HOT_LOADER__.register(groupNodesByPage, 'groupNodesByPage', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.utils.ts');
+    __REACT_HOT_LOADER__.register(groupNodesByPage, 'groupNodesByPage', '/Users/liang/Projects/readr/src/routes/Viewer/Viewer.utils.ts');
 
-    __REACT_HOT_LOADER__.register(groupPageFromChapters, 'groupPageFromChapters', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.utils.ts');
+    __REACT_HOT_LOADER__.register(groupPageFromChapters, 'groupPageFromChapters', '/Users/liang/Projects/readr/src/routes/Viewer/Viewer.utils.ts');
 
-    __REACT_HOT_LOADER__.register(resolveBookLocation, 'resolveBookLocation', '/Users/liang/Projects/readr/src/isomorphic/routes/Viewer/Viewer.utils.ts');
+    __REACT_HOT_LOADER__.register(resolveBookLocation, 'resolveBookLocation', '/Users/liang/Projects/readr/src/routes/Viewer/Viewer.utils.ts');
 }();
 
 ;
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(250);
+    var content = __webpack_require__(249);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -4436,8 +4467,8 @@ var _temp = function () {
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./BookPage.scss", function() {
-        content = require("!!../../../../../node_modules/css-loader/index.js??ref--3-1!../../../../../node_modules/sass-loader/index.js!./BookPage.scss");
+      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookPage.scss", function() {
+        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./BookPage.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -4450,37 +4481,37 @@ var _temp = function () {
   
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-addons-css-transition-group");
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports) {
 
 module.exports = {
-	"app.css": "css/app.cffd75d7fe.css",
-	"app.js": "js/app.cffd75d7fe.js",
+	"app.css": "css/app.13f8d6040f.css",
+	"app.js": "js/app.13f8d6040f.js",
 	"base.global.css": "css/base.global.30e3ea3a4f.css",
 	"base.global.js": "js/base.global.30e3ea3a4f.js",
-	"js/chunk.0b7ce24747.12.js": "js/chunk.0b7ce24747.12.js",
-	"js/chunk.17e3d2e5dd.16.js": "js/chunk.17e3d2e5dd.16.js",
-	"js/chunk.1a0245146e.0.js": "js/chunk.1a0245146e.0.js",
-	"js/chunk.2515738e81.9.js": "js/chunk.2515738e81.9.js",
-	"js/chunk.398e617134.15.js": "js/chunk.398e617134.15.js",
-	"js/chunk.39fb5c583d.13.js": "js/chunk.39fb5c583d.13.js",
-	"js/chunk.4e117530d8.10.js": "js/chunk.4e117530d8.10.js",
-	"js/chunk.5c3753c8ad.7.js": "js/chunk.5c3753c8ad.7.js",
-	"js/chunk.5ed7e6452d.14.js": "js/chunk.5ed7e6452d.14.js",
-	"js/chunk.628e1c5a04.11.js": "js/chunk.628e1c5a04.11.js",
-	"js/chunk.8ae3db504f.1.js": "js/chunk.8ae3db504f.1.js",
-	"js/chunk.93c4e9de43.5.js": "js/chunk.93c4e9de43.5.js",
-	"js/chunk.97c4421996.4.js": "js/chunk.97c4421996.4.js",
-	"js/chunk.b17f6166ea.2.js": "js/chunk.b17f6166ea.2.js",
-	"js/chunk.bc3869013b.6.js": "js/chunk.bc3869013b.6.js",
-	"js/chunk.d5af036e0e.3.js": "js/chunk.d5af036e0e.3.js",
-	"js/chunk.fa685f655e.8.js": "js/chunk.fa685f655e.8.js",
+	"js/chunk.019866bf07.15.js": "js/chunk.019866bf07.15.js",
+	"js/chunk.0fd3f0ff29.1.js": "js/chunk.0fd3f0ff29.1.js",
+	"js/chunk.1077eb1339.13.js": "js/chunk.1077eb1339.13.js",
+	"js/chunk.2f4abc10e4.3.js": "js/chunk.2f4abc10e4.3.js",
+	"js/chunk.33fdcc5dca.8.js": "js/chunk.33fdcc5dca.8.js",
+	"js/chunk.59a06f9774.16.js": "js/chunk.59a06f9774.16.js",
+	"js/chunk.5afd701505.11.js": "js/chunk.5afd701505.11.js",
+	"js/chunk.5c2bd96261.10.js": "js/chunk.5c2bd96261.10.js",
+	"js/chunk.8068a3365a.0.js": "js/chunk.8068a3365a.0.js",
+	"js/chunk.8746e0d284.5.js": "js/chunk.8746e0d284.5.js",
+	"js/chunk.9532f2a3e3.14.js": "js/chunk.9532f2a3e3.14.js",
+	"js/chunk.9a3117103c.7.js": "js/chunk.9a3117103c.7.js",
+	"js/chunk.9c6aafbd6b.2.js": "js/chunk.9c6aafbd6b.2.js",
+	"js/chunk.b437659e2f.9.js": "js/chunk.b437659e2f.9.js",
+	"js/chunk.c019e1a581.12.js": "js/chunk.c019e1a581.12.js",
+	"js/chunk.da09ebb3df.6.js": "js/chunk.da09ebb3df.6.js",
+	"js/chunk.ef9f212a9b.4.js": "js/chunk.ef9f212a9b.4.js",
 	"media/logo-dark.png": "media/logo-dark.4754e8aa78.png",
 	"media/logo.png": "media/logo.81eb83d7f7.png",
 	"media/shadow.png": "media/shadow.471ea37f96.png",
@@ -4492,90 +4523,6 @@ module.exports = {
 };
 
 /***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var appConfig = {
-    api: {
-        prefix: 'api'
-    },
-    database: {
-        host: 'mongodb://localhost:27017',
-        name: 'readr',
-        mongoStoreName: 'readr_session'
-    },
-    siteUrl: 'http://localhost',
-    siteName: 'readr',
-    apiPort: 3091,
-    assetsPort: 3090,
-    pagesPort: 3000,
-    enableEntityCache: false
-};
-var _default = appConfig;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(appConfig, 'appConfig', '/Users/liang/Projects/readr/src/app.config.dev.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/app.config.dev.ts');
-}();
-
-;
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var appConfig = {
-    api: {
-        prefix: 'api'
-    },
-    database: {
-        host: 'mongodb://localhost:27017',
-        name: 'readr',
-        mongoStoreName: 'readr_session'
-    },
-    siteUrl: 'http://readrweb.com',
-    siteName: 'readr',
-    apiPort: 4001,
-    assetsPort: 4000,
-    pagesPort: 4002,
-    enableEntityCache: true
-};
-var _default = appConfig;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(appConfig, 'appConfig', '/Users/liang/Projects/readr/src/app.config.prod.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/app.config.prod.ts');
-}();
-
-;
-
-/***/ }),
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4585,21 +4532,492 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.LOAD_ACTIONS = exports.loadBookProgress = exports.progress = exports.userLogout = exports.logout = exports.loadUsers = exports.users = exports.loadBooks = exports.books = exports.loadBookContent = exports.bookContent = exports.loadBook = exports.book = exports.removeEntity = undefined;
+exports.fetchAuthors = fetchAuthors;
+exports.fetchCollections = fetchCollections;
+exports.fetchCollection = fetchCollection;
+exports.searchDoubanBooks = searchDoubanBooks;
+exports.fetchProfile = fetchProfile;
+exports.userAuth = userAuth;
+exports.fetchShelf = fetchShelf;
 
-var _isServerEnv = __webpack_require__(56);
+var _utils = __webpack_require__(23);
 
-var _isServerEnv2 = _interopRequireDefault(_isServerEnv);
+var _utils2 = _interopRequireDefault(_utils);
+
+var _schemas = __webpack_require__(65);
+
+var _schemas2 = _interopRequireDefault(_schemas);
+
+var _common = __webpack_require__(8);
+
+var _utils3 = __webpack_require__(49);
+
+var _actionTypes = __webpack_require__(6);
+
+var ActionTypes = _interopRequireWildcard(_actionTypes);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var GLOBAL_ENV_VAR = '__ENV__';
-var getEnv = function getEnv() {
-    if ((0, _isServerEnv2.default)()) {
-        return process.env;
-    }
-    return window[GLOBAL_ENV_VAR];
+var removeEntity = exports.removeEntity = function removeEntity(name, id) {
+    return { type: ActionTypes.REMOVE_ENTITY, name: name, id: id };
 };
-var _default = getEnv;
+var book = exports.book = (0, _utils3.createActionEntity)(ActionTypes.BOOK);
+var loadBook = exports.loadBook = function loadBook(id) {
+    return (0, _utils3.action)(ActionTypes.LOAD_BOOK, { id: id });
+};
+var bookContent = exports.bookContent = (0, _utils3.createActionEntity)(ActionTypes.BOOK_CONTENT);
+var loadBookContent = exports.loadBookContent = function loadBookContent(id) {
+    return (0, _utils3.action)(ActionTypes.LOAD_BOOK_CONTENT, { id: id });
+};
+var books = exports.books = (0, _utils3.createActionEntity)(ActionTypes.BOOKS);
+var loadBooks = exports.loadBooks = function loadBooks(options, key) {
+    return (0, _utils3.action)(ActionTypes.LOAD_BOOKS, { options: options, key: key });
+};
+var users = exports.users = (0, _utils3.createActionEntity)(ActionTypes.USERS);
+var loadUsers = exports.loadUsers = function loadUsers(options) {
+    return (0, _utils3.action)(ActionTypes.LOAD_USERS, { options: options });
+};
+var logout = exports.logout = (0, _utils3.createActionEntity)(ActionTypes.LOGOUT);
+var userLogout = exports.userLogout = function userLogout() {
+    return (0, _utils3.action)(ActionTypes.USER_LOGOUT);
+};
+var progress = exports.progress = (0, _utils3.createActionEntity)(ActionTypes.BOOK_PROGRESS);
+var loadBookProgress = exports.loadBookProgress = function loadBookProgress(id) {
+    return (0, _utils3.action)(ActionTypes.LOAD_BOOK_PROGRESS, { id: id });
+};
+// define load actions handled in sagas
+var LOAD_ACTIONS = exports.LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS];
+/**
+ * legacy call api actions
+ */
+function fetchAuthors(options) {
+    var CALL_API = {
+        types: [ActionTypes.AUTHORS.REQUEST, ActionTypes.AUTHORS.SUCCESS, ActionTypes.AUTHORS.FAILURE],
+        endpoint: 'authors?' + _utils2.default.parseUrlencoded(options),
+        schema: _schemas2.default.AUTHOR_ARRAY,
+        pagination: {
+            name: 'authors',
+            q: options.q
+        }
+    };
+    return { CALL_API: CALL_API };
+}
+function fetchCollections() {
+    var flowType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'newest';
+
+    return {
+        flowType: flowType,
+        CALL_API: {
+            types: [ActionTypes.COLLECTIONS.REQUEST, ActionTypes.COLLECTIONS.SUCCESS, ActionTypes.COLLECTIONS.FAILURE],
+            endpoint: 'collections',
+            schema: _schemas2.default.COLLECTION_ARRAY
+        }
+    };
+}
+function fetchCollection(collectionId) {
+    return {
+        collectionId: collectionId,
+        CALL_API: {
+            types: [ActionTypes.COLLECTION.REQUEST, ActionTypes.COLLECTION.SUCCESS, ActionTypes.COLLECTION.FAILURE],
+            endpoint: 'collections/' + collectionId,
+            schema: _schemas2.default.COLLECTION
+        }
+    };
+}
+function searchDoubanBooks(q) {
+    var CALL_API = {
+        types: [ActionTypes.DOUBAN_BOOKS.REQUEST, ActionTypes.DOUBAN_BOOKS.SUCCESS, ActionTypes.DOUBAN_BOOKS.FAILURE],
+        endpoint: 'book/search?count=10&q=' + q,
+        apiUrl: _common.DOUBAN_API_ROOT,
+        schema: _schemas2.default.DOUBAN_BOOK_SEARCH_RESULTS,
+        options: { useJsonp: true },
+        pagination: {
+            name: 'doubanBooks',
+            q: q
+        }
+    };
+    return { q: q, CALL_API: CALL_API };
+}
+function fetchProfile() {
+    var CALL_API = {
+        types: [ActionTypes.PROFILE.REQUEST, ActionTypes.PROFILE.SUCCESS, ActionTypes.PROFILE.FAILURE],
+        endpoint: 'user/profile',
+        schema: _schemas2.default.PROFILE
+    };
+    return { CALL_API: CALL_API };
+}
+function userAuth(userSession) {
+    // 服务端渲染 session
+    if (userSession) {
+        return {
+            SERVER_STORE: {
+                body: {
+                    response: userSession,
+                    type: ActionTypes.AUTH.SUCCESS
+                }
+            }
+        };
+    }
+    return {
+        CALL_API: {
+            types: [ActionTypes.AUTH.REQUEST, ActionTypes.AUTH.SUCCESS, ActionTypes.AUTH.FAILURE],
+            endpoint: 'auth'
+        }
+    };
+}
+function fetchShelf() {
+    var CALL_API = {
+        types: [ActionTypes.SHELF.REQUEST, ActionTypes.SHELF.SUCCESS, ActionTypes.SHELF.FAILURE],
+        endpoint: 'user/books/shelf',
+        schema: _schemas2.default.SHELF_BOOK_ARRAY,
+        pagination: {
+            name: 'bookShelves'
+        }
+    };
+    return { CALL_API: CALL_API };
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(removeEntity, 'removeEntity', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(book, 'book', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(loadBook, 'loadBook', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(bookContent, 'bookContent', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(loadBookContent, 'loadBookContent', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(books, 'books', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(loadBooks, 'loadBooks', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(users, 'users', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(loadUsers, 'loadUsers', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(logout, 'logout', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(userLogout, 'userLogout', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(progress, 'progress', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(loadBookProgress, 'loadBookProgress', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(LOAD_ACTIONS, 'LOAD_ACTIONS', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(fetchAuthors, 'fetchAuthors', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(fetchCollections, 'fetchCollections', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(fetchCollection, 'fetchCollection', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(searchDoubanBooks, 'searchDoubanBooks', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(fetchProfile, 'fetchProfile', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(userAuth, 'userAuth', '/Users/liang/Projects/readr/src/actions/api.ts');
+
+    __REACT_HOT_LOADER__.register(fetchShelf, 'fetchShelf', '/Users/liang/Projects/readr/src/actions/api.ts');
+}();
+
+;
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.sendNotification = undefined;
+exports.showNotification = showNotification;
+exports.hideNotification = hideNotification;
+exports.openConfirmModal = openConfirmModal;
+exports.closeConfirmModal = closeConfirmModal;
+exports.openModal = openModal;
+exports.closeModal = closeModal;
+
+var _actionTypes = __webpack_require__(6);
+
+var ActionTypes = _interopRequireWildcard(_actionTypes);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var sendNotification = exports.sendNotification = function sendNotification(message) {
+    var msgType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+    var t = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2000;
+
+    return function (dispatch, getState) {
+        var id = Math.random().toFixed(8).substr(2);
+        dispatch(showNotification(id, message, msgType));
+        if (t !== 0) {
+            setTimeout(function () {
+                dispatch(hideNotification(id));
+            }, t);
+        }
+    };
+};
+function showNotification(id, message) {
+    var msgType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'success';
+
+    return {
+        type: ActionTypes.NOTIFICATION.SHOW,
+        message: message,
+        msgType: msgType,
+        id: id
+    };
+}
+function hideNotification(id) {
+    return {
+        type: ActionTypes.NOTIFICATION.HIDE,
+        id: id
+    };
+}
+function openConfirmModal(data) {
+    return {
+        type: ActionTypes.OPEN_CONFIRM_MODAL,
+        data: data
+    };
+}
+function closeConfirmModal() {
+    return {
+        type: ActionTypes.CLOSE_CONFIRM_MODAL
+    };
+}
+function openModal(data) {
+    return {
+        type: ActionTypes.MODAL.OPEN,
+        data: data
+    };
+}
+function closeModal() {
+    return {
+        type: ActionTypes.MODAL.CLOSE
+    };
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(sendNotification, 'sendNotification', '/Users/liang/Projects/readr/src/actions/common.ts');
+
+    __REACT_HOT_LOADER__.register(showNotification, 'showNotification', '/Users/liang/Projects/readr/src/actions/common.ts');
+
+    __REACT_HOT_LOADER__.register(hideNotification, 'hideNotification', '/Users/liang/Projects/readr/src/actions/common.ts');
+
+    __REACT_HOT_LOADER__.register(openConfirmModal, 'openConfirmModal', '/Users/liang/Projects/readr/src/actions/common.ts');
+
+    __REACT_HOT_LOADER__.register(closeConfirmModal, 'closeConfirmModal', '/Users/liang/Projects/readr/src/actions/common.ts');
+
+    __REACT_HOT_LOADER__.register(openModal, 'openModal', '/Users/liang/Projects/readr/src/actions/common.ts');
+
+    __REACT_HOT_LOADER__.register(closeModal, 'closeModal', '/Users/liang/Projects/readr/src/actions/common.ts');
+}();
+
+;
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.toggleViewerScrollMode = exports.changeViewerTheme = exports.changeViewerFontSize = exports.toggleViewerNavigation = exports.toggleViewerPreference = exports.toggleViewerPanel = exports.viewerJumpTo = exports.destroyBookProgress = exports.updateBookProgress = exports.initializeBookProgress = exports.calcBookFailure = exports.calcBookSuccess = exports.calcBook = exports.configViewer = exports.initializeViewer = exports.initializeViewerConfig = undefined;
+
+var _selectors = __webpack_require__(27);
+
+var selectors = _interopRequireWildcard(_selectors);
+
+var _actionTypes = __webpack_require__(6);
+
+var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
+
+var _helpers = __webpack_require__(10);
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+// viewer
+var initializeViewerConfig = exports.initializeViewerConfig = function initializeViewerConfig(bookId) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    return { bookId: bookId, config: config, type: ACTION_TYPES.VIEWER.INITIALIZE_CONFIG };
+};
+var initializeViewer = exports.initializeViewer = function initializeViewer(bookId) {
+    return { bookId: bookId, type: ACTION_TYPES.VIEWER.INITIALIZE };
+};
+var configViewer = exports.configViewer = function configViewer(bookId, payload) {
+    return {
+        bookId: bookId,
+        payload: payload,
+        type: ACTION_TYPES.VIEWER.CONFIG
+    };
+};
+// book
+var calcBook = exports.calcBook = function calcBook(bookId, wrap) {
+    return {
+        bookId: bookId,
+        wrap: wrap,
+        type: ACTION_TYPES.VIEWER.CALC_START
+    };
+};
+var calcBookSuccess = exports.calcBookSuccess = function calcBookSuccess(bookId, computed) {
+    return {
+        bookId: bookId,
+        computed: computed,
+        type: ACTION_TYPES.VIEWER.CALC_SUCCESS
+    };
+};
+var calcBookFailure = exports.calcBookFailure = function calcBookFailure(bookId, error) {
+    return {
+        bookId: bookId,
+        error: error,
+        type: ACTION_TYPES.VIEWER.CALC_FAILURE
+    };
+};
+var initializeBookProgress = exports.initializeBookProgress = function initializeBookProgress() {
+    return { type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_INITIALIZE };
+};
+// progress
+var updateBookProgress = exports.updateBookProgress = function updateBookProgress(percentage) {
+    return function (dispatch, getState) {
+        _helpers2.default.print('Action updateBookProgress');
+        var state = getState();
+
+        var _selectors$viewer$con = selectors.viewer.config(state),
+            bookId = _selectors$viewer$con.bookId;
+
+        var computed = selectors.viewer.computed(bookId)(state);
+        var pageNo = Math.floor(computed.length * percentage) + 1;
+        return dispatch({
+            id: bookId,
+            percentage: percentage,
+            pageNo: pageNo,
+            type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE
+        });
+    };
+};
+var destroyBookProgress = exports.destroyBookProgress = function destroyBookProgress() {
+    return {
+        type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_DESTROY
+    };
+};
+var viewerJumpTo = exports.viewerJumpTo = function viewerJumpTo(percentage) {
+    return { type: ACTION_TYPES.VIEWER.JUMP, percentage: percentage };
+};
+// sub components
+var toggleViewerPanel = exports.toggleViewerPanel = function toggleViewerPanel(reset) {
+    return { type: ACTION_TYPES.VIEWER.PANEL_TOGGLE, reset: reset };
+};
+var toggleViewerPreference = exports.toggleViewerPreference = function toggleViewerPreference(reset) {
+    return { type: ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE, reset: reset };
+};
+var toggleViewerNavigation = exports.toggleViewerNavigation = function toggleViewerNavigation(reset) {
+    return { type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset: reset };
+};
+// config
+var changeViewerFontSize = exports.changeViewerFontSize = function changeViewerFontSize(fontSizeInPixel) {
+    return { type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel };
+};
+var changeViewerTheme = exports.changeViewerTheme = function changeViewerTheme(themeName) {
+    return { type: ACTION_TYPES.VIEWER.THEME_CHANGE, theme: themeName };
+};
+var toggleViewerScrollMode = exports.toggleViewerScrollMode = function toggleViewerScrollMode(reset) {
+    return { type: ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE, reset: reset };
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(initializeViewerConfig, 'initializeViewerConfig', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(initializeViewer, 'initializeViewer', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(configViewer, 'configViewer', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(calcBook, 'calcBook', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(calcBookSuccess, 'calcBookSuccess', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(calcBookFailure, 'calcBookFailure', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(initializeBookProgress, 'initializeBookProgress', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(updateBookProgress, 'updateBookProgress', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(destroyBookProgress, 'destroyBookProgress', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(viewerJumpTo, 'viewerJumpTo', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(toggleViewerPanel, 'toggleViewerPanel', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(toggleViewerPreference, 'toggleViewerPreference', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(toggleViewerNavigation, 'toggleViewerNavigation', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(changeViewerFontSize, 'changeViewerFontSize', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(changeViewerTheme, 'changeViewerTheme', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+
+    __REACT_HOT_LOADER__.register(toggleViewerScrollMode, 'toggleViewerScrollMode', '/Users/liang/Projects/readr/src/actions/viewer.ts');
+}();
+
+;
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Alert = __webpack_require__(50);
+
+var _Alert2 = _interopRequireDefault(_Alert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = __webpack_require__(74);
+function Alerts(props) {
+    return _react2.default.createElement("div", { className: styles.alerts }, props.messages.map(function (msg, index) {
+        return _react2.default.createElement(_Alert2.default, { key: index, type: msg.type, message: msg.content, visible: msg.visible, onRequestClose: function onRequestClose() {
+                props.onRequestClose(msg.id);
+            } });
+    }));
+}
+var _default = Alerts;
 exports.default = _default;
 ;
 
@@ -4608,17 +5026,284 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(GLOBAL_ENV_VAR, 'GLOBAL_ENV_VAR', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+    __REACT_HOT_LOADER__.register(Alerts, 'Alerts', '/Users/liang/Projects/readr/src/components/Alert/Alerts.tsx');
 
-    __REACT_HOT_LOADER__.register(getEnv, 'getEnv', '/Users/liang/Projects/readr/src/context/getEnv.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/context/getEnv.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Alert/Alerts.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 97 */
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Alert = exports.Alerts = undefined;
+
+var _Alert = __webpack_require__(50);
+
+var _Alert2 = _interopRequireDefault(_Alert);
+
+var _Alerts = __webpack_require__(99);
+
+var _Alerts2 = _interopRequireDefault(_Alerts);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Alerts = _Alerts2.default;
+exports.Alert = _Alert2.default;
+var _default = _Alert2.default;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Alert/index.tsx');
+}();
+
+;
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(19);
+
+var _Branding = __webpack_require__(104);
+
+var _Branding2 = _interopRequireDefault(_Branding);
+
+var _Colophon = __webpack_require__(107);
+
+var _Colophon2 = _interopRequireDefault(_Colophon);
+
+var _actions = __webpack_require__(15);
+
+var _selectors = __webpack_require__(27);
+
+var selectors = _interopRequireWildcard(_selectors);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+    _inherits(App, _Component);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.handleLogout = _this.handleLogout.bind(_this);
+        return _this;
+    }
+
+    _createClass(App, [{
+        key: 'handleLogout',
+        value: function handleLogout() {
+            this.props.userLogout();
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            if (this.props.session.user.role !== 'visitor') {
+                this.props.fetchShelf();
+            }
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var userLoggedIn = this.props.session.user.role === 'visitor' && nextProps.session.user.role !== 'visitor';
+            if (userLoggedIn) {
+                this.props.fetchShelf();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var isAdmin = false;
+            var username = null;
+            if (this.props.session.user.role !== 'visitor') {
+                isAdmin = this.props.session.user.role === 'admin';
+                username = this.props.session.user.username;
+            }
+            var bookShelf = this.props.bookShelf;
+
+            var bookShelfList = bookShelf.map(function (book) {
+                return {
+                    title: book.title,
+                    id: book.id
+                };
+            });
+            return _react2.default.createElement("div", null, _react2.default.createElement(_Branding2.default, { recentReading: bookShelfList, isAdmin: isAdmin, username: username, onLogout: this.handleLogout }), this.props.children, _react2.default.createElement(_Colophon2.default, null));
+        }
+    }]);
+
+    return App;
+}(_react.Component);
+
+var _default = (0, _reactRedux.connect)(function (state) {
+    return {
+        notification: state.components.notification,
+        session: state.session,
+        bookShelf: selectors.shelfBooks()(state)
+    };
+}, { fetchShelf: _actions.fetchShelf, userLogout: _actions.userLogout })(App);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(App, 'App', '/Users/liang/Projects/readr/src/components/App.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/App.tsx');
+}();
+
+;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _pick2 = __webpack_require__(24);
+
+var _pick3 = _interopRequireDefault(_pick2);
+
+var _last2 = __webpack_require__(41);
+
+var _last3 = _interopRequireDefault(_last2);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSideEffect = __webpack_require__(285);
+
+var _reactSideEffect2 = _interopRequireDefault(_reactSideEffect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var BodyClass = function (_Component) {
+    _inherits(BodyClass, _Component);
+
+    function BodyClass() {
+        _classCallCheck(this, BodyClass);
+
+        return _possibleConstructorReturn(this, (BodyClass.__proto__ || Object.getPrototypeOf(BodyClass)).apply(this, arguments));
+    }
+
+    _createClass(BodyClass, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement("div", { className: "body-class" }, this.props.children);
+        }
+    }]);
+
+    return BodyClass;
+}(_react.Component);
+BodyClass = __decorate([(0, _reactSideEffect2.default)(reducePropsToState, handleStateChangeOnClient)], BodyClass);
+function reducePropsToState(propsList) {
+    var innermostProps = (0, _last3.default)(propsList);
+    if (innermostProps) {
+        var props = (0, _pick3.default)(innermostProps, ['className']);
+        var className = props.className = propsList.filter(function (prop) {
+            return prop.className;
+        }).map(function (prop) {
+            return prop.className;
+        }).join(' ');
+        return className;
+    }
+    return null;
+}
+function handleStateChangeOnClient(className) {
+    if (typeof className !== 'undefined') {
+        document.body.className = className;
+    } else {
+        document.body.removeAttribute('class');
+    }
+}
+var _default = BodyClass;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BodyClass.tsx");
+
+    __REACT_HOT_LOADER__.register(BodyClass, "BodyClass", "/Users/liang/Projects/readr/src/components/BodyClass.tsx");
+
+    __REACT_HOT_LOADER__.register(reducePropsToState, "reducePropsToState", "/Users/liang/Projects/readr/src/components/BodyClass.tsx");
+
+    __REACT_HOT_LOADER__.register(handleStateChangeOnClient, "handleStateChangeOnClient", "/Users/liang/Projects/readr/src/components/BodyClass.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BodyClass.tsx");
+}();
+
+;
+
+/***/ }),
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4636,11 +5321,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _layout = __webpack_require__(46);
+var _layout = __webpack_require__(45);
 
-var _Dropdown = __webpack_require__(53);
+var _Dropdown = __webpack_require__(52);
 
-var _Logo = __webpack_require__(49);
+var _Logo = __webpack_require__(48);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -4667,7 +5352,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(253);
+var styles = __webpack_require__(252);
 var Branding = function (_Component) {
     _inherits(Branding, _Component);
 
@@ -4724,17 +5409,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/Branding/Branding.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Branding/Branding.tsx");
 
-    __REACT_HOT_LOADER__.register(Branding, "Branding", "/Users/liang/Projects/readr/src/isomorphic/components/Branding/Branding.tsx");
+    __REACT_HOT_LOADER__.register(Branding, "Branding", "/Users/liang/Projects/readr/src/components/Branding/Branding.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/Branding/Branding.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Branding/Branding.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 98 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4744,7 +5429,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Branding = __webpack_require__(97);
+var _Branding = __webpack_require__(103);
 
 var _Branding2 = _interopRequireDefault(_Branding);
 
@@ -4759,13 +5444,169 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/Branding/index.tsx');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Branding/index.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 99 */
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _assign2 = __webpack_require__(3);
+
+var _assign3 = _interopRequireDefault(_assign2);
+
+var _omit2 = __webpack_require__(7);
+
+var _omit3 = _interopRequireDefault(_omit2);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactCssModules = __webpack_require__(5);
+
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+var _classnames2 = __webpack_require__(20);
+
+var _classnames3 = _interopRequireDefault(_classnames2);
+
+var _helpers = __webpack_require__(10);
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var styles = __webpack_require__(253);
+var Button = function (_Component) {
+    _inherits(Button, _Component);
+
+    function Button(props) {
+        _classCallCheck(this, Button);
+
+        var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+
+        _this.state = {
+            isMouseOver: false
+        };
+        return _this;
+    }
+
+    _createClass(Button, [{
+        key: "render",
+        value: function render() {
+            var _classnames,
+                _this2 = this;
+
+            var _props = this.props,
+                onClick = _props.onClick,
+                className = _props.className,
+                color = _props.color,
+                size = _props.size,
+                isFluid = _props.isFluid,
+                width = _props.width,
+                to = _props.to;
+
+            var style = {};
+            var styleName = (0, _classnames3.default)((_classnames = {
+                'btn': true,
+                'btn--hover': this.state.isMouseOver,
+                'btn--fluid': isFluid
+            }, _defineProperty(_classnames, "btn--" + color, Boolean(color)), _defineProperty(_classnames, "btn--" + size, Boolean(size)), _classnames));
+            if (this.props.to) {
+                onClick = function onClick(e) {
+                    e.preventDefault();
+                    _helpers2.default.redirect(to);
+                };
+            } else {
+                onClick = function onClick(e) {
+                    e.preventDefault();
+                    if (_this2.props.onClick) {
+                        _this2.props.onClick(e);
+                    }
+                };
+            }
+            if (typeof width !== 'undefined') {
+                style = {
+                    width: width
+                };
+            }
+            var props = (0, _omit3.default)(this.props, ['to', 'color', 'size', 'isFluid', 'width', 'styles']);
+            props = (0, _assign3.default)({}, props, {
+                className: className || '',
+                onClick: onClick,
+                style: style
+            });
+            return _react2.default.createElement("button", Object.assign({}, props, { styleName: styleName, onMouseOver: function onMouseOver() {
+                    _this2.setState({
+                        isMouseOver: true
+                    });
+                }, onMouseOut: function onMouseOut() {
+                    _this2.setState({
+                        isMouseOver: false
+                    });
+                } }), this.props.children);
+        }
+    }]);
+
+    return Button;
+}(_react.Component);
+Button = __decorate([(0, _reactCssModules2.default)(styles, {
+    allowMultiple: true
+})], Button);
+Button.defaultProps = {
+    color: 'blue'
+};
+var _default = Button;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Button/Button.tsx");
+
+    __REACT_HOT_LOADER__.register(Button, "Button", "/Users/liang/Projects/readr/src/components/Button/Button.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Button/Button.tsx");
+}();
+
+;
+
+/***/ }),
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4839,17 +5680,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/Colophon/Colophon.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Colophon/Colophon.tsx");
 
-    __REACT_HOT_LOADER__.register(Colophon, "Colophon", "/Users/liang/Projects/readr/src/isomorphic/components/Colophon/Colophon.tsx");
+    __REACT_HOT_LOADER__.register(Colophon, "Colophon", "/Users/liang/Projects/readr/src/components/Colophon/Colophon.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/Colophon/Colophon.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Colophon/Colophon.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 100 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4859,7 +5700,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Colophon = __webpack_require__(99);
+var _Colophon = __webpack_require__(106);
 
 var _Colophon2 = _interopRequireDefault(_Colophon);
 
@@ -4874,13 +5715,138 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/Colophon/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Colophon/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 101 */
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(19);
+
+var _layout = __webpack_require__(45);
+
+var _ConsoleBranding = __webpack_require__(110);
+
+var _ConsoleBranding2 = _interopRequireDefault(_ConsoleBranding);
+
+var _actions = __webpack_require__(15);
+
+var _ConsoleSidebar = __webpack_require__(112);
+
+var _ConsoleSidebar2 = _interopRequireDefault(_ConsoleSidebar);
+
+var _menus = __webpack_require__(131);
+
+var _menus2 = _interopRequireDefault(_menus);
+
+var _DocContainer = __webpack_require__(44);
+
+var _DocContainer2 = _interopRequireDefault(_DocContainer);
+
+var _helpers = __webpack_require__(10);
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Console = function (_Component) {
+    _inherits(Console, _Component);
+
+    function Console(props) {
+        _classCallCheck(this, Console);
+
+        var _this = _possibleConstructorReturn(this, (Console.__proto__ || Object.getPrototypeOf(Console)).call(this, props));
+
+        _this.handleLogout = _this.handleLogout.bind(_this);
+        return _this;
+    }
+
+    _createClass(Console, [{
+        key: 'redirectIfNotAdmin',
+        value: function redirectIfNotAdmin() {
+            var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+
+            if (props.session.user.role !== 'admin') {
+                _helpers2.default.redirect('/');
+            }
+        }
+    }, {
+        key: 'handleLogout',
+        value: function handleLogout() {
+            this.props.userLogout();
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var userRoleChanged = this.props.session.user.role !== nextProps.session.user.role;
+            if (userRoleChanged) {
+                this.redirectIfNotAdmin(nextProps);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var isAdmin = this.props.session.user.role === 'admin';
+            var username = this.props.session.user.username;
+            var pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console';
+            var contentStyle = {
+                marginLeft: 320,
+                paddingTop: 60
+            };
+            return isAdmin ? _react2.default.createElement(_DocContainer2.default, { bodyClass: "console" }, _react2.default.createElement(_ConsoleBranding2.default, { isAdmin: isAdmin, username: username, onLogout: this.handleLogout }), _react2.default.createElement(_layout.Container, { isFluid: true }, _react2.default.createElement(_ConsoleSidebar2.default, { menuMapping: _menus2.default, currentPath: pathname }), _react2.default.createElement("div", { style: contentStyle }, this.props.children))) : _react2.default.createElement("div", { style: { textAlign: 'center', margin: '20px 0' } }, "ACCESS DENIED!");
+        }
+    }]);
+
+    return Console;
+}(_react.Component);
+
+var _default = (0, _reactRedux.connect)(function (state) {
+    return {
+        notifications: state.components.notifications,
+        session: state.session,
+        routing: state.routing
+    };
+}, { sendNotification: _actions.sendNotification, userAuth: _actions.userAuth, userLogout: _actions.userLogout })(Console);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Console, 'Console', '/Users/liang/Projects/readr/src/components/Console.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Console.tsx');
+}();
+
+;
+
+/***/ }),
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4904,13 +5870,13 @@ var _Container = __webpack_require__(30);
 
 var _Container2 = _interopRequireDefault(_Container);
 
-var _Dropdown = __webpack_require__(53);
+var _Dropdown = __webpack_require__(52);
 
 var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _Logo = __webpack_require__(49);
+var _Logo = __webpack_require__(48);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -4983,17 +5949,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/ConsoleBranding/ConsoleBranding.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/ConsoleBranding/ConsoleBranding.tsx");
 
-    __REACT_HOT_LOADER__.register(ConsoleBranding, "ConsoleBranding", "/Users/liang/Projects/readr/src/isomorphic/components/ConsoleBranding/ConsoleBranding.tsx");
+    __REACT_HOT_LOADER__.register(ConsoleBranding, "ConsoleBranding", "/Users/liang/Projects/readr/src/components/ConsoleBranding/ConsoleBranding.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/ConsoleBranding/ConsoleBranding.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/ConsoleBranding/ConsoleBranding.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 102 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5003,7 +5969,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ConsoleBranding = __webpack_require__(101);
+var _ConsoleBranding = __webpack_require__(109);
 
 var _ConsoleBranding2 = _interopRequireDefault(_ConsoleBranding);
 
@@ -5018,13 +5984,13 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/ConsoleBranding/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ConsoleBranding/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 103 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5130,17 +6096,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/components/ConsoleSidebar/ConsoleSidebar.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/ConsoleSidebar/ConsoleSidebar.tsx");
 
-    __REACT_HOT_LOADER__.register(ConsoleSidebar, "ConsoleSidebar", "/Users/liang/Projects/readr/src/isomorphic/components/ConsoleSidebar/ConsoleSidebar.tsx");
+    __REACT_HOT_LOADER__.register(ConsoleSidebar, "ConsoleSidebar", "/Users/liang/Projects/readr/src/components/ConsoleSidebar/ConsoleSidebar.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/components/ConsoleSidebar/ConsoleSidebar.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/ConsoleSidebar/ConsoleSidebar.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 104 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5150,7 +6116,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ConsoleSidebar = __webpack_require__(103);
+var _ConsoleSidebar = __webpack_require__(111);
 
 var _ConsoleSidebar2 = _interopRequireDefault(_ConsoleSidebar);
 
@@ -5165,13 +6131,578 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/ConsoleSidebar/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/ConsoleSidebar/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 105 */
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Container = function (_Component) {
+    _inherits(Container, _Component);
+
+    function Container() {
+        _classCallCheck(this, Container);
+
+        return _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).apply(this, arguments));
+    }
+
+    _createClass(Container, [{
+        key: 'render',
+        value: function render() {
+            var className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ' ' + this.props.className : '');
+            return _react2.default.createElement("div", { className: className }, this.props.children);
+        }
+    }]);
+
+    return Container;
+}(_react.Component);
+
+var _default = Container;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Container, 'Container', '/Users/liang/Projects/readr/src/components/Container/Container.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Container/Container.tsx');
+}();
+
+;
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactCssModules = __webpack_require__(5);
+
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+var _isDescendant = __webpack_require__(31);
+
+var _isDescendant2 = _interopRequireDefault(_isDescendant);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var styles = __webpack_require__(37);
+var Dropdown = function (_Component) {
+    _inherits(Dropdown, _Component);
+
+    function Dropdown(props) {
+        _classCallCheck(this, Dropdown);
+
+        var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
+
+        _this.state = {
+            showMenu: false
+        };
+        _this.handleGlobalClick = _this.handleGlobalClick.bind(_this);
+        return _this;
+    }
+
+    _createClass(Dropdown, [{
+        key: "handleGlobalClick",
+        value: function handleGlobalClick(e) {
+            // 检查点击的 dom 是否是 dropdown 的子元素
+            // 如果是那么就不做处理，而 toggleDropdown 会响应
+            // 解决了页面上同时用两个 dropdown 时，其中一个展开，点击另一个前者不合上的问题
+            if (!(0, _isDescendant2.default)(this.dropdown, e.target)) {
+                this.setState({
+                    showMenu: false
+                });
+            } else {
+                // 如果使用了原生事件，尽量不要混合使用 synthetic 事件，react 的生产版本似乎会出现相关的 bug
+                this.setState({
+                    showMenu: !this.state.showMenu
+                });
+            }
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            window.addEventListener('click', this.handleGlobalClick);
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            window.removeEventListener('click', this.handleGlobalClick);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                className = _props.className,
+                style = _props.style;
+
+            return _react2.default.createElement("div", { ref: function ref(_ref) {
+                    _this2.dropdown = _ref;
+                }, styleName: "dropdown", className: className || '' }, _react2.default.createElement("div", { styleName: "dropdown-toggle" }, _react2.default.createElement("span", null, this.props.title), _react2.default.createElement("span", { styleName: "dropdown-caret" })), this.state.showMenu && _react2.default.createElement("div", { styleName: style === 'dark' ? 'dropdown-menu--dark' : 'dropdown-menu' }, _react2.default.createElement("ul", null, this.props.children)));
+        }
+    }]);
+
+    return Dropdown;
+}(_react.Component);
+Dropdown = __decorate([(0, _reactCssModules2.default)(styles, {
+    allowMultiple: true
+})], Dropdown);
+var _default = Dropdown;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Dropdown/Dropdown.tsx");
+
+    __REACT_HOT_LOADER__.register(Dropdown, "Dropdown", "/Users/liang/Projects/readr/src/components/Dropdown/Dropdown.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Dropdown/Dropdown.tsx");
+}();
+
+;
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = __webpack_require__(37);
+function DropdownItem(props) {
+    return _react2.default.createElement("li", null, typeof props.children === 'string' ? _react2.default.createElement("div", { className: styles['dropdown-item'] }, props.children) : _react2.default.cloneElement(props.children, {
+        className: styles['dropdown-item']
+    }));
+}
+var _default = DropdownItem;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(DropdownItem, 'DropdownItem', '/Users/liang/Projects/readr/src/components/Dropdown/DropdownItem.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Dropdown/DropdownItem.tsx');
+}();
+
+;
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = __webpack_require__(37);
+function DropdownItemSep(props) {
+    return _react2.default.createElement("li", { className: styles['sep'] });
+}
+var _default = DropdownItemSep;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(DropdownItemSep, 'DropdownItemSep', '/Users/liang/Projects/readr/src/components/Dropdown/DropdownItemSep.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Dropdown/DropdownItemSep.tsx');
+}();
+
+;
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactAddonsCssTransitionGroup = __webpack_require__(94);
+
+var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = __webpack_require__(257);
+
+var _default = function _default(props) {
+    return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: styles, transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, props.children);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Fade/Fade.tsx');
+}();
+
+;
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(20);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _svgIcons = __webpack_require__(119);
+
+var _svgIcons2 = _interopRequireDefault(_svgIcons);
+
+var _reactCssModules = __webpack_require__(5);
+
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var styles = __webpack_require__(258);
+var Icon = function (_Component) {
+    _inherits(Icon, _Component);
+
+    function Icon(props) {
+        _classCallCheck(this, Icon);
+
+        return _possibleConstructorReturn(this, (Icon.__proto__ || Object.getPrototypeOf(Icon)).call(this, props));
+    }
+
+    _createClass(Icon, [{
+        key: "render",
+        value: function render() {
+            var _props = this.props,
+                name = _props.name,
+                onClick = _props.onClick,
+                size = _props.size;
+
+            var className = (0, _classnames2.default)('icon', "icon-" + name, this.props.className);
+            if (typeof _svgIcons2.default[name] === 'undefined') {
+                console.error('Icon name (%s) not found! ', name);
+            }
+            size = size || 30;
+            var svgWrapStyle = {
+                position: 'absolute',
+                top: '50%',
+                marginTop: -size / 2
+            };
+            return _react2.default.createElement("span", { styleName: "icon", style: { minWidth: size, minHeight: size }, className: className, onClick: onClick }, _react2.default.createElement("div", { style: svgWrapStyle }, _react2.default.createElement("svg", Object.assign({}, _svgIcons2.default[name].viewBox && { viewBox: _svgIcons2.default[name].viewBox }, { width: size, height: size, styleName: "svg-shape" }), _react2.default.createElement("path", { d: _svgIcons2.default[name].path }))));
+        }
+    }]);
+
+    return Icon;
+}(_react.Component);
+Icon = __decorate([(0, _reactCssModules2.default)(styles, {
+    allowMultiple: true
+})], Icon);
+var _default = Icon;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Icon/Icon.tsx");
+
+    __REACT_HOT_LOADER__.register(Icon, "Icon", "/Users/liang/Projects/readr/src/components/Icon/Icon.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Icon/Icon.tsx");
+}();
+
+;
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var _default = {
+    close: {
+        path: 'M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z',
+        viewBox: '0 0 12 16'
+    },
+    star: {
+        path: 'M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z'
+    },
+    users: {
+        path: 'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'
+    },
+    folder: {
+        path: 'M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z'
+    },
+    database: {
+        path: 'M20.2 5.9l.8-.8C19.6 3.7 17.8 3 16 3s-3.6.7-5 2.1l.8.8C13 4.8 14.5 4.2 16 4.2s3 .6 4.2 1.7zm-.9.8c-.9-.9-2.1-1.4-3.3-1.4s-2.4.5-3.3 1.4l.8.8c.7-.7 1.6-1 2.5-1 .9 0 1.8.3 2.5 1l.8-.8zM19 13h-2V9h-2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 18H6v-2h2v2zm3.5 0h-2v-2h2v2zm3.5 0h-2v-2h2v2z'
+    },
+    statistics: {
+        path: 'M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z'
+    },
+    books: {
+        path: 'M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z'
+    },
+    back: {
+        // path: 'M732 832l-55 55l-505 -505l505 -505l55 54l-451 451z'
+        // path: 'M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z',
+        path: 'm 26,25 c -0.467574,0 -0.909434,0.16865 -1.25,0.4375 C 24.555279,25.591215 6.6130516,42.546285 6.46875,42.71875 6.1782332,43.06596 6,43.51187 6,44 6,44.51946 6.2065566,44.98818 6.53125,45.34375 6.6683992,45.493941 24.625,62.4375 24.625,62.4375 c 0.759842,0.725152 2.121842,0.700421 2.84375,-0.0625 0.721908,-0.76293 0.672244,-2.125099 -0.09375,-2.84375 L 13.03125,46 64,46 c 13.888871,0 25.660392,11.63955 26,26.03125 0.0035,0.140557 0,0.77485 0,0.96875 0,1.108 0.892,2 2,2 1.108,0 2,-0.892 2,-2 l 0,-1.0625 C 93.610208,55.4194 80.118529,42 64,42 L 13.03125,42 C 13.03125,42 27.362732,28.495959 27.5,28.34375 27.81971,27.98925 28,27.51497 28,27 28,25.89543 27.104569,25 26,25 z',
+        viewBox: '0 0 100 125'
+    },
+    preference: {
+        path: 'M 17.78125 8.96875 A 2.0002 2.0002 0 0 0 16 11 L 16 56.25 C 12.008188 57.168302 9 60.741406 9 65 C 9 69.259224 12.007427 72.863534 16 73.78125 L 16 89 A 2.0002 2.0002 0 1 0 20 89 L 20 73.78125 C 23.992573 72.863534 27 69.259224 27 65 C 27 60.741406 23.991812 57.168302 20 56.25 L 20 11 A 2.0002 2.0002 0 0 0 17.78125 8.96875 z M 49.78125 8.96875 A 2.0002 2.0002 0 0 0 48 11 L 48 26.25 C 44.008188 27.168305 41 30.741423 41 35 C 41 39.25912 44.007427 42.863511 48 43.78125 L 48 89 A 2.0002 2.0002 0 1 0 52 89 L 52 43.78125 C 55.992573 42.863511 59 39.25912 59 35 C 59 30.741423 55.991812 27.168305 52 26.25 L 52 11 A 2.0002 2.0002 0 0 0 49.78125 8.96875 z M 81.78125 8.96875 A 2.0002 2.0002 0 0 0 80 11 L 80 56.25 C 76.008188 57.168302 73 60.741406 73 65 C 73 69.259224 76.007427 72.863534 80 73.78125 L 80 89 A 2.0002 2.0002 0 1 0 84 89 L 84 73.78125 C 87.992573 72.863534 91 69.259224 91 65 C 91 60.741406 87.991812 57.168302 84 56.25 L 84 11 A 2.0002 2.0002 0 0 0 81.78125 8.96875 z M 50 30 C 52.785116 30 55 32.21488 55 35 C 55 37.78512 52.785116 40 50 40 C 47.214884 40 45 37.78512 45 35 C 45 32.21488 47.214884 30 50 30 z M 18 60 C 20.785116 60 23 62.2149 23 65 C 23 67.7852 20.785116 70 18 70 C 15.214884 70 13 67.7852 13 65 C 13 62.2149 15.214884 60 18 60 z M 82 60 C 84.785116 60 87 62.2149 87 65 C 87 67.7852 84.785116 70 82 70 C 79.214884 70 77 67.7852 77 65 C 77 62.2149 79.214884 60 82 60 z ',
+        viewBox: '0 0 100 125'
+    },
+    font: {
+        // path: 'M14 8.77v-1.6l-1.94-.64-.45-1.09.88-1.84-1.13-1.13-1.81.91-1.09-.45-.69-1.92h-1.6l-.63 1.94-1.11.45-1.84-.88-1.13 1.13.91 1.81-.45 1.09L0 7.23v1.59l1.94.64.45 1.09-.88 1.84 1.13 1.13 1.81-.91 1.09.45.69 1.92h1.59l.63-1.94 1.11-.45 1.84.88 1.13-1.13-.92-1.81.47-1.09L14 8.75v.02zM7 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z'
+        path: 'M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z'
+    },
+    arrowRight: {
+        path: 'M-290.9,430.1l-0.7-0.7l8.2-8.6l-8.2-8.2l0.7-0.7l8.9,8.9L-290.9,430.1z',
+        viewBox: '-292 411.9 11 18'
+    }
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Icon/svg-icons.ts');
+}();
+
+;
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactCssModules = __webpack_require__(5);
+
+var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
+
+var _classnames = __webpack_require__(20);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var styles = __webpack_require__(259);
+var Input = function (_Component) {
+    _inherits(Input, _Component);
+
+    function Input(props) {
+        _classCallCheck(this, Input);
+
+        return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
+    }
+
+    _createClass(Input, [{
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            var props = Object.assign({}, this.props);
+            delete props.className;
+            var _props = this.props,
+                error = _props.error,
+                touched = _props.touched;
+
+            var showError = error && touched;
+            return _react2.default.createElement("div", { styleName: (0, _classnames2.default)({ 'input-wrap': !showError, 'input-wrap--error': showError }), className: this.props.className || '' }, _react2.default.createElement("input", { styleName: "input", placeholder: this.props.placeholder, value: this.props.value, onChange: function onChange(e) {
+                    _this2.props.onChange(e);
+                }, type: this.props.type ? this.props.type : 'text', name: this.props.name ? this.props.name : null }), showError && _react2.default.createElement("div", { styleName: "error-msg" }, error));
+        }
+    }]);
+
+    return Input;
+}(_react.Component);
+Input = __decorate([(0, _reactCssModules2.default)(styles, {
+    allowMultiple: true
+})], Input);
+var _default = Input;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Input/Input.tsx");
+
+    __REACT_HOT_LOADER__.register(Input, "Input", "/Users/liang/Projects/readr/src/components/Input/Input.tsx");
+
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Input/Input.tsx");
+}();
+
+;
+
+/***/ }),
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5187,7 +6718,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _Logo = __webpack_require__(257);
+var _Logo = __webpack_require__(260);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -5212,54 +6743,15 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Logo, 'Logo', '/Users/liang/Projects/readr/src/isomorphic/components/Logo/Logo.tsx');
+    __REACT_HOT_LOADER__.register(Logo, 'Logo', '/Users/liang/Projects/readr/src/components/Logo/Logo.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/components/Logo/Logo.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Logo/Logo.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.VIEWER_DEFS = exports.COMMON = exports.ACTION_TYPES = undefined;
-
-var _actionTypes = __webpack_require__(6);
-
-var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
-
-var _common = __webpack_require__(8);
-
-var COMMON = _interopRequireWildcard(_common);
-
-var _viewerDefs = __webpack_require__(86);
-
-var VIEWER_DEFS = _interopRequireWildcard(_viewerDefs);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.ACTION_TYPES = ACTION_TYPES;
-exports.COMMON = COMMON;
-exports.VIEWER_DEFS = VIEWER_DEFS;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-}();
-
-;
-
-/***/ }),
-/* 107 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5269,363 +6761,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(19);
-
-var _Branding = __webpack_require__(98);
-
-var _Branding2 = _interopRequireDefault(_Branding);
-
-var _Colophon = __webpack_require__(100);
-
-var _Colophon2 = _interopRequireDefault(_Colophon);
-
-var _actions = __webpack_require__(15);
-
-var _selectors = __webpack_require__(27);
-
-var selectors = _interopRequireWildcard(_selectors);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_Component) {
-    _inherits(App, _Component);
-
-    function App(props) {
-        _classCallCheck(this, App);
-
-        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-        _this.handleLogout = _this.handleLogout.bind(_this);
-        return _this;
-    }
-
-    _createClass(App, [{
-        key: 'handleLogout',
-        value: function handleLogout() {
-            this.props.userLogout();
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            if (this.props.session.user.role !== 'visitor') {
-                this.props.fetchShelf();
-            }
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            var userLoggedIn = this.props.session.user.role === 'visitor' && nextProps.session.user.role !== 'visitor';
-            if (userLoggedIn) {
-                this.props.fetchShelf();
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var isAdmin = false;
-            var username = null;
-            if (this.props.session.user.role !== 'visitor') {
-                isAdmin = this.props.session.user.role === 'admin';
-                username = this.props.session.user.username;
-            }
-            var bookShelf = this.props.bookShelf;
-
-            var bookShelfList = bookShelf.map(function (book) {
-                return {
-                    title: book.title,
-                    id: book.id
-                };
-            });
-            return _react2.default.createElement("div", null, _react2.default.createElement(_Branding2.default, { recentReading: bookShelfList, isAdmin: isAdmin, username: username, onLogout: this.handleLogout }), this.props.children, _react2.default.createElement(_Colophon2.default, null));
-        }
-    }]);
-
-    return App;
-}(_react.Component);
-
-var _default = (0, _reactRedux.connect)(function (state) {
-    return {
-        notification: state.components.notification,
-        session: state.session,
-        bookShelf: selectors.shelfBooks()(state)
-    };
-}, { fetchShelf: _actions.fetchShelf, userLogout: _actions.userLogout })(App);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(App, 'App', '/Users/liang/Projects/readr/src/isomorphic/containers/App.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/containers/App.tsx');
-}();
-
-;
-
-/***/ }),
-/* 108 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _pick2 = __webpack_require__(24);
-
-var _pick3 = _interopRequireDefault(_pick2);
-
-var _last2 = __webpack_require__(42);
-
-var _last3 = _interopRequireDefault(_last2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactSideEffect = __webpack_require__(286);
-
-var _reactSideEffect2 = _interopRequireDefault(_reactSideEffect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var BodyClass = function (_Component) {
-    _inherits(BodyClass, _Component);
-
-    function BodyClass() {
-        _classCallCheck(this, BodyClass);
-
-        return _possibleConstructorReturn(this, (BodyClass.__proto__ || Object.getPrototypeOf(BodyClass)).apply(this, arguments));
-    }
-
-    _createClass(BodyClass, [{
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement("div", { className: "body-class" }, this.props.children);
-        }
-    }]);
-
-    return BodyClass;
-}(_react.Component);
-BodyClass = __decorate([(0, _reactSideEffect2.default)(reducePropsToState, handleStateChangeOnClient)], BodyClass);
-function reducePropsToState(propsList) {
-    var innermostProps = (0, _last3.default)(propsList);
-    if (innermostProps) {
-        var props = (0, _pick3.default)(innermostProps, ['className']);
-        var className = props.className = propsList.filter(function (prop) {
-            return prop.className;
-        }).map(function (prop) {
-            return prop.className;
-        }).join(' ');
-        return className;
-    }
-    return null;
-}
-function handleStateChangeOnClient(className) {
-    if (typeof className !== 'undefined') {
-        document.body.className = className;
-    } else {
-        document.body.removeAttribute('class');
-    }
-}
-var _default = BodyClass;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/containers/BodyClass.tsx");
-
-    __REACT_HOT_LOADER__.register(BodyClass, "BodyClass", "/Users/liang/Projects/readr/src/isomorphic/containers/BodyClass.tsx");
-
-    __REACT_HOT_LOADER__.register(reducePropsToState, "reducePropsToState", "/Users/liang/Projects/readr/src/isomorphic/containers/BodyClass.tsx");
-
-    __REACT_HOT_LOADER__.register(handleStateChangeOnClient, "handleStateChangeOnClient", "/Users/liang/Projects/readr/src/isomorphic/containers/BodyClass.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/containers/BodyClass.tsx");
-}();
-
-;
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(19);
-
-var _layout = __webpack_require__(46);
-
-var _ConsoleBranding = __webpack_require__(102);
-
-var _ConsoleBranding2 = _interopRequireDefault(_ConsoleBranding);
-
-var _actions = __webpack_require__(15);
-
-var _ConsoleSidebar = __webpack_require__(104);
-
-var _ConsoleSidebar2 = _interopRequireDefault(_ConsoleSidebar);
-
-var _menus = __webpack_require__(112);
-
-var _menus2 = _interopRequireDefault(_menus);
-
-var _DocContainer = __webpack_require__(45);
-
-var _DocContainer2 = _interopRequireDefault(_DocContainer);
-
-var _helpers = __webpack_require__(10);
-
-var _helpers2 = _interopRequireDefault(_helpers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Console = function (_Component) {
-    _inherits(Console, _Component);
-
-    function Console(props) {
-        _classCallCheck(this, Console);
-
-        var _this = _possibleConstructorReturn(this, (Console.__proto__ || Object.getPrototypeOf(Console)).call(this, props));
-
-        _this.handleLogout = _this.handleLogout.bind(_this);
-        return _this;
-    }
-
-    _createClass(Console, [{
-        key: 'redirectIfNotAdmin',
-        value: function redirectIfNotAdmin() {
-            var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
-
-            if (props.session.user.role !== 'admin') {
-                _helpers2.default.redirect('/');
-            }
-        }
-    }, {
-        key: 'handleLogout',
-        value: function handleLogout() {
-            this.props.userLogout();
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            var userRoleChanged = this.props.session.user.role !== nextProps.session.user.role;
-            if (userRoleChanged) {
-                this.redirectIfNotAdmin(nextProps);
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var isAdmin = this.props.session.user.role === 'admin';
-            var username = this.props.session.user.username;
-            var pathname = this.props.routing.locationBeforeTransitions ? this.props.routing.locationBeforeTransitions.pathname : 'console';
-            var contentStyle = {
-                marginLeft: 320,
-                paddingTop: 60
-            };
-            return isAdmin ? _react2.default.createElement(_DocContainer2.default, { bodyClass: "console" }, _react2.default.createElement(_ConsoleBranding2.default, { isAdmin: isAdmin, username: username, onLogout: this.handleLogout }), _react2.default.createElement(_layout.Container, { isFluid: true }, _react2.default.createElement(_ConsoleSidebar2.default, { menuMapping: _menus2.default, currentPath: pathname }), _react2.default.createElement("div", { style: contentStyle }, this.props.children))) : _react2.default.createElement("div", { style: { textAlign: 'center', margin: '20px 0' } }, "ACCESS DENIED!");
-        }
-    }]);
-
-    return Console;
-}(_react.Component);
-
-var _default = (0, _reactRedux.connect)(function (state) {
-    return {
-        notifications: state.components.notifications,
-        session: state.session,
-        routing: state.routing
-    };
-}, { sendNotification: _actions.sendNotification, userAuth: _actions.userAuth, userLogout: _actions.userLogout })(Console);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Console, 'Console', '/Users/liang/Projects/readr/src/isomorphic/containers/Console.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/containers/Console.tsx');
-}();
-
-;
-
-/***/ }),
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _last2 = __webpack_require__(42);
+var _last2 = __webpack_require__(41);
 
 var _last3 = _interopRequireDefault(_last2);
 
@@ -5639,9 +6775,9 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _Alert = __webpack_require__(115);
+var _Alert = __webpack_require__(100);
 
-var _Modal = __webpack_require__(55);
+var _Modal = __webpack_require__(54);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5732,864 +6868,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Master, 'Master', '/Users/liang/Projects/readr/src/isomorphic/containers/Master.tsx');
+    __REACT_HOT_LOADER__.register(Master, 'Master', '/Users/liang/Projects/readr/src/components/Master.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/containers/Master.tsx');
-}();
-
-;
-
-/***/ }),
-/* 111 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _AppDoc = __webpack_require__(50);
-
-var _AppDoc2 = _interopRequireDefault(_AppDoc);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Page500 = function (_Component) {
-    _inherits(Page500, _Component);
-
-    function Page500(props) {
-        _classCallCheck(this, Page500);
-
-        return _possibleConstructorReturn(this, (Page500.__proto__ || Object.getPrototypeOf(Page500)).call(this, props));
-    }
-
-    _createClass(Page500, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
-        key: 'render',
-        value: function render() {
-            var message = this.props.message;
-            // todo: use AppError
-
-            return _react2.default.createElement(_AppDoc2.default, { title: "500 Server Error", appMarkup: _react2.default.createElement("div", { className: "page500" }, _react2.default.createElement("h1", null, "500"), _react2.default.createElement("p", null, message)) });
-        }
-    }]);
-
-    return Page500;
-}(_react.Component);
-
-exports.default = Page500;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Page500, 'Page500', '/Users/liang/Projects/readr/src/isomorphic/containers/Page500.tsx');
-}();
-
-;
-
-/***/ }),
-/* 112 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var menus = [{
-    component: 'books',
-    displayName: '',
-    path: '/console/books',
-    subMenu: [{
-        component: 'managebooks',
-        displayName: '书籍管理',
-        path: '/console/books'
-    },
-    // {
-    //   component: 'addbook',
-    //   displayName: '添加书籍',
-    //   path: '/console/books/new'
-    // },
-    {
-        component: 'addcollection',
-        displayName: '添加合集',
-        path: '/console/collections/new'
-    }]
-}, {
-    component: 'users',
-    displayName: '',
-    path: '/console/users',
-    subMenu: [{
-        component: 'manageusers',
-        displayName: '用户管理',
-        path: '/console/users'
-    }]
-}];
-var _default = menus;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(menus, 'menus', '/Users/liang/Projects/readr/src/isomorphic/content/menus.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/content/menus.ts');
-}();
-
-;
-
-/***/ }),
-/* 113 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _isEmpty2 = __webpack_require__(22);
-
-var _isEmpty3 = _interopRequireDefault(_isEmpty2);
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.createCacheId = createCacheId;
-exports.getCache = getCache;
-exports.setCache = setCache;
-
-var _md = __webpack_require__(234);
-
-var _md2 = _interopRequireDefault(_md);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function createCacheId(identifier) {
-    if ((0, _isEmpty3.default)(identifier)) {
-        throw new Error('缓存标识符不能为空！');
-    }
-    return (0, _md2.default)(identifier.toString());
-}
-function getCache(key) {
-    if (typeof key !== 'string') {
-        throw new Error('Name should be string!');
-    }
-    var content = localStorage.getItem(key);
-    if (!content) {
-        return undefined;
-    }
-    try {
-        content = JSON.parse(content);
-    } catch (error) {
-        throw error;
-    }
-    return content;
-}
-function setCache(key, content) {
-    if (typeof key !== 'string') {
-        throw new Error('Name should be string!');
-    }
-    if ((typeof content === 'undefined' ? 'undefined' : _typeof(content)) !== 'object') {
-        throw new Error('Cache content type should be object!');
-    }
-    var save = function save() {
-        localStorage.setItem(key, JSON.stringify(content));
-    };
-    try {
-        save();
-    } catch (error) {
-        if (error.name === 'QuotaExceededError') {
-            // TODO: 能否只清除最旧的
-            console.warn('本地缓存已满，旧的缓存将被清除！');
-            localStorage.clear();
-            save();
-        } else {
-            console.error(error);
-        }
-    }
-    return true;
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(createCacheId, 'createCacheId', '/Users/liang/Projects/readr/src/isomorphic/data/cache.ts');
-
-    __REACT_HOT_LOADER__.register(getCache, 'getCache', '/Users/liang/Projects/readr/src/isomorphic/data/cache.ts');
-
-    __REACT_HOT_LOADER__.register(setCache, 'setCache', '/Users/liang/Projects/readr/src/isomorphic/data/cache.ts');
-}();
-
-;
-
-/***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Alert = __webpack_require__(52);
-
-var _Alert2 = _interopRequireDefault(_Alert);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = __webpack_require__(73);
-function Alerts(props) {
-    return _react2.default.createElement("div", { className: styles.alerts }, props.messages.map(function (msg, index) {
-        return _react2.default.createElement(_Alert2.default, { key: index, type: msg.type, message: msg.content, visible: msg.visible, onRequestClose: function onRequestClose() {
-                props.onRequestClose(msg.id);
-            } });
-    }));
-}
-var _default = Alerts;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Alerts, 'Alerts', '/Users/liang/Projects/readr/src/isomorphic/elements/Alert/Alerts.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Alert/Alerts.tsx');
-}();
-
-;
-
-/***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Alert = exports.Alerts = undefined;
-
-var _Alert = __webpack_require__(52);
-
-var _Alert2 = _interopRequireDefault(_Alert);
-
-var _Alerts = __webpack_require__(114);
-
-var _Alerts2 = _interopRequireDefault(_Alerts);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Alerts = _Alerts2.default;
-exports.Alert = _Alert2.default;
-var _default = _Alert2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Alert/index.tsx');
-}();
-
-;
-
-/***/ }),
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _assign2 = __webpack_require__(3);
-
-var _assign3 = _interopRequireDefault(_assign2);
-
-var _omit2 = __webpack_require__(7);
-
-var _omit3 = _interopRequireDefault(_omit2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactCssModules = __webpack_require__(5);
-
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-var _classnames2 = __webpack_require__(20);
-
-var _classnames3 = _interopRequireDefault(_classnames2);
-
-var _helpers = __webpack_require__(10);
-
-var _helpers2 = _interopRequireDefault(_helpers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var styles = __webpack_require__(258);
-var Button = function (_Component) {
-    _inherits(Button, _Component);
-
-    function Button(props) {
-        _classCallCheck(this, Button);
-
-        var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
-
-        _this.state = {
-            isMouseOver: false
-        };
-        return _this;
-    }
-
-    _createClass(Button, [{
-        key: "render",
-        value: function render() {
-            var _classnames,
-                _this2 = this;
-
-            var _props = this.props,
-                onClick = _props.onClick,
-                className = _props.className,
-                color = _props.color,
-                size = _props.size,
-                isFluid = _props.isFluid,
-                width = _props.width,
-                to = _props.to;
-
-            var style = {};
-            var styleName = (0, _classnames3.default)((_classnames = {
-                'btn': true,
-                'btn--hover': this.state.isMouseOver,
-                'btn--fluid': isFluid
-            }, _defineProperty(_classnames, "btn--" + color, Boolean(color)), _defineProperty(_classnames, "btn--" + size, Boolean(size)), _classnames));
-            if (this.props.to) {
-                onClick = function onClick(e) {
-                    e.preventDefault();
-                    _helpers2.default.redirect(to);
-                };
-            } else {
-                onClick = function onClick(e) {
-                    e.preventDefault();
-                    if (_this2.props.onClick) {
-                        _this2.props.onClick(e);
-                    }
-                };
-            }
-            if (typeof width !== 'undefined') {
-                style = {
-                    width: width
-                };
-            }
-            var props = (0, _omit3.default)(this.props, ['to', 'color', 'size', 'isFluid', 'width', 'styles']);
-            props = (0, _assign3.default)({}, props, {
-                className: className || '',
-                onClick: onClick,
-                style: style
-            });
-            return _react2.default.createElement("button", Object.assign({}, props, { styleName: styleName, onMouseOver: function onMouseOver() {
-                    _this2.setState({
-                        isMouseOver: true
-                    });
-                }, onMouseOut: function onMouseOut() {
-                    _this2.setState({
-                        isMouseOver: false
-                    });
-                } }), this.props.children);
-        }
-    }]);
-
-    return Button;
-}(_react.Component);
-Button = __decorate([(0, _reactCssModules2.default)(styles, {
-    allowMultiple: true
-})], Button);
-Button.defaultProps = {
-    color: 'blue'
-};
-var _default = Button;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Button/Button.tsx");
-
-    __REACT_HOT_LOADER__.register(Button, "Button", "/Users/liang/Projects/readr/src/isomorphic/elements/Button/Button.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Button/Button.tsx");
-}();
-
-;
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Container = function (_Component) {
-    _inherits(Container, _Component);
-
-    function Container() {
-        _classCallCheck(this, Container);
-
-        return _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).apply(this, arguments));
-    }
-
-    _createClass(Container, [{
-        key: 'render',
-        value: function render() {
-            var className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ' ' + this.props.className : '');
-            return _react2.default.createElement("div", { className: className }, this.props.children);
-        }
-    }]);
-
-    return Container;
-}(_react.Component);
-
-var _default = Container;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Container, 'Container', '/Users/liang/Projects/readr/src/isomorphic/elements/Container/Container.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Container/Container.tsx');
-}();
-
-;
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactCssModules = __webpack_require__(5);
-
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-var _isDescendant = __webpack_require__(31);
-
-var _isDescendant2 = _interopRequireDefault(_isDescendant);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var styles = __webpack_require__(38);
-var Dropdown = function (_Component) {
-    _inherits(Dropdown, _Component);
-
-    function Dropdown(props) {
-        _classCallCheck(this, Dropdown);
-
-        var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
-
-        _this.state = {
-            showMenu: false
-        };
-        _this.handleGlobalClick = _this.handleGlobalClick.bind(_this);
-        return _this;
-    }
-
-    _createClass(Dropdown, [{
-        key: "handleGlobalClick",
-        value: function handleGlobalClick(e) {
-            // 检查点击的 dom 是否是 dropdown 的子元素
-            // 如果是那么就不做处理，而 toggleDropdown 会响应
-            // 解决了页面上同时用两个 dropdown 时，其中一个展开，点击另一个前者不合上的问题
-            if (!(0, _isDescendant2.default)(this.dropdown, e.target)) {
-                this.setState({
-                    showMenu: false
-                });
-            } else {
-                // 如果使用了原生事件，尽量不要混合使用 synthetic 事件，react 的生产版本似乎会出现相关的 bug
-                this.setState({
-                    showMenu: !this.state.showMenu
-                });
-            }
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            window.addEventListener('click', this.handleGlobalClick);
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            window.removeEventListener('click', this.handleGlobalClick);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            var _props = this.props,
-                className = _props.className,
-                style = _props.style;
-
-            return _react2.default.createElement("div", { ref: function ref(_ref) {
-                    _this2.dropdown = _ref;
-                }, styleName: "dropdown", className: className || '' }, _react2.default.createElement("div", { styleName: "dropdown-toggle" }, _react2.default.createElement("span", null, this.props.title), _react2.default.createElement("span", { styleName: "dropdown-caret" })), this.state.showMenu && _react2.default.createElement("div", { styleName: style === 'dark' ? 'dropdown-menu--dark' : 'dropdown-menu' }, _react2.default.createElement("ul", null, this.props.children)));
-        }
-    }]);
-
-    return Dropdown;
-}(_react.Component);
-Dropdown = __decorate([(0, _reactCssModules2.default)(styles, {
-    allowMultiple: true
-})], Dropdown);
-var _default = Dropdown;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/Dropdown.tsx");
-
-    __REACT_HOT_LOADER__.register(Dropdown, "Dropdown", "/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/Dropdown.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/Dropdown.tsx");
-}();
-
-;
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = __webpack_require__(38);
-function DropdownItem(props) {
-    return _react2.default.createElement("li", null, typeof props.children === 'string' ? _react2.default.createElement("div", { className: styles['dropdown-item'] }, props.children) : _react2.default.cloneElement(props.children, {
-        className: styles['dropdown-item']
-    }));
-}
-var _default = DropdownItem;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(DropdownItem, 'DropdownItem', '/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/DropdownItem.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/DropdownItem.tsx');
-}();
-
-;
-
-/***/ }),
-/* 120 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = __webpack_require__(38);
-function DropdownItemSep(props) {
-    return _react2.default.createElement("li", { className: styles['sep'] });
-}
-var _default = DropdownItemSep;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(DropdownItemSep, 'DropdownItemSep', '/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/DropdownItemSep.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Dropdown/DropdownItemSep.tsx');
-}();
-
-;
-
-/***/ }),
-/* 121 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactAddonsCssTransitionGroup = __webpack_require__(92);
-
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = __webpack_require__(259);
-
-var _default = function _default(props) {
-    return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: styles, transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, props.children);
-};
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Fade/Fade.tsx');
-}();
-
-;
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = __webpack_require__(20);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _svgIcons = __webpack_require__(123);
-
-var _svgIcons2 = _interopRequireDefault(_svgIcons);
-
-var _reactCssModules = __webpack_require__(5);
-
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var styles = __webpack_require__(260);
-var Icon = function (_Component) {
-    _inherits(Icon, _Component);
-
-    function Icon(props) {
-        _classCallCheck(this, Icon);
-
-        return _possibleConstructorReturn(this, (Icon.__proto__ || Object.getPrototypeOf(Icon)).call(this, props));
-    }
-
-    _createClass(Icon, [{
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                name = _props.name,
-                onClick = _props.onClick,
-                size = _props.size;
-
-            var className = (0, _classnames2.default)('icon', "icon-" + name, this.props.className);
-            if (typeof _svgIcons2.default[name] === 'undefined') {
-                console.error('Icon name (%s) not found! ', name);
-            }
-            size = size || 30;
-            var svgWrapStyle = {
-                position: 'absolute',
-                top: '50%',
-                marginTop: -size / 2
-            };
-            return _react2.default.createElement("span", { styleName: "icon", style: { minWidth: size, minHeight: size }, className: className, onClick: onClick }, _react2.default.createElement("div", { style: svgWrapStyle }, _react2.default.createElement("svg", Object.assign({}, _svgIcons2.default[name].viewBox && { viewBox: _svgIcons2.default[name].viewBox }, { width: size, height: size, styleName: "svg-shape" }), _react2.default.createElement("path", { d: _svgIcons2.default[name].path }))));
-        }
-    }]);
-
-    return Icon;
-}(_react.Component);
-Icon = __decorate([(0, _reactCssModules2.default)(styles, {
-    allowMultiple: true
-})], Icon);
-var _default = Icon;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Icon/Icon.tsx");
-
-    __REACT_HOT_LOADER__.register(Icon, "Icon", "/Users/liang/Projects/readr/src/isomorphic/elements/Icon/Icon.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Icon/Icon.tsx");
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Master.tsx');
 }();
 
 ;
@@ -6604,71 +6885,6 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var _default = {
-    close: {
-        path: 'M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z',
-        viewBox: '0 0 12 16'
-    },
-    star: {
-        path: 'M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z'
-    },
-    users: {
-        path: 'M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'
-    },
-    folder: {
-        path: 'M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z'
-    },
-    database: {
-        path: 'M20.2 5.9l.8-.8C19.6 3.7 17.8 3 16 3s-3.6.7-5 2.1l.8.8C13 4.8 14.5 4.2 16 4.2s3 .6 4.2 1.7zm-.9.8c-.9-.9-2.1-1.4-3.3-1.4s-2.4.5-3.3 1.4l.8.8c.7-.7 1.6-1 2.5-1 .9 0 1.8.3 2.5 1l.8-.8zM19 13h-2V9h-2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 18H6v-2h2v2zm3.5 0h-2v-2h2v2zm3.5 0h-2v-2h2v2z'
-    },
-    statistics: {
-        path: 'M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z'
-    },
-    books: {
-        path: 'M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z'
-    },
-    back: {
-        // path: 'M732 832l-55 55l-505 -505l505 -505l55 54l-451 451z'
-        // path: 'M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z',
-        path: 'm 26,25 c -0.467574,0 -0.909434,0.16865 -1.25,0.4375 C 24.555279,25.591215 6.6130516,42.546285 6.46875,42.71875 6.1782332,43.06596 6,43.51187 6,44 6,44.51946 6.2065566,44.98818 6.53125,45.34375 6.6683992,45.493941 24.625,62.4375 24.625,62.4375 c 0.759842,0.725152 2.121842,0.700421 2.84375,-0.0625 0.721908,-0.76293 0.672244,-2.125099 -0.09375,-2.84375 L 13.03125,46 64,46 c 13.888871,0 25.660392,11.63955 26,26.03125 0.0035,0.140557 0,0.77485 0,0.96875 0,1.108 0.892,2 2,2 1.108,0 2,-0.892 2,-2 l 0,-1.0625 C 93.610208,55.4194 80.118529,42 64,42 L 13.03125,42 C 13.03125,42 27.362732,28.495959 27.5,28.34375 27.81971,27.98925 28,27.51497 28,27 28,25.89543 27.104569,25 26,25 z',
-        viewBox: '0 0 100 125'
-    },
-    preference: {
-        path: 'M 17.78125 8.96875 A 2.0002 2.0002 0 0 0 16 11 L 16 56.25 C 12.008188 57.168302 9 60.741406 9 65 C 9 69.259224 12.007427 72.863534 16 73.78125 L 16 89 A 2.0002 2.0002 0 1 0 20 89 L 20 73.78125 C 23.992573 72.863534 27 69.259224 27 65 C 27 60.741406 23.991812 57.168302 20 56.25 L 20 11 A 2.0002 2.0002 0 0 0 17.78125 8.96875 z M 49.78125 8.96875 A 2.0002 2.0002 0 0 0 48 11 L 48 26.25 C 44.008188 27.168305 41 30.741423 41 35 C 41 39.25912 44.007427 42.863511 48 43.78125 L 48 89 A 2.0002 2.0002 0 1 0 52 89 L 52 43.78125 C 55.992573 42.863511 59 39.25912 59 35 C 59 30.741423 55.991812 27.168305 52 26.25 L 52 11 A 2.0002 2.0002 0 0 0 49.78125 8.96875 z M 81.78125 8.96875 A 2.0002 2.0002 0 0 0 80 11 L 80 56.25 C 76.008188 57.168302 73 60.741406 73 65 C 73 69.259224 76.007427 72.863534 80 73.78125 L 80 89 A 2.0002 2.0002 0 1 0 84 89 L 84 73.78125 C 87.992573 72.863534 91 69.259224 91 65 C 91 60.741406 87.991812 57.168302 84 56.25 L 84 11 A 2.0002 2.0002 0 0 0 81.78125 8.96875 z M 50 30 C 52.785116 30 55 32.21488 55 35 C 55 37.78512 52.785116 40 50 40 C 47.214884 40 45 37.78512 45 35 C 45 32.21488 47.214884 30 50 30 z M 18 60 C 20.785116 60 23 62.2149 23 65 C 23 67.7852 20.785116 70 18 70 C 15.214884 70 13 67.7852 13 65 C 13 62.2149 15.214884 60 18 60 z M 82 60 C 84.785116 60 87 62.2149 87 65 C 87 67.7852 84.785116 70 82 70 C 79.214884 70 77 67.7852 77 65 C 77 62.2149 79.214884 60 82 60 z ',
-        viewBox: '0 0 100 125'
-    },
-    font: {
-        // path: 'M14 8.77v-1.6l-1.94-.64-.45-1.09.88-1.84-1.13-1.13-1.81.91-1.09-.45-.69-1.92h-1.6l-.63 1.94-1.11.45-1.84-.88-1.13 1.13.91 1.81-.45 1.09L0 7.23v1.59l1.94.64.45 1.09-.88 1.84 1.13 1.13 1.81-.91 1.09.45.69 1.92h1.59l.63-1.94 1.11-.45 1.84.88 1.13-1.13-.92-1.81.47-1.09L14 8.75v.02zM7 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z'
-        path: 'M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z'
-    },
-    arrowRight: {
-        path: 'M-290.9,430.1l-0.7-0.7l8.2-8.6l-8.2-8.2l0.7-0.7l8.9,8.9L-290.9,430.1z',
-        viewBox: '-292 411.9 11 18'
-    }
-};
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Icon/svg-icons.ts');
-}();
-
-;
-
-/***/ }),
-/* 124 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -6678,106 +6894,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
-
-var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
-
-var _classnames = __webpack_require__(20);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var styles = __webpack_require__(261);
-var Input = function (_Component) {
-    _inherits(Input, _Component);
-
-    function Input(props) {
-        _classCallCheck(this, Input);
-
-        return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
-    }
-
-    _createClass(Input, [{
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            var props = Object.assign({}, this.props);
-            delete props.className;
-            var _props = this.props,
-                error = _props.error,
-                touched = _props.touched;
-
-            var showError = error && touched;
-            return _react2.default.createElement("div", { styleName: (0, _classnames2.default)({ 'input-wrap': !showError, 'input-wrap--error': showError }), className: this.props.className || '' }, _react2.default.createElement("input", { styleName: "input", placeholder: this.props.placeholder, value: this.props.value, onChange: function onChange(e) {
-                    _this2.props.onChange(e);
-                }, type: this.props.type ? this.props.type : 'text', name: this.props.name ? this.props.name : null }), showError && _react2.default.createElement("div", { styleName: "error-msg" }, error));
-        }
-    }]);
-
-    return Input;
-}(_react.Component);
-Input = __decorate([(0, _reactCssModules2.default)(styles, {
-    allowMultiple: true
-})], Input);
-var _default = Input;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Input/Input.tsx");
-
-    __REACT_HOT_LOADER__.register(Input, "Input", "/Users/liang/Projects/readr/src/isomorphic/elements/Input/Input.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Input/Input.tsx");
-}();
-
-;
-
-/***/ }),
-/* 125 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Modal = __webpack_require__(55);
+var _Modal = __webpack_require__(54);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _ModalFooter = __webpack_require__(85);
+var _ModalFooter = __webpack_require__(87);
 
 var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
@@ -6802,7 +6923,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(39);
+var styles = __webpack_require__(38);
 var Dialog = function (_Component) {
     _inherits(Dialog, _Component);
 
@@ -6839,17 +6960,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ConfirmModal.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Modal/ConfirmModal.tsx");
 
-    __REACT_HOT_LOADER__.register(Dialog, "Dialog", "/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ConfirmModal.tsx");
+    __REACT_HOT_LOADER__.register(Dialog, "Dialog", "/Users/liang/Projects/readr/src/components/Modal/ConfirmModal.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ConfirmModal.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Modal/ConfirmModal.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 126 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6865,11 +6986,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Modal = __webpack_require__(54);
+var _Modal = __webpack_require__(53);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _Modal3 = __webpack_require__(39);
+var _Modal3 = __webpack_require__(38);
 
 var _Modal4 = _interopRequireDefault(_Modal3);
 
@@ -6920,15 +7041,83 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(ModalPlus, 'ModalPlus', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ModalPlus.tsx');
+    __REACT_HOT_LOADER__.register(ModalPlus, 'ModalPlus', '/Users/liang/Projects/readr/src/components/Modal/ModalPlus.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Modal/ModalPlus.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Modal/ModalPlus.tsx');
 }();
 
 ;
 
 /***/ }),
-/* 127 */
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _AppDoc = __webpack_require__(51);
+
+var _AppDoc2 = _interopRequireDefault(_AppDoc);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Page500 = function (_Component) {
+    _inherits(Page500, _Component);
+
+    function Page500(props) {
+        _classCallCheck(this, Page500);
+
+        return _possibleConstructorReturn(this, (Page500.__proto__ || Object.getPrototypeOf(Page500)).call(this, props));
+    }
+
+    _createClass(Page500, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {}
+    }, {
+        key: 'render',
+        value: function render() {
+            var message = this.props.message;
+            // todo: use AppError
+
+            return _react2.default.createElement(_AppDoc2.default, { title: "500 Server Error", appMarkup: _react2.default.createElement("div", { className: "page500" }, _react2.default.createElement("h1", null, "500"), _react2.default.createElement("p", null, message)) });
+        }
+    }]);
+
+    return Page500;
+}(_react.Component);
+
+exports.default = Page500;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Page500, 'Page500', '/Users/liang/Projects/readr/src/components/Page500.tsx');
+}();
+
+;
+
+/***/ }),
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6938,7 +7127,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _map2 = __webpack_require__(48);
+var _map2 = __webpack_require__(47);
 
 var _map3 = _interopRequireDefault(_map2);
 
@@ -6983,7 +7172,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(263);
+var styles = __webpack_require__(262);
 var SelectizeInput = function (_Component) {
     _inherits(SelectizeInput, _Component);
 
@@ -7191,17 +7380,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/SelectizeInput/SelectizeInput.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/SelectizeInput/SelectizeInput.tsx");
 
-    __REACT_HOT_LOADER__.register(SelectizeInput, "SelectizeInput", "/Users/liang/Projects/readr/src/isomorphic/elements/SelectizeInput/SelectizeInput.tsx");
+    __REACT_HOT_LOADER__.register(SelectizeInput, "SelectizeInput", "/Users/liang/Projects/readr/src/components/SelectizeInput/SelectizeInput.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/SelectizeInput/SelectizeInput.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/SelectizeInput/SelectizeInput.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7211,7 +7400,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SelectizeInput = __webpack_require__(127);
+var _SelectizeInput = __webpack_require__(126);
 
 var _SelectizeInput2 = _interopRequireDefault(_SelectizeInput);
 
@@ -7226,13 +7415,13 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/SelectizeInput/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/SelectizeInput/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7271,7 +7460,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(264);
+var styles = __webpack_require__(263);
 var Textarea = function (_Component) {
     _inherits(Textarea, _Component);
 
@@ -7306,17 +7495,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/elements/Textarea/Textarea.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Textarea/Textarea.tsx");
 
-    __REACT_HOT_LOADER__.register(Textarea, "Textarea", "/Users/liang/Projects/readr/src/isomorphic/elements/Textarea/Textarea.tsx");
+    __REACT_HOT_LOADER__.register(Textarea, "Textarea", "/Users/liang/Projects/readr/src/components/Textarea/Textarea.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/elements/Textarea/Textarea.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Textarea/Textarea.tsx");
 }();
 
 ;
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7326,7 +7515,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Textarea = __webpack_require__(129);
+var _Textarea = __webpack_require__(128);
 
 var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -7341,1444 +7530,13 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/elements/Textarea/index.ts');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Textarea/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = getApiRoot;
-
-var _getEnv = __webpack_require__(96);
-
-var _getEnv2 = _interopRequireDefault(_getEnv);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var env = (0, _getEnv2.default)();
-function getApiRoot() {
-    var PORT = env.PORT;
-
-    if (process.env.NODE_ENV === 'production') {
-        // todo: domain
-        return '/api';
-    }
-    return 'http://localhost:' + PORT + '/api';
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(env, 'env', '/Users/liang/Projects/readr/src/isomorphic/helpers/getApiRoot.ts');
-
-    __REACT_HOT_LOADER__.register(getApiRoot, 'getApiRoot', '/Users/liang/Projects/readr/src/isomorphic/helpers/getApiRoot.ts');
-}();
-
-;
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.onRoutingChange = undefined;
-
-var _isEqual2 = __webpack_require__(47);
-
-var _isEqual3 = _interopRequireDefault(_isEqual2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// 检查 store 里面的 routing 是否变化
-var onRoutingChange = exports.onRoutingChange = function onRoutingChange(fn) {
-    return function (nextProps, currentProps) {
-        if (!currentProps.routing) {
-            console.error('routing 需要现在组件 props 里面声明！');
-            return false;
-        }
-        var hasPathParamChanged = !(0, _isEqual3.default)(nextProps.routing, currentProps.routing);
-        if (hasPathParamChanged) {
-            fn(nextProps.routing);
-        }
-    };
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(onRoutingChange, 'onRoutingChange', '/Users/liang/Projects/readr/src/isomorphic/helpers/lifecircle.ts');
-}();
-
-;
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = print;
-function print() {
-    if (process.env.NODE_ENV !== 'production') {
-        var style = 'color: blue;';
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        var mergedArgs = [args.join(' ')];
-        var modArgs = mergedArgs.map(function (arg, index) {
-            if (index === 0) {
-                return '%c [DEV] ' + arg;
-            }
-        });
-        modArgs = modArgs.concat(style);
-        console.trace.apply(null, modArgs);
-    }
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(print, 'print', '/Users/liang/Projects/readr/src/isomorphic/helpers/print.ts');
-}();
-
-;
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = redirect;
-
-var _isServerRoutingEnabled = __webpack_require__(57);
-
-var _isServerRoutingEnabled2 = _interopRequireDefault(_isServerRoutingEnabled);
-
-var _reactRouter = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function redirect(url) {
-    if ((0, _isServerRoutingEnabled2.default)()) {
-        _reactRouter.browserHistory.push(url);
-    } else {
-        _reactRouter.hashHistory.push(url);
-    }
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(redirect, 'redirect', '/Users/liang/Projects/readr/src/isomorphic/helpers/redirect.ts');
-}();
-
-;
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(11).then((function (require) {
-            fn(null, __webpack_require__(293).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 136 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(15).then((function (require) {
-            fn(null, __webpack_require__(294).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 137 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(3).then((function (require) {
-            fn(null, __webpack_require__(295).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(9).then((function (require) {
-            fn(null, __webpack_require__(296).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(2).then((function (require) {
-            fn(null, __webpack_require__(297).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(1).then((function (require) {
-            fn(null, __webpack_require__(298).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(10).then((function (require) {
-            fn(null, __webpack_require__(299).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(5).then((function (require) {
-            fn(null, __webpack_require__(300).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(6).then((function (require) {
-            fn(null, __webpack_require__(301).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(12).then((function (require) {
-            fn(null, __webpack_require__(302).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(8).then((function (require) {
-            fn(null, __webpack_require__(303).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(7).then((function (require) {
-            fn(null, __webpack_require__(304).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 147 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(4).then((function (require) {
-            fn(null, __webpack_require__(305).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(14).then((function (require) {
-            fn(null, __webpack_require__(306).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(13).then((function (require) {
-            fn(null, __webpack_require__(307).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(16).then((function (require) {
-            fn(null, __webpack_require__(308).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    getComponent: function getComponent(nextState, fn) {
-        __webpack_require__.e/* require.ensure */(0).then((function (require) {
-            fn(null, __webpack_require__(309).default);
-        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-    }
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-}();
-
-;
-
-/***/ }),
-/* 152 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Master = __webpack_require__(110);
-
-var _Master2 = _interopRequireDefault(_Master);
-
-var _App = __webpack_require__(107);
-
-var _App2 = _interopRequireDefault(_App);
-
-var _Console = __webpack_require__(109);
-
-var _Console2 = _interopRequireDefault(_Console);
-
-var _reactRouter = __webpack_require__(9);
-
-var _api = __webpack_require__(21);
-
-var _api2 = _interopRequireDefault(_api);
-
-var _common = __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var createRoutes = function createRoutes() {
-    var context = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var request = context.request,
-        response = context.response;
-
-    var handleConsoleEnter = function handleConsoleEnter(nextState, replace, callback) {
-        if (request) {
-            // 服务端校验方式
-            var role = request.context.user.role;
-
-            if (role !== _common.ROLES.ADMIN) {
-                response.redirect('/');
-            }
-            callback();
-        } else {
-            // 客户端校验方式
-            try {
-                _api2.default.auth().then(function (res) {
-                    if (res.json.role !== _common.ROLES.ADMIN) {
-                        replace('/');
-                    }
-                    callback();
-                });
-            } catch (error) {
-                alert('服务器异常，请稍后再试！');
-                console.error(error);
-            }
-        }
-    };
-    return _react2.default.createElement(_reactRouter.Route, { path: "/", component: _Master2.default }, _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "viewer/book/:id" }, __webpack_require__(151))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "test" }, __webpack_require__(150))), _react2.default.createElement(_reactRouter.Route, { component: _App2.default }, _react2.default.createElement(_reactRouter.IndexRoute, Object.assign({}, __webpack_require__(137))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "browse" }, __webpack_require__(139))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "book/:id" }, __webpack_require__(138))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "collections" }, __webpack_require__(141))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "collections/:id" }, __webpack_require__(140))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "signin" }, __webpack_require__(148))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "signup" }, __webpack_require__(149))), _react2.default.createElement(_reactRouter.Route, { path: "user" }, _react2.default.createElement(_reactRouter.IndexRedirect, { to: "/user/profile" }), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "shelf" }, __webpack_require__(147))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "preference" }, __webpack_require__(145))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "profile" }, __webpack_require__(146))))), _react2.default.createElement(_reactRouter.Route, { onEnter: handleConsoleEnter, path: "console", component: _Console2.default }, _react2.default.createElement(_reactRouter.IndexRedirect, { to: "/console/books" }), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "books" }, __webpack_require__(142))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "users" }, __webpack_require__(143))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "books/new" }, __webpack_require__(135))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "collections/new" }, __webpack_require__(136)))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "*" }, __webpack_require__(144))));
-};
-var _default = createRoutes;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(createRoutes, 'createRoutes', '/Users/liang/Projects/readr/src/isomorphic/routes/createRoutes.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/createRoutes.tsx');
-}();
-
-;
-
-/***/ }),
-/* 153 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.logout = exports.auth = exports.userSignup = exports.userLogin = exports.fetchDoubanBooks = exports.fetchUsers = exports.fetchBooks = exports.fetchBookContent = exports.fetchBook = exports.fetchBookProgress = undefined;
-
-var _omit2 = __webpack_require__(7);
-
-var _omit3 = _interopRequireDefault(_omit2);
-
-var _assign2 = __webpack_require__(3);
-
-var _assign3 = _interopRequireDefault(_assign2);
-
-exports.fetchNormalized = fetchNormalized;
-exports.addCollection = addCollection;
-exports.addBook = addBook;
-exports.editBookMeta = editBookMeta;
-exports.addAuthor = addAuthor;
-exports.setProgress = setProgress;
-exports.deleteBook = deleteBook;
-
-var _callApi = __webpack_require__(33);
-
-var _callApi2 = _interopRequireDefault(_callApi);
-
-var _helpers = __webpack_require__(10);
-
-var _helpers2 = _interopRequireDefault(_helpers);
-
-var _normalizeResponse = __webpack_require__(155);
-
-var _normalizeResponse2 = _interopRequireDefault(_normalizeResponse);
-
-var _schemas = __webpack_require__(58);
-
-var _schemas2 = _interopRequireDefault(_schemas);
-
-var _utils = __webpack_require__(23);
-
-var _utils2 = _interopRequireDefault(_utils);
-
-var _common = __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var API_ROOT = _helpers2.default.getApiRoot();
-/**
- * general helper functions
- */
-var parseEndpointWithOptions = function parseEndpointWithOptions(endpoint, options) {
-    if (typeof options === 'string') {
-        return options;
-    } else {
-        var queryString = _utils2.default.parseUrlencoded(options);
-        return endpoint + '?' + queryString;
-    }
-};
-function fetchNormalized(endpoint, schema) {
-    var fetchOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-    if (endpoint.indexOf('http://') !== -1) {
-        return (0, _normalizeResponse2.default)((0, _callApi2.default)(endpoint, fetchOptions), schema);
-    }
-    return (0, _normalizeResponse2.default)((0, _callApi2.default)(API_ROOT + '/' + endpoint, fetchOptions), schema);
-}
-/**
- * specific api services
- */
-var fetchBookProgress = exports.fetchBookProgress = function fetchBookProgress(id) {
-    return fetchNormalized('user/books/' + id + '/progress', _schemas2.default.BOOK_PROGRESS);
-};
-var fetchBook = exports.fetchBook = function fetchBook(id) {
-    return fetchNormalized('books/' + id, _schemas2.default.BOOK);
-};
-var fetchBookContent = exports.fetchBookContent = function fetchBookContent(id) {
-    return fetchNormalized('books/' + id + '/content', _schemas2.default.BOOK_CONTENT);
-};
-var fetchBooks = exports.fetchBooks = function fetchBooks() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var withContent = options.withContent;
-
-    var apiOptions = !withContent ? {
-        exclude: 'content'
-    } : {};
-    apiOptions = (0, _assign3.default)({}, (0, _omit3.default)(options, ['withContent']), apiOptions);
-    return fetchNormalized(parseEndpointWithOptions('books', apiOptions), _schemas2.default.BOOK_ARRAY);
-};
-var fetchUsers = exports.fetchUsers = function fetchUsers(options) {
-    return fetchNormalized(parseEndpointWithOptions('users', options), _schemas2.default.USER_ARRAY);
-};
-// external apis
-var fetchDoubanBooks = exports.fetchDoubanBooks = function fetchDoubanBooks(keyword) {
-    return (0, _callApi2.default)(_common.DOUBAN_API_ROOT + '/book/search?count=10&q=' + keyword, {
-        useJsonp: true
-    });
-};
-var userLogin = exports.userLogin = function userLogin(data) {
-    return (0, _callApi2.default)(API_ROOT + '/auth', {
-        method: 'POST',
-        data: data
-    });
-};
-var userSignup = exports.userSignup = function userSignup(data) {
-    return (0, _callApi2.default)(API_ROOT + '/users', {
-        method: 'POST',
-        data: data
-    });
-};
-var auth = exports.auth = function auth() {
-    return (0, _callApi2.default)(API_ROOT + '/auth', {
-        method: 'GET'
-    });
-};
-var logout = exports.logout = function logout() {
-    return (0, _callApi2.default)(API_ROOT + '/auth/revoke', {
-        method: 'PUT'
-    });
-};
-function addCollection(data) {
-    return (0, _callApi2.default)(API_ROOT + '/collections', { method: 'POST', data: data });
-}
-function addBook(data) {
-    return (0, _callApi2.default)(API_ROOT + '/books', { method: 'POST', data: data });
-}
-function editBookMeta(bookId, data) {
-    return (0, _callApi2.default)(API_ROOT + '/books/' + bookId, { method: 'PUT', data: data });
-}
-function addAuthor(data) {
-    return (0, _callApi2.default)(API_ROOT + '/authors', { method: 'POST', data: data });
-}
-function setProgress(bookId, data) {
-    (0, _callApi2.default)(API_ROOT + '/user/books/' + bookId + '/progress', { method: 'PUT', data: data });
-}
-function deleteBook(id) {
-    return (0, _callApi2.default)(API_ROOT + '/books/' + id, {
-        method: 'DELETE'
-    });
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(API_ROOT, 'API_ROOT', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(parseEndpointWithOptions, 'parseEndpointWithOptions', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchNormalized, 'fetchNormalized', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchBookProgress, 'fetchBookProgress', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchBook, 'fetchBook', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchBookContent, 'fetchBookContent', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchBooks, 'fetchBooks', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchUsers, 'fetchUsers', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchDoubanBooks, 'fetchDoubanBooks', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(userLogin, 'userLogin', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(userSignup, 'userSignup', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(auth, 'auth', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(logout, 'logout', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(addCollection, 'addCollection', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(addBook, 'addBook', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(editBookMeta, 'editBookMeta', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(addAuthor, 'addAuthor', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(setProgress, 'setProgress', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-
-    __REACT_HOT_LOADER__.register(deleteBook, 'deleteBook', '/Users/liang/Projects/readr/src/isomorphic/services/api/api.ts');
-}();
-
-;
-
-/***/ }),
-/* 154 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = jsonp;
-function jsonp(fullUrl) {
-    if (fullUrl.indexOf('douban') !== -1) {
-        var id = new Date().valueOf();
-        var jsonpId = 'jsonp-' + id;
-        var jsonpCallback = 'jsonpCallback' + id;
-        var jsonpCallbackData = '__JSONP_DATA_' + id + '__';
-        window[jsonpCallback] = function (data) {
-            window[jsonpCallbackData] = data;
-        };
-        var script = document.createElement('script');
-        script.setAttribute('src', fullUrl + '&callback=' + jsonpCallback);
-        script.setAttribute('id', jsonpId);
-        document.body.appendChild(script);
-        return new Promise(function (resolve) {
-            script.onload = function () {
-                document.body.removeChild(document.getElementById(jsonpId));
-                resolve({ json: window[jsonpCallbackData] });
-            };
-        });
-    }
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(jsonp, 'jsonp', '/Users/liang/Projects/readr/src/isomorphic/services/utils/jsonp.ts');
-}();
-
-;
-
-/***/ }),
-/* 155 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = normalizeResponse;
-
-var _handleResponse = __webpack_require__(59);
-
-var _handleResponse2 = _interopRequireDefault(_handleResponse);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function normalizeResponse(resultPromise, schema) {
-    return resultPromise.then(function (response) {
-        return { response: (0, _handleResponse2.default)(response, schema) };
-    }, function (error) {
-        return { error: error };
-    });
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(normalizeResponse, 'normalizeResponse', '/Users/liang/Projects/readr/src/isomorphic/services/utils/normalizeResponse.ts');
-}();
-
-;
-
-/***/ }),
-/* 156 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.LOAD_ACTIONS = exports.loadBookProgress = exports.progress = exports.userLogout = exports.logout = exports.loadUsers = exports.users = exports.loadBooks = exports.books = exports.loadBookContent = exports.bookContent = exports.loadBook = exports.book = exports.removeEntity = undefined;
-exports.fetchAuthors = fetchAuthors;
-exports.fetchCollections = fetchCollections;
-exports.fetchCollection = fetchCollection;
-exports.searchDoubanBooks = searchDoubanBooks;
-exports.fetchProfile = fetchProfile;
-exports.userAuth = userAuth;
-exports.fetchShelf = fetchShelf;
-
-var _utils = __webpack_require__(23);
-
-var _utils2 = _interopRequireDefault(_utils);
-
-var _schemas = __webpack_require__(58);
-
-var _schemas2 = _interopRequireDefault(_schemas);
-
-var _common = __webpack_require__(8);
-
-var _utils3 = __webpack_require__(60);
-
-var _actionTypes = __webpack_require__(6);
-
-var ActionTypes = _interopRequireWildcard(_actionTypes);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var removeEntity = exports.removeEntity = function removeEntity(name, id) {
-    return { type: ActionTypes.REMOVE_ENTITY, name: name, id: id };
-};
-var book = exports.book = (0, _utils3.createActionEntity)(ActionTypes.BOOK);
-var loadBook = exports.loadBook = function loadBook(id) {
-    return (0, _utils3.action)(ActionTypes.LOAD_BOOK, { id: id });
-};
-var bookContent = exports.bookContent = (0, _utils3.createActionEntity)(ActionTypes.BOOK_CONTENT);
-var loadBookContent = exports.loadBookContent = function loadBookContent(id) {
-    return (0, _utils3.action)(ActionTypes.LOAD_BOOK_CONTENT, { id: id });
-};
-var books = exports.books = (0, _utils3.createActionEntity)(ActionTypes.BOOKS);
-var loadBooks = exports.loadBooks = function loadBooks(options, key) {
-    return (0, _utils3.action)(ActionTypes.LOAD_BOOKS, { options: options, key: key });
-};
-var users = exports.users = (0, _utils3.createActionEntity)(ActionTypes.USERS);
-var loadUsers = exports.loadUsers = function loadUsers(options) {
-    return (0, _utils3.action)(ActionTypes.LOAD_USERS, { options: options });
-};
-var logout = exports.logout = (0, _utils3.createActionEntity)(ActionTypes.LOGOUT);
-var userLogout = exports.userLogout = function userLogout() {
-    return (0, _utils3.action)(ActionTypes.USER_LOGOUT);
-};
-var progress = exports.progress = (0, _utils3.createActionEntity)(ActionTypes.BOOK_PROGRESS);
-var loadBookProgress = exports.loadBookProgress = function loadBookProgress(id) {
-    return (0, _utils3.action)(ActionTypes.LOAD_BOOK_PROGRESS, { id: id });
-};
-// define load actions handled in sagas
-var LOAD_ACTIONS = exports.LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS];
-/**
- * legacy call api actions
- */
-function fetchAuthors(options) {
-    var CALL_API = {
-        types: [ActionTypes.AUTHORS.REQUEST, ActionTypes.AUTHORS.SUCCESS, ActionTypes.AUTHORS.FAILURE],
-        endpoint: 'authors?' + _utils2.default.parseUrlencoded(options),
-        schema: _schemas2.default.AUTHOR_ARRAY,
-        pagination: {
-            name: 'authors',
-            q: options.q
-        }
-    };
-    return { CALL_API: CALL_API };
-}
-function fetchCollections() {
-    var flowType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'newest';
-
-    return {
-        flowType: flowType,
-        CALL_API: {
-            types: [ActionTypes.COLLECTIONS.REQUEST, ActionTypes.COLLECTIONS.SUCCESS, ActionTypes.COLLECTIONS.FAILURE],
-            endpoint: 'collections',
-            schema: _schemas2.default.COLLECTION_ARRAY
-        }
-    };
-}
-function fetchCollection(collectionId) {
-    return {
-        collectionId: collectionId,
-        CALL_API: {
-            types: [ActionTypes.COLLECTION.REQUEST, ActionTypes.COLLECTION.SUCCESS, ActionTypes.COLLECTION.FAILURE],
-            endpoint: 'collections/' + collectionId,
-            schema: _schemas2.default.COLLECTION
-        }
-    };
-}
-function searchDoubanBooks(q) {
-    var CALL_API = {
-        types: [ActionTypes.DOUBAN_BOOKS.REQUEST, ActionTypes.DOUBAN_BOOKS.SUCCESS, ActionTypes.DOUBAN_BOOKS.FAILURE],
-        endpoint: 'book/search?count=10&q=' + q,
-        apiUrl: _common.DOUBAN_API_ROOT,
-        schema: _schemas2.default.DOUBAN_BOOK_SEARCH_RESULTS,
-        options: { useJsonp: true },
-        pagination: {
-            name: 'doubanBooks',
-            q: q
-        }
-    };
-    return { q: q, CALL_API: CALL_API };
-}
-function fetchProfile() {
-    var CALL_API = {
-        types: [ActionTypes.PROFILE.REQUEST, ActionTypes.PROFILE.SUCCESS, ActionTypes.PROFILE.FAILURE],
-        endpoint: 'user/profile',
-        schema: _schemas2.default.PROFILE
-    };
-    return { CALL_API: CALL_API };
-}
-function userAuth(userSession) {
-    // 服务端渲染 session
-    if (userSession) {
-        return {
-            SERVER_STORE: {
-                body: {
-                    response: userSession,
-                    type: ActionTypes.AUTH.SUCCESS
-                }
-            }
-        };
-    }
-    return {
-        CALL_API: {
-            types: [ActionTypes.AUTH.REQUEST, ActionTypes.AUTH.SUCCESS, ActionTypes.AUTH.FAILURE],
-            endpoint: 'auth'
-        }
-    };
-}
-function fetchShelf() {
-    var CALL_API = {
-        types: [ActionTypes.SHELF.REQUEST, ActionTypes.SHELF.SUCCESS, ActionTypes.SHELF.FAILURE],
-        endpoint: 'user/books/shelf',
-        schema: _schemas2.default.SHELF_BOOK_ARRAY,
-        pagination: {
-            name: 'bookShelves'
-        }
-    };
-    return { CALL_API: CALL_API };
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(removeEntity, 'removeEntity', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(book, 'book', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(loadBook, 'loadBook', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(bookContent, 'bookContent', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(loadBookContent, 'loadBookContent', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(books, 'books', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(loadBooks, 'loadBooks', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(users, 'users', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(loadUsers, 'loadUsers', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(logout, 'logout', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(userLogout, 'userLogout', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(progress, 'progress', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(loadBookProgress, 'loadBookProgress', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(LOAD_ACTIONS, 'LOAD_ACTIONS', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchAuthors, 'fetchAuthors', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchCollections, 'fetchCollections', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchCollection, 'fetchCollection', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(searchDoubanBooks, 'searchDoubanBooks', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchProfile, 'fetchProfile', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(userAuth, 'userAuth', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-
-    __REACT_HOT_LOADER__.register(fetchShelf, 'fetchShelf', '/Users/liang/Projects/readr/src/isomorphic/store/actions/api.ts');
-}();
-
-;
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.sendNotification = undefined;
-exports.showNotification = showNotification;
-exports.hideNotification = hideNotification;
-exports.openConfirmModal = openConfirmModal;
-exports.closeConfirmModal = closeConfirmModal;
-exports.openModal = openModal;
-exports.closeModal = closeModal;
-
-var _actionTypes = __webpack_require__(6);
-
-var ActionTypes = _interopRequireWildcard(_actionTypes);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var sendNotification = exports.sendNotification = function sendNotification(message) {
-    var msgType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
-    var t = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2000;
-
-    return function (dispatch, getState) {
-        var id = Math.random().toFixed(8).substr(2);
-        dispatch(showNotification(id, message, msgType));
-        if (t !== 0) {
-            setTimeout(function () {
-                dispatch(hideNotification(id));
-            }, t);
-        }
-    };
-};
-function showNotification(id, message) {
-    var msgType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'success';
-
-    return {
-        type: ActionTypes.NOTIFICATION.SHOW,
-        message: message,
-        msgType: msgType,
-        id: id
-    };
-}
-function hideNotification(id) {
-    return {
-        type: ActionTypes.NOTIFICATION.HIDE,
-        id: id
-    };
-}
-function openConfirmModal(data) {
-    return {
-        type: ActionTypes.OPEN_CONFIRM_MODAL,
-        data: data
-    };
-}
-function closeConfirmModal() {
-    return {
-        type: ActionTypes.CLOSE_CONFIRM_MODAL
-    };
-}
-function openModal(data) {
-    return {
-        type: ActionTypes.MODAL.OPEN,
-        data: data
-    };
-}
-function closeModal() {
-    return {
-        type: ActionTypes.MODAL.CLOSE
-    };
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(sendNotification, 'sendNotification', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-
-    __REACT_HOT_LOADER__.register(showNotification, 'showNotification', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-
-    __REACT_HOT_LOADER__.register(hideNotification, 'hideNotification', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-
-    __REACT_HOT_LOADER__.register(openConfirmModal, 'openConfirmModal', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-
-    __REACT_HOT_LOADER__.register(closeConfirmModal, 'closeConfirmModal', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-
-    __REACT_HOT_LOADER__.register(openModal, 'openModal', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-
-    __REACT_HOT_LOADER__.register(closeModal, 'closeModal', '/Users/liang/Projects/readr/src/isomorphic/store/actions/common.ts');
-}();
-
-;
-
-/***/ }),
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var loadSomething = exports.loadSomething = function loadSomething() {
-    return {
-        type: 'LOAD'
-    };
-};
-var saveSomething = exports.saveSomething = function saveSomething() {
-    return {
-        type: 'SAVE'
-    };
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(loadSomething, 'loadSomething', '/Users/liang/Projects/readr/src/isomorphic/store/actions/test.ts');
-
-    __REACT_HOT_LOADER__.register(saveSomething, 'saveSomething', '/Users/liang/Projects/readr/src/isomorphic/store/actions/test.ts');
-}();
-
-;
-
-/***/ }),
-/* 159 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.toggleViewerScrollMode = exports.changeViewerTheme = exports.changeViewerFontSize = exports.toggleViewerNavigation = exports.toggleViewerPreference = exports.toggleViewerPanel = exports.viewerJumpTo = exports.destroyBookProgress = exports.updateBookProgress = exports.initializeBookProgress = exports.calcBookFailure = exports.calcBookSuccess = exports.calcBook = exports.configViewer = exports.initializeViewer = exports.initializeViewerConfig = undefined;
-
-var _selectors = __webpack_require__(27);
-
-var selectors = _interopRequireWildcard(_selectors);
-
-var _actionTypes = __webpack_require__(6);
-
-var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
-
-var _helpers = __webpack_require__(10);
-
-var _helpers2 = _interopRequireDefault(_helpers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-// viewer
-var initializeViewerConfig = exports.initializeViewerConfig = function initializeViewerConfig(bookId) {
-    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    return { bookId: bookId, config: config, type: ACTION_TYPES.VIEWER.INITIALIZE_CONFIG };
-};
-var initializeViewer = exports.initializeViewer = function initializeViewer(bookId) {
-    return { bookId: bookId, type: ACTION_TYPES.VIEWER.INITIALIZE };
-};
-var configViewer = exports.configViewer = function configViewer(bookId, payload) {
-    return {
-        bookId: bookId,
-        payload: payload,
-        type: ACTION_TYPES.VIEWER.CONFIG
-    };
-};
-// book
-var calcBook = exports.calcBook = function calcBook(bookId, wrap) {
-    return {
-        bookId: bookId,
-        wrap: wrap,
-        type: ACTION_TYPES.VIEWER.CALC_START
-    };
-};
-var calcBookSuccess = exports.calcBookSuccess = function calcBookSuccess(bookId, computed) {
-    return {
-        bookId: bookId,
-        computed: computed,
-        type: ACTION_TYPES.VIEWER.CALC_SUCCESS
-    };
-};
-var calcBookFailure = exports.calcBookFailure = function calcBookFailure(bookId, error) {
-    return {
-        bookId: bookId,
-        error: error,
-        type: ACTION_TYPES.VIEWER.CALC_FAILURE
-    };
-};
-var initializeBookProgress = exports.initializeBookProgress = function initializeBookProgress() {
-    return { type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_INITIALIZE };
-};
-// progress
-var updateBookProgress = exports.updateBookProgress = function updateBookProgress(percentage) {
-    return function (dispatch, getState) {
-        _helpers2.default.print('Action updateBookProgress');
-        var state = getState();
-
-        var _selectors$viewer$con = selectors.viewer.config(state),
-            bookId = _selectors$viewer$con.bookId;
-
-        var computed = selectors.viewer.computed(bookId)(state);
-        var pageNo = Math.floor(computed.length * percentage) + 1;
-        return dispatch({
-            id: bookId,
-            percentage: percentage,
-            pageNo: pageNo,
-            type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE
-        });
-    };
-};
-var destroyBookProgress = exports.destroyBookProgress = function destroyBookProgress() {
-    return {
-        type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_DESTROY
-    };
-};
-var viewerJumpTo = exports.viewerJumpTo = function viewerJumpTo(percentage) {
-    return { type: ACTION_TYPES.VIEWER.JUMP, percentage: percentage };
-};
-// sub components
-var toggleViewerPanel = exports.toggleViewerPanel = function toggleViewerPanel(reset) {
-    return { type: ACTION_TYPES.VIEWER.PANEL_TOGGLE, reset: reset };
-};
-var toggleViewerPreference = exports.toggleViewerPreference = function toggleViewerPreference(reset) {
-    return { type: ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE, reset: reset };
-};
-var toggleViewerNavigation = exports.toggleViewerNavigation = function toggleViewerNavigation(reset) {
-    return { type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset: reset };
-};
-// config
-var changeViewerFontSize = exports.changeViewerFontSize = function changeViewerFontSize(fontSizeInPixel) {
-    return { type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel };
-};
-var changeViewerTheme = exports.changeViewerTheme = function changeViewerTheme(themeName) {
-    return { type: ACTION_TYPES.VIEWER.THEME_CHANGE, theme: themeName };
-};
-var toggleViewerScrollMode = exports.toggleViewerScrollMode = function toggleViewerScrollMode(reset) {
-    return { type: ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE, reset: reset };
-};
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(initializeViewerConfig, 'initializeViewerConfig', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(initializeViewer, 'initializeViewer', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(configViewer, 'configViewer', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(calcBook, 'calcBook', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(calcBookSuccess, 'calcBookSuccess', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(calcBookFailure, 'calcBookFailure', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(initializeBookProgress, 'initializeBookProgress', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(updateBookProgress, 'updateBookProgress', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(destroyBookProgress, 'destroyBookProgress', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(viewerJumpTo, 'viewerJumpTo', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(toggleViewerPanel, 'toggleViewerPanel', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(toggleViewerPreference, 'toggleViewerPreference', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(toggleViewerNavigation, 'toggleViewerNavigation', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(changeViewerFontSize, 'changeViewerFontSize', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(changeViewerTheme, 'changeViewerTheme', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-
-    __REACT_HOT_LOADER__.register(toggleViewerScrollMode, 'toggleViewerScrollMode', '/Users/liang/Projects/readr/src/isomorphic/store/actions/viewer.ts');
-}();
-
-;
-
-/***/ }),
-/* 160 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8791,43 +7549,43 @@ exports.default = configureStore;
 
 var _redux = __webpack_require__(17);
 
-var _reduxThunk = __webpack_require__(288);
+var _reduxThunk = __webpack_require__(287);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reducers = __webpack_require__(166);
+var _reducers = __webpack_require__(141);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _api = __webpack_require__(61);
+var _api = __webpack_require__(60);
 
 var _api2 = _interopRequireDefault(_api);
 
-var _modifyResponse = __webpack_require__(64);
+var _modifyResponse = __webpack_require__(63);
 
 var _modifyResponse2 = _interopRequireDefault(_modifyResponse);
 
-var _handleServerStore = __webpack_require__(62);
+var _handleServerStore = __webpack_require__(61);
 
 var _handleServerStore2 = _interopRequireDefault(_handleServerStore);
 
-var _handleInitialState = __webpack_require__(161);
+var _handleInitialState = __webpack_require__(132);
 
 var _handleInitialState2 = _interopRequireDefault(_handleInitialState);
 
-var _logActionTypes = __webpack_require__(63);
+var _logActionTypes = __webpack_require__(62);
 
 var _logActionTypes2 = _interopRequireDefault(_logActionTypes);
 
-var _reduxLogger = __webpack_require__(287);
+var _reduxLogger = __webpack_require__(286);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _middleware = __webpack_require__(163);
+var _middleware = __webpack_require__(138);
 
 var _middleware2 = _interopRequireDefault(_middleware);
 
-var _reduxSaga = __webpack_require__(80);
+var _reduxSaga = __webpack_require__(81);
 
 var _reduxSaga2 = _interopRequireDefault(_reduxSaga);
 
@@ -8881,23 +7639,78 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(sagaMiddleware, 'sagaMiddleware', '/Users/liang/Projects/readr/src/isomorphic/store/configureStore.ts');
+    __REACT_HOT_LOADER__.register(sagaMiddleware, 'sagaMiddleware', '/Users/liang/Projects/readr/src/configureStore.ts');
 
-    __REACT_HOT_LOADER__.register(SERVER_MIDDLEWARES_DEV, 'SERVER_MIDDLEWARES_DEV', '/Users/liang/Projects/readr/src/isomorphic/store/configureStore.ts');
+    __REACT_HOT_LOADER__.register(SERVER_MIDDLEWARES_DEV, 'SERVER_MIDDLEWARES_DEV', '/Users/liang/Projects/readr/src/configureStore.ts');
 
-    __REACT_HOT_LOADER__.register(SERVER_MIDDLEWARES_PROD, 'SERVER_MIDDLEWARES_PROD', '/Users/liang/Projects/readr/src/isomorphic/store/configureStore.ts');
+    __REACT_HOT_LOADER__.register(SERVER_MIDDLEWARES_PROD, 'SERVER_MIDDLEWARES_PROD', '/Users/liang/Projects/readr/src/configureStore.ts');
 
-    __REACT_HOT_LOADER__.register(MIDDLEWARES_DEV, 'MIDDLEWARES_DEV', '/Users/liang/Projects/readr/src/isomorphic/store/configureStore.ts');
+    __REACT_HOT_LOADER__.register(MIDDLEWARES_DEV, 'MIDDLEWARES_DEV', '/Users/liang/Projects/readr/src/configureStore.ts');
 
-    __REACT_HOT_LOADER__.register(MIDDLEWARES_PROD, 'MIDDLEWARES_PROD', '/Users/liang/Projects/readr/src/isomorphic/store/configureStore.ts');
+    __REACT_HOT_LOADER__.register(MIDDLEWARES_PROD, 'MIDDLEWARES_PROD', '/Users/liang/Projects/readr/src/configureStore.ts');
 
-    __REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/liang/Projects/readr/src/isomorphic/store/configureStore.ts');
+    __REACT_HOT_LOADER__.register(configureStore, 'configureStore', '/Users/liang/Projects/readr/src/configureStore.ts');
 }();
 
 ;
 
 /***/ }),
-/* 161 */
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var menus = [{
+    component: 'books',
+    displayName: '',
+    path: '/console/books',
+    subMenu: [{
+        component: 'managebooks',
+        displayName: '书籍管理',
+        path: '/console/books'
+    },
+    // {
+    //   component: 'addbook',
+    //   displayName: '添加书籍',
+    //   path: '/console/books/new'
+    // },
+    {
+        component: 'addcollection',
+        displayName: '添加合集',
+        path: '/console/collections/new'
+    }]
+}, {
+    component: 'users',
+    displayName: '',
+    path: '/console/users',
+    subMenu: [{
+        component: 'manageusers',
+        displayName: '用户管理',
+        path: '/console/users'
+    }]
+}];
+var _default = menus;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(menus, 'menus', '/Users/liang/Projects/readr/src/content/menus.ts');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/content/menus.ts');
+}();
+
+;
+
+/***/ }),
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8923,13 +7736,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(handleInitialState, 'handleInitialState', '/Users/liang/Projects/readr/src/isomorphic/store/handleInitialState.ts');
+    __REACT_HOT_LOADER__.register(handleInitialState, 'handleInitialState', '/Users/liang/Projects/readr/src/handleInitialState.ts');
 }();
 
 ;
 
 /***/ }),
-/* 162 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8938,36 +7751,175 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-// import md5 from '../../../../vendor_modules/md5'
-var SUCCESS = 'SUCCESS';
-var isSuccessAction = function isSuccessAction(action) {
-    // console.log(action)
-    // return true
-    // return _.last(action.type.split('/')) === SUCCESS
+exports.default = getApiRoot;
+
+var _getEnv = __webpack_require__(57);
+
+var _getEnv2 = _interopRequireDefault(_getEnv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var env = (0, _getEnv2.default)();
+function getApiRoot() {
+    var PORT = env.PORT;
+
+    if (process.env.NODE_ENV === 'production') {
+        // todo: domain
+        return '/api';
+    }
+    return 'http://localhost:' + PORT + '/api';
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(env, 'env', '/Users/liang/Projects/readr/src/helpers/getApiRoot.ts');
+
+    __REACT_HOT_LOADER__.register(getApiRoot, 'getApiRoot', '/Users/liang/Projects/readr/src/helpers/getApiRoot.ts');
+}();
+
+;
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.onRoutingChange = undefined;
+
+var _isEqual2 = __webpack_require__(46);
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// 检查 store 里面的 routing 是否变化
+var onRoutingChange = exports.onRoutingChange = function onRoutingChange(fn) {
+    return function (nextProps, currentProps) {
+        if (!currentProps.routing) {
+            console.error('routing 需要现在组件 props 里面声明！');
+            return false;
+        }
+        var hasPathParamChanged = !(0, _isEqual3.default)(nextProps.routing, currentProps.routing);
+        if (hasPathParamChanged) {
+            fn(nextProps.routing);
+        }
+    };
 };
-var cacheResponseAction = function cacheResponseAction(action) {
-    // console.log('cached')
-};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(onRoutingChange, 'onRoutingChange', '/Users/liang/Projects/readr/src/helpers/lifecircle.ts');
+}();
+
+;
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = print;
+function print() {
+    if (process.env.NODE_ENV !== 'production') {
+        var style = 'color: blue;';
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        var mergedArgs = [args.join(' ')];
+        var modArgs = mergedArgs.map(function (arg, index) {
+            if (index === 0) {
+                return '%c [DEV] ' + arg;
+            }
+        });
+        modArgs = modArgs.concat(style);
+        console.trace.apply(null, modArgs);
+    }
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(print, 'print', '/Users/liang/Projects/readr/src/helpers/print.ts');
+}();
+
+;
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = redirect;
+
+var _isServerRoutingEnabled = __webpack_require__(59);
+
+var _isServerRoutingEnabled2 = _interopRequireDefault(_isServerRoutingEnabled);
+
+var _reactRouter = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function redirect(url) {
+    if ((0, _isServerRoutingEnabled2.default)()) {
+        _reactRouter.browserHistory.push(url);
+    } else {
+        _reactRouter.hashHistory.push(url);
+    }
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(redirect, 'redirect', '/Users/liang/Projects/readr/src/helpers/redirect.ts');
+}();
+
+;
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _default = function _default(store) {
     return function (next) {
         return function (action) {
-            // if (action.cacheKey) {
-            //   // function* gen() {
-            //   //   yield 1
-            //   // }
-            //   // const fuck = gen()
-            //   // console.log(fuck.next())
-            //   next({
-            //     type: 'cache'
-            //   })
-            //   // return false
-            // }
-            // if (action.cacheKey && isSuccessAction(action)) {
-            //   cacheResponseAction(action)
-            //   next(action)
-            //   return false
-            // }
             return next(action);
         };
     };
@@ -8981,19 +7933,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(SUCCESS, 'SUCCESS', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/cache.ts');
-
-    __REACT_HOT_LOADER__.register(isSuccessAction, 'isSuccessAction', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/cache.ts');
-
-    __REACT_HOT_LOADER__.register(cacheResponseAction, 'cacheResponseAction', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/cache.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/cache.ts');
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/middleware/cache.ts");
 }();
 
 ;
 
 /***/ }),
-/* 163 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9003,23 +7949,23 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _api = __webpack_require__(61);
+var _api = __webpack_require__(60);
 
 var _api2 = _interopRequireDefault(_api);
 
-var _modifyResponse = __webpack_require__(64);
+var _modifyResponse = __webpack_require__(63);
 
 var _modifyResponse2 = _interopRequireDefault(_modifyResponse);
 
-var _handleServerStore = __webpack_require__(62);
+var _handleServerStore = __webpack_require__(61);
 
 var _handleServerStore2 = _interopRequireDefault(_handleServerStore);
 
-var _logActionTypes = __webpack_require__(63);
+var _logActionTypes = __webpack_require__(62);
 
 var _logActionTypes2 = _interopRequireDefault(_logActionTypes);
 
-var _cache = __webpack_require__(162);
+var _cache = __webpack_require__(137);
 
 var _cache2 = _interopRequireDefault(_cache);
 
@@ -9040,13 +7986,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/middleware/index.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/middleware/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 164 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9062,7 +8008,7 @@ var _actionTypes = __webpack_require__(6);
 
 var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
 
-var _viewer = __webpack_require__(165);
+var _viewer = __webpack_require__(140);
 
 var _viewer2 = _interopRequireDefault(_viewer);
 
@@ -9134,21 +8080,21 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(notifications, 'notifications', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/index.ts');
+    __REACT_HOT_LOADER__.register(notifications, 'notifications', '/Users/liang/Projects/readr/src/reducers/components/index.ts');
 
-    __REACT_HOT_LOADER__.register(confirmModal, 'confirmModal', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/index.ts');
+    __REACT_HOT_LOADER__.register(confirmModal, 'confirmModal', '/Users/liang/Projects/readr/src/reducers/components/index.ts');
 
-    __REACT_HOT_LOADER__.register(modal, 'modal', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/index.ts');
+    __REACT_HOT_LOADER__.register(modal, 'modal', '/Users/liang/Projects/readr/src/reducers/components/index.ts');
 
-    __REACT_HOT_LOADER__.register(components, 'components', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/index.ts');
+    __REACT_HOT_LOADER__.register(components, 'components', '/Users/liang/Projects/readr/src/reducers/components/index.ts');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/index.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/reducers/components/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 165 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9172,7 +8118,7 @@ var _actionTypes = __webpack_require__(6);
 
 var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
 
-var _constants = __webpack_require__(106);
+var _constants = __webpack_require__(56);
 
 var CONSTANTS = _interopRequireWildcard(_constants);
 
@@ -9314,29 +8260,29 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(getFlag, 'getFlag', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(getFlag, 'getFlag', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(contents, 'contents', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(contents, 'contents', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(config, 'config', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(config, 'config', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(progress, 'progress', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(progress, 'progress', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(panel, 'panel', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(panel, 'panel', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(preference, 'preference', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(preference, 'preference', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(navigation, 'navigation', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(navigation, 'navigation', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(components, 'components', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(components, 'components', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/components/viewer.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/reducers/components/viewer.ts');
 }();
 
 ;
 
 /***/ }),
-/* 166 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9363,13 +8309,13 @@ exports.session = session;
 
 var _redux = __webpack_require__(17);
 
-var _reactRouterRedux = __webpack_require__(79);
+var _reactRouterRedux = __webpack_require__(80);
 
-var _components = __webpack_require__(164);
+var _components = __webpack_require__(139);
 
 var _components2 = _interopRequireDefault(_components);
 
-var _pagination = __webpack_require__(168);
+var _pagination = __webpack_require__(143);
 
 var _pagination2 = _interopRequireDefault(_pagination);
 
@@ -9459,23 +8405,23 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(errorMessage, 'errorMessage', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/index.ts');
+    __REACT_HOT_LOADER__.register(errorMessage, 'errorMessage', '/Users/liang/Projects/readr/src/reducers/index.ts');
 
-    __REACT_HOT_LOADER__.register(entities, 'entities', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/index.ts');
+    __REACT_HOT_LOADER__.register(entities, 'entities', '/Users/liang/Projects/readr/src/reducers/index.ts');
 
-    __REACT_HOT_LOADER__.register(DEFAULT_VISTOR_STATE, 'DEFAULT_VISTOR_STATE', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/index.ts');
+    __REACT_HOT_LOADER__.register(DEFAULT_VISTOR_STATE, 'DEFAULT_VISTOR_STATE', '/Users/liang/Projects/readr/src/reducers/index.ts');
 
-    __REACT_HOT_LOADER__.register(session, 'session', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/index.ts');
+    __REACT_HOT_LOADER__.register(session, 'session', '/Users/liang/Projects/readr/src/reducers/index.ts');
 
-    __REACT_HOT_LOADER__.register(rootReducer, 'rootReducer', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/index.ts');
+    __REACT_HOT_LOADER__.register(rootReducer, 'rootReducer', '/Users/liang/Projects/readr/src/reducers/index.ts');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/index.ts');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/reducers/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 167 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9490,7 +8436,7 @@ var _merge3 = __webpack_require__(26);
 
 var _merge4 = _interopRequireDefault(_merge3);
 
-var _union2 = __webpack_require__(280);
+var _union2 = __webpack_require__(279);
 
 var _union3 = _interopRequireDefault(_union2);
 
@@ -9591,17 +8537,17 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(DEFAULT_PAGINATION_STATE, 'DEFAULT_PAGINATION_STATE', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/paginate.ts');
+    __REACT_HOT_LOADER__.register(DEFAULT_PAGINATION_STATE, 'DEFAULT_PAGINATION_STATE', '/Users/liang/Projects/readr/src/reducers/paginate.ts');
 
-    __REACT_HOT_LOADER__.register(computePaginationState, 'computePaginationState', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/paginate.ts');
+    __REACT_HOT_LOADER__.register(computePaginationState, 'computePaginationState', '/Users/liang/Projects/readr/src/reducers/paginate.ts');
 
-    __REACT_HOT_LOADER__.register(paginate, 'paginate', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/paginate.ts');
+    __REACT_HOT_LOADER__.register(paginate, 'paginate', '/Users/liang/Projects/readr/src/reducers/paginate.ts');
 }();
 
 ;
 
 /***/ }),
-/* 168 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9612,7 +8558,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = combined;
 
-var _paginate = __webpack_require__(167);
+var _paginate = __webpack_require__(142);
 
 var _paginate2 = _interopRequireDefault(_paginate);
 
@@ -9715,27 +8661,519 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(DEFAULT_KEY, 'DEFAULT_KEY', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(DEFAULT_KEY, 'DEFAULT_KEY', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(SEARCH_KEY, 'SEARCH_KEY', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(SEARCH_KEY, 'SEARCH_KEY', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(parseTypes, 'parseTypes', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(parseTypes, 'parseTypes', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(generalMapActionToKey, 'generalMapActionToKey', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(generalMapActionToKey, 'generalMapActionToKey', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(pagination, 'pagination', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(pagination, 'pagination', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(updatePagination, 'updatePagination', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(updatePagination, 'updatePagination', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(legacyPagination, 'legacyPagination', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(legacyPagination, 'legacyPagination', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 
-    __REACT_HOT_LOADER__.register(combined, 'combined', '/Users/liang/Projects/readr/src/isomorphic/store/reducers/pagination.ts');
+    __REACT_HOT_LOADER__.register(combined, 'combined', '/Users/liang/Projects/readr/src/reducers/pagination.ts');
 }();
 
 ;
 
 /***/ }),
-/* 169 */
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(11).then((function (require) {
+            fn(null, __webpack_require__(291).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(15).then((function (require) {
+            fn(null, __webpack_require__(292).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(3).then((function (require) {
+            fn(null, __webpack_require__(293).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(9).then((function (require) {
+            fn(null, __webpack_require__(294).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(2).then((function (require) {
+            fn(null, __webpack_require__(295).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(1).then((function (require) {
+            fn(null, __webpack_require__(296).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(10).then((function (require) {
+            fn(null, __webpack_require__(297).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(5).then((function (require) {
+            fn(null, __webpack_require__(298).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(6).then((function (require) {
+            fn(null, __webpack_require__(299).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(12).then((function (require) {
+            fn(null, __webpack_require__(300).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(8).then((function (require) {
+            fn(null, __webpack_require__(301).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(7).then((function (require) {
+            fn(null, __webpack_require__(302).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(4).then((function (require) {
+            fn(null, __webpack_require__(303).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(14).then((function (require) {
+            fn(null, __webpack_require__(304).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(13).then((function (require) {
+            fn(null, __webpack_require__(305).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(16).then((function (require) {
+            fn(null, __webpack_require__(306).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+    getComponent: function getComponent(nextState, fn) {
+        __webpack_require__.e/* require.ensure */(0).then((function (require) {
+            fn(null, __webpack_require__(307).default);
+        }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = __webpack_require__(9);
+
+var _Master = __webpack_require__(122);
+
+var _Master2 = _interopRequireDefault(_Master);
+
+var _App = __webpack_require__(101);
+
+var _App2 = _interopRequireDefault(_App);
+
+var _Console = __webpack_require__(108);
+
+var _Console2 = _interopRequireDefault(_Console);
+
+var _webAPI = __webpack_require__(21);
+
+var _webAPI2 = _interopRequireDefault(_webAPI);
+
+var _common = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createRoutes = function createRoutes() {
+    var context = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var request = context.request,
+        response = context.response;
+
+    var handleConsoleEnter = function handleConsoleEnter(nextState, replace, callback) {
+        if (request) {
+            // 服务端校验方式
+            var role = request.context.user.role;
+
+            if (role !== _common.ROLES.ADMIN) {
+                response.redirect('/');
+            }
+            callback();
+        } else {
+            // 客户端校验方式
+            try {
+                _webAPI2.default.auth().then(function (res) {
+                    if (res.json.role !== _common.ROLES.ADMIN) {
+                        replace('/');
+                    }
+                    callback();
+                });
+            } catch (error) {
+                alert('服务器异常，请稍后再试！');
+                console.error(error);
+            }
+        }
+    };
+    return _react2.default.createElement(_reactRouter.Route, { path: "/", component: _Master2.default }, _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "viewer/book/:id" }, __webpack_require__(160))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "test" }, __webpack_require__(159))), _react2.default.createElement(_reactRouter.Route, { component: _App2.default }, _react2.default.createElement(_reactRouter.IndexRoute, Object.assign({}, __webpack_require__(146))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "browse" }, __webpack_require__(148))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "book/:id" }, __webpack_require__(147))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "collections" }, __webpack_require__(150))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "collections/:id" }, __webpack_require__(149))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "signin" }, __webpack_require__(157))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "signup" }, __webpack_require__(158))), _react2.default.createElement(_reactRouter.Route, { path: "user" }, _react2.default.createElement(_reactRouter.IndexRedirect, { to: "/user/profile" }), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "shelf" }, __webpack_require__(156))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "preference" }, __webpack_require__(154))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "profile" }, __webpack_require__(155))))), _react2.default.createElement(_reactRouter.Route, { onEnter: handleConsoleEnter, path: "console", component: _Console2.default }, _react2.default.createElement(_reactRouter.IndexRedirect, { to: "/console/books" }), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "books" }, __webpack_require__(151))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "users" }, __webpack_require__(152))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "books/new" }, __webpack_require__(144))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "collections/new" }, __webpack_require__(145)))), _react2.default.createElement(_reactRouter.Route, Object.assign({ path: "*" }, __webpack_require__(153))));
+};
+var _default = createRoutes;
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(createRoutes, 'createRoutes', '/Users/liang/Projects/readr/src/routes/createRoutes.tsx');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/createRoutes.tsx');
+}();
+
+;
+
+/***/ }),
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9748,19 +9186,19 @@ exports.default = rootSaga;
 
 var _effects = __webpack_require__(16);
 
-var _loadRequests = __webpack_require__(170);
+var _loadRequests = __webpack_require__(163);
 
 var _loadRequests2 = _interopRequireDefault(_loadRequests);
 
-var _loginFlow = __webpack_require__(171);
+var _loginFlow = __webpack_require__(164);
 
 var _loginFlow2 = _interopRequireDefault(_loginFlow);
 
-var _viewerTasks = __webpack_require__(173);
+var _viewerTasks = __webpack_require__(166);
 
 var _viewerTasks2 = _interopRequireDefault(_viewerTasks);
 
-var _test = __webpack_require__(172);
+var _test = __webpack_require__(165);
 
 var _test2 = _interopRequireDefault(_test);
 
@@ -9790,13 +9228,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(rootSaga, 'rootSaga', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/index.ts');
+    __REACT_HOT_LOADER__.register(rootSaga, 'rootSaga', '/Users/liang/Projects/readr/src/sagas/index.ts');
 }();
 
 ;
 
 /***/ }),
-/* 170 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9823,11 +9261,11 @@ var _actions = __webpack_require__(15);
 
 var actions = _interopRequireWildcard(_actions);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
-var _utils = __webpack_require__(65);
+var _utils = __webpack_require__(64);
 
 var _actionTypes = __webpack_require__(6);
 
@@ -9845,10 +9283,10 @@ var DATA = 'data';
 var TYPE = 'type';
 var API_CONFIG_KEYS = exports.API_CONFIG_KEYS = [OPTIONS, ID, DATA];
 var RESERVED_ACTION_KYES = exports.RESERVED_ACTION_KYES = [TYPE].concat(API_CONFIG_KEYS);
-var fetchBook = _utils.fetchEntity.bind(null, actions.book, _api2.default.fetchBook);
-var fetchBookContent = _utils.fetchEntity.bind(null, actions.bookContent, _api2.default.fetchBookContent);
-var fetchBooks = _utils.fetchEntity.bind(null, actions.books, _api2.default.fetchBooks);
-var fetchUsers = _utils.fetchEntity.bind(null, actions.users, _api2.default.fetchUsers);
+var fetchBook = _utils.fetchEntity.bind(null, actions.book, _webAPI2.default.fetchBook);
+var fetchBookContent = _utils.fetchEntity.bind(null, actions.bookContent, _webAPI2.default.fetchBookContent);
+var fetchBooks = _utils.fetchEntity.bind(null, actions.books, _webAPI2.default.fetchBooks);
+var fetchUsers = _utils.fetchEntity.bind(null, actions.users, _webAPI2.default.fetchUsers);
 function handleLoad(fetchFn, parsedAction, callApi) {
     var apiConfig, payload;
     return regeneratorRuntime.wrap(function handleLoad$(_context) {
@@ -9945,35 +9383,35 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(OPTIONS, 'OPTIONS', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(OPTIONS, 'OPTIONS', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(ID, 'ID', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(ID, 'ID', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(DATA, 'DATA', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(DATA, 'DATA', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(TYPE, 'TYPE', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(TYPE, 'TYPE', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(API_CONFIG_KEYS, 'API_CONFIG_KEYS', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(API_CONFIG_KEYS, 'API_CONFIG_KEYS', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(RESERVED_ACTION_KYES, 'RESERVED_ACTION_KYES', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(RESERVED_ACTION_KYES, 'RESERVED_ACTION_KYES', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(fetchBook, 'fetchBook', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(fetchBook, 'fetchBook', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(fetchBookContent, 'fetchBookContent', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(fetchBookContent, 'fetchBookContent', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(fetchBooks, 'fetchBooks', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(fetchBooks, 'fetchBooks', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(fetchUsers, 'fetchUsers', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(fetchUsers, 'fetchUsers', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(handleLoad, 'handleLoad', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(handleLoad, 'handleLoad', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 
-    __REACT_HOT_LOADER__.register(watchAllLoadRequests, 'watchAllLoadRequests', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loadRequests.ts');
+    __REACT_HOT_LOADER__.register(watchAllLoadRequests, 'watchAllLoadRequests', '/Users/liang/Projects/readr/src/sagas/loadRequests.ts');
 }();
 
 ;
 
 /***/ }),
-/* 171 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9990,9 +9428,9 @@ var _actions = __webpack_require__(15);
 
 var actions = _interopRequireWildcard(_actions);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
 var _actionTypes = __webpack_require__(6);
 
@@ -10024,7 +9462,7 @@ function watchLoginFlow() {
                 case 5:
                     _context.prev = 5;
                     _context.next = 8;
-                    return (0, _effects.call)(_api2.default.logout);
+                    return (0, _effects.call)(_webAPI2.default.logout);
 
                 case 8:
                     _context.next = 10;
@@ -10058,13 +9496,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(watchLoginFlow, 'watchLoginFlow', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/loginFlow.ts');
+    __REACT_HOT_LOADER__.register(watchLoginFlow, 'watchLoginFlow', '/Users/liang/Projects/readr/src/sagas/loginFlow.ts');
 }();
 
 ;
 
 /***/ }),
-/* 172 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10265,23 +9703,23 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(someAsyncTask, 'someAsyncTask', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/test.ts');
+    __REACT_HOT_LOADER__.register(someAsyncTask, 'someAsyncTask', '/Users/liang/Projects/readr/src/sagas/test.ts');
 
-    __REACT_HOT_LOADER__.register(doLoad, 'doLoad', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/test.ts');
+    __REACT_HOT_LOADER__.register(doLoad, 'doLoad', '/Users/liang/Projects/readr/src/sagas/test.ts');
 
-    __REACT_HOT_LOADER__.register(doLoadWithCancel, 'doLoadWithCancel', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/test.ts');
+    __REACT_HOT_LOADER__.register(doLoadWithCancel, 'doLoadWithCancel', '/Users/liang/Projects/readr/src/sagas/test.ts');
 
-    __REACT_HOT_LOADER__.register(doSave, 'doSave', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/test.ts');
+    __REACT_HOT_LOADER__.register(doSave, 'doSave', '/Users/liang/Projects/readr/src/sagas/test.ts');
 
-    __REACT_HOT_LOADER__.register(watchTest, 'watchTest', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/test.ts');
+    __REACT_HOT_LOADER__.register(watchTest, 'watchTest', '/Users/liang/Projects/readr/src/sagas/test.ts');
 
-    __REACT_HOT_LOADER__.register(watchTest2, 'watchTest2', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/test.ts');
+    __REACT_HOT_LOADER__.register(watchTest2, 'watchTest2', '/Users/liang/Projects/readr/src/sagas/test.ts');
 }();
 
 ;
 
 /***/ }),
-/* 173 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10305,7 +9743,7 @@ var _merge3 = _interopRequireDefault(_merge2);
 
 exports.default = watchViewer;
 
-var _reduxSaga = __webpack_require__(80);
+var _reduxSaga = __webpack_require__(81);
 
 var _effects = __webpack_require__(16);
 
@@ -10317,9 +9755,9 @@ var _actionTypes = __webpack_require__(6);
 
 var ACTION_TYPES = _interopRequireWildcard(_actionTypes);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
 var _selectors = __webpack_require__(27);
 
@@ -10327,13 +9765,13 @@ var selectors = _interopRequireWildcard(_selectors);
 
 var _common = __webpack_require__(8);
 
-var _utils = __webpack_require__(65);
+var _utils = __webpack_require__(64);
 
 var _helpers = __webpack_require__(10);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
-var _Viewer = __webpack_require__(90);
+var _Viewer = __webpack_require__(92);
 
 var viewerUtils = _interopRequireWildcard(_Viewer);
 
@@ -10349,7 +9787,7 @@ var _marked = [setViewer, setViewerWithAction, watchInitViewer, updateProgress, 
 
 var DEFAULT_PAGE_HEIGHT = 900;
 var DEFAULT_FONT_SIZE = 16;
-var fetchBookProgress = _utils.fetchEntity.bind(null, actions.progress, _api2.default.fetchBookProgress);
+var fetchBookProgress = _utils.fetchEntity.bind(null, actions.progress, _webAPI2.default.fetchBookProgress);
 function setViewer(bookId) {
     var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var viewerWidth, isSmallScreen, initialized, computed;
@@ -10443,7 +9881,7 @@ function updateProgress(bookId, percentage) {
                 case 0:
                     _context4.prev = 0;
                     _context4.next = 3;
-                    return (0, _effects.call)(_api2.default.setProgress, bookId, {
+                    return (0, _effects.call)(_webAPI2.default.setProgress, bookId, {
                         percentage: percentage
                     });
 
@@ -10774,41 +10212,41 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(DEFAULT_PAGE_HEIGHT, 'DEFAULT_PAGE_HEIGHT', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(DEFAULT_PAGE_HEIGHT, 'DEFAULT_PAGE_HEIGHT', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(DEFAULT_FONT_SIZE, 'DEFAULT_FONT_SIZE', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(DEFAULT_FONT_SIZE, 'DEFAULT_FONT_SIZE', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(fetchBookProgress, 'fetchBookProgress', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(fetchBookProgress, 'fetchBookProgress', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(setViewer, 'setViewer', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(setViewer, 'setViewer', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(setViewerWithAction, 'setViewerWithAction', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(setViewerWithAction, 'setViewerWithAction', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(watchInitViewer, 'watchInitViewer', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(watchInitViewer, 'watchInitViewer', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(calcBook, 'calcBook', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(calcBook, 'calcBook', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(updateProgress, 'updateProgress', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(updateProgress, 'updateProgress', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(watchCalcBook, 'watchCalcBook', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(watchCalcBook, 'watchCalcBook', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(watchProgressOperations, 'watchProgressOperations', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(watchProgressOperations, 'watchProgressOperations', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(jumpTo, 'jumpTo', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(jumpTo, 'jumpTo', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(watchJumpRequest, 'watchJumpRequest', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(watchJumpRequest, 'watchJumpRequest', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(fetchProgressAndJump, 'fetchProgressAndJump', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(fetchProgressAndJump, 'fetchProgressAndJump', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(initializeViewer, 'initializeViewer', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(initializeViewer, 'initializeViewer', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 
-    __REACT_HOT_LOADER__.register(watchViewer, 'watchViewer', '/Users/liang/Projects/readr/src/isomorphic/store/sagas/viewerTasks.ts');
+    __REACT_HOT_LOADER__.register(watchViewer, 'watchViewer', '/Users/liang/Projects/readr/src/sagas/viewerTasks.ts');
 }();
 
 ;
 
 /***/ }),
-/* 174 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10823,9 +10261,9 @@ var _get2 = __webpack_require__(13);
 
 var _get3 = _interopRequireDefault(_get2);
 
-var _reselect = __webpack_require__(44);
+var _reselect = __webpack_require__(43);
 
-var _common = __webpack_require__(34);
+var _common = __webpack_require__(32);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10909,29 +10347,29 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(doubanBooks, 'doubanBooks', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(doubanBooks, 'doubanBooks', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(authors, 'authors', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(authors, 'authors', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(shelfBooks, 'shelfBooks', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(shelfBooks, 'shelfBooks', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(books, 'books', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(books, 'books', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(doubanBooksAsOptions, 'doubanBooksAsOptions', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(doubanBooksAsOptions, 'doubanBooksAsOptions', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(authorsAsOptions, 'authorsAsOptions', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(authorsAsOptions, 'authorsAsOptions', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(booksAsOptions, 'booksAsOptions', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(booksAsOptions, 'booksAsOptions', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(users, 'users', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(users, 'users', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 
-    __REACT_HOT_LOADER__.register(sessionUserId, 'sessionUserId', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/entities.ts');
+    __REACT_HOT_LOADER__.register(sessionUserId, 'sessionUserId', '/Users/liang/Projects/readr/src/selectors/entities.ts');
 }();
 
 ;
 
 /***/ }),
-/* 175 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10946,11 +10384,11 @@ var _get2 = __webpack_require__(13);
 
 var _get3 = _interopRequireDefault(_get2);
 
-var _common = __webpack_require__(34);
+var _common = __webpack_require__(32);
 
 var common = _interopRequireWildcard(_common);
 
-var _reselect = __webpack_require__(44);
+var _reselect = __webpack_require__(43);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -10995,67 +10433,27 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(self, 'self', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(self, 'self', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(config, 'config', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(config, 'config', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(computed, 'computed', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(computed, 'computed', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(navData, 'navData', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(navData, 'navData', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(progress, 'progress', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(progress, 'progress', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(panel, 'panel', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(panel, 'panel', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(preference, 'preference', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(preference, 'preference', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 
-    __REACT_HOT_LOADER__.register(navigation, 'navigation', '/Users/liang/Projects/readr/src/isomorphic/store/selectors/viewer.ts');
+    __REACT_HOT_LOADER__.register(navigation, 'navigation', '/Users/liang/Projects/readr/src/selectors/viewer.ts');
 }();
 
 ;
 
 /***/ }),
-/* 176 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = getScreenInfo;
-function getScreenInfo() {
-    if (typeof window === 'undefined') {
-        console.error('window is undefined, empty info object will be returned!');
-        return {
-            view: {},
-            screen: {}
-        };
-    }
-    return {
-        view: {
-            width: window.innerWidth,
-            height: window.innerHeight,
-            aspectRatio: window.innerWidth / window.innerHeight
-        },
-        screen: window.screen
-    };
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(getScreenInfo, 'getScreenInfo', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/getScreenInfo.ts');
-}();
-
-;
-
-/***/ }),
-/* 177 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11065,208 +10463,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _getScreenInfo = __webpack_require__(176);
-
-var _getScreenInfo2 = _interopRequireDefault(_getScreenInfo);
-
-var _isIE = __webpack_require__(178);
-
-var _isIE2 = _interopRequireDefault(_isIE);
-
-var _lockScroll = __webpack_require__(179);
-
-var _lockScroll2 = _interopRequireDefault(_lockScroll);
-
-var _unlockScroll = __webpack_require__(180);
-
-var _unlockScroll2 = _interopRequireDefault(_unlockScroll);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-    getScreenInfo: _getScreenInfo2.default,
-    isIE: _isIE2.default,
-    lockScroll: _lockScroll2.default,
-    unlockScroll: _unlockScroll2.default
-};
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/index.ts');
-}();
-
-;
-
-/***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.isIE = isIE;
-function isIE(ver) {
-    if (typeof ver === 'undefined') {
-        ver = null;
-    }
-    var b = document.createElement('b');
-    b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
-    return b.getElementsByTagName('i').length === 1;
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(isIE, 'isIE', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/isIE.ts');
-}();
-
-;
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = lockScroll;
-function lockScroll() {
-    document.body.style.overflow = 'hidden';
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(lockScroll, 'lockScroll', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/lockScroll.ts');
-}();
-
-;
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = unlockScroll;
-function unlockScroll() {
-    document.body.style.overflow = 'visible';
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(unlockScroll, 'unlockScroll', '/Users/liang/Projects/readr/src/isomorphic/utils/browser/unlockScroll.ts');
-}();
-
-;
-
-/***/ }),
-/* 181 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _isDescendant = __webpack_require__(31);
-
-var _isDescendant2 = _interopRequireDefault(_isDescendant);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var _default = {
-    isDescendant: _isDescendant2.default
-};
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/utils/dom/index.ts');
-}();
-
-;
-
-/***/ }),
-/* 182 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = getCurrentTime;
-
-var _padNumberWithZero = __webpack_require__(66);
-
-var _padNumberWithZero2 = _interopRequireDefault(_padNumberWithZero);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getCurrentTime() {
-    var d = new Date();
-    var time = [d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()];
-    return time.map(function (t) {
-        return (0, _padNumberWithZero2.default)(t);
-    }).join('');
-}
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(getCurrentTime, 'getCurrentTime', '/Users/liang/Projects/readr/src/isomorphic/utils/getCurrentTime.ts');
-}();
-
-;
-
-/***/ }),
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _isNil2 = __webpack_require__(41);
+var _isNil2 = __webpack_require__(40);
 
 var _isNil3 = _interopRequireDefault(_isNil2);
 
@@ -11345,7 +10542,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 184 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11355,7 +10552,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isNil2 = __webpack_require__(41);
+var _isNil2 = __webpack_require__(40);
 
 var _isNil3 = _interopRequireDefault(_isNil2);
 
@@ -11383,7 +10580,7 @@ var _model = __webpack_require__(12);
 
 var _model2 = _interopRequireDefault(_model);
 
-var _paginate = __webpack_require__(70);
+var _paginate = __webpack_require__(68);
 
 var _paginate2 = _interopRequireDefault(_paginate);
 
@@ -11391,19 +10588,19 @@ var _schemas = __webpack_require__(11);
 
 var schemas = _interopRequireWildcard(_schemas);
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(33);
 
 var _utils2 = _interopRequireDefault(_utils);
 
 var _helpers = __webpack_require__(25);
 
-var _file2 = __webpack_require__(68);
+var _file2 = __webpack_require__(66);
 
-var _parsers = __webpack_require__(226);
+var _parsers = __webpack_require__(214);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
-var _callApi = __webpack_require__(33);
+var _callApi = __webpack_require__(34);
 
 var _callApi2 = _interopRequireDefault(_callApi);
 
@@ -11869,7 +11066,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 185 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11887,7 +11084,7 @@ var _assign2 = __webpack_require__(3);
 
 var _assign3 = _interopRequireDefault(_assign2);
 
-var _isNil2 = __webpack_require__(41);
+var _isNil2 = __webpack_require__(40);
 
 var _isNil3 = _interopRequireDefault(_isNil2);
 
@@ -11934,7 +11131,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 186 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11945,7 +11142,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.user = exports.tag = exports.book = exports.collection = exports.author = undefined;
 
-var _file = __webpack_require__(68);
+var _file = __webpack_require__(66);
 
 Object.keys(_file).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -11957,7 +11154,7 @@ Object.keys(_file).forEach(function (key) {
   });
 });
 
-var _books = __webpack_require__(184);
+var _books = __webpack_require__(170);
 
 Object.keys(_books).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -11969,7 +11166,7 @@ Object.keys(_books).forEach(function (key) {
   });
 });
 
-var _user = __webpack_require__(187);
+var _user = __webpack_require__(173);
 
 Object.keys(_user).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -11981,7 +11178,7 @@ Object.keys(_user).forEach(function (key) {
   });
 });
 
-var _users = __webpack_require__(188);
+var _users = __webpack_require__(174);
 
 Object.keys(_users).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -11993,7 +11190,7 @@ Object.keys(_users).forEach(function (key) {
   });
 });
 
-var _collections = __webpack_require__(185);
+var _collections = __webpack_require__(171);
 
 Object.keys(_collections).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -12009,7 +11206,7 @@ var _schemas = __webpack_require__(11);
 
 var schemas = _interopRequireWildcard(_schemas);
 
-var _basicApi = __webpack_require__(183);
+var _basicApi = __webpack_require__(169);
 
 var _basicApi2 = _interopRequireDefault(_basicApi);
 
@@ -12043,7 +11240,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 187 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12063,7 +11260,7 @@ var _schemas = __webpack_require__(11);
 
 var schemas = _interopRequireWildcard(_schemas);
 
-var _humps = __webpack_require__(40);
+var _humps = __webpack_require__(39);
 
 var _humps2 = _interopRequireDefault(_humps);
 
@@ -12107,7 +11304,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 188 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12170,7 +11367,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 189 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12181,11 +11378,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = bootstrap;
 
-var _http = __webpack_require__(274);
+var _http = __webpack_require__(273);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _print = __webpack_require__(71);
+var _print = __webpack_require__(69);
 
 var _print2 = _interopRequireDefault(_print);
 
@@ -12215,7 +11412,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 190 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12284,7 +11481,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 191 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12295,11 +11492,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.listCollections = exports.delFile = exports.readFile = exports.setReadingProgress = exports.getReadingProgress = exports.listShelfBooks = exports.addUser = exports.findUser = exports.removeBook = exports.editBookMeta = exports.listBooks = exports.resolveBookContent = exports.findBook = exports.addBook = exports.user = exports.tag = exports.book = exports.collection = exports.author = undefined;
 
-var _api = __webpack_require__(186);
+var _api = __webpack_require__(172);
 
 var api = _interopRequireWildcard(_api);
 
-var _makeBasicEndpoint = __webpack_require__(192);
+var _makeBasicEndpoint = __webpack_require__(178);
 
 var _makeBasicEndpoint2 = _interopRequireDefault(_makeBasicEndpoint);
 
@@ -12424,7 +11621,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 192 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12473,7 +11670,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 193 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12528,7 +11725,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 194 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12580,7 +11777,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 195 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12632,7 +11829,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 196 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12684,7 +11881,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 197 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12736,7 +11933,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 198 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12788,7 +11985,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 199 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12840,7 +12037,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 200 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12892,7 +12089,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 201 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12944,7 +12141,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 202 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12996,7 +12193,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 203 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13048,7 +12245,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 204 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13103,7 +12300,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 205 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13114,7 +12311,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = computeHash;
 
-var _crypto = __webpack_require__(272);
+var _crypto = __webpack_require__(271);
 
 var _crypto2 = _interopRequireDefault(_crypto);
 
@@ -13142,7 +12339,75 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 206 */
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _urlJoin = __webpack_require__(82);
+
+var _urlJoin2 = _interopRequireDefault(_urlJoin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = function _default() {
+    return (0, _urlJoin2.default)(process.env.DB_PROTOCOL + '://' + process.env.DB_HOST + ':' + process.env.DB_PORT, process.env.DB_NAME);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/server/helpers/getMongoDBUrl.ts');
+}();
+
+;
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _urlJoin = __webpack_require__(82);
+
+var _urlJoin2 = _interopRequireDefault(_urlJoin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = function _default() {
+    return (0, _urlJoin2.default)(process.env.DB_PROTOCOL + '://' + process.env.DB_HOST + ':' + process.env.DB_PORT, process.env.MONGOSTORE_NAME);
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/server/helpers/getMongoStoreUrl.ts');
+}();
+
+;
+
+/***/ }),
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13153,53 +12418,55 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = initialize;
 
-var _express = __webpack_require__(75);
+var _express = __webpack_require__(76);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _expressSession = __webpack_require__(273);
+var _expressSession = __webpack_require__(272);
 
 var _expressSession2 = _interopRequireDefault(_expressSession);
 
-var _path = __webpack_require__(78);
+var _path = __webpack_require__(79);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _morgan = __webpack_require__(282);
+var _morgan = __webpack_require__(281);
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
-var _cookieParser = __webpack_require__(271);
+var _cookieParser = __webpack_require__(270);
 
 var _cookieParser2 = _interopRequireDefault(_cookieParser);
 
-var _bodyParser = __webpack_require__(268);
+var _bodyParser = __webpack_require__(267);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _connectMongo = __webpack_require__(270);
+var _connectMongo = __webpack_require__(269);
 
 var _connectMongo2 = _interopRequireDefault(_connectMongo);
 
-var _urlJoin = __webpack_require__(290);
-
-var _urlJoin2 = _interopRequireDefault(_urlJoin);
-
-var _render = __webpack_require__(217);
+var _render = __webpack_require__(205);
 
 var _render2 = _interopRequireDefault(_render);
 
-var _bootstrap = __webpack_require__(189);
+var _bootstrap = __webpack_require__(175);
 
 var _bootstrap2 = _interopRequireDefault(_bootstrap);
 
-var _app = __webpack_require__(32);
-
-var _app2 = _interopRequireDefault(_app);
-
-var _routes = __webpack_require__(229);
+var _routes = __webpack_require__(217);
 
 var _routes2 = _interopRequireDefault(_routes);
+
+var _constants = __webpack_require__(56);
+
+var CONSTANTS = _interopRequireWildcard(_constants);
+
+var _getMongoStoreUrl = __webpack_require__(193);
+
+var _getMongoStoreUrl2 = _interopRequireDefault(_getMongoStoreUrl);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13209,7 +12476,8 @@ var PUBLIC_DIR = 'build/static';
 var PUBLIC_URL = '/static';
 var SESSION_SECRET = 'key';
 var REQ_SIZE_LIMIT = '5mb';
-var MONGO_STORE_URL = (0, _urlJoin2.default)(_app2.default.database.host, _app2.default.database.mongoStoreName);
+// const MONGO_STORE_URL = urljoin(appConfig.database.host, appConfig.database.mongoStoreName)
+var MONGO_STORE_URL = (0, _getMongoStoreUrl2.default)();
 function initialize(config) {
     var basePath = config.basePath,
         serviceName = config.serviceName,
@@ -13228,7 +12496,7 @@ function initialize(config) {
     app.use((0, _cookieParser2.default)());
     app.use(PUBLIC_URL, _express2.default.static(_path2.default.join(basePath, PUBLIC_DIR)));
     // api routing
-    app.use('/' + _app2.default.api.prefix, _routes2.default.api());
+    app.use('/' + CONSTANTS.COMMON.API_PREFIX, _routes2.default.api());
     // render view
     app.use((0, _render2.default)(isProduction));
     // log error info
@@ -13268,7 +12536,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 207 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13293,7 +12561,7 @@ var _model = __webpack_require__(12);
 
 var _model2 = _interopRequireDefault(_model);
 
-var _humps = __webpack_require__(40);
+var _humps = __webpack_require__(39);
 
 var _humps2 = _interopRequireDefault(_humps);
 
@@ -13352,7 +12620,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 208 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13384,7 +12652,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 209 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13400,7 +12668,7 @@ var _omit3 = _interopRequireDefault(_omit2);
 
 exports.default = handleError;
 
-var _print = __webpack_require__(71);
+var _print = __webpack_require__(69);
 
 var _print2 = _interopRequireDefault(_print);
 
@@ -13437,7 +12705,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 210 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13551,7 +12819,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 211 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13561,39 +12829,39 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _parseContext = __webpack_require__(213);
+var _parseContext = __webpack_require__(201);
 
 var _parseContext2 = _interopRequireDefault(_parseContext);
 
-var _auth = __webpack_require__(207);
+var _auth = __webpack_require__(195);
 
 var _auth2 = _interopRequireDefault(_auth);
 
-var _requirePermissionsOf = __webpack_require__(221);
+var _requirePermissionsOf = __webpack_require__(209);
 
 var _requirePermissionsOf2 = _interopRequireDefault(_requirePermissionsOf);
 
-var _handleError = __webpack_require__(209);
+var _handleError = __webpack_require__(197);
 
 var _handleError2 = _interopRequireDefault(_handleError);
 
-var _handleJsonResponse = __webpack_require__(210);
+var _handleJsonResponse = __webpack_require__(198);
 
 var _handleJsonResponse2 = _interopRequireDefault(_handleJsonResponse);
 
-var _logFile = __webpack_require__(212);
+var _logFile = __webpack_require__(200);
 
 var _logFile2 = _interopRequireDefault(_logFile);
 
-var _prepareApi = __webpack_require__(214);
+var _prepareApi = __webpack_require__(202);
 
 var _prepareApi2 = _interopRequireDefault(_prepareApi);
 
-var _handleApiNotFound = __webpack_require__(208);
+var _handleApiNotFound = __webpack_require__(196);
 
 var _handleApiNotFound2 = _interopRequireDefault(_handleApiNotFound);
 
-var _setHeader = __webpack_require__(222);
+var _setHeader = __webpack_require__(210);
 
 var _setHeader2 = _interopRequireDefault(_setHeader);
 
@@ -13624,7 +12892,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 212 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13709,7 +12977,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 213 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13754,7 +13022,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 214 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13781,7 +13049,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 215 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13795,13 +13063,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(43);
+var _server = __webpack_require__(42);
 
-var _ServerSideAppRoot = __webpack_require__(51);
+var _ServerSideAppRoot = __webpack_require__(55);
 
 var _ServerSideAppRoot2 = _interopRequireDefault(_ServerSideAppRoot);
 
-var _sagas = __webpack_require__(169);
+var _sagas = __webpack_require__(162);
 
 var _sagas2 = _interopRequireDefault(_sagas);
 
@@ -13844,7 +13112,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 216 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13858,9 +13126,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(43);
+var _server = __webpack_require__(42);
 
-var _Page = __webpack_require__(111);
+var _Page = __webpack_require__(125);
 
 var _Page2 = _interopRequireDefault(_Page);
 
@@ -13887,7 +13155,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 217 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13897,23 +13165,23 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _init = __webpack_require__(218);
+var _init = __webpack_require__(206);
 
 var _init2 = _interopRequireDefault(_init);
 
-var _matchRoute = __webpack_require__(219);
+var _matchRoute = __webpack_require__(207);
 
 var _matchRoute2 = _interopRequireDefault(_matchRoute);
 
-var _fetchData = __webpack_require__(215);
+var _fetchData = __webpack_require__(203);
 
 var _fetchData2 = _interopRequireDefault(_fetchData);
 
-var _renderView = __webpack_require__(220);
+var _renderView = __webpack_require__(208);
 
 var _renderView2 = _interopRequireDefault(_renderView);
 
-var _handleError = __webpack_require__(216);
+var _handleError = __webpack_require__(204);
 
 var _handleError2 = _interopRequireDefault(_handleError);
 
@@ -13939,7 +13207,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 218 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13950,11 +13218,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = init;
 
-var _reactRouterRedux = __webpack_require__(79);
+var _reactRouterRedux = __webpack_require__(80);
 
 var _reactRouter = __webpack_require__(9);
 
-var _configureStore = __webpack_require__(160);
+var _configureStore = __webpack_require__(130);
 
 var _configureStore2 = _interopRequireDefault(_configureStore);
 
@@ -14012,7 +13280,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 219 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14022,13 +13290,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _last2 = __webpack_require__(42);
+var _last2 = __webpack_require__(41);
 
 var _last3 = _interopRequireDefault(_last2);
 
 var _reactRouter = __webpack_require__(9);
 
-var _createRoutes = __webpack_require__(152);
+var _createRoutes = __webpack_require__(161);
 
 var _createRoutes2 = _interopRequireDefault(_createRoutes);
 
@@ -14072,7 +13340,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 220 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14090,25 +13358,25 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _path = __webpack_require__(78);
+var _path = __webpack_require__(79);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _server = __webpack_require__(43);
+var _server = __webpack_require__(42);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _ServerSideAppRoot = __webpack_require__(51);
+var _ServerSideAppRoot = __webpack_require__(55);
 
 var _ServerSideAppRoot2 = _interopRequireDefault(_ServerSideAppRoot);
 
-var _AppDoc = __webpack_require__(50);
+var _AppDoc = __webpack_require__(51);
 
 var _AppDoc2 = _interopRequireDefault(_AppDoc);
 
-var _assetsManifest = __webpack_require__(93);
+var _assetsManifest = __webpack_require__(95);
 
 var _assetsManifest2 = _interopRequireDefault(_assetsManifest);
 
@@ -14175,7 +13443,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 221 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14241,7 +13509,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 222 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14301,7 +13569,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 223 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14315,7 +13583,7 @@ var _assign2 = __webpack_require__(3);
 
 var _assign3 = _interopRequireDefault(_assign2);
 
-var _filter2 = __webpack_require__(277);
+var _filter2 = __webpack_require__(276);
 
 var _filter3 = _interopRequireDefault(_filter2);
 
@@ -14326,17 +13594,17 @@ exports.getRowById = getRowById;
 exports.getRowByMatch = getRowByMatch;
 exports.embedRef = embedRef;
 
-var _app = __webpack_require__(32);
+var _mongodb = __webpack_require__(280);
 
-var _app2 = _interopRequireDefault(_app);
+var _mongodb2 = _interopRequireDefault(_mongodb);
 
-var _outputEmptyEntity = __webpack_require__(69);
+var _outputEmptyEntity = __webpack_require__(67);
 
 var _outputEmptyEntity2 = _interopRequireDefault(_outputEmptyEntity);
 
-var _mongodb = __webpack_require__(281);
+var _getMongoDBUrl = __webpack_require__(192);
 
-var _mongodb2 = _interopRequireDefault(_mongodb);
+var _getMongoDBUrl2 = _interopRequireDefault(_getMongoDBUrl);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14344,7 +13612,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var MongoClient = _mongodb2.default.MongoClient;
 function connect() {
-    return MongoClient.connect(_app2.default.database.host + '/' + _app2.default.database.name);
+    return MongoClient.connect((0, _getMongoDBUrl2.default)());
 }
 function getRowById(id, table) {
     return getRowByMatch({ _id: id }, table);
@@ -14461,7 +13729,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 224 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14512,7 +13780,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 225 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14522,17 +13790,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _map2 = __webpack_require__(48);
+var _map2 = __webpack_require__(47);
 
 var _map3 = _interopRequireDefault(_map2);
 
-var _isUndefined2 = __webpack_require__(76);
+var _isUndefined2 = __webpack_require__(77);
 
 var _isUndefined3 = _interopRequireDefault(_isUndefined2);
 
 exports.default = validate;
 
-var _utils = __webpack_require__(36);
+var _utils = __webpack_require__(33);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -14608,7 +13876,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 226 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14618,11 +13886,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _simpleEpubParser = __webpack_require__(289);
+var _simpleEpubParser = __webpack_require__(288);
 
 var _simpleEpubParser2 = _interopRequireDefault(_simpleEpubParser);
 
-var _txtContent = __webpack_require__(227);
+var _txtContent = __webpack_require__(215);
 
 var _txtContent2 = _interopRequireDefault(_txtContent);
 
@@ -14643,7 +13911,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 227 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14745,7 +14013,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 228 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14756,21 +14024,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = setupApiApp;
 
-var _express = __webpack_require__(75);
+var _express = __webpack_require__(76);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _multer = __webpack_require__(283);
+var _multer = __webpack_require__(282);
 
 var _multer2 = _interopRequireDefault(_multer);
 
-var _endpoints = __webpack_require__(191);
+var _endpoints = __webpack_require__(177);
 
 var endpoints = _interopRequireWildcard(_endpoints);
 
 var _common = __webpack_require__(8);
 
-var _middleware = __webpack_require__(211);
+var _middleware = __webpack_require__(199);
 
 var _middleware2 = _interopRequireDefault(_middleware);
 
@@ -14863,7 +14131,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 229 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14873,7 +14141,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _apiRoutes = __webpack_require__(228);
+var _apiRoutes = __webpack_require__(216);
 
 var _apiRoutes2 = _interopRequireDefault(_apiRoutes);
 
@@ -14896,7 +14164,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 230 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15004,7 +14272,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 231 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15014,7 +14282,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _bluebird = __webpack_require__(74);
+var _bluebird = __webpack_require__(75);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
@@ -15060,7 +14328,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 232 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15071,7 +14339,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = reduceTasks;
 
-var _bluebird = __webpack_require__(74);
+var _bluebird = __webpack_require__(75);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
@@ -15104,7 +14372,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 233 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15134,7 +14402,610 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 234 */
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = jsonp;
+function jsonp(fullUrl) {
+    if (fullUrl.indexOf('douban') !== -1) {
+        var id = new Date().valueOf();
+        var jsonpId = 'jsonp-' + id;
+        var jsonpCallback = 'jsonpCallback' + id;
+        var jsonpCallbackData = '__JSONP_DATA_' + id + '__';
+        window[jsonpCallback] = function (data) {
+            window[jsonpCallbackData] = data;
+        };
+        var script = document.createElement('script');
+        script.setAttribute('src', fullUrl + '&callback=' + jsonpCallback);
+        script.setAttribute('id', jsonpId);
+        document.body.appendChild(script);
+        return new Promise(function (resolve) {
+            script.onload = function () {
+                document.body.removeChild(document.getElementById(jsonpId));
+                resolve({ json: window[jsonpCallbackData] });
+            };
+        });
+    }
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(jsonp, 'jsonp', '/Users/liang/Projects/readr/src/utils/api/jsonp.ts');
+}();
+
+;
+
+/***/ }),
+/* 223 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = normalizeResponse;
+
+var _handleResponse = __webpack_require__(71);
+
+var _handleResponse2 = _interopRequireDefault(_handleResponse);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function normalizeResponse(resultPromise, schema) {
+    return resultPromise.then(function (response) {
+        return { response: (0, _handleResponse2.default)(response, schema) };
+    }, function (error) {
+        return { error: error };
+    });
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(normalizeResponse, 'normalizeResponse', '/Users/liang/Projects/readr/src/utils/api/normalizeResponse.ts');
+}();
+
+;
+
+/***/ }),
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isEmpty2 = __webpack_require__(22);
+
+var _isEmpty3 = _interopRequireDefault(_isEmpty2);
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.createCacheId = createCacheId;
+exports.getCache = getCache;
+exports.setCache = setCache;
+
+var _md = __webpack_require__(233);
+
+var _md2 = _interopRequireDefault(_md);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function createCacheId(identifier) {
+    if ((0, _isEmpty3.default)(identifier)) {
+        throw new Error('缓存标识符不能为空！');
+    }
+    return (0, _md2.default)(identifier.toString());
+}
+function getCache(key) {
+    if (typeof key !== 'string') {
+        throw new Error('Name should be string!');
+    }
+    var content = localStorage.getItem(key);
+    if (!content) {
+        return undefined;
+    }
+    try {
+        content = JSON.parse(content);
+    } catch (error) {
+        throw error;
+    }
+    return content;
+}
+function setCache(key, content) {
+    if (typeof key !== 'string') {
+        throw new Error('Name should be string!');
+    }
+    if ((typeof content === 'undefined' ? 'undefined' : _typeof(content)) !== 'object') {
+        throw new Error('Cache content type should be object!');
+    }
+    var save = function save() {
+        localStorage.setItem(key, JSON.stringify(content));
+    };
+    try {
+        save();
+    } catch (error) {
+        if (error.name === 'QuotaExceededError') {
+            // TODO: 能否只清除最旧的
+            console.warn('本地缓存已满，旧的缓存将被清除！');
+            localStorage.clear();
+            save();
+        } else {
+            console.error(error);
+        }
+    }
+    return true;
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(createCacheId, 'createCacheId', '/Users/liang/Projects/readr/src/utils/browser/cache.ts');
+
+    __REACT_HOT_LOADER__.register(getCache, 'getCache', '/Users/liang/Projects/readr/src/utils/browser/cache.ts');
+
+    __REACT_HOT_LOADER__.register(setCache, 'setCache', '/Users/liang/Projects/readr/src/utils/browser/cache.ts');
+}();
+
+;
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = getScreenInfo;
+function getScreenInfo() {
+    if (typeof window === 'undefined') {
+        console.error('window is undefined, empty info object will be returned!');
+        return {
+            view: {},
+            screen: {}
+        };
+    }
+    return {
+        view: {
+            width: window.innerWidth,
+            height: window.innerHeight,
+            aspectRatio: window.innerWidth / window.innerHeight
+        },
+        screen: window.screen
+    };
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(getScreenInfo, 'getScreenInfo', '/Users/liang/Projects/readr/src/utils/browser/getScreenInfo.ts');
+}();
+
+;
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getScreenInfo = __webpack_require__(225);
+
+var _getScreenInfo2 = _interopRequireDefault(_getScreenInfo);
+
+var _isIE = __webpack_require__(227);
+
+var _isIE2 = _interopRequireDefault(_isIE);
+
+var _lockScroll = __webpack_require__(228);
+
+var _lockScroll2 = _interopRequireDefault(_lockScroll);
+
+var _unlockScroll = __webpack_require__(229);
+
+var _unlockScroll2 = _interopRequireDefault(_unlockScroll);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+    getScreenInfo: _getScreenInfo2.default,
+    isIE: _isIE2.default,
+    lockScroll: _lockScroll2.default,
+    unlockScroll: _unlockScroll2.default
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/browser/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isIE = isIE;
+function isIE(ver) {
+    if (typeof ver === 'undefined') {
+        ver = null;
+    }
+    var b = document.createElement('b');
+    b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
+    return b.getElementsByTagName('i').length === 1;
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(isIE, 'isIE', '/Users/liang/Projects/readr/src/utils/browser/isIE.ts');
+}();
+
+;
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = lockScroll;
+function lockScroll() {
+    document.body.style.overflow = 'hidden';
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(lockScroll, 'lockScroll', '/Users/liang/Projects/readr/src/utils/browser/lockScroll.ts');
+}();
+
+;
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = unlockScroll;
+function unlockScroll() {
+    document.body.style.overflow = 'visible';
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(unlockScroll, 'unlockScroll', '/Users/liang/Projects/readr/src/utils/browser/unlockScroll.ts');
+}();
+
+;
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _isDescendant = __webpack_require__(31);
+
+var _isDescendant2 = _interopRequireDefault(_isDescendant);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+    isDescendant: _isDescendant2.default
+};
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/dom/index.ts');
+}();
+
+;
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = getCurrentTime;
+
+var _padNumberWithZero = __webpack_require__(72);
+
+var _padNumberWithZero2 = _interopRequireDefault(_padNumberWithZero);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getCurrentTime() {
+    var d = new Date();
+    var time = [d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()];
+    return time.map(function (t) {
+        return (0, _padNumberWithZero2.default)(t);
+    }).join('');
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(getCurrentTime, 'getCurrentTime', '/Users/liang/Projects/readr/src/utils/getCurrentTime.ts');
+}();
+
+;
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.logout = exports.auth = exports.userSignup = exports.userLogin = exports.fetchDoubanBooks = exports.fetchUsers = exports.fetchBooks = exports.fetchBookContent = exports.fetchBook = exports.fetchBookProgress = undefined;
+
+var _omit2 = __webpack_require__(7);
+
+var _omit3 = _interopRequireDefault(_omit2);
+
+var _assign2 = __webpack_require__(3);
+
+var _assign3 = _interopRequireDefault(_assign2);
+
+exports.fetchNormalized = fetchNormalized;
+exports.addCollection = addCollection;
+exports.addBook = addBook;
+exports.editBookMeta = editBookMeta;
+exports.addAuthor = addAuthor;
+exports.setProgress = setProgress;
+exports.deleteBook = deleteBook;
+
+var _callApi = __webpack_require__(34);
+
+var _callApi2 = _interopRequireDefault(_callApi);
+
+var _helpers = __webpack_require__(10);
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
+var _normalizeResponse = __webpack_require__(223);
+
+var _normalizeResponse2 = _interopRequireDefault(_normalizeResponse);
+
+var _schemas = __webpack_require__(65);
+
+var _schemas2 = _interopRequireDefault(_schemas);
+
+var _utils = __webpack_require__(23);
+
+var _utils2 = _interopRequireDefault(_utils);
+
+var _common = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var API_ROOT = _helpers2.default.getApiRoot();
+/**
+ * general helper functions
+ */
+var parseEndpointWithOptions = function parseEndpointWithOptions(endpoint, options) {
+    if (typeof options === 'string') {
+        return options;
+    } else {
+        var queryString = _utils2.default.parseUrlencoded(options);
+        return endpoint + '?' + queryString;
+    }
+};
+function fetchNormalized(endpoint, schema) {
+    var fetchOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    if (endpoint.indexOf('http://') !== -1) {
+        return (0, _normalizeResponse2.default)((0, _callApi2.default)(endpoint, fetchOptions), schema);
+    }
+    return (0, _normalizeResponse2.default)((0, _callApi2.default)(API_ROOT + '/' + endpoint, fetchOptions), schema);
+}
+/**
+ * specific api services
+ */
+var fetchBookProgress = exports.fetchBookProgress = function fetchBookProgress(id) {
+    return fetchNormalized('user/books/' + id + '/progress', _schemas2.default.BOOK_PROGRESS);
+};
+var fetchBook = exports.fetchBook = function fetchBook(id) {
+    return fetchNormalized('books/' + id, _schemas2.default.BOOK);
+};
+var fetchBookContent = exports.fetchBookContent = function fetchBookContent(id) {
+    return fetchNormalized('books/' + id + '/content', _schemas2.default.BOOK_CONTENT);
+};
+var fetchBooks = exports.fetchBooks = function fetchBooks() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var withContent = options.withContent;
+
+    var apiOptions = !withContent ? {
+        exclude: 'content'
+    } : {};
+    apiOptions = (0, _assign3.default)({}, (0, _omit3.default)(options, ['withContent']), apiOptions);
+    return fetchNormalized(parseEndpointWithOptions('books', apiOptions), _schemas2.default.BOOK_ARRAY);
+};
+var fetchUsers = exports.fetchUsers = function fetchUsers(options) {
+    return fetchNormalized(parseEndpointWithOptions('users', options), _schemas2.default.USER_ARRAY);
+};
+// external apis
+var fetchDoubanBooks = exports.fetchDoubanBooks = function fetchDoubanBooks(keyword) {
+    return (0, _callApi2.default)(_common.DOUBAN_API_ROOT + '/book/search?count=10&q=' + keyword, {
+        useJsonp: true
+    });
+};
+var userLogin = exports.userLogin = function userLogin(data) {
+    return (0, _callApi2.default)(API_ROOT + '/auth', {
+        method: 'POST',
+        data: data
+    });
+};
+var userSignup = exports.userSignup = function userSignup(data) {
+    return (0, _callApi2.default)(API_ROOT + '/users', {
+        method: 'POST',
+        data: data
+    });
+};
+var auth = exports.auth = function auth() {
+    return (0, _callApi2.default)(API_ROOT + '/auth', {
+        method: 'GET'
+    });
+};
+var logout = exports.logout = function logout() {
+    return (0, _callApi2.default)(API_ROOT + '/auth/revoke', {
+        method: 'PUT'
+    });
+};
+function addCollection(data) {
+    return (0, _callApi2.default)(API_ROOT + '/collections', { method: 'POST', data: data });
+}
+function addBook(data) {
+    return (0, _callApi2.default)(API_ROOT + '/books', { method: 'POST', data: data });
+}
+function editBookMeta(bookId, data) {
+    return (0, _callApi2.default)(API_ROOT + '/books/' + bookId, { method: 'PUT', data: data });
+}
+function addAuthor(data) {
+    return (0, _callApi2.default)(API_ROOT + '/authors', { method: 'POST', data: data });
+}
+function setProgress(bookId, data) {
+    (0, _callApi2.default)(API_ROOT + '/user/books/' + bookId + '/progress', { method: 'PUT', data: data });
+}
+function deleteBook(id) {
+    return (0, _callApi2.default)(API_ROOT + '/books/' + id, {
+        method: 'DELETE'
+    });
+}
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(API_ROOT, 'API_ROOT', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(parseEndpointWithOptions, 'parseEndpointWithOptions', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchNormalized, 'fetchNormalized', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchBookProgress, 'fetchBookProgress', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchBook, 'fetchBook', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchBookContent, 'fetchBookContent', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchBooks, 'fetchBooks', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchUsers, 'fetchUsers', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(fetchDoubanBooks, 'fetchDoubanBooks', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(userLogin, 'userLogin', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(userSignup, 'userSignup', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(auth, 'auth', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(logout, 'logout', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(addCollection, 'addCollection', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(addBook, 'addBook', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(editBookMeta, 'editBookMeta', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(addAuthor, 'addAuthor', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(setProgress, 'setProgress', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+
+    __REACT_HOT_LOADER__.register(deleteBook, 'deleteBook', '/Users/liang/Projects/readr/src/webAPI/apifns.ts');
+}();
+
+;
+
+/***/ }),
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15143,7 +15014,7 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var md5 = __webpack_require__(235);
+var md5 = __webpack_require__(234);
 var _default = md5;
 exports.default = _default;
 ;
@@ -15159,7 +15030,7 @@ var _temp = function () {
 ;
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15460,6 +15331,28 @@ var _temp = function () {
 ;
 
 /***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+// imports
+
+
+// module
+exports.push([module.i, ".alerts_1tIvD {\n  position: fixed;\n  width: 100%;\n  padding: 0 20px;\n  top: 10px;\n  left: 0;\n  z-index: 9999; }\n\n.alert_9eS9Y, .alert--success_34X_f, .alert--error_2Qv_8, .alert--warning_MfPIa {\n  padding: 10px 0;\n  font-size: 16px;\n  text-align: center;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  font-size: 1rem;\n  font-weight: bold;\n  border-radius: 3px;\n  width: 700px;\n  margin: 0 auto 10px; }\n  @media (max-width: 540px) {\n    .alert_9eS9Y, .alert--success_34X_f, .alert--error_2Qv_8, .alert--warning_MfPIa {\n      max-width: 100%; } }\n\n.content_1Xqwj {\n  overflow: hidden;\n  padding: 0 30px; }\n\n.alert-close_1fC9o {\n  cursor: pointer;\n  position: absolute;\n  right: 10px;\n  top: 11px;\n  display: inline-block; }\n\n.alert--success_34X_f {\n  background: #72efa8;\n  color: #204d33; }\n\n.alert--error_2Qv_8 {\n  background: #cc0000;\n  color: #fff; }\n\n.alert--warning_MfPIa {\n  background: orange;\n  color: black; }\n", ""]);
+
+// exports
+exports.locals = {
+	"alerts": "alerts_1tIvD",
+	"alert": "alert_9eS9Y",
+	"alert--success": "alert--success_34X_f",
+	"alert--error": "alert--error_2Qv_8",
+	"alert--warning": "alert--warning_MfPIa",
+	"content": "content_1Xqwj",
+	"alert-close": "alert-close_1fC9o"
+};
+
+/***/ }),
 /* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15468,11 +15361,19 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".colophon_3cQJ0 {\n  font-size: 1rem;\n  padding: 20px 0;\n  color: #999; }\n", ""]);
+exports.push([module.i, ".btn_XMRYz {\n  color: #fff;\n  background-color: #1B267F;\n  border-color: #1B267F;\n  padding: 3px 12px;\n  font-size: 1rem;\n  border-radius: 3px;\n  transition: all 0.2s 0s;\n  outline: none;\n  border: 1px solid transparent;\n  display: inline-block;\n  margin: 5px 0;\n  cursor: pointer; }\n  .btn_XMRYz:hover {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d; }\n  .btn_XMRYz:focus, .btn_XMRYz.focus_rfb5S {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n  .btn_XMRYz:active, .btn_XMRYz.active_p2s1P {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n    .btn_XMRYz:active:hover, .btn_XMRYz:active:focus, .btn_XMRYz:active.focus_rfb5S, .btn_XMRYz.active_p2s1P:hover, .btn_XMRYz.active_p2s1P:focus, .btn_XMRYz.active_p2s1P.focus_rfb5S {\n      color: #fff;\n      background-color: #0c1138;\n      border-color: #050716;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9 !important; }\n  .btn_XMRYz.disabled_8YQX-:focus, .btn_XMRYz.disabled_8YQX-.focus_rfb5S, .btn_XMRYz:disabled:focus, .btn_XMRYz:disabled.focus_rfb5S {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n  .btn_XMRYz.disabled_8YQX-:hover, .btn_XMRYz:disabled:hover {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n  .btn_XMRYz.disabled_8YQX-, .btn_XMRYz:disabled {\n    cursor: not-allowed;\n    opacity: .65; }\n  .btn_XMRYz:active:hover {\n    box-shadow: none; }\n\n.btn--hover_2klnD {\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n\n.btn_XMRYz.btn--blue_2BxwK {\n  color: #fff;\n  background-color: #1B267F;\n  border-color: #1B267F; }\n  .btn_XMRYz.btn--blue_2BxwK:hover {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d; }\n  .btn_XMRYz.btn--blue_2BxwK:focus, .btn_XMRYz.btn--blue_2BxwK.focus_rfb5S {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n  .btn_XMRYz.btn--blue_2BxwK:active, .btn_XMRYz.btn--blue_2BxwK.active_p2s1P {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n    .btn_XMRYz.btn--blue_2BxwK:active:hover, .btn_XMRYz.btn--blue_2BxwK:active:focus, .btn_XMRYz.btn--blue_2BxwK:active.focus_rfb5S, .btn_XMRYz.btn--blue_2BxwK.active_p2s1P:hover, .btn_XMRYz.btn--blue_2BxwK.active_p2s1P:focus, .btn_XMRYz.btn--blue_2BxwK.active_p2s1P.focus_rfb5S {\n      color: #fff;\n      background-color: #0c1138;\n      border-color: #050716;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9 !important; }\n  .btn_XMRYz.btn--blue_2BxwK.disabled_8YQX-:focus, .btn_XMRYz.btn--blue_2BxwK.disabled_8YQX-.focus_rfb5S, .btn_XMRYz.btn--blue_2BxwK:disabled:focus, .btn_XMRYz.btn--blue_2BxwK:disabled.focus_rfb5S {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n  .btn_XMRYz.btn--blue_2BxwK.disabled_8YQX-:hover, .btn_XMRYz.btn--blue_2BxwK:disabled:hover {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n\n.btn_XMRYz.btn--orange_ZQ7Eq {\n  color: #fff;\n  background-color: #ee9333;\n  border-color: #ee9333; }\n  .btn_XMRYz.btn--orange_ZQ7Eq:hover {\n    color: #fff;\n    background-color: #dc7a12;\n    border-color: #d27412; }\n  .btn_XMRYz.btn--orange_ZQ7Eq:focus, .btn_XMRYz.btn--orange_ZQ7Eq.focus_rfb5S {\n    color: #fff;\n    background-color: #dc7a12;\n    border-color: #d27412;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62; }\n  .btn_XMRYz.btn--orange_ZQ7Eq:active, .btn_XMRYz.btn--orange_ZQ7Eq.active_p2s1P {\n    color: #fff;\n    background-color: #dc7a12;\n    border-color: #d27412;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62; }\n    .btn_XMRYz.btn--orange_ZQ7Eq:active:hover, .btn_XMRYz.btn--orange_ZQ7Eq:active:focus, .btn_XMRYz.btn--orange_ZQ7Eq:active.focus_rfb5S, .btn_XMRYz.btn--orange_ZQ7Eq.active_p2s1P:hover, .btn_XMRYz.btn--orange_ZQ7Eq.active_p2s1P:focus, .btn_XMRYz.btn--orange_ZQ7Eq.active_p2s1P.focus_rfb5S {\n      color: #fff;\n      background-color: #bb6710;\n      border-color: #95530c;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62 !important; }\n  .btn_XMRYz.btn--orange_ZQ7Eq.disabled_8YQX-:focus, .btn_XMRYz.btn--orange_ZQ7Eq.disabled_8YQX-.focus_rfb5S, .btn_XMRYz.btn--orange_ZQ7Eq:disabled:focus, .btn_XMRYz.btn--orange_ZQ7Eq:disabled.focus_rfb5S {\n    background-color: #ee9333;\n    border-color: #ee9333; }\n  .btn_XMRYz.btn--orange_ZQ7Eq.disabled_8YQX-:hover, .btn_XMRYz.btn--orange_ZQ7Eq:disabled:hover {\n    background-color: #ee9333;\n    border-color: #ee9333; }\n\n.btn_XMRYz.btn--red_381qh {\n  color: #fff;\n  background-color: #d42020;\n  border-color: #d42020; }\n  .btn_XMRYz.btn--red_381qh:hover {\n    color: #fff;\n    background-color: #a81919;\n    border-color: #9f1818; }\n  .btn_XMRYz.btn--red_381qh:focus, .btn_XMRYz.btn--red_381qh.focus_rfb5S {\n    color: #fff;\n    background-color: #a81919;\n    border-color: #9f1818;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444; }\n  .btn_XMRYz.btn--red_381qh:active, .btn_XMRYz.btn--red_381qh.active_p2s1P {\n    color: #fff;\n    background-color: #a81919;\n    border-color: #9f1818;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444; }\n    .btn_XMRYz.btn--red_381qh:active:hover, .btn_XMRYz.btn--red_381qh:active:focus, .btn_XMRYz.btn--red_381qh:active.focus_rfb5S, .btn_XMRYz.btn--red_381qh.active_p2s1P:hover, .btn_XMRYz.btn--red_381qh.active_p2s1P:focus, .btn_XMRYz.btn--red_381qh.active_p2s1P.focus_rfb5S {\n      color: #fff;\n      background-color: #891515;\n      border-color: #650f0f;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444 !important; }\n  .btn_XMRYz.btn--red_381qh.disabled_8YQX-:focus, .btn_XMRYz.btn--red_381qh.disabled_8YQX-.focus_rfb5S, .btn_XMRYz.btn--red_381qh:disabled:focus, .btn_XMRYz.btn--red_381qh:disabled.focus_rfb5S {\n    background-color: #d42020;\n    border-color: #d42020; }\n  .btn_XMRYz.btn--red_381qh.disabled_8YQX-:hover, .btn_XMRYz.btn--red_381qh:disabled:hover {\n    background-color: #d42020;\n    border-color: #d42020; }\n\n.btn_XMRYz.btn--white_1W9tG {\n  color: #333;\n  background-color: #fff;\n  border-color: #fff; }\n  .btn_XMRYz.btn--white_1W9tG:hover {\n    color: #333;\n    background-color: #e6e6e6;\n    border-color: #e0e0e0; }\n  .btn_XMRYz.btn--white_1W9tG:focus, .btn_XMRYz.btn--white_1W9tG.focus_rfb5S {\n    color: #333;\n    background-color: #e6e6e6;\n    border-color: #e0e0e0;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px white; }\n  .btn_XMRYz.btn--white_1W9tG:active, .btn_XMRYz.btn--white_1W9tG.active_p2s1P {\n    color: #333;\n    background-color: #e6e6e6;\n    border-color: #e0e0e0;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px white; }\n    .btn_XMRYz.btn--white_1W9tG:active:hover, .btn_XMRYz.btn--white_1W9tG:active:focus, .btn_XMRYz.btn--white_1W9tG:active.focus_rfb5S, .btn_XMRYz.btn--white_1W9tG.active_p2s1P:hover, .btn_XMRYz.btn--white_1W9tG.active_p2s1P:focus, .btn_XMRYz.btn--white_1W9tG.active_p2s1P.focus_rfb5S {\n      color: #333;\n      background-color: #d4d4d4;\n      border-color: #bfbfbf;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px white !important; }\n  .btn_XMRYz.btn--white_1W9tG.disabled_8YQX-:focus, .btn_XMRYz.btn--white_1W9tG.disabled_8YQX-.focus_rfb5S, .btn_XMRYz.btn--white_1W9tG:disabled:focus, .btn_XMRYz.btn--white_1W9tG:disabled.focus_rfb5S {\n    background-color: #fff;\n    border-color: #fff; }\n  .btn_XMRYz.btn--white_1W9tG.disabled_8YQX-:hover, .btn_XMRYz.btn--white_1W9tG:disabled:hover {\n    background-color: #fff;\n    border-color: #fff; }\n", ""]);
 
 // exports
 exports.locals = {
-	"colophon": "colophon_3cQJ0"
+	"btn": "btn_XMRYz",
+	"focus": "focus_rfb5S",
+	"active": "active_p2s1P",
+	"disabled": "disabled_8YQX-",
+	"btn--hover": "btn--hover_2klnD",
+	"btn--blue": "btn--blue_2BxwK",
+	"btn--orange": "btn--orange_ZQ7Eq",
+	"btn--red": "btn--red_381qh",
+	"btn--white": "btn--white_1W9tG"
 };
 
 /***/ }),
@@ -15481,19 +15382,14 @@ exports.locals = {
 
 exports = module.exports = __webpack_require__(1)();
 // imports
-exports.i(__webpack_require__(37), undefined);
+
 
 // module
-exports.push([module.i, ".branding_3goRG {\n  background: #1B267F;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 800;\n  height: 60px; }\n\n.sep_AT6Gl {\n  margin: 0 10px;\n  opacity: .6;\n  font-size: 1rem; }\n\n.sub_Iyhms {\n  opacity: .8;\n  font-size: 1.2rem;\n  text-transform: uppercase;\n  margin-top: -3px;\n  display: inline-block; }\n\n.right_1ZAQP {\n  float: right; }\n\n.sub-name_2T8ah {\n  float: left;\n  margin-left: 15px; }\n  .sub-name_2T8ah span {\n    display: inline-block;\n    line-height: 60px;\n    height: 60px;\n    color: #fff; }\n\n.nav_10yn4 {\n  color: #fff;\n  line-height: 60px;\n  height: 60px; }\n", ""]);
+exports.push([module.i, ".colophon_j1kR3 {\n  font-size: 1rem;\n  padding: 20px 0;\n  color: #999; }\n", ""]);
 
 // exports
 exports.locals = {
-	"branding": "branding_3goRG",
-	"sep": "sep_AT6Gl",
-	"sub": "sub_Iyhms",
-	"right": "right_1ZAQP",
-	"sub-name": "sub-name_2T8ah",
-	"nav": "nav_10yn4 " + __webpack_require__(37).locals["nav"] + ""
+	"colophon": "colophon_j1kR3"
 };
 
 /***/ }),
@@ -15502,24 +15398,19 @@ exports.locals = {
 
 exports = module.exports = __webpack_require__(1)();
 // imports
-
+exports.i(__webpack_require__(36), undefined);
 
 // module
-exports.push([module.i, ".sidebar-left_mE1mo {\n  position: fixed;\n  left: 0;\n  top: 60px;\n  height: 100%;\n  width: 300px;\n  background: #E4E4E4; }\n\n.nav-side_3R0DN {\n  position: fixed;\n  left: 0;\n  height: 100%; }\n\n.nav-side-root_Jfwbj {\n  width: 80px;\n  background: #04082E; }\n\n.nav-side-root--current_4d7LC {\n  background: red; }\n\n.nav-side-sub_2RYLG {\n  width: 220px;\n  left: 80px; }\n\n/* item */\n.nav-item_2um33 {\n  height: 50px;\n  line-height: 50px; }\n  .nav-item_2um33 a {\n    display: block;\n    padding: 0 15px;\n    color: #fff;\n    height: 50px; }\n\n.icon_3waCK {\n  margin-top: 12px; }\n\n.root-item_1T0Vm {\n  text-align: center; }\n  .root-item_1T0Vm a:hover {\n    background: black; }\n\n.root-item--current_vCL9O {\n  background: #1B267F; }\n\n.sub-item_2_3a7 { }\n  .sub-item_2_3a7 a {\n    color: #666; }\n  .sub-item_2_3a7 a:hover {\n    background: gray(200); }\n\n.sub-item--current_8i_7w { }\n  .sub-item--current_8i_7w a,\n  .sub-item--current_8i_7w a:hover {\n    color: #1B267F;\n    background: #fff; }\n", ""]);
+exports.push([module.i, ".branding_3B2rm {\n  background: #1B267F;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 800;\n  height: 60px; }\n\n.sep_1_3hI {\n  margin: 0 10px;\n  opacity: .6;\n  font-size: 1rem; }\n\n.sub_39zJY {\n  opacity: .8;\n  font-size: 1.2rem;\n  text-transform: uppercase;\n  margin-top: -3px;\n  display: inline-block; }\n\n.right_2Sgoc {\n  float: right; }\n\n.sub-name_1E0Jo {\n  float: left;\n  margin-left: 15px; }\n  .sub-name_1E0Jo span {\n    display: inline-block;\n    line-height: 60px;\n    height: 60px;\n    color: #fff; }\n\n.nav_1fxmN {\n  color: #fff;\n  line-height: 60px;\n  height: 60px; }\n", ""]);
 
 // exports
 exports.locals = {
-	"sidebar-left": "sidebar-left_mE1mo",
-	"nav-side": "nav-side_3R0DN",
-	"nav-side-root": "nav-side-root_Jfwbj nav-side_3R0DN",
-	"nav-side-root--current": "nav-side-root--current_4d7LC nav-side-root_Jfwbj nav-side_3R0DN",
-	"nav-side-sub": "nav-side-sub_2RYLG nav-side_3R0DN",
-	"nav-item": "nav-item_2um33",
-	"icon": "icon_3waCK",
-	"root-item": "root-item_1T0Vm nav-item_2um33",
-	"root-item--current": "root-item--current_vCL9O root-item_1T0Vm nav-item_2um33",
-	"sub-item": "sub-item_2_3a7 nav-item_2um33",
-	"sub-item--current": "sub-item--current_8i_7w sub-item_2_3a7 nav-item_2um33"
+	"branding": "branding_3B2rm",
+	"sep": "sep_1_3hI",
+	"sub": "sub_39zJY",
+	"right": "right_2Sgoc",
+	"sub-name": "sub-name_1E0Jo",
+	"nav": "nav_1fxmN " + __webpack_require__(36).locals["nav"] + ""
 };
 
 /***/ }),
@@ -15531,13 +15422,21 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".logo-wrap_2xU1t {\n  margin: 0;\n  line-height: 60px;\n  color: #fff;\n  margin-top: -3px;\n  display: inline-block; }\n\n.logo_rp-__ {\n  background: url(" + __webpack_require__(252) + ") no-repeat left;\n  width: 70px;\n  height: 60px;\n  background-size: 70px;\n  text-indent: -999em;\n  display: inline-block; }\n\n.logo--dark_1U19_ {\n  background: url(" + __webpack_require__(251) + ") no-repeat left;\n  background-size: 70px; }\n", ""]);
+exports.push([module.i, ".sidebar-left_1iTu9 {\n  position: fixed;\n  left: 0;\n  top: 60px;\n  height: 100%;\n  width: 300px;\n  background: #E4E4E4; }\n\n.nav-side_1Rzzy {\n  position: fixed;\n  left: 0;\n  height: 100%; }\n\n.nav-side-root_3wgeK {\n  width: 80px;\n  background: #04082E; }\n\n.nav-side-root--current_4674B {\n  background: red; }\n\n.nav-side-sub_3FAdg {\n  width: 220px;\n  left: 80px; }\n\n/* item */\n.nav-item_2cqK9 {\n  height: 50px;\n  line-height: 50px; }\n  .nav-item_2cqK9 a {\n    display: block;\n    padding: 0 15px;\n    color: #fff;\n    height: 50px; }\n\n.icon_kvHOl {\n  margin-top: 12px; }\n\n.root-item_3RIxA {\n  text-align: center; }\n  .root-item_3RIxA a:hover {\n    background: black; }\n\n.root-item--current_3UXxB {\n  background: #1B267F; }\n\n.sub-item_1jr20 { }\n  .sub-item_1jr20 a {\n    color: #666; }\n  .sub-item_1jr20 a:hover {\n    background: gray(200); }\n\n.sub-item--current_2YLDP { }\n  .sub-item--current_2YLDP a,\n  .sub-item--current_2YLDP a:hover {\n    color: #1B267F;\n    background: #fff; }\n", ""]);
 
 // exports
 exports.locals = {
-	"logo-wrap": "logo-wrap_2xU1t",
-	"logo": "logo_rp-__",
-	"logo--dark": "logo--dark_1U19_ logo_rp-__"
+	"sidebar-left": "sidebar-left_1iTu9",
+	"nav-side": "nav-side_1Rzzy",
+	"nav-side-root": "nav-side-root_3wgeK nav-side_1Rzzy",
+	"nav-side-root--current": "nav-side-root--current_4674B nav-side-root_3wgeK nav-side_1Rzzy",
+	"nav-side-sub": "nav-side-sub_3FAdg nav-side_1Rzzy",
+	"nav-item": "nav-item_2cqK9",
+	"icon": "icon_kvHOl",
+	"root-item": "root-item_3RIxA nav-item_2cqK9",
+	"root-item--current": "root-item--current_3UXxB root-item_3RIxA nav-item_2cqK9",
+	"sub-item": "sub-item_1jr20 nav-item_2cqK9",
+	"sub-item--current": "sub-item--current_2YLDP sub-item_1jr20 nav-item_2cqK9"
 };
 
 /***/ }),
@@ -15549,17 +15448,18 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".alerts_lNYyS {\n  position: fixed;\n  width: 100%;\n  padding: 0 20px;\n  top: 10px;\n  left: 0;\n  z-index: 9999; }\n\n.alert_Tg6AL, .alert--success_ibIol, .alert--error_36iOd, .alert--warning_6_19X {\n  padding: 10px 0;\n  font-size: 16px;\n  text-align: center;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  font-size: 1rem;\n  font-weight: bold;\n  border-radius: 3px;\n  width: 700px;\n  margin: 0 auto 10px; }\n  @media (max-width: 540px) {\n    .alert_Tg6AL, .alert--success_ibIol, .alert--error_36iOd, .alert--warning_6_19X {\n      max-width: 100%; } }\n\n.content_2CILg {\n  overflow: hidden;\n  padding: 0 30px; }\n\n.alert-close_3Ckz- {\n  cursor: pointer;\n  position: absolute;\n  right: 10px;\n  top: 11px;\n  display: inline-block; }\n\n.alert--success_ibIol {\n  background: #72efa8;\n  color: #204d33; }\n\n.alert--error_36iOd {\n  background: #cc0000;\n  color: #fff; }\n\n.alert--warning_6_19X {\n  background: orange;\n  color: black; }\n", ""]);
+exports.push([module.i, ".dropdown-item_XFcbL {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.light-link_ZiwxI {\n  color: #ddd; }\n  .light-link_ZiwxI:hover {\n    color: #fff; }\n\n.dropdown_3P4JX {\n  display: inline-block;\n  cursor: pointer;\n  position: relative; }\n\n.dropdown-toggle_2E3V1 {\n  display: block;\n  user-select: none;\n  -webkit-user-select: none;\n  max-height: 100%; }\n\n.dropdown-menu_1nMO4 {\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);\n  line-height: 2.2;\n  font-size: 1rem;\n  text-align: left;\n  background: #222;\n  position: absolute;\n  right: 0;\n  width: 150px;\n  overflow: hidden;\n  padding: 5px 0;\n  z-index: 900; }\n\n.dropdown-caret_26jVH {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  vertical-align: middle;\n  content: \"\";\n  border: 4px solid;\n  border-right-color: transparent;\n  border-bottom-color: transparent;\n  border-left-color: transparent;\n  margin-left: 5px; }\n\n.dropdown-item_XFcbL {\n  display: block;\n  padding: 0 25px;\n  transition: all 0s; }\n  .dropdown-item_XFcbL:hover {\n    background: #3c3c3c; }\n  .dropdown-item_XFcbL:active {\n    background: #3c3c3c; }\n\n.sep_1VAnF {\n  margin: 5px 0;\n  height: 1px;\n  background: #3c3c3c; }\n\n.dropdown-menu--dark_22QR5 {\n  background: #1B267F; }\n  .dropdown-menu--dark_22QR5 .sep_1VAnF {\n    background: #1f2c94; }\n  .dropdown-menu--dark_22QR5 .dropdown-item_XFcbL:hover {\n    background: #1f2c94; }\n", ""]);
 
 // exports
 exports.locals = {
-	"alerts": "alerts_lNYyS",
-	"alert": "alert_Tg6AL",
-	"alert--success": "alert--success_ibIol",
-	"alert--error": "alert--error_36iOd",
-	"alert--warning": "alert--warning_6_19X",
-	"content": "content_2CILg",
-	"alert-close": "alert-close_3Ckz-"
+	"dropdown-item": "dropdown-item_XFcbL light-link_ZiwxI",
+	"light-link": "light-link_ZiwxI",
+	"dropdown": "dropdown_3P4JX",
+	"dropdown-toggle": "dropdown-toggle_2E3V1",
+	"dropdown-menu": "dropdown-menu_1nMO4",
+	"dropdown-caret": "dropdown-caret_26jVH",
+	"sep": "sep_1VAnF",
+	"dropdown-menu--dark": "dropdown-menu--dark_22QR5 dropdown-menu_1nMO4"
 };
 
 /***/ }),
@@ -15571,19 +15471,14 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".btn_M2NhQ {\n  color: #fff;\n  background-color: #1B267F;\n  border-color: #1B267F;\n  padding: 3px 12px;\n  font-size: 1rem;\n  border-radius: 3px;\n  transition: all 0.2s 0s;\n  outline: none;\n  border: 1px solid transparent;\n  display: inline-block;\n  margin: 5px 0;\n  cursor: pointer; }\n  .btn_M2NhQ:hover {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d; }\n  .btn_M2NhQ:focus, .btn_M2NhQ.focus_ptKD_ {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n  .btn_M2NhQ:active, .btn_M2NhQ.active_156lK {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n    .btn_M2NhQ:active:hover, .btn_M2NhQ:active:focus, .btn_M2NhQ:active.focus_ptKD_, .btn_M2NhQ.active_156lK:hover, .btn_M2NhQ.active_156lK:focus, .btn_M2NhQ.active_156lK.focus_ptKD_ {\n      color: #fff;\n      background-color: #0c1138;\n      border-color: #050716;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9 !important; }\n  .btn_M2NhQ.disabled_2GlXh:focus, .btn_M2NhQ.disabled_2GlXh.focus_ptKD_, .btn_M2NhQ:disabled:focus, .btn_M2NhQ:disabled.focus_ptKD_ {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n  .btn_M2NhQ.disabled_2GlXh:hover, .btn_M2NhQ:disabled:hover {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n  .btn_M2NhQ.disabled_2GlXh, .btn_M2NhQ:disabled {\n    cursor: not-allowed;\n    opacity: .65; }\n  .btn_M2NhQ:active:hover {\n    box-shadow: none; }\n\n.btn--hover_2KwUv {\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n\n.btn_M2NhQ.btn--blue_20YQo {\n  color: #fff;\n  background-color: #1B267F;\n  border-color: #1B267F; }\n  .btn_M2NhQ.btn--blue_20YQo:hover {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d; }\n  .btn_M2NhQ.btn--blue_20YQo:focus, .btn_M2NhQ.btn--blue_20YQo.focus_ptKD_ {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n  .btn_M2NhQ.btn--blue_20YQo:active, .btn_M2NhQ.btn--blue_20YQo.active_156lK {\n    color: #fff;\n    background-color: #121955;\n    border-color: #10174d;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9; }\n    .btn_M2NhQ.btn--blue_20YQo:active:hover, .btn_M2NhQ.btn--blue_20YQo:active:focus, .btn_M2NhQ.btn--blue_20YQo:active.focus_ptKD_, .btn_M2NhQ.btn--blue_20YQo.active_156lK:hover, .btn_M2NhQ.btn--blue_20YQo.active_156lK:focus, .btn_M2NhQ.btn--blue_20YQo.active_156lK.focus_ptKD_ {\n      color: #fff;\n      background-color: #0c1138;\n      border-color: #050716;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #2433a9 !important; }\n  .btn_M2NhQ.btn--blue_20YQo.disabled_2GlXh:focus, .btn_M2NhQ.btn--blue_20YQo.disabled_2GlXh.focus_ptKD_, .btn_M2NhQ.btn--blue_20YQo:disabled:focus, .btn_M2NhQ.btn--blue_20YQo:disabled.focus_ptKD_ {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n  .btn_M2NhQ.btn--blue_20YQo.disabled_2GlXh:hover, .btn_M2NhQ.btn--blue_20YQo:disabled:hover {\n    background-color: #1B267F;\n    border-color: #1B267F; }\n\n.btn_M2NhQ.btn--orange_Ecn3s {\n  color: #fff;\n  background-color: #ee9333;\n  border-color: #ee9333; }\n  .btn_M2NhQ.btn--orange_Ecn3s:hover {\n    color: #fff;\n    background-color: #dc7a12;\n    border-color: #d27412; }\n  .btn_M2NhQ.btn--orange_Ecn3s:focus, .btn_M2NhQ.btn--orange_Ecn3s.focus_ptKD_ {\n    color: #fff;\n    background-color: #dc7a12;\n    border-color: #d27412;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62; }\n  .btn_M2NhQ.btn--orange_Ecn3s:active, .btn_M2NhQ.btn--orange_Ecn3s.active_156lK {\n    color: #fff;\n    background-color: #dc7a12;\n    border-color: #d27412;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62; }\n    .btn_M2NhQ.btn--orange_Ecn3s:active:hover, .btn_M2NhQ.btn--orange_Ecn3s:active:focus, .btn_M2NhQ.btn--orange_Ecn3s:active.focus_ptKD_, .btn_M2NhQ.btn--orange_Ecn3s.active_156lK:hover, .btn_M2NhQ.btn--orange_Ecn3s.active_156lK:focus, .btn_M2NhQ.btn--orange_Ecn3s.active_156lK.focus_ptKD_ {\n      color: #fff;\n      background-color: #bb6710;\n      border-color: #95530c;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #f2ac62 !important; }\n  .btn_M2NhQ.btn--orange_Ecn3s.disabled_2GlXh:focus, .btn_M2NhQ.btn--orange_Ecn3s.disabled_2GlXh.focus_ptKD_, .btn_M2NhQ.btn--orange_Ecn3s:disabled:focus, .btn_M2NhQ.btn--orange_Ecn3s:disabled.focus_ptKD_ {\n    background-color: #ee9333;\n    border-color: #ee9333; }\n  .btn_M2NhQ.btn--orange_Ecn3s.disabled_2GlXh:hover, .btn_M2NhQ.btn--orange_Ecn3s:disabled:hover {\n    background-color: #ee9333;\n    border-color: #ee9333; }\n\n.btn_M2NhQ.btn--red_3EKC3 {\n  color: #fff;\n  background-color: #d42020;\n  border-color: #d42020; }\n  .btn_M2NhQ.btn--red_3EKC3:hover {\n    color: #fff;\n    background-color: #a81919;\n    border-color: #9f1818; }\n  .btn_M2NhQ.btn--red_3EKC3:focus, .btn_M2NhQ.btn--red_3EKC3.focus_ptKD_ {\n    color: #fff;\n    background-color: #a81919;\n    border-color: #9f1818;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444; }\n  .btn_M2NhQ.btn--red_3EKC3:active, .btn_M2NhQ.btn--red_3EKC3.active_156lK {\n    color: #fff;\n    background-color: #a81919;\n    border-color: #9f1818;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444; }\n    .btn_M2NhQ.btn--red_3EKC3:active:hover, .btn_M2NhQ.btn--red_3EKC3:active:focus, .btn_M2NhQ.btn--red_3EKC3:active.focus_ptKD_, .btn_M2NhQ.btn--red_3EKC3.active_156lK:hover, .btn_M2NhQ.btn--red_3EKC3.active_156lK:focus, .btn_M2NhQ.btn--red_3EKC3.active_156lK.focus_ptKD_ {\n      color: #fff;\n      background-color: #891515;\n      border-color: #650f0f;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px #e34444 !important; }\n  .btn_M2NhQ.btn--red_3EKC3.disabled_2GlXh:focus, .btn_M2NhQ.btn--red_3EKC3.disabled_2GlXh.focus_ptKD_, .btn_M2NhQ.btn--red_3EKC3:disabled:focus, .btn_M2NhQ.btn--red_3EKC3:disabled.focus_ptKD_ {\n    background-color: #d42020;\n    border-color: #d42020; }\n  .btn_M2NhQ.btn--red_3EKC3.disabled_2GlXh:hover, .btn_M2NhQ.btn--red_3EKC3:disabled:hover {\n    background-color: #d42020;\n    border-color: #d42020; }\n\n.btn_M2NhQ.btn--white_3Rv2J {\n  color: #333;\n  background-color: #fff;\n  border-color: #fff; }\n  .btn_M2NhQ.btn--white_3Rv2J:hover {\n    color: #333;\n    background-color: #e6e6e6;\n    border-color: #e0e0e0; }\n  .btn_M2NhQ.btn--white_3Rv2J:focus, .btn_M2NhQ.btn--white_3Rv2J.focus_ptKD_ {\n    color: #333;\n    background-color: #e6e6e6;\n    border-color: #e0e0e0;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px white; }\n  .btn_M2NhQ.btn--white_3Rv2J:active, .btn_M2NhQ.btn--white_3Rv2J.active_156lK {\n    color: #333;\n    background-color: #e6e6e6;\n    border-color: #e0e0e0;\n    background-image: none;\n    box-shadow: 0 0 0 1px #fff, 0 0 0 3px white; }\n    .btn_M2NhQ.btn--white_3Rv2J:active:hover, .btn_M2NhQ.btn--white_3Rv2J:active:focus, .btn_M2NhQ.btn--white_3Rv2J:active.focus_ptKD_, .btn_M2NhQ.btn--white_3Rv2J.active_156lK:hover, .btn_M2NhQ.btn--white_3Rv2J.active_156lK:focus, .btn_M2NhQ.btn--white_3Rv2J.active_156lK.focus_ptKD_ {\n      color: #333;\n      background-color: #d4d4d4;\n      border-color: #bfbfbf;\n      box-shadow: 0 0 0 1px #fff, 0 0 0 3px white !important; }\n  .btn_M2NhQ.btn--white_3Rv2J.disabled_2GlXh:focus, .btn_M2NhQ.btn--white_3Rv2J.disabled_2GlXh.focus_ptKD_, .btn_M2NhQ.btn--white_3Rv2J:disabled:focus, .btn_M2NhQ.btn--white_3Rv2J:disabled.focus_ptKD_ {\n    background-color: #fff;\n    border-color: #fff; }\n  .btn_M2NhQ.btn--white_3Rv2J.disabled_2GlXh:hover, .btn_M2NhQ.btn--white_3Rv2J:disabled:hover {\n    background-color: #fff;\n    border-color: #fff; }\n", ""]);
+exports.push([module.i, ":root {\n  --time: .3s; }\n\n.enter_4NggM {\n  opacity: 0.01;\n  transition: opacity var(--time) ease-in; }\n\n.enterActive_2X3Rh {\n  opacity: 1; }\n\n.leave_3Z-4r {\n  opacity: 1;\n  transition: opacity var(--time) ease-in; }\n\n.leaveActive_2yD2v {\n  opacity: 0; }\n", ""]);
 
 // exports
 exports.locals = {
-	"btn": "btn_M2NhQ",
-	"focus": "focus_ptKD_",
-	"active": "active_156lK",
-	"disabled": "disabled_2GlXh",
-	"btn--hover": "btn--hover_2KwUv",
-	"btn--blue": "btn--blue_20YQo",
-	"btn--orange": "btn--orange_Ecn3s",
-	"btn--red": "btn--red_3EKC3",
-	"btn--white": "btn--white_3Rv2J"
+	"enter": "enter_4NggM",
+	"enterActive": "enterActive_2X3Rh",
+	"leave": "leave_3Z-4r",
+	"leaveActive": "leaveActive_2yD2v"
 };
 
 /***/ }),
@@ -15595,18 +15490,12 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".dropdown-item_2C1dz {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.light-link_2QDeA {\n  color: #ddd; }\n  .light-link_2QDeA:hover {\n    color: #fff; }\n\n.dropdown_SZfyp {\n  display: inline-block;\n  cursor: pointer;\n  position: relative; }\n\n.dropdown-toggle_34Qfd {\n  display: block;\n  user-select: none;\n  -webkit-user-select: none;\n  max-height: 100%; }\n\n.dropdown-menu_1HgbS {\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);\n  line-height: 2.2;\n  font-size: 1rem;\n  text-align: left;\n  background: #222;\n  position: absolute;\n  right: 0;\n  width: 150px;\n  overflow: hidden;\n  padding: 5px 0;\n  z-index: 900; }\n\n.dropdown-caret_FcBWI {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  vertical-align: middle;\n  content: \"\";\n  border: 4px solid;\n  border-right-color: transparent;\n  border-bottom-color: transparent;\n  border-left-color: transparent;\n  margin-left: 5px; }\n\n.dropdown-item_2C1dz {\n  display: block;\n  padding: 0 25px;\n  transition: all 0s; }\n  .dropdown-item_2C1dz:hover {\n    background: #3c3c3c; }\n  .dropdown-item_2C1dz:active {\n    background: #3c3c3c; }\n\n.sep_10Y0o {\n  margin: 5px 0;\n  height: 1px;\n  background: #3c3c3c; }\n\n.dropdown-menu--dark_6eVPX {\n  background: #1B267F; }\n  .dropdown-menu--dark_6eVPX .sep_10Y0o {\n    background: #1f2c94; }\n  .dropdown-menu--dark_6eVPX .dropdown-item_2C1dz:hover {\n    background: #1f2c94; }\n", ""]);
+exports.push([module.i, ".svg-shape_2SBH- {\n  fill: currentColor;\n  overflow: hidden; }\n\n.icon_66GYG {\n  display: inline-block;\n  position: relative; }\n", ""]);
 
 // exports
 exports.locals = {
-	"dropdown-item": "dropdown-item_2C1dz light-link_2QDeA",
-	"light-link": "light-link_2QDeA",
-	"dropdown": "dropdown_SZfyp",
-	"dropdown-toggle": "dropdown-toggle_34Qfd",
-	"dropdown-menu": "dropdown-menu_1HgbS",
-	"dropdown-caret": "dropdown-caret_FcBWI",
-	"sep": "sep_10Y0o",
-	"dropdown-menu--dark": "dropdown-menu--dark_6eVPX dropdown-menu_1HgbS"
+	"svg-shape": "svg-shape_2SBH-",
+	"icon": "icon_66GYG"
 };
 
 /***/ }),
@@ -15618,14 +15507,14 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ":root {\n  --time: .3s; }\n\n.enter_b08lF {\n  opacity: 0.01;\n  transition: opacity var(--time) ease-in; }\n\n.enterActive_2lPGz {\n  opacity: 1; }\n\n.leave_3S2Q- {\n  opacity: 1;\n  transition: opacity var(--time) ease-in; }\n\n.leaveActive_2i4qH {\n  opacity: 0; }\n", ""]);
+exports.push([module.i, ".input-wrap_YTHkJ, .input-wrap--error_-brlk {\n  margin: 10px 0;\n  position: relative; }\n\n.input_5vxBY {\n  width: 100%;\n  padding: 5px 5px;\n  border: 1px solid #ddd;\n  transition: border-color .3s;\n  line-height: 25px;\n  outline: none; }\n\n.input_5vxBY:focus {\n  border-color: #1B267F; }\n\n.input-wrap--error_-brlk .input_5vxBY {\n  border-color: #cc0000; }\n\n.error-msg_19MVh {\n  position: absolute;\n  right: 10px;\n  top: 6px;\n  line-height: 25px;\n  color: #cc0000; }\n", ""]);
 
 // exports
 exports.locals = {
-	"enter": "enter_b08lF",
-	"enterActive": "enterActive_2lPGz",
-	"leave": "leave_3S2Q-",
-	"leaveActive": "leaveActive_2i4qH"
+	"input-wrap": "input-wrap_YTHkJ",
+	"input-wrap--error": "input-wrap--error_-brlk",
+	"input": "input_5vxBY",
+	"error-msg": "error-msg_19MVh"
 };
 
 /***/ }),
@@ -15637,12 +15526,13 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".svg-shape_423Wb {\n  fill: currentColor;\n  overflow: hidden; }\n\n.icon_2s6T3 {\n  display: inline-block;\n  position: relative; }\n", ""]);
+exports.push([module.i, ".logo-wrap_1aLoA {\n  margin: 0;\n  line-height: 60px;\n  color: #fff;\n  margin-top: -3px;\n  display: inline-block; }\n\n.logo_35NyS {\n  background: url(" + __webpack_require__(251) + ") no-repeat left;\n  width: 70px;\n  height: 60px;\n  background-size: 70px;\n  text-indent: -999em;\n  display: inline-block; }\n\n.logo--dark_2shYM {\n  background: url(" + __webpack_require__(250) + ") no-repeat left;\n  background-size: 70px; }\n", ""]);
 
 // exports
 exports.locals = {
-	"svg-shape": "svg-shape_423Wb",
-	"icon": "icon_2s6T3"
+	"logo-wrap": "logo-wrap_1aLoA",
+	"logo": "logo_35NyS",
+	"logo--dark": "logo--dark_2shYM logo_35NyS"
 };
 
 /***/ }),
@@ -15654,14 +15544,21 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".input-wrap_1uL9i, .input-wrap--error_oOHxx {\n  margin: 10px 0;\n  position: relative; }\n\n.input_c1thg {\n  width: 100%;\n  padding: 5px 5px;\n  border: 1px solid #ddd;\n  transition: border-color .3s;\n  line-height: 25px;\n  outline: none; }\n\n.input_c1thg:focus {\n  border-color: #1B267F; }\n\n.input-wrap--error_oOHxx .input_c1thg {\n  border-color: #cc0000; }\n\n.error-msg_1VjPs {\n  position: absolute;\n  right: 10px;\n  top: 6px;\n  line-height: 25px;\n  color: #cc0000; }\n", ""]);
+exports.push([module.i, ".modal_9QpxU {\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);\n  border-radius: 3px; }\n  .modal_9QpxU .icon-close_2kZw3 {\n    cursor: pointer; }\n\n.modal-backdrop_3trxs {\n  z-index: 900; }\n\n.modal-body_PWCkH {\n  margin: 10px 0 0; }\n\n.modal-header_1KgC3 {\n  margin: 10px 0; }\n\n.modal-title_310bp {\n  font-size: 1.4rem;\n  font-weight: normal;\n  color: #333;\n  margin: 5px 0; }\n\n.modal-footer_pCffa {\n  border-top: 3px solid #e9ebf2;\n  text-align: right;\n  overflow: hidden; }\n  .modal-footer_pCffa .btn-red_38Zz5 {\n    float: left;\n    margin-left: 0; }\n  .modal-footer_pCffa button {\n    margin: 5px 0 5px 10px; }\n\n.modal-content_2tIvb {\n  margin: 15px 0;\n  line-height: 1.5; }\n\n.confirm-modal_lz_tb {\n  background: #fff;\n  padding: 20px 30px; }\n  .confirm-modal_lz_tb p {\n    font-size: 1.2rem; }\n\n.modal-plus_2u3At {\n  padding: 20px 30px; }\n", ""]);
 
 // exports
 exports.locals = {
-	"input-wrap": "input-wrap_1uL9i",
-	"input-wrap--error": "input-wrap--error_oOHxx",
-	"input": "input_c1thg",
-	"error-msg": "error-msg_1VjPs"
+	"modal": "modal_9QpxU",
+	"icon-close": "icon-close_2kZw3",
+	"modal-backdrop": "modal-backdrop_3trxs",
+	"modal-body": "modal-body_PWCkH",
+	"modal-header": "modal-header_1KgC3",
+	"modal-title": "modal-title_310bp",
+	"modal-footer": "modal-footer_pCffa",
+	"btn-red": "btn-red_38Zz5",
+	"modal-content": "modal-content_2tIvb",
+	"confirm-modal": "confirm-modal_lz_tb",
+	"modal-plus": "modal-plus_2u3At"
 };
 
 /***/ }),
@@ -15673,21 +15570,11 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".modal_20AZ1 {\n  background: #fff;\n  padding: 0;\n  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);\n  border-radius: 3px; }\n  .modal_20AZ1 .icon-close_5uuLa {\n    cursor: pointer; }\n\n.modal-backdrop_3rq0k {\n  z-index: 900; }\n\n.modal-body_2gT23 {\n  margin: 10px 0 0; }\n\n.modal-header_2dz68 {\n  margin: 10px 0; }\n\n.modal-title_8pOfE {\n  font-size: 1.4rem;\n  font-weight: normal;\n  color: #333;\n  margin: 5px 0; }\n\n.modal-footer_fyZtS {\n  border-top: 3px solid #e9ebf2;\n  text-align: right;\n  overflow: hidden; }\n  .modal-footer_fyZtS .btn-red_3zomi {\n    float: left;\n    margin-left: 0; }\n  .modal-footer_fyZtS button {\n    margin: 5px 0 5px 10px; }\n\n.modal-content_3ZIHb {\n  margin: 15px 0;\n  line-height: 1.5; }\n\n.confirm-modal_k5GF0 {\n  background: #fff;\n  padding: 20px 30px; }\n  .confirm-modal_k5GF0 p {\n    font-size: 1.2rem; }\n\n.modal-plus_1_TST {\n  padding: 20px 30px; }\n", ""]);
+exports.push([module.i, ".modal-footer_WHxcY button {\n  margin-right: 10px; }\n", ""]);
 
 // exports
 exports.locals = {
-	"modal": "modal_20AZ1",
-	"icon-close": "icon-close_5uuLa",
-	"modal-backdrop": "modal-backdrop_3rq0k",
-	"modal-body": "modal-body_2gT23",
-	"modal-header": "modal-header_2dz68",
-	"modal-title": "modal-title_8pOfE",
-	"modal-footer": "modal-footer_fyZtS",
-	"btn-red": "btn-red_3zomi",
-	"modal-content": "modal-content_3ZIHb",
-	"confirm-modal": "confirm-modal_k5GF0",
-	"modal-plus": "modal-plus_1_TST"
+	"modal-footer": "modal-footer_WHxcY"
 };
 
 /***/ }),
@@ -15699,11 +15586,17 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".modal-footer_FaHiU button {\n  margin-right: 10px; }\n", ""]);
+exports.push([module.i, ".selectize-wrap_1BcA5 {\n  margin: 10px 0;\n  position: relative; }\n\n.selectize-input_248xW {\n  min-width: 300px;\n  border: 1px solid #ddd;\n  margin: 10px 0;\n  box-sizing: border-box;\n  transition: all 0s;\n  cursor: text;\n  background: #fff; }\n  .selectize-input_248xW input {\n    background: transparent;\n    line-height: 22px; }\n\n.selectize-input--focus_3llwR {\n  border-color: #1B267F; }\n\n.selectize-input--empty_3RpVN {\n  background: #fff;\n  padding: 5px 5px 0; }\n\n.selectize-input_248xW input {\n  border: none;\n  outline: none;\n  margin-bottom: 5px; }\n\n.query-results_2aXfo {\n  margin-top: -3px;\n  margin-bottom: 5px;\n  padding: 5px;\n  border-radius: 3px;\n  position: absolute;\n  left: 0;\n  width: 100%;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  background: #fff;\n  z-index: 900; }\n\n.query-results_2aXfo li {\n  padding: 0 7px;\n  line-height: 2;\n  cursor: pointer;\n  border-radius: 3px; }\n  .query-results_2aXfo li:hover {\n    background: #1B267F;\n    color: #fff; }\n\n.selectize-tag_KLDw8 {\n  background: #1B267F;\n  cursor: pointer;\n  border-radius: 3px;\n  padding: 3px 25px 3px 5px;\n  margin: 5px;\n  color: #fff;\n  display: inline-block;\n  position: relative; }\n\n.icon-remove_3f7V2 {\n  font-size: 0.8rem;\n  margin-left: 5px;\n  position: absolute;\n  right: 5px;\n  top: 2px; }\n", ""]);
 
 // exports
 exports.locals = {
-	"modal-footer": "modal-footer_FaHiU"
+	"selectize-wrap": "selectize-wrap_1BcA5",
+	"selectize-input": "selectize-input_248xW",
+	"selectize-input--focus": "selectize-input--focus_3llwR",
+	"selectize-input--empty": "selectize-input--empty_3RpVN",
+	"query-results": "query-results_2aXfo",
+	"selectize-tag": "selectize-tag_KLDw8",
+	"icon-remove": "icon-remove_3f7V2"
 };
 
 /***/ }),
@@ -15715,17 +15608,12 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".selectize-wrap_P-y2- {\n  margin: 10px 0;\n  position: relative; }\n\n.selectize-input_36ULe {\n  min-width: 300px;\n  border: 1px solid #ddd;\n  margin: 10px 0;\n  box-sizing: border-box;\n  transition: all 0s;\n  cursor: text;\n  background: #fff; }\n  .selectize-input_36ULe input {\n    background: transparent;\n    line-height: 22px; }\n\n.selectize-input--focus_30LU5 {\n  border-color: #1B267F; }\n\n.selectize-input--empty_3eAmI {\n  background: #fff;\n  padding: 5px 5px 0; }\n\n.selectize-input_36ULe input {\n  border: none;\n  outline: none;\n  margin-bottom: 5px; }\n\n.query-results_3Ph-Z {\n  margin-top: -3px;\n  margin-bottom: 5px;\n  padding: 5px;\n  border-radius: 3px;\n  position: absolute;\n  left: 0;\n  width: 100%;\n  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n  background: #fff;\n  z-index: 900; }\n\n.query-results_3Ph-Z li {\n  padding: 0 7px;\n  line-height: 2;\n  cursor: pointer;\n  border-radius: 3px; }\n  .query-results_3Ph-Z li:hover {\n    background: #1B267F;\n    color: #fff; }\n\n.selectize-tag_1PWDE {\n  background: #1B267F;\n  cursor: pointer;\n  border-radius: 3px;\n  padding: 3px 25px 3px 5px;\n  margin: 5px;\n  color: #fff;\n  display: inline-block;\n  position: relative; }\n\n.icon-remove_2BuSV {\n  font-size: 0.8rem;\n  margin-left: 5px;\n  position: absolute;\n  right: 5px;\n  top: 2px; }\n", ""]);
+exports.push([module.i, ".textarea-wrap_1Wwgp {\n  margin: 10px 0;\n  position: relative; }\n\n.textarea_2QMlV {\n  width: 100%;\n  padding: 5px;\n  border: 1px solid #ddd;\n  outline: none;\n  height: 100px;\n  transition: border-color .3s; }\n\n.textarea_2QMlV:focus {\n  border-color: #1B267F; }\n", ""]);
 
 // exports
 exports.locals = {
-	"selectize-wrap": "selectize-wrap_P-y2-",
-	"selectize-input": "selectize-input_36ULe",
-	"selectize-input--focus": "selectize-input--focus_30LU5",
-	"selectize-input--empty": "selectize-input--empty_3eAmI",
-	"query-results": "query-results_3Ph-Z",
-	"selectize-tag": "selectize-tag_1PWDE",
-	"icon-remove": "icon-remove_2BuSV"
+	"textarea-wrap": "textarea-wrap_1Wwgp",
+	"textarea": "textarea_2QMlV"
 };
 
 /***/ }),
@@ -15737,56 +15625,39 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".textarea-wrap_YWll5 {\n  margin: 10px 0;\n  position: relative; }\n\n.textarea_1svNZ {\n  width: 100%;\n  padding: 5px;\n  border: 1px solid #ddd;\n  outline: none;\n  height: 100px;\n  transition: border-color .3s; }\n\n.textarea_1svNZ:focus {\n  border-color: #1B267F; }\n", ""]);
+exports.push([module.i, ".content_21T97 {\n  margin: 0 auto;\n  width: 550px;\n  position: relative;\n  overflow: hidden;\n  line-height: 1.9; }\n  .content_21T97 p {\n    margin: 0;\n    min-height: 25px; }\n\n.page_3Tp6I {\n  display: block;\n  width: 100%;\n  overflow: hidden; }\n\n.page--fluid_1rlYj { }\n  .page--fluid_1rlYj .content_21T97 {\n    width: 100%;\n    padding: 0 20px; }\n\n.page--init_32nRm {\n  position: relative;\n  height: auto; }\n  .page--init_32nRm .content_21T97 {\n    height: auto; }\n\n.gb-line_1I04_ {\n  overflow: hidden; }\n\n.page-no_2YMG3 {\n  position: absolute;\n  left: 0;\n  top: 0;\n  border-top: 1px solid #e6e6e6;\n  padding: 0 10px;\n  color: #e6e6e6;\n  font-size: 0.8rem; }\n\n.white_12gOp {\n  color: #333; }\n\n.night_2gn4k {\n  color: #eee; }\n  .night_2gn4k a {\n    color: #fff;\n    text-decoration: underline; }\n\n.sepia_1MgpS {\n  color: #503220; }\n", ""]);
 
 // exports
 exports.locals = {
-	"textarea-wrap": "textarea-wrap_YWll5",
-	"textarea": "textarea_1svNZ"
+	"content": "content_21T97",
+	"page": "page_3Tp6I",
+	"page--fluid": "page--fluid_1rlYj page_3Tp6I",
+	"page--init": "page--init_32nRm",
+	"gb-line": "gb-line_1I04_",
+	"page-no": "page-no_2YMG3",
+	"white": "white_12gOp",
+	"night": "night_2gn4k",
+	"sepia": "sepia_1MgpS"
 };
 
 /***/ }),
 /* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, ".content_deYS4 {\n  margin: 0 auto;\n  width: 550px;\n  position: relative;\n  overflow: hidden;\n  line-height: 1.9; }\n  .content_deYS4 p {\n    margin: 0;\n    min-height: 25px; }\n\n.page_26Jj7 {\n  display: block;\n  width: 100%;\n  overflow: hidden; }\n\n.page--fluid_20eQM { }\n  .page--fluid_20eQM .content_deYS4 {\n    width: 100%;\n    padding: 0 20px; }\n\n.page--init_1VHVM {\n  position: relative;\n  height: auto; }\n  .page--init_1VHVM .content_deYS4 {\n    height: auto; }\n\n.gb-line_3RYqK {\n  overflow: hidden; }\n\n.page-no_2_187 {\n  position: absolute;\n  left: 0;\n  top: 0;\n  border-top: 1px solid #e6e6e6;\n  padding: 0 10px;\n  color: #e6e6e6;\n  font-size: 0.8rem; }\n\n.white_1TVO9 {\n  color: #333; }\n\n.night_3alh8 {\n  color: #eee; }\n  .night_3alh8 a {\n    color: #fff;\n    text-decoration: underline; }\n\n.sepia_1CF69 {\n  color: #503220; }\n", ""]);
-
-// exports
-exports.locals = {
-	"content": "content_deYS4",
-	"page": "page_26Jj7",
-	"page--fluid": "page--fluid_20eQM page_26Jj7",
-	"page--init": "page--init_1VHVM",
-	"gb-line": "gb-line_3RYqK",
-	"page-no": "page-no_2_187",
-	"white": "white_1TVO9",
-	"night": "night_3alh8",
-	"sepia": "sepia_1CF69"
-};
+module.exports = __webpack_require__.p + "media/logo-dark.4754e8aa78.png";
 
 /***/ }),
 /* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "media/logo-dark.4754e8aa78.png";
+module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
 
 /***/ }),
 /* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
 
-/***/ }),
-/* 253 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(37);
+    var content = __webpack_require__(36);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -15803,8 +15674,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Branding.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Branding.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Branding.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Branding.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -15817,7 +15688,7 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
   
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -15838,8 +15709,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Colophon.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Colophon.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_button.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./_button.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -15852,7 +15723,7 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
   
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -15873,8 +15744,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ConsoleBranding.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ConsoleBranding.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Colophon.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Colophon.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -15887,7 +15758,7 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
   
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -15908,8 +15779,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ConsoleSidebar.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ConsoleSidebar.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./ConsoleBranding.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./ConsoleBranding.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -15922,7 +15793,7 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
   
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -15943,8 +15814,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Logo.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Logo.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./ConsoleSidebar.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./ConsoleSidebar.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -15957,7 +15828,7 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
   
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -15978,8 +15849,43 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_button.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./_button.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Fade.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Fade.scss");
+
+        if (typeof content === 'string') {
+          content = [[module.id, content, '']];
+        }
+
+        removeCss = insertCss(content, { replace: true });
+      });
+      module.hot.dispose(function() { removeCss(); });
+    }
+  
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+    var content = __webpack_require__(242);
+    var insertCss = __webpack_require__(2);
+
+    if (typeof content === 'string') {
+      content = [[module.i, content, '']];
+    }
+
+    module.exports = content.locals || {};
+    module.exports._getContent = function() { return content; };
+    module.exports._getCss = function() { return content.toString(); };
+    module.exports._insertCss = function(options) { return insertCss(content, options) };
+    
+    // Hot Module Replacement
+    // https://webpack.github.io/docs/hot-module-replacement
+    // Only activated in browser context
+    if (false) {
+      var removeCss = function() {};
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Icon.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Icon.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -16013,8 +15919,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Fade.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Fade.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Input.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Input.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -16048,8 +15954,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Icon.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Icon.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Logo.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Logo.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -16066,7 +15972,7 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(245);
+    var content = __webpack_require__(246);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -16083,8 +15989,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Input.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Input.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./ModalFooter.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./ModalFooter.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -16118,8 +16024,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ModalFooter.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./ModalFooter.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./SelectizeInput.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./SelectizeInput.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -16153,8 +16059,8 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
     // Only activated in browser context
     if (false) {
       var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./SelectizeInput.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./SelectizeInput.scss");
+      module.hot.accept("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Textarea.scss", function() {
+        content = require("!!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/sass-loader/index.js!./Textarea.scss");
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
@@ -16168,210 +16074,171 @@ module.exports = __webpack_require__.p + "media/logo.81eb83d7f7.png";
 
 /***/ }),
 /* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-    var content = __webpack_require__(249);
-    var insertCss = __webpack_require__(2);
-
-    if (typeof content === 'string') {
-      content = [[module.i, content, '']];
-    }
-
-    module.exports = content.locals || {};
-    module.exports._getContent = function() { return content; };
-    module.exports._getCss = function() { return content.toString(); };
-    module.exports._insertCss = function(options) { return insertCss(content, options) };
-    
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (false) {
-      var removeCss = function() {};
-      module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Textarea.scss", function() {
-        content = require("!!../../../../node_modules/css-loader/index.js??ref--3-1!../../../../node_modules/sass-loader/index.js!./Textarea.scss");
-
-        if (typeof content === 'string') {
-          content = [[module.id, content, '']];
-        }
-
-        removeCss = insertCss(content, { replace: true });
-      });
-      module.hot.dispose(function() { removeCss(); });
-    }
-  
-
-/***/ }),
-/* 265 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/get-iterator");
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/core-js/json/stringify");
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-runtime/helpers/slicedToArray");
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-parser");
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports) {
 
 module.exports = require("colors/safe");
 
 /***/ }),
-/* 270 */
+/* 269 */
 /***/ (function(module, exports) {
 
 module.exports = require("connect-mongo");
 
 /***/ }),
-/* 271 */
+/* 270 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 272 */
+/* 271 */
 /***/ (function(module, exports) {
 
 module.exports = require("crypto");
 
 /***/ }),
-/* 273 */
+/* 272 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-session");
 
 /***/ }),
-/* 274 */
+/* 273 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 275 */
+/* 274 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 276 */
+/* 275 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/cloneDeep");
 
 /***/ }),
-/* 277 */
+/* 276 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/filter");
 
 /***/ }),
-/* 278 */
+/* 277 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/isNull");
 
 /***/ }),
-/* 279 */
+/* 278 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/mapValues");
 
 /***/ }),
-/* 280 */
+/* 279 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/union");
 
 /***/ }),
-/* 281 */
+/* 280 */
 /***/ (function(module, exports) {
 
 module.exports = require("mongodb");
 
 /***/ }),
-/* 282 */
+/* 281 */
 /***/ (function(module, exports) {
 
 module.exports = require("morgan");
 
 /***/ }),
-/* 283 */
+/* 282 */
 /***/ (function(module, exports) {
 
 module.exports = require("multer");
 
 /***/ }),
-/* 284 */
+/* 283 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 285 */
+/* 284 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-helmet");
 
 /***/ }),
-/* 286 */
+/* 285 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-side-effect");
 
 /***/ }),
-/* 287 */
+/* 286 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-logger");
 
 /***/ }),
-/* 288 */
+/* 287 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 289 */
+/* 288 */
 /***/ (function(module, exports) {
 
 module.exports = require("simple-epub-parser");
 
 /***/ }),
-/* 290 */
-/***/ (function(module, exports) {
-
-module.exports = require("url-join");
-
-/***/ }),
-/* 291 */
+/* 289 */
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
 
 /***/ }),
-/* 292 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(82);
-module.exports = __webpack_require__(81);
+__webpack_require__(84);
+module.exports = __webpack_require__(83);
 
 
 /***/ }),
+/* 291 */,
+/* 292 */,
 /* 293 */,
 /* 294 */,
 /* 295 */,
@@ -16408,14 +16275,14 @@ module.exports = __webpack_require__(81);
 /* 326 */,
 /* 327 */,
 /* 328 */,
-/* 329 */,
-/* 330 */,
-/* 331 */
+/* 329 */
 /***/ (function(module, exports) {
 
 module.exports = require("jquery");
 
 /***/ }),
+/* 330 */,
+/* 331 */,
 /* 332 */,
 /* 333 */,
 /* 334 */,
@@ -16499,45 +16366,43 @@ module.exports = require("jquery");
 /* 412 */,
 /* 413 */,
 /* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */
+/* 415 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/debounce");
 
 /***/ }),
-/* 418 */
+/* 416 */
 /***/ (function(module, exports) {
 
 module.exports = require("moment");
 
 /***/ }),
-/* 419 */
+/* 417 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/forEach");
 
 /***/ }),
-/* 420 */
+/* 418 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/isEqualWith");
 
 /***/ }),
-/* 421 */
+/* 419 */
 /***/ (function(module, exports) {
 
 module.exports = require("lodash/slice");
 
 /***/ }),
-/* 422 */
+/* 420 */
 /***/ (function(module, exports) {
 
 module.exports = require("marked");
 
 /***/ }),
-/* 423 */
+/* 421 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-markdown");

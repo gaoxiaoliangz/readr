@@ -1,7 +1,7 @@
 exports.ids = [15];
 exports.modules = {
 
-/***/ 294:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,15 +25,15 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _AddCollectionForm = __webpack_require__(369);
+var _AddCollectionForm = __webpack_require__(367);
 
 var _AddCollectionForm2 = _interopRequireDefault(_AddCollectionForm);
 
-var _api = __webpack_require__(21);
+var _webAPI = __webpack_require__(21);
 
-var _api2 = _interopRequireDefault(_api);
+var _webAPI2 = _interopRequireDefault(_webAPI);
 
-var _DocContainer = __webpack_require__(45);
+var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
@@ -67,7 +67,7 @@ var AddCollection = function (_Component) {
             var postData = Object.assign({}, data, {
                 creator: creator
             });
-            _api2.default.addCollection(postData).then(function (result) {
+            _webAPI2.default.addCollection(postData).then(function (result) {
                 _this2.props.sendNotification('添加成功！');
                 _this2.props.resetForm('addCollection');
             }, function (error) {
@@ -111,18 +111,18 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(AddCollection, 'AddCollection', '/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/AddCollection.tsx');
+    __REACT_HOT_LOADER__.register(AddCollection, 'AddCollection', '/Users/liang/Projects/readr/src/routes/AddCollection/AddCollection.tsx');
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/AddCollection.tsx');
+    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/AddCollection/AddCollection.tsx');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/AddCollection.tsx');
+    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/AddCollection/AddCollection.tsx');
 }();
 
 ;
 
 /***/ }),
 
-/***/ 369:
+/***/ 367:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -148,7 +148,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(83);
+var _form = __webpack_require__(85);
 
 var _selectors = __webpack_require__(27);
 
@@ -244,13 +244,13 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/components/AddCollectionForm.tsx");
+    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/AddCollection/components/AddCollectionForm.tsx");
 
-    __REACT_HOT_LOADER__.register(AddCollectionForm, "AddCollectionForm", "/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/components/AddCollectionForm.tsx");
+    __REACT_HOT_LOADER__.register(AddCollectionForm, "AddCollectionForm", "/Users/liang/Projects/readr/src/routes/AddCollection/components/AddCollectionForm.tsx");
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/components/AddCollectionForm.tsx");
+    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/AddCollection/components/AddCollectionForm.tsx");
 
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/isomorphic/routes/AddCollection/components/AddCollectionForm.tsx");
+    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/AddCollection/components/AddCollectionForm.tsx");
 }();
 
 ;

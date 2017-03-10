@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import ServerSideAppRoot from '../../../isomorphic/containers/ServerSideAppRoot'
-import rootSaga from '../../../isomorphic/store/sagas'
+import ServerSideAppRoot from '../../../components/ServerSideAppRoot'
+import rootSaga from '../../../sagas'
 
 function fetchData(req, res, next) {
   const { matchedResults: { renderProps } } = req.locals
