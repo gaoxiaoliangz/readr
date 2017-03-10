@@ -1,7 +1,7 @@
 exports.ids = [1];
 exports.modules = {
 
-/***/ 293:
+/***/ 296:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21,11 +21,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(19);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
 var _actions = __webpack_require__(15);
 
-var _BookListSection = __webpack_require__(323);
+var _BookListSection = __webpack_require__(326);
 
 var _BookListSection2 = _interopRequireDefault(_BookListSection);
 
@@ -52,7 +52,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(411);
+var styles = __webpack_require__(414);
 var CollectionDetail = function (_Component) {
     _inherits(CollectionDetail, _Component);
 
@@ -107,7 +107,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 305:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -133,7 +133,7 @@ var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Loading = __webpack_require__(308);
+var _Loading = __webpack_require__(311);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -230,7 +230,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 306:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -240,7 +240,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Loading = __webpack_require__(305);
+var _Loading = __webpack_require__(308);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -262,7 +262,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 307:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -281,11 +281,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 308:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(307);
+    var content = __webpack_require__(310);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -317,7 +317,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 309:
+/***/ 312:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -337,7 +337,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _BookInfoPopup = __webpack_require__(312);
+var _BookInfoPopup = __webpack_require__(315);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
@@ -345,7 +345,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _Book = __webpack_require__(319);
+var _Book = __webpack_require__(322);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -433,7 +433,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 310:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -443,7 +443,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Book = __webpack_require__(309);
+var _Book = __webpack_require__(312);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -465,7 +465,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 311:
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -483,7 +483,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
 var _reactCssModules = __webpack_require__(5);
 
@@ -506,7 +506,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(320);
+var styles = __webpack_require__(323);
 var BookInfoPopup = function (_Component) {
     _inherits(BookInfoPopup, _Component);
 
@@ -554,7 +554,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 312:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -564,7 +564,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookInfoPopup = __webpack_require__(311);
+var _BookInfoPopup = __webpack_require__(314);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
@@ -586,7 +586,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 313:
+/***/ 316:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -604,7 +604,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Book = __webpack_require__(310);
+var _Book = __webpack_require__(313);
 
 var _Book2 = _interopRequireDefault(_Book);
 
@@ -629,7 +629,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(321);
+var styles = __webpack_require__(324);
 var BookList = function (_Component) {
     _inherits(BookList, _Component);
 
@@ -678,7 +678,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 314:
+/***/ 317:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -688,7 +688,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookList = __webpack_require__(313);
+var _BookList = __webpack_require__(316);
 
 var _BookList2 = _interopRequireDefault(_BookList);
 
@@ -710,7 +710,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 315:
+/***/ 318:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -718,7 +718,7 @@ exports = module.exports = __webpack_require__(1)();
 
 
 // module
-exports.push([module.i, ".meta-item_29Oj5 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.book_1Mhus {\n  float: left;\n  transition: all 0.2s ease 0s;\n  position: relative;\n  width: 150px;\n  padding: 0 10px; }\n  .book_1Mhus a {\n    display: block;\n    padding-top: 10px;\n    position: relative; }\n    .book_1Mhus a:hover img {\n      opacity: .96; }\n    .book_1Mhus a:active img {\n      opacity: .8; }\n\n.book-meta_2_-SN {\n  background: transparent; }\n\n.meta-item_29Oj5 {\n  width: 100%;\n  text-align: left;\n  display: block;\n  line-height: 1.5;\n  margin-left: 17px;\n  width: 134px; }\n\n.book-name_2xm-_ {\n  font-size: 1.3rem;\n  color: #333; }\n\n.book-author_2uQ57 {\n  color: #999; }\n\n.book-cover_2Njlt {\n  position: relative;\n  margin: 0;\n  width: 134px;\n  height: 184px;\n  top: 0;\n  background: url(" + __webpack_require__(318) + ") no-repeat top;\n  transition: all 0.2s ease 0s;\n  position: relative; }\n  .book-cover_2Njlt img {\n    width: 100px;\n    height: 150px;\n    display: block;\n    position: absolute;\n    border: none;\n    left: 17px;\n    top: 7px;\n    border-radius: 4px; }\n  .book-cover_2Njlt:hover {\n    top: -7px; }\n\n.book-desc_qmKU9 {\n  color: #999; }\n\n.book--card_SUxdP {\n  width: auto;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  padding: 10px;\n  float: none;\n  height: 100px; }\n  .book--card_SUxdP a {\n    padding: 0;\n    display: block;\n    overflow: hidden;\n    opacity: 1; }\n    .book--card_SUxdP a:hover img {\n      opacity: 1; }\n    .book--card_SUxdP a:active img {\n      opacity: 1; }\n  .book--card_SUxdP .book-cover_2Njlt {\n    width: auto;\n    height: auto;\n    height: 72px;\n    background: none;\n    overflow: hidden;\n    float: left;\n    border-radius: 4px;\n    margin-right: 20px; }\n    .book--card_SUxdP .book-cover_2Njlt:hover {\n      top: 0; }\n    .book--card_SUxdP .book-cover_2Njlt img {\n      width: 50px;\n      height: auto;\n      position: relative;\n      top: 0;\n      left: 0; }\n  .book--card_SUxdP .book-meta_2_-SN {\n    float: none; }\n  .book--card_SUxdP .meta-item_29Oj5 {\n    width: auto; }\n", ""]);
+exports.push([module.i, ".meta-item_29Oj5 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden; }\n\n.book_1Mhus {\n  float: left;\n  transition: all 0.2s ease 0s;\n  position: relative;\n  width: 150px;\n  padding: 0 10px; }\n  .book_1Mhus a {\n    display: block;\n    padding-top: 10px;\n    position: relative; }\n    .book_1Mhus a:hover img {\n      opacity: .96; }\n    .book_1Mhus a:active img {\n      opacity: .8; }\n\n.book-meta_2_-SN {\n  background: transparent; }\n\n.meta-item_29Oj5 {\n  width: 100%;\n  text-align: left;\n  display: block;\n  line-height: 1.5;\n  margin-left: 17px;\n  width: 134px; }\n\n.book-name_2xm-_ {\n  font-size: 1.3rem;\n  color: #333; }\n\n.book-author_2uQ57 {\n  color: #999; }\n\n.book-cover_2Njlt {\n  position: relative;\n  margin: 0;\n  width: 134px;\n  height: 184px;\n  top: 0;\n  background: url(" + __webpack_require__(321) + ") no-repeat top;\n  transition: all 0.2s ease 0s;\n  position: relative; }\n  .book-cover_2Njlt img {\n    width: 100px;\n    height: 150px;\n    display: block;\n    position: absolute;\n    border: none;\n    left: 17px;\n    top: 7px;\n    border-radius: 4px; }\n  .book-cover_2Njlt:hover {\n    top: -7px; }\n\n.book-desc_qmKU9 {\n  color: #999; }\n\n.book--card_SUxdP {\n  width: auto;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n  padding: 10px;\n  float: none;\n  height: 100px; }\n  .book--card_SUxdP a {\n    padding: 0;\n    display: block;\n    overflow: hidden;\n    opacity: 1; }\n    .book--card_SUxdP a:hover img {\n      opacity: 1; }\n    .book--card_SUxdP a:active img {\n      opacity: 1; }\n  .book--card_SUxdP .book-cover_2Njlt {\n    width: auto;\n    height: auto;\n    height: 72px;\n    background: none;\n    overflow: hidden;\n    float: left;\n    border-radius: 4px;\n    margin-right: 20px; }\n    .book--card_SUxdP .book-cover_2Njlt:hover {\n      top: 0; }\n    .book--card_SUxdP .book-cover_2Njlt img {\n      width: 50px;\n      height: auto;\n      position: relative;\n      top: 0;\n      left: 0; }\n  .book--card_SUxdP .book-meta_2_-SN {\n    float: none; }\n  .book--card_SUxdP .meta-item_29Oj5 {\n    width: auto; }\n", ""]);
 
 // exports
 exports.locals = {
@@ -734,7 +734,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 316:
+/***/ 319:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -755,7 +755,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 317:
+/***/ 320:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -772,18 +772,18 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 318:
+/***/ 321:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 319:
+/***/ 322:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(315);
+    var content = __webpack_require__(318);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -815,11 +815,11 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 320:
+/***/ 323:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(316);
+    var content = __webpack_require__(319);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -851,11 +851,11 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 321:
+/***/ 324:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(317);
+    var content = __webpack_require__(320);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -887,7 +887,7 @@ module.exports = __webpack_require__.p + "media/shadow.471ea37f96.png";
 
 /***/ }),
 
-/***/ 322:
+/***/ 325:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -907,11 +907,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(9);
 
-var _BookList = __webpack_require__(314);
+var _BookList = __webpack_require__(317);
 
 var _BookList2 = _interopRequireDefault(_BookList);
 
-var _Loading = __webpack_require__(306);
+var _Loading = __webpack_require__(309);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -940,7 +940,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(325);
+var styles = __webpack_require__(328);
 var BookListSection = function (_Component) {
     _inherits(BookListSection, _Component);
 
@@ -988,7 +988,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 323:
+/***/ 326:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -998,7 +998,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _BookListSection = __webpack_require__(322);
+var _BookListSection = __webpack_require__(325);
 
 var _BookListSection2 = _interopRequireDefault(_BookListSection);
 
@@ -1020,7 +1020,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 324:
+/***/ 327:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -1039,11 +1039,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 325:
+/***/ 328:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(324);
+    var content = __webpack_require__(327);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -1075,7 +1075,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 379:
+/***/ 382:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -1093,11 +1093,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 411:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(379);
+    var content = __webpack_require__(382);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {

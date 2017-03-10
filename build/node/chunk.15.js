@@ -1,7 +1,7 @@
 exports.ids = [15];
 exports.modules = {
 
-/***/ 289:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,7 +25,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _AddCollectionForm = __webpack_require__(364);
+var _AddCollectionForm = __webpack_require__(367);
 
 var _AddCollectionForm2 = _interopRequireDefault(_AddCollectionForm);
 
@@ -122,7 +122,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 364:
+/***/ 367:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -148,7 +148,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
 var _selectors = __webpack_require__(27);
 

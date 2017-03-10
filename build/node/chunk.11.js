@@ -1,7 +1,7 @@
 exports.ids = [11];
 exports.modules = {
 
-/***/ 288:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33,7 +33,7 @@ var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _AddBookForm = __webpack_require__(363);
+var _AddBookForm = __webpack_require__(366);
 
 var _AddBookForm2 = _interopRequireDefault(_AddBookForm);
 
@@ -152,7 +152,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 329:
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -168,7 +168,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _jquery = __webpack_require__(326);
+var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -298,7 +298,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 330:
+/***/ 333:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -308,7 +308,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FileUploader = __webpack_require__(329);
+var _FileUploader = __webpack_require__(332);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
@@ -330,7 +330,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 362:
+/***/ 365:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -356,11 +356,11 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _Input = __webpack_require__(87);
+var _Input = __webpack_require__(90);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _ModalFooter = __webpack_require__(84);
+var _ModalFooter = __webpack_require__(87);
 
 var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
@@ -438,7 +438,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 363:
+/***/ 366:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -480,13 +480,13 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
-var _AddAuthorForm = __webpack_require__(362);
+var _AddAuthorForm = __webpack_require__(365);
 
 var _AddAuthorForm2 = _interopRequireDefault(_AddAuthorForm);
 
-var _FileUploader = __webpack_require__(330);
+var _FileUploader = __webpack_require__(333);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 

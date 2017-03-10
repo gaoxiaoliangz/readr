@@ -1,7 +1,7 @@
 exports.ids = [5];
 exports.modules = {
 
-/***/ 295:
+/***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23,7 +23,7 @@ var _DocContainer = __webpack_require__(44);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
-var _InfoTable = __webpack_require__(332);
+var _InfoTable = __webpack_require__(335);
 
 var _InfoTable2 = _interopRequireDefault(_InfoTable);
 
@@ -37,7 +37,7 @@ var selectors = _interopRequireWildcard(_selectors);
 
 var _actions = __webpack_require__(15);
 
-var _ContentPage = __webpack_require__(328);
+var _ContentPage = __webpack_require__(331);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -45,17 +45,17 @@ var _helpers = __webpack_require__(10);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
-var _moment = __webpack_require__(413);
+var _moment = __webpack_require__(416);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _FileUploader = __webpack_require__(330);
+var _FileUploader = __webpack_require__(333);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
-var _BookMetaForm = __webpack_require__(365);
+var _BookMetaForm = __webpack_require__(368);
 
 var _BookMetaForm2 = _interopRequireDefault(_BookMetaForm);
 
@@ -247,7 +247,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 327:
+/***/ 330:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -263,7 +263,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Paginator = __webpack_require__(334);
+var _Paginator = __webpack_require__(337);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -349,7 +349,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 328:
+/***/ 331:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -359,7 +359,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ContentPage = __webpack_require__(327);
+var _ContentPage = __webpack_require__(330);
 
 var _ContentPage2 = _interopRequireDefault(_ContentPage);
 
@@ -381,7 +381,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 329:
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -397,7 +397,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _jquery = __webpack_require__(326);
+var _jquery = __webpack_require__(329);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -527,7 +527,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 330:
+/***/ 333:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -537,7 +537,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FileUploader = __webpack_require__(329);
+var _FileUploader = __webpack_require__(332);
 
 var _FileUploader2 = _interopRequireDefault(_FileUploader);
 
@@ -559,7 +559,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 331:
+/***/ 334:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -573,7 +573,7 @@ var _map2 = __webpack_require__(47);
 
 var _map3 = _interopRequireDefault(_map2);
 
-var _keys2 = __webpack_require__(83);
+var _keys2 = __webpack_require__(86);
 
 var _keys3 = _interopRequireDefault(_keys2);
 
@@ -610,7 +610,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(346);
+var styles = __webpack_require__(349);
 var InfoTable = function (_Component) {
     _inherits(InfoTable, _Component);
 
@@ -681,7 +681,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 332:
+/***/ 335:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,7 +691,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _InfoTable = __webpack_require__(331);
+var _InfoTable = __webpack_require__(334);
 
 var _InfoTable2 = _interopRequireDefault(_InfoTable);
 
@@ -713,7 +713,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 333:
+/***/ 336:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -762,7 +762,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(347);
+var styles = __webpack_require__(350);
 var Paginator = function (_Component) {
     _inherits(Paginator, _Component);
 
@@ -884,7 +884,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 334:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -894,7 +894,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Paginator = __webpack_require__(333);
+var _Paginator = __webpack_require__(336);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -916,7 +916,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 341:
+/***/ 344:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -936,7 +936,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 342:
+/***/ 345:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -956,11 +956,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 346:
+/***/ 349:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(341);
+    var content = __webpack_require__(344);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -992,11 +992,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 347:
+/***/ 350:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(342);
+    var content = __webpack_require__(345);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -1028,7 +1028,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 365:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1054,9 +1054,9 @@ var _betterReduxForm2 = _interopRequireDefault(_betterReduxForm);
 
 var _actions = __webpack_require__(15);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
-var _ModalFooter = __webpack_require__(84);
+var _ModalFooter = __webpack_require__(87);
 
 var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 

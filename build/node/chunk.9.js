@@ -1,7 +1,7 @@
 exports.ids = [9];
 exports.modules = {
 
-/***/ 291:
+/***/ 294:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27,11 +27,11 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _Loading = __webpack_require__(306);
+var _Loading = __webpack_require__(309);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
-var _form = __webpack_require__(82);
+var _form = __webpack_require__(85);
 
 var _DocContainer = __webpack_require__(44);
 
@@ -64,7 +64,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(399);
+var styles = __webpack_require__(402);
 var BookDetail = function (_Component) {
     _inherits(BookDetail, _Component);
 
@@ -132,7 +132,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 305:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -158,7 +158,7 @@ var _classnames = __webpack_require__(20);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Loading = __webpack_require__(308);
+var _Loading = __webpack_require__(311);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -255,7 +255,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 306:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -265,7 +265,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Loading = __webpack_require__(305);
+var _Loading = __webpack_require__(308);
 
 var _Loading2 = _interopRequireDefault(_Loading);
 
@@ -287,7 +287,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 307:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -306,11 +306,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 308:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(307);
+    var content = __webpack_require__(310);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -342,7 +342,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 384:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -370,11 +370,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 399:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(384);
+    var content = __webpack_require__(387);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {

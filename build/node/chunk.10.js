@@ -1,7 +1,7 @@
 exports.ids = [10];
 exports.modules = {
 
-/***/ 294:
+/***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21,7 +21,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _CollectionSection = __webpack_require__(356);
+var _CollectionSection = __webpack_require__(359);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92,11 +92,11 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 345:
+/***/ 348:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(381);
+    var content = __webpack_require__(384);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -128,7 +128,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 350:
+/***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -169,7 +169,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(345);
+var styles = __webpack_require__(348);
 var CollectionItem = function (_Component) {
     _inherits(CollectionItem, _Component);
 
@@ -222,7 +222,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 351:
+/***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -244,7 +244,7 @@ var _reactCssModules = __webpack_require__(5);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _CollectionItem = __webpack_require__(350);
+var _CollectionItem = __webpack_require__(353);
 
 var _CollectionItem2 = _interopRequireDefault(_CollectionItem);
 
@@ -265,7 +265,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(345);
+var styles = __webpack_require__(348);
 var CollectionList = function (_Component) {
     _inherits(CollectionList, _Component);
 
@@ -315,7 +315,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 355:
+/***/ 358:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -341,7 +341,7 @@ var _reactRouter = __webpack_require__(9);
 
 var _layout = __webpack_require__(45);
 
-var _CollectionList = __webpack_require__(351);
+var _CollectionList = __webpack_require__(354);
 
 var _CollectionList2 = _interopRequireDefault(_CollectionList);
 
@@ -362,7 +362,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(345);
+var styles = __webpack_require__(348);
 var CollectionSection = function (_Component) {
     _inherits(CollectionSection, _Component);
 
@@ -409,7 +409,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 356:
+/***/ 359:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -420,15 +420,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CollectionSection = exports.CollectionList = exports.CollectionItem = undefined;
 
-var _CollectionSection = __webpack_require__(355);
+var _CollectionSection = __webpack_require__(358);
 
 var _CollectionSection2 = _interopRequireDefault(_CollectionSection);
 
-var _CollectionItem = __webpack_require__(350);
+var _CollectionItem = __webpack_require__(353);
 
 var _CollectionItem2 = _interopRequireDefault(_CollectionItem);
 
-var _CollectionList = __webpack_require__(351);
+var _CollectionList = __webpack_require__(354);
 
 var _CollectionList2 = _interopRequireDefault(_CollectionList);
 
@@ -453,7 +453,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 381:
+/***/ 384:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();

@@ -1,7 +1,7 @@
 exports.ids = [8];
 exports.modules = {
 
-/***/ 298:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,7 +25,7 @@ var _reactRedux = __webpack_require__(19);
 
 var _actions = __webpack_require__(15);
 
-var _PreferenceList = __webpack_require__(366);
+var _PreferenceList = __webpack_require__(369);
 
 var _PreferenceList2 = _interopRequireDefault(_PreferenceList);
 
@@ -99,7 +99,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 335:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -138,7 +138,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(348);
+var styles = __webpack_require__(351);
 var Switcher = function (_Component) {
     _inherits(Switcher, _Component);
 
@@ -236,7 +236,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 336:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -246,7 +246,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switcher = __webpack_require__(335);
+var _Switcher = __webpack_require__(338);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
@@ -268,7 +268,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 343:
+/***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -290,11 +290,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 348:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(343);
+    var content = __webpack_require__(346);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
@@ -326,7 +326,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 366:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -344,7 +344,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Switcher = __webpack_require__(336);
+var _Switcher = __webpack_require__(339);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
@@ -369,7 +369,7 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(401);
+var styles = __webpack_require__(404);
 var PreferenceList = function (_Component) {
     _inherits(PreferenceList, _Component);
 
@@ -426,7 +426,7 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ 386:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
@@ -450,11 +450,11 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 401:
+/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(386);
+    var content = __webpack_require__(389);
     var insertCss = __webpack_require__(2);
 
     if (typeof content === 'string') {
