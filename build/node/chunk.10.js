@@ -11,84 +11,40 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var _CollectionSection = __webpack_require__(359);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Collections = function (_Component) {
-    _inherits(Collections, _Component);
-
-    function Collections(props) {
-        _classCallCheck(this, Collections);
-
-        return _possibleConstructorReturn(this, (Collections.__proto__ || Object.getPrototypeOf(Collections)).call(this, props));
+let Collections = class Collections extends _react.Component {
+    constructor(props) {
+        super(props);
     }
-
-    _createClass(Collections, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.props.fetchCollections();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var newestCollections = this.props.newestCollections;
-
-            var list = newestCollections.map(function (item) {
-                return {
-                    name: item.name,
-                    id: item.id,
-                    bookCovers: item.items.map(function (book) {
-                        return book.cover;
-                    }),
-                    description: item.description
-                };
-            });
-            return _react2.default.createElement("div", { className: "page-collections" }, _react2.default.createElement("div", { style: { maxWidth: 800, margin: '0 auto' } }, _react2.default.createElement("h2", { className: "page-title" }, '\u5F80\u671F\u4E66\u5355')), _react2.default.createElement(_CollectionSection.CollectionList, { maxWidth: 800, style: "dark", list: list }));
-        }
-    }]);
-
-    return Collections;
-}(_react.Component);
-
-var _default = (0, _reactRedux.connect)(function (state) {
-    return {
-        newestCollections: state.pagination.bookCollections.newest ? state.pagination.bookCollections.newest.ids.map(function (id) {
-            return state.entities.bookCollections[id];
-        }) : []
-    };
-}, { fetchCollections: _actions.fetchCollections })(Collections);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
+    componentDidMount() {
+        this.props.fetchCollections();
     }
+    render() {
+        let newestCollections = this.props.newestCollections;
 
-    __REACT_HOT_LOADER__.register(Collections, 'Collections', '/Users/liang/Projects/readr/src/routes/Collections/Collections.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Collections/Collections.tsx');
-}();
-
-;
+        let list = newestCollections.map(item => ({
+            name: item.name,
+            id: item.id,
+            bookCovers: item.items.map(book => book.cover),
+            description: item.description
+        }));
+        return _react2.default.createElement("div", { className: "page-collections" }, _react2.default.createElement("div", { style: { maxWidth: 800, margin: '0 auto' } }, _react2.default.createElement("h2", { className: "page-title" }, "\u5F80\u671F\u4E66\u5355")), _react2.default.createElement(_CollectionSection.CollectionList, { maxWidth: 800, style: "dark", list: list }));
+    }
+};
+exports.default = (0, _reactRedux.connect)(state => ({
+    newestCollections: state.pagination.bookCollections.newest ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id]) : []
+}), { fetchCollections: _actions.fetchCollections })(Collections);
 
 /***/ }),
 
@@ -138,15 +94,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -154,71 +106,36 @@ var _reactRouter = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(348);
-var CollectionItem = function (_Component) {
-    _inherits(CollectionItem, _Component);
-
-    function CollectionItem(props) {
-        _classCallCheck(this, CollectionItem);
-
-        return _possibleConstructorReturn(this, (CollectionItem.__proto__ || Object.getPrototypeOf(CollectionItem)).call(this, props));
+const styles = __webpack_require__(348);
+let CollectionItem = class CollectionItem extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {}
+    render() {
+        var _props = this.props;
+        const description = _props.description,
+              name = _props.name,
+              id = _props.id,
+              bookCovers = _props.bookCovers,
+              style = _props.style,
+              maxWidth = _props.maxWidth;
 
-    _createClass(CollectionItem, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                description = _props.description,
-                name = _props.name,
-                id = _props.id,
-                bookCovers = _props.bookCovers,
-                style = _props.style,
-                maxWidth = _props.maxWidth;
-
-            return _react2.default.createElement("div", { className: "collection-item", styleName: style === 'dark' ? 'item--dark' : 'item--light' }, _react2.default.createElement("div", { style: { maxWidth: maxWidth || '100%', margin: '0 auto' } }, _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("div", { className: "col-md-6" }, _react2.default.createElement("h2", { styleName: "name" }, _react2.default.createElement(_reactRouter.Link, { styleName: "link", to: "collections/" + id }, name)), _react2.default.createElement("div", { styleName: "desc" }, description)), _react2.default.createElement("div", { className: "col-md-6" }, _react2.default.createElement("ul", { styleName: "covers" }, bookCovers.map(function (bookCover, index) {
-                return _react2.default.createElement("li", { key: index }, _react2.default.createElement("img", { src: bookCover }));
-            }))))));
-        }
-    }]);
-
-    return CollectionItem;
-}(_react.Component);
+        return _react2.default.createElement("div", { className: "collection-item", styleName: style === 'dark' ? 'item--dark' : 'item--light' }, _react2.default.createElement("div", { style: { maxWidth: maxWidth || '100%', margin: '0 auto' } }, _react2.default.createElement("div", { className: "row" }, _react2.default.createElement("div", { className: "col-md-6" }, _react2.default.createElement("h2", { styleName: "name" }, _react2.default.createElement(_reactRouter.Link, { styleName: "link", to: `collections/${id}` }, name)), _react2.default.createElement("div", { styleName: "desc" }, description)), _react2.default.createElement("div", { className: "col-md-6" }, _react2.default.createElement("ul", { styleName: "covers" }, bookCovers.map((bookCover, index) => {
+            return _react2.default.createElement("li", { key: index }, _react2.default.createElement("img", { src: bookCover }));
+        }))))));
+    }
+};
 CollectionItem = __decorate([(0, _reactCssModules2.default)(styles)], CollectionItem);
-var _default = CollectionItem;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionItem.tsx");
-
-    __REACT_HOT_LOADER__.register(CollectionItem, "CollectionItem", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionItem.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionItem.tsx");
-}();
-
-;
+exports.default = CollectionItem;
 
 /***/ }),
 
@@ -232,15 +149,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -250,68 +163,33 @@ var _CollectionItem2 = _interopRequireDefault(_CollectionItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(348);
-var CollectionList = function (_Component) {
-    _inherits(CollectionList, _Component);
-
-    function CollectionList(props) {
-        _classCallCheck(this, CollectionList);
-
-        return _possibleConstructorReturn(this, (CollectionList.__proto__ || Object.getPrototypeOf(CollectionList)).call(this, props));
+const styles = __webpack_require__(348);
+let CollectionList = class CollectionList extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {}
+    render() {
+        var _props = this.props;
+        const list = _props.list,
+              style = _props.style,
+              maxWidth = _props.maxWidth;
 
-    _createClass(CollectionList, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                list = _props.list,
-                style = _props.style,
-                maxWidth = _props.maxWidth;
-
-            return _react2.default.createElement("div", { styleName: "list", className: "clearfix" }, list.map(function (item, index) {
-                return _react2.default.createElement(_CollectionItem2.default, Object.assign({ maxWidth: maxWidth, style: style, key: index }, item));
-            }));
-        }
-    }]);
-
-    return CollectionList;
-}(_react.Component);
+        return _react2.default.createElement("div", { styleName: "list", className: "clearfix" }, list.map((item, index) => {
+            return _react2.default.createElement(_CollectionItem2.default, Object.assign({ maxWidth: maxWidth, style: style, key: index }, item));
+        }));
+    }
+};
 CollectionList = __decorate([(0, _reactCssModules2.default)(styles)], CollectionList);
-var _default = CollectionList;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionList.tsx");
-
-    __REACT_HOT_LOADER__.register(CollectionList, "CollectionList", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionList.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionList.tsx");
-}();
-
-;
+exports.default = CollectionList;
 
 /***/ }),
 
@@ -325,21 +203,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 var _reactRouter = __webpack_require__(9);
 
-var _layout = __webpack_require__(45);
+var _layout = __webpack_require__(47);
 
 var _CollectionList = __webpack_require__(354);
 
@@ -347,65 +221,30 @@ var _CollectionList2 = _interopRequireDefault(_CollectionList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(348);
-var CollectionSection = function (_Component) {
-    _inherits(CollectionSection, _Component);
-
-    function CollectionSection(props) {
-        _classCallCheck(this, CollectionSection);
-
-        return _possibleConstructorReturn(this, (CollectionSection.__proto__ || Object.getPrototypeOf(CollectionSection)).call(this, props));
+const styles = __webpack_require__(348);
+let CollectionSection = class CollectionSection extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {}
+    render() {
+        var _props = this.props;
+        const list = _props.list,
+              title = _props.title;
 
-    _createClass(CollectionSection, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                list = _props.list,
-                title = _props.title;
-
-            return _react2.default.createElement("div", { styleName: "section" }, _react2.default.createElement(_layout.Container, null, _react2.default.createElement("h2", { styleName: "title" }, title), _react2.default.createElement(_CollectionList2.default, { list: list }), _react2.default.createElement(_reactRouter.Link, { styleName: "view-more", to: "/collections" }, "\u6D4F\u89C8\u66F4\u591A\u4E66\u5355")));
-        }
-    }]);
-
-    return CollectionSection;
-}(_react.Component);
+        return _react2.default.createElement("div", { styleName: "section" }, _react2.default.createElement(_layout.Container, null, _react2.default.createElement("h2", { styleName: "title" }, title), _react2.default.createElement(_CollectionList2.default, { list: list }), _react2.default.createElement(_reactRouter.Link, { styleName: "view-more", to: "/collections" }, "\u6D4F\u89C8\u66F4\u591A\u4E66\u5355")));
+    }
+};
 CollectionSection = __decorate([(0, _reactCssModules2.default)(styles)], CollectionSection);
-var _default = CollectionSection;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionSection.tsx");
-
-    __REACT_HOT_LOADER__.register(CollectionSection, "CollectionSection", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionSection.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/CollectionSection/CollectionSection.tsx");
-}();
-
-;
+exports.default = CollectionSection;
 
 /***/ }),
 
@@ -437,19 +276,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.CollectionItem = _CollectionItem2.default;
 exports.CollectionList = _CollectionList2.default;
 exports.CollectionSection = _CollectionSection2.default;
-var _default = _CollectionSection2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/CollectionSection/index.ts');
-}();
-
-;
+exports.default = _CollectionSection2.default;
 
 /***/ }),
 

@@ -4,6 +4,7 @@ import watchAllLoadRequests from './loadRequests'
 import watchLoginFlow from './loginFlow'
 import watchViewer from './viewerTasks'
 import watchTest, { watchTest2 } from './test'
+import sessionWatcher from './sessionWatcher'
 
 export default function* rootSaga() {
   yield [
@@ -11,6 +12,7 @@ export default function* rootSaga() {
     fork(watchLoginFlow),
     fork(watchViewer),
     fork(watchTest2),
-    fork(watchTest)
+    fork(watchTest),
+    fork(sessionWatcher)
   ]
 }

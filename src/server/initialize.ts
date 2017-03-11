@@ -18,17 +18,15 @@ const PUBLIC_DIR = 'build/static'
 const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
 const REQ_SIZE_LIMIT = '5mb'
-// const MONGO_STORE_URL = urljoin(appConfig.database.host, appConfig.database.mongoStoreName)
 const MONGO_STORE_URL = getMongoStoreUrl()
 
 interface InitConfig {
   basePath: string
-  serviceName: 'api' | 'pages'
   isProduction: boolean
 }
 
 export default function initialize(config: InitConfig) {
-  const { basePath, serviceName, isProduction } = config
+  const { basePath, isProduction } = config
 
   // locals
   app.locals.basePath = basePath
@@ -43,6 +41,21 @@ export default function initialize(config: InitConfig) {
   app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))
   app.use(cookieParser())
+
+  // log cookies
+  app.use((req, res, next) => {
+    // console.log('------------')
+
+    // // Cookies that have not been signed
+    // console.log('Cookies: ', req.cookies)
+
+    // // Cookies that have been signed
+    // console.log('Signed Cookies: ', req.signedCookies)
+    // req.context.user
+    // console.log(req.session.user)
+    next()
+  })
+
   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
 
   // api routing

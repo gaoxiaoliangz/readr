@@ -1,6 +1,7 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Page500 from '../../../components/Page500'
+import { DOCTYPE } from '../../../components/AppDoc'
 
 function handleError(error, req, res, next) {
   const html = renderToStaticMarkup(
@@ -9,7 +10,7 @@ function handleError(error, req, res, next) {
     />
   )
 
-  res.send('<!DOCTYPE html>\n' + html)
+  res.send(DOCTYPE + html)
 }
 
 export default handleError

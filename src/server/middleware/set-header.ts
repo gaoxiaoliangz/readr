@@ -18,8 +18,11 @@ const ALLOWED_ORIGINS = [
 
 const setHeader = (req, res, next) => {
   const origin = req.headers.origin
+
   if (ALLOWED_ORIGINS.indexOf(origin) !== -1) {
     res.setHeader('Access-Control-Allow-Origin', origin)
+    // todo: CORS preflight needs this, but can it be other values?
+    res.setHeader('Access-Control-Allow-Headers', 'content-type')
   }
   next()
 }

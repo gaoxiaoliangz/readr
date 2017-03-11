@@ -7,7 +7,8 @@ const vars = require('./webpack-vars')
 
 module.exports = {
   entry: {
-    index: ['babel-polyfill', paths.serverSrc]
+    // index: ['babel-polyfill', paths.serverSrc]
+    index: [paths.serverSrc]
   },
   output: {
     path: paths.buildNode,

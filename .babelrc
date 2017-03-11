@@ -1,7 +1,8 @@
 {
   "presets": [
-    "es2015",
-    "react"
+    // "es2015",
+    "react",
+    "es2015-node5"
   ],
   "plugins": [
     "syntax-dynamic-import",
@@ -11,7 +12,7 @@
   "env": {
     "development": {
       "plugins": [
-        "react-hot-loader/babel",
+        // "react-hot-loader/babel",
         // Enables React code to work with HMR.
 
         "lodash"
@@ -19,7 +20,7 @@
     },
     "production": {
       "presets": [
-        ["es2015", {"modules": false}]
+        // ["es2015", {"modules": false}]
         // webpack understands the native import syntax, and uses it for tree shaking
       ],
       "plugins": [

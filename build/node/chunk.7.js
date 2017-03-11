@@ -11,25 +11,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
-var _form = __webpack_require__(85);
+var _form = __webpack_require__(84);
 
 var _Tab = __webpack_require__(342);
 
-var _layout = __webpack_require__(45);
+var _layout = __webpack_require__(47);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -41,86 +37,43 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(405);
-var Profile = function (_Component) {
-    _inherits(Profile, _Component);
-
+const styles = __webpack_require__(405);
+let Profile = class Profile extends _react.Component {
     // static fetchData({store, params}) {
     //   return store.dispatch(fetch())
     // }
-    function Profile(props) {
-        _classCallCheck(this, Profile);
-
-        return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {
+        // this.props.fetchBooks()
+        this.props.fetchProfile();
+    }
+    render() {
+        const username = this.props.profile.username;
 
-    _createClass(Profile, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            // this.props.fetchBooks()
-            this.props.fetchProfile();
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            var username = this.props.profile.username;
-
-            return _react2.default.createElement(_layout.Container, null, _react2.default.createElement("div", { styleName: "profile" }, _react2.default.createElement("div", { styleName: "page-header" }, _react2.default.createElement("div", { styleName: "user-avatar" }, _react2.default.createElement("img", { src: "https://img3.doubanio.com/icon/ul43646706-43.jpg", alt: "user_avatar" })), _react2.default.createElement("span", { styleName: "username" }, username), _react2.default.createElement("span", { styleName: "tagline" }, "\u6682\u65E0\u7B7E\u540D"), _react2.default.createElement(_form.Button, { onClick: function onClick() {
-                    _this2.props.sendNotification('该功能尚不可用', 'warning');
-                }, styleName: "edit" }, "\u7F16\u8F91")), _react2.default.createElement(_Tab.Tabs, null, _react2.default.createElement(_Tab.Tab, { title: "收藏" }, "\u6682\u65E0\u6570\u636E"), _react2.default.createElement(_Tab.Tab, { title: "读过" }, "\u6682\u65E0\u6570\u636E"))));
-        }
-    }]);
-
-    return Profile;
-}(_react.Component);
+        return _react2.default.createElement(_layout.Container, null, _react2.default.createElement("div", { styleName: "profile" }, _react2.default.createElement("div", { styleName: "page-header" }, _react2.default.createElement("div", { styleName: "user-avatar" }, _react2.default.createElement("img", { src: "https://img3.doubanio.com/icon/ul43646706-43.jpg", alt: "user_avatar" })), _react2.default.createElement("span", { styleName: "username" }, username), _react2.default.createElement("span", { styleName: "tagline" }, "\u6682\u65E0\u7B7E\u540D"), _react2.default.createElement(_form.Button, { onClick: () => {
+                this.props.sendNotification('该功能尚不可用', 'warning');
+            }, styleName: "edit" }, "\u7F16\u8F91")), _react2.default.createElement(_Tab.Tabs, null, _react2.default.createElement(_Tab.Tab, { title: "收藏" }, "\u6682\u65E0\u6570\u636E"), _react2.default.createElement(_Tab.Tab, { title: "读过" }, "\u6682\u65E0\u6570\u636E"))));
+    }
+};
 Profile = __decorate([(0, _reactCssModules2.default)(styles)], Profile);
 function mapStateToProps(state, ownProps) {
-    var userId = selectors.sessionUserId(state);
+    const userId = selectors.sessionUserId(state);
     return {
-        newestBooks: state.pagination.books.newest ? state.pagination.books.newest.ids.map(function (id) {
-            return state.entities.books[id];
-        }) : [],
+        newestBooks: state.pagination.books.newest ? state.pagination.books.newest.ids.map(id => state.entities.books[id]) : [],
         profile: selectors.common.entity('profiles', userId)(state)
     };
 }
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, { sendNotification: _actions.sendNotification, fetchCollections: _actions.fetchCollections, fetchProfile: _actions.fetchProfile })(Profile);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
-
-    __REACT_HOT_LOADER__.register(Profile, "Profile", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Profile/Profile.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { sendNotification: _actions.sendNotification, fetchCollections: _actions.fetchCollections, fetchProfile: _actions.fetchProfile })(Profile);
 
 /***/ }),
 
@@ -134,57 +87,22 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Tab = function (_Component) {
-    _inherits(Tab, _Component);
-
-    function Tab(props) {
-        _classCallCheck(this, Tab);
-
-        return _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
+let Tab = class Tab extends _react.Component {
+    constructor(props) {
+        super(props);
     }
-
-    _createClass(Tab, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement("div", { className: "tab" }, this.props.children);
-        }
-    }]);
-
-    return Tab;
-}(_react.Component);
-
-var _default = Tab;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
+    componentDidMount() {}
+    render() {
+        return _react2.default.createElement("div", { className: "tab" }, this.props.children);
     }
-
-    __REACT_HOT_LOADER__.register(Tab, "Tab", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
-}();
-
-;
+};
+exports.default = Tab;
 
 /***/ }),
 
@@ -198,110 +116,65 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(20);
+var _classnames = __webpack_require__(21);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(352);
-var Tabs = function (_Component) {
-    _inherits(Tabs, _Component);
-
-    function Tabs(props) {
-        _classCallCheck(this, Tabs);
-
-        var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
-
-        _this.state = {
-            active: _this.props.defaultActive
+const styles = __webpack_require__(352);
+let Tabs = class Tabs extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: this.props.defaultActive
         };
-        _this.handleTabClick = _this.handleTabClick.bind(_this);
-        return _this;
+        this.handleTabClick = this.handleTabClick.bind(this);
     }
-
-    _createClass(Tabs, [{
-        key: "handleTabClick",
-        value: function handleTabClick(index) {
-            this.setState({
-                active: index
-            });
-            if (this.props.onTabSwitch) {
-                this.props.onTabSwitch(index);
-            }
+    handleTabClick(index) {
+        this.setState({
+            active: index
+        });
+        if (this.props.onTabSwitch) {
+            this.props.onTabSwitch(index);
         }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
+    }
+    componentDidMount() {}
+    render() {
+        const style = this.props.style;
 
-            var style = this.props.style;
-
-            return _react2.default.createElement("div", Object.assign({ className: "tabs" }, style ? { style: style } : null), _react2.default.createElement("div", { styleName: "tabs-header" }, _react2.default.createElement("ul", null, this.props.children.map(function (child, index) {
-                return _react2.default.createElement("li", { styleName: (0, _classnames2.default)({ 'active': index === _this2.state.active }), key: index, onClick: _this2.handleTabClick.bind(_this2, index) }, child.props.title);
-            }))), this.props.children.filter(function (child, index) {
-                return index === _this2.state.active;
-            }).map(function (child) {
-                return child.props.children;
-            })[0]);
-        }
-    }]);
-
-    return Tabs;
-}(_react.Component);
+        return _react2.default.createElement("div", Object.assign({ className: "tabs" }, style ? { style: style } : null), _react2.default.createElement("div", { styleName: "tabs-header" }, _react2.default.createElement("ul", null, this.props.children.map((child, index) => {
+            return _react2.default.createElement("li", { styleName: (0, _classnames2.default)({ 'active': index === this.state.active }), key: index, onClick: this.handleTabClick.bind(this, index) }, child.props.title);
+        }))), this.props.children.filter((child, index) => {
+            return index === this.state.active;
+        }).map(child => {
+            return child.props.children;
+        })[0]);
+    }
+};
 Tabs = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
 })], Tabs);
 Tabs.defaultProps = {
     defaultActive: 0
 };
-var _default = Tabs;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
-
-    __REACT_HOT_LOADER__.register(Tabs, "Tabs", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
-}();
-
-;
+exports.default = Tabs;
 
 /***/ }),
 
@@ -328,19 +201,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.Tab = _Tab2.default;
 exports.Tabs = _Tabs2.default;
-var _default = _Tab2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Tab/index.ts');
-}();
-
-;
+exports.default = _Tab2.default;
 
 /***/ }),
 

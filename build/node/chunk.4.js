@@ -11,15 +11,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var _BookList = __webpack_require__(317);
 
@@ -39,71 +37,31 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+let Shelf = class Shelf extends _react.Component {
+    static fetchData(_ref) {
+        let store = _ref.store,
+            params = _ref.params;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Shelf = function (_Component) {
-    _inherits(Shelf, _Component);
-
-    _createClass(Shelf, null, [{
-        key: 'fetchData',
-        value: function fetchData(_ref) {
-            var store = _ref.store,
-                params = _ref.params;
-
-            return store.dispatch((0, _actions.fetchShelf)());
-        }
-    }]);
-
-    function Shelf(props) {
-        _classCallCheck(this, Shelf);
-
-        return _possibleConstructorReturn(this, (Shelf.__proto__ || Object.getPrototypeOf(Shelf)).call(this, props));
+        return store.dispatch((0, _actions.fetchShelf)());
     }
-
-    _createClass(Shelf, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.props.fetchShelf();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var bookList = this.props.shelf;
-            return _react2.default.createElement(_Container2.default, null, _react2.default.createElement(_Tab.Tabs, { style: { marginTop: 20 } }, _react2.default.createElement(_Tab.Tab, { title: "全部" }, _react2.default.createElement(_BookList2.default, { bookEntities: bookList })), _react2.default.createElement(_Tab.Tab, { title: "我的上传" }, '\u7A7A')));
-        }
-    }]);
-
-    return Shelf;
-}(_react.Component);
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount() {
+        this.props.fetchShelf();
+    }
+    render() {
+        let bookList = this.props.shelf;
+        return _react2.default.createElement(_Container2.default, null, _react2.default.createElement(_Tab.Tabs, { style: { marginTop: 20 } }, _react2.default.createElement(_Tab.Tab, { title: "全部" }, _react2.default.createElement(_BookList2.default, { bookEntities: bookList })), _react2.default.createElement(_Tab.Tab, { title: "我的上传" }, "\u7A7A")));
+    }
+};
 
 function mapStateToProps(state, ownProps) {
     return {
         shelf: selectors.shelfBooks()(state)
     };
 }
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, { fetchShelf: _actions.fetchShelf })(Shelf);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Shelf, 'Shelf', '/Users/liang/Projects/readr/src/routes/Shelf/Shelf.tsx');
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/Shelf/Shelf.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Shelf/Shelf.tsx');
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchShelf: _actions.fetchShelf })(Shelf);
 
 /***/ }),
 
@@ -117,10 +75,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -131,7 +85,7 @@ var _BookInfoPopup = __webpack_require__(315);
 
 var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -141,85 +95,46 @@ var _Book2 = _interopRequireDefault(_Book);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var Book = function (_Component) {
-    _inherits(Book, _Component);
-
-    function Book(props) {
-        _classCallCheck(this, Book);
-
-        var _this = _possibleConstructorReturn(this, (Book.__proto__ || Object.getPrototypeOf(Book)).call(this, props));
-
-        _this.state = {
+let Book = class Book extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             showPopup: false
         };
-        _this.showPopup = _this.showPopup.bind(_this);
-        _this.hidePopup = _this.hidePopup.bind(_this);
-        return _this;
+        this.showPopup = this.showPopup.bind(this);
+        this.hidePopup = this.hidePopup.bind(this);
     }
+    showPopup() {
+        this.setState({
+            showPopup: true
+        });
+    }
+    hidePopup() {
+        this.setState({
+            showPopup: false
+        });
+    }
+    render() {
+        var _props = this.props;
+        const showDesc = _props.showDesc,
+              description = _props.description,
+              cover = _props.cover;
 
-    _createClass(Book, [{
-        key: "showPopup",
-        value: function showPopup() {
-            this.setState({
-                showPopup: true
-            });
-        }
-    }, {
-        key: "hidePopup",
-        value: function hidePopup() {
-            this.setState({
-                showPopup: false
-            });
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                showDesc = _props.showDesc,
-                description = _props.description,
-                cover = _props.cover;
-
-            return _react2.default.createElement("div", { onMouseEnter: this.showPopup, onMouseLeave: this.hidePopup, styleName: "book--card" }, _react2.default.createElement(_reactRouter.Link, { to: '/book/' + this.props.id }, cover && _react2.default.createElement("div", { styleName: "book-cover" }, _react2.default.createElement("img", { src: this.props.cover })), _react2.default.createElement("div", { styleName: "book-meta" }, _react2.default.createElement("span", { title: this.props.title, styleName: "book-name" }, this.props.title || '无标题'), _react2.default.createElement("span", { styleName: "book-author" }, this.props.authors || '作者不详'), showDesc && _react2.default.createElement("span", { styleName: "book-desc" }, description || '空'))), this.state.showPopup && !this.props.disablePopup && _react2.default.createElement(_BookInfoPopup2.default, { bookId: this.props.id, title: this.props.title, author: this.props.authors, description: this.props.description }));
-        }
-    }]);
-
-    return Book;
-}(_react.Component);
+        return _react2.default.createElement("div", { onMouseEnter: this.showPopup, onMouseLeave: this.hidePopup, styleName: "book--card" }, _react2.default.createElement(_reactRouter.Link, { to: '/book/' + this.props.id }, cover && _react2.default.createElement("div", { styleName: "book-cover" }, _react2.default.createElement("img", { src: this.props.cover })), _react2.default.createElement("div", { styleName: "book-meta" }, _react2.default.createElement("span", { title: this.props.title, styleName: "book-name" }, this.props.title || '无标题'), _react2.default.createElement("span", { styleName: "book-author" }, this.props.authors || '作者不详'), showDesc && _react2.default.createElement("span", { styleName: "book-desc" }, description || '空'))), this.state.showPopup && !this.props.disablePopup && _react2.default.createElement(_BookInfoPopup2.default, { bookId: this.props.id, title: this.props.title, author: this.props.authors, description: this.props.description }));
+    }
+};
 Book = __decorate([(0, _reactCssModules2.default)(_Book2.default, {
     allowMultiple: true
 })], Book);
-var _default = Book;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Book/Book.tsx");
-
-    __REACT_HOT_LOADER__.register(Book, "Book", "/Users/liang/Projects/readr/src/components/Book/Book.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Book/Book.tsx");
-}();
-
-;
+exports.default = Book;
 
 /***/ }),
 
@@ -239,19 +154,7 @@ var _Book2 = _interopRequireDefault(_Book);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _Book2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Book/index.ts');
-}();
-
-;
+exports.default = _Book2.default;
 
 /***/ }),
 
@@ -265,82 +168,45 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _form = __webpack_require__(85);
+var _form = __webpack_require__(84);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(323);
-var BookInfoPopup = function (_Component) {
-    _inherits(BookInfoPopup, _Component);
-
-    function BookInfoPopup(props) {
-        _classCallCheck(this, BookInfoPopup);
-
-        return _possibleConstructorReturn(this, (BookInfoPopup.__proto__ || Object.getPrototypeOf(BookInfoPopup)).call(this, props));
+const styles = __webpack_require__(323);
+let BookInfoPopup = class BookInfoPopup extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    render() {
+        var _props = this.props;
+        const author = _props.author,
+              title = _props.title,
+              description = _props.description,
+              bookId = _props.bookId;
 
-    _createClass(BookInfoPopup, [{
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                author = _props.author,
-                title = _props.title,
-                description = _props.description,
-                bookId = _props.bookId;
-
-            return _react2.default.createElement("div", { styleName: "popup" }, _react2.default.createElement("div", { styleName: "header" }, _react2.default.createElement("h2", { styleName: "title" }, title), _react2.default.createElement("p", { styleName: "author" }, author), _react2.default.createElement(_form.Button, { color: "blue", to: '/viewer/book/' + bookId }, "\u9605\u8BFB")), _react2.default.createElement("div", { styleName: "description" }, _react2.default.createElement("p", null, description)));
-        }
-    }]);
-
-    return BookInfoPopup;
-}(_react.Component);
+        return _react2.default.createElement("div", { styleName: "popup" }, _react2.default.createElement("div", { styleName: "header" }, _react2.default.createElement("h2", { styleName: "title" }, title), _react2.default.createElement("p", { styleName: "author" }, author), _react2.default.createElement(_form.Button, { color: "blue", to: '/viewer/book/' + bookId }, "\u9605\u8BFB")), _react2.default.createElement("div", { styleName: "description" }, _react2.default.createElement("p", null, description)));
+    }
+};
 BookInfoPopup = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
 })], BookInfoPopup);
-var _default = BookInfoPopup;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BookInfoPopup/BookInfoPopup.tsx");
-
-    __REACT_HOT_LOADER__.register(BookInfoPopup, "BookInfoPopup", "/Users/liang/Projects/readr/src/components/BookInfoPopup/BookInfoPopup.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BookInfoPopup/BookInfoPopup.tsx");
-}();
-
-;
+exports.default = BookInfoPopup;
 
 /***/ }),
 
@@ -360,19 +226,7 @@ var _BookInfoPopup2 = _interopRequireDefault(_BookInfoPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _BookInfoPopup2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/BookInfoPopup/index.ts');
-}();
-
-;
+exports.default = _BookInfoPopup2.default;
 
 /***/ }),
 
@@ -386,10 +240,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -398,73 +248,35 @@ var _Book = __webpack_require__(313);
 
 var _Book2 = _interopRequireDefault(_Book);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(324);
-var BookList = function (_Component) {
-    _inherits(BookList, _Component);
+const styles = __webpack_require__(324);
+let BookList = class BookList extends _react.Component {
+    render() {
+        return _react2.default.createElement("ul", { styleName: "book-list", className: "clearfix" }, this.props.bookEntities && this.props.bookEntities.length !== 0 ? this.props.bookEntities.map((book, index) => {
+            const title = book.title,
+                  authors = book.authors,
+                  description = book.description,
+                  cover = book.cover;
 
-    function BookList() {
-        _classCallCheck(this, BookList);
-
-        return _possibleConstructorReturn(this, (BookList.__proto__ || Object.getPrototypeOf(BookList)).apply(this, arguments));
+            return _react2.default.createElement("li", { key: index }, _react2.default.createElement(_Book2.default, { id: book.id, title: title || '无标题', authors: authors && authors.map(author => author.name).join(', ') || '未知作者', description: description, cover: cover, disablePopup: true }));
+        }) : _react2.default.createElement("li", null, "\u6682\u65E0\u8BB0\u5F55"));
     }
-
-    _createClass(BookList, [{
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement("ul", { styleName: "book-list", className: "clearfix" }, this.props.bookEntities && this.props.bookEntities.length !== 0 ? this.props.bookEntities.map(function (book, index) {
-                var title = book.title,
-                    authors = book.authors,
-                    description = book.description,
-                    cover = book.cover;
-
-                return _react2.default.createElement("li", { key: index }, _react2.default.createElement(_Book2.default, { id: book.id, title: title || '无标题', authors: authors && authors.map(function (author) {
-                        return author.name;
-                    }).join(', ') || '未知作者', description: description, cover: cover, disablePopup: true }));
-            }) : _react2.default.createElement("li", null, "\u6682\u65E0\u8BB0\u5F55"));
-        }
-    }]);
-
-    return BookList;
-}(_react.Component);
+};
 BookList = __decorate([(0, _reactCssModules2.default)(styles)], BookList);
-var _default = BookList;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/BookList/BookList.tsx");
-
-    __REACT_HOT_LOADER__.register(BookList, "BookList", "/Users/liang/Projects/readr/src/components/BookList/BookList.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/BookList/BookList.tsx");
-}();
-
-;
+exports.default = BookList;
 
 /***/ }),
 
@@ -484,19 +296,7 @@ var _BookList2 = _interopRequireDefault(_BookList);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _BookList2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/BookList/index.ts');
-}();
-
-;
+exports.default = _BookList2.default;
 
 /***/ }),
 
@@ -687,57 +487,22 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Tab = function (_Component) {
-    _inherits(Tab, _Component);
-
-    function Tab(props) {
-        _classCallCheck(this, Tab);
-
-        return _possibleConstructorReturn(this, (Tab.__proto__ || Object.getPrototypeOf(Tab)).call(this, props));
+let Tab = class Tab extends _react.Component {
+    constructor(props) {
+        super(props);
     }
-
-    _createClass(Tab, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement("div", { className: "tab" }, this.props.children);
-        }
-    }]);
-
-    return Tab;
-}(_react.Component);
-
-var _default = Tab;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
+    componentDidMount() {}
+    render() {
+        return _react2.default.createElement("div", { className: "tab" }, this.props.children);
     }
-
-    __REACT_HOT_LOADER__.register(Tab, "Tab", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tab.tsx");
-}();
-
-;
+};
+exports.default = Tab;
 
 /***/ }),
 
@@ -751,110 +516,65 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(20);
+var _classnames = __webpack_require__(21);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(352);
-var Tabs = function (_Component) {
-    _inherits(Tabs, _Component);
-
-    function Tabs(props) {
-        _classCallCheck(this, Tabs);
-
-        var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
-
-        _this.state = {
-            active: _this.props.defaultActive
+const styles = __webpack_require__(352);
+let Tabs = class Tabs extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: this.props.defaultActive
         };
-        _this.handleTabClick = _this.handleTabClick.bind(_this);
-        return _this;
+        this.handleTabClick = this.handleTabClick.bind(this);
     }
-
-    _createClass(Tabs, [{
-        key: "handleTabClick",
-        value: function handleTabClick(index) {
-            this.setState({
-                active: index
-            });
-            if (this.props.onTabSwitch) {
-                this.props.onTabSwitch(index);
-            }
+    handleTabClick(index) {
+        this.setState({
+            active: index
+        });
+        if (this.props.onTabSwitch) {
+            this.props.onTabSwitch(index);
         }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
+    }
+    componentDidMount() {}
+    render() {
+        const style = this.props.style;
 
-            var style = this.props.style;
-
-            return _react2.default.createElement("div", Object.assign({ className: "tabs" }, style ? { style: style } : null), _react2.default.createElement("div", { styleName: "tabs-header" }, _react2.default.createElement("ul", null, this.props.children.map(function (child, index) {
-                return _react2.default.createElement("li", { styleName: (0, _classnames2.default)({ 'active': index === _this2.state.active }), key: index, onClick: _this2.handleTabClick.bind(_this2, index) }, child.props.title);
-            }))), this.props.children.filter(function (child, index) {
-                return index === _this2.state.active;
-            }).map(function (child) {
-                return child.props.children;
-            })[0]);
-        }
-    }]);
-
-    return Tabs;
-}(_react.Component);
+        return _react2.default.createElement("div", Object.assign({ className: "tabs" }, style ? { style: style } : null), _react2.default.createElement("div", { styleName: "tabs-header" }, _react2.default.createElement("ul", null, this.props.children.map((child, index) => {
+            return _react2.default.createElement("li", { styleName: (0, _classnames2.default)({ 'active': index === this.state.active }), key: index, onClick: this.handleTabClick.bind(this, index) }, child.props.title);
+        }))), this.props.children.filter((child, index) => {
+            return index === this.state.active;
+        }).map(child => {
+            return child.props.children;
+        })[0]);
+    }
+};
 Tabs = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
 })], Tabs);
 Tabs.defaultProps = {
     defaultActive: 0
 };
-var _default = Tabs;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
-
-    __REACT_HOT_LOADER__.register(Tabs, "Tabs", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Tab/Tabs.tsx");
-}();
-
-;
+exports.default = Tabs;
 
 /***/ }),
 
@@ -881,19 +601,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.Tab = _Tab2.default;
 exports.Tabs = _Tabs2.default;
-var _default = _Tab2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Tab/index.ts');
-}();
-
-;
+exports.default = _Tab2.default;
 
 /***/ }),
 

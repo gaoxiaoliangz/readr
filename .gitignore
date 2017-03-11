@@ -6,3 +6,4 @@ bower_components
 npm-debug.log
 build/es
 .env
+build

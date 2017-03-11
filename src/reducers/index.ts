@@ -34,19 +34,19 @@ export function entities(state = {}, action) {
 const DEFAULT_VISTOR_STATE = { user: { role: 'visitor' }, isFetching: false, determined: false }
 export function session(state = DEFAULT_VISTOR_STATE, action) {
   switch (action.type) {
-    case ActionTypes.AUTH.REQUEST:
+    case ActionTypes.SESSION.REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       })
 
-    case ActionTypes.AUTH.SUCCESS:
+    case ActionTypes.SESSION.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         determined: true,
         user: action.response
       })
 
-    case ActionTypes.AUTH.FAILURE:
+    case ActionTypes.SESSION.FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         determined: true
@@ -61,6 +61,35 @@ export function session(state = DEFAULT_VISTOR_STATE, action) {
       return state
   }
 }
+// export function session(state = DEFAULT_VISTOR_STATE, action) {
+//   switch (action.type) {
+//     case ActionTypes.AUTH.REQUEST:
+//       return Object.assign({}, state, {
+//         isFetching: true
+//       })
+
+//     case ActionTypes.AUTH.SUCCESS:
+//       return Object.assign({}, state, {
+//         isFetching: false,
+//         determined: true,
+//         user: action.response
+//       })
+
+//     case ActionTypes.AUTH.FAILURE:
+//       return Object.assign({}, state, {
+//         isFetching: false,
+//         determined: true
+//       })
+
+//     case ActionTypes.LOGOUT.SUCCESS:
+//       return Object.assign({}, DEFAULT_VISTOR_STATE, {
+//         determined: true
+//       })
+
+//     default:
+//       return state
+//   }
+// }
 
 const rootReducer = combineReducers({
   components,

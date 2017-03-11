@@ -31,6 +31,10 @@ export const progress = createActionEntity(ActionTypes.BOOK_PROGRESS)
 export const loadBookProgress = (id: string) =>
   action(ActionTypes.LOAD_BOOK_PROGRESS, { id })
 
+export const session = createActionEntity(ActionTypes.SESSION)
+export const loadSession = () =>
+  action(ActionTypes.LOAD_SESSION)
+
 // define load actions handled in sagas
 export const LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS]
 

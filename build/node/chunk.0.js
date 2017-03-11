@@ -11,27 +11,23 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEqual2 = __webpack_require__(46);
+var _isEqual2 = __webpack_require__(48);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
 var _redux = __webpack_require__(17);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _DocContainer = __webpack_require__(44);
+var _DocContainer = __webpack_require__(46);
 
 var _DocContainer2 = _interopRequireDefault(_DocContainer);
 
@@ -39,7 +35,7 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -55,85 +51,40 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var bookId = ownProps.params.id;
-    var book = selectors.common.entity('books', bookId)(state);
+const mapStateToProps = (state, ownProps) => {
+    const bookId = ownProps.params.id;
+    const book = selectors.common.entity('books', bookId)(state);
     return {
         book: book
     };
 };
-var Viewer = function (_Component) {
-    _inherits(Viewer, _Component);
-
-    function Viewer(props) {
-        _classCallCheck(this, Viewer);
-
-        var _this = _possibleConstructorReturn(this, (Viewer.__proto__ || Object.getPrototypeOf(Viewer)).call(this, props));
-
-        _this.bookId = props.params.id;
-        return _this;
+let Viewer = class Viewer extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.bookId = props.params.id;
     }
-
-    _createClass(Viewer, [{
-        key: "shouldComponentUpdate",
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this.props.actions.initializeViewer(this.bookId);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(_DocContainer2.default, { bodyClass: "viewer", title: this.props.book.title }, _react2.default.createElement(_ViewerContainer2.default, null));
-        }
-    }]);
-
-    return Viewer;
-}(_react.Component);
+    shouldComponentUpdate(nextProps, nextState) {
+        return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
+    }
+    componentDidMount() {
+        this.props.actions.initializeViewer(this.bookId);
+    }
+    render() {
+        return _react2.default.createElement(_DocContainer2.default, { bodyClass: "viewer", title: this.props.book.title }, _react2.default.createElement(_ViewerContainer2.default, null));
+    }
+};
 Viewer = __decorate([(0, _reactCssModules2.default)(_Viewer2.default)], Viewer);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(Viewer);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
-
-    __REACT_HOT_LOADER__.register(Viewer, "Viewer", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/Viewer.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(Viewer);
 
 /***/ }),
 
@@ -147,19 +98,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _classnames = __webpack_require__(20);
+var _classnames = __webpack_require__(21);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -169,94 +116,53 @@ var _Loading2 = _interopRequireDefault(_Loading);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var Loading = function (_Component) {
-    _inherits(Loading, _Component);
-
-    function Loading(props) {
-        _classCallCheck(this, Loading);
-
-        var _this = _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).call(this, props));
-
-        _this.state = {
+let Loading = class Loading extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             dynamicText: ''
         };
-        return _this;
     }
+    componentDidMount() {
+        this.intervalId = setInterval(() => {
+            if (this.state.dynamicText.length === 3) {
+                this.setState({ dynamicText: '' });
+            } else {
+                this.setState({
+                    dynamicText: this.state.dynamicText + '.'
+                });
+            }
+        }, 500);
+    }
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
+    }
+    render() {
+        var _props = this.props;
+        const text = _props.text,
+              center = _props.center;
+        const dynamicText = this.state.dynamicText;
 
-    _createClass(Loading, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            this.intervalId = setInterval(function () {
-                if (_this2.state.dynamicText.length === 3) {
-                    _this2.setState({ dynamicText: '' });
-                } else {
-                    _this2.setState({
-                        dynamicText: _this2.state.dynamicText + '.'
-                    });
-                }
-            }, 500);
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            clearInterval(this.intervalId);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                text = _props.text,
-                center = _props.center;
-            var dynamicText = this.state.dynamicText;
-
-            var wrapClass = (0, _classnames2.default)({
-                'loading-wrap--center': center,
-                'loading-wrap': !center
-            });
-            return _react2.default.createElement("div", { styleName: wrapClass }, _react2.default.createElement("span", { styleName: "text-loading" }, text + dynamicText));
-        }
-    }]);
-
-    return Loading;
-}(_react.Component);
+        const wrapClass = (0, _classnames2.default)({
+            'loading-wrap--center': center,
+            'loading-wrap': !center
+        });
+        return _react2.default.createElement("div", { styleName: wrapClass }, _react2.default.createElement("span", { styleName: "text-loading" }, text + dynamicText));
+    }
+};
 Loading = __decorate([(0, _reactCssModules2.default)(_Loading2.default)], Loading);
 Loading['defaultProps'] = {
     text: '加载中'
 };
-var _default = Loading;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
-
-    __REACT_HOT_LOADER__.register(Loading, "Loading", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Loading/Loading.tsx");
-}();
-
-;
+exports.default = Loading;
 
 /***/ }),
 
@@ -276,19 +182,7 @@ var _Loading2 = _interopRequireDefault(_Loading);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _Loading2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Loading/index.ts');
-}();
-
-;
+exports.default = _Loading2.default;
 
 /***/ }),
 
@@ -357,95 +251,68 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(351);
-var Switcher = function (_Component) {
-    _inherits(Switcher, _Component);
-
-    function Switcher(props) {
-        _classCallCheck(this, Switcher);
-
-        return _possibleConstructorReturn(this, (Switcher.__proto__ || Object.getPrototypeOf(Switcher)).call(this, props));
+const styles = __webpack_require__(351);
+let Switcher = class Switcher extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {}
+    render() {
+        var _props = this.props;
+        let isOn = _props.value,
+            className = _props.className;
 
-    _createClass(Switcher, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {}
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            var _props = this.props,
-                isOn = _props.value,
-                className = _props.className;
-
-            if (typeof this.props.value === 'string') {
-                if (isOn === '1' || isOn === 'true') {
-                    isOn = true;
-                } else {
-                    isOn = false;
-                }
+        if (typeof this.props.value === 'string') {
+            if (isOn === '1' || isOn === 'true') {
+                isOn = true;
+            } else {
+                isOn = false;
             }
-            var state = Boolean(isOn) ? 'on' : 'off';
-            return _react2.default.createElement("div", { className: className || '', styleName: "switcher-wrap" }, this.props.title && _react2.default.createElement("span", null, this.props.title), _react2.default.createElement("div", { onClick: function onClick(e) {
-                    if (_this2.props.onChange) {
-                        var newValue = void 0;
-                        if (_this2.props.options) {
-                            var currentValueIndex = _this2.props.options.map(function (option) {
-                                return option.value;
-                            }).indexOf(_this2.props.value);
-                            if (currentValueIndex === 1) {
-                                newValue = _this2.props.options[0].value;
-                            } else if (currentValueIndex === 0) {
-                                newValue = _this2.props.options[1].value;
-                            } else {
-                                newValue = _this2.props.options[0].value;
-                                console.error('当前数据有误，将使用默认数据！');
-                            }
-                        } else {
-                            if (typeof _this2.props.value === 'string') {
-                                console.error('没有给 options 时必须使用布尔型的 value！');
-                            } else {
-                                newValue = !_this2.props.value;
-                            }
-                        }
-                        _this2.props.onChange(newValue);
-                    }
-                }, styleName: "switcher--" + state }, _react2.default.createElement("div", { styleName: "switcher-button" }), _react2.default.createElement("div", { styleName: "switcher-track" })));
         }
-    }]);
-
-    return Switcher;
-}(_react.Component);
+        let state = Boolean(isOn) ? 'on' : 'off';
+        return _react2.default.createElement("div", { className: className || '', styleName: "switcher-wrap" }, this.props.title && _react2.default.createElement("span", null, this.props.title), _react2.default.createElement("div", { onClick: e => {
+                if (this.props.onChange) {
+                    let newValue;
+                    if (this.props.options) {
+                        const currentValueIndex = this.props.options.map(option => option.value).indexOf(this.props.value);
+                        if (currentValueIndex === 1) {
+                            newValue = this.props.options[0].value;
+                        } else if (currentValueIndex === 0) {
+                            newValue = this.props.options[1].value;
+                        } else {
+                            newValue = this.props.options[0].value;
+                            console.error('当前数据有误，将使用默认数据！');
+                        }
+                    } else {
+                        if (typeof this.props.value === 'string') {
+                            console.error('没有给 options 时必须使用布尔型的 value！');
+                        } else {
+                            newValue = !this.props.value;
+                        }
+                    }
+                    this.props.onChange(newValue);
+                }
+            }, styleName: `switcher--${state}` }, _react2.default.createElement("div", { styleName: "switcher-button" }), _react2.default.createElement("div", { styleName: "switcher-track" })));
+    }
+};
 Switcher = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
 })], Switcher);
@@ -464,23 +331,7 @@ Switcher = __decorate([(0, _reactCssModules2.default)(styles, {
 //     )
 //   }
 // }
-var _default = Switcher;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
-
-    __REACT_HOT_LOADER__.register(Switcher, "Switcher", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/components/Switcher/Switcher.tsx");
-}();
-
-;
+exports.default = Switcher;
 
 /***/ }),
 
@@ -500,19 +351,7 @@ var _Switcher2 = _interopRequireDefault(_Switcher);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _Switcher2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Switcher/index.ts');
-}();
-
-;
+exports.default = _Switcher2.default;
 
 /***/ }),
 
@@ -584,7 +423,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isEqual2 = __webpack_require__(46);
+var _isEqual2 = __webpack_require__(48);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
@@ -592,29 +431,25 @@ var _assign2 = __webpack_require__(3);
 
 var _assign3 = _interopRequireDefault(_assign2);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var _BookPage = __webpack_require__(374);
 
 var _BookPage2 = _interopRequireDefault(_BookPage);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _classnames2 = __webpack_require__(20);
+var _classnames = __webpack_require__(21);
 
-var _classnames3 = _interopRequireDefault(_classnames2);
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _selectors = __webpack_require__(27);
 
@@ -624,99 +459,58 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(408);
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var config = selectors.viewer.config(state);
-    var computed = selectors.viewer.computed(config.bookId)(state);
-    var currentPageNo = selectors.viewer.progress(config.bookId)(state).pageNo;
+const styles = __webpack_require__(408);
+const mapStateToProps = (state, ownProps) => {
+    const config = selectors.viewer.config(state);
+    const computed = selectors.viewer.computed(config.bookId)(state);
+    const currentPageNo = selectors.viewer.progress(config.bookId)(state).pageNo;
     return (0, _assign3.default)({}, config, { computed: computed, currentPageNo: currentPageNo });
 };
-var BookPages = function (_Component) {
-    _inherits(BookPages, _Component);
-
-    function BookPages(props) {
-        _classCallCheck(this, BookPages);
-
-        return _possibleConstructorReturn(this, (BookPages.__proto__ || Object.getPrototypeOf(BookPages)).call(this, props));
+let BookPages = class BookPages extends _react.Component {
+    constructor(props) {
+        super(props);
     }
     // 写成 decorator 的形式？
+    shouldComponentUpdate(nextProps, nextState) {
+        return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
+    }
+    render() {
+        var _props = this.props;
+        const pages = _props.pages,
+              fluid = _props.fluid,
+              computed = _props.computed,
+              theme = _props.theme,
+              isScrollMode = _props.isScrollMode,
+              pageHeight = _props.pageHeight,
+              isCalcMode = _props.isCalcMode,
+              currentPageNo = _props.currentPageNo;
 
-
-    _createClass(BookPages, [{
-        key: "shouldComponentUpdate",
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                pages = _props.pages,
-                fluid = _props.fluid,
-                computed = _props.computed,
-                theme = _props.theme,
-                isScrollMode = _props.isScrollMode,
-                pageHeight = _props.pageHeight,
-                isCalcMode = _props.isCalcMode,
-                currentPageNo = _props.currentPageNo;
-
-            var totalHeight = computed.length * pageHeight;
-            var className = (0, _classnames3.default)(_defineProperty({
-                'pages': !fluid,
-                'pages--fluid': fluid
-            }, theme && theme.toLocaleLowerCase(), Boolean(theme)));
-            var ulHeight = isCalcMode ? 'auto' : isScrollMode ? totalHeight : pageHeight;
-            var ulStyle = { height: ulHeight };
-            return _react2.default.createElement("ul", { styleName: className, style: ulStyle }, pages.map(function (page, index) {
-                var active = page.meta && page.meta.pageNo === currentPageNo;
-                return _react2.default.createElement(_BookPage2.default, { fluid: fluid, page: page, pageHeight: pageHeight, key: index, active: active });
-            }));
-        }
-    }]);
-
-    return BookPages;
-}(_react.Component);
+        const totalHeight = computed.length * pageHeight;
+        const className = (0, _classnames2.default)({
+            'pages': !fluid,
+            'pages--fluid': fluid,
+            [theme && theme.toLocaleLowerCase()]: Boolean(theme)
+        });
+        const ulHeight = isCalcMode ? 'auto' : isScrollMode ? totalHeight : pageHeight;
+        const ulStyle = { height: ulHeight };
+        return _react2.default.createElement("ul", { styleName: className, style: ulStyle }, pages.map((page, index) => {
+            const active = page.meta && page.meta.pageNo === currentPageNo;
+            return _react2.default.createElement(_BookPage2.default, { fluid: fluid, page: page, pageHeight: pageHeight, key: index, active: active });
+        }));
+    }
+};
 BookPages = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
 })], BookPages);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, { sendNotification: _actions.sendNotification })(BookPages);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
-
-    __REACT_HOT_LOADER__.register(BookPages, "BookPages", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPages.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { sendNotification: _actions.sendNotification })(BookPages);
 
 /***/ }),
 
@@ -734,8 +528,6 @@ var _forEach2 = __webpack_require__(417);
 
 var _forEach3 = _interopRequireDefault(_forEach2);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -750,97 +542,60 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ReactMarkdown = __webpack_require__(421);
-
-var Markdown = function (_Component) {
-    _inherits(Markdown, _Component);
-
-    function Markdown(props) {
-        _classCallCheck(this, Markdown);
-
-        return _possibleConstructorReturn(this, (Markdown.__proto__ || Object.getPrototypeOf(Markdown)).call(this, props));
+const ReactMarkdown = __webpack_require__(421);
+let Markdown = class Markdown extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    componentDidMount() {}
+    renderSafely(className) {
+        var _props = this.props;
+        const input = _props.input,
+              renderers = _props.renderers;
 
-    _createClass(Markdown, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {}
-    }, {
-        key: 'renderSafely',
-        value: function renderSafely(className) {
-            var _props = this.props,
-                input = _props.input,
-                renderers = _props.renderers;
+        return _react2.default.createElement(ReactMarkdown, { className: className, source: input, renderers: renderers || {}, escapeHtml: false, skipHtml: false });
+    }
+    renderUnSafely(className) {
+        var _props2 = this.props;
+        const input = _props2.input,
+              markedRenderers = _props2.markedRenderers;
 
-            return _react2.default.createElement(ReactMarkdown, { className: className, source: input, renderers: renderers || {}, escapeHtml: false, skipHtml: false });
-        }
-    }, {
-        key: 'renderUnSafely',
-        value: function renderUnSafely(className) {
-            var _props2 = this.props,
-                input = _props2.input,
-                markedRenderers = _props2.markedRenderers;
-
-            var renderer = new _marked2.default.Renderer();
-            if (markedRenderers) {
-                (0, _forEach3.default)(markedRenderers, function (val, key) {
-                    if (key !== 'line') {
-                        renderer[key] = val;
-                    }
-                });
-            }
-            var html = (0, _marked2.default)(input, {
-                gfm: false,
-                breaks: true,
-                renderer: renderer
+        let renderer = new _marked2.default.Renderer();
+        if (markedRenderers) {
+            (0, _forEach3.default)(markedRenderers, (val, key) => {
+                if (key !== 'line') {
+                    renderer[key] = val;
+                }
             });
-            if (markedRenderers && markedRenderers.line) {
-                html = Array.prototype.filter.call((0, _jquery2.default)(html), function (ele) {
-                    // 移除元素间的回车及字符串
-                    return ele.nodeType !== 3;
-                }).map(function (ele) {
-                    return markedRenderers.line(ele);
-                }).join('');
-            }
-            return _react2.default.createElement("div", { className: className, dangerouslySetInnerHTML: { __html: html } });
         }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _props3 = this.props,
-                safe = _props3.safe,
-                className = _props3.className;
-
-            return safe ? this.renderSafely(className) : this.renderUnSafely(className);
+        let html = (0, _marked2.default)(input, {
+            gfm: false,
+            breaks: true,
+            renderer: renderer
+        });
+        if (markedRenderers && markedRenderers.line) {
+            html = Array.prototype.filter.call((0, _jquery2.default)(html), ele => {
+                // 移除元素间的回车及字符串
+                return ele.nodeType !== 3;
+            }).map(ele => {
+                return markedRenderers.line(ele);
+            }).join('');
         }
-    }]);
+        return _react2.default.createElement("div", { className: className, dangerouslySetInnerHTML: { __html: html } });
+    }
+    render() {
+        var _props3 = this.props;
+        const safe = _props3.safe,
+              className = _props3.className;
 
-    return Markdown;
-}(_react.Component);
+        return safe ? this.renderSafely(className) : this.renderUnSafely(className);
+    }
+};
 
 Markdown['defaultProps'] = {
     safe: true
 };
-var _default = Markdown;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(Markdown, 'Markdown', '/Users/liang/Projects/readr/src/components/Markdown/Markdown.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Markdown/Markdown.tsx');
-}();
-
-;
+exports.default = Markdown;
 
 /***/ }),
 
@@ -860,19 +615,7 @@ var _Markdown2 = _interopRequireDefault(_Markdown);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _Markdown2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Markdown/index.ts');
-}();
-
-;
+exports.default = _Markdown2.default;
 
 /***/ }),
 
@@ -890,30 +633,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsCssTransitionGroup = __webpack_require__(94);
+var _reactAddonsCssTransitionGroup = __webpack_require__(93);
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var styles = __webpack_require__(400);
+const styles = __webpack_require__(400);
 
-var _default = function _default(props) {
+exports.default = props => {
     return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, { component: "div", transitionName: styles, transitionEnterTimeout: 300, transitionLeaveTimeout: 300 }, props.children);
 };
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Slide/Slide.tsx');
-}();
-
-;
 
 /***/ }),
 
@@ -933,19 +663,7 @@ var _Slide2 = _interopRequireDefault(_Slide);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = _Slide2.default;
-exports.default = _default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/components/Slide/index.ts');
-}();
-
-;
+exports.default = _Slide2.default;
 
 /***/ }),
 
@@ -960,7 +678,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Slide = exports.Fade = undefined;
 
-var _Fade = __webpack_require__(89);
+var _Fade = __webpack_require__(88);
 
 var _Fade2 = _interopRequireDefault(_Fade);
 
@@ -972,15 +690,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.Fade = _Fade2.default;
 exports.Slide = _Slide2.default;
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-}();
-
-;
 
 /***/ }),
 
@@ -995,11 +704,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _isEqual2 = __webpack_require__(46);
+var _isEqual2 = __webpack_require__(48);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -1011,86 +718,43 @@ var _BookPages2 = _interopRequireDefault(_BookPages);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BookChapter = function BookChapter(_ref) {
-    var id = _ref.id,
+const BookChapter = (_ref) => {
+    let id = _ref.id,
         markdown = _ref.markdown;
 
     return _react2.default.createElement("div", { id: id }, _react2.default.createElement(_BookPages2.default, { pages: [{
             nodes: [markdown]
         }] }));
 };
-
-var BookChapters = function (_Component) {
-    _inherits(BookChapters, _Component);
-
-    function BookChapters(props) {
-        _classCallCheck(this, BookChapters);
-
-        return _possibleConstructorReturn(this, (BookChapters.__proto__ || Object.getPrototypeOf(BookChapters)).call(this, props));
+let BookChapters = class BookChapters extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
+    }
+    triggerUpdate() {
+        const onRawDataMount = this.props.onRawDataMount;
 
-    _createClass(BookChapters, [{
-        key: 'shouldComponentUpdate',
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
+        if (onRawDataMount) {
+            onRawDataMount(this.chapters);
         }
-    }, {
-        key: 'triggerUpdate',
-        value: function triggerUpdate() {
-            var onRawDataMount = this.props.onRawDataMount;
+    }
+    componentDidUpdate() {
+        this.triggerUpdate();
+    }
+    componentDidMount() {
+        this.triggerUpdate();
+    }
+    render() {
+        const bookFlesh = this.props.bookFlesh;
 
-            if (onRawDataMount) {
-                onRawDataMount(this.chapters);
-            }
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate() {
-            this.triggerUpdate();
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.triggerUpdate();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var bookFlesh = this.props.bookFlesh;
-
-            return _react2.default.createElement("div", { ref: function ref(_ref2) {
-                    return _this2.chapters = _ref2;
-                } }, (bookFlesh || []).map(function (item) {
-                return _react2.default.createElement(BookChapter, { id: item.id, markdown: item.markdown, key: item.id });
-            }));
-        }
-    }]);
-
-    return BookChapters;
-}(_react.Component);
-
+        return _react2.default.createElement("div", { ref: _ref2 => this.chapters = _ref2 }, (bookFlesh || []).map(item => {
+            return _react2.default.createElement(BookChapter, { id: item.id, markdown: item.markdown, key: item.id });
+        }));
+    }
+};
 exports.default = BookChapters;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(BookChapter, 'BookChapter', '/Users/liang/Projects/readr/src/routes/Viewer/components/BookChapters.tsx');
-
-    __REACT_HOT_LOADER__.register(BookChapters, 'BookChapters', '/Users/liang/Projects/readr/src/routes/Viewer/components/BookChapters.tsx');
-}();
-
-;
 
 /***/ }),
 
@@ -1112,10 +776,6 @@ var _debounce2 = __webpack_require__(415);
 
 var _debounce3 = _interopRequireDefault(_debounce2);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -1130,7 +790,7 @@ var _ViewerScrollbar2 = _interopRequireDefault(_ViewerScrollbar);
 
 var _redux = __webpack_require__(17);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
 var _selectors = __webpack_require__(27);
 
@@ -1140,11 +800,11 @@ var _NavArrow = __webpack_require__(375);
 
 var _NavArrow2 = _interopRequireDefault(_NavArrow);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -1156,34 +816,30 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var mapStateToProps = function mapStateToProps(state) {
-    var _selectors$viewer$con = selectors.viewer.config(state),
-        bookId = _selectors$viewer$con.bookId,
-        theme = _selectors$viewer$con.theme,
-        isScrollMode = _selectors$viewer$con.isScrollMode,
-        isCalcMode = _selectors$viewer$con.isCalcMode;
+const mapStateToProps = state => {
+    var _selectors$viewer$con = selectors.viewer.config(state);
 
-    var _selectors$viewer$pro = selectors.viewer.progress(bookId)(state),
-        percentage = _selectors$viewer$pro.percentage,
-        pageNo = _selectors$viewer$pro.pageNo;
+    const bookId = _selectors$viewer$con.bookId,
+          theme = _selectors$viewer$con.theme,
+          isScrollMode = _selectors$viewer$con.isScrollMode,
+          isCalcMode = _selectors$viewer$con.isCalcMode;
 
-    var _selectors$viewer$pro2 = selectors.viewer.progressComponent(state),
-        showPageInfo = _selectors$viewer$pro2.show;
+    var _selectors$viewer$pro = selectors.viewer.progress(bookId)(state);
+
+    const percentage = _selectors$viewer$pro.percentage,
+          pageNo = _selectors$viewer$pro.pageNo;
+
+    var _selectors$viewer$pro2 = selectors.viewer.progressComponent(state);
+
+    const showPageInfo = _selectors$viewer$pro2.show;
 
     return {
         showPageInfo: showPageInfo,
@@ -1194,126 +850,78 @@ var mapStateToProps = function mapStateToProps(state) {
         isCalcMode: isCalcMode
     };
 };
-var BookContainer = function (_Component) {
-    _inherits(BookContainer, _Component);
-
-    function BookContainer(props) {
-        _classCallCheck(this, BookContainer);
-
-        var _this = _possibleConstructorReturn(this, (BookContainer.__proto__ || Object.getPrototypeOf(BookContainer)).call(this, props));
-
-        _this.handleScroll = _this.handleScroll.bind(_this);
-        _this.handleScrollLazily = (0, _debounce3.default)(_this.handleScroll, 200, {
+let BookContainer = class BookContainer extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.handleScrollLazily = (0, _debounce3.default)(this.handleScroll, 200, {
             maxWait: 1000
         });
-        return _this;
     }
+    handleScroll() {
+        var _props = this.props;
+        const allPages = _props.allPages,
+              pageHeight = _props.pageHeight,
+              isScrollMode = _props.isScrollMode;
 
-    _createClass(BookContainer, [{
-        key: "handleScroll",
-        value: function handleScroll() {
-            var _props = this.props,
-                allPages = _props.allPages,
-                pageHeight = _props.pageHeight,
-                isScrollMode = _props.isScrollMode;
+        const pageCount = allPages.length;
+        const totalHeight = pageCount * pageHeight;
+        const scrollTop = document.body.scrollTop;
+        if (isScrollMode) {
+            this.props.actions.updateBookProgress(scrollTop / totalHeight);
+        }
+    }
+    handleForward() {
+        var _props2 = this.props;
+        const allPages = _props2.allPages,
+              pageNo = _props2.pageNo;
 
-            var pageCount = allPages.length;
-            var totalHeight = pageCount * pageHeight;
-            var scrollTop = document.body.scrollTop;
-            if (isScrollMode) {
-                this.props.actions.updateBookProgress(scrollTop / totalHeight);
-            }
-        }
-    }, {
-        key: "handleForward",
-        value: function handleForward() {
-            var _props2 = this.props,
-                allPages = _props2.allPages,
-                pageNo = _props2.pageNo;
+        this.props.actions.viewerJumpTo(pageNo / allPages.length);
+        document.body.scrollTop = 0;
+    }
+    handlebackward() {
+        var _props3 = this.props;
+        const allPages = _props3.allPages,
+              pageNo = _props3.pageNo;
 
-            this.props.actions.viewerJumpTo(pageNo / allPages.length);
-            document.body.scrollTop = 0;
-        }
-    }, {
-        key: "handlebackward",
-        value: function handlebackward() {
-            var _props3 = this.props,
-                allPages = _props3.allPages,
-                pageNo = _props3.pageNo;
+        this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length);
+        document.body.scrollTop = 0;
+    }
+    addEventListeners() {
+        window.addEventListener('scroll', this.handleScrollLazily);
+    }
+    removeEventListeners() {
+        window.removeEventListener('scroll', this.handleScrollLazily);
+    }
+    componentDidMount() {
+        this.addEventListeners();
+    }
+    componentWillUnmount() {
+        this.removeEventListeners();
+    }
+    render() {
+        var _props4 = this.props;
+        const allPages = _props4.allPages,
+              pageHeight = _props4.pageHeight,
+              showPageInfo = _props4.showPageInfo,
+              pageLimit = _props4.pageLimit,
+              pageNo = _props4.pageNo,
+              theme = _props4.theme,
+              isScrollMode = _props4.isScrollMode,
+              isCalcMode = _props4.isCalcMode;
 
-            this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length);
-            document.body.scrollTop = 0;
-        }
-    }, {
-        key: "addEventListeners",
-        value: function addEventListeners() {
-            window.addEventListener('scroll', this.handleScrollLazily);
-        }
-    }, {
-        key: "removeEventListeners",
-        value: function removeEventListeners() {
-            window.removeEventListener('scroll', this.handleScrollLazily);
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this.addEventListeners();
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            this.removeEventListeners();
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props4 = this.props,
-                allPages = _props4.allPages,
-                pageHeight = _props4.pageHeight,
-                showPageInfo = _props4.showPageInfo,
-                pageLimit = _props4.pageLimit,
-                pageNo = _props4.pageNo,
-                theme = _props4.theme,
-                isScrollMode = _props4.isScrollMode,
-                isCalcMode = _props4.isCalcMode;
-
-            var startPageIndex = void 0;
-            startPageIndex = pageNo - Math.ceil(pageLimit / 2);
-            startPageIndex = startPageIndex < 0 ? 0 : startPageIndex;
-            var endPageIndex = startPageIndex + pageLimit;
-            var divHeight = isCalcMode ? 'auto' : isScrollMode ? allPages.length * pageHeight : pageHeight;
-            return _react2.default.createElement("div", { styleName: theme.toLowerCase(), style: { height: divHeight } }, _react2.default.createElement(_BookPages2.default, { pages: (0, _slice3.default)(allPages, startPageIndex, endPageIndex) }), _react2.default.createElement(_NavArrow2.default, { forward: this.handleForward.bind(this), backward: this.handlebackward.bind(this), show: !isScrollMode }), _react2.default.createElement(_ViewerScrollbar2.default, { visible: showPageInfo, current: pageNo, total: allPages.length }));
-        }
-    }]);
-
-    return BookContainer;
-}(_react.Component);
+        let startPageIndex;
+        startPageIndex = pageNo - Math.ceil(pageLimit / 2);
+        startPageIndex = startPageIndex < 0 ? 0 : startPageIndex;
+        const endPageIndex = startPageIndex + pageLimit;
+        const divHeight = isCalcMode ? 'auto' : isScrollMode ? allPages.length * pageHeight : pageHeight;
+        return _react2.default.createElement("div", { styleName: theme.toLowerCase(), style: { height: divHeight } }, _react2.default.createElement(_BookPages2.default, { pages: (0, _slice3.default)(allPages, startPageIndex, endPageIndex) }), _react2.default.createElement(_NavArrow2.default, { forward: this.handleForward.bind(this), backward: this.handlebackward.bind(this), show: !isScrollMode }), _react2.default.createElement(_ViewerScrollbar2.default, { visible: showPageInfo, current: pageNo, total: allPages.length }));
+    }
+};
 BookContainer = __decorate([(0, _reactCssModules2.default)(_BookContainer2.default)], BookContainer);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(BookContainer);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
-
-    __REACT_HOT_LOADER__.register(BookContainer, "BookContainer", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookContainer.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(BookContainer);
 
 /***/ }),
 
@@ -1327,19 +935,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames2 = __webpack_require__(20);
+var _classnames = __webpack_require__(21);
 
-var _classnames3 = _interopRequireDefault(_classnames2);
+var _classnames2 = _interopRequireDefault(_classnames);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
@@ -1347,11 +951,11 @@ var _Markdown = __webpack_require__(361);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
 var _redux = __webpack_require__(17);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -1363,139 +967,93 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(93);
-var renderers = {
+const styles = __webpack_require__(92);
+const renderers = {
     paragraph: function paragraph(text) {
-        return "<p class=\"" + styles['gb-line'] + "\">" + text + "</p>";
+        return `<p class="${styles['gb-line']}">${text}</p>`;
     },
     link: function link(href, title, text) {
         if (href.indexOf('http://') === -1) {
-            return "<a href=\"" + href + "\" class=\"js-book-nav\">" + text + "</a>";
+            return `<a href="${href}" class="js-book-nav">${text}</a>`;
         }
-        return "<a href=\"" + href + "\" target=\"_blank\">" + text + "</a>";
+        return `<a href="${href}" target="_blank">${text}</a>`;
     },
     line: function line(ele) {
-        var tagName = ele.tagName;
+        const tagName = ele.tagName;
         if (tagName !== 'P') {
-            return "<div class=\"" + styles['gb-line'] + "\">" + (ele.outerHTML || ele.innerHTML || ele.textContent) + "</div>";
+            return `<div class="${styles['gb-line']}">${ele.outerHTML || ele.innerHTML || ele.textContent}</div>`;
         }
         return ele.outerHTML;
     }
 };
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var _selectors$viewer$con = selectors.viewer.config(state),
-        fontSize = _selectors$viewer$con.fontSize,
-        theme = _selectors$viewer$con.theme,
-        isScrollMode = _selectors$viewer$con.isScrollMode;
+const mapStateToProps = (state, ownProps) => {
+    var _selectors$viewer$con = selectors.viewer.config(state);
+
+    const fontSize = _selectors$viewer$con.fontSize,
+          theme = _selectors$viewer$con.theme,
+          isScrollMode = _selectors$viewer$con.isScrollMode;
 
     return { fontSize: fontSize, theme: theme, isScrollMode: isScrollMode };
 };
-var BookPage = function (_Component) {
-    _inherits(BookPage, _Component);
+let BookPage = class BookPage extends _react.Component {
+    render() {
+        var _props = this.props,
+            _props$page = _props.page;
+        const nodes = _props$page.nodes,
+              meta = _props$page.meta,
+              pageHeight = _props.pageHeight,
+              fluid = _props.fluid,
+              fontSize = _props.fontSize,
+              theme = _props.theme,
+              isScrollMode = _props.isScrollMode,
+              active = _props.active;
 
-    function BookPage() {
-        _classCallCheck(this, BookPage);
-
-        return _possibleConstructorReturn(this, (BookPage.__proto__ || Object.getPrototypeOf(BookPage)).apply(this, arguments));
-    }
-
-    _createClass(BookPage, [{
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            var _props = this.props,
-                _props$page = _props.page,
-                nodes = _props$page.nodes,
-                meta = _props$page.meta,
-                pageHeight = _props.pageHeight,
-                fluid = _props.fluid,
-                fontSize = _props.fontSize,
-                theme = _props.theme,
-                isScrollMode = _props.isScrollMode,
-                active = _props.active;
-
-            var mdInput = nodes.join('\n\n');
-            var contentStyle = { fontSize: fontSize };
-            var liStyle = {};
-            if (meta && pageHeight) {
-                if (isScrollMode) {
-                    liStyle = {
-                        position: 'absolute',
-                        top: pageHeight * (meta.pageNo - 1),
-                        height: pageHeight || 'auto'
-                    };
-                } else {
-                    liStyle = {
-                        position: 'absolute',
-                        top: 0,
-                        display: active ? 'block' : 'none',
-                        height: pageHeight || 'auto'
-                    };
-                }
+        const mdInput = nodes.join('\n\n');
+        const contentStyle = { fontSize: fontSize };
+        let liStyle = {};
+        if (meta && pageHeight) {
+            if (isScrollMode) {
+                liStyle = {
+                    position: 'absolute',
+                    top: pageHeight * (meta.pageNo - 1),
+                    height: pageHeight || 'auto'
+                };
+            } else {
+                liStyle = {
+                    position: 'absolute',
+                    top: 0,
+                    display: active ? 'block' : 'none',
+                    height: pageHeight || 'auto'
+                };
             }
-            if (meta && meta.offset) {
-                contentStyle.marginTop = meta.offset;
-            }
-            var className = (0, _classnames3.default)(_defineProperty({
-                'page': !fluid,
-                'page--fluid': fluid
-            }, theme && theme.toLocaleLowerCase(), Boolean(theme)));
-            return _react2.default.createElement("li", { styleName: className, style: liStyle }, _react2.default.createElement("div", { style: contentStyle, styleName: "content", ref: function ref(_ref) {
-                    _this2.bookPageDom = _ref;
-                } }, _react2.default.createElement(_Markdown2.default, { className: "lines", input: mdInput, safe: false, markedRenderers: renderers })), meta && _react2.default.createElement("div", { styleName: "page-no" }, meta.pageNo));
         }
-    }]);
-
-    return BookPage;
-}(_react.Component);
+        if (meta && meta.offset) {
+            contentStyle.marginTop = meta.offset;
+        }
+        const className = (0, _classnames2.default)({
+            'page': !fluid,
+            'page--fluid': fluid,
+            [theme && theme.toLocaleLowerCase()]: Boolean(theme)
+        });
+        return _react2.default.createElement("li", { styleName: className, style: liStyle }, _react2.default.createElement("div", { style: contentStyle, styleName: "content", ref: _ref => {
+                this.bookPageDom = _ref;
+            } }, _react2.default.createElement(_Markdown2.default, { className: "lines", input: mdInput, safe: false, markedRenderers: renderers })), meta && _react2.default.createElement("div", { styleName: "page-no" }, meta.pageNo));
+    }
+};
 BookPage = __decorate([(0, _reactCssModules2.default)(styles, {
     allowMultiple: true
 })], BookPage);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(BookPage);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
-
-    __REACT_HOT_LOADER__.register(renderers, "renderers", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
-
-    __REACT_HOT_LOADER__.register(BookPage, "BookPage", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/BookPage.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(BookPage);
 
 /***/ }),
 
@@ -1509,82 +1067,41 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(409);
-var NavArrow = function (_Component) {
-    _inherits(NavArrow, _Component);
-
-    function NavArrow(props) {
-        _classCallCheck(this, NavArrow);
-
-        return _possibleConstructorReturn(this, (NavArrow.__proto__ || Object.getPrototypeOf(NavArrow)).call(this, props));
+const styles = __webpack_require__(409);
+let NavArrow = class NavArrow extends _react.Component {
+    constructor(props) {
+        super(props);
     }
-
-    _createClass(NavArrow, [{
-        key: "handleForwardClick",
-        value: function handleForwardClick() {
-            this.props.forward();
-        }
-    }, {
-        key: "handleBackwardClick",
-        value: function handleBackwardClick() {
-            this.props.backward();
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return this.props.show && _react2.default.createElement("div", { styleName: "navs" }, _react2.default.createElement("div", { styleName: "nav-left", onClick: this.handleBackwardClick.bind(this) }, "-"), _react2.default.createElement("div", { styleName: "nav-right", onClick: this.handleForwardClick.bind(this) }, "+"));
-        }
-    }]);
-
-    return NavArrow;
-}(_react.Component);
+    handleForwardClick() {
+        this.props.forward();
+    }
+    handleBackwardClick() {
+        this.props.backward();
+    }
+    render() {
+        return this.props.show && _react2.default.createElement("div", { styleName: "navs" }, _react2.default.createElement("div", { styleName: "nav-left", onClick: this.handleBackwardClick.bind(this) }, "-"), _react2.default.createElement("div", { styleName: "nav-right", onClick: this.handleForwardClick.bind(this) }, "+"));
+    }
+};
 NavArrow = __decorate([(0, _reactCssModules2.default)(styles)], NavArrow);
-var _default = NavArrow;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/NavArrow.tsx");
-
-    __REACT_HOT_LOADER__.register(NavArrow, "NavArrow", "/Users/liang/Projects/readr/src/routes/Viewer/components/NavArrow.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/NavArrow.tsx");
-}();
-
-;
+exports.default = NavArrow;
 
 /***/ }),
 
@@ -1602,7 +1119,7 @@ var _isEqualWith2 = __webpack_require__(418);
 
 var _isEqualWith3 = _interopRequireDefault(_isEqualWith2);
 
-var _isEqual2 = __webpack_require__(46);
+var _isEqual2 = __webpack_require__(48);
 
 var _isEqual3 = _interopRequireDefault(_isEqual2);
 
@@ -1610,19 +1127,17 @@ var _debounce2 = __webpack_require__(415);
 
 var _debounce3 = _interopRequireDefault(_debounce2);
 
-var _get2 = __webpack_require__(13);
+var _get2 = __webpack_require__(14);
 
 var _get3 = _interopRequireDefault(_get2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -1656,28 +1171,24 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+const PAGE_LIMIT = 5;
+const mapStateToProps = (state, ownProps) => {
+    const config = selectors.viewer.config(state);
+    const bookId = config.bookId;
+    const book = selectors.common.entity('books', bookId)(state);
+    const bookContent = selectors.common.entity('bookContents', bookId)(state);
+    const bookProgress = selectors.common.entity('bookProgress', bookId)(state);
+    const cloudProgress = (0, _get3.default)(bookProgress, 'percentage', 0);
+    const computedPages = selectors.viewer.computed(bookId)(state);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+    var _selectors$viewer$pro = selectors.viewer.progress(bookId)(state);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    const viewerPercentage = _selectors$viewer$pro.percentage,
+          isFetching = _selectors$viewer$pro.isFetching;
 
-var PAGE_LIMIT = 5;
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var config = selectors.viewer.config(state);
-    var bookId = config.bookId;
-    var book = selectors.common.entity('books', bookId)(state);
-    var bookContent = selectors.common.entity('bookContents', bookId)(state);
-    var bookProgress = selectors.common.entity('bookProgress', bookId)(state);
-    var cloudProgress = (0, _get3.default)(bookProgress, 'percentage', 0);
-    var computedPages = selectors.viewer.computed(bookId)(state);
+    var _selectors$viewer$pan = selectors.viewer.panel(state);
 
-    var _selectors$viewer$pro = selectors.viewer.progress(bookId)(state),
-        viewerPercentage = _selectors$viewer$pro.percentage,
-        isFetching = _selectors$viewer$pro.isFetching;
-
-    var _selectors$viewer$pan = selectors.viewer.panel(state),
-        showPanel = _selectors$viewer$pan.show;
+    const showPanel = _selectors$viewer$pan.show;
 
     return {
         bookId: bookId,
@@ -1692,152 +1203,97 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
         showPanel: showPanel
     };
 };
-
-var ViewerContainer = function (_Component) {
-    _inherits(ViewerContainer, _Component);
-
-    function ViewerContainer(props) {
-        _classCallCheck(this, ViewerContainer);
-
-        var _this = _possibleConstructorReturn(this, (ViewerContainer.__proto__ || Object.getPrototypeOf(ViewerContainer)).call(this, props));
-
-        _this.resizeLazily = (0, _debounce3.default)(_this.handleResize, 500, {
+let ViewerContainer = class ViewerContainer extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.resizeLazily = (0, _debounce3.default)(this.handleResize, 500, {
             maxWait: 1000
         });
-        _this.handleViewerClick = _this.handleViewerClick.bind(_this);
-        _this.handleResize = _this.handleResize.bind(_this);
-        _this.resizeLazily = _this.resizeLazily.bind(_this);
-        _this.handleRawDataMount = _this.handleRawDataMount.bind(_this);
-        _this.handelViewerMouseMove = _this.handelViewerMouseMove.bind(_this);
-        return _this;
+        this.handleViewerClick = this.handleViewerClick.bind(this);
+        this.handleResize = this.handleResize.bind(this);
+        this.resizeLazily = this.resizeLazily.bind(this);
+        this.handleRawDataMount = this.handleRawDataMount.bind(this);
+        this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this);
     }
-
-    _createClass(ViewerContainer, [{
-        key: 'handleRawDataMount',
-        value: function handleRawDataMount(ele) {
-            this.props.actions.calcBook(this.props.bookId, ele);
-        }
-    }, {
-        key: 'handleViewerClick',
-        value: function handleViewerClick() {
-            var isTouchMode = this.props.config.isTouchMode;
-
-            if (isTouchMode) {
-                this.props.actions.toggleViewerPanel();
-                this.props.actions.toggleViewerPageProgressInfo();
-            }
-        }
-    }, {
-        key: 'handleResize',
-        value: function handleResize() {
-            this.props.actions.initializeViewerConfig(this.props.bookId, {
-                isCalcMode: false
-            });
-        }
-    }, {
-        key: 'handelViewerMouseMove',
-        value: function handelViewerMouseMove(event) {
-            var dToScreenRight = _utils2.default.getScreenInfo().view.width - event.pageX;
-            this.setState({
-                showPageInfo: dToScreenRight < 100
-            });
-        }
-    }, {
-        key: 'reinitializeViewer',
-        value: function reinitializeViewer() {
-            var bookId = this.props.bookId;
-
-            this.props.actions.configViewer(bookId, {
-                isCalcMode: true
-            });
-            this.setState({
-                showPageInfo: false
-            });
-            this.props.actions.toggleViewerPanel(false);
-            this.props.actions.toggleViewerPageProgressInfo(false);
-        }
-    }, {
-        key: 'shouldComponentUpdate',
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            var viewChanged = !(0, _isEqualWith3.default)(this.props.config, prevProps.config, function (valA, valB, key) {
-                if (key === 'isTouchMode' || key === 'isCalcMode' || key === 'isScrollMode' || key === 'theme') {
-                    return true;
-                }
-            });
-            if (viewChanged) {
-                this.reinitializeViewer();
-            }
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            window.addEventListener('resize', this.resizeLazily);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            window.removeEventListener('resize', this.resizeLazily);
-        }
-    }, {
-        key: 'renderBook',
-        value: function renderBook() {
-            var _props = this.props,
-                bookContent = _props.bookContent,
-                computedPages = _props.computedPages,
-                _props$config = _props.config,
-                isCalcMode = _props$config.isCalcMode,
-                pageHeight = _props$config.pageHeight;
-
-            if (!bookContent.flesh) {
-                return _react2.default.createElement(_Loading2.default, { text: "书籍获取中", center: true });
-            }
-            if (isCalcMode) {
-                return _react2.default.createElement("div", null, _react2.default.createElement(_Loading2.default, { text: "书籍排版中", center: true }), _react2.default.createElement(_BookChapters2.default, { bookFlesh: bookContent.flesh, onRawDataMount: this.handleRawDataMount }));
-            } else if (computedPages.length !== 0) {
-                return _react2.default.createElement("div", { onClick: this.handleViewerClick }, _react2.default.createElement(_BookContainer2.default, { allPages: computedPages, pageHeight: pageHeight, pageLimit: PAGE_LIMIT }));
-            } else {
-                return _react2.default.createElement(_Loading2.default, { text: "准备中", center: true });
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement("div", { onMouseMove: this.handelViewerMouseMove }, _react2.default.createElement(_ViewerPanel2.default, null), this.renderBook());
-        }
-    }]);
-
-    return ViewerContainer;
-}(_react.Component);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(ViewerContainer);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
+    handleRawDataMount(ele) {
+        this.props.actions.calcBook(this.props.bookId, ele);
     }
+    handleViewerClick() {
+        const isTouchMode = this.props.config.isTouchMode;
 
-    __REACT_HOT_LOADER__.register(PAGE_LIMIT, 'PAGE_LIMIT', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
+        if (isTouchMode) {
+            this.props.actions.toggleViewerPanel();
+            this.props.actions.toggleViewerPageProgressInfo();
+        }
+    }
+    handleResize() {
+        this.props.actions.initializeViewerConfig(this.props.bookId, {
+            isCalcMode: false
+        });
+    }
+    handelViewerMouseMove(event) {
+        let dToScreenRight = _utils2.default.getScreenInfo().view.width - event.pageX;
+        this.setState({
+            showPageInfo: dToScreenRight < 100
+        });
+    }
+    reinitializeViewer() {
+        const bookId = this.props.bookId;
 
-    __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
+        this.props.actions.configViewer(bookId, {
+            isCalcMode: true
+        });
+        this.setState({
+            showPageInfo: false
+        });
+        this.props.actions.toggleViewerPanel(false);
+        this.props.actions.toggleViewerPageProgressInfo(false);
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        return !(0, _isEqual3.default)(this.state, nextState) || !(0, _isEqual3.default)(this.props, nextProps);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        const viewChanged = !(0, _isEqualWith3.default)(this.props.config, prevProps.config, (valA, valB, key) => {
+            if (key === 'isTouchMode' || key === 'isCalcMode' || key === 'isScrollMode' || key === 'theme') {
+                return true;
+            }
+        });
+        if (viewChanged) {
+            this.reinitializeViewer();
+        }
+    }
+    componentDidMount() {
+        window.addEventListener('resize', this.resizeLazily);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.resizeLazily);
+    }
+    renderBook() {
+        var _props = this.props;
+        const bookContent = _props.bookContent,
+              computedPages = _props.computedPages;
+        var _props$config = _props.config;
+        const isCalcMode = _props$config.isCalcMode,
+              pageHeight = _props$config.pageHeight;
 
-    __REACT_HOT_LOADER__.register(ViewerContainer, 'ViewerContainer', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerContainer.tsx');
-}();
-
-;
+        if (!bookContent.flesh) {
+            return _react2.default.createElement(_Loading2.default, { text: "书籍获取中", center: true });
+        }
+        if (isCalcMode) {
+            return _react2.default.createElement("div", null, _react2.default.createElement(_Loading2.default, { text: "书籍排版中", center: true }), _react2.default.createElement(_BookChapters2.default, { bookFlesh: bookContent.flesh, onRawDataMount: this.handleRawDataMount }));
+        } else if (computedPages.length !== 0) {
+            return _react2.default.createElement("div", { onClick: this.handleViewerClick }, _react2.default.createElement(_BookContainer2.default, { allPages: computedPages, pageHeight: pageHeight, pageLimit: PAGE_LIMIT }));
+        } else {
+            return _react2.default.createElement(_Loading2.default, { text: "准备中", center: true });
+        }
+    }
+    render() {
+        return _react2.default.createElement("div", { onMouseMove: this.handelViewerMouseMove }, _react2.default.createElement(_ViewerPanel2.default, null), this.renderBook());
+    }
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(ViewerContainer);
 
 /***/ }),
 
@@ -1851,23 +1307,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
 var _redux = __webpack_require__(17);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -1879,7 +1331,7 @@ var _preventScroll = __webpack_require__(381);
 
 var _preventScroll2 = _interopRequireDefault(_preventScroll);
 
-var _Viewer = __webpack_require__(92);
+var _Viewer = __webpack_require__(91);
 
 var viewerUtils = _interopRequireWildcard(_Viewer);
 
@@ -1895,136 +1347,83 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var JS_NAV_HOOK = 'a.js-book-nav';
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var _selectors$viewer$con = selectors.viewer.config(state),
-        bookId = _selectors$viewer$con.bookId;
+const JS_NAV_HOOK = 'a.js-book-nav';
+const mapStateToProps = (state, ownProps) => {
+    var _selectors$viewer$con = selectors.viewer.config(state);
 
-    var nav = selectors.viewer.navData(bookId)(state);
+    const bookId = _selectors$viewer$con.bookId;
 
-    var _selectors$viewer$pro = selectors.viewer.progress(bookId)(state),
-        viewerPercentage = _selectors$viewer$pro.percentage;
+    const nav = selectors.viewer.navData(bookId)(state);
 
-    var computedPages = selectors.viewer.computed(bookId)(state);
+    var _selectors$viewer$pro = selectors.viewer.progress(bookId)(state);
+
+    const viewerPercentage = _selectors$viewer$pro.percentage;
+
+    const computedPages = selectors.viewer.computed(bookId)(state);
     return { nav: nav, viewerPercentage: viewerPercentage, computedPages: computedPages };
 };
-var ViewerNav = function (_Component) {
-    _inherits(ViewerNav, _Component);
-
-    function ViewerNav(props) {
-        _classCallCheck(this, ViewerNav);
-
-        var _this = _possibleConstructorReturn(this, (ViewerNav.__proto__ || Object.getPrototypeOf(ViewerNav)).call(this, props));
-
-        _this.handleNavLinkClick = _this.handleNavLinkClick.bind(_this);
-        return _this;
+let ViewerNav = class ViewerNav extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.handleNavLinkClick = this.handleNavLinkClick.bind(this);
     }
+    handleNavLinkClick(e) {
+        e.preventDefault();
+        var _props = this.props;
+        const computedPages = _props.computedPages,
+              viewerPercentage = _props.viewerPercentage;
 
-    _createClass(ViewerNav, [{
-        key: "handleNavLinkClick",
-        value: function handleNavLinkClick(e) {
-            e.preventDefault();
-            var _props = this.props,
-                computedPages = _props.computedPages,
-                viewerPercentage = _props.viewerPercentage;
-
-            var href = (0, _jquery2.default)(e.target).attr('href');
-            try {
-                var pageNo = viewerUtils.resolveBookLocation(href, computedPages);
-                var percentage = (pageNo - 1) / computedPages.length;
-                this.props.actions.viewerJumpTo(percentage);
-            } catch (error) {
-                this.props.actions.sendNotification(error.message, 'error');
+        const href = (0, _jquery2.default)(e.target).attr('href');
+        try {
+            const pageNo = viewerUtils.resolveBookLocation(href, computedPages);
+            const percentage = (pageNo - 1) / computedPages.length;
+            this.props.actions.viewerJumpTo(percentage);
+        } catch (error) {
+            this.props.actions.sendNotification(error.message, 'error');
+        }
+    }
+    componentDidMount() {
+        this.$body = (0, _jquery2.default)('body');
+        // TODO: js hook 常量
+        _preventScroll2.default.init('.js-nav-scroll');
+        this.$body.on('click', JS_NAV_HOOK, this.handleNavLinkClick);
+    }
+    componentWillUnmount() {
+        _preventScroll2.default.destroy('.js-nav-scroll');
+        this.$body.off('click', JS_NAV_HOOK, this.handleNavLinkClick);
+    }
+    renderLink(ref, hash, label) {
+        if (hash) {
+            return _react2.default.createElement("a", { className: "js-book-nav", href: `#${ref}$${hash}` }, label);
+        }
+        return _react2.default.createElement("a", { className: "js-book-nav", href: `#${ref}` }, label);
+    }
+    renderNav(navList) {
+        return _react2.default.createElement("ul", null, navList.map((item, index) => {
+            if (item.children) {
+                return _react2.default.createElement("li", { key: index }, this.renderLink(item.ref, item.hash, item.label), this.renderNav(item.children));
             }
-        }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this.$body = (0, _jquery2.default)('body');
-            // TODO: js hook 常量
-            _preventScroll2.default.init('.js-nav-scroll');
-            this.$body.on('click', JS_NAV_HOOK, this.handleNavLinkClick);
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            _preventScroll2.default.destroy('.js-nav-scroll');
-            this.$body.off('click', JS_NAV_HOOK, this.handleNavLinkClick);
-        }
-    }, {
-        key: "renderLink",
-        value: function renderLink(ref, hash, label) {
-            if (hash) {
-                return _react2.default.createElement("a", { className: "js-book-nav", href: "#" + ref + "$" + hash }, label);
-            }
-            return _react2.default.createElement("a", { className: "js-book-nav", href: "#" + ref }, label);
-        }
-    }, {
-        key: "renderNav",
-        value: function renderNav(navList) {
-            var _this2 = this;
+            return _react2.default.createElement("li", { key: index }, this.renderLink(item.ref, item.hash, item.label));
+        }));
+    }
+    render() {
+        const nav = this.props.nav;
 
-            return _react2.default.createElement("ul", null, navList.map(function (item, index) {
-                if (item.children) {
-                    return _react2.default.createElement("li", { key: index }, _this2.renderLink(item.ref, item.hash, item.label), _this2.renderNav(item.children));
-                }
-                return _react2.default.createElement("li", { key: index }, _this2.renderLink(item.ref, item.hash, item.label));
-            }));
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var nav = this.props.nav;
-
-            return _react2.default.createElement("div", { className: "js-nav-scroll", styleName: "viewer-nav" }, this.renderNav(nav));
-        }
-    }]);
-
-    return ViewerNav;
-}(_react.Component);
+        return _react2.default.createElement("div", { className: "js-nav-scroll", styleName: "viewer-nav" }, this.renderNav(nav));
+    }
+};
 ViewerNav = __decorate([(0, _reactCssModules2.default)(_ViewerNav2.default)], ViewerNav);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(ViewerNav);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
-
-    __REACT_HOT_LOADER__.register(JS_NAV_HOOK, "JS_NAV_HOOK", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
-
-    __REACT_HOT_LOADER__.register(ViewerNav, "ViewerNav", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerNav.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(ViewerNav);
 
 /***/ }),
 
@@ -2037,10 +1436,6 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _react = __webpack_require__(0);
 
@@ -2062,15 +1457,15 @@ var _ViewerNav = __webpack_require__(377);
 
 var _ViewerNav2 = _interopRequireDefault(_ViewerNav);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
 var _redux = __webpack_require__(17);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -2086,153 +1481,106 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(411);
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var config = selectors.viewer.config(state);
-    var bookId = config.bookId;
+const styles = __webpack_require__(411);
+const mapStateToProps = (state, ownProps) => {
+    const config = selectors.viewer.config(state);
+    const bookId = config.bookId;
 
-    var _selectors$viewer$pan = selectors.viewer.panel(state),
-        showPanel = _selectors$viewer$pan.show;
+    var _selectors$viewer$pan = selectors.viewer.panel(state);
 
-    var _selectors$viewer$pre = selectors.viewer.preference(state),
-        showPreference = _selectors$viewer$pre.show;
+    const showPanel = _selectors$viewer$pan.show;
 
-    var _selectors$viewer$nav = selectors.viewer.navigation(state),
-        showNavigation = _selectors$viewer$nav.show;
+    var _selectors$viewer$pre = selectors.viewer.preference(state);
 
-    var _selectors$common$ent = selectors.common.entity('books', bookId)(state),
-        title = _selectors$common$ent.title;
+    const showPreference = _selectors$viewer$pre.show;
+
+    var _selectors$viewer$nav = selectors.viewer.navigation(state);
+
+    const showNavigation = _selectors$viewer$nav.show;
+
+    var _selectors$common$ent = selectors.common.entity('books', bookId)(state);
+
+    const title = _selectors$common$ent.title;
 
     return { config: config, showPanel: showPanel, showPreference: showPreference, title: title, showNavigation: showNavigation };
 };
-var ViewerPanel = function (_Component) {
-    _inherits(ViewerPanel, _Component);
-
-    function ViewerPanel(props) {
-        _classCallCheck(this, ViewerPanel);
-
-        var _this = _possibleConstructorReturn(this, (ViewerPanel.__proto__ || Object.getPrototypeOf(ViewerPanel)).call(this, props));
-
-        _this.handelViewerMouseMove = _this.handelViewerMouseMove.bind(_this);
-        _this.handleGlobalClick = _this.handleGlobalClick.bind(_this);
-        return _this;
+let ViewerPanel = class ViewerPanel extends _react.Component {
+    constructor(props) {
+        super(props);
+        this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this);
+        this.handleGlobalClick = this.handleGlobalClick.bind(this);
     }
+    handleGlobalClick(e) {
+        var _props = this.props;
+        const showPreference = _props.showPreference,
+              showNavigation = _props.showNavigation;
 
-    _createClass(ViewerPanel, [{
-        key: "handleGlobalClick",
-        value: function handleGlobalClick(e) {
-            var _props = this.props,
-                showPreference = _props.showPreference,
-                showNavigation = _props.showNavigation;
-
-            if (!(0, _isDescendant2.default)(this.nav, e.target)) {
-                if (showNavigation) {
-                    this.props.actions.toggleViewerNavigation(false);
-                }
-            } else {
-                this.props.actions.toggleViewerNavigation();
+        if (!(0, _isDescendant2.default)(this.nav, e.target)) {
+            if (showNavigation) {
+                this.props.actions.toggleViewerNavigation(false);
             }
-            if (!(0, _isDescendant2.default)(this.pref, e.target)) {
-                if (showPreference) {
-                    this.props.actions.toggleViewerPreference(false);
-                }
-            } else {
-                this.props.actions.toggleViewerPreference();
-            }
+        } else {
+            this.props.actions.toggleViewerNavigation();
         }
-    }, {
-        key: "handelViewerMouseMove",
-        value: function handelViewerMouseMove(event) {
-            var _props2 = this.props,
-                _props2$config = _props2.config,
-                isCalcMode = _props2$config.isCalcMode,
-                isTouchMode = _props2$config.isTouchMode,
-                showPanel = _props2.showPanel;
+        if (!(0, _isDescendant2.default)(this.pref, e.target)) {
+            if (showPreference) {
+                this.props.actions.toggleViewerPreference(false);
+            }
+        } else {
+            this.props.actions.toggleViewerPreference();
+        }
+    }
+    handelViewerMouseMove(event) {
+        var _props2 = this.props,
+            _props2$config = _props2.config;
+        const isCalcMode = _props2$config.isCalcMode,
+              isTouchMode = _props2$config.isTouchMode,
+              showPanel = _props2.showPanel;
 
-            if (!isCalcMode && !isTouchMode) {
-                var y = event.pageY - document.body.scrollTop;
-                var show = y < 90;
-                if (showPanel !== show) {
-                    this.props.actions.toggleViewerPanel(show);
-                }
+        if (!isCalcMode && !isTouchMode) {
+            let y = event.pageY - document.body.scrollTop;
+            const show = y < 90;
+            if (showPanel !== show) {
+                this.props.actions.toggleViewerPanel(show);
             }
         }
-    }, {
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            window.addEventListener('mousemove', this.handelViewerMouseMove);
-            window.addEventListener('click', this.handleGlobalClick);
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            window.removeEventListener('mousemove', this.handelViewerMouseMove);
-            window.removeEventListener('click', this.handleGlobalClick);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
+    }
+    componentDidMount() {
+        window.addEventListener('mousemove', this.handelViewerMouseMove);
+        window.addEventListener('click', this.handleGlobalClick);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('mousemove', this.handelViewerMouseMove);
+        window.removeEventListener('click', this.handleGlobalClick);
+    }
+    render() {
+        var _props3 = this.props;
+        const title = _props3.title,
+              showPanel = _props3.showPanel,
+              showPreference = _props3.showPreference,
+              showNavigation = _props3.showNavigation;
 
-            var _props3 = this.props,
-                title = _props3.title,
-                showPanel = _props3.showPanel,
-                showPreference = _props3.showPreference,
-                showNavigation = _props3.showNavigation;
-
-            return _react2.default.createElement(_animations.Slide, null,
-            /*(showPanel || showPreference || showNavigation) && (*/
-            showPanel && _react2.default.createElement("div", { styleName: "viewer-panel" }, _react2.default.createElement("div", { styleName: "container" }, _react2.default.createElement("div", { styleName: "back" }, _react2.default.createElement(_reactRouter.Link, { to: "/" }, _react2.default.createElement(_Icon2.default, { name: "back" }), _react2.default.createElement("span", null, "\u8FD4\u56DE"))), _react2.default.createElement("div", { ref: function ref(_ref) {
-                    _this2.nav = _ref;
-                }, styleName: "contents" }, _react2.default.createElement("span", null, "\u76EE\u5F55"), _react2.default.createElement(_animations.Fade, null, showNavigation && _react2.default.createElement(_ViewerNav2.default, null))), _react2.default.createElement("span", { styleName: "title" }, title), _react2.default.createElement("div", { ref: function ref(_ref2) {
-                    _this2.pref = _ref2;
-                }, styleName: "preference" }, _react2.default.createElement(_Icon2.default, { name: "preference" }), _react2.default.createElement(_animations.Fade, null, showPreference && _react2.default.createElement(_ViewerPreference2.default, null))))));
-        }
-    }]);
-
-    return ViewerPanel;
-}(_react.Component);
+        return _react2.default.createElement(_animations.Slide, null,
+        /*(showPanel || showPreference || showNavigation) && (*/
+        showPanel && _react2.default.createElement("div", { styleName: "viewer-panel" }, _react2.default.createElement("div", { styleName: "container" }, _react2.default.createElement("div", { styleName: "back" }, _react2.default.createElement(_reactRouter.Link, { to: "/" }, _react2.default.createElement(_Icon2.default, { name: "back" }), _react2.default.createElement("span", null, "\u8FD4\u56DE"))), _react2.default.createElement("div", { ref: _ref => {
+                this.nav = _ref;
+            }, styleName: "contents" }, _react2.default.createElement("span", null, "\u76EE\u5F55"), _react2.default.createElement(_animations.Fade, null, showNavigation && _react2.default.createElement(_ViewerNav2.default, null))), _react2.default.createElement("span", { styleName: "title" }, title), _react2.default.createElement("div", { ref: _ref2 => {
+                this.pref = _ref2;
+            }, styleName: "preference" }, _react2.default.createElement(_Icon2.default, { name: "preference" }), _react2.default.createElement(_animations.Fade, null, showPreference && _react2.default.createElement(_ViewerPreference2.default, null))))));
+    }
+};
 ViewerPanel = __decorate([(0, _reactCssModules2.default)(styles)], ViewerPanel);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(ViewerPanel);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
-
-    __REACT_HOT_LOADER__.register(ViewerPanel, "ViewerPanel", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPanel.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(ViewerPanel);
 
 /***/ }),
 
@@ -2246,13 +1594,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _keys2 = __webpack_require__(86);
+var _keys2 = __webpack_require__(85);
 
 var _keys3 = _interopRequireDefault(_keys2);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _react = __webpack_require__(0);
 
@@ -2262,15 +1606,15 @@ var _Switcher = __webpack_require__(339);
 
 var _Switcher2 = _interopRequireDefault(_Switcher);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(20);
 
 var _redux = __webpack_require__(17);
 
-var _actions = __webpack_require__(15);
+var _actions = __webpack_require__(13);
 
 var actions = _interopRequireWildcard(_actions);
 
@@ -2278,155 +1622,103 @@ var _selectors = __webpack_require__(27);
 
 var selectors = _interopRequireWildcard(_selectors);
 
-var _classnames = __webpack_require__(20);
+var _classnames = __webpack_require__(21);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _viewerDefs = __webpack_require__(91);
+var _viewerDefs = __webpack_require__(90);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(412);
-var MAX_FONT_SIZE = 20;
-var MIN_FONT_SIZE = 12;
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-    var _selectors$viewer$con = selectors.viewer.config(state),
-        fontSize = _selectors$viewer$con.fontSize,
-        isScrollMode = _selectors$viewer$con.isScrollMode,
-        theme = _selectors$viewer$con.theme;
+const styles = __webpack_require__(412);
+const MAX_FONT_SIZE = 20;
+const MIN_FONT_SIZE = 12;
+const mapStateToProps = (state, ownProps) => {
+    var _selectors$viewer$con = selectors.viewer.config(state);
+
+    const fontSize = _selectors$viewer$con.fontSize,
+          isScrollMode = _selectors$viewer$con.isScrollMode,
+          theme = _selectors$viewer$con.theme;
 
     return { fontSize: fontSize, isScrollMode: isScrollMode, theme: theme };
 };
-var ViewerPreference = function (_Component) {
-    _inherits(ViewerPreference, _Component);
-
-    function ViewerPreference(props) {
-        _classCallCheck(this, ViewerPreference);
-
-        return _possibleConstructorReturn(this, (ViewerPreference.__proto__ || Object.getPrototypeOf(ViewerPreference)).call(this, props));
+let ViewerPreference = class ViewerPreference extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    handleDecFontSizeClick() {
+        const fontSize = this.props.fontSize;
 
-    _createClass(ViewerPreference, [{
-        key: "handleDecFontSizeClick",
-        value: function handleDecFontSizeClick() {
-            var fontSize = this.props.fontSize;
+        var _getBtnStatus = this.getBtnStatus();
 
-            var _getBtnStatus = this.getBtnStatus(),
-                isDecDisabled = _getBtnStatus.isDecDisabled;
+        const isDecDisabled = _getBtnStatus.isDecDisabled;
 
-            if (!isDecDisabled) {
-                this.props.actions.changeViewerFontSize(fontSize - 1);
-            }
+        if (!isDecDisabled) {
+            this.props.actions.changeViewerFontSize(fontSize - 1);
         }
-    }, {
-        key: "handleIncFontSizeClick",
-        value: function handleIncFontSizeClick() {
-            var fontSize = this.props.fontSize;
+    }
+    handleIncFontSizeClick() {
+        const fontSize = this.props.fontSize;
 
-            var _getBtnStatus2 = this.getBtnStatus(),
-                isIncDisabled = _getBtnStatus2.isIncDisabled;
+        var _getBtnStatus2 = this.getBtnStatus();
 
-            if (!isIncDisabled) {
-                this.props.actions.changeViewerFontSize(fontSize + 1);
-            }
+        const isIncDisabled = _getBtnStatus2.isIncDisabled;
+
+        if (!isIncDisabled) {
+            this.props.actions.changeViewerFontSize(fontSize + 1);
         }
-    }, {
-        key: "handleChangeThemeClick",
-        value: function handleChangeThemeClick(key) {
-            this.props.actions.changeViewerTheme(key);
-        }
-    }, {
-        key: "handleToggleScrollModeClick",
-        value: function handleToggleScrollModeClick(val) {
-            this.props.actions.toggleViewerScrollMode(val);
-        }
-    }, {
-        key: "getBtnStatus",
-        value: function getBtnStatus() {
-            var fontSize = this.props.fontSize;
+    }
+    handleChangeThemeClick(key) {
+        this.props.actions.changeViewerTheme(key);
+    }
+    handleToggleScrollModeClick(val) {
+        this.props.actions.toggleViewerScrollMode(val);
+    }
+    getBtnStatus() {
+        const fontSize = this.props.fontSize;
 
-            var isDecDisabled = fontSize <= MIN_FONT_SIZE;
-            var isIncDisabled = fontSize >= MAX_FONT_SIZE;
-            return { isDecDisabled: isDecDisabled, isIncDisabled: isIncDisabled };
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
+        const isDecDisabled = fontSize <= MIN_FONT_SIZE;
+        const isIncDisabled = fontSize >= MAX_FONT_SIZE;
+        return { isDecDisabled: isDecDisabled, isIncDisabled: isIncDisabled };
+    }
+    render() {
+        var _getBtnStatus3 = this.getBtnStatus();
 
-            var _getBtnStatus3 = this.getBtnStatus(),
-                isDecDisabled = _getBtnStatus3.isDecDisabled,
-                isIncDisabled = _getBtnStatus3.isIncDisabled;
+        const isDecDisabled = _getBtnStatus3.isDecDisabled,
+              isIncDisabled = _getBtnStatus3.isIncDisabled;
+        var _props = this.props;
+        const isScrollMode = _props.isScrollMode,
+              theme = _props.theme;
 
-            var _props = this.props,
-                isScrollMode = _props.isScrollMode,
-                theme = _props.theme;
-
-            var btnDecClass = (0, _classnames2.default)({
-                'btn': !isDecDisabled,
-                'btn--disabled': isDecDisabled
-            });
-            var btnIncClass = (0, _classnames2.default)({
-                'btn': !isIncDisabled,
-                'btn--disabled': isIncDisabled
-            });
-            return _react2.default.createElement("div", { styleName: "viewer-preference" }, _react2.default.createElement("ul", { className: "options" }, _react2.default.createElement("li", { styleName: "option-font-size" }, _react2.default.createElement("span", { styleName: btnDecClass, onClick: this.handleDecFontSizeClick.bind(this) }, "A-"), _react2.default.createElement("span", { styleName: btnIncClass, onClick: this.handleIncFontSizeClick.bind(this) }, "A+")), _react2.default.createElement("li", { styleName: "option-scroll" }, _react2.default.createElement("span", { className: "label" }, "\u6EDA\u52A8\u6A21\u5F0F"), _react2.default.createElement(_Switcher2.default, { value: isScrollMode, onChange: this.handleToggleScrollModeClick.bind(this) })), _react2.default.createElement("li", { styleName: "option-theme" }, (0, _keys3.default)(_viewerDefs.THEMES).map(function (key, index) {
-                var className = key.toLowerCase() + (theme === key ? '--active' : '');
-                console.log(className, theme, key);
-                return _react2.default.createElement("span", { key: index, className: styles[className], onClick: _this2.handleChangeThemeClick.bind(_this2, key) }, key);
-            }))));
-        }
-    }]);
-
-    return ViewerPreference;
-}(_react.Component);
+        const btnDecClass = (0, _classnames2.default)({
+            'btn': !isDecDisabled,
+            'btn--disabled': isDecDisabled
+        });
+        const btnIncClass = (0, _classnames2.default)({
+            'btn': !isIncDisabled,
+            'btn--disabled': isIncDisabled
+        });
+        return _react2.default.createElement("div", { styleName: "viewer-preference" }, _react2.default.createElement("ul", { className: "options" }, _react2.default.createElement("li", { styleName: "option-font-size" }, _react2.default.createElement("span", { styleName: btnDecClass, onClick: this.handleDecFontSizeClick.bind(this) }, "A-"), _react2.default.createElement("span", { styleName: btnIncClass, onClick: this.handleIncFontSizeClick.bind(this) }, "A+")), _react2.default.createElement("li", { styleName: "option-scroll" }, _react2.default.createElement("span", { className: "label" }, "\u6EDA\u52A8\u6A21\u5F0F"), _react2.default.createElement(_Switcher2.default, { value: isScrollMode, onChange: this.handleToggleScrollModeClick.bind(this) })), _react2.default.createElement("li", { styleName: "option-theme" }, (0, _keys3.default)(_viewerDefs.THEMES).map((key, index) => {
+            const className = key.toLowerCase() + (theme === key ? '--active' : '');
+            console.log(className, theme, key);
+            return _react2.default.createElement("span", { key: index, className: styles[className], onClick: this.handleChangeThemeClick.bind(this, key) }, key);
+        }))));
+    }
+};
 ViewerPreference = __decorate([(0, _reactCssModules2.default)(styles)], ViewerPreference);
-
-var _default = (0, _reactRedux.connect)(mapStateToProps, function (dispatch) {
-    return {
-        actions: (0, _redux.bindActionCreators)(actions, dispatch)
-    };
-})(ViewerPreference);
-
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
-
-    __REACT_HOT_LOADER__.register(MAX_FONT_SIZE, "MAX_FONT_SIZE", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
-
-    __REACT_HOT_LOADER__.register(MIN_FONT_SIZE, "MIN_FONT_SIZE", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
-
-    __REACT_HOT_LOADER__.register(mapStateToProps, "mapStateToProps", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
-
-    __REACT_HOT_LOADER__.register(ViewerPreference, "ViewerPreference", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerPreference.tsx");
-}();
-
-;
+exports.default = (0, _reactRedux.connect)(mapStateToProps, dispatch => ({
+    actions: (0, _redux.bindActionCreators)(actions, dispatch)
+}))(ViewerPreference);
 
 /***/ }),
 
@@ -2440,77 +1732,40 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactCssModules = __webpack_require__(5);
+var _reactCssModules = __webpack_require__(6);
 
 var _reactCssModules2 = _interopRequireDefault(_reactCssModules);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var styles = __webpack_require__(413);
-var ViewerScrollbar = function (_Component) {
-    _inherits(ViewerScrollbar, _Component);
-
-    function ViewerScrollbar(props) {
-        _classCallCheck(this, ViewerScrollbar);
-
-        return _possibleConstructorReturn(this, (ViewerScrollbar.__proto__ || Object.getPrototypeOf(ViewerScrollbar)).call(this, props));
+const styles = __webpack_require__(413);
+let ViewerScrollbar = class ViewerScrollbar extends _react.Component {
+    constructor(props) {
+        super(props);
     }
+    render() {
+        var _props = this.props;
+        const current = _props.current,
+              total = _props.total;
 
-    _createClass(ViewerScrollbar, [{
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                current = _props.current,
-                total = _props.total;
-
-            var percentage = (current / total * 100).toFixed(2) + '%';
-            return this.props.visible && _react2.default.createElement("div", Object.assign({}, { styleName: 'loc-info' }), _react2.default.createElement("div", null, _react2.default.createElement("strong", null, current), "/", total), _react2.default.createElement("div", { styleName: "sub-info" }, percentage));
-        }
-    }]);
-
-    return ViewerScrollbar;
-}(_react.Component);
+        const percentage = (current / total * 100).toFixed(2) + '%';
+        return this.props.visible && _react2.default.createElement("div", Object.assign({}, { styleName: 'loc-info' }), _react2.default.createElement("div", null, _react2.default.createElement("strong", null, current), "/", total), _react2.default.createElement("div", { styleName: "sub-info" }, percentage));
+    }
+};
 ViewerScrollbar = __decorate([(0, _reactCssModules2.default)(styles)], ViewerScrollbar);
-var _default = ViewerScrollbar;
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(__decorate, "__decorate", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerScrollbar.tsx");
-
-    __REACT_HOT_LOADER__.register(ViewerScrollbar, "ViewerScrollbar", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerScrollbar.tsx");
-
-    __REACT_HOT_LOADER__.register(_default, "default", "/Users/liang/Projects/readr/src/routes/Viewer/components/ViewerScrollbar.tsx");
-}();
-
-;
+exports.default = ViewerScrollbar;
 
 /***/ }),
 
@@ -2531,13 +1786,13 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function scrollHandler(ev) {
-    var $this = (0, _jquery2.default)(this);
-    var scrollTop = this.scrollTop;
-    var scrollHeight = this.scrollHeight;
-    var height = $this.innerHeight();
-    var delta = ev.type === 'DOMMouseScroll' ? ev.originalEvent.detail * -40 : ev.originalEvent.wheelDelta;
-    var up = delta > 0;
-    var prevent = function prevent() {
+    const $this = (0, _jquery2.default)(this);
+    const scrollTop = this.scrollTop;
+    const scrollHeight = this.scrollHeight;
+    const height = $this.innerHeight();
+    const delta = ev.type === 'DOMMouseScroll' ? ev.originalEvent.detail * -40 : ev.originalEvent.wheelDelta;
+    const up = delta > 0;
+    const prevent = () => {
         ev.stopPropagation();
         ev.preventDefault();
         ev.returnValue = false;
@@ -2556,28 +1811,14 @@ function scrollHandler(ev) {
    * 阻止 selector 以外的元素滚动
    * http://stackoverflow.com/questions/5802467/prevent-scrolling-of-parent-element
    */
-var _default = {
-    init: function init(selector) {
+exports.default = {
+    init: selector => {
         (0, _jquery2.default)(document).on('DOMMouseScroll mousewheel', selector, scrollHandler);
     },
-    destroy: function destroy(selector) {
+    destroy: selector => {
         (0, _jquery2.default)(document).off('DOMMouseScroll mousewheel', selector, scrollHandler);
     }
 };
-exports.default = _default;
-;
-
-var _temp = function () {
-    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-        return;
-    }
-
-    __REACT_HOT_LOADER__.register(scrollHandler, 'scrollHandler', '/Users/liang/Projects/readr/src/utils/browser/preventScroll.ts');
-
-    __REACT_HOT_LOADER__.register(_default, 'default', '/Users/liang/Projects/readr/src/utils/browser/preventScroll.ts');
-}();
-
-;
 
 /***/ }),
 
