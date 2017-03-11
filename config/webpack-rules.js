@@ -33,7 +33,8 @@ module.exports = {
 
     return {
       test: /\.tsx?$/,
-      use: ['babel-loader', tsLoader]
+      // use: ['babel-loader', tsLoader]
+      use: [tsLoader]
     }
   },
 
