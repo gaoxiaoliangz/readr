@@ -44,6 +44,8 @@ options, data, id, response, error
 	✔ jquery error @done (March 10th 2017, 19:57)
 	✔ fetch saga data server side @done (March 10th 2017, 19:57)
 	☐ render server side login state
+	☐ server log config
+	✔ node generator code with sourcemap support @done (March 12th 2017, 0:27)
 
 ### Refactor
 	☐ api flow

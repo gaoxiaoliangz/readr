@@ -3,7 +3,6 @@
  * targetName (node, static, dll)
  * -w, --watch
  */
-
 const webpack = require('webpack') // eslint-disable-line
 const chalk = require('chalk') // eslint-disable-line
 const minimist = require('minimist')
@@ -47,7 +46,15 @@ function getWebpackConfig(target) {
   return null
 }
 
+const BABEL_ENV = {
+  node: 'node',
+  static: 'production',
+  dll: 'development'
+}
+
 function build(target, cb) {
+  process.env.BABEL_ENV = BABEL_ENV[target]
+
   let startCompilingTime = new Date().valueOf()
   const compiler = webpack(getWebpackConfig(target))
 

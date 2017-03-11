@@ -1,33 +1,32 @@
 {
-  "presets": [
-    // "es2015",
-    ["es2015", {"modules": false}],
-    "react"
-    // "es2015-node5"
-  ],
-  "plugins": [
-    "syntax-dynamic-import",
-    "transform-object-rest-spread",
-    "transform-decorators-legacy"
-  ],
   "env": {
+    "node": {
+      "plugins": [
+        "babel-plugin-transform-es2015-classes"
+        // tsc target es2015 won't compile es6 to es5, and causing exsiting es5 code to fail
+      ]
+    },
     "development": {
       "plugins": [
-        // "react-hot-loader/babel",
+        "react-hot-loader/babel",
         // Enables React code to work with HMR.
 
-        "lodash"
+        "babel-plugin-transform-es2015-classes"
       ]
     },
     "production": {
       "presets": [
-        // ["es2015", {"modules": false}]
+        ["es2015", {"modules": false}]
         // webpack understands the native import syntax, and uses it for tree shaking
       ],
       "plugins": [
         "lodash"
       ]
     },
-    "test": {}
+    "test": {
+      "presets": [
+        "es2015"
+      ]
+    }
   }
 }
