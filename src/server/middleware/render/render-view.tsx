@@ -78,6 +78,7 @@ function renderView(isProduction) {
         ].concat(jsAssets)}
       />
     )
+    console.info('render view')
     res.status(statusCode).send(DOCTYPE + html)
   }
 }

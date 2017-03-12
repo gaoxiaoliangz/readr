@@ -4,7 +4,7 @@ import * as webAPI from '../webAPI/apifns'
 import schemas from '../schemas'
 import { CALL_API_OBJ } from '../middleware/api'
 import { DOUBAN_API_ROOT } from '../constants/common'
-import { createActionEntity, action } from './utils'
+import { createActionEntity, action, createSagaAction } from './utils'
 import * as ActionTypes from '../constants/actionTypes'
 
 export const removeEntity = (name: string, id: string) =>
@@ -134,4 +134,16 @@ export function fetchShelf() {
     }
   }
   return { CALL_API }
+}
+
+export const loadBooks2 = () => {
+  return createSagaAction(ActionTypes.BOOKS2, {
+    request: {
+      url: 'books',
+      method: 'get'
+    },
+    // entityKey: 'books',
+    // parser: (res) => (res.json),
+    schema: schemas.BOOK_ARRAY
+  })
 }

@@ -1,4 +1,4 @@
-import { createRequestTypes, createComponentActionType, createSagaTriggerActionType } from '../actions/utils'
+import { createRequestTypes, createComponentActionType, createSagaTriggerActionType, createSagaActionTypes } from '../actions/utils'
 
 /**
  * api
@@ -33,6 +33,7 @@ export const PROFILE = createRequestTypes('profile')
 export const AUTH = createRequestTypes('auth')
 export const SHELF = createRequestTypes('shelf')
 
+export const BOOKS2 = createSagaActionTypes('books2')
 
 
 /**

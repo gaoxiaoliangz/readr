@@ -1,9 +1,10 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
+import { reducer as form } from 'better-redux-form'
 import components from './components'
 import pagination from './pagination'
-import { reducer as form } from 'better-redux-form'
+import { entities as entities2, appData } from './entities2'
 import * as ActionTypes from '../constants/actionTypes'
 
 function errorMessage(state = [], action) {
@@ -98,7 +99,9 @@ const rootReducer = combineReducers({
   session,
   routing,
   form,
-  pagination
+  pagination,
+  appData,
+  entities2
 })
 
 export default rootReducer
