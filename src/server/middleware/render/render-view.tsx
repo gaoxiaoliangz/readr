@@ -62,8 +62,7 @@ function renderView(isProduction) {
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏
     const { bodyClass, head } = DocContainer.rewind()
-
-    const sss = req.locals.store.getState()
+    const initialState = req.locals.store.getState()
 
     // todo: global var name
     const html = renderToStaticMarkup(
@@ -71,7 +70,7 @@ function renderView(isProduction) {
         appMarkup={appRootMarkup}
         helmetHeadObject={head}
         bodyClass={bodyClass}
-        initialState={req.locals.store.getState()}
+        initialState={initialState}
         link={cssAssets}
         script={[
           { innerHTML: 'var __ENABLE_SERVER_ROUTING__ = true;' },

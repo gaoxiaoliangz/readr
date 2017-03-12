@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { fetchShelf } from '../../actions'
 import BookList from '../../components/BookList'
 import Container from '../../components/Container'
 import { Tab, Tabs } from '../../components/Tab'
-import _ from 'lodash'
 import * as selectors from '../../selectors'
 
 interface IProps {
@@ -22,7 +22,7 @@ class Shelf extends Component<IProps, {}> {
     super(props)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchShelf()
   }
 
