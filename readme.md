@@ -46,6 +46,7 @@ options, data, id, response, error
 	☐ render server side login state
 	☐ server log config
 	✔ node generator code with sourcemap support @done (March 12th 2017, 0:27)
+	☐ common props decorator
 
 ### Refactor
 	☐ api flow

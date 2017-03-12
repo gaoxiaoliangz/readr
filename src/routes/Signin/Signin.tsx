@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification, userAuth } from '../../actions'
+import { sendNotification, userAuth, loadSession } from '../../actions'
 import DocContainer from '../../components/DocContainer'
 import SigninForm from './components/SigninForm'
 import webAPI from '../../webAPI'
-import helpers from '../../helpers'
+// import helpers from '../../helpers'
 
 interface Props {
   sendNotification?: any
   userAuth?: any
+  loadSession?: typeof loadSession
 }
 
 class Signin extends Component<Props, {}> {
@@ -21,11 +22,12 @@ class Signin extends Component<Props, {}> {
   handleSubmit(data) {
     webAPI.userLogin(data).then(res => {
       this.props.sendNotification('登录成功！', 'success', 1500)
-      this.props.userAuth().then(() => {
-        setTimeout(() => {
-          helpers.redirect('/')
-        }, 600)
-      })
+      // this.props.loadSession().then(() => {
+      //   setTimeout(() => {
+      //     helpers.redirect('/')
+      //   }, 600)
+      // })
+      this.props.loadSession()
     }).catch((err) => {
       console.error(err)
       this.props.sendNotification(err.message, 'error')
@@ -52,5 +54,5 @@ export default connect<{}, {}, Props>(
     notification: state.components.notification,
     user: state.user
   }),
-  { sendNotification, userAuth }
+  { sendNotification, userAuth, loadSession }
 )(Signin)

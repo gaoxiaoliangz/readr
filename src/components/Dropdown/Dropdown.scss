@@ -14,6 +14,7 @@ $background: $dark;
   display: inline-block;
   cursor: pointer;
   position: relative;
+  height: inherit;
 }
 
 .dropdown-toggle {

@@ -92,18 +92,23 @@ class ViewerPanel extends Component<AllProps, void> {
     return (
       <Slide>
         {
-          /*(showPanel || showPreference || showNavigation) && (*/
           (showPanel) && (
             <div styleName="viewer-panel">
               <div styleName="container">
                 <div styleName="back">
                   <Link to="/">
-                    <Icon name="back" />
+                    <Icon
+                      size={20}
+                      name="back"
+                      style={{
+                        marginTop: 4
+                      }}
+                    />
                     <span>返回</span>
                   </Link>
                 </div>
 
-                <div ref={ref => { this.nav = ref } } styleName="contents">
+                <div ref={ref => { this.nav = ref }} styleName="contents">
                   <span>目录</span>
                   <Fade>
                     {
@@ -116,7 +121,7 @@ class ViewerPanel extends Component<AllProps, void> {
 
                 <span styleName="title">{title}</span>
 
-                <div ref={ref => { this.pref = ref } } styleName="preference">
+                <div ref={ref => { this.pref = ref }} styleName="preference">
                   <Icon name="preference" />
                   <Fade>
                     {

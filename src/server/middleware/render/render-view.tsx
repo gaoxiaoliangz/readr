@@ -63,6 +63,8 @@ function renderView(isProduction) {
     // 不调用 rewind 会造成内存泄漏
     const { bodyClass, head } = DocContainer.rewind()
 
+    const sss = req.locals.store.getState()
+
     // todo: global var name
     const html = renderToStaticMarkup(
       <AppDoc

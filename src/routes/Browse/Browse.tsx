@@ -19,10 +19,6 @@ interface Props {
 @CSSModules(styles)
 class Browse extends Component<Props, {}> {
 
-  static fetchData({store}) {
-    return store.dispatch(loadBooks())
-  }
-
   constructor(props) {
     super(props)
   }
@@ -31,7 +27,7 @@ class Browse extends Component<Props, {}> {
     this.props.loadBooks({ page }, 'browse')
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadMore()
   }
 

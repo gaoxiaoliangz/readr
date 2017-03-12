@@ -45,7 +45,8 @@ class Master extends Component<Props, {}> {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
+  // componentWillMount() {
     // this.props.userAuth()
     this.props.loadSession()
   }

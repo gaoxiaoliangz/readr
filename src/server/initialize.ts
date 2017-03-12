@@ -10,6 +10,7 @@ import bootServer from './bootstrap'
 import routes from './routes'
 import * as CONSTANTS from '../constants'
 import getMongoStoreUrl from './helpers/getMongoStoreUrl'
+import middleware from './middleware'
 
 const MongoStore = connectMongo(session)
 const app = express()
@@ -57,6 +58,8 @@ export default function initialize(config: InitConfig) {
   })
 
   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
+
+  app.use(middleware.parseContext)
 
   // api routing
   app.use(`/${CONSTANTS.COMMON.API_PREFIX}`, routes.api())
