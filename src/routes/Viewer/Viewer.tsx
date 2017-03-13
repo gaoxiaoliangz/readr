@@ -19,7 +19,7 @@ interface AllProps {
 
 const mapStateToProps = (state, ownProps) => {
   const bookId = ownProps.params.id
-  const book = selectors.common.entity('books', bookId)(state)
+  const book = selectors.entity('books', bookId)(state)
 
   return {
     book

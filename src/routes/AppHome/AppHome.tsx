@@ -27,10 +27,6 @@ interface IState {
 @CSSModules(styles)
 class AppHome extends Component<Props, IState> {
 
-  // static fetchData({store}) {
-  //   return store.dispatch(loadBooks())
-  // }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -41,7 +37,6 @@ class AppHome extends Component<Props, IState> {
   componentWillMount() {
     this.props.loadBooks()
     this.props.loadBooks2()
-    // this.props.fetchCollections()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -86,7 +81,7 @@ class AppHome extends Component<Props, IState> {
 function mapStateToProps(state, ownProps) {
   return {
     newestBooks: selectors.books(undefined, '1')(state),
-    isBooksFetching: selectors.common.isPaginationFetching('books')(state),
+    isBooksFetching: selectors.isPaginationFetching('books')(state),
     session: state.session,
   }
 }

@@ -43,7 +43,7 @@ options, data, id, response, error
 	✔ mobile progress label bug @done (March 10th 2017, 19:34)
 	✔ jquery error @done (March 10th 2017, 19:57)
 	✔ fetch saga data server side @done (March 10th 2017, 19:57)
-	☐ render server side login state
+	✔ render server side login state @done (March 13th 2017, 14:32)
 	☐ server log config
 	✔ node generator code with sourcemap support @done (March 12th 2017, 0:27)
 	☐ common props decorator
@@ -53,7 +53,7 @@ options, data, id, response, error
 	☐ redux actions
 	☐ fetching state
 	☐ pagination
-	☐ file tree
+	✔ file tree @done (March 13th 2017, 14:33)
 
 ### Optimization
 	☐ File handling flow, something to do with validation and middleware

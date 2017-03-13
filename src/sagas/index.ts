@@ -1,20 +1,17 @@
 import { fork } from 'redux-saga/effects'
 import _ from 'lodash'
-import watchAllLoadRequests from './loadRequests'
-import watchLoginFlow from './loginFlow'
-import watchViewer from './viewerTasks'
-import watchTest, { watchTest2 } from './test'
-import sessionWatcher from './sessionWatcher'
-import watchAllLoadRequests2 from './watchAllLoadRequests'
+import watchAllLoadRequests from './watchAllLoadRequests'
+import watchLoginFlow from './watchLoginFlow'
+import watchViewer from './watchViewer'
+import watchSession from './watchSession'
+import watchAllLoadRequests2 from './watchAllLoadRequests2'
 
 export default function* rootSaga() {
   yield [
-    fork(watchAllLoadRequests),
     fork(watchLoginFlow),
     fork(watchViewer),
-    fork(watchTest2),
-    fork(watchTest),
-    fork(sessionWatcher),
+    fork(watchSession),
+    fork(watchAllLoadRequests),
     fork(watchAllLoadRequests2)
   ]
 }

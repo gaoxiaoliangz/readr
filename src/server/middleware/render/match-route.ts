@@ -1,6 +1,6 @@
 import { match } from 'react-router'
 import _ from 'lodash'
-import createRoutes from '../../../routes/createRoutes'
+import createRoutes from '../../../routes'
 
 function matchRoute(req, res, next) {
   match(

@@ -1,93 +1,61 @@
-import { take, call, fork, put } from 'redux-saga/effects'
-import { takeEvery } from 'redux-saga'
-import urlJoin from 'url-join'
+import { take, call, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
+import webAPI from '../webAPI'
+import _ from 'lodash'
+import { fetchEntity } from './utils'
 import * as ACTION_TYPES from '../constants/actionTypes'
-import callApi from '../utils/api/callApi'
-import getApiRoot from '../helpers/getApiRoot'
-import handleResponse from '../utils/api/handleResponse'
 
-const API_ROOT = getApiRoot()
+const OPTIONS = 'options'
+const ID = 'id'
+const DATA = 'data'
+const TYPE = 'type'
 
-const createActionEntity = (types) => {
-  return {
-    request: (payload?, meta?: object) => {
-      return {
-        type: types.REQUEST,
-        payload,
-        meta: {
-          ...{
-            isApiFlow: true,
-            isRequest: true
-          },
-          ...meta
-        }
-      }
-    },
+export const API_CONFIG_KEYS = [OPTIONS, ID, DATA]
+export const RESERVED_ACTION_KYES = [TYPE, ...API_CONFIG_KEYS]
 
-    success: (response, meta?: object) => {
-      return {
-        type: types.SUCCESS,
-        payload: { response },
-        meta: {
-          ...{
-            isApiFlow: true,
-            isApiResponse: true
-          },
-          ...meta
-        }
-      }
-    },
+const fetchBook = fetchEntity.bind(null, actions.book, webAPI.fetchBook)
+const fetchBookContent = fetchEntity.bind(null, actions.bookContent, webAPI.fetchBookContent)
+const fetchBooks = fetchEntity.bind(null, actions.books, webAPI.fetchBooks)
+const fetchUsers = fetchEntity.bind(null, actions.users, webAPI.fetchUsers)
 
-    failure: (error, meta?: object) => {
-      return {
-        type: types.FAILURE,
-        payload: error,
-        error: true,
-        meta: {
-          ...{
-            isApiFlow: true,
-            hasError: true
-          },
-          ...meta
-        }
-      }
-    }
+function* handleLoad(fetchFn, parsedAction, callApi?): any {
+  const {apiConfig, payload} = parsedAction
+  // 在检查是否有数据的算法完成之前默认直接 call api
+  if (typeof callApi === 'undefined' || callApi === true) {
+    yield call(fetchFn, apiConfig, payload)
   }
 }
 
-function* handleLoadReq(action) {
-  const { meta, payload } = action
-  const { request } = payload
-  const { parser, schema } = meta
-  const flowActions = createActionEntity(meta.types)
-
-  yield put(flowActions.request(payload, meta))
-  try {
-    let response = yield callApi(urlJoin(API_ROOT, request.url), {
-      cookies: request.cookies
-    })
-    if (schema) {
-      response = handleResponse(response, schema)
-    } else {
-      response = parser ? parser(response) : response
-    }
-    yield put(flowActions.success(response, {
-      ...{
-        isNormalized: Boolean(schema)
-      },
-      ...meta
-    }))
-  } catch (error) {
-    yield put(flowActions.failure(error, meta))
-  }
-}
-
-export default function* watchAllLoadRequests() {
+export default function* watchAllLoadRequests(): any {
   while (true) {
-    const action = yield take('*')
-    if (action.meta && action.meta.isSagaActions) {
-      yield call(handleLoadReq, action)
+    const action = yield take(actions.LOAD_ACTIONS)
+    const apiConfig = _.pick(action, API_CONFIG_KEYS)
+
+    // 如果直接使用 payload 可能在 pagination 之类的 reducer 里面会有一些麻烦
+    // 因为可能比较难判断哪个是 key
+    const payload = _.omit(action, RESERVED_ACTION_KYES)
+
+    const parsedAction = { apiConfig, payload }
+
+    switch (action.type) {
+      case ACTION_TYPES.LOAD_USERS:
+        yield fork(handleLoad, fetchUsers, parsedAction)
+        break
+
+      case ACTION_TYPES.LOAD_BOOKS:
+        yield fork(handleLoad, fetchBooks, parsedAction)
+        break
+
+      case ACTION_TYPES.LOAD_BOOK:
+        yield fork(handleLoad, fetchBook, parsedAction)
+        break
+
+      case ACTION_TYPES.LOAD_BOOK_CONTENT:
+        yield fork(handleLoad, fetchBookContent, parsedAction)
+        break
+
+      default:
+      // nothing happens here
     }
   }
 }

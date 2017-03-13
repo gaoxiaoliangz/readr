@@ -45,9 +45,9 @@ interface OtherProps {
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const bookId = config.bookId
-  const book = selectors.common.entity('books', bookId)(state)
-  const bookContent = selectors.common.entity('bookContents', bookId)(state)
-  const bookProgress = selectors.common.entity('bookProgress', bookId)(state)
+  const book = selectors.entity('books', bookId)(state)
+  const bookContent = selectors.entity('bookContents', bookId)(state)
+  const bookProgress = selectors.entity('bookProgress', bookId)(state)
   const cloudProgress = _.get(bookProgress, 'percentage', 0)
   const computedPages = selectors.viewer.computed(bookId)(state)
   const { percentage: viewerPercentage, isFetching } = selectors.viewer.progress(bookId)(state)

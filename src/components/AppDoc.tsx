@@ -1,5 +1,5 @@
 import React from 'react'
-import { INITIAL_STATE } from '../constants/common'
+import { INITIAL_STATE } from '../constants'
 
 export const DOCTYPE = '<!DOCTYPE html>'
 

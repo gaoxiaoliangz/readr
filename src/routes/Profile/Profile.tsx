@@ -20,16 +20,11 @@ interface IProps {
 @CSSModules(styles)
 class Profile extends Component<IProps, {}> {
 
-  // static fetchData({store, params}) {
-  //   return store.dispatch(fetch())
-  // }
-
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-    // this.props.fetchBooks()
     this.props.fetchProfile()
   }
 
@@ -68,7 +63,7 @@ function mapStateToProps(state, ownProps) {
     newestBooks: state.pagination.books.newest
       ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
       : [],
-    profile: selectors.common.entity('profiles', userId)(state)
+    profile: selectors.entity('profiles', userId)(state)
   }
 }
 

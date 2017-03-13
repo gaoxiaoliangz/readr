@@ -59,8 +59,8 @@ class Browse extends Component<Props, {}> {
 function mapStateToProps(state, ownProps) {
   return {
     newestBooks: selectors.books('browse')(state),
-    isBooksFetching: selectors.common.isPaginationFetching('books', 'browse')(state),
-    nextPage: selectors.common.nextPage('books', 'browse')(state)
+    isBooksFetching: selectors.isPaginationFetching('books', 'browse')(state),
+    nextPage: selectors.nextPage('books', 'browse')(state)
   }
 }
 

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
-import { pagedEntities } from './common'
+import { pagedEntities } from './index'
 
 export const doubanBooks = key => createSelector(
   pagedEntities({

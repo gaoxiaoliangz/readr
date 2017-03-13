@@ -2,7 +2,6 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import ServerSideAppRoot from '../../../components/ServerSideAppRoot'
 import rootSaga from '../../../sagas'
-import * as actions from '../../../actions'
 
 function fetchData(req, res, next) {
   const { matchedResults: { renderProps } } = req.locals
@@ -17,7 +16,6 @@ function fetchData(req, res, next) {
   )
 
   store.runSaga(rootSaga).done.then(next)
-  // store.dispatch(actions.session.success(req.context.user))
 
   renderToString(rootComponent)
   store.close()

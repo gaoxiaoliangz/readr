@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
   const { show: showPanel } = selectors.viewer.panel(state)
   const { show: showPreference } = selectors.viewer.preference(state)
   const { show: showNavigation } = selectors.viewer.navigation(state)
-  const { title } = selectors.common.entity('books', bookId)(state) as any
+  const { title } = selectors.entity('books', bookId)(state) as any
 
   return { config, showPanel, showPreference, title, showNavigation }
 }

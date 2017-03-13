@@ -1,7 +1,7 @@
 import { render } from 'react-dom'
 import React from 'react'
 import { browserHistory, hashHistory, match } from 'react-router'
-import createRoutes from './routes/createRoutes'
+import createRoutes from './routes'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './configureStore'
 import rootSaga from './sagas'

@@ -62,7 +62,7 @@ export default function initialize(config: InitConfig) {
   app.use(middleware.parseContext)
 
   // api routing
-  app.use(`/${CONSTANTS.COMMON.API_PREFIX}`, routes.api())
+  app.use(`/${CONSTANTS.API_PREFIX}`, routes.api())
 
   // render view
   app.use(render(isProduction))

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import * as common from './common'
+import { entity } from './index'
 import { createSelector } from 'reselect'
 
 export const self = state => {
@@ -17,7 +17,7 @@ export const computed = bookId => state => {
 }
 
 export const navData = bookId => state => {
-  const bookContent = common.entity('bookContents', bookId)(state)
+  const bookContent = entity('bookContents', bookId)(state)
   return _.get(bookContent, 'nav', []) as TBookNav[]
 }
 

@@ -1,4 +1,4 @@
-import { ROLES } from '../../constants/common'
+import { ROLES } from '../../constants'
 import errors from '../errors'
 import i18n from '../utils/i18n'
 

@@ -14,6 +14,6 @@ function* handleSession(action) {
   }
 }
 
-export default function* sessionWatcher() {
+export default function* watchSession() {
   yield takeLatest(ACTION_TYPES.LOAD_SESSION, handleSession)
 }

@@ -1,7 +1,7 @@
 import * as cache from '../utils/browser/cache'
 import { put, call } from 'redux-saga/effects'
 import _ from 'lodash'
-import getEnv from '../context/getEnv'
+import getEnv from '../helpers/getEnv'
 
 const { ENABLE_ENTITY_CACHE } = getEnv()
 

@@ -91,7 +91,7 @@ const mapStateToProps = (state, ownProps: any) => {
   const id = ownProps.params.id
 
   return {
-    bookInfo: selectors.common.entity('books', id)(state)
+    bookInfo: selectors.entity('books', id)(state)
   }
 }
 

@@ -168,8 +168,8 @@ class ManageBooks extends Component<Props, {
 }
 
 function mapStateToProps(state, ownProps) {
-  const currentPage = selectors.common.currentPage('books')(state)
-  const bookEntities = selectors.common.entities('books')(state)
+  const currentPage = selectors.currentPage('books')(state)
+  const bookEntities = selectors.entities('books')(state)
 
   return {
     // 如果第一个参数传 null 会覆盖默认参数

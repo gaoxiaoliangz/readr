@@ -5,7 +5,7 @@ import * as ACTION_TYPES from '../constants/actionTypes'
 import webAPI from '../webAPI'
 import _ from 'lodash'
 import * as selectors from '../selectors'
-import { ROLES } from '../constants/common'
+import { ROLES } from '../constants'
 import { fetchEntity } from './utils'
 import helpers from '../helpers'
 import * as viewerUtils from '../routes/Viewer/Viewer.utils'
@@ -91,7 +91,7 @@ function* updateProgress(bookId, percentage) {
 function* watchCalcBook() {
   while (true) {
     const { bookId, wrap } = yield take(ACTION_TYPES.VIEWER.CALC_START)
-    const bookContent = yield select(selectors.common.entity('bookContents', bookId))
+    const bookContent = yield select(selectors.entity('bookContents', bookId))
     const flesh = bookContent.flesh || {}
 
     try {
@@ -109,7 +109,7 @@ function* watchCalcBook() {
 function* watchProgressOperations() {
   while (true) {
     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
-    const session = yield select(selectors.common.session)
+    const session = yield select(selectors.session)
     const userRole = _.get(session, 'user.role')
 
     if (userRole !== ROLES.VISITOR) {
@@ -149,7 +149,7 @@ function* watchJumpRequest() {
 function* fetchProgressAndJump(bookId) {
   yield put(actions.loadBookProgress(bookId))
   yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
-  const { percentage } = yield select(selectors.common.entity('bookProgress', bookId))
+  const { percentage } = yield select(selectors.entity('bookProgress', bookId))
   yield put(actions.viewerJumpTo(percentage))
 }
 

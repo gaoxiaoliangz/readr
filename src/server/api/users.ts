@@ -1,7 +1,7 @@
 import Model from '../models/model'
 import * as schemas from '../data/schemas'
 import _ from 'lodash'
-import { ROLES } from '../../constants/common'
+import { ROLES } from '../../constants'
 
 const userModel = new Model(schemas.user)
 

@@ -4,7 +4,7 @@ import Master from '../components/Master'
 import App from '../components/App'
 import Console from '../components/Console'
 import api from '../webAPI'
-import { ROLES } from '../constants/common'
+import { ROLES } from '../constants'
 
 const createRoutes = (context = {}) => {
   const { request, response } = context as any
