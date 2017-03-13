@@ -103,7 +103,7 @@ export function callApi(fullUrl: string, options: CallApiOptions = {}): any {
       if (response.status !== 204) {
         return response.json().then(json => {
           if (!response.ok) {
-            return Promise.reject(json) as any
+            return Promise.reject(json)
           }
 
           return { json, _response: response }
