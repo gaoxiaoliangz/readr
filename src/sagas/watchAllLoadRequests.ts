@@ -64,7 +64,9 @@ function* handleLoadReq(action) {
 
   yield put(flowActions.request(payload, meta))
   try {
-    let response = yield callApi(urlJoin(API_ROOT, request.url))
+    let response = yield callApi(urlJoin(API_ROOT, request.url), {
+      cookies: request.cookies
+    })
     if (schema) {
       response = handleResponse(response, schema)
     } else {

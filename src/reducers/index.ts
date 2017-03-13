@@ -7,6 +7,12 @@ import pagination from './pagination'
 import { entities as entities2, appData } from './entities2'
 import * as ActionTypes from '../constants/actionTypes'
 
+type Action = {
+  payload?: any
+  meta?: any
+  type: string
+}
+
 function errorMessage(state = [], action) {
   const { error } = action
 
@@ -33,21 +39,21 @@ export function entities(state = {}, action) {
 }
 
 const DEFAULT_VISTOR_STATE = { user: { role: 'visitor' }, isFetching: false, determined: false }
-export function session(state = DEFAULT_VISTOR_STATE, action) {
+export function session(state = DEFAULT_VISTOR_STATE, action: Action) {
   switch (action.type) {
-    case ActionTypes.SESSION.REQUEST:
+    case ActionTypes.SESSION2.REQUEST:
       return Object.assign({}, state, {
         isFetching: true
       })
 
-    case ActionTypes.SESSION.SUCCESS:
+    case ActionTypes.SESSION2.SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         determined: true,
-        user: action.response
+        user: action.payload.response
       })
 
-    case ActionTypes.SESSION.FAILURE:
+    case ActionTypes.SESSION2.FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         determined: true

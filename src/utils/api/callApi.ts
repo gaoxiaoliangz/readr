@@ -8,6 +8,7 @@ export type CallApiOptions = {
   dataType?: 'urlencoded' | 'json'
   data?: {}
   useJsonp?: boolean
+  cookies?: any
 }
 
 type FetchOptions = {
@@ -18,6 +19,9 @@ type FetchOptions = {
   useJsonp?: boolean
 }
 
+const createCookieString = (cookies) => Object.keys(cookies)
+  .reduce((previous, key) => `${previous}${key}=${cookies[key]}; `, '')
+
 const defaultOptions: CallApiOptions = {
   dataType: 'json',
   method: 'GET',
@@ -26,7 +30,7 @@ const defaultOptions: CallApiOptions = {
 
 // return fetch options
 const parseOptions = (originanOptions: CallApiOptions) => {
-  let { method, data, credentials, dataType, useJsonp } = Object.assign({}, defaultOptions, originanOptions)
+  let { method, data, credentials, dataType, useJsonp, cookies } = Object.assign({}, defaultOptions, originanOptions)
   let fetchOptions: FetchOptions = {}
 
   if (useJsonp) {
@@ -74,6 +78,12 @@ const parseOptions = (originanOptions: CallApiOptions) => {
     }
   }
 
+  if (cookies) {
+    fetchOptions.headers = {
+      'Cookie': createCookieString(cookies)
+    }
+  }
+
   return fetchOptions
 }
 
@@ -86,7 +96,9 @@ export function callApi(fullUrl: string, options: CallApiOptions = {}): any {
     return jsonp(fullUrl)
   }
 
-  return fetch(fullUrl, parseOptions(options))
+  const fetchOptions = parseOptions(options)
+
+  return fetch(fullUrl, fetchOptions)
     .then(response => {
       if (response.status !== 204) {
         return response.json().then(json => {

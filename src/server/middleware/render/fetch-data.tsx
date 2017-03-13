@@ -17,7 +17,7 @@ function fetchData(req, res, next) {
   )
 
   store.runSaga(rootSaga).done.then(next)
-  store.dispatch(actions.session.success(req.context.user))
+  // store.dispatch(actions.session.success(req.context.user))
 
   renderToString(rootComponent)
   store.close()

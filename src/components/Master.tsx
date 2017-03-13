@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession } from '../actions'
+import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession, loadSession2 } from '../actions'
 import { Alerts } from '../components/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../components/Modal'
@@ -19,6 +19,7 @@ interface Props {
   modal: any
   closeModal: any
   loadSession: typeof loadSession
+  loadSession2: typeof loadSession2
 }
 
 class Master extends Component<Props, {}> {
@@ -45,10 +46,10 @@ class Master extends Component<Props, {}> {
     }
   }
 
-  componentDidMount() {
-  // componentWillMount() {
+  // componentDidMount() {
+  componentWillMount() {
     // this.props.userAuth()
-    this.props.loadSession()
+    this.props.loadSession2()
   }
 
   render() {
@@ -101,5 +102,5 @@ export default connect<{}, {}, Props>(
     routing: state.routing,
     session: state.session,
   }),
-  { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession }
+  { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession, loadSession2 }
 )(Master)

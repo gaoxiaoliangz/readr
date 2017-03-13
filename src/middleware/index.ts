@@ -3,11 +3,13 @@ import modifyResponse from './modifyResponse'
 import handleServerStore from './handleServerStore'
 import logActionTypes from './logActionTypes'
 import cache from './cache'
+import injectCookies from './injectCookies'
 
-export default {
+export {
   api,
   modifyResponse,
   handleServerStore,
   logActionTypes,
-  cache
+  cache,
+  injectCookies
 }

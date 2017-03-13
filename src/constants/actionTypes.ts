@@ -34,7 +34,7 @@ export const AUTH = createRequestTypes('auth')
 export const SHELF = createRequestTypes('shelf')
 
 export const BOOKS2 = createSagaActionTypes('books2')
-
+export const SESSION2 = createSagaActionTypes('session2')
 
 /**
  * components

@@ -147,3 +147,15 @@ export const loadBooks2 = () => {
     schema: schemas.BOOK_ARRAY
   })
 }
+
+export const loadSession2 = () => {
+  return createSagaAction(ActionTypes.SESSION2, {
+    request: {
+      url: 'auth',
+      method: 'get'
+    },
+    // entityKey: 'books',
+    parser: (res) => (res.json),
+    // schema: schemas.BOOK_ARRAY
+  })
+}

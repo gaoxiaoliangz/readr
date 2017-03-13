@@ -1,46 +1,47 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
-import api from './middleware/api'
-import modifyResponse from './middleware/modifyResponse'
-import handleServerStore from './middleware/handleServerStore'
+import { api, cache, modifyResponse, injectCookies, handleServerStore, logActionTypes } from './middleware'
 import handleInitialState from './handleInitialState'
-import logActionTypes from './middleware/logActionTypes'
 import createLogger from 'redux-logger'
-import middleware from './middleware'
 import createSagaMiddleware, { END } from 'redux-saga'
 import helpers from './helpers'
 
-const sagaMiddleware = createSagaMiddleware()
+export default function configureStore(cookies?) {
+  const sagaMiddleware = createSagaMiddleware()
 
-const SERVER_MIDDLEWARES_DEV = [handleServerStore, sagaMiddleware, api, middleware.cache, modifyResponse, thunk, logActionTypes]
-const SERVER_MIDDLEWARES_PROD = [handleServerStore, sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
-const MIDDLEWARES_DEV = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk, createLogger({ collapsed: true })]
-const MIDDLEWARES_PROD = [sagaMiddleware, api, middleware.cache, modifyResponse, thunk]
-
-export default function configureStore() {
-  let middlewares
+  const baseMiddlewares = [
+    injectCookies(cookies),
+    sagaMiddleware,
+    api,
+    cache,
+    modifyResponse,
+    thunk
+  ]
 
   if (helpers.isServerEnv()) {
     // server side
+    baseMiddlewares.push(handleServerStore)
     if (process.env.NODE_ENV === 'production') {
-      middlewares = SERVER_MIDDLEWARES_PROD
+      // nothing here
     } else {
-      middlewares = SERVER_MIDDLEWARES_DEV
+      baseMiddlewares.push(logActionTypes)
     }
   } else {
     // client side
     if (process.env.NODE_ENV === 'production') {
-      middlewares = MIDDLEWARES_PROD
+      // nothing here
     } else {
-      middlewares = MIDDLEWARES_DEV
+      baseMiddlewares.push(createLogger({
+        collapsed: true
+      }))
     }
   }
 
   const store = createStore(
     rootReducer,
     handleInitialState(),
-    applyMiddleware.apply(null, middlewares)
+    applyMiddleware.apply(null, baseMiddlewares)
   )
 
   if (module.hot) {

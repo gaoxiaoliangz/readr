@@ -67,7 +67,7 @@ export const createSagaAction = (types, options: CreateSagaActionOptions) => {
       ...{
         types,
         isSagaActions: true,
-        isTriggerAction: true,
+        isLoadAction: true,
         parser,
         schema,
         entityKey,
