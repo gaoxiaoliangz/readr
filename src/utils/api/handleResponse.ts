@@ -19,7 +19,7 @@ const parseHeaderPageLinkByRel = (links: string, rel: string) => {
   }
 }
 
-function parseResHeaderToPagination(response) {
+export function parseResHeaderToPagination(response) {
   if (!response) {
     return {}
   }
