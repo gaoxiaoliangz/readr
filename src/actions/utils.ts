@@ -55,6 +55,11 @@ type CreateSagaActionOptions = {
 }
 export const createSagaAction = (types, options: CreateSagaActionOptions) => {
   const { payload, meta, parser, schema, entityKey, entityId, request } = options
+  let _entityKey = entityKey
+  if (!entityKey && !schema) {
+    _entityKey = `key-${Math.random()}`
+  }
+
   return {
     type: types.trigger,
     payload: {
@@ -70,7 +75,7 @@ export const createSagaAction = (types, options: CreateSagaActionOptions) => {
         isLoadAction: true,
         parser,
         schema,
-        entityKey,
+        entityKey: _entityKey,
         entityId,
       },
       ...meta
