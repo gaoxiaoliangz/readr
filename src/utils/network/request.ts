@@ -39,7 +39,7 @@ const request = (url: string, config?: RequestConfig) => {
 
     const { method, cookie, dataType, data, _rawInit } = _config
 
-    // parse contentType
+    // parse contentType & body
     if (dataType === 'json') {
       contentType = 'application/json'
       body = JSON.stringify(data)
@@ -95,7 +95,6 @@ const request = (url: string, config?: RequestConfig) => {
     fullUrl = `${url}?${parseUrlencoded(config.query)}`
   }
 
-  // todo: query
   return fetch(fullUrl, parsedConfig)
     .then(response => {
       if (response.status !== 204) {

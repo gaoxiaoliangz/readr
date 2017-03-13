@@ -82,3 +82,50 @@ export const createSagaAction = (types, options: CreateSagaActionOptions) => {
     }
   }
 }
+
+export const createActionEntity2 = (types) => {
+  return {
+    request: (payload?, meta?: object) => {
+      return {
+        type: types.REQUEST,
+        payload,
+        meta: {
+          ...{
+            isApiFlow: true,
+            isRequest: true
+          },
+          ...meta
+        }
+      }
+    },
+
+    success: (response, meta?: object) => {
+      return {
+        type: types.SUCCESS,
+        payload: { response },
+        meta: {
+          ...{
+            isApiFlow: true,
+            isApiResponse: true
+          },
+          ...meta
+        }
+      }
+    },
+
+    failure: (error, meta?: object) => {
+      return {
+        type: types.FAILURE,
+        payload: error,
+        error: true,
+        meta: {
+          ...{
+            isApiFlow: true,
+            hasError: true
+          },
+          ...meta
+        }
+      }
+    }
+  }
+}

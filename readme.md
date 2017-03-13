@@ -48,6 +48,10 @@ options, data, id, response, error
 	✔ node generator code with sourcemap support @done (March 12th 2017, 0:27)
 	☐ common props decorator
 
+	☐ use new request wrap
+	☐ refactor books action
+	☐ refactor shelf action
+
 ### Refactor
 	☐ api flow
 	☐ redux actions
