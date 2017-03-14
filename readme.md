@@ -51,6 +51,7 @@ options, data, id, response, error
 	☐ use new request wrap
 	☐ refactor books action
 	☐ refactor shelf action
+	☐ pass runtime env to test suit
 
 ### Refactor
 	☐ api flow

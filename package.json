@@ -18,7 +18,7 @@
     "clean:static": "node scripts/clean.js -f=build/static",
     "lint": "eslint src",
     "tsc": "tsc",
-    "test": "jest --no-cache --watchAll --config=jestrc.json"
+    "test": "jest --no-cache --watchAll --config=.jestrc"
   },
   "dependencies": {
     "animate.css": "^3.5.1",

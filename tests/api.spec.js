@@ -1,5 +1,8 @@
+// import dotenv from 'dotenv'
 import request from 'supertest'
 import initialize from '../build/node'
+
+// dotenv.config()
 
 const apiRoot = 'http://localhost:4001/api'
 
