@@ -14,20 +14,6 @@ const parseEntity = (json, schema) => {
   return normalize(camelizedJson, schema)
 }
 
-interface LoaderAction {
-  payload: {
-    response?: any
-    id?: string
-    request: ActionRequestObj & {
-      injectedCookie?: any
-    }
-  },
-  meta: {
-    schema?: any
-    types: RequestTypes
-    isSagaActions?: boolean
-  }
-}
 function* handleLoadReq(action: LoaderAction) {
   const { meta, payload } = action
   const { request } = payload

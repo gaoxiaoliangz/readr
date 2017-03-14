@@ -42,29 +42,21 @@ export const createSagaActionTypes = name => {
 }
 
 export const createSagaAction = (types, options: CreateSagaActionOptions) => {
-  const { payload, meta, parser, schema, entityKey, entityId, request } = options
-  let _entityKey = entityKey
-  if (!entityKey && !schema) {
-    _entityKey = `key-${Math.random()}`
-  }
+  const { payload, meta, schema, id, request } = options
 
   return {
     type: types.trigger,
     payload: {
       ...{
-        request
+        request,
+        id
       },
       ...payload
     },
     meta: {
       ...{
         types,
-        isSagaActions: true,
-        isLoadAction: true,
-        parser,
-        schema,
-        entityKey: _entityKey,
-        entityId,
+        schema
       },
       ...meta
     }
@@ -77,14 +69,7 @@ export const createActionEntity2 = (types) => {
       return {
         type: types.REQUEST,
         payload,
-        meta: {
-          ...{
-            // todo: names
-            isApiFlow: true,
-            isRequest: true
-          },
-          ...meta
-        }
+        meta
       }
     },
 
@@ -92,13 +77,7 @@ export const createActionEntity2 = (types) => {
       return {
         type: types.SUCCESS,
         payload,
-        meta: {
-          ...{
-            isApiFlow: true,
-            isApiResponse: true
-          },
-          ...meta
-        }
+        meta
       }
     },
 
@@ -107,13 +86,7 @@ export const createActionEntity2 = (types) => {
         type: types.FAILURE,
         payload,
         error: true,
-        meta: {
-          ...{
-            isApiFlow: true,
-            hasError: true
-          },
-          ...meta
-        }
+        meta
       }
     }
   }

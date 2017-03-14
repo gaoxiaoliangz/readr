@@ -11,63 +11,63 @@ const expandEntities = (entities) => {
   })
 }
 
-export const appData = (state = {}, action) => {
-  const isNormalized = _.get(action, 'meta.isNormalized', false)
-  const entityKey = _.get(action, 'meta.entityKey', 'noname')
+// export const appData = (state = {}, action) => {
+//   const isNormalized = _.get(action, 'meta.isNormalized', false)
+//   const entityKey = _.get(action, 'meta.entityKey', 'noname')
 
-  if (isNormalized) {
-    return state
-  }
+//   if (isNormalized) {
+//     return state
+//   }
 
-  // request
-  if (action.meta && action.meta.isApiFlow && action.meta.isRequest) {
-    return {
-      ...state,
-      ...{
-        [entityKey]: {
-          data: _.get(state, [entityKey, 'data']),
-          error: {},
-          // todo
-          fetchStatus: 'loading'
-        }
-      }
-    }
-  }
+//   // request
+//   if (action.meta && action.meta.isApiFlow && action.meta.isRequest) {
+//     return {
+//       ...state,
+//       ...{
+//         [entityKey]: {
+//           data: _.get(state, [entityKey, 'data']),
+//           error: {},
+//           // todo
+//           fetchStatus: 'loading'
+//         }
+//       }
+//     }
+//   }
 
-  // success
-  if (action.payload && action.payload.response) {
-    return {
-      ...state,
-      ...{
-        [entityKey]: {
-          data: action.payload.response,
-          error: {},
-          // todo
-          fetchStatus: 'loaded'
-        }
-      }
-    }
-  }
+//   // success
+//   if (action.payload && action.payload.response) {
+//     return {
+//       ...state,
+//       ...{
+//         [entityKey]: {
+//           data: action.payload.response,
+//           error: {},
+//           // todo
+//           fetchStatus: 'loaded'
+//         }
+//       }
+//     }
+//   }
 
-  // failure
-  if (action.meta && action.meta.isApiFlow && action.error) {
-    return {
-      ...state,
-      ...{
-        [entityKey]: {
-          data: _.get(state, [entityKey, 'data']),
-          error: action.payload,
-          // todo
-          fetchStatus: 'failed'
-        }
-      }
-    }
-  }
+//   // failure
+//   if (action.meta && action.meta.isApiFlow && action.error) {
+//     return {
+//       ...state,
+//       ...{
+//         [entityKey]: {
+//           data: _.get(state, [entityKey, 'data']),
+//           error: action.payload,
+//           // todo
+//           fetchStatus: 'failed'
+//         }
+//       }
+//     }
+//   }
 
-  return state
-}
+//   return state
+// }
 
-export const entities = (state = {}, action) => {
+export const entities = (state = {}, action: LoaderAction) => {
   const entityKey = _.get(action, 'meta.entityKey', 'noname')
   const entityId = _.get(action, 'meta.entityId', '') as string
   const isNormalized = _.get(action, 'meta.isNormalized', false)

@@ -43,12 +43,32 @@ interface ActionRequestObj extends RequestConfig {
 type CreateSagaActionOptions = {
   payload?: any
   meta?: object
-  parser?: (response: { json: any }) => any
+  // parser?: (response: { json: any }) => any
   schema?: any
-  entityKey?: string
-  entityId?: string
+  // entityKey?: string
+  // entityId?: string
   request: ActionRequestObj
+  id?: string
 }
+
+interface LoaderAction {
+  payload: {
+    response?: any
+    id?: string
+    request: ActionRequestObj & {
+      injectedCookie?: any
+    }
+  },
+  meta: {
+    schema?: any
+    types: RequestTypes
+    isSagaActions?: boolean
+  }
+}
+
+// interface RequestFlowAction extends LoaderAction {
+//   meta: 
+// }
 
 
 /**
