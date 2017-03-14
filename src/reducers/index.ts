@@ -110,9 +110,7 @@ const rootReducer = combineReducers({
   pagination,
   appData,
   entities2,
-  session2: receiveData(ActionTypes.SESSION2, json => {
-    return 'heheh'
-  })
+  session2: receiveData(ActionTypes.SESSION2)
 })
 
 export default rootReducer

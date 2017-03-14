@@ -1,6 +1,6 @@
-export default cookies => store => next => action => {
+export default cookie => store => next => action => {
   if (action.meta && action.meta.isLoadAction && action.payload.request) {
-    action.payload.request.cookies = cookies
+    action.payload.request.injectedCookie = cookie
     next(action)
   } else {
     next(action)

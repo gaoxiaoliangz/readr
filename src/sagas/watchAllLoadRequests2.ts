@@ -1,5 +1,6 @@
 import { take, call, put } from 'redux-saga/effects'
 import urlJoin from 'url-join'
+import _ from 'lodash'
 import { normalize } from 'normalizr'
 import humps from 'humps'
 import getApiRoot from '../helpers/getApiRoot'
@@ -13,10 +14,24 @@ const parseEntity = (json, schema) => {
   return normalize(camelizedJson, schema)
 }
 
-function* handleLoadReq(action) {
+interface LoaderAction {
+  payload: {
+    response?: any
+    id?: string
+    request: ActionRequestObj & {
+      injectedCookie?: any
+    }
+  },
+  meta: {
+    schema?: any
+    types: RequestTypes
+    isSagaActions?: boolean
+  }
+}
+function* handleLoadReq(action: LoaderAction) {
   const { meta, payload } = action
   const { request } = payload
-  const { parser, schema } = meta
+  const { schema } = meta
   const flowActions = createActionEntity2(meta.types)
 
   yield put(flowActions.request(payload, meta))
@@ -24,16 +39,13 @@ function* handleLoadReq(action) {
     let response = yield $request(urlJoin(API_ROOT, request.url), {
       ...request,
       ...{
-        // TODO: rename to cookie
-        cookie: request.cookies
+        cookie: _.isUndefined(request.cookie) ? request.injectedCookie : request.cookie
       }
     })
     if (schema) {
       response = parseEntity(response.json, schema)
-    } else {
-      response = parser ? parser(response) : response
     }
-    yield put(flowActions.success(response, {
+    yield put(flowActions.success({ response }, {
       ...{
         isNormalized: Boolean(schema)
       },
@@ -46,7 +58,7 @@ function* handleLoadReq(action) {
 
 export default function* watchAllLoadRequests2() {
   while (true) {
-    const action = yield take('*')
+    const action: LoaderAction = yield take('*')
     if (action.meta && action.meta.isSagaActions) {
       yield call(handleLoadReq, action)
     }

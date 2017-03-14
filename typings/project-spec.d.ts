@@ -36,6 +36,20 @@ interface RequestConfig {
   _rawInit?: RequestInit
 }
 
+interface ActionRequestObj extends RequestConfig {
+  url: string
+}
+
+type CreateSagaActionOptions = {
+  payload?: any
+  meta?: object
+  parser?: (response: { json: any }) => any
+  schema?: any
+  entityKey?: string
+  entityId?: string
+  request: ActionRequestObj
+}
+
 
 /**
  * App config file

@@ -7,7 +7,7 @@ const FETCH_STATUS = {
   FAILED: 'FAILED'
 }
 
-const receiveData = (types: RequestTypes, parser) => {
+const receiveData = (types: RequestTypes, parser?) => {
   return (state = { data: {}, fetchStatus: FETCH_STATUS.NONE }, action) => {
     const { type } = action
     const response = _.get(action, 'payload.response', {}) as {
@@ -24,7 +24,7 @@ const receiveData = (types: RequestTypes, parser) => {
       case types.SUCCESS:
         return {
           fetchStatus: FETCH_STATUS.LOADED,
-          data: parser(response.json) || state.data || {}
+          data: (parser ? parser(response.json) : response.json) || state.data || {}
         }
 
       case types.FAILURE:

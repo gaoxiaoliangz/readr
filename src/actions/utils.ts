@@ -41,19 +41,6 @@ export const createSagaActionTypes = name => {
   }
 }
 
-interface ActionRequestObj extends RequestConfig {
-  url: string
-}
-
-type CreateSagaActionOptions = {
-  payload?: any
-  meta?: object
-  parser?: (response: { json: any }) => any
-  schema?: any
-  entityKey?: string
-  entityId?: string
-  request: ActionRequestObj
-}
 export const createSagaAction = (types, options: CreateSagaActionOptions) => {
   const { payload, meta, parser, schema, entityKey, entityId, request } = options
   let _entityKey = entityKey
@@ -92,6 +79,7 @@ export const createActionEntity2 = (types) => {
         payload,
         meta: {
           ...{
+            // todo: names
             isApiFlow: true,
             isRequest: true
           },
@@ -100,10 +88,10 @@ export const createActionEntity2 = (types) => {
       }
     },
 
-    success: (response, meta?: object) => {
+    success: (payload, meta?: object) => {
       return {
         type: types.SUCCESS,
-        payload: { response },
+        payload,
         meta: {
           ...{
             isApiFlow: true,
@@ -114,10 +102,10 @@ export const createActionEntity2 = (types) => {
       }
     },
 
-    failure: (error, meta?: object) => {
+    failure: (payload, meta?: object) => {
       return {
         type: types.FAILURE,
-        payload: error,
+        payload,
         error: true,
         meta: {
           ...{
