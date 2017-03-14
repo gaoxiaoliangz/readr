@@ -140,8 +140,7 @@ export function fetchShelf() {
 export const loadBooks2 = () => {
   return createSagaAction(ActionTypes.BOOKS2, {
     request: {
-      url: 'books',
-      method: 'get'
+      url: 'books'
     },
     // entityKey: 'books',
     // parser: (res) => (res.json),
@@ -152,8 +151,7 @@ export const loadBooks2 = () => {
 export const loadSession2 = () => {
   return createSagaAction(ActionTypes.SESSION2, {
     request: {
-      url: 'auth',
-      method: 'get'
+      url: 'auth'
     },
     entityKey: 'session',
     parser: res => res.json

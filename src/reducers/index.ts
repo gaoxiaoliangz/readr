@@ -6,6 +6,7 @@ import components from './components'
 import pagination from './pagination'
 import { entities as entities2, appData } from './entities2'
 import * as ActionTypes from '../constants/actionTypes'
+import receiveData from './receiveData'
 
 type Action = {
   payload?: any
@@ -17,7 +18,8 @@ function errorMessage(state = [], action) {
   const { error } = action
 
   if (error) {
-    return [...state, action.error.message || '发生未知错误！']
+    const message = _.get(action, 'error.message') || _.get(action, 'payload.message', '发生未知错误！')
+    return [...state, message]
   }
 
   return state
@@ -107,7 +109,10 @@ const rootReducer = combineReducers({
   form,
   pagination,
   appData,
-  entities2
+  entities2,
+  session2: receiveData(ActionTypes.SESSION2, json => {
+    return 'heheh'
+  })
 })
 
 export default rootReducer

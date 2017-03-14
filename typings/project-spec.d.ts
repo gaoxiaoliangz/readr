@@ -26,6 +26,16 @@ type FetchDataOptions = {
   userSession: any
 }
 
+interface RequestConfig {
+  method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
+  cookie?: boolean | string | object
+  dataType?: 'urlencoded' | 'json'
+  data?: {}
+  query?: object | string
+  useJsonp?: boolean
+  _rawInit?: RequestInit
+}
+
 
 /**
  * App config file

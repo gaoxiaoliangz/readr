@@ -41,6 +41,10 @@ export const createSagaActionTypes = name => {
   }
 }
 
+interface ActionRequestObj extends RequestConfig {
+  url: string
+}
+
 type CreateSagaActionOptions = {
   payload?: any
   meta?: object
@@ -48,10 +52,7 @@ type CreateSagaActionOptions = {
   schema?: any
   entityKey?: string
   entityId?: string
-  request: {
-    url: string
-    method?: 'get' | 'post' | 'put' | 'delete'
-  }
+  request: ActionRequestObj
 }
 export const createSagaAction = (types, options: CreateSagaActionOptions) => {
   const { payload, meta, parser, schema, entityKey, entityId, request } = options

@@ -8,16 +8,6 @@ const createCookieString = (cookie) =>
     .keys(cookie)
     .reduce((previous, key) => `${previous}${key}=${cookie[key]}; `, '')
 
-interface RequestConfig {
-  method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
-  cookie?: boolean | string | object
-  dataType?: 'urlencoded' | 'json'
-  data?: {}
-  query?: object | string
-  useJsonp?: boolean
-  _rawInit?: RequestInit
-}
-
 const request = (url: string, config?: RequestConfig) => {
   const defaultConfig: RequestConfig = {
     method: 'GET',

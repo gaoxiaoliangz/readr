@@ -34,10 +34,10 @@ const renderApp = routes => {
 }
 
 if (module.hot) {
-  module.hot.accept('./routes/createRoutes', () => {
+  module.hot.accept('./routes', () => {
     console.info('hot patching')
 
-    const createRoutesNext = require('./routes/createRoutes').default
+    const createRoutesNext = require('./routes').default
     renderApp(createRoutesNext())
   })
 }
