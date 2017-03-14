@@ -1,13 +1,8 @@
-import { take, call, fork, put } from 'redux-saga/effects'
-import { takeEvery } from 'redux-saga'
+import { take, call, put } from 'redux-saga/effects'
 import urlJoin from 'url-join'
 import { normalize } from 'normalizr'
 import humps from 'humps'
-import * as actions from '../actions'
-import * as ACTION_TYPES from '../constants/actionTypes'
-import callApi from '../utils/api/callApi'
 import getApiRoot from '../helpers/getApiRoot'
-import handleResponse from '../utils/api/handleResponse'
 import { createActionEntity2 } from '../actions/utils'
 import $request from '../utils/network/request'
 
@@ -26,13 +21,10 @@ function* handleLoadReq(action) {
 
   yield put(flowActions.request(payload, meta))
   try {
-    // let response = yield callApi(urlJoin(API_ROOT, request.url), {
-    //   cookies: request.cookies
-    // })
     let response = yield $request(urlJoin(API_ROOT, request.url), {
       ...request,
       ...{
-        // todo: rename to cookie
+        // TODO: rename to cookie
         cookie: request.cookies
       }
     })

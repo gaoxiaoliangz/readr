@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-const styles = require('./Input.scss')
+import _ from 'lodash'
+import styles from './Input.scss'
 
 export interface Props {
   className?: string
@@ -24,7 +25,7 @@ class Input extends Component<Props, any> {
 
   render() {
     let props = Object.assign({}, this.props)
-    delete props.className
+    props = _.omit(props, 'className')
     const { error, touched } = this.props
 
     const showError = error && touched
