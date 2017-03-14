@@ -14,7 +14,7 @@
 options, data, id, response, error
 
 ## Todos
-  ✔ remove legacy webpack config @done (March 7th 2017, 14:21)
+	✔ remove legacy webpack config @done (March 7th 2017, 14:21)
 	✔ remove legacy hmr module @done (March 7th 2017, 14:21)
 	✔ remove legacy render module @done (March 7th 2017, 14:21)
 	✔ add dll webpack plugin @done (March 7th 2017, 14:21)
@@ -47,7 +47,6 @@ options, data, id, response, error
 	☐ server log config
 	✔ node generator code with sourcemap support @done (March 12th 2017, 0:27)
 	☐ common props decorator
-
 	☐ use new request wrap
 	☐ refactor books action
 	☐ refactor shelf action
