@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadBook } from '../../actions'
+import { loadBookInfo } from '../../actions'
 import Loading from '../../components/Loading'
 import { Button } from '../../components/form'
 import _ from 'lodash'
@@ -10,20 +10,14 @@ import * as selectors from '../../selectors'
 const styles = require('./BookDetail.scss')
 
 interface Props {
-  loadBook: typeof loadBook
+  loadBookInfo: typeof loadBookInfo
   bookInfo: any
 }
 
-@CSSModules(styles, {
-  allowMultiple: true
-})
+@CSSModules(styles)
 class BookDetail extends Component<Props, {}> {
 
   bookId: string
-
-  // static fetchData({store, params}) {
-  //   return store.dispatch(loadBook(params.id))
-  // }
 
   constructor(props) {
     super(props)
@@ -31,7 +25,7 @@ class BookDetail extends Component<Props, {}> {
   }
 
   componentDidMount() {
-    this.props.loadBook(this.bookId)
+    this.props.loadBookInfo(this.bookId)
   }
 
   render() {
@@ -97,5 +91,5 @@ const mapStateToProps = (state, ownProps: any) => {
 
 export default connect<{}, {}, Props>(
   mapStateToProps,
-  { loadBook }
+  { loadBookInfo }
 )(BookDetail)

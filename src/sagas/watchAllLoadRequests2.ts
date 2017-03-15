@@ -47,7 +47,7 @@ function* handleLoadReq(action: LoaderAction) {
   const { schema } = meta
   const flowActions = createActionEntity2(meta.types)
 
-  const dataR = targetId ? assignEntityStatus(mockNormalizedData(schema.key(), targetId), FETCH_STATUS.LOADING) : undefined
+  const dataR = targetId ? assignEntityStatus(mockNormalizedData(schema.key, targetId), FETCH_STATUS.LOADING) : undefined
   const payloadR = {
     ...payload,
     ...{
@@ -68,7 +68,7 @@ function* handleLoadReq(action: LoaderAction) {
     yield put(flowActions.success(dataS, meta))
   } catch (error) {
     console.error(error)
-    const dataE = targetId ? assignEntityStatus(mockNormalizedData(schema.key(), targetId), FETCH_STATUS.LOADING, error) : undefined
+    const dataE = targetId ? assignEntityStatus(mockNormalizedData(schema.key, targetId), FETCH_STATUS.LOADING, error) : undefined
     const payloadE = {
       error,
       entities: dataE

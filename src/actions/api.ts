@@ -122,6 +122,16 @@ export const loadBooks2 = () => {
   })
 }
 
+export const loadBookInfo = (id) => {
+  return createTriggerAction(ActionTypes.BOOK_INFO, {
+    request: {
+      url: `books/${id}`,
+    },
+    targetId: id,
+    schema: schemas.BOOK
+  })
+}
+
 export const loadSession = () => {
   return createTriggerAction(ActionTypes.SESSION, {
     request: {

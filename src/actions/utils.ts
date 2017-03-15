@@ -38,15 +38,15 @@ export const createSagaActionTypes = (name): SagaActionTypes => {
   }
 }
 
-export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaActionOptions) => {
-  const { payload, meta, schema, id, request } = options
+export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaActionOptions): LoaderAction => {
+  const { payload, meta, schema, targetId, request } = options
 
   return {
     type: types.TRIGGER,
     payload: {
       ...{
         request,
-        id
+        targetId
       },
       ...payload
     },
@@ -56,7 +56,7 @@ export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaA
         schema
       },
       ...meta
-    }
+    } as any
   }
 }
 

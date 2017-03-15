@@ -50,7 +50,7 @@ type CreateSagaActionOptions = {
   meta?: object
   schema?: any
   request: ActionRequestObj
-  id?: string
+  targetId?: string
 }
 
 interface LoaderAction {
