@@ -29,66 +29,10 @@ const normalizeEntity = (json, schema) => {
   return normalize(camelizedJson, schema)
 }
 
-// export const appData = (state = {}, action) => {
-//   const isNormalized = _.get(action, 'meta.isNormalized', false)
-//   const entityKey = _.get(action, 'meta.entityKey', 'noname')
-
-//   if (isNormalized) {
-//     return state
-//   }
-
-//   // request
-//   if (action.meta && action.meta.isApiFlow && action.meta.isRequest) {
-//     return {
-//       ...state,
-//       ...{
-//         [entityKey]: {
-//           data: _.get(state, [entityKey, 'data']),
-//           error: {},
-//           // todo
-//           fetchStatus: 'loading'
-//         }
-//       }
-//     }
-//   }
-
-//   // success
-//   if (action.payload && action.payload.response) {
-//     return {
-//       ...state,
-//       ...{
-//         [entityKey]: {
-//           data: action.payload.response,
-//           error: {},
-//           // todo
-//           fetchStatus: 'loaded'
-//         }
-//       }
-//     }
-//   }
-
-//   // failure
-//   if (action.meta && action.meta.isApiFlow && action.error) {
-//     return {
-//       ...state,
-//       ...{
-//         [entityKey]: {
-//           data: _.get(state, [entityKey, 'data']),
-//           error: action.payload,
-//           // todo
-//           fetchStatus: 'failed'
-//         }
-//       }
-//     }
-//   }
-
-//   return state
-// }
-
 export const entities = (state = {}, action: LoaderAction) => {
   const { payload, meta, type } = action
 
-  if (!payload.request || !meta.schema || !meta.types) {
+  if (!payload || !payload.request || !meta || !meta.schema || !meta.types) {
     return state
   }
 

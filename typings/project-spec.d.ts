@@ -58,12 +58,13 @@ interface LoaderAction {
     id?: string
     request: ActionRequestObj & {
       injectedCookie?: any
-    }
+    },
+    error?: any
   },
   meta: {
     schema?: any
     types: RequestTypes
-    isSagaActions?: boolean
+    isSagaTrigger?: boolean
   }
 }
 

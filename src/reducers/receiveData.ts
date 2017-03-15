@@ -1,9 +1,15 @@
 import _ from 'lodash'
 import { FETCH_STATUS } from '../constants'
 
-const receiveData = (types: RequestTypes, parser?) => {
-  return (state = { data: {}, fetchStatus: FETCH_STATUS.NONE }, action) => {
-    const { type } = action
+const receiveData = (types: RequestTypes, defaultData = {}, parser?) => {
+  const _defaultData = {
+    ...{
+      fetchStatus: FETCH_STATUS.NONE
+    },
+    ...defaultData
+  }
+  return (state = _defaultData, action: LoaderAction) => {
+    const { type, payload } = action
     const response = _.get(action, 'payload.response', {}) as {
       json: any
     }
@@ -11,21 +17,28 @@ const receiveData = (types: RequestTypes, parser?) => {
     switch (type) {
       case types.REQUEST:
         return {
-          fetchStatus: FETCH_STATUS.LOADING,
-          data: state.data || {}
+          ...state,
+          ...{
+            fetchStatus: FETCH_STATUS.LOADING
+          }
         }
 
       case types.SUCCESS:
         return {
-          fetchStatus: FETCH_STATUS.LOADED,
-          data: (parser ? parser(response.json) : response.json) || state.data || {}
+          ...state,
+          ...{
+            fetchStatus: FETCH_STATUS.LOADED,
+          },
+          ...((parser ? parser(response.json) : response.json))
         }
 
       case types.FAILURE:
         return {
-          fetchStatus: FETCH_STATUS.FAILED,
-          data: state.data || {},
-          error: response.json || new Error('Unknown error occurred!')
+          ...state,
+          ...{
+            fetchStatus: FETCH_STATUS.FAILED,
+            error: payload.error || new Error('Unknown error occurred!')
+          },
         }
 
       default:

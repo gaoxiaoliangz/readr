@@ -4,8 +4,9 @@ import { routerReducer as routing } from 'react-router-redux'
 import { reducer as form } from 'better-redux-form'
 import components from './components'
 import pagination from './pagination'
-import { entities as entities2 } from './entities2'
+import { entities } from './entities'
 import * as ActionTypes from '../constants/actionTypes'
+import { ROLES } from '../constants'
 import receiveData from './receiveData'
 
 type Action = {
@@ -18,7 +19,7 @@ function errorMessage(state = [], action) {
   const { error } = action
 
   if (error) {
-    const message = _.get(action, 'error.message') || _.get(action, 'payload.message', '发生未知错误！')
+    const message = _.get(action, 'error.message') || _.get(action, 'payload.error.message', 'Unknown error occurred!')
     return [...state, message]
   }
 
@@ -47,8 +48,9 @@ const rootReducer = combineReducers({
   routing,
   form,
   pagination,
-  entities2,
-  session: receiveData(ActionTypes.SESSION2)
+  session: receiveData(ActionTypes.SESSION, {
+    role: ROLES.VISITOR
+  })
 })
 
 export default rootReducer

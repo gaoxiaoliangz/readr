@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession, loadSession2 } from '../actions'
+import { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession } from '../actions'
 import { Alerts } from '../components/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../components/Modal'
 import { ModalPlus } from '../components/Modal'
+import * as selectors from '../selectors'
 
 interface Props {
   notifications: any
@@ -19,14 +20,9 @@ interface Props {
   modal: any
   closeModal: any
   loadSession: typeof loadSession
-  loadSession2: typeof loadSession2
 }
 
 class Master extends Component<Props, {}> {
-
-  // static fetchData({ store, userSession }) {
-  //   return store.dispatch(userAuth(userSession))
-  // }
 
   constructor(props) {
     super(props)
@@ -46,10 +42,8 @@ class Master extends Component<Props, {}> {
     }
   }
 
-  // componentDidMount() {
   componentWillMount() {
-    // this.props.userAuth()
-    this.props.loadSession2()
+    this.props.loadSession()
   }
 
   render() {
@@ -100,7 +94,7 @@ export default connect<{}, {}, Props>(
     confirmModal: state.components.confirmModal,
     modal: state.components.modal,
     routing: state.routing,
-    session: state.session,
+    session: selectors.session(state)
   }),
-  { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession, loadSession2 }
+  { sendNotification, hideNotification, closeConfirmModal, userAuth, closeModal, loadSession }
 )(Master)

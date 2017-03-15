@@ -110,7 +110,7 @@ function* watchProgressOperations() {
   while (true) {
     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
     const session = yield select(selectors.session)
-    const userRole = _.get(session, 'user.role')
+    const userRole = _.get(session, 'role')
 
     if (userRole !== ROLES.VISITOR) {
       if (action.type === ACTION_TYPES.LOAD_BOOK_PROGRESS) {

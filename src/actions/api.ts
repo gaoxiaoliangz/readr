@@ -4,7 +4,7 @@ import * as webAPI from '../webAPI/apifns'
 import schemas from '../schemas'
 import { CALL_API_OBJ } from '../middleware/api'
 import { DOUBAN_API_ROOT } from '../constants'
-import { createActionEntity, action, createSagaAction } from './utils'
+import { createActionEntity, action, createTriggerAction } from './utils'
 import * as ActionTypes from '../constants/actionTypes'
 
 export const removeEntity = (name: string, id: string) =>
@@ -31,9 +31,9 @@ export const progress = createActionEntity(ActionTypes.BOOK_PROGRESS)
 export const loadBookProgress = (id: string) =>
   action(ActionTypes.LOAD_BOOK_PROGRESS, { id })
 
-export const session = createActionEntity(ActionTypes.SESSION)
-export const loadSession = () =>
-  action(ActionTypes.LOAD_SESSION)
+// export const session = createActionEntity(ActionTypes.SESSION)
+// export const loadSession = () =>
+//   action(ActionTypes.LOAD_SESSION)
 
 // define load actions handled in sagas
 export const LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS]
@@ -138,7 +138,7 @@ export function fetchShelf() {
 
 // load actions
 export const loadBooks2 = () => {
-  return createSagaAction(ActionTypes.BOOKS2, {
+  return createTriggerAction(ActionTypes.BOOKS2, {
     request: {
       url: 'books'
     },
@@ -148,12 +148,10 @@ export const loadBooks2 = () => {
   })
 }
 
-export const loadSession2 = () => {
-  return createSagaAction(ActionTypes.SESSION2, {
+export const loadSession = () => {
+  return createTriggerAction(ActionTypes.SESSION, {
     request: {
       url: 'auth'
-    },
-    entityKey: 'session',
-    parser: res => res.json
+    }
   })
 }

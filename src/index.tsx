@@ -22,6 +22,13 @@ store.runSaga(rootSaga)
 const renderApp = routes => {
   match({ history, routes }, (error, redirectLocation, renderProps) => {
     render(
+      <Root
+        store={store}
+        renderProps={renderProps}
+      />,
+      rootEle
+    )
+    /*render(
       <AppContainer>
         <Root
           store={store}
@@ -29,7 +36,7 @@ const renderApp = routes => {
           />
       </AppContainer>,
       rootEle
-    )
+    )*/
   })
 }
 

@@ -7,7 +7,6 @@ import $request from '../utils/network/request'
 
 const API_ROOT = getApiRoot()
 
-
 function* handleLoadReq(action: LoaderAction) {
   const { meta, payload } = action
   const { request } = payload
@@ -22,16 +21,16 @@ function* handleLoadReq(action: LoaderAction) {
       }
     })
 
-    yield put(flowActions.success({ response }, meta))
+    yield put(flowActions.success({ response, id: payload.id }, meta))
   } catch (error) {
-    yield put(flowActions.failure(error, meta))
+    yield put(flowActions.failure({ error, id: payload.id }, meta))
   }
 }
 
 export default function* watchAllLoadRequests2() {
   while (true) {
     const action: LoaderAction = yield take('*')
-    if (action.meta && action.meta.isSagaActions) {
+    if (action.meta && action.meta.isSagaTrigger) {
       yield call(handleLoadReq, action)
     }
   }

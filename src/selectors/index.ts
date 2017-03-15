@@ -3,7 +3,7 @@ import _ from 'lodash'
 import * as viewer from './viewer'
 
 export const session = state => {
-  return _.get(state, ['session'], {})
+  return _.get(state, 'session', {})
 }
 
 export * from './entityUtils'

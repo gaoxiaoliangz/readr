@@ -25,14 +25,14 @@ class App extends Component<Props, {}> {
   }
 
   componentDidMount() {
-    if (this.props.session.user.role !== 'visitor') {
+    if (this.props.session.role !== 'visitor') {
       this.props.fetchShelf()
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const userLoggedIn = this.props.session.user.role === 'visitor'
-      && nextProps.session.user.role !== 'visitor'
+    const userLoggedIn = this.props.session.role === 'visitor'
+      && nextProps.session.role !== 'visitor'
 
     if (userLoggedIn) {
       this.props.fetchShelf()
@@ -42,10 +42,11 @@ class App extends Component<Props, {}> {
   render() {
     let isAdmin = false
     let username = null
+    const { session } = this.props
 
-    if (this.props.session.user.role !== 'visitor') {
-      isAdmin = this.props.session.user.role === 'admin'
-      username = this.props.session.user.username
+    if (session.role !== 'visitor') {
+      isAdmin = session.role === 'admin'
+      username = session.username
     }
 
     const {bookShelf} = this.props
@@ -73,8 +74,8 @@ class App extends Component<Props, {}> {
 export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
-    session: state.session,
-    bookShelf: selectors.shelfBooks()(state)
+    bookShelf: selectors.shelfBooks()(state),
+    session: selectors.session(state)
   }),
   { fetchShelf, userLogout }
 )(App)

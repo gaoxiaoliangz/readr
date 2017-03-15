@@ -39,23 +39,23 @@ class AppHome extends Component<Props, IState> {
     this.props.loadBooks2()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.session.isFetching && !nextProps.session.isFetching) {
-      if (nextProps.session.user.role !== 'visitor') {
-        this.setState({
-          showRecentReading: true
-        })
-      }
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.session.isFetching && !nextProps.session.isFetching) {
+  //     if (nextProps.session.user.role !== 'visitor') {
+  //       this.setState({
+  //         showRecentReading: true
+  //       })
+  //     }
+  //   }
+  // }
 
   render() {
-    let { newestBooks, isBooksFetching } = this.props
+    let { newestBooks, isBooksFetching, session } = this.props
 
     return (
       <DocContainer bodyClass="home">
         {
-          this.props.session.user.role === 'visitor' && this.props.session.isFetching === false && (
+          session.role === 'visitor' && session.fetchStatus === 'loaded' && (
             <div styleName="hero-image">
               <Container>
                 <div styleName="logo">Readr</div>
@@ -82,7 +82,7 @@ function mapStateToProps(state, ownProps) {
   return {
     newestBooks: selectors.books(undefined, '1')(state),
     isBooksFetching: selectors.isPaginationFetching('books')(state),
-    session: state.session,
+    session: selectors.session(state)
   }
 }
 
