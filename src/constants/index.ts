@@ -16,9 +16,9 @@ export const ROLES = {
 
 export const FETCH_STATUS = {
   LOADING: 'loading',
-  NONE: 'NONE',
-  LOADED: 'LOADED',
-  FAILED: 'FAILED'
+  NONE: 'none',
+  LOADED: 'loaded',
+  FAILED: 'failed'
 }
 
 export const API_PREFIX = 'api'

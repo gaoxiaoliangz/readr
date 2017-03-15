@@ -7,10 +7,11 @@ import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../components/DocContainer'
 import helpers from '../helpers'
+import * as selectors from '../selectors'
 
 interface Props {
   notifications?: any
-  session?: any
+  session?: Session
   routing?: any
   userLogout: typeof userLogout
 }
@@ -23,7 +24,7 @@ class Console extends Component<Props, {}> {
   }
 
   redirectIfNotAdmin(props = this.props) {
-    if (props.session.user.role !== 'admin') {
+    if (props.session.role !== 'admin') {
       helpers.redirect('/')
     }
   }
@@ -33,7 +34,7 @@ class Console extends Component<Props, {}> {
   }
 
   componentWillReceiveProps(nextProps) {
-    const userRoleChanged = this.props.session.user.role !== nextProps.session.user.role
+    const userRoleChanged = this.props.session.role !== nextProps.session.role
 
     if (userRoleChanged) {
       this.redirectIfNotAdmin(nextProps)
@@ -41,8 +42,8 @@ class Console extends Component<Props, {}> {
   }
 
   render() {
-    let isAdmin = this.props.session.user.role === 'admin'
-    let username = this.props.session.user.username
+    let isAdmin = this.props.session.role === 'admin'
+    let username = this.props.session.username
     let pathname = this.props.routing.locationBeforeTransitions
       ? this.props.routing.locationBeforeTransitions.pathname
       : 'console'
@@ -78,7 +79,7 @@ class Console extends Component<Props, {}> {
 export default connect<{}, {}, {}>(
   state => ({
     notifications: state.components.notifications,
-    session: state.session,
+    session: selectors.session(state),
     routing: state.routing
   }),
   { sendNotification, userLogout }

@@ -77,6 +77,15 @@ interface LoaderAction {
 /**
  * Viewer components & data types
  */
+type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
+
+type Session = {
+  role: string
+  username: string
+  fetchStatus: FetchStatus
+  id: string
+}
+
 type TBookPage = {
   nodes: string[]
   meta?: {
