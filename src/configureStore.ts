@@ -41,7 +41,7 @@ export default function configureStore(cookies?) {
   const store = createStore(
     rootReducer,
     handleInitialState(),
-    applyMiddleware.apply(null, baseMiddlewares)
+    applyMiddleware(...baseMiddlewares)
   )
 
   if (module.hot) {
