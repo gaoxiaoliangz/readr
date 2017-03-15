@@ -4,7 +4,7 @@ import { routerReducer as routing } from 'react-router-redux'
 import { reducer as form } from 'better-redux-form'
 import components from './components'
 import pagination from './pagination'
-import { entities } from './entities'
+// import { entities } from './entities'
 import * as ActionTypes from '../constants/actionTypes'
 import { ROLES } from '../constants'
 import receiveData from './receiveData'
@@ -26,20 +26,20 @@ function errorMessage(state = [], action) {
   return state
 }
 
-// export function entities(state = {}, action) {
-//   if (action.response && action.response.entities) {
-//     return _.merge({}, state, action.response.entities)
-//   }
+export function entities(state = {}, action) {
+  if (action.response && action.response.entities) {
+    return _.merge({}, state, action.response.entities)
+  }
 
-//   if (action.type === ActionTypes.REMOVE_ENTITY) {
-//     const {name, id} = action
-//     return _.assign({}, state, {
-//       [name]: _.omit(state[name], [id])
-//     })
-//   }
+  if (action.type === ActionTypes.REMOVE_ENTITY) {
+    const {name, id} = action
+    return _.assign({}, state, {
+      [name]: _.omit(state[name], [id])
+    })
+  }
 
-//   return state
-// }
+  return state
+}
 
 const rootReducer = combineReducers({
   components,

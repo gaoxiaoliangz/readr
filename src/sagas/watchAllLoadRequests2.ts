@@ -62,10 +62,11 @@ function* handleLoadReq(action: LoaderAction) {
         cookie: _.isUndefined(request.cookie) ? request.injectedCookie : request.cookie
       }
     })
-    const dataS = schema
-      ? assignEntityStatus(normalizeEntity(response.json, schema), FETCH_STATUS.LOADED)
-      : { response }
-    yield put(flowActions.success(dataS, meta))
+    const payloadS = {
+      ...(schema ? assignEntityStatus(normalizeEntity(response.json, schema), FETCH_STATUS.LOADED) : undefined),
+      ...{ response }
+    }
+    yield put(flowActions.success(payloadS, meta))
   } catch (error) {
     console.error(error)
     const dataE = targetId ? assignEntityStatus(mockNormalizedData(schema.key, targetId), FETCH_STATUS.LOADING, error) : undefined
