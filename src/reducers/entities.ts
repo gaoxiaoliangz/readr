@@ -32,7 +32,7 @@ const normalizeEntity = (json, schema) => {
 export const entities = (state = {}, action: LoaderAction) => {
   const { payload, meta, type } = action
 
-  if (!payload || !payload.request || !meta || !meta.schema || !meta.types) {
+  if (!meta || !meta.schema || !meta.types) {
     return state
   }
 
