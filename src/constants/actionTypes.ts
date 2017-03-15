@@ -19,8 +19,6 @@ export const LOAD_USERS = createSagaTriggerActionType('LOAD_USERS')
 
 export const LOGOUT = createRequestTypes('revoke')
 export const USER_LOGOUT = createSagaTriggerActionType('USER_LOGOUT')
-// export const SESSION = createRequestTypes('SESSION')
-// export const LOAD_SESSION = createSagaTriggerActionType('LOAD_SESSION')
 
 export const BOOK_PROGRESS = createRequestTypes('book-progress')
 export const LOAD_BOOK_PROGRESS = createSagaTriggerActionType('LOAD_BOOK_PROGRESS')

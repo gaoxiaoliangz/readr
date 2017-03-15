@@ -1,7 +1,4 @@
-const REQUEST = 'REQUEST'
-const SUCCESS = 'SUCCESS'
-const FAILURE = 'FAILURE'
-const LOAD_CACHE = 'LOAD_CACHE'
+import _ from 'lodash'
 
 export const action = (type, payload = {}) => {
   return Object.assign({}, {
@@ -10,7 +7,7 @@ export const action = (type, payload = {}) => {
 }
 
 export const createRequestTypes = base => {
-  return [REQUEST, SUCCESS, FAILURE, LOAD_CACHE].reduce((acc, type) => {
+  return ['REQUEST', 'SUCCESS', 'FAILURE', 'LOAD_CACHE'].reduce((acc, type) => {
     acc[type] = `api/${base}/${type}`
     return acc
   }, {}) as RequestTypes
@@ -32,20 +29,20 @@ export const createActionEntity = (requestTypes: RequestTypes) => {
   }
 }
 
-export const createSagaActionTypes = name => {
+export const createSagaActionTypes = (name): SagaActionTypes => {
   return {
     ...createRequestTypes(name),
     ...{
-      trigger: createSagaTriggerActionType(name)
+      TRIGGER: createSagaTriggerActionType(name)
     }
   }
 }
 
-export const createTriggerAction = (types, options: CreateSagaActionOptions) => {
+export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaActionOptions) => {
   const { payload, meta, schema, id, request } = options
 
   return {
-    type: types.trigger,
+    type: types.TRIGGER,
     payload: {
       ...{
         request,
@@ -56,8 +53,7 @@ export const createTriggerAction = (types, options: CreateSagaActionOptions) => 
     meta: {
       ...{
         types,
-        schema,
-        isSagaTrigger: true
+        schema
       },
       ...meta
     }

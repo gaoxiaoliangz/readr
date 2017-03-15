@@ -3,11 +3,16 @@
  */
 type TNotification = 'success' | 'error' | 'warning' | 'ongoing'
 
-type RequestTypes = {
+interface RequestTypes {
   REQUEST: string
   SUCCESS: string
   FAILURE: string
+  // todo
   LOAD_CACHE: string
+}
+
+interface SagaActionTypes extends RequestTypes {
+  TRIGGER: string
 }
 
 interface ActionEntity {
@@ -63,7 +68,7 @@ interface LoaderAction {
   },
   meta: {
     schema?: any
-    types: RequestTypes
+    types: SagaActionTypes
     isSagaTrigger?: boolean
   }
 }

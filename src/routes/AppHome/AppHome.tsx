@@ -35,7 +35,7 @@ class AppHome extends Component<Props, IState> {
   }
 
   componentWillMount() {
-    this.props.loadBooks()
+    // this.props.loadBooks()
     this.props.loadBooks2()
   }
 

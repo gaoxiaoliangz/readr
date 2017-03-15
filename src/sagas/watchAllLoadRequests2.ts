@@ -1,4 +1,5 @@
-import { take, call, put } from 'redux-saga/effects'
+import { take, call, put, fork } from 'redux-saga/effects'
+import { takeEvery } from 'redux-saga'
 import urlJoin from 'url-join'
 import _ from 'lodash'
 import getApiRoot from '../helpers/getApiRoot'
@@ -27,11 +28,12 @@ function* handleLoadReq(action: LoaderAction) {
   }
 }
 
-export default function* watchAllLoadRequests2() {
-  while (true) {
-    const action: LoaderAction = yield take('*')
-    if (action.meta && action.meta.isSagaTrigger) {
-      yield call(handleLoadReq, action)
-    }
+function* filterActions(action: LoaderAction) {
+  if (action.meta && action.meta.types && action.meta.types.TRIGGER === action.type) {
+    yield call(handleLoadReq, action)
   }
+}
+
+export default function* watchAllLoadRequests2() {
+  yield takeEvery('*', filterActions)
 }

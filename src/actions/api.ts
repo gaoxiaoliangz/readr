@@ -142,8 +142,6 @@ export const loadBooks2 = () => {
     request: {
       url: 'books'
     },
-    // entityKey: 'books',
-    // parser: (res) => (res.json),
     schema: schemas.BOOK_ARRAY
   })
 }
