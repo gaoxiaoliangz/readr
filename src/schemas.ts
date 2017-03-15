@@ -1,47 +1,47 @@
-import { Schema, arrayOf, normalize, unionOf } from 'normalizr'
+import { schema } from 'normalizr'
 
-const author = new Schema('authors', {
+const author = new schema.Entity('authors', {}, {
   idAttribute: 'id'
 })
 
-const book = new Schema('books', {
-  idAttribute: 'id',
-  // authors: [author]
-})
+const book = new schema.Entity('books',
+  {
+    authors: [author]
+  },
+  { idAttribute: 'id' }
+)
 
-const bookContent = new Schema('bookContents', {
+const bookContent = new schema.Entity('bookContents', {}, {
   idAttribute: 'id'
 })
 
-const collection = new Schema('bookCollections', {
+const collection = new schema.Entity('bookCollections', {
+  items: [book]
+}, {
   idAttribute: 'id'
 })
 
-collection.define({
-  items: arrayOf(book)
-})
-
-const profile = new Schema('profiles', {
+const profile = new schema.Entity('profiles', {}, {
   idAttribute: 'id'
 })
 
-const user = new Schema('users', {
+const user = new schema.Entity('users', {}, {
   idAttribute: 'id'
 })
 
-const doubanBook = new Schema('doubanBooks', {
+const doubanBook = new schema.Entity('doubanBooks', {}, {
   idAttribute: 'id'
 })
 
-const shelfBook = new Schema('shelfBooks', {
+const shelfBook = new schema.Entity('shelfBooks', {}, {
   idAttribute: 'id'
 })
 
-const bookProgress = new Schema('bookProgress', {
+const bookProgress = new schema.Entity('bookProgress', {}, {
   idAttribute: 'bookId'
 })
 
-const matchedBooks = new Schema('books', {
+const matchedBooks = new schema.Entity('books', {}, {
   idAttribute: 'bookId'
 })
 
@@ -49,14 +49,14 @@ export default {
   BOOK: book,
   BOOK_CONTENT: bookContent,
   BOOK_PROGRESS: bookProgress,
-  BOOK_ARRAY: arrayOf(book),
-  DOUBAN_BOOK_SEARCH_RESULTS: { books: arrayOf(doubanBook) },
-  USER_ARRAY: arrayOf(user),
-  MATCHED_BOOK_ARRAY: arrayOf(matchedBooks),
+  BOOK_ARRAY: [book],
+  DOUBAN_BOOK_SEARCH_RESULTS: { books: [doubanBook] },
+  USER_ARRAY: [user],
+  MATCHED_BOOK_ARRAY: [matchedBooks],
   COLLECTION: collection,
-  COLLECTION_ARRAY: arrayOf(collection),
+  COLLECTION_ARRAY: [collection],
   PROFILE: profile,
   AUTHOR: author,
-  AUTHOR_ARRAY: arrayOf(author),
-  SHELF_BOOK_ARRAY: arrayOf(shelfBook)
+  AUTHOR_ARRAY: [author],
+  SHELF_BOOK_ARRAY: [shelfBook]
 }

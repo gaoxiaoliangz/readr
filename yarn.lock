@@ -5874,11 +5874,9 @@ normalize.css@^4.2.0:
   version "4.2.0"
   resolved "http://registry.npm.taobao.org/normalize.css/download/normalize.css-4.2.0.tgz#21d66cc557154d4379fd1e079ec7de58a379b099"
 
-normalizr@^2.0.1:
-  version "2.3.1"
-  resolved "http://registry.npm.taobao.org/normalizr/download/normalizr-2.3.1.tgz#ac12d771ce1fe6a43094c3d828caada4ed9a4540"
-  dependencies:
-    lodash "^4.17.2"
+normalizr@^3.2.2:
+  version "3.2.2"
+  resolved "http://registry.npm.taobao.org/normalizr/download/normalizr-3.2.2.tgz#542e915a260ca53279b76a63fb554185e9225f90"
 
 npm-cache-filename@~1.0.2:
   version "1.0.2"
