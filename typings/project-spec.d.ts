@@ -60,10 +60,11 @@ interface LoaderAction {
       json: any
       links?: any
     }
-    id?: string
+    entities?: any
+    targetId?: string
     request: ActionRequestObj & {
       injectedCookie?: any
-    },
+    }
     error?: any
   },
   meta: {
