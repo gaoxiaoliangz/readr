@@ -1,11 +1,5 @@
 import _ from 'lodash'
-
-const FETCH_STATUS = {
-  LOADING: 'loading',
-  NONE: 'NONE',
-  LOADED: 'LOADED',
-  FAILED: 'FAILED'
-}
+import { FETCH_STATUS } from '../constants'
 
 const receiveData = (types: RequestTypes, parser?) => {
   return (state = { data: {}, fetchStatus: FETCH_STATUS.NONE }, action) => {

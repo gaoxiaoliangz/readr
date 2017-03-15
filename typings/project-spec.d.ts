@@ -43,17 +43,18 @@ interface ActionRequestObj extends RequestConfig {
 type CreateSagaActionOptions = {
   payload?: any
   meta?: object
-  // parser?: (response: { json: any }) => any
   schema?: any
-  // entityKey?: string
-  // entityId?: string
   request: ActionRequestObj
   id?: string
 }
 
 interface LoaderAction {
+  type: string,
   payload: {
-    response?: any
+    response?: {
+      json: any
+      links?: any
+    }
     id?: string
     request: ActionRequestObj & {
       injectedCookie?: any
@@ -64,31 +65,6 @@ interface LoaderAction {
     types: RequestTypes
     isSagaActions?: boolean
   }
-}
-
-// interface RequestFlowAction extends LoaderAction {
-//   meta: 
-// }
-
-
-/**
- * App config file
- */
-interface AppConfig {
-  api: {
-    prefix: string
-  },
-  database: {
-    host: string,
-    name: string,
-    mongoStoreName: string
-  },
-  siteUrl: string,
-  siteName: string,
-  apiPort: number,
-  assetsPort: number,
-  pagesPort: number,
-  enableEntityCache: boolean
 }
 
 /**

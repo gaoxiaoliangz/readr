@@ -1,23 +1,16 @@
 import { take, call, put } from 'redux-saga/effects'
 import urlJoin from 'url-join'
 import _ from 'lodash'
-import { normalize } from 'normalizr'
-import humps from 'humps'
 import getApiRoot from '../helpers/getApiRoot'
 import { createActionEntity2 } from '../actions/utils'
 import $request from '../utils/network/request'
 
 const API_ROOT = getApiRoot()
 
-const parseEntity = (json, schema) => {
-  const camelizedJson = humps.camelizeKeys(json)
-  return normalize(camelizedJson, schema)
-}
 
 function* handleLoadReq(action: LoaderAction) {
   const { meta, payload } = action
   const { request } = payload
-  const { schema } = meta
   const flowActions = createActionEntity2(meta.types)
 
   yield put(flowActions.request(payload, meta))
@@ -28,15 +21,8 @@ function* handleLoadReq(action: LoaderAction) {
         cookie: _.isUndefined(request.cookie) ? request.injectedCookie : request.cookie
       }
     })
-    if (schema) {
-      response = parseEntity(response.json, schema)
-    }
-    yield put(flowActions.success({ response }, {
-      ...{
-        isNormalized: Boolean(schema)
-      },
-      ...meta
-    }))
+
+    yield put(flowActions.success({ response }, meta))
   } catch (error) {
     yield put(flowActions.failure(error, meta))
   }
