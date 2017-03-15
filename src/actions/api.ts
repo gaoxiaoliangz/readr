@@ -31,9 +31,6 @@ export const progress = createActionEntity(ActionTypes.BOOK_PROGRESS)
 export const loadBookProgress = (id: string) =>
   action(ActionTypes.LOAD_BOOK_PROGRESS, { id })
 
-// export const session = createActionEntity(ActionTypes.SESSION)
-// export const loadSession = () =>
-//   action(ActionTypes.LOAD_SESSION)
 
 // define load actions handled in sagas
 export const LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS]
@@ -101,27 +98,6 @@ export function fetchProfile() {
     schema: schemas.PROFILE
   }
   return { CALL_API }
-}
-
-export function userAuth(userSession?): Object {
-  // 服务端渲染 session
-  if (userSession) {
-    return {
-      SERVER_STORE: {
-        body: {
-          response: userSession,
-          type: ActionTypes.AUTH.SUCCESS
-        }
-      }
-    }
-  }
-
-  return {
-    CALL_API: {
-      types: [ActionTypes.AUTH.REQUEST, ActionTypes.AUTH.SUCCESS, ActionTypes.AUTH.FAILURE],
-      endpoint: 'auth'
-    }
-  }
 }
 
 export function fetchShelf() {

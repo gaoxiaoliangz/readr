@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container } from '../components/layout'
 import ConsoleBranding from '../components/ConsoleBranding'
-import { userAuth, sendNotification, userLogout } from '../actions'
+import { sendNotification, userLogout } from '../actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../components/DocContainer'
@@ -10,7 +10,6 @@ import helpers from '../helpers'
 
 interface Props {
   notifications?: any
-  userAuth?: any
   session?: any
   routing?: any
   userLogout: typeof userLogout
@@ -82,5 +81,5 @@ export default connect<{}, {}, {}>(
     session: state.session,
     routing: state.routing
   }),
-  { sendNotification, userAuth, userLogout }
+  { sendNotification, userLogout }
 )(Console)
