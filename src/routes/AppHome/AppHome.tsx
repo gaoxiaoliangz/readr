@@ -80,9 +80,10 @@ class AppHome extends Component<Props, IState> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: selectors.books(undefined, '1')(state),
+    // newestBooks: selectors.books(undefined, '1')(state),
     isBooksFetching: selectors.isPaginationFetching('books')(state),
-    session: selectors.session(state)
+    session: selectors.session(state),
+    newestBooks: selectors.defaultBooks(state)
   }
 }
 
