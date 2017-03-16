@@ -56,22 +56,26 @@ type CreateSagaActionOptions = {
 interface LoaderAction {
   type: string,
   payload: {
+    request: ActionRequestObj & {
+      injectedCookie?: any
+    }
     response?: {
       json: any
       links?: any
     }
-    entities?: any
-    targetId?: string
-    request: ActionRequestObj & {
-      injectedCookie?: any
+    normalized?: {
+      entities: any
+      result: string[]
+      links?: any
     }
-    error?: any
-  },
+  }
   meta: {
+    targetId?: string
     schema?: any
     types: SagaActionTypes
     isSagaTrigger?: boolean
   }
+  error: boolean
 }
 
 /**

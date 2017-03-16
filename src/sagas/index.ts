@@ -3,8 +3,7 @@ import _ from 'lodash'
 import watchAllLoadRequests from './watchAllLoadRequests'
 import watchLoginFlow from './watchLoginFlow'
 import watchViewer from './watchViewer'
-// import watchSession from './watchSession'
-import watchAllLoadRequests2 from './watchAllLoadRequests2'
+import watchLoadTrigger from './watchLoadTrigger'
 
 export default function* rootSaga() {
   yield [
@@ -12,6 +11,6 @@ export default function* rootSaga() {
     fork(watchViewer),
     // fork(watchSession),
     fork(watchAllLoadRequests),
-    fork(watchAllLoadRequests2)
+    fork(watchLoadTrigger)
   ]
 }
