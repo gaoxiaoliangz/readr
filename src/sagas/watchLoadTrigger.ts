@@ -28,7 +28,14 @@ function* handleLoad(action: LoaderAction) {
       }
     })
     if (schema) {
-      const normalized = expandEntities(normalizeJSON(response.json, schema).entities, FETCH_STATUS.LOADED)
+      let normalized = normalizeJSON(response.json, schema)
+      const entities = expandEntities(normalized.entities, FETCH_STATUS.LOADED)
+      normalized = {
+        ...normalized,
+        ...{
+          ...{ entities }
+        }
+      }
       yield put(flowActions.success({ response, normalized }, meta))
     } else {
       yield put(flowActions.success({ response }, meta))

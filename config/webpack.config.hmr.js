@@ -55,7 +55,7 @@ const config = ({ port }) => ({
       manifest: dllVendorManifest
     })
   ],
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       rules.img(),
@@ -63,8 +63,8 @@ const config = ({ port }) => ({
       rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: true }),
       rules.css({ extract: true, global: false, isomorphic: false }),
       // rules.lint(),
-      rules.js(),
-      rules.ts({ officialLoader: true }),
+      // rules.js(),
+      rules.ts({ officialLoader: false }),
     ]
   },
   resolve: vars.resolve

@@ -1,9 +1,9 @@
 import paginate from './paginate'
 import { combineReducers } from 'redux'
-import * as ActionTypes from '../constants/actionTypes'
+import * as ActionTypes from '../../constants/actionTypes'
 import _ from 'lodash'
 import { computePaginationState, DEFAULT_PAGINATION_STATE } from './paginate'
-import { Pagination } from '../middleware/api'
+import { Pagination } from '../../middleware/api'
 
 const DEFAULT_KEY = 'default'
 const SEARCH_KEY = 'search'

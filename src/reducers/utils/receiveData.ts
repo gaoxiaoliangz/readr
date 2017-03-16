@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { FETCH_STATUS } from '../constants'
+import { FETCH_STATUS } from '../../constants'
 
 const receiveData = (types: RequestTypes, defaultData = {}, parser?) => {
   const _defaultData = {
@@ -37,7 +37,7 @@ const receiveData = (types: RequestTypes, defaultData = {}, parser?) => {
           ...state,
           ...{
             fetchStatus: FETCH_STATUS.FAILED,
-            error: payload.error || new Error('Unknown error occurred!')
+            error: payload || new Error('Unknown error occurred!')
           },
         }
 

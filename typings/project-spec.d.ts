@@ -19,6 +19,7 @@ interface ActionEntity {
   request: any
   success: any
   failure: any
+  // todo
   loadCache: any
 }
 
@@ -75,7 +76,7 @@ interface LoaderAction {
     types: SagaActionTypes
     isSagaTrigger?: boolean
   }
-  error: boolean
+  error?: boolean
 }
 
 /**

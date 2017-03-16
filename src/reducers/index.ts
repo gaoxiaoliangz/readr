@@ -3,11 +3,12 @@ import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import { reducer as form } from 'better-redux-form'
 import components from './components'
-import pagination from './pagination'
+// import pagination from './pagination'
 import { entities } from './entities'
 import * as ActionTypes from '../constants/actionTypes'
 import { ROLES } from '../constants'
-import receiveData from './receiveData'
+import receiveData from './utils/receiveData'
+import paginate from './utils/paginate'
 
 type Action = {
   payload?: any
@@ -19,7 +20,7 @@ function errorMessage(state = [], action) {
   const { error } = action
 
   if (error) {
-    const message = _.get(action, 'error.message') || _.get(action, 'payload.error.message', 'Unknown error occurred!')
+    const message = _.get(action, 'error.message') || _.get(action, 'payload.message', 'Unknown error occurred!')
     return [...state, message]
   }
 
@@ -47,7 +48,9 @@ const rootReducer = combineReducers({
   errorMessage,
   routing,
   form,
-  pagination,
+  pagination: combineReducers({
+    books: paginate(ActionTypes.BOOKS2)
+  }),
   session: receiveData(ActionTypes.SESSION, {
     role: ROLES.VISITOR
   })

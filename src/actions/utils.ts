@@ -45,14 +45,14 @@ export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaA
     type: types.TRIGGER,
     payload: {
       ...{
-        request,
-        targetId
+        request
       },
       ...payload
     },
     meta: {
       ...{
         types,
+        targetId,
         schema
       },
       ...meta
