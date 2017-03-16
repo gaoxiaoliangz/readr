@@ -79,6 +79,18 @@ interface LoaderAction {
   error?: boolean
 }
 
+interface Pagination {
+  pages: {}
+  next: Link
+  last: Link
+  fetchStatus: FetchStatus
+}
+
+interface Link {
+  page: string
+  url: string
+}
+
 /**
  * Viewer components & data types
  */

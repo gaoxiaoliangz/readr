@@ -11,13 +11,14 @@ import { Container } from '../../components/layout'
 import styles from './AppHome.scss'
 
 interface Props {
-  loadBooks: typeof loadBooks
-  fetchCollections: any
+  // loadBooks: typeof loadBooks
+  // fetchCollections: any
   session: any
-  newestBooks: any
+  // newestBooks: any
   sendNotification: any
-  isBooksFetching: boolean
+  // isBooksFetching: boolean
   loadBooks2: typeof loadBooks2
+  bookList: Pagination
 }
 
 interface IState {
@@ -50,7 +51,7 @@ class AppHome extends Component<Props, IState> {
   // }
 
   render() {
-    let { newestBooks, isBooksFetching, session } = this.props
+    let { bookList, session } = this.props
 
     return (
       <DocContainer bodyClass="home">
@@ -67,10 +68,11 @@ class AppHome extends Component<Props, IState> {
         }
         <Container>
           <BookListSection
-            bookEntities={newestBooks.slice(0, 6)}
+            // TODO: start with 0
+            bookEntities={_.get(bookList, ['pages', '1'], []).slice(0, 6)}
             title="新书速递"
             moreLink="/browse"
-            isFetching={isBooksFetching}
+            isFetching={bookList.fetchStatus === 'loading'}
             />
         </Container>
       </DocContainer>
@@ -79,12 +81,13 @@ class AppHome extends Component<Props, IState> {
 }
 
 function mapStateToProps(state, ownProps) {
+  console.log(selectors.bookList);
+  
   return {
     // newestBooks: selectors.books(undefined, '1')(state),
-    isBooksFetching: selectors.isPaginationFetching('books')(state),
+    // isBooksFetching: selectors.isPaginationFetching('books')(state),
     session: selectors.session(state),
-    newestBooks: [],
-    newestBooks2: selectors.defaultBooks(state)
+    bookList: selectors.bookList(state)
   }
 }
 
