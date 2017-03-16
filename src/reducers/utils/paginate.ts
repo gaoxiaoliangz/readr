@@ -3,24 +3,29 @@ import { FETCH_STATUS } from '../../constants'
 
 export const DEFAULT_PAGINATION_STATE = {
   fetchStatus: FETCH_STATUS.NONE,
-  ids: []
+  pages: {}
 }
 
 export function computePaginationState(state, action: LoaderAction) {
-  // const currentPage = action.response._next
-  //   ? action.response._next.page - 1
-  //   : (action.response._last && action.response._last.page || 1)
+  // 如果不使用 null 在外层的 merge 会忽略 undefined 从而导致一些边缘问题
+  const next = _.get(action, 'payload.response.links.next', null)
+  const last = _.get(action, 'payload.response.links.last', null)
 
-  // const pages = _.assign({}, {
-  //   [currentPage]: action.response.result
-  // })
+  const currentPage = next
+    ? next.page - 1
+    : (last && last.page || 1)
+
+  const pages = _.assign({}, {
+    [currentPage]: action.payload.normalized.result
+  })
 
   return _.assign({}, state, {
     fetchStatus: FETCH_STATUS.LOADED,
-    ids: _.union(state.ids, action.payload.normalized.result),
-    // 如果不使用 null 在外层的 merge 会忽略 undefined 从而导致一些边缘问题
-    next: _.get(action, 'payload.normalized.links.next', null),
-    last: _.get(action, 'payload.normalized.links.last', null)
+    // ids: _.union(state.ids, action.payload.normalized.result),
+    // if pages not fetched linerly things might go wrong
+    pages,
+    next,
+    last
   })
 }
 

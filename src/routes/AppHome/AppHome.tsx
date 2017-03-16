@@ -83,7 +83,8 @@ function mapStateToProps(state, ownProps) {
     // newestBooks: selectors.books(undefined, '1')(state),
     isBooksFetching: selectors.isPaginationFetching('books')(state),
     session: selectors.session(state),
-    newestBooks: selectors.defaultBooks(state)
+    newestBooks: [],
+    newestBooks2: selectors.defaultBooks(state)
   }
 }
 
