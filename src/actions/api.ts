@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import utils from '../utils'
-import * as webAPI from '../webAPI/apifns'
 import schemas from '../schemas'
 import { CALL_API_OBJ } from '../middleware/api'
 import { DOUBAN_API_ROOT } from '../constants'
