@@ -12,6 +12,11 @@ export const bookList = pagedEntities({
   paginationName: 'books'
 })
 
+export const shelf = pagedEntities({
+  schema: schemas.SHELF_BOOK_ARRAY,
+  paginationName: 'bookShelves'
+})
+
 export * from './entityUtils'
 export * from './entities'
 export { form, viewer }

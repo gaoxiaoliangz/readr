@@ -4,9 +4,10 @@ import { sendNotification, loadProfile } from '../../actions'
 import _ from 'lodash'
 import PreferenceList from './components/PreferenceList'
 import DocContainer from '../../components/DocContainer'
+import * as selectors from '../../selectors'
 
 interface IAllProps {
-  fetchProfile?: any
+  loadProfile?: typeof loadProfile
   profile?: any
 }
 
@@ -23,11 +24,8 @@ class Preference extends Component<IAllProps, IState> {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchProfile()
-  }
-
-  componentWillReceiveProps(nextProps) {
+  componentWillMount() {
+    this.props.loadProfile()
   }
 
   render() {
@@ -46,7 +44,7 @@ class Preference extends Component<IAllProps, IState> {
 export default connect(
   state => {
     return {
-      profile: _.get(state.payloads, 'profile', {})
+      profile: selectors.profile(state)
     }
   },
   { sendNotification, loadProfile }

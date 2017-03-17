@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { fetchShelf, userLogout } from '../actions'
+import { loadShelf, userLogout } from '../actions'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 
 interface Props {
-  fetchShelf: any
-  session: any
-  bookShelf: any
+  loadShelf: typeof loadShelf
+  session: Session
+  bookShelf: SelectedPagination
   userLogout: typeof userLogout
 }
 
@@ -26,7 +26,7 @@ class App extends Component<Props, {}> {
 
   componentDidMount() {
     if (this.props.session.role !== 'visitor') {
-      this.props.fetchShelf()
+      this.props.loadShelf()
     }
   }
 
@@ -35,7 +35,7 @@ class App extends Component<Props, {}> {
       && nextProps.session.role !== 'visitor'
 
     if (userLoggedIn) {
-      this.props.fetchShelf()
+      this.props.loadShelf()
     }
   }
 
@@ -50,7 +50,7 @@ class App extends Component<Props, {}> {
     }
 
     const {bookShelf} = this.props
-    const bookShelfList = bookShelf
+    const bookShelfList = _.get(bookShelf, ['pages', '1'], [])
       .map(book => ({
         title: book.title,
         id: book.id
@@ -74,8 +74,8 @@ class App extends Component<Props, {}> {
 export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
-    bookShelf: selectors.shelfBooks()(state),
+    bookShelf: selectors.shelf(state),
     session: selectors.session(state)
   }),
-  { fetchShelf, userLogout }
+  { loadShelf, userLogout }
 )(App)

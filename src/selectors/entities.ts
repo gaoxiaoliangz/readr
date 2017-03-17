@@ -17,11 +17,11 @@ export const authors = key => pagedEntities({
   paginationKey: key
 })
 
-export const shelfBooks = (key?) => pagedEntities({
-  entitiesName: 'shelfBooks',
-  paginationName: 'bookShelves',
-  paginationKey: key
-})
+// export const shelfBooks = (key?) => pagedEntities({
+//   entitiesName: 'shelfBooks',
+//   paginationName: 'bookShelves',
+//   paginationKey: key
+// })
 
 export const books = (key?, page?) => pagedEntities({
   entitiesName: 'books',

@@ -1,33 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { fetchShelf } from '../../actions'
+import { loadShelf } from '../../actions'
 import BookList from '../../components/BookList'
 import Container from '../../components/Container'
 import { Tab, Tabs } from '../../components/Tab'
 import * as selectors from '../../selectors'
 
 interface IProps {
-  shelf?: any
-  fetchShelf?: any
+  shelf?: SelectedPagination
+  loadShelf?: typeof loadShelf
 }
 
 class Shelf extends Component<IProps, {}> {
-
-  static fetchData({store, params}) {
-    return store.dispatch(fetchShelf())
-  }
 
   constructor(props) {
     super(props)
   }
 
   componentWillMount() {
-    this.props.fetchShelf()
+    this.props.loadShelf()
   }
 
   render() {
-    let bookList = this.props.shelf
+    const bookList = _.get(this.props.shelf, ['pages', '1'], [])
 
     return (
       <Container>
@@ -46,11 +42,11 @@ class Shelf extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    shelf: selectors.shelfBooks()(state)
+    shelf: selectors.shelf(state)
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchShelf }
+  { loadShelf }
 )(Shelf as any)

@@ -102,9 +102,10 @@ interface SelectedEntity {
  * Viewer components & data types
  */
 type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
+type Roles = 'admin' | 'user' | 'visitor'
 
 type Session = {
-  role: string
+  role: Roles
   username: string
   fetchStatus: FetchStatus
   id: string
