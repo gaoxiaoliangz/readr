@@ -1,13 +1,8 @@
 import _ from 'lodash'
 
-export const action = (type, payload = {}) => {
-  return Object.assign({}, {
-    type
-  }, payload)
-}
-
+// action types
 export const createRequestTypes = base => {
-  return ['REQUEST', 'SUCCESS', 'FAILURE', 'LOAD_CACHE'].reduce((acc, type) => {
+  return ['REQUEST', 'SUCCESS', 'FAILURE'].reduce((acc, type) => {
     acc[type] = `api/${base}/${type}`
     return acc
   }, {}) as RequestTypes
@@ -17,17 +12,7 @@ export const createComponentActionType = (name, operation) =>
   `components/${name}/${operation}`
 
 export const createSagaTriggerActionType = (operation: string) =>
-  `saga-triggers/${operation}/LOAD`
-
-export const createActionEntity = (requestTypes: RequestTypes) => {
-  return {
-    request: (payload?: Object) => action(requestTypes.REQUEST, payload),
-    success: (response?, payload?: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload)),
-    // TODO
-    loadCache: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload, { loadedFromCache: true })),
-    failure: (error, payload?: Object) => action(requestTypes.FAILURE, Object.assign({}, { error }, payload)),
-  }
-}
+  `saga-triggers/${operation}/TRIGGER`
 
 export const createSagaActionTypes = (name): SagaActionTypes => {
   return {
@@ -38,6 +23,7 @@ export const createSagaActionTypes = (name): SagaActionTypes => {
   }
 }
 
+// action creator helpers
 export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaActionOptions): LoaderAction => {
   const { payload, meta, schema, targetId, request } = options
 
@@ -60,7 +46,7 @@ export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaA
   }
 }
 
-export const createActionEntity2 = (types) => {
+export const createActionEntity = (types) => {
   return {
     request: (payload?, meta?: object) => {
       return {

@@ -3,7 +3,7 @@ import { takeEvery } from 'redux-saga'
 import urlJoin from 'url-join'
 import _ from 'lodash'
 import getApiRoot from '../helpers/getApiRoot'
-import { createActionEntity2 } from '../actions/utils'
+import { createActionEntity } from '../actions/utils'
 import $request from '../utils/network/request'
 import { FETCH_STATUS } from '../constants'
 import { expandEntities, normalizeJSON } from '../utils/entity'
@@ -14,7 +14,7 @@ function* handleLoad(action: LoaderAction) {
   const { meta, payload } = action
   const { request } = payload
   const { schema } = meta
-  const flowActions = createActionEntity2(meta.types)
+  const flowActions = createActionEntity(meta.types)
 
   // handle request
   yield put(flowActions.request(payload, meta))

@@ -1,34 +1,11 @@
 import _ from 'lodash'
-import utils from '../utils'
 import schemas from '../schemas'
-import { CALL_API_OBJ } from '../middleware/api'
 import { DOUBAN_API_ROOT } from '../constants'
-import { createActionEntity, action, createTriggerAction } from './utils'
+import { createTriggerAction } from './utils'
 import * as ActionTypes from '../constants/actionTypes'
 
 export const removeEntity = (name: string, id: string) =>
   ({ type: ActionTypes.REMOVE_ENTITY, name, id })
-
-// export const book = createActionEntity(ActionTypes.BOOK)
-// export const loadBook = (id: string) => action(ActionTypes.LOAD_BOOK, { id })
-
-// export const bookContent = createActionEntity(ActionTypes.BOOK_CONTENT)
-// export const loadBookContent = (id: string) => action(ActionTypes.LOAD_BOOK_CONTENT, { id })
-
-// export const books = createActionEntity(ActionTypes.BOOKS)
-// export const loadBooks = (options?: webAPI.FetchBooksOptions, key?: string) =>
-//   action(ActionTypes.LOAD_BOOKS, { options, key })
-
-// export const users = createActionEntity(ActionTypes.USERS)
-// export const loadUsers = (options?: webAPI.FetchUsersOptions) =>
-//   action(ActionTypes.LOAD_USERS, { options })
-
-// export const logout = createActionEntity(ActionTypes.LOGOUT)
-
-// define load actions handled in sagas
-// export const LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS]
-
-
 
 // load actions
 // books

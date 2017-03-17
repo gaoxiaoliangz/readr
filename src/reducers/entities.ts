@@ -1,8 +1,16 @@
 import _ from 'lodash'
 import { expandEntities, mockEntity } from '../utils/entity'
-import { FETCH_STATUS } from '../constants'
+import { FETCH_STATUS, ACTION_TYPES } from '../constants'
 
 export const entities = (state = {}, action: LoaderAction) => {
+  // TODO
+  // if (action.type === ACTION_TYPES.REMOVE_ENTITY) {
+  //   const {name, id} = action
+  //   return _.assign({}, state, {
+  //     [name]: _.omit(state[name], [id])
+  //   })
+  // }
+
   const { payload, meta, type } = action
 
   if (!meta || !meta.schema || !meta.types) {

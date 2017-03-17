@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
-import { api, cache, modifyResponse, injectCookie, handleServerStore, logActionTypes } from './middleware'
+import { cache, modifyResponse, injectCookie, handleServerStore, logActionTypes } from './middleware'
 import handleInitialState from './handleInitialState'
 import createLogger from 'redux-logger'
 import createSagaMiddleware, { END } from 'redux-saga'
@@ -13,9 +13,8 @@ export default function configureStore(cookies?) {
   const baseMiddlewares = [
     injectCookie(cookies),
     sagaMiddleware,
-    api,
     cache,
-    modifyResponse,
+    // modifyResponse,
     thunk
   ]
 

@@ -7,8 +7,6 @@ interface RequestTypes {
   REQUEST: string
   SUCCESS: string
   FAILURE: string
-  // todo
-  LOAD_CACHE: string
 }
 
 interface SagaActionTypes extends RequestTypes {
