@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container } from '../components/layout'
 import ConsoleBranding from '../components/ConsoleBranding'
-import { sendNotification, userLogout } from '../actions'
+import { sendNotification, logout } from '../actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../components/DocContainer'
@@ -13,7 +13,7 @@ interface Props {
   notifications?: any
   session?: Session
   routing?: any
-  userLogout: typeof userLogout
+  logout: typeof logout
 }
 
 class Console extends Component<Props, {}> {
@@ -30,7 +30,7 @@ class Console extends Component<Props, {}> {
   }
 
   handleLogout() {
-    this.props.userLogout()
+    this.props.logout()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,5 +82,5 @@ export default connect<{}, {}, {}>(
     session: selectors.session(state),
     routing: state.routing
   }),
-  { sendNotification, userLogout }
+  { sendNotification, logout }
 )(Console)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from '../../components/form'
-import { fetchCollection, sendNotification } from '../../actions'
+import { loadCollection, sendNotification } from '../../actions'
 import BookList from '../../components/BookListSection'
 import { Container } from '../../components/layout'
 import CSSModules from 'react-css-modules'
@@ -9,10 +9,10 @@ const styles = require('./CollectionDetail.css')
 
 interface Props {
   name: string
-  fetchCollection: any
+  loadCollection: typeof loadCollection
   params: any
   bookCollection: any
-  sendNotification: any
+  sendNotification: typeof sendNotification
 }
 
 @CSSModules(styles)
@@ -22,8 +22,8 @@ class CollectionDetail extends Component<Props, {}> {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.fetchCollection(this.props.params.id)
+  componentWillMount() {
+    this.props.loadCollection(this.props.params.id)
   }
 
   render() {
@@ -58,5 +58,5 @@ export default connect(
   (state, ownProps: any) => {
     return { bookCollection: state.entities.bookCollections[ownProps.params.id] }
   },
-  { fetchCollection, sendNotification }
+  { loadCollection, sendNotification }
 )(CollectionDetail as any)

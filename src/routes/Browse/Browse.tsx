@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
-import { loadBooks, fetchCollections } from '../../actions'
+import { loadBooks } from '../../actions'
 import Container from '../../components/Container'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
@@ -10,9 +10,6 @@ import CSSModules from 'react-css-modules'
 import styles from './Browse.scss'
 
 interface Props {
-  newestBooks: any
-  nextPage: number
-  isBooksFetching: boolean
   bookList: SelectedPagination
   loadBooks: typeof loadBooks
 }
@@ -25,7 +22,6 @@ class Browse extends Component<Props, {}> {
   }
 
   loadMore(page = 1) {
-    // this.props.loadBooks({ page }, 'browse')
     this.props.loadBooks(page)
   }
 
@@ -34,8 +30,9 @@ class Browse extends Component<Props, {}> {
   }
 
   render() {
-    const { isBooksFetching, bookList } = this.props
+    const { bookList } = this.props
     const nextPage = _.get(bookList, 'next.page', 0)
+    const isBooksFetching = bookList.fetchStatus === 'loading'
 
     const flattenPages = (pages) => {
       return _.reduce(pages, (a: any[], b) => {
@@ -69,14 +66,11 @@ class Browse extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: selectors.books('browse')(state),
-    isBooksFetching: selectors.isPaginationFetching('books', 'browse')(state),
-    nextPage: selectors.nextPage('books', 'browse')(state),
     bookList: selectors.bookList(state)
   }
 }
 
 export default connect(
   mapStateToProps,
-  { loadBooks, fetchCollections }
+  { loadBooks }
 )(Browse)

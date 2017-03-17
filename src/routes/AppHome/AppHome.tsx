@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
-import { fetchCollections, sendNotification, loadBooks } from '../../actions'
+import { sendNotification, loadBooks } from '../../actions'
 import * as selectors from '../../selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../components/DocContainer'
@@ -63,7 +63,6 @@ class AppHome extends Component<Props, IState> {
         }
         <Container>
           <BookListSection
-            // TODO: start with 0
             bookEntities={_.get(bookList, ['pages', '1'], []).slice(0, 6)}
             title="新书速递"
             moreLink="/browse"
@@ -77,8 +76,6 @@ class AppHome extends Component<Props, IState> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    // newestBooks: selectors.books(undefined, '1')(state),
-    // isBooksFetching: selectors.isPaginationFetching('books')(state),
     session: selectors.session(state),
     bookList: selectors.bookList(state)
   }
@@ -86,5 +83,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, fetchCollections, sendNotification }
+  { loadBooks, sendNotification }
 )(AppHome)

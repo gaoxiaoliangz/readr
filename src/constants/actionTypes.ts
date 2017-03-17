@@ -17,16 +17,14 @@ export const REMOVE_ENTITY = 'REMOVE_ENTITY'
 // export const USERS = createRequestTypes('users')
 // export const LOAD_USERS = createSagaTriggerActionType('LOAD_USERS')
 
-export const LOGOUT = createRequestTypes('revoke')
-export const USER_LOGOUT = createSagaTriggerActionType('USER_LOGOUT')
+// export const LOGOUT = createRequestTypes('revoke')
 
-export const BOOK_PROGRESS = createRequestTypes('book-progress')
-export const LOAD_BOOK_PROGRESS = createSagaTriggerActionType('LOAD_BOOK_PROGRESS')
+// export const LOAD_BOOK_PROGRESS = createSagaTriggerActionType('LOAD_BOOK_PROGRESS')
 
-export const AUTHORS = createRequestTypes('authors')
-export const COLLECTIONS = createRequestTypes('collections')
-export const COLLECTION = createRequestTypes('collection')
-export const DOUBAN_BOOKS = createRequestTypes('douban-books')
+// export const AUTHORS = createRequestTypes('authors')
+// export const COLLECTIONS = createRequestTypes('collections')
+// export const COLLECTION = createRequestTypes('collection')
+
 // export const AUTH = createRequestTypes('auth')
 // export const SHELF = createRequestTypes('shelf')
 
@@ -38,6 +36,13 @@ export const SESSION = createSagaActionTypes('session')
 export const PROFILE = createSagaActionTypes('profile')
 export const SHELF = createSagaActionTypes('shelf')
 export const USERS = createSagaActionTypes('users')
+export const AUTHORS = createSagaActionTypes('authors')
+export const COLLECTIONS = createSagaActionTypes('collections')
+export const COLLECTION = createSagaActionTypes('collection')
+export const BOOK_PROGRESS = createSagaActionTypes('book-progress')
+export const USER_LOGOUT = createSagaActionTypes('USER_LOGOUT')
+
+export const DOUBAN_BOOKS = createSagaActionTypes('douban-books')
 
 /**
  * components

@@ -6,7 +6,7 @@ import webAPI from '../webAPI'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 import { ROLES } from '../constants'
-import { fetchEntity } from './utils'
+// import { fetchEntity } from './utils'
 import helpers from '../helpers'
 import * as viewerUtils from '../routes/Viewer/Viewer.utils'
 import utils from '../utils'
@@ -14,7 +14,7 @@ import utils from '../utils'
 const DEFAULT_PAGE_HEIGHT = 900
 const DEFAULT_FONT_SIZE = 16
 
-const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
+// const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
 
 function* setViewer(bookId, config: ViewerConfig = {}) {
   const viewerWidth = utils.getScreenInfo().view.width
@@ -106,25 +106,25 @@ function* watchCalcBook() {
   }
 }
 
-function* watchProgressOperations() {
-  while (true) {
-    const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
-    const session = yield select(selectors.session)
-    const userRole = _.get(session, 'role')
+// function* watchProgressOperations() {
+//   while (true) {
+//     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
+//     const session = yield select(selectors.session)
+//     const userRole = _.get(session, 'role')
 
-    if (userRole !== ROLES.VISITOR) {
-      if (action.type === ACTION_TYPES.LOAD_BOOK_PROGRESS) {
-        yield call(fetchBookProgress, { id: action.id })
-      }
+//     if (userRole !== ROLES.VISITOR) {
+//       if (action.type === ACTION_TYPES.LOAD_BOOK_PROGRESS) {
+//         yield call(fetchBookProgress, { id: action.id })
+//       }
 
-      if (action.type === ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE) {
-        yield updateProgress(action.id, action.percentage)
-      }
-    } else {
-      helpers.print('Not logged in, progress will not be fetched!')
-    }
-  }
-}
+//       if (action.type === ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE) {
+//         yield updateProgress(action.id, action.percentage)
+//       }
+//     } else {
+//       helpers.print('Not logged in, progress will not be fetched!')
+//     }
+//   }
+// }
 
 function* jumpTo(action) {
   const { percentage } = action
@@ -172,7 +172,7 @@ function* initializeViewer() {
 
 export default function* watchViewer() {
   yield [
-    fork(watchProgressOperations),
+    // fork(watchProgressOperations),
     fork(watchCalcBook),
     fork(watchInitViewer),
     fork(watchJumpRequest),

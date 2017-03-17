@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCollections, sendNotification, loadProfile } from '../../actions'
+import { sendNotification, loadProfile } from '../../actions'
 import { Button } from '../../components/form'
 import { Tab, Tabs } from '../../components/Tab'
 import { Container } from '../../components/layout'
@@ -10,8 +10,6 @@ import * as selectors from '../../selectors'
 import styles from './Profile.scss'
 
 interface IProps {
-  fetchBooks?: any
-  newestBooks?: any
   loadProfile?: typeof loadProfile
   sendNotification?: any
   profile?: any
@@ -57,17 +55,14 @@ class Profile extends Component<IProps, {}> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const userId = selectors.sessionUserId(state)
+  // const userId = selectors.sessionUserId(state)
 
   return {
-    newestBooks: state.pagination.books.newest
-      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
-      : [],
     profile: selectors.profile(state)
   }
 }
 
 export default connect(
   mapStateToProps,
-  { sendNotification, fetchCollections, loadProfile }
+  { sendNotification, loadProfile }
 )(Profile as any)
