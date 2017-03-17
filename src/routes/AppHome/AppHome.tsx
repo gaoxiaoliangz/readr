@@ -81,8 +81,6 @@ class AppHome extends Component<Props, IState> {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log(selectors.bookList);
-  
   return {
     // newestBooks: selectors.books(undefined, '1')(state),
     // isBooksFetching: selectors.isPaginationFetching('books')(state),

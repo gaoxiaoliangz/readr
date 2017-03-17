@@ -113,10 +113,13 @@ export function fetchShelf() {
 }
 
 // load actions
-export const loadBooks2 = () => {
+export const loadBooks2 = (page = 1) => {
   return createTriggerAction(ActionTypes.BOOKS2, {
     request: {
-      url: 'books'
+      url: 'books',
+      query: {
+        page
+      }
     },
     schema: schemas.BOOK_ARRAY
   })
@@ -125,7 +128,7 @@ export const loadBooks2 = () => {
 export const loadBookInfo = (id) => {
   return createTriggerAction(ActionTypes.BOOK_INFO, {
     request: {
-      url: `books/${id}`,
+      url: `books/${id}`
     },
     targetId: id,
     schema: schemas.BOOK
