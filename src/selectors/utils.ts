@@ -9,7 +9,7 @@ const collapseEntities = (entities) => {
 }
 
 export const pagination = (name, key = 'default') => state =>
-  _.get(state, ['pagination', name, key], {}) as Pagination
+  _.get(state, ['pagination', name, key], {}) as SelectedPagination
 
 export const collapsedEntities = state =>
   collapseEntities(_.get(state, 'entities', {})) || {}

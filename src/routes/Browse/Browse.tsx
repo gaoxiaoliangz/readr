@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
-import { loadBooks, fetchCollections, loadBooks2 } from '../../actions'
+import { loadBooks, fetchCollections } from '../../actions'
 import Container from '../../components/Container'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
@@ -10,12 +10,11 @@ import CSSModules from 'react-css-modules'
 import styles from './Browse.scss'
 
 interface Props {
-  loadBooks: typeof loadBooks
   newestBooks: any
   nextPage: number
   isBooksFetching: boolean
-  bookList: Pagination
-  loadBooks2: typeof loadBooks2
+  bookList: SelectedPagination
+  loadBooks: typeof loadBooks
 }
 
 @CSSModules(styles)
@@ -27,7 +26,7 @@ class Browse extends Component<Props, {}> {
 
   loadMore(page = 1) {
     // this.props.loadBooks({ page }, 'browse')
-    this.props.loadBooks2(page)
+    this.props.loadBooks(page)
   }
 
   componentWillMount() {
@@ -79,5 +78,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { loadBooks, fetchCollections, loadBooks2 }
+  { loadBooks, fetchCollections }
 )(Browse)

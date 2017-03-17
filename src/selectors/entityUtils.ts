@@ -1,10 +1,25 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
-import {  FETCH_STATUS } from '../constants'
+import { FETCH_STATUS } from '../constants'
 
 const DEFAULT_KEY = 'default'
 
-export const entities = name => state => _.get(state, ['entities', name], {}) as any
+
+// new
+export const entity = (name, id) => (state): SelectedEntity => {
+  return {
+    ..._.get(state, ['entities', name, 'entities', id], {}),
+    ...{
+      fetchStatus: _.get(state, ['entities', name, 'fetchStatus', id]) as any,
+      error: _.get(state, ['entities', name, 'errors', id]) as any
+    }
+  }
+}
+
+export const entities = name => state => _.get(state, ['entities', name], {}) as {
+  [key: string]: any
+}
+// old
 
 export const isPaginationFetching = (name, key = DEFAULT_KEY) => state => {
   return _.get(state, ['pagination', name, key, 'fetchStatus']) === FETCH_STATUS.LOADING
@@ -37,17 +52,13 @@ export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
   }
 )
 
-export const entity = (name, id) => state => {
-  return _.get(state, ['entities', name, id], {})
-}
-
 interface EntityPagesOptions {
   entitiesName: string
   paginationName: string
   paginationKey?: string
 }
 export const entityPages = (options: EntityPagesOptions) => {
-  const {entitiesName, paginationName, paginationKey} = options
+  const { entitiesName, paginationName, paginationKey } = options
 
   return createSelector(
     entities(entitiesName),

@@ -5,14 +5,14 @@ import { createRequestTypes, createComponentActionType, createSagaTriggerActionT
  */
 export const REMOVE_ENTITY = 'REMOVE_ENTITY'
 
-export const BOOK = createRequestTypes('book')
-export const LOAD_BOOK = createSagaTriggerActionType('LOAD_BOOK')
+// export const BOOK = createRequestTypes('book')
+// export const LOAD_BOOK = createSagaTriggerActionType('LOAD_BOOK')
 
-export const BOOK_CONTENT = createRequestTypes('book-content')
-export const LOAD_BOOK_CONTENT = createSagaTriggerActionType('LOAD_BOOK_CONTENT')
+// export const BOOK_CONTENT = createRequestTypes('book-content')
+// export const LOAD_BOOK_CONTENT = createSagaTriggerActionType('LOAD_BOOK_CONTENT')
 
-export const BOOKS = createRequestTypes('books')
-export const LOAD_BOOKS = createSagaTriggerActionType('LOAD_BOOKS')
+// export const BOOKS = createRequestTypes('books')
+// export const LOAD_BOOKS = createSagaTriggerActionType('LOAD_BOOKS')
 
 export const USERS = createRequestTypes('users')
 export const LOAD_USERS = createSagaTriggerActionType('LOAD_USERS')
@@ -31,8 +31,10 @@ export const PROFILE = createRequestTypes('profile')
 export const AUTH = createRequestTypes('auth')
 export const SHELF = createRequestTypes('shelf')
 
-export const BOOKS2 = createSagaActionTypes('books2')
+// new
+export const BOOKS = createSagaActionTypes('books2')
 export const BOOK_INFO = createSagaActionTypes('book-info')
+export const BOOK_CONTENT = createSagaActionTypes('book-content2')
 export const SESSION = createSagaActionTypes('session')
 
 /**

@@ -23,6 +23,7 @@ interface ActionEntity {
   loadCache: any
 }
 
+// for thunk actions server side data fetching (deprecated)
 type FetchDataOptions = {
   store: {
     dispatch: (action: any) => any
@@ -79,7 +80,7 @@ interface LoaderAction {
   error?: boolean
 }
 
-interface Pagination {
+interface SelectedPagination {
   pages: {}
   next: Link
   last: Link
@@ -89,6 +90,12 @@ interface Pagination {
 interface Link {
   page: string
   url: string
+}
+
+interface SelectedEntity {
+  fetchStatus: FetchStatus
+  error: any
+  [key: string]: any
 }
 
 /**

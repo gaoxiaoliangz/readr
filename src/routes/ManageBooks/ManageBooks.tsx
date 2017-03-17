@@ -27,16 +27,7 @@ interface Props {
   bookEntities: any
 }
 
-class ManageBooks extends Component<Props, {
-  showModal: boolean
-}> {
-
-  static fetchData({store, query}: FetchDataOptions) {
-    return store.dispatch(loadBooks({
-      page: query.page
-    }))
-  }
-
+class ManageBooks extends Component<Props, { showModal: boolean }> {
   constructor(props) {
     super(props)
     this.state = {
@@ -88,9 +79,7 @@ class ManageBooks extends Component<Props, {
   }
 
   loadBooks(props = this.props) {
-    this.props.loadBooks({
-      page: props.routing.query.page || '1',
-    })
+    this.props.loadBooks(props.routing.query.page || '1')
   }
 
   componentWillReceiveProps(nextProps, nextState) {

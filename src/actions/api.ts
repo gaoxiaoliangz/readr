@@ -10,15 +10,15 @@ import * as ActionTypes from '../constants/actionTypes'
 export const removeEntity = (name: string, id: string) =>
   ({ type: ActionTypes.REMOVE_ENTITY, name, id })
 
-export const book = createActionEntity(ActionTypes.BOOK)
-export const loadBook = (id: string) => action(ActionTypes.LOAD_BOOK, { id })
+// export const book = createActionEntity(ActionTypes.BOOK)
+// export const loadBook = (id: string) => action(ActionTypes.LOAD_BOOK, { id })
 
-export const bookContent = createActionEntity(ActionTypes.BOOK_CONTENT)
-export const loadBookContent = (id: string) => action(ActionTypes.LOAD_BOOK_CONTENT, { id })
+// export const bookContent = createActionEntity(ActionTypes.BOOK_CONTENT)
+// export const loadBookContent = (id: string) => action(ActionTypes.LOAD_BOOK_CONTENT, { id })
 
-export const books = createActionEntity(ActionTypes.BOOKS)
-export const loadBooks = (options?: webAPI.FetchBooksOptions, key?: string) =>
-  action(ActionTypes.LOAD_BOOKS, { options, key })
+// export const books = createActionEntity(ActionTypes.BOOKS)
+// export const loadBooks = (options?: webAPI.FetchBooksOptions, key?: string) =>
+//   action(ActionTypes.LOAD_BOOKS, { options, key })
 
 export const users = createActionEntity(ActionTypes.USERS)
 export const loadUsers = (options?: webAPI.FetchUsersOptions) =>
@@ -33,7 +33,7 @@ export const loadBookProgress = (id: string) =>
 
 
 // define load actions handled in sagas
-export const LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS]
+// export const LOAD_ACTIONS = [ActionTypes.LOAD_BOOK, ActionTypes.LOAD_BOOK_CONTENT, ActionTypes.LOAD_BOOKS, ActionTypes.LOAD_USERS]
 
 
 /**
@@ -113,12 +113,13 @@ export function fetchShelf() {
 }
 
 // load actions
-export const loadBooks2 = (page = 1) => {
-  return createTriggerAction(ActionTypes.BOOKS2, {
+export const loadBooks = (page = 1, q?) => {
+  return createTriggerAction(ActionTypes.BOOKS, {
     request: {
       url: 'books',
       query: {
-        page
+        page,
+        q
       }
     },
     schema: schemas.BOOK_ARRAY
@@ -132,6 +133,16 @@ export const loadBookInfo = (id) => {
     },
     targetId: id,
     schema: schemas.BOOK
+  })
+}
+
+export const loadBookContent = (id) => {
+  return createTriggerAction(ActionTypes.BOOK_CONTENT, {
+    request: {
+      url: `books/${id}/content`
+    },
+    targetId: id,
+    schema: schemas.BOOK_CONTENT
   })
 }
 

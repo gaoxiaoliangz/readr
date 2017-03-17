@@ -38,11 +38,11 @@ class AddCollection extends Component<Props, {}> {
   }
 
   handleBooksValueChange(newVal) {
-    if (!_.isEmpty(newVal)) {
-      this.props.loadBooks({
-        q: newVal
-      })
-    }
+    // if (!_.isEmpty(newVal)) {
+    //   this.props.loadBooks({
+    //     q: newVal
+    //   })
+    // }
   }
 
   render() {

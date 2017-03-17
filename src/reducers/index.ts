@@ -49,7 +49,7 @@ const rootReducer = combineReducers({
   routing,
   form,
   pagination: combineReducers({
-    books: paginate(ActionTypes.BOOKS2)
+    books: paginate(ActionTypes.BOOKS)
   }),
   session: receiveData(ActionTypes.SESSION, {
     role: ROLES.VISITOR

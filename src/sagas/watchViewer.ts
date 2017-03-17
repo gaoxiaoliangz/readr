@@ -159,7 +159,7 @@ function* initializeViewer() {
     const computed = yield select(selectors.viewer.computed(bookId))
 
     if (_.isEmpty(computed)) {
-      yield [put(actions.loadBook(bookId)), put(actions.loadBookContent(bookId))]
+      yield [put(actions.loadBookInfo(bookId)), put(actions.loadBookContent(bookId))]
       yield put(actions.initializeViewerConfig(bookId))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)

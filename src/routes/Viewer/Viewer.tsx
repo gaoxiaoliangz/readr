@@ -58,4 +58,4 @@ export default connect(
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
   })
-)(Viewer)
+)(Viewer as any)

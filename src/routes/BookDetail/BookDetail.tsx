@@ -11,7 +11,7 @@ const styles = require('./BookDetail.scss')
 
 interface Props {
   loadBookInfo: typeof loadBookInfo
-  bookInfo: any
+  bookInfo: SelectedEntity
 }
 
 @CSSModules(styles)
@@ -24,13 +24,13 @@ class BookDetail extends Component<Props, {}> {
     this.bookId = props.params.id
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadBookInfo(this.bookId)
   }
 
   render() {
     const { bookInfo } = this.props
-    const isFetching = _.isEmpty(bookInfo)
+    const isFetching = bookInfo.fetchStatus === 'loading'
 
     return (
       <DocContainer bodyClass="book-info" title={bookInfo.title}>

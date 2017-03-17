@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
-import { loadBooks, fetchCollections, sendNotification, loadBooks2 } from '../../actions'
+import { fetchCollections, sendNotification, loadBooks } from '../../actions'
 import * as selectors from '../../selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../components/DocContainer'
@@ -11,14 +11,10 @@ import { Container } from '../../components/layout'
 import styles from './AppHome.scss'
 
 interface Props {
-  // loadBooks: typeof loadBooks
-  // fetchCollections: any
-  session: any
-  // newestBooks: any
+  session: Session
   sendNotification: any
-  // isBooksFetching: boolean
-  loadBooks2: typeof loadBooks2
-  bookList: Pagination
+  loadBooks: typeof loadBooks
+  bookList: SelectedPagination
 }
 
 interface IState {
@@ -36,8 +32,7 @@ class AppHome extends Component<Props, IState> {
   }
 
   componentWillMount() {
-    // this.props.loadBooks()
-    this.props.loadBooks2()
+    this.props.loadBooks()
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -91,5 +86,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, fetchCollections, sendNotification, loadBooks2 }
+  { loadBooks, fetchCollections, sendNotification }
 )(AppHome)
