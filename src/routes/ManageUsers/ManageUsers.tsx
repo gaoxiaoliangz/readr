@@ -12,7 +12,7 @@ import helpers from '../../helpers'
 interface Props {
   loadUsers: typeof loadUsers
   users: SelectedPagination
-  routing: any
+  routing: SelectedRouting
 }
 
 class ManageUsers extends Component<Props, {}> {
@@ -22,7 +22,7 @@ class ManageUsers extends Component<Props, {}> {
   }
 
   loadUsers(props = this.props) {
-    this.props.loadUsers(props.routing.query.page || '1')
+    this.props.loadUsers(_.get(props, 'routing.query.page', 1))
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -38,6 +38,18 @@ class ManageUsers extends Component<Props, {}> {
 
   render() {
     const { users } = this.props
+    const userEntities = _.get(users, ['pages', users.currentPage], [])
+    const rows = userEntities
+      .map(row => {
+        return [
+          row.username,
+          row.email,
+          row.password,
+          row.role,
+          row.id,
+          moment(new Date(row.dateCreated).valueOf()).format('YYYY年MM月DD日')
+        ]
+      })
 
     return (
       <DocContainer title="用户管理">
@@ -47,9 +59,8 @@ class ManageUsers extends Component<Props, {}> {
           }}
         >
           <InfoTable
-            data={_.get(users, ['pages', users.currentPage], []).map(user => (Object.assign({}, user, {
-              dateCreated: moment(new Date(user.dateCreated).valueOf()).format('YYYY年MM月DD日')
-            })))}
+            header={['用户名', 'email', '密码', '角色', 'ID', '创建日期']}
+            rows={rows}
           />
         </ContentPage>
       </DocContainer>
@@ -60,7 +71,7 @@ class ManageUsers extends Component<Props, {}> {
 function mapStateToProps(state, ownProps) {
   return {
     users: selectors.userList(state),
-    routing: state.routing.locationBeforeTransitions,
+    routing: selectors.routing(state)
   }
 }
 
