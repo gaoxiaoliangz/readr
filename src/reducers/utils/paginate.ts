@@ -25,7 +25,8 @@ export function computePaginationState(state, action: LoaderAction) {
     // if pages not fetched linerly things might go wrong
     pages,
     next,
-    last
+    last,
+    currentPage
   })
 }
 

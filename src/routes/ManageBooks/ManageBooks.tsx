@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import webAPI from '../../webAPI'
@@ -15,7 +16,7 @@ import BookMetaForm from './components/BookMetaForm'
 interface Props {
   sendNotification?: typeof sendNotification
   loadBooks?: typeof loadBooks
-  bookListNewest?: any
+  bookListNewest?: SelectedPagination
   openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
   routing: any
@@ -25,6 +26,7 @@ interface Props {
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
   bookEntities: any
+  // currentPage: number
 }
 
 class ManageBooks extends Component<Props, { showModal: boolean }> {
@@ -89,13 +91,13 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     })(nextProps, this.props)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadBooks()
     this.props.loadUsers()
   }
 
   render() {
-    let bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null
+    const { bookListNewest } = this.props
 
     return (
       <DocContainer title="书籍管理" bodyClass="manage-books">
@@ -119,7 +121,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
             <Button color="blue">添加书籍</Button>
           </FileUploader>
           <InfoTable
-            data={bookListNewest.map(item => (Object.assign({}, item, {
+            data={_.get(bookListNewest, ['pages', bookListNewest.currentPage], []).map(item => (Object.assign({}, item, {
               authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者',
               dateCreated: moment(new Date(item.dateCreated).valueOf()).format('YYYY年MM月DD日')
             })))}
@@ -157,14 +159,15 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const currentPage = selectors.currentPage('books')(state)
+  // const currentPage = selectors.currentPage('books')(state)
   const bookEntities = selectors.entities('books')(state)
 
   return {
     // 如果第一个参数传 null 会覆盖默认参数
-    bookListNewest: selectors.books(undefined, currentPage)(state),
+    bookListNewest: selectors.bookList(state),
     routing: state.routing.locationBeforeTransitions,
-    bookEntities
+    bookEntities,
+    // currentPage
   }
 }
 

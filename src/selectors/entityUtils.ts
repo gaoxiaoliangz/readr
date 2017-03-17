@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 import { FETCH_STATUS } from '../constants'
+import { pagination } from './utils'
 
 const DEFAULT_KEY = 'default'
 
@@ -19,6 +20,18 @@ export const entity = (name, id) => (state): SelectedEntity => {
 export const entities = name => state => _.get(state, ['entities', name], {}) as {
   [key: string]: any
 }
+
+export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
+  pagination(name, key),
+  _pagination => {
+    const next = _.get(_pagination, 'next.page')
+    const last = _.get(_pagination, 'last.page')
+
+    return next
+      ? next as any - 1
+      : last
+  }
+)
 // old
 
 export const isPaginationFetching = (name, key = DEFAULT_KEY) => state => {
@@ -37,18 +50,6 @@ export const nextPage = (name, key = DEFAULT_KEY) => createSelector(
   paginationLinks(name, key),
   selectedPaginationLinks => {
     return _.get(selectedPaginationLinks, 'next.page', 0)
-  }
-)
-
-export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
-  paginationLinks(name, key),
-  selectedPaginationLinks => {
-    const next = _.get(selectedPaginationLinks, 'next.page')
-    const last = _.get(selectedPaginationLinks, 'last.page')
-
-    return next
-      ? next as any - 1
-      : last
   }
 )
 

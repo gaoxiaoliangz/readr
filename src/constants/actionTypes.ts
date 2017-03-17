@@ -14,8 +14,8 @@ export const REMOVE_ENTITY = 'REMOVE_ENTITY'
 // export const BOOKS = createRequestTypes('books')
 // export const LOAD_BOOKS = createSagaTriggerActionType('LOAD_BOOKS')
 
-export const USERS = createRequestTypes('users')
-export const LOAD_USERS = createSagaTriggerActionType('LOAD_USERS')
+// export const USERS = createRequestTypes('users')
+// export const LOAD_USERS = createSagaTriggerActionType('LOAD_USERS')
 
 export const LOGOUT = createRequestTypes('revoke')
 export const USER_LOGOUT = createSagaTriggerActionType('USER_LOGOUT')
@@ -37,6 +37,7 @@ export const BOOK_CONTENT = createSagaActionTypes('book-content2')
 export const SESSION = createSagaActionTypes('session')
 export const PROFILE = createSagaActionTypes('profile')
 export const SHELF = createSagaActionTypes('shelf')
+export const USERS = createSagaActionTypes('users')
 
 /**
  * components

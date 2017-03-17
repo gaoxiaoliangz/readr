@@ -53,6 +53,7 @@ options, data, id, response, error
 	☐ pass runtime env to test suit
 	☐ react hot error page
 	☐ use a better loading style
+	☐ current page state
 
 ### Refactor
 	☐ api flow

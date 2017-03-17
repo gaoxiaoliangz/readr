@@ -50,7 +50,8 @@ const rootReducer = combineReducers({
   form,
   pagination: combineReducers({
     books: paginate(ActionTypes.BOOKS),
-    bookShelves: paginate(ActionTypes.SHELF)
+    bookShelves: paginate(ActionTypes.SHELF),
+    users: paginate(ActionTypes.USERS)
   }),
   session: receiveData(ActionTypes.SESSION, {
     role: ROLES.VISITOR

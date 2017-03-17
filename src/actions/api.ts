@@ -20,9 +20,9 @@ export const removeEntity = (name: string, id: string) =>
 // export const loadBooks = (options?: webAPI.FetchBooksOptions, key?: string) =>
 //   action(ActionTypes.LOAD_BOOKS, { options, key })
 
-export const users = createActionEntity(ActionTypes.USERS)
-export const loadUsers = (options?: webAPI.FetchUsersOptions) =>
-  action(ActionTypes.LOAD_USERS, { options })
+// export const users = createActionEntity(ActionTypes.USERS)
+// export const loadUsers = (options?: webAPI.FetchUsersOptions) =>
+//   action(ActionTypes.LOAD_USERS, { options })
 
 export const logout = createActionEntity(ActionTypes.LOGOUT)
 export const userLogout = () => action(ActionTypes.USER_LOGOUT)
@@ -144,18 +144,17 @@ export const loadShelf = () => {
   })
 }
 
-// export function fetchShelf() {
-//   const CALL_API: CALL_API_OBJ = {
-//     types: [ActionTypes.SHELF.REQUEST, ActionTypes.SHELF.SUCCESS, ActionTypes.SHELF.FAILURE],
-//     endpoint: `user/books/shelf`,
-//     schema: schemas.SHELF_BOOK_ARRAY,
-//     pagination: {
-//       name: 'bookShelves'
-//     }
-//   }
-//   return { CALL_API }
-// }
-
+export const loadUsers = (page = 1) => {
+  return createTriggerAction(ActionTypes.USERS, {
+    request: {
+      url: `users`,
+      query: {
+        page
+      }
+    },
+    schema: schemas.USER_ARRAY
+  })
+}
 
 // app
 export const loadSession = () => {

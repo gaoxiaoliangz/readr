@@ -65,10 +65,10 @@ export const booksAsOptions = (key?) => createSelector(
   }
 )
 
-export const users = pagedEntities({
-  entitiesName: 'users',
-  paginationName: 'users',
-})
+// export const users = pagedEntities({
+//   entitiesName: 'users',
+//   paginationName: 'users',
+// })
 
 export const sessionUserId = state => {
   return _.get(state, ['session', 'user', 'id'])

@@ -84,6 +84,7 @@ interface SelectedPagination {
   pages: {}
   next: Link
   last: Link
+  currentPage: number
   fetchStatus: FetchStatus
 }
 
