@@ -19,14 +19,12 @@ interface Props {
   bookListNewest?: SelectedPagination
   openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
-  routing: any
+  routing: SelectedRouting
   removeEntity: typeof removeEntity
   loadUsers: typeof loadUsers
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
-  bookEntities: any
-  // currentPage: number
 }
 
 class ManageBooks extends Component<Props, { showModal: boolean }> {
@@ -51,27 +49,25 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     })
   }
 
-  editBookMeta(bookId) {
+  editBookMeta(bookMeta) {
     this.setState({
       showModal: true
     })
-    const { bookEntities } = this.props
 
     this.props.openModal({
       title: '编辑书籍信息',
       content: (
         <BookMetaForm
           onSave={data => {
-            webAPI.editBookMeta(bookId, data).then(result => {
+            webAPI.editBookMeta(bookMeta.id, data).then(result => {
               this.loadBooks()
               this.props.closeModal()
               this.props.sendNotification('修改成功！', 'success')
             })
-          } }
-          />
+          }}
+        />
       )
     })
-    const bookMeta = bookEntities[bookId]
     this.props.initializeForm('bookMeta', {
       title: bookMeta.title,
       authors: bookMeta.authors.map(item => item.name).join(', '),
@@ -98,6 +94,26 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 
   render() {
     const { bookListNewest } = this.props
+    const entities = _.get(bookListNewest, ['pages', bookListNewest.currentPage], [])
+    const rows = entities
+      .map((row, index) => {
+        return [
+          row.id,
+          row.title,
+          moment(new Date(row.dateCreated).valueOf()).format('YYYY年MM月DD日'),
+          row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
+          (
+            <div>
+              <span className="dark-link" onClick={() => {
+                this.editBookMeta(entities[index])
+              }}>编辑</span>
+              <span className="dark-link" onClick={() => {
+                this.deleteBook(row.id, row.title)
+              }}>删除</span>
+            </div>
+          )
+        ]
+      })
 
     return (
       <DocContainer title="书籍管理" bodyClass="manage-books">
@@ -105,7 +121,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           pagination={{
             name: 'books'
           }}
-          >
+        >
           <FileUploader
             style={{ marginTop: 20 }}
             url="/api/books"
@@ -113,45 +129,17 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
             name="book-file"
             onSuccess={result => {
               this.loadBooks()
-            } }
+            }}
             onError={error => {
               this.props.sendNotification(error.message, 'error')
-            } }
-            >
+            }}
+          >
             <Button color="blue">添加书籍</Button>
           </FileUploader>
           <InfoTable
-            data={_.get(bookListNewest, ['pages', bookListNewest.currentPage], []).map(item => (Object.assign({}, item, {
-              authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者',
-              dateCreated: moment(new Date(item.dateCreated).valueOf()).format('YYYY年MM月DD日')
-            })))}
-            header={[
-              {
-                key: 'id',
-                name: 'ID'
-              }, {
-                key: 'title',
-                name: '书名'
-              }, {
-                key: 'dateCreated',
-                name: '创建日期'
-              }, {
-                key: 'authors',
-                name: '作者'
-              }
-            ]}
-            actions={[{
-              name: '删除',
-              fn: row => {
-                this.deleteBook(row.id, row.title)
-              }
-            }, {
-              name: '编辑',
-              fn: row => {
-                this.editBookMeta(row.id)
-              }
-            }]}
-            />
+            rows={rows}
+            header={['ID', '数名', '创建日期', '作者', '操作']}
+          />
         </ContentPage>
       </DocContainer>
     )
@@ -159,15 +147,9 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 }
 
 function mapStateToProps(state, ownProps) {
-  // const currentPage = selectors.currentPage('books')(state)
-  const bookEntities = selectors.entities('books')(state)
-
   return {
-    // 如果第一个参数传 null 会覆盖默认参数
     bookListNewest: selectors.bookList(state),
-    routing: state.routing.locationBeforeTransitions,
-    bookEntities,
-    // currentPage
+    routing: selectors.routing(state)
   }
 }
 

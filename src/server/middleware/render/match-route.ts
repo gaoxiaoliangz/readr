@@ -6,7 +6,10 @@ function matchRoute(req, res, next) {
   match(
     {
       history: req.locals.history,
-      routes: createRoutes(),
+      routes: createRoutes({
+        request: req,
+        response: res
+      }),
       location: req.url
     },
     (error, redirectLocation, renderProps) => {

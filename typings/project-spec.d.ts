@@ -80,6 +80,11 @@ interface LoaderAction {
   error?: boolean
 }
 
+interface Link {
+  page: string
+  url: string
+}
+
 interface SelectedPagination {
   pages: {}
   next: Link
@@ -88,9 +93,16 @@ interface SelectedPagination {
   fetchStatus: FetchStatus
 }
 
-interface Link {
-  page: string
-  url: string
+interface SelectedRouting {
+  action: string
+  hash: string
+  key: string
+  pathname: string
+  query: {
+    [key: string]: any
+  }
+  search: string
+  state: any
 }
 
 interface SelectedEntity {
