@@ -52,6 +52,7 @@ options, data, id, response, error
 	☐ refactor shelf action
 	☐ pass runtime env to test suit
 	☐ react hot error page
+	☐ use a better loading style
 
 ### Refactor
 	☐ api flow

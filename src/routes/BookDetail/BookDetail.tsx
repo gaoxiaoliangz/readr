@@ -7,7 +7,7 @@ import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
 import * as selectors from '../../selectors'
-const styles = require('./BookDetail.scss')
+import styles from './BookDetail.scss'
 
 interface Props {
   loadBookInfo: typeof loadBookInfo

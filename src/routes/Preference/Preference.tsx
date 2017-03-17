@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, fetchProfile } from '../../actions'
+import { sendNotification, loadProfile } from '../../actions'
 import _ from 'lodash'
 import PreferenceList from './components/PreferenceList'
 import DocContainer from '../../components/DocContainer'
@@ -15,10 +15,6 @@ interface IState {
 }
 
 class Preference extends Component<IAllProps, IState> {
-
-  // static fetchData({store, params}) {
-  //   return store.dispatch(fetch())
-  // }
 
   constructor(props) {
     super(props)
@@ -53,5 +49,5 @@ export default connect(
       profile: _.get(state.payloads, 'profile', {})
     }
   },
-  { sendNotification, fetchProfile }
+  { sendNotification, loadProfile }
 )(Preference as any)

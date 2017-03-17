@@ -27,8 +27,7 @@ export const AUTHORS = createRequestTypes('authors')
 export const COLLECTIONS = createRequestTypes('collections')
 export const COLLECTION = createRequestTypes('collection')
 export const DOUBAN_BOOKS = createRequestTypes('douban-books')
-export const PROFILE = createRequestTypes('profile')
-export const AUTH = createRequestTypes('auth')
+// export const AUTH = createRequestTypes('auth')
 export const SHELF = createRequestTypes('shelf')
 
 // new
@@ -36,6 +35,7 @@ export const BOOKS = createSagaActionTypes('books2')
 export const BOOK_INFO = createSagaActionTypes('book-info')
 export const BOOK_CONTENT = createSagaActionTypes('book-content2')
 export const SESSION = createSagaActionTypes('session')
+export const PROFILE = createSagaActionTypes('profile')
 
 /**
  * components

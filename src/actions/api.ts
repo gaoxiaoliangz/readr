@@ -91,15 +91,6 @@ export function searchDoubanBooks(q) {
   return { q, CALL_API }
 }
 
-export function fetchProfile() {
-  const CALL_API: CALL_API_OBJ = {
-    types: [ActionTypes.PROFILE.REQUEST, ActionTypes.PROFILE.SUCCESS, ActionTypes.PROFILE.FAILURE],
-    endpoint: `user/profile`,
-    schema: schemas.PROFILE
-  }
-  return { CALL_API }
-}
-
 export function fetchShelf() {
   const CALL_API: CALL_API_OBJ = {
     types: [ActionTypes.SHELF.REQUEST, ActionTypes.SHELF.SUCCESS, ActionTypes.SHELF.FAILURE],
@@ -113,6 +104,7 @@ export function fetchShelf() {
 }
 
 // load actions
+// books
 export const loadBooks = (page = 1, q?) => {
   return createTriggerAction(ActionTypes.BOOKS, {
     request: {
@@ -146,6 +138,25 @@ export const loadBookContent = (id) => {
   })
 }
 
+// user
+export const loadProfile = () => {
+  return createTriggerAction(ActionTypes.PROFILE, {
+    request: {
+      url: `user/profile`
+    }
+  })
+}
+
+// export function fetchProfile() {
+//   const CALL_API: CALL_API_OBJ = {
+//     types: [ActionTypes.PROFILE.REQUEST, ActionTypes.PROFILE.SUCCESS, ActionTypes.PROFILE.FAILURE],
+//     endpoint: `user/profile`,
+//     schema: schemas.PROFILE
+//   }
+//   return { CALL_API }
+// }
+
+// app
 export const loadSession = () => {
   return createTriggerAction(ActionTypes.SESSION, {
     request: {

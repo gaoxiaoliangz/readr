@@ -53,7 +53,8 @@ const rootReducer = combineReducers({
   }),
   session: receiveData(ActionTypes.SESSION, {
     role: ROLES.VISITOR
-  })
+  }),
+  profile: receiveData(ActionTypes.PROFILE)
 })
 
 export default rootReducer
