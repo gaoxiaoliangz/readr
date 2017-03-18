@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import webAPI from '../../webAPI'
@@ -15,28 +16,18 @@ import BookMetaForm from './components/BookMetaForm'
 interface Props {
   sendNotification?: typeof sendNotification
   loadBooks?: typeof loadBooks
-  bookListNewest?: any
+  bookListNewest?: SelectedPagination
   openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
-  routing: any
+  routing: SelectedRouting
   removeEntity: typeof removeEntity
   loadUsers: typeof loadUsers
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
-  bookEntities: any
 }
 
-class ManageBooks extends Component<Props, {
-  showModal: boolean
-}> {
-
-  static fetchData({store, query}: FetchDataOptions) {
-    return store.dispatch(loadBooks({
-      page: query.page
-    }))
-  }
-
+class ManageBooks extends Component<Props, { showModal: boolean }> {
   constructor(props) {
     super(props)
     this.state = {
@@ -58,27 +49,25 @@ class ManageBooks extends Component<Props, {
     })
   }
 
-  editBookMeta(bookId) {
+  editBookMeta(bookMeta) {
     this.setState({
       showModal: true
     })
-    const { bookEntities } = this.props
 
     this.props.openModal({
       title: '编辑书籍信息',
       content: (
         <BookMetaForm
           onSave={data => {
-            webAPI.editBookMeta(bookId, data).then(result => {
+            webAPI.editBookMeta(bookMeta.id, data).then(result => {
               this.loadBooks()
               this.props.closeModal()
               this.props.sendNotification('修改成功！', 'success')
             })
-          } }
-          />
+          }}
+        />
       )
     })
-    const bookMeta = bookEntities[bookId]
     this.props.initializeForm('bookMeta', {
       title: bookMeta.title,
       authors: bookMeta.authors.map(item => item.name).join(', '),
@@ -88,9 +77,7 @@ class ManageBooks extends Component<Props, {
   }
 
   loadBooks(props = this.props) {
-    this.props.loadBooks({
-      page: props.routing.query.page || '1',
-    })
+    this.props.loadBooks(props.routing.query.page || '1')
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -100,13 +87,33 @@ class ManageBooks extends Component<Props, {
     })(nextProps, this.props)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadBooks()
     this.props.loadUsers()
   }
 
   render() {
-    let bookListNewest = this.props.bookListNewest ? this.props.bookListNewest : null
+    const { bookListNewest } = this.props
+    const entities = _.get(bookListNewest, ['pages', bookListNewest.currentPage], [])
+    const rows = entities
+      .map((row, index) => {
+        return [
+          row.id,
+          row.title,
+          moment(new Date(row.dateCreated).valueOf()).format('YYYY年MM月DD日'),
+          row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
+          (
+            <div>
+              <span className="dark-link" onClick={() => {
+                this.editBookMeta(entities[index])
+              }}>编辑</span>
+              <span className="dark-link" onClick={() => {
+                this.deleteBook(row.id, row.title)
+              }}>删除</span>
+            </div>
+          )
+        ]
+      })
 
     return (
       <DocContainer title="书籍管理" bodyClass="manage-books">
@@ -114,7 +121,7 @@ class ManageBooks extends Component<Props, {
           pagination={{
             name: 'books'
           }}
-          >
+        >
           <FileUploader
             style={{ marginTop: 20 }}
             url="/api/books"
@@ -122,45 +129,17 @@ class ManageBooks extends Component<Props, {
             name="book-file"
             onSuccess={result => {
               this.loadBooks()
-            } }
+            }}
             onError={error => {
               this.props.sendNotification(error.message, 'error')
-            } }
-            >
+            }}
+          >
             <Button color="blue">添加书籍</Button>
           </FileUploader>
           <InfoTable
-            data={bookListNewest.map(item => (Object.assign({}, item, {
-              authors: item.authors ? item.authors.map(author => author.name).join(', ') : '未知作者',
-              dateCreated: moment(new Date(item.dateCreated).valueOf()).format('YYYY年MM月DD日')
-            })))}
-            header={[
-              {
-                key: 'id',
-                name: 'ID'
-              }, {
-                key: 'title',
-                name: '书名'
-              }, {
-                key: 'dateCreated',
-                name: '创建日期'
-              }, {
-                key: 'authors',
-                name: '作者'
-              }
-            ]}
-            actions={[{
-              name: '删除',
-              fn: row => {
-                this.deleteBook(row.id, row.title)
-              }
-            }, {
-              name: '编辑',
-              fn: row => {
-                this.editBookMeta(row.id)
-              }
-            }]}
-            />
+            rows={rows}
+            header={['ID', '数名', '创建日期', '作者', '操作']}
+          />
         </ContentPage>
       </DocContainer>
     )
@@ -168,14 +147,9 @@ class ManageBooks extends Component<Props, {
 }
 
 function mapStateToProps(state, ownProps) {
-  const currentPage = selectors.currentPage('books')(state)
-  const bookEntities = selectors.entities('books')(state)
-
   return {
-    // 如果第一个参数传 null 会覆盖默认参数
-    bookListNewest: selectors.books(undefined, currentPage)(state),
-    routing: state.routing.locationBeforeTransitions,
-    bookEntities
+    bookListNewest: selectors.bookList(state),
+    routing: selectors.routing(state)
   }
 }
 

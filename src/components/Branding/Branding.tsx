@@ -4,9 +4,12 @@ import { Dropdown, DropdownItem, DropdownItemSep } from '../../components/Dropdo
 import Logo from '../Logo'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
-const styles = require('./Branding.scss')
+import styles from './Branding.scss'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../../actions'
 
-interface IProps {
+interface OwnProps {
   username: string
   isAdmin?: boolean
   className?: string
@@ -14,17 +17,22 @@ interface IProps {
     title: string
     id: string
   }[]
-  onLogout: () => void
+}
+
+interface OtherProps {
+  actions: typeof actions
 }
 
 interface IState {
   isDropdownMenuVisible: boolean
 }
 
-@CSSModules(styles, {
-  allowMultiple: true
-})
-class Branding extends Component<IProps, IState> {
+const mapStateToProps = (state, ownProps) => {
+  return {}
+}
+
+@CSSModules(styles)
+class Branding extends Component<OwnProps & OtherProps, IState> {
 
   constructor(props) {
     super(props)
@@ -41,7 +49,7 @@ class Branding extends Component<IProps, IState> {
   }
 
   handleLogoutClick(e) {
-    this.props.onLogout()
+    this.props.actions.logout()
     e.preventDefault()
   }
 
@@ -55,7 +63,7 @@ class Branding extends Component<IProps, IState> {
         <Container className="clearfix">
           <div>
             <div className="left">
-              <Logo/>
+              <Logo />
             </div>
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
@@ -87,9 +95,9 @@ class Branding extends Component<IProps, IState> {
                     }
                     <Dropdown
                       title={(
-                        <div style={{ display: 'inline-block' }}>{username}{ isAdmin && <span className="badge">管理员</span> }</div>
-                      ) }
-                      >
+                        <div style={{ display: 'inline-block' }}>{username}{isAdmin && <span className="badge">管理员</span>}</div>
+                      )}
+                    >
                       {
                         isAdmin === true && (
                           <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
@@ -123,4 +131,9 @@ class Branding extends Component<IProps, IState> {
   }
 }
 
-export default Branding
+export default connect<OtherProps, {}, OwnProps>(
+  mapStateToProps as any,
+  dispatch => ({
+    actions: bindActionCreators(actions as {}, dispatch)
+  })
+)(Branding)

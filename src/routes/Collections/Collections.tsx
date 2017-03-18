@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCollections } from '../../actions'
+import { loadCollections } from '../../actions'
 import { CollectionList } from '../../components/CollectionSection'
 
 interface Props {
-  fetchCollections: any
-  newestCollections: Array<any>
+  loadCollections: typeof loadCollections
+  newestCollections: any[]
 }
 
 class Collections extends Component<Props, {}> {
@@ -15,7 +15,7 @@ class Collections extends Component<Props, {}> {
   }
 
   componentDidMount() {
-    this.props.fetchCollections()
+    this.props.loadCollections()
   }
 
   render() {
@@ -46,5 +46,5 @@ export default connect(
       ? state.pagination.bookCollections.newest.ids.map(id => state.entities.bookCollections[id])
       : []
   }),
-  { fetchCollections }
+  { loadCollections }
 )(Collections as any)

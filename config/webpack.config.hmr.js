@@ -63,8 +63,8 @@ const config = ({ port }) => ({
       rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: true }),
       rules.css({ extract: true, global: false, isomorphic: false }),
       // rules.lint(),
-      rules.js(),
-      rules.ts({ officialLoader: true }),
+      // rules.js(),
+      rules.ts({ officialLoader: false }),
     ]
   },
   resolve: vars.resolve

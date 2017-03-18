@@ -1,40 +1,4 @@
-import { createRequestTypes, createComponentActionType, createSagaTriggerActionType, createSagaActionTypes } from '../actions/utils'
-
-/**
- * api
- */
-export const REMOVE_ENTITY = 'REMOVE_ENTITY'
-
-export const BOOK = createRequestTypes('book')
-export const LOAD_BOOK = createSagaTriggerActionType('LOAD_BOOK')
-
-export const BOOK_CONTENT = createRequestTypes('book-content')
-export const LOAD_BOOK_CONTENT = createSagaTriggerActionType('LOAD_BOOK_CONTENT')
-
-export const BOOKS = createRequestTypes('books')
-export const LOAD_BOOKS = createSagaTriggerActionType('LOAD_BOOKS')
-
-export const USERS = createRequestTypes('users')
-export const LOAD_USERS = createSagaTriggerActionType('LOAD_USERS')
-
-export const LOGOUT = createRequestTypes('revoke')
-export const USER_LOGOUT = createSagaTriggerActionType('USER_LOGOUT')
-export const SESSION = createRequestTypes('SESSION')
-export const LOAD_SESSION = createSagaTriggerActionType('LOAD_SESSION')
-
-export const BOOK_PROGRESS = createRequestTypes('book-progress')
-export const LOAD_BOOK_PROGRESS = createSagaTriggerActionType('LOAD_BOOK_PROGRESS')
-
-export const AUTHORS = createRequestTypes('authors')
-export const COLLECTIONS = createRequestTypes('collections')
-export const COLLECTION = createRequestTypes('collection')
-export const DOUBAN_BOOKS = createRequestTypes('douban-books')
-export const PROFILE = createRequestTypes('profile')
-export const AUTH = createRequestTypes('auth')
-export const SHELF = createRequestTypes('shelf')
-
-export const BOOKS2 = createSagaActionTypes('books2')
-export const SESSION2 = createSagaActionTypes('session2')
+import { createComponentActionType, createSagaTriggerActionType, createSagaActionTypes } from '../actions/utils'
 
 /**
  * components
@@ -77,3 +41,24 @@ export const VIEWER = {
   SCROLL_MODE_TOGGLE: createComponentActionType('viewer/scroll-mode', 'TOGGLE'),
   PAGE_PROGRESS_INFO_TOGGLE: createComponentActionType('viewer/progress-info', 'TOGGLE')
 }
+
+// modifiy
+export const REMOVE_ENTITY = 'REMOVE_ENTITY'
+
+/**
+ * api
+ */
+export const BOOKS = createSagaActionTypes('books')
+export const BOOK_INFO = createSagaActionTypes('book-info')
+export const BOOK_CONTENT = createSagaActionTypes('book-content')
+export const SESSION = createSagaActionTypes('session')
+export const PROFILE = createSagaActionTypes('profile')
+export const SHELF = createSagaActionTypes('shelf')
+export const USERS = createSagaActionTypes('users')
+export const AUTHORS = createSagaActionTypes('authors')
+export const COLLECTIONS = createSagaActionTypes('collections')
+export const COLLECTION = createSagaActionTypes('collection')
+export const BOOK_PROGRESS = createSagaActionTypes('book-progress')
+export const USER_LOGOUT = createSagaActionTypes('user-logout')
+
+export const DOUBAN_BOOKS = createSagaActionTypes('douban-books')

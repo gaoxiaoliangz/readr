@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, fetchProfile } from '../../actions'
+import { sendNotification, loadProfile } from '../../actions'
 import _ from 'lodash'
 import PreferenceList from './components/PreferenceList'
 import DocContainer from '../../components/DocContainer'
+import * as selectors from '../../selectors'
 
 interface IAllProps {
-  fetchProfile?: any
+  loadProfile?: typeof loadProfile
   profile?: any
 }
 
@@ -16,10 +17,6 @@ interface IState {
 
 class Preference extends Component<IAllProps, IState> {
 
-  // static fetchData({store, params}) {
-  //   return store.dispatch(fetch())
-  // }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -27,11 +24,8 @@ class Preference extends Component<IAllProps, IState> {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchProfile()
-  }
-
-  componentWillReceiveProps(nextProps) {
+  componentWillMount() {
+    this.props.loadProfile()
   }
 
   render() {
@@ -50,8 +44,8 @@ class Preference extends Component<IAllProps, IState> {
 export default connect(
   state => {
     return {
-      profile: _.get(state.payloads, 'profile', {})
+      profile: selectors.profile(state)
     }
   },
-  { sendNotification, fetchProfile }
+  { sendNotification, loadProfile }
 )(Preference as any)

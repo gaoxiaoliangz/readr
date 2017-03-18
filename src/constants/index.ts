@@ -14,7 +14,13 @@ export const ROLES = {
   VISITOR: 'visitor'
 }
 
-export const API_PREFIX = 'api'
+export const FETCH_STATUS = {
+  LOADING: 'loading',
+  NONE: 'none',
+  LOADED: 'loaded',
+  FAILED: 'failed'
+}
 
+export const API_PREFIX = 'api'
 
 export { ACTION_TYPES, VIEWER_DEFS }

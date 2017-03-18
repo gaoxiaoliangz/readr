@@ -4,6 +4,10 @@
 	@extend %text-loading;
 	margin: 30px 0;
 	display: inline-block;
+	img {
+		width: 30px;
+		height: auto;
+	}
 }
 
 .loading-wrap {

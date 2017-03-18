@@ -2,22 +2,12 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
-const styles = require('./InfoTable.scss')
+import styles from './InfoTable.scss'
 
 interface IProps {
-  header?: {
-    key: string
-    name: string | JSX.Element
-  }[]
-  data: any[]
-  // TODO: 实现控制显示
-  enableTooltip?: boolean
-  style?: any
-  actions?: {
-    name: string | JSX.Element
-    fn: (rowData: any) => void
-  }[]
-  operationLabel?: string | JSX.Element
+  header: (string | JSX.Element)[]
+  style?: React.CSSProperties
+  rows?: ((string | JSX.Element)[])[]
 }
 
 @CSSModules(styles)
@@ -28,17 +18,7 @@ class InfoTable extends Component<IProps, {}> {
   }
 
   render() {
-    let { header, data, enableTooltip, style, actions, operationLabel } = this.props
-    actions = actions || []
-
-    if (!header) {
-      header = (data.length !== 0 && _.keys(data[0]).map(key => {
-        return {
-          key,
-          name: key
-        }
-      })) || []
-    }
+    let { header, style, rows } = this.props
 
     const className = classnames({
       'info-table': true,
@@ -48,60 +28,18 @@ class InfoTable extends Component<IProps, {}> {
     return (
       <table styleName={className} style={style || {}}>
         <tbody>
+          <tr>
+            {header.map((item, index) => <th key={index}>{item}</th>)}
+          </tr>
           {
-            header
-              ? (
-                <tr>
-                  {
-                    header.map((item, index) => {
-                      return (
-                        <th key={index}>{item.name}</th>
-                      )
-                    })
-                  }
-                  {
-                    actions.length !== 0 && (
-                      <th styleName="actions">{ operationLabel || '操作' }</th>
-                    )
-                  }
-                </tr>
-              )
-              : <tr></tr>
-          }
-          {
-            data.map((row, index) => {
+            rows.map((row, index) => {
+              if (row.length !== header.length) {
+                console.warn('Row items should match head items!')
+              }
+
               return (
                 <tr key={index}>
-                  {
-                    _.map(header, (item, key) => {
-                      return (
-                        <td key={key}>{row[item.key] && row[item.key].toString()}</td>
-                      )
-                    })
-                  }
-                  {
-                    actions.length !== 0 && (
-                      <td
-                        styleName="actions"
-                        >
-                        {
-                          actions.length !== 0 && actions.map((action, index2) => {
-                            return (
-                              <div
-                                styleName="action"
-                                key={index2}
-                                onClick={e => {
-                                  action.fn(data[index])
-                                } }
-                                >
-                                {action.name}
-                              </div>
-                            )
-                          })
-                        }
-                      </td>
-                    )
-                  }
+                  {_.map(row, (item, key) => <td key={key}>{item}</td>)}
                 </tr>
               )
             })

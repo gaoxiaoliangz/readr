@@ -22,6 +22,13 @@ store.runSaga(rootSaga)
 const renderApp = routes => {
   match({ history, routes }, (error, redirectLocation, renderProps) => {
     render(
+      <Root
+        store={store}
+        renderProps={renderProps}
+      />,
+      rootEle
+    )
+    /*render(
       <AppContainer>
         <Root
           store={store}
@@ -29,15 +36,15 @@ const renderApp = routes => {
           />
       </AppContainer>,
       rootEle
-    )
+    )*/
   })
 }
 
 if (module.hot) {
-  module.hot.accept('./routes/createRoutes', () => {
+  module.hot.accept('./routes', () => {
     console.info('hot patching')
 
-    const createRoutesNext = require('./routes/createRoutes').default
+    const createRoutesNext = require('./routes').default
     renderApp(createRoutesNext())
   })
 }

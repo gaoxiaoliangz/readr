@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCollections, sendNotification, fetchProfile } from '../../actions'
+import { sendNotification, loadProfile } from '../../actions'
 import { Button } from '../../components/form'
 import { Tab, Tabs } from '../../components/Tab'
 import { Container } from '../../components/layout'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
-const styles = require('./Profile.scss')
+import styles from './Profile.scss'
 
 interface IProps {
-  fetchBooks?: any
-  newestBooks?: any
-  fetchProfile?: any
+  loadProfile?: typeof loadProfile
   sendNotification?: any
   profile?: any
 }
@@ -24,8 +22,8 @@ class Profile extends Component<IProps, {}> {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.fetchProfile()
+  componentWillMount() {
+    this.props.loadProfile()
   }
 
   render() {
@@ -57,17 +55,14 @@ class Profile extends Component<IProps, {}> {
 }
 
 function mapStateToProps(state, ownProps) {
-  const userId = selectors.sessionUserId(state)
+  // const userId = selectors.sessionUserId(state)
 
   return {
-    newestBooks: state.pagination.books.newest
-      ? state.pagination.books.newest.ids.map(id => state.entities.books[id])
-      : [],
-    profile: selectors.entity('profiles', userId)(state)
+    profile: selectors.profile(state)
   }
 }
 
 export default connect(
   mapStateToProps,
-  { sendNotification, fetchCollections, fetchProfile }
+  { sendNotification, loadProfile }
 )(Profile as any)

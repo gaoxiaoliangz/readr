@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container } from '../components/layout'
 import ConsoleBranding from '../components/ConsoleBranding'
-import { userAuth, sendNotification, userLogout } from '../actions'
+import { sendNotification, logout } from '../actions'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../components/DocContainer'
 import helpers from '../helpers'
+import * as selectors from '../selectors'
 
 interface Props {
   notifications?: any
-  userAuth?: any
-  session?: any
+  session?: Session
   routing?: any
-  userLogout: typeof userLogout
+  logout: typeof logout
 }
 
 class Console extends Component<Props, {}> {
@@ -24,17 +24,17 @@ class Console extends Component<Props, {}> {
   }
 
   redirectIfNotAdmin(props = this.props) {
-    if (props.session.user.role !== 'admin') {
+    if (props.session.role !== 'admin') {
       helpers.redirect('/')
     }
   }
 
   handleLogout() {
-    this.props.userLogout()
+    this.props.logout()
   }
 
   componentWillReceiveProps(nextProps) {
-    const userRoleChanged = this.props.session.user.role !== nextProps.session.user.role
+    const userRoleChanged = this.props.session.role !== nextProps.session.role
 
     if (userRoleChanged) {
       this.redirectIfNotAdmin(nextProps)
@@ -42,8 +42,8 @@ class Console extends Component<Props, {}> {
   }
 
   render() {
-    let isAdmin = this.props.session.user.role === 'admin'
-    let username = this.props.session.user.username
+    let isAdmin = this.props.session.role === 'admin'
+    let username = this.props.session.username
     let pathname = this.props.routing.locationBeforeTransitions
       ? this.props.routing.locationBeforeTransitions.pathname
       : 'console'
@@ -79,8 +79,8 @@ class Console extends Component<Props, {}> {
 export default connect<{}, {}, {}>(
   state => ({
     notifications: state.components.notifications,
-    session: state.session,
+    session: selectors.session(state),
     routing: state.routing
   }),
-  { sendNotification, userAuth, userLogout }
+  { sendNotification, logout }
 )(Console)

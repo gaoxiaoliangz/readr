@@ -1,15 +1,43 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
+import { FETCH_STATUS } from '../constants'
+import { pagination } from './utils'
 
 const DEFAULT_KEY = 'default'
 
-export const entities = name => state => {
-  return state.entities[name] || {}
+
+// new
+export const entity = (name, id) => (state): SelectedEntity => {
+  return {
+    ..._.get(state, ['entities', name, 'entities', id], {}),
+    ...{
+      fetchStatus: _.get(state, ['entities', name, 'fetchStatus', id]) as any,
+      error: _.get(state, ['entities', name, 'errors', id]) as any
+    }
+  }
 }
 
-export const isPaginationFetching = (name, key = DEFAULT_KEY) => state => {
-  return _.get(state, ['pagination', name, key, 'isFetching'], true)
+export const entities = name => state => _.get(state, ['entities', name], {}) as {
+  [key: string]: any
 }
+
+export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
+  pagination(name, key),
+  _pagination => {
+    const next = _.get(_pagination, 'next.page')
+    const last = _.get(_pagination, 'last.page')
+
+    return next
+      ? next as any - 1
+      : last
+  }
+)
+// old
+
+export const isPaginationFetching = (name, key = DEFAULT_KEY) => state => {
+  return _.get(state, ['pagination', name, key, 'fetchStatus']) === FETCH_STATUS.LOADING
+}
+
 export const paginationPages = (name, key = DEFAULT_KEY) => state => {
   return _.get(state, ['pagination', name, key, 'pages'], {})
 }
@@ -25,29 +53,13 @@ export const nextPage = (name, key = DEFAULT_KEY) => createSelector(
   }
 )
 
-export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
-  paginationLinks(name, key),
-  selectedPaginationLinks => {
-    const next = _.get(selectedPaginationLinks, 'next.page')
-    const last = _.get(selectedPaginationLinks, 'last.page')
-
-    return next
-      ? next as any - 1
-      : last
-  }
-)
-
-export const entity = (name, id) => state => {
-  return _.get(state, ['entities', name, id], {})
-}
-
 interface EntityPagesOptions {
   entitiesName: string
   paginationName: string
   paginationKey?: string
 }
 export const entityPages = (options: EntityPagesOptions) => {
-  const {entitiesName, paginationName, paginationKey} = options
+  const { entitiesName, paginationName, paginationKey } = options
 
   return createSelector(
     entities(entitiesName),

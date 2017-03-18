@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification, userAuth } from '../../actions'
+import { sendNotification } from '../../actions'
 import DocContainer from '../../components/DocContainer'
 import SignupForm from './components/SignupForm'
 import webAPI from '../../webAPI'
@@ -54,5 +54,5 @@ export default connect<{}, {}, Props>(
     notification: state.components.notification,
     user: state.user
   }),
-  { sendNotification, userAuth }
+  { sendNotification }
 )(Signup)

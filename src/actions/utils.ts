@@ -1,16 +1,8 @@
-const REQUEST = 'REQUEST'
-const SUCCESS = 'SUCCESS'
-const FAILURE = 'FAILURE'
-const LOAD_CACHE = 'LOAD_CACHE'
+import _ from 'lodash'
 
-export const action = (type, payload = {}) => {
-  return Object.assign({}, {
-    type
-  }, payload)
-}
-
+// action types
 export const createRequestTypes = base => {
-  return [REQUEST, SUCCESS, FAILURE, LOAD_CACHE].reduce((acc, type) => {
+  return ['REQUEST', 'SUCCESS', 'FAILURE'].reduce((acc, type) => {
     acc[type] = `api/${base}/${type}`
     return acc
   }, {}) as RequestTypes
@@ -20,48 +12,23 @@ export const createComponentActionType = (name, operation) =>
   `components/${name}/${operation}`
 
 export const createSagaTriggerActionType = (operation: string) =>
-  `saga-triggers/${operation}/LOAD`
+  `saga-triggers/${operation}/TRIGGER`
 
-export const createActionEntity = (requestTypes: RequestTypes) => {
-  return {
-    request: (payload?: Object) => action(requestTypes.REQUEST, payload),
-    success: (response?, payload?: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload)),
-    // TODO
-    loadCache: (response, payload: Object) => action(requestTypes.SUCCESS, Object.assign({}, { response }, payload, { loadedFromCache: true })),
-    failure: (error, payload?: Object) => action(requestTypes.FAILURE, Object.assign({}, { error }, payload)),
-  }
-}
-
-export const createSagaActionTypes = name => {
+export const createSagaActionTypes = (name): SagaActionTypes => {
   return {
     ...createRequestTypes(name),
     ...{
-      trigger: createSagaTriggerActionType(name)
+      TRIGGER: createSagaTriggerActionType(name)
     }
   }
 }
 
-type CreateSagaActionOptions = {
-  payload?: any
-  meta?: object
-  parser?: (response: { json: any }) => any
-  schema?: any
-  entityKey?: string
-  entityId?: string
-  request: {
-    url: string
-    method?: 'get' | 'post' | 'put' | 'delete'
-  }
-}
-export const createSagaAction = (types, options: CreateSagaActionOptions) => {
-  const { payload, meta, parser, schema, entityKey, entityId, request } = options
-  let _entityKey = entityKey
-  if (!entityKey && !schema) {
-    _entityKey = `key-${Math.random()}`
-  }
+// action creator helpers
+export const createTriggerAction = (types: SagaActionTypes, options: CreateSagaActionOptions): LoaderAction => {
+  const { payload, meta, schema, targetId, request } = options
 
   return {
-    type: types.trigger,
+    type: types.TRIGGER,
     payload: {
       ...{
         request
@@ -71,60 +38,38 @@ export const createSagaAction = (types, options: CreateSagaActionOptions) => {
     meta: {
       ...{
         types,
-        isSagaActions: true,
-        isLoadAction: true,
-        parser,
-        schema,
-        entityKey: _entityKey,
-        entityId,
+        targetId,
+        schema
       },
       ...meta
-    }
+    } as any
   }
 }
 
-export const createActionEntity2 = (types) => {
+export const createActionEntity = (types) => {
   return {
     request: (payload?, meta?: object) => {
       return {
         type: types.REQUEST,
         payload,
-        meta: {
-          ...{
-            isApiFlow: true,
-            isRequest: true
-          },
-          ...meta
-        }
+        meta
       }
     },
 
-    success: (response, meta?: object) => {
+    success: (payload, meta?: object) => {
       return {
         type: types.SUCCESS,
-        payload: { response },
-        meta: {
-          ...{
-            isApiFlow: true,
-            isApiResponse: true
-          },
-          ...meta
-        }
+        payload,
+        meta
       }
     },
 
-    failure: (error, meta?: object) => {
+    failure: (payload, meta?: object) => {
       return {
         type: types.FAILURE,
-        payload: error,
+        payload,
         error: true,
-        meta: {
-          ...{
-            isApiFlow: true,
-            hasError: true
-          },
-          ...meta
-        }
+        meta
       }
     }
   }

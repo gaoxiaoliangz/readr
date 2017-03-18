@@ -2,54 +2,45 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { fetchShelf, userLogout } from '../actions'
+import { loadShelf } from '../actions'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 
 interface Props {
-  fetchShelf: any
-  session: any
-  bookShelf: any
-  userLogout: typeof userLogout
+  loadShelf: typeof loadShelf
+  session: Session
+  bookShelf: SelectedPagination
 }
 
 class App extends Component<Props, {}> {
 
-  constructor(props) {
-    super(props)
-    this.handleLogout = this.handleLogout.bind(this)
-  }
-
-  handleLogout() {
-    this.props.userLogout()
-  }
-
   componentDidMount() {
-    if (this.props.session.user.role !== 'visitor') {
-      this.props.fetchShelf()
+    if (this.props.session.role !== 'visitor') {
+      this.props.loadShelf()
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const userLoggedIn = this.props.session.user.role === 'visitor'
-      && nextProps.session.user.role !== 'visitor'
+    const userLoggedIn = this.props.session.role === 'visitor'
+      && nextProps.session.role !== 'visitor'
 
     if (userLoggedIn) {
-      this.props.fetchShelf()
+      this.props.loadShelf()
     }
   }
 
   render() {
     let isAdmin = false
     let username = null
+    const { session } = this.props
 
-    if (this.props.session.user.role !== 'visitor') {
-      isAdmin = this.props.session.user.role === 'admin'
-      username = this.props.session.user.username
+    if (session.role !== 'visitor') {
+      isAdmin = session.role === 'admin'
+      username = session.username
     }
 
     const {bookShelf} = this.props
-    const bookShelfList = bookShelf
+    const bookShelfList = _.get(bookShelf, ['pages', '1'], [])
       .map(book => ({
         title: book.title,
         id: book.id
@@ -61,7 +52,6 @@ class App extends Component<Props, {}> {
           recentReading={bookShelfList}
           isAdmin={isAdmin}
           username={username}
-          onLogout={this.handleLogout}
           />
         {this.props.children}
         <Colophon />
@@ -73,8 +63,8 @@ class App extends Component<Props, {}> {
 export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
-    session: state.session,
-    bookShelf: selectors.shelfBooks()(state)
+    bookShelf: selectors.shelf(state),
+    session: selectors.session(state)
   }),
-  { fetchShelf, userLogout }
+  { loadShelf }
 )(App)

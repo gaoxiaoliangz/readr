@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import styles from './Loading.scss'
+import loadingGif from './loading.gif'
 
 interface Props {
   backdrop?: boolean
   text?: string
   center?: boolean
+  useDynamicDots?: boolean
 }
 
 interface State {
@@ -52,6 +54,7 @@ class Loading extends Component<Props, State> {
 
     return (
       <div styleName={wrapClass}>
+        <img src={loadingGif} />
         <span styleName="text-loading">{text + dynamicText}</span>
       </div>
     )

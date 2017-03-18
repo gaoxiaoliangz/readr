@@ -2,18 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
-import { loadBooks, fetchCollections } from '../../actions'
+import { loadBooks } from '../../actions'
 import Container from '../../components/Container'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
 import CSSModules from 'react-css-modules'
-const styles = require('./Browse.scss')
+import styles from './Browse.scss'
 
 interface Props {
+  bookList: SelectedPagination
   loadBooks: typeof loadBooks
-  newestBooks: any
-  nextPage: number
-  isBooksFetching: boolean
 }
 
 @CSSModules(styles)
@@ -24,7 +22,7 @@ class Browse extends Component<Props, {}> {
   }
 
   loadMore(page = 1) {
-    this.props.loadBooks({ page }, 'browse')
+    this.props.loadBooks(page)
   }
 
   componentWillMount() {
@@ -32,23 +30,33 @@ class Browse extends Component<Props, {}> {
   }
 
   render() {
-    const { nextPage, isBooksFetching } = this.props
+    const { bookList } = this.props
+    const nextPage = _.get(bookList, 'next.page', 0)
+    const isBooksFetching = bookList.fetchStatus === 'loading'
+
+    const flattenPages = (pages) => {
+      return _.reduce(pages, (a: any[], b) => {
+        return a.concat(b)
+      }, [])
+    }
+
+    const pages = flattenPages(bookList.pages)
 
     return (
       <Container className="archive">
         <BookListSection
           title="所有书籍"
-          bookEntities={this.props.newestBooks}
+          bookEntities={pages}
           isFetching={isBooksFetching}
-          />
+        />
         {
           nextPage !== 0 && (
             <Button
-              onClick={() => { this.loadMore(nextPage) } }
+              onClick={() => { this.loadMore(nextPage) }}
               styleName="btn-load-more"
               width={200}
               color="white"
-              >{isBooksFetching ? '加载中 ...' : '加载更多'}</Button>
+            >{isBooksFetching ? '加载中 ...' : '加载更多'}</Button>
           )
         }
       </Container>
@@ -58,13 +66,11 @@ class Browse extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: selectors.books('browse')(state),
-    isBooksFetching: selectors.isPaginationFetching('books', 'browse')(state),
-    nextPage: selectors.nextPage('books', 'browse')(state)
+    bookList: selectors.bookList(state)
   }
 }
 
 export default connect(
   mapStateToProps,
-  { loadBooks, fetchCollections }
-)(Browse as any)
+  { loadBooks }
+)(Browse)

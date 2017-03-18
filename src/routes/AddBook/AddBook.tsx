@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, resetForm, initializeForm } from '../../actions'
+import { sendNotification, openModal, searchDoubanBooks, closeModal, loadAuthors, resetForm, initializeForm } from '../../actions'
 import _ from 'lodash'
 import webAPI from '../../webAPI'
 import DocContainer from '../../components/DocContainer'
@@ -14,7 +14,7 @@ interface Props {
   openModal?: (data: openModal) => void
   searchDoubanBooks?: any
   closeModal?: any
-  fetchAuthors?: any
+  loadAuthors?: typeof loadAuthors
   resetForm?: typeof resetForm
   fetchDoubanBooks: any
   initializeForm?: typeof initializeForm
@@ -66,11 +66,9 @@ class AddBook extends Component<Props, {}> {
     })
   }
 
-  handleAuthorValueChange(query) {
-    if (!_.isEmpty(query)) {
-      this.props.fetchAuthors({
-        q: query
-      })
+  handleAuthorValueChange(keyword) {
+    if (!_.isEmpty(keyword)) {
+      this.props.loadAuthors(1, keyword)
     }
   }
 
@@ -104,5 +102,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { sendNotification, openModal, searchDoubanBooks, closeModal, fetchAuthors, resetForm, initializeForm }
+  { sendNotification, openModal, searchDoubanBooks, closeModal, loadAuthors, resetForm, initializeForm }
 )(AddBook as any)

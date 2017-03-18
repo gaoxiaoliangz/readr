@@ -29,6 +29,7 @@ module.exports = {
   },
 
   ts({ officialLoader } = {}) {
+    // todo: remove officialLoader
     const tsLoader = officialLoader ? 'ts-loader' : 'awesome-typescript-loader'
 
     return {

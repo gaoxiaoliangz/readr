@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+import _ from 'lodash'
 import { loadUsers } from '../../actions'
 import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../selectors'
 import DocContainer from '../../components/DocContainer'
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
-import moment from 'moment'
 
 interface Props {
   loadUsers: typeof loadUsers
-  users: any[]
-  routing: any
+  users: SelectedPagination
+  routing: SelectedRouting
 }
 
 class ManageUsers extends Component<Props, {}> {
@@ -21,9 +22,7 @@ class ManageUsers extends Component<Props, {}> {
   }
 
   loadUsers(props = this.props) {
-    this.props.loadUsers({
-      page: props.routing.query.page || '1'
-    })
+    this.props.loadUsers(_.get(props, 'routing.query.page', 1))
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -33,12 +32,24 @@ class ManageUsers extends Component<Props, {}> {
     })(nextProps, this.props)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadUsers()
   }
 
   render() {
-    let {users} = this.props
+    const { users } = this.props
+    const userEntities = _.get(users, ['pages', users.currentPage], [])
+    const rows = userEntities
+      .map(row => {
+        return [
+          row.username,
+          row.email,
+          row.password,
+          row.role,
+          row.id,
+          moment(new Date(row.dateCreated).valueOf()).format('YYYY年MM月DD日')
+        ]
+      })
 
     return (
       <DocContainer title="用户管理">
@@ -46,12 +57,11 @@ class ManageUsers extends Component<Props, {}> {
           pagination={{
             name: 'users'
           }}
-          >
+        >
           <InfoTable
-            data={users.map(user => (Object.assign({}, user, {
-              dateCreated: moment(new Date(user.dateCreated).valueOf()).format('YYYY年MM月DD日')
-            })))}
-            />
+            header={['用户名', 'email', '密码', '角色', 'ID', '创建日期']}
+            rows={rows}
+          />
         </ContentPage>
       </DocContainer>
     )
@@ -60,12 +70,12 @@ class ManageUsers extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    users: selectors.users(state),
-    routing: state.routing.locationBeforeTransitions,
+    users: selectors.userList(state),
+    routing: selectors.routing(state)
   }
 }
 
 export default connect(
   mapStateToProps,
   { loadUsers }
-)(ManageUsers)
+)(ManageUsers as any)

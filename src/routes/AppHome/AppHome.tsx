@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
-import { loadBooks, fetchCollections, sendNotification, loadBooks2 } from '../../actions'
+import { sendNotification, loadBooks } from '../../actions'
 import * as selectors from '../../selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../components/DocContainer'
@@ -11,13 +11,10 @@ import { Container } from '../../components/layout'
 import styles from './AppHome.scss'
 
 interface Props {
-  loadBooks: typeof loadBooks
-  fetchCollections: any
-  session: any
-  newestBooks: any
+  session: Session
   sendNotification: any
-  isBooksFetching: boolean
-  loadBooks2: typeof loadBooks2
+  loadBooks: typeof loadBooks
+  bookList: SelectedPagination
 }
 
 interface IState {
@@ -36,26 +33,25 @@ class AppHome extends Component<Props, IState> {
 
   componentWillMount() {
     this.props.loadBooks()
-    this.props.loadBooks2()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.session.isFetching && !nextProps.session.isFetching) {
-      if (nextProps.session.user.role !== 'visitor') {
-        this.setState({
-          showRecentReading: true
-        })
-      }
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.session.isFetching && !nextProps.session.isFetching) {
+  //     if (nextProps.session.user.role !== 'visitor') {
+  //       this.setState({
+  //         showRecentReading: true
+  //       })
+  //     }
+  //   }
+  // }
 
   render() {
-    let { newestBooks, isBooksFetching } = this.props
+    let { bookList, session } = this.props
 
     return (
       <DocContainer bodyClass="home">
         {
-          this.props.session.user.role === 'visitor' && this.props.session.isFetching === false && (
+          session.role === 'visitor' && session.fetchStatus === 'loaded' && (
             <div styleName="hero-image">
               <Container>
                 <div styleName="logo">Readr</div>
@@ -67,10 +63,10 @@ class AppHome extends Component<Props, IState> {
         }
         <Container>
           <BookListSection
-            bookEntities={newestBooks.slice(0, 6)}
+            bookEntities={_.get(bookList, ['pages', '1'], []).slice(0, 6)}
             title="新书速递"
             moreLink="/browse"
-            isFetching={isBooksFetching}
+            isFetching={bookList.fetchStatus === 'loading'}
             />
         </Container>
       </DocContainer>
@@ -80,13 +76,12 @@ class AppHome extends Component<Props, IState> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    newestBooks: selectors.books(undefined, '1')(state),
-    isBooksFetching: selectors.isPaginationFetching('books')(state),
-    session: state.session,
+    session: selectors.session(state),
+    bookList: selectors.bookList(state)
   }
 }
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, fetchCollections, sendNotification, loadBooks2 }
+  { loadBooks, sendNotification }
 )(AppHome)

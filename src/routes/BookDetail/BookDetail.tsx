@@ -1,42 +1,36 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadBook } from '../../actions'
+import { loadBookInfo } from '../../actions'
 import Loading from '../../components/Loading'
 import { Button } from '../../components/form'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
 import * as selectors from '../../selectors'
-const styles = require('./BookDetail.scss')
+import styles from './BookDetail.scss'
 
 interface Props {
-  loadBook: typeof loadBook
-  bookInfo: any
+  loadBookInfo: typeof loadBookInfo
+  bookInfo: SelectedEntity
 }
 
-@CSSModules(styles, {
-  allowMultiple: true
-})
+@CSSModules(styles)
 class BookDetail extends Component<Props, {}> {
 
   bookId: string
-
-  // static fetchData({store, params}) {
-  //   return store.dispatch(loadBook(params.id))
-  // }
 
   constructor(props) {
     super(props)
     this.bookId = props.params.id
   }
 
-  componentDidMount() {
-    this.props.loadBook(this.bookId)
+  componentWillMount() {
+    this.props.loadBookInfo(this.bookId)
   }
 
   render() {
     const { bookInfo } = this.props
-    const isFetching = _.isEmpty(bookInfo)
+    const isFetching = bookInfo.fetchStatus === 'loading'
 
     return (
       <DocContainer bodyClass="book-info" title={bookInfo.title}>
@@ -97,5 +91,5 @@ const mapStateToProps = (state, ownProps: any) => {
 
 export default connect<{}, {}, Props>(
   mapStateToProps,
-  { loadBook }
+  { loadBookInfo }
 )(BookDetail)
