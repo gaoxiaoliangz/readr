@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import _ from 'lodash'
 
-const BookChapter = ({ id, markdown}) => {
+const BookChapter = ({ id, markdown }) => {
   return (
     <div id={id}>
       <BookPages
         pages={[{
           nodes: [markdown]
         }]}
-        />
+      />
     </div>
   )
 }
@@ -61,7 +61,7 @@ export default class BookChapters extends Component<Props, {}> {
                 id={item.id}
                 markdown={item.markdown}
                 key={item.id}
-                />
+              />
             )
           })
         }
