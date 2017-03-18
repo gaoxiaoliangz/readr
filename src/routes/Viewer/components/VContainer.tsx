@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as selectors from '../../../selectors'
 import BookContainer from './BookContainer'
 import VPanel from './VPanel'
-import BookChapters from './BookChapters'
+import BookRaw from './BookRaw'
 import _ from 'lodash'
 import Loading from '../../../components/Loading'
 import utils from '../../../utils'
@@ -97,7 +97,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
   }
 
   handleResize() {
-    this.props.actions.initializeViewerConfig(this.props.bookId, {
+    this.props.actions.configViewer({
       isCalcMode: false
     })
   }
@@ -110,9 +110,9 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
   }
 
   reinitializeViewer() {
-    const { bookId } = this.props
+    // const { bookId } = this.props
 
-    this.props.actions.configViewer(bookId, {
+    this.props.actions.configViewer({
       isCalcMode: true
     })
 
@@ -159,7 +159,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
       return (
         <div>
           <Loading text="书籍排版中" center />
-          <BookChapters
+          <BookRaw
             bookFlesh={bookContent.flesh}
             onRawDataMount={this.handleRawDataMount}
           />

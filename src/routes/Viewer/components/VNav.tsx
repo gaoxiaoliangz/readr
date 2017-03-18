@@ -5,7 +5,8 @@ import CSSModules from 'react-css-modules'
 import * as actions from '../../../actions'
 import * as selectors from '../../../selectors'
 import preventScroll from '../../../utils/browser/preventScroll'
-import * as viewerUtils from '../Viewer.utils'
+// import * as viewerUtils from '../Viewer.utils'
+import { resolveBookLocation } from '../utils'
 import $ from 'jquery'
 import styles from './ViewerNav.scss'
 
@@ -45,7 +46,7 @@ class VNav extends Component<AllProps, void> {
     const href = $(e.target).attr('href')
 
     try {
-      const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
+      const pageNo = resolveBookLocation(href, computedPages)
       const percentage = (pageNo - 1) / computedPages.length
 
       this.props.actions.viewerJumpTo(percentage)

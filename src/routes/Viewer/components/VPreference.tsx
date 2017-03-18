@@ -38,7 +38,9 @@ class VPreference extends Component<AllProps, {}> {
     const { isDecDisabled } = this.getBtnStatus()
 
     if (!isDecDisabled) {
-      this.props.actions.changeViewerFontSize(fontSize - 1)
+      this.props.actions.configViewer({
+        fontSize: fontSize - 1
+      })
     }
   }
 
@@ -47,16 +49,22 @@ class VPreference extends Component<AllProps, {}> {
     const { isIncDisabled } = this.getBtnStatus()
 
     if (!isIncDisabled) {
-      this.props.actions.changeViewerFontSize(fontSize + 1)
+      this.props.actions.configViewer({
+        fontSize: fontSize + 1
+      })
     }
   }
 
   handleChangeThemeClick(key) {
-    this.props.actions.changeViewerTheme(key)
+    this.props.actions.configViewer({
+      theme: key
+    })
   }
 
   handleToggleScrollModeClick(val) {
-    this.props.actions.toggleViewerScrollMode(val)
+    this.props.actions.configViewer({
+      isScrollMode: val
+    })
   }
 
   getBtnStatus() {
@@ -93,7 +101,7 @@ class VPreference extends Component<AllProps, {}> {
             <Switcher
               value={isScrollMode}
               onChange={this.handleToggleScrollModeClick.bind(this)}
-              />
+            />
           </li>
           <li styleName="option-theme">
             {
@@ -106,7 +114,7 @@ class VPreference extends Component<AllProps, {}> {
                     key={index}
                     className={styles[className]}
                     onClick={this.handleChangeThemeClick.bind(this, key)}
-                    >
+                  >
                     {key}
                   </span>
                 )

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Icon from '../../../components/Icon'
 import { Fade, Slide } from '../../../components/animations'
-import ViewerPreference from './ViewerPreference'
+import VPreference from './VPreference'
 import VNav from './VNav'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
@@ -126,7 +126,7 @@ class VPanel extends Component<AllProps, void> {
                   <Fade>
                     {
                       showPreference && (
-                        <ViewerPreference />
+                        <VPreference />
                       )
                     }
                   </Fade>

@@ -40,7 +40,7 @@ function* setViewer(bookId, config: ViewerConfig = {}) {
   }
   initialized = _.merge({}, initialized, config)
 
-  yield put(actions.configViewer(bookId, initialized))
+  // yield put(actions.configViewer(bookId, initialized))
 }
 
 function* setViewerWithAction(action) {
@@ -51,7 +51,7 @@ function* setViewerWithAction(action) {
 }
 
 function* watchInitViewer() {
-  yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
+  // yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
 }
 
 function* updateProgress(bookId, percentage) {
@@ -77,9 +77,9 @@ function* watchCalcBook() {
     try {
       const computed = calcBook(wrap, flesh)
       yield put(actions.calcBookSuccess(bookId, computed))
-      yield put(actions.configViewer(bookId, {
-        isCalcMode: false
-      }))
+      // yield put(actions.configViewer(bookId, {
+      //   isCalcMode: false
+      // }))
     } catch (error) {
       yield put(actions.calcBookFailure(bookId, error))
     }
@@ -140,7 +140,7 @@ function* initializeViewer() {
 
     if (_.isEmpty(computed)) {
       yield [put(actions.loadBookInfo(bookId)), put(actions.loadBookContent(bookId))]
-      yield put(actions.initializeViewerConfig(bookId))
+      // yield put(actions.initializeViewerConfig(bookId))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
       yield fetchProgressAndJump(bookId)
