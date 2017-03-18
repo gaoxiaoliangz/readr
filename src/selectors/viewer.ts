@@ -2,18 +2,28 @@ import _ from 'lodash'
 import { entity } from './index'
 import { createSelector } from 'reselect'
 
-export const self = state => {
-  return _.get(state, ['components', 'viewer'], {}) as any
+
+export const computed = bookId => state => {
+  return _.get(state, ['components', 'viewer', 'data', bookId, 'content', 'computed'], []) as TBookPage[]
 }
 
 export const config = state => {
-  return _.get(state, ['components', 'viewer', 'config'], {}) as ViewerConfig & {
-    bookId: string
-  }
+  return _.get(state, ['components', 'viewer', 'config'], {}) as Viewer.Config
 }
 
-export const computed = bookId => state => {
-  return _.get(state, ['components', 'viewer', 'contents', bookId, 'computed'], []) as TBookPage[]
+export const components = state => {
+  return _.get(state, ['components', 'viewer', 'components'], {}) as Viewer.Components
+}
+
+export const id = state =>
+  _.get(state, ['components', 'viewer', 'id']) as string
+
+
+
+
+
+export const self = state => {
+  return _.get(state, ['components', 'viewer'], {}) as any
 }
 
 export const navData = bookId => state => {
@@ -30,26 +40,26 @@ export const progress = bookId => state => {
 }
 
 // sub components
-export const panel = createSelector(self, _self => {
-  return _.get(_self, ['components', 'panel'], {}) as {
-    show: boolean
-  }
-})
+// export const panel = createSelector(self, _self => {
+//   return _.get(_self, ['components', 'panel'], {}) as {
+//     show: boolean
+//   }
+// })
 
-export const preference = createSelector(self, _self => {
-  return _.get(_self, ['components', 'preference'], {}) as {
-    show: boolean
-  }
-})
+// export const preference = createSelector(self, _self => {
+//   return _.get(_self, ['components', 'preference'], {}) as {
+//     show: boolean
+//   }
+// })
 
-export const navigation = createSelector(self, _self => {
-  return _.get(_self, ['components', 'navigation'], {}) as {
-    show: boolean
-  }
-})
+// export const navigation = createSelector(self, _self => {
+//   return _.get(_self, ['components', 'navigation'], {}) as {
+//     show: boolean
+//   }
+// })
 
-export const progressComponent = createSelector(self, _self => {
-  return _.get(_self, ['components', 'progress'], {}) as {
-    show: boolean
-  }
-})
+// export const progressComponent = createSelector(self, _self => {
+//   return _.get(_self, ['components', 'progress'], {}) as {
+//     show: boolean
+//   }
+// })

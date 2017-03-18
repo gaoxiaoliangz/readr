@@ -25,8 +25,9 @@ interface StateProps {
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
-  const computed = selectors.viewer.computed(config.bookId)(state)
-  const currentPageNo = selectors.viewer.progress(config.bookId)(state).pageNo
+  const bookId = selectors.viewer.id
+  const computed = selectors.viewer.computed(bookId)(state)
+  const currentPageNo = selectors.viewer.progress(bookId)(state).pageNo
 
   return _.assign({}, config, { computed, currentPageNo })
 }

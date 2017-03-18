@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as selectors from '../../../selectors'
 import BookContainer from './BookContainer'
 import VPanel from './VPanel'
-import BookRaw from './BookRaw'
+import ProgressLabel from './ProgressLabel'
 import _ from 'lodash'
 import Loading from '../../../components/Loading'
 import utils from '../../../utils'
@@ -35,7 +35,7 @@ interface OtherProps {
   }
   isFetchingProgress?: boolean
   computedPages?: TBookPage[]
-  config?: ViewerConfig
+  config?: Viewer.Config
   actions?: typeof actions
   cloudProgress?: number
   viewerPercentage?: number
@@ -44,14 +44,14 @@ interface OtherProps {
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
-  const bookId = config.bookId
+  const bookId = selectors.viewer.id(state)
   const book = selectors.entity('books', bookId)(state)
   const bookContent = selectors.entity('bookContents', bookId)(state)
   const bookProgress = selectors.entity('bookProgress', bookId)(state)
   const cloudProgress = _.get(bookProgress, 'percentage', 0)
   const computedPages = selectors.viewer.computed(bookId)(state)
   const { percentage: viewerPercentage, isFetching } = selectors.viewer.progress(bookId)(state)
-  const { show: showPanel } = selectors.viewer.panel(state)
+  const { showPanel } = selectors.viewer.components(state)
 
   return {
     bookId,
@@ -147,7 +147,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
     window.removeEventListener('resize', this.resizeLazily)
   }
 
-  renderBook() {
+  /*renderBook() {
     const { bookContent, computedPages,
       config: { isCalcMode, pageHeight } } = this.props
 
@@ -168,23 +168,20 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
     } else if (computedPages.length !== 0) {
       return (
         <div onClick={this.handleViewerClick}>
-          <BookContainer
-            allPages={computedPages}
-            pageHeight={pageHeight}
-            pageLimit={PAGE_LIMIT}
-          />
+
         </div>
       )
     } else {
       return <Loading text="准备中" center />
     }
-  }
+  }*/
 
   render() {
     return (
       <div onMouseMove={this.handelViewerMouseMove} >
         <VPanel />
-        {this.renderBook()}
+        <BookContainer/>
+        {/*<ProgressLabel/>*/}
       </div>
     )
   }

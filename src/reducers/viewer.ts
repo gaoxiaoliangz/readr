@@ -19,7 +19,7 @@ const config = (state = {}, action) => {
   }
 }
 
-const data = (state, action) => {
+const data = (state = {}, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.CALC_SUCCESS:
       return _.merge({}, state, {
@@ -35,7 +35,7 @@ const data = (state, action) => {
   }
 }
 
-const id = (state, action) => {
+const id = (state = '', action) => {
   if (action.type === ACTION_TYPES.VIEWER.INITIALIZE) {
     return action.payload
   }

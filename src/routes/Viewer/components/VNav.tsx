@@ -8,11 +8,11 @@ import preventScroll from '../../../utils/browser/preventScroll'
 // import * as viewerUtils from '../Viewer.utils'
 import { resolveBookLocation } from '../utils'
 import $ from 'jquery'
-import styles from './ViewerNav.scss'
+import styles from './VNav.scss'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
 
-interface Props {}
+interface Props { }
 
 interface AllProps {
   nav?: TBookNav[]
@@ -22,7 +22,7 @@ interface AllProps {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { bookId } = selectors.viewer.config(state)
+  const bookId = selectors.viewer.id(state)
   const nav = selectors.viewer.navData(bookId)(state)
   const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)

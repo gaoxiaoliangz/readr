@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import helpers from '../../helpers'
-const styles = require('./components/BookPage.scss')
+import styles from '../../routes/Viewer/components/BookPage.scss'
 
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的

@@ -16,18 +16,16 @@ interface AllProps {
   showPanel?: boolean
   showPreference?: boolean
   showNavigation?: boolean
-  config?: ViewerConfig
+  config?: Viewer.Config
   actions?: typeof actions
   title?: string
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
-  const bookId = config.bookId
-  const { show: showPanel } = selectors.viewer.panel(state)
-  const { show: showPreference } = selectors.viewer.preference(state)
-  const { show: showNavigation } = selectors.viewer.navigation(state)
-  const { title } = selectors.entity('books', bookId)(state) as any
+  const bookId = selectors.viewer.id(state)
+  const { showPanel, showNavigation, showPreference } = selectors.viewer.components(state)
+  const { title } = selectors.entity('books', bookId)(state)
 
   return { config, showPanel, showPreference, title, showNavigation }
 }

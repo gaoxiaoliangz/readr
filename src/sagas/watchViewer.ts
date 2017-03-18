@@ -16,8 +16,7 @@ import calcBook from './effects/calcBook'
 const DEFAULT_PAGE_HEIGHT = 900
 const DEFAULT_FONT_SIZE = 16
 
-
-const getDefaultConfig = (override: ViewerConfig = {}): ViewerConfig => {
+const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   const viewerWidth = utils.getScreenInfo().view.width
   const isSmallScreen = viewerWidth < 700
 

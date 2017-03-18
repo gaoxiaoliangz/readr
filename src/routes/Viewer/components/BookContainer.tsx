@@ -10,33 +10,44 @@ import BookRaw from './BookRaw'
 import styles from './BookContainer.scss'
 
 interface OwnProps {
-  allPages: TBookPage[]
-  pageHeight: number
-  pageLimit: number
+  // allPages: TBookPage[]
+  // pageHeight: number
+  // pageLimit: number
 }
 
 interface StateProps {
-  percentage?: number
-  pageNo?: number
-  theme?: string
-  isScrollMode?: boolean
-  isCalcMode?: boolean
-  actions?: typeof actions
-  showPageInfo?: boolean
+  // percentage?: number
+  // pageNo?: number
+  // theme?: string
+  // isScrollMode?: boolean
+  // isCalcMode?: boolean
+  // actions?: typeof actions
+  // showPageInfo?: boolean
+  config: Viewer.Config
+  computed: TBookPage[]
+  bookContent: SelectedEntity
 }
 
 const mapStateToProps = state => {
-  const { bookId, theme, isScrollMode, isCalcMode } = selectors.viewer.config(state)
-  const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
-  const { show: showPageInfo } = selectors.viewer.progressComponent(state)
+  // const { bookId, theme, isScrollMode, isCalcMode } = selectors.viewer.config(state)
+  // const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
+  // const { show: showPageInfo } = selectors.viewer.progressComponent(state)
+
+  const config = selectors.viewer.config(state)
+  const computed = selectors.viewer.computed(state)
+  const bookId = selectors.viewer.id(state)
+  const bookContent = selectors.entity('books', bookId)(state)
 
   return {
-    showPageInfo,
-    percentage,
-    pageNo,
-    theme,
-    isScrollMode,
-    isCalcMode
+    config,
+    computed,
+    bookContent
+    // showPageInfo,
+    // percentage,
+    // pageNo,
+    // theme,
+    // isScrollMode,
+    // isCalcMode
   }
 }
 
@@ -47,22 +58,22 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
 
   constructor(props) {
     super(props)
-    this.handleScroll = this.handleScroll.bind(this)
-    this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
-      maxWait: 1000
-    })
+    // this.handleScroll = this.handleScroll.bind(this)
+    // this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
+    //   maxWait: 1000
+    // })
   }
 
-  handleScroll() {
-    const { allPages, pageHeight, isScrollMode } = this.props
-    const pageCount = allPages.length
-    const totalHeight = pageCount * pageHeight
-    const scrollTop = document.body.scrollTop
+  // handleScroll() {
+  //   const { allPages, pageHeight, isScrollMode } = this.props
+  //   const pageCount = allPages.length
+  //   const totalHeight = pageCount * pageHeight
+  //   const scrollTop = document.body.scrollTop
 
-    if (isScrollMode) {
-      this.props.actions.updateBookProgress(scrollTop / totalHeight)
-    }
-  }
+  //   if (isScrollMode) {
+  //     this.props.actions.updateBookProgress(scrollTop / totalHeight)
+  //   }
+  // }
 
   // handleForward() {
   //   const { allPages, pageNo } = this.props
@@ -93,11 +104,14 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
   // }
 
   render() {
-    const { allPages, pageHeight, showPageInfo, pageLimit, pageNo,
-      theme, isScrollMode, isCalcMode, bookFlesh } = this.props
+    // const { allPages, pageHeight, showPageInfo, pageLimit, pageNo,
+    //   theme, isScrollMode, isCalcMode, bookFlesh } = this.props
+    const { config: { theme, isCalcMode, isScrollMode, pageHeight }, computed, bookContent } = this.props
+    const { flesh: bookFlesh } = bookContent
 
+    const pageNo = 1
+    const pageLimit = 5
     let startPageIndex
-
     startPageIndex = pageNo - Math.ceil(pageLimit / 2)
     startPageIndex = startPageIndex < 0 ? 0 : startPageIndex
 
@@ -107,7 +121,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
       ? 'auto'
       : (
         isScrollMode
-          ? allPages.length * pageHeight
+          ? computed.length * pageHeight
           : pageHeight
       )
 
@@ -122,7 +136,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
             )
             : (
               <BookPages
-                pages={_.slice(allPages, startPageIndex, endPageIndex) as TBookPage[]}
+                pages={_.slice(computed, startPageIndex, endPageIndex) as TBookPage[]}
               />
             )
         }
@@ -131,7 +145,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
   }
 }
 
-export default connect<StateProps, {}, OwnProps>(
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)

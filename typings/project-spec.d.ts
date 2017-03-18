@@ -1,8 +1,47 @@
+type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
+type Roles = 'admin' | 'user' | 'visitor'
+
+// state
+type Session = {
+  role: Roles
+  username: string
+  fetchStatus: FetchStatus
+  id: string
+}
+
+interface SelectedPagination {
+  pages: {}
+  next: Link
+  last: Link
+  currentPage: number
+  fetchStatus: FetchStatus
+}
+
+interface SelectedRouting {
+  action: string
+  hash: string
+  key: string
+  pathname: string
+  query: {
+    [key: string]: any
+  }
+  search: string
+  state: any
+}
+
+interface SelectedEntity {
+  fetchStatus: FetchStatus
+  error: any
+  [key: string]: any
+}
+
+
 /**
  * General types
  */
 type TNotification = 'success' | 'error' | 'warning' | 'ongoing'
 
+// action
 interface RequestTypes {
   REQUEST: string
   SUCCESS: string
@@ -20,14 +59,14 @@ interface ActionEntity {
 }
 
 // for thunk actions server side data fetching (deprecated)
-type FetchDataOptions = {
-  store: {
-    dispatch: (action: any) => any
-  }
-  params: any
-  query: any
-  userSession: any
-}
+// type FetchDataOptions = {
+//   store: {
+//     dispatch: (action: any) => any
+//   }
+//   params: any
+//   query: any
+//   userSession: any
+// }
 
 interface RequestConfig {
   method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
@@ -81,44 +120,9 @@ interface Link {
   url: string
 }
 
-interface SelectedPagination {
-  pages: {}
-  next: Link
-  last: Link
-  currentPage: number
-  fetchStatus: FetchStatus
-}
-
-interface SelectedRouting {
-  action: string
-  hash: string
-  key: string
-  pathname: string
-  query: {
-    [key: string]: any
-  }
-  search: string
-  state: any
-}
-
-interface SelectedEntity {
-  fetchStatus: FetchStatus
-  error: any
-  [key: string]: any
-}
-
 /**
  * Viewer components & data types
  */
-type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
-type Roles = 'admin' | 'user' | 'visitor'
-
-type Session = {
-  role: Roles
-  username: string
-  fetchStatus: FetchStatus
-  id: string
-}
 
 type TBookPage = {
   nodes: string[]
@@ -143,13 +147,22 @@ type TBookNav = {
   children?: TBookNav[]
 }
 
-interface ViewerConfig {
-  isCalcMode?: boolean
-  isTouchMode?: boolean
-  isScrollMode?: boolean
-  fluid?: boolean
-  pageHeight?: number
-  fontSize?: number
-  theme?: string
-  width?: 'max' | number
+declare namespace Viewer {
+  interface Components {
+    showNavigation: boolean
+    showPanel: boolean
+    showPreference: boolean
+    showProgress: boolean
+  }
+
+  interface Config {
+    isCalcMode?: boolean
+    isTouchMode?: boolean
+    isScrollMode?: boolean
+    fluid?: boolean
+    pageHeight?: number
+    fontSize?: number
+    theme?: string
+    width?: 'max' | number
+  }
 }

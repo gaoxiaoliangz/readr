@@ -8,7 +8,7 @@ export const initializeViewer = (bookId: string) => ({
   type: ACTION_TYPES.VIEWER.INITIALIZE
 })
 
-export const configViewer = (config: ViewerConfig = {}) => ({
+export const configViewer = (config: Viewer.Config = {}) => ({
   payload: config,
   type: ACTION_TYPES.VIEWER.CONFIG,
 })
@@ -70,7 +70,7 @@ export const initializeBookProgress = () =>
 export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
   helpers.print('Action updateBookProgress')
   const state = getState()
-  const { bookId } = selectors.viewer.config(state)
+  const bookId = selectors.viewer.id(state)
   const computed = selectors.viewer.computed(bookId)(state)
   const pageNo = Math.floor(computed.length * percentage) + 1
 
