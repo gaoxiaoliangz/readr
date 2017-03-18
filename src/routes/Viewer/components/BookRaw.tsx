@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import _ from 'lodash'
 
-const BookChapter = ({ id, markdown }) => {
+const Chapter = ({ id, markdown }) => {
   return (
     <div id={id}>
       <BookPages
@@ -22,7 +22,7 @@ interface Props {
   onRawDataMount?: (ref: HTMLElement) => void
 }
 
-export default class BookChapters extends Component<Props, {}> {
+export default class BookRaw extends Component<Props, {}> {
 
   chapters: HTMLElement
 
@@ -57,7 +57,7 @@ export default class BookChapters extends Component<Props, {}> {
         {
           (bookFlesh || []).map(item => {
             return (
-              <BookChapter
+              <Chapter
                 id={item.id}
                 markdown={item.markdown}
                 key={item.id}

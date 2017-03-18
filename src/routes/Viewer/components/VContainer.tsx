@@ -67,7 +67,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-class ViewerContainer extends Component<Props & OtherProps, LocalState> {
+class VContainer extends Component<Props & OtherProps, LocalState> {
 
   resizeLazily: typeof _.debounce
 
@@ -195,4 +195,4 @@ export default connect<OtherProps, {}, Props>(
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
   })
-)(ViewerContainer)
+)(VContainer)

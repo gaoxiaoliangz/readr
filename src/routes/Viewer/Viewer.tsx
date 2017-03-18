@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules'
 import DocContainer from '../../components/DocContainer'
 import * as selectors from '../../selectors'
 import * as actions from '../../actions'
-import ViewContainer from './components/ViewerContainer'
+import VContainer from './components/VContainer'
 import styles from './Viewer.scss'
 
 interface AllProps {
@@ -47,7 +47,7 @@ class Viewer extends Component<AllProps, void> {
   render() {
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
-        <ViewContainer/>
+        <VContainer/>
       </DocContainer>
     )
   }

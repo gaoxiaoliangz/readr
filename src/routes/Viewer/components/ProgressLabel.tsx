@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
-const styles = require('./ViewerScrollbar.scss')
+import styles from './ProgressLabel.scss'
 
 interface Props {
   current: number
@@ -9,7 +9,7 @@ interface Props {
 }
 
 @CSSModules(styles)
-class ViewerScrollbar extends Component<Props, {}> {
+class ProgressLabel extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
@@ -30,4 +30,4 @@ class ViewerScrollbar extends Component<Props, {}> {
   }
 }
 
-export default ViewerScrollbar
+export default ProgressLabel

@@ -5,11 +5,12 @@ import * as ACTION_TYPES from '../constants/actionTypes'
 import webAPI from '../webAPI'
 import _ from 'lodash'
 import * as selectors from '../selectors'
-import { ROLES } from '../constants'
+// import { ROLES } from '../constants'
 // import { fetchEntity } from './utils'
 import helpers from '../helpers'
-import * as viewerUtils from '../routes/Viewer/Viewer.utils'
+// import * as viewerUtils from '../routes/Viewer/Viewer.utils'
 import utils from '../utils'
+import calcBook from './effects/calcBook'
 
 const DEFAULT_PAGE_HEIGHT = 900
 const DEFAULT_FONT_SIZE = 16
@@ -51,27 +52,6 @@ function* setViewerWithAction(action) {
 
 function* watchInitViewer() {
   yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
-}
-
-function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
-  const startCalcHtmlTime = new Date().valueOf()
-  const computedChapters = Array.prototype
-    .map.call(wrap.childNodes, child => {
-      const childDiv = child as HTMLDivElement
-      const id = childDiv.getAttribute('id')
-      const nodeHeights = viewerUtils.getNodeHeights(childDiv.querySelector('.lines').childNodes)
-
-      return {
-        id,
-        nodeHeights
-      }
-    })
-  const endCalcHtmlTime = new Date().valueOf()
-  helpers.print(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
-
-  const computedPages = viewerUtils.groupPageFromChapters(flesh, computedChapters, 900)
-
-  return computedPages
 }
 
 function* updateProgress(bookId, percentage) {

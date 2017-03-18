@@ -8,7 +8,7 @@ import * as selectors from '../../../selectors'
 import classnames from 'classnames'
 import { THEMES as THEME_DEFS } from '../../../constants/viewerDefs'
 import _ from 'lodash'
-const styles = require('./ViewerPreference.scss')
+import styles from './VPreference.scss'
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class ViewerPreference extends Component<AllProps, {}> {
+class VPreference extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
@@ -124,4 +124,4 @@ export default connect<AllProps, {}, {}>(
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
   })
-)(ViewerPreference)
+)(VPreference)

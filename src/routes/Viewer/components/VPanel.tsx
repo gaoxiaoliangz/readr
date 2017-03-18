@@ -3,14 +3,14 @@ import { Link } from 'react-router'
 import Icon from '../../../components/Icon'
 import { Fade, Slide } from '../../../components/animations'
 import ViewerPreference from './ViewerPreference'
-import ViewerNav from './ViewerNav'
+import VNav from './VNav'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../../actions'
 import * as selectors from '../../../selectors'
 import isDescendant from '../../../utils/dom/isDescendant'
-const styles = require('./ViewerPanel.scss')
+import styles from './VPanel.scss'
 
 interface AllProps {
   showPanel?: boolean
@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class ViewerPanel extends Component<AllProps, void> {
+class VPanel extends Component<AllProps, void> {
 
   nav: HTMLDivElement
   pref: HTMLDivElement
@@ -113,7 +113,7 @@ class ViewerPanel extends Component<AllProps, void> {
                   <Fade>
                     {
                       showNavigation && (
-                        <ViewerNav />
+                        <VNav />
                       )
                     }
                   </Fade>
@@ -145,4 +145,4 @@ export default connect<AllProps, {}, {}>(
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
   })
-)(ViewerPanel)
+)(VPanel)

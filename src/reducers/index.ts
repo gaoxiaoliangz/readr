@@ -8,6 +8,7 @@ import * as TYPES from '../constants/actionTypes'
 import { ROLES } from '../constants'
 import receiveData from './utils/receiveData'
 import paginate from './utils/paginate'
+import viewer from './viewer'
 
 function errorMessage(state = [], action) {
   const { error } = action
@@ -22,6 +23,7 @@ function errorMessage(state = [], action) {
 
 const rootReducer = combineReducers({
   components,
+  viewer,
   entities,
   errorMessage,
   routing,

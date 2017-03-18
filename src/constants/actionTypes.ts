@@ -1,5 +1,9 @@
 import { createComponentActionType, createSagaTriggerActionType, createSagaActionTypes } from '../actions/utils'
 
+const makeActionTypeCreator = namespace => type => [namespace, type].join('/')
+
+const viewerType = makeActionTypeCreator('viewer')
+
 /**
  * components
  */
@@ -18,28 +22,34 @@ export const MODAL = {
 
 // viewer
 export const VIEWER = {
-  INITIALIZE: createSagaTriggerActionType(createComponentActionType('viewer', 'INITIALIZE')),
-  INITIALIZE_CONFIG: createSagaTriggerActionType(createComponentActionType('viewer', 'INITIALIZE_CONFIG')),
-  CONFIG: createComponentActionType('viewer', 'CONFIG'),
-  CALC_START: createSagaTriggerActionType(createComponentActionType('viewer', 'CALC_START')),
-  CALC_SUCCESS: createComponentActionType('viewer', 'CALC_SUCCESS'),
-  CALC_FAILURE: createComponentActionType('viewer', 'CALC_FAILURE'),
-  BOOK_PROGRESS_UPDATE: createSagaTriggerActionType(createComponentActionType('viewer/progress', 'UPDATE')),
+
+
+
+
+
+
+  INITIALIZE: createSagaTriggerActionType(viewerType('INITIALIZE')),
+  INITIALIZE_CONFIG: createSagaTriggerActionType(viewerType('INITIALIZE_CONFIG')),
+  CONFIG: viewerType('CONFIG'),
+  CALC_START: createSagaTriggerActionType(viewerType('CALC_START')),
+  CALC_SUCCESS: viewerType('CALC_SUCCESS'),
+  CALC_FAILURE: viewerType('CALC_FAILURE'),
+  BOOK_PROGRESS_UPDATE: createSagaTriggerActionType(viewerType('UPDATE_PROGRESS')),
+
+  JUMP: createSagaTriggerActionType(viewerType('JUMP')),
+  FONT_CHANGE: viewerType('CHANGE_FONT_SIZE'),
+  PANEL_TOGGLE: viewerType('TOGGLE_PANEL'),
+  PREFERENCE_TOGGLE: viewerType('TOGGLE_PREFERENCE'),
+  NAVIGATION_TOGGLE: viewerType('TOGGLE_NAVIGATION'),
+  THEME_CHANGE: viewerType('CHANGE_THEME'),
+  SCROLL_MODE_TOGGLE: viewerType('TOGGLE_SCROLL_MODE'),
+  PAGE_PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
 
   // TODO: 这个好像没用
-  BOOK_PROGRESS_INITIALIZE: createComponentActionType('viewer/progress', 'INITIALIZE'),
+  PROGRESS_INITIALIZE: viewerType('INITIALIZE_PROGRESS'),
 
   // TODO: 这个好像也没用
-  BOOK_PROGRESS_DESTROY: createComponentActionType('viewer/progress', 'DESTROY'),
-
-  JUMP: createSagaTriggerActionType(createComponentActionType('viewer', 'JUMP')),
-  FONT_CHANGE: createComponentActionType('viewer/preference', 'CHANGE_FONT_SIZE'),
-  PANEL_TOGGLE: createComponentActionType('viewer/components/panel', 'TOGGLE'),
-  PREFERENCE_TOGGLE: createComponentActionType('viewer/components/preference', 'TOGGLE'),
-  NAVIGATION_TOGGLE: createComponentActionType('viewer/components/navigation', 'TOGGLE'),
-  THEME_CHANGE: createComponentActionType('viewer/theme', 'CHANGE'),
-  SCROLL_MODE_TOGGLE: createComponentActionType('viewer/scroll-mode', 'TOGGLE'),
-  PAGE_PROGRESS_INFO_TOGGLE: createComponentActionType('viewer/progress-info', 'TOGGLE')
+  PROGRESS_DESTROY: viewerType('DESTROY_PROGRESS'),
 }
 
 // modifiy

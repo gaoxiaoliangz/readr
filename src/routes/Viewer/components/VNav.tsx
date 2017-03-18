@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class ViewerNav extends Component<AllProps, void> {
+class VNav extends Component<AllProps, void> {
 
   $body: any
 
@@ -114,4 +114,4 @@ export default connect<AllProps, {}, {}>(
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
   })
-)(ViewerNav)
+)(VNav)

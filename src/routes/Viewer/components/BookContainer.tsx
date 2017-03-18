@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import BookPages from './BookPages'
-import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
+import CSSModules from 'react-css-modules'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as selectors from '../../../selectors'
-import NavArrow from './NavArrow'
 import * as actions from '../../../actions'
-import CSSModules from 'react-css-modules'
+import BookPages from './BookPages'
+import BookRaw from './BookRaw'
 import styles from './BookContainer.scss'
 
 interface OwnProps {
@@ -65,37 +64,37 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
     }
   }
 
-  handleForward() {
-    const { allPages, pageNo } = this.props
-    this.props.actions.viewerJumpTo(pageNo / allPages.length)
-    document.body.scrollTop = 0
-  }
+  // handleForward() {
+  //   const { allPages, pageNo } = this.props
+  //   this.props.actions.viewerJumpTo(pageNo / allPages.length)
+  //   document.body.scrollTop = 0
+  // }
 
-  handlebackward() {
-    const { allPages, pageNo } = this.props
-    this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length)
-    document.body.scrollTop = 0
-  }
+  // handlebackward() {
+  //   const { allPages, pageNo } = this.props
+  //   this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length)
+  //   document.body.scrollTop = 0
+  // }
 
-  addEventListeners() {
-    window.addEventListener('scroll', this.handleScrollLazily)
-  }
+  // addEventListeners() {
+  //   window.addEventListener('scroll', this.handleScrollLazily)
+  // }
 
-  removeEventListeners() {
-    window.removeEventListener('scroll', this.handleScrollLazily)
-  }
+  // removeEventListeners() {
+  //   window.removeEventListener('scroll', this.handleScrollLazily)
+  // }
 
-  componentDidMount() {
-    this.addEventListeners()
-  }
+  // componentDidMount() {
+  //   this.addEventListeners()
+  // }
 
-  componentWillUnmount() {
-    this.removeEventListeners()
-  }
+  // componentWillUnmount() {
+  //   this.removeEventListeners()
+  // }
 
   render() {
     const { allPages, pageHeight, showPageInfo, pageLimit, pageNo,
-      theme, isScrollMode, isCalcMode } = this.props
+      theme, isScrollMode, isCalcMode, bookFlesh } = this.props
 
     let startPageIndex
 
@@ -114,25 +113,25 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
 
     return (
       <div styleName={theme.toLowerCase()} style={{ height: divHeight }}>
-        <BookPages
-          pages={_.slice(allPages, startPageIndex, endPageIndex) as TBookPage[]}
-          />
-        <NavArrow
-          forward={this.handleForward.bind(this)}
-          backward={this.handlebackward.bind(this)}
-          show={!isScrollMode}
-          />
-        <ViewerScrollbar
-          visible={showPageInfo}
-          current={pageNo}
-          total={allPages.length}
-          />
+        {
+          isCalcMode
+            ? (
+              <BookRaw
+                bookFlesh={bookFlesh}
+              />
+            )
+            : (
+              <BookPages
+                pages={_.slice(allPages, startPageIndex, endPageIndex) as TBookPage[]}
+              />
+            )
+        }
       </div>
     )
   }
 }
 
-export default  connect<StateProps, {}, OwnProps>(
+export default connect<StateProps, {}, OwnProps>(
   mapStateToProps,
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
