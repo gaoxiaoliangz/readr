@@ -17,8 +17,6 @@ interface ActionEntity {
   request: any
   success: any
   failure: any
-  // todo
-  loadCache: any
 }
 
 // for thunk actions server side data fetching (deprecated)
@@ -153,4 +151,5 @@ interface ViewerConfig {
   pageHeight?: number
   fontSize?: number
   theme?: string
+  width?: 'max' | number
 }

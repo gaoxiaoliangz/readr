@@ -3,60 +3,12 @@ import _ from 'lodash'
 import * as ACTION_TYPES from '../../constants/actionTypes'
 import * as CONSTANTS from '../../constants'
 
-const getFlag = (reset, currentFlag) => {
-  if (typeof reset === 'undefined') {
-    return !currentFlag
-  }
 
-  return reset
-}
 
-function contents(state = {}, action) {
-  switch (action.type) {
-    case ACTION_TYPES.VIEWER.CALC_SUCCESS:
-      return _.merge({}, state, {
-        [action.bookId]: {
-          computed: action.computed
-        }
-      })
-
-    default:
-      return state
-  }
-}
-
-function config(state = { theme: CONSTANTS.VIEWER_DEFS.THEMES.WHITE, isScrollMode: true }, action): any {
-  switch (action.type) {
-    case ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE:
-      const { reset } = action
-
-      return _.merge({}, state, {
-        isScrollMode: getFlag(reset, state.isScrollMode)
-      })
-
-    case ACTION_TYPES.VIEWER.THEME_CHANGE:
-      return _.merge({}, state, {
-        theme: action.theme
-      })
-
-    case ACTION_TYPES.VIEWER.FONT_CHANGE:
-      return _.merge({}, state, {
-        fontSize: action.fontSize
-      })
-
-    case ACTION_TYPES.VIEWER.CONFIG:
-      return _.merge({}, state, {
-        bookId: action.bookId
-      }, action.payload)
-
-    default:
-      return state
-  }
-}
 
 function progress(state = {}, action): any {
   switch (action.type) {
-    case ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE:
+    case ACTION_TYPES.VIEWER.PROGRESS_UPDATE:
       return _.merge({}, state, {
         [action.id]: {
           isFetching: false,
@@ -65,7 +17,7 @@ function progress(state = {}, action): any {
         }
       })
 
-    case ACTION_TYPES.VIEWER.BOOK_PROGRESS_DESTROY:
+    case ACTION_TYPES.VIEWER.PROGRESS_DESTROY:
       return _.assign({}, state, {
         [action.id]: {
           isFetching: false
@@ -108,22 +60,12 @@ const preference = (state = { show: false }, action) => {
 }
 
 const navigation = (state = { show: false }, action) => {
-  switch (action.type) {
-    case ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE:
-      const { reset } = action
 
-      return {
-        show: getFlag(reset, state.show)
-      }
-
-    default:
-      return state
-  }
 }
 
 const progressComponent = (state = { show: false }, action) => {
   switch (action.type) {
-    case ACTION_TYPES.VIEWER.PAGE_PROGRESS_INFO_TOGGLE:
+    case ACTION_TYPES.VIEWER.PROGRESS_INFO_TOGGLE:
       const { payload } = action
 
       return {
@@ -143,8 +85,6 @@ const components = combineReducers({
 })
 
 export default combineReducers({
-  config,
-  contents,
   progress,
   components
 })

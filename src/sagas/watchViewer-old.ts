@@ -1,4 +1,3 @@
-
 import { takeEvery } from 'redux-saga'
 import { take, put, call, select, fork, cancelled } from 'redux-saga/effects'
 import * as actions from '../actions'
@@ -16,52 +15,44 @@ import calcBook from './effects/calcBook'
 const DEFAULT_PAGE_HEIGHT = 900
 const DEFAULT_FONT_SIZE = 16
 
+// const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
 
-const getDefaultConfig = (override: ViewerConfig = {}): ViewerConfig => {
+function* setViewer(bookId, config: ViewerConfig = {}) {
   const viewerWidth = utils.getScreenInfo().view.width
   const isSmallScreen = viewerWidth < 700
 
-  return {
-    ...{
-      fluid: isSmallScreen,
-      isTouchMode: isSmallScreen,
-      pageHeight: DEFAULT_PAGE_HEIGHT,
-      fontSize: DEFAULT_FONT_SIZE,
-      width: isSmallScreen
-        ? viewerWidth
-        : 'max'
-    },
-    ...override
+  let initialized = {
+    bookId,
+    isCalcMode: true,
+    fluid: isSmallScreen,
+    isTouchMode: isSmallScreen,
+    pageHeight: DEFAULT_PAGE_HEIGHT,
+    fontSize: DEFAULT_FONT_SIZE,
+    width: isSmallScreen
+      ? viewerWidth
+      : 'max'
   }
+
+  const computed = yield select(selectors.viewer.computed(bookId))
+
+  if (computed.length > 0) {
+    initialized.isCalcMode = false
+  }
+  initialized = _.merge({}, initialized, config)
+
+  yield put(actions.configViewer(bookId, initialized))
 }
 
+function* setViewerWithAction(action) {
+  const bookId = action.bookId
+  const config: ViewerConfig = action.config
 
-// const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
-// function* setViewer(bookId, config: ViewerConfig = {}) {
+  yield setViewer(bookId, config)
+}
 
-
-
-
-//   const computed = yield select(selectors.viewer.computed(bookId))
-
-//   if (computed.length > 0) {
-//     initialized.isCalcMode = false
-//   }
-//   initialized = _.merge({}, initialized, config)
-
-//   yield put(actions.configViewer(bookId, initialized))
-// }
-
-// function* setViewerWithAction(action) {
-//   const bookId = action.bookId
-//   const config: ViewerConfig = action.config
-
-//   yield setViewer(bookId, config)
-// }
-
-// function* watchInitViewer() {
-//   yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
-// }
+function* watchInitViewer() {
+  yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
+}
 
 function* updateProgress(bookId, percentage) {
   try {
@@ -73,6 +64,24 @@ function* updateProgress(bookId, percentage) {
   } finally {
     if (yield cancelled()) {
       helpers.print('updateProgress canceled')
+    }
+  }
+}
+
+function* watchCalcBook() {
+  while (true) {
+    const { bookId, wrap } = yield take(ACTION_TYPES.VIEWER.CALC_START)
+    const bookContent = yield select(selectors.entity('bookContents', bookId))
+    const flesh = bookContent.flesh || {}
+
+    try {
+      const computed = calcBook(wrap, flesh)
+      yield put(actions.calcBookSuccess(bookId, computed))
+      yield put(actions.configViewer(bookId, {
+        isCalcMode: false
+      }))
+    } catch (error) {
+      yield put(actions.calcBookFailure(bookId, error))
     }
   }
 }
@@ -124,23 +133,14 @@ function* fetchProgressAndJump(bookId) {
   yield put(actions.viewerJumpTo(percentage))
 }
 
-
-
-
-
-
-function* watchInitialization() {
+function* initializeViewer() {
   while (true) {
-    const { payload: bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
+    const { bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
     const computed = yield select(selectors.viewer.computed(bookId))
 
     if (_.isEmpty(computed)) {
       yield [put(actions.loadBookInfo(bookId)), put(actions.loadBookContent(bookId))]
-      // yield put(actions.initializeViewerConfig(bookId))
-      const config = getDefaultConfig({
-        isCalcMode: true
-      })
-      yield put(actions.configViewer(config))
+      yield put(actions.initializeViewerConfig(bookId))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
       yield fetchProgressAndJump(bookId)
@@ -150,33 +150,12 @@ function* watchInitialization() {
   }
 }
 
-function* watchCalcBook() {
-  while (true) {
-    const { payload: { bookId, wrap } } = yield take(ACTION_TYPES.VIEWER.CALC_START)
-    const bookContent = yield select(selectors.entity('bookContents', bookId))
-    const flesh = bookContent.flesh || {}
-
-    try {
-      const computed = calcBook(wrap, flesh)
-      yield put(actions.calcBookSuccess(bookId, computed))
-      yield put(actions.configViewer({
-        isCalcMode: false
-      }))
-    } catch (error) {
-      yield put(actions.calcBookFailure(bookId, error))
-    }
-  }
-}
-
-
-
-
 export default function* watchViewer() {
   yield [
     // fork(watchProgressOperations),
-    fork(watchInitialization),
-    // fork(watchConfig),
     fork(watchCalcBook),
+    fork(watchInitViewer),
     fork(watchJumpRequest),
+    fork(initializeViewer)
   ]
 }

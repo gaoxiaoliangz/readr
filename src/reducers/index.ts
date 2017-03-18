@@ -23,11 +23,11 @@ function errorMessage(state = [], action) {
 
 const rootReducer = combineReducers({
   components,
-  viewer,
   entities,
   errorMessage,
   routing,
   form,
+  viewer,
   // it's true that define pagination in reducers is much better
   pagination: combineReducers({
     books: paginate(TYPES.BOOKS),

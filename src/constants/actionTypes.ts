@@ -1,4 +1,4 @@
-import { createComponentActionType, createSagaTriggerActionType, createSagaActionTypes } from '../actions/utils'
+import { componentType, triggerType, apiTypes } from '../actions/utils'
 
 const makeActionTypeCreator = namespace => type => [namespace, type].join('/')
 
@@ -10,40 +10,41 @@ const viewerType = makeActionTypeCreator('viewer')
 
 // general
 export const NOTIFICATION = {
-  SHOW: createComponentActionType('notification', 'SHOW'),
-  HIDE: createComponentActionType('notification', 'HIDE'),
+  SHOW: componentType('notification', 'SHOW'),
+  HIDE: componentType('notification', 'HIDE'),
 }
-export const OPEN_CONFIRM_MODAL = createComponentActionType('confirm-modal', 'OPEN')
-export const CLOSE_CONFIRM_MODAL = createComponentActionType('confirm-modal', 'CLOSE')
+export const OPEN_CONFIRM_MODAL = componentType('confirm-modal', 'OPEN')
+export const CLOSE_CONFIRM_MODAL = componentType('confirm-modal', 'CLOSE')
 export const MODAL = {
-  OPEN: createComponentActionType('modal', 'SHOW'),
-  CLOSE: createComponentActionType('modal', 'HIDE'),
+  OPEN: componentType('modal', 'SHOW'),
+  CLOSE: componentType('modal', 'HIDE'),
 }
 
 // viewer
 export const VIEWER = {
-
-
-
-
-
-
-  INITIALIZE: createSagaTriggerActionType(viewerType('INITIALIZE')),
-  INITIALIZE_CONFIG: createSagaTriggerActionType(viewerType('INITIALIZE_CONFIG')),
+  INITIALIZE: triggerType(viewerType('INITIALIZE')),
   CONFIG: viewerType('CONFIG'),
-  CALC_START: createSagaTriggerActionType(viewerType('CALC_START')),
+
+  CALC_START: triggerType(viewerType('CALC_START')),
   CALC_SUCCESS: viewerType('CALC_SUCCESS'),
   CALC_FAILURE: viewerType('CALC_FAILURE'),
-  BOOK_PROGRESS_UPDATE: createSagaTriggerActionType(viewerType('UPDATE_PROGRESS')),
 
-  JUMP: createSagaTriggerActionType(viewerType('JUMP')),
+
+
+
+  // INITIALIZE_CONFIG: createSagaTriggerActionType(viewerType('INITIALIZE_CONFIG')),
+
+
+  PROGRESS_UPDATE: triggerType(viewerType('UPDATE_PROGRESS')),
+
+  JUMP: triggerType(viewerType('JUMP')),
   FONT_CHANGE: viewerType('CHANGE_FONT_SIZE'),
   PANEL_TOGGLE: viewerType('TOGGLE_PANEL'),
   PREFERENCE_TOGGLE: viewerType('TOGGLE_PREFERENCE'),
   NAVIGATION_TOGGLE: viewerType('TOGGLE_NAVIGATION'),
   THEME_CHANGE: viewerType('CHANGE_THEME'),
   SCROLL_MODE_TOGGLE: viewerType('TOGGLE_SCROLL_MODE'),
-  PAGE_PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
+  PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
 
   // TODO: 这个好像没用
   PROGRESS_INITIALIZE: viewerType('INITIALIZE_PROGRESS'),
@@ -58,17 +59,17 @@ export const REMOVE_ENTITY = 'REMOVE_ENTITY'
 /**
  * api
  */
-export const BOOKS = createSagaActionTypes('books')
-export const BOOK_INFO = createSagaActionTypes('book-info')
-export const BOOK_CONTENT = createSagaActionTypes('book-content')
-export const SESSION = createSagaActionTypes('session')
-export const PROFILE = createSagaActionTypes('profile')
-export const SHELF = createSagaActionTypes('shelf')
-export const USERS = createSagaActionTypes('users')
-export const AUTHORS = createSagaActionTypes('authors')
-export const COLLECTIONS = createSagaActionTypes('collections')
-export const COLLECTION = createSagaActionTypes('collection')
-export const BOOK_PROGRESS = createSagaActionTypes('book-progress')
-export const USER_LOGOUT = createSagaActionTypes('user-logout')
+export const BOOKS = apiTypes('books')
+export const BOOK_INFO = apiTypes('book-info')
+export const BOOK_CONTENT = apiTypes('book-content')
+export const SESSION = apiTypes('session')
+export const PROFILE = apiTypes('profile')
+export const SHELF = apiTypes('shelf')
+export const USERS = apiTypes('users')
+export const AUTHORS = apiTypes('authors')
+export const COLLECTIONS = apiTypes('collections')
+export const COLLECTION = apiTypes('collection')
+export const BOOK_PROGRESS = apiTypes('book-progress')
+export const USER_LOGOUT = apiTypes('user-logout')
 
-export const DOUBAN_BOOKS = createSagaActionTypes('douban-books')
+export const DOUBAN_BOOKS = apiTypes('douban-books')

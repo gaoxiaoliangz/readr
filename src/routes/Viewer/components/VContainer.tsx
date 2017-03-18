@@ -4,7 +4,7 @@ import * as actions from '../../../actions'
 import { bindActionCreators } from 'redux'
 import * as selectors from '../../../selectors'
 import BookContainer from './BookContainer'
-import ViewerPanel from './ViewerPanel'
+import VPanel from './VPanel'
 import BookChapters from './BookChapters'
 import _ from 'lodash'
 import Loading from '../../../components/Loading'
@@ -92,7 +92,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
 
     if (isTouchMode) {
       this.props.actions.toggleViewerPanel()
-      this.props.actions.toggleViewerPageProgressInfo()
+      this.props.actions.toggleViewerProgressInfo()
     }
   }
 
@@ -120,7 +120,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
       showPageInfo: false,
     })
     this.props.actions.toggleViewerPanel(false)
-    this.props.actions.toggleViewerPageProgressInfo(false)
+    this.props.actions.toggleViewerProgressInfo(false)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -183,7 +183,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
   render() {
     return (
       <div onMouseMove={this.handelViewerMouseMove} >
-        <ViewerPanel />
+        <VPanel />
         {this.renderBook()}
       </div>
     )
