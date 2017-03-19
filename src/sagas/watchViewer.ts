@@ -23,6 +23,7 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   return {
     ...{
       fluid: isSmallScreen,
+      isScrollMode: true,
       isTouchMode: isSmallScreen,
       pageHeight: DEFAULT_PAGE_HEIGHT,
       fontSize: DEFAULT_FONT_SIZE,

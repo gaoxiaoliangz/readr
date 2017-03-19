@@ -9,27 +9,32 @@ import _ from 'lodash'
 const styles = require('./BookPages.scss')
 
 interface OwnProps {
-  pages: TBookPage[]
+  // pages: TBookPage[]
+  startPageIndex?: number
+  limit?: number
+  pages?: TBookPage[]
 }
 
 interface StateProps {
-  sendNotification?: typeof sendNotification
-  theme?: string
-  isScrollMode?: boolean
-  isCalcMode?: boolean
-  pageHeight?: number
-  fluid?: boolean
-  computed?: TBookPage[]
-  currentPageNo?: number
+  sendNotification: typeof sendNotification
+  // theme?: string
+  // isScrollMode?: boolean
+  // isCalcMode?: boolean
+  // pageHeight?: number
+  // fluid?: boolean
+  computed: TBookPage[]
+  bookId: string
+  config: Viewer.Config
+  // currentPageNo?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
-  const bookId = selectors.viewer.id
+  const bookId = selectors.viewer.id(state)
   const computed = selectors.viewer.computed(bookId)(state)
-  const currentPageNo = selectors.viewer.progress(bookId)(state).pageNo
+  // const currentPageNo = selectors.viewer.progress(bookId)(state).pageNo
 
-  return _.assign({}, config, { computed, currentPageNo })
+  return { config, bookId, computed }
 }
 
 @CSSModules(styles, {
@@ -47,7 +52,8 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
   }
 
   render() {
-    const { pages, fluid, computed, theme, isScrollMode, pageHeight, isCalcMode, currentPageNo } = this.props
+    // const { pages, , computed, , currentPageNo } = this.props
+    const { pages, computed, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid } } = this.props
     const totalHeight = computed.length * pageHeight
     const className = classnames({
       'pages': !fluid,
@@ -64,12 +70,22 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
       )
 
     const ulStyle = { height: ulHeight }
+    let pagesToRender
+
+    if (pages && pages.length !== 0) {
+      pagesToRender = pages
+    }
+
+    if (computed && computed.length !== 0) {
+      pagesToRender = computed.slice(startPageIndex, startPageIndex + limit)
+    }
 
     return (
       <ul styleName={className} style={ulStyle}>
         {
-          pages.map((page, index) => {
-            const active = page.meta && page.meta.pageNo === currentPageNo
+          pagesToRender.map((page, index) => {
+            // const active = page.meta && page.meta.pageNo === currentPageNo
+            const active = false
 
             return (
               <BookPage
@@ -78,7 +94,7 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
                 pageHeight={pageHeight}
                 key={index}
                 active={active}
-                />
+              />
             )
           })
         }
@@ -87,7 +103,7 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
   }
 }
 
-export default connect<StateProps, {}, OwnProps>(
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   { sendNotification }
 )(BookPages)

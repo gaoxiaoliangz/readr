@@ -33,10 +33,9 @@ const mapStateToProps = state => {
   // const { bookId, theme, isScrollMode, isCalcMode } = selectors.viewer.config(state)
   // const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
   // const { show: showPageInfo } = selectors.viewer.progressComponent(state)
-
-  const config = selectors.viewer.config(state)
-  const computed = selectors.viewer.computed(state)
   const bookId = selectors.viewer.id(state)
+  const config = selectors.viewer.config(state)
+  const computed = selectors.viewer.computed(bookId)(state)
   const bookContent = selectors.entity('bookContents', bookId)(state)
 
   return {
@@ -122,8 +121,6 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
     startPageIndex = pageNo - Math.ceil(pageLimit / 2)
     startPageIndex = startPageIndex < 0 ? 0 : startPageIndex
 
-    const endPageIndex = startPageIndex + pageLimit
-
     const divHeight = isCalcMode
       ? 'auto'
       : (
@@ -144,7 +141,8 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
             )
             : (
               <BookPages
-                pages={_.slice(computed, startPageIndex, endPageIndex) as TBookPage[]}
+                startPageIndex={startPageIndex}
+                limit={pageLimit}
               />
             )
         }
