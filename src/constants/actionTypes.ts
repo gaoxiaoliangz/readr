@@ -29,7 +29,7 @@ export const VIEWER = {
   CALC_SUCCESS: viewerType('CALC_SUCCESS'),
   CALC_FAILURE: viewerType('CALC_FAILURE'),
 
-
+  UPDATE_LOCAL_PROGRESS: viewerType('UPDATE_LOCAL_PROGRESS'),
 
 
   // INITIALIZE_CONFIG: createSagaTriggerActionType(viewerType('INITIALIZE_CONFIG')),
@@ -38,12 +38,12 @@ export const VIEWER = {
   PROGRESS_UPDATE: triggerType(viewerType('UPDATE_PROGRESS')),
 
   JUMP: triggerType(viewerType('JUMP')),
-  FONT_CHANGE: viewerType('CHANGE_FONT_SIZE'),
+  // FONT_CHANGE: viewerType('CHANGE_FONT_SIZE'),
   PANEL_TOGGLE: viewerType('TOGGLE_PANEL'),
   PREFERENCE_TOGGLE: viewerType('TOGGLE_PREFERENCE'),
   NAVIGATION_TOGGLE: viewerType('TOGGLE_NAVIGATION'),
-  THEME_CHANGE: viewerType('CHANGE_THEME'),
-  SCROLL_MODE_TOGGLE: viewerType('TOGGLE_SCROLL_MODE'),
+  // THEME_CHANGE: viewerType('CHANGE_THEME'),
+  // SCROLL_MODE_TOGGLE: viewerType('TOGGLE_SCROLL_MODE'),
   PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
 
   // TODO: 这个好像没用
@@ -71,5 +71,7 @@ export const COLLECTIONS = apiTypes('collections')
 export const COLLECTION = apiTypes('collection')
 export const BOOK_PROGRESS = apiTypes('book-progress')
 export const USER_LOGOUT = apiTypes('user-logout')
+
+export const BOOK_PROGRESS_UPDATE = apiTypes('book-progress-update')
 
 export const DOUBAN_BOOKS = apiTypes('douban-books')

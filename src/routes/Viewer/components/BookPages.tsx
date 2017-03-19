@@ -9,19 +9,16 @@ import _ from 'lodash'
 const styles = require('./BookPages.scss')
 
 interface OwnProps {
-  // pages: TBookPage[]
   startPageIndex?: number
   limit?: number
+
+  // will override computed
+  // used in BookRaw for caculation
   pages?: TBookPage[]
 }
 
 interface StateProps {
   sendNotification: typeof sendNotification
-  // theme?: string
-  // isScrollMode?: boolean
-  // isCalcMode?: boolean
-  // pageHeight?: number
-  // fluid?: boolean
   computed: TBookPage[]
   bookId: string
   config: Viewer.Config
@@ -46,13 +43,11 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
     super(props)
   }
 
-  // 写成 decorator 的形式？
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   render() {
-    // const { pages, , computed, , currentPageNo } = this.props
     const { pages, computed, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid } } = this.props
     const totalHeight = computed.length * pageHeight
     const className = classnames({

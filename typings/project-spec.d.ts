@@ -150,6 +150,13 @@ type TBookNav = {
 declare namespace Viewer {
   type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
 
+  interface LocalProgress {
+    percentage: number
+    page: number
+    pageCount?: number
+    timestamp?: string
+  }
+
   interface Components {
     showNavigation: boolean
     showPanel: boolean

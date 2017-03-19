@@ -18,7 +18,9 @@ export const components = state => {
 export const id = state =>
   _.get(state, ['viewer', 'id']) as string
 
-
+export const localProgress = bookId => state => {
+  return _.get(state, ['viewer', 'data', bookId, 'progress', 'local'], [])
+}
 
 
 

@@ -20,13 +20,22 @@ const config = (state = {}, action) => {
 }
 
 const data = (state = {}, action) => {
+  const { payload } = action
   switch (action.type) {
     case ACTION_TYPES.VIEWER.CALC_SUCCESS:
-      const { payload: { bookId, computed } } = action
       return _.merge({}, state, {
-        [bookId]: {
+        [payload.bookId]: {
           content: {
-            computed
+            computed: payload.computed
+          }
+        }
+      })
+
+    case ACTION_TYPES.VIEWER.UPDATE_LOCAL_PROGRESS:
+      return _.merge({}, state, {
+        [payload.bookId]: {
+          progress: {
+            local: _.get(state, [payload.bookId, 'progress', 'local'], []).concat(payload.progress)
           }
         }
       })

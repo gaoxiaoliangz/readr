@@ -110,7 +110,7 @@ function* jumpTo(action) {
       ? totalHeight * percentage
       : 0
   } else {
-    yield put(actions.updateBookProgress(percentage) as any)
+    // yield put(actions.updateBookProgress(percentage) as any)
   }
 }
 

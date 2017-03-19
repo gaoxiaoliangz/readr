@@ -34,7 +34,7 @@ interface OtherProps {
     }
   }
   isFetchingProgress?: boolean
-  computedPages?: TBookPage[]
+  computed?: TBookPage[]
   config?: Viewer.Config
   actions?: typeof actions
   cloudProgress?: number
@@ -49,7 +49,7 @@ const mapStateToProps = (state, ownProps) => {
   const bookContent = selectors.entity('bookContents', bookId)(state)
   const bookProgress = selectors.entity('bookProgress', bookId)(state)
   const cloudProgress = _.get(bookProgress, 'percentage', 0)
-  const computedPages = selectors.viewer.computed(bookId)(state)
+  const computed = selectors.viewer.computed(bookId)(state)
   const { percentage: viewerPercentage, isFetching } = selectors.viewer.progress(bookId)(state)
   const { showPanel } = selectors.viewer.components(state)
 
@@ -59,7 +59,7 @@ const mapStateToProps = (state, ownProps) => {
     bookContent,
     isFetchingProgress: isFetching,
     session: state.session,
-    computedPages,
+    computed,
     config,
     cloudProgress,
     viewerPercentage,
@@ -70,6 +70,7 @@ const mapStateToProps = (state, ownProps) => {
 class VContainer extends Component<Props & OtherProps, LocalState> {
 
   resizeLazily: typeof _.debounce
+  handleScrollLazily: any
 
   constructor(props) {
     super(props)
@@ -81,7 +82,58 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
     // this.resizeLazily = this.resizeLazily.bind(this)
     // this.handleRawDataMount = this.handleRawDataMount.bind(this)
     // this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
+    this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
+      maxWait: 1000
+    })
   }
+
+  componentDidMount() {
+    this.addEventListeners()
+  }
+
+  componentWillUnmount() {
+    this.removeEventListeners()
+  }
+
+  handleScroll() {
+    const { computed, bookId, config: { pageHeight, isScrollMode } } = this.props
+    const pageCount = computed.length
+    const totalHeight = pageCount * pageHeight
+    const scrollTop = document.body.scrollTop
+    const percentage = scrollTop / totalHeight
+
+    if (isScrollMode) {
+      this.props.actions.updateLocalProgress(bookId, {
+        percentage,
+        pageCount,
+        timestamp: new Date().valueOf().toString(),
+        page: pageCount * percentage
+      })
+
+      this.props.actions.updateBookProgress(bookId, percentage)
+    }
+  }
+
+  addEventListeners() {
+    window.addEventListener('scroll', this.handleScrollLazily)
+  }
+
+  removeEventListeners() {
+    window.removeEventListener('scroll', this.handleScrollLazily)
+  }
+
+  // handleForward() {
+  //   const { allPages, pageNo } = this.props
+  //   this.props.actions.viewerJumpTo(pageNo / allPages.length)
+  //   document.body.scrollTop = 0
+  // }
+
+  // handlebackward() {
+  //   const { allPages, pageNo } = this.props
+  //   this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length)
+  //   document.body.scrollTop = 0
+  // }
 
   // handleRawDataMount(ele: HTMLElement) {
   //   this.props.actions.calcBook(this.props.bookId, ele)
@@ -185,7 +237,7 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
         <VPanel />
         {
           bookId && (
-            <BookContainer/>
+            <BookContainer />
           )
         }
         {/*<ProgressLabel/>*/}

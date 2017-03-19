@@ -69,6 +69,34 @@ export const loadUsers = (page = 1) => createTriggerAction(ActionTypes.USERS, {
   schema: schemas.USER_ARRAY
 })
 
+
+export const updateBookProgress = (bookId, percentage) => createTriggerAction(ActionTypes.BOOK_PROGRESS_UPDATE, {
+  request: {
+    url: `user/books/${bookId}/progress`,
+    method: 'PUT',
+    data: {
+      percentage
+    }
+  }
+})
+
+// export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
+//   const state = getState()
+//   const bookId = selectors.viewer.id(state)
+//   const computed = selectors.viewer.computed(bookId)(state)
+//   const pageNo = Math.floor(computed.length * percentage) + 1
+
+//   return dispatch({
+//     id: bookId,
+//     percentage,
+//     pageNo,
+//     type: ACTION_TYPES.VIEWER.PROGRESS_UPDATE,
+//   })
+// }
+
+
+
+
 // app
 export const loadSession = () => createTriggerAction(ActionTypes.SESSION, {
   request: {

@@ -64,6 +64,7 @@ const request = (url: string, config?: RequestConfig) => {
     }
 
     return {
+      method,
       ...{
         headers,
         body,
