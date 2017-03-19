@@ -36,7 +36,7 @@ export default class BookRaw extends Component<Props, {}> {
 
   triggerUpdate() {
     const { onRawDataMount } = this.props
-    if (onRawDataMount) {
+    if (onRawDataMount && this.props.bookFlesh && this.props.bookFlesh.length !== 0) {
       onRawDataMount(this.chapters)
     }
   }

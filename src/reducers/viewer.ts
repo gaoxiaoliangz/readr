@@ -22,10 +22,11 @@ const config = (state = {}, action) => {
 const data = (state = {}, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.CALC_SUCCESS:
+      const { payload: { bookId, computed } } = action
       return _.merge({}, state, {
-        [action.bookId]: {
+        [bookId]: {
           content: {
-            computed: action.computed
+            computed
           }
         }
       })

@@ -73,79 +73,79 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
 
   constructor(props) {
     super(props)
-    this.resizeLazily = _.debounce(this.handleResize, 500, {
-      maxWait: 1000
-    })
-    this.handleViewerClick = this.handleViewerClick.bind(this)
-    this.handleResize = this.handleResize.bind(this)
-    this.resizeLazily = this.resizeLazily.bind(this)
-    this.handleRawDataMount = this.handleRawDataMount.bind(this)
-    this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
+    // this.resizeLazily = _.debounce(this.handleResize, 500, {
+    //   maxWait: 1000
+    // })
+    // this.handleViewerClick = this.handleViewerClick.bind(this)
+    // this.handleResize = this.handleResize.bind(this)
+    // this.resizeLazily = this.resizeLazily.bind(this)
+    // this.handleRawDataMount = this.handleRawDataMount.bind(this)
+    // this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
   }
 
-  handleRawDataMount(ele: HTMLElement) {
-    this.props.actions.calcBook(this.props.bookId, ele)
-  }
+  // handleRawDataMount(ele: HTMLElement) {
+  //   this.props.actions.calcBook(this.props.bookId, ele)
+  // }
 
-  handleViewerClick() {
-    const { config: { isTouchMode } } = this.props
+  // handleViewerClick() {
+  //   const { config: { isTouchMode } } = this.props
 
-    if (isTouchMode) {
-      this.props.actions.toggleViewerPanel()
-      this.props.actions.toggleViewerProgressInfo()
-    }
-  }
+  //   if (isTouchMode) {
+  //     this.props.actions.toggleViewerPanel()
+  //     this.props.actions.toggleViewerProgressInfo()
+  //   }
+  // }
 
-  handleResize() {
-    this.props.actions.configViewer({
-      isCalcMode: false
-    })
-  }
+  // handleResize() {
+  //   this.props.actions.configViewer({
+  //     isCalcMode: false
+  //   })
+  // }
 
-  handelViewerMouseMove(event) {
-    let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
-    this.setState({
-      showPageInfo: dToScreenRight < 100
-    })
-  }
+  // handelViewerMouseMove(event) {
+  //   let dToScreenRight = utils.getScreenInfo().view.width - event.pageX
+  //   this.setState({
+  //     showPageInfo: dToScreenRight < 100
+  //   })
+  // }
 
-  reinitializeViewer() {
-    // const { bookId } = this.props
+  // reinitializeViewer() {
+  //   // const { bookId } = this.props
 
-    this.props.actions.configViewer({
-      isCalcMode: true
-    })
+  //   this.props.actions.configViewer({
+  //     isCalcMode: true
+  //   })
 
-    this.setState({
-      showPageInfo: false,
-    })
-    this.props.actions.toggleViewerPanel(false)
-    this.props.actions.toggleViewerProgressInfo(false)
-  }
+  //   this.setState({
+  //     showPageInfo: false,
+  //   })
+  //   this.props.actions.toggleViewerPanel(false)
+  //   this.props.actions.toggleViewerProgressInfo(false)
+  // }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    const viewChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
-      if (key === 'isTouchMode' || key === 'isCalcMode' || key === 'isScrollMode' || key === 'theme') {
-        return true
-      }
-    })
+  // componentDidUpdate(prevProps, prevState) {
+  //   const viewChanged = !_.isEqualWith(this.props.config, prevProps.config, (valA, valB, key) => {
+  //     if (key === 'isTouchMode' || key === 'isCalcMode' || key === 'isScrollMode' || key === 'theme') {
+  //       return true
+  //     }
+  //   })
 
-    if (viewChanged) {
-      this.reinitializeViewer()
-    }
-  }
+  //   if (viewChanged) {
+  //     this.reinitializeViewer()
+  //   }
+  // }
 
-  componentDidMount() {
-    window.addEventListener('resize', this.resizeLazily)
-  }
+  // componentDidMount() {
+  //   window.addEventListener('resize', this.resizeLazily)
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeLazily)
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.resizeLazily)
+  // }
 
   /*renderBook() {
     const { bookContent, computedPages,
@@ -177,10 +177,17 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
   }*/
 
   render() {
+    const { bookId } = this.props
+
     return (
-      <div onMouseMove={this.handelViewerMouseMove} >
+      // <div onMouseMove={this.handelViewerMouseMove} >
+      <div>
         <VPanel />
-        <BookContainer/>
+        {
+          bookId && (
+            <BookContainer/>
+          )
+        }
         {/*<ProgressLabel/>*/}
       </div>
     )

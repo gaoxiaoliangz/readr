@@ -42,7 +42,6 @@ function* handleLoad(action: LoaderAction) {
     }
   } catch (error) {
     // handle error
-    console.error(error)
     yield put(flowActions.failure(error, meta))
   }
 }

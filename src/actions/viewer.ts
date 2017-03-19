@@ -28,12 +28,8 @@ export const calcBookSuccess = (bookId: string, computed) => {
 
 export const calcBookFailure = (bookId: string, error: Error) => {
   return {
-    payload: {
-      ...error,
-      ...{
-        bookId
-      }
-    },
+    payload: error,
+    meta: { bookId },
     error: true,
     type: ACTION_TYPES.VIEWER.CALC_FAILURE,
   }

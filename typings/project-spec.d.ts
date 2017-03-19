@@ -148,6 +148,8 @@ type TBookNav = {
 }
 
 declare namespace Viewer {
+  type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
+
   interface Components {
     showNavigation: boolean
     showPanel: boolean
@@ -162,7 +164,7 @@ declare namespace Viewer {
     fluid?: boolean
     pageHeight?: number
     fontSize?: number
-    theme?: string
+    theme?: Themes
     width?: 'max' | number
   }
 }

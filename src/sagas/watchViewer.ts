@@ -26,6 +26,7 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
       isTouchMode: isSmallScreen,
       pageHeight: DEFAULT_PAGE_HEIGHT,
       fontSize: DEFAULT_FONT_SIZE,
+      theme: 'WHITE' as Viewer.Themes,
       width: isSmallScreen
         ? viewerWidth
         : 'max'
@@ -142,9 +143,13 @@ function* watchInitialization() {
       yield put(actions.configViewer(config))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
-      yield fetchProgressAndJump(bookId)
+      // yield fetchProgressAndJump(bookId)
+      yield put(actions.configViewer({
+        isCalcMode: false
+      }))
+      // yield put(actions.loadBookContent(bookId))
     } else {
-      yield fetchProgressAndJump(bookId)
+      // yield fetchProgressAndJump(bookId)
     }
   }
 }
@@ -158,9 +163,6 @@ function* watchCalcBook() {
     try {
       const computed = calcBook(wrap, flesh)
       yield put(actions.calcBookSuccess(bookId, computed))
-      yield put(actions.configViewer({
-        isCalcMode: false
-      }))
     } catch (error) {
       yield put(actions.calcBookFailure(bookId, error))
     }

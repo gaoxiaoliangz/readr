@@ -4,19 +4,19 @@ import { createSelector } from 'reselect'
 
 
 export const computed = bookId => state => {
-  return _.get(state, ['components', 'viewer', 'data', bookId, 'content', 'computed'], []) as TBookPage[]
+  return _.get(state, ['viewer', 'data', bookId, 'content', 'computed'], []) as TBookPage[]
 }
 
 export const config = state => {
-  return _.get(state, ['components', 'viewer', 'config'], {}) as Viewer.Config
+  return _.get(state, ['viewer', 'config'], {}) as Viewer.Config
 }
 
 export const components = state => {
-  return _.get(state, ['components', 'viewer', 'components'], {}) as Viewer.Components
+  return _.get(state, ['viewer', 'components'], {}) as Viewer.Components
 }
 
 export const id = state =>
-  _.get(state, ['components', 'viewer', 'id']) as string
+  _.get(state, ['viewer', 'id']) as string
 
 
 

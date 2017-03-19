@@ -11,10 +11,11 @@ import paginate from './utils/paginate'
 import viewer from './viewer'
 
 function errorMessage(state = [], action) {
-  const { error } = action
+  const { error, type } = action
 
   if (error) {
     const message = _.get(action, 'payload.message', 'Unknown error occurred!')
+    console.error(`${type}: ${message}`)
     return [...state, message]
   }
 

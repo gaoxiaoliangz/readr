@@ -21,11 +21,12 @@ interface StateProps {
   // theme?: string
   // isScrollMode?: boolean
   // isCalcMode?: boolean
-  // actions?: typeof actions
+  actions?: typeof actions
   // showPageInfo?: boolean
   config: Viewer.Config
   computed: TBookPage[]
   bookContent: SelectedEntity
+  bookId: string
 }
 
 const mapStateToProps = state => {
@@ -36,12 +37,13 @@ const mapStateToProps = state => {
   const config = selectors.viewer.config(state)
   const computed = selectors.viewer.computed(state)
   const bookId = selectors.viewer.id(state)
-  const bookContent = selectors.entity('books', bookId)(state)
+  const bookContent = selectors.entity('bookContents', bookId)(state)
 
   return {
     config,
     computed,
-    bookContent
+    bookContent,
+    bookId
     // showPageInfo,
     // percentage,
     // pageNo,
@@ -62,6 +64,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
     // this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
     //   maxWait: 1000
     // })
+    this.handleRawMount = this.handleRawMount.bind(this)
   }
 
   // handleScroll() {
@@ -103,6 +106,10 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
   //   this.removeEventListeners()
   // }
 
+  handleRawMount(wrap) {
+    this.props.actions.calcBook(this.props.bookId, wrap)
+  }
+
   render() {
     // const { allPages, pageHeight, showPageInfo, pageLimit, pageNo,
     //   theme, isScrollMode, isCalcMode, bookFlesh } = this.props
@@ -132,6 +139,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
             ? (
               <BookRaw
                 bookFlesh={bookFlesh}
+                onRawDataMount={this.handleRawMount}
               />
             )
             : (

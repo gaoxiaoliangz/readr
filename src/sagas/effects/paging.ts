@@ -148,7 +148,7 @@ export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeights
   })
 
   const t1 = new Date().valueOf()
-  helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
+  // helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
 
   return allPages
 }
