@@ -10,7 +10,6 @@ import _ from 'lodash'
 import Loading from '../../../components/Loading'
 import utils from '../../../utils'
 
-const PAGE_LIMIT = 5
 
 interface Props { }
 

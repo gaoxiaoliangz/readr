@@ -37,7 +37,7 @@ export const VIEWER = {
 
   PROGRESS_UPDATE: triggerType(viewerType('UPDATE_PROGRESS')),
 
-  JUMP: triggerType(viewerType('JUMP')),
+  GO_TO: triggerType(viewerType('GO_TO')),
   // FONT_CHANGE: viewerType('CHANGE_FONT_SIZE'),
   PANEL_TOGGLE: viewerType('TOGGLE_PANEL'),
   PREFERENCE_TOGGLE: viewerType('TOGGLE_PREFERENCE'),

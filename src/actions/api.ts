@@ -3,6 +3,7 @@ import schemas from '../schemas'
 import { DOUBAN_API_ROOT } from '../constants'
 import { createTriggerAction } from './utils'
 import * as ActionTypes from '../constants/actionTypes'
+import * as selectors from '../selectors'
 
 export const removeEntity = (name: string, id: string) =>
   ({ type: ActionTypes.REMOVE_ENTITY, name, id })
@@ -69,33 +70,20 @@ export const loadUsers = (page = 1) => createTriggerAction(ActionTypes.USERS, {
   schema: schemas.USER_ARRAY
 })
 
-
-export const updateBookProgress = (bookId, percentage) => createTriggerAction(ActionTypes.BOOK_PROGRESS_UPDATE, {
-  request: {
-    url: `user/books/${bookId}/progress`,
-    method: 'PUT',
-    data: {
-      percentage
-    }
+export const updateBookProgress = (bookId, percentage) => (dispatch, getState) => {
+  const session = selectors.session(getState())
+  if (session.role !== 'visitor') {
+    return dispatch(createTriggerAction(ActionTypes.BOOK_PROGRESS_UPDATE, {
+      request: {
+        url: `user/books/${bookId}/progress`,
+        method: 'PUT',
+        data: {
+          percentage
+        }
+      }
+    }))
   }
-})
-
-// export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
-//   const state = getState()
-//   const bookId = selectors.viewer.id(state)
-//   const computed = selectors.viewer.computed(bookId)(state)
-//   const pageNo = Math.floor(computed.length * percentage) + 1
-
-//   return dispatch({
-//     id: bookId,
-//     percentage,
-//     pageNo,
-//     type: ACTION_TYPES.VIEWER.PROGRESS_UPDATE,
-//   })
-// }
-
-
-
+}
 
 // app
 export const loadSession = () => createTriggerAction(ActionTypes.SESSION, {

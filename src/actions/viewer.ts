@@ -13,6 +13,10 @@ export const configViewer = (config: Viewer.Config = {}) => ({
   type: ACTION_TYPES.VIEWER.CONFIG,
 })
 
+export const viewerGoTo = (loc: number) =>
+  ({ type: ACTION_TYPES.VIEWER.GO_TO, payload: loc })
+
+
 // book
 export const calcBook = (bookId: string, wrap: HTMLElement) => ({
   payload: { bookId, wrap },
@@ -84,7 +88,3 @@ export const destroyBookProgress = () => {
     type: ACTION_TYPES.VIEWER.PROGRESS_DESTROY,
   }
 }
-
-export const viewerJumpTo = (percentage: number) =>
-  ({ type: ACTION_TYPES.VIEWER.JUMP, percentage })
-

@@ -4,7 +4,7 @@ import * as viewer from './viewer'
 import schemas from '../schemas'
 import { pagedEntities } from './utils'
 
-export const session = state => _.get(state, 'session', {})
+export const session = state => _.get(state, 'session', {}) as Session
 export const profile = state => _.get(state, 'profile', {})
 export const routing = state => _.get(state, 'routing.locationBeforeTransitions', {})
 

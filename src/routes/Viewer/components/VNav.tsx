@@ -49,7 +49,7 @@ class VNav extends Component<AllProps, void> {
       const pageNo = resolveBookLocation(href, computedPages)
       const percentage = (pageNo - 1) / computedPages.length
 
-      this.props.actions.viewerJumpTo(percentage)
+      this.props.actions.viewerGoTo(percentage)
     } catch (error) {
       this.props.actions.sendNotification(error.message, 'error')
     }

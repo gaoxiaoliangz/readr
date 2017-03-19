@@ -1,15 +1,9 @@
-
-import { takeEvery } from 'redux-saga'
+// import { takeEvery } from 'redux-saga'
 import { take, put, call, select, fork, cancelled } from 'redux-saga/effects'
 import * as actions from '../actions'
 import * as ACTION_TYPES from '../constants/actionTypes'
-import webAPI from '../webAPI'
 import _ from 'lodash'
 import * as selectors from '../selectors'
-// import { ROLES } from '../constants'
-// import { fetchEntity } from './utils'
-import helpers from '../helpers'
-// import * as viewerUtils from '../routes/Viewer/Viewer.utils'
 import utils from '../utils'
 import calcBook from './effects/calcBook'
 
@@ -36,48 +30,6 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   }
 }
 
-
-// const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
-// function* setViewer(bookId, config: ViewerConfig = {}) {
-
-
-
-
-//   const computed = yield select(selectors.viewer.computed(bookId))
-
-//   if (computed.length > 0) {
-//     initialized.isCalcMode = false
-//   }
-//   initialized = _.merge({}, initialized, config)
-
-//   yield put(actions.configViewer(bookId, initialized))
-// }
-
-// function* setViewerWithAction(action) {
-//   const bookId = action.bookId
-//   const config: ViewerConfig = action.config
-
-//   yield setViewer(bookId, config)
-// }
-
-// function* watchInitViewer() {
-//   yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
-// }
-
-function* updateProgress(bookId, percentage) {
-  try {
-    yield call(webAPI.setProgress, bookId, {
-      percentage
-    })
-  } catch (error) {
-    console.error(error)
-  } finally {
-    if (yield cancelled()) {
-      helpers.print('updateProgress canceled')
-    }
-  }
-}
-
 // function* watchProgressOperations() {
 //   while (true) {
 //     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
@@ -98,37 +50,17 @@ function* updateProgress(bookId, percentage) {
 //   }
 // }
 
-function* jumpTo(action) {
-  const { percentage } = action
-  const { bookId, pageHeight, isScrollMode } = yield select(selectors.viewer.config)
-  const allPages = yield select(selectors.viewer.computed(bookId))
-  const pageCount = allPages.length
-  const totalHeight = pageCount * pageHeight
-
-  if (isScrollMode) {
-    document.body.scrollTop = percentage
-      ? totalHeight * percentage
-      : 0
+function* loadProgressAndGo(bookId) {
+  const session: Session = yield select(selectors.session)
+  if (session.role !== 'visitor') {
+    yield put(actions.loadBookProgress(bookId))
+    yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
+    const { percentage } = yield select(selectors.entity('bookProgress', bookId))
+    yield put(actions.viewerGoTo(percentage))
   } else {
-    // yield put(actions.updateBookProgress(percentage) as any)
+    yield put(actions.viewerGoTo(0))
   }
 }
-
-function* watchJumpRequest() {
-  yield* takeEvery(ACTION_TYPES.VIEWER.JUMP, jumpTo)
-}
-
-function* fetchProgressAndJump(bookId) {
-  yield put(actions.loadBookProgress(bookId))
-  yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
-  const { percentage } = yield select(selectors.entity('bookProgress', bookId))
-  yield put(actions.viewerJumpTo(percentage))
-}
-
-
-
-
-
 
 function* watchInitialization() {
   while (true) {
@@ -137,20 +69,19 @@ function* watchInitialization() {
 
     if (_.isEmpty(computed)) {
       yield [put(actions.loadBookInfo(bookId)), put(actions.loadBookContent(bookId))]
-      // yield put(actions.initializeViewerConfig(bookId))
       const config = getDefaultConfig({
         isCalcMode: true
       })
       yield put(actions.configViewer(config))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
-      // yield fetchProgressAndJump(bookId)
       yield put(actions.configViewer({
         isCalcMode: false
       }))
-      // yield put(actions.loadBookContent(bookId))
+      // fetch cloud progress and go there
+      yield loadProgressAndGo(bookId)
     } else {
-      // yield fetchProgressAndJump(bookId)
+      yield loadProgressAndGo(bookId)
     }
   }
 }
@@ -170,15 +101,34 @@ function* watchCalcBook() {
   }
 }
 
+function* watchGoTo() {
+  while (true) {
+    const { payload } = yield take(ACTION_TYPES.VIEWER.GO_TO)
+    const bookId = yield select(selectors.viewer.id)
+    const computed = yield select(selectors.viewer.computed(bookId))
+    const { pageHeight, isScrollMode } = yield select(selectors.viewer.config)
+    const pageCount = computed.length
+    const totalHeight = pageCount * pageHeight
+    let percentage = payload
 
+    if (payload > 1) {
+      // payload is page number
+      percentage = payload / pageCount
+    }
 
+    if (isScrollMode) {
+      document.body.scrollTop = totalHeight * percentage
+    } else {
+      // yield put(actions.updateBookProgress(percentage) as any)
+    }
+  }
+}
 
 export default function* watchViewer() {
   yield [
     // fork(watchProgressOperations),
     fork(watchInitialization),
-    // fork(watchConfig),
     fork(watchCalcBook),
-    fork(watchJumpRequest),
+    fork(watchGoTo),
   ]
 }
