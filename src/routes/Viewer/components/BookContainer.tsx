@@ -89,20 +89,21 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
           )
         }
         {
-          isCalcMode
-            ? (
-              <BookRaw
-                bookFlesh={bookFlesh}
-                onRawDataMount={this.handleRawMount}
-              />
-            )
-            : (
-              <BookPages
-                startPageIndex={startPageIndex}
-                limit={pageLimit}
-                pages={computed}
-              />
-            )
+          isCalcMode && (
+            <BookRaw
+              bookFlesh={bookFlesh}
+              onRawDataMount={this.handleRawMount}
+            />
+          )
+        }
+        {
+          isReady && (
+            <BookPages
+              startPageIndex={startPageIndex}
+              limit={pageLimit}
+              pages={computed}
+            />
+          )
         }
       </div >
     )

@@ -121,6 +121,8 @@ function* watchConfig() {
       yield put(actions.viewer.setStatus({
         isReady: false
       }))
+      // yield put(actions.viewer.toggleViewerPreference(false))
+      // yield put(actions.viewer.toggleViewerPanel(false))
       yield put(actions.viewer.configViewer({
         isCalcMode: true
       }))
