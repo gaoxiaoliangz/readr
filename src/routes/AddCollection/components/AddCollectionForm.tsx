@@ -82,7 +82,7 @@ class AddCollectionForm extends Component<AllProps, State> {
 const mapStateToProps = (state, ownProps) => {
   return {
     routing: state.routing.locationBeforeTransitions,
-    booksSearchAsOptions: selectors.booksAsOptions('search')(state)
+    // booksSearchAsOptions: selectors.booksAsOptions('search')(state)
   }
 }
 

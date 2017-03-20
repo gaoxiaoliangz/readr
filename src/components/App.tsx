@@ -63,7 +63,7 @@ class App extends Component<Props, {}> {
 export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
-    bookShelf: selectors.shelf(state),
+    bookShelf: selectors.pagination.shelf(state),
     session: selectors.session(state)
   }),
   { loadShelf }

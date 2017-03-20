@@ -18,16 +18,14 @@ interface AllProps {
   nav?: TBookNav[]
   actions?: typeof actions
   computedPages?: TBookPage[]
-  viewerPercentage?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
   const bookId = selectors.viewer.id(state)
   const nav = selectors.viewer.navData(bookId)(state)
-  const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)
 
-  return { nav, viewerPercentage, computedPages }
+  return { nav, computedPages }
 }
 
 @CSSModules(styles)
@@ -42,7 +40,7 @@ class VNav extends Component<AllProps, void> {
 
   handleNavLinkClick(e) {
     e.preventDefault()
-    const { computedPages, viewerPercentage /* 也许会用到 */ } = this.props
+    const { computedPages } = this.props
     const href = $(e.target).attr('href')
 
     try {

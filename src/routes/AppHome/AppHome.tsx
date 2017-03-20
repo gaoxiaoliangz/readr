@@ -77,7 +77,7 @@ class AppHome extends Component<Props, IState> {
 function mapStateToProps(state, ownProps) {
   return {
     session: selectors.session(state),
-    bookList: selectors.bookList(state)
+    bookList: selectors.pagination.bookList(state)
   }
 }
 

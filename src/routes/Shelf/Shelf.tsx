@@ -42,7 +42,7 @@ class Shelf extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    shelf: selectors.shelf(state)
+    shelf: selectors.pagination.shelf(state)
   }
 }
 

@@ -148,7 +148,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    bookListNewest: selectors.bookList(state),
+    bookListNewest: selectors.pagination.bookList(state),
     routing: selectors.routing(state)
   }
 }

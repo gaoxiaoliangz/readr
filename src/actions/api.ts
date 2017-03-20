@@ -94,6 +94,21 @@ export const loadSession = () => createTriggerAction(ActionTypes.SESSION, {
   }
 })
 
+export const loadBookProgress = (id) => createTriggerAction(ActionTypes.BOOK_PROGRESS, {
+  request: {
+    url: `user/books/${id}/progress`,
+  },
+  targetId: id,
+  schema: schemas.BOOK_PROGRESS
+})
+
+export const logout = () => createTriggerAction(ActionTypes.USER_LOGOUT, {
+  request: {
+    url: `auth/revoke`,
+    method: 'PUT'
+  }
+})
+
 // other untested
 export const loadAuthors = (page = 1, q?) => createTriggerAction(ActionTypes.AUTHORS, {
   request: {
@@ -119,21 +134,6 @@ export const loadCollection = (id) => createTriggerAction(ActionTypes.COLLECTION
   },
   targetId: id,
   schema: schemas.COLLECTION
-})
-
-export const loadBookProgress = (id) => createTriggerAction(ActionTypes.BOOK_PROGRESS, {
-  request: {
-    url: `user/books/${id}/progress`,
-  },
-  targetId: id,
-  schema: schemas.BOOK_PROGRESS
-})
-
-export const logout = () => createTriggerAction(ActionTypes.USER_LOGOUT, {
-  request: {
-    url: `auth/revoke`,
-    method: 'PUT'
-  }
 })
 
 // 3rd party

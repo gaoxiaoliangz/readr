@@ -12,7 +12,7 @@ export const componentType = (name, operation) =>
   `components/${name}/${operation}`
 
 export const triggerType = (operation: string) =>
-  `saga-triggers/${operation}/TRIGGER`
+  `saga/${operation}/TRIGGER`
 
 export const apiTypes = (name): SagaActionTypes => {
   return {

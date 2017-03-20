@@ -73,7 +73,7 @@ function* watchInitialization() {
 
 function* watchCalcBook() {
   while (true) {
-    const { payload: { bookId, wrap } } = yield take(ACTION_TYPES.VIEWER.CALC_START)
+    const { payload: { bookId, wrap } } = yield take(ACTION_TYPES.VIEWER.CALC_TRIGGER)
     const bookContent = yield select(selectors.entity('bookContents', bookId))
     const flesh = bookContent.flesh || {}
 

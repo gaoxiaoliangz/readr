@@ -70,7 +70,7 @@ class ManageUsers extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    users: selectors.userList(state),
+    users: selectors.pagination.userList(state),
     routing: selectors.routing(state)
   }
 }

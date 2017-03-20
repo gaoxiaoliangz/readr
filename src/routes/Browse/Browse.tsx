@@ -66,7 +66,7 @@ class Browse extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    bookList: selectors.bookList(state)
+    bookList: selectors.pagination.bookList(state)
   }
 }
 
