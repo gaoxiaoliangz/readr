@@ -33,31 +33,48 @@ class VPanel extends Component<AllProps, void> {
 
   nav: HTMLDivElement
   pref: HTMLDivElement
+  panel: HTMLDivElement
 
   constructor(props) {
     super(props)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
     this.handleGlobalClick = this.handleGlobalClick.bind(this)
-    this.handleViewerClick = this.handleViewerClick.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('mousemove', this.handelViewerMouseMove)
+    window.addEventListener('click', this.handleGlobalClick)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handelViewerMouseMove)
+    window.removeEventListener('click', this.handleGlobalClick)
   }
 
   handleGlobalClick(e) {
-    const { components: { showPreference, showNavigation } } = this.props
+    const { config: { isTouchMode }, components: { hideAll } } = this.props
+    if (isTouchMode && !hideAll) {
+      const { components: { showPreference, showNavigation } } = this.props
 
-    if (!isDescendant(this.nav, e.target)) {
-      if (showNavigation) {
-        this.props.viewerActions.toggleViewerNavigation(false)
+      if (!isDescendant(this.nav, e.target)) {
+        if (showNavigation) {
+          this.props.viewerActions.toggleViewerNavigation(false)
+        }
+      } else {
+        this.props.viewerActions.toggleViewerNavigation()
       }
-    } else {
-      this.props.viewerActions.toggleViewerNavigation()
-    }
 
-    if (!isDescendant(this.pref, e.target)) {
-      if (showPreference) {
-        this.props.viewerActions.toggleViewerPreference(false)
+      if (!isDescendant(this.pref, e.target)) {
+        if (showPreference) {
+          this.props.viewerActions.toggleViewerPreference(false)
+        }
+      } else {
+        this.props.viewerActions.toggleViewerPreference()
       }
-    } else {
-      this.props.viewerActions.toggleViewerPreference()
+
+      if (!isDescendant(this.panel, e.target)) {
+        this.props.viewerActions.toggleViewerPanel()
+      }
     }
   }
 
@@ -81,27 +98,6 @@ class VPanel extends Component<AllProps, void> {
     }
   }
 
-  handleViewerClick() {
-    const { config: { isTouchMode }, components: { hideAll } } = this.props
-
-    if (isTouchMode && !hideAll) {
-      this.props.viewerActions.toggleViewerPanel()
-      // this.props.viewerActions.toggleViewerProgressInfo()
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener('mousemove', this.handelViewerMouseMove)
-    window.addEventListener('click', this.handleGlobalClick)
-    window.addEventListener('click', this.handleViewerClick)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousemove', this.handelViewerMouseMove)
-    window.removeEventListener('click', this.handleGlobalClick)
-    window.removeEventListener('click', this.handleViewerClick)
-  }
-
   render() {
     const { title, components: { showPanel, showPreference, showNavigation } } = this.props
 
@@ -109,7 +105,7 @@ class VPanel extends Component<AllProps, void> {
       <Slide>
         {
           (showPanel) && (
-            <div styleName="viewer-panel">
+            <div ref={ref => { this.panel = ref }} styleName="viewer-panel">
               <div styleName="container">
                 <div styleName="back">
                   <Link to="/">
