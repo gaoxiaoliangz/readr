@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import DocContainer from '../../components/DocContainer'
 import * as selectors from '../../selectors'
-import * as actions from '../../actions'
+import { initializeViewer } from '../../actions/viewer'
 import VContainer from './components/VContainer'
 import styles from './Viewer.scss'
 
@@ -14,7 +13,7 @@ interface AllProps {
   book: {
     title: string
   }
-  actions: typeof actions
+  initializeViewer: typeof initializeViewer
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -41,7 +40,7 @@ class Viewer extends Component<AllProps, void> {
   }
 
   componentDidMount() {
-    this.props.actions.initializeViewer(this.bookId)
+    this.props.initializeViewer(this.bookId)
   }
 
   render() {
@@ -55,7 +54,5 @@ class Viewer extends Component<AllProps, void> {
 
 export default connect(
   mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
+  { initializeViewer }
 )(Viewer as any)

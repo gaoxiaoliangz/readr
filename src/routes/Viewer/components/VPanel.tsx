@@ -40,6 +40,7 @@ class VPanel extends Component<AllProps, void> {
     super(props)
     this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
     this.handleGlobalClick = this.handleGlobalClick.bind(this)
+    this.handleViewerClick = this.handleViewerClick.bind(this)
   }
 
   handleGlobalClick(e) {
@@ -79,14 +80,25 @@ class VPanel extends Component<AllProps, void> {
     }
   }
 
+  handleViewerClick() {
+    const { config: { isTouchMode } } = this.props
+
+    if (isTouchMode) {
+      this.props.viewerActions.toggleViewerPanel()
+      // this.props.viewerActions.toggleViewerProgressInfo()
+    }
+  }
+
   componentDidMount() {
     window.addEventListener('mousemove', this.handelViewerMouseMove)
     window.addEventListener('click', this.handleGlobalClick)
+    window.addEventListener('click', this.handleViewerClick)
   }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handelViewerMouseMove)
     window.removeEventListener('click', this.handleGlobalClick)
+    window.removeEventListener('click', this.handleViewerClick)
   }
 
   render() {
