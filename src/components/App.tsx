@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { loadShelf } from '../actions'
+import { loadShelf } from '../actions/api'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 

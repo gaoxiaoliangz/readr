@@ -32,12 +32,12 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
 function* loadProgressAndGo(bookId) {
   const session: Session = yield select(selectors.session)
   if (session.role !== 'visitor') {
-    yield put(actions.loadBookProgress(bookId))
+    yield put(actions.api.loadBookProgress(bookId))
     yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
     const { percentage } = yield select(selectors.entity('bookProgress', bookId))
-    yield put(actions.viewerGoTo(percentage))
+    yield put(actions.viewer.viewerGoTo(percentage))
   } else {
-    yield put(actions.viewerGoTo(0))
+    yield put(actions.viewer.viewerGoTo(0))
   }
 }
 
@@ -47,14 +47,14 @@ function* watchInitialization() {
     const computed = yield select(selectors.viewer.computed(bookId))
 
     if (_.isEmpty(computed)) {
-      yield [put(actions.loadBookInfo(bookId)), put(actions.loadBookContent(bookId))]
+      yield [put(actions.api.loadBookInfo(bookId)), put(actions.api.loadBookContent(bookId))]
       const config = getDefaultConfig({
         isCalcMode: true
       })
-      yield put(actions.configViewer(config, true))
+      yield put(actions.viewer.configViewer(config, true))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
-      yield put(actions.configViewer({
+      yield put(actions.viewer.configViewer({
         isCalcMode: false
       }, true))
       yield put(actions.viewer.setStatus({
@@ -79,9 +79,9 @@ function* watchCalcBook() {
 
     try {
       const computed = calcBook(wrap, flesh)
-      yield put(actions.calcBookSuccess(bookId, computed))
+      yield put(actions.viewer.calcBookSuccess(bookId, computed))
     } catch (error) {
-      yield put(actions.calcBookFailure(bookId, error))
+      yield put(actions.viewer.calcBookFailure(bookId, error))
     }
   }
 }
@@ -121,12 +121,12 @@ function* watchConfig() {
       yield put(actions.viewer.setStatus({
         isReady: false
       }))
-      yield put(actions.configViewer({
+      yield put(actions.viewer.configViewer({
         isCalcMode: true
       }))
       yield put(actions.viewer.toggleViewerPanel(false))
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
-      yield put(actions.configViewer({
+      yield put(actions.viewer.configViewer({
         isCalcMode: false
       }))
       yield put(actions.viewer.setStatus({

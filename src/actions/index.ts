@@ -2,8 +2,8 @@ import { actions as form } from 'better-redux-form'
 import * as api from './api'
 import * as viewer from './viewer'
 
-export * from './api'
-export * from './viewer'
+// export * from './api'
+// export * from './viewer'
 
 import * as ActionTypes from '../constants/actionTypes'
 

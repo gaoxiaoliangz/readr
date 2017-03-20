@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, loadProfile } from '../../actions'
+import { sendNotification } from '../../actions'
+import { loadProfile } from '../../actions/api'
 import { Button } from '../../components/form'
 import { Tab, Tabs } from '../../components/Tab'
 import { Container } from '../../components/layout'

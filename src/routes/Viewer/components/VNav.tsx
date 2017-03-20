@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import CSSModules from 'react-css-modules'
 import * as actions from '../../../actions'
 import * as selectors from '../../../selectors'
 import preventScroll from '../../../utils/browser/preventScroll'
-// import * as viewerUtils from '../Viewer.utils'
 import { resolveBookLocation } from '../utils'
 import $ from 'jquery'
 import styles from './VNav.scss'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
 
-interface Props { }
+interface Props {}
 
 interface AllProps {
   nav?: TBookNav[]
-  actions?: typeof actions
+  viewerGoTo: typeof actions.viewer.viewerGoTo,
+  sendNotification: typeof actions.sendNotification
   computedPages?: TBookPage[]
 }
 
@@ -47,9 +46,9 @@ class VNav extends Component<AllProps, void> {
       const pageNo = resolveBookLocation(href, computedPages)
       const percentage = (pageNo - 1) / computedPages.length
 
-      this.props.actions.viewerGoTo(percentage)
+      this.props.viewerGoTo(percentage)
     } catch (error) {
-      this.props.actions.sendNotification(error.message, 'error')
+      this.props.sendNotification(error.message, 'error')
     }
   }
 
@@ -108,9 +107,10 @@ class VNav extends Component<AllProps, void> {
   }
 }
 
-export default connect<AllProps, {}, {}>(
+export default connect<{}, {}, {}>(
   mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
+  {
+    viewerGoTo: actions.viewer.viewerGoTo,
+    sendNotification: actions.sendNotification
+  }
 )(VNav)

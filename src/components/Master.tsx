@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, hideNotification, closeConfirmModal, closeModal, loadSession } from '../actions'
+import { sendNotification, hideNotification, closeConfirmModal, closeModal } from '../actions'
+import { loadSession } from '../actions/api'
 import { Alerts } from '../components/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../components/Modal'
@@ -13,11 +14,11 @@ interface Props {
   errorMessage: any[]
   sendNotification: typeof sendNotification
   confirmModal: any
-  closeConfirmModal: any
+  closeConfirmModal: typeof closeConfirmModal
   routing: any
-  session: any
+  session: Session
   modal: any
-  closeModal: any
+  closeModal: typeof closeModal
   loadSession: typeof loadSession
 }
 
