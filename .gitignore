@@ -5,5 +5,4 @@ bower_components
 .DS_Store
 npm-debug.log
 build/es
-.env
 build
