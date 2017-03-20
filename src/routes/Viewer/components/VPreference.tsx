@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Switcher from '../../../components/Switcher'
+// import Switcher from '../../../components/Switcher'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -77,7 +77,7 @@ class VPreference extends Component<AllProps, {}> {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
-    const { isScrollMode, theme } = this.props
+    const { theme } = this.props
 
     const btnDecClass = classnames({
       'btn': !isDecDisabled,
@@ -96,18 +96,17 @@ class VPreference extends Component<AllProps, {}> {
             <span styleName={btnDecClass} onClick={this.handleDecFontSizeClick.bind(this)}>A-</span>
             <span styleName={btnIncClass} onClick={this.handleIncFontSizeClick.bind(this)}>A+</span>
           </li>
-          <li styleName="option-scroll">
+          {/*<li styleName="option-scroll">
             <span className="label">滚动模式</span>
             <Switcher
               value={isScrollMode}
               onChange={this.handleToggleScrollModeClick.bind(this)}
             />
-          </li>
+          </li>*/}
           <li styleName="option-theme">
             {
               _.keys(THEME_DEFS).map((key, index) => {
                 const className = key.toLowerCase() + (theme === key ? '--active' : '')
-                console.log(className, theme, key)
 
                 return (
                   <span

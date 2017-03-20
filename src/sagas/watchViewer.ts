@@ -1,5 +1,4 @@
-// import { takeEvery } from 'redux-saga'
-import { take, put, call, select, fork, cancelled } from 'redux-saga/effects'
+import { take, put, select, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
 import * as ACTION_TYPES from '../constants/actionTypes'
 import _ from 'lodash'
@@ -30,26 +29,6 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   }
 }
 
-// function* watchProgressOperations() {
-//   while (true) {
-//     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
-//     const session = yield select(selectors.session)
-//     const userRole = _.get(session, 'role')
-
-//     if (userRole !== ROLES.VISITOR) {
-//       if (action.type === ACTION_TYPES.LOAD_BOOK_PROGRESS) {
-//         yield call(fetchBookProgress, { id: action.id })
-//       }
-
-//       if (action.type === ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE) {
-//         yield updateProgress(action.id, action.percentage)
-//       }
-//     } else {
-//       helpers.print('Not logged in, progress will not be fetched!')
-//     }
-//   }
-// }
-
 function* loadProgressAndGo(bookId) {
   const session: Session = yield select(selectors.session)
   if (session.role !== 'visitor') {
@@ -72,12 +51,12 @@ function* watchInitialization() {
       const config = getDefaultConfig({
         isCalcMode: true
       })
-      yield put(actions.configViewer(config))
+      yield put(actions.configViewer(config, true))
 
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
       yield put(actions.configViewer({
         isCalcMode: false
-      }))
+      }, true))
       yield put(actions.viewer.setStatus({
         isReady: true
       }))
@@ -125,16 +104,44 @@ function* watchGoTo() {
     if (isScrollMode) {
       document.body.scrollTop = totalHeight * percentage
     } else {
-      // yield put(actions.updateBookProgress(percentage) as any)
+      // todo: page flip mode
+    }
+  }
+}
+
+function* watchConfig() {
+  while (true) {
+    const oldConfig: Viewer.Config = yield select(selectors.viewer.config)
+    const action = yield take(ACTION_TYPES.VIEWER.CONFIG)
+    const bookId = yield select(selectors.viewer.id)
+    const newConfig: Viewer.Config = yield select(selectors.viewer.config)
+    const isInit = _.get(action, 'meta.isInit')
+
+    if ((oldConfig.fontSize !== newConfig.fontSize) && !isInit) {
+      yield put(actions.viewer.setStatus({
+        isReady: false
+      }))
+      yield put(actions.configViewer({
+        isCalcMode: true
+      }))
+      yield put(actions.viewer.toggleViewerPanel(false))
+      yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
+      yield put(actions.configViewer({
+        isCalcMode: false
+      }))
+      yield put(actions.viewer.setStatus({
+        isReady: true
+      }))
+      yield loadProgressAndGo(bookId)
     }
   }
 }
 
 export default function* watchViewer() {
   yield [
-    // fork(watchProgressOperations),
     fork(watchInitialization),
     fork(watchCalcBook),
     fork(watchGoTo),
+    fork(watchConfig)
   ]
 }

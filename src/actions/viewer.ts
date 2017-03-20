@@ -8,8 +8,9 @@ export const initializeViewer = (bookId: string) => ({
   type: ACTION_TYPES.VIEWER.INITIALIZE
 })
 
-export const configViewer = (config: Viewer.Config = {}) => ({
+export const configViewer = (config: Viewer.Config = {}, isInit: boolean = false) => ({
   payload: config,
+  meta: { isInit },
   type: ACTION_TYPES.VIEWER.CONFIG,
 })
 
