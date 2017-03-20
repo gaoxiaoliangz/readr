@@ -94,18 +94,6 @@ class VContainer extends Component<Props & OtherProps, void> {
     window.removeEventListener('resize', this.resizeLazily)
   }
 
-  // handleForward() {
-  //   const { allPages, pageNo } = this.props
-  //   this.props.actions.viewerJumpTo(pageNo / allPages.length)
-  //   document.body.scrollTop = 0
-  // }
-
-  // handlebackward() {
-  //   const { allPages, pageNo } = this.props
-  //   this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length)
-  //   document.body.scrollTop = 0
-  // }
-
   render() {
     return (
       <div>
