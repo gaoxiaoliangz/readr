@@ -7,7 +7,7 @@ import VNav from './VNav'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../../../actions'
+import { viewer as viewerActions } from '../../../actions'
 import * as selectors from '../../../selectors'
 import isDescendant from '../../../utils/dom/isDescendant'
 import styles from './VPanel.scss'
@@ -17,7 +17,7 @@ interface AllProps {
   showPreference?: boolean
   showNavigation?: boolean
   config?: Viewer.Config
-  actions?: typeof actions
+  viewerActions?: typeof viewerActions
   title?: string
 }
 
@@ -47,29 +47,34 @@ class VPanel extends Component<AllProps, void> {
 
     if (!isDescendant(this.nav, e.target)) {
       if (showNavigation) {
-        this.props.actions.toggleViewerNavigation(false)
+        this.props.viewerActions.toggleViewerNavigation(false)
       }
     } else {
-      this.props.actions.toggleViewerNavigation()
+      this.props.viewerActions.toggleViewerNavigation()
     }
 
     if (!isDescendant(this.pref, e.target)) {
       if (showPreference) {
-        this.props.actions.toggleViewerPreference(false)
+        this.props.viewerActions.toggleViewerPreference(false)
       }
     } else {
-      this.props.actions.toggleViewerPreference()
+      this.props.viewerActions.toggleViewerPreference()
     }
   }
 
   handelViewerMouseMove(event) {
-    const { config: { isCalcMode, isTouchMode }, showPanel } = this.props
+    const { config: { isCalcMode, isTouchMode }, showPanel, showNavigation, showPreference } = this.props
 
     if (!isCalcMode && !isTouchMode) {
       let y = event.pageY - document.body.scrollTop
       const show = y < 90
+
+      if (!show && (showNavigation || showPreference)) {
+        return false
+      }
+
       if (showPanel !== show) {
-        this.props.actions.toggleViewerPanel(show)
+        this.props.viewerActions.toggleViewerPanel(show)
       }
     }
   }
@@ -141,6 +146,6 @@ class VPanel extends Component<AllProps, void> {
 export default connect<AllProps, {}, {}>(
   mapStateToProps,
   dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
+    viewerActions: bindActionCreators(viewerActions as {}, dispatch)
   })
 )(VPanel)
