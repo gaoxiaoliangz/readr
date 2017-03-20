@@ -33,18 +33,15 @@ const mapStateToProps = (state, ownProps) => {
 
 class VContainer extends Component<Props & OtherProps, void> {
 
-  resizeLazily: typeof _.debounce
-  handleScrollLazily: any
+  _handleResize: typeof _.debounce
+  _handleScroll: typeof _.debounce
 
   constructor(props) {
     super(props)
-    this.resizeLazily = _.debounce(this.handleResize, 500, {
+    this._handleResize = _.debounce(this.handleResize.bind(this), 500, {
       maxWait: 1000
     })
-    this.handleResize = this.handleResize.bind(this)
-    this.resizeLazily = this.resizeLazily.bind(this)
-    this.handleScroll = this.handleScroll.bind(this)
-    this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
+    this._handleScroll = _.debounce(this.handleScroll.bind(this), 200, {
       maxWait: 1000
     })
   }
@@ -85,18 +82,18 @@ class VContainer extends Component<Props & OtherProps, void> {
   }
 
   addEventListeners() {
-    window.addEventListener('scroll', this.handleScrollLazily)
-    window.addEventListener('resize', this.resizeLazily)
+    window.addEventListener('scroll', this._handleScroll)
+    window.addEventListener('resize', this._handleResize)
   }
 
   removeEventListeners() {
-    window.removeEventListener('scroll', this.handleScrollLazily)
-    window.removeEventListener('resize', this.resizeLazily)
+    window.removeEventListener('scroll', this._handleScroll)
+    window.removeEventListener('resize', this._handleResize)
   }
 
   render() {
     return (
-      <div>
+      <div className="viewer-container">
         <VPanel />
         <BookContainer />
       </div>

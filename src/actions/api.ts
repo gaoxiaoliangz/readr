@@ -71,8 +71,10 @@ export const loadUsers = (page = 1) => createTriggerAction(ActionTypes.USERS, {
 })
 
 export const updateBookProgress = (bookId, percentage) => (dispatch, getState) => {
-  const session = selectors.session(getState())
-  if (session.role !== 'visitor') {
+  const state = getState()
+  const session = selectors.session(state)
+  const status: Viewer.Status = selectors.viewer.status(state)
+  if (session.role !== 'visitor' && status.isReady) {
     return dispatch(createTriggerAction(ActionTypes.BOOK_PROGRESS_UPDATE, {
       request: {
         url: `user/books/${bookId}/progress`,
