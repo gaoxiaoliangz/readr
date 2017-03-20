@@ -6,7 +6,8 @@ import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import * as selectors from '../../../selectors'
 import _ from 'lodash'
-const styles = require('./BookPages.scss')
+import styles from './BookPages.scss'
+import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
 
 interface OwnProps {
   startPageIndex?: number
@@ -48,7 +49,7 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
   }
 
   render() {
-    const { pages, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid } } = this.props
+    const { pages, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid, width } } = this.props
     const totalHeight = pages.length * pageHeight
     const className = classnames({
       'pages': !fluid,
@@ -64,7 +65,10 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
           : pageHeight
       )
 
-    const ulStyle = { height: ulHeight }
+    const ulStyle: React.CSSProperties = { 
+      height: ulHeight,
+      width: fluid ? width : MOBILE_BREAK_POINT
+    }
     const pagesToRender = pages.slice(startPageIndex, startPageIndex + (limit || pages.length))
 
     return (

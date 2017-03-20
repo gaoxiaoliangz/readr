@@ -172,7 +172,7 @@ declare namespace Viewer {
     pageHeight?: number
     fontSize?: number
     theme?: Themes
-    width?: 'max' | number
+    width?: number
   }
 
   interface Status {

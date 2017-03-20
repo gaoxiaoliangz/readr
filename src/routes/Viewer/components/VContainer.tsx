@@ -6,8 +6,11 @@ import * as selectors from '../../../selectors'
 import BookContainer from './BookContainer'
 import VPanel from './VPanel'
 import _ from 'lodash'
+import utils from '../../../utils'
+import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
+import shouldViewerBeFluid from '../../../helpers/shouldViewerBeFluid'
 
-interface Props {}
+interface Props { }
 
 interface OtherProps {
   bookId: string
@@ -78,7 +81,18 @@ class VContainer extends Component<Props & OtherProps, void> {
   }
 
   handleResize() {
-    console.log('resized')
+    const { config: { fluid, width } } = this.props
+    const viewerWidth = utils.getScreenInfo().width
+    const _fluid = shouldViewerBeFluid()
+
+    const shouldUpdate = (fluid !== _fluid)
+      || (fluid && (utils.getScreenInfo().width !== width))
+    if (shouldUpdate) {
+      this.props.actions.viewer.configViewer({
+        fluid: _fluid,
+        width: viewerWidth
+      })
+    }
   }
 
   addEventListeners() {

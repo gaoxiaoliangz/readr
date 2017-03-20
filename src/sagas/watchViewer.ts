@@ -5,25 +5,25 @@ import _ from 'lodash'
 import * as selectors from '../selectors'
 import utils from '../utils'
 import calcBook from './effects/calcBook'
-
-const DEFAULT_PAGE_HEIGHT = 900
-const DEFAULT_FONT_SIZE = 16
+import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../constants/viewerDefs'
+import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
 
 const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
-  const viewerWidth = utils.getScreenInfo().view.width
-  const isSmallScreen = viewerWidth < 700
+  const fluid = shouldViewerBeFluid()
+  const viewerWidth = utils.getScreenInfo().width
 
   return {
     ...{
-      fluid: isSmallScreen,
+      fluid,
       isScrollMode: true,
-      isTouchMode: isSmallScreen,
+      isTouchMode: fluid,
       pageHeight: DEFAULT_PAGE_HEIGHT,
       fontSize: DEFAULT_FONT_SIZE,
       theme: 'WHITE' as Viewer.Themes,
-      width: isSmallScreen
-        ? viewerWidth
-        : 'max'
+
+      // width of viewer is exactly the width here when in fluid mode
+      // when not the width will be 'MOBILE_BREAK_POINT'
+      width: viewerWidth
     },
     ...override
   }
@@ -60,6 +60,7 @@ function* watchInitialization() {
       yield put(actions.viewer.setStatus({
         isReady: true
       }))
+
       // fetch cloud progress and go there
       yield loadProgressAndGo(bookId)
     } else {
@@ -116,8 +117,19 @@ function* watchConfig() {
     const bookId = yield select(selectors.viewer.id)
     const newConfig: Viewer.Config = yield select(selectors.viewer.config)
     const isInit = _.get(action, 'meta.isInit')
+    const fluidChanged = oldConfig.fluid !== newConfig.fluid
+    let widthChangedInFluid = false
 
-    if ((oldConfig.fontSize !== newConfig.fontSize) && !isInit) {
+    if (!fluidChanged && oldConfig.fluid) {
+      widthChangedInFluid = oldConfig.width !== newConfig.width
+    }
+
+    const needRerender = (oldConfig.fontSize !== newConfig.fontSize)
+      || (oldConfig.fluid !== newConfig.fluid)
+      || fluidChanged
+      || widthChangedInFluid
+
+    if (needRerender && !isInit) {
       yield put(actions.viewer.setStatus({
         isReady: false
       }))

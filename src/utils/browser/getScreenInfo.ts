@@ -1,22 +1,23 @@
-export default function getScreenInfo(): {
-  view: any
-  screen: any
-} {
+interface ScreenInfo {
+  width?: number
+  height?: number
+  aspectRatio?: number
+  _screen: typeof window.screen
+}
+
+export default function getScreenInfo(): ScreenInfo {
   if (typeof window === 'undefined') {
     console.error('window is undefined, empty info object will be returned!')
 
     return {
-      view: {},
-      screen: {}
+      _screen: {} as any
     }
   }
 
   return {
-    view: {
-      width:  window.innerWidth,
-      height: window.innerHeight,
-      aspectRatio: window.innerWidth / window.innerHeight
-    },
-    screen: window.screen
+    width: window.innerWidth,
+    height: window.innerHeight,
+    aspectRatio: window.innerWidth / window.innerHeight,
+    _screen: window.screen
   }
 }
