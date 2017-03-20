@@ -9,20 +9,30 @@ const getFlag = (reset, currentFlag) => {
   return reset
 }
 
-const config = (state = {}, action) => {
+const DEFAULT_CONFIG: Viewer.Config = {
+  theme: 'WHITE'
+}
+const config = (state = DEFAULT_CONFIG, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.CONFIG:
       return _.merge({}, state, action.payload)
+
+    case ACTION_TYPES.VIEWER.DESTROY:
+      return DEFAULT_CONFIG
 
     default:
       return state
   }
 }
 
-const status = (state = { isReady: false }, action) => {
+const DEFAULT_STATUS = { isReady: false }
+const status = (state = DEFAULT_STATUS, action) => {
   switch (action.type) {
     case ACTION_TYPES.VIEWER.SET_STATUS:
       return _.merge({}, state, action.payload)
+
+    case ACTION_TYPES.VIEWER.DESTROY:
+      return DEFAULT_STATUS
 
     default:
       return state
@@ -32,6 +42,12 @@ const status = (state = { isReady: false }, action) => {
 const data = (state = {}, action) => {
   const { payload } = action
   switch (action.type) {
+    case ACTION_TYPES.VIEWER.DESTROY:
+      if (payload === true) {
+        return {}
+      }
+      return state
+
     case ACTION_TYPES.VIEWER.CALC_SUCCESS:
       return _.merge({}, state, {
         [payload.bookId]: {
@@ -102,6 +118,15 @@ const components = (state = DEFAULT_COMPONENT_STATE, action) => {
           showProgress: getFlag(payload, state.showProgress)
         }
       }
+
+    case ACTION_TYPES.VIEWER.SET_COMPONENT:
+      return {
+        ...state,
+        ...payload
+      }
+
+    case ACTION_TYPES.VIEWER.DESTROY:
+      return DEFAULT_COMPONENT_STATE
 
     default:
       return state

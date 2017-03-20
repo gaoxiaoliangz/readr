@@ -56,3 +56,10 @@ export const toggleViewerNavigation = (reset?: boolean) =>
 
 export const toggleViewerProgressInfo = (reset?: boolean) =>
   ({ type: ACTION_TYPES.VIEWER.PROGRESS_INFO_TOGGLE, payload: reset })
+
+// master action of sub components
+export const setComponents = (state: Viewer.Components) =>
+  ({ type: ACTION_TYPES.VIEWER.SET_COMPONENT, payload: state })
+
+export const destroy = (clearData: boolean = false) =>
+  ({ type: ACTION_TYPES.VIEWER.DESTROY, payload: clearData })

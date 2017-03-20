@@ -5,7 +5,7 @@ import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import DocContainer from '../../components/DocContainer'
 import * as selectors from '../../selectors'
-import { initializeViewer } from '../../actions/viewer'
+import { initializeViewer, destroy } from '../../actions/viewer'
 import VContainer from './components/VContainer'
 import styles from './Viewer.scss'
 
@@ -14,6 +14,7 @@ interface AllProps {
     title: string
   }
   initializeViewer: typeof initializeViewer
+  destroy: typeof destroy
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -43,6 +44,10 @@ class Viewer extends Component<AllProps, void> {
     this.props.initializeViewer(this.bookId)
   }
 
+  componentWillUnmount() {
+    this.props.destroy()
+  }
+
   render() {
     return (
       <DocContainer bodyClass="viewer" title={this.props.book.title}>
@@ -54,5 +59,5 @@ class Viewer extends Component<AllProps, void> {
 
 export default connect(
   mapStateToProps,
-  { initializeViewer }
+  { initializeViewer, destroy }
 )(Viewer as any)

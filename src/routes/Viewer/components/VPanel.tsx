@@ -13,21 +13,19 @@ import isDescendant from '../../../utils/dom/isDescendant'
 import styles from './VPanel.scss'
 
 interface AllProps {
-  showPanel?: boolean
-  showPreference?: boolean
-  showNavigation?: boolean
-  config?: Viewer.Config
-  viewerActions?: typeof viewerActions
-  title?: string
+  components: Viewer.Components
+  config: Viewer.Config
+  viewerActions: typeof viewerActions
+  title: string
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const bookId = selectors.viewer.id(state)
-  const { showPanel, showNavigation, showPreference } = selectors.viewer.components(state)
+  const components = selectors.viewer.components(state)
   const { title } = selectors.entity('books', bookId)(state)
 
-  return { config, showPanel, showPreference, title, showNavigation }
+  return { config, components, title }
 }
 
 @CSSModules(styles)
@@ -44,7 +42,7 @@ class VPanel extends Component<AllProps, void> {
   }
 
   handleGlobalClick(e) {
-    const { showPreference, showNavigation } = this.props
+    const { components: { showPreference, showNavigation } } = this.props
 
     if (!isDescendant(this.nav, e.target)) {
       if (showNavigation) {
@@ -64,9 +62,12 @@ class VPanel extends Component<AllProps, void> {
   }
 
   handelViewerMouseMove(event) {
-    const { config: { isCalcMode, isTouchMode }, showPanel, showNavigation, showPreference } = this.props
+    const {
+      config: { isCalcMode, isTouchMode },
+      components: { showPanel, showNavigation, showPreference, hideAll }
+    } = this.props
 
-    if (!isCalcMode && !isTouchMode) {
+    if (!isCalcMode && !isTouchMode && !hideAll) {
       let y = event.pageY - document.body.scrollTop
       const show = y < 90
 
@@ -81,9 +82,9 @@ class VPanel extends Component<AllProps, void> {
   }
 
   handleViewerClick() {
-    const { config: { isTouchMode } } = this.props
+    const { config: { isTouchMode }, components: { hideAll } } = this.props
 
-    if (isTouchMode) {
+    if (isTouchMode && !hideAll) {
       this.props.viewerActions.toggleViewerPanel()
       // this.props.viewerActions.toggleViewerProgressInfo()
     }
@@ -102,7 +103,7 @@ class VPanel extends Component<AllProps, void> {
   }
 
   render() {
-    const { title, showPanel, showPreference, showNavigation } = this.props
+    const { title, components: { showPanel, showPreference, showNavigation } } = this.props
 
     return (
       <Slide>
@@ -155,7 +156,7 @@ class VPanel extends Component<AllProps, void> {
   }
 }
 
-export default connect<AllProps, {}, {}>(
+export default connect<{}, {}, {}>(
   mapStateToProps,
   dispatch => ({
     viewerActions: bindActionCreators(viewerActions as {}, dispatch)

@@ -38,6 +38,11 @@ export const VIEWER = {
   PREFERENCE_TOGGLE: viewerType('TOGGLE_PREFERENCE'),
   NAVIGATION_TOGGLE: viewerType('TOGGLE_NAVIGATION'),
   PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
+
+  // set components state, much simpler than write actions one by one
+  SET_COMPONENT: viewerType('SET_COMPONENT'),
+
+  DESTROY: viewerType('DESTROY')
 }
 
 // modifiy

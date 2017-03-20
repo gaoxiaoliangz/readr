@@ -7,6 +7,7 @@ declare namespace NodeJS {
       DB_PORT: string
       DB_NAME: string
       MONGOSTORE_NAME: string
+      NODE_ENV: 'production' | 'development'
     }
   }
 }

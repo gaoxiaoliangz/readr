@@ -158,10 +158,13 @@ declare namespace Viewer {
   }
 
   interface Components {
-    showNavigation: boolean
-    showPanel: boolean
-    showPreference: boolean
-    showProgress: boolean
+    showNavigation?: boolean
+    showPanel?: boolean
+    showPreference?: boolean
+    showProgress?: boolean
+    
+    // if true, all components will be hided (highest priority)
+    hideAll?: boolean
   }
 
   interface Config {

@@ -44,31 +44,33 @@ function* loadProgressAndGo(bookId) {
 function* watchInitialization() {
   while (true) {
     const { payload: bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
+    const config = getDefaultConfig()
+    yield put(actions.viewer.configViewer(config, true))
+    yield put(actions.viewer.setComponents({
+      hideAll: true
+    }))
+    yield put(actions.viewer.toggleViewerPreference(false))
+    yield put(actions.viewer.toggleViewerPanel(false))
     const computed = yield select(selectors.viewer.computed(bookId))
 
     if (_.isEmpty(computed)) {
       yield [put(actions.api.loadBookInfo(bookId)), put(actions.api.loadBookContent(bookId))]
-      const config = getDefaultConfig({
+      yield put(actions.viewer.configViewer({
         isCalcMode: true
-      })
-      yield put(actions.viewer.configViewer(config, true))
-
+      }, true))
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
       yield put(actions.viewer.configViewer({
         isCalcMode: false
       }, true))
-      yield put(actions.viewer.setStatus({
-        isReady: true
-      }))
-
-      // fetch cloud progress and go there
-      yield loadProgressAndGo(bookId)
-    } else {
-      yield put(actions.viewer.setStatus({
-        isReady: true
-      }))
-      yield loadProgressAndGo(bookId)
     }
+
+    yield put(actions.viewer.setStatus({
+      isReady: true
+    }))
+    yield loadProgressAndGo(bookId)
+    yield put(actions.viewer.setComponents({
+      hideAll: false
+    }))
   }
 }
 
@@ -130,13 +132,21 @@ function* watchConfig() {
       || widthChangedInFluid
 
     if (needRerender && !isInit) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.info('Start rerendering')
+      }
+      yield put(actions.viewer.setComponents({
+        showNavigation: false,
+        showPanel: false,
+        showPreference: false,
+        hideAll: true
+      }))
       yield put(actions.viewer.setStatus({
         isReady: false
       }))
-      // yield put(actions.viewer.toggleViewerPreference(false))
-      // yield put(actions.viewer.toggleViewerPanel(false))
       yield put(actions.viewer.configViewer({
-        isCalcMode: true
+        isCalcMode: true,
+        isTouchMode: shouldViewerBeFluid()
       }))
       yield put(actions.viewer.toggleViewerPanel(false))
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
@@ -147,6 +157,9 @@ function* watchConfig() {
         isReady: true
       }))
       yield loadProgressAndGo(bookId)
+      yield put(actions.viewer.setComponents({
+        hideAll: false
+      }))
     }
   }
 }
