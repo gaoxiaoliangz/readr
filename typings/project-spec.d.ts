@@ -174,4 +174,9 @@ declare namespace Viewer {
     theme?: Themes
     width?: 'max' | number
   }
+
+  interface Status {
+    isReady?: boolean
+    statusText?: string
+  }
 }

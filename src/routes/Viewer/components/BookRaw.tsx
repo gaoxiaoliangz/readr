@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import _ from 'lodash'
 
+// id attr is needed in calc
+// not perfect but works
 const Chapter = ({ id, markdown }) => {
   return (
     <div id={id}>
@@ -53,7 +55,7 @@ export default class BookRaw extends Component<Props, {}> {
     const { bookFlesh } = this.props
 
     return (
-      <div ref={ref => this.chapters = ref}>
+      <div className="book-raw" ref={ref => this.chapters = ref}>
         {
           (bookFlesh || []).map(item => {
             return (

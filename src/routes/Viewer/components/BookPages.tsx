@@ -14,12 +14,12 @@ interface OwnProps {
 
   // will override computed
   // used in BookRaw for caculation
-  pages?: TBookPage[]
+  pages: TBookPage[]
 }
 
 interface StateProps {
-  sendNotification: typeof sendNotification
-  computed: TBookPage[]
+  // sendNotification: typeof sendNotification
+  // computed: TBookPage[]
   bookId: string
   config: Viewer.Config
   // currentPageNo?: number
@@ -28,10 +28,10 @@ interface StateProps {
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const bookId = selectors.viewer.id(state)
-  const computed = selectors.viewer.computed(bookId)(state)
+  // const computed = selectors.viewer.computed(bookId)(state)
   // const currentPageNo = selectors.viewer.progress(bookId)(state).pageNo
 
-  return { config, bookId, computed }
+  return { config, bookId }
 }
 
 @CSSModules(styles, {
@@ -48,8 +48,8 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
   }
 
   render() {
-    const { pages, computed, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid } } = this.props
-    const totalHeight = computed.length * pageHeight
+    const { pages, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid } } = this.props
+    const totalHeight = pages.length * pageHeight
     const className = classnames({
       'pages': !fluid,
       'pages--fluid': fluid,
@@ -65,15 +65,7 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
       )
 
     const ulStyle = { height: ulHeight }
-    let pagesToRender
-
-    if (pages && pages.length !== 0) {
-      pagesToRender = pages
-    }
-
-    if (computed && computed.length !== 0) {
-      pagesToRender = computed.slice(startPageIndex, startPageIndex + limit)
-    }
+    const pagesToRender = pages.slice(startPageIndex, startPageIndex + (limit || pages.length))
 
     return (
       <ul styleName={className} style={ulStyle}>
@@ -96,6 +88,10 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
       </ul>
     )
   }
+}
+
+BookPages['defaultProps'] = {
+  startPageIndex: 0
 }
 
 export default connect<{}, {}, OwnProps>(

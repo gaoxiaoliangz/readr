@@ -19,6 +19,16 @@ const config = (state = {}, action) => {
   }
 }
 
+const status = (state = { isReady: false }, action) => {
+  switch (action.type) {
+    case ACTION_TYPES.VIEWER.SET_STATUS:
+      return _.merge({}, state, action.payload)
+
+    default:
+      return state
+  }
+}
+
 const data = (state = {}, action) => {
   const { payload } = action
   switch (action.type) {
@@ -99,6 +109,7 @@ const components = (state = DEFAULT_COMPONENT_STATE, action) => {
 }
 
 export default combineReducers({
+  status,
   config,
   data,
   components,

@@ -7,6 +7,10 @@ export const computed = bookId => state => {
   return _.get(state, ['viewer', 'data', bookId, 'content', 'computed'], []) as TBookPage[]
 }
 
+export const status = state => {
+  return _.get(state, ['viewer', 'status'], {}) as Viewer.Status
+}
+
 export const config = state => {
   return _.get(state, ['viewer', 'config'], {}) as Viewer.Config
 }

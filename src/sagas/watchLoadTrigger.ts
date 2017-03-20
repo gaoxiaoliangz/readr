@@ -1,5 +1,4 @@
-import { call, put } from 'redux-saga/effects'
-import { takeEvery } from 'redux-saga'
+import { call, put, takeEvery } from 'redux-saga/effects'
 import urlJoin from 'url-join'
 import _ from 'lodash'
 import getApiRoot from '../helpers/getApiRoot'

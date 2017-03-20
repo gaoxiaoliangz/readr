@@ -24,27 +24,24 @@ export const MODAL = {
 export const VIEWER = {
   INITIALIZE: triggerType(viewerType('INITIALIZE')),
   CONFIG: viewerType('CONFIG'),
+  SET_STATUS: viewerType('SET_STATUS'),
 
   CALC_START: triggerType(viewerType('CALC_START')),
   CALC_SUCCESS: viewerType('CALC_SUCCESS'),
   CALC_FAILURE: viewerType('CALC_FAILURE'),
 
   UPDATE_LOCAL_PROGRESS: viewerType('UPDATE_LOCAL_PROGRESS'),
-
-
-  // INITIALIZE_CONFIG: createSagaTriggerActionType(viewerType('INITIALIZE_CONFIG')),
-
-
-  PROGRESS_UPDATE: triggerType(viewerType('UPDATE_PROGRESS')),
-
+  // PROGRESS_UPDATE: triggerType(viewerType('UPDATE_PROGRESS')),
   GO_TO: triggerType(viewerType('GO_TO')),
-  // FONT_CHANGE: viewerType('CHANGE_FONT_SIZE'),
+
+  // components
   PANEL_TOGGLE: viewerType('TOGGLE_PANEL'),
   PREFERENCE_TOGGLE: viewerType('TOGGLE_PREFERENCE'),
   NAVIGATION_TOGGLE: viewerType('TOGGLE_NAVIGATION'),
+  PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
   // THEME_CHANGE: viewerType('CHANGE_THEME'),
   // SCROLL_MODE_TOGGLE: viewerType('TOGGLE_SCROLL_MODE'),
-  PROGRESS_INFO_TOGGLE: viewerType('TOGGLE_PROGRESS_INFO'),
+
 
   // TODO: 这个好像没用
   PROGRESS_INITIALIZE: viewerType('INITIALIZE_PROGRESS'),

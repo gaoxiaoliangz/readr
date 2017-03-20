@@ -6,7 +6,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './configureStore'
 import rootSaga from './sagas'
 import helpers from './helpers'
-import AppContainer from './components/AppContainer'
 import Root from './components/Root'
 
 const routerHistory = helpers.isServerRoutingEnabled()
@@ -28,15 +27,6 @@ const renderApp = routes => {
       />,
       rootEle
     )
-    /*render(
-      <AppContainer>
-        <Root
-          store={store}
-          renderProps={renderProps}
-          />
-      </AppContainer>,
-      rootEle
-    )*/
   })
 }
 

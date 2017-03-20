@@ -13,6 +13,11 @@ export const configViewer = (config: Viewer.Config = {}) => ({
   type: ACTION_TYPES.VIEWER.CONFIG,
 })
 
+export const setStatus = (status: Viewer.Status = {}) => ({
+  payload: status,
+  type: ACTION_TYPES.VIEWER.SET_STATUS,
+})
+
 export const viewerGoTo = (loc: number) =>
   ({ type: ACTION_TYPES.VIEWER.GO_TO, payload: loc })
 

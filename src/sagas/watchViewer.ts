@@ -78,9 +78,15 @@ function* watchInitialization() {
       yield put(actions.configViewer({
         isCalcMode: false
       }))
+      yield put(actions.viewer.setStatus({
+        isReady: true
+      }))
       // fetch cloud progress and go there
       yield loadProgressAndGo(bookId)
     } else {
+      yield put(actions.viewer.setStatus({
+        isReady: true
+      }))
       yield loadProgressAndGo(bookId)
     }
   }

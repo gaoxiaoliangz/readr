@@ -1,4 +1,5 @@
-@import "_variables";
+@import "variables";
+@import "viewer";
 
 body {
   background: #f2f2f2;
@@ -20,4 +21,3 @@ body.console {
     border-bottom: none;
   }
 }
-

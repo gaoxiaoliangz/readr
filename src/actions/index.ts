@@ -1,4 +1,6 @@
 import { actions as form } from 'better-redux-form'
+import * as api from './api'
+import * as viewer from './viewer'
 
 export * from './api'
 export * from './viewer'
@@ -72,3 +74,5 @@ export function closeModal() {
 
 export const initializeForm = form.initialize
 export const resetForm = form.reset
+
+export { api, viewer }

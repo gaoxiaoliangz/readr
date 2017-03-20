@@ -7,9 +7,6 @@ import BookContainer from './BookContainer'
 import VPanel from './VPanel'
 import ProgressLabel from './ProgressLabel'
 import _ from 'lodash'
-import Loading from '../../../components/Loading'
-import utils from '../../../utils'
-
 
 interface Props { }
 
@@ -35,7 +32,10 @@ interface OtherProps {
   isFetchingProgress?: boolean
   computed?: TBookPage[]
   config?: Viewer.Config
-  actions?: typeof actions
+  actions: {
+    api: typeof actions.api
+    viewer: typeof actions.viewer
+  }
   cloudProgress?: number
   viewerPercentage?: number
   showPanel?: boolean
@@ -103,14 +103,14 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
     const percentage = scrollTop / totalHeight
 
     if (isScrollMode) {
-      this.props.actions.updateLocalProgress(bookId, {
+      this.props.actions.viewer.updateLocalProgress(bookId, {
         percentage,
         pageCount,
         timestamp: new Date().valueOf().toString(),
         page: pageCount * percentage
       })
 
-      this.props.actions.updateBookProgress(bookId, percentage)
+      this.props.actions.api.updateBookProgress(bookId, percentage)
     }
   }
 
@@ -234,20 +234,19 @@ class VContainer extends Component<Props & OtherProps, LocalState> {
       // <div onMouseMove={this.handelViewerMouseMove} >
       <div>
         <VPanel />
-        {
-          bookId && (
-            <BookContainer />
-          )
-        }
+        <BookContainer />
         {/*<ProgressLabel/>*/}
       </div>
     )
   }
 }
 
-export default connect<OtherProps, {}, Props>(
-  mapStateToProps as any,
+export default connect<{}, {}, Props>(
+  mapStateToProps,
   dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
+    actions: {
+      api: bindActionCreators(actions.api as {}, dispatch),
+      viewer: bindActionCreators(actions.viewer as {}, dispatch)
+    }
   })
 )(VContainer)
