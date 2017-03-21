@@ -10,6 +10,7 @@ import utils from '../../../utils'
 // import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
 import ProgressBar from './ProgressBar'
 import shouldViewerBeFluid from '../../../helpers/shouldViewerBeFluid'
+import isDescendant from '../../../utils/dom/isDescendant'
 
 interface Props { }
 
@@ -40,6 +41,7 @@ class VContainer extends Component<Props & OtherProps, void> {
   _handleResize: typeof _.debounce
   _handleScroll: typeof _.debounce
   scrollTop: number[]
+  vPanel: Element
 
   constructor(props) {
     super(props)
@@ -51,6 +53,7 @@ class VContainer extends Component<Props & OtherProps, void> {
       maxWait: 1000
     })
     this.handleFastScroll = this.handleFastScroll.bind(this)
+    this.handleGlobalClick = this.handleGlobalClick.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -90,11 +93,13 @@ class VContainer extends Component<Props & OtherProps, void> {
     const scrollCount = this.scrollTop.length
     if (scrollCount >= 2) {
       const delta = _.last(this.scrollTop) - this.scrollTop[scrollCount - 2]
-      
+
       if (delta > 0) {
         // down
         this.props.actions.viewer.toggleViewerPanel(false)
         this.props.actions.viewer.toggleViewerProgressInfo(false)
+        this.props.actions.viewer.toggleViewerNavigation(false)
+        this.props.actions.viewer.toggleViewerPreference(false)
       } else {
         // up
         this.props.actions.viewer.toggleViewerPanel(true)
@@ -118,7 +123,15 @@ class VContainer extends Component<Props & OtherProps, void> {
     }
   }
 
+  handleGlobalClick(e) {
+    const vPanel = document.querySelector('.js-vpanel')
+    if (!isDescendant(vPanel as any, e.target)) {
+      this.props.actions.viewer.toggleViewerNavigation(false)
+    }
+  }
+
   addEventListeners() {
+    window.addEventListener('click', this.handleGlobalClick)
     window.addEventListener('scroll', this._handleScroll)
     window.addEventListener('scroll', this.handleFastScroll)
     window.addEventListener('resize', this._handleResize)
@@ -133,7 +146,9 @@ class VContainer extends Component<Props & OtherProps, void> {
   render() {
     return (
       <div className="viewer-container">
-        <VPanel />
+        <VPanel
+          className="js-vpanel"
+        />
         <BookContainer />
         <ProgressBar />
       </div>

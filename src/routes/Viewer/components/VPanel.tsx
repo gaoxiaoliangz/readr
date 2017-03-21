@@ -9,8 +9,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { viewer as viewerActions } from '../../../actions'
 import * as selectors from '../../../selectors'
-import isDescendant from '../../../utils/dom/isDescendant'
 import styles from './VPanel.scss'
+
+interface OwnProps {
+  className?: string
+}
 
 interface AllProps {
   components: Viewer.Components
@@ -29,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class VPanel extends Component<AllProps, void> {
+class VPanel extends Component<OwnProps & AllProps, void> {
 
   nav: HTMLDivElement
   pref: HTMLDivElement
@@ -37,75 +40,32 @@ class VPanel extends Component<AllProps, void> {
 
   constructor(props) {
     super(props)
-    // this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
-    // this.handleGlobalClick = this.handleGlobalClick.bind(this)
+    this.handleContentsClick = this.handleContentsClick.bind(this)
+    this.handlePrefClick = this.handlePrefClick.bind(this)
   }
 
-  componentDidMount() {
-    // window.addEventListener('mousemove', this.handelViewerMouseMove)
-    // window.addEventListener('click', this.handleGlobalClick)
+  handleContentsClick() {
+    this.props.viewerActions.toggleViewerNavigation()
+    this.props.viewerActions.toggleViewerPreference(false)
   }
 
-  componentWillUnmount() {
-    // window.removeEventListener('mousemove', this.handelViewerMouseMove)
-    // window.removeEventListener('click', this.handleGlobalClick)
+  handlePrefClick() {
+    this.props.viewerActions.toggleViewerPreference()
+    this.props.viewerActions.toggleViewerNavigation(false)
   }
-
-  // handleGlobalClick(e) {
-  //   const { config: { isTouchMode }, components: { hideAll } } = this.props
-  //   if (isTouchMode && !hideAll) {
-  //     const { components: { showPreference, showNavigation } } = this.props
-
-  //     if (!isDescendant(this.nav, e.target)) {
-  //       if (showNavigation) {
-  //         this.props.viewerActions.toggleViewerNavigation(false)
-  //       }
-  //     } else {
-  //       this.props.viewerActions.toggleViewerNavigation()
-  //     }
-
-  //     if (!isDescendant(this.pref, e.target)) {
-  //       if (showPreference) {
-  //         this.props.viewerActions.toggleViewerPreference(false)
-  //       }
-  //     } else {
-  //       this.props.viewerActions.toggleViewerPreference()
-  //     }
-
-  //     if (!isDescendant(this.panel, e.target)) {
-  //       this.props.viewerActions.toggleViewerPanel()
-  //     }
-  //   }
-  // }
-
-  // handelViewerMouseMove(event) {
-  //   const {
-  //     config: { isCalcMode, isTouchMode },
-  //     components: { showPanel, showNavigation, showPreference, hideAll }
-  //   } = this.props
-
-  //   if (!isCalcMode && !isTouchMode && !hideAll) {
-  //     let y = event.pageY - document.body.scrollTop
-  //     const show = y < 90
-
-  //     if (!show && (showNavigation || showPreference)) {
-  //       return false
-  //     }
-
-  //     if (showPanel !== show) {
-  //       this.props.viewerActions.toggleViewerPanel(show)
-  //     }
-  //   }
-  // }
 
   render() {
-    const { title, components: { showPanel, showPreference, showNavigation } } = this.props
+    const { title, className, components: { showPanel, showPreference, showNavigation } } = this.props
 
     return (
       <Slide>
         {
           (showPanel) && (
-            <div ref={ref => { this.panel = ref }} styleName="viewer-panel">
+            <div
+              ref={ref => { this.panel = ref }}
+              styleName="viewer-panel"
+              className={className || ''}
+            >
               <div styleName="container">
                 <div styleName="back">
                   <Link to="/">
@@ -120,7 +80,11 @@ class VPanel extends Component<AllProps, void> {
                   </Link>
                 </div>
 
-                <div ref={ref => { this.nav = ref }} styleName="contents">
+                <div
+                  ref={ref => { this.nav = ref }}
+                  styleName="contents"
+                  onClick={this.handleContentsClick}
+                >
                   <span>目录</span>
                   <Fade>
                     {
@@ -133,7 +97,11 @@ class VPanel extends Component<AllProps, void> {
 
                 <span styleName="title">{title}</span>
 
-                <div ref={ref => { this.pref = ref }} styleName="preference">
+                <div
+                  ref={ref => { this.pref = ref }}
+                  styleName="preference"
+                  onClick={this.handlePrefClick}
+                >
                   <Icon name="preference" />
                   <Fade>
                     {
@@ -152,7 +120,7 @@ class VPanel extends Component<AllProps, void> {
   }
 }
 
-export default connect<{}, {}, {}>(
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   dispatch => ({
     viewerActions: bindActionCreators(viewerActions as {}, dispatch)

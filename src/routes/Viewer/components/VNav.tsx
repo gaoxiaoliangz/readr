@@ -13,18 +13,20 @@ const JS_NAV_HOOK = 'a.js-book-nav'
 interface Props {}
 
 interface AllProps {
-  nav?: TBookNav[]
+  nav: TBookNav[]
   viewerGoTo: typeof actions.viewer.viewerGoTo,
   sendNotification: typeof actions.sendNotification
-  computedPages?: TBookPage[]
+  computedPages: TBookPage[]
+  config: Viewer.Config
 }
 
 const mapStateToProps = (state, ownProps) => {
   const bookId = selectors.viewer.id(state)
   const nav = selectors.viewer.navData(bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)
+  const config = selectors.viewer.config(state)
 
-  return { nav, computedPages }
+  return { nav, computedPages, config }
 }
 
 @CSSModules(styles)
@@ -97,10 +99,15 @@ class VNav extends Component<AllProps, void> {
   }
 
   render() {
-    const { nav } = this.props
+    const { nav, config: { fluid, width } } = this.props
+    const _width = fluid ? (width - 50) : 300
+    const navStyle = {
+      width: _width,
+      left: fluid ? -55 : -20
+    }
 
     return (
-      <div className="js-nav-scroll" styleName="viewer-nav">
+      <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
         {this.renderNav(nav)}
       </div>
     )
