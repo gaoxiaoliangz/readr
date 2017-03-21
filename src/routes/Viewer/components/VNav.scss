@@ -1,9 +1,9 @@
 @import "~styles/variables";
+@import "~styles/mixins/screens";
 
 .viewer-nav {
   position: absolute;
   top: 80px;
-  left: -20px;
   height: 100%;
   background: #fff;
   overflow-y: scroll;
@@ -11,8 +11,10 @@
   border-radius: 3px;
   // TODO
   box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);
-  width: 300px;
   height: 400px;
+  @include phone {
+    // width: 100%;
+  }
 
   ul {
     margin-left: 20px;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
-import { sendNotification, loadBooks } from '../../actions'
+import { loadBooks } from '../../actions/api'
 import * as selectors from '../../selectors'
 import BookListSection from '../../components/BookListSection'
 import DocContainer from '../../components/DocContainer'
@@ -12,7 +12,6 @@ import styles from './AppHome.scss'
 
 interface Props {
   session: Session
-  sendNotification: any
   loadBooks: typeof loadBooks
   bookList: SelectedPagination
 }
@@ -77,11 +76,11 @@ class AppHome extends Component<Props, IState> {
 function mapStateToProps(state, ownProps) {
   return {
     session: selectors.session(state),
-    bookList: selectors.bookList(state)
+    bookList: selectors.pagination.bookList(state)
   }
 }
 
 export default connect<{}, {}, {}>(
   mapStateToProps,
-  { loadBooks, sendNotification }
+  { loadBooks }
 )(AppHome)

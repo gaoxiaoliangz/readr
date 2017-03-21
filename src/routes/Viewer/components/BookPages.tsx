@@ -6,29 +6,33 @@ import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import * as selectors from '../../../selectors'
 import _ from 'lodash'
-const styles = require('./BookPages.scss')
+import styles from './BookPages.scss'
+import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
 
 interface OwnProps {
+  startPageIndex?: number
+  limit?: number
+
+  // will override computed
+  // used in BookRaw for caculation
   pages: TBookPage[]
 }
 
 interface StateProps {
-  sendNotification?: typeof sendNotification
-  theme?: string
-  isScrollMode?: boolean
-  isCalcMode?: boolean
-  pageHeight?: number
-  fluid?: boolean
-  computed?: TBookPage[]
-  currentPageNo?: number
+  // sendNotification: typeof sendNotification
+  // computed: TBookPage[]
+  bookId: string
+  config: Viewer.Config
+  // currentPageNo?: number
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
-  const computed = selectors.viewer.computed(config.bookId)(state)
-  const currentPageNo = selectors.viewer.progress(config.bookId)(state).pageNo
+  const bookId = selectors.viewer.id(state)
+  // const computed = selectors.viewer.computed(bookId)(state)
+  // const currentPageNo = selectors.viewer.progress(bookId)(state).pageNo
 
-  return _.assign({}, config, { computed, currentPageNo })
+  return { config, bookId }
 }
 
 @CSSModules(styles, {
@@ -40,14 +44,13 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
     super(props)
   }
 
-  // 写成 decorator 的形式？
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
   }
 
   render() {
-    const { pages, fluid, computed, theme, isScrollMode, pageHeight, isCalcMode, currentPageNo } = this.props
-    const totalHeight = computed.length * pageHeight
+    const { pages, startPageIndex, limit, config: { theme, isScrollMode, pageHeight, isCalcMode, fluid, width } } = this.props
+    const totalHeight = pages.length * pageHeight
     const className = classnames({
       'pages': !fluid,
       'pages--fluid': fluid,
@@ -62,13 +65,18 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
           : pageHeight
       )
 
-    const ulStyle = { height: ulHeight }
+    const ulStyle: React.CSSProperties = { 
+      height: ulHeight,
+      width: fluid ? width : MOBILE_BREAK_POINT
+    }
+    const pagesToRender = pages.slice(startPageIndex, startPageIndex + (limit || pages.length))
 
     return (
       <ul styleName={className} style={ulStyle}>
         {
-          pages.map((page, index) => {
-            const active = page.meta && page.meta.pageNo === currentPageNo
+          pagesToRender.map((page, index) => {
+            // const active = page.meta && page.meta.pageNo === currentPageNo
+            const active = false
 
             return (
               <BookPage
@@ -77,7 +85,7 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
                 pageHeight={pageHeight}
                 key={index}
                 active={active}
-                />
+              />
             )
           })
         }
@@ -86,7 +94,11 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
   }
 }
 
-export default connect<StateProps, {}, OwnProps>(
+BookPages['defaultProps'] = {
+  startPageIndex: 0
+}
+
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   { sendNotification }
 )(BookPages)

@@ -81,10 +81,11 @@ $width: 134px;
 
 .book--card {
   composes: book;
-
+  border-radius: 3px;
+  border: 1px solid $border-corlor-x1;
   width: auto;
   background: #fff;
-  box-shadow: $shadow-z1;
+  box-shadow: $shadow-x1;
   padding: 10px;
   float: none;
   height: 100px;

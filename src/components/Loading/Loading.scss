@@ -4,10 +4,8 @@
 	@extend %text-loading;
 	margin: 30px 0;
 	display: inline-block;
-	img {
-		width: 30px;
-		height: auto;
-	}
+	line-height: 20px;
+	position: relative;
 }
 
 .loading-wrap {
@@ -16,4 +14,14 @@
 
 .loading-wrap--center {
 	text-align: center;
+}
+
+.gif {
+	width: 20px;
+	height: auto;
+	line-height: 20px;
+	opacity: .6;
+	margin-right: 3px;
+	position: relative;
+	top: 2px;
 }

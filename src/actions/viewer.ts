@@ -1,90 +1,65 @@
-import * as selectors from '../selectors'
 import * as ACTION_TYPES from '../constants/actionTypes'
-import helpers from '../helpers'
 
 // viewer
-export const initializeViewerConfig = (bookId: string, config: ViewerConfig = {}) =>
-  ({ bookId, config, type: ACTION_TYPES.VIEWER.INITIALIZE_CONFIG })
+export const initializeViewer = (bookId: string) => ({
+  payload: bookId,
+  type: ACTION_TYPES.VIEWER.INITIALIZE
+})
 
-export const initializeViewer = (bookId: string) =>
-  ({ bookId, type: ACTION_TYPES.VIEWER.INITIALIZE })
-
-export const configViewer = (bookId: string, payload) => ({
-  bookId,
-  payload,
+export const configViewer = (config: Viewer.Config = {}, isInit: boolean = false) => ({
+  payload: config,
+  meta: { isInit },
   type: ACTION_TYPES.VIEWER.CONFIG,
 })
 
-// book
-export const calcBook = (bookId: string, wrap: HTMLElement) => ({
-  bookId,
-  wrap,
-  type: ACTION_TYPES.VIEWER.CALC_START,
+export const setStatus = (status: Viewer.Status = {}) => ({
+  payload: status,
+  type: ACTION_TYPES.VIEWER.SET_STATUS,
 })
 
-export const calcBookSuccess = (bookId: string, computed) => {
-  return {
-    bookId,
-    computed,
-    type: ACTION_TYPES.VIEWER.CALC_SUCCESS,
-  }
-}
+export const viewerGoTo = (loc: number) =>
+  ({ type: ACTION_TYPES.VIEWER.GO_TO, payload: loc })
 
-export const calcBookFailure = (bookId: string, error: Error) => {
-  return {
-    bookId,
-    error,
-    type: ACTION_TYPES.VIEWER.CALC_FAILURE,
-  }
-}
 
-export const initializeBookProgress = () =>
-  ({ type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_INITIALIZE })
+// book
+export const calcBook = (bookId: string, wrap: HTMLElement) => ({
+  payload: { bookId, wrap },
+  type: ACTION_TYPES.VIEWER.CALC_TRIGGER,
+})
 
-// progress
-export const updateBookProgress = (percentage: number) => (dispatch, getState) => {
-  helpers.print('Action updateBookProgress')
-  const state = getState()
-  const { bookId } = selectors.viewer.config(state)
-  const computed = selectors.viewer.computed(bookId)(state)
-  const pageNo = Math.floor(computed.length * percentage) + 1
+export const calcBookSuccess = (bookId: string, computed) => ({
+  payload: { bookId, computed },
+  type: ACTION_TYPES.VIEWER.CALC_SUCCESS,
+})
 
-  return dispatch({
-    id: bookId,
-    percentage,
-    pageNo,
-    type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE,
-  })
-}
+export const calcBookFailure = (bookId: string, error: Error) => ({
+  payload: error,
+  meta: { bookId },
+  error: true,
+  type: ACTION_TYPES.VIEWER.CALC_FAILURE,
+})
 
-export const destroyBookProgress = () => {
-  return {
-    type: ACTION_TYPES.VIEWER.BOOK_PROGRESS_DESTROY,
-  }
-}
-
-export const viewerJumpTo = (percentage: number) =>
-  ({ type: ACTION_TYPES.VIEWER.JUMP, percentage })
+export const updateLocalProgress = (bookId, progress: Viewer.LocalProgress) => ({
+  payload: { progress, bookId },
+  type: ACTION_TYPES.VIEWER.UPDATE_LOCAL_PROGRESS,
+})
 
 // sub components
 export const toggleViewerPanel = (reset?: boolean) =>
-  ({ type: ACTION_TYPES.VIEWER.PANEL_TOGGLE, reset })
+  ({ type: ACTION_TYPES.VIEWER.PANEL_TOGGLE, payload: reset })
 
 export const toggleViewerPreference = (reset?: boolean) =>
-  ({ type: ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE, reset })
+  ({ type: ACTION_TYPES.VIEWER.PREFERENCE_TOGGLE, payload: reset })
 
 export const toggleViewerNavigation = (reset?: boolean) =>
-  ({ type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, reset })
+  ({ type: ACTION_TYPES.VIEWER.NAVIGATION_TOGGLE, payload: reset })
 
-export const toggleViewerPageProgressInfo = (reset?: boolean) =>
-  ({ type: ACTION_TYPES.VIEWER.PAGE_PROGRESS_INFO_TOGGLE, payload: reset })
+export const toggleViewerProgressInfo = (reset?: boolean) =>
+  ({ type: ACTION_TYPES.VIEWER.PROGRESS_INFO_TOGGLE, payload: reset })
 
-// config
-export const changeViewerFontSize = (fontSizeInPixel: number) =>
-  ({ type: ACTION_TYPES.VIEWER.FONT_CHANGE, fontSize: fontSizeInPixel })
+// master action of sub components
+export const setComponents = (state: Viewer.Components) =>
+  ({ type: ACTION_TYPES.VIEWER.SET_COMPONENT, payload: state })
 
-export const changeViewerTheme = (themeName: string) =>
-  ({ type: ACTION_TYPES.VIEWER.THEME_CHANGE, theme: themeName })
-
-export const toggleViewerScrollMode = (reset?: boolean) =>
-  ({ type: ACTION_TYPES.VIEWER.SCROLL_MODE_TOGGLE, reset })
+export const destroy = (clearData: boolean = false) =>
+  ({ type: ACTION_TYPES.VIEWER.DESTROY, payload: clearData })

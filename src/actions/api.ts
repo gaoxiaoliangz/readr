@@ -3,6 +3,7 @@ import schemas from '../schemas'
 import { DOUBAN_API_ROOT } from '../constants'
 import { createTriggerAction } from './utils'
 import * as ActionTypes from '../constants/actionTypes'
+import * as selectors from '../selectors'
 
 export const removeEntity = (name: string, id: string) =>
   ({ type: ActionTypes.REMOVE_ENTITY, name, id })
@@ -69,10 +70,42 @@ export const loadUsers = (page = 1) => createTriggerAction(ActionTypes.USERS, {
   schema: schemas.USER_ARRAY
 })
 
+export const updateBookProgress = (bookId, percentage) => (dispatch, getState) => {
+  const state = getState()
+  const session = selectors.session(state)
+  const status: Viewer.Status = selectors.viewer.status(state)
+  if (session.role !== 'visitor' && status.isReady) {
+    return dispatch(createTriggerAction(ActionTypes.BOOK_PROGRESS_UPDATE, {
+      request: {
+        url: `user/books/${bookId}/progress`,
+        method: 'PUT',
+        data: {
+          percentage
+        }
+      }
+    }))
+  }
+}
+
 // app
 export const loadSession = () => createTriggerAction(ActionTypes.SESSION, {
   request: {
     url: 'auth'
+  }
+})
+
+export const loadBookProgress = (id) => createTriggerAction(ActionTypes.BOOK_PROGRESS, {
+  request: {
+    url: `user/books/${id}/progress`,
+  },
+  targetId: id,
+  schema: schemas.BOOK_PROGRESS
+})
+
+export const logout = () => createTriggerAction(ActionTypes.USER_LOGOUT, {
+  request: {
+    url: `auth/revoke`,
+    method: 'PUT'
   }
 })
 
@@ -101,21 +134,6 @@ export const loadCollection = (id) => createTriggerAction(ActionTypes.COLLECTION
   },
   targetId: id,
   schema: schemas.COLLECTION
-})
-
-export const loadBookProgress = (id) => createTriggerAction(ActionTypes.BOOK_PROGRESS, {
-  request: {
-    url: `user/books/${id}/progress`,
-  },
-  targetId: id,
-  schema: schemas.BOOK_PROGRESS
-})
-
-export const logout = () => createTriggerAction(ActionTypes.USER_LOGOUT, {
-  request: {
-    url: `auth/revoke`,
-    method: 'PUT'
-  }
 })
 
 // 3rd party

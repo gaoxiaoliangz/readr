@@ -1,13 +1,11 @@
 .pages {
   position: relative;
-  width: 700px;
   margin: 0 auto;
   background: #fff;
 }
 
 .pages--fluid {
   composes: pages;
-  width: 100%;
 }
 
 // themes

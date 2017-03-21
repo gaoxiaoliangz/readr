@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container } from '../components/layout'
 import ConsoleBranding from '../components/ConsoleBranding'
-import { sendNotification, logout } from '../actions'
+import { logout } from '../actions/api'
 import ConsoleSidebar from '../components/ConsoleSidebar'
 import menus from '../content/menus'
 import DocContainer from '../components/DocContainer'
@@ -82,5 +82,5 @@ export default connect<{}, {}, {}>(
     session: selectors.session(state),
     routing: state.routing
   }),
-  { sendNotification, logout }
+  { logout }
 )(Console)

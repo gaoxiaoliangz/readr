@@ -1,8 +1,47 @@
+type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
+type Roles = 'admin' | 'user' | 'visitor'
+
+// state
+type Session = {
+  role: Roles
+  username: string
+  fetchStatus: FetchStatus
+  id: string
+}
+
+interface SelectedPagination {
+  pages: {}
+  next: Link
+  last: Link
+  currentPage: number
+  fetchStatus: FetchStatus
+}
+
+interface SelectedRouting {
+  action: string
+  hash: string
+  key: string
+  pathname: string
+  query: {
+    [key: string]: any
+  }
+  search: string
+  state: any
+}
+
+interface SelectedEntity {
+  fetchStatus: FetchStatus
+  error: any
+  [key: string]: any
+}
+
+
 /**
  * General types
  */
 type TNotification = 'success' | 'error' | 'warning' | 'ongoing'
 
+// action
 interface RequestTypes {
   REQUEST: string
   SUCCESS: string
@@ -17,19 +56,17 @@ interface ActionEntity {
   request: any
   success: any
   failure: any
-  // todo
-  loadCache: any
 }
 
 // for thunk actions server side data fetching (deprecated)
-type FetchDataOptions = {
-  store: {
-    dispatch: (action: any) => any
-  }
-  params: any
-  query: any
-  userSession: any
-}
+// type FetchDataOptions = {
+//   store: {
+//     dispatch: (action: any) => any
+//   }
+//   params: any
+//   query: any
+//   userSession: any
+// }
 
 interface RequestConfig {
   method?: 'GET' | 'POST' | 'DELETE' | 'PUT'
@@ -83,44 +120,9 @@ interface Link {
   url: string
 }
 
-interface SelectedPagination {
-  pages: {}
-  next: Link
-  last: Link
-  currentPage: number
-  fetchStatus: FetchStatus
-}
-
-interface SelectedRouting {
-  action: string
-  hash: string
-  key: string
-  pathname: string
-  query: {
-    [key: string]: any
-  }
-  search: string
-  state: any
-}
-
-interface SelectedEntity {
-  fetchStatus: FetchStatus
-  error: any
-  [key: string]: any
-}
-
 /**
  * Viewer components & data types
  */
-type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
-type Roles = 'admin' | 'user' | 'visitor'
-
-type Session = {
-  role: Roles
-  username: string
-  fetchStatus: FetchStatus
-  id: string
-}
 
 type TBookPage = {
   nodes: string[]
@@ -145,12 +147,41 @@ type TBookNav = {
   children?: TBookNav[]
 }
 
-interface ViewerConfig {
-  isCalcMode?: boolean
-  isTouchMode?: boolean
-  isScrollMode?: boolean
-  fluid?: boolean
-  pageHeight?: number
-  fontSize?: number
-  theme?: string
+declare namespace Viewer {
+  type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
+
+  type Computed = TBookPage[]
+
+  interface LocalProgress {
+    percentage: number
+    page: number
+    pageCount?: number
+    timestamp?: string
+  }
+
+  interface Components {
+    showNavigation?: boolean
+    showPanel?: boolean
+    showPreference?: boolean
+    showProgress?: boolean
+    
+    // if true, all components will be hided (highest priority)
+    hideAll?: boolean
+  }
+
+  interface Config {
+    isCalcMode?: boolean
+    isTouchMode?: boolean
+    isScrollMode?: boolean
+    fluid?: boolean
+    pageHeight?: number
+    fontSize?: number
+    theme?: Themes
+    width?: number
+  }
+
+  interface Status {
+    isReady?: boolean
+    statusText?: string
+  }
 }

@@ -23,6 +23,7 @@ const setHeader = (req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', origin)
     // todo: CORS preflight needs this, but can it be other values?
     res.setHeader('Access-Control-Allow-Headers', 'content-type')
+    res.setHeader('Access-Control-Allow-Credentials', true)
   }
   next()
 }

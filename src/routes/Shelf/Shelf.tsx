@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { loadShelf } from '../../actions'
+import { loadShelf } from '../../actions/api'
 import BookList from '../../components/BookList'
 import Container from '../../components/Container'
 import { Tab, Tabs } from '../../components/Tab'
@@ -42,7 +42,7 @@ class Shelf extends Component<IProps, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    shelf: selectors.shelf(state)
+    shelf: selectors.pagination.shelf(state)
   }
 }
 

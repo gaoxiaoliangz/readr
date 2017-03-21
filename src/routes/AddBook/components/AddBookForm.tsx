@@ -155,8 +155,8 @@ class AddBookForm extends Component<AllProps, {}> {
 const mapStateToProps = (state, ownProps) => {
   return {
     routing: state.routing.locationBeforeTransitions,
-    doubanBooksAsOptions: selectors.doubanBooksAsOptions('search')(state),
-    authorsAsOptions: selectors.authorsAsOptions('search')(state),
+    // doubanBooksAsOptions: selectors.doubanBooksAsOptions('search')(state),
+    // authorsAsOptions: selectors.authorsAsOptions('search')(state),
   }
 }
 

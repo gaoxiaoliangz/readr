@@ -5,7 +5,8 @@ import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import webAPI from '../../webAPI'
 import * as selectors from '../../selectors'
-import { sendNotification, loadBooks, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm, closeModal } from '../../actions'
+import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
+import { loadBooks, loadUsers, removeEntity } from '../../actions/api'
 import ContentPage from '../../components/ContentPage'
 import helpers from '../../helpers'
 import moment from 'moment'
@@ -148,7 +149,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    bookListNewest: selectors.bookList(state),
+    bookListNewest: selectors.pagination.bookList(state),
     routing: selectors.routing(state)
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadBookInfo } from '../../actions'
+import { loadBookInfo } from '../../actions/api'
 import Loading from '../../components/Loading'
 import { Button } from '../../components/form'
 import _ from 'lodash'

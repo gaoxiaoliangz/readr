@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
-import { loadBooks } from '../../actions'
+import { loadBooks } from '../../actions/api'
 import Container from '../../components/Container'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
@@ -66,7 +66,7 @@ class Browse extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    bookList: selectors.bookList(state)
+    bookList: selectors.pagination.bookList(state)
   }
 }
 

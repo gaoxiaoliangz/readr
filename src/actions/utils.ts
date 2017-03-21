@@ -8,17 +8,17 @@ export const createRequestTypes = base => {
   }, {}) as RequestTypes
 }
 
-export const createComponentActionType = (name, operation) =>
+export const componentType = (name, operation) =>
   `components/${name}/${operation}`
 
-export const createSagaTriggerActionType = (operation: string) =>
-  `saga-triggers/${operation}/TRIGGER`
+export const triggerType = (operation: string) =>
+  `saga/${operation}/TRIGGER`
 
-export const createSagaActionTypes = (name): SagaActionTypes => {
+export const apiTypes = (name): SagaActionTypes => {
   return {
     ...createRequestTypes(name),
     ...{
-      TRIGGER: createSagaTriggerActionType(name)
+      TRIGGER: triggerType(name)
     }
   }
 }

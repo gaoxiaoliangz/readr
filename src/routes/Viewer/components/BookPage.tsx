@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../../../actions'
 import * as selectors from '../../../selectors'
-const styles = require('./BookPage.scss')
+import styles from './BookPage.scss'
 
 const renderers = {
   paragraph(text) {
@@ -99,14 +99,14 @@ class BookPage extends Component<OwnProps & StateProps, {}> {
         <div
           style={contentStyle}
           styleName="content"
-          ref={ref => { this.bookPageDom = ref } }
-          >
+          ref={ref => { this.bookPageDom = ref }}
+        >
           <Markdown
             className="lines"
             input={mdInput}
             safe={false}
             markedRenderers={renderers}
-            />
+          />
         </div>
         {
           meta && (

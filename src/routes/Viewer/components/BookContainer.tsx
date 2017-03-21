@@ -1,140 +1,118 @@
 import React, { Component } from 'react'
-import BookPages from './BookPages'
-import ViewerScrollbar from './ViewerScrollbar'
 import _ from 'lodash'
+import CSSModules from 'react-css-modules'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as selectors from '../../../selectors'
-import NavArrow from './NavArrow'
-import * as actions from '../../../actions'
-import CSSModules from 'react-css-modules'
+import { viewer as viewerActions } from '../../../actions'
+import BookPages from './BookPages'
+import BookRaw from './BookRaw'
+import Loading from '../../../components/Loading'
 import styles from './BookContainer.scss'
 
 interface OwnProps {
-  allPages: TBookPage[]
-  pageHeight: number
-  pageLimit: number
 }
 
 interface StateProps {
-  percentage?: number
-  pageNo?: number
-  theme?: string
-  isScrollMode?: boolean
-  isCalcMode?: boolean
-  actions?: typeof actions
-  showPageInfo?: boolean
+  viewerActions?: typeof viewerActions
+  status: Viewer.Status
+  config: Viewer.Config
+  computed: TBookPage[]
+  bookContent: SelectedEntity
+  bookId: string
+  localProgress: Viewer.LocalProgress[]
 }
 
 const mapStateToProps = state => {
-  const { bookId, theme, isScrollMode, isCalcMode } = selectors.viewer.config(state)
-  const { percentage, pageNo } = selectors.viewer.progress(bookId)(state)
-  const { show: showPageInfo } = selectors.viewer.progressComponent(state)
+  const bookId = selectors.viewer.id(state)
+  const config = selectors.viewer.config(state)
+  const status = selectors.viewer.status(state)
+  const computed = selectors.viewer.computed(bookId)(state)
+  const bookContent = selectors.entity('bookContents', bookId)(state)
+  const localProgress = selectors.viewer.localProgress(bookId)(state)
 
   return {
-    showPageInfo,
-    percentage,
-    pageNo,
-    theme,
-    isScrollMode,
-    isCalcMode
+    status,
+    config,
+    computed,
+    bookContent,
+    bookId,
+    localProgress
   }
 }
 
 @CSSModules(styles)
 class BookContainer extends Component<OwnProps & StateProps, {}> {
 
-  handleScrollLazily: any
-
   constructor(props) {
     super(props)
-    this.handleScroll = this.handleScroll.bind(this)
-    this.handleScrollLazily = _.debounce(this.handleScroll, 200, {
-      maxWait: 1000
-    })
+    this.handleRawMount = this.handleRawMount.bind(this)
   }
 
-  handleScroll() {
-    const { allPages, pageHeight, isScrollMode } = this.props
-    const pageCount = allPages.length
-    const totalHeight = pageCount * pageHeight
-    const scrollTop = document.body.scrollTop
-
-    if (isScrollMode) {
-      this.props.actions.updateBookProgress(scrollTop / totalHeight)
-    }
-  }
-
-  handleForward() {
-    const { allPages, pageNo } = this.props
-    this.props.actions.viewerJumpTo(pageNo / allPages.length)
-    document.body.scrollTop = 0
-  }
-
-  handlebackward() {
-    const { allPages, pageNo } = this.props
-    this.props.actions.viewerJumpTo((pageNo - 2) / allPages.length)
-    document.body.scrollTop = 0
-  }
-
-  addEventListeners() {
-    window.addEventListener('scroll', this.handleScrollLazily)
-  }
-
-  removeEventListeners() {
-    window.removeEventListener('scroll', this.handleScrollLazily)
-  }
-
-  componentDidMount() {
-    this.addEventListeners()
-  }
-
-  componentWillUnmount() {
-    this.removeEventListeners()
+  handleRawMount(wrap) {
+    this.props.viewerActions.calcBook(this.props.bookId, wrap)
   }
 
   render() {
-    const { allPages, pageHeight, showPageInfo, pageLimit, pageNo,
-      theme, isScrollMode, isCalcMode } = this.props
+    const {
+      config: { theme, isCalcMode, isScrollMode, pageHeight },
+      status: { isReady },
+      computed,
+      bookContent,
+      localProgress,
+      bookId
+    } = this.props
+    const { flesh: bookFlesh } = bookContent
 
+    const pageNo = _.get(_.last(localProgress), 'page', 1)
+    const pageLimit = 5
     let startPageIndex
-
     startPageIndex = pageNo - Math.ceil(pageLimit / 2)
     startPageIndex = startPageIndex < 0 ? 0 : startPageIndex
-
-    const endPageIndex = startPageIndex + pageLimit
 
     const divHeight = isCalcMode
       ? 'auto'
       : (
         isScrollMode
-          ? allPages.length * pageHeight
+          ? computed.length * pageHeight
           : pageHeight
       )
 
-    return (
-      <div styleName={theme.toLowerCase()} style={{ height: divHeight }}>
-        <BookPages
-          pages={_.slice(allPages, startPageIndex, endPageIndex) as TBookPage[]}
-          />
-        <NavArrow
-          forward={this.handleForward.bind(this)}
-          backward={this.handlebackward.bind(this)}
-          show={!isScrollMode}
-          />
-        <ViewerScrollbar
-          visible={showPageInfo}
-          current={pageNo}
-          total={allPages.length}
-          />
-      </div>
+    // todo: use viewer status
+    return bookId && (
+      <div className="book-container" styleName={theme.toLowerCase()} style={{ height: divHeight }}>
+        {
+          !isReady && (
+            <Loading
+              center
+            />
+          )
+        }
+        {
+          isCalcMode && (
+            <BookRaw
+              bookFlesh={bookFlesh}
+              onRawDataMount={this.handleRawMount}
+            />
+          )
+        }
+        {
+          isReady && (
+            <BookPages
+              startPageIndex={startPageIndex}
+              limit={pageLimit}
+              pages={computed}
+            />
+          )
+        }
+      </div >
     )
   }
 }
 
-export default  connect<StateProps, {}, OwnProps>(
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
+    viewerActions: bindActionCreators(viewerActions as {}, dispatch)
   })
 )(BookContainer)

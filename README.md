@@ -13,7 +13,7 @@
 
 options, data, id, response, error
 
-## Todos
+## Done
 	✔ remove legacy webpack config @done (March 7th 2017, 14:21)
 	✔ remove legacy hmr module @done (March 7th 2017, 14:21)
 	✔ remove legacy render module @done (March 7th 2017, 14:21)
@@ -32,41 +32,62 @@ options, data, id, response, error
 	✔ port @done (March 9th 2017, 15:07)
 	✔ isomorphic env solution @done (March 9th 2017, 15:07)
 	✔ webpack port @done (March 9th 2017, 15:07)
-	☐ beautify build file report
 	✔ manage node process in one console @done (March 10th 2017, 13:14)
 	✔ merge api with main server @done (March 10th 2017, 13:14)
 	✔ remove app.config @done (March 10th 2017, 18:01)
-	☐ test 500 error
 	✔ test 404 fe @done (March 10th 2017, 19:57)
 	✔ test 404 server @done (March 10th 2017, 19:57)
-	☐ books page promise rejection (Error: only absolute urls are supported)
+	✔ books page promise rejection (Error: only absolute urls are supported) @done (March 21st 2017, 10:18)
 	✔ mobile progress label bug @done (March 10th 2017, 19:34)
 	✔ jquery error @done (March 10th 2017, 19:57)
 	✔ fetch saga data server side @done (March 10th 2017, 19:57)
 	✔ render server side login state @done (March 13th 2017, 14:32)
-	☐ server log config
+	✔ server log config @done (March 21st 2017, 10:19)
 	✔ node generator code with sourcemap support @done (March 12th 2017, 0:27)
-	☐ common props decorator
-	☐ use new request wrap
-	☐ refactor books action
-	☐ refactor shelf action
+	✔ use new request wrap @done (March 21st 2017, 10:19)
+	✔ refactor books action @done (March 21st 2017, 10:19)
+	✔ refactor shelf action @done (March 21st 2017, 10:19)
+	✔ react hot error page @done (March 21st 2017, 10:19)
+	✔ use a better loading style @done (March 21st 2017, 10:19)
+	✔ current page state @done (March 21st 2017, 10:19)
+	✔ split actions @done (March 21st 2017, 10:19)
+
+### Test
 	☐ pass runtime env to test suit
-	☐ react hot error page
-	☐ use a better loading style
-	☐ current page state
 
-### Refactor
+### Bugs
+	☐ in-book navigation
+	☐ dropdown on mobile won't hide
+	☐ in-book links contain child element
+
+### Feature
+	☐ remove reading history
+	☐ modify profile
+	☐ backend db management
+	☐ add home hero image
+	☐ home screen responsive
+	☐ mobile console
+	☐ better 500 page
+
+### Refactor & Optimization
 	☐ api flow
-	☐ redux actions
-	☐ fetching state
-	☐ pagination
+	✔ redux actions @done (March 21st 2017, 10:19)
+	✔ fetching state @done (March 21st 2017, 10:19)
+	✔ pagination @done (March 21st 2017, 10:19)
 	✔ file tree @done (March 13th 2017, 14:33)
-
-### Optimization
 	☐ File handling flow, something to do with validation and middleware
+	☐ beautify build file report
 
 ### UX
 	☐ Changing theme status
-	☐ disable page flip in mobile mode
+	✔ disable page flip in mobile mode @done (March 21st 2017, 10:19)
+
+### Proposal
+	☐ common props decorator
+	☐ model schema typing
+	☐ use react motion
+	☐ use og meta tag
+	☐ use token authentication
+	☐ rejection handle in validator
 
 to be continued...

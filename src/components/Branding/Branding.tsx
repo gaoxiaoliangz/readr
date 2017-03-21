@@ -6,8 +6,8 @@ import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
 import styles from './Branding.scss'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actions from '../../actions'
+import { logout } from '../../actions/api'
+import * as selectors from '../../selectors'
 
 interface OwnProps {
   username: string
@@ -20,7 +20,8 @@ interface OwnProps {
 }
 
 interface OtherProps {
-  actions: typeof actions
+  logout: typeof logout
+  config: Viewer.Config
 }
 
 interface IState {
@@ -28,7 +29,9 @@ interface IState {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  return {
+    config: selectors.viewer.config(state)
+  }
 }
 
 @CSSModules(styles)
@@ -49,14 +52,14 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 
   handleLogoutClick(e) {
-    this.props.actions.logout()
+    this.props.logout()
     e.preventDefault()
   }
 
   render() {
     let isAdmin = this.props.isAdmin ? this.props.isAdmin : false
 
-    const { username, recentReading } = this.props
+    const { username, recentReading, config: { fluid } } = this.props
 
     return (
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
@@ -78,7 +81,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                   <div styleName="nav--user">
                     {
                       recentReading.length !== 0 && (
-                        <Dropdown styleName="dropdown-recent-reading" title="最近阅读">
+                        <Dropdown className="dropdown-recent-reading" styleName="dropdown-recent-reading" title="最近阅读">
                           {
                             recentReading.slice(0, 5).map((book, index) => {
                               return (
@@ -131,9 +134,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 }
 
-export default connect<OtherProps, {}, OwnProps>(
-  mapStateToProps as any,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
+export default connect<{}, {}, OwnProps>(
+  mapStateToProps,
+  { logout }
 )(Branding)

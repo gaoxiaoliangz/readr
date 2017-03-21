@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface State {
-  dynamicText?: string
+  dynamicDots?: string
 }
 
 @CSSModules(styles)
@@ -23,17 +23,17 @@ class Loading extends Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      dynamicText: ''
+      dynamicDots: ''
     }
   }
 
   componentDidMount() {
     this.intervalId = setInterval(() => {
-      if (this.state.dynamicText.length === 3) {
-        this.setState({ dynamicText: '' })
+      if (this.state.dynamicDots.length === 3) {
+        this.setState({ dynamicDots: '' })
       } else {
         this.setState({
-          dynamicText: this.state.dynamicText + '.'
+          dynamicDots: this.state.dynamicDots + '.'
         })
       }
     }, 500)
@@ -44,8 +44,8 @@ class Loading extends Component<Props, State> {
   }
 
   render() {
-    const { text, center } = this.props
-    const { dynamicText } = this.state
+    const { text, center, useDynamicDots } = this.props
+    const { dynamicDots } = this.state
 
     const wrapClass = classnames({
       'loading-wrap--center': center,
@@ -54,15 +54,18 @@ class Loading extends Component<Props, State> {
 
     return (
       <div styleName={wrapClass}>
-        <img src={loadingGif} />
-        <span styleName="text-loading">{text + dynamicText}</span>
+        <p styleName="text-loading">
+          <img styleName="gif" src={loadingGif} />
+          <span>{text + (useDynamicDots ? dynamicDots : '...')}</span>
+        </p>
       </div>
     )
   }
 }
 
 Loading['defaultProps'] = {
-  text: '加载中'
+  text: '加载中',
+  useDynamicDots: false
 }
 
 export default Loading

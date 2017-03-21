@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Branding from '../components/Branding'
 import Colophon from '../components/Colophon'
-import { loadShelf } from '../actions'
+import { loadShelf } from '../actions/api'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 
@@ -63,7 +63,7 @@ class App extends Component<Props, {}> {
 export default connect<{}, {}, Props>(
   state => ({
     notification: state.components.notification,
-    bookShelf: selectors.shelf(state),
+    bookShelf: selectors.pagination.shelf(state),
     session: selectors.session(state)
   }),
   { loadShelf }

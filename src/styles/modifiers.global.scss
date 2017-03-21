@@ -1,7 +1,9 @@
-@import "_variables";
+@import "variables";
+@import "viewer";
+@import "~styles/mixins/screens";
 
 body {
-  background: #f2f2f2;
+  background: #fafafa;
 }
 
 body.home {
@@ -21,3 +23,10 @@ body.console {
   }
 }
 
+#root {
+  .dropdown-recent-reading {
+    @include phone {
+      display: none;
+    }
+  }
+}

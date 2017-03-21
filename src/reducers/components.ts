@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import _ from 'lodash'
-import * as ACTION_TYPES from '../../constants/actionTypes'
-import viewer from './viewer'
+import * as ACTION_TYPES from '../constants/actionTypes'
+// import viewer from './viewer'
 
 function notifications(state = [], action) {
   if (action.type === ACTION_TYPES.NOTIFICATION.HIDE) {
@@ -52,7 +52,7 @@ const components = combineReducers({
   notifications,
   confirmModal,
   modal,
-  viewer
+  // viewer
 })
 
 export default components

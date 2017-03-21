@@ -1,36 +1,36 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import CSSModules from 'react-css-modules'
 import * as actions from '../../../actions'
 import * as selectors from '../../../selectors'
 import preventScroll from '../../../utils/browser/preventScroll'
-import * as viewerUtils from '../Viewer.utils'
+import { resolveBookLocation } from '../utils'
 import $ from 'jquery'
-import styles from './ViewerNav.scss'
+import styles from './VNav.scss'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
 
 interface Props {}
 
 interface AllProps {
-  nav?: TBookNav[]
-  actions?: typeof actions
-  computedPages?: TBookPage[]
-  viewerPercentage?: number
+  nav: TBookNav[]
+  viewerGoTo: typeof actions.viewer.viewerGoTo,
+  sendNotification: typeof actions.sendNotification
+  computedPages: TBookPage[]
+  config: Viewer.Config
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { bookId } = selectors.viewer.config(state)
+  const bookId = selectors.viewer.id(state)
   const nav = selectors.viewer.navData(bookId)(state)
-  const { percentage: viewerPercentage } = selectors.viewer.progress(bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)
+  const config = selectors.viewer.config(state)
 
-  return { nav, viewerPercentage, computedPages }
+  return { nav, computedPages, config }
 }
 
 @CSSModules(styles)
-class ViewerNav extends Component<AllProps, void> {
+class VNav extends Component<AllProps, void> {
 
   $body: any
 
@@ -41,16 +41,16 @@ class ViewerNav extends Component<AllProps, void> {
 
   handleNavLinkClick(e) {
     e.preventDefault()
-    const { computedPages, viewerPercentage /* 也许会用到 */ } = this.props
+    const { computedPages } = this.props
     const href = $(e.target).attr('href')
 
     try {
-      const pageNo = viewerUtils.resolveBookLocation(href, computedPages)
+      const pageNo = resolveBookLocation(href, computedPages)
       const percentage = (pageNo - 1) / computedPages.length
 
-      this.props.actions.viewerJumpTo(percentage)
+      this.props.viewerGoTo(percentage)
     } catch (error) {
-      this.props.actions.sendNotification(error.message, 'error')
+      this.props.sendNotification(error.message, 'error')
     }
   }
 
@@ -99,19 +99,25 @@ class ViewerNav extends Component<AllProps, void> {
   }
 
   render() {
-    const { nav } = this.props
+    const { nav, config: { fluid, width } } = this.props
+    const _width = fluid ? (width - 50) : 300
+    const navStyle = {
+      width: _width,
+      left: fluid ? -55 : -20
+    }
 
     return (
-      <div className="js-nav-scroll" styleName="viewer-nav">
+      <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
         {this.renderNav(nav)}
       </div>
     )
   }
 }
 
-export default connect<AllProps, {}, {}>(
+export default connect<{}, {}, {}>(
   mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-)(ViewerNav)
+  {
+    viewerGoTo: actions.viewer.viewerGoTo,
+    sendNotification: actions.sendNotification
+  }
+)(VNav)

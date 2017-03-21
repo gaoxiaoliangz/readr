@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import Switcher from '../../../components/Switcher'
+// import Switcher from '../../../components/Switcher'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from '../../../actions'
+import * as actions from '../../../actions/viewer'
 import * as selectors from '../../../selectors'
 import classnames from 'classnames'
 import { THEMES as THEME_DEFS } from '../../../constants/viewerDefs'
 import _ from 'lodash'
-const styles = require('./ViewerPreference.scss')
+import styles from './VPreference.scss'
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class ViewerPreference extends Component<AllProps, {}> {
+class VPreference extends Component<AllProps, {}> {
 
   constructor(props) {
     super(props)
@@ -38,7 +38,9 @@ class ViewerPreference extends Component<AllProps, {}> {
     const { isDecDisabled } = this.getBtnStatus()
 
     if (!isDecDisabled) {
-      this.props.actions.changeViewerFontSize(fontSize - 1)
+      this.props.actions.configViewer({
+        fontSize: fontSize - 1
+      })
     }
   }
 
@@ -47,16 +49,22 @@ class ViewerPreference extends Component<AllProps, {}> {
     const { isIncDisabled } = this.getBtnStatus()
 
     if (!isIncDisabled) {
-      this.props.actions.changeViewerFontSize(fontSize + 1)
+      this.props.actions.configViewer({
+        fontSize: fontSize + 1
+      })
     }
   }
 
   handleChangeThemeClick(key) {
-    this.props.actions.changeViewerTheme(key)
+    this.props.actions.configViewer({
+      theme: key
+    })
   }
 
   handleToggleScrollModeClick(val) {
-    this.props.actions.toggleViewerScrollMode(val)
+    this.props.actions.configViewer({
+      isScrollMode: val
+    })
   }
 
   getBtnStatus() {
@@ -69,7 +77,7 @@ class ViewerPreference extends Component<AllProps, {}> {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
-    const { isScrollMode, theme } = this.props
+    const { theme } = this.props
 
     const btnDecClass = classnames({
       'btn': !isDecDisabled,
@@ -88,25 +96,24 @@ class ViewerPreference extends Component<AllProps, {}> {
             <span styleName={btnDecClass} onClick={this.handleDecFontSizeClick.bind(this)}>A-</span>
             <span styleName={btnIncClass} onClick={this.handleIncFontSizeClick.bind(this)}>A+</span>
           </li>
-          <li styleName="option-scroll">
+          {/*<li styleName="option-scroll">
             <span className="label">滚动模式</span>
             <Switcher
               value={isScrollMode}
               onChange={this.handleToggleScrollModeClick.bind(this)}
-              />
-          </li>
+            />
+          </li>*/}
           <li styleName="option-theme">
             {
               _.keys(THEME_DEFS).map((key, index) => {
                 const className = key.toLowerCase() + (theme === key ? '--active' : '')
-                console.log(className, theme, key)
 
                 return (
                   <span
                     key={index}
                     className={styles[className]}
                     onClick={this.handleChangeThemeClick.bind(this, key)}
-                    >
+                  >
                     {key}
                   </span>
                 )
@@ -124,4 +131,4 @@ export default connect<AllProps, {}, {}>(
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)
   })
-)(ViewerPreference)
+)(VPreference)

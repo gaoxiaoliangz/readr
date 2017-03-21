@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { sendNotification, loadProfile } from '../../actions'
+import { loadProfile } from '../../actions/api'
 import _ from 'lodash'
 import PreferenceList from './components/PreferenceList'
 import DocContainer from '../../components/DocContainer'
@@ -47,5 +47,5 @@ export default connect(
       profile: selectors.profile(state)
     }
   },
-  { sendNotification, loadProfile }
+  { loadProfile }
 )(Preference as any)

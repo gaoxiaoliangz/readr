@@ -1,181 +1,174 @@
-import { takeEvery } from 'redux-saga'
-import { take, put, call, select, fork, cancelled } from 'redux-saga/effects'
+import { take, put, select, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
 import * as ACTION_TYPES from '../constants/actionTypes'
-import webAPI from '../webAPI'
 import _ from 'lodash'
 import * as selectors from '../selectors'
-import { ROLES } from '../constants'
-// import { fetchEntity } from './utils'
-import helpers from '../helpers'
-import * as viewerUtils from '../routes/Viewer/Viewer.utils'
 import utils from '../utils'
+import calcBook from './effects/calcBook'
+import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../constants/viewerDefs'
+import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
 
-const DEFAULT_PAGE_HEIGHT = 900
-const DEFAULT_FONT_SIZE = 16
+const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
+  const fluid = shouldViewerBeFluid()
+  const viewerWidth = utils.getScreenInfo().width
 
-// const fetchBookProgress = fetchEntity.bind(null, actions.progress, webAPI.fetchBookProgress)
+  return {
+    ...{
+      fluid,
+      isScrollMode: true,
+      isTouchMode: fluid,
+      pageHeight: DEFAULT_PAGE_HEIGHT,
+      fontSize: DEFAULT_FONT_SIZE,
+      theme: 'WHITE' as Viewer.Themes,
 
-function* setViewer(bookId, config: ViewerConfig = {}) {
-  const viewerWidth = utils.getScreenInfo().view.width
-  const isSmallScreen = viewerWidth < 700
-
-  let initialized = {
-    bookId,
-    isCalcMode: true,
-    fluid: isSmallScreen,
-    isTouchMode: isSmallScreen,
-    pageHeight: DEFAULT_PAGE_HEIGHT,
-    fontSize: DEFAULT_FONT_SIZE,
-    width: isSmallScreen
-      ? viewerWidth
-      : 'max'
+      // width of viewer is exactly the width here when in fluid mode
+      // when not the width will be 'MOBILE_BREAK_POINT'
+      width: viewerWidth
+    },
+    ...override
   }
+}
 
-  const computed = yield select(selectors.viewer.computed(bookId))
-
-  if (computed.length > 0) {
-    initialized.isCalcMode = false
+function* loadProgressAndGo(bookId) {
+  const session: Session = yield select(selectors.session)
+  if (session.role !== 'visitor') {
+    yield put(actions.api.loadBookProgress(bookId))
+    yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
+    const { percentage } = yield select(selectors.entity('bookProgress', bookId))
+    yield put(actions.viewer.viewerGoTo(percentage))
+  } else {
+    yield put(actions.viewer.viewerGoTo(0))
   }
-  initialized = _.merge({}, initialized, config)
-
-  yield put(actions.configViewer(bookId, initialized))
 }
 
-function* setViewerWithAction(action) {
-  const bookId = action.bookId
-  const config: ViewerConfig = action.config
+function* watchInitialization() {
+  while (true) {
+    const { payload: bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
+    const config = getDefaultConfig()
+    yield put(actions.viewer.configViewer(config, true))
+    yield put(actions.viewer.setComponents({
+      hideAll: true
+    }))
+    yield put(actions.viewer.toggleViewerPreference(false))
+    yield put(actions.viewer.toggleViewerPanel(false))
+    const computed = yield select(selectors.viewer.computed(bookId))
 
-  yield setViewer(bookId, config)
-}
-
-function* watchInitViewer() {
-  yield* takeEvery(ACTION_TYPES.VIEWER.INITIALIZE_CONFIG, setViewerWithAction)
-}
-
-function calcBook(wrap: HTMLElement, flesh: TBookFlesh) {
-  const startCalcHtmlTime = new Date().valueOf()
-  const computedChapters = Array.prototype
-    .map.call(wrap.childNodes, child => {
-      const childDiv = child as HTMLDivElement
-      const id = childDiv.getAttribute('id')
-      const nodeHeights = viewerUtils.getNodeHeights(childDiv.querySelector('.lines').childNodes)
-
-      return {
-        id,
-        nodeHeights
-      }
-    })
-  const endCalcHtmlTime = new Date().valueOf()
-  helpers.print(`Calculating html takes ${endCalcHtmlTime - startCalcHtmlTime}ms`)
-
-  const computedPages = viewerUtils.groupPageFromChapters(flesh, computedChapters, 900)
-
-  return computedPages
-}
-
-function* updateProgress(bookId, percentage) {
-  try {
-    yield call(webAPI.setProgress, bookId, {
-      percentage
-    })
-  } catch (error) {
-    console.error(error)
-  } finally {
-    if (yield cancelled()) {
-      helpers.print('updateProgress canceled')
+    if (_.isEmpty(computed)) {
+      yield [put(actions.api.loadBookInfo(bookId)), put(actions.api.loadBookContent(bookId))]
+      yield put(actions.viewer.configViewer({
+        isCalcMode: true
+      }, true))
+      yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
+      yield put(actions.viewer.configViewer({
+        isCalcMode: false
+      }, true))
     }
+
+    yield put(actions.viewer.setStatus({
+      isReady: true
+    }))
+    yield loadProgressAndGo(bookId)
+    yield put(actions.viewer.setComponents({
+      hideAll: false
+    }))
   }
 }
 
 function* watchCalcBook() {
   while (true) {
-    const { bookId, wrap } = yield take(ACTION_TYPES.VIEWER.CALC_START)
+    const { payload: { bookId, wrap } } = yield take(ACTION_TYPES.VIEWER.CALC_TRIGGER)
     const bookContent = yield select(selectors.entity('bookContents', bookId))
     const flesh = bookContent.flesh || {}
 
     try {
       const computed = calcBook(wrap, flesh)
-      yield put(actions.calcBookSuccess(bookId, computed))
-      yield put(actions.configViewer(bookId, {
-        isCalcMode: false
-      }))
+      yield put(actions.viewer.calcBookSuccess(bookId, computed))
     } catch (error) {
-      yield put(actions.calcBookFailure(bookId, error))
+      yield put(actions.viewer.calcBookFailure(bookId, error))
     }
   }
 }
 
-// function* watchProgressOperations() {
-//   while (true) {
-//     const action = yield take([ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE, ACTION_TYPES.LOAD_BOOK_PROGRESS])
-//     const session = yield select(selectors.session)
-//     const userRole = _.get(session, 'role')
+function* watchGoTo() {
+  while (true) {
+    const { payload } = yield take(ACTION_TYPES.VIEWER.GO_TO)
+    const bookId = yield select(selectors.viewer.id)
+    const computed = yield select(selectors.viewer.computed(bookId))
+    const { pageHeight, isScrollMode } = yield select(selectors.viewer.config)
+    const pageCount = computed.length
+    const totalHeight = pageCount * pageHeight
+    let percentage = payload
 
-//     if (userRole !== ROLES.VISITOR) {
-//       if (action.type === ACTION_TYPES.LOAD_BOOK_PROGRESS) {
-//         yield call(fetchBookProgress, { id: action.id })
-//       }
+    if (payload > 1) {
+      // payload is page number
+      percentage = payload / pageCount
+    }
 
-//       if (action.type === ACTION_TYPES.VIEWER.BOOK_PROGRESS_UPDATE) {
-//         yield updateProgress(action.id, action.percentage)
-//       }
-//     } else {
-//       helpers.print('Not logged in, progress will not be fetched!')
-//     }
-//   }
-// }
-
-function* jumpTo(action) {
-  const { percentage } = action
-  const { bookId, pageHeight, isScrollMode } = yield select(selectors.viewer.config)
-  const allPages = yield select(selectors.viewer.computed(bookId))
-  const pageCount = allPages.length
-  const totalHeight = pageCount * pageHeight
-
-  if (isScrollMode) {
-    document.body.scrollTop = percentage
-      ? totalHeight * percentage
-      : 0
-  } else {
-    yield put(actions.updateBookProgress(percentage) as any)
+    if (isScrollMode) {
+      document.body.scrollTop = totalHeight * percentage
+    } else {
+      // todo: page flip mode
+    }
   }
 }
 
-function* watchJumpRequest() {
-  yield* takeEvery(ACTION_TYPES.VIEWER.JUMP, jumpTo)
-}
-
-function* fetchProgressAndJump(bookId) {
-  yield put(actions.loadBookProgress(bookId))
-  yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
-  const { percentage } = yield select(selectors.entity('bookProgress', bookId))
-  yield put(actions.viewerJumpTo(percentage))
-}
-
-function* initializeViewer() {
+function* watchConfig() {
   while (true) {
-    const { bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
-    const computed = yield select(selectors.viewer.computed(bookId))
+    const oldConfig: Viewer.Config = yield select(selectors.viewer.config)
+    const action = yield take(ACTION_TYPES.VIEWER.CONFIG)
+    const bookId = yield select(selectors.viewer.id)
+    const newConfig: Viewer.Config = yield select(selectors.viewer.config)
+    const isInit = _.get(action, 'meta.isInit')
+    const fluidChanged = oldConfig.fluid !== newConfig.fluid
+    let widthChangedInFluid = false
 
-    if (_.isEmpty(computed)) {
-      yield [put(actions.loadBookInfo(bookId)), put(actions.loadBookContent(bookId))]
-      yield put(actions.initializeViewerConfig(bookId))
+    if (!fluidChanged && oldConfig.fluid) {
+      widthChangedInFluid = oldConfig.width !== newConfig.width
+    }
 
+    const needRerender = (oldConfig.fontSize !== newConfig.fontSize)
+      || (oldConfig.fluid !== newConfig.fluid)
+      || fluidChanged
+      || widthChangedInFluid
+
+    if (needRerender && !isInit) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.info('Start rerendering')
+      }
+      yield put(actions.viewer.setComponents({
+        showNavigation: false,
+        showPanel: false,
+        showPreference: false,
+        hideAll: true
+      }))
+      yield put(actions.viewer.setStatus({
+        isReady: false
+      }))
+      yield put(actions.viewer.configViewer({
+        isCalcMode: true,
+        isTouchMode: shouldViewerBeFluid()
+      }))
+      yield put(actions.viewer.toggleViewerPanel(false))
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
-      yield fetchProgressAndJump(bookId)
-    } else {
-      yield fetchProgressAndJump(bookId)
+      yield put(actions.viewer.configViewer({
+        isCalcMode: false
+      }))
+      yield put(actions.viewer.setStatus({
+        isReady: true
+      }))
+      yield loadProgressAndGo(bookId)
+      yield put(actions.viewer.setComponents({
+        hideAll: false
+      }))
     }
   }
 }
 
 export default function* watchViewer() {
   yield [
-    // fork(watchProgressOperations),
+    fork(watchInitialization),
     fork(watchCalcBook),
-    fork(watchInitViewer),
-    fork(watchJumpRequest),
-    fork(initializeViewer)
+    fork(watchGoTo),
+    fork(watchConfig)
   ]
 }

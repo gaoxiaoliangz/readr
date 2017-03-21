@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import _ from 'lodash'
-import { loadUsers } from '../../actions'
+import { loadUsers } from '../../actions/api'
 import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../selectors'
 import DocContainer from '../../components/DocContainer'
@@ -70,7 +70,7 @@ class ManageUsers extends Component<Props, {}> {
 
 function mapStateToProps(state, ownProps) {
   return {
-    users: selectors.userList(state),
+    users: selectors.pagination.userList(state),
     routing: selectors.routing(state)
   }
 }

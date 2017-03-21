@@ -30,12 +30,13 @@ export function* fetchEntity(entity: ActionEntity, apiFn, apiConfig, payload): a
 
     hasCache = Boolean(cacheContent)
 
-    if (hasCache) {
-      let action = entity.loadCache(cacheContent, fullPayload)
-      yield put(entity.request(fullPayload))
-      yield put(action)
-      return action
-    }
+    // todo
+    // if (hasCache) {
+    //   let action = entity.loadCache(cacheContent, fullPayload)
+    //   yield put(entity.request(fullPayload))
+    //   yield put(action)
+    //   return action
+    // }
   }
 
   yield put(entity.request(fullPayload))

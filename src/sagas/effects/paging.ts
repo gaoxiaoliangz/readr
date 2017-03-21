@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import helpers from '../../helpers'
-const styles = require('./components/BookPage.scss')
+import styles from '../../routes/Viewer/components/BookPage.scss'
 
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的
@@ -148,41 +148,7 @@ export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeights
   })
 
   const t1 = new Date().valueOf()
-  helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
+  // helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
 
   return allPages
-}
-
-export function resolveBookLocation(href, computedPages: TBookPage[]) {
-  const chapterId = href.split('$')[0]
-  const hash = href.split('$')[1]
-
-  let i = 0
-  let foundChapterPage
-
-  while (i < computedPages.length) {
-    const page = computedPages[i]
-    if (`#${page.meta.chapterId}` === chapterId) {
-      foundChapterPage = page.meta.pageNo
-
-      if (hash) {
-        if (page.meta.hash && page.meta.hash.indexOf(hash) !== -1) {
-          helpers.print('with hash', page.meta.pageNo)
-          return page.meta.pageNo
-        }
-      } else {
-        helpers.print('without hash', page.meta.pageNo)
-        return page.meta.pageNo
-      }
-    }
-    i++
-  }
-
-  if (!foundChapterPage) {
-    throw new Error('未找到位置！')
-  }
-  console.warn('所在章节未找到位置，已跳转至章节！')
-
-  helpers.print('foundChapterPage', foundChapterPage)
-  return foundChapterPage
 }

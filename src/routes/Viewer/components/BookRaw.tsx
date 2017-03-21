@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import BookPages from './BookPages'
 import _ from 'lodash'
 
-const BookChapter = ({ id, markdown }) => {
+// id attr is needed in calc
+// not perfect but works
+const Chapter = ({ id, markdown }) => {
   return (
     <div id={id}>
       <BookPages
@@ -22,7 +24,7 @@ interface Props {
   onRawDataMount?: (ref: HTMLElement) => void
 }
 
-export default class BookChapters extends Component<Props, {}> {
+export default class BookRaw extends Component<Props, {}> {
 
   chapters: HTMLElement
 
@@ -36,7 +38,7 @@ export default class BookChapters extends Component<Props, {}> {
 
   triggerUpdate() {
     const { onRawDataMount } = this.props
-    if (onRawDataMount) {
+    if (onRawDataMount && this.props.bookFlesh && this.props.bookFlesh.length !== 0) {
       onRawDataMount(this.chapters)
     }
   }
@@ -53,11 +55,11 @@ export default class BookChapters extends Component<Props, {}> {
     const { bookFlesh } = this.props
 
     return (
-      <div ref={ref => this.chapters = ref}>
+      <div className="book-raw" ref={ref => this.chapters = ref}>
         {
           (bookFlesh || []).map(item => {
             return (
-              <BookChapter
+              <Chapter
                 id={item.id}
                 markdown={item.markdown}
                 key={item.id}
