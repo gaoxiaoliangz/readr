@@ -1,5 +1,6 @@
 @import "variables";
 @import "viewer";
+@import "~styles/mixins/screens";
 
 body {
   background: #fafafa;
@@ -19,5 +20,13 @@ body.console {
 .page-collections {
   .collection-item {
     border-bottom: none;
+  }
+}
+
+#root {
+  .dropdown-recent-reading {
+    @include phone {
+      display: none;
+    }
   }
 }

@@ -7,6 +7,7 @@ import { Link } from 'react-router'
 import styles from './Branding.scss'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/api'
+import * as selectors from '../../selectors'
 
 interface OwnProps {
   username: string
@@ -20,6 +21,7 @@ interface OwnProps {
 
 interface OtherProps {
   logout: typeof logout
+  config: Viewer.Config
 }
 
 interface IState {
@@ -27,7 +29,9 @@ interface IState {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  return {
+    config: selectors.viewer.config(state)
+  }
 }
 
 @CSSModules(styles)
@@ -55,7 +59,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   render() {
     let isAdmin = this.props.isAdmin ? this.props.isAdmin : false
 
-    const { username, recentReading } = this.props
+    const { username, recentReading, config: { fluid } } = this.props
 
     return (
       <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
@@ -77,7 +81,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                   <div styleName="nav--user">
                     {
                       recentReading.length !== 0 && (
-                        <Dropdown styleName="dropdown-recent-reading" title="最近阅读">
+                        <Dropdown className="dropdown-recent-reading" styleName="dropdown-recent-reading" title="最近阅读">
                           {
                             recentReading.slice(0, 5).map((book, index) => {
                               return (
@@ -130,7 +134,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 }
 
-export default connect<OtherProps, {}, OwnProps>(
-  mapStateToProps as any,
+export default connect<{}, {}, OwnProps>(
+  mapStateToProps,
   { logout }
 )(Branding)
