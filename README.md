@@ -52,6 +52,14 @@ options, data, id, response, error
 	✔ current page state @done (March 21st 2017, 10:19)
 	✔ split actions @done (March 21st 2017, 10:19)
 
+### Next
+	☐ fix animation
+	☐ page no style
+	☐ fix dropdown on mobile
+	☐ fix recent reading
+	☐ add status text
+	☐ add image support
+
 ### Test
 	☐ pass runtime env to test suit
 
