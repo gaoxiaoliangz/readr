@@ -7,6 +7,7 @@ import utils from '../utils'
 import calcBook from './effects/calcBook'
 import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../constants/viewerDefs'
 import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
+import schemas from '../schemas'
 
 const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   const fluid = shouldViewerBeFluid()
@@ -34,7 +35,7 @@ function* loadProgressAndGo(bookId) {
   if (session.role !== 'visitor') {
     yield put(actions.api.loadBookProgress(bookId))
     yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
-    const { percentage } = yield select(selectors.entity('bookProgress', bookId))
+    const { percentage } = yield select(selectors.entity(schemas.BOOK_PROGRESS, bookId))
     yield put(actions.viewer.viewerGoTo(percentage))
   } else {
     yield put(actions.viewer.viewerGoTo(0))
@@ -77,7 +78,7 @@ function* watchInitialization() {
 function* watchCalcBook() {
   while (true) {
     const { payload: { bookId, wrap } } = yield take(ACTION_TYPES.VIEWER.CALC_TRIGGER)
-    const bookContent = yield select(selectors.entity('bookContents', bookId))
+    const bookContent = yield select(selectors.entity(schemas.BOOK_CONTENT, bookId))
     const flesh = bookContent.flesh || {}
 
     try {

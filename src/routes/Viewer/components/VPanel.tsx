@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux'
 import { viewer as viewerActions } from '../../../actions'
 import * as selectors from '../../../selectors'
 import styles from './VPanel.scss'
+import schemas from '../../../schemas'
 
 interface OwnProps {
   className?: string
@@ -26,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const bookId = selectors.viewer.id(state)
   const components = selectors.viewer.components(state)
-  const { title } = selectors.entity('books', bookId)(state)
+  const { title } = selectors.entity(schemas.BOOK, bookId)(state)
 
   return { config, components, title }
 }

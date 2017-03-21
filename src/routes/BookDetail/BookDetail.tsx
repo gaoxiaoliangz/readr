@@ -8,6 +8,7 @@ import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
 import * as selectors from '../../selectors'
 import styles from './BookDetail.scss'
+import schemas from '../../schemas'
 
 interface Props {
   loadBookInfo: typeof loadBookInfo
@@ -85,7 +86,7 @@ const mapStateToProps = (state, ownProps: any) => {
   const id = ownProps.params.id
 
   return {
-    bookInfo: selectors.entity('books', id)(state)
+    bookInfo: selectors.entity(schemas.BOOK, id)(state)
   }
 }
 

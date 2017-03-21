@@ -1231,18 +1231,18 @@ module.exports = require("redux");
 
 
 const DEFAULT_KEY = 'default';
-// new
-// entities
 const collapseEntities = entities => {
     return __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.mapValues(entities, val => {
         return val.entities;
     });
 };
-const pagination = (name, key = 'default') => state => __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(state, ['pagination', name, key], {});
-/* unused harmony export pagination */
-
+// new
+// entities
 const collapsedEntities = state => collapseEntities(__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(state, 'entities', {})) || {};
 /* unused harmony export collapsedEntities */
+
+const pagination = (name, key = 'default') => state => __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(state, ['pagination', name, key], {});
+/* unused harmony export pagination */
 
 const pagedEntities = ({ schema, paginationName, paginationKey }) => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(pagination(paginationName, paginationKey = 'default'), collapsedEntities, (_pagination, _allEntities) => {
     const pagedIds = _pagination.pages;
@@ -1253,12 +1253,18 @@ const pagedEntities = ({ schema, paginationName, paginationKey }) => __webpack_r
 });
 /* harmony export (immutable) */ __webpack_exports__["b"] = pagedEntities;
 
-const entity = (name, id) => state => {
-    return Object.assign({}, __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(state, ['entities', name, 'entities', id], {}), {
-        fetchStatus: __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(state, ['entities', name, 'fetchStatus', id]),
-        error: __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(state, ['entities', name, 'errors', id])
-    });
-};
+// export const entity = (name, id) => (state): SelectedEntity => {
+//   return {
+//     ..._.get(state, ['entities', name, 'entities', id], {}),
+//     ...{
+//       fetchStatus: _.get(state, ['entities', name, 'fetchStatus', id]) as any,
+//       error: _.get(state, ['entities', name, 'errors', id]) as any
+//     }
+//   }
+// }
+const entity = (schema, id) => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(collapsedEntities, allEntities => {
+    return __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.isEmpty(allEntities) ? {} : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_normalizr__["denormalize"])(id, schema, allEntities);
+});
 /* harmony export (immutable) */ __webpack_exports__["a"] = entity;
 
 const currentPage = (name, key = DEFAULT_KEY) => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_reselect__["createSelector"])(pagination(name, key), _pagination => {
@@ -5809,7 +5815,9 @@ function* watchLoadTrigger() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__effects_calcBook__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_viewerDefs__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__helpers_shouldViewerBeFluid__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__schemas__ = __webpack_require__(35);
 /* harmony export (immutable) */ __webpack_exports__["a"] = watchViewer;
+
 
 
 
@@ -5839,7 +5847,7 @@ function* loadProgressAndGo(bookId) {
     if (session.role !== 'visitor') {
         yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["put"])(__WEBPACK_IMPORTED_MODULE_1__actions__["api"].loadBookProgress(bookId));
         yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["take"])(__WEBPACK_IMPORTED_MODULE_2__constants_actionTypes__["a" /* BOOK_PROGRESS */].SUCCESS);
-        const { percentage } = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["select"])(__WEBPACK_IMPORTED_MODULE_4__selectors__["b" /* entity */]('bookProgress', bookId));
+        const { percentage } = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["select"])(__WEBPACK_IMPORTED_MODULE_4__selectors__["b" /* entity */](__WEBPACK_IMPORTED_MODULE_9__schemas__["a" /* default */].BOOK_PROGRESS, bookId));
         yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["put"])(__WEBPACK_IMPORTED_MODULE_1__actions__["viewer"].viewerGoTo(percentage));
     } else {
         yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["put"])(__WEBPACK_IMPORTED_MODULE_1__actions__["viewer"].viewerGoTo(0));
@@ -5878,7 +5886,7 @@ function* watchInitialization() {
 function* watchCalcBook() {
     while (true) {
         const { payload: { bookId, wrap } } = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["take"])(__WEBPACK_IMPORTED_MODULE_2__constants_actionTypes__["b" /* VIEWER */].CALC_TRIGGER);
-        const bookContent = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["select"])(__WEBPACK_IMPORTED_MODULE_4__selectors__["b" /* entity */]('bookContents', bookId));
+        const bookContent = yield __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux_saga_effects__["select"])(__WEBPACK_IMPORTED_MODULE_4__selectors__["b" /* entity */](__WEBPACK_IMPORTED_MODULE_9__schemas__["a" /* default */].BOOK_CONTENT, bookId));
         const flesh = bookContent.flesh || {};
         try {
             const computed = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__effects_calcBook__["a" /* default */])(wrap, flesh);
@@ -6036,7 +6044,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__schemas__ = __webpack_require__(35);
 
+
+// import { createSelector } from 'reselect'
 
 const id = state => __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.get(state, ['viewer', 'id']);
 /* harmony export (immutable) */ __webpack_exports__["id"] = id;
@@ -6078,7 +6089,7 @@ const self = state => {
 /* harmony export (immutable) */ __webpack_exports__["self"] = self;
 
 const navData = bookId => state => {
-    const bookContent = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* entity */])('bookContents', bookId)(state);
+    const bookContent = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* entity */])(__WEBPACK_IMPORTED_MODULE_2__schemas__["a" /* default */].BOOK_CONTENT, bookId)(state);
     return __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.get(bookContent, 'nav', []);
 };
 /* harmony export (immutable) */ __webpack_exports__["navData"] = navData;

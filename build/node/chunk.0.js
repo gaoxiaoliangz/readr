@@ -20,6 +20,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_VContainer__ = __webpack_require__(357);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Viewer_scss__ = __webpack_require__(386);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Viewer_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__Viewer_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__schemas__ = __webpack_require__(35);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,9 +45,10 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
+
 const mapStateToProps = (state, ownProps) => {
     const bookId = ownProps.params.id;
-    const book = __WEBPACK_IMPORTED_MODULE_5__selectors__["b" /* entity */]('books', bookId)(state);
+    const book = __WEBPACK_IMPORTED_MODULE_5__selectors__["b" /* entity */](__WEBPACK_IMPORTED_MODULE_9__schemas__["a" /* default */].BOOK, bookId)(state);
     return {
         book
     };
@@ -518,6 +520,7 @@ const styles = __webpack_require__(379);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_Loading__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__BookContainer_scss__ = __webpack_require__(387);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__BookContainer_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__BookContainer_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__schemas__ = __webpack_require__(35);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -544,12 +547,13 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
+
 const mapStateToProps = state => {
     const bookId = __WEBPACK_IMPORTED_MODULE_5__selectors__["c" /* viewer */].id(state);
     const config = __WEBPACK_IMPORTED_MODULE_5__selectors__["c" /* viewer */].config(state);
     const status = __WEBPACK_IMPORTED_MODULE_5__selectors__["c" /* viewer */].status(state);
     const computed = __WEBPACK_IMPORTED_MODULE_5__selectors__["c" /* viewer */].computed(bookId)(state);
-    const bookContent = __WEBPACK_IMPORTED_MODULE_5__selectors__["b" /* entity */]('bookContents', bookId)(state);
+    const bookContent = __WEBPACK_IMPORTED_MODULE_5__selectors__["b" /* entity */](__WEBPACK_IMPORTED_MODULE_11__schemas__["a" /* default */].BOOK_CONTENT, bookId)(state);
     const localProgress = __WEBPACK_IMPORTED_MODULE_5__selectors__["c" /* viewer */].localProgress(bookId)(state);
     return {
         status,
@@ -1209,6 +1213,7 @@ VNav = __decorate([__WEBPACK_IMPORTED_MODULE_2_react_css_modules___default()(__W
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__selectors__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__VPanel_scss__ = __webpack_require__(391);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__VPanel_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__VPanel_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__schemas__ = __webpack_require__(35);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1236,11 +1241,12 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
+
 const mapStateToProps = (state, ownProps) => {
     const config = __WEBPACK_IMPORTED_MODULE_10__selectors__["c" /* viewer */].config(state);
     const bookId = __WEBPACK_IMPORTED_MODULE_10__selectors__["c" /* viewer */].id(state);
     const components = __WEBPACK_IMPORTED_MODULE_10__selectors__["c" /* viewer */].components(state);
-    const { title } = __WEBPACK_IMPORTED_MODULE_10__selectors__["b" /* entity */]('books', bookId)(state);
+    const { title } = __WEBPACK_IMPORTED_MODULE_10__selectors__["b" /* entity */](__WEBPACK_IMPORTED_MODULE_12__schemas__["a" /* default */].BOOK, bookId)(state);
     return { config, components, title };
 };
 let VPanel = function (_Component) {

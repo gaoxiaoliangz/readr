@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { entity } from './utils'
-import { createSelector } from 'reselect'
+// import { createSelector } from 'reselect'
+import schemas from '../schemas'
 
 export const id = state =>
   _.get(state, ['viewer', 'id']) as string
@@ -35,6 +36,6 @@ export const self = state => {
 }
 
 export const navData = bookId => state => {
-  const bookContent = entity('bookContents', bookId)(state)
+  const bookContent = entity(schemas.BOOK_CONTENT, bookId)(state)
   return _.get(bookContent, 'nav', []) as TBookNav[]
 }

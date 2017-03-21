@@ -4,19 +4,19 @@ import { denormalize } from 'normalizr'
 
 const DEFAULT_KEY = 'default'
 
-// new
-// entities
 const collapseEntities = (entities) => {
   return _.mapValues(entities, val => {
     return val.entities
   })
 }
 
-export const pagination = (name, key = 'default') => state =>
-  _.get(state, ['pagination', name, key], {}) as SelectedPagination
-
+// new
+// entities
 export const collapsedEntities = state =>
   collapseEntities(_.get(state, 'entities', {})) || {}
+
+export const pagination = (name, key = 'default') => state =>
+  _.get(state, ['pagination', name, key], {}) as SelectedPagination
 
 interface PagedEntitiesOptions {
   schema: any
@@ -40,15 +40,24 @@ export const pagedEntities = ({ schema, paginationName, paginationKey }: PagedEn
   }
 )
 
-export const entity = (name, id) => (state): SelectedEntity => {
-  return {
-    ..._.get(state, ['entities', name, 'entities', id], {}),
-    ...{
-      fetchStatus: _.get(state, ['entities', name, 'fetchStatus', id]) as any,
-      error: _.get(state, ['entities', name, 'errors', id]) as any
-    }
+// export const entity = (name, id) => (state): SelectedEntity => {
+//   return {
+//     ..._.get(state, ['entities', name, 'entities', id], {}),
+//     ...{
+//       fetchStatus: _.get(state, ['entities', name, 'fetchStatus', id]) as any,
+//       error: _.get(state, ['entities', name, 'errors', id]) as any
+//     }
+//   }
+// }
+
+export const entity = (schema: { [key: string]: any }, id) => createSelector(
+  collapsedEntities,
+  allEntities => {
+    return _.isEmpty(allEntities)
+      ? {}
+      : denormalize(id, schema, allEntities)
   }
-}
+)
 
 export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
   pagination(name, key),

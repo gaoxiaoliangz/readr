@@ -8,6 +8,7 @@ import * as selectors from '../../selectors'
 import { initializeViewer, destroy } from '../../actions/viewer'
 import VContainer from './components/VContainer'
 import styles from './Viewer.scss'
+import schemas from '../../schemas'
 
 interface AllProps {
   book: {
@@ -19,7 +20,7 @@ interface AllProps {
 
 const mapStateToProps = (state, ownProps) => {
   const bookId = ownProps.params.id
-  const book = selectors.entity('books', bookId)(state)
+  const book = selectors.entity(schemas.BOOK, bookId)(state)
 
   return {
     book

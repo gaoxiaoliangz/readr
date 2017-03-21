@@ -9,6 +9,7 @@ import BookPages from './BookPages'
 import BookRaw from './BookRaw'
 import Loading from '../../../components/Loading'
 import styles from './BookContainer.scss'
+import schemas from '../../../schemas'
 
 interface OwnProps {
 }
@@ -28,7 +29,7 @@ const mapStateToProps = state => {
   const config = selectors.viewer.config(state)
   const status = selectors.viewer.status(state)
   const computed = selectors.viewer.computed(bookId)(state)
-  const bookContent = selectors.entity('bookContents', bookId)(state)
+  const bookContent = selectors.entity(schemas.BOOK_CONTENT, bookId)(state)
   const localProgress = selectors.viewer.localProgress(bookId)(state)
 
   return {

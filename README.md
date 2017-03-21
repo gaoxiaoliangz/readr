@@ -57,10 +57,11 @@ options, data, id, response, error
 	☐ fix animation
 	☐ page no style
 	☐ fix dropdown on mobile
-	☐ fix recent reading
+	✔ fix recent reading @done (March 22nd 2017, 1:21)
 	☐ add status text
 	☐ add image support
-	☐ fix shelf
+	✔ fix shelf @done (March 22nd 2017, 1:21)
+	✔ fix book detail @done (March 22nd 2017, 1:21)
 	☐ global view
 
 ### Test

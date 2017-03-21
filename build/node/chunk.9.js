@@ -19,6 +19,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__selectors__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BookDetail_scss__ = __webpack_require__(382);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BookDetail_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__BookDetail_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__schemas__ = __webpack_require__(35);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34,6 +35,7 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -75,7 +77,7 @@ BookDetail = __decorate([__WEBPACK_IMPORTED_MODULE_6_react_css_modules___default
 const mapStateToProps = (state, ownProps) => {
     const id = ownProps.params.id;
     return {
-        bookInfo: __WEBPACK_IMPORTED_MODULE_7__selectors__["b" /* entity */]('books', id)(state)
+        bookInfo: __WEBPACK_IMPORTED_MODULE_7__selectors__["b" /* entity */](__WEBPACK_IMPORTED_MODULE_9__schemas__["a" /* default */].BOOK, id)(state)
     };
 };
 /* harmony default export */ __webpack_exports__["default"] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(mapStateToProps, { loadBookInfo: __WEBPACK_IMPORTED_MODULE_2__actions_api__["loadBookInfo"] })(BookDetail);
