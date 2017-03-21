@@ -1,8 +1,8 @@
 @import "~styles/variables";
 @import "~styles/mixins/screens";
 
-$panel_background: $dark;
-$panel_text: #fff;
+$panel_background: #fff;
+$panel_text: $text;
 $height: $branding-height;
 $icons_size: 30px;
 
@@ -19,10 +19,17 @@ $icons_size: 30px;
 
 .container {
   max-width: 1200px;
-  text-align: center;
+  // text-align: center;
   margin: 0 auto;
   height: $height;
   position: relative;
+}
+
+.logo {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  line-height: $height;
 }
 
 .back {
@@ -54,29 +61,40 @@ $icons_size: 30px;
 .contents {
   display: inline-block;
   position: absolute;
-  left: 80px;
+  right: 70px;
   top: 0;
   cursor: pointer;
   line-height: $height;
 
   span {
-    color: #fff;
+    color: $panel_text;
   }
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: $height;
+  position: absolute;
+  left: 125px;
 
-  @include phone {
-    display: none;
-  }
+  // @include phone {
+  //   display: none;
+  // }
+}
+
+.sep {
+  position: absolute;
+  left: 106px;
+  top: 20px;
+  width: 1px;
+  height: 20px;
+  background: #ddd;
 }
 
 .preference {
   position: absolute;
   right: 15px;
-  top: 15px;
+  top: 18px;
   cursor: pointer;
   display: inline-block;
 }

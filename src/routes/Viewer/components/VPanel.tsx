@@ -11,6 +11,7 @@ import { viewer as viewerActions } from '../../../actions'
 import * as selectors from '../../../selectors'
 import styles from './VPanel.scss'
 import schemas from '../../../schemas'
+import Logo from '../../../components/Logo'
 
 interface OwnProps {
   className?: string
@@ -68,7 +69,10 @@ class VPanel extends Component<OwnProps & AllProps, void> {
               className={className || ''}
             >
               <div styleName="container">
-                <div styleName="back">
+                <div styleName="logo">
+                  <Logo dark />
+                </div>
+                {/*<div styleName="back">
                   <Link to="/">
                     <Icon
                       size={20}
@@ -79,8 +83,9 @@ class VPanel extends Component<OwnProps & AllProps, void> {
                     />
                     <span>返回</span>
                   </Link>
-                </div>
-
+                </div>*/}
+                <div styleName="sep"></div>
+                <span styleName="title">{title}</span>
                 <div
                   ref={ref => { this.nav = ref }}
                   styleName="contents"
@@ -95,8 +100,6 @@ class VPanel extends Component<OwnProps & AllProps, void> {
                     }
                   </Fade>
                 </div>
-
-                <span styleName="title">{title}</span>
 
                 <div
                   ref={ref => { this.pref = ref }}
