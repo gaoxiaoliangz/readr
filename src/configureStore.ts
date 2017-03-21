@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
-import { cache, modifyResponse, injectCookie, handleServerStore, logActionTypes } from './middleware'
+import { cache, injectCookie, handleServerStore, logActionTypes } from './middleware'
 import handleInitialState from './handleInitialState'
 import createLogger from 'redux-logger'
 import createSagaMiddleware, { END } from 'redux-saga'
@@ -24,7 +24,9 @@ export default function configureStore(cookies?) {
     if (process.env.NODE_ENV === 'production') {
       // nothing here
     } else {
-      baseMiddlewares.push(logActionTypes)
+      if (process.env.ENABLE_SERVER_ACTION_LOG === '1') {
+        baseMiddlewares.push(logActionTypes)
+      }
     }
   } else {
     // client side

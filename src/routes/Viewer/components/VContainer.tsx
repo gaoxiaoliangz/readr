@@ -7,7 +7,8 @@ import BookContainer from './BookContainer'
 import VPanel from './VPanel'
 import _ from 'lodash'
 import utils from '../../../utils'
-import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
+// import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
+import ProgressBar from './ProgressBar'
 import shouldViewerBeFluid from '../../../helpers/shouldViewerBeFluid'
 
 interface Props { }
@@ -38,15 +39,18 @@ class VContainer extends Component<Props & OtherProps, void> {
 
   _handleResize: typeof _.debounce
   _handleScroll: typeof _.debounce
+  scrollTop: number[]
 
   constructor(props) {
     super(props)
+    this.scrollTop = []
     this._handleResize = _.debounce(this.handleResize.bind(this), 500, {
       maxWait: 1000
     })
     this._handleScroll = _.debounce(this.handleScroll.bind(this), 200, {
       maxWait: 1000
     })
+    this.handleFastScroll = this.handleFastScroll.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -73,10 +77,29 @@ class VContainer extends Component<Props & OtherProps, void> {
         percentage,
         pageCount,
         timestamp: new Date().valueOf().toString(),
-        page: pageCount * percentage
+        page: Math.round(pageCount * percentage)
       })
 
       this.props.actions.api.updateBookProgress(bookId, percentage)
+    }
+  }
+
+  handleFastScroll() {
+    const scrollTop = document.body.scrollTop
+    this.scrollTop.push(scrollTop)
+    const scrollCount = this.scrollTop.length
+    if (scrollCount >= 2) {
+      const delta = _.last(this.scrollTop) - this.scrollTop[scrollCount - 2]
+      
+      if (delta > 0) {
+        // down
+        this.props.actions.viewer.toggleViewerPanel(false)
+        this.props.actions.viewer.toggleViewerProgressInfo(false)
+      } else {
+        // up
+        this.props.actions.viewer.toggleViewerPanel(true)
+        this.props.actions.viewer.toggleViewerProgressInfo(true)
+      }
     }
   }
 
@@ -97,11 +120,13 @@ class VContainer extends Component<Props & OtherProps, void> {
 
   addEventListeners() {
     window.addEventListener('scroll', this._handleScroll)
+    window.addEventListener('scroll', this.handleFastScroll)
     window.addEventListener('resize', this._handleResize)
   }
 
   removeEventListeners() {
     window.removeEventListener('scroll', this._handleScroll)
+    window.removeEventListener('scroll', this.handleFastScroll)
     window.removeEventListener('resize', this._handleResize)
   }
 
@@ -110,6 +135,7 @@ class VContainer extends Component<Props & OtherProps, void> {
       <div className="viewer-container">
         <VPanel />
         <BookContainer />
+        <ProgressBar />
       </div>
     )
   }

@@ -62,7 +62,9 @@ function renderView(isProduction) {
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏
     const { bodyClass, head } = DocContainer.rewind()
-    const initialState = req.locals.store.getState()
+    const initialState = process.env.ENABLE_INITIAL_STATE === '1'
+      ? req.locals.store.getState()
+      : {}
 
     // todo: global var name
     const html = renderToStaticMarkup(

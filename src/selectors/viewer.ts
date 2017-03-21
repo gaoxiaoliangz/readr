@@ -1,11 +1,17 @@
 import _ from 'lodash'
 import { entity } from './utils'
+import { createSelector } from 'reselect'
 
 export const id = state =>
   _.get(state, ['viewer', 'id']) as string
 
 export const computed = bookId => state => {
   return _.get(state, ['viewer', 'data', bookId, 'content', 'computed'], []) as TBookPage[]
+}
+
+export const computed2 = state => {
+  const _id = id(state)
+  return computed(id)(state)
 }
 
 export const status = state => {

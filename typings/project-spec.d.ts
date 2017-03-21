@@ -150,6 +150,8 @@ type TBookNav = {
 declare namespace Viewer {
   type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
 
+  type Computed = TBookPage[]
+
   interface LocalProgress {
     percentage: number
     page: number

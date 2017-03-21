@@ -51,13 +51,21 @@ $size: 20px;
   position: fixed;
   right: 30px;
   bottom: 30px;
-  background: $dark;
-  color: #ddd;
-  box-shadow: $shadow-y1;
+  background: #fff;
+  color: $dark;
+  box-shadow: $shadow-x2;
   padding: 7px 15px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  .sep {
+    margin: 0 3px;
+  }
 }
 
 .sub-info {
   font-size: 0.8rem;
-  color: #aaa;
+  color: $text-light;
 }
