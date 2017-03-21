@@ -2324,6 +2324,7 @@ function outputEmptyEntity(fields, idObjOrIdString = {}) {
 const defaultOptions = {
     page: 1,
     limit: 10,
+    // todo: remove
     order: 'new'
 };
 function paginate(results, options) {
@@ -2334,9 +2335,9 @@ function paginate(results, options) {
     // 此逻辑参照 GitHub api
     page = page <= 0 ? 1 : page;
     limit = parseInt(limit, 10);
-    if (order === 'new') {
-        results.reverse();
-    }
+    // if (order === 'new') {
+    //   results.reverse()
+    // }
     const startIndex = (page - 1) * limit;
     return {
         entities: results.slice(startIndex, limit + startIndex),

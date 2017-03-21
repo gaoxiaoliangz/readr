@@ -11,6 +11,7 @@ export interface ListingOptions {
 const defaultOptions = {
   page: 1,
   limit: 10,
+  // todo: remove
   order: 'new'
 }
 
@@ -23,9 +24,9 @@ export default function paginate(results, options?: ListingOptions) {
   page = page <= 0 ? 1 : page
   limit = parseInt(limit as any, 10)
 
-  if (order === 'new') {
-    results.reverse()
-  }
+  // if (order === 'new') {
+  //   results.reverse()
+  // }
 
   const startIndex = (page - 1) * limit
 

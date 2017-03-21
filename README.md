@@ -53,12 +53,15 @@ options, data, id, response, error
 	✔ split actions @done (March 21st 2017, 10:19)
 
 ### Next
+	☐ fix login
 	☐ fix animation
 	☐ page no style
 	☐ fix dropdown on mobile
 	☐ fix recent reading
 	☐ add status text
 	☐ add image support
+	☐ fix shelf
+	☐ global view
 
 ### Test
 	☐ pass runtime env to test suit
