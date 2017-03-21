@@ -37,66 +37,66 @@ class VPanel extends Component<AllProps, void> {
 
   constructor(props) {
     super(props)
-    this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
-    this.handleGlobalClick = this.handleGlobalClick.bind(this)
+    // this.handelViewerMouseMove = this.handelViewerMouseMove.bind(this)
+    // this.handleGlobalClick = this.handleGlobalClick.bind(this)
   }
 
   componentDidMount() {
-    window.addEventListener('mousemove', this.handelViewerMouseMove)
-    window.addEventListener('click', this.handleGlobalClick)
+    // window.addEventListener('mousemove', this.handelViewerMouseMove)
+    // window.addEventListener('click', this.handleGlobalClick)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('mousemove', this.handelViewerMouseMove)
-    window.removeEventListener('click', this.handleGlobalClick)
+    // window.removeEventListener('mousemove', this.handelViewerMouseMove)
+    // window.removeEventListener('click', this.handleGlobalClick)
   }
 
-  handleGlobalClick(e) {
-    const { config: { isTouchMode }, components: { hideAll } } = this.props
-    if (isTouchMode && !hideAll) {
-      const { components: { showPreference, showNavigation } } = this.props
+  // handleGlobalClick(e) {
+  //   const { config: { isTouchMode }, components: { hideAll } } = this.props
+  //   if (isTouchMode && !hideAll) {
+  //     const { components: { showPreference, showNavigation } } = this.props
 
-      if (!isDescendant(this.nav, e.target)) {
-        if (showNavigation) {
-          this.props.viewerActions.toggleViewerNavigation(false)
-        }
-      } else {
-        this.props.viewerActions.toggleViewerNavigation()
-      }
+  //     if (!isDescendant(this.nav, e.target)) {
+  //       if (showNavigation) {
+  //         this.props.viewerActions.toggleViewerNavigation(false)
+  //       }
+  //     } else {
+  //       this.props.viewerActions.toggleViewerNavigation()
+  //     }
 
-      if (!isDescendant(this.pref, e.target)) {
-        if (showPreference) {
-          this.props.viewerActions.toggleViewerPreference(false)
-        }
-      } else {
-        this.props.viewerActions.toggleViewerPreference()
-      }
+  //     if (!isDescendant(this.pref, e.target)) {
+  //       if (showPreference) {
+  //         this.props.viewerActions.toggleViewerPreference(false)
+  //       }
+  //     } else {
+  //       this.props.viewerActions.toggleViewerPreference()
+  //     }
 
-      if (!isDescendant(this.panel, e.target)) {
-        this.props.viewerActions.toggleViewerPanel()
-      }
-    }
-  }
+  //     if (!isDescendant(this.panel, e.target)) {
+  //       this.props.viewerActions.toggleViewerPanel()
+  //     }
+  //   }
+  // }
 
-  handelViewerMouseMove(event) {
-    const {
-      config: { isCalcMode, isTouchMode },
-      components: { showPanel, showNavigation, showPreference, hideAll }
-    } = this.props
+  // handelViewerMouseMove(event) {
+  //   const {
+  //     config: { isCalcMode, isTouchMode },
+  //     components: { showPanel, showNavigation, showPreference, hideAll }
+  //   } = this.props
 
-    if (!isCalcMode && !isTouchMode && !hideAll) {
-      let y = event.pageY - document.body.scrollTop
-      const show = y < 90
+  //   if (!isCalcMode && !isTouchMode && !hideAll) {
+  //     let y = event.pageY - document.body.scrollTop
+  //     const show = y < 90
 
-      if (!show && (showNavigation || showPreference)) {
-        return false
-      }
+  //     if (!show && (showNavigation || showPreference)) {
+  //       return false
+  //     }
 
-      if (showPanel !== show) {
-        this.props.viewerActions.toggleViewerPanel(show)
-      }
-    }
-  }
+  //     if (showPanel !== show) {
+  //       this.props.viewerActions.toggleViewerPanel(show)
+  //     }
+  //   }
+  // }
 
   render() {
     const { title, components: { showPanel, showPreference, showNavigation } } = this.props
