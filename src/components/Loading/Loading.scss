@@ -1,7 +1,7 @@
 @import "~styles/variables";
 
 .text-loading {
-	@extend %text-loading;
+	// @extend .text-loading;
 	margin: 30px 0;
 	display: inline-block;
 	line-height: 20px;

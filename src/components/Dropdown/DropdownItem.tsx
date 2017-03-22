@@ -1,5 +1,5 @@
 import React from 'react'
-const styles = require('./Dropdown.scss')
+import styles from './Dropdown.scss'
 
 type TProps = {
   children?: any
@@ -11,7 +11,7 @@ function DropdownItem(props: TProps) {
       {
         typeof props.children === 'string'
           ? (
-            <div className={styles['dropdown-item']}>{props.children}</div>
+            <div className={styles['dropdown-item'] + ' text-overflow'}>{props.children}</div>
           )
           : React.cloneElement(props.children, {
             className: styles['dropdown-item']

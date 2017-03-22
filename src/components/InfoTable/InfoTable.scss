@@ -29,7 +29,6 @@
       >td, th {
         padding: 0 10px;
         max-width: 250px;
-        @extend %text-overflow;
       }
     }
   }

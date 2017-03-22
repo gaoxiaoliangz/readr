@@ -35,7 +35,6 @@ $width: 134px;
   line-height: 1.5;
   margin-left: 17px;
   width: $width;
-  @extend %text-overflow;
 }
 
 .book-name {

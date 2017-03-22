@@ -56,7 +56,6 @@ $background: $dark;
   display: block;
   padding: 0 25px;
   transition: all 0s;
-  @extend %text-overflow;
 
   &:hover {
     background: lighten($background, 10%);

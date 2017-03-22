@@ -1,3 +1,47 @@
+// colors
+$text: #666;
+$text-dark: #333;
+$text-light: #999;
+$blue: #1B267F;
+$shiny-blue: #1B267F;
+$dark-blue: #04082E;
+$gray: #ddd;
+$dark: #222;
+$red: #cc0000;
+$border-corlor-x1: rgba(0,0,0,.09); // from medium
+
+// layout
+$root-font-size: 16px;
+$branding-height: 60px;
+$sidebar-width: 300px;
+$input-line-height: 25px;
+$input-padding: 5px;
+$reading-width: 700px;
+$border-radius: 3px;
+
+// fonts
+$sans-font: "roboto", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
+$mono-font: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+$serif-font: "Droid serif", georgia, serif;
+
+// shadow
+$shadow-x1: 0 1px 4px rgba(0,0,0,.04); // from medium
+$shadow-x2: 0 0 1px rgba(0,0,0,.44); // for bottom panel
+$shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32); // custom
+$shadow-y2: 0 12px 63px rgba(0, 0, 0, 0.15); // large soft shadow for popups
+$shadow-z1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-z2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+$shadow-z3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+$shadow-z4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+$shadow-z5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+
+// z-index
+$z-selectize-options: 900;
+$z-dropdown-menu: 900;
+$z-modal-backdrop: 900;
+$z-console-branding: 800;
+$z-vnav: 1000;
+
 // config
 $enable-hover-media-query: false !default;
 $enable-rounded: true !default;
@@ -17,126 +61,3 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1200px
 ) !default;
-
-// colors
-$text: #666;
-$text-dark: #333;
-$text-light: #999;
-$blue: #1B267F;
-$shiny-blue: #1B267F;
-$dark-blue: #04082E;
-$gray: #ddd;
-$dark: #222;
-$red: #cc0000;
-
-// from medium
-$border-corlor-x1: rgba(0,0,0,.09);
-
-// layout
-$root-font-size: 16px;
-$branding-height: 60px;
-$sidebar-width: 300px;
-$input-line-height: 25px;
-$input-padding: 5px;
-$reading-width: 700px;
-$border-radius: 3px;
-
-// fonts
-$sans-font: "roboto", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft Yahei", sans-serif;
-$mono-font: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-$serif-font: "Droid serif", georgia, serif;
-
-// shadow
-// from medium
-$shadow-x1: 0 1px 4px rgba(0,0,0,.04);
-// for bottom panel
-$shadow-x2: 0 0 1px rgba(0,0,0,.44);
-
-// custom
-$shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32);
-// large soft shadow for popups
-$shadow-y2: 0 12px 63px rgba(0, 0, 0, 0.15);
-
-$shadow-z1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-$shadow-z2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-$shadow-z3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-$shadow-z4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-$shadow-z5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-
-// z-index
-$z-selectize-options: 900;
-$z-dropdown-menu: 900;
-$z-modal-backdrop: 900;
-$z-console-branding: 800;
-$z-vnav: 1000;
-
-// defined styles
-%text-loading {
-  text-align: center;
-  margin: 50px 0;
-  font-size: 20px;
-  font-weight: normal;
-  color: $text-light;
-}
-
-// links
-%border-link {
-  color: $text-dark;
-  border-bottom: 1px solid $text-dark;
-
-  &:hover {
-   color: $text-light;
-   border-color: $text-light
-  }
-}
-
-%text-link {
-  color: $text;
-
-  &:hover {
-   color: $blue;
-  }
-}
-
-%light-link {
-  color: #fff;
-
-  &:hover {
-    color: #ddd;
-  }
-}
-
-%dark-link {
-  color: $text-dark;
-
-  &:hover {
-   color: $text;
-  }
-}
-
-// layout
-%page-title {
-  margin: 35px 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-}
-
-%sep {
-  margin: 0 5px;
-  color: $gray;
-}
-
-%clearfix {
-  &:after {
-    content: " ";
-    clear: both;
-    display: table;
-  }
-}
-
-%text-overflow {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}

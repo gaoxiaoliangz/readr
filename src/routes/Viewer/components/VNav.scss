@@ -1,5 +1,6 @@
 @import "~styles/variables";
 @import "~styles/mixins/screens";
+// @import "~styles/common";
 
 $height: $branding-height;
 
@@ -23,12 +24,6 @@ $height: $branding-height;
     line-height: 1.8;
     padding-right: 20px;
     padding-top: 10px;
-
-    li {
-      a {
-        display: block;
-      }
-    }
   }
 }
 

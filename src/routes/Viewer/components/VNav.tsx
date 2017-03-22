@@ -68,9 +68,9 @@ class VNav extends Component<AllProps, void> {
 
   renderLink(ref, hash, label) {
     if (hash) {
-      return <a className="js-book-nav" href={`#${ref}$${hash}`}>{label}</a>
+      return <a className="js-book-nav text-link" href={`#${ref}$${hash}`}>{label}</a>
     }
-    return <a className="js-book-nav" href={`#${ref}`}>{label}</a>
+    return <a className="js-book-nav text-link" href={`#${ref}`}>{label}</a>
   }
 
   renderNav(navList: TBookNav[]) {

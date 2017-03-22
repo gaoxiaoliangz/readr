@@ -1,11 +1,48 @@
+// commonly used global styles, do not import this file in components
+// it will expose all the classes in the module unexpectedly
+
 // links
-.light-link { @extend %light-link; }
-.text-link { @extend %text-link; }
-.dark-link { @extend %dark-link; cursor: pointer; margin: 0 5px; display: inline-block; }
-.border-link { @extend %border-link; cursor: pointer; margin: 0 5px; display: inline-block; }
+.light-link {
+  color: #fff;
+
+  &:hover {
+    color: #ddd;
+  }
+}
+
+.text-link {
+  color: $text;
+
+  &:hover {
+   color: $blue;
+  }
+}
+
+.dark-link { 
+  color: $text-dark;
+  cursor: pointer; margin: 0 5px; display: inline-block;
+  &:hover {
+   color: $text;
+  }
+}
+
+.border-link {
+  color: $text-dark;
+  border-bottom: 1px solid $text-dark;
+  cursor: pointer; margin: 0 5px; display: inline-block;
+  &:hover {
+   color: $text-light;
+   border-color: $text-light
+  }
+}
 
 // page
-.page-title { @extend %page-title; }
+.page-title {
+  margin: 35px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
 
 .page-header {
   margin: 35px 0;
@@ -29,7 +66,10 @@
 }
 
 // layout
-.sep { @extend %sep; }
+.sep {
+  margin: 0 5px;
+  color: $gray;
+}
 
 .left {
   float: left;
@@ -43,7 +83,13 @@
   display: none;
 }
 
-.clearfix { @extend %clearfix; }
+.clearfix {
+  &:after {
+    content: " ";
+    clear: both;
+    display: table;
+  }
+}
 
 .center {
   text-align: center;
@@ -66,7 +112,11 @@
   }
 }
 
-.text-overflow { @extend %text-overflow; }
+.text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 // styled
 .badge {
@@ -118,4 +168,10 @@
   text-align: center;
 }
 
-.text-loading { @extend %text-loading; }
+.text-loading {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: $text-light;
+}

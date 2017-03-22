@@ -1,5 +1,4 @@
 @import "variables";
-@import "viewer";
 @import "~styles/mixins/screens";
 
 body {
@@ -29,4 +28,9 @@ body.console {
       display: none;
     }
   }
+}
+
+.book-raw {
+  position: fixed;
+  left: -100%;
 }
