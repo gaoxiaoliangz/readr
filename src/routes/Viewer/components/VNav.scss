@@ -1,17 +1,18 @@
 @import "~styles/variables";
 @import "~styles/mixins/screens";
 
+$height: $branding-height;
+
 .viewer-nav {
-  position: absolute;
-  top: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100%;
+  width: 70%;
   background: #fff;
   overflow-y: scroll;
-  padding: 20px 20px 20px 0;
-  border-radius: 3px;
-  // TODO
-  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);
-  height: 400px;
+  z-index: $z-vnav;
+  box-shadow: $shadow-y2;
   @include phone {
     // width: 100%;
   }
@@ -20,12 +21,21 @@
     margin-left: 20px;
     text-align: left;
     line-height: 1.8;
+    padding-right: 20px;
+    padding-top: 10px;
 
     li {
       a {
         display: block;
-        border-bottom: 1px solid $gray;
       }
     }
   }
+}
+
+.title {
+  font-size: 1.2rem;
+  height: $height;
+  line-height: $height;
+  padding-left: 15px;
+  border-bottom: 1px solid $gray;
 }

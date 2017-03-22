@@ -1173,11 +1173,8 @@ let VNav = function (_Component) {
         value: function render() {
             const { nav, config: { fluid, width } } = this.props;
             const _width = fluid ? width - 50 : 300;
-            const navStyle = {
-                width: _width,
-                left: fluid ? -55 : -20
-            };
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "js-nav-scroll", styleName: "viewer-nav", style: navStyle }, this.renderNav(nav));
+            const navStyle = {};
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { className: "js-nav-scroll", styleName: "viewer-nav", style: navStyle }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "title" }, "placeholder"), this.renderNav(nav));
         }
     }]);
 
@@ -1212,7 +1209,6 @@ VNav = __decorate([__WEBPACK_IMPORTED_MODULE_2_react_css_modules___default()(__W
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__VPanel_scss__ = __webpack_require__(391);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__VPanel_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__VPanel_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__schemas__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_Logo__ = __webpack_require__(30);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1230,7 +1226,6 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 };
 
 // import { Link } from 'react-router'
-
 
 
 
@@ -1280,11 +1275,11 @@ let VPanel = function (_Component) {
             const { title, className, components: { showPanel, showPreference, showNavigation } } = this.props;
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_animations__["a" /* Slide */], null, showPanel && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { ref: ref => {
                     this.panel = ref;
-                }, styleName: "viewer-panel", className: className || '' }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "container" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "logo" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__components_Logo__["a" /* default */], { dark: true })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "sep" }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { styleName: "title" }, title), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { ref: ref => {
+                }, styleName: "viewer-panel", className: className || '' }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "container" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { ref: ref => {
                     this.nav = ref;
-                }, styleName: "contents", onClick: this.handleContentsClick }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", null, "\u76EE\u5F55"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_animations__["b" /* Fade */], null, showNavigation && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__VNav__["a" /* default */], null))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { ref: ref => {
+                }, styleName: "menu", onClick: this.handleContentsClick }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Icon__["a" /* default */], { name: "menu", size: 20 }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_animations__["b" /* Fade */], null, showNavigation && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__VNav__["a" /* default */], null))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", { styleName: "title" }, title), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { ref: ref => {
                     this.pref = ref;
-                }, styleName: "preference", onClick: this.handlePrefClick }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Icon__["a" /* default */], { name: "preference" }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_animations__["b" /* Fade */], null, showPreference && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__VPreference__["a" /* default */], null))))));
+                }, styleName: "preference", onClick: this.handlePrefClick }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Icon__["a" /* default */], { name: "font", size: 20 }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_animations__["b" /* Fade */], null, showPreference && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__VPreference__["a" /* default */], null))))));
         }
     }]);
 
@@ -1619,11 +1614,12 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, ".viewer-nav_rTyXD {\n  position: absolute;\n  top: 80px;\n  height: 100%;\n  background: #fff;\n  overflow-y: scroll;\n  padding: 20px 20px 20px 0;\n  border-radius: 3px;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  height: 400px; }\n  .viewer-nav_rTyXD ul {\n    margin-left: 20px;\n    text-align: left;\n    line-height: 1.8; }\n    .viewer-nav_rTyXD ul li a {\n      display: block;\n      border-bottom: 1px solid #ddd; }\n", ""]);
+exports.push([module.i, ".viewer-nav_rTyXD {\n  position: fixed;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 70%;\n  background: #fff;\n  overflow-y: scroll;\n  z-index: 1000;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15); }\n  .viewer-nav_rTyXD ul {\n    margin-left: 20px;\n    text-align: left;\n    line-height: 1.8;\n    padding-right: 20px;\n    padding-top: 10px; }\n    .viewer-nav_rTyXD ul li a {\n      display: block; }\n\n.title_6m1z4 {\n  font-size: 1.2rem;\n  height: 60px;\n  line-height: 60px;\n  padding-left: 15px;\n  border-bottom: 1px solid #ddd; }\n", ""]);
 
 // exports
 exports.locals = {
-	"viewer-nav": "viewer-nav_rTyXD"
+	"viewer-nav": "viewer-nav_rTyXD",
+	"title": "title_6m1z4"
 };
 
 /***/ }),
@@ -1636,18 +1632,16 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, ".viewer-panel_3c35T {\n  width: 100%;\n  position: fixed;\n  top: 0;\n  z-index: 990;\n  background: #fff;\n  color: #666;\n  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);\n  height: 60px; }\n\n.container_f3q06 {\n  max-width: 1200px;\n  margin: 0 auto;\n  height: 60px;\n  position: relative; }\n\n.logo_3SBZx {\n  position: absolute;\n  left: 15px;\n  top: 0;\n  line-height: 60px; }\n\n.back_24rWC {\n  position: absolute;\n  left: 5px;\n  top: 0;\n  line-height: 60px; }\n  .back_24rWC a {\n    color: #666;\n    display: inline-block;\n    height: 60px;\n    line-height: 60px;\n    overflow: hidden; }\n    .back_24rWC a span {\n      float: left;\n      margin-right: 5px; }\n  .back_24rWC span {\n    line-height: 30px;\n    display: inline-block;\n    height: 60px;\n    line-height: 60px; }\n\n.contents_2JVgT {\n  display: inline-block;\n  position: absolute;\n  right: 70px;\n  top: 0;\n  cursor: pointer;\n  line-height: 60px; }\n  .contents_2JVgT span {\n    color: #666; }\n\n.title_Vll8e {\n  font-size: 1rem;\n  line-height: 60px;\n  position: absolute;\n  left: 125px; }\n\n.sep_tEdmq {\n  position: absolute;\n  left: 106px;\n  top: 20px;\n  width: 1px;\n  height: 20px;\n  background: #ddd; }\n\n.preference_2KnV2 {\n  position: absolute;\n  right: 15px;\n  top: 18px;\n  cursor: pointer;\n  display: inline-block; }\n", ""]);
+exports.push([module.i, ".viewer-panel_3c35T {\n  width: 100%;\n  position: fixed;\n  top: 0;\n  z-index: 990;\n  background: #fff;\n  color: #666;\n  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);\n  height: 60px; }\n\n.container_f3q06 {\n  max-width: 1200px;\n  margin: 0 auto;\n  height: 60px;\n  position: relative; }\n\n.panel-item_1p29z {\n  display: inline-block;\n  position: relative;\n  cursor: pointer;\n  float: left;\n  line-height: 60px;\n  padding: 0 15px; }\n\n.menu_1szcW { }\n  .menu_1szcW .icon {\n    position: relative;\n    top: 5px; }\n\n.title_Vll8e {\n  font-size: 1rem;\n  padding: 0; }\n\n.preference_2KnV2 {\n  float: right; }\n  .preference_2KnV2 .icon {\n    position: relative;\n    top: 5px; }\n", ""]);
 
 // exports
 exports.locals = {
 	"viewer-panel": "viewer-panel_3c35T",
 	"container": "container_f3q06",
-	"logo": "logo_3SBZx",
-	"back": "back_24rWC",
-	"contents": "contents_2JVgT",
-	"title": "title_Vll8e",
-	"sep": "sep_tEdmq",
-	"preference": "preference_2KnV2"
+	"panel-item": "panel-item_1p29z",
+	"menu": "menu_1szcW panel-item_1p29z",
+	"title": "title_Vll8e panel-item_1p29z",
+	"preference": "preference_2KnV2 panel-item_1p29z"
 };
 
 /***/ }),
@@ -1660,7 +1654,7 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, ".viewer-preference_nLmwe {\n  position: absolute;\n  right: 0;\n  top: 65px;\n  width: 200px;\n  background: #fff;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  color: #666;\n  border-radius: 3px;\n  -webkit-user-select: none;\n  overflow: hidden; }\n\n.option_2fz_V {\n  padding: 10px 15px;\n  border-bottom: 1px solid #ddd; }\n  .option_2fz_V:last-child {\n    border: none; }\n\n.option-font-size_3UrJc {\n  overflow: hidden;\n  padding: 0; }\n  .option-font-size_3UrJc .btn_2jpGe, .option-font-size_3UrJc .btn--disabled_2a8Ch {\n    font-size: 1.2rem;\n    width: 50%;\n    float: left;\n    box-sizing: border-box;\n    padding: 0 5px;\n    height: 40px;\n    line-height: 40px;\n    cursor: pointer; }\n    .option-font-size_3UrJc .btn_2jpGe:hover, .option-font-size_3UrJc .btn--disabled_2a8Ch:hover {\n      color: #333; }\n    .option-font-size_3UrJc .btn_2jpGe:active, .option-font-size_3UrJc .btn--disabled_2a8Ch:active {\n      color: #999; }\n  .option-font-size_3UrJc .btn_2jpGe:first-child, .option-font-size_3UrJc .btn--disabled_2a8Ch:first-child {\n    font-size: .9rem;\n    border-right: 1px solid #ddd; }\n  .option-font-size_3UrJc .btn--disabled_2a8Ch {\n    color: #ddd; }\n\n.option-scroll_26bF8 {\n  overflow: hidden;\n  text-align: left; }\n  .option-scroll_26bF8 .label_1T8CI {\n    float: left; }\n  .option-scroll_26bF8 .switcher_2a_E- {\n    float: right; }\n\n.option-theme_1_Gw1 {\n  padding: 5px 0; }\n\n.theme-btn_M8DYK {\n  border-radius: 50%;\n  border: 2px solid #ddd;\n  text-indent: -999em;\n  display: inline-block;\n  width: 30px;\n  height: 30px;\n  margin: 5px;\n  cursor: pointer; }\n\n.white_2oNub {\n  background: #fff; }\n\n.white--active_3P6rW {\n  background: #fff;\n  border-color: #1B267F; }\n\n.night_1CUK2 {\n  background: #222; }\n\n.night--active_1OZtV {\n  background: #222;\n  border-color: #1B267F; }\n\n.sepia_2WAxe {\n  background: #f9f1e5; }\n\n.sepia--active_1oxnd {\n  background: #f9f1e5;\n  border-color: #1B267F; }\n", ""]);
+exports.push([module.i, ".viewer-preference_nLmwe {\n  position: absolute;\n  right: 0;\n  top: 55px;\n  width: 200px;\n  background: #fff;\n  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);\n  color: #666;\n  border-radius: 3px;\n  -webkit-user-select: none;\n  overflow: hidden;\n  text-align: center; }\n\n.option_2fz_V {\n  padding: 10px 15px;\n  border-bottom: 1px solid #ddd; }\n  .option_2fz_V:last-child {\n    border: none; }\n\n.option-font-size_3UrJc {\n  overflow: hidden;\n  padding: 0; }\n  .option-font-size_3UrJc .btn_2jpGe, .option-font-size_3UrJc .btn--disabled_2a8Ch {\n    font-size: 1.2rem;\n    width: 50%;\n    float: left;\n    box-sizing: border-box;\n    padding: 0 5px;\n    height: 40px;\n    line-height: 40px;\n    cursor: pointer; }\n    .option-font-size_3UrJc .btn_2jpGe:hover, .option-font-size_3UrJc .btn--disabled_2a8Ch:hover {\n      color: #333; }\n    .option-font-size_3UrJc .btn_2jpGe:active, .option-font-size_3UrJc .btn--disabled_2a8Ch:active {\n      color: #999; }\n  .option-font-size_3UrJc .btn_2jpGe:first-child, .option-font-size_3UrJc .btn--disabled_2a8Ch:first-child {\n    font-size: .9rem;\n    border-right: 1px solid #ddd; }\n  .option-font-size_3UrJc .btn--disabled_2a8Ch {\n    color: #ddd; }\n\n.option-scroll_26bF8 {\n  overflow: hidden;\n  text-align: left; }\n  .option-scroll_26bF8 .label_1T8CI {\n    float: left; }\n  .option-scroll_26bF8 .switcher_2a_E- {\n    float: right; }\n\n.option-theme_1_Gw1 {\n  padding: 5px 0; }\n\n.theme-btn_M8DYK {\n  border-radius: 50%;\n  border: 2px solid #ddd;\n  text-indent: -999em;\n  display: inline-block;\n  width: 30px;\n  height: 30px;\n  margin: 5px;\n  cursor: pointer; }\n\n.white_2oNub {\n  background: #fff; }\n\n.white--active_3P6rW {\n  background: #fff;\n  border-color: #1B267F; }\n\n.night_1CUK2 {\n  background: #222; }\n\n.night--active_1OZtV {\n  background: #222;\n  border-color: #1B267F; }\n\n.sepia_2WAxe {\n  background: #f9f1e5; }\n\n.sepia--active_1oxnd {\n  background: #f9f1e5;\n  border-color: #1B267F; }\n", ""]);
 
 // exports
 exports.locals = {

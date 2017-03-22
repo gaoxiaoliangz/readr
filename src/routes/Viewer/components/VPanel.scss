@@ -25,76 +25,71 @@ $icons_size: 30px;
   position: relative;
 }
 
-.logo {
-  position: absolute;
-  left: 15px;
-  top: 0;
-  line-height: $height;
-}
-
-.back {
-  position: absolute;
-  left: 5px;
-  top: 0;
-  line-height: $height;
-
-  a {
-    color: $panel_text;
-    display: inline-block;
-    height: $height;
-    line-height: $height;
-    overflow: hidden;
-    span {
-      float: left;
-      margin-right: 5px;
-    }
-  }
-
-  span {
-    line-height: $icons_size;
-    display: inline-block;
-    height: $height;
-    line-height: $height;
-  }
-}
-
-.contents {
+.panel-item {
   display: inline-block;
-  position: absolute;
-  right: 70px;
-  top: 0;
+  position: relative;
   cursor: pointer;
+  float: left;
   line-height: $height;
+  padding: 0 15px;
+}
 
-  span {
-    color: $panel_text;
+.menu {
+  composes: panel-item;
+
+  :global .icon {
+    position: relative;
+    top: 5px;
   }
 }
 
 .title {
+  composes: panel-item;
   font-size: 1rem;
-  line-height: $height;
-  position: absolute;
-  left: 125px;
-
-  // @include phone {
-  //   display: none;
-  // }
-}
-
-.sep {
-  position: absolute;
-  left: 106px;
-  top: 20px;
-  width: 1px;
-  height: 20px;
-  background: #ddd;
+  padding: 0;
 }
 
 .preference {
-  position: absolute;
-  right: 15px;
-  top: 18px;
-  cursor: pointer;
-  display: inline-block;
+  composes: panel-item;
+
+  float: right;
+  :global .icon {
+    position: relative;
+    top: 5px;
+  }
 }
+
+// .back {
+//   position: absolute;
+//   left: 5px;
+//   top: 0;
+//   line-height: $height;
+
+//   a {
+//     color: $panel_text;
+//     display: inline-block;
+//     height: $height;
+//     line-height: $height;
+//     overflow: hidden;
+//     span {
+//       float: left;
+//       margin-right: 5px;
+//     }
+//   }
+
+//   span {
+//     line-height: $icons_size;
+//     display: inline-block;
+//     height: $height;
+//     line-height: $height;
+//   }
+// }
+
+// .sep {
+//   position: absolute;
+//   left: 106px;
+//   top: 20px;
+//   width: 1px;
+//   height: 20px;
+//   background: #ddd;
+// }

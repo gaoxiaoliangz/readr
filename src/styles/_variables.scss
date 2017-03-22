@@ -52,7 +52,10 @@ $shadow-x1: 0 1px 4px rgba(0,0,0,.04);
 // for bottom panel
 $shadow-x2: 0 0 1px rgba(0,0,0,.44);
 
+// custom
 $shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32);
+// large soft shadow for popups
+$shadow-y2: 0 12px 63px rgba(0, 0, 0, 0.15);
 
 $shadow-z1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 $shadow-z2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -65,6 +68,7 @@ $z-selectize-options: 900;
 $z-dropdown-menu: 900;
 $z-modal-backdrop: 900;
 $z-console-branding: 800;
+$z-vnav: 1000;
 
 // defined styles
 %text-loading {

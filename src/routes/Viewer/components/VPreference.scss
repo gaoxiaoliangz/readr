@@ -3,15 +3,15 @@
 .viewer-preference {
   position: absolute;
   right: 0;
-  top: 65px;
+  top: 55px;
   width: 200px;
   background: #fff;
-  // TODO
-  box-shadow: 0 12px 63px rgba(0, 0, 0, 0.15);
+  box-shadow: $shadow-y2;
   color: $text;
   border-radius: 3px;
   -webkit-user-select: none;
   overflow: hidden;
+  text-align: center;
 }
 
 .option {

@@ -53,14 +53,20 @@ class Icon extends Component<IProps, {}> {
         onClick={onClick}
       >
         <div style={svgWrapStyle}>
-          <svg
-            {...svgIcons[name].viewBox && { viewBox: svgIcons[name].viewBox }}
-            width={size}
-            height={size}
-            styleName="svg-shape"
-          >
-            <path d={svgIcons[name].path} />
-          </svg>
+          {
+            svgIcons[name]
+              ? (
+                <svg
+                  {...svgIcons[name].viewBox && { viewBox: svgIcons[name].viewBox }}
+                  width={size}
+                  height={size}
+                  styleName="svg-shape"
+                >
+                  <path d={svgIcons[name].path} />
+                </svg>
+              )
+              : `Icon ${name} not found!`
+          }
         </div>
       </span>
     )

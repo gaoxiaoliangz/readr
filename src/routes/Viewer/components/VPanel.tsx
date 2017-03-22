@@ -69,29 +69,12 @@ class VPanel extends Component<OwnProps & AllProps, void> {
               className={className || ''}
             >
               <div styleName="container">
-                <div styleName="logo">
-                  <Logo dark />
-                </div>
-                {/*<div styleName="back">
-                  <Link to="/">
-                    <Icon
-                      size={20}
-                      name="back"
-                      style={{
-                        marginTop: 4
-                      }}
-                    />
-                    <span>返回</span>
-                  </Link>
-                </div>*/}
-                <div styleName="sep"></div>
-                <span styleName="title">{title}</span>
                 <div
                   ref={ref => { this.nav = ref }}
-                  styleName="contents"
+                  styleName="menu"
                   onClick={this.handleContentsClick}
                 >
-                  <span>目录</span>
+                  <Icon name="menu" size={20} />
                   <Fade>
                     {
                       showNavigation && (
@@ -100,13 +83,13 @@ class VPanel extends Component<OwnProps & AllProps, void> {
                     }
                   </Fade>
                 </div>
-
+                <span styleName="title">{title}</span>
                 <div
                   ref={ref => { this.pref = ref }}
                   styleName="preference"
                   onClick={this.handlePrefClick}
                 >
-                  <Icon name="preference" />
+                  <Icon name="font" size={20} />
                   <Fade>
                     {
                       showPreference && (

@@ -102,12 +102,15 @@ class VNav extends Component<AllProps, void> {
     const { nav, config: { fluid, width } } = this.props
     const _width = fluid ? (width - 50) : 300
     const navStyle = {
-      width: _width,
-      left: fluid ? -55 : -20
+      // width: _width,
+      // left: fluid ? -55 : -20
     }
 
     return (
       <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
+        <div styleName="title">
+          placeholder
+        </div>
         {this.renderNav(nav)}
       </div>
     )
