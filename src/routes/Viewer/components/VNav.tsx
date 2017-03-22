@@ -7,10 +7,12 @@ import preventScroll from '../../../utils/browser/preventScroll'
 import { resolveBookLocation } from '../utils'
 import $ from 'jquery'
 import styles from './VNav.scss'
+import schemas from '../../../schemas'
+import Icon from '../../../components/Icon'
 
 const JS_NAV_HOOK = 'a.js-book-nav'
 
-interface Props {}
+interface Props { }
 
 interface AllProps {
   nav: TBookNav[]
@@ -18,15 +20,17 @@ interface AllProps {
   sendNotification: typeof actions.sendNotification
   computedPages: TBookPage[]
   config: Viewer.Config
+  bookInfo: SelectedEntity
 }
 
 const mapStateToProps = (state, ownProps) => {
   const bookId = selectors.viewer.id(state)
+  const bookInfo = selectors.entity(schemas.BOOK, bookId)(state)
   const nav = selectors.viewer.navData(bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)
   const config = selectors.viewer.config(state)
 
-  return { nav, computedPages, config }
+  return { nav, computedPages, config, bookInfo }
 }
 
 @CSSModules(styles)
@@ -56,7 +60,6 @@ class VNav extends Component<AllProps, void> {
 
   componentDidMount() {
     this.$body = $('body')
-    // TODO: js hook 常量
     preventScroll.init('.js-nav-scroll')
     this.$body.on('click', JS_NAV_HOOK, this.handleNavLinkClick)
   }
@@ -99,7 +102,7 @@ class VNav extends Component<AllProps, void> {
   }
 
   render() {
-    const { nav, config: { fluid, width } } = this.props
+    const { nav, config: { fluid, width }, bookInfo } = this.props
     const _width = fluid ? (width - 50) : 300
     const navStyle = {
       // width: _width,
@@ -109,9 +112,16 @@ class VNav extends Component<AllProps, void> {
     return (
       <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
         <div styleName="title">
-          placeholder
+          {/*<Logo
+            dark
+          />*/}
+          <span>书架</span>
+          <Icon name="book" size={30} />
         </div>
-        {this.renderNav(nav)}
+        <div styleName="wrap">
+          <div styleName="book-title">{bookInfo.title}</div>
+          {this.renderNav(nav)}
+        </div>
       </div>
     )
   }

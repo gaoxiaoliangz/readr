@@ -9,21 +9,18 @@ $height: $branding-height;
   top: 0;
   left: 0;
   height: 100%;
-  width: 70%;
+  width: 300px;
   background: #fff;
   overflow-y: scroll;
   z-index: $z-vnav;
   box-shadow: $shadow-y2;
   @include phone {
-    // width: 100%;
+    width: 70%;
   }
 
   ul {
-    margin-left: 20px;
     text-align: left;
-    line-height: 1.8;
-    padding-right: 20px;
-    padding-top: 10px;
+    line-height: 2.2;
   }
 }
 
@@ -33,4 +30,26 @@ $height: $branding-height;
   line-height: $height;
   padding-left: 15px;
   border-bottom: 1px solid $gray;
+  position: relative;
+  font-weight: bold;
+  color: $text-dark;
+
+  :global span.icon {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    color: $text-dark;
+  }
+}
+
+.book-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: $text-dark;
+  line-height: 2.2;
+  margin-top: 20px;
+}
+
+.wrap {
+  padding: 0 20px;
 }
