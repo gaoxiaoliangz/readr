@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import Icon from '../../../components/Icon'
 import { Fade, Slide } from '../../../components/animations'
 import VPreference from './VPreference'

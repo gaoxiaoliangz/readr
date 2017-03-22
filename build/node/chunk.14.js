@@ -100,7 +100,7 @@ function mapStateToProps(state) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_form__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_better_redux_form__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_better_redux_form__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_better_redux_form___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_better_redux_form__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 

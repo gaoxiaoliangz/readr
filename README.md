@@ -59,10 +59,10 @@ options, data, id, response, error
 	☐ fix dropdown on mobile
 	✔ fix recent reading @done (March 22nd 2017, 1:21)
 	☐ add status text
-	☐ add image support
 	✔ fix shelf @done (March 22nd 2017, 1:21)
 	✔ fix book detail @done (March 22nd 2017, 1:21)
-	☐ global view
+	☐ better 500 page
+	☐ use blurred panel
 
 ### Test
 	☐ pass runtime env to test suit
@@ -79,7 +79,7 @@ options, data, id, response, error
 	☐ add home hero image
 	☐ home screen responsive
 	☐ mobile console
-	☐ better 500 page
+	☐ add image support
 
 ### Refactor & Optimization
 	☐ api flow
@@ -101,5 +101,6 @@ options, data, id, response, error
 	☐ use og meta tag
 	☐ use token authentication
 	☐ rejection handle in validator
+	☐ global view
 
 to be continued...

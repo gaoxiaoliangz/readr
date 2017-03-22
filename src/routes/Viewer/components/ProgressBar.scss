@@ -51,7 +51,6 @@ $size: 20px;
   position: fixed;
   right: 30px;
   bottom: 30px;
-  background: #fff;
   color: $dark;
   box-shadow: $shadow-x2;
   padding: 7px 15px;
@@ -59,6 +58,11 @@ $size: 20px;
   position: fixed;
   bottom: 0;
   left: 0;
+
+  // blur
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  background-color: rgba(255, 255, 255, 0.8);
 
   .sep {
     margin: 0 3px;
