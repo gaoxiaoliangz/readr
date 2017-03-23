@@ -60,7 +60,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     routing: state.routing.locationBeforeTransitions || {},
-    // paginationLinks: selectors.paginationLinks(name, key)(state)
+    paginationLinks: selectors.paginationLinks(name, key)(state)
   }
 }
 

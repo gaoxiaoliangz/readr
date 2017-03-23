@@ -80,6 +80,8 @@ function renderView(isProduction) {
         ].concat(jsAssets)}
       />
     )
+    console.info('view rendered')
+    
     res.status(statusCode).send(DOCTYPE + html)
   }
 }

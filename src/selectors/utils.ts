@@ -40,6 +40,10 @@ export const pagedEntities = ({ schema, paginationName, paginationKey }: PagedEn
   }
 )
 
+export const paginationLinks = (name, key = DEFAULT_KEY) => state => {
+  return _.pick(_.get(state.pagination, `${name}.${key}`, {}), ['next', 'last'])
+}
+
 // export const entity = (name, id) => (state): SelectedEntity => {
 //   return {
 //     ..._.get(state, ['entities', name, 'entities', id], {}),
@@ -80,9 +84,6 @@ export const currentPage = (name, key = DEFAULT_KEY) => createSelector(
 //   return _.get(state, ['pagination', name, key, 'pages'], {})
 // }
 
-// export const paginationLinks = (name, key = DEFAULT_KEY) => state => {
-//   return _.pick(_.get(state.pagination, `${name}.${key}`, {}), ['next', 'last'])
-// }
 
 // export const nextPage = (name, key = DEFAULT_KEY) => createSelector(
 //   paginationLinks(name, key),

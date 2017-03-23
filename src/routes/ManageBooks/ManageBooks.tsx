@@ -81,16 +81,16 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     this.props.loadBooks(props.routing.query.page || '1')
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    helpers.onRoutingChange(routing => {
-      document.body.scrollTop = 0
-      this.loadBooks(nextProps)
-    })(nextProps, this.props)
-  }
+  // componentWillReceiveProps(nextProps, nextState) {
+  //   helpers.onRoutingChange(routing => {
+  //     document.body.scrollTop = 0
+  //     this.loadBooks(nextProps)
+  //   })(nextProps, this.props)
+  // }
 
   componentWillMount() {
     this.loadBooks()
-    this.props.loadUsers()
+    // this.props.loadUsers()
   }
 
   render() {
