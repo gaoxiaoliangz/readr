@@ -192,7 +192,7 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, ".text-loading_3Q6vh {\n  text-align: center;\n  margin: 50px 0;\n  font-size: 20px;\n  font-weight: normal;\n  color: #999; }\n\n.text-loading_3Q6vh {\n  margin: 30px 0;\n  display: inline-block;\n  line-height: 20px;\n  position: relative; }\n\n.loading-wrap_7G2oJ {\n  text-align: left; }\n\n.loading-wrap--center_3AyTV {\n  text-align: center; }\n\n.gif_aZzPl {\n  width: 20px;\n  height: auto;\n  line-height: 20px;\n  opacity: .6;\n  margin-right: 3px;\n  position: relative;\n  top: 2px; }\n", ""]);
+exports.push([module.i, ".text-loading_3Q6vh {\n  margin: 30px 0;\n  display: inline-block;\n  line-height: 20px;\n  position: relative; }\n\n.loading-wrap_7G2oJ {\n  text-align: left; }\n\n.loading-wrap--center_3AyTV {\n  text-align: center; }\n\n.gif_aZzPl {\n  width: 20px;\n  height: auto;\n  line-height: 20px;\n  opacity: .6;\n  margin-right: 3px;\n  position: relative;\n  top: 2px; }\n", ""]);
 
 // exports
 exports.locals = {
@@ -247,7 +247,7 @@ module.exports = __webpack_require__.p + "media/loading.4275970884.gif";
 
 /***/ }),
 
-/***/ 368:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
@@ -279,7 +279,7 @@ exports.locals = {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(368);
+    var content = __webpack_require__(369);
     var insertCss = __webpack_require__(3);
 
     if (typeof content === 'string') {

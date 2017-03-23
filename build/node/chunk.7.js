@@ -152,7 +152,7 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
-const styles = __webpack_require__(333);
+const styles = __webpack_require__(334);
 let Tabs = function (_Component) {
     _inherits(Tabs, _Component);
 
@@ -240,7 +240,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 333:
+/***/ 334:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -276,7 +276,7 @@ exports.locals = {
 
 /***/ }),
 
-/***/ 371:
+/***/ 372:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
@@ -302,7 +302,7 @@ exports.locals = {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(371);
+    var content = __webpack_require__(372);
     var insertCss = __webpack_require__(3);
 
     if (typeof content === 'string') {

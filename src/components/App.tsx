@@ -14,7 +14,7 @@ interface Props {
 
 class App extends Component<Props, {}> {
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.session.role !== 'visitor') {
       this.props.loadShelf()
     }

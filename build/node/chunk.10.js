@@ -11,7 +11,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_api__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_CollectionSection__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_CollectionSection__ = __webpack_require__(340);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62,11 +62,11 @@ let Collections = function (_Component) {
 
 /***/ }),
 
-/***/ 330:
+/***/ 331:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    var content = __webpack_require__(364);
+    var content = __webpack_require__(365);
     var insertCss = __webpack_require__(3);
 
     if (typeof content === 'string') {
@@ -98,7 +98,7 @@ let Collections = function (_Component) {
 
 /***/ }),
 
-/***/ 334:
+/***/ 335:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -126,7 +126,7 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
-const styles = __webpack_require__(330);
+const styles = __webpack_require__(331);
 let CollectionItem = function (_Component) {
     _inherits(CollectionItem, _Component);
 
@@ -156,7 +156,7 @@ CollectionItem = __decorate([__WEBPACK_IMPORTED_MODULE_1_react_css_modules___def
 
 /***/ }),
 
-/***/ 335:
+/***/ 336:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -164,7 +164,7 @@ CollectionItem = __decorate([__WEBPACK_IMPORTED_MODULE_1_react_css_modules___def
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_css_modules__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_css_modules___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_css_modules__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CollectionItem__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CollectionItem__ = __webpack_require__(335);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -183,7 +183,7 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
-const styles = __webpack_require__(330);
+const styles = __webpack_require__(331);
 let CollectionList = function (_Component) {
     _inherits(CollectionList, _Component);
 
@@ -213,7 +213,7 @@ CollectionList = __decorate([__WEBPACK_IMPORTED_MODULE_1_react_css_modules___def
 
 /***/ }),
 
-/***/ 338:
+/***/ 339:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -224,7 +224,7 @@ CollectionList = __decorate([__WEBPACK_IMPORTED_MODULE_1_react_css_modules___def
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_layout__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CollectionList__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CollectionList__ = __webpack_require__(336);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -245,7 +245,7 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
 
 
 
-const styles = __webpack_require__(330);
+const styles = __webpack_require__(331);
 let CollectionSection = function (_Component) {
     _inherits(CollectionSection, _Component);
 
@@ -273,13 +273,13 @@ CollectionSection = __decorate([__WEBPACK_IMPORTED_MODULE_1_react_css_modules___
 
 /***/ }),
 
-/***/ 339:
+/***/ 340:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CollectionSection__ = __webpack_require__(338);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollectionItem__ = __webpack_require__(334);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CollectionList__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CollectionSection__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollectionItem__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CollectionList__ = __webpack_require__(336);
 /* unused harmony reexport CollectionItem */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__CollectionList__["a"]; });
 /* unused harmony reexport CollectionSection */
@@ -291,7 +291,7 @@ CollectionSection = __decorate([__WEBPACK_IMPORTED_MODULE_1_react_css_modules___
 
 /***/ }),
 
-/***/ 364:
+/***/ 365:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
@@ -299,12 +299,11 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, ".link_2j3vY {\n  color: #fff; }\n  .link_2j3vY:hover {\n    color: #ddd; }\n\n.title_1DW7V {\n  margin: 35px 0;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: #333; }\n\n.link_2j3vY {\n  color: #fff; }\n  .link_2j3vY:hover {\n    color: #ddd; }\n\n.item--dark_2UvSB .desc_3xXSM {\n  color: #666; }\n\n.item_1VC-O {\n  width: 100%;\n  min-height: 200px;\n  position: relative;\n  border-bottom: 1px solid #08105d;\n  padding: 0 0 30px 0; }\n\n.item--light_1OlEo { }\n\n.section_2K6ue {\n  background: #04082E;\n  overflow: hidden;\n  margin: 40px 0; }\n\n.covers_3CFy3 {\n  overflow: hidden;\n  position: absolute;\n  right: 30px;\n  top: 30px; }\n  .covers_3CFy3 li {\n    float: left;\n    margin: 0 10px; }\n    .covers_3CFy3 li img {\n      max-width: 70px;\n      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n      overflow: hidden;\n      border-radius: 3px; }\n\n.name_21WWD {\n  font-size: 1.2rem;\n  color: #fff;\n  margin-bottom: 1em; }\n\n.desc_3xXSM {\n  color: gray(180);\n  font-size: 1rem; }\n\n.title_1DW7V {\n  color: #fff; }\n\n.list_1jgXC {\n  width: 100%; }\n\n.view-more_3pDdp {\n  margin: 20px 0;\n  display: inline-block; }\n\n/* style 2 */\n.item--dark_2UvSB {\n  border-color: #ddd; }\n  .item--dark_2UvSB .link_2j3vY {\n    color: #333; }\n    .item--dark_2UvSB .link_2j3vY:hover {\n      color: #666; }\n", ""]);
+exports.push([module.i, ".link_2j3vY {\n  color: #fff; }\n  .link_2j3vY:hover {\n    color: #ddd; }\n\n.item--dark_2UvSB .desc_3xXSM {\n  color: #666; }\n\n.item_1VC-O {\n  width: 100%;\n  min-height: 200px;\n  position: relative;\n  border-bottom: 1px solid #08105d;\n  padding: 0 0 30px 0; }\n\n.item--light_1OlEo { }\n\n.section_2K6ue {\n  background: #04082E;\n  overflow: hidden;\n  margin: 40px 0; }\n\n.covers_3CFy3 {\n  overflow: hidden;\n  position: absolute;\n  right: 30px;\n  top: 30px; }\n  .covers_3CFy3 li {\n    float: left;\n    margin: 0 10px; }\n    .covers_3CFy3 li img {\n      max-width: 70px;\n      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);\n      overflow: hidden;\n      border-radius: 3px; }\n\n.name_21WWD {\n  font-size: 1.2rem;\n  color: #fff;\n  margin-bottom: 1em; }\n\n.desc_3xXSM {\n  color: gray(180);\n  font-size: 1rem; }\n\n.title_1DW7V {\n  color: #fff; }\n\n.list_1jgXC {\n  width: 100%; }\n\n.view-more_3pDdp {\n  margin: 20px 0;\n  display: inline-block; }\n\n/* style 2 */\n.item--dark_2UvSB {\n  border-color: #ddd; }\n  .item--dark_2UvSB .link_2j3vY {\n    color: #333; }\n    .item--dark_2UvSB .link_2j3vY:hover {\n      color: #666; }\n", ""]);
 
 // exports
 exports.locals = {
 	"link": "link_2j3vY",
-	"title": "title_1DW7V",
 	"item--dark": "item--dark_2UvSB item_1VC-O",
 	"desc": "desc_3xXSM",
 	"item": "item_1VC-O",
@@ -312,6 +311,7 @@ exports.locals = {
 	"section": "section_2K6ue",
 	"covers": "covers_3CFy3",
 	"name": "name_21WWD",
+	"title": "title_1DW7V",
 	"list": "list_1jgXC",
 	"view-more": "view-more_3pDdp link_2j3vY"
 };
