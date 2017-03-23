@@ -10,6 +10,9 @@ const createRoutes = (context = {}) => {
   const { request, response } = context as any
 
   const handleConsoleEnter = (nextState, replace, callback?) => {
+    // replace('/')
+    // callback(new Error('fucked'))
+    
     if (request) {
       // 服务端校验方式
       const { context: { user: { role } } } = request

@@ -66,7 +66,7 @@ function setupCompiler(host, port, protocol) {
   compiler.plugin('invalid', () => {
     startTime = new Date().valueOf()
     if (isInteractive) {
-      // clearConsole()
+      clearConsole()
     }
     console.log('Compiling...')
   })
@@ -78,7 +78,7 @@ function setupCompiler(host, port, protocol) {
   compiler.plugin('done', (stats) => {
     const endTime = new Date().valueOf()
     if (isInteractive) {
-      // clearConsole()
+      clearConsole()
     }
 
     // We have switched off the default Webpack output in WebpackDevServer
@@ -280,7 +280,7 @@ function runDevServer(host, port, protocol) {
     }
 
     if (isInteractive) {
-      // clearConsole()
+      clearConsole()
     }
     console.log(chalk.cyan('Starting the development server...'))
     console.log()
@@ -307,7 +307,7 @@ detect(DEFAULT_PORT).then(port => {
   }
 
   if (isInteractive) {
-    // clearConsole()
+    clearConsole()
     const existingProcess = getProcessForPort(DEFAULT_PORT)
     const question =
       chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.' +

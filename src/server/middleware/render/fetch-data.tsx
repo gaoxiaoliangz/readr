@@ -15,7 +15,15 @@ function fetchData(req, res, next) {
     />
   )
 
-  store.runSaga(rootSaga).done.then(next)
+  // if child components not rendered in the initial renderToString
+  // componentWillMount hook will not be triggered
+  // which may cause problems
+  // so I have to run saga twice
+  store.runSaga(rootSaga).done.then(() => {
+    store.runSaga(rootSaga).done.then(next)
+    renderToString(rootComponent)
+    store.close()
+  })
 
   renderToString(rootComponent)
   store.close()

@@ -6,6 +6,7 @@ import { Alerts } from '../components/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../components/Modal'
 import { ModalPlus } from '../components/Modal'
+import Loading from '../components/Loading'
 import * as selectors from '../selectors'
 
 interface Props {
@@ -47,7 +48,7 @@ class Master extends Component<Props, {}> {
   }
 
   render() {
-    const { confirmModal, closeConfirmModal, modal, closeModal } = this.props
+    const { confirmModal, closeConfirmModal, modal, closeModal, session } = this.props
 
     return (
       <div className="app-root">
@@ -57,7 +58,7 @@ class Master extends Component<Props, {}> {
           onConfirm={confirmModal.onConfirm}
           onRequestClose={closeConfirmModal}
           width={500}
-          >
+        >
           {confirmModal.content}
         </ConfirmModal>
         <ModalPlus
@@ -65,7 +66,7 @@ class Master extends Component<Props, {}> {
           width={500}
           onRequestClose={closeModal}
           title={modal.title}
-          >
+        >
           {modal.content}
         </ModalPlus>
         {
@@ -78,10 +79,15 @@ class Master extends Component<Props, {}> {
                 visible: noti.visible,
                 id: noti.id
               }))}
-              />
+            />
           )
         }
-        { this.props.children }
+        {this.props.children}
+        {/*{
+          session.fetchStatus === 'loaded'
+            ? this.props.children
+            : <Loading />
+        }*/}
       </div>
     )
   }
