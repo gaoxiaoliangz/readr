@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Icon from '../../../components/Icon'
 import { Fade, Slide } from '../../../components/animations'
 import VPreference from './VPreference'
-import VNav from './VNav'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -36,19 +35,12 @@ const mapStateToProps = (state, ownProps) => {
 @CSSModules(styles)
 class VPanel extends Component<OwnProps & AllProps, void> {
 
-  nav: HTMLDivElement
   pref: HTMLDivElement
   panel: HTMLDivElement
 
   constructor(props) {
     super(props)
-    this.handleContentsClick = this.handleContentsClick.bind(this)
     this.handlePrefClick = this.handlePrefClick.bind(this)
-  }
-
-  handleContentsClick() {
-    this.props.viewerActions.toggleViewerNavigation()
-    this.props.viewerActions.toggleViewerPreference(false)
   }
 
   handlePrefClick() {
@@ -57,7 +49,7 @@ class VPanel extends Component<OwnProps & AllProps, void> {
   }
 
   render() {
-    const { title, className, components: { showPanel, showPreference, showNavigation } } = this.props
+    const { title, className, components: { showPanel, showPreference } } = this.props
 
     return (
       <Slide>
@@ -69,20 +61,12 @@ class VPanel extends Component<OwnProps & AllProps, void> {
               className={className || ''}
             >
               <div styleName="container">
-                <div
-                  ref={ref => { this.nav = ref }}
-                  styleName="menu"
-                  onClick={this.handleContentsClick}
-                >
-                  <Icon name="menu" size={20} />
-                  <Fade>
-                    {
-                      showNavigation && (
-                        <VNav />
-                      )
-                    }
-                  </Fade>
+                <div styleName="logo">
+                  <Logo
+                    dark
+                  />
                 </div>
+                <span styleName="sep"></span>
                 <span styleName="title">{title}</span>
                 <div
                   ref={ref => { this.pref = ref }}

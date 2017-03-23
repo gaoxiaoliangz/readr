@@ -19,7 +19,6 @@ $icons_size: 30px;
 
 .container {
   max-width: 1200px;
-  // text-align: center;
   margin: 0 auto;
   height: $height;
   position: relative;
@@ -35,13 +34,27 @@ $icons_size: 30px;
   color: $text-dark;
 }
 
-.menu {
+.logo {
   composes: panel-item;
   left: 0;
 
   :global .icon {
     position: relative;
     top: 5px;
+  }
+}
+
+.sep {
+  position: absolute;
+  left: 100px;
+  top: 20px;
+  width: 1px;
+  height: 20px;
+  background: #ddd;
+  display: none;
+
+  @include phone {
+    display: inline-block;
   }
 }
 
@@ -59,7 +72,7 @@ $icons_size: 30px;
   @include phone {
     display: inline-block;
     position: absolute;
-    left: 50px;
+    left: 120px;
     top: 0;
   }
 }
@@ -100,11 +113,3 @@ $icons_size: 30px;
 //   }
 // }
 
-// .sep {
-//   position: absolute;
-//   left: 106px;
-//   top: 20px;
-//   width: 1px;
-//   height: 20px;
-//   background: #ddd;
-// }

@@ -58,18 +58,31 @@ $size: 20px;
   position: fixed;
   bottom: 0;
   left: 0;
+  background: #fff;
 
   // blur
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  backdrop-filter: saturate(180%) blur(10px);
-  background-color: rgba(255, 255, 255, 0.8);
+  // -webkit-backdrop-filter: saturate(180%) blur(10px);
+  // backdrop-filter: saturate(180%) blur(10px);
+  // background-color: rgba(255, 255, 255, 0.8);
 
   .sep {
     margin: 0 3px;
   }
 }
 
+.container {
+  // composes: container from './VPanel.scss';
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
 .sub-info {
   font-size: 0.8rem;
   color: $text-light;
+}
+
+.menu {
+  composes: panel-item from './VPanel.scss';
+  left: 0;
 }
