@@ -2191,10 +2191,7 @@ const ServerSideAppRoot = props => {
 const env = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__getEnv__["a" /* default */])();
 function getApiRoot() {
     const { PORT } = env;
-    if (process.env.NODE_ENV === 'production') {
-        // todo: domain
-        return `/api`;
-    }
+    // todo: check if client and server env has a difference on this
     return `http://localhost:${PORT}/api`;
 }
 
@@ -3128,8 +3125,8 @@ let AppError = function (_Component) {
     _createClass(AppError, [{
         key: "render",
         value: function render() {
-            const { title, message } = this.props;
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "header" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Logo__["a" /* default */], { dark: true })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "body" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", { styleName: "title" }, title), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, message)));
+            const { title, message, stack } = this.props;
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "header" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Logo__["a" /* default */], { dark: true })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { styleName: "body" }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("h1", { styleName: "title" }, title), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, message), process.env.NODE_ENV !== 'production' && stack));
         }
     }]);
 
@@ -4330,6 +4327,10 @@ let ModalPlus = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AppDoc__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AppError__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_path__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4341,6 +4342,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
+const resolveDevAssets = assetName => {
+    const assetUrl = `http://localhost:${process.env.WEBPACK_PORT}/static/`;
+    return assetUrl + assetName;
+};
+let cssAssets;
+// let jsAssets
+if (process.env.NODE_ENV === 'production') {
+    const prefix = '/static';
+    cssAssets = [__WEBPACK_IMPORTED_MODULE_3_path___default.a.join(prefix, __WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json___default.a['base.global.css']), __WEBPACK_IMPORTED_MODULE_3_path___default.a.join(prefix, __WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json___default.a['vendor.global.css']), __WEBPACK_IMPORTED_MODULE_3_path___default.a.join(prefix, __WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json___default.a['modifiers.global.css']), __WEBPACK_IMPORTED_MODULE_3_path___default.a.join(prefix, __WEBPACK_IMPORTED_MODULE_4__build_static_assets_manifest_json___default.a['app.css'])];
+    // jsAssets = [
+    //   path.join(prefix, manifest['vendor.js']),
+    //   path.join(prefix, manifest['app.js'])
+    // ]
+} else {
+    cssAssets = [resolveDevAssets('css/base.global.css'), resolveDevAssets('css/vendor.global.css'), resolveDevAssets('css/modifiers.global.css'), resolveDevAssets('css/app.css')];
+    // jsAssets = [
+    //   resolveDevAssets('js/vendor.dll.js'),
+    //   resolveDevAssets('js/app.js')
+    // ]
+}
+// todo: print error stack in dev mode
 
 let Page500 = function (_Component) {
     _inherits(Page500, _Component);
@@ -4354,8 +4378,8 @@ let Page500 = function (_Component) {
     _createClass(Page500, [{
         key: 'render',
         value: function render() {
-            const { message } = this.props;
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__AppDoc__["b" /* default */], { title: "500 Server Error", appMarkup: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AppError__["a" /* default */], { title: "500", message: message }) });
+            const { error } = this.props;
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__AppDoc__["b" /* default */], { title: "500 Server Error", appMarkup: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AppError__["a" /* default */], { title: "500", message: error.message, stack: error.stack }), link: cssAssets });
         }
     }]);
 
@@ -7544,7 +7568,7 @@ function fetchData(req, res, next) {
 
 
 function handleError(error, req, res, next) {
-    const html = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_dom_server__["renderToStaticMarkup"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Page500__["a" /* default */], { message: error.message || 'Unknown error occurred!' }));
+    const html = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_react_dom_server__["renderToStaticMarkup"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Page500__["a" /* default */], { error: error }));
     res.send(__WEBPACK_IMPORTED_MODULE_3__components_AppDoc__["a" /* DOCTYPE */] + html);
 }
 /* harmony default export */ __webpack_exports__["a"] = handleError;

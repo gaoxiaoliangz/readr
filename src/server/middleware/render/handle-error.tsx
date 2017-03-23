@@ -6,7 +6,7 @@ import { DOCTYPE } from '../../../components/AppDoc'
 function handleError(error, req, res, next) {
   const html = renderToStaticMarkup(
     <Page500
-      message={error.message || 'Unknown error occurred!'}
+      error={error}
     />
   )
 
