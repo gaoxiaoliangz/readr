@@ -14,7 +14,7 @@ function DropdownItem(props: TProps) {
             <div className={styles['dropdown-item'] + ' text-overflow'}>{props.children}</div>
           )
           : React.cloneElement(props.children, {
-            className: styles['dropdown-item']
+            className: styles['dropdown-item'] + ' text-overflow'
           })
       }
     </li>

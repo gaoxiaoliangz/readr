@@ -12,7 +12,7 @@ $background: $dark;
 
 .dropdown {
   display: inline-block;
-  cursor: pointer;
+  // cursor: pointer;
   position: relative;
   height: inherit;
 }
@@ -35,7 +35,7 @@ $background: $dark;
   width: 150px;
   overflow: hidden;
   padding: 5px 0;
-  z-index: $z-dropdown-menu;
+  // z-index: $z-dropdown-menu;
 }
 
 .dropdown-caret {
