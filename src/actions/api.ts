@@ -120,6 +120,19 @@ export const basicAuth = ({ login, password }) => createTriggerAction(ActionType
   }
 })
 
+type UserSignupOptions = {
+  username: string
+  email: string
+  password: string
+}
+export const signup = (data: UserSignupOptions) => createTriggerAction(ActionTypes.SIGNUP, {
+  request: {
+    url: `users`,
+    method: 'POST',
+    data
+  }
+})
+
 // other untested
 export const loadAuthors = (page = 1, q?) => createTriggerAction(ActionTypes.AUTHORS, {
   request: {

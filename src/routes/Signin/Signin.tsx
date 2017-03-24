@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { sendNotification } from '../../actions'
-import { loadSession, basicAuth } from '../../actions/api'
+import { sendNotification, signin } from '../../actions'
+import { loadSession } from '../../actions/api'
 import DocContainer from '../../components/DocContainer'
 import SigninForm from './components/SigninForm'
 
 interface Props {
   sendNotification: typeof sendNotification
-  basicAuth: typeof basicAuth
+  signin: typeof signin
   loadSession: typeof loadSession
 }
 
@@ -19,7 +19,7 @@ class Signin extends Component<Props, {}> {
   }
 
   handleSubmit(data) {
-    this.props.basicAuth(data)
+    this.props.signin(data)
   }
 
   render() {
@@ -42,5 +42,5 @@ export default connect<{}, {}, {}>(
     notification: state.components.notification,
     user: state.user
   }),
-  { sendNotification, loadSession, basicAuth }
+  { sendNotification, loadSession, signin }
 )(Signin)

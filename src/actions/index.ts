@@ -3,6 +3,12 @@ import * as api from './api'
 import * as viewer from './viewer'
 import * as ActionTypes from '../constants/actionTypes'
 
+
+export const signin = (data: { login, password }) => ({
+  type: ActionTypes.SIGNIN,
+  payload: data
+})
+
 export const sendNotification = (message: string, msgType: TNotification = 'success', t: number = 2000) => {
   return (dispatch, getState) => {
     const id = Math.random().toFixed(8).substr(2)

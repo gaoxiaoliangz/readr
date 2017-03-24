@@ -5,6 +5,7 @@ import Colophon from '../components/Colophon'
 import { loadShelf } from '../actions/api'
 import _ from 'lodash'
 import * as selectors from '../selectors'
+import DocContainer from './DocContainer'
 
 interface Props {
   loadShelf: typeof loadShelf
@@ -47,7 +48,7 @@ class App extends Component<Props, {}> {
       }))
 
     return (
-      <div>
+      <DocContainer titleTemplate="%s - Readr">
         <Branding
           recentReading={bookShelfList}
           isAdmin={isAdmin}
@@ -55,7 +56,7 @@ class App extends Component<Props, {}> {
           />
         {this.props.children}
         <Colophon />
-      </div>
+      </DocContainer>
     )
   }
 }

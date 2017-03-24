@@ -48,7 +48,7 @@ class AppHome extends Component<Props, IState> {
     let { bookList, session } = this.props
 
     return (
-      <DocContainer bodyClass="home">
+      <DocContainer bodyClass="home" title="首页">
         {
           session.role === 'visitor' && session.fetchStatus === 'loaded' && (
             <div styleName="hero-image">

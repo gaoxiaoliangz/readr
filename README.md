@@ -53,7 +53,7 @@ options, data, id, response, error
 	✔ split actions @done (March 21st 2017, 10:19)
 
 ### Next
-	☐ fix login
+	✔ fix login @done (March 24th 2017, 19:56)
 	☐ fix animation
 	☐ page no style
 	☐ fix dropdown on mobile

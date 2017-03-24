@@ -9,8 +9,10 @@ interface Props {
   bodyClass?: string
 
   // shortcut for head
-  // override title in head
+  // override head props
   title?: string
+  // eg: "MySite.com - %s"
+  titleTemplate?: string
 
   // from helmet
   head?: {
@@ -35,11 +37,12 @@ class DocContainer extends Component<Props, void> {
   }
 
   render() {
-    const { bodyClass, title, head } = this.props
+    const { bodyClass, title, head, titleTemplate } = this.props
     const helmetProps = {
       ...head,
       ...{
-        title
+        title,
+        titleTemplate
       }
     }
 

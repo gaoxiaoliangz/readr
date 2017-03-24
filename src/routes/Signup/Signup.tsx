@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { sendNotification } from '../../actions'
+import { signup } from '../../actions/api'
 import DocContainer from '../../components/DocContainer'
 import SignupForm from './components/SignupForm'
-import webAPI from '../../webAPI'
-import helpers from '../../helpers'
 
 interface Props {
   sendNotification?: any
   userAuth?: any
+  signup: typeof signup
 }
 
 class Signup extends Component<Props, {}> {
@@ -19,19 +19,7 @@ class Signup extends Component<Props, {}> {
   }
 
   handleSignup(data) {
-    webAPI.userSignup(data)
-      .then(res => {
-        this.props.sendNotification('注册成功！')
-        webAPI.basicAuth({ login: data.username, password: data.password }).then(() => {
-          this.props.userAuth().then(() => {
-            setTimeout(() => {
-              helpers.redirect('/')
-            }, 600)
-          })
-        })
-      }, err => {
-        this.props.sendNotification(err.message, 'error')
-      })
+    this.props.signup(data)
   }
 
   render() {
@@ -54,5 +42,5 @@ export default connect<{}, {}, Props>(
     notification: state.components.notification,
     user: state.user
   }),
-  { sendNotification }
+  { sendNotification, signup }
 )(Signup)

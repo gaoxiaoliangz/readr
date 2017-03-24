@@ -62,7 +62,12 @@ export const AUTHORS = apiTypes('authors')
 export const COLLECTIONS = apiTypes('collections')
 export const COLLECTION = apiTypes('collection')
 export const BOOK_PROGRESS = apiTypes('book-progress')
-export const USER_LOGOUT = apiTypes('user-logout')
 export const BOOK_PROGRESS_UPDATE = apiTypes('book-progress-update')
 export const DOUBAN_BOOKS = apiTypes('douban-books')
 export const BASIC_AUTH = apiTypes('basic-auth')
+
+export const SIGNIN = triggerType('signin')
+export const USER_LOGOUT = apiTypes('user-logout')
+
+// make it trigger
+export const SIGNUP = apiTypes('signup')
