@@ -64,7 +64,7 @@ options, data, id, response, error
 	✔ better 500 page @done (March 24th 2017, 14:31)
 	☐ use blurred panel
 	☐ global popup backdrop
-	☐ simple route permission control
+	✔ simple route permission control @done (March 24th 2017, 15:28)
 	☐ try typescript basedir
 	☐ test 500 page
 
