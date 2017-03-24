@@ -6,7 +6,6 @@ import { Alerts } from '../components/Alert'
 import _ from 'lodash'
 import { ConfirmModal } from '../components/Modal'
 import { ModalPlus } from '../components/Modal'
-import Loading from '../components/Loading'
 import * as selectors from '../selectors'
 
 interface Props {
@@ -82,11 +81,7 @@ class Master extends Component<Props, {}> {
             />
           )
         }
-        {
-          session.fetchStatus === 'loaded'
-            ? this.props.children
-            : <Loading />
-        }
+        {this.props.children}
       </div>
     )
   }

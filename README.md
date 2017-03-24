@@ -51,20 +51,20 @@ options, data, id, response, error
 	✔ use a better loading style @done (March 21st 2017, 10:19)
 	✔ current page state @done (March 21st 2017, 10:19)
 	✔ split actions @done (March 21st 2017, 10:19)
-
-### Next
 	✔ fix login @done (March 24th 2017, 19:56)
-	☐ fix animation
-	☐ page no style
-	☐ fix dropdown on mobile
-	✔ fix recent reading @done (March 22nd 2017, 1:21)
-	☐ add status text
 	✔ fix shelf @done (March 22nd 2017, 1:21)
 	✔ fix book detail @done (March 22nd 2017, 1:21)
 	✔ better 500 page @done (March 24th 2017, 14:31)
-	☐ use blurred panel
-	☐ global popup backdrop
+	✔ fix recent reading @done (March 22nd 2017, 1:21)
 	✔ simple route permission control @done (March 24th 2017, 15:28)
+
+### Next
+	☐ fix animation
+	☐ page no style
+	☐ fix dropdown on mobile
+	☐ add status text
+	☐ use blurred panel with fallback
+	☐ global popup backdrop
 	☐ try typescript basedir
 	☐ test 500 page
 

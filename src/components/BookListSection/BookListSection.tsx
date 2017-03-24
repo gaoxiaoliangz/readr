@@ -26,12 +26,12 @@ class BookListSection extends Component<IProps, {}> {
           this.props.title && (
             moreLink
               ? (
-                <h2 styleName="section-title">
+                <h2 className="page-title" styleName="section-title">
                   <Link to={moreLink}>{title}<Icon name="arrowRight" size={20} /></Link>
                 </h2>
               )
               : (
-                <h2 styleName="section-title">{title}</h2>
+                <h2 className="page-title" styleName="section-title">{title}</h2>
               )
           )
         }
