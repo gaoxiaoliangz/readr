@@ -22,7 +22,7 @@ class Signup extends Component<Props, {}> {
     webAPI.userSignup(data)
       .then(res => {
         this.props.sendNotification('注册成功！')
-        webAPI.userLogin({ login: data.username, password: data.password }).then(() => {
+        webAPI.basicAuth({ login: data.username, password: data.password }).then(() => {
           this.props.userAuth().then(() => {
             setTimeout(() => {
               helpers.redirect('/')

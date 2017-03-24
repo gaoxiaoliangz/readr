@@ -109,6 +109,17 @@ export const logout = () => createTriggerAction(ActionTypes.USER_LOGOUT, {
   }
 })
 
+export const basicAuth = ({ login, password }) => createTriggerAction(ActionTypes.BASIC_AUTH, {
+  request: {
+    url: `auth`,
+    method: 'POST',
+    data: {
+      login,
+      password
+    }
+  }
+})
+
 // other untested
 export const loadAuthors = (page = 1, q?) => createTriggerAction(ActionTypes.AUTHORS, {
   request: {

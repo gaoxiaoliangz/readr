@@ -2,16 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { sendNotification } from '../../actions'
-import { loadSession } from '../../actions/api'
+import { loadSession, basicAuth } from '../../actions/api'
 import DocContainer from '../../components/DocContainer'
 import SigninForm from './components/SigninForm'
-import webAPI from '../../webAPI'
-// import helpers from '../../helpers'
 
 interface Props {
-  sendNotification?: any
-  userAuth?: any
-  loadSession?: typeof loadSession
+  sendNotification: typeof sendNotification
+  basicAuth: typeof basicAuth
+  loadSession: typeof loadSession
 }
 
 class Signin extends Component<Props, {}> {
@@ -21,18 +19,7 @@ class Signin extends Component<Props, {}> {
   }
 
   handleSubmit(data) {
-    webAPI.userLogin(data).then(res => {
-      this.props.sendNotification('登录成功！', 'success', 1500)
-      // this.props.loadSession().then(() => {
-      //   setTimeout(() => {
-      //     helpers.redirect('/')
-      //   }, 600)
-      // })
-      this.props.loadSession()
-    }).catch((err) => {
-      console.error(err)
-      this.props.sendNotification(err.message, 'error')
-    })
+    this.props.basicAuth(data)
   }
 
   render() {
@@ -50,10 +37,10 @@ class Signin extends Component<Props, {}> {
   }
 }
 
-export default connect<{}, {}, Props>(
+export default connect<{}, {}, {}>(
   state => ({
     notification: state.components.notification,
     user: state.user
   }),
-  { sendNotification, loadSession }
+  { sendNotification, loadSession, basicAuth }
 )(Signin)

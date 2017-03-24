@@ -14,11 +14,18 @@ const re = endpoint => {
   return `${API_ROOT}/${endpoint}`
 }
 
-export const auth = (cookie?) => {
-  return request(re('auth'), {
-    cookie
-  })
+export const auth = (cookie?) => request(re('auth'), {
+  cookie
+})
+
+export type UserLoginOptions = {
+  login: string
+  password: string
 }
+export const basicAuth = (data: UserLoginOptions) => request(re('auth'), {
+  method: 'POST',
+  data
+})
 
 
 // old
@@ -76,7 +83,7 @@ export interface FetchBooksOptions extends GeneralApiOptions {
   withContent?: boolean
 }
 export const fetchBooks = (options: FetchBooksOptions = {}) => {
-  const {withContent} = options
+  const { withContent } = options
   let apiOptions = !withContent
     ? {
       exclude: 'content'
@@ -102,15 +109,6 @@ export const fetchDoubanBooks = keyword => callApi(`${DOUBAN_API_ROOT}/book/sear
   useJsonp: true
 })
 
-// auth
-export type UserLoginOptions = {
-  login: string
-  password: string
-}
-export const userLogin = (data: UserLoginOptions) => callApi(`${API_ROOT}/auth`, {
-  method: 'POST',
-  data
-})
 
 export type UserSignupOptions = {
   username: string
