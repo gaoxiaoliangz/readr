@@ -47,11 +47,6 @@ function renderView(isProduction) {
   const clientEnv = _.pick(process.env, CLIENT_ENV_VARS)
 
   return (req, res) => {
-    // test 500 page
-    // if (req) {
-    //   throw new Error('Server fucked up!')
-    // }
-
     const { renderProps, statusCode } = req.locals.matchedResults
     const appRootMarkup = renderToString(<ServerSideAppRoot
       renderPageContent
@@ -80,8 +75,9 @@ function renderView(isProduction) {
         ].concat(jsAssets)}
       />
     )
-    console.info('view rendered')
-    
+    if (process.env.NODE_ENV !== 'production') {
+      console.info('render-view: view rendered')
+    }
     res.status(statusCode).send(DOCTYPE + html)
   }
 }

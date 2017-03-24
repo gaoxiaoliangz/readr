@@ -42,6 +42,7 @@ class Console extends Component<Props, {}> {
   }
 
   render() {
+    // todo: remove
     let isAdmin = this.props.session.role === 'admin'
     let username = this.props.session.username
     let pathname = this.props.routing.locationBeforeTransitions

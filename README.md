@@ -61,8 +61,12 @@ options, data, id, response, error
 	☐ add status text
 	✔ fix shelf @done (March 22nd 2017, 1:21)
 	✔ fix book detail @done (March 22nd 2017, 1:21)
-	☐ better 500 page
+	✔ better 500 page @done (March 24th 2017, 14:31)
 	☐ use blurred panel
+	☐ global popup backdrop
+	☐ simple route permission control
+	☐ try typescript basedir
+	☐ test 500 page
 
 ### Test
 	☐ pass runtime env to test suit

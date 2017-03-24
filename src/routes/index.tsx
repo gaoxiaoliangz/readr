@@ -3,37 +3,24 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router'
 import Master from '../components/Master'
 import App from '../components/App'
 import Console from '../components/Console'
-import api from '../webAPI'
-import { ROLES } from '../constants'
+import webAPI from '../webAPI'
 
 const createRoutes = (context = {}) => {
-  const { request, response } = context as any
+  // server side needs injected cookie
+  const { cookie } = context as any
 
-  const handleConsoleEnter = (nextState, replace, callback?) => {
-    // replace('/')
-    // callback(new Error('fucked'))
-    
-    if (request) {
-      // 服务端校验方式
-      const { context: { user: { role } } } = request
-      if (role !== ROLES.ADMIN) {
-        response.redirect('/')
+  const authorize = (role: Roles) => (nextState, replace, callback?) => {
+    // store may also be the option
+    // but may have security issues
+    // and will not be changed when session expires
+    // so we still need to call to check on every enter
+    webAPI.auth(cookie).then(res => {
+      if (res.json.role !== role) {
+        // todo: use 404
+        replace('/')
       }
       callback()
-    } else {
-      // 客户端校验方式
-      try {
-        api.auth().then(res => {
-          if (res.json.role !== ROLES.ADMIN) {
-            replace('/')
-          }
-          callback()
-        })
-      } catch (error) {
-        alert('服务器异常，请稍后再试！')
-        console.error(error)
-      }
-    }
+    })
   }
 
   return (
@@ -48,14 +35,14 @@ const createRoutes = (context = {}) => {
         <Route path="collections/:id" {...require('./CollectionDetail') } />
         <Route path="signin" {...require('./Signin') } />
         <Route path="signup" {...require('./Signup') } />
-        <Route path="user">
+        <Route onEnter={authorize('user')} path="user">
           <IndexRedirect to="/user/profile" />
           <Route path="shelf" {...require('./Shelf') } />
           <Route path="preference" {...require('./Preference') } />
           <Route path="profile" {...require('./Profile') } />
         </Route>
       </Route>
-      <Route onEnter={handleConsoleEnter} path="console" component={Console}>
+      <Route onEnter={authorize('admin')} path="console" component={Console}>
         <IndexRedirect to="/console/books" />
         <Route path="books" {...require('./ManageBooks') } />
         <Route path="users" {...require('./ManageUsers') } />

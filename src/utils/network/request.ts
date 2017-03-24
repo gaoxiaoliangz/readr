@@ -8,7 +8,8 @@ const createCookieString = (cookie) =>
     .keys(cookie)
     .reduce((previous, key) => `${previous}${key}=${cookie[key]}; `, '')
 
-const request = (url: string, config?: RequestConfig) => {
+// todo: remove any
+const request = (url: string, config?: RequestConfig): Promise<any> => {
   const defaultConfig: RequestConfig = {
     method: 'GET',
     cookie: true,

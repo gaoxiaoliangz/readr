@@ -6,10 +6,7 @@ function matchRoute(req, res, next) {
   match(
     {
       history: req.locals.history,
-      routes: createRoutes({
-        request: req,
-        response: res
-      }),
+      routes: createRoutes({ cookie: req.cookies }),
       location: req.url
     },
     (error, redirectLocation, renderProps) => {
@@ -24,7 +21,6 @@ function matchRoute(req, res, next) {
         req.locals.matchedResults = { renderProps, statusCode }
         next()
       } else {
-        // todo
         next(new Error('Missing 404 handle page in routes!'))
       }
     }

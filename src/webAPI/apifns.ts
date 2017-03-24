@@ -5,9 +5,23 @@ import normalizeResponse from '../utils/api/normalizeResponse'
 import schemas from '../schemas'
 import utils from '../utils'
 import { DOUBAN_API_ROOT } from '../constants'
+import request from '../utils/network/request'
 
 const API_ROOT = helpers.getApiRoot()
 
+// resolve endpoint
+const re = endpoint => {
+  return `${API_ROOT}/${endpoint}`
+}
+
+export const auth = (cookie?) => {
+  return request(re('auth'), {
+    cookie
+  })
+}
+
+
+// old
 interface GeneralApiOptions {
   q?: string
   page?: number
@@ -107,12 +121,6 @@ export const userSignup = (data: UserSignupOptions) => callApi(`${API_ROOT}/user
   method: 'POST',
   data
 })
-
-export const auth = () => {
-  return callApi(`${API_ROOT}/auth`, {
-    method: 'GET'
-  })
-}
 
 export const logout = () => {
   return callApi(`${API_ROOT}/auth/revoke`, {

@@ -38,7 +38,7 @@ class Master extends Component<Props, {}> {
     }
 
     if (routerChanged) {
-      // 返回顶部
+      // back to top when route changed
       window.document.body.scrollTop = 0
     }
   }
@@ -82,12 +82,11 @@ class Master extends Component<Props, {}> {
             />
           )
         }
-        {this.props.children}
-        {/*{
+        {
           session.fetchStatus === 'loaded'
             ? this.props.children
             : <Loading />
-        }*/}
+        }
       </div>
     )
   }
