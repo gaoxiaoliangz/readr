@@ -82,7 +82,3 @@ $size: 20px;
   color: $text-light;
 }
 
-.menu {
-  composes: panel-item from './VPanel.scss';
-  left: 0;
-}

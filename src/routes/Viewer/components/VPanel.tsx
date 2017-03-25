@@ -11,6 +11,7 @@ import * as selectors from '../../../selectors'
 import styles from './VPanel.scss'
 import schemas from '../../../schemas'
 import Logo from '../../../components/Logo'
+import VNav from './VNav'
 
 interface OwnProps {
   className?: string
@@ -41,6 +42,7 @@ class VPanel extends Component<OwnProps & AllProps, void> {
   constructor(props) {
     super(props)
     this.handlePrefClick = this.handlePrefClick.bind(this)
+    this.handleContentsClick = this.handleContentsClick.bind(this)
   }
 
   handlePrefClick() {
@@ -48,8 +50,13 @@ class VPanel extends Component<OwnProps & AllProps, void> {
     this.props.viewerActions.toggleViewerNavigation(false)
   }
 
+  handleContentsClick() {
+    this.props.viewerActions.toggleViewerNavigation()
+    this.props.viewerActions.toggleViewerPreference(false)
+  }
+
   render() {
-    const { title, className, components: { showPanel, showPreference } } = this.props
+    const { title, className, components: { showPanel, showPreference, showNavigation } } = this.props
 
     return (
       <Slide>
@@ -62,26 +69,47 @@ class VPanel extends Component<OwnProps & AllProps, void> {
               className={className || ''}
             >
               <div styleName="container">
-                <div styleName="logo">
-                  <Logo
-                    dark
-                  />
+                <div styleName="left">
+                  <div
+                    styleName="menu"
+                    onClick={this.handleContentsClick}
+                  >
+                    <Icon name="menu" size={20} />
+                    <Slide direction="right">
+                      {
+                        showNavigation && (
+                          <VNav />
+                        )
+                      }
+                    </Slide>
+                  </div>
                 </div>
-                <span styleName="sep"></span>
-                <span styleName="title">{title}</span>
-                <div
-                  ref={ref => { this.pref = ref }}
-                  styleName="preference"
-                  onClick={this.handlePrefClick}
-                >
-                  <Icon name="font" size={20} />
-                  <Fade>
-                    {
-                      showPreference && (
-                        <VPreference />
-                      )
-                    }
-                  </Fade>
+
+                <div styleName="center">
+                  <div styleName="logo">
+                    <Logo
+                      dark
+                    />
+                  </div>
+                  <span styleName="sep"></span>
+                  <span styleName="title">{title}</span>
+                </div>
+
+                <div styleName="right">
+                  <div
+                    ref={ref => { this.pref = ref }}
+                    styleName="preference"
+                    onClick={this.handlePrefClick}
+                  >
+                    <Icon name="font" size={20} />
+                    <Slide direction="down">
+                      {
+                        showPreference && (
+                          <VPreference />
+                        )
+                      }
+                    </Slide>
+                  </div>
                 </div>
               </div>
             </div>

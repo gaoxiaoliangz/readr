@@ -13,7 +13,7 @@ $icons_size: 30px;
   z-index: 990;
   background: $panel_background;
   color: $panel_text;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+  box-shadow: $shadow-x2;
   height: $height;
 }
 
@@ -26,15 +26,41 @@ $icons_size: 30px;
 
 .panel-item {
   display: inline-block;
-  position: absolute;
-  top: 0;
   cursor: pointer;
   line-height: $height;
   padding: 0 15px;
   color: $text-dark;
 }
 
-.logo {
+.left {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: right;
+}
+
+.center {
+  padding: 0;
+  width: 700px;
+  margin: 0 auto;
+  float: none;
+  display: block;
+  position: relative;
+  @include phone {
+    display: inline-block;
+    position: absolute;
+    left: 50px;
+    top: 0;
+  }
+}
+
+.menu {
   composes: panel-item;
   left: 0;
 
@@ -44,14 +70,24 @@ $icons_size: 30px;
   }
 }
 
+.logo {
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  :global .icon {
+    position: relative;
+    top: 5px;
+  }
+}
+
 .sep {
-  position: absolute;
-  left: 100px;
-  top: 20px;
+  position: relative;
+  top: 3px;
   width: 1px;
   height: 20px;
   background: #ddd;
-  display: none;
+  display: inline-block;
+  margin: 0 15px;
 
   @include phone {
     display: inline-block;
@@ -61,20 +97,7 @@ $icons_size: 30px;
 .title {
   font-size: 1.1rem;
   line-height: $height;
-  padding: 0;
-  width: 700px;
-  margin: 0 auto;
-  float: none;
-  display: block;
-  position: relative;
   color: $text-dark;
-
-  @include phone {
-    display: inline-block;
-    position: absolute;
-    left: 120px;
-    top: 0;
-  }
 }
 
 .preference {
@@ -86,30 +109,3 @@ $icons_size: 30px;
     top: 5px;
   }
 }
-
-// .back {
-//   position: absolute;
-//   left: 5px;
-//   top: 0;
-//   line-height: $height;
-
-//   a {
-//     color: $panel_text;
-//     display: inline-block;
-//     height: $height;
-//     line-height: $height;
-//     overflow: hidden;
-//     span {
-//       float: left;
-//       margin-right: 5px;
-//     }
-//   }
-
-//   span {
-//     line-height: $icons_size;
-//     display: inline-block;
-//     height: $height;
-//     line-height: $height;
-//   }
-// }
-

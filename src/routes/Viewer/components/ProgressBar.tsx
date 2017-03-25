@@ -6,8 +6,6 @@ import { Fade, Slide } from '../../../components/animations'
 import { toggleViewerNavigation, toggleViewerPreference } from '../../../actions/viewer'
 import * as selectors from '../../../selectors'
 import styles from './ProgressBar.scss'
-import Icon from '../../../components/Icon'
-import VNav from './VNav'
 
 interface Props {
 }
@@ -24,12 +22,6 @@ class ProgressBar extends Component<Props & OtherProps, {}> {
 
   constructor(props) {
     super(props)
-    this.handleContentsClick = this.handleContentsClick.bind(this)
-  }
-
-  handleContentsClick() {
-    this.props.toggleViewerNavigation()
-    this.props.toggleViewerPreference(false)
   }
 
   render() {
@@ -46,19 +38,6 @@ class ProgressBar extends Component<Props & OtherProps, {}> {
               {
                 page && pageCount && (
                   <div styleName="container">
-                    <div
-                      styleName="menu"
-                      onClick={this.handleContentsClick}
-                    >
-                      <Icon name="menu" size={20} />
-                      <Fade>
-                        {
-                          showNavigation && (
-                            <VNav />
-                          )
-                        }
-                      </Fade>
-                    </div>
                     <div>
                       <div>{page}<span styleName="sep">/</span>{pageCount}</div>
                       <div styleName="sub-info">{percentage}</div>

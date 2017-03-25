@@ -59,7 +59,7 @@ options, data, id, response, error
 	✔ simple route permission control @done (March 24th 2017, 15:28)
 
 ### Next
-	☐ fix animation
+	✔ fix animation @done (March 25th 2017, 9:55)
 	☐ page no style
 	✔ fix dropdown on mobile @done (March 24th 2017, 23:52)
 	☐ add status text
