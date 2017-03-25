@@ -69,8 +69,8 @@ options, data, id, response, error
 	☐ test 500 page
 	✔ local network access @done (March 25th 2017, 13:41)
 	✔ ios input style @done (March 25th 2017, 15:15)
-	☐ dropback click style
-	☐ signin page
+	✔ dropback click style @done (March 25th 2017, 15:18)
+	✔ signin page @done (March 25th 2017, 15:17)
 
 ### Test
 	☐ pass runtime env to test suit

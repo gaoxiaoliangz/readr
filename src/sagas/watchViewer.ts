@@ -9,6 +9,14 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../constants/viewerDefs'
 import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
 import schemas from '../schemas'
 
+async function pause(t = 1) {
+  return new Promise(resolve => {
+    setTimeout(function() {
+      resolve()
+    }, t)
+  })
+}
+
 const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   const fluid = shouldViewerBeFluid()
   const viewerWidth = utils.getScreenInfo().width
@@ -45,6 +53,11 @@ function* loadProgressAndGo(bookId) {
 function* watchInitialization() {
   while (true) {
     const { payload: bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
+    yield put(actions.viewer.setStatus({
+      statusText: '初始化'
+    }))
+    // kinda hacky, otherwise component won't render as store changes
+    yield pause()
     const config = getDefaultConfig()
     yield put(actions.viewer.configViewer(config, true))
     yield put(actions.viewer.setComponents({
@@ -55,11 +68,23 @@ function* watchInitialization() {
     const computed = yield select(selectors.viewer.computed(bookId))
 
     if (_.isEmpty(computed)) {
+      yield put(actions.viewer.setStatus({
+        statusText: '获取书籍内容'
+      }))
+      yield pause()
       yield [put(actions.api.loadBookInfo(bookId)), put(actions.api.loadBookContent(bookId))]
+      yield put(actions.viewer.setStatus({
+        statusText: '排版'
+      }))
+      yield pause()
       yield put(actions.viewer.configViewer({
         isCalcMode: true
       }, true))
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
+      yield put(actions.viewer.setStatus({
+        statusText: '即将完成'
+      }))
+      yield pause()
       yield put(actions.viewer.configViewer({
         isCalcMode: false
       }, true))
@@ -136,20 +161,23 @@ function* watchConfig() {
       if (process.env.NODE_ENV !== 'production') {
         console.info('Start rerendering')
       }
+      yield pause()
       yield put(actions.viewer.setComponents({
         showNavigation: false,
         showPanel: false,
         showPreference: false,
         hideAll: true
       }))
+      yield pause()
       yield put(actions.viewer.setStatus({
         isReady: false
       }))
+      yield pause()
       yield put(actions.viewer.configViewer({
         isCalcMode: true,
         isTouchMode: shouldViewerBeFluid()
       }))
-      yield put(actions.viewer.toggleViewerPanel(false))
+      // yield put(actions.viewer.toggleViewerPanel(false))
       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
       yield put(actions.viewer.configViewer({
         isCalcMode: false

@@ -8,19 +8,20 @@ import { resolveBookLocation } from '../utils'
 import $ from 'jquery'
 import styles from './VNav.scss'
 import schemas from '../../../schemas'
-import Icon from '../../../components/Icon'
-
-const JS_NAV_HOOK = 'a.js-book-nav'
+import Backdrop from '../../../components/Backdrop'
+import { Fade, Slide } from '../../../components/animations'
 
 interface Props { }
 
 interface AllProps {
   nav: TBookNav[]
-  viewerGoTo: typeof actions.viewer.viewerGoTo,
+  viewerGoTo: typeof actions.viewer.viewerGoTo
   sendNotification: typeof actions.sendNotification
+  toggleViewerNavigation: typeof actions.viewer.toggleViewerNavigation
   computedPages: TBookPage[]
   config: Viewer.Config
   bookInfo: SelectedEntity
+  components: Viewer.Components
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -29,8 +30,9 @@ const mapStateToProps = (state, ownProps) => {
   const nav = selectors.viewer.navData(bookId)(state)
   const computedPages = selectors.viewer.computed(bookId)(state)
   const config = selectors.viewer.config(state)
+  const components = selectors.viewer.components(state)
 
-  return { nav, computedPages, config, bookInfo }
+  return { nav, computedPages, config, bookInfo, components }
 }
 
 @CSSModules(styles)
@@ -41,6 +43,18 @@ class VNav extends Component<AllProps, void> {
   constructor(props) {
     super(props)
     this.handleNavLinkClick = this.handleNavLinkClick.bind(this)
+    this.handleDropbackClick = this.handleDropbackClick.bind(this)
+  }
+
+  componentDidMount() {
+    this.$body = $('body')
+    preventScroll.init('.js-nav-scroll')
+    this.$body.on('click', '.js-book-nav', this.handleNavLinkClick)
+  }
+
+  componentWillUnmount() {
+    preventScroll.destroy('.js-nav-scroll')
+    this.$body.off('click', '.js-book-nav', this.handleNavLinkClick)
   }
 
   handleNavLinkClick(e) {
@@ -58,15 +72,8 @@ class VNav extends Component<AllProps, void> {
     }
   }
 
-  componentDidMount() {
-    this.$body = $('body')
-    preventScroll.init('.js-nav-scroll')
-    this.$body.on('click', JS_NAV_HOOK, this.handleNavLinkClick)
-  }
-
-  componentWillUnmount() {
-    preventScroll.destroy('.js-nav-scroll')
-    this.$body.off('click', JS_NAV_HOOK, this.handleNavLinkClick)
+  handleDropbackClick() {
+    this.props.toggleViewerNavigation(false)
   }
 
   renderLink(ref, hash, label) {
@@ -102,24 +109,39 @@ class VNav extends Component<AllProps, void> {
   }
 
   render() {
-    const { nav, config: { fluid, width }, bookInfo } = this.props
-    const _width = fluid ? (width - 50) : 300
+    const { nav, config: { fluid, width }, components: { showNavigation } } = this.props
+    // const _width = fluid ? (width - 50) : 300
     const navStyle = {
-      // width: _width,
-      // left: fluid ? -55 : -20
+      zIndex: 1200
     }
 
     return (
-      <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
-        {/*<div styleName="title">
-          <span>书架</span>
-          <Icon name="book" size={30} />
-        </div>*/}
-        <div styleName="wrap">
-          <div styleName="title">目录</div>
-          {this.renderNav(nav)}
-        </div>
-      </div>
+      <Slide direction="right">
+        {
+          showNavigation && (
+            <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
+              <div styleName="wrap">
+                <div styleName="title">目录</div>
+                {this.renderNav(nav)}
+              </div>
+            </div>
+          )
+        }
+        <Fade>
+          {
+            showNavigation && (
+              <Backdrop
+                style={{
+                  background: 'rgba(0,0,0,0.4)'
+                }}
+                show={true}
+                zIndex={1100}
+                onClick={this.handleDropbackClick}
+              />
+            )
+          }
+        </Fade>
+      </Slide>
     )
   }
 }
@@ -128,6 +150,7 @@ export default connect<{}, {}, {}>(
   mapStateToProps,
   {
     viewerGoTo: actions.viewer.viewerGoTo,
-    sendNotification: actions.sendNotification
+    sendNotification: actions.sendNotification,
+    toggleViewerNavigation: actions.viewer.toggleViewerNavigation
   }
 )(VNav)

@@ -7,10 +7,9 @@ import BookContainer from './BookContainer'
 import VPanel from './VPanel'
 import _ from 'lodash'
 import utils from '../../../utils'
-// import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
 import ProgressBar from './ProgressBar'
 import shouldViewerBeFluid from '../../../helpers/shouldViewerBeFluid'
-import isDescendant from '../../../utils/dom/isDescendant'
+import VNav from './VNav'
 
 interface Props { }
 
@@ -56,12 +55,11 @@ class VContainer extends Component<Props & OtherProps, void> {
       maxWait: 1000
     })
     this.handleFastScroll = this.handleFastScroll.bind(this)
-    this.handleGlobalClick = this.handleGlobalClick.bind(this)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
+  // }
 
   componentDidMount() {
     this.addEventListeners()
@@ -91,7 +89,7 @@ class VContainer extends Component<Props & OtherProps, void> {
   }
 
   handleFastScroll() {
-    const { components: { showNavigation, showPanel, showPreference, showProgress } } = this.props
+    const { components: { showNavigation, showPanel, showPreference, showProgress, hideAll } } = this.props
     const scrollTop = document.body.scrollTop
     this.scrollTop.push(scrollTop)
     const scrollCount = this.scrollTop.length
@@ -113,7 +111,7 @@ class VContainer extends Component<Props & OtherProps, void> {
       } else {
         // up
         const needToOpen = showPanel !== true || showProgress !== true
-        if (needToOpen) {
+        if (needToOpen && !hideAll) {
           this.props.actions.viewer.toggleViewerPanel(true)
           this.props.actions.viewer.toggleViewerProgressInfo(true)
         }
@@ -136,15 +134,7 @@ class VContainer extends Component<Props & OtherProps, void> {
     }
   }
 
-  handleGlobalClick(e) {
-    const vPanel = document.querySelector('.js-vpanel')
-    if (!isDescendant(vPanel as any, e.target)) {
-      this.props.actions.viewer.toggleViewerNavigation(false)
-    }
-  }
-
   addEventListeners() {
-    window.addEventListener('click', this.handleGlobalClick)
     window.addEventListener('scroll', this._handleScroll)
     window.addEventListener('scroll', this.handleFastScroll)
     window.addEventListener('resize', this._handleResize)
@@ -159,9 +149,8 @@ class VContainer extends Component<Props & OtherProps, void> {
   render() {
     return (
       <div className="viewer-container">
-        <VPanel
-          className="js-vpanel"
-        />
+        <VNav />
+        <VPanel />
         <BookContainer />
         <ProgressBar />
       </div>

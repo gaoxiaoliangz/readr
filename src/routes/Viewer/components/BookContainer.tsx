@@ -57,7 +57,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
   render() {
     const {
       config: { theme, isCalcMode, isScrollMode, pageHeight },
-      status: { isReady },
+      status: { isReady, statusText },
       computed,
       bookContent,
       localProgress,
@@ -86,6 +86,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
           !isReady && (
             <Loading
               center
+              text={statusText}
             />
           )
         }

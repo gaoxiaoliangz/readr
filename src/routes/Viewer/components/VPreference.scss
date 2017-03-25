@@ -3,7 +3,7 @@
 .viewer-preference {
   position: absolute;
   right: 0;
-  top: 55px;
+  top: 75px;
   width: 200px;
   background: #fff;
   box-shadow: $shadow-y2;
@@ -12,6 +12,7 @@
   -webkit-user-select: none;
   overflow: hidden;
   text-align: center;
+  z-index: $z-viewer-pref;
 }
 
 .option {
@@ -54,7 +55,7 @@
 
   .btn--disabled {
     @extend .btn;
-    color: $gray;
+    color: $gray !important;
   }
 }
 

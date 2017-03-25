@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router'
 import Icon from '../../../components/Icon'
-import { Fade, Slide } from '../../../components/animations'
+import { Slide } from '../../../components/animations'
 import VPreference from './VPreference'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
@@ -11,8 +10,6 @@ import * as selectors from '../../../selectors'
 import styles from './VPanel.scss'
 import schemas from '../../../schemas'
 import Logo from '../../../components/Logo'
-import VNav from './VNav'
-import Backdrop from '../../../components/Backdrop'
 
 interface OwnProps {
   className?: string
@@ -37,27 +34,22 @@ const mapStateToProps = (state, ownProps) => {
 @CSSModules(styles)
 class VPanel extends Component<OwnProps & AllProps, void> {
 
-  pref: HTMLDivElement
-  panel: HTMLDivElement
-
   constructor(props) {
     super(props)
     this.handlePrefClick = this.handlePrefClick.bind(this)
-    this.handleContentsClick = this.handleContentsClick.bind(this)
+    this.handleMenuClick = this.handleMenuClick.bind(this)
   }
 
   handlePrefClick() {
     this.props.viewerActions.toggleViewerPreference()
-    this.props.viewerActions.toggleViewerNavigation(false)
   }
 
-  handleContentsClick() {
+  handleMenuClick() {
     this.props.viewerActions.toggleViewerNavigation()
-    this.props.viewerActions.toggleViewerPreference(false)
   }
 
   render() {
-    const { title, className, components: { showPanel, showPreference, showNavigation } } = this.props
+    const { title, className, components: { showPanel, showPreference } } = this.props
 
     return (
       <Slide>
@@ -65,7 +57,6 @@ class VPanel extends Component<OwnProps & AllProps, void> {
           (showPanel) && (
             <div
               key="01"
-              ref={ref => { this.panel = ref }}
               styleName="viewer-panel"
               className={className || ''}
             >
@@ -73,28 +64,9 @@ class VPanel extends Component<OwnProps & AllProps, void> {
                 <div styleName="left">
                   <div
                     styleName="menu"
-                    onClick={this.handleContentsClick}
+                    onClick={this.handleMenuClick}
                   >
                     <Icon name="menu" size={20} />
-                    <Slide direction="right">
-                      {
-                        showNavigation && (
-                          <VNav />
-                        )
-                      }
-                    </Slide>
-                    <Fade>
-                      {
-                        showNavigation && (
-                          <Backdrop
-                            style={{
-                              background: 'rgba(0,0,0,0.4)'
-                            }}
-                            show={true}
-                          />
-                        )
-                      }
-                    </Fade>
                   </div>
                 </div>
 
@@ -110,19 +82,12 @@ class VPanel extends Component<OwnProps & AllProps, void> {
 
                 <div styleName="right">
                   <div
-                    ref={ref => { this.pref = ref }}
                     styleName="preference"
                     onClick={this.handlePrefClick}
                   >
                     <Icon name="font" size={20} />
-                    <Slide direction="down">
-                      {
-                        showPreference && (
-                          <VPreference />
-                        )
-                      }
-                    </Slide>
                   </div>
+                  <VPreference show={showPreference} />
                 </div>
               </div>
             </div>

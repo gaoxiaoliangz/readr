@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import Switcher from '../../../components/Switcher'
+import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -7,13 +7,20 @@ import * as actions from '../../../actions/viewer'
 import * as selectors from '../../../selectors'
 import classnames from 'classnames'
 import { THEMES as THEME_DEFS } from '../../../constants/viewerDefs'
-import _ from 'lodash'
 import styles from './VPreference.scss'
+import { Slide } from '../../../components/animations'
+import Backdrop from '../../../components/Backdrop'
+// import Switcher from '../../../components/Switcher'
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
+const SIZE_STEP = 2
 
-interface AllProps {
+interface OwnProps {
+  show: boolean
+}
+
+interface OtherProps {
   actions?: typeof actions
   fontSize?: number
   isScrollMode?: boolean
@@ -27,31 +34,21 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class VPreference extends Component<AllProps, {}> {
+class VPreference extends Component<OtherProps & OwnProps, {}> {
 
   constructor(props) {
     super(props)
+    this.handleDropbackClick = this.handleDropbackClick.bind(this)
+    this.handleChangeFontSizeClick = this.handleChangeFontSizeClick.bind(this)
   }
 
-  handleDecFontSizeClick() {
-    const { fontSize } = this.props
-    const { isDecDisabled } = this.getBtnStatus()
-
-    if (!isDecDisabled) {
-      this.props.actions.configViewer({
-        fontSize: fontSize - 1
-      })
-    }
-  }
-
-  handleIncFontSizeClick() {
-    const { fontSize } = this.props
-    const { isIncDisabled } = this.getBtnStatus()
-
-    if (!isIncDisabled) {
-      this.props.actions.configViewer({
-        fontSize: fontSize + 1
-      })
+  handleChangeFontSizeClick(newSize) {
+    return () => {
+      if (newSize >= MIN_FONT_SIZE && newSize <= MAX_FONT_SIZE) {
+        this.props.actions.configViewer({
+          fontSize: newSize
+        })
+      }
     }
   }
 
@@ -61,10 +58,14 @@ class VPreference extends Component<AllProps, {}> {
     })
   }
 
-  handleToggleScrollModeClick(val) {
-    this.props.actions.configViewer({
-      isScrollMode: val
-    })
+  // handleToggleScrollModeClick(val) {
+  //   this.props.actions.configViewer({
+  //     isScrollMode: val
+  //   })
+  // }
+
+  handleDropbackClick() {
+    this.props.actions.toggleViewerPreference(false)
   }
 
   getBtnStatus() {
@@ -77,7 +78,7 @@ class VPreference extends Component<AllProps, {}> {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
-    const { theme } = this.props
+    const { theme, show, fontSize } = this.props
 
     const btnDecClass = classnames({
       'btn': !isDecDisabled,
@@ -90,43 +91,53 @@ class VPreference extends Component<AllProps, {}> {
     })
 
     return (
-      <div styleName="viewer-preference">
-        <ul className="options">
-          <li styleName="option-font-size">
-            <span styleName={btnDecClass} onClick={this.handleDecFontSizeClick.bind(this)}>A-</span>
-            <span styleName={btnIncClass} onClick={this.handleIncFontSizeClick.bind(this)}>A+</span>
-          </li>
-          {/*<li styleName="option-scroll">
-            <span className="label">滚动模式</span>
-            <Switcher
-              value={isScrollMode}
-              onChange={this.handleToggleScrollModeClick.bind(this)}
-            />
-          </li>*/}
-          <li styleName="option-theme">
-            {
-              _.keys(THEME_DEFS).map((key, index) => {
-                const className = key.toLowerCase() + (theme === key ? '--active' : '')
+      <Slide direction="down">
+        {
+          show && (
+            <div styleName="viewer-preference">
+              <ul className="options">
+                <li styleName="option-font-size">
+                  <span styleName={btnDecClass} onClick={this.handleChangeFontSizeClick(fontSize - SIZE_STEP)}>A-</span>
+                  <span styleName={btnIncClass} onClick={this.handleChangeFontSizeClick(fontSize + SIZE_STEP)}>A+</span>
+                </li>
+                {/*<li styleName="option-scroll">
+                  <span className="label">滚动模式</span>
+                  <Switcher
+                    value={isScrollMode}
+                    onChange={this.handleToggleScrollModeClick.bind(this)}
+                  />
+                </li>*/}
+                <li styleName="option-theme">
+                  {
+                    _.keys(THEME_DEFS).map((key, index) => {
+                      const className = key.toLowerCase() + (theme === key ? '--active' : '')
 
-                return (
-                  <span
-                    key={index}
-                    className={styles[className]}
-                    onClick={this.handleChangeThemeClick.bind(this, key)}
-                  >
-                    {key}
-                  </span>
-                )
-              })
-            }
-          </li>
-        </ul>
-      </div>
+                      return (
+                        <span
+                          key={index}
+                          className={styles[className]}
+                          onClick={this.handleChangeThemeClick.bind(this, key)}
+                        >
+                          {key}
+                        </span>
+                      )
+                    })
+                  }
+                </li>
+              </ul>
+            </div>
+          )
+        }
+        <Backdrop
+          show={show}
+          onClick={this.handleDropbackClick}
+        />
+      </Slide>
     )
   }
 }
 
-export default connect<AllProps, {}, {}>(
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   dispatch => ({
     actions: bindActionCreators(actions as {}, dispatch)

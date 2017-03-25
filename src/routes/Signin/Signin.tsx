@@ -5,6 +5,7 @@ import { sendNotification, signin } from '../../actions'
 import { loadSession } from '../../actions/api'
 import DocContainer from '../../components/DocContainer'
 import SigninForm from './components/SigninForm'
+import { Container } from '../../components/layout'
 
 interface Props {
   sendNotification: typeof sendNotification
@@ -25,13 +26,13 @@ class Signin extends Component<Props, {}> {
   render() {
     return (
       <DocContainer title="登录">
-        <div className="content-container">
+        <Container>
           <h1 className="page-title">欢迎回来</h1>
           <SigninForm
             onSave={this.handleSubmit}
           />
           <p className="hint">没有账号？<Link to="/signup">注册</Link></p>
-        </div>
+        </Container>
       </DocContainer>
     )
   }

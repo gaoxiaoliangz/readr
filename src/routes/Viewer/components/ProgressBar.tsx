@@ -25,7 +25,7 @@ class ProgressBar extends Component<Props & OtherProps, {}> {
   }
 
   render() {
-    const { localProgress, components: { showProgress, showNavigation } } = this.props
+    const { localProgress, components: { showProgress, hideAll } } = this.props
     const latestLocalProgress = _.last(localProgress) || {} as Viewer.LocalProgress
     const { page, pageCount } = latestLocalProgress
     const percentage = ((page / pageCount) * 100).toFixed(2) + '%'
@@ -36,7 +36,7 @@ class ProgressBar extends Component<Props & OtherProps, {}> {
           showProgress && (
             <div styleName="loc-info" key="01">
               {
-                page && pageCount && (
+                pageCount && (
                   <div styleName="container">
                     <div>
                       <div>{page}<span styleName="sep">/</span>{pageCount}</div>
