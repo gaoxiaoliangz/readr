@@ -4,6 +4,7 @@ interface BasicProps {
   onClick?: any
   className?: string
   styleName?: string
+  style?: React.CSSProperties
 }
 
 interface Props extends BasicProps {
@@ -23,12 +24,13 @@ const dropStyle: React.CSSProperties = {
 }
 
 const Backdrop = (props: Props) => {
-  const { show, zIndex, ...rest } = props
+  const { show, zIndex, style, ...rest } = props
   const _dropStyle = {
     ...dropStyle,
     ...{
       zIndex
-    }
+    },
+    ...style
   }
 
   return show && (

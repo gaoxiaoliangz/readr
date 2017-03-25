@@ -111,15 +111,12 @@ class VNav extends Component<AllProps, void> {
 
     return (
       <div className="js-nav-scroll" styleName="viewer-nav" style={navStyle}>
-        <div styleName="title">
-          {/*<Logo
-            dark
-          />*/}
+        {/*<div styleName="title">
           <span>书架</span>
           <Icon name="book" size={30} />
-        </div>
+        </div>*/}
         <div styleName="wrap">
-          <div styleName="book-title">{bookInfo.title}</div>
+          <div styleName="title">目录</div>
           {this.renderNav(nav)}
         </div>
       </div>

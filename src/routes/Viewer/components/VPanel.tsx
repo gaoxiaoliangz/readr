@@ -12,6 +12,7 @@ import styles from './VPanel.scss'
 import schemas from '../../../schemas'
 import Logo from '../../../components/Logo'
 import VNav from './VNav'
+import Backdrop from '../../../components/Backdrop'
 
 interface OwnProps {
   className?: string
@@ -82,6 +83,18 @@ class VPanel extends Component<OwnProps & AllProps, void> {
                         )
                       }
                     </Slide>
+                    <Fade>
+                      {
+                        showNavigation && (
+                          <Backdrop
+                            style={{
+                              background: 'rgba(0,0,0,0.4)'
+                            }}
+                            show={true}
+                          />
+                        )
+                      }
+                    </Fade>
                   </div>
                 </div>
 

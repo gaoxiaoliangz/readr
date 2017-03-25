@@ -1,6 +1,5 @@
 @import "~styles/variables";
 @import "~styles/mixins/screens";
-// @import "~styles/common";
 
 $height: $branding-height;
 
@@ -14,6 +13,7 @@ $height: $branding-height;
   overflow-y: scroll;
   z-index: $z-vnav;
   box-shadow: $shadow-y2;
+  font-size: 1.2rem;
   @include phone {
     width: 70%;
   }
@@ -25,24 +25,6 @@ $height: $branding-height;
 }
 
 .title {
-  font-size: 1.2rem;
-  height: $height;
-  line-height: $height;
-  padding-left: 15px;
-  border-bottom: 1px solid $gray;
-  position: relative;
-  font-weight: bold;
-  color: $text-dark;
-
-  :global span.icon {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    color: $text-dark;
-  }
-}
-
-.book-title {
   font-size: 1rem;
   font-weight: bold;
   color: $text-dark;
