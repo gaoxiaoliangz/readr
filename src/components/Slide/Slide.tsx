@@ -1,8 +1,20 @@
 import React from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-const styles = require('./Slide.scss')
+import slideUpStyle from './SlideUp.scss'
+import slideDownStyle from './SlideDown.scss'
 
-export default props => {
+interface Props {
+  children?: any
+  direction?: 'down' | 'up'
+}
+
+const Slide = (props: Props) => {
+  const { direction } = props
+  let styles = slideDownStyle
+  if (direction === 'up') {
+    styles = slideUpStyle
+  }
+
   return (
     <ReactCSSTransitionGroup
       component="div"
@@ -14,3 +26,9 @@ export default props => {
     </ReactCSSTransitionGroup>
   )
 }
+
+Slide['defaultProps'] = {
+  direction: 'down'
+}
+
+export default Slide

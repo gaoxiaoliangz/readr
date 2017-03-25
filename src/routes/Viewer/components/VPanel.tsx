@@ -56,6 +56,7 @@ class VPanel extends Component<OwnProps & AllProps, void> {
         {
           (showPanel) && (
             <div
+              key="01"
               ref={ref => { this.panel = ref }}
               styleName="viewer-panel"
               className={className || ''}

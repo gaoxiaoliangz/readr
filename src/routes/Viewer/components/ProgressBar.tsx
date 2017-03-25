@@ -39,10 +39,10 @@ class ProgressBar extends Component<Props & OtherProps, {}> {
     const percentage = ((page / pageCount) * 100).toFixed(2) + '%'
 
     return (
-      <Slide>
+      <Slide direction="up">
         {
           showProgress && (
-            <div styleName="loc-info">
+            <div styleName="loc-info" key="01">
               {
                 page && pageCount && (
                   <div styleName="container">
