@@ -6,11 +6,13 @@ import DocContainer from '../../../components/DocContainer'
 import ServerSideAppRoot from '../../../components/ServerSideAppRoot'
 import AppDoc, { DOCTYPE } from '../../../components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
+import getIP from '../../../helpers/getIP'
 
 const CLIENT_ENV_VARS = ['PORT']
+const LOCAL_IP = getIP()
 
 const resolveDevAssets = (assetName) => {
-  const assetUrl = `http://localhost:${process.env.WEBPACK_PORT}/static/`
+  const assetUrl = `http://${LOCAL_IP}:${process.env.WEBPACK_PORT}/static/`
 
   return assetUrl + assetName
 }
@@ -44,7 +46,12 @@ function renderView(isProduction) {
     ]
   }
 
-  const clientEnv = _.pick(process.env, CLIENT_ENV_VARS)
+  const clientEnv = {
+    ..._.pick(process.env, CLIENT_ENV_VARS),
+    ...{
+      HOST: LOCAL_IP
+    }
+  }
 
   return (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults

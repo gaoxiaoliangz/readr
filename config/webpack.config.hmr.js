@@ -5,6 +5,9 @@ const rules = require('./webpack-rules')
 const paths = require('./paths')
 const vars = require('./webpack-vars')
 const dllVendorManifest = require('../build/static/dll.vendor.manifest.json')
+const getIP = require('./getIP')
+
+const HOST = getIP()
 
 const config = ({ port }) => ({
   entry: {
@@ -12,7 +15,7 @@ const config = ({ port }) => ({
       'react-hot-loader/patch',
       // activate HMR for React
 
-      `webpack-dev-server/client?http://localhost:${port}`,
+      `webpack-dev-server/client?http://${HOST}:${port}`,
       // bundle the client for webpack-dev-server
       // and connect to the provided endpoint
 
@@ -31,7 +34,7 @@ const config = ({ port }) => ({
     path: paths.appBuild,
     filename: 'js/[name].js',
     // todo: url join
-    publicPath: `http://localhost:${port}${paths.publicPath}`
+    publicPath: `http://${HOST}:${port}${paths.publicPath}`
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

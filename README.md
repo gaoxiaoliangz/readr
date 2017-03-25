@@ -67,7 +67,7 @@ options, data, id, response, error
 	✔ popup backdrop @done (March 25th 2017, 1:20)
 	☐ try typescript basedir
 	☐ test 500 page
-	☐ local network access
+	✔ local network access @done (March 25th 2017, 13:41)
 
 ### Test
 	☐ pass runtime env to test suit
