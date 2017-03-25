@@ -22,17 +22,20 @@ interface OtherProps {
     api: typeof actions.api
     viewer: typeof actions.viewer
   }
+  components: Viewer.Components
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   const bookId = selectors.viewer.id(state)
   const computed = selectors.viewer.computed(bookId)(state)
+  const components = selectors.viewer.components(state)
 
   return {
     bookId,
     computed,
     config,
+    components
   }
 }
 
@@ -88,6 +91,7 @@ class VContainer extends Component<Props & OtherProps, void> {
   }
 
   handleFastScroll() {
+    const { components: { showNavigation, showPanel, showPreference, showProgress } } = this.props
     const scrollTop = document.body.scrollTop
     this.scrollTop.push(scrollTop)
     const scrollCount = this.scrollTop.length
@@ -96,14 +100,23 @@ class VContainer extends Component<Props & OtherProps, void> {
 
       if (delta > 0) {
         // down
-        this.props.actions.viewer.toggleViewerPanel(false)
-        this.props.actions.viewer.toggleViewerProgressInfo(false)
-        this.props.actions.viewer.toggleViewerNavigation(false)
-        this.props.actions.viewer.toggleViewerPreference(false)
+        const needToClose = showNavigation !== false
+          || showPanel !== false
+          || showPreference !== false
+          || showProgress !== false
+        if (needToClose) {
+          this.props.actions.viewer.toggleViewerPanel(false)
+          this.props.actions.viewer.toggleViewerProgressInfo(false)
+          this.props.actions.viewer.toggleViewerNavigation(false)
+          this.props.actions.viewer.toggleViewerPreference(false)
+        }
       } else {
         // up
-        this.props.actions.viewer.toggleViewerPanel(true)
-        this.props.actions.viewer.toggleViewerProgressInfo(true)
+        const needToOpen = showPanel !== true || showProgress !== true
+        if (needToOpen) {
+          this.props.actions.viewer.toggleViewerPanel(true)
+          this.props.actions.viewer.toggleViewerProgressInfo(true)
+        }
       }
     }
   }

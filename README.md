@@ -61,12 +61,13 @@ options, data, id, response, error
 ### Next
 	☐ fix animation
 	☐ page no style
-	☐ fix dropdown on mobile
+	✔ fix dropdown on mobile @done (March 24th 2017, 23:52)
 	☐ add status text
 	☐ use blurred panel with fallback
-	☐ global popup backdrop
+	✔ popup backdrop @done (March 25th 2017, 1:20)
 	☐ try typescript basedir
 	☐ test 500 page
+	☐ local network access
 
 ### Test
 	☐ pass runtime env to test suit

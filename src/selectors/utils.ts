@@ -44,20 +44,12 @@ export const paginationLinks = (name, key = DEFAULT_KEY) => state => {
   return _.pick(_.get(state.pagination, `${name}.${key}`, {}), ['next', 'last'])
 }
 
-// export const entity = (name, id) => (state): SelectedEntity => {
-//   return {
-//     ..._.get(state, ['entities', name, 'entities', id], {}),
-//     ...{
-//       fetchStatus: _.get(state, ['entities', name, 'fetchStatus', id]) as any,
-//       error: _.get(state, ['entities', name, 'errors', id]) as any
-//     }
-//   }
-// }
-
-export const entity = (schema: { [key: string]: any }, id) => createSelector(
+export const entity = (schema: { [key: string]: any }, id): any => createSelector(
   collapsedEntities,
   allEntities => {
-    return _.isEmpty(allEntities)
+    const isEntityEmpty = _.isEmpty(_.get(allEntities, [schema.key]))
+
+    return _.isEmpty(allEntities) || isEntityEmpty
       ? {}
       : denormalize(id, schema, allEntities)
   }
