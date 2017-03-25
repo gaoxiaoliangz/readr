@@ -68,6 +68,9 @@ options, data, id, response, error
 	☐ try typescript basedir
 	☐ test 500 page
 	✔ local network access @done (March 25th 2017, 13:41)
+	✔ ios input style @done (March 25th 2017, 15:15)
+	☐ dropback click style
+	☐ signin page
 
 ### Test
 	☐ pass runtime env to test suit
