@@ -98,7 +98,7 @@ class VContainer extends Component<Props & OtherProps, void> {
     if (scrollCount >= 2) {
       const delta = _.last(this.scrollTop) - this.scrollTop[scrollCount - 2]
 
-      if (delta > 0) {
+      if (delta >= 0) {
         // down
         const needToClose = showNavigation !== false
           || showPanel !== false
