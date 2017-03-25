@@ -99,7 +99,7 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
           )
         }
         {
-          isReady && (
+          !_.isEmpty(computed) && (
             <BookPages
               startPageIndex={startPageIndex}
               limit={pageLimit}

@@ -1,8 +1,8 @@
 import * as ACTION_TYPES from '../constants/actionTypes'
 
 // viewer
-export const initializeViewer = (bookId: string) => ({
-  payload: bookId,
+export const initializeViewer = (bookId: string, config: Viewer.Config = {}) => ({
+  payload: { bookId, config },
   type: ACTION_TYPES.VIEWER.INITIALIZE
 })
 

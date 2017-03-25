@@ -21,16 +21,18 @@ interface OwnProps {
 }
 
 interface OtherProps {
-  actions?: typeof actions
-  fontSize?: number
-  isScrollMode?: boolean
-  theme?: string
+  actions: typeof actions
+  fontSize: number
+  isScrollMode: boolean
+  theme: string
+  bookId: string
 }
 
 const mapStateToProps = (state, ownProps) => {
   const { fontSize, isScrollMode, theme } = selectors.viewer.config(state)
+  const bookId = selectors.viewer.id(state)
 
-  return { fontSize, isScrollMode, theme }
+  return { fontSize, isScrollMode, theme, bookId }
 }
 
 @CSSModules(styles)
@@ -45,7 +47,10 @@ class VPreference extends Component<OtherProps & OwnProps, {}> {
   handleChangeFontSizeClick(newSize) {
     return () => {
       if (newSize >= MIN_FONT_SIZE && newSize <= MAX_FONT_SIZE) {
-        this.props.actions.configViewer({
+        // this.props.actions.configViewer({
+        //   fontSize: newSize
+        // })
+        this.props.actions.initializeViewer(this.props.bookId, {
           fontSize: newSize
         })
       }

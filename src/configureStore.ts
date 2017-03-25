@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers'
 import { cache, injectCookie, handleServerStore, logActionTypes } from './middleware'
@@ -39,10 +39,13 @@ export default function configureStore(cookies?) {
     }
   }
 
+  const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose
   const store = createStore(
     rootReducer,
     handleInitialState(),
-    applyMiddleware(...baseMiddlewares)
+    composeEnhancers(
+      applyMiddleware(...baseMiddlewares)
+    )
   )
 
   if (module.hot) {

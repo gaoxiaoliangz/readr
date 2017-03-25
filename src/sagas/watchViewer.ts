@@ -11,7 +11,7 @@ import schemas from '../schemas'
 
 async function pause(t = 1) {
   return new Promise(resolve => {
-    setTimeout(function() {
+    setTimeout(function () {
       resolve()
     }, t)
   })
@@ -45,6 +45,7 @@ function* loadProgressAndGo(bookId) {
     yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
     const { percentage } = yield select(selectors.entity(schemas.BOOK_PROGRESS, bookId))
     yield put(actions.viewer.viewerGoTo(percentage))
+    yield pause(10000)
   } else {
     yield put(actions.viewer.viewerGoTo(0))
   }
@@ -52,22 +53,24 @@ function* loadProgressAndGo(bookId) {
 
 function* watchInitialization() {
   while (true) {
-    const { payload: bookId } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
+    const { payload: { bookId, config: _config } } = yield take(ACTION_TYPES.VIEWER.INITIALIZE)
     yield put(actions.viewer.setStatus({
-      statusText: '初始化'
+      statusText: '初始化',
+      isReady: false
     }))
     // kinda hacky, otherwise component won't render as store changes
     yield pause()
-    const config = getDefaultConfig()
+    const config = getDefaultConfig(_config)
     yield put(actions.viewer.configViewer(config, true))
     yield put(actions.viewer.setComponents({
-      hideAll: true
+      showNavigation: false,
+      showPanel: false,
+      showPreference: false,
+      showProgress: false
     }))
-    yield put(actions.viewer.toggleViewerPreference(false))
-    yield put(actions.viewer.toggleViewerPanel(false))
     const computed = yield select(selectors.viewer.computed(bookId))
 
-    if (_.isEmpty(computed)) {
+    if (_.isEmpty(computed) || _config) {
       yield put(actions.viewer.setStatus({
         statusText: '获取书籍内容'
       }))
@@ -89,14 +92,17 @@ function* watchInitialization() {
         isCalcMode: false
       }, true))
     }
-
+    yield loadProgressAndGo(bookId)
+    // yield put(actions.viewer.setComponents({
+    //   hideAll: false
+    // }))
+    // console.log('before pause')
+    // console.log('after pause')
+    yield pause()
     yield put(actions.viewer.setStatus({
       isReady: true
     }))
-    yield loadProgressAndGo(bookId)
-    yield put(actions.viewer.setComponents({
-      hideAll: false
-    }))
+    yield pause()
   }
 }
 
@@ -131,73 +137,79 @@ function* watchGoTo() {
     }
 
     if (isScrollMode) {
-      document.body.scrollTop = totalHeight * percentage
+      const scrollTop = totalHeight * percentage
+      console.log(`go to ${scrollTop}`)
+      
+      document.body.scrollTop = scrollTop
     } else {
       // todo: page flip mode
     }
   }
 }
 
-function* watchConfig() {
-  while (true) {
-    const oldConfig: Viewer.Config = yield select(selectors.viewer.config)
-    const action = yield take(ACTION_TYPES.VIEWER.CONFIG)
-    const bookId = yield select(selectors.viewer.id)
-    const newConfig: Viewer.Config = yield select(selectors.viewer.config)
-    const isInit = _.get(action, 'meta.isInit')
-    const fluidChanged = oldConfig.fluid !== newConfig.fluid
-    let widthChangedInFluid = false
+// function* watchConfig() {
+//   while (true) {
+//     const oldConfig: Viewer.Config = yield select(selectors.viewer.config)
+//     const action = yield take(ACTION_TYPES.VIEWER.CONFIG)
+//     const bookId = yield select(selectors.viewer.id)
+//     const newConfig: Viewer.Config = yield select(selectors.viewer.config)
+//     const isInit = _.get(action, 'meta.isInit')
+//     const fluidChanged = oldConfig.fluid !== newConfig.fluid
+//     let widthChangedInFluid = false
 
-    if (!fluidChanged && oldConfig.fluid) {
-      widthChangedInFluid = oldConfig.width !== newConfig.width
-    }
+//     if (!fluidChanged && oldConfig.fluid) {
+//       widthChangedInFluid = oldConfig.width !== newConfig.width
+//     }
 
-    const needRerender = (oldConfig.fontSize !== newConfig.fontSize)
-      || (oldConfig.fluid !== newConfig.fluid)
-      || fluidChanged
-      || widthChangedInFluid
+//     const needRerender = (oldConfig.fontSize !== newConfig.fontSize)
+//       || (oldConfig.fluid !== newConfig.fluid)
+//       || fluidChanged
+//       || widthChangedInFluid
 
-    if (needRerender && !isInit) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.info('Start rerendering')
-      }
-      yield pause()
-      yield put(actions.viewer.setComponents({
-        showNavigation: false,
-        showPanel: false,
-        showPreference: false,
-        hideAll: true
-      }))
-      yield pause()
-      yield put(actions.viewer.setStatus({
-        isReady: false
-      }))
-      yield pause()
-      yield put(actions.viewer.configViewer({
-        isCalcMode: true,
-        isTouchMode: shouldViewerBeFluid()
-      }))
-      // yield put(actions.viewer.toggleViewerPanel(false))
-      yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
-      yield put(actions.viewer.configViewer({
-        isCalcMode: false
-      }))
-      yield put(actions.viewer.setStatus({
-        isReady: true
-      }))
-      yield loadProgressAndGo(bookId)
-      yield put(actions.viewer.setComponents({
-        hideAll: false
-      }))
-    }
-  }
-}
+//     if (needRerender && !isInit) {
+//       if (process.env.NODE_ENV !== 'production') {
+//         console.info('Start rerendering')
+//       }
+//       yield pause()
+//       yield put(actions.viewer.setComponents({
+//         showNavigation: false,
+//         showPanel: false,
+//         showPreference: false,
+//         showProgress: false,
+//         // todo: remove hideall
+//         // hideAll: true
+//       }))
+//       yield pause()
+//       yield put(actions.viewer.setStatus({
+//         isReady: false
+//       }))
+//       yield pause()
+//       yield put(actions.viewer.configViewer({
+//         isCalcMode: true,
+//         isTouchMode: shouldViewerBeFluid()
+//       }))
+//       // yield put(actions.viewer.toggleViewerPanel(false))
+//       yield take(ACTION_TYPES.VIEWER.CALC_SUCCESS)
+//       yield put(actions.viewer.configViewer({
+//         isCalcMode: false
+//       }))
+//       yield loadProgressAndGo(bookId)
+//       yield put(actions.viewer.setComponents({
+//         hideAll: false
+//       }))
+//       yield pause()
+//       put(actions.viewer.setStatus({
+//         isReady: true
+//       }))
+//     }
+//   }
+// }
 
 export default function* watchViewer() {
   yield [
     fork(watchInitialization),
     fork(watchCalcBook),
     fork(watchGoTo),
-    fork(watchConfig)
+    // fork(watchConfig)
   ]
 }

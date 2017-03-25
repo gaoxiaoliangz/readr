@@ -73,7 +73,7 @@ const data = (state = {}, action) => {
 
 const id = (state = '', action) => {
   if (action.type === ACTION_TYPES.VIEWER.INITIALIZE) {
-    return action.payload
+    return action.payload.bookId
   }
   return state
 }

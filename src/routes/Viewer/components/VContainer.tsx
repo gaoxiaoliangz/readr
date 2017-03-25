@@ -22,6 +22,7 @@ interface OtherProps {
     viewer: typeof actions.viewer
   }
   components: Viewer.Components
+  status: Viewer.Status
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -29,12 +30,14 @@ const mapStateToProps = (state, ownProps) => {
   const bookId = selectors.viewer.id(state)
   const computed = selectors.viewer.computed(bookId)(state)
   const components = selectors.viewer.components(state)
+  const status = selectors.viewer.status(state)
 
   return {
     bookId,
     computed,
     config,
-    components
+    components,
+    status
   }
 }
 
@@ -89,7 +92,9 @@ class VContainer extends Component<Props & OtherProps, void> {
   }
 
   handleFastScroll() {
-    const { components: { showNavigation, showPanel, showPreference, showProgress, hideAll } } = this.props
+    console.log('scrolled')
+    
+    const { components: { showNavigation, showPanel, showPreference, showProgress, hideAll }, status: { isReady } } = this.props
     const scrollTop = document.body.scrollTop
     this.scrollTop.push(scrollTop)
     const scrollCount = this.scrollTop.length
@@ -111,7 +116,8 @@ class VContainer extends Component<Props & OtherProps, void> {
       } else {
         // up
         const needToOpen = showPanel !== true || showProgress !== true
-        if (needToOpen && !hideAll) {
+        if (needToOpen && isReady) {
+          console.log('open panel')
           this.props.actions.viewer.toggleViewerPanel(true)
           this.props.actions.viewer.toggleViewerProgressInfo(true)
         }
