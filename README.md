@@ -61,6 +61,9 @@ options, data, id, response, error
 ### Next!
 	✔ remove old files @done (March 26th 2017, 21:58)
 	☐ config to disable server routing
+	☐ app source structure
+	☐ add get book page api
+	☐ add new book page component
 
 ### Next
 	✔ fix animation @done (March 25th 2017, 9:55)
@@ -83,6 +86,7 @@ options, data, id, response, error
 	☐ in-book navigation
 	☐ dropdown on mobile won't hide
 	☐ in-book links contain child element
+	☐ vpanel shows unexpectedly after go to location
 
 ### Feature
 	☐ remove reading history
