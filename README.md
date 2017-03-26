@@ -58,6 +58,10 @@ options, data, id, response, error
 	✔ fix recent reading @done (March 22nd 2017, 1:21)
 	✔ simple route permission control @done (March 24th 2017, 15:28)
 
+### Next!
+	✔ remove old files @done (March 26th 2017, 21:58)
+	☐ config to disable server routing
+
 ### Next
 	✔ fix animation @done (March 25th 2017, 9:55)
 	☐ page no style
