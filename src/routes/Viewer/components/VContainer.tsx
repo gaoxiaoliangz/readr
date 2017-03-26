@@ -92,9 +92,7 @@ class VContainer extends Component<Props & OtherProps, void> {
   }
 
   handleFastScroll() {
-    console.log('scrolled')
-    
-    const { components: { showNavigation, showPanel, showPreference, showProgress, hideAll }, status: { isReady } } = this.props
+    const { components: { showNavigation, showPanel, showPreference, showProgress }, status: { isReady } } = this.props
     const scrollTop = document.body.scrollTop
     this.scrollTop.push(scrollTop)
     const scrollCount = this.scrollTop.length
@@ -117,7 +115,6 @@ class VContainer extends Component<Props & OtherProps, void> {
         // up
         const needToOpen = showPanel !== true || showProgress !== true
         if (needToOpen && isReady) {
-          console.log('open panel')
           this.props.actions.viewer.toggleViewerPanel(true)
           this.props.actions.viewer.toggleViewerProgressInfo(true)
         }

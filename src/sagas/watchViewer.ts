@@ -45,7 +45,6 @@ function* loadProgressAndGo(bookId) {
     yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)
     const { percentage } = yield select(selectors.entity(schemas.BOOK_PROGRESS, bookId))
     yield put(actions.viewer.viewerGoTo(percentage))
-    yield pause(10000)
   } else {
     yield put(actions.viewer.viewerGoTo(0))
   }
@@ -93,16 +92,10 @@ function* watchInitialization() {
       }, true))
     }
     yield loadProgressAndGo(bookId)
-    // yield put(actions.viewer.setComponents({
-    //   hideAll: false
-    // }))
-    // console.log('before pause')
-    // console.log('after pause')
     yield pause()
     yield put(actions.viewer.setStatus({
       isReady: true
     }))
-    yield pause()
   }
 }
 
@@ -138,8 +131,6 @@ function* watchGoTo() {
 
     if (isScrollMode) {
       const scrollTop = totalHeight * percentage
-      console.log(`go to ${scrollTop}`)
-      
       document.body.scrollTop = scrollTop
     } else {
       // todo: page flip mode
