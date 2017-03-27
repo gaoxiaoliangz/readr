@@ -7,7 +7,6 @@ import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../selectors'
 import DocContainer from '../../components/DocContainer'
 import ContentPage from '../../components/ContentPage'
-import helpers from '../../helpers'
 
 interface Props {
   loadUsers: typeof loadUsers
@@ -26,10 +25,10 @@ class ManageUsers extends Component<Props, {}> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    helpers.onRoutingChange(routing => {
+    if (!_.isEqual(nextProps.routing, this.props.routing)) {
       document.body.scrollTop = 0
       this.loadUsers(nextProps)
-    })(nextProps, this.props)
+    }
   }
 
   componentWillMount() {

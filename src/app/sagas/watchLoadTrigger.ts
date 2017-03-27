@@ -3,7 +3,7 @@ import urlJoin from 'url-join'
 import _ from 'lodash'
 import getApiRoot from '../helpers/getApiRoot'
 import { createActionEntity } from '../actions/utils'
-import $request from '../utils/network/request'
+import $request from '../../utils/network/request'
 import { FETCH_STATUS } from '../../constants'
 import { expandEntities, normalizeJSON } from '../utils/entity'
 

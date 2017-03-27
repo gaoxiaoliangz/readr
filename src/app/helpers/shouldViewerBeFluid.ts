@@ -1,8 +1,8 @@
 import { MOBILE_BREAK_POINT } from '../../constants/viewerDefs'
-import utils from '../utils'
+import getScreenInfo from '../utils/browser/getScreenInfo'
 
 const shouldViewerBeFluid = () => {
-  const viewerWidth = utils.getScreenInfo().width
+  const viewerWidth = getScreenInfo().width
   return viewerWidth < MOBILE_BREAK_POINT
 }
 

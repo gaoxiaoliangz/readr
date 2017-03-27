@@ -3,11 +3,11 @@ import * as actions from '../actions'
 import * as ACTION_TYPES from '../actions/actionTypes'
 import _ from 'lodash'
 import * as selectors from '../selectors'
-import utils from '../utils'
 import calcBook from './effects/calcBook'
 import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../../constants/viewerDefs'
 import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
 import schemas from '../schemas'
+import getScreenInfo from '../utils/browser/getScreenInfo'
 
 async function pause(t = 1) {
   return new Promise(resolve => {
@@ -19,7 +19,7 @@ async function pause(t = 1) {
 
 const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
   const fluid = shouldViewerBeFluid()
-  const viewerWidth = utils.getScreenInfo().width
+  const viewerWidth = getScreenInfo().width
 
   return {
     ...{

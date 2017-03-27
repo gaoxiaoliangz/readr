@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import utils from '../../utils'
 import Fade from '../Fade'
 import _ from 'lodash'
 import styles from './Modal.scss'
+import { lockScroll, unlockScroll } from '../../utils/browser/scroll'
 
 export interface Props {
   width: number
@@ -38,7 +38,7 @@ class Modal extends Component<Props, State> {
 
   hideModal() {
     this.props.onRequestClose()
-    utils.unlockScroll()
+    unlockScroll()
   }
 
   setView() {
@@ -72,14 +72,14 @@ class Modal extends Component<Props, State> {
     // modal show
     if (!prevProps.open && this.props.open === true) {
       this.setView()
-      utils.lockScroll()
+      lockScroll()
       window.addEventListener('resize', this.setView)
     }
 
     // modal hide
     if (prevProps.open === true && this.props.open === false) {
       window.removeEventListener('resize', this.setView)
-      utils.unlockScroll()
+      unlockScroll()
     }
   }
 

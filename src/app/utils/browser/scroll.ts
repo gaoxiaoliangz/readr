@@ -33,11 +33,19 @@ function scrollHandler(ev) {
   }
 }
 
-export default {
+export const preventScroll = {
   init: (selector: string) => {
     $(document).on('DOMMouseScroll mousewheel', selector, scrollHandler)
   },
   destroy: (selector: string) => {
     $(document).off('DOMMouseScroll mousewheel', selector, scrollHandler)
   }
+}
+
+export function lockScroll() {
+  document.body.style.overflow = 'hidden'
+}
+
+export function unlockScroll() {
+  document.body.style.overflow = 'visible'
 }

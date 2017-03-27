@@ -6,7 +6,7 @@ import * as selectors from '../../../selectors'
 import BookContainer from './BookContainer'
 import VPanel from './VPanel'
 import _ from 'lodash'
-import utils from '../../../utils'
+import getScreenInfo from '../../../utils/browser/getScreenInfo'
 import ProgressBar from './ProgressBar'
 import shouldViewerBeFluid from '../../../helpers/shouldViewerBeFluid'
 import VNav from './VNav'
@@ -124,11 +124,11 @@ class VContainer extends Component<Props & OtherProps, void> {
 
   handleResize() {
     const { config: { fluid, width } } = this.props
-    const viewerWidth = utils.getScreenInfo().width
+    const viewerWidth = getScreenInfo().width
     const _fluid = shouldViewerBeFluid()
 
     const shouldUpdate = (fluid !== _fluid)
-      || (fluid && (utils.getScreenInfo().width !== width))
+      || (fluid && (getScreenInfo().width !== width))
     if (shouldUpdate) {
       this.props.actions.viewer.configViewer({
         fluid: _fluid,

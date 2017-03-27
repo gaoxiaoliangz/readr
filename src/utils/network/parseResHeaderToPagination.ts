@@ -1,7 +1,5 @@
-import { normalize } from 'normalizr'
-import parseQuery from '../../utils/parseQuery'
 import _ from 'lodash'
-import humps from 'humps'
+import parseQuery from '../../utils/parseQuery'
 
 const parseHeaderPageLinkByRel = (links: string, rel: string) => {
   const link = links.split(',').find(s => s.indexOf(`rel="${rel}"`) > -1)
@@ -19,7 +17,7 @@ const parseHeaderPageLinkByRel = (links: string, rel: string) => {
   }
 }
 
-export function parseResHeaderToPagination(response) {
+export default function parseResHeaderToPagination(response) {
   if (!response) {
     return {}
   }
@@ -37,22 +35,3 @@ export function parseResHeaderToPagination(response) {
     last
   } as any
 }
-
-function handleResponse({ json, _response }, schema) {
-  const camelizedJson = humps.camelizeKeys(json)
-  const { next, last } = parseResHeaderToPagination(_response)
-
-  if (typeof schema !== 'undefined') {
-    return  _.assign({},
-      normalize(camelizedJson, schema),
-      {
-        _next: next,
-        _last: last
-      }
-    )
-  }
-
-  return camelizedJson
-}
-
-export default handleResponse

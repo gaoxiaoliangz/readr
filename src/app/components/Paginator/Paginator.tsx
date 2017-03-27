@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import _ from 'lodash'
-import utils from '../../utils'
 import CSSModules from 'react-css-modules'
-const styles = require('./Paginator.scss')
+import styles from './Paginator.scss'
+import parseUrlencoded from '../../../utils/parseUrlencoded'
 
 /* 栗子 🌰
  * range = 2
@@ -39,11 +39,11 @@ class Paginator extends Component<Props, {}> {
       : 'query'
 
     if (urlStyle === 'query') {
-      let queryPart = utils.parseUrlencoded(_.omit(query, ['page']))
+      let queryPart = parseUrlencoded(_.omit(query, ['page']))
       return `${pathname}${queryPart ? `?${queryPart}&` : '?'}page=${pageNum}`
     }
 
-    let queryPart = utils.parseUrlencoded(query)
+    let queryPart = parseUrlencoded(query)
     return `${pathname}/page/${pageNum}?${queryPart}`
   }
 
