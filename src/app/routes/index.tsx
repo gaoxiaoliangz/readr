@@ -5,6 +5,24 @@ import App from '../components/App'
 import Console from '../components/Console'
 import webAPI from '../webAPI'
 
+
+const cb = fn => component => {
+  console.log(component)
+  fn(null, component.default)
+}
+
+// const handleGetComponent = () => {
+//   return 
+// }
+
+
+const Home = (...args) => { _import('./AppHome/AppHome').then(cb(args[1])) }
+const Browse = (nextState, fn) => {
+  require.ensure([], function (require) {
+    fn(null, (require('./Browse/Browse')).default)
+  })
+}
+
 const createRoutes = (context = {}) => {
   // server side needs injected cookie
   const { cookie } = context as any
@@ -28,8 +46,8 @@ const createRoutes = (context = {}) => {
       <Route path="viewer/book/:id" {...require('./Viewer') } />
       <Route path="test" {...require('./TestPlace') } />
       <Route component={App}>
-        <IndexRoute {...require('./AppHome') } />
-        <Route path="browse" {...require('./Browse') } />
+        <IndexRoute getComponent={Home} />
+        <Route path="browse" getComponent={Browse} />
         <Route path="book/:id" {...require('./BookDetail') } />
         <Route path="collections" {...require('./Collections') } />
         <Route path="collections/:id" {...require('./CollectionDetail') } />

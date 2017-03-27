@@ -60,9 +60,9 @@ class VContainer extends Component<Props & OtherProps, void> {
     this.handleFastScroll = this.handleFastScroll.bind(this)
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
+  }
 
   componentDidMount() {
     this.addEventListeners()

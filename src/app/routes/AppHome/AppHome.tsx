@@ -10,6 +10,9 @@ import { Button } from '../../components/form'
 import { Container } from '../../components/layout'
 import styles from './AppHome.scss'
 
+console.log('home');
+
+
 interface Props {
   session: Session
   loadBooks: typeof loadBooks

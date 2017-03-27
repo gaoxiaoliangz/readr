@@ -50,6 +50,10 @@ class BookContainer extends Component<OwnProps & StateProps, {}> {
     this.handleRawMount = this.handleRawMount.bind(this)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
+  }
+
   handleRawMount(wrap) {
     this.props.viewerActions.calcBook(this.props.bookId, wrap)
   }

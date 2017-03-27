@@ -37,9 +37,9 @@ class Viewer extends Component<AllProps, void> {
     this.bookId = props.params.id
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
+  }
 
   componentDidMount() {
     this.props.initializeViewer(this.bookId)
