@@ -61,7 +61,7 @@ options, data, id, response, error
 ### Next!
 	✔ remove old files @done (March 26th 2017, 21:58)
 	☐ config to disable server routing
-	☐ app source structure
+	✔ app source structure @done (March 27th 2017, 16:36)
 	☐ add get book page api
 	☐ add new book page component
 
@@ -69,7 +69,7 @@ options, data, id, response, error
 	✔ fix animation @done (March 25th 2017, 9:55)
 	☐ page no style
 	✔ fix dropdown on mobile @done (March 24th 2017, 23:52)
-	☐ add status text
+	✔ add status text @done (March 27th 2017, 16:36)
 	☐ use blurred panel with fallback
 	✔ popup backdrop @done (March 25th 2017, 1:20)
 	☐ try typescript basedir
