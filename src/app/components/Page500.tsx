@@ -3,7 +3,7 @@ import AppDoc from './AppDoc'
 import AppError from './AppError'
 import path from 'path'
 
-import manifest from '../../build/static/assets.manifest.json'
+import manifest from '../../../build/static/assets.manifest.json'
 
 const resolveDevAssets = (assetName) => {
   const assetUrl = `http://localhost:${process.env.WEBPACK_PORT}/static/`
