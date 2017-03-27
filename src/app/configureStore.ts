@@ -1,11 +1,18 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import createSagaMiddleware, { END } from 'redux-saga'
 // import createLogger from 'redux-logger'
 import rootReducer from './reducers'
 import { cache, injectCookie, handleServerStore, logActionTypes } from './middleware'
-import handleInitialState from './handleInitialState'
-import createSagaMiddleware, { END } from 'redux-saga'
 import helpers from './helpers'
+import { INITIAL_STATE } from '../constants'
+
+function getInitialState() {
+  if (typeof window === 'undefined') {
+    return {}
+  }
+  return window[INITIAL_STATE] || {}
+}
 
 export default function configureStore(cookies?) {
   const sagaMiddleware = createSagaMiddleware()
@@ -43,7 +50,7 @@ export default function configureStore(cookies?) {
   const composeEnhancers = (!helpers.isServerEnv() && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose
   const store = createStore(
     rootReducer,
-    handleInitialState(),
+    getInitialState(),
     composeEnhancers(
       applyMiddleware(...baseMiddlewares)
     )

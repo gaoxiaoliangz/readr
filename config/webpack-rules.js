@@ -35,13 +35,14 @@ module.exports = {
     return {
       test: /\.tsx?$/,
       use: [
-        {
-          loader: 'string-replace-loader',
-          options: {
-            search: '_import(',
-            replace: 'import('
-          }
-        },
+        // have bugs, but I'll keep it here
+        // {
+        //   loader: 'string-replace-loader',
+        //   options: {
+        //     search: '_import(',
+        //     replace: 'import('
+        //   }
+        // },
         {
           loader: 'babel-loader'
         },

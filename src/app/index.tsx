@@ -1,7 +1,7 @@
 import { render } from 'react-dom'
 import React from 'react'
 import { browserHistory, hashHistory, match } from 'react-router'
-import createRoutes from './routes'
+import configRoutes from './configRoutes'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './configureStore'
 import rootSaga from './sagas'
@@ -31,12 +31,10 @@ const renderApp = routes => {
 }
 
 if (module.hot) {
-  module.hot.accept('./routes', () => {
-    console.info('hot patching')
-
-    const createRoutesNext = require('./routes').default
-    renderApp(createRoutesNext())
+  module.hot.accept('./configRoutes', () => {
+    const configRoutesNext = require('./configRoutes').default
+    renderApp(configRoutesNext())
   })
 }
 
-renderApp(createRoutes())
+renderApp(configRoutes())
