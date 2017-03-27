@@ -6,7 +6,7 @@ import utils from '../utils'
 import { notFoundError } from '../helpers'
 import { readFile, delFile } from './file'
 import parsers from '../parsers'
-import callApi from '../../utils/api/callApi'
+import request from '../../utils/network/request'
 
 const bookModel = new Model(schemas.book)
 const fileModel = new Model(schemas.file)
@@ -36,7 +36,7 @@ async function getAuthorId(authorName, description) {
 async function fetchBookByTitle(title: string) {
   const keyword = title
 
-  const { json: bookJson } = await callApi(`https://api.douban.com/v2/book/search?q=${encodeURI(keyword)}&count=1`)
+  const { json: bookJson } = await request(`https://api.douban.com/v2/book/search?q=${encodeURI(keyword)}&count=1`)
   return _.get(bookJson, ['books', 0], {})
 }
 

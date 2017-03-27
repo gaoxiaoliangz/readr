@@ -26,12 +26,12 @@ const config = ({ port }) => ({
       'babel-polyfill',
       paths.appIndex
     ],
-    'vendor.global': path.join(paths.stylesSrc, 'vendor.global.scss'),
-    'base.global': path.join(paths.stylesSrc, 'base.global.scss'),
-    'modifiers.global': path.join(paths.stylesSrc, 'modifiers.global.scss')
+    'vendor.global': path.join(paths.appStyles, 'vendor.global.scss'),
+    'base.global': path.join(paths.appStyles, 'base.global.scss'),
+    'modifiers.global': path.join(paths.appStyles, 'modifiers.global.scss')
   },
   output: {
-    path: paths.appBuild,
+    path: paths.build,
     filename: 'js/[name].js',
     // todo: url join
     publicPath: `http://${HOST}:${port}${paths.publicPath}`

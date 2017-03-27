@@ -1,21 +1,21 @@
 import _ from 'lodash'
 
-// todo
-export default function parseUrlencoded(originalObj) {
-  if (_.isEmpty(originalObj)) {
+export default function parseUrlencoded(queryObj, encodeString = true) {
+  if (!queryObj || _.isEmpty(queryObj)) {
     return ''
   }
 
-  let object = _.cloneDeep(originalObj)
-  let encodedurl = ''
+  return _
+    .map(queryObj, (value, key) => {
+      if (typeof value === 'object' && value !== null) {
+        return JSON.stringify(value)
+      }
 
-  for (let prop in object) {
-    if (typeof object[prop] === 'object' && object[prop] !== null) {
-      object[prop] = object[prop].toString()
-    }
+      if (encodeString) {
+        return `${key}=${encodeURIComponent(value as string)}`
+      }
 
-    encodedurl = `${encodedurl}${prop}=${encodeURI(object[prop])}&`
-  }
-
-  return encodedurl.substr(0, encodedurl.length - 1)
+      return `${key}=${value}`
+    })
+    .join('&')
 }

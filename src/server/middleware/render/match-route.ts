@@ -1,12 +1,12 @@
 import { match } from 'react-router'
 import _ from 'lodash'
-import createRoutes from '../../../routes'
+import configRoutes from '../../../app/configRoutes'
 
 function matchRoute(req, res, next) {
   match(
     {
       history: req.locals.history,
-      routes: createRoutes({ cookie: req.cookies }),
+      routes: configRoutes({ cookie: req.cookies }),
       location: req.url
     },
     (error, redirectLocation, renderProps) => {

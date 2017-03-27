@@ -12,9 +12,9 @@ module.exports = {
   entry: {
     app: ['babel-polyfill', paths.appIndex],
     vendor: vars.vendorLibs,
-    'vendor.global': path.join(paths.stylesSrc, 'vendor.global.scss'),
-    'base.global': path.join(paths.stylesSrc, 'base.global.scss'),
-    'modifiers.global': path.join(paths.stylesSrc, 'modifiers.global.scss')
+    'vendor.global': path.join(paths.appStyles, 'vendor.global.scss'),
+    'base.global': path.join(paths.appStyles, 'base.global.scss'),
+    'modifiers.global': path.join(paths.appStyles, 'modifiers.global.scss')
   },
   output: {
     path: paths.buildStatic,

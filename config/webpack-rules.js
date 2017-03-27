@@ -34,7 +34,22 @@ module.exports = {
 
     return {
       test: /\.tsx?$/,
-      use: ['babel-loader', tsLoader]
+      use: [
+        // have bugs, but I'll keep it here
+        // {
+        //   loader: 'string-replace-loader',
+        //   options: {
+        //     search: '_import(',
+        //     replace: 'import('
+        //   }
+        // },
+        {
+          loader: 'babel-loader'
+        },
+        {
+          loader: tsLoader
+        }
+      ]
     }
   },
 

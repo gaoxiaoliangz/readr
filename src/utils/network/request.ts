@@ -1,7 +1,7 @@
 import 'isomorphic-fetch'
 import parseUrlencoded from '../../utils/parseUrlencoded'
-import jsonp from '../../utils/api/jsonp'
-import { parseResHeaderToPagination } from '../api/handleResponse'
+import jsonp from '../../app/utils/dom/jsonp'
+import parseResHeaderToPagination from './parseResHeaderToPagination'
 
 const createCookieString = (cookie) =>
   Object
