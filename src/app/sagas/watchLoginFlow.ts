@@ -1,6 +1,6 @@
 import { take, put } from 'redux-saga/effects'
 import * as actions from '../actions'
-import * as ACTION_TYPES from '../constants/actionTypes'
+import * as ACTION_TYPES from '../actions/actionTypes'
 import helpers from '../helpers'
 
 export function* authSuccess(msg) {

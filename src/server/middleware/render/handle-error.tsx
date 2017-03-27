@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import Page500 from '../../../components/Page500'
-import { DOCTYPE } from '../../../components/AppDoc'
+import Page500 from '../../../app/components/Page500'
+import { DOCTYPE } from '../../../app/components/AppDoc'
 
 function handleError(error, req, res, next) {
   const html = renderToStaticMarkup(

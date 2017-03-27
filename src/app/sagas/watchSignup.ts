@@ -1,7 +1,7 @@
 import { take, put } from 'redux-saga/effects'
 import _ from 'lodash'
 import * as actions from '../actions'
-import * as ACTION_TYPES from '../constants/actionTypes'
+import * as ACTION_TYPES from '../actions/actionTypes'
 import { authSuccess } from './watchLoginFlow'
 
 export default function* watchSignup() {

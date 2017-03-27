@@ -1,4 +1,3 @@
-import * as ACTION_TYPES from './actionTypes'
 import * as VIEWER_DEFS from './viewerDefs'
 
 // global vars
@@ -23,4 +22,4 @@ export const FETCH_STATUS = {
 
 export const API_PREFIX = 'api'
 
-export { ACTION_TYPES, VIEWER_DEFS }
+export { VIEWER_DEFS }

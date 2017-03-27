@@ -7,7 +7,7 @@ import classnames from 'classnames'
 import * as selectors from '../../../selectors'
 import _ from 'lodash'
 import styles from './BookPages.scss'
-import { MOBILE_BREAK_POINT } from '../../../constants/viewerDefs'
+import { MOBILE_BREAK_POINT } from '../../../../constants/viewerDefs'
 
 interface OwnProps {
   startPageIndex?: number

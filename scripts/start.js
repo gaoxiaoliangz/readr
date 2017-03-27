@@ -156,7 +156,7 @@ function onProxyError(proxy) {
 function addMiddleware(devServer) {
   // `proxy` lets you to specify a fallback server during development.
   // Every unrecognized request will be forwarded to it.
-  const proxy = require(paths.appPackageJson).proxy // eslint-disable-line
+  const proxy = require(paths.packageJson).proxy // eslint-disable-line
   devServer.use(historyApiFallback({
     // Paths with dots should still use the history fallback.
     // See https://github.com/facebookincubator/create-react-app/issues/387.

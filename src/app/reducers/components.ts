@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import _ from 'lodash'
-import * as ACTION_TYPES from '../constants/actionTypes'
+import * as ACTION_TYPES from '../actions/actionTypes'
 // import viewer from './viewer'
 
 function notifications(state = [], action) {

@@ -1,11 +1,11 @@
 import { take, put, select, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
-import * as ACTION_TYPES from '../constants/actionTypes'
+import * as ACTION_TYPES from '../actions/actionTypes'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 import utils from '../utils'
 import calcBook from './effects/calcBook'
-import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../constants/viewerDefs'
+import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../../constants/viewerDefs'
 import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
 import schemas from '../schemas'
 

@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import helpers from '../../helpers'
 import styles from '../../routes/Viewer/components/BookPage.scss'
 
 // 暂不支持包含图片的计算

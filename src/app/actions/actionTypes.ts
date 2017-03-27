@@ -1,4 +1,4 @@
-import { componentType, triggerType, apiTypes } from '../actions/utils'
+import { componentType, triggerType, apiTypes } from './utils'
 
 const makeActionTypeCreator = namespace => type => [namespace, type].join('/')
 

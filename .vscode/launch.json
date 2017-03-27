@@ -31,6 +31,14 @@
     },
     {
       "type": "node",
+      "request": "launch",
+      "name": "Start webpack",
+      "program": "${workspaceRoot}/scripts/start.js",
+      "cwd": "${workspaceRoot}",
+      "sourceMaps": true
+    },
+    {
+      "type": "node",
       "request": "attach",
       "name": "Attach",
       "port": 5858

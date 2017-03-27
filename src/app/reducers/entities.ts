@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { expandEntities, mockEntity } from '../utils/entity'
-import { FETCH_STATUS, ACTION_TYPES } from '../constants'
+import { FETCH_STATUS } from '../../constants'
+// import * as ACTION_TYPES from '../actions/actionTypes'
 
 export const entities = (state = {}, action: LoaderAction) => {
   // TODO

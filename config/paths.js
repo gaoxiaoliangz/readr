@@ -62,27 +62,26 @@ function getServedPath(appPackageJson) {
 
 // config after eject: we're in ./config/
 module.exports = {
-  appBuild: resolveApp('build'),
+  root: resolveApp('./'),
+  src: resolveApp('src'),
+  serverSrc: resolveApp('src/server'),
+  config: resolveApp('config'),
+  build: resolveApp('build'),
+  appIndex: resolveApp('src/app/index.tsx'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appIndex: resolveApp('src/index.tsx'),
-  appPackageJson: resolveApp('package.json'),
+  appStyles: resolveApp('src/app/styles'),
+  packageJson: resolveApp('package.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveApp('src/setupTests.js'),
-  appNodeModules: resolveApp('node_modules'),
-  ownNodeModules: resolveApp('node_modules'),
+  nodeModules: resolveApp('node_modules'),
   nodePaths,
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
-
-  // additional
-  appRoot: resolveApp('./'),
-  config: resolveApp('config'),
-  appSrc: resolveApp('src'),
   buildStatic: resolveApp('build/static'),
   buildNode: resolveApp('build/node'),
-  stylesSrc: resolveApp('src/styles'),
-  serverSrc: resolveApp('src/server'),
-  publicPath: '/static/', // for webpack use only
-  vendorModules: resolveApp('vendor_modules')
+  vendorModules: resolveApp('vendor_modules'),
+
+  // for webpack use only
+  publicPath: '/static/',
 }

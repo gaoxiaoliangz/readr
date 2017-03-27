@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from '../constants/actionTypes'
+import * as ACTION_TYPES from './actionTypes'
 
 // viewer
 export const initializeViewer = (bookId: string, config: Viewer.Config = {}) => ({

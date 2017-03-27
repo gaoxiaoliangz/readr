@@ -4,7 +4,7 @@ import helpers from '../helpers'
 import normalizeResponse from '../utils/api/normalizeResponse'
 import schemas from '../schemas'
 import utils from '../utils'
-import { DOUBAN_API_ROOT } from '../constants'
+import { DOUBAN_API_ROOT } from '../../constants'
 import request from '../utils/network/request'
 
 const API_ROOT = helpers.getApiRoot()

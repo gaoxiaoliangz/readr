@@ -1,6 +1,6 @@
 import { syncHistoryWithStore } from 'react-router-redux'
 import { createMemoryHistory } from 'react-router'
-import configureStore from '../../../configureStore'
+import configureStore from '../../../app/configureStore'
 
 export default function init(req, res, next) {
   const memoryHistory = createMemoryHistory(req.url)

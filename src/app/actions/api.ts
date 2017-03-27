@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import schemas from '../schemas'
-import { DOUBAN_API_ROOT } from '../constants'
+import { DOUBAN_API_ROOT } from '../../constants'
 import { createTriggerAction } from './utils'
-import * as ActionTypes from '../constants/actionTypes'
+import * as ActionTypes from './actionTypes'
 import * as selectors from '../selectors'
 
 export const removeEntity = (name: string, id: string) =>

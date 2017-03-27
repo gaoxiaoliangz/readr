@@ -2,11 +2,11 @@ import React from 'react'
 import path from 'path'
 import _ from 'lodash'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
-import DocContainer from '../../../components/DocContainer'
-import ServerSideAppRoot from '../../../components/ServerSideAppRoot'
-import AppDoc, { DOCTYPE } from '../../../components/AppDoc'
+import DocContainer from '../../../app/components/DocContainer'
+import ServerSideAppRoot from '../../../app/components/ServerSideAppRoot'
+import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
-import getIP from '../../../helpers/getIP'
+import getIP from '../../../app/helpers/getIP'
 
 const CLIENT_ENV_VARS = ['PORT']
 const LOCAL_IP = getIP()
