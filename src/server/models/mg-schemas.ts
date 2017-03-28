@@ -24,6 +24,10 @@ export const userSchema = new Schema({
       validator: validator.isEmail,
       message: i18n('errors.validation.valueLimit.invalidFormat', 'email')
     }
+  },
+  role: {
+    type: String,
+    required: true
   }
 })
 

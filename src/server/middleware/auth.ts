@@ -18,19 +18,20 @@ export function basicAuth(req, res, next) {
 
   const query = { $or: [{ username: login, password }, { email: login, password }] }
 
-  dataProvider.User.findOne(query).exec(result => {
+  dataProvider.User.findOne(query).exec().then(doc => {
+    const result = doc.toObject()
+    
     if (_.isEmpty(result)) {
       next(new errors.UnauthorizedError(i18n('errors.middleware.auth.wrongCombination')))
     } else {
       req.session.user = humps.camelizeKeys(result)
-      req.apiResults = Promise.resolve({ ok: 1 })
-      next()
+      res.json(result)
     }
   })
 }
 
 export function check(req, res) {
-  res.send(humps.decamelizeKeys(req.context.user))
+  res.json(humps.decamelizeKeys(req.user))
 }
 
 export function revoke(req, res) {

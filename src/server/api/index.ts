@@ -16,9 +16,11 @@
 import authors from './authors'
 import tags from './tags'
 import collections from './collections'
+import users from './users'
 
 export default {
   authors,
   collections,
-  tags
+  tags,
+  users
 }

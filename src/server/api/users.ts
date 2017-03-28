@@ -1,18 +1,28 @@
-// import Model from '../models/model'
-// import * as schemas from '../data/schemas'
-// import _ from 'lodash'
-// import { ROLES } from '../../constants'
+import _ from 'lodash'
+import { ROLES } from '../../constants'
+import { makeBasicAPIMethods, makeResult } from './utils'
+import dataProvider from '../models/data-provider'
 
-// const userModel = new Model(schemas.user)
+const userBasicAPI = makeBasicAPIMethods(dataProvider.User)
 
-// export function findUser(id) {
-//   return userModel.findOne(id).then(entity => {
-//     return _.omit(entity, ['password'])
-//   })
-// }
+const userAPI = {
+  ...userBasicAPI,
+  ...{
+    add(object, options) {
+      return dataProvider.User.utils.save({
+        ...object,
+        ...{
+          role: ROLES.USER
+        }
+      })
+    },
+    find(options) {
+      const { id } = options
+      return dataProvider.User.findById(id).exec(res => {
+        return makeResult(_.omit(res, ['password']))
+      })
+    }
+  }
+}
 
-// export function addUser(userInfo) {
-//   return userModel.add(_.assign({}, userInfo, {
-//     role: ROLES.USER
-//   }))
-// }
+export default userAPI

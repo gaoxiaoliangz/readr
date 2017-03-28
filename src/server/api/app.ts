@@ -52,12 +52,15 @@ function apiRoutes() {
 
 
   // users
-  // router.get('/users', authenticateAdmin, endpoints.user.list) // basic
-  // router.post('/users', authenticatePublic, endpoints.addUser)
+  router.get('/users/:id', authenticateAdmin, httpDecorator(api.users.find))
+  router.post('/users', authenticatePublic, httpDecorator(api.users.add))
+  router.get('/users', authenticateAdmin, httpDecorator(api.users.list))
+  router.put('/users/:id', authenticateAdmin, httpDecorator(api.users.update))
+  router.delete('/users/:id', authenticateAdmin, httpDecorator(api.users.del))
 
   // collections
   router.get('/collections/:id', authenticatePublic, httpDecorator(api.collections.find))
-  // todo
+  // todo: pagination
   router.get('/collections', authenticatePublic, httpDecorator(api.collections.list))
   router.post('/collections', authenticatePublic, httpDecorator(api.collections.add))
   router.put('/collections/:id', authenticatePublic, httpDecorator(api.collections.update))
