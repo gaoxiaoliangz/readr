@@ -7,7 +7,7 @@ import i18n from '../utils/i18n'
  * admin | user | visitor | none
  */
 
-export default function requirePermissionsOf(userRole: string) {
+export default function requirePermissionsOf(userRole: Roles) {
   return (req, res, next) => {
     switch (userRole) {
       case ROLES.ADMIN:

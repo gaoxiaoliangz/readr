@@ -1,9 +1,6 @@
-import Model from '../models/model'
-import * as schemas from '../data/schemas'
-import _ from 'lodash'
+import { makeBasicAPIMethods } from './utils'
+import dataProvider from '../models/data-provider'
 
-const tagModel = new Model(schemas.tag)
+const basicTagAPI = makeBasicAPIMethods(dataProvider.Tag)
 
-export function listTags(object, options) {
-  return tagModel.list()
-}
+export default basicTagAPI
