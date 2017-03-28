@@ -15,8 +15,10 @@
 // export const user = new BasicApi(schemas.user)
 import authors from './authors'
 import tags from './tags'
+import collections from './collections'
 
 export default {
   authors,
+  collections,
   tags
 }

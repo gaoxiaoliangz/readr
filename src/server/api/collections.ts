@@ -15,3 +15,24 @@
 //     }
 //   })
 // }
+
+import { makeBasicAPIMethods, makeResult } from './utils'
+import dataProvider from '../models/data-provider'
+
+const basicCollectionAPI = makeBasicAPIMethods(dataProvider.Collection)
+
+const collectionAPI = {
+  ...basicCollectionAPI,
+  ...{
+    list() {
+      return dataProvider.Collection
+        .find({})
+        .populate('items creator')
+        .exec(data => {
+          return makeResult(makeResult)
+        })
+    }
+  }
+}
+
+export default collectionAPI

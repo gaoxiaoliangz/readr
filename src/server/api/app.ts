@@ -28,13 +28,6 @@ const authenticateAdmin = [
 function apiRoutes() {
   const router = express.Router()
 
-  // // collections
-  // router.get('/collections/:id', authenticatePublic, endpoints.collection.findOne) // basic
-  // router.get('/collections', authenticatePublic, endpoints.listCollections)
-  // router.post('/collections', authenticatePublic, endpoints.collection.add) // basic
-  // router.put('/collections/:id', authenticatePublic, endpoints.collection.update) // basic
-  // router.delete('/collections/:id', authenticatePublic, endpoints.collection.remove) // basic
-
   // // books
   // router.get('/books/:book', authenticatePublic, endpoints.findBook)
   // router.get('/books/:book/content', authenticatePublic, endpoints.resolveBookContent)
@@ -43,10 +36,6 @@ function apiRoutes() {
   // router.post('/books', authenticateAdmin, upload.single(FORM_DATA_FILE_KEY), middleware.logFile, endpoints.addBook) // 处理文件
   // router.put('/books/:book', authenticateAdmin, endpoints.editBookMeta)
   // router.delete('/books/:book', authenticateAdmin, endpoints.removeBook)
-
-  // // users
-  // router.get('/users', authenticateAdmin, endpoints.user.list) // basic
-  // router.post('/users', authenticatePublic, endpoints.addUser)
 
   // // user
   // router.get('/user/profile', authenticatePrivate, endpoints.findUser)
@@ -62,8 +51,17 @@ function apiRoutes() {
 
 
 
+  // users
+  // router.get('/users', authenticateAdmin, endpoints.user.list) // basic
+  // router.post('/users', authenticatePublic, endpoints.addUser)
 
-
+  // collections
+  router.get('/collections/:id', authenticatePublic, httpDecorator(api.collections.find))
+  // todo
+  router.get('/collections', authenticatePublic, httpDecorator(api.collections.list))
+  router.post('/collections', authenticatePublic, httpDecorator(api.collections.add))
+  router.put('/collections/:id', authenticatePublic, httpDecorator(api.collections.update))
+  router.delete('/collections/:id', authenticatePublic, httpDecorator(api.collections.del))
 
   // tags
   router.get('/tags/:id', authenticatePublic, httpDecorator(api.tags.find))
