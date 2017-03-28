@@ -83,7 +83,7 @@
     "simple-epub-parser": "^0.4.1",
     "to-markdown": "^3.0.3",
     "url-join": "^1.1.0",
-    "validator": "^5.4.0",
+    "validator": "^7.0.0",
     "whatwg-fetch": "^2.0.3",
     "xml2js": "^0.4.17"
   },
@@ -119,6 +119,7 @@
     "@types/redux-thunk": "^2.1.31",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
+    "@types/validator": "^6.2.0",
     "@types/webpack": "^2.0.0",
     "@types/xml2js": "0.0.28",
     "awesome-typescript-loader": "^3.0.8",

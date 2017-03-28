@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 import i18n from '../utils/i18n'
-import validator from '../utils/validator'
+import validator from 'validator'
 
 export const userSchema = new Schema({
   username: {
@@ -18,6 +18,7 @@ export const userSchema = new Schema({
   },
   email: {
     required: true,
+    type: String,
     unique: true,
     validate: {
       validator: validator.isEmail,
@@ -32,7 +33,8 @@ export const fileSchema = new Schema({
     type: String
   },
   content: {
-    required: true
+    required: true,
+    type: String,
   },
   mimetype: {
     type: String
@@ -64,10 +66,12 @@ export const progressSchema = new Schema({
 
 export const tagSchema = new Schema({
   name: {
-    required: true
+    required: true,
+    type: String,
   },
   slug: {
-    unique: true
+    unique: true,
+    type: String,
   },
   description: {
     type: String
@@ -92,7 +96,8 @@ export const authorSchema = new Schema({
 
 export const bookSchema = new Schema({
   title: {
-    required: true
+    required: true,
+    type: String,
   },
   authors: [{
     ref: 'Author',
@@ -102,21 +107,25 @@ export const bookSchema = new Schema({
   cover: String,
   file: {
     ref: 'File',
-    required: true
+    required: true,
+    type: String,
   }
 })
 
 export const collectionSchema = new Schema({
   name: {
-    required: true
+    required: true,
+    type: String,
   },
   items: [{
     required: true,
-    ref: 'Book'
+    ref: 'Book',
+    type: String,
   }],
   description: String,
   creator: {
     ref: 'User',
-    required: true
+    required: true,
+    type: String,
   }
 })

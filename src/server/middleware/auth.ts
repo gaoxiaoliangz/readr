@@ -1,13 +1,10 @@
 import _ from 'lodash'
 import errors from '../errors'
 import i18n from '../utils/i18n'
-import Model from '../models/model'
 import humps from 'humps'
-import * as schemas from '../data/schemas'
+import dataProvider from '../models/data-provider'
 
 export function basicAuth(req, res, next) {
-  const user = new Model(schemas.user)
-
   const login = req.body.login ? req.body.login.toLowerCase() : undefined
   const password = req.body.password
 
@@ -21,12 +18,14 @@ export function basicAuth(req, res, next) {
 
   const query = { $or: [{ username: login, password }, { email: login, password }] }
 
-  user.findOne(query).then(result => {
-    req.session.user = humps.camelizeKeys(result)
-    req.apiResults = Promise.resolve({ ok: 1 })
-    next()
-  }, error => {
-    next(new errors.UnauthorizedError(i18n('errors.middleware.auth.wrongCombination')))
+  dataProvider.User.findOne(query).exec(result => {
+    if (_.isEmpty(result)) {
+      next(new errors.UnauthorizedError(i18n('errors.middleware.auth.wrongCombination')))
+    } else {
+      req.session.user = humps.camelizeKeys(result)
+      req.apiResults = Promise.resolve({ ok: 1 })
+      next()
+    }
   })
 }
 
