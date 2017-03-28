@@ -41,9 +41,9 @@ function apiRoutes() {
   // router.get('/user/profile', authenticatePrivate, endpoints.findUser)
   // router.get('/user/books/shelf', authenticatePrivate, endpoints.listShelfBooks)
 
-  // // progress
-  // router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
-  // router.put('/user/books/:book/progress', authenticatePrivate, endpoints.setReadingProgress)
+  // progress
+  router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
+  router.put('/user/books/:book/progress', authenticatePrivate, endpoints.setReadingProgress)
 
   // // file
   // router.get('/files/:file', authenticateAdmin, endpoints.readFile)
@@ -93,8 +93,7 @@ export default function setupApiApp() {
 
   apiApp.use(middleware.setHeader)
   apiApp.use(apiRoutes())
-  // todo
-  // apiApp.use(middleware.handleApiNotFound)
+  apiApp.use(middleware.handleApiNotFound)
   apiApp.use(middleware.handleError)
 
   return apiApp
