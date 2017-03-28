@@ -32,6 +32,23 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Server(nodemon)",
+      "runtimeExecutable": "nodemon",
+      "runtimeArgs": [
+        "--debug=5858"
+      ],
+      "program": "${workspaceRoot}/bin/index.js",
+      "restart": true,
+      "port": 5858,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "openOnFirstSessionStart",
+      "outFiles": [
+        "${workspaceRoot}/build/node/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Start webpack",
       "program": "${workspaceRoot}/scripts/start.js",
       "cwd": "${workspaceRoot}",
