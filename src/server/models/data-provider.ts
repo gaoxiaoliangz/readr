@@ -31,7 +31,7 @@ const modifyObject = <T1, T2>(originalObj: T1, objToMerge: T2) => {
 
 const Author = mongoose.model('Author', schemas.authorSchema)
 
-const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
+export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
   return modifyObject(Model, {
     utils: {
       list: async (page = 1) => {

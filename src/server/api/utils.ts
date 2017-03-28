@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import parseUrlencoded from '../../utils/parseUrlencoded'
+import dataProvider from '../models/data-provider'
 
 export const makeResult = (errorOrData, meta?) => {
   const result: ApiResult = {
@@ -63,4 +64,33 @@ export function parseLinks(config: ParseLinksConfig) {
   }
 
   return links
+}
+
+export const makeBasicAPIMethods = (Model: typeof dataProvider.Author) => {
+  return {
+    list(options) {
+      let page = 1
+      if (options.page) {
+        page = options.page
+      }
+
+      return Model.utils.list(page)
+    },
+    add(object, options) {
+      return Model.utils.save(object)
+    },
+    del(options) {
+      const { id } = options
+      return Model.utils.removeById(id)
+    },
+    find(options) {
+      const { id } = options
+      return Model.utils.findById(id)
+    },
+    update(object, options) {
+      const { id } = options
+
+      return Model.utils.updateById(id, object)
+    }
+  }
 }

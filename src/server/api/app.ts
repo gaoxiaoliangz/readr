@@ -6,7 +6,7 @@ import { ROLES } from '../../constants'
 import middleware from '../middleware'
 import httpDecorator from './http-decorator'
 import * as tags from './tags'
-import * as authors from './authors'
+import authors from './authors'
 
 const FORM_DATA_FILE_KEY = 'file'
 const upload = multer()
@@ -30,13 +30,6 @@ const authenticateAdmin = [
 
 function apiRoutes() {
   const router = express.Router()
-
-  // authors
-  router.get('/authors/:id', authenticatePublic, endpoints.author.findOne) // basic
-  router.get('/authors', authenticatePublic, endpoints.author.list) // basic
-  router.post('/authors', authenticatePublic, endpoints.author.add) // basic
-  router.put('/authors/:id', authenticatePublic, endpoints.author.update) // basic
-  router.delete('/authors/:id', authenticatePublic, endpoints.author.remove) // basic
 
   // collections
   router.get('/collections/:id', authenticatePublic, endpoints.collection.findOne) // basic
@@ -88,11 +81,12 @@ function apiRoutes() {
   // new arch
   router.get('/tags2', httpDecorator(tags.listTags))
 
-  router.get('/authors2', authenticatePublic, httpDecorator(authors.listAuthors))
-  router.post('/authors2', authenticatePublic, httpDecorator(authors.addAuthors))
-  router.delete('/authors2/:id', authenticatePublic, httpDecorator(authors.delAuthor))
-  router.get('/authors2/:id', authenticatePublic, httpDecorator(authors.findAuthor))
-  router.put('/authors2/:id', authenticatePublic, httpDecorator(authors.updateAuthors))
+  // authors
+  router.get('/authors', authenticatePublic, httpDecorator(authors.list))
+  router.post('/authors', authenticatePublic, httpDecorator(authors.add))
+  router.delete('/authors/:id', authenticatePublic, httpDecorator(authors.del))
+  router.get('/authors/:id', authenticatePublic, httpDecorator(authors.find))
+  router.put('/authors/:id', authenticatePublic, httpDecorator(authors.update))
 
   return router
 }
