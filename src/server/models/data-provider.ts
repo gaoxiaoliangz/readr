@@ -3,7 +3,7 @@ import Debug from 'debug'
 import _ from 'lodash'
 import getMongoDBUrl from '../helpers/getMongoDBUrl'
 import { makeResult } from '../api/utils'
-import * as schemas from './mg-schema'
+import * as schemas from './mg-schemas'
 
 const LIMIT = 10
 

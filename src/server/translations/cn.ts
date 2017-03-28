@@ -22,6 +22,7 @@ export default {
   },
   errors: {
     validation: {
+      missingRequired: '缺少必填项{value}',
       valueLimit: {
         notString: '{value}不是字符串',
         stringOnly: '输入项类型只能为字符串',
@@ -48,7 +49,7 @@ export default {
       general: {
         notFound: '{value}未找到',
         notFoundIn: '在{value}中未找到',
-        exists: '{value}已存在',
+        exists: '{value}已存在'
       },
       auth: {
         needPermissionsOf: '需要 {value} 权限',

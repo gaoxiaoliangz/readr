@@ -6,11 +6,11 @@ import validator from '../utils/validator'
 export const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, 'no name, wtf??'],
+    required: [true, i18n('errors.validation.missingRequired', 'username')],
     min: [5, i18n('errors.validation.valueLimit.minLength', 'name')],
     max: [20, i18n('errors.validation.valueLimit.maxLength', 'name')]
   },
-  slug: {
+  password: {
     type: String,
     validate: {
       validator: validator.isAlphanumeric,
