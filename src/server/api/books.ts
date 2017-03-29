@@ -1,3 +1,10 @@
+import { makeBasicAPIMethods } from './utils'
+import dataProvider from '../models/data-provider'
+
+const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
+
+export default basicBookAPI
+
 // import Model from '../models/model'
 // import paginate from '../models/paginate'
 // import * as schemas from '../data/schemas'

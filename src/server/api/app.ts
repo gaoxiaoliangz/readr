@@ -41,6 +41,15 @@ function apiRoutes() {
   // router.get('/files/:file', authenticateAdmin, endpoints.readFile)
   // router.delete('/files/:file', authenticateAdmin, endpoints.delFile)
 
+
+  // books
+  router.get('/books/:id', authenticatePublic, httpDecorator(api.books.find))
+  // router.get('/books/:id/content', authenticatePublic, httpDecorator(api.books.resolveBookContent))
+  router.get('/books', authenticatePublic, httpDecorator(api.books.list))
+  // router.post('/books', authenticateAdmin, upload.single(FORM_DATA_FILE_KEY), middleware.logFile, endpoints.addBook) // 处理文件
+  router.put('/books/:id', authenticateAdmin, httpDecorator(api.books.update))
+  router.delete('/books/:id', authenticateAdmin, httpDecorator(api.books.del))
+
   // user
   router.get('/user/books/shelf', authenticatePrivate, httpDecorator(api.user.listShelfBooks))
 
