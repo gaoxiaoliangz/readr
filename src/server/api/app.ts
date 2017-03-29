@@ -42,8 +42,8 @@ function apiRoutes() {
   // router.get('/user/books/shelf', authenticatePrivate, endpoints.listShelfBooks)
 
   // progress
-  router.get('/user/books/:book/progress', authenticatePrivate, endpoints.getReadingProgress)
-  router.put('/user/books/:book/progress', authenticatePrivate, endpoints.setReadingProgress)
+  router.get('/user/books/:bookId/progress', authenticatePrivate, httpDecorator(api.user.getReadingProgress))
+  // router.put('/user/books/:bookId/progress', authenticatePrivate, endpoints.setReadingProgress)
 
   // // file
   // router.get('/files/:file', authenticateAdmin, endpoints.readFile)
