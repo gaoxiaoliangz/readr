@@ -21,7 +21,7 @@ const addHeader = (req, res, result) => {
 
 const http = (apiMethod) => (req, res, next) => {
   let object = req.body
-  let options = _.extend({}, req.file, { ip: req.ip }, req.query, req.params, {
+  let options = _.assign({}, { file: req.file }, { ip: req.ip }, req.query, req.params, {
     context: {
       user: req.user
     }

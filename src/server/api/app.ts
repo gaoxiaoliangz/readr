@@ -4,9 +4,11 @@ import multer from 'multer'
 import middleware from '../middleware'
 import httpDecorator from './http-decorator'
 import api from '../api'
+import os from 'os'
 
-const FORM_DATA_FILE_KEY = 'file'
-const upload = multer()
+const upload = multer({
+  dest: os.tmpdir()
+})
 
 const authenticatePublic = [
   middleware.prepareApi,
@@ -46,7 +48,7 @@ function apiRoutes() {
   router.get('/books/:id', authenticatePublic, httpDecorator(api.books.find))
   // router.get('/books/:id/content', authenticatePublic, httpDecorator(api.books.resolveBookContent))
   router.get('/books', authenticatePublic, httpDecorator(api.books.list))
-  // router.post('/books', authenticateAdmin, upload.single(FORM_DATA_FILE_KEY), middleware.logFile, endpoints.addBook) // 处理文件
+  router.post('/books', authenticateAdmin, upload.single('bookfile'), httpDecorator(api.books.add))
   router.put('/books/:id', authenticateAdmin, httpDecorator(api.books.update))
   router.delete('/books/:id', authenticateAdmin, httpDecorator(api.books.del))
 

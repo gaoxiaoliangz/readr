@@ -1,60 +1,59 @@
+import fs from 'fs'
 import { makeBasicAPIMethods } from './utils'
 import dataProvider from '../models/data-provider'
-
+import * as helpers from '../helpers'
 const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
-
-export default basicBookAPI
 
 // import Model from '../models/model'
 // import paginate from '../models/paginate'
 // import * as schemas from '../data/schemas'
-// import _ from 'lodash'
+import _ from 'lodash'
 // import utils from '../utils'
 // import { notFoundError } from '../helpers'
 // import { readFile, delFile } from './file'
-// import parsers from '../parsers'
-// import request from '../../utils/network/request'
+import parsers from '../parsers'
+import request from '../../utils/network/request'
 
 // const bookModel = new Model(schemas.book)
 // const fileModel = new Model(schemas.file)
 // const progressModel = new Model(schemas.progress)
 // const authorModel = new Model(schemas.author)
 
-// /**
-//  * helpers
-//  */
-// async function getAuthorId(authorName, description) {
-//   try {
-//     const authorEntity = await authorModel.findOne({ name: authorName })
-//     return authorEntity._id
-//   } catch (error) {
-//     const result = await authorModel.add({
-//       name: authorName,
-//       description
-//     })
-//     return result.ops[0]._id
-//   }
-// }
+/**
+ * helpers
+ */
+async function getAuthorId(authorName, description) {
+  return dataProvider.Author.findOne({ name: authorName }).exec().then(async doc => {
+    if (doc) {
+      return doc._id
+    } else {
+      const result = await dataProvider.Author.utils.save({
+        name: authorName,
+        description
+      })
+      return result._id
+    }
+  })
+}
 
+/**
+ * 3rd party API
+ */
+async function fetchBookByTitle(title: string) {
+  const keyword = title
 
-// /**
-//  * 3rd party
-//  */
-// async function fetchBookByTitle(title: string) {
-//   const keyword = title
+  const { json: bookJson } = await request(`https://api.douban.com/v2/book/search?q=${encodeURI(keyword)}&count=1`)
+  return _.get(bookJson, ['books', 0], {})
+}
 
-//   const { json: bookJson } = await request(`https://api.douban.com/v2/book/search?q=${encodeURI(keyword)}&count=1`)
-//   return _.get(bookJson, ['books', 0], {})
-// }
-
-// async function fetchBookMetaByTitle(title: string) {
-//   const book = await fetchBookByTitle(title)
-//   return {
-//     cover: _.get(book, ['images', 'large']),
-//     description: _.get(book, 'summary'),
-//     authorInfo: _.get(book, 'author_intro'),
-//   }
-// }
+async function fetchBookMetaByTitle(title: string) {
+  const book = await fetchBookByTitle(title)
+  return {
+    cover: _.get(book, ['images', 'large']),
+    description: _.get(book, 'summary'),
+    authorInfo: _.get(book, 'author_intro'),
+  }
+}
 
 
 // /**
@@ -77,52 +76,66 @@ export default basicBookAPI
 //   })
 // }
 
-// export async function addBook(meta, fileId) {
-//   const mergeBookMeta = (title, authorId, extMeta) => {
-//     return _.assign({}, {
-//       title,
-//       authors: [authorId],
-//       file: fileId
-//     }, meta, extMeta)
-//   }
+export async function addBook(object, options) {
 
-//   async function doSave(title, authorName) {
-//     const bookMeta = await fetchBookMetaByTitle(title)
-//     const authorId = await getAuthorId(authorName, bookMeta.authorInfo)
-//     const bookData = mergeBookMeta(title, authorId, _.omit(bookMeta, 'authorInfo'))
+  // const mergeBookMeta = (title, authorId, extMeta) => {
+  //   return _.assign({}, {
+  //     title,
+  //     authors: [authorId],
+  //     file: fileId
+  //   }, meta, extMeta)
+  // }
 
-//     return bookModel.add(bookData)
-//   }
+  // async function doSave(title, authorName) {
+  //   const bookMeta = await fetchBookMetaByTitle(title)
+  //   const authorId = await getAuthorId(authorName, bookMeta.authorInfo)
+  //   const bookData = mergeBookMeta(title, authorId, _.omit(bookMeta, 'authorInfo'))
 
-//   if (fileId) { // resolve file to get book meta
-//     const fileResult = await readFile(fileId)
+  //   return dataProvider.Book.utils.save(bookData)
+  // }
+  const { file: { path } } = options
+  // return { file }
 
-//     if (fileResult.mimetype === 'application/epub+zip') {
-//       try {
-//         const file = await readFile(fileId, parsers.epub)
-//         const parsedContent = file.content
-//         const authorName = parsedContent.meta.author
+  const buffer = fs.readFileSync(path)
 
-//         return doSave(parsedContent.meta.title, authorName)
-//       } catch (error) {
-//         await fileModel.remove(fileId)
-//         throw error
-//       }
-//     } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
-//       const file = await readFile(fileId)
-//       const fileContentArray = file.content.buffer.toString('utf-8').split('\n')
-//       const title = fileContentArray[0]
-//       const authorName = fileContentArray[1]
+  const content = parsers.epub(buffer)
 
-//       return doSave(title, authorName)
-//     } else {
-//       return Promise.reject(new Error('Unsupported file type!'))
-//     }
-//   }
+  const hash = helpers.computeHash(buffer.toString())
 
-//   // TODO: 好像不对吧
-//   return bookModel.add(meta)
-// }
+  return content.then(data => {
+    return data
+  })
+
+
+  // if (fileId) { // resolve file to get book meta
+  //   const fileResult = await readFile(fileId)
+
+  //   if (fileResult.mimetype === 'application/epub+zip') {
+  //     try {
+  //       const file = await readFile(fileId, parsers.epub)
+  //       const parsedContent = file.content
+  //       const authorName = parsedContent.meta.author
+
+  //       return doSave(parsedContent.meta.title, authorName)
+  //     } catch (error) {
+  //       await fileModel.remove(fileId)
+  //       throw error
+  //     }
+  //   } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
+  //     const file = await readFile(fileId)
+  //     const fileContentArray = file.content.buffer.toString('utf-8').split('\n')
+  //     const title = fileContentArray[0]
+  //     const authorName = fileContentArray[1]
+
+  //     return doSave(title, authorName)
+  //   } else {
+  //     return Promise.reject(new Error('Unsupported file type!'))
+  //   }
+  // }
+
+  // todo
+  // return Promise.reject(new Error('No file provided!'))
+}
 
 // interface BookMeta {
 //   authors: string
@@ -186,3 +199,9 @@ export default basicBookAPI
 //   await bookModel.remove(bookId)
 //   return delFile(fileId)
 // }
+export default {
+  ...basicBookAPI,
+  ...{
+    add: addBook
+  }
+}

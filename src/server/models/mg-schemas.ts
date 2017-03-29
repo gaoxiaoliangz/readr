@@ -2,32 +2,55 @@ import { Schema } from 'mongoose'
 import i18n from '../utils/i18n'
 import validator from 'validator'
 
-export const userSchema = new Schema({
-  username: {
+export const authorSchema = new Schema({
+  name: {
     type: String,
-    unique: true,
-    required: [true, i18n('errors.validation.missingRequired', 'username')],
-    min: [5, i18n('errors.validation.valueLimit.minLength', 'name')],
-    max: [20, i18n('errors.validation.valueLimit.maxLength', 'name')]
+    required: true
   },
-  password: {
-    type: String,
-    required: true,
-    min: [6, i18n('errors.validation.valueLimit.minLength', 'password')],
-    max: [20, i18n('errors.validation.valueLimit.maxLength', 'password')]
-  },
-  email: {
-    required: true,
+  slug: {
     type: String,
     unique: true,
     validate: {
-      validator: validator.isEmail,
-      message: i18n('errors.validation.valueLimit.invalidFormat', 'email')
+      validator: validator.isAlphanumeric,
+      message: i18n('errors.validation.valueLimit.alphanumeric', 'slug')
     }
   },
-  role: {
+  description: String,
+})
+
+export const bookSchema = new Schema({
+  title: {
+    required: true,
     type: String,
-    required: true
+  },
+  authors: [{
+    ref: 'Author',
+    type: String
+  }],
+  description: String,
+  cover: String,
+  file: {
+    ref: 'File',
+    required: true,
+    type: String,
+  }
+})
+
+export const collectionSchema = new Schema({
+  name: {
+    required: true,
+    type: String,
+  },
+  items: [{
+    required: true,
+    ref: 'Book',
+    type: String,
+  }],
+  description: String,
+  creator: {
+    ref: 'User',
+    required: true,
+    type: String,
   }
 })
 
@@ -84,54 +107,31 @@ export const tagSchema = new Schema({
   }
 })
 
-export const authorSchema = new Schema({
-  name: {
+export const userSchema = new Schema({
+  username: {
     type: String,
-    required: true
+    unique: true,
+    required: [true, i18n('errors.validation.missingRequired', 'username')],
+    min: [5, i18n('errors.validation.valueLimit.minLength', 'name')],
+    max: [20, i18n('errors.validation.valueLimit.maxLength', 'name')]
   },
-  slug: {
+  password: {
+    type: String,
+    required: true,
+    min: [6, i18n('errors.validation.valueLimit.minLength', 'password')],
+    max: [20, i18n('errors.validation.valueLimit.maxLength', 'password')]
+  },
+  email: {
+    required: true,
     type: String,
     unique: true,
     validate: {
-      validator: validator.isAlphanumeric,
-      message: i18n('errors.validation.valueLimit.alphanumeric', 'slug')
+      validator: validator.isEmail,
+      message: i18n('errors.validation.valueLimit.invalidFormat', 'email')
     }
   },
-  description: String,
-})
-
-export const bookSchema = new Schema({
-  title: {
-    required: true,
+  role: {
     type: String,
-  },
-  authors: [{
-    ref: 'Author',
-    type: String
-  }],
-  description: String,
-  cover: String,
-  file: {
-    ref: 'File',
-    required: true,
-    type: String,
-  }
-})
-
-export const collectionSchema = new Schema({
-  name: {
-    required: true,
-    type: String,
-  },
-  items: [{
-    required: true,
-    ref: 'Book',
-    type: String,
-  }],
-  description: String,
-  creator: {
-    ref: 'User',
-    required: true,
-    type: String,
+    required: true
   }
 })
