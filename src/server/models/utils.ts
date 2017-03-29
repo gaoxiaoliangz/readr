@@ -17,40 +17,33 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
           .limit(LIMIT)
           .exec()
           .then(data => {
-            return makeResult(data, {
+            return Promise.resolve(makeResult(data, {
               pagination: {
                 current: page,
                 all: Math.ceil(count / LIMIT)
               }
-            })
+            }))
           })
       },
 
       save: async (data) => {
         const model = new Model(data)
 
-        return model.save().then(res => {
-          return makeResult(res)
-        })
+        return model.save()
       },
 
       updateById: async (id, data) => {
         return Model
           .update({ _id: id }, data, { runValidators: true })
           .exec()
-          .then(_data => {
-            return makeResult(_data)
-          })
       },
 
       findById: async (id) => {
-        const data = await Model.findById(id)
-        return makeResult(data)
+        return Model.findById(id)
       },
 
       removeById: async (id) => {
-        const data = await Model.findByIdAndRemove(id)
-        return makeResult(data)
+        return Model.findByIdAndRemove(id)
       }
     }
   })

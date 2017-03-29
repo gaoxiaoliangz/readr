@@ -19,12 +19,14 @@ export function basicAuth(req, res, next) {
   const query = { $or: [{ username: login, password }, { email: login, password }] }
 
   dataProvider.User.findOne(query).exec().then(doc => {
-    const result = doc.toObject()
+    const result = doc
     
     if (_.isEmpty(result)) {
       next(new errors.UnauthorizedError(i18n('errors.middleware.auth.wrongCombination')))
     } else {
-      req.session.user = humps.camelizeKeys(result)
+      // will cause problems
+      // req.session.user = humps.camelizeKeys(result)
+      req.session.user = result
       res.json(result)
     }
   })

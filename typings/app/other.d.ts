@@ -1,5 +1,8 @@
-interface ApiResult {
-  data: object
-  meta?: any
-  error?: boolean
+// interface APIResult {
+//   data: object
+//   meta?: any
+// }
+
+interface GeneralObject {
+  [key: string]: any
 }

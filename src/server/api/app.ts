@@ -37,19 +37,16 @@ function apiRoutes() {
   // router.put('/books/:book', authenticateAdmin, endpoints.editBookMeta)
   // router.delete('/books/:book', authenticateAdmin, endpoints.removeBook)
 
-  // // user
-  // router.get('/user/profile', authenticatePrivate, endpoints.findUser)
-  // router.get('/user/books/shelf', authenticatePrivate, endpoints.listShelfBooks)
-
-  // progress
-  router.get('/user/books/:bookId/progress', authenticatePrivate, httpDecorator(api.user.getReadingProgress))
-  // router.put('/user/books/:bookId/progress', authenticatePrivate, endpoints.setReadingProgress)
-
   // // file
   // router.get('/files/:file', authenticateAdmin, endpoints.readFile)
   // router.delete('/files/:file', authenticateAdmin, endpoints.delFile)
 
+  // user
+  router.get('/user/books/shelf', authenticatePrivate, httpDecorator(api.user.listShelfBooks))
 
+  // progress
+  router.get('/user/books/:bookId/progress', authenticatePrivate, httpDecorator(api.user.getReadingProgress))
+  router.put('/user/books/:bookId/progress', authenticatePrivate, httpDecorator(api.user.setReadingProgress))
 
   // users
   router.get('/users/:id', authenticateAdmin, httpDecorator(api.users.find))

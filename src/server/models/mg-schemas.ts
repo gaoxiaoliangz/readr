@@ -61,10 +61,12 @@ export const progressSchema = new Schema({
     type: Number
   },
   user_id: {
-    type: String
+    type: String,
+    required: true
   },
   book_id: {
-    type: String
+    type: String,
+    required: true
   }
 })
 

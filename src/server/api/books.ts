@@ -173,32 +173,6 @@
 //   })
 // }
 
-// export function listShelfBooks(userId, page?) {
-//   return progressModel.listRaw({ query: { user_id: userId } }).then(results => {
-//     if (results.length === 0) {
-//       return results
-//     }
-
-//     return Promise
-//       .all(results
-//         .sort(utils.sortByDate())
-//         .map(result => {
-//           return bookModel.findOne(result.book_id, true).then(res => {
-//             return res
-//           }, error => {
-//             // 如果错误不是 404 也输出空的 entity
-//             return bookModel.outputEmpty(result.book_id)
-//           })
-//         })
-//       )
-//       .then(res => {
-//         return paginate(res.map(entity => _.omit(entity, ['content'])), {
-//           page
-//         }) as Object
-//       })
-//   })
-// }
-
 // export async function removeBook(bookId: string) {
 //   const book = await bookModel.findOne(bookId, true)
 //   const fileId = book.file

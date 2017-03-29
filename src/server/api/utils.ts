@@ -2,20 +2,36 @@ import _ from 'lodash'
 import parseUrlencoded from '../../utils/parseUrlencoded'
 import dataProvider from '../models/data-provider'
 
-export const makeResult = (errorOrData, meta?) => {
-  const result: ApiResult = {
-    data: errorOrData
+export class APIResult {
+  _data: any
+  _meta: any
+
+  constructor(data, meta?) {
+    this._data = data
+    this._meta = meta
   }
 
-  if (_.isError(errorOrData)) {
-    result.error = true
+  get data() {
+    return this._data || {}
   }
 
-  if (meta) {
-    result.meta = meta
+  get meta() {
+    return this._meta || {}
   }
 
-  return result
+  toObject() {
+    let result: GeneralObject = {
+      data: this._data
+    }
+    if (this._meta) {
+      result.meta = this._meta
+    }
+    return result
+  }
+}
+
+export const makeResult = (data, meta?) => {
+  return new APIResult(data, meta)
 }
 
 interface EntityPagination {

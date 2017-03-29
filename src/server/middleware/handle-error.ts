@@ -4,10 +4,6 @@ import errors from '../errors'
 
 const debug = require('debug')('readr:handleError')
 
-interface GeneralObject {
-  [key: string]: any
-}
-
 export default function handleError(error, req, res, next) {
   const statusCode = error.statusCode || 500
   let errorJson = error
