@@ -6,7 +6,7 @@
         // tsc target es2015 won't compile es6 to es5, and causing exsiting es5 code to fail
       ]
     },
-    "es": {
+    "es5": {
       "presets": [
         ["es2015"]
       ]

@@ -49,15 +49,11 @@
     {
       "name": "Debug single file",
       "runtimeExecutable": "babel-node",
-      "program": "${workspaceRoot}/src/parsers/html.ts",
+      "program": "${workspaceRoot}/build/es5/parsers/html.js",
       "sourceMaps": true,
       "env": {
         "BABEL_ENV": "babel-node-debug"
       },
-      "outFiles": [
-        "${workspaceRoot}/build/es/**/*.js",
-        "${workspaceRoot}/build/es/parsers/html.js"
-      ],
       "type": "node",
       "request": "launch"
     },
