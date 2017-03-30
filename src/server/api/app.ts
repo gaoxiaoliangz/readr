@@ -82,6 +82,9 @@ function apiRoutes() {
   router.get('/auth', authenticatePublic, middleware.auth.check)
   router.put('/auth/revoke', authenticatePublic, middleware.auth.revoke)
 
+  // for dev new feature, a testing env
+  router.get('/test', authenticateAdmin, httpDecorator(api.test))
+
   return router
 }
 
