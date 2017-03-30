@@ -4,7 +4,7 @@ import { makeBasicAPIMethods } from './utils'
 import dataProvider from '../models/data-provider'
 import * as helpers from '../helpers'
 import { notFoundError } from '../helpers'
-import parsers from '../parsers'
+import parsers from '../../parsers'
 import request from '../../utils/network/request'
 
 const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
@@ -132,7 +132,7 @@ export async function addBook(options) {
     const title = content.meta.title
 
     return doSave({ title, authorName, fileId })
-  } else if (file.mimetype === 'text/plain') { // 处理 txt
+  } else if (file.mimetype === 'text/plain') {
     const fileContentArray = buffer.toString('utf-8').split('\n')
     const title = fileContentArray[0]
     const authorName = fileContentArray[1]
@@ -157,7 +157,7 @@ export async function resolveContent(options) {
   if (file.mimetype === 'application/epub+zip') {
     bookContent = await parsers.epub(file.content)
   } else if (bookEntity.file.mimetype === 'text/plain') {
-    bookContent = await parsers.txtContent(file.content)
+    bookContent = await parsers.txt(file.content)
   } else {
     return Promise.reject(new Error('Unsupported file type!'))
   }

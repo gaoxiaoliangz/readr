@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-export default function flattenArray(arrayOfNestedObj, childrenName = 'children') {
+export function flattenArray(arrayOfNestedObj, childrenName = 'children') {
   const list = []
 
   const push = infoList => {

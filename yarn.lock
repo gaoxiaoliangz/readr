@@ -68,9 +68,16 @@
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/@types/humps/download/@types/humps-1.1.2.tgz#fbcaf596d20ff2ed78f8f511c5d6a943b51101d6"
 
-"@types/jquery@^2.0.34":
+"@types/jquery@*", "@types/jquery@^2.0.34":
   version "2.0.41"
   resolved "http://registry.npm.taobao.org/@types/jquery/download/@types/jquery-2.0.41.tgz#b87ba051011f99edbe586d8f97282e7786e01a6d"
+
+"@types/jsdom@^2.0.30":
+  version "2.0.30"
+  resolved "http://registry.npm.taobao.org/@types/jsdom/download/@types/jsdom-2.0.30.tgz#37f8aae61a33742da062fa2b9f8c7b90016725ac"
+  dependencies:
+    "@types/jquery" "*"
+    "@types/node" "*"
 
 "@types/lodash@^4.14.41":
   version "4.14.55"
@@ -4921,9 +4928,9 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/jsbn/download/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
-jsdom@^9.0.0, jsdom@^9.11.0:
-  version "9.11.0"
-  resolved "http://registry.npm.taobao.org/jsdom/download/jsdom-9.11.0.tgz#a95b0304e521a2ca5a63c6ea47bf7708a7a84591"
+jsdom@^9.0.0, jsdom@^9.11.0, jsdom@^9.12.0:
+  version "9.12.0"
+  resolved "http://registry.npm.taobao.org/jsdom/download/jsdom-9.12.0.tgz#e8c546fffcb06c00d4833ca84410fed7f8a097d4"
   dependencies:
     abab "^1.0.3"
     acorn "^4.0.4"
@@ -8064,16 +8071,6 @@ shellwords@^0.1.0:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "http://registry.npm.taobao.org/signal-exit/download/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
-
-simple-epub-parser@^0.4.1:
-  version "0.4.3"
-  resolved "http://registry.npm.taobao.org/simple-epub-parser/download/simple-epub-parser-0.4.3.tgz#96b252a2e28276ba0b4db2388f02ef3e319c8f72"
-  dependencies:
-    lodash "^4.17.2"
-    node-zip "^1.1.1"
-    to-markdown "^3.0.3"
-    typescript "^2.1.4"
-    xml2js "^0.4.17"
 
 simple-fmt@~0.1.0:
   version "0.1.0"
