@@ -42,13 +42,13 @@ const readNode = (node) => {
           const tag = child.tagName.toLowerCase()
           if (hasOnlyTextContent(child)) {
             return {
-              text: child.textContent,
-              tag
+              tag,
+              text: child.textContent
             }
           }
           return {
-            children: readNode(child),
-            tag
+            tag,
+            children: readNode(child)
           }
         }
         return readNode(child)
@@ -64,9 +64,43 @@ const readNode = (node) => {
   }
 }
 
+const dropTags = (nodes, tagsToDrop) => {
+  const dropTag = (node) => {
+    if (tagsToDrop.indexOf(node.tag) !== -1) {
+      if (node.children) {
+        return dropTags(node.children, tagsToDrop)
+      }
+      return node.text
+    }
+
+    if (node.children) {
+      return {
+        ...node,
+        ...{
+          children: dropTags(node.children, tagsToDrop)
+        }
+      }
+    }
+
+    return node
+  }
+
+  if (Array.isArray(nodes)) {
+    return nodes
+      .map(node => {
+        return dropTag(node)
+      })
+      .filter(n => n)
+  } else {
+    return dropTag(nodes)
+  }
+}
+
 const test = async (options) => {
   const obj = html(htmlstring).documentElement
-  const nodeObj = readNode(obj)
+  let nodeObj = readNode(obj)
+
+  nodeObj = dropTags(nodeObj, ['head', 'body', 'span', 'div'])
 
   return { nodes: nodeObj }
 }
