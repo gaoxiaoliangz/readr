@@ -1,13 +1,13 @@
 import fs from 'fs'
+import _ from 'lodash'
 import { makeBasicAPIMethods } from './utils'
 import dataProvider from '../models/data-provider'
 import * as helpers from '../helpers'
-const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
-import _ from 'lodash'
-// import utils from '../utils'
-// import { notFoundError } from '../helpers'
+import { notFoundError } from '../helpers'
 import parsers from '../parsers'
 import request from '../../utils/network/request'
+
+const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
 
 /**
  * helpers
@@ -74,6 +74,21 @@ async function fetchBookMetaByTitle(title: string) {
   }
 }
 
+const parseBookResult = (result) => {
+  const data = _.omit(result.toObject(), ['file'])
+  let contentType = 'txt'
+
+  if (!result['file']) {
+    contentType = ''
+  } else if (result['file']['mimetype'] === 'application/epub+zip') {
+    contentType = 'epub'
+  }
+
+  return _.assign({}, data, {
+    content_type: contentType
+  })
+}
+
 /**
  * book api
  */
@@ -82,20 +97,7 @@ export function findBook(options) {
   return dataProvider.Book
     .findById(id)
     .populate('file authors')
-    .then(result => {
-      const data = _.omit(result.toObject(), ['file'])
-      let contentType = 'txt'
-
-      if (!result['file']) {
-        contentType = ''
-      } else if (result['file']['mimetype'] === 'application/epub+zip') {
-        contentType = 'epub'
-      }
-
-      return _.assign({}, data, {
-        content_type: contentType
-      })
-    })
+    .then(parseBookResult)
 }
 
 // todo: should file be in object?
@@ -141,73 +143,47 @@ export async function addBook(options) {
   }
 }
 
-// interface BookMeta {
-//   authors: string
-//   cover: string
-//   description: string
-//   title: string
-// }
-// export async function editBookMeta(bookId, meta: BookMeta) {
-//   await bookModel.findOne(bookId, true)
-//   // todo: 多个作者情况
-//   const { authorInfo } = await fetchBookMetaByTitle(meta.authors)
-//   const authorId = await getAuthorId(meta.authors, authorInfo)
-//   const bookMeta = {
-//     ...meta,
-//     ...{
-//       authors: [authorId]
-//     }
-//   }
+export async function resolveContent(options) {
+  const { id: bookId } = options
+  const bookEntity = await dataProvider.Book.utils.findById(bookId) as any
+  const fileId = bookEntity.file
+  const file = await dataProvider.File.utils.findById(fileId) as any
+  let bookContent
 
-//   return bookModel.update(bookId, bookMeta, {
-//     upsert: false
-//   })
-// }
+  if (!fileId) {
+    return Promise.reject(notFoundError('book'))
+  }
 
-// export async function resolveBookContent(bookId) {
-//   const bookEntity = await bookModel.findOne(bookId)
-//   const fileId = bookEntity.file._id
-//   let bookContent
+  if (file.mimetype === 'application/epub+zip') {
+    bookContent = await parsers.epub(file.content)
+  } else if (bookEntity.file.mimetype === 'text/plain') {
+    bookContent = await parsers.txtContent(file.content)
+  } else {
+    return Promise.reject(new Error('Unsupported file type!'))
+  }
 
-//   if (!fileId) {
-//     // 从这边报出的 404 和下面的提示会不一样
-//     // 下面报的 404 可能是文件被删了
-//     // 这边报 404 则是一开始数据库里就没存 file
-//     return Promise.reject(notFoundError('book'))
-//   }
+  return {
+    _id: bookEntity._id,
+    file_id: fileId,
+    content: bookContent
+  }
+}
 
-//   if (bookEntity.file.mimetype === 'application/epub+zip') {
-//     const fileResult = await readFile(fileId, parsers.epub)
-//     bookContent = _.omit(fileResult.content, ['meta'])
-//   } else if (bookEntity.file.mimetype === 'text/plain') {
-//     const fileResult = await readFile(fileId, parsers.txtContent)
-//     bookContent = fileResult.content
-//   } else {
-//     return Promise.reject(new Error('Unsupported file type!'))
-//   }
-
-//   return _.assign({}, bookContent, { _id: bookId, content_id: fileId })
-// }
-
-// export function listBooks(page?) {
-//   return bookModel.list({
-//     page,
-//     disablePagination: _.isNil(page),
-//     mapping: entity => _.omit(entity, ['content', 'file'])
-//   })
-// }
-
-// export async function removeBook(bookId: string) {
-//   const book = await bookModel.findOne(bookId, true)
-//   const fileId = book.file
-//   await bookModel.remove(bookId)
-//   return delFile(fileId)
-// }
+export function listBooks(options) {
+  return dataProvider.Book.utils
+    .listWithOptions({
+      page: options.page,
+      populate: 'file authors',
+      parser: parseBookResult
+    })
+}
 
 export default {
   ...basicBookAPI,
   ...{
     add: addBook,
-    find: findBook
+    find: findBook,
+    list: listBooks,
+    resolveContent
   }
 }

@@ -1,10 +1,10 @@
 import express from 'express'
 import _ from 'lodash'
 import multer from 'multer'
+import os from 'os'
 import middleware from '../middleware'
 import httpDecorator from './http-decorator'
 import api from '../api'
-import os from 'os'
 
 const upload = multer({
   dest: os.tmpdir()
@@ -30,23 +30,13 @@ const authenticateAdmin = [
 function apiRoutes() {
   const router = express.Router()
 
-  // // books
-  // router.get('/books/:book', authenticatePublic, endpoints.findBook)
-  // router.get('/books/:book/content', authenticatePublic, endpoints.resolveBookContent)
-  // router.get('/books', authenticatePublic, endpoints.listBooks)
-  // // router.post('/books', authenticateAdmin, endpoints.book.add) // basic
-  // router.post('/books', authenticateAdmin, upload.single(FORM_DATA_FILE_KEY), middleware.logFile, endpoints.addBook) // 处理文件
-  // router.put('/books/:book', authenticateAdmin, endpoints.editBookMeta)
-  // router.delete('/books/:book', authenticateAdmin, endpoints.removeBook)
-
   // // file
   // router.get('/files/:file', authenticateAdmin, endpoints.readFile)
   // router.delete('/files/:file', authenticateAdmin, endpoints.delFile)
 
-
   // books
   router.get('/books/:id', authenticatePublic, httpDecorator(api.books.find))
-  // router.get('/books/:id/content', authenticatePublic, httpDecorator(api.books.resolveBookContent))
+  router.get('/books/:id/content', authenticatePublic, httpDecorator(api.books.resolveContent))
   router.get('/books', authenticatePublic, httpDecorator(api.books.list))
   router.post('/books', authenticateAdmin, upload.single('bookfile'), httpDecorator(api.books.add))
   router.put('/books/:id', authenticateAdmin, httpDecorator(api.books.update))
@@ -68,7 +58,6 @@ function apiRoutes() {
 
   // collections
   router.get('/collections/:id', authenticatePublic, httpDecorator(api.collections.find))
-  // todo: pagination
   router.get('/collections', authenticatePublic, httpDecorator(api.collections.list))
   router.post('/collections', authenticatePublic, httpDecorator(api.collections.add))
   router.put('/collections/:id', authenticatePublic, httpDecorator(api.collections.update))
@@ -101,7 +90,7 @@ export default function setupApiApp() {
 
   apiApp.use(middleware.setHeader)
   apiApp.use(apiRoutes())
-  apiApp.use(middleware.handleApiNotFound)
+  apiApp.use(middleware.handleAPINotFound)
   apiApp.use(middleware.handleError)
 
   return apiApp

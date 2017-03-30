@@ -61,7 +61,7 @@ export const fileSchema = new Schema({
   },
   content: {
     required: true,
-    type: String,
+    type: Buffer,
   },
   mimetype: {
     type: String
