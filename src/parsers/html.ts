@@ -9,4 +9,8 @@ const parseHTML = HTMLString => {
   })
 }
 
+const a = parseHTML('<div>hehehe</div>') as any
+const c = a.childNodes
+console.log(a.innerHTML);
+
 export default parseHTML

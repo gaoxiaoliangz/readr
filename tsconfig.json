@@ -8,7 +8,8 @@
     "outDir": "build/es",
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "sourceMap": true
   },
   "exclude": [
     "node_modules"

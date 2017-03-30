@@ -5,8 +5,6 @@
   "version": "0.1.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
       "name": "Server(production)",
       "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
@@ -16,22 +14,22 @@
       ],
       "outFiles": [
         "${workspaceRoot}/build/node/**/*.js"
-      ]
+      ],
+      "type": "node",
+      "request": "launch"
     },
     {
-      "type": "node",
-      "request": "launch",
       "name": "Server",
       "program": "${workspaceRoot}/bin/index.js",
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/build/node/**/*.js"
-      ]
+      ],
+      "type": "node",
+      "request": "launch"
     },
     {
-      "type": "node",
-      "request": "launch",
       "name": "Server(nodemon)",
       "runtimeExecutable": "nodemon",
       "runtimeArgs": [
@@ -44,21 +42,38 @@
       "internalConsoleOptions": "openOnFirstSessionStart",
       "outFiles": [
         "${workspaceRoot}/build/node/**/*.js"
-      ]
+      ],
+      "type": "node",
+      "request": "launch"
     },
     {
+      "name": "Debug single file",
+      "runtimeExecutable": "babel-node",
+      "program": "${workspaceRoot}/src/parsers/html.ts",
+      "sourceMaps": true,
+      "env": {
+        "BABEL_ENV": "babel-node-debug"
+      },
+      "outFiles": [
+        "${workspaceRoot}/build/es/**/*.js",
+        "${workspaceRoot}/build/es/parsers/html.js"
+      ],
       "type": "node",
-      "request": "launch",
+      "request": "launch"
+    },
+    {
       "name": "Start webpack",
       "program": "${workspaceRoot}/scripts/start.js",
       "cwd": "${workspaceRoot}",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "type": "node",
+      "request": "launch"
     },
     {
-      "type": "node",
-      "request": "attach",
       "name": "Attach",
-      "port": 5858
+      "port": 5858,
+      "type": "node",
+      "request": "attach"
     }
   ]
 }

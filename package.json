@@ -11,6 +11,7 @@
     "build:static": "node scripts/build.js static",
     "build:dll": "node scripts/build.js dll",
     "watch:node": "npm run build:node -- --watch",
+    "build:es5": "BABEL_ENV=es babel src --out-dir build/es5",
     "watch:es": "tsc --watch",
     "clean": "node scripts/clean.js -f=build",
     "clean:node": "node scripts/clean.js -f=build/node",
