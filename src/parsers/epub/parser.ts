@@ -1,10 +1,10 @@
 import fs from 'fs'
 import xml2js from 'xml2js'
 import _ from 'lodash'
-import parseHref from './href'
-import * as mdConverters from './md-converters'
+import parseHref from '../href'
+// import * as mdConverters from './md-converters'
 import nodeZip from 'node-zip'
-import toMarkdown from 'to-markdown'
+// import toMarkdown from 'to-markdown'
 import htmlParser from '../html'
 
 // TODO

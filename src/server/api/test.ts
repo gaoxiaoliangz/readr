@@ -1,5 +1,6 @@
-import html from '../../parsers/html'
 import _ from 'lodash'
+import html from '../../parsers/html'
+import { readRecursively } from '../../renderers/virtual-layout'
 
 const htmlstring = `
   <div>
@@ -30,7 +31,9 @@ const htmlstring = `
 `
 
 const test = async (options) => {
-  return html(htmlstring)
+  const htmlObject = html(htmlstring)
+  return readRecursively(htmlObject)
+  // return htmlObject
 }
 
 export default test
