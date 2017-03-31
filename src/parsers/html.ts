@@ -1,8 +1,9 @@
 import jsdom from 'jsdom'
+import _ from 'lodash'
 import { parseNestedObject } from './utils'
 
-
-
+const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style']
+const EXPANDED_TAGS = ['div', 'span', 'body', 'html']
 
 interface ParsedNode {
   tag?: string
@@ -58,15 +59,41 @@ const parseHTMLObject = (HTMLString) => {
   const rootNode = parseRawHTML(HTMLString)
   return parseNestedObject(rootNode, {
     childrenKey: 'childNodes',
-    parser(object, children) {
-      if (object.nodeType === 1) {
+    preFilter(node) {
+      return node.nodeType === 1 || node.nodeType === 3
+    },
+    parser(node, children) {
+      if (node.nodeType === 1) {
+        const tag = node.tagName.toLowerCase()
+
+        if (OMITTED_TAGS.indexOf(tag) !== -1) {
+          return null
+        }
+
+        // if (EXPANDED_TAGS.indexOf(tag) !== -1) {
+        //   console.log(tag)
+        //   console.log(children.length)
+
+        //   if (tag === 'html') {
+        //     return {
+        //       tag,
+        //       x: children[0]
+        //     }
+        //   }
+          
+        //   return children.length === 1 ? children[0] : children
+        // }
+
         return {
-          tag: object.tagName,
-          _n: children
+          tag,
+          children
         }
       } else {
-        return 'other stuff..'
+        return node.textContent.trim()
       }
+    },
+    postFilter(node) {
+      return !_.isEmpty(node)
     }
   })
 }

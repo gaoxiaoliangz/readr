@@ -22,23 +22,40 @@ interface ParseNestedObjectConfig {
   parser: (node, children) => any
   childrenKey: string
 }
-export const parseNestedObject = (rootObject, config: ParseNestedObjectConfig) => {
+const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseNestedObjectConfig) => {
   const { childrenKey, parser, preFilter, postFilter } = config
 
-  return Array.prototype
-    .filter.call(rootObject[childrenKey], object => {
-      if (preFilter) {
-        return preFilter(object)
+  const parseNestedObject = (rootObject: Object | Object[]): any[] => {
+    const makeFakeRootObject = () => {
+      if (Array.isArray(rootObject) || _.isArrayLikeObject(rootObject) || _.isArrayLike(rootObject)) {
+        return {
+          [childrenKey]: rootObject
+        }
       }
-      return true
-    })
-    .map(object => {
-      return parser(object, parseNestedObject(object, config))
-    })
-    .filter(object => {
-      if (postFilter) {
-        return postFilter(object)
-      }
-      return true
-    })
+      return rootObject
+    }
+
+    return Array.prototype
+      .filter.call(makeFakeRootObject()[childrenKey], object => {
+        if (preFilter) {
+          return preFilter(object)
+        }
+        return true
+      })
+      .map(object => {
+        return parser(object, parseNestedObject(object))
+      })
+      .filter(object => {
+        if (postFilter) {
+          return postFilter(object)
+        }
+        return true
+      })
+  }
+
+  // no matter what is passed it always wrap with array
+  // I have to unwrap it here
+  return _.first(parseNestedObject(_rootObject))
 }
+
+export const parseNestedObject = parseNestedObjectWrapper

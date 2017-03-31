@@ -40,6 +40,11 @@ const htmlstring = `
     <div>
       <p>line1<span>in span</span>out span</p>
       <p>line2</p>
+      <div>
+        <div>
+          <p>this is deep<span>in div</span></p>
+        </div>
+      </div>
     </div>
     <p>line3</p>
     <p>line4</p>
