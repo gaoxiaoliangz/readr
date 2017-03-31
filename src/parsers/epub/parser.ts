@@ -5,6 +5,7 @@ import parseHref from './href'
 import * as mdConverters from './md-converters'
 import nodeZip from 'node-zip'
 import toMarkdown from 'to-markdown'
+import htmlParser from '../html'
 
 // TODO
 // terms
@@ -31,7 +32,7 @@ const parseToc = tocObj => {
       ref: parsedSrc.name,
       hash: parsedSrc.hash,
       label,
-      index,
+      // index,
       children
     }
   }
@@ -49,9 +50,10 @@ const resolveContent = zipPath => zipInstance => {
   const content = zipInstance.file(zipPath)
 
   if (content) {
-    return toMarkdown(content.asText(), {
-      converters: [mdConverters.h, mdConverters.span, mdConverters.div, mdConverters.img, mdConverters.a]
-    })
+    // return toMarkdown(content.asText(), {
+    //   converters: [mdConverters.h, mdConverters.span, mdConverters.div, mdConverters.img, mdConverters.a]
+    // })
+    return htmlParser(content.asText())
   }
 
   return ''
@@ -61,7 +63,7 @@ const getContentFromSpine = (spine, root) => zipInstance => {
   // no chain
   return _.map(_.union(spine), href => ({
     id: parseHref(href).name,
-    markdown: resolveContent(`${root}${href}`)(zipInstance)
+    content: resolveContent(`${root}${href}`)(zipInstance)
   }))
 }
 
@@ -154,12 +156,12 @@ export async function binaryParser(binaryFile) {
       publisher
     }
 
-    const flesh = getContentFromSpine(spine, root)(zip)
+    const sections = getContentFromSpine(spine, root)(zip)
 
     return ({
       meta,
-      nav: parsedToc,
-      flesh
+      navigation: parsedToc,
+      sections
     })
   } catch (error) {
     return Promise.reject(error)

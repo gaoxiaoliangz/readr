@@ -81,6 +81,7 @@ options, data, id, response, error
 	☐ config to disable server routing
 	☐ add get book page api
 	☐ add new book page component
+	✔ html parser @done (March 31st 2017, 19:46)
 
 ### Next
 	☐ page no style
