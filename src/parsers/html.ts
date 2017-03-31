@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { parseNestedObject } from './utils'
 
 const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style']
-const EXPANDED_TAGS = ['div', 'span', 'body', 'html']
+const UNWRAP_TAGS = ['div', 'span', 'body', 'html']
 
 interface ParsedNode {
   tag?: string
@@ -18,32 +18,6 @@ interface Parsers {
   filter?: (node) => boolean
 }
 
-const textParser = node => {
-  return {
-    text: node.textContent
-  }
-}
-
-const tagsToExpand = ['head', 'body', 'span', 'div']
-const elementParser = (node, children) => {
-  const tag = node.tagName.toLowerCase()
-
-  // expand tags
-  if (tagsToExpand.indexOf(tag) !== -1) {
-    return children.length === 1 ? children[0] : children
-  }
-
-  return {
-    tag,
-    children: children
-  }
-}
-
-
-
-
-
-
 const parseRawHTML = HTMLString => {
   return jsdom
     .jsdom(HTMLString, {
@@ -55,9 +29,15 @@ const parseRawHTML = HTMLString => {
     .documentElement
 }
 
+// const hasOnlyTextContent = (node) => {
+//   return node.childNodes.length === 1 && node.childNodes[0].nodeType === 3
+// }
+
 const parseHTMLObject = (HTMLString) => {
   const rootNode = parseRawHTML(HTMLString)
-  return parseNestedObject(rootNode, {
+
+  // initial parse
+  const parsed = parseNestedObject(rootNode, {
     childrenKey: 'childNodes',
     preFilter(node) {
       return node.nodeType === 1 || node.nodeType === 3
@@ -70,24 +50,21 @@ const parseHTMLObject = (HTMLString) => {
           return null
         }
 
-        // if (EXPANDED_TAGS.indexOf(tag) !== -1) {
-        //   console.log(tag)
-        //   console.log(children.length)
-
-        //   if (tag === 'html') {
-        //     return {
-        //       tag,
-        //       x: children[0]
-        //     }
-        //   }
-          
-        //   return children.length === 1 ? children[0] : children
-        // }
-
-        return {
-          tag,
-          children
+        if (UNWRAP_TAGS.indexOf(tag) !== -1) {
+          let _children = []
+          children.forEach(child => {
+            if (Array.isArray(child)) {
+              child.forEach(_child => {
+                _children.push(_child)
+              })
+            } else {
+              _children.push(child)
+            }
+          })
+          return _children.length === 1 ? _children[0] : _children
         }
+
+        return { tag, children }
       } else {
         return node.textContent.trim()
       }
@@ -96,6 +73,36 @@ const parseHTMLObject = (HTMLString) => {
       return !_.isEmpty(node)
     }
   })
+
+  // post parse
+  return parseNestedObject(parsed[0], {
+    childrenKey: 'children',
+    parser(object, children) {
+      if (object.tag === 'p' && Array.isArray(children)) {
+        return _.omit({
+          ...object,
+          ...{
+            text: children.join(' ')
+          }
+        }, 'children')
+      }
+
+      if (typeof object === 'string') {
+        return {
+          tag: 'p',
+          text: object
+        }
+      }
+
+      return {
+        ...object,
+        ...{
+          children
+        }
+      }
+    }
+  })
+  // return parsed
 }
 
 export default parseHTMLObject
