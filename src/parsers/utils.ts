@@ -54,9 +54,6 @@ const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseN
       })
   }
 
-  // no matter what is passed it always wrap with array
-  // I have to unwrap it here
-  // return _.first(parseNestedObject(_rootObject))
   return parseNestedObject(_rootObject)
 }
 

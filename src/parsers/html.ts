@@ -7,15 +7,7 @@ const UNWRAP_TAGS = ['div', 'span', 'body', 'html']
 
 interface ParsedNode {
   tag?: string
-  text?: string
   children?: ParsedNode[]
-}
-
-interface Parsers {
-  text?: (node) => any
-  element?: (node, children) => any
-  // will be called after any other parsers
-  filter?: (node) => boolean
 }
 
 const parseRawHTML = HTMLString => {
@@ -29,15 +21,11 @@ const parseRawHTML = HTMLString => {
     .documentElement
 }
 
-// const hasOnlyTextContent = (node) => {
-//   return node.childNodes.length === 1 && node.childNodes[0].nodeType === 3
-// }
-
 const parseHTMLObject = (HTMLString) => {
   const rootNode = parseRawHTML(HTMLString)
 
   // initial parse
-  const parsed = parseNestedObject(rootNode, {
+  const parsed: ParsedNode = parseNestedObject(rootNode, {
     childrenKey: 'childNodes',
     preFilter(node) {
       return node.nodeType === 1 || node.nodeType === 3
@@ -66,7 +54,15 @@ const parseHTMLObject = (HTMLString) => {
 
         return { tag, children }
       } else {
-        return node.textContent.trim()
+        const text = node.textContent.trim()
+        if (!text) {
+          return null
+        }
+        // TODO: wrap isolated text nodes with p tag
+        if (node.parentNode.tagName === 'DIV') {
+          return { tag: 'p', children: [text] }
+        }
+        return text
       }
     },
     postFilter(node) {
@@ -78,31 +74,17 @@ const parseHTMLObject = (HTMLString) => {
   return parseNestedObject(parsed[0], {
     childrenKey: 'children',
     parser(object, children) {
-      if (object.tag === 'p' && Array.isArray(children)) {
-        return _.omit({
+      if (object.children) {
+        return {
           ...object,
           ...{
-            text: children.join(' ')
+            children: !_.isEmpty(children) ? children : undefined
           }
-        }, 'children')
-      }
-
-      if (typeof object === 'string') {
-        return {
-          tag: 'p',
-          text: object
         }
       }
-
-      return {
-        ...object,
-        ...{
-          children
-        }
-      }
+      return object
     }
   })
-  // return parsed
 }
 
 export default parseHTMLObject
