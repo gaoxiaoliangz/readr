@@ -15,3 +15,30 @@ export function flattenArray(arrayOfNestedObj, childrenName = 'children') {
   push(arrayOfNestedObj)
   return list
 }
+
+interface ParseNestedObjectConfig {
+  preFilter?: (node) => boolean
+  postFilter?: (node) => boolean
+  parser: (node, children) => any
+  childrenKey: string
+}
+export const parseNestedObject = (rootObject, config: ParseNestedObjectConfig) => {
+  const { childrenKey, parser, preFilter, postFilter } = config
+
+  return Array.prototype
+    .filter.call(rootObject[childrenKey], object => {
+      if (preFilter) {
+        return preFilter(object)
+      }
+      return true
+    })
+    .map(object => {
+      return parser(object, parseNestedObject(object, config))
+    })
+    .filter(object => {
+      if (postFilter) {
+        return postFilter(object)
+      }
+      return true
+    })
+}
