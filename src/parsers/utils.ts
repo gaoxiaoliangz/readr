@@ -19,11 +19,25 @@ export function flattenArray(arrayOfNestedObj, childrenName = 'children') {
 interface ParseNestedObjectConfig {
   preFilter?: (node) => boolean
   postFilter?: (node) => boolean
-  parser: (node, children?) => any
+
+  // children must be returned from parser
+  // or it may not work as expected
+  parser?: (node, children) => any
+  finalParser?: (node) => any
+
   childrenKey: string
 }
+
+/**
+ * parseNestedObject
+ * a note about config.parser
+ * 'children' is recursively parsed object and should be returned for parser to take effect
+ * and objects without [childrenKey] will be parsed by finalParser
+ * @param _rootObject 
+ * @param config 
+ */
 const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseNestedObjectConfig) => {
-  const { childrenKey, parser, preFilter, postFilter } = config
+  const { childrenKey, parser, preFilter, postFilter, finalParser } = config
 
   const parseNestedObject = (rootObject: Object | Object[]): any[] => {
     const makeArray = () => {
@@ -42,7 +56,19 @@ const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseN
       })
       .map(object => {
         if (object[childrenKey]) {
-          return parser(object, parseNestedObject(object[childrenKey]))
+          const children = parseNestedObject(object[childrenKey])
+          if (parser) {
+            return parser(object, children)
+          }
+          return {
+            ...object,
+            ...{
+              [childrenKey]: children
+            }
+          }
+        }
+        if (finalParser) {
+          return finalParser(object)
         }
         return object
       })

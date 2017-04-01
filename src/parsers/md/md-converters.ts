@@ -1,4 +1,4 @@
-import parseHref from './href'
+import parseHref from '../href'
 
 export const resolveInlineNavHref = href => {
   if (href && href.indexOf('http://') === -1) {

@@ -2,6 +2,8 @@ import jsdom from 'jsdom'
 import _ from 'lodash'
 import { parseNestedObject } from './utils'
 
+const debug = require('debug')('readr:html')
+
 const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style']
 const UNWRAP_TAGS = ['div', 'span', 'body', 'html']
 
@@ -23,6 +25,7 @@ const parseRawHTML = HTMLString => {
 
 const parseHTMLObject = (HTMLString) => {
   const rootNode = parseRawHTML(HTMLString)
+  debug(rootNode.innerHTML)
 
   // initial parse
   const parsed: ParsedNode = parseNestedObject(rootNode, {
@@ -39,29 +42,57 @@ const parseHTMLObject = (HTMLString) => {
         }
 
         if (UNWRAP_TAGS.indexOf(tag) !== -1) {
-          let _children = []
-          children.forEach(child => {
-            if (Array.isArray(child)) {
-              child.forEach(_child => {
-                _children.push(_child)
-              })
-            } else {
-              _children.push(child)
-            }
-          })
-          return _children.length === 1 ? _children[0] : _children
+          const flatten = _.flattenDeep(children)
+          return flatten.length === 1 ? flatten[0] : flatten
+          // let _children = []
+          // children.forEach(child => {
+          //   if (Array.isArray(child)) {
+          //     child.forEach(_child => {
+
+          //       // if (Array.isArray(_child)) {
+          //       //   _child.forEach(__child => {
+
+
+          //       //     _children.push(__child)
+          //       //   })
+          //       // } else {
+          //       //   _children.push(_child)
+          //       // }
+          //       _children.push(_child)
+          //     })
+          //   } else {
+          //     _children.push(child)
+          //   }
+          // })
+          // const parsedChildren = _children.length === 1 ? _children[0] : _children
+          // return parsedChildren
         }
 
-        return { tag, children }
+        const flatChildren = _.flattenDeep(children)
+        const childrenAllString = flatChildren.every(child => typeof child === 'string')
+
+        if (childrenAllString) {
+          return {
+            tag,
+            children: [flatChildren.join(' ')]
+          }
+        }
+
+        return { tag, children: flatChildren }
       } else {
         const text = node.textContent.trim()
         if (!text) {
           return null
         }
         // TODO: wrap isolated text nodes with p tag
-        if (node.parentNode.tagName === 'DIV') {
-          return { tag: 'p', children: [text] }
-        }
+        // if (node.parentNode.tagName === 'DIV') {
+        //   return { tag: 'p', children: [text] }
+        // }
+        // return {
+        //   // text,
+        //   // parent: node.parentNode.tagName
+        //   children: [text]
+        // }
         return text
       }
     },
