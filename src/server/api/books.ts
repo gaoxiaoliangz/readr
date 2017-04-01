@@ -1,37 +1,61 @@
-import Model from '../models/model'
-import paginate from '../models/paginate'
-import * as schemas from '../data/schemas'
+import fs from 'fs'
 import _ from 'lodash'
-import utils from '../utils'
+import { makeBasicAPIMethods } from './utils'
+import dataProvider from '../models/data-provider'
+import * as helpers from '../helpers'
 import { notFoundError } from '../helpers'
-import { readFile, delFile } from './file'
-import parsers from '../parsers'
+import parsers from '../../parsers'
 import request from '../../utils/network/request'
 
-const bookModel = new Model(schemas.book)
-const fileModel = new Model(schemas.file)
-const progressModel = new Model(schemas.progress)
-const authorModel = new Model(schemas.author)
+const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
 
 /**
  * helpers
  */
 async function getAuthorId(authorName, description) {
-  try {
-    const authorEntity = await authorModel.findOne({ name: authorName })
-    return authorEntity._id
-  } catch (error) {
-    const result = await authorModel.add({
-      name: authorName,
-      description
-    })
-    return result.ops[0]._id
-  }
+  return dataProvider.Author.findOne({ name: authorName }).exec().then(async doc => {
+    if (doc) {
+      return doc._id
+    } else {
+      const result = await dataProvider.Author.utils.save({
+        name: authorName,
+        description
+      })
+      return result._id
+    }
+  })
 }
 
+/**
+ * @param file: multer file boject
+ */
+const saveFileIfNotExsit = async (file) => {
+  const buffer = fs.readFileSync(file.path)
+  const hash = helpers.computeHash(buffer.toString())
+  const fileResult = await dataProvider.File.findOne({ hash }).exec()
+  let fileId
+
+  if (fileResult) {
+    fileId = fileResult._id
+  } else {
+    const data = {
+      filename: file.originalname,
+      // 会被转换为 binData 的 BSON type
+      content: buffer,
+      mimetype: file.mimetype,
+      size: file.size,
+      encoding: file.encoding,
+      hash
+    }
+    const result = await dataProvider.File.utils.save(data)
+    fileId = result._id
+  }
+
+  return { fileId, buffer }
+}
 
 /**
- * 3rd party
+ * 3rd party API
  */
 async function fetchBookByTitle(title: string) {
   const keyword = title
@@ -43,165 +67,123 @@ async function fetchBookByTitle(title: string) {
 async function fetchBookMetaByTitle(title: string) {
   const book = await fetchBookByTitle(title)
   return {
-    cover: _.get(book, ['images', 'large']),
-    description: _.get(book, 'summary'),
-    authorInfo: _.get(book, 'author_intro'),
+    title: _.get(book, 'title', ''),
+    cover: _.get(book, ['images', 'large'], ''),
+    description: _.get(book, 'summary', ''),
+    authorInfo: _.get(book, 'author_intro', ''),
   }
 }
 
+const parseBookResult = (result) => {
+  const data = _.omit(result.toObject(), ['file'])
+  let contentType = 'txt'
+
+  if (!result['file']) {
+    contentType = ''
+  } else if (result['file']['mimetype'] === 'application/epub+zip') {
+    contentType = 'epub'
+  }
+
+  return _.assign({}, data, {
+    content_type: contentType
+  })
+}
 
 /**
- * apis
+ * book api
  */
-export function findBook(id) {
-  return bookModel.findOne(id).then(result => {
-    const data = _.omit(result, ['file'])
-    let contentType = 'txt'
-
-    if (!result.file) {
-      contentType = ''
-    } else if (result.file.mimetype === 'application/epub+zip') {
-      contentType = 'epub'
-    }
-
-    return _.assign({}, data, {
-      content_type: contentType
-    })
-  })
+export function findBook(options) {
+  const { id } = options
+  return dataProvider.Book
+    .findById(id)
+    .populate('file authors')
+    .then(parseBookResult)
 }
 
-export async function addBook(meta, fileId) {
-  const mergeBookMeta = (title, authorId, extMeta) => {
-    return _.assign({}, {
-      title,
-      authors: [authorId],
-      file: fileId
-    }, meta, extMeta)
-  }
-
-  async function doSave(title, authorName) {
+// todo: should file be in object?
+export async function addBook(options) {
+  async function doSave({ title, authorName, fileId }) {
     const bookMeta = await fetchBookMetaByTitle(title)
     const authorId = await getAuthorId(authorName, bookMeta.authorInfo)
-    const bookData = mergeBookMeta(title, authorId, _.omit(bookMeta, 'authorInfo'))
-
-    return bookModel.add(bookData)
-  }
-
-  if (fileId) { // resolve file to get book meta
-    const fileResult = await readFile(fileId)
-
-    if (fileResult.mimetype === 'application/epub+zip') {
-      try {
-        const file = await readFile(fileId, parsers.epub)
-        const parsedContent = file.content
-        const authorName = parsedContent.meta.author
-
-        return doSave(parsedContent.meta.title, authorName)
-      } catch (error) {
-        await fileModel.remove(fileId)
-        throw error
+    const bookData = {
+      ...bookMeta,
+      ...{
+        file: fileId,
+        authors: [authorId]
       }
-    } else if (fileResult.mimetype === 'text/plain') { // 处理 txt
-      const file = await readFile(fileId)
-      const fileContentArray = file.content.buffer.toString('utf-8').split('\n')
-      const title = fileContentArray[0]
-      const authorName = fileContentArray[1]
-
-      return doSave(title, authorName)
-    } else {
-      return Promise.reject(new Error('Unsupported file type!'))
     }
+
+    return dataProvider.Book.utils.save(bookData)
   }
 
-  // TODO: 好像不对吧
-  return bookModel.add(meta)
-}
+  const { file } = options
 
-interface BookMeta {
-  authors: string
-  cover: string
-  description: string
-  title: string
-}
-export async function editBookMeta(bookId, meta: BookMeta) {
-  await bookModel.findOne(bookId, true)
-  // todo: 多个作者情况
-  const { authorInfo } = await fetchBookMetaByTitle(meta.authors)
-  const authorId = await getAuthorId(meta.authors, authorInfo)
-  const bookMeta = {
-    ...meta,
-    ...{
-      authors: [authorId]
-    }
+  if (_.isEmpty(file)) {
+    // todo
+    return Promise.reject(new Error('No file provided!'))
   }
 
-  return bookModel.update(bookId, bookMeta, {
-    upsert: false
-  })
+  const { fileId, buffer } = await saveFileIfNotExsit(file)
+
+  // resolve file to get book meta
+  if (file.mimetype === 'application/epub+zip') {
+    const content = await parsers.epub(buffer)
+    const authorName = content.meta.author
+    const title = content.meta.title
+
+    return doSave({ title, authorName, fileId })
+  } else if (file.mimetype === 'text/plain') {
+    const fileContentArray = buffer.toString('utf-8').split('\n')
+    const title = fileContentArray[0]
+    const authorName = fileContentArray[1]
+
+    return doSave({ title, authorName, fileId })
+  } else {
+    return Promise.reject(new Error('Unsupported file type!'))
+  }
 }
 
-export async function resolveBookContent(bookId) {
-  const bookEntity = await bookModel.findOne(bookId)
-  const fileId = bookEntity.file._id
+export async function resolveContent(options) {
+  const { id: bookId } = options
+  const bookEntity = await dataProvider.Book.utils.findById(bookId) as any
+  const fileId = bookEntity.file
+  const file = await dataProvider.File.utils.findById(fileId) as any
   let bookContent
 
   if (!fileId) {
-    // 从这边报出的 404 和下面的提示会不一样
-    // 下面报的 404 可能是文件被删了
-    // 这边报 404 则是一开始数据库里就没存 file
     return Promise.reject(notFoundError('book'))
   }
 
-  if (bookEntity.file.mimetype === 'application/epub+zip') {
-    const fileResult = await readFile(fileId, parsers.epub)
-    bookContent = _.omit(fileResult.content, ['meta'])
+  if (file.mimetype === 'application/epub+zip') {
+    bookContent = await parsers.epub(file.content)
   } else if (bookEntity.file.mimetype === 'text/plain') {
-    const fileResult = await readFile(fileId, parsers.txtContent)
-    bookContent = fileResult.content
+    bookContent = await parsers.txt(file.content)
   } else {
     return Promise.reject(new Error('Unsupported file type!'))
   }
 
-  return _.assign({}, bookContent, { _id: bookId, content_id: fileId })
+  return {
+    _id: bookEntity._id,
+    file_id: fileId,
+    content: bookContent
+  }
 }
 
-export function listBooks(page?) {
-  return bookModel.list({
-    page,
-    disablePagination: _.isNil(page),
-    mapping: entity => _.omit(entity, ['content', 'file'])
-  })
+export function listBooks(options) {
+  return dataProvider.Book.utils
+    .listWithOptions({
+      page: options.page,
+      populate: 'file authors',
+      parser: parseBookResult
+    })
 }
 
-export function listShelfBooks(userId, page?) {
-  return progressModel.listRaw({ query: { user_id: userId } }).then(results => {
-    if (results.length === 0) {
-      return results
-    }
-
-    return Promise
-      .all(results
-        .sort(utils.sortByDate())
-        .map(result => {
-          return bookModel.findOne(result.book_id, true).then(res => {
-            return res
-          }, error => {
-            // 如果错误不是 404 也输出空的 entity
-            return bookModel.outputEmpty(result.book_id)
-          })
-        })
-      )
-      .then(res => {
-        return paginate(res.map(entity => _.omit(entity, ['content'])), {
-          page
-        }) as Object
-      })
-  })
-}
-
-export async function removeBook(bookId: string) {
-  const book = await bookModel.findOne(bookId, true)
-  const fileId = book.file
-  await bookModel.remove(bookId)
-  return delFile(fileId)
+export default {
+  ...basicBookAPI,
+  ...{
+    add: addBook,
+    find: findBook,
+    list: listBooks,
+    resolveContent
+  }
 }

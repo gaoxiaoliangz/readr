@@ -57,34 +57,42 @@ options, data, id, response, error
 	✔ better 500 page @done (March 24th 2017, 14:31)
 	✔ fix recent reading @done (March 22nd 2017, 1:21)
 	✔ simple route permission control @done (March 24th 2017, 15:28)
-
-### Next!
 	✔ remove old files @done (March 26th 2017, 21:58)
-	☐ config to disable server routing
 	✔ app source structure @done (March 27th 2017, 16:36)
-	☐ add get book page api
-	☐ add new book page component
-
-### Next
 	✔ fix animation @done (March 25th 2017, 9:55)
-	☐ page no style
 	✔ fix dropdown on mobile @done (March 24th 2017, 23:52)
-	✔ add status text @done (March 27th 2017, 16:36)
-	☐ use blurred panel with fallback
-	✔ popup backdrop @done (March 25th 2017, 1:20)
-	☐ try typescript basedir
-	☐ test 500 page
 	✔ local network access @done (March 25th 2017, 13:41)
 	✔ ios input style @done (March 25th 2017, 15:15)
 	✔ dropback click style @done (March 25th 2017, 15:18)
 	✔ signin page @done (March 25th 2017, 15:17)
+	✔ add status text @done (March 27th 2017, 16:36)
+	✔ popup backdrop @done (March 25th 2017, 1:20)
+	✔ in-book navigation @done (March 30th 2017, 11:01)
+	✔ dropdown on mobile won't hide @done (March 30th 2017, 11:01)
+	✔ api flow @done (March 30th 2017, 11:01)
+	✔ redux actions @done (March 21st 2017, 10:19)
+	✔ fetching state @done (March 21st 2017, 10:19)
+	✔ pagination @done (March 21st 2017, 10:19)
+	✔ file tree @done (March 13th 2017, 14:33)
+	✔ File handling flow, something to do with validation and middleware @done (March 30th 2017, 11:01)
+	✔ disable page flip in mobile mode @done (March 21st 2017, 10:19)
+
+### Next!
+	☐ config to disable server routing
+	☐ add get book page api
+	☐ add new book page component
+	✔ html parser @done (March 31st 2017, 19:46)
+
+### Next
+	☐ page no style
+	☐ use blurred panel with fallback
+	☐ try typescript basedir
+	☐ test 500 page
 
 ### Test
 	☐ pass runtime env to test suit
 
 ### Bugs
-	☐ in-book navigation
-	☐ dropdown on mobile won't hide
 	☐ in-book links contain child element
 	☐ vpanel shows unexpectedly after go to location
 
@@ -98,21 +106,13 @@ options, data, id, response, error
 	☐ add image support
 
 ### Refactor & Optimization
-	☐ api flow
-	✔ redux actions @done (March 21st 2017, 10:19)
-	✔ fetching state @done (March 21st 2017, 10:19)
-	✔ pagination @done (March 21st 2017, 10:19)
-	✔ file tree @done (March 13th 2017, 14:33)
-	☐ File handling flow, something to do with validation and middleware
 	☐ beautify build file report
 
 ### UX
 	☐ Changing theme status
-	✔ disable page flip in mobile mode @done (March 21st 2017, 10:19)
 
 ### Proposal
 	☐ common props decorator
-	☐ model schema typing
 	☐ use react motion
 	☐ use og meta tag
 	☐ use token authentication

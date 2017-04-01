@@ -1,6 +1,6 @@
 import mongodb from 'mongodb'
 import _ from 'lodash'
-import Schema, { Field } from './schema'
+import Schema, { Field } from './define-schema'
 import outputEmptyEntity from './output-empty-entity'
 import getMongoDBUrl from '../helpers/getMongoDBUrl'
 

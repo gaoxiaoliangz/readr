@@ -1,7 +1,7 @@
-import Schema from '../models/schema'
+import Schema from './define-schema'
 import i18n from '../utils/i18n'
 import validator from '../utils/validator'
-import DataTypes, { arrayOf } from '../data/types'
+import DataTypes, { arrayOf } from './types'
 
 export const user = new Schema('users', [
   {

@@ -7,11 +7,11 @@ import i18n from '../utils/i18n'
  * admin | user | visitor | none
  */
 
-export default function requirePermissionsOf(userRole: string) {
+export default function requirePermissionsOf(userRole: Roles) {
   return (req, res, next) => {
     switch (userRole) {
       case ROLES.ADMIN:
-        if (req.context.user.role === ROLES.ADMIN) {
+        if (req.user.role === ROLES.ADMIN) {
           next()
           break
         }
@@ -20,7 +20,7 @@ export default function requirePermissionsOf(userRole: string) {
         break
 
       case ROLES.USER:
-        if (req.context.user.role === ROLES.USER || req.context.user.role === ROLES.ADMIN) {
+        if (req.user.role === ROLES.USER || req.user.role === ROLES.ADMIN) {
           next()
           break
         }

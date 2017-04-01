@@ -1,9 +1,6 @@
-import * as schemas from '../data/schemas'
-import Model from '../models/model'
 import _ from 'lodash'
 import * as helpers from '../helpers'
-
-const fileModel = new Model(schemas.file)
+import dataProvider from '../models/data-provider'
 
 // @req#loggedFileId
 export default function logFile(req, res, next) {
@@ -19,21 +16,17 @@ export default function logFile(req, res, next) {
     hash
   }
 
-  fileModel.findOne({ hash }).then(result => {
-    // req.loggedFileId = result._id
-    // TODO: 404 处理
-    const err = new Error('File already exists!')
-    next(err)
-  }, notFoundError => {
-    // TODO: 不使用 404
-    // 为了确定是未找到而不是其他错误需要做额外的判断
-    fileModel
-      .add(data)
-      .then(result => {
-        const loggedFileId = _.get(result, ['ops', 0, '_id'])
+  dataProvider.File.findOne({ hash }).exec(result => {
+    if (!_.isEmpty(result)) {
+      const err = new Error('File already exists!')
+      next(err)
+    } else {
+      dataProvider.File.utils.save(data).then(result2 => {
+        // todo
+        // result might have a different shape
+        const loggedFileId = _.get(result2, ['ops', 0, '_id'])
         if (!loggedFileId) {
           // TODO
-          // throw new Error('File not Found!')
           const err = new Error('File not Found!')
           next(err)
         } else {
@@ -41,8 +34,33 @@ export default function logFile(req, res, next) {
           next()
         }
       })
-      .catch(error => {
-        next(error)
-      })
+    }
   })
+
+  // fileModel.findOne({ hash }).then(result => {
+  //   // req.loggedFileId = result._id
+  //   // TODO: 404 处理
+  //   const err = new Error('File already exists!')
+  //   next(err)
+  // }, notFoundError => {
+  //   // TODO: 不使用 404
+  //   // 为了确定是未找到而不是其他错误需要做额外的判断
+  //   fileModel
+  //     .add(data)
+  //     .then(result => {
+  //       const loggedFileId = _.get(result, ['ops', 0, '_id'])
+  //       if (!loggedFileId) {
+  //         // TODO
+  //         // throw new Error('File not Found!')
+  //         const err = new Error('File not Found!')
+  //         next(err)
+  //       } else {
+  //         req.loggedFileId = loggedFileId
+  //         next()
+  //       }
+  //     })
+  //     .catch(error => {
+  //       next(error)
+  //     })
+  // })
 }

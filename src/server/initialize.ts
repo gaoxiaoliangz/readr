@@ -7,7 +7,7 @@ import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
 import render from './middleware/render'
 import bootServer from './bootstrap'
-import routes from './routes'
+import apiApp from './api/app'
 import * as CONSTANTS from '../constants'
 import getMongoStoreUrl from './helpers/getMongoStoreUrl'
 import middleware from './middleware'
@@ -62,7 +62,7 @@ export default function initialize(config: InitConfig) {
   app.use(middleware.parseContext)
 
   // api routing
-  app.use(`/${CONSTANTS.API_PREFIX}`, routes.api())
+  app.use(`/${CONSTANTS.API_PREFIX}`, apiApp())
 
   // render view
   app.use(render(isProduction))

@@ -1,4 +1,4 @@
-import { DataType } from '../data/types'
+import { DataType } from './types'
 
 export interface Validator {
   (value: any): boolean

@@ -1,28 +1,73 @@
-import Model from '../models/model'
-import * as schemas from '../data/schemas'
 import _ from 'lodash'
 import humps from 'humps'
+import dataProvider from '../models/data-provider'
 
-const progressModel = new Model(schemas.progress)
+export function getReadingProgress(options) {
+  const { bookId } = options
+  const { user: { _id: userId } } = options.context
 
-export function getReadingProgress(userId, bookId) {
+  if (!userId) {
+    return Promise.reject(new Error('wtf??? no user?'))
+  }
   const query = humps.decamelizeKeys({ userId, bookId })
 
-  return progressModel.list({ disablePagination: true, raw: true, query }).then(res => {
-    if (res['length'] === 0) {
-      return progressModel.outputEmpty({
-        user_id: userId,
-        book_id: bookId
-      })
-    }
-    return res[0]
-  })
+  return dataProvider.Progress.findOne(query).exec()
 }
 
-export function setReadingProgress(userId, bookId, data) {
+export async function setReadingProgress(object, options) {
+  const { bookId } = options
+  const { user: { _id: userId } } = options.context
   const query = humps.decamelizeKeys({ userId, bookId })
+  const progressResult = await dataProvider.Progress.findOne(query).exec()
 
-  return progressModel.update(query, data, {
-    upsert: true
+  if (!progressResult) {
+    return dataProvider.Progress.utils.save(_.assign({}, object, query))
+  } else {
+    const progressId = progressResult._id
+    return dataProvider.Progress.utils.updateById(progressId, object)
+  }
+}
+
+export function listShelfBooks(options) {
+  const { user: { _id: user_id } } = options.context
+  return dataProvider.Progress.find({ user_id }).exec().then(docs => {
+    return Promise
+      .all(docs
+        .map(doc => {
+          return dataProvider.Book.findById(doc._id).exec().then(bookDoc => {
+            // todo
+            return bookDoc
+          })
+        })
+      )
   })
+  //   return progressModel.listRaw({ query: { user_id: userId } }).then(results => {
+  //     if (results.length === 0) {
+  //       return results
+  //     }
+
+  //     return Promise
+  //       .all(results
+  //         .sort(utils.sortByDate())
+  //         .map(result => {
+  //           return bookModel.findOne(result.book_id, true).then(res => {
+  //             return res
+  //           }, error => {
+  //             // 如果错误不是 404 也输出空的 entity
+  //             return bookModel.outputEmpty(result.book_id)
+  //           })
+  //         })
+  //       )
+  //       .then(res => {
+  //         return paginate(res.map(entity => _.omit(entity, ['content'])), {
+  //           page
+  //         }) as Object
+  //       })
+  //   })
+}
+
+export default {
+  getReadingProgress,
+  setReadingProgress,
+  listShelfBooks
 }

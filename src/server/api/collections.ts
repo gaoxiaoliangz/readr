@@ -1,17 +1,19 @@
-import Model from '../models/model'
-import * as schemas from '../data/schemas'
-import _ from 'lodash'
+import { makeBasicAPIMethods } from './utils'
+import dataProvider from '../models/data-provider'
 
-const collectionModel = new Model(schemas.collection)
+const basicCollectionAPI = makeBasicAPIMethods(dataProvider.Collection)
 
-export function listCollection(page?) {
-  return collectionModel.list({
-    page,
-    disablePagination: _.isNil(page),
-    mapping: entity => {
-      return _.assign({}, entity, {
-        items: entity['items'].map(item => _.omit(item, 'content'))
+const collectionAPI = {
+  ...basicCollectionAPI,
+  ...{
+    list(options) {
+      return dataProvider.Collection.utils.listWithOptions({
+        page: options.page,
+        populate: 'items creator',
+        parser: null
       })
     }
-  })
+  }
 }
+
+export default collectionAPI

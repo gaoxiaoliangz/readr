@@ -1,8 +1,5 @@
 import { notFoundError } from '../helpers'
 
-export default function handleApiNotFound(req, res, next) {
-  if (!req.__apiTouched) {
-    next(notFoundError('API'))
-  }
-  next()
+export default function handleAPINotFound(req, res, next) {
+  next(notFoundError('API'))
 }

@@ -1,12 +1,14 @@
 {
   "env": {
     "node": {
-      // "presets": [
-      //   ["es2015"]
-      // ],
       "plugins": [
         "babel-plugin-transform-es2015-classes"
         // tsc target es2015 won't compile es6 to es5, and causing exsiting es5 code to fail
+      ]
+    },
+    "es5": {
+      "presets": [
+        ["es2015"]
       ]
     },
     "development": {
