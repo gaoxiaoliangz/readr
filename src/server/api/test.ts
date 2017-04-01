@@ -94,6 +94,14 @@ const htmlstring3 = `
   </div>
 `
 
+const htmlstring4 = `
+  <p>
+    htmlstring
+    <span>some string</span>
+  </p>
+  <span>some stringzz</span>
+`
+
 const test = async (options) => {
   const htmlObject = html(htmlstring2)
   return readRecursively(htmlObject)

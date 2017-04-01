@@ -12,6 +12,31 @@ interface ParsedNode {
   children?: ParsedNode[]
 }
 
+/**
+ * recursivelyReadParent
+ * @param node 
+ * @param callback runs the matching logic return the new node if true, if not return false, and the loop continues
+ * @param final callback when reaching the root
+ */
+const recursivelyReadParent = (node, callback, final?) => {
+  const _read = (_node) => {
+    const parent = _node.parentNode
+    if (parent) {
+      const newNode = callback(parent)
+      if (!newNode) {
+        return _read(parent)
+      }
+      return newNode
+    } else {
+      if (final) {
+        return final()
+      }
+      return node
+    }
+  }
+  return _read(node)
+}
+
 const parseRawHTML = HTMLString => {
   return jsdom
     .jsdom(HTMLString, {
@@ -44,37 +69,16 @@ const parseHTMLObject = (HTMLString) => {
         if (UNWRAP_TAGS.indexOf(tag) !== -1) {
           const flatten = _.flattenDeep(children)
           return flatten.length === 1 ? flatten[0] : flatten
-          // let _children = []
-          // children.forEach(child => {
-          //   if (Array.isArray(child)) {
-          //     child.forEach(_child => {
-
-          //       // if (Array.isArray(_child)) {
-          //       //   _child.forEach(__child => {
-
-
-          //       //     _children.push(__child)
-          //       //   })
-          //       // } else {
-          //       //   _children.push(_child)
-          //       // }
-          //       _children.push(_child)
-          //     })
-          //   } else {
-          //     _children.push(child)
-          //   }
-          // })
-          // const parsedChildren = _children.length === 1 ? _children[0] : _children
-          // return parsedChildren
         }
 
         const flatChildren = _.flattenDeep(children)
         const childrenAllString = flatChildren.every(child => typeof child === 'string')
+        const joinedString = flatChildren.join(' ')
 
         if (childrenAllString) {
           return {
             tag,
-            children: [flatChildren.join(' ')]
+            children: joinedString ? [joinedString] : undefined
           }
         }
 
@@ -84,16 +88,21 @@ const parseHTMLObject = (HTMLString) => {
         if (!text) {
           return null
         }
-        // TODO: wrap isolated text nodes with p tag
-        // if (node.parentNode.tagName === 'DIV') {
-        //   return { tag: 'p', children: [text] }
-        // }
-        // return {
-        //   // text,
-        //   // parent: node.parentNode.tagName
-        //   children: [text]
-        // }
-        return text
+
+        // find the cloest parent which is not in UNWRAP_TAGS
+        // if failed then wrap with p tag
+        return recursivelyReadParent(node, parent => {
+          const tag = parent.tagName && parent.tagName.toLowerCase()
+          if (!tag || (UNWRAP_TAGS.indexOf(tag) !== -1)) {
+            return false
+          }
+          return text
+        }, () => {
+          return {
+            tag: 'p',
+            children: [text]
+          }
+        })
       }
     },
     postFilter(node) {
