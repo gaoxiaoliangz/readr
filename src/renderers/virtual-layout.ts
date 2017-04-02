@@ -1,4 +1,4 @@
-import { parseNestedObject } from '../parsers/utils2'
+import { parseNestedObjectWithoutFilter } from '../parsers/utils2'
 
 // data structure
 // const htmlObject = [
@@ -37,7 +37,7 @@ interface RectInfo {
 
 export const layoutChars = objects => {
   const rects = []
-  // const chars = []
+  const chars = []
 
   const getRectInfo = (char, tag): RectInfo => {
     return {
@@ -64,25 +64,37 @@ export const layoutChars = objects => {
   // }
   // _read(objects)
 
-  return parseNestedObject(objects, {
+  parseNestedObjectWithoutFilter(objects, {
     childrenKey: 'children',
 
     finalParser(obj, path) {
       if (typeof obj === 'string') {
-        const chars = Array.prototype.map.call(obj, char => {
-          return char
+        Array.prototype.forEach.call(obj, char => {
+          chars.push({
+            char,
+            path
+          })
         })
-        return {
-          chars: obj,
-          path
-        }
+        // return {
+        //   chars: obj,
+        //   path
+        // }
+      } else {
+        chars.push({
+          path,
+          tag: obj.tag
+        })
       }
-      return {
-        ...obj,
-        ...{
-          path
-        }
-      }
+      return obj
+      // return {
+      //   ...obj,
+      //   ...{
+      //     path
+      //   }
+      // }
     }
   })
+  return chars
 }
+
+
