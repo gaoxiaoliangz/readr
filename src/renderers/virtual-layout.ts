@@ -1,4 +1,6 @@
+import _ from 'lodash'
 import { parseNestedObjectWithoutFilter } from '../parsers/utils2'
+
 
 // data structure
 // const htmlObject = [
@@ -26,6 +28,25 @@ import { parseNestedObjectWithoutFilter } from '../parsers/utils2'
  * 
  * eg: chars[240] <-> [root, 20, children, 1, chars, 70]
  */
+
+const resolveRealPath = pathArr => {
+  const _path = []
+  pathArr.forEach((p, index) => {
+    _path.push(p)
+    if (pathArr.length - 1 !== index) {
+      _path.push('children')
+    }
+  })
+  return _path
+}
+
+const groupIntoSections = () => {
+
+}
+
+const groupIntoPages = () => {
+  
+}
 
 interface RectInfo {
   width: number
@@ -72,7 +93,8 @@ export const layoutChars = objects => {
         Array.prototype.forEach.call(obj, char => {
           chars.push({
             char,
-            path
+            path,
+            tag: (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
           })
         })
         // return {
