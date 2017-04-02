@@ -1,4 +1,4 @@
-import { parseNestedObject } from '../parsers/utils'
+import { parseNestedObject } from '../parsers/utils2'
 
 // data structure
 // const htmlObject = [
@@ -17,6 +17,16 @@ import { parseNestedObject } from '../parsers/utils'
 //   }
 // ]
 
+/**
+ * mapping
+ * linear <-> nestedObjects
+ * 
+ * linear: charObject[]
+ * nestedObjects
+ * 
+ * eg: chars[240] <-> [root, 20, children, 1, chars, 70]
+ */
+
 interface RectInfo {
   width: number
   height: number
@@ -25,7 +35,7 @@ interface RectInfo {
   tag: string
 }
 
-export const readRecursively = objects => {
+export const layoutChars = objects => {
   const rects = []
   // const chars = []
 
@@ -57,32 +67,22 @@ export const readRecursively = objects => {
   return parseNestedObject(objects, {
     childrenKey: 'children',
 
-    // parser(obj, children) {
-    //   const tag = obj.tag
-    //   if (!tag) {
-    //     return Array.prototype.map.call(children[0], char => {
-    //       return char
-    //     })
-    //   }
-    //   return {
-    //     ...obj,
-    //     ...{ children }
-    //   }
-    //   // return 'parsed'
-    // },
-
-    // finalParser(obj) {
-    //   if (typeof obj === 'string') {
-    //     const chars = Array.prototype.map.call(obj, char => {
-    //       return char
-    //     })
-    //     return {
-    //       chars
-    //     }
-    //   }
-    //   return obj
-    // }
+    finalParser(obj, path) {
+      if (typeof obj === 'string') {
+        const chars = Array.prototype.map.call(obj, char => {
+          return char
+        })
+        return {
+          chars: obj,
+          path
+        }
+      }
+      return {
+        ...obj,
+        ...{
+          path
+        }
+      }
+    }
   })
-
-  // return rects
 }

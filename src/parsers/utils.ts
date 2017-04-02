@@ -32,7 +32,7 @@ interface ParseNestedObjectConfig {
  * parseNestedObject
  * a note about config.parser
  * 'children' is recursively parsed object and should be returned for parser to take effect
- * and objects without [childrenKey] will be parsed by finalParser
+ * objects without [childrenKey] will be parsed by finalParser
  * @param _rootObject 
  * @param config 
  */
@@ -46,15 +46,16 @@ const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseN
       }
       return [rootObject]
     }
+    const rootArray = makeArray()
 
     return Array.prototype
-      .filter.call(makeArray(), object => {
+      .filter.call(rootArray, object => {
         if (preFilter) {
           return preFilter(object)
         }
         return true
       })
-      .map(object => {
+      .map((object, index) => {
         if (object[childrenKey]) {
           const children = parseNestedObject(object[childrenKey])
           if (parser) {
@@ -67,6 +68,7 @@ const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseN
             }
           }
         }
+
         if (finalParser) {
           return finalParser(object)
         }

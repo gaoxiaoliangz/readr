@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import html from '../../parsers/html'
-import { readRecursively } from '../../renderers/virtual-layout'
+import { layoutChars } from '../../renderers/virtual-layout'
 
 const htmlstring = `
   <div>
@@ -102,9 +102,73 @@ const htmlstring4 = `
   <span>some stringzz</span>
 `
 
+const htmlstring5 = `
+  <div>
+    <h1>chapter 1</h1>
+    <p>line 1</p>
+    <p>line 2</p>
+    <p>line 3</p>
+    <p>line 4</p>
+    <p>line 5</p>
+    <p>line 6</p>
+    <p>line 7</p>
+    <ul>
+      <li>root list 1</li>
+      <li>root list 2</li>
+      <li>root list 3</li>
+      <li>
+        <ul>
+          <li>root2 list 1</li>
+          <li>root2 list 2</li>
+          <li>root2 list 3</li>
+          <li>
+            <ul>
+              <li>root3 list 1</li>
+              <li>root3 list 2</li>
+              <li>root3 list 3</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p>line 8</p>
+    <p>line 9</p>
+    <p>line 10</p>
+  </div>
+`
+
+const htmlstring6 = `
+  <div>
+    <h1>chapter 1</h1>
+    <p>line 1</p>
+    <ul>
+      <li>root list 1</li>
+      <li>root list 2</li>
+      <li>root list 3</li>
+      <li>
+        <ul>
+          <li>root2 list 1 (2,3,0,0,0)</li>
+          <li>root2 list 2</li>
+          <li>root2 list 3</li>
+          <li>
+            <ul>
+              <li>root3 list 1</li>
+              <li>root3 list 2</li>
+              <li>root3 list 3</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p>line 8</p>
+    <p>line 9</p>
+    <p>line 10</p>
+  </div>
+`
+
 const test = async (options) => {
-  const htmlObject = html(htmlstring2)
-  return readRecursively(htmlObject)
+  const htmlObject = html(htmlstring6)
+  return layoutChars(htmlObject)
   // return htmlObject
 }
 
