@@ -10,7 +10,7 @@ interface GeneralObject {
 interface RectInfo {
   width: number
   height: number
-  flow: 'follow' | 'block'
+  flow: 'follow' | 'block' | 'newline'
   char: string
   tag: string
 }

@@ -140,7 +140,7 @@ const htmlstring5 = `
 const htmlstring6 = `
   <div>
     <h1>chapter 1</h1>
-    <p>line 1</p>
+    <p>line 1 with <strong>bold</strong> char</p>
     <ul>
       <li>root list 1</li>
       <li>root list 2</li>

@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { parseNestedObjectWithoutFilter } from '../parsers/utils2'
 
-
 // data structure
 // const htmlObject = [
 //   {
@@ -40,20 +39,34 @@ const resolveRealPath = pathArr => {
   return _path
 }
 
+const isInline = tag => {
+  const inlineTags = ['span', 'strong', 'small']
+  return inlineTags.indexOf(tag) !== -1
+}
+
 const groupIntoSections = (rects: RectInfo[], width: number) => {
   const sections = []
   let currentSection = []
   let currentSectionWidth = 0
+  let prevTag
   rects.forEach(rect => {
     const rectWidth = rect.width || width
+    const currentTag = rect.tag
+    const tagChanged = currentTag !== prevTag
     currentSectionWidth += rectWidth
 
-    if (currentSectionWidth >= width) {
+    if (currentSectionWidth >= width || tagChanged || rect.flow === 'newline' || rect.flow === 'block') {
       sections.push(currentSection)
       currentSection = []
+      currentSectionWidth = 0
     }
+
     currentSection.push(rect)
+    prevTag = currentTag
   })
+  if (sections.length === 0) {
+    sections.push(currentSection)
+  }
   return sections
 }
 
@@ -62,17 +75,21 @@ const groupIntoPages = (lines: RectInfo[][], pageHeight: number) => {
   let currentPage = []
   let currentPageHeight = 0
   lines.forEach(line => {
-    const lineHeight = _.maxBy(line, rect => {
+    const lineHeight = (_.maxBy(line, rect => {
       return rect.height
-    }).height
+    }) || {})['height'] || 16
     currentPageHeight += lineHeight
 
     if (currentPageHeight >= pageHeight) {
       pages.push(currentPage)
       currentPage = []
+       currentPageHeight = 0
     }
     currentPage.push(line)
   })
+  if (pages.length === 0) {
+    pages.push(currentPage)
+  }
   return pages
 }
 
@@ -95,14 +112,16 @@ export const layoutChars = objects => {
 
     finalParser(obj, path) {
       if (typeof obj === 'string') {
-        Array.prototype.forEach.call(obj, char => {
+        Array.prototype.forEach.call(obj, (char, index) => {
           const tag = (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
           const rect = getRectInfo(char, tag)
+          const isTagInline = isInline(tag)
 
           chars.push({
             ...rect,
             ...{
-              path
+              path,
+              flow: ((0 === index) || !isTagInline) ? 'newline' : rect.flow
             }
           })
         })
