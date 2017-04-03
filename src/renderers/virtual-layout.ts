@@ -40,12 +40,40 @@ const resolveRealPath = pathArr => {
   return _path
 }
 
-const groupIntoSections = () => {
+const groupIntoSections = (rects: RectInfo[], width: number) => {
+  const sections = []
+  let currentSection = []
+  let currentSectionWidth = 0
+  rects.forEach(rect => {
+    const rectWidth = rect.width || width
+    currentSectionWidth += rectWidth
 
+    if (currentSectionWidth >= width) {
+      sections.push(currentSection)
+      currentSection = []
+    }
+    currentSection.push(rect)
+  })
+  return sections
 }
 
-const groupIntoPages = () => {
-  
+const groupIntoPages = (lines: RectInfo[][], pageHeight: number) => {
+  const pages = []
+  let currentPage = []
+  let currentPageHeight = 0
+  lines.forEach(line => {
+    const lineHeight = _.maxBy(line, rect => {
+      return rect.height
+    }).height
+    currentPageHeight += lineHeight
+
+    if (currentPageHeight >= pageHeight) {
+      pages.push(currentPage)
+      currentPage = []
+    }
+    currentPage.push(line)
+  })
+  return pages
 }
 
 interface RectInfo {
@@ -70,53 +98,33 @@ export const layoutChars = objects => {
     }
   }
 
-  // const _read = (_objects) => {
-  //   _objects.forEach(obj => {
-  //     if (obj.children) {
-  //       obj.children.forEach(child => {
-  //         if (typeof child === 'string') {
-  //           rects.push(getRectInfo(child, obj.tag))
-  //         } else {
-  //           _read([child])
-  //         }
-  //       })
-  //     }
-  //   })
-  // }
-  // _read(objects)
-
   parseNestedObjectWithoutFilter(objects, {
     childrenKey: 'children',
 
     finalParser(obj, path) {
       if (typeof obj === 'string') {
         Array.prototype.forEach.call(obj, char => {
+          const tag = (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
+          const rect = getRectInfo(char, tag)
+
           chars.push({
-            char,
-            path,
-            tag: (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
+            ...rect,
+            ...{
+              path
+            }
           })
         })
-        // return {
-        //   chars: obj,
-        //   path
-        // }
       } else {
         chars.push({
           path,
-          tag: obj.tag
+          tag: obj.tag,
+          flow: 'block'
         })
       }
       return obj
-      // return {
-      //   ...obj,
-      //   ...{
-      //     path
-      //   }
-      // }
     }
   })
-  return chars
+  const sections = groupIntoSections(chars, 500)
+  const pages = groupIntoPages(sections, 600)
+  return pages
 }
-
-
