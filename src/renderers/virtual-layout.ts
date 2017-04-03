@@ -76,14 +76,6 @@ const groupIntoPages = (lines: RectInfo[][], pageHeight: number) => {
   return pages
 }
 
-interface RectInfo {
-  width: number
-  height: number
-  flow: 'follow' | 'block'
-  char: string
-  tag: string
-}
-
 export const layoutChars = objects => {
   const rects = []
   const chars = []

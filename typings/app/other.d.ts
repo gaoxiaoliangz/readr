@@ -6,3 +6,11 @@
 interface GeneralObject {
   [key: string]: any
 }
+
+interface RectInfo {
+  width: number
+  height: number
+  flow: 'follow' | 'block'
+  char: string
+  tag: string
+}

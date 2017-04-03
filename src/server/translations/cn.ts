@@ -52,7 +52,7 @@ export default {
         exists: '{value}已存在'
       },
       auth: {
-        needPermissionsOf: '需要 {value} 权限',
+        needPermissionsOf: '需要{value}权限',
         loginRequired: '需要登录',
       },
     },
