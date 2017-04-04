@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import html from '../../parsers/html'
 import { layoutChars } from '../../renderers/virtual-layout'
+import { render } from '../../renderers/virtual-layout2'
 
 const htmlstring = `
   <div>
@@ -150,6 +151,7 @@ const htmlstring6 = `
           <li>root2 list 1 (2,3,0,0,0)</li>
           <li>root2 list 2</li>
           <li>root2 list 3</li>
+          <li><img src="a.jpg"/></li>
           <li>
             <ul>
               <li>root3 list 1</li>
@@ -168,7 +170,8 @@ const htmlstring6 = `
 
 const test = async (options) => {
   const htmlObject = html(htmlstring6)
-  return layoutChars(htmlObject)
+  // return layoutChars(htmlObject)
+  return render(htmlObject)
   // return htmlObject
 }
 
