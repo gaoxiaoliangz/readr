@@ -72,21 +72,30 @@ const parseHTMLObject = (HTMLString) => {
         }
 
         const flatChildren = _.flattenDeep(children)
-        const childrenAllString = flatChildren.every(child => typeof child === 'string')
-        const joinedString = flatChildren.join(' ')
+        // todo: join text
+        // const childrenAllString = flatChildren.every(child => typeof child === 'string')
+        // const joinedString = flatChildren.join(' ')
 
-        if (childrenAllString) {
-          return {
-            tag,
-            children: joinedString ? [joinedString] : undefined
-          }
-        }
+        // if (childrenAllString) {
+        //   return {
+        //     tag,
+        //     children: joinedString ? [joinedString] : undefined
+        //   }
+        // }
 
-        return { tag, children: flatChildren }
+        return { tag, type: 1, children: flatChildren }
       } else {
         const text = node.textContent.trim()
         if (!text) {
           return null
+        }
+
+        const makeTextObject = () => {
+          return {
+            parentTag: node.parentNode.tagName && node.parentNode.tagName.toLowerCase(),
+            type: 3,
+            text
+          }
         }
 
         // find the cloest parent which is not in UNWRAP_TAGS
@@ -96,11 +105,15 @@ const parseHTMLObject = (HTMLString) => {
           if (!tag || (UNWRAP_TAGS.indexOf(tag) !== -1)) {
             return false
           }
-          return text
+          // return text
+          // return node.toString()
+          return makeTextObject()
         }, () => {
           return {
             tag: 'p',
-            children: [text]
+            // children: [text]
+            // children: [node]
+            children: [makeTextObject()]
           }
         })
       }

@@ -206,14 +206,15 @@ const getSectionHeight = (section, width: number) => {
   let totalHeight = 0
   let currentWidth = 0
 
-  // txtArr.forEach(txtObj => {
-  //   if (!txtObj.isInline) {
+  // flatChildren.forEach(child => {
+  //   if (!child.isInline) {
   //     // totalHeight += 
   //   }
   //   if (currentWidth < width) {
 
   //   }
   // })
+
   return flatChildren
 }
 
