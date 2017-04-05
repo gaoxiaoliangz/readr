@@ -5,7 +5,7 @@ import { parseNestedObject } from './utils'
 const debug = require('debug')('readr:html')
 
 const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style']
-const UNWRAP_TAGS = ['div', 'span', 'body', 'html']
+const UNWRAP_TAGS = ['div', 'span', 'body', 'html', 'ul', 'li', 'strong', 'small']
 
 interface ParsedNode {
   tag?: string
@@ -83,7 +83,7 @@ const parseHTMLObject = (HTMLString) => {
         //   }
         // }
 
-        return { tag, type: 1, children: flatChildren }
+        return { tag, type: 1, children: flatChildren, clientHeight: node.clientHeight }
       } else {
         const text = node.textContent.trim()
         if (!text) {

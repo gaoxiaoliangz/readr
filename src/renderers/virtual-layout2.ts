@@ -44,25 +44,40 @@ const isInline = tag => {
   return inlineTags.indexOf(tag) !== -1
 }
 
-const groupIntoSections = (rects: RectInfo[], width: number) => {
+// path [rootIndex, ..., childrenIndex, charIndex]
+const groupIntoSections = (atoms: Atom[], width: number) => {
   const sections = []
   let currentSection = []
   let currentSectionWidth = 0
-  let prevTag
-  rects.forEach(rect => {
-    const rectWidth = rect.width || width
-    const currentTag = rect.tag
-    const tagChanged = currentTag !== prevTag
+
+  atoms.forEach((atom, index) => {
+    const { path, type } = atom
+    const rectWidth = type === 3 ? 16 : width
+    // const currentTag = atom.tag
+    // const tagChanged = currentTag !== prevTag
+    const prevAtom = atoms[index - 1] as Atom
+    const rootIndexChangd = !prevAtom ? false : (
+      path[0] !== prevAtom.path[0]
+    )
+    // check if is block ele under section ele
+    let isBlockUnderSection = !isInline(atom.parentTag) && path.length > 3
+    const pathLengthChanged = !prevAtom ? false : (
+      path.length !== prevAtom.path.length
+    )
+    const childrenIndexChanged = (!prevAtom || path.length < 3) ? false : (
+      path[path.length - 2] !== prevAtom.path[prevAtom.path.length - 2]
+    )
+    // if (pathLengthChanged)
     currentSectionWidth += rectWidth
 
-    if (currentSectionWidth >= width || tagChanged || rect.flow === 'newline' || rect.flow === 'block') {
+    if (currentSectionWidth >= width || rootIndexChangd || type === 1) {
+    // if (currentSectionWidth >= width || rootIndexChangd || type === 1 || pathLengthChanged || (childrenIndexChanged && isBlockUnderSection)) {
       sections.push(currentSection)
       currentSection = []
       currentSectionWidth = 0
     }
 
-    currentSection.push(rect)
-    prevTag = currentTag
+    currentSection.push(atom)
   })
   if (sections.length === 0) {
     sections.push(currentSection)
@@ -95,7 +110,7 @@ const groupIntoPages = (lines: RectInfo[][], pageHeight: number) => {
 
 export const layoutChars = objects => {
   const rects = []
-  const chars = []
+  const atoms = []
 
   const getRectInfo = (char, tag): RectInfo => {
     return {
@@ -111,33 +126,55 @@ export const layoutChars = objects => {
     childrenKey: 'children',
 
     finalParser(obj, path) {
-      if (typeof obj === 'string') {
-        Array.prototype.forEach.call(obj, (char, index) => {
-          const tag = (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
-          const rect = getRectInfo(char, tag)
-          const isTagInline = isInline(tag)
+      // if (typeof obj === 'string') {
+      //   Array.prototype.forEach.call(obj, (char, index) => {
+      //     const tag = (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
+      //     const rect = getRectInfo(char, tag)
+      //     const isTagInline = isInline(tag)
 
-          chars.push({
-            ...rect,
+      //     chars.push({
+      //       ...rect,
+      //       ...{
+      //         path,
+      //         flow: ((0 === index) || !isTagInline) ? 'newline' : rect.flow
+      //       }
+      //     })
+      //   })
+      // } else {
+      //   chars.push({
+      //     path,
+      //     tag: obj.tag,
+      //     flow: 'block'
+      //   })
+      // }
+      // return obj
+
+      if (obj.type === 3) {
+        Array.prototype.forEach.call(obj.text, (char, index) => {
+          atoms.push({
+            ...obj,
             ...{
-              path,
-              flow: ((0 === index) || !isTagInline) ? 'newline' : rect.flow
+              text: char,
+              path: path.concat([index])
             }
           })
         })
       } else {
-        chars.push({
-          path,
-          tag: obj.tag,
-          flow: 'block'
+        atoms.push({
+          ...obj,
+          ...{
+            path
+          }
         })
       }
+
       return obj
     }
   })
-  const sections = groupIntoSections(chars, 500)
+  const sections = groupIntoSections(atoms, 1500)
   const pages = groupIntoPages(sections, 600)
   return pages
+  // return atoms
 }
 
 const getItemWidth = (chars?) => {
@@ -177,13 +214,18 @@ const getSectionHeight = (section, width: number) => {
 
   const flattenChildren = _ele => {
     const arr = []
+    let deep = false
 
     const flatten = ele => {
       const _children = ele.children || []
       _children.forEach(child => {
         if (!child.children) {
-          arr.push(child)
+          arr.push({
+            ...child,
+            ...{ deep }
+          })
         } else {
+          deep = true
           flatten(child)
         }
       })
@@ -219,7 +261,8 @@ const getSectionHeight = (section, width: number) => {
 }
 
 export const render = (objects) => {
-  return objects.map(obj => {
-    return getSectionHeight(obj, 600)
-  })
+  // return objects.map(obj => {
+  //   return getSectionHeight(obj, 600)
+  // })
+  return layoutChars(objects)
 }

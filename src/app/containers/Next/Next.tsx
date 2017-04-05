@@ -9,7 +9,7 @@ interface Props {
 }
 
 interface LocalState {
-  pageData:  RectInfo[][][]
+  pageData:  Atom[][][]
 }
 
 interface AllProps extends Props {
@@ -65,7 +65,7 @@ class Next extends Component<AllProps, LocalState> {
                         {
                           line.map((char, __index) => {
                             return (
-                              <span key={__index}>{char.char}</span>
+                              <span key={__index}>{char.text}</span>
                             )
                           })
                         }

@@ -171,10 +171,9 @@ const htmlstring6 = `
 const test = async (options) => {
   const htmlObject = html(htmlstring6)
   // return layoutChars(htmlObject)
-  return render(htmlObject)
-  // return htmlObject
+  // return render(htmlObject)
+  return htmlObject
   // return htmlObject[0].children[0]
 }
-
 
 export default test

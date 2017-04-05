@@ -14,3 +14,10 @@ interface RectInfo {
   char: string
   tag: string
 }
+
+interface Atom {
+  parentTag: string
+  type: 1 | 3
+  text?: string
+  path: string[]
+}
