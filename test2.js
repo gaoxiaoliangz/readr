@@ -1,10 +1,23 @@
 const phantom = require('phantom')
 
+const styles = `
+  body {
+    color: red;
+    font-size: 20px;
+    font-family: Arial;
+    line-height: 2;
+  }
+`
+
 const instance = phantom.create()
 const htmlstring6 = `
+  <html>
+  <head>
+    <style>${styles}</style>
+  </head>
   <body>
     <div class="root">
-      <h1>chapter 1</h1>
+      <h1 style="font-size: 10px;">chapter 1</h1>
       <p>line 1 with <strong>bold</strong> char</p>
       <ul>
         <li>root list 1</li>
@@ -15,7 +28,11 @@ const htmlstring6 = `
             <li>root2 list 1 (2,3,0,0,0)</li>
             <li>root2 list 2</li>
             <li>root2 list 3</li>
-            <li><img src="a.jpg"/></li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
             <li>
               <ul>
                 <li>root3 list 1</li>
@@ -31,6 +48,7 @@ const htmlstring6 = `
       <p>line 10</p>
     </div>
   </body>
+  </html>
 `
 
 instance.then(ins => {
@@ -48,7 +66,8 @@ instance.then(ins => {
         // return $ele.clientHeight
         // ins.exit()
         // return $ele
-        return document.body
+        // return document.body.querySelector('li')
+        return document.body.querySelector('.root')
       })
       .then((ele) => {
         // console.log(ele.querySelector('li').clientHeight)
