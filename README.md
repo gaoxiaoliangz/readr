@@ -83,7 +83,7 @@ options, data, id, response, error
 	☐ add new book page component
 	✔ html parser @done (March 31st 2017, 19:46)
 	☐ attatch debug
-	☐ update ts
+	✔ update ts @done (April 6th 2017, 18:14)
 
 ### Next
 	☐ page no style
