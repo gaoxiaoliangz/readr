@@ -16,26 +16,19 @@ const renderObjects = (objects: ParsedNode[]) => {
     if (children) {
       return React.createElement(tag, { key: index }, renderObjects(children))
     }
-    return React.createElement(tag, {})
+    return React.createElement(tag, { key: index })
   })
 }
-        // {/*htmlObjects.map(object => {
-        //   return React.createElement('p')
-        // })*/}
+
 function Template(props: Props) {
   const { htmlObjects } = props
   return (
-    <div>
+    <div className="section">
       {
         renderObjects(htmlObjects)
       }
     </div>
   )
-  // return (
-  //   // <div>ok</div>
-  //   React.createElement('div', {}, [<div>fff</div>, <p>ddd</p>])
-  // )
-  // return renderObjects(htmlObjects)
 }
 
 export default Template

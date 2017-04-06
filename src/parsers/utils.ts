@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+const debug = require('debug')('readr:parsers:utils')
+
 export function flattenArray(arrayOfNestedObj, childrenName = 'children') {
   const list = []
 
@@ -38,6 +40,10 @@ interface ParseNestedObjectConfig {
  */
 const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseNestedObjectConfig) => {
   const { childrenKey, parser, preFilter, postFilter, finalParser } = config
+
+  if (!_rootObject) {
+    return []
+  }
 
   const parseNestedObject = (rootObject: Object | Object[]): any[] => {
     const makeArray = () => {

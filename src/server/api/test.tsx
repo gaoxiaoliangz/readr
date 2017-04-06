@@ -1,11 +1,13 @@
 import React from 'react'
-import { renderToStaticMarkup, renderToString } from 'react-dom/server'
+import { renderToStaticMarkup } from 'react-dom/server'
 import _ from 'lodash'
 import html from '../../parsers/html'
-import { layoutChars } from '../../renderers/virtual-layout'
-import { render } from '../../renderers/virtual-layout2'
 import Template from '../../renderers/Template'
 import evaluate from '../../renderers/evaluate'
+// import calcBook from '../../app/sagas/effects/calcBook'
+import { getNodeHeights } from '../../app/sagas/effects/paging'
+import AppDoc from '../../app/components/AppDoc'
+
 
 const htmlstring = `
   <div>
@@ -236,34 +238,30 @@ const htmlstring7 = `
 
 const test = async (options) => {
   const htmlObject = html(htmlstring6)
-  // return layoutChars(htmlObject)
-  // return render(htmlObject)
-  // return htmlObject
-  // return htmlObject[0].children[0]
+
   const htmlString = renderToStaticMarkup(
-    <Template htmlObjects={htmlObject} />
+    <AppDoc
+      appMarkup={<Template htmlObjects={htmlObject} />}
+    />
   )
 
-  return evaluate(htmlstring7, {
-    // selector: 'body'
-    saveShotAsPng: true
-  }).then(ele => {
-    // return { htmlString: body.querySelector('.root').innerHTML }
-    return { a: ele.innerHTML }
+  return evaluate(htmlString, {
+    saveShotAsPng: false,
+    evalCallback: `
+      var nodes = document.querySelector('.content').childNodes
+      var heights = []
+      Array.prototype.forEach.call(nodes, function(node) {
+        heights.push(node.clientHeight)
+      })
+      return heights
+    `
+  }).then(heights => {
+    // const html = ele.innerHTML
+    // const a = ele.childNodes[0]
+    // // return { htmlString: body.querySelector('.root').innerHTML }
+    // const heights = getNodeHeights(ele.childNodes)
+    return { heights }
   })
-
-  // const obj = {
-  //   type: 'h1',
-  //   key: 0,
-  //   props: {
-  //     className: 'greeting',
-  //     children: 'Hello, world'
-  //   }
-  // }
-
-  // const htmlString = renderToStaticMarkup(obj)
-
-  // return { htmlString }
 }
 
 export default test

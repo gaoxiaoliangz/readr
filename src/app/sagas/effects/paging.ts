@@ -7,7 +7,7 @@ export function getNodeHeights(nodes) {
   let nodesHeight = []
 
   Array.prototype.forEach.call(nodes, (node, index) => {
-    if (node.className !== styles['gb-line']) {
+    if (!node.className || node.className !== styles['gb-line']) {
       console.error('Unsupported content found!')
     }
     nodesHeight.push(node.clientHeight)

@@ -7,6 +7,7 @@ interface Props {
   bodyClass?: string
   appMarkup: string | JSX.Element
   initialState?: Object
+  style?: any
   helmetHeadObject?: {
     htmlAttributes?
     title?
@@ -39,7 +40,7 @@ const AppDoc = (props: Props) => {
   const {
     script: bodyScript,
     link: otherLink,
-    bodyClass, appMarkup, initialState,
+    bodyClass, appMarkup, initialState, style,
     helmetHeadObject: {
       title, meta, link: helmetLink, script: headScript
     },
@@ -56,6 +57,15 @@ const AppDoc = (props: Props) => {
           masterTitle
             ? <title>{masterTitle || (title && title.toString())}</title>
             : (title && title.toComponent())
+        }
+        {
+          style && (
+            <style
+              dangerouslySetInnerHTML={{
+                __html: style
+              }}
+            />
+          )
         }
         {meta && meta.toComponent()}
         {helmetLink && helmetLink.toComponent()}
