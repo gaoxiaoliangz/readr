@@ -194,7 +194,7 @@
     "ts-node": "^2.1.0",
     "tslint": "^4.5.1",
     "tslint-eslint-rules": "^3.4.0",
-    "typescript": "^2.2.1",
+    "typescript": "^2.2.2",
     "vrsource-tslint-rules": "^4.0.1",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1",

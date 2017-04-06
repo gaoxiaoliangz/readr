@@ -8,10 +8,6 @@
   "suppressTaskName": true,
   "tasks": [
     {
-      "taskName": "Start api",
-      "args": ["run", "serve:api"]
-    },
-    {
       "taskName": "Watch node changes",
       "args": ["run", "watch:node"]
     },
