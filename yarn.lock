@@ -129,6 +129,10 @@
   version "6.0.65"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-6.0.65.tgz#c00faa7ffcfc9842b5dd7bf650872562504d5670"
 
+"@types/phantom@^3.2.1":
+  version "3.2.1"
+  resolved "http://registry.npm.taobao.org/@types/phantom/download/@types/phantom-3.2.1.tgz#9e365318f450040ce07c9e3fa20bdb418c108e77"
+
 "@types/react-addons-css-transition-group@^15.0.1":
   version "15.0.1"
   resolved "http://registry.npm.taobao.org/@types/react-addons-css-transition-group/download/@types/react-addons-css-transition-group-15.0.1.tgz#2fc47a444d754bce94f1b774bca490542de13874"
@@ -1671,10 +1675,6 @@ bser@^2.0.0:
 bson@~1.0.4:
   version "1.0.4"
   resolved "http://registry.npm.taobao.org/bson/download/bson-1.0.4.tgz#93c10d39eaa5b58415cbc4052f3e53e562b0b72c"
-
-buffer-crc32@~0.2.3:
-  version "0.2.13"
-  resolved "http://registry.npm.taobao.org/buffer-crc32/download/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
 
 buffer-shims@^1.0.0:
   version "1.0.0"
@@ -10030,17 +10030,10 @@ yargs@~3.27.0:
     window-size "^0.1.2"
     y18n "^3.2.0"
 
-yauzl@2.4.1:
+yauzl@2.4.1, yauzl@^2.2.1:
   version "2.4.1"
   resolved "http://registry.npm.taobao.org/yauzl/download/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
   dependencies:
-    fd-slicer "~1.0.1"
-
-yauzl@^2.2.1:
-  version "2.7.0"
-  resolved "http://registry.npm.taobao.org/yauzl/download/yauzl-2.7.0.tgz#e21d847868b496fc29eaec23ee87fdd33e9b2bce"
-  dependencies:
-    buffer-crc32 "~0.2.3"
     fd-slicer "~1.0.1"
 
 yn@^1.2.0:

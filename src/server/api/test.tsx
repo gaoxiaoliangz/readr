@@ -1,7 +1,11 @@
+import React from 'react'
+import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import _ from 'lodash'
 import html from '../../parsers/html'
 import { layoutChars } from '../../renderers/virtual-layout'
 import { render } from '../../renderers/virtual-layout2'
+import Template from '../../renderers/Template'
+import evaluate from '../../renderers/evaluate'
 
 const htmlstring = `
   <div>
@@ -151,7 +155,6 @@ const htmlstring6 = `
           <li>root2 list 1 (2,3,0,0,0)</li>
           <li>root2 list 2</li>
           <li>root2 list 3</li>
-          <li><img src="a.jpg"/></li>
           <li>
             <ul>
               <li>root3 list 1</li>
@@ -168,12 +171,99 @@ const htmlstring6 = `
   </div>
 `
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+const styles = `
+  body {
+    color: red;
+    font-size: 20px;
+    font-family: Arial;
+    line-height: 2;
+  }
+`
+
+const htmlstring7 = `
+  <html>
+  <head>
+    <style>${styles}</style>
+  </head>
+  <body>
+    <div class="root">
+      <h1 style="font-size: 10px;">chapter 1</h1>
+      <p>line 1 with <strong>bold</strong> char</p>
+      <ul>
+        <li>root list 1</li>
+        <li>root list 2</li>
+        <li>root list 3</li>
+        <li>
+          <ul>
+            <li class="xx">root2 list 1 (2,3,0,0,0)</li>
+            <li>root2 list 2</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>root2 list 3</li>
+            <li>
+              <ul>
+                <li>root3 list 1</li>
+                <li>root3 list 2</li>
+                <li>root3 list 3</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p>line 8</p>
+      <p>line 9</p>
+      <p>line 10</p>
+    </div>
+  </body>
+  </html>
+`
+
 const test = async (options) => {
   const htmlObject = html(htmlstring6)
   // return layoutChars(htmlObject)
   // return render(htmlObject)
-  return htmlObject
+  // return htmlObject
   // return htmlObject[0].children[0]
+  const htmlString = renderToStaticMarkup(
+    <Template htmlObjects={htmlObject} />
+  )
+
+  return evaluate(htmlstring7, {
+    // selector: 'body'
+    saveShotAsPng: true
+  }).then(ele => {
+    // return { htmlString: body.querySelector('.root').innerHTML }
+    return { a: ele.innerHTML }
+  })
+
+  // const obj = {
+  //   type: 'h1',
+  //   key: 0,
+  //   props: {
+  //     className: 'greeting',
+  //     children: 'Hello, world'
+  //   }
+  // }
+
+  // const htmlString = renderToStaticMarkup(obj)
+
+  // return { htmlString }
 }
 
 export default test

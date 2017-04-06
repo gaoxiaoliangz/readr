@@ -5,12 +5,7 @@ import { parseNestedObject } from './utils'
 const debug = require('debug')('readr:html')
 
 const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style']
-const UNWRAP_TAGS = ['div', 'span', 'body', 'html', 'ul', 'li', 'strong', 'small']
-
-interface ParsedNode {
-  tag?: string
-  children?: ParsedNode[]
-}
+const UNWRAP_TAGS = ['div', 'span', 'body', 'html']
 
 /**
  * recursivelyReadParent
@@ -53,7 +48,7 @@ const parseHTMLObject = (HTMLString) => {
   debug(rootNode.innerHTML)
 
   // initial parse
-  const parsed: ParsedNode = parseNestedObject(rootNode, {
+  const parsed = parseNestedObject(rootNode, {
     childrenKey: 'childNodes',
     preFilter(node) {
       return node.nodeType === 1 || node.nodeType === 3
@@ -105,14 +100,10 @@ const parseHTMLObject = (HTMLString) => {
           if (!tag || (UNWRAP_TAGS.indexOf(tag) !== -1)) {
             return false
           }
-          // return text
-          // return node.toString()
           return makeTextObject()
         }, () => {
           return {
             tag: 'p',
-            // children: [text]
-            // children: [node]
             children: [makeTextObject()]
           }
         })
@@ -121,7 +112,7 @@ const parseHTMLObject = (HTMLString) => {
     postFilter(node) {
       return !_.isEmpty(node)
     }
-  })
+  }) as ParsedNode[]
 
   // post parse
   return parseNestedObject(parsed[0], {

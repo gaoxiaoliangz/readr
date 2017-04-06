@@ -21,3 +21,10 @@ interface Atom {
   text?: string
   path: string[]
 }
+
+interface ParsedNode {
+  tag?: string
+  type: 1 | 3
+  text?: string
+  children?: ParsedNode[]
+}

@@ -82,6 +82,8 @@ options, data, id, response, error
 	☐ add get book page api
 	☐ add new book page component
 	✔ html parser @done (March 31st 2017, 19:46)
+	☐ attatch debug
+	☐ update ts
 
 ### Next
 	☐ page no style
