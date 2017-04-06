@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import request from '../../../utils/network/request'
+import Template from '../../../renderers/Template'
 
 interface Props {
 }
 
 interface LocalState {
-  pageData:  Atom[][][]
+  pageData: Atom[][][],
+  page: number
 }
 
 interface AllProps extends Props {
@@ -37,22 +39,28 @@ class Next extends Component<AllProps, LocalState> {
   constructor(props) {
     super(props)
     this.state = {
-      pageData: []
+      pageData: [],
+      page: 1
     }
   }
 
   componentDidMount() {
-    request('/api/test').then(data => {
+    this.loadPage()
+  }
+
+  loadPage(page = 1) {
+    request(`/api/books/58dc6af101a79153db46b0b1/pages/${page}`).then(data => {
       this.setState({
-        pageData: data.json
+        pageData: data.json,
+        page
       })
     })
   }
 
   render() {
-    const pageData = this.state.pageData
+    const pageData = this.state.pageData || {}
 
-    return (
+    /*return (
       <div>
         {
           pageData.map((page, index) => {
@@ -77,6 +85,17 @@ class Next extends Component<AllProps, LocalState> {
             )
           })
         }
+      </div>
+    )*/
+
+    return (
+      <div>
+        <button onClick={() => {
+          this.loadPage(this.state.page + 1)
+        }}>next</button>
+        <Template
+          htmlObjects={pageData['nodes'] || []}
+        />
       </div>
     )
   }

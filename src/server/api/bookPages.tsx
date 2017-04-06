@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import fs from 'fs'
 import _ from 'lodash'
 import { makeBasicAPIMethods } from './utils'
+import { groupNodesByPage } from '../../renderers/paging'
 import dataProvider from '../models/data-provider'
 import * as helpers from '../helpers'
 import { notFoundError } from '../helpers'
@@ -12,8 +13,18 @@ import AppDoc from '../../app/components/AppDoc'
 import Template from '../../renderers/Template'
 import evaluate from '../../renderers/evaluate'
 
+// const groupIntoPages = (heights: number[], pageHeight: number) => {
+//   let currentPage = []
+//   let currentPageHeight = 0
+//   const pages = []
+
+//   if (currentPageHeight < pageHeight) {
+
+//   }
+// }
+
 export const resolveBookPages = async (options) => {
-  const { id: bookId } = options
+  const { id: bookId, pageNo } = options
   const bookEntity = await dataProvider.Book.utils.findById(bookId) as any
   const fileId = bookEntity.file
   const file = await dataProvider.File.utils.findById(fileId) as any
@@ -26,7 +37,7 @@ export const resolveBookPages = async (options) => {
   if (file.mimetype === 'application/epub+zip') {
     bookContent = await parsers.epub(file.content)
     let { sections } = bookContent
-    sections = [sections[1], sections[2]]
+    // sections = [sections[1], sections[2]]
 
     // get node heights in sections
     const htmlString = renderToStaticMarkup(
@@ -55,7 +66,7 @@ export const resolveBookPages = async (options) => {
     )
 
     const heights = await evaluate(htmlString, {
-      saveShotAsPng: true,
+      saveShotAsPng: false,
       evalCallback: `
       var sections = document.querySelector('.sections').childNodes
       var heights = []
@@ -72,13 +83,16 @@ export const resolveBookPages = async (options) => {
     }).then(_heights => {
       return _heights
     })
-    // return heights
-    return sections.map((section, index) => {
-      return {
-        ...{ heights: heights[index] },
-        ...section
-      }
-    })
+
+    const nodeGroups = groupNodesByPage(sections[5].content, heights[5], 600)[pageNo - 1]
+
+    return nodeGroups
+    // return sections.map((section, index) => {
+    //   return {
+    //     ...{ heights: heights[index] },
+    //     ...section
+    //   }
+    // })
   } else if (bookEntity.file.mimetype === 'text/plain') {
     // todo
     bookContent = await parsers.txt(file.content)
