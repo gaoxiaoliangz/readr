@@ -12,6 +12,8 @@ import request from '../../utils/network/request'
 import AppDoc from '../../app/components/AppDoc'
 import Template from '../../renderers/Template'
 import evaluate from '../../renderers/evaluate'
+import { getCssLinks } from '../middleware/render/render-view'
+
 
 // const groupIntoPages = (heights: number[], pageHeight: number) => {
 //   let currentPage = []
@@ -51,6 +53,7 @@ export const resolveBookPages = async (options) => {
             color: #666;
           }
         `}
+        link={getCssLinks()}
         appMarkup={
           <div className="sections">
             {
@@ -68,23 +71,24 @@ export const resolveBookPages = async (options) => {
     const heights = await evaluate(htmlString, {
       saveShotAsPng: false,
       evalCallback: `
-      var sections = document.querySelector('.sections').childNodes
-      var heights = []
-      var allHeights = []
-      Array.prototype.forEach.call((sections), function(section) {
-        Array.prototype.forEach.call(section.childNodes, function(node) {
-          heights.push(node.clientHeight)
+        var sections = document.querySelector('.sections').childNodes
+        var heights = []
+        var allHeights = []
+        Array.prototype.forEach.call((sections), function(section) {
+          Array.prototype.forEach.call(section.childNodes, function(node) {
+            heights.push(node.clientHeight)
+          })
+          allHeights.push(heights)
+          heights = []
         })
-        allHeights.push(heights)
-        heights = []
-      })
-      return allHeights
+        return allHeights
     `
     }).then(_heights => {
       return _heights
     })
 
-    const nodeGroups = groupNodesByPage(sections[5].content, heights[5], 600)[pageNo - 1]
+    const index = 3
+    const nodeGroups = groupNodesByPage(sections[index].content, heights[index], 600)[pageNo - 1]
 
     return nodeGroups
     // return sections.map((section, index) => {

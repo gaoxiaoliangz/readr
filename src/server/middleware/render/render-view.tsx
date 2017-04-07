@@ -10,6 +10,7 @@ import getIP from '../../../app/helpers/getIP'
 
 const CLIENT_ENV_VARS = ['PORT']
 const LOCAL_IP = getIP()
+const prefix = '/static'
 
 const resolveDevAssets = (assetName) => {
   const assetUrl = `http://${LOCAL_IP}:${process.env.WEBPACK_PORT}/static/`
@@ -17,29 +18,33 @@ const resolveDevAssets = (assetName) => {
   return assetUrl + assetName
 }
 
-function renderView(isProduction) {
-  let cssAssets
-  let jsAssets
-
+export const getCssLinks = (isProduction = false) => {
   if (isProduction) {
-    const prefix = '/static'
-    cssAssets = [
+    return [
       path.join(prefix, manifest['base.global.css']),
       path.join(prefix, manifest['vendor.global.css']),
       path.join(prefix, manifest['modifiers.global.css']),
       path.join(prefix, manifest['app.css'])
     ]
+  }
+  return [
+    resolveDevAssets('css/base.global.css'),
+    resolveDevAssets('css/vendor.global.css'),
+    resolveDevAssets('css/modifiers.global.css'),
+    resolveDevAssets('css/app.css')
+  ]
+}
+
+function renderView(isProduction) {
+  const cssAssets = getCssLinks(isProduction)
+  let jsAssets
+
+  if (isProduction) {
     jsAssets = [
       path.join(prefix, manifest['vendor.js']),
       path.join(prefix, manifest['app.js'])
     ]
   } else {
-    cssAssets = [
-      resolveDevAssets('css/base.global.css'),
-      resolveDevAssets('css/vendor.global.css'),
-      resolveDevAssets('css/modifiers.global.css'),
-      resolveDevAssets('css/app.css')
-    ]
     jsAssets = [
       resolveDevAssets('js/vendor.dll.js'),
       resolveDevAssets('js/app.js')

@@ -88,14 +88,27 @@ class Next extends Component<AllProps, LocalState> {
       </div>
     )*/
 
+    const wrapperStyle: React.CSSProperties = {
+      overflow: 'hidden',
+      height: 600
+    }
+
+    const innerStyle: React.CSSProperties = {
+      marginTop: (pageData['meta'] || {}).offset || 0
+    }
+
     return (
       <div>
         <button onClick={() => {
           this.loadPage(this.state.page + 1)
         }}>next</button>
-        <Template
-          htmlObjects={pageData['nodes'] || []}
-        />
+        <div style={wrapperStyle}>
+          <div style={innerStyle}>
+            <Template
+              htmlObjects={pageData['nodes'] || []}
+            />
+          </div>
+        </div>
       </div>
     )
   }
