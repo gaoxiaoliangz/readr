@@ -41,17 +41,17 @@ const calcHeights = async (sections) => {
   const heights = evaluate(htmlString, {
     saveShotAsPng: false,
     evalCallback: `
-        var sections = document.querySelector('.sections').childNodes
-        var heights = []
-        var allHeights = []
-        Array.prototype.forEach.call((sections), function(section) {
-          Array.prototype.forEach.call(section.childNodes, function(node) {
-            heights.push(node.clientHeight)
-          })
-          allHeights.push(heights)
-          heights = []
+      var sections = document.querySelector('.sections').childNodes
+      var heights = []
+      var allHeights = []
+      Array.prototype.forEach.call((sections), function(section) {
+        Array.prototype.forEach.call(section.childNodes, function(node) {
+          heights.push(node.clientHeight)
         })
-        return allHeights
+        allHeights.push(heights)
+        heights = []
+      })
+      return allHeights
     `
   }).then(_heights => {
     return _heights
