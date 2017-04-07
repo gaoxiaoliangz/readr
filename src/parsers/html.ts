@@ -56,6 +56,7 @@ const parseHTMLObject = (HTMLString) => {
     parser(node, children) {
       if (node.nodeType === 1) {
         const tag = node.tagName.toLowerCase()
+        const attrs: GeneralObject = {}
 
         if (OMITTED_TAGS.indexOf(tag) !== -1) {
           return null
@@ -78,7 +79,12 @@ const parseHTMLObject = (HTMLString) => {
         //   }
         // }
 
-        return { tag, type: 1, children: flatChildren }
+        if (tag === 'a') {
+          const href = node.getAttribute('href')
+          attrs.href = href
+        }
+
+        return { tag, type: 1, children: flatChildren, attrs }
       } else {
         const text = node.textContent.trim()
         if (!text) {

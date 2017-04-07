@@ -49,7 +49,11 @@ class Next extends Component<AllProps, LocalState> {
   }
 
   loadPage(page = 1) {
-    request(`/api/books/58dc6af101a79153db46b0b1/pages/${page}`).then(data => {
+    request(`/api/books/58dc6af101a79153db46b0b1/pages/${page}`, {
+      query: {
+        pageHeight: 600
+      }
+    }).then(data => {
       this.setState({
         pageData: data.json,
         page

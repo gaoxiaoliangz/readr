@@ -78,14 +78,12 @@ const queryBookFile = async (bookId) => {
 
 const queryBookFileMem = _.memoize(queryBookFile)
 
-
 const parseEpub = buffer => {
   debug('parseEpub')
   return parsers.epub(buffer)
 }
 
 const parseEpubMem = _.memoize(parseEpub, cacheKeyResolver)
-
 
 const resolveBookContent = async bookId => {
   debug('resolveBookContent')
@@ -97,7 +95,7 @@ const resolveBookContentMem = _.memoize(resolveBookContent)
 
 export const resolveBookPages = async (options) => {
   console.time('resolveBookPages')
-  const { id: bookId, pageNo } = options
+  const { id: bookId, pageNo, pageHeight } = options
 
   // let bookContent
 
@@ -112,12 +110,18 @@ export const resolveBookPages = async (options) => {
 
   const heights = await calcHeightsMem(sections)
 
-  const index = 3
   debug('groupNodesByPage start')
-  const nodeGroups = groupNodesByPage(sections[index].content, heights[index], 600)[pageNo - 1]
+
+  const pages = sections
+    .map((section, index) => {
+      return groupNodesByPage(section.content, heights[index], pageHeight)
+    })
+    .reduce((a, b) => {
+      return a.concat(b)
+    }, [])
   debug('groupNodesByPage end')
   console.timeEnd('resolveBookPages')
-  return nodeGroups
+  return pages[pageNo - 1]
   // return sections.map((section, index) => {
   //   return {
   //     ...{ heights: heights[index] },

@@ -27,4 +27,5 @@ interface ParsedNode {
   type: 1 | 3
   text?: string
   children?: ParsedNode[]
+  attrs: GeneralObject
 }

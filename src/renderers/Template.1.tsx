@@ -6,25 +6,18 @@ type Props = {
   htmlObjects: ParsedNode[]
 }
 
-const renderObjects = (objects: ParsedNode[], isRoot = false) => {
+const renderObjects = (objects: ParsedNode[]) => {
   return objects.map((object, index) => {
-    const { tag, type, text, children, attrs } = object
-    const props = {
-      ...{
-        key: index,
-        className: isRoot ? styles['line'] : ''
-      },
-      ...attrs
-    }
+    const { tag, type, text, children } = object
 
     if (type === 3) {
       return text
     }
 
     if (children) {
-      return React.createElement(tag, props, renderObjects(children))
+      return React.createElement(tag, { key: index, className: styles['line'] }, renderObjects(children))
     }
-    return React.createElement(tag, props)
+    return React.createElement(tag, { key: index, className: styles['line'] })
   })
 }
 
@@ -33,7 +26,7 @@ function Template(props: Props) {
   return (
     <div className={styles['section']}>
       {
-        renderObjects(htmlObjects, true)
+        renderObjects(htmlObjects)
       }
     </div>
   )
