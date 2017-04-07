@@ -68,6 +68,10 @@
     {
       "name": "Attach",
       "port": 5858,
+      "restart": true,
+      "outFiles": [
+        "${workspaceRoot}/build/node/**/*.js"
+      ],
       "type": "node",
       "request": "attach"
     }

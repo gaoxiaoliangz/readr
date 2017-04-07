@@ -18,7 +18,7 @@ const parseToc = tocObj => {
   function parseNavPoint(navPoint) {
     const src = _.get(navPoint, ['content', '0', '$', 'src'], '')
     const label = _.get(navPoint, ['navLabel', '0', 'text', '0'])
-    const index = parseInt(_.get(navPoint, ['$', 'playOrder']) as string, 10) - 1
+    // const index = parseInt(_.get(navPoint, ['$', 'playOrder']) as string, 10) - 1
 
     const parsedSrc = parseHref(src)
 
@@ -157,6 +157,8 @@ export async function binaryParser(binaryFile) {
     }
 
     const sections = getContentFromSpine(spine, root)(zip)
+
+    const img = zip.file('images/00001.jpeg')
 
     return ({
       meta,

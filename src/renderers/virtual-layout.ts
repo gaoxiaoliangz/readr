@@ -1,4 +1,5 @@
-import { parseNestedObject } from '../parsers/utils'
+import _ from 'lodash'
+import { parseNestedObjectWithoutFilter } from '../parsers/utils2'
 
 // data structure
 // const htmlObject = [
@@ -17,17 +18,84 @@ import { parseNestedObject } from '../parsers/utils'
 //   }
 // ]
 
-interface RectInfo {
-  width: number
-  height: number
-  flow: 'follow' | 'block'
-  char: string
-  tag: string
+/**
+ * mapping
+ * linear <-> nestedObjects
+ * 
+ * linear: charObject[]
+ * nestedObjects
+ * 
+ * eg: chars[240] <-> [root, 20, children, 1, chars, 70]
+ */
+
+const resolveRealPath = pathArr => {
+  const _path = []
+  pathArr.forEach((p, index) => {
+    _path.push(p)
+    if (pathArr.length - 1 !== index) {
+      _path.push('children')
+    }
+  })
+  return _path
 }
 
-export const readRecursively = objects => {
+const isInline = tag => {
+  const inlineTags = ['span', 'strong', 'small']
+  return inlineTags.indexOf(tag) !== -1
+}
+
+const groupIntoSections = (rects: RectInfo[], width: number) => {
+  const sections = []
+  let currentSection = []
+  let currentSectionWidth = 0
+  let prevTag
+  rects.forEach(rect => {
+    const rectWidth = rect.width || width
+    const currentTag = rect.tag
+    const tagChanged = currentTag !== prevTag
+    currentSectionWidth += rectWidth
+
+    if (currentSectionWidth >= width || tagChanged || rect.flow === 'newline' || rect.flow === 'block') {
+      sections.push(currentSection)
+      currentSection = []
+      currentSectionWidth = 0
+    }
+
+    currentSection.push(rect)
+    prevTag = currentTag
+  })
+  if (sections.length === 0) {
+    sections.push(currentSection)
+  }
+  return sections
+}
+
+const groupIntoPages = (lines: RectInfo[][], pageHeight: number) => {
+  const pages = []
+  let currentPage = []
+  let currentPageHeight = 0
+  lines.forEach(line => {
+    const lineHeight = (_.maxBy(line, rect => {
+      return rect.height
+    }) || {})['height'] || 16
+    currentPageHeight += lineHeight
+
+    if (currentPageHeight >= pageHeight) {
+      pages.push(currentPage)
+      currentPage = []
+       currentPageHeight = 0
+    }
+    currentPage.push(line)
+  })
+  if (pages.length === 0) {
+    pages.push(currentPage)
+  }
+  return pages
+}
+
+export const layoutChars = objects => {
   const rects = []
-  // const chars = []
+  const chars = []
 
   const getRectInfo = (char, tag): RectInfo => {
     return {
@@ -39,50 +107,35 @@ export const readRecursively = objects => {
     }
   }
 
-  // const _read = (_objects) => {
-  //   _objects.forEach(obj => {
-  //     if (obj.children) {
-  //       obj.children.forEach(child => {
-  //         if (typeof child === 'string') {
-  //           rects.push(getRectInfo(child, obj.tag))
-  //         } else {
-  //           _read([child])
-  //         }
-  //       })
-  //     }
-  //   })
-  // }
-  // _read(objects)
-
-  return parseNestedObject(objects, {
+  parseNestedObjectWithoutFilter(objects, {
     childrenKey: 'children',
 
-    // parser(obj, children) {
-    //   const tag = obj.tag
-    //   if (!tag) {
-    //     return Array.prototype.map.call(children[0], char => {
-    //       return char
-    //     })
-    //   }
-    //   return {
-    //     ...obj,
-    //     ...{ children }
-    //   }
-    //   // return 'parsed'
-    // },
+    finalParser(obj, path) {
+      if (typeof obj === 'string') {
+        Array.prototype.forEach.call(obj, (char, index) => {
+          const tag = (_.get(objects, resolveRealPath(path.slice(0, path.length - 1)), {}) as any).tag
+          const rect = getRectInfo(char, tag)
+          const isTagInline = isInline(tag)
 
-    // finalParser(obj) {
-    //   if (typeof obj === 'string') {
-    //     const chars = Array.prototype.map.call(obj, char => {
-    //       return char
-    //     })
-    //     return {
-    //       chars
-    //     }
-    //   }
-    //   return obj
-    // }
+          chars.push({
+            ...rect,
+            ...{
+              path,
+              flow: ((0 === index) || !isTagInline) ? 'newline' : rect.flow
+            }
+          })
+        })
+      } else {
+        chars.push({
+          path,
+          tag: obj.tag,
+          flow: 'block'
+        })
+      }
+      return obj
+    }
   })
-
-  // return rects
+  const sections = groupIntoSections(chars, 500)
+  const pages = groupIntoPages(sections, 600)
+  return pages
 }

@@ -1,20 +1,20 @@
 import _ from 'lodash'
-import styles from '../../containers/Viewer/components/BookPage.scss'
+// import styles from '../../containers/Viewer/components/BookPage.scss'
 
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的
-export function getNodeHeights(nodes) {
-  let nodesHeight = []
+// export function getNodeHeights(nodes) {
+//   let nodesHeight = []
 
-  Array.prototype.forEach.call(nodes, (node, index) => {
-    if (!node.className || node.className !== styles['gb-line']) {
-      console.error('Unsupported content found!')
-    }
-    nodesHeight.push(node.clientHeight)
-  })
+//   Array.prototype.forEach.call(nodes, (node, index) => {
+//     if (!node.className || node.className !== styles['gb-line']) {
+//       console.error('Unsupported content found!')
+//     }
+//     nodesHeight.push(node.clientHeight)
+//   })
 
-  return nodesHeight
-}
+//   return nodesHeight
+// }
 
 // long paragraph situation doesn't seem to affect this function
 // offset distance is always negtive or zero
@@ -101,22 +101,22 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   for (let i = 0; i < pageSum; i++) {
     const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes, nodeHeights, pageHeight })
 
-    const findIdOfHTags = (mdNode: string) => {
-      const pattern = /<h\d id="(.*)">(.*)<\/h\d>/
-      const result = mdNode.match(pattern)
+    // const findIdOfHTags = (mdNode: string) => {
+    //   const pattern = /<h\d id="(.*)">(.*)<\/h\d>/
+    //   const result = mdNode.match(pattern)
 
-      if (result) {
-        return result[1]
-      }
+    //   if (result) {
+    //     return result[1]
+    //   }
 
-      return null
-    }
+    //   return null
+    // }
 
-    const hash = pageNodes
-      .map(node => {
-        return findIdOfHTags(node)
-      })
-      .filter(id => Boolean(id))
+    // const hash = pageNodes
+    //   .map(node => {
+    //     return findIdOfHTags(node)
+    //   })
+    //   .filter(id => Boolean(id))
 
     pages.push({
       nodes: pageNodes,
@@ -124,7 +124,7 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
         pageNo: pageStartFrom + i + 1,
         offset,
         chapterId,
-        hash
+        // hash
       },
     })
   }

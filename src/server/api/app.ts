@@ -37,6 +37,7 @@ function apiRoutes() {
   // books
   router.get('/books/:id', authenticatePublic, httpDecorator(api.books.find))
   router.get('/books/:id/content', authenticatePublic, httpDecorator(api.books.resolveContent))
+  router.get('/books/:id/pages/:pageNo', authenticatePublic, httpDecorator(api.bookPages.resolveBookPages))
   router.get('/books', authenticatePublic, httpDecorator(api.books.list))
   router.post('/books', authenticateAdmin, upload.single('bookfile'), httpDecorator(api.books.add))
   router.put('/books/:id', authenticateAdmin, httpDecorator(api.books.update))
@@ -83,7 +84,7 @@ function apiRoutes() {
   router.put('/auth/revoke', authenticatePublic, middleware.auth.revoke)
 
   // for dev new feature, a testing env
-  router.get('/test', authenticateAdmin, httpDecorator(api.test))
+  router.get('/test', authenticatePublic, httpDecorator(api.test))
 
   return router
 }

@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+const debug = require('debug')('readr:parsers:utils')
+
 export function flattenArray(arrayOfNestedObj, childrenName = 'children') {
   const list = []
 
@@ -32,12 +34,16 @@ interface ParseNestedObjectConfig {
  * parseNestedObject
  * a note about config.parser
  * 'children' is recursively parsed object and should be returned for parser to take effect
- * and objects without [childrenKey] will be parsed by finalParser
+ * objects without [childrenKey] will be parsed by finalParser
  * @param _rootObject 
  * @param config 
  */
 const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseNestedObjectConfig) => {
   const { childrenKey, parser, preFilter, postFilter, finalParser } = config
+
+  if (!_rootObject) {
+    return []
+  }
 
   const parseNestedObject = (rootObject: Object | Object[]): any[] => {
     const makeArray = () => {
@@ -46,15 +52,16 @@ const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseN
       }
       return [rootObject]
     }
+    const rootArray = makeArray()
 
     return Array.prototype
-      .filter.call(makeArray(), object => {
+      .filter.call(rootArray, object => {
         if (preFilter) {
           return preFilter(object)
         }
         return true
       })
-      .map(object => {
+      .map((object, index) => {
         if (object[childrenKey]) {
           const children = parseNestedObject(object[childrenKey])
           if (parser) {
@@ -67,6 +74,7 @@ const parseNestedObjectWrapper = (_rootObject: Object | Object[], config: ParseN
             }
           }
         }
+
         if (finalParser) {
           return finalParser(object)
         }
