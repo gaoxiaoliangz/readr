@@ -63,46 +63,19 @@ class Next extends Component<AllProps, LocalState> {
 
   render() {
     const pageData = this.state.pageData || {}
-
-    /*return (
-      <div>
-        {
-          pageData.map((page, index) => {
-            return (
-              <div className="page" key={index}>
-                {
-                  page.map((line, _index) => {
-                    return (
-                      <div className="line" key={_index}>
-                        {
-                          line.map((char, __index) => {
-                            return (
-                              <span key={__index}>{char.text}</span>
-                            )
-                          })
-                        }
-                      </div>
-                    )
-                  })
-                }
-              </div>
-            )
-          })
-        }
-      </div>
-    )*/
-
     const wrapperStyle: React.CSSProperties = {
       overflow: 'hidden',
       height: 600
     }
-
     const innerStyle: React.CSSProperties = {
       marginTop: (pageData['meta'] || {}).offset || 0
     }
 
     return (
       <div>
+        <button onClick={() => {
+          this.loadPage(this.state.page - 1)
+        }}>prev</button>
         <button onClick={() => {
           this.loadPage(this.state.page + 1)
         }}>next</button>

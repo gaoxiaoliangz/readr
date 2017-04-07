@@ -15,3 +15,11 @@ h1.line {
   color: #333;
   font-weight: normal;
 }
+
+img.line,
+.line img {
+  max-width: 100%;
+  height: auto;
+  min-height: 20px;
+  display: block;
+}

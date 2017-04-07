@@ -5,7 +5,8 @@ import { parseNestedObject } from './utils'
 const debug = require('debug')('readr:html')
 
 const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style', 'svg']
-const UNWRAP_TAGS = ['div', 'span', 'body', 'html']
+const UNWRAP_TAGS = ['body', 'html']
+const PICKED_ATTRS = ['href', 'src', 'id']
 
 /**
  * recursivelyReadParent
@@ -79,10 +80,9 @@ const parseHTMLObject = (HTMLString) => {
         //   }
         // }
 
-        if (tag === 'a') {
-          const href = node.getAttribute('href')
-          attrs.href = href
-        }
+        PICKED_ATTRS.forEach(attr => {
+          attrs[attr] = node.getAttribute(attr)
+        })
 
         return { tag, type: 1, children: flatChildren, attrs }
       } else {
