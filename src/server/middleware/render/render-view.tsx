@@ -8,6 +8,8 @@ import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
 import getIP from '../../../app/helpers/getIP'
 
+const debug = require('debug')('readr:renderView')
+
 const CLIENT_ENV_VARS = ['PORT']
 const LOCAL_IP = getIP()
 const prefix = '/static'
@@ -88,7 +90,7 @@ function renderView(isProduction) {
       />
     )
     if (process.env.NODE_ENV !== 'production') {
-      console.info('render-view: view rendered')
+      debug('view rendered')
     }
     res.status(statusCode).send(DOCTYPE + html)
   }

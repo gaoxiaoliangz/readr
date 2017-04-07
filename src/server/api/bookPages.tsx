@@ -2,6 +2,7 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import fs from 'fs'
 import _ from 'lodash'
+import md5 from 'vendor/md5'
 import { makeBasicAPIMethods } from './utils'
 import { groupNodesByPage } from '../../renderers/paging'
 import dataProvider from '../models/data-provider'
@@ -13,64 +14,33 @@ import AppDoc from '../../app/components/AppDoc'
 import Template from '../../renderers/Template'
 import evaluate from '../../renderers/evaluate'
 import { getCssLinks } from '../middleware/render/render-view'
+import getCurrentTime from '../../utils/getCurrentTime'
 
+const debug = require('debug')('readr:api:bookPages')
 
-// const groupIntoPages = (heights: number[], pageHeight: number) => {
-//   let currentPage = []
-//   let currentPageHeight = 0
-//   const pages = []
-
-//   if (currentPageHeight < pageHeight) {
-
-//   }
-// }
-
-export const resolveBookPages = async (options) => {
-  const { id: bookId, pageNo } = options
-  const bookEntity = await dataProvider.Book.utils.findById(bookId) as any
-  const fileId = bookEntity.file
-  const file = await dataProvider.File.utils.findById(fileId) as any
-  let bookContent
-
-  if (!fileId) {
-    return Promise.reject(notFoundError('book'))
-  }
-
-  if (file.mimetype === 'application/epub+zip') {
-    bookContent = await parsers.epub(file.content)
-    let { sections } = bookContent
-    // sections = [sections[1], sections[2]]
-
-    // get node heights in sections
-    const htmlString = renderToStaticMarkup(
-      <AppDoc
-        style={`
-          a {
-            display: inline-block;
-            color: #666;
+const calcHeights = async (sections) => {
+  debug('calcHeights start')
+  // get node heights in sections
+  const htmlString = renderToStaticMarkup(
+    <AppDoc
+      link={getCssLinks()}
+      appMarkup={
+        <div className="sections">
+          {
+            sections.map((section, index) => {
+              return (
+                <Template key={index} htmlObjects={section.content} />
+              )
+            })
           }
-          p {
-            color: #666;
-          }
-        `}
-        link={getCssLinks()}
-        appMarkup={
-          <div className="sections">
-            {
-              sections.map((section, index) => {
-                return (
-                  <Template key={index} htmlObjects={section.content} />
-                )
-              })
-            }
-          </div>
-        }
-      />
-    )
+        </div>
+      }
+    />
+  )
 
-    const heights = await evaluate(htmlString, {
-      saveShotAsPng: false,
-      evalCallback: `
+  const heights = evaluate(htmlString, {
+    saveShotAsPng: false,
+    evalCallback: `
         var sections = document.querySelector('.sections').childNodes
         var heights = []
         var allHeights = []
@@ -83,32 +53,89 @@ export const resolveBookPages = async (options) => {
         })
         return allHeights
     `
-    }).then(_heights => {
-      return _heights
-    })
+  }).then(_heights => {
+    return _heights
+  })
 
-    const index = 3
-    const nodeGroups = groupNodesByPage(sections[index].content, heights[index], 600)[pageNo - 1]
+  debug('calcHeights end')
+  return heights
+}
 
-    return nodeGroups
-    // return sections.map((section, index) => {
-    //   return {
-    //     ...{ heights: heights[index] },
-    //     ...section
-    //   }
-    // })
-  } else if (bookEntity.file.mimetype === 'text/plain') {
-    // todo
-    bookContent = await parsers.txt(file.content)
-  } else {
-    return Promise.reject(new Error('Unsupported file type!'))
-  }
+const cacheKeyResolver = obj => {
+  const hash = md5(obj)
+  debug('obj hash', hash)
+  return hash
+}
 
-  return {
-    _id: bookEntity._id,
-    file_id: fileId,
-    content: bookContent
-  }
+const calcHeightsMem = _.memoize(calcHeights, cacheKeyResolver)
+
+const queryBookFile = async (bookId) => {
+  debug('queryBookFile')
+  const bookEntity = await dataProvider.Book.utils.findById(bookId) as any
+  const fileId = bookEntity.file
+  return await dataProvider.File.utils.findById(fileId) as any
+}
+
+const queryBookFileMem = _.memoize(queryBookFile)
+
+
+const parseEpub = buffer => {
+  debug('parseEpub')
+  return parsers.epub(buffer)
+}
+
+const parseEpubMem = _.memoize(parseEpub, cacheKeyResolver)
+
+
+const resolveBookContent = async bookId => {
+  debug('resolveBookContent')
+  const file = await queryBookFile(bookId)
+  return parseEpub(file.content)
+}
+
+const resolveBookContentMem = _.memoize(resolveBookContent)
+
+export const resolveBookPages = async (options) => {
+  console.time('resolveBookPages')
+  const { id: bookId, pageNo } = options
+
+  // let bookContent
+
+  // if (!fileId) {
+  //   return Promise.reject(notFoundError('book'))
+  // }
+
+  // if (file.mimetype === 'application/epub+zip') {
+  const bookContent = await resolveBookContentMem(bookId)
+  let { sections } = bookContent
+  // sections = [sections[1], sections[2]]
+
+  const heights = await calcHeightsMem(sections)
+
+  const index = 3
+  debug('groupNodesByPage start')
+  const nodeGroups = groupNodesByPage(sections[index].content, heights[index], 600)[pageNo - 1]
+  debug('groupNodesByPage end')
+  console.timeEnd('resolveBookPages')
+  return nodeGroups
+  // return sections.map((section, index) => {
+  //   return {
+  //     ...{ heights: heights[index] },
+  //     ...section
+  //   }
+  // })
+  // } else if (bookEntity.file.mimetype === 'text/plain') {
+  // todo
+  // bookContent = await parsers.txt(file.content)
+  // return Promise.reject(new Error('Unsupported file type txt!'))
+  // }
+  // return Promise.reject(new Error('Unsupported file type!'))
+
+  // return {
+  //   _id: bookEntity._id,
+  //   file_id: fileId,
+  //   content: bookContent
+  // }
 }
 
 export default {
