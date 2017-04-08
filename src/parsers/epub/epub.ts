@@ -2,7 +2,7 @@ import fs from 'fs'
 import xml2js from 'xml2js'
 import _ from 'lodash'
 import nodeZip from 'node-zip'
-// import parseHref from '../href'
+import parseHref from '../href'
 
 const xmlParser = new xml2js.Parser()
 
@@ -18,7 +18,7 @@ const xmlToJs = xml => {
   })
 }
 
-const resolveRoot = opfPath => {
+const getRoot = opfPath => {
   let root = ''
   // set the opsRoot for resolving paths
   if (opfPath.match(/\//)) { // not at top level
@@ -33,63 +33,135 @@ const resolveRoot = opfPath => {
   return root
 }
 
-class Epub {
-  zip: any // nodeZip instance
-  opfPath: string
-  root: string
-  content: GeneralObject
-  manifest: any[]
-  spine: any[]
-  toc: GeneralObject
-  metadata: GeneralObject
+const parseToc = tocObj => {
+  const rootNavPoints = _.get(tocObj, ['ncx', 'navMap', '0', 'navPoint'], [])
 
-  constructor(buffer) {
-    this.zip = new nodeZip(buffer, { binary: true, base64: false, checkCRC32: true })
+  function parseNavPoint(navPoint) {
+    const src = _.get(navPoint, ['content', '0', '$', 'src'], '')
+    const label = _.get(navPoint, ['navLabel', '0', 'text', '0'])
+    // const index = parseInt(_.get(navPoint, ['$', 'playOrder']) as string, 10) - 1
+
+    const parsedSrc = parseHref(src)
+
+    let children = navPoint.navPoint
+
+    if (children) {
+      children = parseNavPoints(children)
+    }
+
+    return {
+      ref: parsedSrc.name,
+      hash: parsedSrc.hash,
+      label,
+      // index,
+      children
+    }
   }
 
-  resolveAsText(path) {
-    const file = this.zip.file(path)
+  function parseNavPoints(navPoints) {
+    return navPoints.map(point => {
+      return parseNavPoint(point)
+    })
+  }
+
+  return parseNavPoints(rootNavPoints)
+}
+
+const parseMetadata = metadata => {
+  const title = _.get(metadata[0], ['dc:title', 0])
+  let author = _.get(metadata[0], ['dc:creator', 0])
+
+  if (typeof author === 'object') {
+    author = _.get(author, ['_'])
+  }
+
+  const publisher = _.get(metadata[0], ['dc:publisher', 0])
+  const meta = {
+    title,
+    author,
+    publisher
+  }
+  return meta
+}
+
+class Epub {
+  _zip: any // nodeZip instance
+  opfPath: string
+  root: string
+  _content: GeneralObject
+  manifest: any[]
+  spine: any[]
+  _toc: GeneralObject
+  toc: GeneralObject
+  _metadata: GeneralObject
+  metadata: GeneralObject
+  bookContent: {
+    filename: string
+    html: string
+  }[]
+
+  constructor(buffer) {
+    this._zip = new nodeZip(buffer, { binary: true, base64: false, checkCRC32: true })
+  }
+
+  resolve(path: string) {
+    const file = this._zip.file(path)
     if (file) {
-      return file.asText()
+      return file
     } else {
       throw new Error(`${path} not found!`)
     }
   }
 
-  async _resolveXmlAsJSON(path) {
-    const xml = this.resolveAsText(path)
+  async resolveXML(path) {
+    const xml = this.resolve(path).asText()
     return xmlToJs(xml)
   }
 
-  async _resolveOpfPath() {
-    const container = await this._resolveXmlAsJSON('META-INF/container.xml')
+  async _getOpfPath() {
+    const container = await this.resolveXML('META-INF/container.xml')
     const opfPath = container.container.rootfiles[0].rootfile[0]['$']['full-path']
     return opfPath
   }
 
-  _resolveManifest() {
-    return _.get(this.content, ['package', 'manifest', 0, 'item'], [])
+  _getManifest() {
+    return _.get(this._content, ['package', 'manifest', 0, 'item'], [])
       .map(item => item.$) as any[]
   }
 
-  _resolveSpine() {
-    return _.get(this.content, ['package', 'spine', 0, 'itemref'], [])
+  _getSpine() {
+    return _.get(this._content, ['package', 'spine', 0, 'itemref'], [])
       .map(item => {
         return item.$.idref
       })
   }
 
-  async parse() {
-    this.opfPath = await this._resolveOpfPath()
-    this.root = resolveRoot(this.opfPath)
-    this.content = await this._resolveXmlAsJSON(this.opfPath)
-    this.manifest = this._resolveManifest()
-    this.spine = this._resolveSpine()
+  _getContentFromSpine() {
+    // no chain
+    return _.map(_.union(this.spine), id => {
+      const href = _.find(this.manifest, { id }).href
+      return {
+        filename: parseHref(href).name,
+        html: this.resolve(`${this.root}${href}`).asText()
+      }
+    })
+  }
 
-    const tocID = _.get(this.content, ['package', 'spine', 0, '$', 'toc']) as string
+  async parse() {
+    this.opfPath = await this._getOpfPath()
+    this.root = getRoot(this.opfPath)
+    this._content = await this.resolveXML(this.opfPath)
+    this.manifest = this._getManifest()
+    this.spine = this._getSpine()
+
+    const tocID = _.get(this._content, ['package', 'spine', 0, '$', 'toc']) as string
     const tocPath = _.find(this.manifest, { id: tocID }).href
-    this.toc = this._resolveXmlAsJSON(`${this.root}${tocPath}`)
-    this.metadata = _.get(this.content, ['package', 'metadata'], [])
+    this._toc = await this.resolveXML(`${this.root}${tocPath}`)
+    this.toc = parseToc(this._toc)
+    this._metadata = _.get(this._content, ['package', 'metadata'], [])
+    this.metadata = parseMetadata(this._metadata)
+    this.bookContent = this._getContentFromSpine()
+    return this
   }
 }
 

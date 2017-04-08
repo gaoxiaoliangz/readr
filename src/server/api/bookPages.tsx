@@ -1,20 +1,16 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import fs from 'fs'
 import _ from 'lodash'
 import md5 from 'vendor/md5'
-import { makeBasicAPIMethods } from './utils'
 import { groupNodesByPage } from '../../renderers/paging'
 import dataProvider from '../models/data-provider'
-import * as helpers from '../helpers'
 import { notFoundError } from '../helpers'
 import parsers from '../../parsers'
-import request from '../../utils/network/request'
 import AppDoc from '../../app/components/AppDoc'
 import Template from '../../renderers/Template'
 import evaluate from '../../renderers/evaluate'
 import { getCssLinks } from '../middleware/render/render-view'
-import getCurrentTime from '../../utils/getCurrentTime'
+import epub from '../../parsers/epub/epub'
 
 const debug = require('debug')('readr:api:bookPages')
 
@@ -94,10 +90,16 @@ const resolveBookContent = async bookId => {
 const resolveBookContentMem = _.memoize(resolveBookContent)
 
 export const resolveBookPages = async (options) => {
-  console.time('resolveBookPages')
   const { id: bookId, pageNo, pageHeight } = options
 
-  // let bookContent
+  if (options) {
+    const file = await queryBookFile(bookId)
+    const _epub = await epub(file.content)
+    return _epub
+  }
+
+
+  console.time('resolveBookPages')
 
   // if (!fileId) {
   //   return Promise.reject(notFoundError('book'))
@@ -106,7 +108,6 @@ export const resolveBookPages = async (options) => {
   // if (file.mimetype === 'application/epub+zip') {
   const bookContent = await resolveBookContentMem(bookId)
   let { sections } = bookContent
-  // sections = [sections[1], sections[2]]
 
   const heights = await calcHeightsMem(sections)
 
@@ -121,6 +122,7 @@ export const resolveBookPages = async (options) => {
     }, [])
   debug('groupNodesByPage end')
   console.timeEnd('resolveBookPages')
+
   return pages[pageNo - 1]
   // return sections.map((section, index) => {
   //   return {
