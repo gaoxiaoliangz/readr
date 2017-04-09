@@ -127,9 +127,10 @@ export async function addBook(options) {
 
   // resolve file to get book meta
   if (file.mimetype === 'application/epub+zip') {
-    const content = await parsers.epub(buffer)
-    const authorName = content.meta.author
-    const title = content.meta.title
+    const epub = await parsers.epub(buffer)
+    const { metadata } = epub
+    const authorName = metadata.author
+    const title = metadata.title
 
     return doSave({ title, authorName, fileId })
   } else if (file.mimetype === 'text/plain') {

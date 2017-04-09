@@ -1,4 +1,3 @@
-import parser, { binaryParser } from './parser'
+import parser from './epub'
 
-export { binaryParser }
 export default parser
