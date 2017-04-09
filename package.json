@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "server": "DEBUG=readr:* nodemon bin",
-    "debug": "DEBUG=readr:* nodemon --debug=5858 bin",
+    "debug:legacy": "DEBUG=readr:* nodemon --debug=5858 bin",
+    "debug": "DEBUG=readr:* nodemon --debug=9229 --inspect bin",
     "prebuild": "npm run clean",
     "build": "node scripts/build.js",
     "build:node": "node scripts/build.js node",

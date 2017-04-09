@@ -2,7 +2,7 @@ import fs from 'fs'
 import xml2js from 'xml2js'
 import _ from 'lodash'
 import nodeZip from 'node-zip'
-import parseHref from '../href'
+import parseLink from '../href'
 
 const xmlParser = new xml2js.Parser()
 
@@ -38,11 +38,9 @@ const parseToc = tocObj => {
 
   function parseNavPoint(navPoint) {
     const src = _.get(navPoint, ['content', '0', '$', 'src'], '')
-    const label = _.get(navPoint, ['navLabel', '0', 'text', '0'])
-    // const index = parseInt(_.get(navPoint, ['$', 'playOrder']) as string, 10) - 1
-
-    const parsedSrc = parseHref(src)
-
+    const name = _.get(navPoint, ['navLabel', '0', 'text', '0'])
+    const playOrder = _.get(navPoint, ['$', 'playOrder']) as string
+    const parsedSrc = parseLink(src)
     let children = navPoint.navPoint
 
     if (children) {
@@ -50,10 +48,10 @@ const parseToc = tocObj => {
     }
 
     return {
-      ref: parsedSrc.name,
-      hash: parsedSrc.hash,
-      label,
-      // index,
+      src,
+      srcObject: parsedSrc,
+      name,
+      playOrder,
       children
     }
   }
@@ -90,14 +88,17 @@ class Epub {
   root: string
   _content: GeneralObject
   manifest: any[]
-  spine: any[]
+  spine: string[] // array of ids defined in manifest
   _toc: GeneralObject
   toc: GeneralObject
   _metadata: GeneralObject
   metadata: GeneralObject
   bookContent: {
-    filename: string
+    id: string
     html: string
+    path: string
+    // todo: parseLink type
+    pathObject: GeneralObject
   }[]
 
   constructor(buffer) {
@@ -139,10 +140,13 @@ class Epub {
   _getContentFromSpine() {
     // no chain
     return _.map(_.union(this.spine), id => {
-      const href = _.find(this.manifest, { id }).href
+      const path = _.find(this.manifest, { id }).href
+      const pathObject = parseLink(path)
       return {
-        filename: parseHref(href).name,
-        html: this.resolve(`${this.root}${href}`).asText()
+        id,
+        path,
+        pathObject,
+        html: this.resolve(`${this.root}${path}`).asText()
       }
     })
   }
