@@ -2,10 +2,6 @@ import phantom from 'phantom'
 import os from 'os'
 import path from 'path'
 import getCurrentTime from '../utils/getCurrentTime'
-import { getNodeHeights } from '../app/sagas/effects/paging'
-
-// console.log(getNodeHeights.toString());
-
 
 const debug = require('debug')('readr:evaluate')
 const dir = os.tmpdir()
@@ -15,19 +11,6 @@ interface EvaluateConfig {
   evalCallback: string
 }
 
-// `function getContent() {
-//           // this function is used as string, so it doesn't have any closure features
-//           // it has phantom document variable
-//           // if ('${selector}' !== 'undefined') {
-//           //   return document.querySelector('${selector}')
-//           // }
-//           // return document.body
-//           var getNodeHeights = ${getNodeHeights.toString()}
-//           var nodes = document.querySelector('.content').childNodes
-//           var heights = getNodeHeights(nodes)
-//           return heights
-//         }` as any
-
 const evaluate = (htmlString: string, config: EvaluateConfig): Promise<any> => {
   const { saveShotAsPng, evalCallback } = config
   const instance = phantom.create()
@@ -35,7 +18,7 @@ const evaluate = (htmlString: string, config: EvaluateConfig): Promise<any> => {
   return instance
     .then(ins => {
       return ins.createPage().then(page => {
-        // page.on('onResourceRequested', (requestData) => {
+        // page['on']('onResourceRequested', (requestData) => {
         //   debug('Requesting', requestData.url)
         // })
 

@@ -2,7 +2,7 @@ const colors = require('colors/safe')
 
 const print = {
   info(message) {
-    console.info('\n' + colors.bgGreen.bold.white(' INFO '), colors.green(message))
+    console.info('\n' + colors.bgGreen.bold(' INFO '), colors.green(message))
   },
 
   test(message) {

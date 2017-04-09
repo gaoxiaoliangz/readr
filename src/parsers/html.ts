@@ -44,9 +44,14 @@ const parseRawHTML = HTMLString => {
     .documentElement
 }
 
-const parseHTMLObject = (HTMLString) => {
+interface ParseHTMLObjectConfig {
+  resolveSrc?: (src: string) => string
+  resolveHref?: (href: string) => string
+}
+const parseHTMLObject = (HTMLString, config: ParseHTMLObjectConfig = {}) => {
+  debug('parseHTMLObject')
   const rootNode = parseRawHTML(HTMLString)
-  // debug(rootNode.innerHTML)
+  const { resolveHref, resolveSrc } = config
 
   // initial parse
   const parsed = parseNestedObject(rootNode, {
@@ -81,7 +86,14 @@ const parseHTMLObject = (HTMLString) => {
         // }
 
         PICKED_ATTRS.forEach(attr => {
-          attrs[attr] = node.getAttribute(attr)
+          let attrVal = node.getAttribute(attr) || undefined
+          if (attrVal && attr === 'href' && resolveHref) {
+            attrVal = resolveHref(attrVal)
+          }
+          if (attrVal && attr === 'src' && resolveSrc) {
+            attrVal = resolveSrc(attrVal)
+          }
+          attrs[attr] = attrVal
         })
 
         return { tag, type: 1, children: flatChildren, attrs }
