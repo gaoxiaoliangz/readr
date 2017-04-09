@@ -2,7 +2,7 @@ import fs from 'fs'
 import xml2js from 'xml2js'
 import _ from 'lodash'
 import nodeZip from 'node-zip'
-import parseLink from '../href'
+import parseLink from '../link'
 
 const xmlParser = new xml2js.Parser()
 
