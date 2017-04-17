@@ -183,3 +183,4 @@ export default function parserWrapper(target: string | Buffer, options: ParserOp
   }
   return new Epub(_target).parse()
 }
+
