@@ -23,6 +23,38 @@ import {
 
 import dataProvider from '../models/data-provider'
 
+const GQLAuthor = new GraphQLObjectType({
+  name: 'Author',
+  description: 'Book author, normally it\'s fetched from douban.',
+  fields: {
+    _id: {
+      type: GraphQLString
+    },
+    name: {
+      type: GraphQLString
+    },
+    description: {
+      type: GraphQLString
+    }
+  }
+})
+
+const GQLTag = new GraphQLObjectType({
+  name: 'Tag',
+  description: 'Book tag.',
+  fields: {
+    _id: {
+      type: GraphQLString
+    },
+    name: {
+      type: GraphQLString
+    },
+    description: {
+      type: GraphQLString
+    }
+  }
+})
+
 const Root = new GraphQLObjectType({
   name: 'Root',
   fields: {
@@ -31,20 +63,25 @@ const Root = new GraphQLObjectType({
       resolve: () => 'just a fucking user',
     },
     author: {
-      type: new GraphQLObjectType({
-        name: 'Author',
-        fields: {
-          name: {
-            type: GraphQLString
-          }
+      type: GQLAuthor,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLString)
         }
-      }),
-      resolve: (...args) => {
-        const hhh = args
-        // return dataProvider.Author.findById()
-        return {
-          name: 'hhhhhh'
+      },
+      resolve(obj, { id }, req) {
+        return dataProvider.Author.findById(id)
+      }
+    },
+    tag: {
+      type: GQLTag,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLString)
         }
+      },
+      resolve(obj, { id }, req) {
+        return dataProvider.Tag.findById(id)
       }
     }
     // node: nodeField,
