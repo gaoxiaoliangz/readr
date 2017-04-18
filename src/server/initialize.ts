@@ -5,12 +5,14 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
+import graphQLHTTP from 'express-graphql'
 import render from './middleware/render'
 import bootServer from './bootstrap'
 import apiApp from './api/app'
 import * as CONSTANTS from '../constants'
 import getMongoStoreUrl from './helpers/getMongoStoreUrl'
 import middleware from './middleware'
+import schema from './graphql/schema'
 
 const MongoStore = connectMongo(session)
 const app = express()
@@ -61,7 +63,13 @@ export default function initialize(config: InitConfig) {
 
   app.use(middleware.parseContext)
 
-  // api routing
+  // graphql api
+  app.use('/gql', graphQLHTTP({
+    schema: schema,
+    graphiql: true
+  }))
+
+  // rest api routing
   app.use(`/${CONSTANTS.API_PREFIX}`, apiApp())
 
   // render view
