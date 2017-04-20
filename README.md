@@ -84,6 +84,9 @@ options, data, id, response, error
 	✔ html parser @done (March 31st 2017, 19:46)
 	✔ attatch debug @done (April 6th 2017, 18:15)
 	✔ update ts @done (April 6th 2017, 18:19)
+	✔ graphql server @done (April 20th 2017, 14:43)
+	☐ graphql custom resolver
+	☐ use app.listen
 
 ### Next
 	☐ page no style
