@@ -16,13 +16,13 @@ db.once('open', () => {
   debug('db connection opened')
 })
 
-const Author = mongoose.model('Author', schemas.authorSchema)
-const Book = mongoose.model('Book', schemas.bookSchema)
-const Collection = mongoose.model('Collection', schemas.collectionSchema)
-const File = mongoose.model('File', schemas.fileSchema)
-const Progress = mongoose.model('Progress', schemas.progressSchema)
-const Tag = mongoose.model('Tag', schemas.tagSchema)
-const User = mongoose.model('User', schemas.userSchema)
+export const Author = mongoose.model('Author', schemas.authorSchema)
+export const Book = mongoose.model('Book', schemas.bookSchema)
+export const Collection = mongoose.model('Collection', schemas.collectionSchema)
+export const File = mongoose.model('File', schemas.fileSchema)
+export const Progress = mongoose.model('Progress', schemas.progressSchema)
+export const Tag = mongoose.model('Tag', schemas.tagSchema)
+export const User = mongoose.model('User', schemas.userSchema)
 
 export default {
   Author: addUitlMethods(Author),

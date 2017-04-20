@@ -2,6 +2,8 @@ import { Schema } from 'mongoose'
 import i18n from '../utils/i18n'
 import validator from 'validator'
 
+const ObjectId = Schema.Types.ObjectId
+
 export const authorSchema = new Schema({
   name: {
     type: String,
@@ -25,14 +27,14 @@ export const bookSchema = new Schema({
   },
   authors: [{
     ref: 'Author',
-    type: String
+    type: ObjectId
   }],
   description: String,
   cover: String,
   file: {
     ref: 'File',
     required: true,
-    type: String,
+    type: ObjectId
   }
 })
 
@@ -44,13 +46,13 @@ export const collectionSchema = new Schema({
   items: [{
     required: true,
     ref: 'Book',
-    type: String,
+    type: ObjectId,
   }],
   description: String,
   creator: {
     ref: 'User',
     required: true,
-    type: String,
+    type: ObjectId,
   }
 })
 

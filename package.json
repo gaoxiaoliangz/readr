@@ -24,6 +24,8 @@
     "test": "jest --no-cache --watchAll --config=.jestrc"
   },
   "dependencies": {
+    "@risingstack/graffiti": "^3.3.0",
+    "@risingstack/graffiti-mongoose": "^6.0.0",
     "@types/express-graphql": "^0.0.33",
     "@types/graphql": "^0.9.0",
     "@types/graphql-relay": "^0.4.1",

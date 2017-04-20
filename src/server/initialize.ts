@@ -5,6 +5,8 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
+import graffiti from '@risingstack/graffiti'
+import { getSchema } from '@risingstack/graffiti-mongoose'
 import graphQLHTTP from 'express-graphql'
 import render from './middleware/render'
 import bootServer from './bootstrap'
@@ -13,6 +15,16 @@ import * as CONSTANTS from '../constants'
 import getMongoStoreUrl from './helpers/getMongoStoreUrl'
 import middleware from './middleware'
 import schema from './graphql/schema'
+// import { authorSchema } from './models/mg-schemas'
+import {
+  Author,
+  Book,
+  Collection,
+  File,
+  Progress,
+  Tag,
+  User
+} from './models/data-provider'
 
 const MongoStore = connectMongo(session)
 const app = express()
@@ -64,9 +76,17 @@ export default function initialize(config: InitConfig) {
   app.use(middleware.parseContext)
 
   // graphql api
-  app.use('/gql', graphQLHTTP({
-    schema: schema,
-    graphiql: true
+  // app.use('/gql', graphQLHTTP({
+  //   schema: schema,
+  //   graphiql: true
+  // }))
+
+  const schemaArr = [Author, Book, Collection, File, Progress, Tag, User]
+  // const schemaArr = [Author]
+
+  app.use(graffiti.express({
+    schema: getSchema(schemaArr),
+    context: {} // custom context
   }))
 
   // rest api routing
