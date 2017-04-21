@@ -20,17 +20,20 @@ import {
   nodeDefinitions,
   toGlobalId,
 } from 'graphql-relay'
-
+import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
 const debug = require('debug')('readr:gqlschema')
 
 class User { }
+class Author { }
+
+const author = new Author
 
 const bookPageTypeName = 'BookPage'
 
 const { nodeInterface, nodeField } = nodeDefinitions(
-  (globalId) => {
+  async (globalId) => {
     let { type, id } = fromGlobalId(globalId)
     switch (type) {
       // we will use sequelize to resolve the id of its object
@@ -38,7 +41,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
         // return id
         return null
       case 'Author':
-        return dataProvider.Author.findById(id)
+        const result = await dataProvider.Author.utils.findById(id)
+        return _.assign(author, result.toObject())
       default:
         debug('null node interface')
         return null
@@ -47,12 +51,21 @@ const { nodeInterface, nodeField } = nodeDefinitions(
   (obj) => {
     // we will use sequelize to resolve the object tha timplements node
     // to its type.
-    switch (obj.type) {
-      default:
-        debug('null node field')
-        // return null
+    switch (obj.constructor) {
+      case Author:
+        // tslint:disable-next-line:no-use-before-declare
         return GQLAuthor
+    
+      default:
+        return null
     }
+
+    // if (obj instanceof Author) {
+    //   // tslint:disable-next-line:no-use-before-declare
+    //   return GQLAuthor
+    // } else {
+    //   return null
+    // }
   }
 )
 
@@ -133,12 +146,19 @@ const GQLAuthor = new GraphQLObjectType({
     // },
     id: globalIdField('Author'),
     name: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve(_author) {
+        return _author.name
+      }
     },
     description: {
-      type: GraphQLString
+      type: GraphQLString,
+      resolve(_author) {
+        return _author.description
+      }
     }
-  }
+  },
+  interfaces: [nodeInterface]
 })
 
 const { connectionType: GQLAuthorConnection } =
