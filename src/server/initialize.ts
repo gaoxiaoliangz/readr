@@ -65,25 +65,26 @@ export default function initialize(config: InitConfig) {
     pretty: true,
   }))
 
-  // const schemaArr = [Author, Book, Collection, File, Progress, Tag, User]
-  // const hooks = {
-  //   viewer: {
-  //     pre: (next, root, args, request) => {
-  //       // authorize the logged in user based on the request
-  //       debug('hooks pre')
-  //       next()
-  //     },
-  //     post: (next, value) => {
-  //       debug('hooks post')
-  //       next()
-  //     }
-  //   }
-  // }
-  // const schema = getSchema(schemaArr, { hooks })
-  // app.use(graffiti.express({
-  //   schema,
-  //   context: {} // custom context
-  // }))
+  // graffiti graphql
+  const schemaArr = [Author, Book, Collection, File, Progress, Tag, User]
+  const hooks = {
+    viewer: {
+      pre: (next, root, args, request) => {
+        // authorize the logged in user based on the request
+        debug('hooks pre')
+        next()
+      },
+      post: (next, value) => {
+        debug('hooks post')
+        next()
+      }
+    }
+  }
+  const graffitiSchema = getSchema(schemaArr, { hooks })
+  app.use(graffiti.express({
+    schema: graffitiSchema,
+    context: {} // custom context
+  }))
 
   // rest api routing
   app.use(`/${CONSTANTS.API_PREFIX}`, apiApp())

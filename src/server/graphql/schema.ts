@@ -27,11 +27,15 @@ const debug = require('debug')('readr:gqlschema')
 
 class User { }
 
+const bookPageTypeName = 'BookPage'
+
 const { nodeInterface, nodeField } = nodeDefinitions(
   (globalId) => {
     let { type, id } = fromGlobalId(globalId)
     switch (type) {
       // we will use sequelize to resolve the id of its object
+      case bookPageTypeName:
+        return id
       default:
         debug('null node interface')
         return null
@@ -83,10 +87,10 @@ const GQLHTMLElementObject = new GraphQLObjectType({
 })
 
 const GQLBookPage = new GraphQLObjectType({
-  name: 'BookPage',
+  name: bookPageTypeName,
   description: 'Computed bookpage',
   fields: {
-    id: globalIdField('HidingSpot'),
+    id: globalIdField(bookPageTypeName),
     elements: {
       type: new GraphQLList(GQLHTMLElementObject),
       resolve(bookPage) {
@@ -112,15 +116,6 @@ const GQLBookPage = new GraphQLObjectType({
   },
   interfaces: [nodeInterface]
 })
-
-// const GQLBookPageConnection = new GraphQLObjectType({
-//   name: 'BookPageConnection',
-//   fields: {
-//     nodes: {
-//       type: new GraphQLList(GQLBookPage)
-//     }
-//   }
-// })
 
 const { connectionType: GQLBookPageConnection } =
   connectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
@@ -160,35 +155,6 @@ const GQLTag = new GraphQLObjectType({
 ////////////////////////////////////////////////////////////////////////////////////
 //                                  fields                                        //
 ////////////////////////////////////////////////////////////////////////////////////
-const testField = {
-  type: new GraphQLObjectType({
-    name: 'test',
-    fields: {
-      a: {
-        type: new GraphQLObjectType({
-          name: 'testa',
-          fields: {
-            ina: {
-              type: GraphQLString,
-              resolve: () => {
-                return 'this is under a'
-              }
-            }
-          }
-        }),
-        resolve: () => {
-          const fuck = 1
-          return 'this is a'
-        }
-      }
-    }
-  }),
-  resolve: (...args) => {
-    const arg2 = args
-    return 'this is test'
-  }
-}
-
 const bookPagesField = {
   type: GQLBookPageConnection,
   args: {
@@ -265,7 +231,6 @@ const Query = new GraphQLObjectType({
     viewer: viewerField,
     author: authorField,
     tag: tagField,
-    test: testField,
     bookPages: bookPagesField
   }
 })
