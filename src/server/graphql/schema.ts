@@ -35,7 +35,10 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     switch (type) {
       // we will use sequelize to resolve the id of its object
       case bookPageTypeName:
-        return id
+        // return id
+        return null
+      case 'Author':
+        return dataProvider.Author.findById(id)
       default:
         debug('null node interface')
         return null
@@ -47,7 +50,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     switch (obj.type) {
       default:
         debug('null node field')
-        return null
+        // return null
+        return GQLAuthor
     }
   }
 )
@@ -124,9 +128,10 @@ const GQLAuthor = new GraphQLObjectType({
   name: 'Author',
   description: 'Book author, normally it\'s fetched from douban.',
   fields: {
-    _id: {
-      type: GraphQLString
-    },
+    // _id: {
+    //   type: GraphQLString
+    // },
+    id: globalIdField('Author'),
     name: {
       type: GraphQLString
     },
@@ -135,6 +140,9 @@ const GQLAuthor = new GraphQLObjectType({
     }
   }
 })
+
+const { connectionType: GQLAuthorConnection } =
+  connectionDefinitions({ name: 'Author', nodeType: GQLAuthor })
 
 const GQLTag = new GraphQLObjectType({
   name: 'Tag',
@@ -177,29 +185,6 @@ const bookPagesField = {
   }
 }
 
-const viewerField = {
-  type: new GraphQLObjectType({
-    name: 'user',
-    fields: {
-      id: {
-        type: new GraphQLNonNull(GraphQLID)
-      },
-      abc: {
-        type: GraphQLString
-      }
-    },
-    interfaces: [nodeInterface]
-  }),
-  resolve(obj, args, req) {
-    // return new User()
-    const bookPages = resolveBookPages(args)
-    return {
-      abc: 123,
-      bookPages
-    }
-  }
-}
-
 const authorField = {
   type: GQLAuthor,
   args: {
@@ -221,6 +206,29 @@ const tagField = {
   },
   resolve(obj, { id }, req) {
     return dataProvider.Tag.findById(id)
+  }
+}
+
+const viewerField = {
+  type: new GraphQLObjectType({
+    name: 'User',
+    fields: {
+      id: {
+        type: new GraphQLNonNull(GraphQLID)
+      },
+      authors: {
+        type: GQLAuthorConnection,
+        args: connectionArgs,
+        async resolve(parent, args) {
+          const list = await dataProvider.Author.find({}).exec()
+          return connectionFromArray(list, args)
+        }
+      }
+    },
+    interfaces: [nodeInterface]
+  }),
+  resolve(obj, args, req) {
+    return {}
   }
 }
 
