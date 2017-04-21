@@ -126,7 +126,7 @@ const resolveBookContentMem = _.memoize(resolveBookContent)
 export const resolveBookPages = async (options) => {
   console.time('resolveBookPages')
 
-  const { id: bookId, pageNo, pageHeight } = options
+  const { id: bookId, pageHeight } = options
 
   if (!pageHeight) {
     // todo: general validation
@@ -140,7 +140,7 @@ export const resolveBookPages = async (options) => {
 
   const pages = sections
     .map((section, index) => {
-      return groupNodesByPage(section.htmlObject, heights[index], pageHeight)
+      return groupNodesByPage(section.htmlObject, heights[index], pageHeight, index)
     })
     .reduce((a, b) => {
       return a.concat(b)
@@ -148,7 +148,7 @@ export const resolveBookPages = async (options) => {
   debug('groupNodesByPage end')
   console.timeEnd('resolveBookPages')
 
-  return pages[pageNo - 1]
+  return pages
 }
 
 export default {

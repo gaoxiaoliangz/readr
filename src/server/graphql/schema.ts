@@ -22,13 +22,37 @@ import {
 } from 'graphql-relay'
 
 import { resolveBookPages } from '../api/bookPages'
-import { parseReq } from '../api/http-decorator'
 import dataProvider from '../models/data-provider'
+const debug = require('debug')('readr:gqlschema')
 
-class User {}
+class User { }
 
-const GQLHTMLNodeObject = new GraphQLObjectType({
-  name: 'HTMLNodeObject',
+const { nodeInterface, nodeField } = nodeDefinitions(
+  (globalId) => {
+    let { type, id } = fromGlobalId(globalId)
+    switch (type) {
+      // we will use sequelize to resolve the id of its object
+      default:
+        debug('null node interface')
+        return null
+    }
+  },
+  (obj) => {
+    // we will use sequelize to resolve the object tha timplements node
+    // to its type.
+    switch (obj.type) {
+      default:
+        debug('null node field')
+        return null
+    }
+  }
+)
+
+////////////////////////////////////////////////////////////////////////////////////
+//                                  types                                         //
+////////////////////////////////////////////////////////////////////////////////////
+const GQLHTMLElementObject = new GraphQLObjectType({
+  name: 'HTMLElementObject',
   fields: () => ({
     tag: {
       type: GraphQLString
@@ -53,7 +77,7 @@ const GQLHTMLNodeObject = new GraphQLObjectType({
       })
     },
     children: {
-      type: new GraphQLList(GQLHTMLNodeObject)
+      type: new GraphQLList(GQLHTMLElementObject)
     }
   })
 })
@@ -62,8 +86,12 @@ const GQLBookPage = new GraphQLObjectType({
   name: 'BookPage',
   description: 'Computed bookpage',
   fields: {
-    nodes: {
-      type: new GraphQLList(GQLHTMLNodeObject)
+    id: globalIdField('HidingSpot'),
+    elements: {
+      type: new GraphQLList(GQLHTMLElementObject),
+      resolve(bookPage) {
+        return bookPage.elements
+      }
     },
     meta: {
       type: new GraphQLObjectType({
@@ -76,19 +104,26 @@ const GQLBookPage = new GraphQLObjectType({
             type: GraphQLInt
           }
         }
-      })
+      }),
+      resolve(bookPage) {
+        return bookPage.meta
+      }
     }
-  }
+  },
+  interfaces: [nodeInterface]
 })
 
-const GQLBookPageCollection = new GraphQLObjectType({
-  name: 'BookPageCollection',
-  fields: {
-    nodes: {
-      type: new GraphQLList(GQLBookPage)
-    }
-  }
-})
+// const GQLBookPageConnection = new GraphQLObjectType({
+//   name: 'BookPageConnection',
+//   fields: {
+//     nodes: {
+//       type: new GraphQLList(GQLBookPage)
+//     }
+//   }
+// })
+
+const { connectionType: GQLBookPageConnection } =
+  connectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
 
 const GQLAuthor = new GraphQLObjectType({
   name: 'Author',
@@ -122,73 +157,120 @@ const GQLTag = new GraphQLObjectType({
   }
 })
 
-const Root = new GraphQLObjectType({
-  name: 'Root',
-  fields: {
-    viewer: {
-      type: new GraphQLObjectType({
-        name: 'user',
-        fields: {
-          bookPages: {
-            type: GQLBookPageCollection,
-            args: {
-              id: {
-                type: GraphQLString
-              },
-              pageNo: {
-                type: GraphQLInt
-              },
-              pageHeight: {
-                type: GraphQLInt
+////////////////////////////////////////////////////////////////////////////////////
+//                                  fields                                        //
+////////////////////////////////////////////////////////////////////////////////////
+const testField = {
+  type: new GraphQLObjectType({
+    name: 'test',
+    fields: {
+      a: {
+        type: new GraphQLObjectType({
+          name: 'testa',
+          fields: {
+            ina: {
+              type: GraphQLString,
+              resolve: () => {
+                return 'this is under a'
               }
-            },
-            resolve(obj, args, req) {
-              // const { id: bookId, pageNo, pageHeight } = options
-              console.log(args);
-
-              return resolveBookPages(args)
             }
-          },
-          abc: {
-            type: GraphQLString
           }
+        }),
+        resolve: () => {
+          const fuck = 1
+          return 'this is a'
         }
-      }),
-      resolve(obj, args, req) {
-        // return new User()
-        return {
-          abc: 123,
-          bookPages: resolveBookPages(args)
-        }
-      }
-    },
-    author: {
-      type: GQLAuthor,
-      args: {
-        id: {
-          type: new GraphQLNonNull(GraphQLString)
-        }
-      },
-      resolve(obj, { id }, req) {
-        return dataProvider.Author.findById(id)
-      }
-    },
-    tag: {
-      type: GQLTag,
-      args: {
-        id: {
-          type: new GraphQLNonNull(GraphQLString)
-        }
-      },
-      resolve(obj, { id }, req) {
-        return dataProvider.Tag.findById(id)
       }
     }
-    // node: nodeField,
+  }),
+  resolve: (...args) => {
+    const arg2 = args
+    return 'this is test'
+  }
+}
+
+const bookPagesField = {
+  type: GQLBookPageConnection,
+  args: {
+    ...connectionArgs,
+    ...{
+      bookId: {
+        type: new GraphQLNonNull(GraphQLString)
+      },
+      pageHeight: {
+        type: new GraphQLNonNull(GraphQLInt)
+      }
+    }
+  } as GeneralObject,
+  resolve: async (obj, args) => {
+    const list = await resolveBookPages({
+      id: args.bookId,
+      pageHeight: args.pageHeight
+    })
+    return connectionFromArray(list, args)
+  }
+}
+
+const viewerField = {
+  type: new GraphQLObjectType({
+    name: 'user',
+    fields: {
+      id: {
+        type: new GraphQLNonNull(GraphQLID)
+      },
+      abc: {
+        type: GraphQLString
+      }
+    },
+    interfaces: [nodeInterface]
+  }),
+  resolve(obj, args, req) {
+    // return new User()
+    const bookPages = resolveBookPages(args)
+    return {
+      abc: 123,
+      bookPages
+    }
+  }
+}
+
+const authorField = {
+  type: GQLAuthor,
+  args: {
+    id: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
   },
+  resolve(obj, { id }, req) {
+    return dataProvider.Author.findById(id)
+  }
+}
+
+const tagField = {
+  type: GQLTag,
+  args: {
+    id: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  resolve(obj, { id }, req) {
+    return dataProvider.Tag.findById(id)
+  }
+}
+
+const Query = new GraphQLObjectType({
+  name: 'Query',
+  fields: {
+    node: nodeField,
+    viewer: viewerField,
+    author: authorField,
+    tag: tagField,
+    test: testField,
+    bookPages: bookPagesField
+  }
 })
 
 export default new GraphQLSchema({
-  query: Root,
+  query: Query,
   // mutation: Mutation,
 })

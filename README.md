@@ -87,6 +87,7 @@ options, data, id, response, error
 	✔ graphql server @done (April 20th 2017, 14:43)
 	☐ graphql custom resolver
 	☐ use app.listen
+	☐ gzip
 
 ### Next
 	☐ page no style

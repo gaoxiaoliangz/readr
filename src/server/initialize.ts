@@ -61,7 +61,8 @@ export default function initialize(config: InitConfig) {
   // graphql api
   app.use('/gql', graphQLHTTP({
     schema,
-    graphiql: true
+    graphiql: true,
+    pretty: true,
   }))
 
   // const schemaArr = [Author, Book, Collection, File, Progress, Tag, User]
