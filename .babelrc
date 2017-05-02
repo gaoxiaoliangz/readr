@@ -19,6 +19,7 @@
       //   ["es2015"]
       // ],
       "plugins": [
+        "relay",
         "react-hot-loader/babel",
         // Enables React code to work with HMR.
 

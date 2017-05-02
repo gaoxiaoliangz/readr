@@ -95,11 +95,11 @@ const request = (url: string, config: RequestConfig = {}): Promise<any> => {
             return Promise.reject(json)
           }
 
-          return { json, links: parseResHeaderToPagination(response) }
+          return Promise.resolve({ json, links: parseResHeaderToPagination(response) })
         })
       }
 
-      return { json: {} }
+      return Promise.resolve({ json: {} })
     })
 }
 

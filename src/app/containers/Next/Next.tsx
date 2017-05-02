@@ -4,7 +4,13 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import request from '../../../utils/network/request'
-import Template from '../../../renderers/Template'
+
+import {
+  QueryRenderer,
+  graphql,
+} from 'react-relay'
+
+import environment from '../../createRelayEnvironment'
 
 interface Props {
 }
@@ -49,7 +55,7 @@ class Next extends Component<AllProps, LocalState> {
   }
 
   loadPage(page = 1) {
-    request(`/api/books/58dc6af101a79153db46b0b1/pages/${page}`, {
+    request(`/api/books/58f5eb3f746f4be3a429fe8c/pages/${page}`, {
       query: {
         pageHeight: 600
       }
@@ -73,7 +79,34 @@ class Next extends Component<AllProps, LocalState> {
 
     return (
       <div>
-        <button onClick={() => {
+        <QueryRenderer
+          environment={environment}
+
+          query={graphql`
+            query AppFeedQuery {
+              feed (type: NEW, limit: 5) {
+                repository {
+                  owner { login }
+                  name
+                  stargazers_count
+                }
+
+                postedBy { login }
+              }
+            }
+          `}
+
+          render={({error, props}) => {
+            if (error) {
+              return <div>{error.message}</div>
+            } else if (props) {
+              console.log(props.feed)
+              return <div>ok</div>
+            }
+            return <div>Loading</div>
+          }}
+        />
+        {/*<button onClick={() => {
           this.loadPage(this.state.page - 1)
         }}>prev</button>
         <button onClick={() => {
@@ -82,10 +115,10 @@ class Next extends Component<AllProps, LocalState> {
         <div style={wrapperStyle}>
           <div style={innerStyle}>
             <Template
-              htmlObjects={pageData['nodes'] || []}
+              htmlObjects={pageData['elements'] || []}
             />
           </div>
-        </div>
+        </div>*/}
       </div>
     )
   }

@@ -60,7 +60,7 @@ class Icon extends Component<IProps, {}> {
                   {...svgIcons[name].viewBox && { viewBox: svgIcons[name].viewBox }}
                   width={size}
                   height={size}
-                  styleName="svg-shape"
+                  {...{ styleName: 'svg-shape' } as any}
                 >
                   <path d={svgIcons[name].path} />
                 </svg>
