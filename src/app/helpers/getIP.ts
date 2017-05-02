@@ -26,7 +26,11 @@ export function getIPs() {
 
 const getLocalIP = () => {
   let IPv4
-  for (let i = 0; i < os.networkInterfaces().en0.length; i++) {
+  const networkInterfaces = os.networkInterfaces()
+  if (!networkInterfaces.en0) {
+    return 'localhost'
+  }
+  for (let i = 0; i < networkInterfaces.en0.length; i++) {
     if (os.networkInterfaces().en0[i].family === 'IPv4') {
       IPv4 = os.networkInterfaces().en0[i].address
     }
