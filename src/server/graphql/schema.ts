@@ -81,6 +81,9 @@ const GQLHTMLElementObject = new GraphQLObjectType({
     type: {
       type: GraphQLInt
     },
+    text: {
+      type: GraphQLString
+    },
     attrs: {
       type: new GraphQLObjectType({
         name: 'HTMLAttrObject',
