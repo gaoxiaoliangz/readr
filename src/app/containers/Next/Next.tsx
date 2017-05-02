@@ -1,16 +1,18 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
+import { graphql, gql } from 'react-apollo'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import request from '../../../utils/network/request'
+import Template from '../../../renderers/Template'
 
-import {
-  QueryRenderer,
-  graphql,
-} from 'react-relay'
+// import {
+//   QueryRenderer,
+//   graphql,
+// } from 'react-relay'
 
-import environment from '../../createRelayEnvironment'
+// import environment from '../../createRelayEnvironment'
 
 interface Props {
 }
@@ -26,6 +28,20 @@ interface AllProps extends Props {
   // loadSomething: any
   // saveSomething: any
   actions: typeof actions
+  data: {
+    [key: string]: any
+    bookPages: {
+      edges: {
+        node: {
+          elements: ParsedNode[]
+          meta: {
+            pageNo: number
+            offset: number
+          }
+        }
+      }[]
+    }
+  }
 }
 
 function mapStateToProps(state) {
@@ -51,7 +67,7 @@ class Next extends Component<AllProps, LocalState> {
   }
 
   componentDidMount() {
-    this.loadPage()
+    // this.loadPage()
   }
 
   loadPage(page = 1) {
@@ -67,7 +83,7 @@ class Next extends Component<AllProps, LocalState> {
     })
   }
 
-  render() {
+  /*render() {
     const pageData = this.state.pageData || {}
     const wrapperStyle: React.CSSProperties = {
       overflow: 'hidden',
@@ -105,8 +121,8 @@ class Next extends Component<AllProps, LocalState> {
             }
             return <div>Loading</div>
           }}
-        />
-        {/*<button onClick={() => {
+        />*/
+        /*<button onClick={() => {
           this.loadPage(this.state.page - 1)
         }}>prev</button>
         <button onClick={() => {
@@ -118,17 +134,91 @@ class Next extends Component<AllProps, LocalState> {
               htmlObjects={pageData['elements'] || []}
             />
           </div>
-        </div>*/}
+        </div>*/
+  //     </div>
+  //   )
+  // }
+
+  render() {
+    if (this.props.data.loading) {
+      return (
+        <div>loading</div>
+      )
+    }
+
+    const wrapperStyle: React.CSSProperties = {
+      overflow: 'hidden',
+      height: 600
+    }
+
+    const {
+      data: {
+        bookPages: {
+          edges
+        }
+      } 
+    } = this.props
+    return (
+      <div>
+        {
+          edges.map((edge, index) => {
+            const innerStyle: React.CSSProperties = {
+              marginTop: (edge.node.meta || {} as any).offset || 0
+            }
+            return (
+              <div key={index} style={wrapperStyle}>
+                <div style={innerStyle}>
+                  <Template
+                    htmlObjects={edge.node.elements || []}
+                  />
+                </div>
+              </div>
+            )
+          })
+        }
       </div>
     )
   }
 }
 
-export default connect(
-  mapStateToProps,
-  dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
-  })
-  // mapDispatchToProps
-  // { actions: _.assign({}, actions) }
-)(Next)
+// connect(
+//   mapStateToProps,
+//   dispatch => ({
+//     actions: bindActionCreators(actions as {}, dispatch)
+//   })
+//   // mapDispatchToProps
+//   // { actions: _.assign({}, actions) }
+// )(Next)
+
+const query = gql`
+{
+	bookPages(pageHeight: 600, bookId: "58f5eb3f746f4be3a429fe8c", first: 1) {
+		edges {
+      cursor
+      node {
+        id
+        meta {
+          pageNo
+          offset
+        }
+        elements {
+          tag
+          type
+          children {
+            tag
+            type
+            children {
+              tag
+              type
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`
+
+const NextWithData = graphql(query)(Next)
+
+export default NextWithData
