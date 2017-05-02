@@ -24,7 +24,7 @@
     "test": "jest --no-cache --watchAll --config=.jestrc"
   },
   "dependencies": {
-    "animate.css": "^3.5.1",
+    "animate.css": "^3.5.2",
     "babel-polyfill": "^6.16.0",
     "babel-register": "^6.8.0",
     "better-redux-form": "^0.2.0",
