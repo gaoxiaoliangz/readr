@@ -1,18 +1,19 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { graphql, gql } from 'react-apollo'
-import { connect } from 'react-redux'
 import * as actions from '../../actions'
-import { bindActionCreators } from 'redux'
-import request from '../../../utils/network/request'
+// import { connect } from 'react-redux'
+// import { bindActionCreators } from 'redux'
+// import request from '../../../utils/network/request'
 import Template from '../../../renderers/Template'
 
 // import {
 //   QueryRenderer,
 //   graphql,
 // } from 'react-relay'
-
 // import environment from '../../createRelayEnvironment'
+
+const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
 interface Props {
 }
@@ -24,14 +25,13 @@ interface LocalState {
 
 interface AllProps extends Props {
   routing: any
-  // sendNotification: any
-  // loadSomething: any
-  // saveSomething: any
   actions: typeof actions
   data: {
     [key: string]: any
+    fetchMore: any
     bookPages: {
       edges: {
+        cursor: string
         node: {
           elements: ParsedNode[]
           meta: {
@@ -44,17 +44,57 @@ interface AllProps extends Props {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    routing: state.routing.locationBeforeTransitions
+const query = gql`
+query BookPages($bookId: String!, $after: String) {
+	bookPages(pageHeight: 600, bookId: $bookId, first: 1, after: $after) {
+		edges {
+      cursor
+      node {
+        id
+        meta {
+          pageNo
+          offset
+        }
+				elements {
+          ...elementsRecursive
+        }
+      }
+    }
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(_.assign({}, actions), dispatch)
-//   }
-// }
+fragment elementFields on HTMLElementObject  {
+  tag
+  type
+  text
+  attrs {
+    id
+    href
+    src
+  }
+}
+
+fragment elementsRecursive on HTMLElementObject {
+  tag
+  type
+  text
+  children {
+		...elementFields
+    children {
+			...elementFields
+      children {
+				...elementFields
+        children {
+					...elementFields
+          children {
+            ...elementFields
+          }
+        }
+      }
+    }
+  }
+}
+`
 
 class Next extends Component<AllProps, LocalState> {
 
@@ -71,73 +111,57 @@ class Next extends Component<AllProps, LocalState> {
   }
 
   loadPage(page = 1) {
-    request(`/api/books/58f5eb3f746f4be3a429fe8c/pages/${page}`, {
-      query: {
-        pageHeight: 600
+    // request(`/api/books/58f5eb3f746f4be3a429fe8c/pages/${page}`, {
+    //   query: {
+    //     pageHeight: 600
+    //   }
+    // }).then(data => {
+    //   this.setState({
+    //     pageData: data.json,
+    //     page
+    //   })
+    // })
+    const { data: { fetchMore } } = this.props
+    fetchMore({
+      query,
+      variables: {
+        bookId: BOOK_ID,
+        after: _.last(this.props.data.bookPages.edges).cursor
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        // console.log(_.last(previousResult.bookPages.edges).cursor)
+        // console.log(_.last(fetchMoreResult.bookPages.edges).cursor)
+        const previousResult2 = _.cloneDeep(previousResult.bookPages.edges)
+        console.log(previousResult2);
+        
+
+        return Object.assign({}, previousResult, {
+          // Append the new feed results to the old one
+          bookPages: {
+            edges: [...previousResult2, ...fetchMoreResult.bookPages.edges],
+          }
+        })
       }
-    }).then(data => {
-      this.setState({
-        pageData: data.json,
-        page
-      })
+      // updateQuery: (...args) => {
+      //   // const previousResult = args[0]
+      //   // const { fetchMoreResult } = args[1]
+      //   // const edges = [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
+      //   // const result = {
+      //   //   ...fetchMoreResult,
+      //   //   ...{
+      //   //     bookPages: {
+      //   //       ...{
+      //   //         edges
+      //   //       }
+      //   //     }
+      //   //   }
+      //   // }
+      //   // return result
+      //   // return args[0]
+      //   return args[1]
+      // }
     })
   }
-
-  /*render() {
-    const pageData = this.state.pageData || {}
-    const wrapperStyle: React.CSSProperties = {
-      overflow: 'hidden',
-      height: 600
-    }
-    const innerStyle: React.CSSProperties = {
-      marginTop: (pageData['meta'] || {}).offset || 0
-    }
-
-    return (
-      <div>
-        <QueryRenderer
-          environment={environment}
-
-          query={graphql`
-            query AppFeedQuery {
-              feed (type: NEW, limit: 5) {
-                repository {
-                  owner { login }
-                  name
-                  stargazers_count
-                }
-
-                postedBy { login }
-              }
-            }
-          `}
-
-          render={({error, props}) => {
-            if (error) {
-              return <div>{error.message}</div>
-            } else if (props) {
-              console.log(props.feed)
-              return <div>ok</div>
-            }
-            return <div>Loading</div>
-          }}
-        />*/
-        /*<button onClick={() => {
-          this.loadPage(this.state.page - 1)
-        }}>prev</button>
-        <button onClick={() => {
-          this.loadPage(this.state.page + 1)
-        }}>next</button>
-        <div style={wrapperStyle}>
-          <div style={innerStyle}>
-            <Template
-              htmlObjects={pageData['elements'] || []}
-            />
-          </div>
-        </div>*/
-  //     </div>
-  //   )
-  // }
 
   render() {
     if (this.props.data.loading) {
@@ -156,10 +180,13 @@ class Next extends Component<AllProps, LocalState> {
         bookPages: {
           edges
         }
-      } 
+      }
     } = this.props
     return (
       <div>
+        <button onClick={() => {
+          this.loadPage(this.state.page - 1)
+        }}>prev</button>
         {
           edges.map((edge, index) => {
             const innerStyle: React.CSSProperties = {
@@ -176,49 +203,26 @@ class Next extends Component<AllProps, LocalState> {
             )
           })
         }
+        <button onClick={() => {
+          this.loadPage(this.state.page + 1)
+        }}>next</button>
       </div>
     )
   }
 }
 
-// connect(
-//   mapStateToProps,
-//   dispatch => ({
-//     actions: bindActionCreators(actions as {}, dispatch)
-//   })
-//   // mapDispatchToProps
-//   // { actions: _.assign({}, actions) }
-// )(Next)
-
-const query = gql`
-{
-	bookPages(pageHeight: 600, bookId: "58f5eb3f746f4be3a429fe8c", first: 1) {
-		edges {
-      cursor
-      node {
-        id
-        meta {
-          pageNo
-          offset
-        }
-        elements {
-          tag
-          type
-          children {
-            tag
-            type
-            children {
-              tag
-              type
-            }
-          }
+const NextWithData = graphql(
+  query,
+  {
+    options: () => {
+      return {
+        variables: {
+          bookId: BOOK_ID,
+          after: 'YXJyYXljb25uZWN0aW9uOjE1'
         }
       }
     }
   }
-}
-`
-
-const NextWithData = graphql(query)(Next)
+)(Next)
 
 export default NextWithData

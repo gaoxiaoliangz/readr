@@ -2,15 +2,11 @@ import React, { Component } from 'react'
 import { Router } from 'react-router'
 import { Provider } from 'react-redux'
 import _ from 'lodash'
-import { ApolloClient, createNetworkInterface, ApolloProvider } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo'
+import helpers from '../helpers'
+import createApolloClient from '../createApolloClient'
 
-const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:8090/gql'
-})
-
-const client = new ApolloClient({
-  networkInterface: networkInterface
-})
+const client = createApolloClient()
 
 interface Props {
   store: any
@@ -42,9 +38,17 @@ class Root extends Component<Props, {}> {
 
     return (
       <Provider store={store}>
-        <ApolloProvider client={client}>
-          <Router {...renderProps} />
-        </ApolloProvider>
+        {
+          helpers.isServerEnv()
+            ? (
+              <Router {...renderProps} />
+            )
+            : (
+              <ApolloProvider client={client}>
+                <Router {...renderProps} />
+              </ApolloProvider>
+            )
+        }
       </Provider>
     )
   }
