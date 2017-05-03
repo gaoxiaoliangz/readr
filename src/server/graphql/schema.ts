@@ -74,7 +74,11 @@ const { nodeInterface, nodeField } = nodeDefinitions(
 ////////////////////////////////////////////////////////////////////////////////////
 const GQLHTMLElementObject = new GraphQLObjectType({
   name: 'HTMLElementObject',
+  interfaces: [nodeInterface],
   fields: () => ({
+    id: globalIdField('HTMLElementObject', () => {
+      return Math.random().toString()
+    }),
     tag: {
       type: GraphQLString
     },
@@ -108,6 +112,7 @@ const GQLHTMLElementObject = new GraphQLObjectType({
 
 const GQLBookPage = new GraphQLObjectType({
   name: bookPageTypeName,
+  interfaces: [nodeInterface],
   description: 'Computed bookpage',
   fields: {
     id: globalIdField(bookPageTypeName),
@@ -133,8 +138,7 @@ const GQLBookPage = new GraphQLObjectType({
         return bookPage.meta
       }
     }
-  },
-  interfaces: [nodeInterface]
+  }
 })
 
 const { connectionType: GQLBookPageConnection } =

@@ -67,6 +67,7 @@ fragment elementFields on HTMLElementObject  {
   tag
   type
   text
+  id
   attrs {
     id
     href
@@ -75,9 +76,7 @@ fragment elementFields on HTMLElementObject  {
 }
 
 fragment elementsRecursive on HTMLElementObject {
-  tag
-  type
-  text
+  ...elementFields
   children {
 		...elementFields
     children {
