@@ -77,23 +77,24 @@ fragment elementFields on HTMLElementObject  {
 
 fragment elementsRecursive on HTMLElementObject {
   ...elementFields
-  children {
-		...elementFields
-    children {
-			...elementFields
-      children {
-				...elementFields
-        children {
-					...elementFields
-          children {
-            ...elementFields
-          }
-        }
-      }
-    }
-  }
+
 }
 `
+  // children {
+	// 	...elementFields
+  // }
+    // children {
+		// 	...elementFields
+    //   children {
+		// 		...elementFields
+    //     children {
+		// 			...elementFields
+    //       children {
+    //         ...elementFields
+    //       }
+    //     }
+    //   }
+    // }
 
 class Next extends Component<AllProps, LocalState> {
 

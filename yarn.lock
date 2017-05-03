@@ -8405,16 +8405,19 @@ relay-compiler@dev:
     signedsource "^1.0.0"
     yargs "^7.0.2"
 
+relay-runtime@1.0.0-rc.1:
+  version "1.0.0-rc.1"
+  resolved "http://registry.npm.taobao.org/relay-runtime/download/relay-runtime-1.0.0-rc.1.tgz#fc6deb348ec816ca333e6ddf8b2dfb6e2a3ae472"
+  dependencies:
+    babel-runtime "^6.23.0"
+    fbjs "^0.8.1"
+
 relay-runtime@1.0.0-rc.3:
   version "1.0.0-rc.3"
   resolved "http://registry.npm.taobao.org/relay-runtime/download/relay-runtime-1.0.0-rc.3.tgz#710b02f43050e581808bc6551f6f4ae7d17d248d"
   dependencies:
     babel-runtime "^6.23.0"
     fbjs "^0.8.1"
-
-relay-runtime@^0.0.1:
-  version "0.0.1"
-  resolved "http://registry.npm.taobao.org/relay-runtime/download/relay-runtime-0.0.1.tgz#8090981f67e6617b99227a293777b013839b485f"
 
 remove-trailing-separator@^1.0.1:
   version "1.0.1"
