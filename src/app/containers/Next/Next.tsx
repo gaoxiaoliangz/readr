@@ -4,14 +4,7 @@ import { graphql, gql } from 'react-apollo'
 import * as actions from '../../actions'
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-// import request from '../../../utils/network/request'
 import Template from '../../../renderers/Template'
-
-// import {
-//   QueryRenderer,
-//   graphql,
-// } from 'react-relay'
-// import environment from '../../createRelayEnvironment'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
@@ -45,56 +38,52 @@ interface AllProps extends Props {
 }
 
 const query = gql`
-query BookPages($bookId: String!, $after: String) {
-	bookPages(pageHeight: 600, bookId: $bookId, first: 1, after: $after) {
-		edges {
-      cursor
-      node {
-        id
-        meta {
-          pageNo
-          offset
-        }
-				elements {
-          ...elementsRecursive
+  query BookPages($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
+    bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
+      edges {
+        cursor
+        node {
+          id
+          meta {
+            pageNo
+            offset
+          }
+          elements {
+            ...elementsRecursive
+          }
         }
       }
     }
   }
-}
 
-fragment elementFields on HTMLElementObject  {
-  tag
-  type
-  text
-  id
-  attrs {
+  fragment elementFields on HTMLElementObject  {
+    tag
+    type
+    text
     id
-    href
-    src
+    attrs {
+      id
+      href
+      src
+    }
   }
-}
 
-fragment elementsRecursive on HTMLElementObject {
-  ...elementFields
-
-}
+  fragment elementsRecursive on HTMLElementObject {
+    ...elementFields
+    children {
+			...elementFields
+      children {
+				...elementFields
+        children {
+					...elementFields
+          children {
+            ...elementFields
+          }
+        }
+      }
+    }
+  }
 `
-  // children {
-	// 	...elementFields
-  // }
-    // children {
-		// 	...elementFields
-    //   children {
-		// 		...elementFields
-    //     children {
-		// 			...elementFields
-    //       children {
-    //         ...elementFields
-    //       }
-    //     }
-    //   }
-    // }
 
 class Next extends Component<AllProps, LocalState> {
 
@@ -106,60 +95,33 @@ class Next extends Component<AllProps, LocalState> {
     }
   }
 
-  componentDidMount() {
-    // this.loadPage()
-  }
-
-  loadPage(page = 1) {
-    // request(`/api/books/58f5eb3f746f4be3a429fe8c/pages/${page}`, {
-    //   query: {
-    //     pageHeight: 600
-    //   }
-    // }).then(data => {
-    //   this.setState({
-    //     pageData: data.json,
-    //     page
-    //   })
-    // })
+  loadPage(direction: 'prev' | 'next' = 'next') {
     const { data: { fetchMore } } = this.props
+    const fistItemCursor = _.first(this.props.data.bookPages.edges).cursor
+    const lastItemCursor = _.last(this.props.data.bookPages.edges).cursor
+
     fetchMore({
       query,
       variables: {
         bookId: BOOK_ID,
-        after: _.last(this.props.data.bookPages.edges).cursor
+        before: direction === 'prev' && fistItemCursor,
+        after: direction === 'next' && lastItemCursor,
+        first: direction === 'next' ? 1 : null,
+        last: direction === 'prev' ? 1 : null
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        // console.log(_.last(previousResult.bookPages.edges).cursor)
-        // console.log(_.last(fetchMoreResult.bookPages.edges).cursor)
-        const previousResult2 = _.cloneDeep(previousResult.bookPages.edges)
-        console.log(previousResult2);
-        
+        let edges = direction === 'next'
+         ? [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
+         : [...fetchMoreResult.bookPages.edges, ...previousResult.bookPages.edges]
 
-        return Object.assign({}, previousResult, {
-          // Append the new feed results to the old one
+        const merged = Object.assign({}, previousResult, {
           bookPages: {
-            edges: [...previousResult2, ...fetchMoreResult.bookPages.edges],
+            edges
           }
         })
+
+        return merged
       }
-      // updateQuery: (...args) => {
-      //   // const previousResult = args[0]
-      //   // const { fetchMoreResult } = args[1]
-      //   // const edges = [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
-      //   // const result = {
-      //   //   ...fetchMoreResult,
-      //   //   ...{
-      //   //     bookPages: {
-      //   //       ...{
-      //   //         edges
-      //   //       }
-      //   //     }
-      //   //   }
-      //   // }
-      //   // return result
-      //   // return args[0]
-      //   return args[1]
-      // }
     })
   }
 
@@ -185,7 +147,7 @@ class Next extends Component<AllProps, LocalState> {
     return (
       <div>
         <button onClick={() => {
-          this.loadPage(this.state.page - 1)
+          this.loadPage('prev')
         }}>prev</button>
         {
           edges.map((edge, index) => {
@@ -204,7 +166,7 @@ class Next extends Component<AllProps, LocalState> {
           })
         }
         <button onClick={() => {
-          this.loadPage(this.state.page + 1)
+          this.loadPage('next')
         }}>next</button>
       </div>
     )
@@ -218,6 +180,7 @@ const NextWithData = graphql(
       return {
         variables: {
           bookId: BOOK_ID,
+          first: 1,
           after: 'YXJyYXljb25uZWN0aW9uOjE1'
         }
       }

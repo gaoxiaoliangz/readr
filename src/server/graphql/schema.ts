@@ -23,6 +23,7 @@ import {
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
+import md5 from 'vendor/md5'
 const debug = require('debug')('readr:gqlschema')
 
 class User { }
@@ -76,8 +77,8 @@ const GQLHTMLElementObject = new GraphQLObjectType({
   name: 'HTMLElementObject',
   interfaces: [nodeInterface],
   fields: () => ({
-    id: globalIdField('HTMLElementObject', () => {
-      return Math.random().toString()
+    id: globalIdField('HTMLElementObject', (entity) => {
+      return md5(JSON.stringify(entity))
     }),
     tag: {
       type: GraphQLString
@@ -115,7 +116,9 @@ const GQLBookPage = new GraphQLObjectType({
   interfaces: [nodeInterface],
   description: 'Computed bookpage',
   fields: {
-    id: globalIdField(bookPageTypeName),
+    id: globalIdField(bookPageTypeName, (entity) => {
+      return md5(JSON.stringify(entity))
+    }),
     elements: {
       type: new GraphQLList(GQLHTMLElementObject),
       resolve(bookPage) {
