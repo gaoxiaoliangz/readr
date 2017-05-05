@@ -4,7 +4,7 @@ import { graphql, gql } from 'react-apollo'
 import * as actions from '../../actions'
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import HTMLObjectsRenderer from '../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
+import BookContainer from './BookContainer'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
@@ -20,20 +20,9 @@ interface AllProps extends Props {
   routing: any
   actions: typeof actions
   data: {
+    bookPages: QBookPages
     [key: string]: any
     fetchMore: any
-    bookPages: {
-      edges: {
-        cursor: string
-        node: {
-          elements: ParsedNode[]
-          meta: {
-            pageNo: number
-            offset: number
-          }
-        }
-      }[]
-    }
   }
 }
 
@@ -111,8 +100,8 @@ class Next extends Component<AllProps, LocalState> {
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         let edges = direction === 'next'
-         ? [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
-         : [...fetchMoreResult.bookPages.edges, ...previousResult.bookPages.edges]
+          ? [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
+          : [...fetchMoreResult.bookPages.edges, ...previousResult.bookPages.edges]
 
         const merged = Object.assign({}, previousResult, {
           bookPages: {
@@ -132,43 +121,8 @@ class Next extends Component<AllProps, LocalState> {
       )
     }
 
-    const wrapperStyle: React.CSSProperties = {
-      overflow: 'hidden',
-      height: 600
-    }
-
-    const {
-      data: {
-        bookPages: {
-          edges
-        }
-      }
-    } = this.props
     return (
-      <div>
-        <button onClick={() => {
-          this.loadPage('prev')
-        }}>prev</button>
-        {
-          edges.map((edge, index) => {
-            const innerStyle: React.CSSProperties = {
-              marginTop: (edge.node.meta || {} as any).offset || 0
-            }
-            return (
-              <div key={index} style={wrapperStyle}>
-                <div style={innerStyle}>
-                  <HTMLObjectsRenderer
-                    htmlObjects={edge.node.elements || []}
-                  />
-                </div>
-              </div>
-            )
-          })
-        }
-        <button onClick={() => {
-          this.loadPage('next')
-        }}>next</button>
-      </div>
+      <BookContainer bookPages={this.props.data.bookPages} />
     )
   }
 }

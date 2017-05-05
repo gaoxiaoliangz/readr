@@ -29,3 +29,16 @@ interface ParsedNode {
   children?: ParsedNode[]
   attrs: GeneralObject
 }
+
+interface QBookPages {
+  edges: {
+    cursor: string
+    node: {
+      elements: ParsedNode[]
+      meta: {
+        pageNo: number
+        offset: number
+      }
+    }
+  }[]
+}
