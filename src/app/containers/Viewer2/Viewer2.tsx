@@ -4,7 +4,7 @@ import { graphql, gql } from 'react-apollo'
 import * as actions from '../../actions'
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import Template from '../../../renderers/Template'
+import HTMLObjectsRenderer from '../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
@@ -157,7 +157,7 @@ class Next extends Component<AllProps, LocalState> {
             return (
               <div key={index} style={wrapperStyle}>
                 <div style={innerStyle}>
-                  <Template
+                  <HTMLObjectsRenderer
                     htmlObjects={edge.node.elements || []}
                   />
                 </div>

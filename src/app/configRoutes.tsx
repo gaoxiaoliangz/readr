@@ -26,7 +26,7 @@ const configRoutes = (context = {}) => {
   return (
     <Route path="/" component={Master}>
       <Route path="viewer/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer').default)} />
-      <Route path="next" getComponent={() => require.ensure([], require => require('./containers/Next').default)} />
+      <Route path="viewer/v2/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer2').default)} />
       <Route path="authors" getComponent={() => require.ensure([], require => require('./containers/Authors/Authors').default)} />
       <Route component={App}>
         <IndexRoute getComponent={() => require.ensure([], require => require('./containers/AppHome').default)} />

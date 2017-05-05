@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import styles from './style.scss'
+import styles from './HTMLObjectsRenderer.scss'
 
 type Props = {
   children?: any
@@ -29,7 +29,7 @@ const renderObjects = (objects: ParsedNode[], isRoot = false) => {
   })
 }
 
-function Template(props: Props) {
+function HTMLObjectsRenderer(props: Props) {
   const { htmlObjects } = props
   return (
     <div className={styles['section']}>
@@ -40,4 +40,4 @@ function Template(props: Props) {
   )
 }
 
-export default Template
+export default HTMLObjectsRenderer

@@ -7,7 +7,7 @@ import { groupNodesByPage } from '../../renderers/paging'
 import dataProvider from '../models/data-provider'
 import { notFoundError } from '../helpers'
 import AppDoc from '../../app/components/AppDoc'
-import Template from '../../renderers/Template'
+import HTMLObjectsRenderer from '../../app/components/HTMLObjectsRenderer/HTMLObjectsRenderer'
 import evaluate from '../../renderers/evaluate'
 import { getCssLinks } from '../middleware/render/render-view'
 import parseEpub from '../../parsers/epub/epub'
@@ -26,7 +26,7 @@ const calcHeights = async (sections) => {
           {
             sections.map((section, index) => {
               return (
-                <Template key={index} htmlObjects={section} />
+                <HTMLObjectsRenderer key={index} htmlObjects={section} />
               )
             })
           }
