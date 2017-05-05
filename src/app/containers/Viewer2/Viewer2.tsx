@@ -1,24 +1,19 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { graphql, gql } from 'react-apollo'
+import { connect } from 'react-redux'
 import * as actions from '../../actions'
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-import BookContainer from './BookContainer'
+import { bindActionCreators } from 'redux'
+import Viewer2Container from './Viewer2Container'
+import viewerQuery from './viewerQuery'
+import * as selectors from '../../selectors'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
-interface Props {
-}
-
-interface LocalState {
-  pageData: Atom[][][],
-  page: number
-}
-
-interface AllProps extends Props {
-  routing: any
+interface AllProps {
   actions: typeof actions
+  routing: any
+  components: Viewer.Components
   data: {
     bookPages: QBookPages
     [key: string]: any
@@ -26,71 +21,19 @@ interface AllProps extends Props {
   }
 }
 
-const query = gql`
-  query BookPages($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
-    bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
-      edges {
-        cursor
-        node {
-          id
-          meta {
-            pageNo
-            offset
-          }
-          elements {
-            ...elementsRecursive
-          }
-        }
-      }
-    }
-  }
-
-  fragment elementFields on HTMLElementObject  {
-    tag
-    type
-    text
-    id
-    attrs {
-      id
-      href
-      src
-    }
-  }
-
-  fragment elementsRecursive on HTMLElementObject {
-    ...elementFields
-    children {
-			...elementFields
-      children {
-				...elementFields
-        children {
-					...elementFields
-          children {
-            ...elementFields
-          }
-        }
-      }
-    }
-  }
-`
-
-class Next extends Component<AllProps, LocalState> {
-
+class Viewer2 extends Component<AllProps, void> {
   constructor(props) {
     super(props)
-    this.state = {
-      pageData: [],
-      page: 1
-    }
+    this.handleLoadPage = this.handleLoadPage.bind(this)
+    this.handleScroll = this.handleScroll.bind(this)
   }
 
-  loadPage(direction: 'prev' | 'next' = 'next') {
+  handleLoadPage(direction: 'prev' | 'next' = 'next') {
     const { data: { fetchMore } } = this.props
     const fistItemCursor = _.first(this.props.data.bookPages.edges).cursor
     const lastItemCursor = _.last(this.props.data.bookPages.edges).cursor
 
     fetchMore({
-      query,
       variables: {
         bookId: BOOK_ID,
         before: direction === 'prev' && fistItemCursor,
@@ -114,7 +57,17 @@ class Next extends Component<AllProps, LocalState> {
     })
   }
 
+  handleScroll(direction) {
+    if (direction === 'up') {
+      this.props.actions.viewer.toggleViewerPanel(true)
+    } else {
+      this.props.actions.viewer.toggleViewerPanel(false)
+    }
+  }
+
   render() {
+    const { components: { showPanel } } = this.props
+
     if (this.props.data.loading) {
       return (
         <div>loading</div>
@@ -122,13 +75,20 @@ class Next extends Component<AllProps, LocalState> {
     }
 
     return (
-      <BookContainer bookPages={this.props.data.bookPages} />
+      <Viewer2Container
+        bookPages={this.props.data.bookPages}
+        showHeaderPanel={showPanel}
+        onLoadPage={this.handleLoadPage}
+        onDebuncedScroll={(direction) => {
+        }}
+        onScroll={this.handleScroll}
+      />
     )
   }
 }
 
-const NextWithData = graphql(
-  query,
+const Viewer2WithData = graphql(
+  gql`${viewerQuery}`,
   {
     options: () => {
       return {
@@ -140,6 +100,20 @@ const NextWithData = graphql(
       }
     }
   }
-)(Next)
+)(Viewer2)
 
-export default NextWithData
+const mapStateToProps = (state, ownProps) => {
+  const components = selectors.viewer.components(state)
+  return {
+    components
+  }
+}
+
+export default connect<{}, {}, {}>(
+  mapStateToProps,
+  dispatch => ({
+    actions: {
+      viewer: bindActionCreators(actions.viewer as {}, dispatch)
+    }
+  })
+)(Viewer2WithData)

@@ -3,11 +3,10 @@ import HTMLObjectsRenderer from '../../components/HTMLObjectsRenderer/HTMLObject
 
 interface Props {
   bookPages: QBookPages
-  onLoadPage: () => any
+  onLoadPage: (direction: 'prev' | 'next') => any
 }
 
 export default class BookContainer extends Component<Props, void> {
-
   constructor(props) {
     super(props)
   }
@@ -16,24 +15,20 @@ export default class BookContainer extends Component<Props, void> {
   }
 
   render() {
-
-
     const wrapperStyle: React.CSSProperties = {
       overflow: 'hidden',
       height: 600
     }
 
     const {
-      data: {
-        bookPages: {
-          edges
-        }
+      bookPages: {
+        edges
       }
     } = this.props
     return (
       <div>
         <button onClick={() => {
-          this.loadPage('prev')
+          this.props.onLoadPage('prev')
         }}>prev</button>
         {
           edges.map((edge, index) => {
@@ -52,7 +47,7 @@ export default class BookContainer extends Component<Props, void> {
           })
         }
         <button onClick={() => {
-          this.loadPage('next')
+          this.props.onLoadPage('next')
         }}>next</button>
       </div>
     )
