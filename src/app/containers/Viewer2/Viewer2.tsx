@@ -77,7 +77,6 @@ class Viewer2 extends Component<AllProps, void> {
     return (
       <Viewer2Container
         bookPages={this.props.data.bookPages}
-        showHeaderPanel={showPanel}
         onLoadPage={this.handleLoadPage}
         onReachBottom={this.handleLoadPage}
         onDebuncedScroll={(direction) => {

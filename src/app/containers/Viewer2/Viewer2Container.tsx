@@ -5,14 +5,15 @@ import CSSModules from 'react-css-modules'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import BookContainer from './BookContainer'
-import HeaderPanel from '../../components/HeaderPanel/HeaderPanel'
+import HeaderPanel from '../../components/HeaderPanel'
 import Logo from '../../components/Logo'
 import Icon from '../../components/Icon'
 import styles from './Viewer2Container.scss'
+import LeftPanel from '../../components/LeftPanel'
+import * as selectors from '../../selectors'
 
 interface OwnProps {
   bookPages: QBookPages
-  showHeaderPanel: boolean
   onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
   onDebuncedScroll?: (direction: 'up' | 'down') => void
@@ -22,10 +23,14 @@ interface OwnProps {
 
 interface StateProps {
   actions: typeof actions
+  components: Viewer.Components
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  const components = selectors.viewer.components(state)
+  return {
+    components
+  }
 }
 
 @CSSModules(styles)
@@ -101,17 +106,20 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   }
 
   render() {
-    const { showHeaderPanel } = this.props
+    const { components: { showNavigation, showPanel } } = this.props
 
     return (
       <div>
         <HeaderPanel
-          show={showHeaderPanel}
+          show={showPanel}
         >
           <div styleName="container">
             <div styleName="left">
               <div
                 styleName="menu"
+                onClick={() => {
+                  this.props.actions.viewer.toggleViewerNavigation(true)
+                }}
               >
                 <Icon name="menu" size={20} />
               </div>
@@ -136,6 +144,14 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
             </div>
           </div>
         </HeaderPanel>
+        <LeftPanel
+          show={showNavigation}
+          onRequestClose={() => {
+            this.props.actions.viewer.toggleViewerNavigation(false)
+          }}
+        >
+          content
+        </LeftPanel>
         <BookContainer
           bookPages={this.props.bookPages}
           onLoadPage={this.props.onLoadPage}
@@ -148,6 +164,8 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
 export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   dispatch => ({
-    actions: bindActionCreators(actions as {}, dispatch)
+    actions: {
+      viewer: bindActionCreators(actions.viewer as {}, dispatch)
+    }
   })
 )(Viewer2Container)
