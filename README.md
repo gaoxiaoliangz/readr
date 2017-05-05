@@ -16,7 +16,7 @@ node.js, express.js, graphql(with relay standard), mongodb, moongoose, multer
 
 TypeScript
 
-### Implementions
+## Implementions
 
 * [Flux standard actions](https://github.com/acdlite/flux-standard-action)
 * Isomorphic routing permission check
