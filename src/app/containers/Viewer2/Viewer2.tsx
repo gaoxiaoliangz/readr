@@ -79,6 +79,7 @@ class Viewer2 extends Component<AllProps, void> {
         bookPages={this.props.data.bookPages}
         showHeaderPanel={showPanel}
         onLoadPage={this.handleLoadPage}
+        onReachBottom={this.handleLoadPage}
         onDebuncedScroll={(direction) => {
         }}
         onScroll={this.handleScroll}

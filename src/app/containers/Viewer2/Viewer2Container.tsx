@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import CSSModules from 'react-css-modules'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import BookContainer from './BookContainer'
 import HeaderPanel from '../../components/HeaderPanel/HeaderPanel'
+import Logo from '../../components/Logo'
+import Icon from '../../components/Icon'
+import styles from './Viewer2Container.scss'
 
 interface OwnProps {
   bookPages: QBookPages
+  showHeaderPanel: boolean
   onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
   onDebuncedScroll?: (direction: 'up' | 'down') => void
   onDebuncedResize?: (view) => void
-  showHeaderPanel: boolean
+  onReachBottom?: () => void
 }
 
 interface StateProps {
@@ -23,8 +28,8 @@ const mapStateToProps = (state, ownProps) => {
   return {}
 }
 
+@CSSModules(styles)
 class Viewer2Container extends Component<StateProps & OwnProps, {}> {
-
   _handleResizeDebounced: typeof _.debounce
   _handleScrollDebounced: typeof _.debounce
   _handleScroll: any
@@ -67,6 +72,11 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   _onScroll() {
     const direction = this._judgeScrollDirection()
     if (this.props.onScroll && direction) this.props.onScroll(direction)
+
+    // check if page reached bottom
+    if (document.body.scrollTop + window.innerHeight === document.body.clientHeight) {
+      if (this.props.onReachBottom) this.props.onReachBottom()
+    }
   }
 
   _onDebouncedScroll() {
@@ -97,7 +107,35 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
       <div>
         <HeaderPanel
           show={showHeaderPanel}
-        />
+        >
+          <div styleName="container">
+            <div styleName="left">
+              <div
+                styleName="menu"
+              >
+                <Icon name="menu" size={20} />
+              </div>
+            </div>
+
+            <div styleName="center">
+              <div styleName="logo">
+                <Logo
+                  dark
+                />
+              </div>
+              <span styleName="sep"></span>
+              <span styleName="title">{'abc'}</span>
+            </div>
+
+            <div styleName="right">
+              <div
+                styleName="preference"
+              >
+                <Icon name="font" size={20} />
+              </div>
+            </div>
+          </div>
+        </HeaderPanel>
         <BookContainer
           bookPages={this.props.bookPages}
           onLoadPage={this.props.onLoadPage}
