@@ -119,7 +119,7 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
     //   .filter(id => Boolean(id))
 
     pages.push({
-      nodes: pageNodes,
+      elements: pageNodes,
       meta: {
         pageNo: pageStartFrom + i + 1,
         offset,

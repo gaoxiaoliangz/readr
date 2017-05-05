@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { Router } from 'react-router'
 import { Provider } from 'react-redux'
 import _ from 'lodash'
+import { ApolloProvider } from 'react-apollo'
+import helpers from '../helpers'
+import createApolloClient from '../createApolloClient'
+
+const client = createApolloClient()
 
 interface Props {
   store: any
@@ -33,7 +38,17 @@ class Root extends Component<Props, {}> {
 
     return (
       <Provider store={store}>
-        <Router {...renderProps} />
+        {
+          helpers.isServerEnv()
+            ? (
+              <Router {...renderProps} />
+            )
+            : (
+              <ApolloProvider client={client}>
+                <Router {...renderProps} />
+              </ApolloProvider>
+            )
+        }
       </Provider>
     )
   }

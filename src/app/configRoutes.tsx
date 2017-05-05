@@ -25,6 +25,11 @@ const Next = (nextState, fn) => {
     fn(null, (require('./containers/Next')).default)
   })
 }
+const Authors = (nextState, fn) => {
+  require.ensure([], function (require) {
+    fn(null, (require('./containers/Authors/Authors')).default)
+  })
+}
 const BookDetail = (nextState, fn) => {
   require.ensure([], function (require) {
     fn(null, (require('./containers/BookDetail')).default)
@@ -113,6 +118,7 @@ const configRoutes = (context = {}) => {
     <Route path="/" component={Master}>
       <Route path="viewer/book/:id" getComponent={Viewer} />
       <Route path="next" getComponent={Next} />
+      <Route path="authors" getComponent={Authors} />
       <Route component={App}>
         <IndexRoute getComponent={Home} />
         <Route path="browse" getComponent={Browse} />

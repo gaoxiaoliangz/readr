@@ -25,17 +25,18 @@ export function getIPs() {
 }
 
 const getLocalIP = () => {
-  let IPv4
-  const networkInterfaces = os.networkInterfaces()
-  if (!networkInterfaces.en0) {
-    return 'localhost'
-  }
-  for (let i = 0; i < networkInterfaces.en0.length; i++) {
-    if (os.networkInterfaces().en0[i].family === 'IPv4') {
-      IPv4 = os.networkInterfaces().en0[i].address
-    }
-  }
-  return IPv4
+  return 'localhost'
+  // let IPv4
+  // const networkInterfaces = os.networkInterfaces()
+  // if (!networkInterfaces.en0) {
+  //   return 'localhost'
+  // }
+  // for (let i = 0; i < networkInterfaces.en0.length; i++) {
+  //   if (os.networkInterfaces().en0[i].family === 'IPv4') {
+  //     IPv4 = os.networkInterfaces().en0[i].address
+  //   }
+  // }
+  // return IPv4
 }
 
 export default getLocalIP

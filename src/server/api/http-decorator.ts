@@ -19,7 +19,7 @@ const addHeader = (req, res, result) => {
   }
 }
 
-const http = (apiMethod) => (req, res, next) => {
+export const parseReq = req => {
   let object = req.body
   let options = _.assign({}, { file: req.file }, { ip: req.ip }, req.query, req.params, {
     context: {
@@ -34,7 +34,11 @@ const http = (apiMethod) => (req, res, next) => {
     options = {}
   }
 
-  apiMethod(object, options)
+  return [object, options]
+}
+
+const http = (apiMethod) => (req, res, next) => {
+  apiMethod(...parseReq(req))
     .then(result => {
       let _result = result
       if (APIResult.prototype.isPrototypeOf(result)) {

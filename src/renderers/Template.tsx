@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import styles from './style.scss'
 
 type Props = {
@@ -14,7 +15,7 @@ const renderObjects = (objects: ParsedNode[], isRoot = false) => {
         key: index,
         className: isRoot ? styles['line'] : ''
       },
-      ...attrs
+      ..._.omit(attrs, '__typename')
     }
 
     if (type === 3) {

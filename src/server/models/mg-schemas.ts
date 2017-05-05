@@ -1,8 +1,10 @@
-import { Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import i18n from '../utils/i18n'
 import validator from 'validator'
 
-export const authorSchema = new Schema({
+const ObjectId = Schema.Types.ObjectId
+
+export const authorFields = {
   name: {
     type: String,
     required: true
@@ -16,27 +18,46 @@ export const authorSchema = new Schema({
     }
   },
   description: String,
-})
+}
 
-export const bookSchema = new Schema({
+export const authorSchema = new Schema(authorFields)
+
+export const bookFields = {
   title: {
     required: true,
     type: String,
   },
   authors: [{
     ref: 'Author',
-    type: String
+    type: ObjectId
   }],
   description: String,
   cover: String,
   file: {
     ref: 'File',
     required: true,
-    type: String,
+    type: ObjectId
+  },
+  content: {
+    type: Object,
+    hooks: {
+      pre: (next, root, args, request) => {
+        // authorize the logged in user based on the request
+        // throws error if the user has no right to request the user names
+        next('heheh')
+      },
+      // manipulate response
+      post: [
+        (next, name) => next(`${name} first hook`),
+        (next, name) => next(`${name} & second hook`)
+      ]
+    }
   }
-})
+}
 
-export const collectionSchema = new Schema({
+export const bookSchema = new Schema(bookFields)
+
+export const collectionFields = {
   name: {
     required: true,
     type: String,
@@ -44,17 +65,19 @@ export const collectionSchema = new Schema({
   items: [{
     required: true,
     ref: 'Book',
-    type: String,
+    type: ObjectId,
   }],
   description: String,
   creator: {
     ref: 'User',
     required: true,
-    type: String,
+    type: ObjectId,
   }
-})
+}
 
-export const fileSchema = new Schema({
+export const collectionSchema = new Schema(collectionFields)
+
+export const fileFields = {
   filename: {
     required: true,
     type: String
@@ -76,9 +99,11 @@ export const fileSchema = new Schema({
     type: String,
     unique: true
   },
-})
+}
 
-export const progressSchema = new Schema({
+export const fileSchema = new Schema(fileFields)
+
+export const progressFields = {
   percentage: {
     required: true,
     type: Number
@@ -91,9 +116,11 @@ export const progressSchema = new Schema({
     type: String,
     required: true
   }
-})
+}
 
-export const tagSchema = new Schema({
+export const progressSchema = new Schema(progressFields)
+
+export const tagFields = {
   name: {
     required: true,
     type: String,
@@ -105,9 +132,11 @@ export const tagSchema = new Schema({
   description: {
     type: String
   }
-})
+}
 
-export const userSchema = new Schema({
+export const tagSchema = new Schema(tagFields)
+
+export const userFields = {
   username: {
     type: String,
     unique: true,
@@ -134,4 +163,6 @@ export const userSchema = new Schema({
     type: String,
     required: true
   }
-})
+}
+
+export const userSchema = new Schema(userFields)
