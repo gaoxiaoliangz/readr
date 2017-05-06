@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import HTMLObjectsRenderer from '../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
+import Button from '../../components/Button'
 
 interface Props {
   bookPages: QBookPages
@@ -27,9 +28,12 @@ export default class BookContainer extends Component<Props, void> {
     } = this.props
     return (
       <div>
-        <button onClick={() => {
-          this.props.onLoadPage('prev')
-        }}>prev</button>
+        <Button
+          onClick={() => {
+            this.props.onLoadPage('prev')
+          }}
+          width={200}
+        >加载上一页</Button>
         {
           edges.map((edge, index) => {
             const innerStyle: React.CSSProperties = {
@@ -46,9 +50,12 @@ export default class BookContainer extends Component<Props, void> {
             )
           })
         }
-        <button onClick={() => {
-          this.props.onLoadPage('next')
-        }}>next</button>
+        <Button
+          onClick={() => {
+            this.props.onLoadPage('next')
+          }}
+          width={200}
+        >加载下一页</Button>
       </div>
     )
   }

@@ -1,10 +1,6 @@
 @import "~styles/variables";
 
-.viewer-preference {
-  position: absolute;
-  right: 0;
-  top: 75px;
-  width: 200px;
+.pop-box {
   background: #fff;
   box-shadow: $shadow-y2;
   color: $text;
@@ -13,109 +9,5 @@
   overflow: hidden;
   text-align: center;
   z-index: $z-viewer-pref;
-}
-
-.option {
-  padding: 10px 15px;
-  border-bottom: 1px solid $gray;
-
-  &:last-child {
-    border: none;
-  }
-}
-
-.option-font-size {
-  composes: option;
-  $height: 40px;
-  overflow: hidden;
-  padding: 0;
-
-  .btn {
-    font-size: 1.2rem;
-    width: 50%;
-    float: left;
-    box-sizing: border-box;
-    padding: 0 5px;
-    height: $height;
-    line-height: $height;
-    cursor: pointer;
-
-    &:hover {
-      color: $text-dark;
-    }
-    &:active {
-      color: $text-light;
-    }
-  }
-
-  .btn:first-child {
-    font-size: .9rem;
-    border-right: 1px solid $gray;
-  }
-
-  .btn--disabled {
-    @extend .btn;
-    color: $gray !important;
-  }
-}
-
-.option-scroll {
-  composes: option;
-  overflow: hidden;
-  text-align: left;
-
-  .label {
-    float: left;
-  }
-
-  .switcher {
-    float: right;
-  }
-}
-
-.option-theme {
-  composes: option;
-  padding: 5px 0;
-}
-
-// themes
-.theme-btn {
-  border-radius: 50%;
-  border: 2px solid $gray;
-  text-indent: -999em;
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  margin: 5px;
-  cursor: pointer;
-}
-
-.white {
-  composes: theme-btn;
-  background: #fff;
-}
-.white--active {
-  composes: theme-btn;
-  background: #fff;
-  border-color: $blue;
-}
-
-.night {
-  composes: theme-btn;
-  background: #222;
-}
-.night--active {
-  composes: theme-btn;
-  background: #222;
-  border-color: $blue;
-}
-
-.sepia {
-  composes: theme-btn;
-  background: #f9f1e5;
-}
-.sepia--active {
-  composes: theme-btn;
-  background: #f9f1e5;
-  border-color: $blue;
+  cursor: default;
 }

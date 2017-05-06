@@ -10,6 +10,7 @@ import Logo from '../../components/Logo'
 import Icon from '../../components/Icon'
 import styles from './Viewer2Container.scss'
 import LeftPanel from '../../components/LeftPanel'
+import PopBox from '../../components/PopBox'
 import * as selectors from '../../selectors'
 
 interface OwnProps {
@@ -106,7 +107,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   }
 
   render() {
-    const { components: { showNavigation, showPanel } } = this.props
+    const { components: { showNavigation, showPanel, showPreference } } = this.props
 
     return (
       <div>
@@ -139,8 +140,23 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
             <div styleName="right">
               <div
                 styleName="preference"
+                onClick={() => {
+                  this.props.actions.viewer.toggleViewerPreference(true)
+                }}
               >
                 <Icon name="font" size={20} />
+                <PopBox
+                  show={showPreference}
+                  onRequestClose={() => {
+                    this.props.actions.viewer.toggleViewerPreference(false)
+                  }}
+                  position={{
+                    right: 0,
+                    
+                  }}
+                >
+                  pref
+                </PopBox>
               </div>
             </div>
           </div>

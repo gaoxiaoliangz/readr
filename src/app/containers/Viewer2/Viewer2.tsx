@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import Viewer2Container from './Viewer2Container'
 import viewerQuery from './viewerQuery'
 import * as selectors from '../../selectors'
+import Loading from '../../components/Loading'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
@@ -58,19 +59,20 @@ class Viewer2 extends Component<AllProps, void> {
   }
 
   handleScroll(direction) {
+    const { components: { showPreference } } = this.props
     if (direction === 'up') {
       this.props.actions.viewer.toggleViewerPanel(true)
     } else {
-      this.props.actions.viewer.toggleViewerPanel(false)
+      if (!showPreference) {
+        this.props.actions.viewer.toggleViewerPanel(false)
+      }
     }
   }
 
   render() {
-    const { components: { showPanel } } = this.props
-
     if (this.props.data.loading) {
       return (
-        <div>loading</div>
+        <Loading/>
       )
     }
 
