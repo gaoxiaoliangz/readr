@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import BookContainer from './BookContainer'
-import HeaderPanel from '../../components/HeaderPanel'
+import Panel from '../../components/Panel'
 import Logo from '../../components/Logo'
 import Icon from '../../components/Icon'
 import styles from './Viewer2Container.scss'
@@ -110,8 +110,9 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
 
     return (
       <div>
-        <HeaderPanel
+        <Panel
           show={showPanel}
+          position="top"
         >
           <div styleName="container">
             <div styleName="left">
@@ -143,7 +144,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
               </div>
             </div>
           </div>
-        </HeaderPanel>
+        </Panel>
         <LeftPanel
           show={showNavigation}
           onRequestClose={() => {
@@ -156,6 +157,12 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
           bookPages={this.props.bookPages}
           onLoadPage={this.props.onLoadPage}
         />
+        <Panel
+          show={showPanel}
+          position="bottom"
+        >
+          progress
+        </Panel>
       </div>
     )
   }
