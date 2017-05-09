@@ -1,3 +1,4 @@
+// tslint:disable:no-unused-variable
 import {
   GraphQLBoolean,
   GraphQLID,
@@ -20,6 +21,7 @@ import {
   nodeDefinitions,
   toGlobalId,
 } from 'graphql-relay'
+// tslint:enable:no-unused-variable
 import _ from 'lodash'
 
 export const mgFieldsToGQLFields = mgFields => {
