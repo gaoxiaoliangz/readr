@@ -4,7 +4,6 @@ import Helmet from 'react-helmet'
 import BodyClass from './BodyClass'
 
 interface Props {
-  className?: string
   styleName?: string
   bodyClass?: string
 

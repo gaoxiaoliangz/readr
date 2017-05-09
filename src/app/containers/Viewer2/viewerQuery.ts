@@ -1,5 +1,5 @@
 const viewerQuery = `
-query BookPages($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
+query Viewer2($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
   viewer {
     bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
       edges {

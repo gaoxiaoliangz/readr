@@ -8,6 +8,7 @@ import Viewer2Container from './Viewer2Container'
 import viewerQuery from './viewerQuery'
 import * as selectors from '../../selectors'
 import Loading from '../../components/Loading'
+import DocContainer from '../../components/DocContainer'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
@@ -83,14 +84,16 @@ class Viewer2 extends Component<AllProps, void> {
     }
 
     return (
-      <Viewer2Container
-        bookPages={this.props.data.viewer.bookPages}
-        onLoadPage={this.handleLoadPage}
-        onReachBottom={this.handleLoadPage}
-        onDebuncedScroll={(direction) => {
-        }}
-        onScroll={this.handleScroll}
-      />
+      <DocContainer bodyClass="page-viewer-v2">
+        <Viewer2Container
+          bookPages={this.props.data.viewer.bookPages}
+          onLoadPage={this.handleLoadPage}
+          onReachBottom={this.handleLoadPage}
+          onDebuncedScroll={(direction) => {
+          }}
+          onScroll={this.handleScroll}
+        />
+      </DocContainer>
     )
   }
 }
