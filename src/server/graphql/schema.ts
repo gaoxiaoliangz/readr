@@ -1,3 +1,4 @@
+import * as mgSchemas from '../models/mg-schemas'
 import {
   GraphQLBoolean,
   GraphQLID,
@@ -7,8 +8,8 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
+  GraphQLDeprecatedDirective
 } from 'graphql'
-
 import {
   connectionArgs,
   connectionDefinitions,
@@ -23,52 +24,66 @@ import {
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
+import makeUtils from './utils'
 import md5 from 'vendor/md5'
 const debug = require('debug')('readr:gqlschema')
 
-class User { }
-class Author { }
-
-const author = new Author
-
 const bookPageTypeName = 'BookPage'
 
-const { nodeInterface, nodeField } = nodeDefinitions(
-  async (globalId) => {
-    let { type, id } = fromGlobalId(globalId)
-    switch (type) {
-      // we will use sequelize to resolve the id of its object
-      case bookPageTypeName:
-        // return id
-        return null
-      case 'Author':
-        const result = await dataProvider.Author.utils.findById(id)
-        return _.assign(author, result.toObject())
-      default:
-        debug('null node interface')
-        return null
-    }
-  },
-  (obj) => {
-    // we will use sequelize to resolve the object tha timplements node
-    // to its type.
-    switch (obj.constructor) {
-      case Author:
-        // tslint:disable-next-line:no-use-before-declare
-        return GQLAuthor
-    
-      default:
-        return null
-    }
+const mapGlobalIdToNodeObject = async globalId => {
+  const { type, id } = fromGlobalId(globalId)
 
-    // if (obj instanceof Author) {
-    //   // tslint:disable-next-line:no-use-before-declare
-    //   return GQLAuthor
-    // } else {
-    //   return null
-    // }
+  if (!dataProvider[type]) {
+    return Promise.reject(new Error('type not defined in dataProvider'))
   }
-)
+
+  const result = await dataProvider[type].utils.findById(id)
+  return _.assign({}, result.toObject(), {
+    __typeName__: type
+  })
+}
+
+const mapNodeObjectToGQLType = nodeObject => {
+  const { __typeName__: type } = nodeObject
+  // tslint:disable-next-line:no-use-before-declare
+  return _.find(GQLTypes, GQLType => {
+    return GQLType.name === type
+  })
+}
+
+const { nodeInterface, nodeField } = nodeDefinitions(mapGlobalIdToNodeObject, mapNodeObjectToGQLType)
+
+// const { nodeInterface, nodeField } = nodeDefinitions(
+//   async (globalId) => {
+//     let { type, id } = fromGlobalId(globalId)
+//     switch (type) {
+//       case 'Author':
+//         const result = await dataProvider.Author.utils.findById(id)
+//         return _.assign(author, result.toObject())
+//       case 'File':
+//         const result2 = await dataProvider.File.utils.findById(id)
+//         return _.assign(file, result2.toObject())
+//       default:
+//         debug('type not defined')
+//         return null
+//     }
+//   },
+//   (obj) => {
+//     switch (obj.constructor) {
+//       case Author:
+//         return GQLAuthor
+
+//       case File:
+//         return GQLFile
+
+//       default:
+//         debug('constructor not defined')
+//         return null
+//     }
+//   }
+// )
+
+const utils = makeUtils({ nodeInterface })
 
 ////////////////////////////////////////////////////////////////////////////////////
 //                                  types                                         //
@@ -147,49 +162,25 @@ const GQLBookPage = new GraphQLObjectType({
 const { connectionType: GQLBookPageConnection } =
   connectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
 
-const GQLAuthor = new GraphQLObjectType({
+const { nodeType: GQLAuthor, connectionType: GQLAuthorConnection } = utils.makeGQLNodeTypeAndConnectionType({
   name: 'Author',
-  description: 'Book author, normally it\'s fetched from douban.',
-  fields: {
-    // _id: {
-    //   type: GraphQLString
-    // },
-    id: globalIdField('Author'),
-    name: {
-      type: GraphQLString,
-      resolve(_author) {
-        return _author.name
-      }
-    },
-    description: {
-      type: GraphQLString,
-      resolve(_author) {
-        return _author.description
-      }
-    }
-  },
-  interfaces: [nodeInterface]
+  mgFields: mgSchemas.authorFields,
+  description: 'Book author, normally it\'s fetched from douban.'
 })
 
-const { connectionType: GQLAuthorConnection } =
-  connectionDefinitions({ name: 'Author', nodeType: GQLAuthor })
-
-const GQLTag = new GraphQLObjectType({
+const { nodeType: GQLTag, connectionType: GQLTagConnection } = utils.makeGQLNodeTypeAndConnectionType({
   name: 'Tag',
   description: 'Book tag.',
-  fields: {
-    _id: {
-      type: GraphQLString
-    },
-    name: {
-      type: GraphQLString
-    },
-    description: {
-      type: GraphQLString
-    }
-  }
+  mgFields: mgSchemas.tagFields
 })
 
+const { nodeType: GQLFile, connectionType: GQLFileConnection } = utils.makeGQLNodeTypeAndConnectionType({
+  name: 'File',
+  description: 'File ...',
+  mgFields: mgSchemas.fileFields
+})
+
+const GQLTypes = [GQLAuthor, GQLFile]
 ////////////////////////////////////////////////////////////////////////////////////
 //                                  fields                                        //
 ////////////////////////////////////////////////////////////////////////////////////
@@ -251,6 +242,14 @@ const viewerField = {
         args: connectionArgs,
         async resolve(parent, args) {
           const list = await dataProvider.Author.find({}).exec()
+          return connectionFromArray(list, args)
+        }
+      },
+      files: {
+        type: GQLFileConnection,
+        args: connectionArgs,
+        async resolve(parent, args) {
+          const list = await dataProvider.File.find({}).exec()
           return connectionFromArray(list, args)
         }
       }
