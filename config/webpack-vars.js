@@ -18,6 +18,7 @@ module.exports = {
     'react-motion',
     'reselect',
     'redux-saga',
+    'react-apollo',
 
     // utils
     // lodash has corresponding plugin to cut down the build size

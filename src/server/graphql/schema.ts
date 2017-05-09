@@ -29,28 +29,6 @@ import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookI
 import { nodeInterface, nodeField } from './gql-node'
 import { makeNodeConnectionField } from './utils'
 
-const bookPagesField = {
-  type: GQLBookPageConnection,
-  args: {
-    ...connectionArgs,
-    ...{
-      bookId: {
-        type: new GraphQLNonNull(GraphQLString)
-      },
-      pageHeight: {
-        type: new GraphQLNonNull(GraphQLInt)
-      }
-    }
-  } as GeneralObject,
-  resolve: async (obj, args) => {
-    const list = await resolveBookPages({
-      id: args.bookId,
-      pageHeight: args.pageHeight
-    })
-    return connectionFromArray(list, args)
-  }
-}
-
 const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',

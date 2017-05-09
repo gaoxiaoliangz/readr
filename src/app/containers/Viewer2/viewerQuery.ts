@@ -1,5 +1,6 @@
 const viewerQuery = `
-  query BookPages($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
+query BookPages($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
+  viewer {
     bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
       edges {
         cursor
@@ -16,20 +17,23 @@ const viewerQuery = `
       }
     }
   }
+}
 
-  fragment elementFields on HTMLElementObject  {
-    tag
-    type
-    text
+fragment elementFields on HTMLElementObject {
+  tag
+  type
+  text
+  id
+  attrs {
     id
-    attrs {
-      id
-      href
-      src
-    }
+    href
+    src
   }
+}
 
-  fragment elementsRecursive on HTMLElementObject {
+fragment elementsRecursive on HTMLElementObject {
+  ...elementFields
+  children {
     ...elementFields
     children {
       ...elementFields
@@ -37,13 +41,11 @@ const viewerQuery = `
         ...elementFields
         children {
           ...elementFields
-          children {
-            ...elementFields
-          }
         }
       }
     }
   }
+}
 `
 
 export default viewerQuery

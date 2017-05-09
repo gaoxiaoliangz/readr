@@ -5,7 +5,7 @@ import { parseNestedObject } from './utils'
 const debug = require('debug')('readr:html')
 
 const OMITTED_TAGS = ['head', 'input', 'textarea', 'script', 'style', 'svg']
-const UNWRAP_TAGS = ['body', 'html']
+const UNWRAP_TAGS = ['body', 'html', 'div', 'span']
 const PICKED_ATTRS = ['href', 'src', 'id']
 
 /**

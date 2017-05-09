@@ -11,15 +11,19 @@ import Loading from '../../components/Loading'
 
 const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
 
+type Data = {
+  viewer: {
+    bookPages: QBookPages
+  }
+  fetchMore: any
+  loading: boolean
+}
+
 interface AllProps {
   actions: typeof actions
   routing: any
   components: Viewer.Components
-  data: {
-    bookPages: QBookPages
-    [key: string]: any
-    fetchMore: any
-  }
+  data: Data
 }
 
 class Viewer2 extends Component<AllProps, void> {
@@ -31,8 +35,8 @@ class Viewer2 extends Component<AllProps, void> {
 
   handleLoadPage(direction: 'prev' | 'next' = 'next') {
     const { data: { fetchMore } } = this.props
-    const fistItemCursor = _.first(this.props.data.bookPages.edges).cursor
-    const lastItemCursor = _.last(this.props.data.bookPages.edges).cursor
+    const fistItemCursor = _.first(this.props.data.viewer.bookPages.edges).cursor
+    const lastItemCursor = _.last(this.props.data.viewer.bookPages.edges).cursor
 
     fetchMore({
       variables: {
@@ -42,14 +46,16 @@ class Viewer2 extends Component<AllProps, void> {
         first: direction === 'next' ? 1 : null,
         last: direction === 'prev' ? 1 : null
       },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
+      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
         let edges = direction === 'next'
-          ? [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
-          : [...fetchMoreResult.bookPages.edges, ...previousResult.bookPages.edges]
+          ? [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+          : [...fetchMoreResult.viewer.bookPages.edges, ...previousResult.viewer.bookPages.edges]
 
         const merged = Object.assign({}, previousResult, {
-          bookPages: {
-            edges
+          viewer: {
+            bookPages: {
+              edges
+            }
           }
         })
 
@@ -72,13 +78,13 @@ class Viewer2 extends Component<AllProps, void> {
   render() {
     if (this.props.data.loading) {
       return (
-        <Loading/>
+        <Loading />
       )
     }
 
     return (
       <Viewer2Container
-        bookPages={this.props.data.bookPages}
+        bookPages={this.props.data.viewer.bookPages}
         onLoadPage={this.handleLoadPage}
         onReachBottom={this.handleLoadPage}
         onDebuncedScroll={(direction) => {
