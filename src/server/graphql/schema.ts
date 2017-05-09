@@ -25,8 +25,9 @@ import {
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
-import { GQLBookPageConnection, GQLAuthor, GQLTag, GQLAuthorConnection, GQLFileConnection } from './gql-types'
+import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection } from './gql-types'
 import { nodeInterface, nodeField } from './gql-node'
+import { makeNodeConnectionField } from './utils'
 
 const bookPagesField = {
   type: GQLBookPageConnection,
@@ -50,30 +51,6 @@ const bookPagesField = {
   }
 }
 
-const authorField = {
-  type: GQLAuthor,
-  args: {
-    id: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
-  },
-  resolve(obj, { id }, req) {
-    return dataProvider.Author.findById(id)
-  }
-}
-
-const tagField = {
-  type: GQLTag,
-  args: {
-    id: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
-  },
-  resolve(obj, { id }, req) {
-    return dataProvider.Tag.findById(id)
-  }
-}
-
 const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',
@@ -81,22 +58,33 @@ const viewerField = {
       id: {
         type: new GraphQLNonNull(GraphQLID)
       },
-      authors: {
+      authors: makeNodeConnectionField({
         type: GQLAuthorConnection,
-        args: connectionArgs,
-        async resolve(parent, args) {
-          const list = await dataProvider.Author.find({}).exec()
-          return connectionFromArray(list, args)
-        }
-      },
-      files: {
+        listAllFn: () => dataProvider.Author.find({}).exec()
+      }),
+      files: makeNodeConnectionField({
         type: GQLFileConnection,
-        args: connectionArgs,
-        async resolve(parent, args) {
-          const list = await dataProvider.File.find({}).exec()
-          return connectionFromArray(list, args)
-        }
-      }
+        listAllFn: () => dataProvider.File.find({}).exec()
+      }),
+      bookInfo: makeNodeConnectionField({
+        type: GQLBookInfoConnection,
+        listAllFn: () => dataProvider.Book.find({}).exec()
+      }),
+      bookPages: makeNodeConnectionField({
+        type: GQLBookPageConnection,
+        extendedArgs: {
+          bookId: {
+            type: new GraphQLNonNull(GraphQLString)
+          },
+          pageHeight: {
+            type: new GraphQLNonNull(GraphQLInt)
+          }
+        },
+        listAllFn: (parent, args) => resolveBookPages({
+          id: args.bookId,
+          pageHeight: args.pageHeight
+        })
+      }),
     },
     interfaces: [nodeInterface]
   }),
@@ -109,14 +97,11 @@ const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
     node: nodeField,
-    viewer: viewerField,
-    author: authorField,
-    tag: tagField,
-    bookPages: bookPagesField
+    viewer: viewerField
   }
 })
 
 export default new GraphQLSchema({
   query: Query,
-  // mutation: Mutation,
+  // mutation: Mutation
 })

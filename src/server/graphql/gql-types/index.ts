@@ -23,6 +23,12 @@ const { nodeType: GQLFile, connectionType: GQLFileConnection } = utils.makeGQLNo
   mgFields: mgSchemas.fileFields
 })
 
+const { nodeType: GQLBookInfo, connectionType: GQLBookInfoConnection } = utils.makeGQLNodeTypeAndConnectionType({
+  name: 'BookInfo',
+  description: 'BookInfo ...',
+  mgFields: mgSchemas.bookFields
+})
+
 export {
   GQLAuthor,
   GQLAuthorConnection,
@@ -31,5 +37,7 @@ export {
   GQLFile,
   GQLFileConnection,
   GQLBookPage,
-  GQLBookPageConnection
+  GQLBookPageConnection,
+  GQLBookInfo,
+  GQLBookInfoConnection
 }

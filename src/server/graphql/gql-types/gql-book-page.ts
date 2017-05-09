@@ -24,6 +24,7 @@ import {
 // tslint:enable:no-unused-variable
 import md5 from 'vendor/md5'
 import { nodeInterface } from '../gql-node'
+import { extendedConnectionDefinitions } from '../utils'
 
 const GQLHTMLElementObject = new GraphQLObjectType({
   name: 'HTMLElementObject',
@@ -97,6 +98,6 @@ const GQLBookPage = new GraphQLObjectType({
 })
 
 export const { connectionType: GQLBookPageConnection } =
-  connectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
+  extendedConnectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
 
 export default GQLBookPage
