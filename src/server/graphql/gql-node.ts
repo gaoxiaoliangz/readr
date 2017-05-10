@@ -6,27 +6,28 @@ import _ from 'lodash'
 const debug = require('debug')('readr:gql-node')
 import dataProvider from '../models/data-provider'
 import * as GQLTypes from './gql-types'
+import resolveBookInfo from './resolvers/resolve-book-info'
 
-const mapGQLTypeToModel = type => {
+const mapGQLTypeToResolver = type => {
   switch (type) {
     case 'BookInfo':
-      return 'Book'
-  
+      return resolveBookInfo
+
     default:
-      return type
+      if (!dataProvider[type]) {
+        throw new Error('type not defined in dataProvider')
+      }
+
+      return (id) => dataProvider[type].findById(id).exec().then(result => result.toObject())
   }
 }
 
 const mapGlobalIdToNodeObject = async globalId => {
   const { type, id } = fromGlobalId(globalId)
-  const model = mapGQLTypeToModel(type)
+  const resolver = mapGQLTypeToResolver(type)
 
-  if (!dataProvider[model]) {
-    return Promise.reject(new Error('type not defined in dataProvider'))
-  }
-
-  const result = await dataProvider[model].utils.findById(id)
-  return _.assign({}, result.toObject(), {
+  const result = await resolver(id)
+  return _.assign({}, result, {
     __typeName__: type
   })
 }

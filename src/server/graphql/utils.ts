@@ -22,6 +22,7 @@ import {
   toGlobalId,
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
+
 import _ from 'lodash'
 const debug = require('debug')('readr:gql-utils')
 
@@ -33,8 +34,7 @@ export const mgFieldsToGQLFields = mgFields => {
     }
 
     return {
-      type,
-      resolve: obj => obj[key]
+      type
     }
   })
 }
@@ -45,13 +45,17 @@ type MakeGQLNodeTypeConfig = {
   mgFields: {
     [key: string]: any
   }
+  fields?: {
+    [key: string]: any
+  }
 }
-const makeGQLNodeType = nodeInterface => ({ name, mgFields, description }: MakeGQLNodeTypeConfig) => {
+const makeGQLNodeType = nodeInterface => ({ name, mgFields, description, fields }: MakeGQLNodeTypeConfig) => {
   return new GraphQLObjectType({
     name,
     description,
     fields: {
       ...mgFieldsToGQLFields(mgFields),
+      ...fields,
       id: globalIdField(name)
     },
     interfaces: [nodeInterface]

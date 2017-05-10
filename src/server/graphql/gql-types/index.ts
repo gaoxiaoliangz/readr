@@ -1,4 +1,5 @@
 import GQLBookPage, { GQLBookPageConnection } from './gql-book-page'
+import GQLBookToc from './gql-book-toc'
 import * as mgSchemas from '../../models/mg-schemas'
 import makeUtils from '../utils'
 import { nodeInterface } from '../gql-node'
@@ -26,7 +27,12 @@ const { nodeType: GQLFile, connectionType: GQLFileConnection } = utils.makeGQLNo
 const { nodeType: GQLBookInfo, connectionType: GQLBookInfoConnection } = utils.makeGQLNodeTypeAndConnectionType({
   name: 'BookInfo',
   description: 'BookInfo ...',
-  mgFields: mgSchemas.bookFields
+  mgFields: mgSchemas.bookFields,
+  fields: {
+    toc: {
+      type: GQLBookToc
+    }
+  }
 })
 
 export {
@@ -39,5 +45,6 @@ export {
   GQLBookPage,
   GQLBookPageConnection,
   GQLBookInfo,
-  GQLBookInfoConnection
+  GQLBookInfoConnection,
+  GQLBookToc
 }

@@ -28,6 +28,7 @@ import dataProvider from '../models/data-provider'
 import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection, GQLBookInfo } from './gql-types'
 import { nodeInterface, nodeField } from './gql-node'
 import { makeNodeConnectionField } from './utils'
+import resolveBookInfo from './resolvers/resolve-book-info'
 
 const viewerField = {
   type: new GraphQLObjectType({
@@ -83,8 +84,9 @@ const Query = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve: (parent, args) => {
-        return dataProvider.Book.utils.findById(args.dbID)
+      resolve: async (parent, args) => {
+        const result = await resolveBookInfo(args.dbID)
+        return result
       }
     }
   }
