@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { graphql, gql } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import Viewer2Container from './Viewer2Container'
-import viewerQuery from './viewerQuery'
+import viewerQuery from './viewer2Query.gql'
 import * as selectors from '../../selectors'
 import Loading from '../../components/Loading'
 import DocContainer from '../../components/DocContainer'
@@ -99,7 +99,7 @@ class Viewer2 extends Component<AllProps, void> {
 }
 
 const Viewer2WithData = graphql(
-  gql`${viewerQuery}`,
+  viewerQuery,
   {
     options: () => {
       return {

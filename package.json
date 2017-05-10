@@ -23,7 +23,7 @@
     "tsc": "tsc",
     "test": "jest --no-cache --watchAll --config=.jestrc",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
-    "get-schema": "node scripts/getSchema.js"
+    "get-schema": "node scripts/get-schema.js"
   },
   "dependencies": {
     "@risingstack/graffiti": "^3.3.0",
@@ -106,6 +106,7 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "@playlyfe/gql": "^2.2.4",
     "@types/bluebird": "^3.0.36",
     "@types/classnames": "0.0.32",
     "@types/expect.js": "^0.3.28",

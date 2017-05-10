@@ -7,9 +7,7 @@ const {
   printSchema,
 } = require('graphql/utilities')
 
-console.log(introspectionQuery)
-
-fetch('http://api.githunt.com/graphql', {
+fetch('http://localhost:8090/gql', {
   method: 'POST',
   headers: {
     'Accept': 'application/json',
@@ -19,7 +17,6 @@ fetch('http://api.githunt.com/graphql', {
 })
   .then(res => res.json())
   .then(res => {
-    console.log(res)
     const schemaString = printSchema(buildClientSchema(res.data))
-    fs.writeFileSync('schema.graphql', schemaString)
+    fs.writeFileSync('build/gql/schema.gql', schemaString)
   })

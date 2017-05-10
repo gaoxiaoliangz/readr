@@ -1,0 +1,22 @@
+{
+  schema: {
+    files: "build/gql/schema.gql"
+  },
+  query: {
+    files: [ /* define file paths which you'd like the gql parser to watch and give autocomplete suggestions for */
+      {
+        match: 'src/**/*.tsx',
+        parser: ['EmbeddedQueryParser', { startTag: 'Relay\\.QL`', endTag: '`' }],
+        isRelay: true,
+      },
+      {
+        match: 'features/**/*.feature',
+        parser: ['EmbeddedQueryParser', { startTag: 'graphql request\\s+"""', endTag: '"""' }],
+      },
+      {
+        match: 'src/app/**/*.gql',
+        parser: 'QueryParser',
+      },
+    ],
+  },
+}

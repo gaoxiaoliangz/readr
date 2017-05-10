@@ -68,6 +68,7 @@ const config = ({ port }) => ({
       // rules.lint(),
       // rules.js(),
       rules.ts({ officialLoader: false }),
+      rules.gql()
     ]
   },
   resolve: vars.resolve
