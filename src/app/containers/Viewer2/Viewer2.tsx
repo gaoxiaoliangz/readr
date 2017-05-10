@@ -10,12 +10,11 @@ import * as selectors from '../../selectors'
 import Loading from '../../components/Loading'
 import DocContainer from '../../components/DocContainer'
 
-const BOOK_ID = '58f5eb3f746f4be3a429fe8c'
-
 type Data = {
   viewer: {
     bookPages: QBookPages
   }
+  error: Error
   bookInfo: QBookInfo
   fetchMore: any
   loading: boolean
@@ -42,7 +41,6 @@ class Viewer2 extends Component<AllProps, void> {
 
     fetchMore({
       variables: {
-        bookId: BOOK_ID,
         before: direction === 'prev' && fistItemCursor,
         after: direction === 'next' && lastItemCursor,
         first: direction === 'next' ? 1 : null,
@@ -78,17 +76,25 @@ class Viewer2 extends Component<AllProps, void> {
   }
 
   render() {
-    if (this.props.data.loading) {
+    const { data: { loading, error, bookInfo, viewer } } = this.props
+
+    if (loading) {
       return (
         <Loading />
+      )
+    }
+
+    if (error) {
+      return (
+        <div>{error.message}</div>
       )
     }
 
     return (
       <DocContainer bodyClass="page-viewer-v2">
         <Viewer2Container
-          bookPages={this.props.data.viewer.bookPages}
-          bookInfo={this.props.data.bookInfo}
+          bookPages={viewer.bookPages}
+          bookInfo={bookInfo}
           onLoadPage={this.handleLoadPage}
           onReachBottom={this.handleLoadPage}
           onDebuncedScroll={(direction) => {
@@ -103,10 +109,10 @@ class Viewer2 extends Component<AllProps, void> {
 const Viewer2WithData = graphql(
   viewerQuery,
   {
-    options: () => {
+    options: props => {
       return {
         variables: {
-          bookId: BOOK_ID,
+          bookId: props.params.id,
           first: 1,
           after: 'YXJyYXljb25uZWN0aW9uOjE1'
         }

@@ -1,8 +1,6 @@
 query Viewer2($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
-  bookInfo: node(id: "Qm9va0luZm86NThmNWViM2Y3NDZmNGJlM2E0MjlmZThj") {
-    ...on BookInfo {
-      title
-    }
+  bookInfo(dbID: $bookId) {
+    title
   }
   viewer {
     bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {

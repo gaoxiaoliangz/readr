@@ -25,7 +25,7 @@ import {
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
-import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection } from './gql-types'
+import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection, GQLBookInfo } from './gql-types'
 import { nodeInterface, nodeField } from './gql-node'
 import { makeNodeConnectionField } from './utils'
 
@@ -75,7 +75,18 @@ const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
     node: nodeField,
-    viewer: viewerField
+    viewer: viewerField,
+    bookInfo: {
+      type: GQLBookInfo,
+      args: {
+        dbID: {
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: (parent, args) => {
+        return dataProvider.Book.utils.findById(args.dbID)
+      }
+    }
   }
 })
 
