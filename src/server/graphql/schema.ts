@@ -60,14 +60,14 @@ const viewerField = {
         type: GQLBookPageConnection,
         extendedArgs: {
           bookId: {
-            type: new GraphQLNonNull(GraphQLString)
+            type: new GraphQLNonNull(GraphQLID)
           },
           pageHeight: {
             type: new GraphQLNonNull(GraphQLInt)
           }
         },
         listAllFn: (parent, args) => resolveBookPages({
-          id: args.bookId,
+          id: fromGlobalId(args.bookId).id,
           pageHeight: args.pageHeight
         })
       }),
@@ -110,12 +110,13 @@ const Query = new GraphQLObjectType({
     bookInfo: {
       type: GQLBookInfo,
       args: {
-        dbID: {
-          type: new GraphQLNonNull(GraphQLString)
+        id: {
+          type: new GraphQLNonNull(GraphQLID)
         }
       },
       resolve: async (parent, args) => {
-        const result = await resolveBookInfo(args.dbID)
+        const { id } = fromGlobalId(args.id)
+        const result = await resolveBookInfo(id)
         return result
       }
     }

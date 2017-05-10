@@ -10,7 +10,7 @@ react, redux, graphql(using apollo), reselect, redux-thunk, redux-saga, webpack,
 
 ### Backend
 
-node.js, express.js, graphql(with relay standard), mongodb, moongoose, multer
+node.js, express.js, graphql(with relay standard), mongodb, moongoose, multer, phantomjs
 
 ### Language
 
