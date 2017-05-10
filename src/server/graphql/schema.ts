@@ -20,7 +20,7 @@ import {
   globalIdField,
   mutationWithClientMutationId,
   nodeDefinitions,
-  toGlobalId,
+  toGlobalId
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
 import humps from 'humps'
@@ -31,6 +31,7 @@ import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookI
 import { nodeInterface, nodeField } from './gql-node'
 import { makeNodeConnectionField } from './utils'
 import resolveBookInfo from './resolvers/resolve-book-info'
+import { setReadingProgressCore } from '../api/user'
 
 const viewerField = {
   type: new GraphQLObjectType({
@@ -113,7 +114,44 @@ const Query = new GraphQLObjectType({
   }
 })
 
+const GQLUpdateReadingProgressMutation = mutationWithClientMutationId({
+  name: 'UpdateReadingProgress',
+  inputFields: {
+    bookId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    percentage: {
+      type: new GraphQLNonNull(GraphQLFloat)
+    },
+  },
+  outputFields: {
+    ok: {
+      type: GraphQLInt
+    },
+    n: {
+      type: GraphQLInt
+    },
+    nModified: {
+      type: GraphQLInt
+    }
+  },
+  mutateAndGetPayload: (args, req) => {
+    const { user: { _id: userId } } = req
+    return setReadingProgressCore({
+      ...args,
+      userId
+    })
+  }
+})
+
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    updateReadingProgress: GQLUpdateReadingProgressMutation
+  }
+})
+
 export default new GraphQLSchema({
   query: Query,
-  // mutation: Mutation
+  mutation: Mutation
 })
