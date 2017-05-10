@@ -2,17 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 import { bindActionCreators } from 'redux'
-import BookContainer from './BookContainer'
-import Panel from '../../components/Panel'
-import Logo from '../../components/Logo'
-import Icon from '../../components/Icon'
+import BookContainer from '../BookContainer'
+import Panel from '../../../components/Panel'
+import Logo from '../../../components/Logo'
+import Icon from '../../../components/Icon'
 import styles from './Viewer2Container.scss'
-import LeftPanel from '../../components/LeftPanel'
-import PopBox from '../../components/PopBox'
-import * as selectors from '../../selectors'
-import BookToc from '../../components/BookToc'
+import LeftPanel from '../../../components/LeftPanel'
+import PopBox from '../../../components/PopBox'
+import * as selectors from '../../../selectors'
+import BookToc from '../../../components/BookToc'
+import BookProgress from '../BookProgress/BookProgress'
+import Viewer2Pref from '../Viewer2Pref/Viewer2Pref'
 
 interface OwnProps {
   bookPages: Schema.BookPages
@@ -157,7 +159,17 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
                     
                   }}
                 >
-                  pref
+                  <Viewer2Pref
+                    fontSize={14}
+                    theme="WHITE"
+                    onChangeFontSizeRequest={() => {
+
+                    }}
+                    onChangeThemeRequest={() => {
+                      
+                    }}
+                    isScrollMode={true}
+                  />
                 </PopBox>
               </div>
             </div>
@@ -182,7 +194,10 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
           show={showPanel}
           position="bottom"
         >
-          progress
+          <BookProgress
+            current={20}
+            total={200}
+          />
         </Panel>
       </div>
     )
