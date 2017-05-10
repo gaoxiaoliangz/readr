@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import { Schema } from 'mongoose'
 import i18n from '../utils/i18n'
 import validator from 'validator'
 

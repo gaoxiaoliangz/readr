@@ -1,5 +1,6 @@
 import GQLBookPage, { GQLBookPageConnection } from './gql-book-page'
 import GQLBookToc from './gql-book-toc'
+import GQLReadingProgress from './gql-reading-progress'
 import * as mgSchemas from '../../models/mg-schemas'
 import makeUtils from '../utils'
 import { nodeInterface } from '../gql-node'
@@ -46,5 +47,6 @@ export {
   GQLBookPageConnection,
   GQLBookInfo,
   GQLBookInfoConnection,
-  GQLBookToc
+  GQLBookToc,
+  GQLReadingProgress
 }

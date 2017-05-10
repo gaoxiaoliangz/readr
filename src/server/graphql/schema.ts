@@ -8,7 +8,8 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
-  GraphQLDeprecatedDirective
+  GraphQLDeprecatedDirective,
+  GraphQLFloat
 } from 'graphql'
 import {
   connectionArgs,
@@ -22,10 +23,11 @@ import {
   toGlobalId,
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
+import humps from 'humps'
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
-import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection, GQLBookInfo } from './gql-types'
+import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection, GQLBookInfo, GQLReadingProgress } from './gql-types'
 import { nodeInterface, nodeField } from './gql-node'
 import { makeNodeConnectionField } from './utils'
 import resolveBookInfo from './resolvers/resolve-book-info'
@@ -64,6 +66,25 @@ const viewerField = {
           pageHeight: args.pageHeight
         })
       }),
+      readingProgress: {
+        type: GQLReadingProgress,
+        args: {
+          bookId: {
+            type: new GraphQLNonNull(GraphQLID)
+          }
+        },
+        resolve(obj, args, req) {
+          const { bookId } = args
+          const { user: { _id: userId } } = req
+
+          if (!userId) {
+            return Promise.reject(new Error('Sign-in required!'))
+          }
+          const query = humps.decamelizeKeys({ userId, bookId })
+
+          return dataProvider.Progress.findOne(query).exec()
+        }
+      }
     },
     interfaces: [nodeInterface]
   }),
