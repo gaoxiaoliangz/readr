@@ -42,3 +42,7 @@ interface QBookPages {
     }
   }[]
 }
+
+type QBookInfo = {
+  title: string
+}

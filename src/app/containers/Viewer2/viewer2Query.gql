@@ -1,5 +1,5 @@
 query Viewer2($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
-  node(id: "Qm9va0luZm86NThmNWViM2Y3NDZmNGJlM2E0MjlmZThj") {
+  bookInfo: node(id: "Qm9va0luZm86NThmNWViM2Y3NDZmNGJlM2E0MjlmZThj") {
     ...on BookInfo {
       title
     }

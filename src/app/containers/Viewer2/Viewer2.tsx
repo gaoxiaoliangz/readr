@@ -16,6 +16,7 @@ type Data = {
   viewer: {
     bookPages: QBookPages
   }
+  bookInfo: QBookInfo
   fetchMore: any
   loading: boolean
 }
@@ -87,6 +88,7 @@ class Viewer2 extends Component<AllProps, void> {
       <DocContainer bodyClass="page-viewer-v2">
         <Viewer2Container
           bookPages={this.props.data.viewer.bookPages}
+          bookInfo={this.props.data.bookInfo}
           onLoadPage={this.handleLoadPage}
           onReachBottom={this.handleLoadPage}
           onDebuncedScroll={(direction) => {

@@ -15,6 +15,7 @@ import * as selectors from '../../selectors'
 
 interface OwnProps {
   bookPages: QBookPages
+  bookInfo: QBookInfo
   onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
   onDebuncedScroll?: (direction: 'up' | 'down') => void
@@ -107,7 +108,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   }
 
   render() {
-    const { components: { showNavigation, showPanel, showPreference } } = this.props
+    const { components: { showNavigation, showPanel, showPreference }, bookInfo } = this.props
 
     return (
       <div>
@@ -134,7 +135,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
                 />
               </div>
               <span styleName="sep"></span>
-              <span styleName="title">{'abc'}</span>
+              <span styleName="title">{bookInfo.title}</span>
             </div>
 
             <div styleName="right">
