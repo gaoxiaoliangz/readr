@@ -4,6 +4,10 @@
  */
 
 declare namespace Schema {
+  type ReadingProgress = {
+    percentage: number
+  }
+
   type BookInfo = {
     title: string
     toc: TocChapter[]

@@ -13,6 +13,7 @@ import DocContainer from '../../components/DocContainer'
 type Data = {
   viewer: {
     bookPages: Schema.BookPages
+    readingProgress: Schema.ReadingProgress
   }
   error: Error
   bookInfo: Schema.BookInfo
