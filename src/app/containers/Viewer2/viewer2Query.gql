@@ -1,14 +1,14 @@
-query Viewer2($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
-  bookInfo(dbID: $bookId) {
+query Viewer2($bookId: ID!, $before: String, $after: String, $first: Int, $last: Int) {
+  bookInfo(id: $bookId) {
     title
     toc {
       ...tocRecursive
     }
   }
   viewer {
-    # readingProgress(bookId: $bookId) {
-    #   percentage
-    # }
+    readingProgress(bookId: $bookId) {
+      percentage
+    }
     bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
       totalCount
       edges {

@@ -3,7 +3,7 @@ import HTMLObjectsRenderer from '../../components/HTMLObjectsRenderer/HTMLObject
 import Button from '../../components/Button'
 
 interface Props {
-  bookPages: QBookPages
+  bookPages: Schema.BookPages
   onLoadPage: (direction: 'prev' | 'next') => any
 }
 

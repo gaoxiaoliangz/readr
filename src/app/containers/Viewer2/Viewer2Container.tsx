@@ -15,8 +15,8 @@ import * as selectors from '../../selectors'
 import BookToc from '../../components/BookToc'
 
 interface OwnProps {
-  bookPages: QBookPages
-  bookInfo: QBookInfo
+  bookPages: Schema.BookPages
+  bookInfo: Schema.BookInfo
   onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
   onDebuncedScroll?: (direction: 'up' | 'down') => void

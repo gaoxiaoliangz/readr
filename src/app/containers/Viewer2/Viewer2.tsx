@@ -12,10 +12,10 @@ import DocContainer from '../../components/DocContainer'
 
 type Data = {
   viewer: {
-    bookPages: QBookPages
+    bookPages: Schema.BookPages
   }
   error: Error
-  bookInfo: QBookInfo
+  bookInfo: Schema.BookInfo
   fetchMore: any
   loading: boolean
 }

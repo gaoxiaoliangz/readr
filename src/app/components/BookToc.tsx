@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 interface Props {
-  toc: TocChapter[]
+  toc: Schema.TocChapter[]
 }
 
 export default class BookToc extends Component<Props, void> {
@@ -13,7 +13,7 @@ export default class BookToc extends Component<Props, void> {
     return <a className="text-link" href={`#${ref}`}>{label}</a>
   }
 
-  renderNav(list: TocChapter[]) {
+  renderNav(list: Schema.TocChapter[]) {
     return (
       <ul>
         {
