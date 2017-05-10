@@ -25,6 +25,22 @@ type TBookNav = {
   children?: TBookNav[]
 }
 
+interface TocChapter {
+  src: string
+  name: string
+  playOrder: string
+  srcObject: TocChapterSrcObject
+  children: [TocChapter]
+}
+
+interface TocChapterSrcObject {
+  name: string
+  ext: string
+  prefix: string
+  url: string
+  hash: string
+}
+
 declare namespace Viewer {
   type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
 

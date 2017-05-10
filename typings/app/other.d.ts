@@ -45,4 +45,5 @@ interface QBookPages {
 
 type QBookInfo = {
   title: string
+  toc: TocChapter[]
 }

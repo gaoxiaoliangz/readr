@@ -12,6 +12,7 @@ import styles from './Viewer2Container.scss'
 import LeftPanel from '../../components/LeftPanel'
 import PopBox from '../../components/PopBox'
 import * as selectors from '../../selectors'
+import BookToc from '../../components/BookToc'
 
 interface OwnProps {
   bookPages: QBookPages
@@ -168,7 +169,10 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
             this.props.actions.viewer.toggleViewerNavigation(false)
           }}
         >
-          content
+          <div>目录</div>
+          <BookToc
+            toc={this.props.bookInfo.toc}
+          />
         </LeftPanel>
         <BookContainer
           bookPages={this.props.bookPages}

@@ -1,9 +1,16 @@
 query Viewer2($bookId: String!, $before: String, $after: String, $first: Int, $last: Int) {
   bookInfo(dbID: $bookId) {
     title
+    toc {
+      ...tocRecursive
+    }
   }
   viewer {
+    # readingProgress(bookId: $bookId) {
+    #   percentage
+    # }
     bookPages(pageHeight: 600, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
+      totalCount
       edges {
         cursor
         node {
@@ -43,6 +50,34 @@ fragment elementsRecursive on HTMLElementObject {
         ...elementFields
         children {
           ...elementFields
+        }
+      }
+    }
+  }
+}
+
+fragment tocFields on TocChapter {
+  src
+  name
+  playOrder
+  srcObject {
+    name
+    ext
+    prefix
+    url
+  }
+}
+
+fragment tocRecursive on TocChapter {
+  ...tocFields
+  children {
+    ...tocFields
+    children {
+      ...tocFields
+      children {
+        ...tocFields
+        children {
+          ...tocFields
         }
       }
     }
