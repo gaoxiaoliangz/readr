@@ -37,8 +37,12 @@ const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',
     fields: {
-      id: {
-        type: new GraphQLNonNull(GraphQLID)
+      id: globalIdField('User'),
+      role: {
+        type: GraphQLString
+      },
+      username: {
+        type: GraphQLString
       },
       authors: makeNodeConnectionField({
         type: GQLAuthorConnection,
@@ -90,7 +94,11 @@ const viewerField = {
     interfaces: [nodeInterface]
   }),
   resolve(obj, args, req) {
-    return {}
+    const { user } = req
+    return {
+      ...user,
+      id: user._id
+    }
   }
 }
 
