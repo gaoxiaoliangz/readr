@@ -43,6 +43,7 @@ class Viewer2 extends Component<StateProps & OwnProps, void> {
     super(props)
     this.handleLoadPage = this.handleLoadPage.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
+    this.handleDebouncedScroll = this.handleDebouncedScroll.bind(this)
   }
 
   handleLoadPage(direction: 'prev' | 'next' = 'next') {
@@ -85,12 +86,17 @@ class Viewer2 extends Component<StateProps & OwnProps, void> {
     }
   }
 
+  handleDebouncedScroll(e, direction) {
+    const scrollTop = document.body.scrollTop
+    console.log(scrollTop)
+  }
+
   render() {
     const { data: { loading, error, bookInfo, viewer }, config } = this.props
 
     if (loading) {
       return (
-        <Loading />
+        <Loading center />
       )
     }
 
@@ -107,8 +113,7 @@ class Viewer2 extends Component<StateProps & OwnProps, void> {
           bookInfo={bookInfo}
           onLoadPage={this.handleLoadPage}
           onReachBottom={this.handleLoadPage}
-          onDebuncedScroll={(direction) => {
-          }}
+          onDebuncedScroll={this.handleDebouncedScroll}
           onScroll={this.handleScroll}
           config={config}
         />

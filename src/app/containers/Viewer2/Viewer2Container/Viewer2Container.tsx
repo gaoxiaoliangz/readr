@@ -21,7 +21,7 @@ interface OwnProps {
   bookInfo: Schema.BookInfo
   onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
-  onDebuncedScroll?: (direction: 'up' | 'down') => void
+  onDebuncedScroll?: (e: Event, direction: 'up' | 'down') => void
   onDebuncedResize?: (view) => void
   onReachBottom?: () => void
   config: {
@@ -95,9 +95,9 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
     }
   }
 
-  _onDebouncedScroll() {
+  _onDebouncedScroll(e) {
     const direction = this._judgeScrollDirection()
-    if (this.props.onDebuncedScroll && direction) this.props.onDebuncedScroll(direction)
+    if (this.props.onDebuncedScroll && direction) this.props.onDebuncedScroll(e, direction)
   }
 
   _onResize() {
