@@ -1,0 +1,11 @@
+@import "~styles/variables";
+
+.page-no {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-top: 1px solid #aaa;
+  padding: 0 10px;
+  color: $text;
+  font-size: 0.8rem;
+}

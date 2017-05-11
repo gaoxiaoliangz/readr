@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import HTMLObjectsRenderer from '../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
+import CSSModules from 'react-css-modules'
+import styles from './BookContainer.scss'
 
 interface Props {
   bookPages: Schema.BookPages
@@ -13,6 +15,7 @@ interface Props {
   }
 }
 
+@CSSModules(styles)
 export default class BookContainer extends Component<Props, void> {
   constructor(props) {
     super(props)
@@ -38,7 +41,8 @@ export default class BookContainer extends Component<Props, void> {
     let pageStyle: React.CSSProperties = {
       overflow: 'hidden',
       height,
-      position: 'absolute'
+      position: 'absolute',
+      width: '100%'
     }
 
     const containerStyle: React.CSSProperties = {
@@ -56,11 +60,12 @@ export default class BookContainer extends Component<Props, void> {
             const page = edge.node.meta.pageNo
             pageStyle = {
               ...pageStyle,
-              top: page * height
+              top: (page - 1) * height
             }
             return (
-              <div key={index} style={pageStyle}>
+              <div key={index} style={pageStyle} className={`book-page book-page-${edge.node.meta.pageNo}`}>
                 <div style={innerStyle}>
+                  <div styleName="page-no">{edge.node.meta.pageNo}</div>
                   <HTMLObjectsRenderer
                     htmlObjects={edge.node.elements || []}
                     {...rendererConfig}

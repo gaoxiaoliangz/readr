@@ -93,8 +93,8 @@ const resolveBookContent = async bookId => {
     const epub = await parseEpub(content)
 
     const { bookContent } = epub
-    const sections = bookContent.map(section => {
-      return {
+    const sections = bookContent.map((section, index) => {
+      let parsedSection = {
         ...section,
         ...{
           htmlObject: parseHTML(section.html, {
@@ -119,6 +119,18 @@ const resolveBookContent = async bookId => {
           })
         }
       }
+      if (index === 0 && parsedSection.htmlObject.length === 0) {
+        const defaultFirstSectionContent = `
+          <br/>
+          <br/>
+          <br/>
+          <h1>${epub.metadata.title}</h1>
+          <p>${epub.metadata.author}</p>
+        `
+        parsedSection.htmlObject = parseHTML(defaultFirstSectionContent)
+      }
+
+      return parsedSection
     })
     return sections
   }
@@ -162,9 +174,12 @@ export const resolveBookPages = async (options) => {
 
   debug('groupNodesByPage start')
 
+  let pageSum = 0
   const pages = sections
     .map((section, index) => {
-      return groupNodesByPage(section.htmlObject, heights[index], pageHeight, index)
+      const result = groupNodesByPage(section.htmlObject, heights[index], pageHeight, pageSum)
+      pageSum += result.length
+      return result
     })
     .reduce((a, b) => {
       return a.concat(b)

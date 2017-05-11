@@ -1,10 +1,20 @@
 .h-tags {
   color: #333;
   font-weight: normal;
+  line-height: 2;
 }
 
 .section {
   margin: 0 auto;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  br {
+    line-height: 20px;
+  }
 
   p {
     font-size: 1em;

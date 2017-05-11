@@ -101,6 +101,7 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   for (let i = 0; i < pageSum; i++) {
     const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes, nodeHeights, pageHeight })
 
+    // todo: support id resolve
     // const findIdOfHTags = (mdNode: string) => {
     //   const pattern = /<h\d id="(.*)">(.*)<\/h\d>/
     //   const result = mdNode.match(pattern)
@@ -138,16 +139,12 @@ export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeights
 }[], pageHeight: number) {
   let pageStartFrom = 0
   let allPages = []
-  const t0 = new Date().valueOf()
 
   contentOfChapters.forEach((chapter, index) => {
     const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
     allPages = allPages.concat(pages)
     pageStartFrom = pageStartFrom + pages.length
   })
-
-  const t1 = new Date().valueOf()
-  // helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
 
   return allPages
 }
