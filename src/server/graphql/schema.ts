@@ -64,11 +64,23 @@ const viewerField = {
           },
           pageHeight: {
             type: new GraphQLNonNull(GraphQLInt)
-          }
+          },
+          width: {
+            type: new GraphQLNonNull(GraphQLInt)
+          },
+          fontSize: {
+            type: new GraphQLNonNull(GraphQLFloat)
+          },
+          lineHeight: {
+            type: new GraphQLNonNull(GraphQLFloat)
+          },
         },
         listAllFn: (parent, args) => resolveBookPages({
           id: fromGlobalId(args.bookId).id,
-          pageHeight: args.pageHeight
+          pageHeight: args.pageHeight,
+          width: args.width,
+          fontSize: args.fontSize,
+          lineHeight: args.lineHeight
         })
       }),
       readingProgress: {

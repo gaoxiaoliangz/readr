@@ -4,6 +4,9 @@ import styles from './HTMLObjectsRenderer.scss'
 
 type Props = {
   children?: any
+  fontSize: number
+  width: number
+  lineHeight: number
   htmlObjects: ParsedNode[]
 }
 
@@ -30,9 +33,15 @@ const renderObjects = (objects: ParsedNode[], isRoot = false) => {
 }
 
 function HTMLObjectsRenderer(props: Props) {
-  const { htmlObjects } = props
+  const { htmlObjects, width, lineHeight, fontSize } = props
+  const sectionStyle = {
+    width,
+    lineHeight,
+    fontSize
+  }
+
   return (
-    <div className={styles['section']}>
+    <div style={sectionStyle} className={styles['section']}>
       {
         renderObjects(htmlObjects, true)
       }

@@ -31,7 +31,8 @@ export default class BookContainer extends Component<Props, void> {
     }
 
     const containerStyle: React.CSSProperties = {
-      height: totalCount * height
+      height: totalCount * height,
+      position: 'relative'
     }
 
     return (

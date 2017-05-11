@@ -7,7 +7,7 @@ import { groupNodesByPage } from '../../renderers/paging'
 import dataProvider from '../models/data-provider'
 import { notFoundError } from '../helpers'
 import AppDoc from '../../app/components/AppDoc'
-import HTMLObjectsRenderer from '../../app/components/HTMLObjectsRenderer/HTMLObjectsRenderer'
+import HTMLObjectsRenderer from '../../app/components/HTMLObjectsRenderer'
 import evaluate from '../../renderers/evaluate'
 import { getCssLinks } from '../middleware/render/render-view'
 import parseEpub from '../../parsers/epub/epub'
@@ -15,7 +15,12 @@ import parseHTML from '../../parsers/html'
 
 const debug = require('debug')('readr:api:bookPages')
 
-const calcHeights = async (sections) => {
+type RendererConfig = {
+  fontSize: number
+  width: number
+  lineHeight: number
+}
+const calcHeights = async (sections, rendererConfig: RendererConfig) => {
   debug('calcHeights start')
   // get node heights in sections
   const htmlString = renderToStaticMarkup(
@@ -26,7 +31,7 @@ const calcHeights = async (sections) => {
           {
             sections.map((section, index) => {
               return (
-                <HTMLObjectsRenderer key={index} htmlObjects={section} />
+                <HTMLObjectsRenderer key={index} htmlObjects={section} {...rendererConfig} />
               )
             })
           }
@@ -58,9 +63,9 @@ const calcHeights = async (sections) => {
   return heights
 }
 
-const cacheKeyResolver = obj => {
-  const hash = md5(obj)
-  debug('obj hash', hash)
+const cacheKeyResolver = (...args) => {
+  const hash = md5(JSON.stringify(args))
+  debug('args hash', hash)
   return hash
 }
 
@@ -123,10 +128,25 @@ const resolveBookContent = async bookId => {
 
 const resolveBookContentMem = _.memoize(resolveBookContent)
 
+const validateNonNullOptions = (options, nonNullFieldList) => {
+  for (const field of nonNullFieldList) {
+    if (_.isUndefined(options[field])) {
+      return new Error(`Required field ${field} is not provided!`)
+    }
+  }
+  return true
+}
+
 export const resolveBookPages = async (options) => {
   console.time('resolveBookPages')
+  const nonNullFieldList = ['pageHeight', 'width', 'fontSize', 'lineHeight']
+  const validateResult = validateNonNullOptions(options, nonNullFieldList)
 
-  const { id: bookId, pageHeight } = options
+  if (validateResult !== true) {
+    return Promise.reject(validateResult)
+  }
+
+  const { id: bookId, pageHeight, width, fontSize, lineHeight } = options
 
   if (!pageHeight) {
     // todo: general validation
@@ -134,7 +154,11 @@ export const resolveBookPages = async (options) => {
   }
 
   const sections = await resolveBookContentMem(bookId)
-  const heights = await calcHeightsMem(_.map(sections, section => section.htmlObject))
+  const heights = await calcHeightsMem(_.map(sections, section => section.htmlObject), {
+    width,
+    fontSize,
+    lineHeight
+  })
 
   debug('groupNodesByPage start')
 
