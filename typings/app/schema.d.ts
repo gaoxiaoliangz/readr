@@ -30,6 +30,7 @@ declare namespace Schema {
   }
 
   interface BookPages {
+    totalCount: number
     edges: {
       cursor: string
       node: {

@@ -29,6 +29,7 @@ interface AllProps {
 }
 
 class Viewer2 extends Component<AllProps, void> {
+
   constructor(props) {
     super(props)
     this.handleLoadPage = this.handleLoadPage.bind(this)
@@ -66,13 +67,12 @@ class Viewer2 extends Component<AllProps, void> {
   }
 
   handleScroll(direction) {
-    const { components: { showPreference } } = this.props
-    if (direction === 'up') {
+    const { components: { showPreference, showPanel } } = this.props
+    if (direction === 'up' && showPanel === false) {
       this.props.actions.viewer.toggleViewerPanel(true)
-    } else {
-      if (!showPreference) {
-        this.props.actions.viewer.toggleViewerPanel(false)
-      }
+    }
+    if (direction === 'down' && !showPreference && showPanel === true) {
+      this.props.actions.viewer.toggleViewerPanel(false)
     }
   }
 

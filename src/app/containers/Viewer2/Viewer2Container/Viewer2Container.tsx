@@ -40,8 +40,8 @@ const mapStateToProps = (state, ownProps) => {
 
 @CSSModules(styles)
 class Viewer2Container extends Component<StateProps & OwnProps, {}> {
-  _handleResizeDebounced: typeof _.debounce
-  _handleScrollDebounced: typeof _.debounce
+  _handleResizeDebounced: any
+  _handleScrollDebounced: any
   _handleScroll: any
   scrollTop: number[]
 
@@ -111,7 +111,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   }
 
   render() {
-    const { components: { showNavigation, showPanel, showPreference }, bookInfo } = this.props
+    const { components: { showNavigation, showPanel, showPreference }, bookInfo, bookPages: { totalCount } } = this.props
 
     return (
       <div>
@@ -196,7 +196,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
         >
           <BookProgress
             current={20}
-            total={200}
+            total={totalCount}
           />
         </Panel>
       </div>
