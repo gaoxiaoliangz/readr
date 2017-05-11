@@ -238,12 +238,12 @@ const htmlstring7 = `
 
 const test = async (options) => {
   const htmlObject = html(htmlstring6)
-
-  const htmlString = renderToStaticMarkup(
+  const htmlString = renderToStaticMarkup(<div></div>)
+  /*const htmlString = renderToStaticMarkup(
     <AppDoc
       appMarkup={<HTMLObjectsRenderer htmlObjects={htmlObject} />}
     />
-  )
+  )*/
 
   return evaluate(htmlString, {
     saveShotAsPng: false,

@@ -13,12 +13,14 @@ type Props = {
 const renderObjects = (objects: ParsedNode[], isRoot = false) => {
   return objects.map((object, index) => {
     const { tag, type, text, children, attrs } = object
+
     const props = {
       ...{
         key: index,
         className: isRoot ? styles['line'] : ''
       },
-      ..._.omit(attrs, '__typename')
+      ..._.omit(attrs, ['__typename', 'tagId']),
+      id: attrs && attrs.tagId
     }
 
     if (type === 3) {

@@ -24,6 +24,12 @@ interface OwnProps {
   onDebuncedScroll?: (direction: 'up' | 'down') => void
   onDebuncedResize?: (view) => void
   onReachBottom?: () => void
+  config: {
+    fontSize: number
+    width: number
+    lineHeight: number
+    pageHeight: number
+  }
 }
 
 interface StateProps {
@@ -111,7 +117,10 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   }
 
   render() {
-    const { components: { showNavigation, showPanel, showPreference }, bookInfo, bookPages: { totalCount } } = this.props
+    const {
+      components: { showNavigation, showPanel, showPreference }, bookInfo, bookPages: { totalCount },
+      config
+    } = this.props
 
     return (
       <div>
@@ -156,7 +165,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
                   }}
                   position={{
                     right: 0,
-                    
+
                   }}
                 >
                   <Viewer2Pref
@@ -166,7 +175,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
 
                     }}
                     onChangeThemeRequest={() => {
-                      
+
                     }}
                     isScrollMode={true}
                   />
@@ -189,6 +198,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
         <BookContainer
           bookPages={this.props.bookPages}
           onLoadPage={this.props.onLoadPage}
+          config={config}
         />
         <Panel
           show={showPanel}

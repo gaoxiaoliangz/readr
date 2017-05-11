@@ -22,17 +22,11 @@ import {
   toGlobalId,
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
-import md5 from 'vendor/md5'
-import { nodeInterface } from '../gql-node'
 import { extendedConnectionDefinitions } from '../utils'
 
 const GQLHTMLElementObject = new GraphQLObjectType({
   name: 'HTMLElementObject',
-  interfaces: [nodeInterface],
   fields: () => ({
-    id: globalIdField('HTMLElementObject', (entity) => {
-      return md5(JSON.stringify(entity))
-    }),
     tag: {
       type: GraphQLString
     },
@@ -46,8 +40,9 @@ const GQLHTMLElementObject = new GraphQLObjectType({
       type: new GraphQLObjectType({
         name: 'HTMLAttrObject',
         fields: {
-          id: {
-            type: GraphQLString
+          tagId: {
+            type: GraphQLString,
+            resolve: obj => obj.id
           },
           href: {
             type: GraphQLString
@@ -66,12 +61,8 @@ const GQLHTMLElementObject = new GraphQLObjectType({
 
 const GQLBookPage = new GraphQLObjectType({
   name: 'BookPage',
-  interfaces: [nodeInterface],
   description: 'Computed bookpage',
   fields: {
-    id: globalIdField('BookPage', (entity) => {
-      return md5(JSON.stringify(entity))
-    }),
     elements: {
       type: new GraphQLList(GQLHTMLElementObject),
       resolve(bookPage) {
