@@ -104,13 +104,17 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/graphql-relay@^0.4.1":
+"@types/graphql-relay@^0.4.2":
   version "0.4.2"
-  resolved "http://registry.npm.taobao.org/@types/graphql-relay/download/@types/graphql-relay-0.4.2.tgz#d26bb1e793bb265e4dbcd705f58d42ee84d02d3f"
+  resolved "https://registry.yarnpkg.com/@types/graphql-relay/-/graphql-relay-0.4.2.tgz#d26bb1e793bb265e4dbcd705f58d42ee84d02d3f"
   dependencies:
     "@types/graphql" "*"
 
-"@types/graphql@*", "@types/graphql@^0.9.0":
+"@types/graphql@*", "@types/graphql@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.9.1.tgz#b04ebe84bc997cc60dbea2ed4d0d4342c737f99d"
+
+"@types/graphql@^0.9.0":
   version "0.9.0"
   resolved "http://registry.npm.taobao.org/@types/graphql/download/@types/graphql-0.9.0.tgz#fccf859f0d2817687f210737dc3be48a18b1d754"
 
@@ -4331,15 +4335,15 @@ graphql-tag@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/graphql-tag/download/graphql-tag-2.0.0.tgz#f3efe3b4d64f33bfe8479ae06a461c9d72f2a6fe"
 
-graphql@0.9.3:
+graphql@0.9.3, graphql@^0.9.1, graphql@^0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.9.3.tgz#71fc0fa331bffb9c20678485861cfb370803118e"
   dependencies:
     iterall "1.0.3"
 
-graphql@^0.9.1, graphql@^0.9.3:
+graphql@^0.9.6:
   version "0.9.6"
-  resolved "http://registry.npm.taobao.org/graphql/download/graphql-0.9.6.tgz#514421e9d225c29dfc8fd305459abae58815ef2c"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.9.6.tgz#514421e9d225c29dfc8fd305459abae58815ef2c"
   dependencies:
     iterall "^1.0.0"
 
@@ -5281,13 +5285,9 @@ istanbul-reports@^1.1.0:
   dependencies:
     handlebars "^4.0.3"
 
-iterall@1.0.3:
+iterall@1.0.3, iterall@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.0.3.tgz#e0b31958f835013c323ff0b10943829ac69aa4b7"
-
-iterall@^1.0.0:
-  version "1.1.1"
-  resolved "http://registry.npm.taobao.org/iterall/download/iterall-1.1.1.tgz#f7f0af11e9a04ec6426260f5019d9fcca4d50214"
 
 jest-changed-files@^19.0.2:
   version "19.0.2"
