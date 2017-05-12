@@ -23,6 +23,7 @@ export const MODAL = {
 // viewer
 export const VIEWER = {
   INITIALIZE: triggerType(viewerType('INITIALIZE')),
+  SET_ID: viewerType('SET_ID'),
   CONFIG: triggerType(viewerType('CONFIG')),
   SET_STATUS: viewerType('SET_STATUS'),
 

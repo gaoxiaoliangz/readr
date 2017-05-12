@@ -35,12 +35,16 @@ interface OwnProps {
 interface StateProps {
   actions: typeof actions
   components: Viewer.Components
+  localProgress: Viewer.LocalProgress[]
 }
 
 const mapStateToProps = (state, ownProps) => {
   const components = selectors.viewer.components(state)
+  const id = selectors.viewer.id(state)
+  const localProgress = selectors.viewer.localProgress(id)(state)
   return {
-    components
+    components,
+    localProgress
   }
 }
 
@@ -119,7 +123,8 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   render() {
     const {
       components: { showNavigation, showPanel, showPreference }, bookInfo, bookPages: { totalCount },
-      config
+      config,
+      localProgress
     } = this.props
 
     return (
@@ -205,7 +210,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
           position="bottom"
         >
           <BookProgress
-            current={20}
+            current={(_.last(localProgress) || {})['page']}
             total={totalCount}
           />
         </Panel>

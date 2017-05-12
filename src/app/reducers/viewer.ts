@@ -75,6 +75,9 @@ const id = (state = '', action) => {
   if (action.type === ACTION_TYPES.VIEWER.INITIALIZE) {
     return action.payload.bookId
   }
+  if (action.type === ACTION_TYPES.VIEWER.SET_ID) {
+    return action.payload
+  }
   return state
 }
 

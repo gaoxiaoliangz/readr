@@ -111,21 +111,36 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
     if (direction === 'down' && !showPreference && showPanel === true) {
       this.props.actions.viewer.toggleViewerPanel(false)
     }
+    const { pageNo, totalCount } = this._getCurrentProgress()
+    this.props.actions.viewer.updateLocalProgress(this.props.params.id, {
+      page: pageNo,
+      pageCount: totalCount,
+      percentage: pageNo / totalCount
+    })
   }
 
   handleDebouncedScroll(e, direction) {
     this._checkToLoadPage()
   }
 
-  _checkToLoadPage() {
+  _getCurrentProgress() {
     const scrollTop = document.body.scrollTop
     const {
       config: { pageHeight },
-      data: { viewer: { bookPages: { edges, totalCount } } }
+      data: { viewer: { bookPages: { totalCount } } }
     } = this.props
 
     const currentPageIndex = Math.floor(scrollTop / pageHeight)
     const pageNo = currentPageIndex + 1
+    return { pageNo, totalCount }
+  }
+
+  _checkToLoadPage() {
+    const {
+      data: { viewer: { bookPages: { edges } } }
+    } = this.props
+
+    const { pageNo } = this._getCurrentProgress()
 
     const getRange = (c: number) => {
       // [c-1, c, c+1, c+2] c for the current reading page
@@ -164,15 +179,15 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
     const { data: { loading, error, bookInfo, viewer }, config } = this.props
     const hasDataMounted = _.get(viewer, 'bookPages.edges', []).length !== 0
 
-    if (!hasDataMounted) {
-      return (
-        <Loading useNProgress />
-      )
-    }
-    
     if (error) {
       return (
         <div>{error.message}</div>
+      )
+    }
+
+    if (!hasDataMounted) {
+      return (
+        <Loading useNProgress />
       )
     }
 

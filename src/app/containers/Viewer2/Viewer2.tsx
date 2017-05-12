@@ -9,21 +9,29 @@ interface Props {
   actions: typeof actions
 }
 
+const viewerConfig = {
+  pageHeight: 900,
+  fontSize: 19,
+  lineHeight: 1.6,
+  width: 600
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {}
 }
 
 class Viewer2 extends Component<Props, {}> {
+
+  componentDidMount() {
+    this.props.actions.viewer.setViewerId(this.props.params.id)
+    this.props.actions.viewer.configViewer(viewerConfig)
+  }
+
   render() {
     return (
       <Viewer2WithData
         params={this.props.params}
-        config={{
-          pageHeight: 900,
-          fontSize: 19,
-          lineHeight: 1.6,
-          width: 600
-        }}
+        config={viewerConfig}
       />
     )
   }
@@ -31,7 +39,9 @@ class Viewer2 extends Component<Props, {}> {
 
 export default connect(
   mapStateToProps,
-    dispatch => ({
-    actions: bindActionCreators(actions as any, dispatch)
+  dispatch => ({
+    actions: {
+      viewer: bindActionCreators(actions.viewer as {}, dispatch)
+    }
   })
 )(Viewer2)

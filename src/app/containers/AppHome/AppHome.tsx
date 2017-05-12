@@ -66,7 +66,7 @@ class AppHome extends Component<Props, IState> {
             title="新书速递"
             moreLink="/browse"
             isFetching={bookList.fetchStatus === 'loading'}
-            />
+          />
         </Container>
       </DocContainer>
     )
