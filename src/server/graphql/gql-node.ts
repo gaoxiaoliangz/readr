@@ -1,6 +1,6 @@
 import {
   fromGlobalId,
-  nodeDefinitions,
+  nodeDefinitions
 } from 'graphql-relay'
 import _ from 'lodash'
 const debug = require('debug')('readr:gql-node')

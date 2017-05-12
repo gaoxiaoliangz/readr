@@ -77,14 +77,16 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
     })
   }
 
-  _loadPage(offset) {
+  _loadPage(offset, first = 5) {
     const { data: { fetchMore } } = this.props
     fetchMore({
       variables: {
-        offset
+        offset,
+        first
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
         const edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+        // const edges = _.merge({}, )
 
         const merged = Object.assign({}, previousResult, {
           viewer: {
@@ -111,11 +113,21 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
 
   handleDebouncedScroll(e, direction) {
     const scrollTop = document.body.scrollTop
-    const { config: { pageHeight } } = this.props
+    const {
+      config: { pageHeight },
+      data: { viewer: { bookPages: { edges } } }
+    } = this.props
 
     const currentPageIndex = Math.floor(scrollTop / pageHeight)
-    console.log(currentPageIndex)
-    this._loadPage(currentPageIndex)
+    const pageNo = currentPageIndex + 1
+
+    const hasNextPage = _.find(edges, edge => {
+      return edge.node.meta.pageNo === pageNo + 1
+    })
+
+    if (!hasNextPage) {
+      this._loadPage(pageNo)
+    }
   }
 
   render() {
