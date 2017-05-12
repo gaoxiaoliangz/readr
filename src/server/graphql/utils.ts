@@ -20,6 +20,7 @@ import {
   mutationWithClientMutationId,
   nodeDefinitions,
   toGlobalId,
+  connectionFromArraySlice
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
 
@@ -99,11 +100,25 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
   const { type, listAllFn, extendedArgs } = config
   return {
     type,
-    args: { ...connectionArgs, ...(extendedArgs || {}) },
+    args: {
+      ...connectionArgs,
+      ...extendedArgs,
+      offset: {
+        type: GraphQLInt
+      }
+    },
     async resolve(...args) {
-      const list = await listAllFn(...args)
+      let list = await listAllFn(...args)
+      const arrayLength = list.length
+      const offset = args[1].offset
+      if (offset) {
+        list = list.slice(offset)
+      }
       return {
-        ...connectionFromArray(list, args[1]),
+        ...connectionFromArraySlice(list, args[1], {
+          sliceStart: offset || 0,
+          arrayLength,
+        }),
         totalCount: list.length
       }
     }
