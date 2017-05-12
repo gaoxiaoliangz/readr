@@ -38,6 +38,8 @@ interface OwnProps {
   }
 }
 
+const LOAD_PAGE_LIMIT = 8
+
 class Viewer2WithData extends Component<StateProps & OwnProps, void> {
 
   constructor(props) {
@@ -77,7 +79,8 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
     })
   }
 
-  _loadPage(offset, first = 5) {
+  _loadPage(pageNo, first = LOAD_PAGE_LIMIT) {
+    const offset = pageNo - 1
     const { data: { fetchMore } } = this.props
     fetchMore({
       variables: {
@@ -86,7 +89,6 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
         const edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
-        // const edges = _.merge({}, )
 
         const merged = Object.assign({}, previousResult, {
           viewer: {
@@ -112,33 +114,62 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
   }
 
   handleDebouncedScroll(e, direction) {
+    this._checkToLoadPage()
+  }
+
+  _checkToLoadPage() {
     const scrollTop = document.body.scrollTop
     const {
       config: { pageHeight },
-      data: { viewer: { bookPages: { edges } } }
+      data: { viewer: { bookPages: { edges, totalCount } } }
     } = this.props
 
     const currentPageIndex = Math.floor(scrollTop / pageHeight)
     const pageNo = currentPageIndex + 1
 
-    const hasNextPage = _.find(edges, edge => {
-      return edge.node.meta.pageNo === pageNo + 1
-    })
+    const getRange = (c: number) => {
+      // [c-1, c, c+1, c+2] c for the current reading page
+      // the first index of found missing
+      return _.times(4, n => {
+        return c + n - 1
+      })
+    }
 
-    if (!hasNextPage) {
-      this._loadPage(pageNo)
+    let missings = getRange(pageNo)
+    let range = missings
+    const getStartPos = () => {
+      _.forEach(edges, edge => {
+        const _pageNo = edge.node.meta.pageNo
+        const foundIndex = missings.indexOf(_pageNo)
+        if (foundIndex !== -1) {
+          missings = missings.filter((m, index) => {
+            return index !== foundIndex
+          })
+        }
+      })
+
+      if (missings.length === 0) {
+        return null
+      }
+      return missings[0]
+    }
+    const startPos = getStartPos()
+
+    if (startPos) {
+      this._loadPage(startPos, LOAD_PAGE_LIMIT - (startPos - range[0]))
     }
   }
 
   render() {
     const { data: { loading, error, bookInfo, viewer }, config } = this.props
+    const hasDataMounted = _.get(viewer, 'bookPages.edges', []).length !== 0
 
-    if (loading) {
+    if (!hasDataMounted) {
       return (
-        <Loading center />
+        <Loading useNProgress />
       )
     }
-
+    
     if (error) {
       return (
         <div>{error.message}</div>
@@ -147,6 +178,11 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
 
     return (
       <DocContainer bodyClass="page-viewer-v2">
+        {
+          loading && (
+            <Loading useNProgress />
+          )
+        }
         <Viewer2Container
           bookPages={viewer.bookPages}
           bookInfo={bookInfo}
