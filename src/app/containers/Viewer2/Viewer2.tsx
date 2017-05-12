@@ -5,9 +5,7 @@ import { bindActionCreators } from 'redux'
 import Viewer2WithData from './Viewer2WithData'
 
 interface Props {
-}
-
-interface AllProps extends Props {
+  params: any
   actions: typeof actions
 }
 
@@ -15,15 +13,11 @@ const mapStateToProps = (state, ownProps) => {
   return {}
 }
 
-class Viewer2 extends Component<AllProps, {}> {
-
-  constructor(props) {
-    super(props)
-  }
-
+class Viewer2 extends Component<Props, {}> {
   render() {
     return (
       <Viewer2WithData
+        params={this.props.params}
         config={{
           pageHeight: 900,
           fontSize: 19,

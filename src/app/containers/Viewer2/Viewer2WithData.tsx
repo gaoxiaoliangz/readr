@@ -29,6 +29,7 @@ interface StateProps {
 }
 
 interface OwnProps {
+  params: any
   config: {
     fontSize: number
     width: number
@@ -37,7 +38,7 @@ interface OwnProps {
   }
 }
 
-class Viewer2 extends Component<StateProps & OwnProps, void> {
+class Viewer2WithData extends Component<StateProps & OwnProps, void> {
 
   constructor(props) {
     super(props)
@@ -76,6 +77,28 @@ class Viewer2 extends Component<StateProps & OwnProps, void> {
     })
   }
 
+  _loadPage(offset) {
+    const { data: { fetchMore } } = this.props
+    fetchMore({
+      variables: {
+        offset
+      },
+      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
+        const edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+
+        const merged = Object.assign({}, previousResult, {
+          viewer: {
+            bookPages: {
+              edges
+            }
+          }
+        })
+
+        return merged
+      }
+    })
+  }
+
   handleScroll(direction) {
     const { components: { showPreference, showPanel } } = this.props
     if (direction === 'up' && showPanel === false) {
@@ -88,7 +111,11 @@ class Viewer2 extends Component<StateProps & OwnProps, void> {
 
   handleDebouncedScroll(e, direction) {
     const scrollTop = document.body.scrollTop
-    console.log(scrollTop)
+    const { config: { pageHeight } } = this.props
+
+    const currentPageIndex = Math.floor(scrollTop / pageHeight)
+    console.log(currentPageIndex)
+    this._loadPage(currentPageIndex)
   }
 
   render() {
@@ -122,17 +149,16 @@ class Viewer2 extends Component<StateProps & OwnProps, void> {
   }
 }
 
-const Viewer2WithData = graphql(
+const _Viewer2WithData = graphql(
   viewerQuery,
   {
-    options: (props: OwnProps & {params}) => {
-      const {config: { pageHeight, fontSize, lineHeight, width } } = props
+    options: (props: OwnProps & { params }) => {
+      const { config: { pageHeight, fontSize, lineHeight, width } } = props
 
       return {
         variables: {
-          // bookId: props.params.id,
-          bookId: 'Qm9va0luZm86NThmNWViM2Y3NDZmNGJlM2E0MjlmZThj',
-          first: 20,
+          bookId: props.params.id,
+          first: 5,
           pageHeight,
           fontSize,
           lineHeight,
@@ -141,7 +167,7 @@ const Viewer2WithData = graphql(
       }
     }
   }
-)(Viewer2)
+)(Viewer2WithData)
 
 const mapStateToProps = (state, ownProps) => {
   const components = selectors.viewer.components(state)
@@ -157,4 +183,4 @@ export default connect<{}, {}, OwnProps>(
       viewer: bindActionCreators(actions.viewer as {}, dispatch)
     }
   })
-)(Viewer2WithData)
+)(_Viewer2WithData)

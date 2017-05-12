@@ -1,4 +1,4 @@
-query Viewer2($bookId: ID!, $before: String, $after: String, $first: Int, $last: Int, $pageHeight: Int!, $width: Int!, $lineHeight: Float!, $fontSize: Float!) {
+query Viewer2($bookId: ID!, $before: String, $after: String, $first: Int, $last: Int, $pageHeight: Int!, $width: Int!, $lineHeight: Float!, $fontSize: Float!, $offset: Int) {
   bookInfo(id: $bookId) {
     title
     toc {
@@ -9,7 +9,7 @@ query Viewer2($bookId: ID!, $before: String, $after: String, $first: Int, $last:
     readingProgress(bookId: $bookId) {
       percentage
     }
-    bookPages(pageHeight: $pageHeight, width: $width, lineHeight: $lineHeight, fontSize: $fontSize, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
+    bookPages(offset: $offset,  pageHeight: $pageHeight, width: $width, lineHeight: $lineHeight, fontSize: $fontSize, bookId: $bookId, first: $first, last: $last, before: $before, after: $after) {
       totalCount
       edges {
         cursor
