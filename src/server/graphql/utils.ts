@@ -101,7 +101,7 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
   return {
     type,
     args: {
-      ...connectionArgs,
+      ...connectionArgs as any,
       ...extendedArgs,
       offset: {
         type: GraphQLInt

@@ -36,7 +36,7 @@ import { setReadingProgressCore } from '../api/user'
 const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',
-    fields: {
+    fields: () => ({
       id: globalIdField('User'),
       role: {
         type: GraphQLString
@@ -102,7 +102,7 @@ const viewerField = {
           return dataProvider.Progress.findOne(query).exec()
         }
       }
-    },
+    }),
     interfaces: [nodeInterface]
   }),
   resolve(obj, args, req) {
