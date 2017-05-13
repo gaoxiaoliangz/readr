@@ -24,7 +24,7 @@ interface OwnProps {
   onDebuncedScroll?: (e: Event, direction: 'up' | 'down') => void
   onDebuncedResize?: (view) => void
   onReachBottom?: () => void
-  config: {
+  renderConfig: {
     fontSize: number
     width: number
     lineHeight: number
@@ -36,15 +36,18 @@ interface StateProps {
   actions: typeof actions
   components: Viewer.Components
   localProgress: Viewer.LocalProgress[]
+  viewerConfig: Viewer.Config
 }
 
 const mapStateToProps = (state, ownProps) => {
   const components = selectors.viewer.components(state)
   const id = selectors.viewer.id(state)
   const localProgress = selectors.viewer.localProgress(id)(state)
+  const config = selectors.viewer.config(state)
   return {
     components,
-    localProgress
+    localProgress,
+    viewerConfig: config
   }
 }
 
@@ -123,7 +126,8 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
   render() {
     const {
       components: { showNavigation, showPanel, showPreference }, bookInfo, bookPages: { totalCount },
-      config,
+      renderConfig,
+      viewerConfig,
       localProgress
     } = this.props
 
@@ -169,18 +173,21 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
                     this.props.actions.viewer.toggleViewerPreference(false)
                   }}
                   position={{
-                    right: 0,
-
+                    right: 0
                   }}
                 >
                   <Viewer2Pref
-                    fontSize={14}
-                    theme="WHITE"
-                    onChangeFontSizeRequest={() => {
-
+                    fontSize={viewerConfig.fontSize}
+                    theme={viewerConfig.theme}
+                    onChangeFontSizeRequest={(fontSize) => {
+                      this.props.actions.viewer.configViewer({
+                        fontSize
+                      })
                     }}
-                    onChangeThemeRequest={() => {
-
+                    onChangeThemeRequest={(theme) => {
+                      this.props.actions.viewer.configViewer({
+                        theme
+                      })
                     }}
                     isScrollMode={true}
                   />
@@ -203,7 +210,10 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
         <BookContainer
           bookPages={this.props.bookPages}
           onLoadPage={this.props.onLoadPage}
-          config={config}
+          config={{
+            ...renderConfig,
+            theme: viewerConfig.theme
+          }}
         />
         <Panel
           show={showPanel}

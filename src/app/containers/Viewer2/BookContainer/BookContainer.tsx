@@ -3,6 +3,7 @@ import _ from 'lodash'
 import HTMLObjectsRenderer from '../../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
 import CSSModules from 'react-css-modules'
 import styles from './BookContainer.scss'
+import cx from 'classnames'
 
 interface Props {
   bookPages: Schema.BookPages
@@ -12,6 +13,7 @@ interface Props {
     width: number
     lineHeight: number
     pageHeight: number
+    theme: Viewer.Themes
   }
 }
 
@@ -50,8 +52,10 @@ export default class BookContainer extends Component<Props, void> {
       position: 'relative'
     }
 
+    const containerClass = `page-container--${config.theme.toLocaleLowerCase()}`
+
     return (
-      <div style={containerStyle}>
+      <div style={containerStyle} styleName={containerClass}>
         {
           edges.map((edge, index) => {
             const innerStyle: React.CSSProperties = {

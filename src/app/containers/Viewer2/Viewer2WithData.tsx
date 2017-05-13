@@ -205,7 +205,7 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
           onReachBottom={this.handleLoadPage}
           onDebuncedScroll={this.handleDebouncedScroll}
           onScroll={this.handleScroll}
-          config={config}
+          renderConfig={config}
         />
       </DocContainer>
     )

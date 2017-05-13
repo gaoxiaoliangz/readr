@@ -9,3 +9,16 @@
   color: $text;
   font-size: 0.8rem;
 }
+
+.page-container--white {
+  background: #fff;
+}
+
+.page-container--night {
+  background: #333;
+  color: #fff;
+}
+
+.page-container--sepia {
+  background: #fbf7f1;
+}
