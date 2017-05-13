@@ -162,11 +162,14 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
             <div styleName="right">
               <div
                 styleName="preference"
-                onClick={() => {
-                  this.props.actions.viewer.toggleViewerPreference(true)
-                }}
               >
-                <Icon name="font" size={20} />
+                <Icon
+                  name="font"
+                  size={20}
+                  onClick={() => {
+                    this.props.actions.viewer.toggleViewerPreference(true)
+                  }}
+                />
                 <PopBox
                   show={showPreference}
                   onRequestClose={() => {
