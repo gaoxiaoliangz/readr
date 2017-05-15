@@ -1,14 +1,17 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import Viewer2Container from './Viewer2Container/Viewer2Container'
 import viewerQuery from './viewer2Query.gql'
+import updateReadingProgressMutation from './updateReadingProgress.gql'
 import * as selectors from '../../selectors'
 import Loading from '../../components/Loading'
 import DocContainer from '../../components/DocContainer'
+
+const LOAD_PAGE_LIMIT = 8
 
 type Data = {
   viewer: {
@@ -26,6 +29,8 @@ interface StateProps {
   routing: any
   components: Viewer.Components
   data: Data
+  params: any
+  mutate: any
 }
 
 interface OwnProps {
@@ -43,13 +48,10 @@ interface State {
   isInitialRender: boolean
 }
 
-const LOAD_PAGE_LIMIT = 8
-
 class Viewer2WithData extends Component<StateProps & OwnProps, State> {
 
   constructor(props) {
     super(props)
-    // this.handleLoadPage = this.handleLoadPage.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleDebouncedScroll = this.handleDebouncedScroll.bind(this)
     this.state = {
@@ -65,42 +67,11 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
         isInitialRender: false
       })
       const scrollTop = nextProps.data.viewer.bookPages.edges[0].node.meta.pageNo * this.props.config.pageHeight
-      setTimeout(function() {
+      setTimeout(function () {
         document.body.scrollTop = scrollTop
       }, 500)
     }
   }
-
-  // handleLoadPage(direction: 'prev' | 'next' = 'next') {
-  //   const { data: { fetchMore } } = this.props
-  //   const fistItemCursor = _.first(this.props.data.viewer.bookPages.edges).cursor
-  //   const lastItemCursor = _.last(this.props.data.viewer.bookPages.edges).cursor
-
-  //   fetchMore({
-  //     variables: {
-  //       before: direction === 'prev' && fistItemCursor,
-  //       after: direction === 'next' && lastItemCursor,
-  //       first: direction === 'next' ? 1 : null,
-  //       last: direction === 'prev' ? 1 : null,
-  //       fromHistory: false
-  //     },
-  //     updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
-  //       let edges = direction === 'next'
-  //         ? [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
-  //         : [...fetchMoreResult.viewer.bookPages.edges, ...previousResult.viewer.bookPages.edges]
-
-  //       const merged = Object.assign({}, previousResult, {
-  //         viewer: {
-  //           bookPages: {
-  //             edges
-  //           }
-  //         }
-  //       })
-
-  //       return merged
-  //     }
-  //   })
-  // }
 
   _loadPage(pageNo, first = LOAD_PAGE_LIMIT) {
     const offset = pageNo - 1
@@ -145,6 +116,13 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
 
   handleDebouncedScroll(e, direction) {
     this._checkToLoadPage()
+    const { pageNo, totalCount } = this._getCurrentProgress()
+    this.props.mutate({
+      variables: {
+        percentage: pageNo / totalCount,
+        bookId: this.props.params.id
+      }
+    })
   }
 
   _getCurrentProgress() {
@@ -237,9 +215,9 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
   }
 }
 
-const _Viewer2WithData = graphql(
-  viewerQuery,
-  {
+const _Viewer2WithData = compose(
+  graphql(updateReadingProgressMutation),
+  graphql(viewerQuery, {
     options: (props: OwnProps) => {
       const { config: { pageHeight, fontSize, lineHeight, width }, fromHistory } = props
 
@@ -255,7 +233,7 @@ const _Viewer2WithData = graphql(
         }
       }
     }
-  }
+  })
 )(Viewer2WithData)
 
 const mapStateToProps = (state, ownProps) => {
@@ -272,4 +250,4 @@ export default connect<{}, {}, OwnProps>(
       viewer: bindActionCreators(actions.viewer as {}, dispatch)
     }
   })
-)(_Viewer2WithData)
+)(_Viewer2WithData as any)

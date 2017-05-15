@@ -112,6 +112,7 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
       let listWrap = await listAllFn(...args)
       let offset = args[1].offset
       let list = listWrap
+      let slicedList = listWrap
 
       if (listWrap && listWrap.meta) {
         offset = listWrap.meta.offset || offset
@@ -120,10 +121,10 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
 
       const arrayLength = list.length
       if (offset) {
-        list = list.slice(offset)
+        slicedList = list.slice(offset)
       }
       return {
-        ...connectionFromArraySlice(list, args[1], {
+        ...connectionFromArraySlice(slicedList, args[1], {
           sliceStart: offset || 0,
           arrayLength,
         }),
