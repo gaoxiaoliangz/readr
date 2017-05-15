@@ -26,11 +26,11 @@ type Data = {
 
 interface StateProps {
   actions: typeof actions
-  routing: any
   components: Viewer.Components
   data: Data
   params: any
   mutate: any
+  routing: SelectedRouting
 }
 
 interface OwnProps {
@@ -61,6 +61,7 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
 
   componentWillReceiveProps(nextProps, nextState) {
     const isPagesLoaded = this.props.data.loading && !nextProps.data.loading && !nextProps.data.error
+    const hasRouteChanged = !_.isEqual(this.props.routing, nextProps.routing)
 
     if (isPagesLoaded && this.state.isInitialRender) {
       this.setState({
@@ -71,16 +72,28 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
         document.body.scrollTop = scrollTop
       }, 500)
     }
+
+    if (hasRouteChanged && !this.state.isInitialRender) {
+      const fromLocation = nextProps.routing.hash.substr(1)
+      this._loadPage({
+        fromLocation
+      })
+      this.setState({
+        isInitialRender: true
+      })
+    }
   }
 
-  _loadPage(pageNo, first = LOAD_PAGE_LIMIT) {
-    const offset = pageNo - 1
+  _loadPage(config: { pageNo?, first?, fromLocation? }) {
+    const { first, fromLocation, pageNo } = config
+    const offset = pageNo ? pageNo - 1 : 0
     const { data: { fetchMore } } = this.props
     fetchMore({
       variables: {
         offset,
-        first,
-        fromHistory: false
+        first: first || LOAD_PAGE_LIMIT,
+        fromHistory: false,
+        fromLocation: fromLocation || null
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
         const edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
@@ -173,7 +186,10 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
     const startPos = getStartPos()
 
     if (startPos) {
-      this._loadPage(startPos, LOAD_PAGE_LIMIT - (startPos - range[0]))
+      this._loadPage({
+        pageNo: startPos,
+        first: LOAD_PAGE_LIMIT - (startPos - range[0])
+      })
     }
   }
 
@@ -239,7 +255,8 @@ const _Viewer2WithData = compose(
 const mapStateToProps = (state, ownProps) => {
   const components = selectors.viewer.components(state)
   return {
-    components
+    components,
+    routing: selectors.routing(state)
   }
 }
 

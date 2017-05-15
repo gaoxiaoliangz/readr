@@ -52,7 +52,7 @@ $icons_size: 30px;
   float: none;
   display: block;
   position: relative;
-  @include phone {
+  @include tablet {
     display: inline-block;
     position: absolute;
     left: 50px;
