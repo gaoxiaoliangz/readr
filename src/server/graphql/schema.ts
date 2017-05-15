@@ -31,7 +31,7 @@ import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookI
 import { nodeInterface, nodeField } from './gql-node'
 import { makeNodeConnectionField } from './utils'
 import resolveBookInfo from './resolvers/resolve-book-info'
-import { setReadingProgressCore } from '../api/user'
+import { setReadingProgressCore, getReadingProgressCore } from '../api/user'
 
 const viewerField = {
   type: new GraphQLObjectType({
@@ -74,14 +74,36 @@ const viewerField = {
           lineHeight: {
             type: new GraphQLNonNull(GraphQLFloat)
           },
+          fromHistory: {
+            type: GraphQLBoolean
+          }
         },
-        listAllFn: (parent, args) => resolveBookPages({
-          id: fromGlobalId(args.bookId).id,
-          pageHeight: args.pageHeight,
-          width: args.width,
-          fontSize: args.fontSize,
-          lineHeight: args.lineHeight
-        })
+        listAllFn: async (parent, args, req) => {
+          const bookId = fromGlobalId(args.bookId).id
+          const { user: { _id: userId } } = req
+
+          const data = await resolveBookPages({
+            id: bookId,
+            pageHeight: args.pageHeight,
+            width: args.width,
+            fontSize: args.fontSize,
+            lineHeight: args.lineHeight
+          })
+
+          if (!args.fromHistory) {
+            return data
+          }
+
+          const progress = (await getReadingProgressCore({ bookId, userId }) || {})
+          const percentage = progress['percentage'] || 0
+          const pageNo = Math.floor(data.length * percentage) + 1
+          return {
+            data,
+            meta: {
+              offset: pageNo
+            }
+          }
+        }
       }),
       readingProgress: {
         type: GQLReadingProgress,
@@ -93,13 +115,7 @@ const viewerField = {
         resolve(obj, args, req) {
           const { bookId } = args
           const { user: { _id: userId } } = req
-
-          if (!userId) {
-            return Promise.reject(new Error('Sign-in required!'))
-          }
-          const query = humps.decamelizeKeys({ userId, bookId })
-
-          return dataProvider.Progress.findOne(query).exec()
+          return getReadingProgressCore({ bookId, userId })
         }
       }
     }),
@@ -156,12 +172,15 @@ const GQLUpdateReadingProgressMutation = mutationWithClientMutationId({
       type: GraphQLInt
     }
   },
-  mutateAndGetPayload: (args, req) => {
+  mutateAndGetPayload: async (args, req) => {
     const { user: { _id: userId } } = req
-    return setReadingProgressCore({
+    const bookId = fromGlobalId(args.bookId).id
+    const result = await setReadingProgressCore({
       ...args,
-      userId
+      userId,
+      bookId
     })
+    return result
   }
 })
 

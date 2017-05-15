@@ -90,8 +90,9 @@ const makeGQLNodeTypeAndConnectionType = nodeInterface => (config: MakeGQLNodeTy
 
 type makeNodeConnectionFieldConfig = {
   type: any
-  // listAllFn: (parent: any, args: any, req: any, obj: any) => any
-  listAllFn: any
+  // args: parent: any, args: any, req: any, obj: any
+  // listAllFn: (...args: object[]) => any[] | { data, meta }
+  listAllFn: (...arg: any[]) => any
   extendedArgs?: {
     [key: string]: any
   }
@@ -108,9 +109,16 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
       }
     },
     async resolve(...args) {
-      let list = await listAllFn(...args)
+      let listWrap = await listAllFn(...args)
+      let offset = args[1].offset
+      let list = listWrap
+
+      if (listWrap && listWrap.meta) {
+        offset = listWrap.meta.offset || offset
+        list = listWrap.data
+      }
+
       const arrayLength = list.length
-      const offset = args[1].offset
       if (offset) {
         list = list.slice(offset)
       }
