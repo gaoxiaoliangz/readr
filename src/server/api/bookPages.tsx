@@ -12,6 +12,7 @@ import evaluate from '../../renderers/evaluate'
 import { getCssLinks } from '../middleware/render/render-view'
 import parseEpub from '../../parsers/epub/epub'
 import parseHTML from '../../parsers/html'
+import parseLink from '../../parsers/link'
 
 const debug = require('debug')('readr:api:bookPages')
 
@@ -91,6 +92,9 @@ const resolveBookContent = async bookId => {
   // todo: text/plain
   if (mimetype === 'application/epub+zip') {
     const epub = await parseEpub(content)
+    const isInternalUri = uri => {
+      return uri.indexOf('http://') === -1 && uri.indexOf('https://') === -1
+    }
 
     const { bookContent } = epub
     const sections = bookContent.map((section, index) => {
@@ -99,13 +103,17 @@ const resolveBookContent = async bookId => {
         ...{
           htmlObject: parseHTML(section.html, {
             resolveHref(href) {
-              if (href.indexOf('http://') === -1) {
-                return `#${href}`
+              if (isInternalUri(href)) {
+                const { name, hash } = parseLink(href)
+                if (hash) {
+                  return `#${name},${hash}`  
+                }
+                return `#${name}`
               }
               return href
             },
             resolveSrc(src) {
-              if (src.indexOf('http://') === -1) {
+              if (isInternalUri(src)) {
                 // todo: may have bugs
                 const absolutePath = path.resolve('/', src).substr(1)
                 debug('absolutePath', absolutePath)

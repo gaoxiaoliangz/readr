@@ -50,7 +50,10 @@ const GQLTocChapter = new GraphQLObjectType({
           },
           url: {
             type: GraphQLString
-          }
+          },
+          hash: {
+            type: GraphQLString
+          },
         })
       })
     },
