@@ -39,46 +39,68 @@ interface OwnProps {
   }
 }
 
+interface State {
+  isInitialRender: boolean
+}
+
 const LOAD_PAGE_LIMIT = 8
 
-class Viewer2WithData extends Component<StateProps & OwnProps, void> {
+class Viewer2WithData extends Component<StateProps & OwnProps, State> {
 
   constructor(props) {
     super(props)
-    this.handleLoadPage = this.handleLoadPage.bind(this)
+    // this.handleLoadPage = this.handleLoadPage.bind(this)
     this.handleScroll = this.handleScroll.bind(this)
     this.handleDebouncedScroll = this.handleDebouncedScroll.bind(this)
+    this.state = {
+      isInitialRender: true
+    }
   }
 
-  handleLoadPage(direction: 'prev' | 'next' = 'next') {
-    const { data: { fetchMore } } = this.props
-    const fistItemCursor = _.first(this.props.data.viewer.bookPages.edges).cursor
-    const lastItemCursor = _.last(this.props.data.viewer.bookPages.edges).cursor
+  componentWillReceiveProps(nextProps, nextState) {
+    const isPagesLoaded = this.props.data.loading && !nextProps.data.loading && !nextProps.data.error
 
-    fetchMore({
-      variables: {
-        before: direction === 'prev' && fistItemCursor,
-        after: direction === 'next' && lastItemCursor,
-        first: direction === 'next' ? 1 : null,
-        last: direction === 'prev' ? 1 : null
-      },
-      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
-        let edges = direction === 'next'
-          ? [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
-          : [...fetchMoreResult.viewer.bookPages.edges, ...previousResult.viewer.bookPages.edges]
-
-        const merged = Object.assign({}, previousResult, {
-          viewer: {
-            bookPages: {
-              edges
-            }
-          }
-        })
-
-        return merged
-      }
-    })
+    if (isPagesLoaded && this.state.isInitialRender) {
+      this.setState({
+        isInitialRender: false
+      })
+      const scrollTop = nextProps.data.viewer.bookPages.edges[0].node.meta.pageNo * this.props.config.pageHeight
+      setTimeout(function() {
+        document.body.scrollTop = scrollTop
+      }, 500)
+    }
   }
+
+  // handleLoadPage(direction: 'prev' | 'next' = 'next') {
+  //   const { data: { fetchMore } } = this.props
+  //   const fistItemCursor = _.first(this.props.data.viewer.bookPages.edges).cursor
+  //   const lastItemCursor = _.last(this.props.data.viewer.bookPages.edges).cursor
+
+  //   fetchMore({
+  //     variables: {
+  //       before: direction === 'prev' && fistItemCursor,
+  //       after: direction === 'next' && lastItemCursor,
+  //       first: direction === 'next' ? 1 : null,
+  //       last: direction === 'prev' ? 1 : null,
+  //       fromHistory: false
+  //     },
+  //     updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
+  //       let edges = direction === 'next'
+  //         ? [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+  //         : [...fetchMoreResult.viewer.bookPages.edges, ...previousResult.viewer.bookPages.edges]
+
+  //       const merged = Object.assign({}, previousResult, {
+  //         viewer: {
+  //           bookPages: {
+  //             edges
+  //           }
+  //         }
+  //       })
+
+  //       return merged
+  //     }
+  //   })
+  // }
 
   _loadPage(pageNo, first = LOAD_PAGE_LIMIT) {
     const offset = pageNo - 1
@@ -86,7 +108,8 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
     fetchMore({
       variables: {
         offset,
-        first
+        first,
+        fromHistory: false
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
         const edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
@@ -202,8 +225,9 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
         <Viewer2Container
           bookPages={viewer.bookPages}
           bookInfo={bookInfo}
-          onLoadPage={this.handleLoadPage}
-          onReachBottom={this.handleLoadPage}
+          onReachBottom={() => {
+
+          }}
           onDebuncedScroll={this.handleDebouncedScroll}
           onScroll={this.handleScroll}
           renderConfig={config}

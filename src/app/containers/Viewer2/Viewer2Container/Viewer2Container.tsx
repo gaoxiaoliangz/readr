@@ -19,7 +19,7 @@ import Viewer2Pref from '../Viewer2Pref/Viewer2Pref'
 interface OwnProps {
   bookPages: Schema.BookPages
   bookInfo: Schema.BookInfo
-  onLoadPage: (direction: 'prev' | 'next') => any
+  // onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
   onDebuncedScroll?: (e: Event, direction: 'up' | 'down') => void
   onDebuncedResize?: (view) => void
@@ -212,7 +212,6 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
         </LeftPanel>
         <BookContainer
           bookPages={this.props.bookPages}
-          onLoadPage={this.props.onLoadPage}
           config={{
             ...renderConfig,
             theme: viewerConfig.theme

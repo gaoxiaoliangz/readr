@@ -3,11 +3,11 @@ import _ from 'lodash'
 import HTMLObjectsRenderer from '../../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
 import CSSModules from 'react-css-modules'
 import styles from './BookContainer.scss'
-import cx from 'classnames'
+// import cx from 'classnames'
 
 interface Props {
   bookPages: Schema.BookPages
-  onLoadPage: (direction: 'prev' | 'next') => any
+  // onLoadPage: (direction: 'prev' | 'next') => any
   config: {
     fontSize: number
     width: number
