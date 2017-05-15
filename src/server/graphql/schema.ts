@@ -23,7 +23,6 @@ import {
   toGlobalId
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
-import humps from 'humps'
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
@@ -76,6 +75,10 @@ const viewerField = {
           },
           fromHistory: {
             type: GraphQLBoolean
+          },
+          fromLocation: {
+            type: GraphQLString,
+            description: 'format sectionName,hash'
           }
         },
         listAllFn: async (parent, args, req) => {
@@ -87,22 +90,62 @@ const viewerField = {
             pageHeight: args.pageHeight,
             width: args.width,
             fontSize: args.fontSize,
-            lineHeight: args.lineHeight
+            lineHeight: args.lineHeight,
+            fromLocation: args.fromLocation
           })
 
-          if (!args.fromHistory) {
-            return data
-          }
-
-          const progress = (await getReadingProgressCore({ bookId, userId }) || {})
-          const percentage = progress['percentage'] || 0
-          const pageNo = Math.floor(data.length * percentage) + 1
-          return {
-            data,
-            meta: {
-              offset: pageNo
+          if (args.fromHistory) {
+            const progress = (await getReadingProgressCore({ bookId, userId }) || {})
+            const percentage = progress['percentage'] || 0
+            const pageNo = Math.floor(data.length * percentage) + 1
+            return {
+              data,
+              meta: {
+                offset: pageNo
+              }
             }
           }
+
+          if (args.fromLocation) {
+            const loc = args.fromLocation.split(',')
+            const sectionName = loc[0]
+            const tagId = loc[1]
+
+            let result = data.filter(d => {
+              return d.meta.section === sectionName
+            })
+
+            if (tagId) {
+              const hasTagIdInElements = elements => {
+                return elements.some(e => {
+                  // attrs#id is the original key, tagId is renamed in graphql
+                  // because of some issue in apollo
+                  const hasTagId = _.get(e, 'attrs.id', '') === tagId
+                  if (e.children && !hasTagId) {
+                    return hasTagIdInElements(e.children)
+                  }
+                  return hasTagId
+                })
+              }
+
+              result = result.filter(r => {
+                return hasTagIdInElements(r.elements)
+              })
+            }
+
+            if (result.length === 0) {
+              return Promise.reject(new Error('Location not found!'))
+            }
+
+            return {
+              data,
+              meta: {
+                offset: result[0].meta.pageNo - 1
+              }
+            }
+          }
+
+          return data
         }
       }),
       readingProgress: {

@@ -78,6 +78,9 @@ const GQLBookPage = new GraphQLObjectType({
           },
           offset: {
             type: GraphQLInt
+          },
+          section: {
+            type: GraphQLString
           }
         }
       }),

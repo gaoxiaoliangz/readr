@@ -177,7 +177,14 @@ export const resolveBookPages = async (options) => {
   let pageSum = 0
   const pages = sections
     .map((section, index) => {
-      const result = groupNodesByPage(section.htmlObject, heights[index], pageHeight, pageSum)
+      const result = groupNodesByPage(section.htmlObject, {
+        nodeHeights: heights[index],
+        pageHeight,
+        pageStartFrom: pageSum,
+        meta: {
+          section: section.pathObject.name
+        }
+      })
       pageSum += result.length
       return result
     })
