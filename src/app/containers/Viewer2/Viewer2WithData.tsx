@@ -30,6 +30,7 @@ interface StateProps {
 
 interface OwnProps {
   params: any
+  fromHistory: boolean
   config: {
     fontSize: number
     width: number
@@ -215,8 +216,8 @@ class Viewer2WithData extends Component<StateProps & OwnProps, void> {
 const _Viewer2WithData = graphql(
   viewerQuery,
   {
-    options: (props: OwnProps & { params }) => {
-      const { config: { pageHeight, fontSize, lineHeight, width } } = props
+    options: (props: OwnProps) => {
+      const { config: { pageHeight, fontSize, lineHeight, width }, fromHistory } = props
 
       return {
         variables: {
@@ -225,7 +226,8 @@ const _Viewer2WithData = graphql(
           pageHeight,
           fontSize,
           lineHeight,
-          width
+          width,
+          fromHistory
         }
       }
     }

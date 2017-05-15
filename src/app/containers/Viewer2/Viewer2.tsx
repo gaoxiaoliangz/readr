@@ -44,6 +44,7 @@ class Viewer2 extends Component<Props, {}> {
           pageHeight,
           lineHeight: 1.7
         }}
+        fromHistory
       />
     )
   }

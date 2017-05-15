@@ -8,7 +8,8 @@ query Viewer2(
     $width: Int!,
     $lineHeight: Float!,
     $fontSize: Float!, 
-    $offset: Int
+    $offset: Int,
+    $fromHistory: Boolean
   ) {
   bookInfo(id: $bookId) {
     title
@@ -30,7 +31,8 @@ query Viewer2(
       first: $first,
       last: $last,
       before: $before,
-      after: $after
+      after: $after,
+      fromHistory: $fromHistory
     ) {
       totalCount
       edges {
