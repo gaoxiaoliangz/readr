@@ -1,63 +1,49 @@
 import React, { Component } from 'react'
-import { Router } from 'react-router'
-import { Provider } from 'react-redux'
+import { Router, RouterContext } from 'react-router'
 import _ from 'lodash'
 import { ApolloProvider } from 'react-apollo'
+// import { Provider } from 'react-redux'
 import helpers from '../helpers'
-// import createApolloClient from '../createApolloClient'
 import apolloClient from '../apolloClient'
+// import createApolloClient from '../createApolloClient'
 
 // const client = createApolloClient()
 
 interface Props {
   store: any
   renderProps?: any
-  routes?: any
-  history?: any
+  renderPageContent?: boolean
 }
 
-class Root extends Component<Props, {}> {
+class AppProvider extends Component<Props, {}> {
 
-  defaultProps: {
-    renderProps: {}
+  static defaultProps = {
+    renderPageContent: true
+  }
+
+  renderRouter(renderProps) {
+    return helpers.isServerEnv()
+      ? (
+        <RouterContext {...renderProps} />
+      )
+      : (
+        <Router {...renderProps} />
+      )
   }
 
   render() {
-    let { store, renderProps, routes, history } = this.props
+    const { store, renderProps, renderPageContent } = this.props
 
-    if (_.isEmpty(renderProps)) {
-      if (routes) {
-        renderProps.routes = routes
-
-        if (!history) {
-          console.error('没有给 Router 提供 history！')
-        } else {
-          renderProps.history = history
-        }
-      }
-    }
-
-    /*return (
-      <Provider store={store}>
-        {
-          helpers.isServerEnv()
-            ? (
-              <Router {...renderProps} />
-            )
-            : (
-              <ApolloProvider store={store} client={apolloClient}>
-                <Router {...renderProps} />
-              </ApolloProvider>
-            )
-        }
-      </Provider>
-    )*/
     return (
       <ApolloProvider store={store} client={apolloClient}>
-        <Router {...renderProps} />
+        {
+          renderPageContent
+            ? this.renderRouter(renderProps)
+            : <div className="text-loading">Loading...</div>
+        }
       </ApolloProvider>
     )
   }
 }
 
-export default Root
+export default AppProvider
