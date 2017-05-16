@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, IndexRedirect, IndexRoute } from 'react-router'
-import Master from './components/Master'
-import App from './components/App'
-import Console from './components/Console'
+import RootRoute from './containers/RootRoute'
+import UserApp from './containers/UserApp'
+import AdminApp from './containers/AdminApp'
 import restAPI from './webAPI'
 
 const configRoutes = (context = {}) => {
@@ -24,11 +24,11 @@ const configRoutes = (context = {}) => {
   }
 
   return (
-    <Route path="/" component={Master}>
+    <Route path="/" component={RootRoute}>
       <Route path="viewer/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer').default)} />
       <Route path="viewer/v2/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer2').default)} />
       <Route path="authors" getComponent={() => require.ensure([], require => require('./containers/Authors/Authors').default)} />
-      <Route component={App}>
+      <Route component={UserApp}>
         <IndexRoute getComponent={() => require.ensure([], require => require('./containers/AppHome').default)} />
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
@@ -43,7 +43,7 @@ const configRoutes = (context = {}) => {
           <Route path="profile" getComponent={() => require.ensure([], require => require('./containers/Profile').default)} />
         </Route>
       </Route>
-      <Route onEnter={authorize(['admin'])} path="console" component={Console}>
+      <Route onEnter={authorize(['admin'])} path="console" component={AdminApp}>
         <IndexRedirect to="/console/books" />
         <Route path="books" getComponent={() => require.ensure([], require => require('./containers/ManageBooks').default)} />
         <Route path="users" getComponent={() => require.ensure([], require => require('./containers/ManageUsers').default)} />

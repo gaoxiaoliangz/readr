@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import ServerSideAppRoot from '../../../app/components/ServerSideAppRoot'
+import AppProvider from '../../../app/containers/AppProvider'
 import rootSaga from '../../../app/sagas'
 
 function fetchData(req, res, next) {
@@ -8,7 +8,7 @@ function fetchData(req, res, next) {
   const store = req.locals.store
 
   const rootComponent = (
-    <ServerSideAppRoot
+    <AppProvider
       renderPageContent
       renderProps={renderProps}
       store={req.locals.store}

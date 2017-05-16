@@ -5,7 +5,7 @@ import Colophon from '../components/Colophon'
 import { loadShelf } from '../actions/api'
 import _ from 'lodash'
 import * as selectors from '../selectors'
-import DocContainer from './DocContainer'
+import DocContainer from '../components/DocContainer'
 
 interface Props {
   loadShelf: typeof loadShelf
