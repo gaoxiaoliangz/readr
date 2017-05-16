@@ -4,9 +4,10 @@ import { Provider } from 'react-redux'
 import _ from 'lodash'
 import { ApolloProvider } from 'react-apollo'
 import helpers from '../helpers'
-import createApolloClient from '../createApolloClient'
+// import createApolloClient from '../createApolloClient'
+import apolloClient from '../apolloClient'
 
-const client = createApolloClient()
+// const client = createApolloClient()
 
 interface Props {
   store: any
@@ -36,7 +37,7 @@ class Root extends Component<Props, {}> {
       }
     }
 
-    return (
+    /*return (
       <Provider store={store}>
         {
           helpers.isServerEnv()
@@ -44,12 +45,17 @@ class Root extends Component<Props, {}> {
               <Router {...renderProps} />
             )
             : (
-              <ApolloProvider client={client}>
+              <ApolloProvider store={store} client={apolloClient}>
                 <Router {...renderProps} />
               </ApolloProvider>
             )
         }
       </Provider>
+    )*/
+    return (
+      <ApolloProvider store={store} client={apolloClient}>
+        <Router {...renderProps} />
+      </ApolloProvider>
     )
   }
 }
