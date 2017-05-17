@@ -12,7 +12,9 @@ FROM node:6.9.2
 
 # CMD [ "node", "server.js" ]
 
+RUN node -v
+RUN npm -v
 
-RUN yarn install
-RUN yarn run build
+RUN npm install
+RUN npm run build
 CMD [ "node", "bin", "-p" ]
