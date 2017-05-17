@@ -8,7 +8,7 @@ export default class BookToc extends Component<Props, void> {
 
   renderLink(ref, hash, label) {
     if (hash) {
-      return <a className="text-link" href={`#${ref}$${hash}`}>{label}</a>
+      return <a className="text-link" href={`#${ref},${hash}`}>{label}</a>
     }
     return <a className="text-link" href={`#${ref}`}>{label}</a>
   }

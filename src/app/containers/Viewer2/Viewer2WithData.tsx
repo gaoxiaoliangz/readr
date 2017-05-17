@@ -67,7 +67,7 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
       this.setState({
         isInitialRender: false
       })
-      const scrollTop = nextProps.data.viewer.bookPages.edges[0].node.meta.pageNo * this.props.config.pageHeight
+      const scrollTop = (nextProps.data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
       setTimeout(function () {
         document.body.scrollTop = scrollTop
       }, 500)
@@ -96,9 +96,13 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
         fromLocation: fromLocation || null
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
-        const edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+        let edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+        edges = _.unionBy(edges, node => {
+          return node.cursor
+        })
+        edges = edges.sort((a, b) => a.node.meta.pageNo - b.node.meta.pageNo)
 
-        const merged = Object.assign({}, previousResult, {
+        const merged = _.merge({}, fetchMoreResult, {
           viewer: {
             bookPages: {
               edges

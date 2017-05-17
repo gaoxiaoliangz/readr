@@ -37,6 +37,10 @@ query Viewer2(
       fromLocation: $fromLocation
     ) {
       totalCount
+      fromHistory
+      fromLocation
+      startPage
+      offset
       edges {
         cursor
         node {
@@ -89,6 +93,7 @@ fragment tocFields on TocChapter {
     ext
     prefix
     url
+    hash
   }
 }
 
