@@ -46,36 +46,16 @@ export function listShelfBooks(options) {
     return Promise
       .all(docs
         .map(doc => {
-          return dataProvider.Book.findById(doc._id).exec().then(bookDoc => {
-            // todo
+          return dataProvider.Book.findById(doc['book_id']).exec().then(bookDoc => {
+            // todo: outputEmpty, in case book is removed
+            // if (!bookDoc) {
+            //   return bookModel.outputEmpty(result.book_id)
+            // }
             return bookDoc
           })
         })
       )
   })
-  //   return progressModel.listRaw({ query: { user_id: userId } }).then(results => {
-  //     if (results.length === 0) {
-  //       return results
-  //     }
-
-  //     return Promise
-  //       .all(results
-  //         .sort(utils.sortByDate())
-  //         .map(result => {
-  //           return bookModel.findOne(result.book_id, true).then(res => {
-  //             return res
-  //           }, error => {
-  //             // 如果错误不是 404 也输出空的 entity
-  //             return bookModel.outputEmpty(result.book_id)
-  //           })
-  //         })
-  //       )
-  //       .then(res => {
-  //         return paginate(res.map(entity => _.omit(entity, ['content'])), {
-  //           page
-  //         }) as Object
-  //       })
-  //   })
 }
 
 export default {
