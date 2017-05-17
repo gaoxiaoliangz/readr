@@ -11,7 +11,8 @@ FROM node:6.9.2
 # RUN yarn install --production --no-progress
 
 # CMD [ "node", "server.js" ]
-
+RUN ls
+RUN pwd
 RUN node -v
 RUN npm -v
 
