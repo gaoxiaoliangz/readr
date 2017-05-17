@@ -1,4 +1,5 @@
 # FROM node:7.9.0-alpine
+FROM node:6.9.2
 
 # Set a working directory
 # WORKDIR /usr/src/app
@@ -13,5 +14,5 @@
 
 
 RUN yarn install
-RUN yarn build
+RUN yarn run build
 CMD [ "node", "bin", "-p" ]
