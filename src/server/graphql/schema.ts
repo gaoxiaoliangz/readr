@@ -32,19 +32,6 @@ import { makeNodeConnectionField } from './utils'
 import resolveBookInfo from './resolvers/resolve-book-info'
 import { setReadingProgressCore, getReadingProgressCore } from '../api/user'
 
-// const makeList = (list) => {
-//   if (list instanceof Promise) {
-//     return list.then(result => {
-//       return {
-//         list: <any[]>result
-//       }
-//     })
-//   }
-//   return {
-//     list: <any[]>list
-//   }
-// }
-
 const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',
@@ -148,6 +135,10 @@ const viewerField = {
         },
         extendedFields: ({ sliceStart, connection }) => (parent, args, req) => {
           const offset = args.offset || 0
+          const base = {
+            fromHistory: args.fromHistory,
+            fromLocation: args.fromLocation
+          }
 
           if (args.before || args.after) {
             if (offset !== 0) {
@@ -155,14 +146,16 @@ const viewerField = {
             }
 
             return {
+              ...base,
               offset: 0,
               startPage: _.get(connection, 'edges[0].node.meta.pageNo', null)
             }
           }
 
           return {
+            ...base,
             offset,
-            startPage: sliceStart - offset + 1
+            startPage: sliceStart - offset + 1,
           }
         },
         listAllFn: async (parent, args, req) => {
