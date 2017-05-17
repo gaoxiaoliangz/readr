@@ -7,6 +7,11 @@ declare module '*.scss' {
   export default content
 }
 
+declare module '*.gql' {
+  const content: any
+  export default content
+}
+
 declare module '*.gif' {
   const content: any
   export default content

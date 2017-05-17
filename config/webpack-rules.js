@@ -20,6 +20,14 @@ module.exports = {
     }
   },
 
+  gql() {
+    return {
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    }
+  },
+
   js() {
     return {
       test: /\.jsx?$/,

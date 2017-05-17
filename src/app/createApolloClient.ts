@@ -1,7 +1,10 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:8090/gql'
+  uri: 'http://localhost:8090/gql',
+  opts: {
+    credentials: 'same-origin'
+  }
 })
 
 const createApolloClient = () => {

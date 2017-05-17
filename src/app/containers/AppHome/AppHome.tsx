@@ -10,9 +10,6 @@ import { Button } from '../../components/form'
 import { Container } from '../../components/layout'
 import styles from './AppHome.scss'
 
-console.log('home');
-
-
 interface Props {
   session: Session
   loadBooks: typeof loadBooks
@@ -69,7 +66,7 @@ class AppHome extends Component<Props, IState> {
             title="新书速递"
             moreLink="/browse"
             isFetching={bookList.fetchStatus === 'loading'}
-            />
+          />
         </Container>
       </DocContainer>
     )

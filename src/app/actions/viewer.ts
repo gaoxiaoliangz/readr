@@ -6,6 +6,11 @@ export const initializeViewer = (bookId: string, config: Viewer.Config = {}) => 
   type: ACTION_TYPES.VIEWER.INITIALIZE
 })
 
+export const setViewerId = (bookId: string) => ({
+  payload: bookId,
+  type: ACTION_TYPES.VIEWER.SET_ID
+})
+
 export const configViewer = (config: Viewer.Config = {}, isInit: boolean = false) => ({
   payload: config,
   meta: { isInit },

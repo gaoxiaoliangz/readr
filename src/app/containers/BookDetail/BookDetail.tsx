@@ -59,7 +59,7 @@ class BookDetail extends Component<Props, {}> {
                             <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
                           </div>
                           <div>
-                            <Button styleName="btn-read" to={`/viewer/book/${bookInfo.id}`} color="blue">阅读</Button>
+                            <Button styleName="btn-read" to={`/viewer/v2/book/${bookInfo.id}`} color="blue">阅读</Button>
                           </div>
                         </div>
                       </div>

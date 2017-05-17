@@ -1,0 +1,13 @@
+@import "~styles/variables";
+
+.pop-box {
+  background: #fff;
+  box-shadow: $shadow-y2;
+  color: $text;
+  border-radius: 3px;
+  -webkit-user-select: none;
+  overflow: hidden;
+  text-align: center;
+  z-index: $z-viewer-pref;
+  cursor: default;
+}

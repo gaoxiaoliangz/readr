@@ -1,0 +1,55 @@
+.h-tags {
+  color: #333;
+  font-weight: normal;
+  line-height: 2;
+}
+
+.section {
+  margin: 0 auto;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  br {
+    line-height: 20px;
+  }
+
+  p {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    min-height: 20px;
+    display: block;
+  }
+
+  h1 {
+    @extend .h-tags;
+    font-size: 2em;
+  }
+
+  h2 {
+    @extend .h-tags;
+    font-size: 1.5em;
+  }
+
+  h3 {
+    @extend .h-tags;
+    font-size: 1.2em;
+  }
+
+  h4, h5, h6 {
+    @extend .h-tags;
+    font-size: 1em;
+    font-weight: bold;
+  }
+}
+
+.line {
+  margin: 0;
+}

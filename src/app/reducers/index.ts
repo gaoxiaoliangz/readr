@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import { reducer as form } from 'better-redux-form'
+// import { ApolloClient } from 'react-apollo'
 import components from './components'
 import { entities } from './entities'
 import * as TYPES from '../actions/actionTypes'
@@ -9,6 +10,9 @@ import { ROLES } from '../../constants'
 import receiveData from './utils/receiveData'
 import paginate from './utils/paginate'
 import viewer from './viewer'
+import apolloClient from '../apolloClient'
+
+// const apoClient = new ApolloClient()
 
 function errorMessage(state = [], action) {
   const { error, type } = action
@@ -38,7 +42,8 @@ const rootReducer = combineReducers({
   session: receiveData(TYPES.SESSION, {
     role: ROLES.VISITOR
   }),
-  profile: receiveData(TYPES.PROFILE)
+  profile: receiveData(TYPES.PROFILE),
+  apollo: apolloClient.reducer(),
 })
 
 export default rootReducer

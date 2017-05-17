@@ -62,7 +62,8 @@ module.exports = {
       rules.scssLocal({ extract: true, isomorphic: false, sourceMap: false }),
       rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: false }),
       rules.css({ extract: true, isomorphic: false }),
-      rules.img()
+      rules.img(),
+      rules.gql()
     ],
   },
   resolve: vars.resolve

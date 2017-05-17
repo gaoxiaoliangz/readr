@@ -37,7 +37,7 @@ class BookListSection extends Component<IProps, {}> {
         }
         {
           isFetching && bookEntities.length === 0
-            ? <Loading />
+            ? <Loading useNProgress />
             : <BookList bookEntities={bookEntities} />
         }
       </div>

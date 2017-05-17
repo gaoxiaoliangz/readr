@@ -1,5 +1,8 @@
-type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
-type Roles = 'admin' | 'user' | 'visitor'
+/**
+ * action
+ * used by redux actions
+ */
+
 type TNotification = 'success' | 'error' | 'warning' | 'ongoing'
 
 interface RequestTypes {

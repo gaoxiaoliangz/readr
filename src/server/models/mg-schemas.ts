@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import { Schema } from 'mongoose'
 import i18n from '../utils/i18n'
 import validator from 'validator'
 
@@ -42,9 +42,10 @@ export const bookFields = {
     type: Object,
     hooks: {
       pre: (next, root, args, request) => {
+        // todo
         // authorize the logged in user based on the request
         // throws error if the user has no right to request the user names
-        next('heheh')
+        next('pre')
       },
       // manipulate response
       post: [

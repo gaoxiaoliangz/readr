@@ -1,3 +1,4 @@
+// tslint:disable:no-unused-variable
 import {
   GraphQLBoolean,
   GraphQLID,
@@ -7,8 +8,9 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
+  GraphQLDeprecatedDirective,
+  GraphQLFloat
 } from 'graphql'
-
 import {
   connectionArgs,
   connectionDefinitions,
@@ -18,247 +20,178 @@ import {
   globalIdField,
   mutationWithClientMutationId,
   nodeDefinitions,
-  toGlobalId,
+  toGlobalId
 } from 'graphql-relay'
+// tslint:enable:no-unused-variable
 import _ from 'lodash'
 import { resolveBookPages } from '../api/bookPages'
 import dataProvider from '../models/data-provider'
-import md5 from 'vendor/md5'
-const debug = require('debug')('readr:gqlschema')
-
-class User { }
-class Author { }
-
-const author = new Author
-
-const bookPageTypeName = 'BookPage'
-
-const { nodeInterface, nodeField } = nodeDefinitions(
-  async (globalId) => {
-    let { type, id } = fromGlobalId(globalId)
-    switch (type) {
-      // we will use sequelize to resolve the id of its object
-      case bookPageTypeName:
-        // return id
-        return null
-      case 'Author':
-        const result = await dataProvider.Author.utils.findById(id)
-        return _.assign(author, result.toObject())
-      default:
-        debug('null node interface')
-        return null
-    }
-  },
-  (obj) => {
-    // we will use sequelize to resolve the object tha timplements node
-    // to its type.
-    switch (obj.constructor) {
-      case Author:
-        // tslint:disable-next-line:no-use-before-declare
-        return GQLAuthor
-    
-      default:
-        return null
-    }
-
-    // if (obj instanceof Author) {
-    //   // tslint:disable-next-line:no-use-before-declare
-    //   return GQLAuthor
-    // } else {
-    //   return null
-    // }
-  }
-)
-
-////////////////////////////////////////////////////////////////////////////////////
-//                                  types                                         //
-////////////////////////////////////////////////////////////////////////////////////
-const GQLHTMLElementObject = new GraphQLObjectType({
-  name: 'HTMLElementObject',
-  interfaces: [nodeInterface],
-  fields: () => ({
-    id: globalIdField('HTMLElementObject', (entity) => {
-      return md5(JSON.stringify(entity))
-    }),
-    tag: {
-      type: GraphQLString
-    },
-    type: {
-      type: GraphQLInt
-    },
-    text: {
-      type: GraphQLString
-    },
-    attrs: {
-      type: new GraphQLObjectType({
-        name: 'HTMLAttrObject',
-        fields: {
-          id: {
-            type: GraphQLString
-          },
-          href: {
-            type: GraphQLString
-          },
-          src: {
-            type: GraphQLString
-          }
-        }
-      })
-    },
-    children: {
-      type: new GraphQLList(GQLHTMLElementObject)
-    }
-  })
-})
-
-const GQLBookPage = new GraphQLObjectType({
-  name: bookPageTypeName,
-  interfaces: [nodeInterface],
-  description: 'Computed bookpage',
-  fields: {
-    id: globalIdField(bookPageTypeName, (entity) => {
-      return md5(JSON.stringify(entity))
-    }),
-    elements: {
-      type: new GraphQLList(GQLHTMLElementObject),
-      resolve(bookPage) {
-        return bookPage.elements
-      }
-    },
-    meta: {
-      type: new GraphQLObjectType({
-        name: 'BookPageMeta',
-        fields: {
-          pageNo: {
-            type: GraphQLInt
-          },
-          offset: {
-            type: GraphQLInt
-          }
-        }
-      }),
-      resolve(bookPage) {
-        return bookPage.meta
-      }
-    }
-  }
-})
-
-const { connectionType: GQLBookPageConnection } =
-  connectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
-
-const GQLAuthor = new GraphQLObjectType({
-  name: 'Author',
-  description: 'Book author, normally it\'s fetched from douban.',
-  fields: {
-    // _id: {
-    //   type: GraphQLString
-    // },
-    id: globalIdField('Author'),
-    name: {
-      type: GraphQLString,
-      resolve(_author) {
-        return _author.name
-      }
-    },
-    description: {
-      type: GraphQLString,
-      resolve(_author) {
-        return _author.description
-      }
-    }
-  },
-  interfaces: [nodeInterface]
-})
-
-const { connectionType: GQLAuthorConnection } =
-  connectionDefinitions({ name: 'Author', nodeType: GQLAuthor })
-
-const GQLTag = new GraphQLObjectType({
-  name: 'Tag',
-  description: 'Book tag.',
-  fields: {
-    _id: {
-      type: GraphQLString
-    },
-    name: {
-      type: GraphQLString
-    },
-    description: {
-      type: GraphQLString
-    }
-  }
-})
-
-////////////////////////////////////////////////////////////////////////////////////
-//                                  fields                                        //
-////////////////////////////////////////////////////////////////////////////////////
-const bookPagesField = {
-  type: GQLBookPageConnection,
-  args: {
-    ...connectionArgs,
-    ...{
-      bookId: {
-        type: new GraphQLNonNull(GraphQLString)
-      },
-      pageHeight: {
-        type: new GraphQLNonNull(GraphQLInt)
-      }
-    }
-  } as GeneralObject,
-  resolve: async (obj, args) => {
-    const list = await resolveBookPages({
-      id: args.bookId,
-      pageHeight: args.pageHeight
-    })
-    return connectionFromArray(list, args)
-  }
-}
-
-const authorField = {
-  type: GQLAuthor,
-  args: {
-    id: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
-  },
-  resolve(obj, { id }, req) {
-    return dataProvider.Author.findById(id)
-  }
-}
-
-const tagField = {
-  type: GQLTag,
-  args: {
-    id: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
-  },
-  resolve(obj, { id }, req) {
-    return dataProvider.Tag.findById(id)
-  }
-}
+import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection, GQLBookInfo, GQLReadingProgress } from './gql-types'
+import { nodeInterface, nodeField } from './gql-node'
+import { makeNodeConnectionField } from './utils'
+import resolveBookInfo from './resolvers/resolve-book-info'
+import { setReadingProgressCore, getReadingProgressCore } from '../api/user'
 
 const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',
-    fields: {
-      id: {
-        type: new GraphQLNonNull(GraphQLID)
+    fields: () => ({
+      id: globalIdField('User'),
+      role: {
+        type: GraphQLString
       },
-      authors: {
+      username: {
+        type: GraphQLString
+      },
+      authors: makeNodeConnectionField({
         type: GQLAuthorConnection,
-        args: connectionArgs,
-        async resolve(parent, args) {
-          const list = await dataProvider.Author.find({}).exec()
-          return connectionFromArray(list, args)
+        listAllFn: () => dataProvider.Author.find().exec()
+      }),
+      files: makeNodeConnectionField({
+        type: GQLFileConnection,
+        listAllFn: () => dataProvider.File.find({}).exec()
+      }),
+      bookInfo: makeNodeConnectionField({
+        type: GQLBookInfoConnection,
+        listAllFn: () => dataProvider.Book.find({}).exec()
+      }),
+      bookPages: makeNodeConnectionField({
+        type: GQLBookPageConnection,
+        extendedArgs: {
+          bookId: {
+            type: new GraphQLNonNull(GraphQLID)
+          },
+          pageHeight: {
+            type: new GraphQLNonNull(GraphQLInt)
+          },
+          width: {
+            type: new GraphQLNonNull(GraphQLInt)
+          },
+          fontSize: {
+            type: new GraphQLNonNull(GraphQLFloat)
+          },
+          lineHeight: {
+            type: new GraphQLNonNull(GraphQLFloat)
+          },
+          fromHistory: {
+            type: GraphQLBoolean
+          },
+          fromLocation: {
+            type: GraphQLString,
+            description: 'format sectionName,hash'
+          }
+        },
+        sliceStart: (list) => async (parent, args, req) => {
+          const bookId = fromGlobalId(args.bookId).id
+          const { user: { _id: userId } } = req
+          const offset = args.offset || 0
+
+          if (args.before || args.after) {
+            return 0
+          }
+
+          if (args.fromHistory) {
+            const progress = (await getReadingProgressCore({ bookId, userId }) || {})
+            const percentage = progress['percentage'] || 0
+            const pageNo = Math.floor(list.length * percentage) + 1
+            return offset + pageNo
+          }
+
+          if (args.fromLocation) {
+            const loc = args.fromLocation.split(',')
+            const sectionName = loc[0]
+            const tagId = loc[1]
+
+            let result = list.filter(d => {
+              return d.meta.section === sectionName
+            })
+
+            if (tagId) {
+              const hasTagIdInElements = elements => {
+                return elements.some(e => {
+                  // attrs#id is the original key, tagId is renamed in graphql
+                  // because of some issue in apollo
+                  const hasTagId = _.get(e, 'attrs.id', '') === tagId
+                  if (e.children && !hasTagId) {
+                    return hasTagIdInElements(e.children)
+                  }
+                  return hasTagId
+                })
+              }
+
+              result = result.filter(r => {
+                return hasTagIdInElements(r.elements)
+              })
+            }
+
+            if (result.length === 0) {
+              return Promise.reject(new Error('Location not found!'))
+            }
+
+            const pageNo = result[0].meta.pageNo - 1
+            return offset + pageNo
+          }
+          return offset
+        },
+        extendedFields: ({ sliceStart, connection }) => (parent, args, req) => {
+          const offset = args.offset || 0
+          const base = {
+            fromHistory: args.fromHistory,
+            fromLocation: args.fromLocation
+          }
+
+          if (args.before || args.after) {
+            if (offset !== 0) {
+              throw new Error('Offset not available when using cursor!')
+            }
+
+            return {
+              ...base,
+              offset: 0,
+              startPage: _.get(connection, 'edges[0].node.meta.pageNo', null)
+            }
+          }
+
+          return {
+            ...base,
+            offset,
+            startPage: sliceStart - offset + 1,
+          }
+        },
+        listAllFn: async (parent, args, req) => {
+          const bookId = fromGlobalId(args.bookId).id
+
+          return resolveBookPages({
+            id: bookId,
+            pageHeight: args.pageHeight,
+            width: args.width,
+            fontSize: args.fontSize,
+            lineHeight: args.lineHeight
+          })
+        }
+      }),
+      readingProgress: {
+        type: GQLReadingProgress,
+        args: {
+          bookId: {
+            type: new GraphQLNonNull(GraphQLID)
+          }
+        },
+        resolve(obj, args, req) {
+          const { bookId } = args
+          const { user: { _id: userId } } = req
+          return getReadingProgressCore({ bookId, userId })
         }
       }
-    },
+    }),
     interfaces: [nodeInterface]
   }),
   resolve(obj, args, req) {
-    return {}
+    const { user } = req
+    return {
+      ...user,
+      id: user._id
+    }
   }
 }
 
@@ -267,13 +200,63 @@ const Query = new GraphQLObjectType({
   fields: {
     node: nodeField,
     viewer: viewerField,
-    author: authorField,
-    tag: tagField,
-    bookPages: bookPagesField
+    bookInfo: {
+      type: GQLBookInfo,
+      args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLID)
+        }
+      },
+      resolve: async (parent, args) => {
+        const { id } = fromGlobalId(args.id)
+        const result = await resolveBookInfo(id)
+        return result
+      }
+    }
+  }
+})
+
+const GQLUpdateReadingProgressMutation = mutationWithClientMutationId({
+  name: 'UpdateReadingProgress',
+  inputFields: {
+    bookId: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    percentage: {
+      type: new GraphQLNonNull(GraphQLFloat)
+    },
+  },
+  outputFields: {
+    ok: {
+      type: GraphQLInt
+    },
+    n: {
+      type: GraphQLInt
+    },
+    nModified: {
+      type: GraphQLInt
+    }
+  },
+  mutateAndGetPayload: async (args, req) => {
+    const { user: { _id: userId } } = req
+    const bookId = fromGlobalId(args.bookId).id
+    const result = await setReadingProgressCore({
+      ...args,
+      userId,
+      bookId
+    })
+    return result
+  }
+})
+
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    updateReadingProgress: GQLUpdateReadingProgressMutation
   }
 })
 
 export default new GraphQLSchema({
   query: Query,
-  // mutation: Mutation,
+  mutation: Mutation
 })

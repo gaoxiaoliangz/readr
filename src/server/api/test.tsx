@@ -2,11 +2,11 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import _ from 'lodash'
 import html from '../../parsers/html'
-import Template from '../../renderers/Template'
 import evaluate from '../../renderers/evaluate'
 // import calcBook from '../../app/sagas/effects/calcBook'
 import { getNodeHeights } from '../../app/sagas/effects/paging'
 import AppDoc from '../../app/components/AppDoc'
+import HTMLObjectsRenderer from '../../app/components/HTMLObjectsRenderer/HTMLObjectsRenderer'
 
 
 const htmlstring = `
@@ -238,12 +238,12 @@ const htmlstring7 = `
 
 const test = async (options) => {
   const htmlObject = html(htmlstring6)
-
-  const htmlString = renderToStaticMarkup(
+  const htmlString = renderToStaticMarkup(<div></div>)
+  /*const htmlString = renderToStaticMarkup(
     <AppDoc
-      appMarkup={<Template htmlObjects={htmlObject} />}
+      appMarkup={<HTMLObjectsRenderer htmlObjects={htmlObject} />}
     />
-  )
+  )*/
 
   return evaluate(htmlString, {
     saveShotAsPng: false,

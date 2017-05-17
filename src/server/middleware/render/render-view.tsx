@@ -3,7 +3,7 @@ import path from 'path'
 import _ from 'lodash'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import DocContainer from '../../../app/components/DocContainer'
-import ServerSideAppRoot from '../../../app/components/ServerSideAppRoot'
+import AppProvider from '../../../app/containers/AppProvider'
 import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
 import getIP from '../../../app/helpers/getIP'
@@ -62,7 +62,7 @@ function renderView(isProduction) {
 
   return (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
-    const appRootMarkup = renderToString(<ServerSideAppRoot
+    const appRootMarkup = renderToString(<AppProvider
       renderPageContent
       renderProps={renderProps}
       store={req.locals.store}

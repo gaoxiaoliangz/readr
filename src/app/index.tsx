@@ -6,7 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './configureStore'
 import rootSaga from './sagas'
 import helpers from './helpers'
-import Root from './components/Root'
+import AppProvider from './containers/AppProvider'
 
 const routerHistory = helpers.isServerRoutingEnabled()
   ? browserHistory
@@ -21,7 +21,7 @@ store.runSaga(rootSaga)
 const renderApp = routes => {
   match({ history, routes }, (error, redirectLocation, renderProps) => {
     render(
-      <Root
+      <AppProvider
         store={store}
         renderProps={renderProps}
       />,

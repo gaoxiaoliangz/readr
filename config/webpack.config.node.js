@@ -34,7 +34,9 @@ module.exports = {
       rules.img({ emitFile: false }),
       rules.ts({ officialLoader: false }),
       rules.scssLocal({ isomorphic: true, extract: false }),
-      rules.css({ isomorphic: true })
+      rules.scssGlobal({ isomorphic: true, extract: false }),
+      rules.css({ isomorphic: true }),
+      rules.gql()
     ]
   },
   devtool: 'source-map',

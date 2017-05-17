@@ -2,30 +2,42 @@ import _ from 'lodash'
 import humps from 'humps'
 import dataProvider from '../models/data-provider'
 
-export function getReadingProgress(options) {
-  const { bookId } = options
-  const { user: { _id: userId } } = options.context
-
+export function getReadingProgressCore({bookId, userId}) {
   if (!userId) {
-    return Promise.reject(new Error('wtf??? no user?'))
+    return Promise.reject(new Error('Sign-in required!'))
   }
   const query = humps.decamelizeKeys({ userId, bookId })
 
   return dataProvider.Progress.findOne(query).exec()
 }
 
-export async function setReadingProgress(object, options) {
+export function getReadingProgress(options) {
   const { bookId } = options
   const { user: { _id: userId } } = options.context
+  return getReadingProgressCore({bookId, userId})
+}
+
+export const setReadingProgressCore = async ({ bookId, userId, percentage }) => {
+  if (!userId) {
+    return Promise.reject(new Error('Sign-in required!'))
+  }
   const query = humps.decamelizeKeys({ userId, bookId })
   const progressResult = await dataProvider.Progress.findOne(query).exec()
 
+  const object = { percentage }
+
   if (!progressResult) {
-    return dataProvider.Progress.utils.save(_.assign({}, object, query))
+    return dataProvider.Progress.utils.save(_.assign({}, object, query)).then(data => data.toObject())
   } else {
     const progressId = progressResult._id
     return dataProvider.Progress.utils.updateById(progressId, object)
   }
+}
+
+export async function setReadingProgress(object, options) {
+  const { bookId } = options
+  const { user: { _id: userId } } = options.context
+  return setReadingProgressCore({ bookId, userId, percentage: object.percentage })
 }
 
 export function listShelfBooks(options) {

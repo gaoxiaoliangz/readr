@@ -1,20 +1,4 @@
 import _ from 'lodash'
-// import styles from '../../containers/Viewer/components/BookPage.scss'
-
-// 暂不支持包含图片的计算
-// 计算没有等待图片加载完成，所以结果是不正确的
-// export function getNodeHeights(nodes) {
-//   let nodesHeight = []
-
-//   Array.prototype.forEach.call(nodes, (node, index) => {
-//     if (!node.className || node.className !== styles['gb-line']) {
-//       console.error('Unsupported content found!')
-//     }
-//     nodesHeight.push(node.clientHeight)
-//   })
-
-//   return nodesHeight
-// }
 
 // long paragraph situation doesn't seem to affect this function
 // offset distance is always negtive or zero
@@ -75,56 +59,43 @@ function getNodesOfPage({pageIndex, nodes, pageHeight, nodeHeights}: {
   return { pageNodes, offset }
 }
 
-
 export type TPage = {
-  nodes: string[]
+  elements: string[]
   meta: any
 }
 export type TPageList = TPage[]
-export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: number, pageStartFrom = 0, chapterId?): TPageList {
+type GroupNodesByPageConfig = {
+   nodeHeights: number[]
+   pageHeight: number
+   pageStartFrom: number
+   meta?: object
+}
+export function groupNodesByPage(elements: any, config: GroupNodesByPageConfig): TPageList {
+  const { nodeHeights, pageHeight, pageStartFrom, meta } = config
   let pages = []
   let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
   let pageSum = Math.ceil(pageHeightSum / pageHeight)
 
   if (nodeHeights.length === 0) {
     return [{
-      nodes,
+      elements,
       meta: {
         pageNo: 1 + pageStartFrom,
         offset: 0,
-        chapterId
+        ...meta
       }
     }]
   }
 
   // finally
   for (let i = 0; i < pageSum; i++) {
-    const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes, nodeHeights, pageHeight })
-
-    // const findIdOfHTags = (mdNode: string) => {
-    //   const pattern = /<h\d id="(.*)">(.*)<\/h\d>/
-    //   const result = mdNode.match(pattern)
-
-    //   if (result) {
-    //     return result[1]
-    //   }
-
-    //   return null
-    // }
-
-    // const hash = pageNodes
-    //   .map(node => {
-    //     return findIdOfHTags(node)
-    //   })
-    //   .filter(id => Boolean(id))
-
+    const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes: elements, nodeHeights, pageHeight })
     pages.push({
       elements: pageNodes,
       meta: {
         pageNo: pageStartFrom + i + 1,
         offset,
-        chapterId,
-        // hash
+        ...meta
       },
     })
   }
@@ -132,22 +103,18 @@ export function groupNodesByPage(nodes: any, nodeHeights: number[], pageHeight: 
   return pages
 }
 
-export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeightsOfChapters: {
-  id: string
-  nodeHeights: number[]
-}[], pageHeight: number) {
-  let pageStartFrom = 0
-  let allPages = []
-  const t0 = new Date().valueOf()
+// export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeightsOfChapters: {
+//   id: string
+//   nodeHeights: number[]
+// }[], pageHeight: number) {
+//   let pageStartFrom = 0
+//   let allPages = []
 
-  contentOfChapters.forEach((chapter, index) => {
-    const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
-    allPages = allPages.concat(pages)
-    pageStartFrom = pageStartFrom + pages.length
-  })
+//   contentOfChapters.forEach((chapter, index) => {
+//     const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
+//     allPages = allPages.concat(pages)
+//     pageStartFrom = pageStartFrom + pages.length
+//   })
 
-  const t1 = new Date().valueOf()
-  // helpers.print(`Grouping nodes takes ${t1 - t0}ms`)
-
-  return allPages
-}
+//   return allPages
+// }

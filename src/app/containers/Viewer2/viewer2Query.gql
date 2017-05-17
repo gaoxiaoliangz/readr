@@ -1,0 +1,114 @@
+query Viewer2(
+    $bookId: ID!,
+    $before: String,
+    $after: String,
+    $first: Int,
+    $last: Int,
+    $pageHeight: Int!,
+    $width: Int!,
+    $lineHeight: Float!,
+    $fontSize: Float!, 
+    $offset: Int,
+    $fromHistory: Boolean
+    $fromLocation: String
+  ) {
+  bookInfo(id: $bookId) {
+    title
+    toc {
+      ...tocRecursive
+    }
+  }
+  viewer {
+    readingProgress(bookId: $bookId) {
+      percentage
+    }
+    bookPages(
+      offset: $offset,
+      pageHeight: $pageHeight,
+      width: $width,
+      lineHeight: $lineHeight,
+      fontSize: $fontSize,
+      bookId: $bookId,
+      first: $first,
+      last: $last,
+      before: $before,
+      after: $after,
+      fromHistory: $fromHistory,
+      fromLocation: $fromLocation
+    ) {
+      totalCount
+      fromHistory
+      fromLocation
+      startPage
+      offset
+      edges {
+        cursor
+        node {
+          meta {
+            pageNo
+            offset
+          }
+          elements {
+            ...elementsRecursive
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment elementFields on HTMLElementObject {
+  tag
+  type
+  text
+  attrs {
+    tagId
+    href
+    src
+  }
+}
+
+fragment elementsRecursive on HTMLElementObject {
+  ...elementFields
+  children {
+    ...elementFields
+    children {
+      ...elementFields
+      children {
+        ...elementFields
+        children {
+          ...elementFields
+        }
+      }
+    }
+  }
+}
+
+fragment tocFields on TocChapter {
+  src
+  name
+  playOrder
+  srcObject {
+    name
+    ext
+    prefix
+    url
+    hash
+  }
+}
+
+fragment tocRecursive on TocChapter {
+  ...tocFields
+  children {
+    ...tocFields
+    children {
+      ...tocFields
+      children {
+        ...tocFields
+        children {
+          ...tocFields
+        }
+      }
+    }
+  }
+}

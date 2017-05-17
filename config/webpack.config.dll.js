@@ -12,6 +12,7 @@ module.exports = {
     filename: 'js/[name].dll.js',
     library: '__dll_[name]__'
   },
+  devtool: 'inline-source-map',
   plugins: [
     new webpack.DllPlugin({
       path: path.join(paths.buildStatic, 'dll.[name].manifest.json'),
