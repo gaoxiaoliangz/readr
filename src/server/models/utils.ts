@@ -10,7 +10,9 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
       return utils.listWithOptions()
     },
 
-    listWithOptions: async ({ page, populate, parser } = { page: 1, populate: undefined, parser: undefined }) => {
+    listWithOptions: async (config: { page?: number, populate?: string, parser?: any } = {}) => {
+      const { page: _page, populate, parser } = config
+      const page = Number(_page) || 1
       const skip = (page - 1) * LIMIT
       const count = await Model.count({})
 
