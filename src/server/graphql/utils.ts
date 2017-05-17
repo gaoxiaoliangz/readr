@@ -23,7 +23,6 @@ import {
   connectionFromArraySlice
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
-
 import _ from 'lodash'
 const debug = require('debug')('readr:gql-utils')
 
@@ -63,7 +62,8 @@ const makeGQLNodeType = nodeInterface => ({ name, mgFields, description, fields 
   })
 }
 
-export const extendedConnectionDefinitions = ({ name, nodeType }) => {
+export const extendedConnectionDefinitions = (config: { name, nodeType, connectionFields?}) => {
+  const { name, nodeType, connectionFields } = config
   return connectionDefinitions({
     name, nodeType, connectionFields: {
       totalCount: {
@@ -74,7 +74,8 @@ export const extendedConnectionDefinitions = ({ name, nodeType }) => {
           }
           return obj.totalCount
         }
-      }
+      },
+      ...connectionFields
     }
   })
 }
@@ -91,17 +92,21 @@ const makeGQLNodeTypeAndConnectionType = nodeInterface => (config: MakeGQLNodeTy
 type makeNodeConnectionFieldConfig = {
   type: any
   // args: parent: any, args: any, req: any, obj: any
-  // listAllFn: (...args: object[]) => any[] | { data, meta }
-  listAllFn: (...arg: any[]) => any
+  listAllFn: (...args: any[]) => any[] | Promise<any[]>
+  sliceStart?: (list: any[]) => (...args: any[]) => Promisable<number>
   extendedArgs?: {
+    [key: string]: any
+  },
+  extendedFields?: (config: { list: any[], sliceStart: number, connection: any }) => (...args: any[]) => {
     [key: string]: any
   }
 }
 export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) => {
-  const { type, listAllFn, extendedArgs } = config
+  const { type, listAllFn, extendedArgs, extendedFields: extendedFieldsFn, sliceStart: sliceStartFn } = config
   return {
     type,
     args: {
+      // @types has bugs
       ...connectionArgs as any,
       ...extendedArgs,
       offset: {
@@ -109,25 +114,24 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
       }
     },
     async resolve(...args) {
-      let listWrap = await listAllFn(...args)
-      let offset = args[1].offset
-      let list = listWrap
-      let slicedList = listWrap
+      const list = await listAllFn(...args)
+      const offset = args[1].offset
 
-      if (listWrap && listWrap.meta) {
-        offset = listWrap.meta.offset || offset
-        list = listWrap.data
-      }
+      const sliceStart = sliceStartFn
+        ? await sliceStartFn(list)(...args)
+        : (offset || 0)
 
-      const arrayLength = list.length
-      if (offset) {
-        slicedList = list.slice(offset)
-      }
+      const slicedList = sliceStart ? list.slice(sliceStart) : list
+
+      const connection = connectionFromArraySlice(slicedList, args[1], {
+        sliceStart,
+        arrayLength: list.length,
+      })
+      const extendedFields = extendedFieldsFn && extendedFieldsFn({ list, sliceStart, connection })(...args)
+
       return {
-        ...connectionFromArraySlice(slicedList, args[1], {
-          sliceStart: offset || 0,
-          arrayLength,
-        }),
+        ...extendedFields,
+        ...connection,
         totalCount: list.length
       }
     }

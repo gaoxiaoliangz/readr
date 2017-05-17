@@ -32,6 +32,19 @@ import { makeNodeConnectionField } from './utils'
 import resolveBookInfo from './resolvers/resolve-book-info'
 import { setReadingProgressCore, getReadingProgressCore } from '../api/user'
 
+// const makeList = (list) => {
+//   if (list instanceof Promise) {
+//     return list.then(result => {
+//       return {
+//         list: <any[]>result
+//       }
+//     })
+//   }
+//   return {
+//     list: <any[]>list
+//   }
+// }
+
 const viewerField = {
   type: new GraphQLObjectType({
     name: 'User',
@@ -45,7 +58,7 @@ const viewerField = {
       },
       authors: makeNodeConnectionField({
         type: GQLAuthorConnection,
-        listAllFn: () => dataProvider.Author.find({}).exec()
+        listAllFn: () => dataProvider.Author.find().exec()
       }),
       files: makeNodeConnectionField({
         type: GQLFileConnection,
@@ -81,29 +94,20 @@ const viewerField = {
             description: 'format sectionName,hash'
           }
         },
-        listAllFn: async (parent, args, req) => {
+        sliceStart: (list) => async (parent, args, req) => {
           const bookId = fromGlobalId(args.bookId).id
           const { user: { _id: userId } } = req
+          const offset = args.offset || 0
 
-          const data = await resolveBookPages({
-            id: bookId,
-            pageHeight: args.pageHeight,
-            width: args.width,
-            fontSize: args.fontSize,
-            lineHeight: args.lineHeight,
-            fromLocation: args.fromLocation
-          })
+          if (args.before || args.after) {
+            return 0
+          }
 
           if (args.fromHistory) {
             const progress = (await getReadingProgressCore({ bookId, userId }) || {})
             const percentage = progress['percentage'] || 0
-            const pageNo = Math.floor(data.length * percentage) + 1
-            return {
-              data,
-              meta: {
-                offset: pageNo
-              }
-            }
+            const pageNo = Math.floor(list.length * percentage) + 1
+            return offset + pageNo
           }
 
           if (args.fromLocation) {
@@ -111,7 +115,7 @@ const viewerField = {
             const sectionName = loc[0]
             const tagId = loc[1]
 
-            let result = data.filter(d => {
+            let result = list.filter(d => {
               return d.meta.section === sectionName
             })
 
@@ -137,15 +141,40 @@ const viewerField = {
               return Promise.reject(new Error('Location not found!'))
             }
 
+            const pageNo = result[0].meta.pageNo - 1
+            return offset + pageNo
+          }
+          return offset
+        },
+        extendedFields: ({ sliceStart, connection }) => (parent, args, req) => {
+          const offset = args.offset || 0
+
+          if (args.before || args.after) {
+            if (offset !== 0) {
+              throw new Error('Offset not available when using cursor!')
+            }
+
             return {
-              data,
-              meta: {
-                offset: result[0].meta.pageNo - 1
-              }
+              offset: 0,
+              startPage: _.get(connection, 'edges[0].node.meta.pageNo', null)
             }
           }
 
-          return data
+          return {
+            offset,
+            startPage: sliceStart - offset + 1
+          }
+        },
+        listAllFn: async (parent, args, req) => {
+          const bookId = fromGlobalId(args.bookId).id
+
+          return resolveBookPages({
+            id: bookId,
+            pageHeight: args.pageHeight,
+            width: args.width,
+            fontSize: args.fontSize,
+            lineHeight: args.lineHeight
+          })
         }
       }),
       readingProgress: {

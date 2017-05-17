@@ -92,6 +92,17 @@ const GQLBookPage = new GraphQLObjectType({
 })
 
 export const { connectionType: GQLBookPageConnection } =
-  extendedConnectionDefinitions({ name: 'BookPage', nodeType: GQLBookPage })
+  extendedConnectionDefinitions({ 
+    name: 'BookPage', 
+    nodeType: GQLBookPage,
+    connectionFields: {
+      startPage: {
+        type: GraphQLInt
+      },
+      offset: {
+        type: GraphQLInt
+      }
+    }
+ })
 
 export default GQLBookPage

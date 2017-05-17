@@ -6,3 +6,5 @@
 interface GeneralObject {
   [key: string]: any
 }
+
+type Promisable<T> = T | Promise<T>
