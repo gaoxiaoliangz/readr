@@ -9,7 +9,7 @@ RUN npm -v
 WORKDIR /usr/src/app
 
 # Copy application files
-COPY ./build /usr/src/app
+# COPY ./build /usr/src/app
 
 # Install Node.js dependencies
 # RUN yarn install --production --no-progress
