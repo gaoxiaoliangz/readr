@@ -54,7 +54,7 @@ class AppHome extends Component<Props, IState> {
             <div styleName="hero-image">
               <Container>
                 <div styleName="logo">Readr</div>
-                <h1 styleName="page-title">新的阅读体验</h1>
+                <h1 styleName="page-title">全新的阅读体验</h1>
                 <Button to="/signup">现在加入</Button>
               </Container>
             </div>
