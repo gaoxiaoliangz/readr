@@ -16,7 +16,7 @@ export function computePaginationState(state, action: LoaderAction) {
     : (last && last.page || 1)
 
   const pages = _.assign({}, {
-    [currentPage]: action.payload.normalized.result
+    [currentPage]: _.union(action.payload.normalized.result)
   })
 
   return _.assign({}, state, {
@@ -61,7 +61,7 @@ export default function paginate(types: SagaActionTypes, mapActionToKey?) {
         if (typeof key !== 'string') {
           throw new Error('Expected key to be a string.')
         }
-        return _.merge({}, state, {
+        return _.assign({}, state, {
           [key]: updatePagination(state[key], action)
         })
       default:
