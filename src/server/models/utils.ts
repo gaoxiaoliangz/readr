@@ -42,6 +42,7 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
 
     save: async (data) => {
       const model = new Model(data)
+      delete model['slug']
 
       return model.save()
     },

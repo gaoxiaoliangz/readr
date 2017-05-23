@@ -6,6 +6,8 @@ import * as helpers from '../helpers'
 import { notFoundError } from '../helpers'
 import parsers from '../../parsers'
 import request from '../../utils/network/request'
+import pinyin from 'pinyin'
+import validator from 'validator'
 
 const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
 
@@ -17,8 +19,20 @@ async function getAuthorId(authorName, description) {
     if (doc) {
       return doc._id
     } else {
+      const slug = pinyin(
+        authorName, {
+          style: pinyin.STYLE_NORMAL
+        })
+        .map(seg => seg[0])
+        // isAlphanumeric checks args lenght to determine locale
+        // if more than one there will be a problem, and an error
+        // will be thrown
+        .filter(str => validator.isAlphanumeric(str))
+        .join('')
+
       const result = await dataProvider.Author.utils.save({
         name: authorName,
+        slug,
         description
       })
       return result._id

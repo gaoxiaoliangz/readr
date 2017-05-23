@@ -59,7 +59,7 @@ class AddBookForm extends Component<AllProps, {}> {
       title: '添加作者',
       content: <AddAuthorForm
         onSave={this.props.onSaveAuthor}
-        />
+      />
     })
     this.props.initializeForm('addAuthor', { name: value })
   }
@@ -92,10 +92,10 @@ class AddBookForm extends Component<AllProps, {}> {
           onInputChange={newValue => {
             onTitleInputChange(newValue)
             title.set(newValue)
-          } }
+          }}
           useValue
           onOptionClick={this.handleTitleOptionClick}
-          />
+        />
         <SelectizeInput
           placeholder="作者"
           value={author.get()}
@@ -104,10 +104,10 @@ class AddBookForm extends Component<AllProps, {}> {
           onInputChange={newValue => {
             onAuthorInputChange(newValue)
             author.set(newValue)
-          } }
+          }}
           onValuesChange={authors.onChange}
           onAddNewValue={this.handleAddNewAuthor}
-          />
+        />
         <Input placeholder="封面图片地址" {...cover} />
         <Textarea placeholder="描述" {...description} />
         {
@@ -119,22 +119,23 @@ class AddBookForm extends Component<AllProps, {}> {
                   color="white"
                   onClick={() => {
                     file.set({})
-                  } }>重新选择</Button>
+                  }}>重新选择</Button>
               </div>
             )
             : (
               <div>
                 <FileUploader
                   url="/api/books"
-                  accept=".txt,.epub"
+                  accept=".txt,.epubfff"
                   name="book-file"
                   onSuccess={result => {
                     file.set(result)
-                  } }
+                  }}
                   onError={error => {
                     this.props.sendNotification(error.message, 'error')
-                  } }
-                  >
+                  }}
+                  fileFieldName="bookfile"
+                >
                   <Button color="white">选择书籍</Button>
                 </FileUploader>
                 <p>支持 txt 和 epub 格式</p>

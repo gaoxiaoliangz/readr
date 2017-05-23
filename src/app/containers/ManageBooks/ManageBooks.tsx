@@ -8,7 +8,7 @@ import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
 import { loadBooks, loadUsers, removeEntity } from '../../actions/api'
 import ContentPage from '../../components/ContentPage'
-import helpers from '../../helpers'
+// import helpers from '../../helpers'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
 import { Button } from '../../components/form'
@@ -36,7 +36,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     }
   }
 
-  deleteBook(id, bookName) {
+  deleteBook(id, bookName, cb) {
     this.props.openConfirmModal({
       title: '确认删除',
       content: `将删除《${bookName}》`,
@@ -45,12 +45,13 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
           this.props.removeEntity('books', id)
+          cb()
         })
       }
     })
   }
 
-  editBookMeta(bookMeta) {
+  editBookMeta(bookMeta, cb) {
     this.setState({
       showModal: true
     })
@@ -60,10 +61,12 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       content: (
         <BookMetaForm
           onSave={data => {
-            webAPI.editBookMeta(bookMeta.id, data).then(result => {
+            const _data = _.omit(data, 'authors')
+            webAPI.editBookMeta(bookMeta.id, _data).then(result => {
               this.loadBooks()
               this.props.closeModal()
               this.props.sendNotification('修改成功！', 'success')
+              cb()
             })
           }}
         />
@@ -101,15 +104,15 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         return [
           row.id,
           row.title,
-          moment(new Date(row.dateCreated).valueOf()).format('YYYY年MM月DD日'),
+          moment(new Date(row.createdAt).valueOf()).format('YYYY年MM月DD日'),
           row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
           (
             <div>
               <span className="dark-link" onClick={() => {
-                this.editBookMeta(entities[index])
+                this.editBookMeta(entities[index], this.loadBooks.bind(this))
               }}>编辑</span>
               <span className="dark-link" onClick={() => {
-                this.deleteBook(row.id, row.title)
+                this.deleteBook(row.id, row.title, this.loadBooks.bind(this))
               }}>删除</span>
             </div>
           )
@@ -134,6 +137,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
             onError={error => {
               this.props.sendNotification(error.message, 'error')
             }}
+            fileFieldName="bookfile"
           >
             <Button color="blue">添加书籍</Button>
           </FileUploader>
