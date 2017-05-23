@@ -10,10 +10,6 @@
         isRelay: true,
       },
       {
-        match: 'features/**/*.feature',
-        parser: ['EmbeddedQueryParser', { startTag: 'graphql request\\s+"""', endTag: '"""' }],
-      },
-      {
         match: 'src/app/**/*.gql',
         parser: 'QueryParser',
       },
