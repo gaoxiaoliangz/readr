@@ -15,6 +15,7 @@ interface Props {
   multiple?: boolean
   accept?: string
   style?: React.CSSProperties
+  fileFieldName?: string
 }
 
 interface State {
@@ -25,6 +26,10 @@ class FileUploader extends Component<Props, State> {
 
   fileInput: HTMLInputElement
 
+  static defaultProps = {
+    fileFieldName: 'bookfile'
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -34,7 +39,7 @@ class FileUploader extends Component<Props, State> {
   }
 
   handleFileChange(e) {
-    const { url, onComplete, onSuccess, onError } = this.props
+    const { url, onComplete, onSuccess, onError, fileFieldName } = this.props
 
     const files = e.target.files
     const data = new FormData()
@@ -44,7 +49,7 @@ class FileUploader extends Component<Props, State> {
         data.append(key, value)
       })
     } else {
-      data.append('file', files[0])
+      data.append(fileFieldName, files[0])
     }
 
     $.ajax({

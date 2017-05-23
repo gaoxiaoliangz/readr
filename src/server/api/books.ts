@@ -24,9 +24,10 @@ async function getAuthorId(authorName, description) {
           style: pinyin.STYLE_NORMAL
         })
         .map(seg => seg[0])
-        .filter(str => {
-          return validator.isAlphanumeric(str)
-        })
+        // isAlphanumeric checks args lenght to determine locale
+        // if more than one there will be a problem, and an error
+        // will be thrown
+        .filter(str => validator.isAlphanumeric(str))
         .join('')
 
       const result = await dataProvider.Author.utils.save({

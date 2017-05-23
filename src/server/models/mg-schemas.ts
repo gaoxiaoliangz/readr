@@ -4,6 +4,13 @@ import validator from 'validator'
 
 const ObjectId = Schema.Types.ObjectId
 
+const additionalSchemaOptions = {
+  timestamps: { 
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+}
+
 export const authorFields = {
   name: {
     type: String,
@@ -20,7 +27,7 @@ export const authorFields = {
   description: String,
 }
 
-export const authorSchema = new Schema(authorFields)
+export const authorSchema = new Schema(authorFields, additionalSchemaOptions)
 
 export const bookFields = {
   title: {
@@ -56,7 +63,7 @@ export const bookFields = {
   }
 }
 
-export const bookSchema = new Schema(bookFields)
+export const bookSchema = new Schema(bookFields, additionalSchemaOptions)
 
 export const collectionFields = {
   name: {
@@ -76,7 +83,7 @@ export const collectionFields = {
   }
 }
 
-export const collectionSchema = new Schema(collectionFields)
+export const collectionSchema = new Schema(collectionFields, additionalSchemaOptions)
 
 export const fileFields = {
   filename: {
@@ -102,7 +109,7 @@ export const fileFields = {
   },
 }
 
-export const fileSchema = new Schema(fileFields)
+export const fileSchema = new Schema(fileFields, additionalSchemaOptions)
 
 export const progressFields = {
   percentage: {
@@ -119,7 +126,7 @@ export const progressFields = {
   }
 }
 
-export const progressSchema = new Schema(progressFields)
+export const progressSchema = new Schema(progressFields, additionalSchemaOptions)
 
 export const tagFields = {
   name: {
@@ -135,7 +142,7 @@ export const tagFields = {
   }
 }
 
-export const tagSchema = new Schema(tagFields)
+export const tagSchema = new Schema(tagFields, additionalSchemaOptions)
 
 export const userFields = {
   username: {
@@ -166,4 +173,4 @@ export const userFields = {
   }
 }
 
-export const userSchema = new Schema(userFields)
+export const userSchema = new Schema(userFields, additionalSchemaOptions)
