@@ -40,6 +40,11 @@ export default async function findBook(options: FindBookOptions): Promise<Book> 
     .findById(id)
     .populate('file authors')
     .then(async result => {
+      // todo: notfound
+      if (!result) {
+        return Promise.reject(new Error('Book not found!'))
+      }
+
       const _result = result.toObject()
       const file = _result['file'] || {}
       const fileType = mapMimetypeToFileType(file.mimetype)
