@@ -24,7 +24,16 @@ type FindBookOptions = {
     lineHeight: number
   }
 }
-export default async function findBook(options: FindBookOptions) {
+
+type Book = {
+  [key: string]: any
+  fileType
+  rawContent?
+  toc?
+  pages?
+}
+
+export default async function findBook(options: FindBookOptions): Promise<Book> {
   const { id, includePages, includeRaw, includeToc, renderConfig } = options
 
   return dataProvider.Book
@@ -54,7 +63,7 @@ export default async function findBook(options: FindBookOptions) {
           rawContent,
           toc,
           pages
-        }
+        } as any
       }
 
       return {

@@ -5,20 +5,20 @@ import findBook from './findBook'
 
 const basicBookAPI = makeBasicAPIMethods(dataProvider.Book)
 
-export function listBooks(options) {
-  return dataProvider.Book.utils
-    .listWithOptions({
-      page: options.page,
-      populate: 'file authors',
-      parser: parseBookResult
-    })
-}
+// export function listBooks(options) {
+//   return dataProvider.Book.utils
+//     .listWithOptions({
+//       page: options.page,
+//       populate: 'file authors',
+//       parser: parseBookResult
+//     })
+// }
 
 export default {
   ...basicBookAPI,
   ...{
     add: addBook,
     find: findBook,
-    list: listBooks
+    // list: listBooks
   }
 }

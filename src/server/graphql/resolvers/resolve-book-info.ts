@@ -1,15 +1,16 @@
 import dataProvider from '../../models/data-provider'
-import { resolveContent } from '../../api/books'
+import booksAPI from '../../api/books'
 
 const resolveBookInfo = async (id) => {
   const mainInfo = await dataProvider.Book
     .findById(id)
     .exec()
     .then(result => result.toObject())
-  const content = await resolveContent({ id })
+  const { toc } = await booksAPI.find({ id })
+
   return {
     ...mainInfo,
-    toc: content.content.toc
+    toc
   }
 }
 

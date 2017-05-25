@@ -24,7 +24,7 @@ import {
 } from 'graphql-relay'
 // tslint:enable:no-unused-variable
 import _ from 'lodash'
-import { resolveBookPages } from '../api/bookPages'
+import booksAPI from '../api/books'
 import dataProvider from '../models/data-provider'
 import { GQLBookPageConnection, GQLAuthorConnection, GQLFileConnection, GQLBookInfoConnection, GQLBookInfo, GQLReadingProgress } from './gql-types'
 import { nodeInterface, nodeField } from './gql-node'
@@ -161,13 +161,15 @@ const viewerField = {
         listAllFn: async (parent, args, req) => {
           const bookId = fromGlobalId(args.bookId).id
 
-          return resolveBookPages({
-            id: bookId,
-            pageHeight: args.pageHeight,
-            width: args.width,
-            fontSize: args.fontSize,
-            lineHeight: args.lineHeight
-          })
+          // return booksAPI.find({
+          //   id: bookId,
+          //   pageHeight: args.pageHeight,
+          //   width: args.width,
+          //   fontSize: args.fontSize,
+          //   lineHeight: args.lineHeight
+          // })
+          // todo
+          return {}
         }
       }),
       readingProgress: {
