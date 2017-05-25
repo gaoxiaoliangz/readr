@@ -26,6 +26,7 @@
     "get-schema": "node scripts/get-schema.js"
   },
   "dependencies": {
+    "@gxl/epub-parser": "^1.0.1",
     "@risingstack/graffiti": "^3.3.0",
     "@risingstack/graffiti-mongoose": "^6.0.0",
     "@types/express-graphql": "^0.0.33",

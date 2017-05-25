@@ -1,7 +1,16 @@
 import _ from 'lodash'
 import dataProvider from '../../models/data-provider'
-import parsers from '../../../parsers'
-import renderPages from './renderPages'
+import genPages from './genPages'
+import parseBookFile from './parseBookFile'
+
+const mapMimetypeToFileType = (mimetype) => {
+  if (mimetype === 'application/epub+zip') {
+    return 'epub'
+  } else if (mimetype === 'text/plain') {
+    return 'txt'
+  }
+  return
+}
 
 type FindBookOptions = {
   id: string
@@ -24,46 +33,33 @@ export default async function findBook(options: FindBookOptions) {
     .then(async result => {
       const _result = result.toObject()
       const file = _result['file'] || {}
-      let filetype
-      let toc
-      let pages
-      let rawContent
-
-      if (file.mimetype === 'application/epub+zip') {
-        filetype = 'epub'
-      } else if (file.mimetype === 'text/plain') {
-        filetype = 'txt'
-      }
+      const fileType = mapMimetypeToFileType(file.mimetype)
 
       if (includeToc || includeRaw || includePages) {
-        let _rawContent
+        const parsedFile = await parseBookFile(id, {
+          buffer: file.content,
+          fileType
+        })
 
-        if (filetype === 'epub') {
-          _rawContent = await parsers.epub(file.content)
-        } else if (filetype === 'txt') {
-          _rawContent = await parsers.txt(file.content)
-        }
+        const rawContent = includeRaw && parsedFile
+        const toc = includeToc && parsedFile.structure
+        const pages = includePages && genPages(id, {
+          ...renderConfig,
+          sections: parsedFile.sections
+        })
 
-        if (_rawContent) {
-          if (includeRaw) {
-            rawContent = _rawContent
-          }
-
-          if (includeToc) {
-            toc = _rawContent.toc
-          }
-
-          if (includePages) {
-            pages = renderPages(id, renderConfig)
-          }
+        return {
+          ..._result,
+          fileType,
+          rawContent,
+          toc,
+          pages
         }
       }
 
       return {
         ..._result,
-        filetype,
-        toc,
-        pages
+        fileType
       }
     })
 }

@@ -19,6 +19,19 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
+"@gxl/epub-parser@^1.0.1":
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/@gxl/epub-parser/download/@gxl/epub-parser-1.0.1.tgz#3416c307b0147549517cdf069500e8ea961f5964"
+  dependencies:
+    "@types/md5" "^2.1.32"
+    jsdom "9.12.0"
+    lodash "^4.17.2"
+    md5 "^2.2.1"
+    node-zip "^1.1.1"
+    to-markdown "^3.0.3"
+    typescript "^2.3.3"
+    xml2js "^0.4.17"
+
 "@playlyfe/gql@^2.2.4":
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/@playlyfe/gql/-/gql-2.2.4.tgz#cc93dfbcfdc99b422551bf2d80d85e521be05fda"
@@ -148,6 +161,12 @@
 "@types/marked@0.0.28":
   version "0.0.28"
   resolved "http://registry.npm.taobao.org/@types/marked/download/@types/marked-0.0.28.tgz#44ba754e9fa51432583e8eb30a7c4dd249b52faa"
+
+"@types/md5@^2.1.32":
+  version "2.1.32"
+  resolved "http://registry.npm.taobao.org/@types/md5/download/@types/md5-2.1.32.tgz#93e23437fcd17a7b9ca98d02aa6002e835842fe8"
+  dependencies:
+    "@types/node" "*"
 
 "@types/mime@*":
   version "0.0.29"
@@ -5551,7 +5570,7 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/jsbn/download/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
-jsdom@^9.0.0, jsdom@^9.11.0, jsdom@^9.12.0:
+jsdom@9.12.0, jsdom@^9.0.0, jsdom@^9.11.0, jsdom@^9.12.0:
   version "9.12.0"
   resolved "http://registry.npm.taobao.org/jsdom/download/jsdom-9.12.0.tgz#e8c546fffcb06c00d4833ca84410fed7f8a097d4"
   dependencies:
@@ -6153,7 +6172,7 @@ math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "http://registry.npm.taobao.org/math-expression-evaluator/download/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
 
-md5@^2.0.0:
+md5@^2.0.0, md5@^2.2.1:
   version "2.2.1"
   resolved "http://registry.npm.taobao.org/md5/download/md5-2.2.1.tgz#53ab38d5fe3c8891ba465329ea23fac0540126f9"
   dependencies:
@@ -9853,6 +9872,10 @@ typedarray@^0.0.6, typedarray@~0.0.5:
 typescript@^2.1.4, typescript@^2.2.2:
   version "2.3.2"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
+
+typescript@^2.3.3:
+  version "2.3.3"
+  resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.3.tgz#9639f3c3b40148e8ca97fe08a51dd1891bb6be22"
 
 ua-parser-js@^0.7.9:
   version "0.7.12"
