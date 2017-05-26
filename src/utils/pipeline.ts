@@ -6,7 +6,7 @@
  */
 import BPromise from 'bluebird'
 
-const pipeline = (tasks, ...restArgs): BPromise<any> => {
+const pipeline = (tasks, ...restArgs) => {
   let runTask = (task, args) => {
     // Self-optimizing function to run first task with multiple
     // args using apply, but subsequent tasks via direct invocation
@@ -23,7 +23,7 @@ const pipeline = (tasks, ...restArgs): BPromise<any> => {
     return BPromise.reduce(tasks, (arg, task) => {
       return runTask(task, arg)
     }, args)
-  })
+  }) as any as Promise<any>
 }
 
 export default pipeline

@@ -85,12 +85,10 @@ export function parseLinks(config: ParseLinksConfig) {
 export const makeBasicAPIMethods = (Model: typeof dataProvider.Author) => {
   return {
     list(options) {
-      let page = 1
-      if (options.page) {
-        page = options.page
-      }
-
-      return Model.utils.list(page)
+      return Model.utils.list({
+        offset: ((Number(options.page) || 1) - 1) * 10,
+        limit: 10
+      })
     },
     add(object, options) {
       return Model.utils.save(object)

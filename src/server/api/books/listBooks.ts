@@ -1,6 +1,5 @@
 import pipeline from '../../../utils/pipeline'
 import dataProvider from '../../models/data-provider'
-import BPromise from 'bluebird'
 import _ from 'lodash'
 import {
   validateOptions,
@@ -11,14 +10,15 @@ import {
 } from './findBook'
 
 interface ListBooksOptions extends BookOptions {
-  page: number
+  page?: number
 }
 
-const listBooks = (options: ListBooksOptions): BPromise<Book> => {
+const listBooks = (options: ListBooksOptions = {}): Promise<Book[]> => {
   const doQuery = (_options) => {
     return dataProvider.Book.utils
-      .listWithOptions({
-        page: options.page,
+      .list({
+        offset: (options.page - 1) * 10,
+        limit: 10,
         populate: 'file authors',
         parser: (result) => {
           return handleResult({ result, options: _options })

@@ -24,7 +24,7 @@ const mapMimetypeToFileType = (mimetype) => {
 }
 
 export interface BookOptions {
-  id: string
+  id?: string
   includeToc?: boolean
   includePages?: boolean
   includeRaw?: boolean

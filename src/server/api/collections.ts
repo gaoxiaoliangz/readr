@@ -7,8 +7,9 @@ const collectionAPI = {
   ...basicCollectionAPI,
   ...{
     list(options) {
-      return dataProvider.Collection.utils.listWithOptions({
-        page: options.page,
+      return dataProvider.Collection.utils.list({
+        offset: (Number(options.page) - 1) * 10,
+        limit: 10,
         populate: 'items creator',
         parser: null
       })

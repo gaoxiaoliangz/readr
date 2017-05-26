@@ -1,29 +1,45 @@
-import { makeResult } from '../api/utils'
-import { modifyObject } from '../../utils'
 import mongoose from 'mongoose'
+import { modifyObject } from '../../utils'
+import queryResult from './queryResult'
 
 const LIMIT = 10
 
+type ListConfig = {
+  offset?: number
+  limit?: number
+  populate?: string
+  parser?: any
+}
+
 export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
   const utils = {
-    list: async (page = 1) => {
-      return utils.listWithOptions()
-    },
+    list: async (config?: ListConfig) => {
+      const defaultConfig = {
+        offset: 0,
+        limit: LIMIT
+      }
+      const { offset, limit, populate, parser } = {
+        ...defaultConfig,
+        ...config
+      } as ListConfig
 
-    listWithOptions: async (config: { page?: number, populate?: string, parser?: any } = {}) => {
-      const { page: _page, populate, parser } = config
-      const page = Number(_page) || 1
-      const skip = (page - 1) * LIMIT
-      const count = await Model.count({})
+      const totalCount = await Model.count({})
 
       let query = Model
         .find({})
-        .skip(skip)
-        .limit(LIMIT)
+        .skip(offset)
+        .limit(limit)
 
       if (populate) {
         query = query.populate(populate)
       }
+
+      const makeResult = (list) => queryResult({
+        limit,
+        offset,
+        list,
+        totalCount
+      })
 
       return query.exec().then(data => {
         let _data = data
@@ -31,28 +47,16 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
           _data = data.map(parser) as any[]
 
           return Promise.all(_data).then(finalData => {
-            return Promise.resolve(makeResult(finalData, {
-              pagination: {
-                current: page,
-                all: Math.ceil(count / LIMIT)
-              }
-            }))
+            return makeResult(finalData)
           })
         }
 
-        return Promise.resolve(makeResult(_data, {
-          pagination: {
-            current: page,
-            all: Math.ceil(count / LIMIT)
-          }
-        }))
+        return Promise.resolve(makeResult(_data))
       })
     },
 
     save: async (data) => {
       const model = new Model(data)
-      delete model['slug']
-
       return model.save()
     },
 

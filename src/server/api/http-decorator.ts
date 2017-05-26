@@ -1,21 +1,22 @@
 import _ from 'lodash'
 import { parseLinks } from './utils'
 import helpers from '../../app/helpers'
-import { APIResult } from './utils'
+import { QueryResult } from '../models/queryResult'
 
 const API_ROOT = helpers.getApiRoot()
 
-const addHeader = (req, res, result) => {
-  if (APIResult.prototype.isPrototypeOf(result)) {
-    if (result.meta.pagination) {
-      const links = parseLinks({
-        fullPath: API_ROOT + req.path,
-        query: req.query,
-        entityPagination: result.meta.pagination
-      })
+const addHeader = (req, res, result: QueryResult) => {
+  if (QueryResult.prototype.isPrototypeOf(result)) {
+    const links = parseLinks({
+      fullPath: API_ROOT + req.path,
+      query: req.query,
+      entityPagination: {
+        current: Math.ceil(result.offset / result.limit),
+        all: Math.ceil(result.totalCount / result.limit)
+      }
+    })
 
-      res.links(links)
-    }
+    res.links(links)
   }
 }
 
@@ -41,8 +42,8 @@ const http = (apiMethod) => (req, res, next) => {
   apiMethod(...parseReq(req))
     .then(result => {
       let _result = result
-      if (APIResult.prototype.isPrototypeOf(result)) {
-        _result = result.data
+      if (QueryResult.prototype.isPrototypeOf(result)) {
+        _result = result.list
       }
 
       let statusCode = 200
