@@ -3,10 +3,10 @@ import {
   nodeDefinitions
 } from 'graphql-relay'
 import _ from 'lodash'
-const debug = require('debug')('readr:gql-node')
 import dataProvider from '../models/data-provider'
-import * as GQLTypes from './gql-types'
-import resolveBookInfo from './resolvers/resolve-book-info'
+import * as GQLTypes from './types'
+import resolveBookInfo from './resolvers/resolveBook'
+const debug = require('debug')('readr:gql-node')
 
 const mapGQLTypeToResolver = type => {
   switch (type) {
