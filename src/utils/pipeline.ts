@@ -6,9 +6,7 @@
  */
 import BPromise from 'bluebird'
 
-const pipeline = (tasks, ..._restArgs) => {
-  const restArgs = Array.prototype.slice.call(_restArgs, 1)
-
+const pipeline = (tasks, ...restArgs): BPromise<any> => {
   let runTask = (task, args) => {
     // Self-optimizing function to run first task with multiple
     // args using apply, but subsequent tasks via direct invocation
