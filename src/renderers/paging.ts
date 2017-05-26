@@ -27,7 +27,6 @@ function getPageOffset({pageIndex, pageHeight, nodeHeights}: {
   return { offset, nodeStartIndex }
 }
 
-
 function getNodesOfPage({pageIndex, nodes, pageHeight, nodeHeights}: {
   pageIndex: number
   nodes: any

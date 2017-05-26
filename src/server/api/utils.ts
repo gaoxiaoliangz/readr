@@ -110,3 +110,20 @@ export const makeBasicAPIMethods = (Model: typeof dataProvider.Author) => {
     }
   }
 }
+
+export const queryBoolean = (input) => {
+  const consideredFalse = ['0', 'false', 'null', 'undefined']
+  if (consideredFalse.indexOf(input) !== -1) {
+    return false
+  }
+  return Boolean(input)
+}
+
+export const validateNonNullOptions = (options, nonNullFieldList) => {
+  for (const field of nonNullFieldList) {
+    if (_.isUndefined(options[field])) {
+      return new Error(`Required field ${field} is not provided!`)
+    }
+  }
+  return
+}

@@ -84,16 +84,6 @@
 //     return sections
 //   }
 
-//   const resolveBookContentMem = _.memoize(resolveBookContent)
-
-//   const validateNonNullOptions = (options, nonNullFieldList) => {
-//     for (const field of nonNullFieldList) {
-//       if (_.isUndefined(options[field])) {
-//         return new Error(`Required field ${field} is not provided!`)
-//       }
-//     }
-//     return true
-//   }
 
 //   type RenderedPagesOptions = {
 //     pageHeight: number

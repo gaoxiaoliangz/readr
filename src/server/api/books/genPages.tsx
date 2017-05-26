@@ -8,6 +8,7 @@ type Section = {
 }
 
 type Config = {
+  bookId: string
   sections: Section[]
   fontSize: number
   width: number
@@ -15,15 +16,15 @@ type Config = {
   pageHeight: number
 }
 
-const genPages = (bookId: string, config: Config) => {
-  const { sections } = config
+const genPages = async (config: Config) => {
+  const { bookId, sections } = config
   const _sections = sections.map(section => {
     return {
       htmlObject: section.toHtmlObject(),
       id: section.id
     }
   })
-  const heights = calcHeights(_sections, {
+  const heights = await calcHeights(_sections, {
     fontSize: config.fontSize,
     lineHeight: config.lineHeight,
     width: config.width
