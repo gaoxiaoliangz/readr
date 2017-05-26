@@ -4,6 +4,7 @@ import genPages from './genPages'
 import parseBookFile from './parseBookFile'
 import { queryBoolean, validateNonNullOptions } from '../utils'
 import md5 from 'md5'
+import { Types } from 'mongoose'
 
 const mapMimetypeToFileType = (mimetype) => {
   if (mimetype === 'application/epub+zip') {
@@ -53,6 +54,10 @@ export default async function findBook(options: FindBookOptions): Promise<Book> 
     fontSize: Number(options.fontSize),
     lineHeight: Number(options.lineHeight),
     width: Number(options.width)
+  }
+
+  if (!Types.ObjectId.isValid(id)) {
+    return Promise.reject(new Error('Invalid id!'))
   }
 
   if (validateErr) {
