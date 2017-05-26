@@ -1,3 +1,4 @@
+import { parseHTML } from '@gxl/epub-parser'
 import calcHeights from './calcHeights'
 import { groupNodesByPage } from '../../../renderers/paging'
 
@@ -14,13 +15,20 @@ type Config = {
   width: number
   lineHeight: number
   pageHeight: number
+  defaultFirstSectionHTML: string
 }
 
 const genPages = async (config: Config) => {
-  const { bookId, sections } = config
-  const _sections = sections.map(section => {
+  const { bookId, sections, defaultFirstSectionHTML } = config
+  const _sections = sections.map((section, index) => {
+    let htmlObject = section.toHtmlObject()
+
+    if (index === 0 && htmlObject.length === 0) {
+      htmlObject = parseHTML(defaultFirstSectionHTML)
+    }
+
     return {
-      htmlObject: section.toHtmlObject(),
+      htmlObject,
       id: section.id
     }
   })

@@ -91,7 +91,14 @@ export default async function findBook(options: FindBookOptions): Promise<Book> 
         const pages = includePages && await genPagesMemoized({
           ...renderConfig,
           bookId: id,
-          sections: parsedFile.sections
+          sections: parsedFile.sections,
+          defaultFirstSectionHTML: `
+            <br/>
+            <br/>
+            <br/>
+            <h1>${parsedFile.info.title}</h1>
+            <p>${parsedFile.info.author}</p>
+          `
         })
         if (process.env.NODE_ENV !== 'production') {
           console.timeEnd('api:findBooks')
