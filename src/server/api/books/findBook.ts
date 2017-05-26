@@ -5,6 +5,17 @@ import parseBookFile from './parseBookFile'
 import { queryBoolean, validateNonNullOptions } from '../utils'
 import md5 from 'md5'
 import { Types } from 'mongoose'
+import pipeline from '../../utils/pipeline'
+
+
+/**
+ * validate options | options -> options
+ * convert options  | options -> options
+ * doQuery          | options -> docoment
+ * parseResult      | document -> finalResult
+ */
+// const pipeline = 
+
 
 const mapMimetypeToFileType = (mimetype) => {
   if (mimetype === 'application/epub+zip') {
@@ -15,7 +26,7 @@ const mapMimetypeToFileType = (mimetype) => {
   return
 }
 
-type FindBookOptions = {
+export type BookOptions = {
   id: string
   includeToc?: boolean
   includePages?: boolean
@@ -28,7 +39,7 @@ type FindBookOptions = {
   lineHeight?: number
 }
 
-type Book = {
+export type Book = {
   [key: string]: any
   fileType
   rawContent?
@@ -39,7 +50,7 @@ type Book = {
 const parseBookFileMemoized = _.memoize(parseBookFile, (bookId) => bookId)
 const genPagesMemoized = _.memoize(genPages, (config) => md5(JSON.stringify(_.omit(config, ['sections']))))
 
-export default async function findBook(options: FindBookOptions): Promise<Book> {
+export default async function findBook(options: BookOptions): Promise<Book> {
   if (process.env.NODE_ENV !== 'production') {
     console.time('api:findBooks')
   }
