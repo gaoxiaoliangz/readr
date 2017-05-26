@@ -5,7 +5,7 @@ import { QueryResult } from '../models/queryResult'
 
 const API_ROOT = helpers.getApiRoot()
 
-const addHeader = (req, res, result: QueryResult) => {
+const addHeader = (req, res, result: QueryResult<any>) => {
   if (QueryResult.prototype.isPrototypeOf(result)) {
     const links = parseLinks({
       fullPath: API_ROOT + req.path,

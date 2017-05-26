@@ -88,7 +88,7 @@ const Query = new GraphQLObjectType({
     books: makeNodeConnectionField({
       type: GQLBookConnection,
       listAllFn: () => {
-        return api.books.list()
+        return api.books.list({ includeToc: true }).then(data => data.list)
       }
     })
   }

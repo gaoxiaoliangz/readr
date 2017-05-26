@@ -5,10 +5,10 @@ type Config = {
   totalCount: number
 }
 
-export class QueryResult {
+export class QueryResult<T> {
   offset: number
   limit: number
-  list: any[]
+  list: T[]
   totalCount: number
 
   constructor(config: Config) {

@@ -2,8 +2,6 @@ import mongoose from 'mongoose'
 import { modifyObject } from '../../utils'
 import queryResult from './queryResult'
 
-const LIMIT = 10
-
 type ListConfig = {
   offset?: number
   limit?: number
@@ -16,7 +14,7 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
     list: async (config?: ListConfig) => {
       const defaultConfig = {
         offset: 0,
-        limit: LIMIT
+        limit: Infinity
       }
       const { offset, limit, populate, parser } = {
         ...defaultConfig,

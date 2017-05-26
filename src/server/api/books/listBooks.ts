@@ -8,12 +8,13 @@ import {
   BookOptions,
   Book
 } from './findBook'
+import { QueryResult } from '../../models/queryResult'
 
 interface ListBooksOptions extends BookOptions {
   page?: number
 }
 
-const listBooks = (options: ListBooksOptions = {}): Promise<Book[]> => {
+const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> => {
   const doQuery = (_options) => {
     return dataProvider.Book.utils
       .list({
