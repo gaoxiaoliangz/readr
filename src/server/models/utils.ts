@@ -29,6 +29,15 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
         let _data = data
         if (parser) {
           _data = data.map(parser) as any[]
+
+          return Promise.all(_data).then(finalData => {
+            return Promise.resolve(makeResult(finalData, {
+              pagination: {
+                current: page,
+                all: Math.ceil(count / LIMIT)
+              }
+            }))
+          })
         }
 
         return Promise.resolve(makeResult(_data, {

@@ -52,7 +52,7 @@ const http = (apiMethod) => (req, res, next) => {
       }
 
       addHeader(req, res, result)
-      res.json(_result || {})
+      return res.json(_result || {})
     })
     .catch(error => {
       next(error)
