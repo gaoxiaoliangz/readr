@@ -9,6 +9,17 @@ import api from '../api'
 const debug = require('debug')('readr:gql-node')
 
 const mapGQLTypeToResolver = type => {
+  // globalId has type info, if that type is no longer used, there will
+  // be an error, so we have to check that first just to make sure the
+  // type is in our system
+  const result = _.find(GQLTypes as any, GQLType => {
+    return GQLType['name'] === type
+  })
+  if (!result) {
+    debug('mapGQLTypeToResolver: gql type undefined!')
+    throw new Error(`Type '${type}' not found!`)
+  }
+
   switch (type) {
     case 'Book':
       return (id) => {
@@ -40,7 +51,7 @@ const mapNodeObjectToGQLType = nodeObject => {
     return GQLType['name'] === type
   })
   if (!result) {
-    debug('gql type undefined!')
+    debug('mapNodeObjectToGQLType: gql type undefined!')
   }
   return result as any
 }
