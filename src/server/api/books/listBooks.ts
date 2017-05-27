@@ -41,7 +41,7 @@ const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> =
     doQuery
   ]
 
-  return pipeline(tasks, options)
+  return pipeline(options)(tasks)
 }
 
 export default listBooks
