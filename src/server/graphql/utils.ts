@@ -13,37 +13,19 @@ import {
 } from 'graphql-relay'
 import _ from 'lodash'
 import humps from 'humps'
-import * as GQLTypes from './types'
-import dataProvider from '../models/data-provider'
 const debug = require('debug')('readr:gql-utils')
 
-export const modelToGQLFields = (model) => {
+export const modelToGQLFields = (model, refTypes?) => {
   if (!model) {
     return {}
   }
   let fields = {}
-  const makeReferenceType = (name) => {
-    const result = _.find(GQLTypes as any, GQLType => {
-      return GQLType['name'] === name
-    })
-    if (result) {
-      // it won't be used, 'cause GQLTypes are not created yet
-      return result
-    }
-    const _name = `${name}_${Math.random().toString().substr(2, 3)}`
-    return new GraphQLObjectType({
-      name: _name,
-      fields: modelToGQLFields(dataProvider[name]),
-      description: 'Using such a strange type name is actually a technical compromise, maybe I will come up with somthing else later.'
-    })
-  }
-
   const mapMgSchemaTypeToGqlType = (type) => {
     const ref = (_.get(type, 'caster.options.ref') || _.get(type, 'options.ref')) as string
 
     let gqlType: any = GraphQLString
     gqlType = ref
-      ? makeReferenceType(ref)
+      ? (_.find(refTypes, { name: ref }) || GraphQLString)
       : gqlType
     gqlType = type.instance === 'Array' ? new GraphQLList(gqlType) : gqlType
     gqlType = type.isRequired ? new GraphQLNonNull(gqlType) : gqlType
@@ -82,11 +64,12 @@ type MakeGQLNodeTypeConfig = {
   model?: any
   fields?: {
     [key: string]: any
-  }
+  },
+  refTypes?: any[]
 }
-const makeGQLNodeType = nodeInterface => ({ name, model, description, fields }: MakeGQLNodeTypeConfig) => {
+const makeGQLNodeType = nodeInterface => ({ name, model, description, fields, refTypes }: MakeGQLNodeTypeConfig) => {
   const _fields = {
-    ...modelToGQLFields(model),
+    ...modelToGQLFields(model, refTypes),
     id: globalIdField(name, (obj) => {
       return obj._id
     }),
