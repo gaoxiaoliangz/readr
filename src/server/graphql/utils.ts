@@ -12,6 +12,7 @@ import {
   connectionFromArraySlice
 } from 'graphql-relay'
 import _ from 'lodash'
+import humps from 'humps'
 import * as GQLTypes from './types'
 import dataProvider from '../models/data-provider'
 const debug = require('debug')('readr:gql-utils')
@@ -52,12 +53,21 @@ export const modelToGQLFields = (model) => {
 
   model.schema.eachPath((path, type) => {
     const gqlType = mapMgSchemaTypeToGqlType(type)
-
-    if (path !== '__v') {
+    if (path === '_id') {
       fields = {
         ...fields,
-        [path]: {
-          type: gqlType
+        id: globalIdField(model.modelName, (obj) => obj[path]),
+        dbId: {
+          type: new GraphQLNonNull(GraphQLString),
+          resolve: (obj) => obj[path]
+        }
+      }
+    } else if (path !== '__v') {
+      fields = {
+        ...fields,
+        [humps.camelize(path)]: {
+          type: gqlType,
+          resolve: (obj) => obj[path]
         }
       }
     }
