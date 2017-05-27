@@ -1,5 +1,5 @@
 query queryBooks {
-  books {
+  books(first: 6) {
     edges {
       node {
         id

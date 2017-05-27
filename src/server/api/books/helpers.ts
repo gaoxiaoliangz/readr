@@ -2,6 +2,7 @@ import pinyin from 'pinyin'
 import _ from 'lodash'
 import dataProvider from '../../models/data-provider'
 import { searchBook } from '../vendor/douban'
+import validator from 'validator'
 
 export async function getAuthorId(authorName, description?) {
   return dataProvider.Author.findOne({ name: authorName }).exec().then(async doc => {

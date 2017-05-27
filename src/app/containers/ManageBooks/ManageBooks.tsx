@@ -132,6 +132,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
             accept=".txt,.epub"
             name="book-file"
             onSuccess={result => {
+              this.props.sendNotification(`${result.title} 添加成功`)
               this.loadBooks()
             }}
             onError={error => {

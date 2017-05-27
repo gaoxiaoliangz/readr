@@ -37,6 +37,12 @@ declare namespace Schema {
 
   interface Connection<T> {
     totalCount: number
+    pageInfo: {
+      hasNextPage: boolean
+      hasPreviousPage: boolean
+      startCursor: string
+      endCursor: string
+    }
     edges: {
       cursor: string
       node: T
