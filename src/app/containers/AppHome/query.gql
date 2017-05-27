@@ -6,7 +6,9 @@ query Home {
         title
         cover
         description
-        authors
+        authors {
+          name
+        }
       }
     }
   }

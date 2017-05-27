@@ -12,11 +12,19 @@ $alert-warning-text: darken(orange, 50%);
 .alerts {
   position: fixed;
   width: 100%;
-  padding: 0 20px;
   top: 10px;
-  left: 0;
+  left: 50%;
   z-index: 9999;
-} 
+  width: $alert-width;
+  margin-left:  - $alert-width / 2;
+
+  @include tablet {
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-left: 0;
+  }
+}
 
 .alert {
   padding: 10px 0;
@@ -28,11 +36,11 @@ $alert-warning-text: darken(orange, 50%);
   font-size: 1rem;
   font-weight: bold;
   border-radius: 3px;
-  width: $alert-width;
   margin: 0 auto 10px;
 
-  @include phone {
-    max-width: 100%;
+  @include tablet {
+    border-radius: 0;
+    padding: 22px 0;
   }
 }
 
@@ -45,7 +53,8 @@ $alert-warning-text: darken(orange, 50%);
   cursor: pointer;
   position: absolute;
   right: 10px;
-  top: 11px;
+  top: 50%;
+  margin-top: -10px;
   display: inline-block;
 }
 

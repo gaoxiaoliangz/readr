@@ -23,13 +23,13 @@ class BookList extends Component<Props, {}> {
             ? (
               this.props.bookEntities.map((book, index) => {
                 const { title, authors, description, cover } = book
-                {/*const _authors = authors && authors.map(author => author.name).join(', ') || '未知作者'*/}
+                const _authors = authors && authors.map(author => author.name).join(', ') || '未知作者'
                 return (
                   <li key={index}>
                     <Book
                       id={book.id}
                       title={title || '无标题'}
-                      authors={authors}
+                      authors={_authors}
                       description={description}
                       cover={cover}
                       disablePopup

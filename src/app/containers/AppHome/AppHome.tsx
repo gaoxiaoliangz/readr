@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import _ from 'lodash'
 import { loadBooks } from '../../actions/api'
 import * as selectors from '../../selectors'
@@ -15,12 +15,13 @@ import homeQuery from './query.gql'
 interface Props {
   session: Session
   loadBooks: typeof loadBooks
-  bookList: SelectedPagination
   data: State.Apollo<{
     books: Schema.Connection<{
       id: string
       title: string
-      authors: any[]
+      authors: {
+        name: string
+      }[]
       description: string
       cover: string
     }>
@@ -41,10 +42,6 @@ class AppHome extends Component<Props, IState> {
     }
   }
 
-  componentWillMount() {
-    // this.props.loadBooks()
-  }
-
   // componentWillReceiveProps(nextProps) {
   //   if (this.props.session.isFetching && !nextProps.session.isFetching) {
   //     if (nextProps.session.user.role !== 'visitor') {
@@ -56,7 +53,7 @@ class AppHome extends Component<Props, IState> {
   // }
 
   render() {
-    let { bookList, session } = this.props
+    let { session } = this.props
 
     const bookEntities = this.props.data.loading
       ? []
