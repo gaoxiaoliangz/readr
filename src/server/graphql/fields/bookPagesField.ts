@@ -11,6 +11,7 @@ import _ from 'lodash'
 import { makeNodeConnectionField } from '../utils'
 import { GQLBookPageConnection } from '../types/GQLBookPage'
 import { getReadingProgressCore } from '../../api/user'
+import api from '../../api'
 
 const bookPagesField = makeNodeConnectionField({
   type: GQLBookPageConnection,
@@ -35,7 +36,7 @@ const bookPagesField = makeNodeConnectionField({
     },
     fromLocation: {
       type: GraphQLString,
-      description: 'format sectionName,hash'
+      description: 'format sectionId,hash'
     }
   },
   sliceStart: (list) => async (parent, args, req) => {
@@ -56,11 +57,11 @@ const bookPagesField = makeNodeConnectionField({
 
     if (args.fromLocation) {
       const loc = args.fromLocation.split(',')
-      const sectionName = loc[0]
+      const sectionId = loc[0]
       const tagId = loc[1]
 
       let result = list.filter(d => {
-        return d.meta.section === sectionName
+        return d.meta.sectionId === sectionId
       })
 
       if (tagId) {
@@ -116,17 +117,17 @@ const bookPagesField = makeNodeConnectionField({
     }
   },
   listAllFn: async (parent, args, req) => {
-    const bookId = fromGlobalId(args.bookId).id
+    const id = fromGlobalId(args.bookId).id
+    const book = await api.books.find({
+      id,
+      includePages: true,
+      pageHeight: args.pageHeight,
+      width: args.width,
+      fontSize: args.fontSize,
+      lineHeight: args.lineHeight
+    })
 
-    // return booksAPI.find({
-    //   id: bookId,
-    //   pageHeight: args.pageHeight,
-    //   width: args.width,
-    //   fontSize: args.fontSize,
-    //   lineHeight: args.lineHeight
-    // })
-    // todo
-    return {}
+    return book.pages
   }
 })
 

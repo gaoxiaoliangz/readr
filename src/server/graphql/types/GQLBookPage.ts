@@ -62,7 +62,7 @@ export const GQLBookPage = new GraphQLObjectType({
           offset: {
             type: GraphQLInt
           },
-          section: {
+          sectionId: {
             type: GraphQLString
           }
         }

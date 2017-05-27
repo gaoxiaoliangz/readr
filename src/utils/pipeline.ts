@@ -27,7 +27,10 @@ const pipeline = (...restArgs) => (tasks: any[]) => {
   }) as any as Promise<any>
 }
 
-export const withTimeCount = (name: string) => (tasks: any[]) => {
+export const withTimeCount = (_name: string) => (tasks: any[]) => {
+  const countId = Math.random().toString().substr(2, 6)
+  const name = `[${countId}] ${_name}`
+
   const startCount = (data) => {
     if (process.env.NODE_ENV !== 'production') {
       console.time(name)
