@@ -3,6 +3,7 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLList
 } from 'graphql'
 import {
   connectionArgs,
@@ -11,42 +12,81 @@ import {
   connectionFromArraySlice
 } from 'graphql-relay'
 import _ from 'lodash'
+import * as GQLTypes from './types'
+import dataProvider from '../models/data-provider'
 const debug = require('debug')('readr:gql-utils')
 
-export const mgFieldsToGQLFields = mgFields => {
-  return _.mapValues(mgFields, (val, key) => {
-    let type: any = GraphQLString
-    if (val.required) {
-      type = new GraphQLNonNull(type)
+export const modelToGQLFields = (model) => {
+  if (!model) {
+    return {}
+  }
+  let fields = {}
+  const makeReferenceType = (name) => {
+    const result = _.find(GQLTypes as any, GQLType => {
+      return GQLType['name'] === name
+    })
+    if (result) {
+      // it won't be used, 'cause GQLTypes are not created yet
+      return result
     }
+    const _name = `${name}_${Math.random().toString().substr(2, 3)}`
+    return new GraphQLObjectType({
+      name: _name,
+      fields: modelToGQLFields(dataProvider[name]),
+      description: 'Using such a strange type name is actually a technical compromise, maybe I will come up with somthing else later.'
+    })
+  }
 
-    return {
-      type
+  const mapMgSchemaTypeToGqlType = (type) => {
+    const ref = (_.get(type, 'caster.options.ref') || _.get(type, 'options.ref')) as string
+
+    let gqlType: any = GraphQLString
+    gqlType = ref
+      ? makeReferenceType(ref)
+      : gqlType
+    gqlType = type.instance === 'Array' ? new GraphQLList(gqlType) : gqlType
+    gqlType = type.isRequired ? new GraphQLNonNull(gqlType) : gqlType
+
+    return gqlType
+  }
+
+  model.schema.eachPath((path, type) => {
+    const gqlType = mapMgSchemaTypeToGqlType(type)
+
+    if (path !== '__v') {
+      fields = {
+        ...fields,
+        [path]: {
+          type: gqlType
+        }
+      }
     }
   })
+
+  return fields
 }
 
 type MakeGQLNodeTypeConfig = {
   name: string
   description: string
-  mgFields: {
-    [key: string]: any
-  }
+  model?: any
   fields?: {
     [key: string]: any
   }
 }
-const makeGQLNodeType = nodeInterface => ({ name, mgFields, description, fields }: MakeGQLNodeTypeConfig) => {
+const makeGQLNodeType = nodeInterface => ({ name, model, description, fields }: MakeGQLNodeTypeConfig) => {
+  const _fields = {
+    ...modelToGQLFields(model),
+    id: globalIdField(name, (obj) => {
+      return obj._id
+    }),
+    ...fields,
+  }
+
   return new GraphQLObjectType({
     name,
     description,
-    fields: {
-      ...mgFieldsToGQLFields(mgFields),
-      id: globalIdField(name, (obj) => {
-        return obj._id
-      }),
-      ...fields,
-    },
+    fields: _fields,
     interfaces: [nodeInterface]
   })
 }
@@ -129,7 +169,7 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
 
 const utilsWithContext = ({ nodeInterface }) => {
   return {
-    mgFieldsToGQLFields,
+    modelToGQLFields,
     makeNodeConnectionField,
     extendedConnectionDefinitions,
     makeGQLNodeType: makeGQLNodeType(nodeInterface),

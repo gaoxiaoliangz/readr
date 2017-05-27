@@ -1,12 +1,12 @@
 import makeUtils from '../utils'
-import * as mgSchemas from '../../models/mg-schemas'
+import dataProvider from '../../models/data-provider'
 import { nodeInterface } from '../node'
 
 const utils = makeUtils({ nodeInterface })
 
 export const { nodeType: GQLAuthor, connectionType: GQLAuthorConnection } = utils.makeGQLNodeTypeAndConnectionType({
   name: 'Author',
-  mgFields: mgSchemas.authorFields,
+  model: dataProvider.Author,
   description: 'Book author, normally it\'s fetched from douban.'
 })
 

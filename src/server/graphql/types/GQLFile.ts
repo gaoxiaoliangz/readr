@@ -1,5 +1,5 @@
 import makeUtils from '../utils'
-import * as mgSchemas from '../../models/mg-schemas'
+import dataProvider from '../../models/data-provider'
 import { nodeInterface } from '../node'
 
 const utils = makeUtils({ nodeInterface })
@@ -7,7 +7,7 @@ const utils = makeUtils({ nodeInterface })
 export const { nodeType: GQLFile, connectionType: GQLFileConnection } = utils.makeGQLNodeTypeAndConnectionType({
   name: 'File',
   description: 'File ...',
-  mgFields: mgSchemas.fileFields
+  model: dataProvider.File
 })
 
 export default GQLFile
