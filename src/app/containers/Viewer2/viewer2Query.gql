@@ -20,12 +20,6 @@ query Viewer2(
       }
     }
   }
-  # book(id: $bookId) {
-  #   title
-  #   toc {
-  #     ...tocRecursive
-  #   }
-  # }
   viewer {
     readingProgress(bookId: $bookId) {
       percentage

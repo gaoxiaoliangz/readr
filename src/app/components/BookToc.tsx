@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 
 interface Props {
-  toc: Schema.TocChapter[]
+  toc: Schema.TocItem[]
 }
 
 export default class BookToc extends Component<Props, void> {
 
-  renderLink(ref, hash, label) {
+  renderLink(sectionId, hash, label) {
     if (hash) {
-      return <a className="text-link" href={`#${ref},${hash}`}>{label}</a>
+      return <a className="text-link" href={`#${sectionId},${hash}`}>{label}</a>
     }
-    return <a className="text-link" href={`#${ref}`}>{label}</a>
+    return <a className="text-link" href={`#${sectionId}`}>{label}</a>
   }
 
-  renderNav(list: Schema.TocChapter[]) {
+  renderNav(list: Schema.TocItem[]) {
     return (
       <ul>
         {
           list.map((item, index) => {
             const _renderLink = () => {
-              return this.renderLink(item.srcObject.name, item.srcObject.hash, item.name)
+              return this.renderLink(item.sectionId, item.hash, item.name)
             }
 
             if (item.children) {

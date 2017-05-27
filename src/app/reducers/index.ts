@@ -43,7 +43,7 @@ const rootReducer = combineReducers({
     role: ROLES.VISITOR
   }),
   profile: receiveData(TYPES.PROFILE),
-  apollo: apolloClient.reducer(),
+  // apollo: apolloClient.reducer(),
 })
 
 export default rootReducer

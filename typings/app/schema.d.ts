@@ -10,23 +10,15 @@ declare namespace Schema {
 
   type BookInfo = {
     title: string
-    toc: TocChapter[]
+    toc: TocItem[]
   }
 
-  interface TocChapter {
-    src: string
+  interface TocItem {
+    sectionId: string
+    hash: string
     name: string
     playOrder: string
-    srcObject: TocChapterSrcObject
-    children: [TocChapter]
-  }
-
-  interface TocChapterSrcObject {
-    name: string
-    ext: string
-    prefix: string
-    url: string
-    hash: string
+    children: [TocItem]
   }
 
   interface BookPages {
