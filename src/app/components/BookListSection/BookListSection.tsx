@@ -4,10 +4,16 @@ import BookList from '../BookList'
 import Loading from '../../components/Loading'
 import CSSModules from 'react-css-modules'
 import Icon from '../../components/Icon'
-const styles = require('./BookListSection.scss')
+import styles from './BookListSection.scss'
 
 interface IProps {
-  bookEntities: any
+  bookEntities: {
+    id: string
+    title: string
+    authors: any
+    description: string
+    cover: string
+  }[]
   title?: string
   moreLink?: string
   isFetching?: boolean

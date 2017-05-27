@@ -1,0 +1,13 @@
+query Home {
+  books {
+    edges {
+      node {
+        id
+        title
+        cover
+        description
+        authors
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
+import { graphql, compose } from 'react-apollo'
 import _ from 'lodash'
 import { loadBooks } from '../../actions/api'
 import * as selectors from '../../selectors'
@@ -9,11 +10,21 @@ import DocContainer from '../../components/DocContainer'
 import { Button } from '../../components/form'
 import { Container } from '../../components/layout'
 import styles from './AppHome.scss'
+import homeQuery from './query.gql'
 
 interface Props {
   session: Session
   loadBooks: typeof loadBooks
   bookList: SelectedPagination
+  data: State.Apollo<{
+    books: Schema.Connection<{
+      id: string
+      title: string
+      authors: any[]
+      description: string
+      cover: string
+    }>
+  }>
 }
 
 interface IState {
@@ -31,7 +42,7 @@ class AppHome extends Component<Props, IState> {
   }
 
   componentWillMount() {
-    this.props.loadBooks()
+    // this.props.loadBooks()
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -46,6 +57,12 @@ class AppHome extends Component<Props, IState> {
 
   render() {
     let { bookList, session } = this.props
+
+    const bookEntities = this.props.data.loading
+      ? []
+      : this.props.data.books.edges.map(edge => {
+        return edge.node
+      })
 
     return (
       <DocContainer bodyClass="home" title="首页">
@@ -62,16 +79,18 @@ class AppHome extends Component<Props, IState> {
         }
         <Container>
           <BookListSection
-            bookEntities={_.get(bookList, ['pages', '1'], []).slice(0, 6)}
+            bookEntities={bookEntities.slice(0, 6)}
             title="新书速递"
             moreLink="/browse"
-            isFetching={bookList.fetchStatus === 'loading'}
+            isFetching={this.props.data.loading}
           />
         </Container>
       </DocContainer>
     )
   }
 }
+
+const AppHomeWithData = graphql(homeQuery)(AppHome)
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -83,4 +102,4 @@ function mapStateToProps(state, ownProps) {
 export default connect<{}, {}, {}>(
   mapStateToProps,
   { loadBooks }
-)(AppHome)
+)(AppHomeWithData)

@@ -34,6 +34,14 @@ declare namespace Schema {
       }
     }[]
   }
+
+  interface Connection<T> {
+    totalCount: number
+    edges: {
+      cursor: string
+      node: T
+    }[]
+  }
 }
 
 // deprecated
