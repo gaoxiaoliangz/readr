@@ -17,7 +17,6 @@ import dataProvider from '../models/data-provider'
 import { GQLAuthorConnection, GQLFileConnection, GQLBookConnection, GQLBook, GQLReadingProgress } from './types'
 import { nodeInterface, nodeField } from './node'
 import { makeNodeConnectionField } from './utils'
-import resolveBookInfo from './resolvers/resolveBook'
 import { setReadingProgressCore, getReadingProgressCore } from '../api/user'
 import bookPagesField from './fields/bookPagesField'
 import api from '../api'
@@ -81,8 +80,7 @@ const Query = new GraphQLObjectType({
       },
       resolve: async (parent, args) => {
         const { id } = fromGlobalId(args.id)
-        const result = await resolveBookInfo(id)
-        return result
+        return api.books.find({ id, includeToc: true })
       }
     },
     books: makeNodeConnectionField({

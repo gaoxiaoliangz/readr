@@ -1,11 +1,13 @@
+import { compose } from 'redux'
 import dataProvider from '../../models/data-provider'
 import genPages from './genPages'
 import parseBookFile from './parseBookFile'
 import { queryBoolean, validateNonNullOptions } from '../utils'
 import md5 from 'md5'
 import { Types } from 'mongoose'
-import pipeline from '../../../utils/pipeline'
+import pipeline, { withTimeCount } from '../../../utils/pipeline'
 import _ from 'lodash'
+// const debug = require('debug')('readr:findBook')
 
 /**
  * validate options | options -> options
@@ -119,12 +121,12 @@ export const handleResult = async ({ result, options: _options }: { result; opti
       bookId: id,
       sections: parsedFile.sections,
       defaultFirstSectionHTML: `
-          <br/>
-          <br/>
-          <br/>
-          <h1>${parsedFile.info.title}</h1>
-          <p>${parsedFile.info.author}</p>
-        `
+        <br/>
+        <br/>
+        <br/>
+        <h1>${parsedFile.info.title}</h1>
+        <p>${parsedFile.info.author}</p>
+      `
     })
     return {
       ..._.omit(_result, 'file'),
@@ -142,10 +144,6 @@ export const handleResult = async ({ result, options: _options }: { result; opti
 }
 
 export default async function findBook(options: BookOptions): Promise<Book> {
-  if (process.env.NODE_ENV !== 'production') {
-    console.time('api:findBooks')
-  }
-
   const tasks = [
     convert,
     (_options) => validateId(_options.id).then(() => _options),
@@ -153,11 +151,9 @@ export default async function findBook(options: BookOptions): Promise<Book> {
     doQuery,
     handleResult
   ]
-  const result = pipeline(tasks, options)
 
-  if (process.env.NODE_ENV !== 'production') {
-    console.timeEnd('api:findBooks')
-  }
-
-  return result
+  return compose(
+    pipeline(options),
+    withTimeCount('api:findBook')
+  )(tasks)
 }

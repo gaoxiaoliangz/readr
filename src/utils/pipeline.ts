@@ -6,7 +6,8 @@
  */
 import BPromise from 'bluebird'
 
-const pipeline = (tasks, ...restArgs) => {
+// use curried args
+const pipeline = (...restArgs) => (tasks: any[]) => {
   let runTask = (task, args) => {
     // Self-optimizing function to run first task with multiple
     // args using apply, but subsequent tasks via direct invocation
@@ -24,6 +25,28 @@ const pipeline = (tasks, ...restArgs) => {
       return runTask(task, arg)
     }, args)
   }) as any as Promise<any>
+}
+
+export const withTimeCount = (name: string) => (tasks: any[]) => {
+  const startCount = (data) => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.time(name)
+    }
+    return data
+  }
+
+  const endCount = (data) => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.timeEnd(name)
+    }
+    return data
+  }
+
+  if (tasks.length >= 2) {
+    return [tasks[0], startCount, ...tasks.slice(1), endCount]
+  }
+
+  return tasks
 }
 
 export default pipeline

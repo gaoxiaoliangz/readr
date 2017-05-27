@@ -1,4 +1,4 @@
-import GQLBookToc from './GQLBookToc'
+import GQLTocItem from './GQLTocItem'
 import GQLReadingProgress from './GQLReadingProgress'
 import { GQLBookPage, GQLBookPageConnection } from './GQLBookPage'
 import { GQLBook, GQLBookConnection } from './GQLBook'
@@ -17,6 +17,6 @@ export {
   GQLBookPageConnection,
   GQLBook,
   GQLBookConnection,
-  GQLBookToc,
+  GQLTocItem,
   GQLReadingProgress
 }

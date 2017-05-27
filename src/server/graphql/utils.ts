@@ -42,8 +42,10 @@ const makeGQLNodeType = nodeInterface => ({ name, mgFields, description, fields 
     description,
     fields: {
       ...mgFieldsToGQLFields(mgFields),
+      id: globalIdField(name, (obj) => {
+        return obj._id
+      }),
       ...fields,
-      id: globalIdField(name)
     },
     interfaces: [nodeInterface]
   })
