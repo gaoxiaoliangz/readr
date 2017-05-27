@@ -8,6 +8,7 @@ import _ from 'lodash'
 import * as selectors from '../../selectors'
 import CSSModules from 'react-css-modules'
 import styles from './Browse.scss'
+import { gql, graphql } from 'react-apollo'
 
 interface Props {
   bookList: SelectedPagination
@@ -22,12 +23,12 @@ class Browse extends Component<Props, {}> {
   }
 
   loadMore(page = 1) {
-    this.props.loadBooks(page)
+    // this.props.loadBooks(page)
   }
 
-  componentWillMount() {
-    this.loadMore()
-  }
+  // componentWillMount() {
+  //   this.loadMore()
+  // }
 
   render() {
     const { bookList } = this.props
@@ -64,6 +65,24 @@ class Browse extends Component<Props, {}> {
   }
 }
 
+const BrowseWithData = graphql(gql`
+  query queryBooks {
+    books {
+      edges {
+        node {
+          id
+          title
+          cover
+          description
+          authors {
+            name
+          }
+        }
+      }
+    }
+  }
+`)(Browse)
+
 function mapStateToProps(state, ownProps) {
   return {
     bookList: selectors.pagination.bookList(state)
@@ -73,4 +92,4 @@ function mapStateToProps(state, ownProps) {
 export default connect(
   mapStateToProps,
   { loadBooks }
-)(Browse)
+)(BrowseWithData)
