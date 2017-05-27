@@ -2,15 +2,28 @@ import React, { Component } from 'react'
 
 interface Props {
   toc: Schema.TocItem[]
+  onLinkClick?: (href: string) => void
 }
 
 export default class BookToc extends Component<Props, void> {
 
-  renderLink(sectionId, hash, label) {
-    if (hash) {
-      return <a className="text-link" href={`#${sectionId},${hash}`}>{label}</a>
+  constructor(props) {
+    super(props)
+    this._handleLinkClick = this._handleLinkClick.bind(this)
+  }
+
+  _handleLinkClick(href) {
+    return (e) => {
+      if (this.props.onLinkClick) this.props.onLinkClick(href)
     }
-    return <a className="text-link" href={`#${sectionId}`}>{label}</a>
+  }
+
+  renderLink(sectionId, hash, label) {
+    const href = hash
+      ? `#${sectionId},${hash}`
+      : `#${sectionId}`
+
+    return <a onClick={this._handleLinkClick(href)} className="text-link" href={href}>{label}</a>
   }
 
   renderNav(list: Schema.TocItem[]) {

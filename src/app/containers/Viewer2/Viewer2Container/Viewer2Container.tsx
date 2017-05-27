@@ -208,6 +208,9 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
           <div>目录</div>
           <BookToc
             toc={this.props.bookInfo.toc}
+            onLinkClick={() => {
+              this.props.actions.viewer.toggleViewerNavigation(false)
+            }}
           />
         </LeftPanel>
         <BookContainer
