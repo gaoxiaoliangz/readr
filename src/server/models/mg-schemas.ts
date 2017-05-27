@@ -64,6 +64,9 @@ export const bookFields = {
 }
 
 export const bookSchema = new Schema(bookFields, additionalSchemaOptions)
+// bookSchema.pre('findOne', function(next) {
+//   next()
+// })
 
 export const collectionFields = {
   name: {

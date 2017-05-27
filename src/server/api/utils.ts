@@ -85,12 +85,10 @@ export function parseLinks(config: ParseLinksConfig) {
 export const makeBasicAPIMethods = (Model: typeof dataProvider.Author) => {
   return {
     list(options) {
-      let page = 1
-      if (options.page) {
-        page = options.page
-      }
-
-      return Model.utils.list(page)
+      return Model.utils.list({
+        offset: ((Number(options.page) || 1) - 1) * 10,
+        limit: 10
+      })
     },
     add(object, options) {
       return Model.utils.save(object)
@@ -109,4 +107,21 @@ export const makeBasicAPIMethods = (Model: typeof dataProvider.Author) => {
       return Model.utils.updateById(id, object)
     }
   }
+}
+
+export const queryBoolean = (input) => {
+  const consideredFalse = ['0', 'false', 'null', 'undefined']
+  if (consideredFalse.indexOf(input) !== -1) {
+    return false
+  }
+  return Boolean(input)
+}
+
+export const validateNonNullOptions = (options, nonNullFieldList) => {
+  for (const field of nonNullFieldList) {
+    if (_.isUndefined(options[field])) {
+      return new Error(`Required field ${field} is not provided!`)
+    }
+  }
+  return
 }

@@ -1,27 +1,10 @@
-// tslint:disable:no-unused-variable
 import {
   GraphQLBoolean,
-  GraphQLID,
   GraphQLInt,
   GraphQLList,
-  GraphQLNonNull,
   GraphQLObjectType,
-  GraphQLSchema,
   GraphQLString,
-  GraphQLDeprecatedDirective
 } from 'graphql'
-import {
-  connectionArgs,
-  connectionDefinitions,
-  connectionFromArray,
-  cursorForObjectInConnection,
-  fromGlobalId,
-  globalIdField,
-  mutationWithClientMutationId,
-  nodeDefinitions,
-  toGlobalId,
-} from 'graphql-relay'
-// tslint:enable:no-unused-variable
 import { extendedConnectionDefinitions } from '../utils'
 
 const GQLHTMLElementObject = new GraphQLObjectType({
@@ -59,7 +42,7 @@ const GQLHTMLElementObject = new GraphQLObjectType({
   })
 })
 
-const GQLBookPage = new GraphQLObjectType({
+export const GQLBookPage = new GraphQLObjectType({
   name: 'BookPage',
   description: 'Computed bookpage',
   fields: {
@@ -79,7 +62,7 @@ const GQLBookPage = new GraphQLObjectType({
           offset: {
             type: GraphQLInt
           },
-          section: {
+          sectionId: {
             type: GraphQLString
           }
         }

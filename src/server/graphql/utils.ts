@@ -1,28 +1,15 @@
-// tslint:disable:no-unused-variable
 import {
-  GraphQLBoolean,
-  GraphQLID,
   GraphQLInt,
-  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
-  GraphQLSchema,
   GraphQLString,
-  GraphQLDeprecatedDirective
 } from 'graphql'
 import {
   connectionArgs,
   connectionDefinitions,
-  connectionFromArray,
-  cursorForObjectInConnection,
-  fromGlobalId,
   globalIdField,
-  mutationWithClientMutationId,
-  nodeDefinitions,
-  toGlobalId,
   connectionFromArraySlice
 } from 'graphql-relay'
-// tslint:enable:no-unused-variable
 import _ from 'lodash'
 const debug = require('debug')('readr:gql-utils')
 
@@ -55,8 +42,10 @@ const makeGQLNodeType = nodeInterface => ({ name, mgFields, description, fields 
     description,
     fields: {
       ...mgFieldsToGQLFields(mgFields),
+      id: globalIdField(name, (obj) => {
+        return obj._id
+      }),
       ...fields,
-      id: globalIdField(name)
     },
     interfaces: [nodeInterface]
   })

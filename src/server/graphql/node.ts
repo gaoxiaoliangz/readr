@@ -3,15 +3,17 @@ import {
   nodeDefinitions
 } from 'graphql-relay'
 import _ from 'lodash'
-const debug = require('debug')('readr:gql-node')
 import dataProvider from '../models/data-provider'
-import * as GQLTypes from './gql-types'
-import resolveBookInfo from './resolvers/resolve-book-info'
+import * as GQLTypes from './types'
+import api from '../api'
+const debug = require('debug')('readr:gql-node')
 
 const mapGQLTypeToResolver = type => {
   switch (type) {
-    case 'BookInfo':
-      return resolveBookInfo
+    case 'Book':
+      return (id) => {
+        return api.books.find({ id, includeToc: true })
+      }
 
     default:
       if (!dataProvider[type]) {
