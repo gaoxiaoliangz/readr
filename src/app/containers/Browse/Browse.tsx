@@ -36,9 +36,7 @@ class Browse extends Component<Props, {}> {
   }
 
   loadMore() {
-    const a = this.props.data.books.edges
     const lastCursor = _.last(this.props.data.books.edges).cursor
-    console.log(lastCursor)
     this.props.data.fetchMore({
       variables: {
         after: lastCursor
