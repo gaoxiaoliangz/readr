@@ -6,23 +6,36 @@ import InfoTable from '../../components/InfoTable'
 import webAPI from '../../webAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
-import { loadBooks, loadUsers, removeEntity } from '../../actions/api'
-import ContentPage from '../../components/ContentPage'
-// import helpers from '../../helpers'
+import { gql, graphql } from 'react-apollo'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
 import { Button } from '../../components/form'
 import BookMetaForm from './components/BookMetaForm'
+import Loading from '../../components/Loading'
+import Paginator from '../../components/Paginator'
+
+const PAGE_LIMIT = 10
+
+type Data = State.Apollo<{
+  books: Schema.Connection<{
+    id: string
+    dbId: string
+    title: string
+    authors: {
+      name: string
+    }[]
+    description: string
+    cover: string
+    createdAt: string
+  }>
+}>
 
 interface Props {
+  data: Data
   sendNotification?: typeof sendNotification
-  loadBooks?: typeof loadBooks
-  bookListNewest?: SelectedPagination
   openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
   routing: SelectedRouting
-  removeEntity: typeof removeEntity
-  loadUsers: typeof loadUsers
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
@@ -44,7 +57,6 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         webAPI.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
-          this.props.removeEntity('books', id)
           cb()
         })
       }
@@ -80,29 +92,35 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     })
   }
 
-  loadBooks(props = this.props) {
-    this.props.loadBooks(props.routing.query.page || '1')
+  loadBooks(page = 1) {
+    this.props.data.fetchMore({
+      variables: {
+        offset: (page - 1) * PAGE_LIMIT
+      },
+      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
+        return fetchMoreResult
+      }
+    })
   }
 
-  // componentWillReceiveProps(nextProps, nextState) {
-  //   helpers.onRoutingChange(routing => {
-  //     document.body.scrollTop = 0
-  //     this.loadBooks(nextProps)
-  //   })(nextProps, this.props)
-  // }
-
-  componentWillMount() {
-    this.loadBooks()
-    // this.props.loadUsers()
+  componentWillReceiveProps(nextProps, nextState) {
+    const pageChanged = this.props.routing.query.page !== nextProps.routing.query.page
+    if (pageChanged) {
+      document.body.scrollTop = 0
+      this.loadBooks(Number(nextProps.routing.query.page))
+    }
   }
 
   render() {
-    const { bookListNewest } = this.props
-    const entities = _.get(bookListNewest, ['pages', bookListNewest.currentPage], [])
+    if (this.props.data.loading) {
+      return <Loading center />
+    }
+
+    const entities = this.props.data.books.edges.map(edge => edge.node)
     const rows = entities
       .map((row, index) => {
         return [
-          row.id,
+          row.dbId,
           row.title,
           moment(new Date(row.createdAt).valueOf()).format('YYYY年MM月DD日'),
           row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
@@ -121,45 +139,86 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 
     return (
       <DocContainer title="书籍管理" bodyClass="manage-books">
-        <ContentPage
-          pagination={{
-            name: 'books'
+        <FileUploader
+          style={{ marginTop: 20 }}
+          url="/api/books"
+          accept=".txt,.epub"
+          name="book-file"
+          onSuccess={result => {
+            this.props.sendNotification(`${result.title} 添加成功`)
+            this.loadBooks()
           }}
+          onError={error => {
+            this.props.sendNotification(error.message, 'error')
+          }}
+          fileFieldName="bookfile"
         >
-          <FileUploader
-            style={{ marginTop: 20 }}
-            url="/api/books"
-            accept=".txt,.epub"
-            name="book-file"
-            onSuccess={result => {
-              this.props.sendNotification(`${result.title} 添加成功`)
-              this.loadBooks()
-            }}
-            onError={error => {
-              this.props.sendNotification(error.message, 'error')
-            }}
-            fileFieldName="bookfile"
-          >
-            <Button color="blue">添加书籍</Button>
-          </FileUploader>
-          <InfoTable
-            rows={rows}
-            header={['ID', '数名', '创建日期', '作者', '操作']}
-          />
-        </ContentPage>
+          <Button color="blue">添加书籍</Button>
+        </FileUploader>
+        <InfoTable
+          rows={rows}
+          header={['ID', '书名', '创建日期', '作者', '操作']}
+        />
+        <Paginator
+          all={Math.ceil(this.props.data.books.totalCount / PAGE_LIMIT)}
+          current={Number(this.props.routing.query.page) || 1}
+          url={{
+            pathname: this.props.routing.pathname,
+            query: this.props.routing.query || {}
+          }}
+        />
       </DocContainer>
     )
   }
 }
 
+const ManageBooksWithData = graphql(gql`
+  query queryBooks($offset: Int) {
+    books(first: ${PAGE_LIMIT}, offset: $offset) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          dbId
+          title
+          cover
+          description
+          createdAt
+          authors {
+            name
+          }
+        }
+      }
+    }
+  }
+`, {
+    options: (props) => {
+      return {
+        variables: {
+          offset: ((Number(props.routing.query.page) || 1) - 1) * PAGE_LIMIT
+        },
+
+        // if not specified as 'network-only' fetch status will always be loading, when
+        // refetching somthing with previously used query, seems to be a bug
+        fetchPolicy: 'network-only'
+      }
+    }
+  })(ManageBooks)
+
 function mapStateToProps(state, ownProps) {
   return {
-    bookListNewest: selectors.pagination.bookList(state),
     routing: selectors.routing(state)
   }
 }
 
-export default connect<{}, {}, {}>(
+export default connect(
   mapStateToProps,
-  { loadBooks, sendNotification, openConfirmModal, closeConfirmModal, removeEntity, loadUsers, openModal, initializeForm, closeModal }
-)(ManageBooks)
+  { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
+)(ManageBooksWithData)
