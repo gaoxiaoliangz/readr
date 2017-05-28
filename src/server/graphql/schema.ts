@@ -86,7 +86,8 @@ const Query = new GraphQLObjectType({
     books: makeNodeConnectionField({
       type: GQLBookConnection,
       listAllFn: () => {
-        return api.books.list({ includeToc: true }).then(data => data.list)
+        // tood: max
+        return api.books.list({ includeToc: true, limit: 99999 }).then(data => data.list)
       }
     })
   }
