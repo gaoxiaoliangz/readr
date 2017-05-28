@@ -16,6 +16,9 @@ module.exports = {
     libraryTarget: 'commonjs2',
     chunkFilename: 'chunk.[id].js',
 
+    // todo: if not build?
+    publicPath: paths.publicPath,
+
     // editor break point support
     devtoolModuleFilenameTemplate: '../../[resource-path]'
   },

@@ -6,6 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 // import { Provider } from 'react-redux'
 import helpers from '../helpers'
 import apolloClient from '../apolloClient'
+import Loading from '../components/Loading/Loading'
 // import createApolloClient from '../createApolloClient'
 
 // const client = createApolloClient()
@@ -42,7 +43,7 @@ class AppProvider extends Component<Props, {}> {
           {
             renderPageContent
               ? this.renderRouter(renderProps)
-              : <div className="text-loading">Loading...</div>
+              : <Loading center />
           }
         </Provider>
       </ApolloProvider>
