@@ -16,7 +16,7 @@ interface Props {
   logout: typeof logout
 }
 
-class Console extends Component<Props, {}> {
+class AdminApp extends Component<Props, {}> {
 
   constructor(props) {
     super(props)
@@ -42,10 +42,8 @@ class Console extends Component<Props, {}> {
   }
 
   render() {
-    // todo: remove
-    let isAdmin = this.props.session.role === 'admin'
-    let username = this.props.session.username
-    let pathname = this.props.routing.locationBeforeTransitions
+    const username = this.props.session.username
+    const pathname = this.props.routing.locationBeforeTransitions
       ? this.props.routing.locationBeforeTransitions.pathname
       : 'console'
 
@@ -55,24 +53,18 @@ class Console extends Component<Props, {}> {
     }
 
     return (
-      isAdmin
-        ? (
-          <DocContainer bodyClass="console">
-            <ConsoleBranding isAdmin={isAdmin} username={username} onLogout={this.handleLogout} />
-            <Container isFluid={true}>
-              <ConsoleSidebar
-                menuMapping={menus}
-                currentPath={pathname}
-                />
-              <div style={contentStyle}>
-                {this.props.children}
-              </div>
-            </Container>
-          </DocContainer>
-        )
-        : (
-          <div style={{textAlign: 'center', margin: '20px 0'}}>ACCESS DENIED!</div>
-        )
+      <DocContainer bodyClass="console">
+        <ConsoleBranding isAdmin username={username} onLogout={this.handleLogout} />
+        <Container isFluid={true}>
+          <ConsoleSidebar
+            menuMapping={menus}
+            currentPath={pathname}
+          />
+          <div style={contentStyle}>
+            {this.props.children}
+          </div>
+        </Container>
+      </DocContainer>
     )
   }
 }
@@ -84,4 +76,4 @@ export default connect<{}, {}, {}>(
     routing: state.routing
   }),
   { logout }
-)(Console)
+)(AdminApp)

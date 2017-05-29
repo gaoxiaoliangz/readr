@@ -3,6 +3,7 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLList
 } from 'graphql'
 import {
   connectionArgs,
@@ -11,42 +12,74 @@ import {
   connectionFromArraySlice
 } from 'graphql-relay'
 import _ from 'lodash'
+import humps from 'humps'
 const debug = require('debug')('readr:gql-utils')
 
-export const mgFieldsToGQLFields = mgFields => {
-  return _.mapValues(mgFields, (val, key) => {
-    let type: any = GraphQLString
-    if (val.required) {
-      type = new GraphQLNonNull(type)
-    }
+export const modelToGQLFields = (model, refTypes?) => {
+  if (!model) {
+    return {}
+  }
+  let fields = {}
+  const mapMgSchemaTypeToGqlType = (type) => {
+    const ref = (_.get(type, 'caster.options.ref') || _.get(type, 'options.ref')) as string
 
-    return {
-      type
+    let gqlType: any = GraphQLString
+    gqlType = ref
+      ? (_.find(refTypes, { name: ref }) || GraphQLString)
+      : gqlType
+    gqlType = type.instance === 'Array' ? new GraphQLList(gqlType) : gqlType
+    gqlType = type.isRequired ? new GraphQLNonNull(gqlType) : gqlType
+
+    return gqlType
+  }
+
+  model.schema.eachPath((path, type) => {
+    const gqlType = mapMgSchemaTypeToGqlType(type)
+    if (path === '_id') {
+      fields = {
+        ...fields,
+        id: globalIdField(model.modelName, (obj) => obj[path]),
+        dbId: {
+          type: new GraphQLNonNull(GraphQLString),
+          resolve: (obj) => obj[path]
+        }
+      }
+    } else if (path !== '__v') {
+      fields = {
+        ...fields,
+        [humps.camelize(path)]: {
+          type: gqlType,
+          resolve: (obj) => obj[path]
+        }
+      }
     }
   })
+
+  return fields
 }
 
 type MakeGQLNodeTypeConfig = {
   name: string
   description: string
-  mgFields: {
-    [key: string]: any
-  }
+  model?: any
   fields?: {
     [key: string]: any
-  }
+  },
+  refTypes?: any[]
 }
-const makeGQLNodeType = nodeInterface => ({ name, mgFields, description, fields }: MakeGQLNodeTypeConfig) => {
+const makeGQLNodeType = nodeInterface => ({ name, model, description, fields, refTypes }: MakeGQLNodeTypeConfig) => {
+  const _fields = {
+    ...modelToGQLFields(model, refTypes),
+    id: globalIdField(name, (obj) => {
+      return obj._id
+    }),
+    ...fields,
+  }
+
   return new GraphQLObjectType({
     name,
     description,
-    fields: {
-      ...mgFieldsToGQLFields(mgFields),
-      id: globalIdField(name, (obj) => {
-        return obj._id
-      }),
-      ...fields,
-    },
+    fields: _fields,
     interfaces: [nodeInterface]
   })
 }
@@ -129,7 +162,7 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
 
 const utilsWithContext = ({ nodeInterface }) => {
   return {
-    mgFieldsToGQLFields,
+    modelToGQLFields,
     makeNodeConnectionField,
     extendedConnectionDefinitions,
     makeGQLNodeType: makeGQLNodeType(nodeInterface),

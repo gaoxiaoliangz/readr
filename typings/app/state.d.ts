@@ -63,7 +63,7 @@ declare namespace Viewer {
     showPanel?: boolean
     showPreference?: boolean
     showProgress?: boolean
-    
+
     // if true, all components will be hided (highest priority)
     hideAll?: boolean
   }
@@ -83,4 +83,15 @@ declare namespace Viewer {
     isReady?: boolean
     statusText?: string
   }
+}
+
+
+
+
+declare namespace State {
+  type Apollo<T> = {
+    error: Error
+    fetchMore: any
+    loading: boolean
+  } & T
 }

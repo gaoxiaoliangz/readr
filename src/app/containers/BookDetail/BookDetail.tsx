@@ -1,18 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadBookInfo } from '../../actions/api'
 import Loading from '../../components/Loading'
 import { Button } from '../../components/form'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
-import * as selectors from '../../selectors'
 import styles from './BookDetail.scss'
-import schemas from '../../schemas'
+import { gql, graphql } from 'react-apollo'
+
+type Data = State.Apollo<{
+  book: {
+    id: string
+    title: string
+    authors: {
+      name: string
+    }[]
+    description: string
+    cover: string
+  }
+}>
 
 interface Props {
-  loadBookInfo: typeof loadBookInfo
-  bookInfo: SelectedEntity
+  data: Data
 }
 
 @CSSModules(styles)
@@ -25,13 +34,9 @@ class BookDetail extends Component<Props, {}> {
     this.bookId = props.params.id
   }
 
-  componentWillMount() {
-    this.props.loadBookInfo(this.bookId)
-  }
-
   render() {
-    const { bookInfo } = this.props
-    const isFetching = bookInfo.fetchStatus === 'loading'
+    const isFetching = this.props.data.loading
+    const bookInfo = this.props.data.book || {} as any
 
     return (
       <DocContainer bodyClass="book-info" title={bookInfo.title}>
@@ -82,15 +87,30 @@ class BookDetail extends Component<Props, {}> {
   }
 }
 
-const mapStateToProps = (state, ownProps: any) => {
-  const id = ownProps.params.id
-
-  return {
-    bookInfo: selectors.entity(schemas.BOOK, id)(state)
+const BookDetailWithData = graphql(gql`
+  query queryBooks($id: ID!) {
+    book(id: $id) {
+      id
+      title
+      cover
+      description
+      authors {
+        name
+      }
+    }
   }
-}
+`, {
+  options: (props) => {
+    return {
+      variables: {
+        id: props.params.id
+      }
+    }
+  }
+})(BookDetail)
+
+const mapStateToProps = (state, ownProps) => ({})
 
 export default connect<{}, {}, Props>(
-  mapStateToProps,
-  { loadBookInfo }
-)(BookDetail)
+  mapStateToProps
+)(BookDetailWithData)

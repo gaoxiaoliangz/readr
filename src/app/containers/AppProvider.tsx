@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import { Router, RouterContext } from 'react-router'
 import _ from 'lodash'
 import { ApolloProvider } from 'react-apollo'
 // import { Provider } from 'react-redux'
 import helpers from '../helpers'
 import apolloClient from '../apolloClient'
+import Loading from '../components/Loading/Loading'
 // import createApolloClient from '../createApolloClient'
 
 // const client = createApolloClient()
@@ -34,13 +36,16 @@ class AppProvider extends Component<Props, {}> {
   render() {
     const { store, renderProps, renderPageContent } = this.props
 
+    // <ApolloProvider store={store} client={apolloClient}>
     return (
-      <ApolloProvider store={store} client={apolloClient}>
-        {
-          renderPageContent
-            ? this.renderRouter(renderProps)
-            : <div className="text-loading">Loading...</div>
-        }
+      <ApolloProvider client={apolloClient}>
+        <Provider store={store}>
+          {
+            renderPageContent
+              ? this.renderRouter(renderProps)
+              : <Loading center />
+          }
+        </Provider>
       </ApolloProvider>
     )
   }

@@ -1,0 +1,15 @@
+query queryBooks {
+  books(first: 6) {
+    edges {
+      node {
+        id
+        title
+        cover
+        description
+        authors {
+          name
+        }
+      }
+    }
+  }
+}

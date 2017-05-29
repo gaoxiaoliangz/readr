@@ -12,10 +12,12 @@ query Viewer2(
     $fromHistory: Boolean
     $fromLocation: String
   ) {
-  bookInfo(id: $bookId) {
-    title
-    toc {
-      ...tocRecursive
+  bookInfo: node(id: $bookId) {
+    ...on Book {
+      title
+      toc {
+        ...tocRecursive
+      }
     }
   }
   viewer {
@@ -84,20 +86,14 @@ fragment elementsRecursive on HTMLElementObject {
   }
 }
 
-fragment tocFields on TocChapter {
-  src
+fragment tocFields on TocItem {
   name
   playOrder
-  srcObject {
-    name
-    ext
-    prefix
-    url
-    hash
-  }
+  sectionId
+  hash
 }
 
-fragment tocRecursive on TocChapter {
+fragment tocRecursive on TocItem {
   ...tocFields
   children {
     ...tocFields

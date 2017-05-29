@@ -10,6 +10,11 @@
         isRelay: true,
       },
       {
+        match: 'src/**/*.tsx',
+        parser: ['EmbeddedQueryParser', { startTag: 'gql`', endTag: '`' }],
+        isRelay: true,
+      },
+      {
         match: 'src/app/**/*.gql',
         parser: 'QueryParser',
       },

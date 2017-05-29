@@ -9,17 +9,21 @@ import {
   Book
 } from './findBook'
 import { QueryResult } from '../../models/queryResult'
+import { PAGE_LIMIT } from '../../../constants'
 
 interface ListBooksOptions extends BookOptions {
   page?: number
+  limit?: number
 }
 
 const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> => {
-  const doQuery = (_options) => {
+  const doQuery = (_options: ListBooksOptions) => {
+    const limit = _options.limit || PAGE_LIMIT
+
     return dataProvider.Book.utils
       .list({
-        offset: (options.page - 1) * 10,
-        limit: 10,
+        offset: ((options.page || 1) - 1) * limit,
+        limit,
         populate: 'file authors',
         parser: (result) => {
           return handleResult({ result, options: _options })
@@ -30,7 +34,8 @@ const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> =
   const convert2 = (_options: ListBooksOptions) => {
     return {
       ..._options,
-      page: Number(_options.page)
+      page: Number(_options.page),
+      limit: Number(_options.limit)
     }
   }
 

@@ -60,13 +60,17 @@ function renderView(isProduction) {
     }
   }
 
+
   return (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
-    const appRootMarkup = renderToString(<AppProvider
-      renderPageContent
-      renderProps={renderProps}
-      store={req.locals.store}
-    />)
+    const useServerRendering = process.env.ENABLE_SERVER_RENDERING === '1'
+    const appRootMarkup = renderToString(
+      <AppProvider
+        renderPageContent={useServerRendering}
+        renderProps={renderProps}
+        store={req.locals.store}
+      />
+    )
 
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏

@@ -6,7 +6,7 @@ import rootReducer from './reducers'
 import { cache, injectCookie, handleServerStore, logActionTypes } from './middleware'
 import helpers from './helpers'
 import { INITIAL_STATE } from '../constants'
-import apolloClient from './apolloClient'
+// import apolloClient from './apolloClient'
 
 function getInitialState() {
   if (typeof window === 'undefined') {
@@ -54,7 +54,7 @@ export default function configureStore(cookies?) {
     getInitialState(),
     composeEnhancers(
       applyMiddleware(...baseMiddlewares),
-      applyMiddleware(apolloClient.middleware())
+      // applyMiddleware(apolloClient.middleware())
     )
   )
 

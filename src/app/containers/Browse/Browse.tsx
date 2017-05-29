@@ -8,9 +8,23 @@ import _ from 'lodash'
 import * as selectors from '../../selectors'
 import CSSModules from 'react-css-modules'
 import styles from './Browse.scss'
+import { gql, graphql } from 'react-apollo'
+import Loading from '../../components/Loading'
+
+type Data = State.Apollo<{
+  books: Schema.Connection<{
+    id: string
+    title: string
+    authors: {
+      name: string
+    }[]
+    description: string
+    cover: string
+  }>
+}>
 
 interface Props {
-  bookList: SelectedPagination
+  data: Data
   loadBooks: typeof loadBooks
 }
 
@@ -21,48 +35,80 @@ class Browse extends Component<Props, {}> {
     super(props)
   }
 
-  loadMore(page = 1) {
-    this.props.loadBooks(page)
-  }
-
-  componentWillMount() {
-    this.loadMore()
+  loadMore() {
+    const lastCursor = _.last(this.props.data.books.edges).cursor
+    this.props.data.fetchMore({
+      variables: {
+        after: lastCursor
+      },
+      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
+        const edges = [...previousResult.books.edges, ...fetchMoreResult.books.edges]
+        return _.merge({}, fetchMoreResult, {
+          books: {
+            edges
+          }
+        })
+      }
+    })
   }
 
   render() {
-    const { bookList } = this.props
-    const nextPage = _.get(bookList, 'next.page', 0)
-    const isBooksFetching = bookList.fetchStatus === 'loading'
+    const bookEntities = this.props.data.loading
+      ? []
+      : this.props.data.books.edges.map(edge => {
+        return edge.node
+      })
 
-    const flattenPages = (pages) => {
-      return _.reduce(pages, (a: any[], b) => {
-        return a.concat(b)
-      }, [])
+    if (this.props.data.loading) {
+      return <Loading center />
     }
-
-    const pages = flattenPages(bookList.pages)
 
     return (
       <Container className="archive">
         <BookListSection
           title="所有书籍"
-          bookEntities={pages}
-          isFetching={isBooksFetching}
+          bookEntities={bookEntities}
+          isFetching={this.props.data.loading}
         />
         {
-          nextPage !== 0 && (
+          this.props.data.books.pageInfo.hasNextPage && (
             <Button
-              onClick={() => { this.loadMore(nextPage) }}
+              onClick={() => { this.loadMore() }}
               styleName="btn-load-more"
               width={200}
               color="white"
-            >{isBooksFetching ? '加载中 ...' : '加载更多'}</Button>
+            >{this.props.data.loading ? '加载中 ...' : '加载更多'}</Button>
           )
         }
       </Container>
     )
   }
 }
+
+const BrowseWithData = graphql(gql`
+  query queryBooks($after: String) {
+    books(first: 6, after: $after) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          cover
+          description
+          authors {
+            name
+          }
+        }
+      }
+    }
+  }
+`)(Browse)
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -73,4 +119,4 @@ function mapStateToProps(state, ownProps) {
 export default connect(
   mapStateToProps,
   { loadBooks }
-)(Browse)
+)(BrowseWithData)
