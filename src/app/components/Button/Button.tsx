@@ -14,6 +14,7 @@ interface IProps {
   to?: string
   onClick?: any
   width?: number | string
+  bordered?: boolean
 }
 
 interface IState {
@@ -32,15 +33,16 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, className, color, size, isFluid, width, to } = this.props
+    let { onClick, className, color, size, isFluid, width, to, bordered } = this.props
     let style = {}
 
     const styleName = classnames({
       'btn': true,
       'btn--hover': this.state.isMouseOver,
       'btn--fluid': isFluid,
-      [`btn--${color}`]: Boolean(color),
-      [`btn--${size}`]: Boolean(size),
+      'btn-bordered': bordered,
+      [`btn--${color}`]: Boolean(color) && !bordered,
+      [`btn--${size}`]: Boolean(size)
     })
     if (this.props.to) {
       onClick = e => {

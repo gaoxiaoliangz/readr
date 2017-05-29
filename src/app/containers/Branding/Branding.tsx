@@ -1,27 +1,34 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import { Container } from '../../components/layout'
 import { Dropdown, DropdownItem, DropdownItemSep } from '../../components/Dropdown'
-import Logo from '../Logo'
+import Logo from '../../components/Logo'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
 import styles from './Branding.scss'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/api'
 import * as selectors from '../../selectors'
+import { loadShelf } from '../../actions/api'
+import Button from '../../components/Button/Button'
 
 interface OwnProps {
-  username: string
-  isAdmin?: boolean
   className?: string
-  recentReading?: {
-    title: string
-    id: string
-  }[]
+  bgColor?: string
+  style?: React.CSSProperties
 }
 
 interface OtherProps {
   logout: typeof logout
+  loadShelf: typeof loadShelf
   config: Viewer.Config
+  session: Session
+  username: string
+  isAdmin?: boolean
+  recentReading?: {
+    title: string
+    id: string
+  }[]
 }
 
 interface IState {
@@ -29,8 +36,20 @@ interface IState {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const session = selectors.session(state)
+  const bookShelf = selectors.pagination.shelf(state)
+  const recentReading = _.get(bookShelf, ['pages', '1'], [])
+    .map(book => ({
+      title: book.title,
+      id: book.id
+    }))
+
   return {
-    config: selectors.viewer.config(state)
+    config: selectors.viewer.config(state),
+    isAdmin: session.role === 'admin',
+    username: session.username,
+    recentReading,
+    session
   }
 }
 
@@ -45,6 +64,21 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    const userLoggedIn = this.props.session.role === 'visitor'
+      && nextProps.session.role !== 'visitor'
+
+    if (userLoggedIn) {
+      this.props.loadShelf()
+    }
+  }
+
+  componentWillMount() {
+    if (this.props.session.role !== 'visitor') {
+      this.props.loadShelf()
+    }
+  }
+
   toggleDropdownMenu() {
     this.setState({
       isDropdownMenuVisible: !this.state.isDropdownMenuVisible
@@ -57,12 +91,15 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 
   render() {
-    let isAdmin = this.props.isAdmin ? this.props.isAdmin : false
-
-    const { username, recentReading, config: { fluid } } = this.props
+    const isAdmin = this.props.isAdmin
+    const { username, recentReading, config: { fluid }, bgColor, style } = this.props
+    const brandingStyle = {
+      ...style,
+      background: bgColor
+    }
 
     return (
-      <div styleName={`branding ${this.props.className ? this.props.className : ''}`}>
+      <div style={brandingStyle} styleName={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
             <div className="left">
@@ -121,7 +158,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                         <Link className="light-link" styleName="nav-link" to="/signin">登录</Link>
                       </li>
                       <li styleName="nav-item">
-                        <Link className="light-link" styleName="nav-link" to="/signup">注册</Link>
+                        <Button bordered color="white" to="/signup">注册</Button>
                       </li>
                     </ul>
                   </div>
@@ -136,5 +173,5 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
 
 export default connect<{}, {}, OwnProps>(
   mapStateToProps,
-  { logout }
+  { logout, loadShelf }
 )(Branding)

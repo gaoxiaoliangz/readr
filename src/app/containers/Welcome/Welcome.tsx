@@ -6,6 +6,8 @@ import DocContainer from '../../components/DocContainer'
 import { Button } from '../../components/form'
 import { Container } from '../../components/layout'
 import styles from './Welcome.scss'
+import Branding from '../Branding/Branding'
+import Colophon from '../../components/Colophon/Colophon'
 
 interface Props {
 }
@@ -26,10 +28,22 @@ class Welcome extends Component<Props, State> {
     return (
       <DocContainer bodyClass="home" title="欢迎">
         <div styleName="hero-image">
-          <Container>
-            <h1 styleName="page-title">全新的阅读体验</h1>
-            <Button size="large" color="white" to="/signup">现在加入</Button>
-          </Container>
+          <Branding
+            bgColor="transparent"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              borderBottom: '1px solid rgba(255,255,255,0.2)',
+              width: '100%'
+            }}
+          />
+          <div styleName="inner">
+            <Container>
+              <h1 styleName="page-title">全新的阅读体验</h1>
+              <Button size="large" color="white" to="/signup">现在加入</Button>
+            </Container>
+          </div>
         </div>
         <div styleName="sections">
           <section styleName="feature-section">
@@ -52,16 +66,11 @@ class Welcome extends Component<Props, State> {
           </section>
           <section styleName="feature-section">
             <Container>
-              <div className="left">
-                <h1>免费注册</h1>
-                <p>加入 Readrweb，开始阅读</p>
-              </div>
-              <div className="right">
-                <Button size="large" color="green" to="/signup">现在加入</Button>
-              </div>
+              <Button size="large" color="green" to="/signup">现在加入</Button>
             </Container>
           </section>
         </div>
+        <Colophon />
       </DocContainer>
     )
   }
