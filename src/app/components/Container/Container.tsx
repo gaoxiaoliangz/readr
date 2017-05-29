@@ -1,12 +1,26 @@
 import React, { Component } from 'react'
 
-class Container extends Component<any, any> {
+interface Props {
+  maxWidth?: number | string
+  isFluid?: boolean
+  className?: string
+}
+
+class Container extends Component<Props, void> {
+
+  static defaultProps: Props = {
+    maxWidth: '100%',
+    isFluid: false
+  }
+
   render() {
-    let className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ` ${this.props.className}` : '')
+    const className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ` ${this.props.className}` : '')
 
     return (
-      <div className={className}>
-        {this.props.children}
+      <div style={{ maxWidth: this.props.maxWidth, margin: '0 auto' }}>
+        <div className={className}>
+          {this.props.children}
+        </div>
       </div>
     )
   }

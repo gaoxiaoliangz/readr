@@ -7,6 +7,9 @@ import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
 import styles from './BookDetail.scss'
 import { gql, graphql } from 'react-apollo'
+import Branding from '../Branding/Branding'
+import Colophon from '../../components/Colophon/Colophon'
+import Container from '../../components/Container/Container'
 
 type Data = State.Apollo<{
   book: {
@@ -40,7 +43,8 @@ class BookDetail extends Component<Props, {}> {
 
     return (
       <DocContainer bodyClass="book-info" title={bookInfo.title}>
-        <div className="container">
+        <Branding />
+        <Container>
           <article styleName="book-info-container">
             <div styleName="book-detail">
               <header styleName="header">
@@ -81,7 +85,8 @@ class BookDetail extends Component<Props, {}> {
               }
             </div>
           </article>
-        </div>
+        </Container>
+        <Colophon />
       </DocContainer>
     )
   }
