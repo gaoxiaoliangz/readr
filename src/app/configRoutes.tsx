@@ -50,7 +50,6 @@ const configRoutes = (context = {}) => {
       <Route component={UserApp}>
         <IndexRoute getComponent={getHomeComponent} />
         <Route path="welcome" getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
-        <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
         <Route path="collections" getComponent={() => require.ensure([], require => require('./containers/Collections').default)} />
         <Route path="collections/:id" getComponent={() => require.ensure([], require => require('./containers/CollectionDetail').default)} />

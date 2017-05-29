@@ -6,6 +6,9 @@ import BookList from '../../components/BookList'
 import Container from '../../components/Container'
 import { Tab, Tabs } from '../../components/Tab'
 import * as selectors from '../../selectors'
+import Branding from '../Branding/Branding'
+import Colophon from '../../components/Colophon/Colophon'
+import DocContainer from '../../components/DocContainer'
 
 interface IProps {
   shelf?: SelectedPagination
@@ -26,16 +29,20 @@ class Shelf extends Component<IProps, {}> {
     const bookList = _.get(this.props.shelf, ['pages', '1'], [])
 
     return (
-      <Container>
-        <Tabs style={{marginTop: 20}}>
-          <Tab title="全部">
-            <BookList bookEntities={bookList} />
+      <DocContainer title="我的书架">
+        <Branding />
+        <Container>
+          <Tabs style={{ marginTop: 20 }}>
+            <Tab title="全部">
+              <BookList bookEntities={bookList} />
+            </Tab>
+            <Tab title="我的上传">
+              空
           </Tab>
-          <Tab title="我的上传">
-            空
-          </Tab>
-        </Tabs>
-      </Container>
+          </Tabs>
+        </Container>
+        <Colophon />
+      </DocContainer>
     )
   }
 }
@@ -49,4 +56,4 @@ function mapStateToProps(state, ownProps) {
 export default connect(
   mapStateToProps,
   { loadShelf }
-)(Shelf as any)
+)(Shelf)

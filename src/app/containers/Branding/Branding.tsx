@@ -92,6 +92,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
 
   render() {
     const isAdmin = this.props.isAdmin
+    const isLoggedIn = this.props.session.role !== 'visitor'
     const { username, recentReading, config: { fluid }, bgColor, style } = this.props
     const brandingStyle = {
       ...style,
@@ -108,8 +109,15 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName="nav-item">
-                  <Link className="light-link" styleName="nav-link" to="/browse">浏览</Link>
+                  <Link className="light-link" styleName="nav-link" to="/">浏览</Link>
                 </li>
+                {
+                  isLoggedIn && (
+                    <li styleName="nav-item">
+                      <Link className="light-link" styleName="nav-link" to="/user/shelf">我的书架</Link>
+                    </li>
+                  )
+                }
               </ul>
             </div>
             {
@@ -143,7 +151,6 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                           <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
                         )
                       }
-                      <DropdownItem><Link to={`/user/shelf`}>书架</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
                       <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
                       <DropdownItemSep />
