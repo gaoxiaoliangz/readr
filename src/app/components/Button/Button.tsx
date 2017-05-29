@@ -64,7 +64,7 @@ class Button extends Component<IProps, IState> {
       }
     }
 
-    let props = _.omit(this.props, ['to', 'color', 'size', 'isFluid', 'width', 'styles'])
+    let props = _.omit(this.props, ['to', 'color', 'size', 'isFluid', 'width', 'styles', 'bordered'])
     props = _.assign({}, props, {
       className: className || '',
       onClick,

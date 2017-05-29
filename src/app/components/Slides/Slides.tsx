@@ -3,14 +3,14 @@ import Slider from 'react-slick'
 import './Slides.scss'
 
 const settings = {
-  dots: false,
+  dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 3000,
-  arrows: false
+  arrows: true
 }
 
 type Props = {
@@ -25,10 +25,14 @@ const Slides = ({ images }: Props) => {
           <Slider {...settings}>
             {
               images.map((image, index) => {
+                const slideStyle: React.CSSProperties = {
+                  background: `url(${image})`,
+                  backgroundSize: 'cover',
+                  height: 420
+                }
+
                 return (
-                  <div className="img-wrap" key={index}>
-                    <img alt="img" src={image} />
-                  </div>
+                  <div className="img-wrap" key={index} style={slideStyle} />
                 )
               })
             }
