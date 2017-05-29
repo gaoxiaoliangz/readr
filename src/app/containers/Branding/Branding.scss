@@ -1,9 +1,9 @@
 @import "~styles/variables";
-// @import "~styles/common";
 
 .branding {
   min-height: $branding-height;
   background: $dark;
+  font-weight: bold;
 }
 
 .dropdown-menu {
@@ -22,7 +22,6 @@
   position: relative;
   color: #fff;
   cursor: pointer;
-  padding: 0 10px;
   line-height: $branding-height;
   display: inline-block;
 }
@@ -37,13 +36,16 @@
 }
 
 .nav-link {
-  padding: 0 5px;
-  // @extend .light-link;
+  :global .icon {
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+  }
 }
 
 .nav-item {
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 35px;
 }
 
 .recent-reading {

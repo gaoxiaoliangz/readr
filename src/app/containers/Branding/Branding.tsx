@@ -11,6 +11,7 @@ import { logout } from '../../actions/api'
 import * as selectors from '../../selectors'
 import { loadShelf } from '../../actions/api'
 import Button from '../../components/Button/Button'
+import Icon from '../../components/Icon/Icon'
 
 interface OwnProps {
   className?: string
@@ -109,12 +110,15 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName="nav-item">
-                  <Link className="light-link" styleName="nav-link" to="/">浏览</Link>
+                  <Link className="light-link" styleName="nav-link" to="/"><Icon size={20} name="view" /> 浏览</Link>
+                </li>
+                <li styleName="nav-item">
+                  <Link className="light-link" styleName="nav-link" to="/search"><Icon size={18} name="search" /> 搜索</Link>
                 </li>
                 {
                   isLoggedIn && (
                     <li styleName="nav-item">
-                      <Link className="light-link" styleName="nav-link" to="/user/shelf">我的书架</Link>
+                      <Link className="light-link" styleName="nav-link" to="/user/shelf"><Icon size={18} name="menu" /> 我的书架</Link>
                     </li>
                   )
                 }

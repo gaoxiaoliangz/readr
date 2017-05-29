@@ -51,7 +51,7 @@ class AppHome extends Component<Props, IState> {
       <DocContainer bodyClass="home" title="首页">
         <div className="header">
           <Branding
-            bgColor="rgba(0,0,0,0.1)"
+            bgColor="rgba(0,0,0,0.2)"
             style={{
               position: 'absolute',
               top: 0,
