@@ -95,6 +95,7 @@
     "react-router-redux": "^4.0.7",
     "react-selectize": "^2.0.1",
     "react-side-effect": "^1.0.2",
+    "react-slick": "^0.14.11",
     "redux": "^3.6.0",
     "redux-logger": "^2.6.1",
     "redux-saga": "^0.14.3",

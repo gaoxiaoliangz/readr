@@ -11,6 +11,7 @@ import styles from './AppHome.scss'
 import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import Browse from '../Browse/Browse'
+import Slides from '../../components/Slides/Slides'
 
 interface Props {
   session: Session
@@ -41,9 +42,17 @@ class AppHome extends Component<Props, IState> {
   }
 
   render() {
+    const images = [
+      'https://images.apple.com/v/home/df/images/promos/wwdc17_large_2x.jpg',
+      'https://images.apple.com/v/home/df/images/promos/how_to_shoot_on_iphone_large_2x.jpg'
+    ]
+
     return (
       <DocContainer bodyClass="home" title="首页">
-        <Branding />
+        <div className="header">
+          <Branding />
+          <Slides images={images} />
+        </div>
         <Container>
           <Browse />
         </Container>

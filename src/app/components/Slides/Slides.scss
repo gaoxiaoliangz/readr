@@ -1,0 +1,9 @@
+.img-wrap {
+  height: 334px !important;
+  overflow: hidden;
+
+  & img {
+    max-width: 100%;
+    height: auto;
+  }
+}
