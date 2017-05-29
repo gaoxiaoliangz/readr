@@ -162,7 +162,7 @@ module.exports = {
       test: /\.(jpe?g|png|gif|svg)$/i,
       use: [
         `file-loader?name=${vars.mediaFilename}&${emitFileConfig}`,
-        'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        // 'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
     }
   }

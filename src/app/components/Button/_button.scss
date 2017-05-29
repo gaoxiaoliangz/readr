@@ -7,6 +7,7 @@ $btn_blue: $blue;
 $btn_orange: rgb(238, 147, 51);
 $btn_red: rgb(212, 32, 32);
 $btn_default: $btn_blue;
+$btn_green: #1ab94b;
 
 $btn_padding_y: 3px;
 $btn_padding_x: 12px;
@@ -51,6 +52,15 @@ $btn_border_radius: 3px;
   @include button-variant(#fff, $btn_red, $btn_red);
 }
 
+.btn.btn--green {
+  @include button-variant(#fff, $btn_green, $btn_green);
+}
+
 .btn.btn--white {
   @include button-variant(#333, #fff, #fff);
+}
+
+.btn--large {
+  font-size: 20px;
+  padding: 10px 30px;
 }

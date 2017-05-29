@@ -4,6 +4,7 @@ import RootRoute from './containers/RootRoute'
 import UserApp from './containers/UserApp'
 import AdminApp from './containers/AdminApp'
 import restAPI from './webAPI'
+import { ROLES } from '../constants'
 
 const configRoutes = (context = {}) => {
   // server side needs injected cookie
@@ -23,13 +24,32 @@ const configRoutes = (context = {}) => {
     })
   }
 
+  // const handleAppHomeEnter = (nextState, replace, callback?) => {
+  //   restAPI.auth(cookie).then(res => {
+  //     if (res.json.role === ROLES.VISITOR) {
+  //       replace('/welcome')
+  //     }
+  //     callback()
+  //   })
+  // }
+
+  const getHomeComponent = () => {
+    return restAPI.auth(cookie).then(res => {
+      if (res.json.role === ROLES.VISITOR) {
+        return require.ensure([], require => require('./containers/Welcome/Welcome').default)
+      }
+      return require.ensure([], require => require('./containers/AppHome').default)
+    })
+  }
+
   return (
     <Route path="/" component={RootRoute}>
       <Route path="viewer/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer').default)} />
       <Route path="viewer/v2/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer2').default)} />
       <Route path="authors" getComponent={() => require.ensure([], require => require('./containers/Authors/Authors').default)} />
       <Route component={UserApp}>
-        <IndexRoute getComponent={() => require.ensure([], require => require('./containers/AppHome').default)} />
+        <IndexRoute getComponent={getHomeComponent} />
+        <Route path="welcome" getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
         <Route path="collections" getComponent={() => require.ensure([], require => require('./containers/Collections').default)} />
