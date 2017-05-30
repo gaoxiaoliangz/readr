@@ -24,7 +24,7 @@ interface OtherProps {
   logout: typeof logout
   loadShelf: typeof loadShelf
   config: Viewer.Config
-  session: Session
+  session: State.Session
   username: string
   isAdmin?: boolean
   recentReading?: {

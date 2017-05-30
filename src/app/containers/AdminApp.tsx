@@ -11,8 +11,8 @@ import * as selectors from '../selectors'
 
 interface Props {
   notifications?: any
-  session?: Session
-  routing?: any
+  session?: State.Session
+  routing?: State.Routing
   logout: typeof logout
 }
 
@@ -43,8 +43,8 @@ class AdminApp extends Component<Props, {}> {
 
   render() {
     const username = this.props.session.username
-    const pathname = this.props.routing.locationBeforeTransitions
-      ? this.props.routing.locationBeforeTransitions.pathname
+    const pathname = this.props.routing
+      ? this.props.routing.pathname
       : 'console'
 
     const contentStyle = {
@@ -73,7 +73,7 @@ export default connect<{}, {}, {}>(
   state => ({
     notifications: state.components.notifications,
     session: selectors.session(state),
-    routing: state.routing
+    routing: selectors.routing(state)
   }),
   { logout }
 )(AdminApp)

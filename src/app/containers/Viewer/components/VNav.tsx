@@ -20,7 +20,7 @@ interface AllProps {
   toggleViewerNavigation: typeof actions.viewer.toggleViewerNavigation
   computedPages: TBookPage[]
   config: Viewer.Config
-  bookInfo: SelectedEntity
+  bookInfo: State.Entity
   components: Viewer.Components
 }
 

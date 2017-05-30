@@ -39,7 +39,7 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
 }
 
 function* loadProgressAndGo(bookId) {
-  const session: Session = yield select(selectors.session)
+  const session: State.Session = yield select(selectors.session)
   if (session.role !== 'visitor') {
     yield put(actions.api.loadBookProgress(bookId))
     yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)

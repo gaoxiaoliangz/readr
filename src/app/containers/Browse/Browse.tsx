@@ -17,7 +17,7 @@ import pic2 from './mountain.jpg'
 import pic3 from './peter-kent-25187.jpg'
 
 interface Props {
-  session: Session
+  session: State.Session
   data: State.Apollo<{
     books: Schema.Connection<{
       id: string

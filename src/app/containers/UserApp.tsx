@@ -5,7 +5,7 @@ import * as selectors from '../selectors'
 import DocContainer from '../components/DocContainer'
 
 interface Props {
-  session: Session
+  session: State.Session
 }
 
 class App extends Component<Props, {}> {

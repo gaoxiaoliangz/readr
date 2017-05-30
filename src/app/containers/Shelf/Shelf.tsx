@@ -11,7 +11,7 @@ import Colophon from '../../components/Colophon/Colophon'
 import DocContainer from '../../components/DocContainer'
 
 interface IProps {
-  shelf?: SelectedPagination
+  shelf?: State.Pagination
   loadShelf?: typeof loadShelf
 }
 

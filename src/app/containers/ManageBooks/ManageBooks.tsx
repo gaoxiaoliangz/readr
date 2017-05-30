@@ -35,7 +35,7 @@ interface Props {
   sendNotification?: typeof sendNotification
   openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
-  routing: SelectedRouting
+  routing: State.Routing
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm

@@ -30,7 +30,7 @@ interface StateProps {
   data: Data
   params: any
   mutate: any
-  routing: SelectedRouting
+  routing: State.Routing
 }
 
 interface OwnProps {

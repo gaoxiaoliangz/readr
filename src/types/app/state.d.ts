@@ -3,49 +3,6 @@
  * data that accessed via redux store
  */
 
-// todo
-// put these under State namespace
-type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
-type Roles = 'admin' | 'user' | 'visitor'
-
-interface Link {
-  page: string
-  url: string
-}
-
-type Session = {
-  role: Roles
-  username: string
-  fetchStatus: FetchStatus
-  id: string
-}
-
-interface SelectedPagination {
-  pages: {}
-  next: Link
-  last: Link
-  currentPage: number
-  fetchStatus: FetchStatus
-}
-
-interface SelectedRouting {
-  action: string
-  hash: string
-  key: string
-  pathname: string
-  query: {
-    [key: string]: any
-  }
-  search: string
-  state: any
-}
-
-interface SelectedEntity {
-  fetchStatus: FetchStatus
-  error: any
-  [key: string]: any
-}
-
 declare namespace Viewer {
   type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
 
@@ -85,9 +42,6 @@ declare namespace Viewer {
   }
 }
 
-
-
-
 declare namespace State {
   type Apollo<T> = {
     error: Error
@@ -105,5 +59,27 @@ declare namespace State {
     }
     search: string
     state: any
+  }
+
+  type Session = {
+    role: Roles
+    username: string
+    fetchStatus: FetchStatus
+    id: string
+  }
+
+  interface Entity {
+    fetchStatus: FetchStatus
+    error: any
+    [key: string]: any
+  }
+
+  // deprecated
+  interface Pagination {
+    pages: {}
+    next: PaginationLink
+    last: PaginationLink
+    currentPage: number
+    fetchStatus: FetchStatus
   }
 }

@@ -19,7 +19,7 @@ interface StateProps {
   status: Viewer.Status
   config: Viewer.Config
   computed: TBookPage[]
-  bookContent: SelectedEntity
+  bookContent: State.Entity
   bookId: string
   localProgress: Viewer.LocalProgress[]
 }
