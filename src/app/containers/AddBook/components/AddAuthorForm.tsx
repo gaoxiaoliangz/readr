@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import form from 'better-redux-form'
+import form from '@gxl/redux-form'
 import { sendNotification, closeModal } from '../../../actions'
 import Input from '../../../components/Input'
 import ModalFooter from '../../../components/Modal/ModalFooter'

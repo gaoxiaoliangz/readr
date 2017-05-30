@@ -1,4 +1,4 @@
-import { selectors as form } from 'better-redux-form'
+import { selectors as form } from '@gxl/redux-form'
 import _ from 'lodash'
 import * as viewer from './viewer'
 import * as utils from './utils'

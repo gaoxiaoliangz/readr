@@ -1,4 +1,4 @@
-import { actions as form } from 'better-redux-form'
+import { actions as form } from '@gxl/redux-form'
 import * as api from './api'
 import * as viewer from './viewer'
 import * as ActionTypes from './actionTypes'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import form from 'better-redux-form'
+import form from '@gxl/redux-form'
 import { sendNotification, openModal, initializeForm } from '../../../actions'
 import * as selectors from '../../../selectors'
 import { Textarea, Button, SelectizeInput, Input } from '../../../components/form'

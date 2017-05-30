@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@gxl/epub-parser": "^1.0.1",
+    "@gxl/redux-form": "^0.2.3",
     "@risingstack/graffiti": "^3.3.0",
     "@risingstack/graffiti-mongoose": "^6.0.0",
     "@types/express-graphql": "^0.0.33",
@@ -38,7 +39,6 @@
     "animate.css": "^3.5.2",
     "babel-polyfill": "^6.16.0",
     "babel-register": "^6.8.0",
-    "better-redux-form": "^0.2.0",
     "bluebird": "^3.5.0",
     "body-parser": "~1.13.2",
     "busboy": "^0.2.13",

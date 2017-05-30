@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { sendNotification } from '../../../actions'
 import { Textarea, Button, SelectizeInput, Input } from '../../../components/form'
-import * as selectors from '../../../selectors'
 import _ from 'lodash'
-import form from 'better-redux-form'
+import form from '@gxl/redux-form'
 
 interface Props {
   initialData?: any
