@@ -110,7 +110,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName="nav-item">
-                  <Link className="light-link" styleName="nav-link" to="/"><Icon size={20} name="view" /> 浏览</Link>
+                  <Link className="light-link" styleName="nav-link" to="/browse"><Icon size={20} name="view" /> 浏览</Link>
                 </li>
                 <li styleName="nav-item">
                   <Link className="light-link" styleName="nav-link" to="/search"><Icon size={18} name="search" /> 搜索</Link>

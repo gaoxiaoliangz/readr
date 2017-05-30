@@ -24,23 +24,23 @@ const configRoutes = (context = {}) => {
     })
   }
 
-  // const handleAppHomeEnter = (nextState, replace, callback?) => {
-  //   restAPI.auth(cookie).then(res => {
-  //     if (res.json.role === ROLES.VISITOR) {
-  //       replace('/welcome')
-  //     }
-  //     callback()
-  //   })
-  // }
-
-  const getHomeComponent = () => {
-    return restAPI.auth(cookie).then(res => {
-      if (res.json.role === ROLES.VISITOR) {
-        return require.ensure([], require => require('./containers/Welcome/Welcome').default)
+  const handleAppHomeEnter = (nextState, replace, callback?) => {
+    restAPI.auth(cookie).then(res => {
+      if (res.json.role !== ROLES.VISITOR) {
+        replace('/browse')
       }
-      return require.ensure([], require => require('./containers/AppHome').default)
+      callback()
     })
   }
+
+  // const getHomeComponent = () => {
+  //   return restAPI.auth(cookie).then(res => {
+  //     if (res.json.role === ROLES.VISITOR) {
+  //       return require.ensure([], require => require('./containers/Welcome/Welcome').default)
+  //     }
+  //     return require.ensure([], require => require('./containers/AppHome').default)
+  //   })
+  // }
 
   return (
     <Route path="/" component={RootRoute}>
@@ -48,8 +48,9 @@ const configRoutes = (context = {}) => {
       <Route path="viewer/v2/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer2').default)} />
       <Route path="authors" getComponent={() => require.ensure([], require => require('./containers/Authors/Authors').default)} />
       <Route component={UserApp}>
-        <IndexRoute getComponent={getHomeComponent} />
+        <IndexRoute onEnter={handleAppHomeEnter} getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="welcome" getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
+        <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
         <Route path="collections" getComponent={() => require.ensure([], require => require('./containers/Collections').default)} />
         <Route path="collections/:id" getComponent={() => require.ensure([], require => require('./containers/CollectionDetail').default)} />
