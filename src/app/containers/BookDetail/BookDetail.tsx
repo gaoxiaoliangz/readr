@@ -10,6 +10,8 @@ import { gql, graphql } from 'react-apollo'
 import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import Container from '../../components/Container/Container'
+import { Tab, Tabs } from '../../components/Tab'
+import BOOK_TOC_FRAG from '../../graphql/fragments/BookToc.gql'
 
 type Data = State.Apollo<{
   book: {
@@ -68,21 +70,22 @@ class BookDetail extends Component<Props, {}> {
                             <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
                           </div>
                           <div>
-                            <Button styleName="btn-read" to={`/viewer/v2/book/${bookInfo.id}`} color="blue">阅读</Button>
+                            <Button styleName="btn-read" to={`/viewer/v2/book/${bookInfo.id}`} color="green">阅读</Button>
                           </div>
                         </div>
                       </div>
                     )
                 }
               </header>
-              {
-                bookInfo.description && (
-                  <div styleName="content">
-                    <h2 styleName="desc">内容简介</h2>
+              <div styleName="content">
+                <Tabs>
+                  <Tab title="内容简介">
                     <p>{bookInfo.description}</p>
-                  </div>
-                )
-              }
+                  </Tab>
+                  <Tab title="目录">
+                  </Tab>
+                </Tabs>
+              </div>
             </div>
           </article>
         </Container>
@@ -102,17 +105,21 @@ const BookDetailWithData = graphql(gql`
       authors {
         name
       }
-    }
-  }
-`, {
-  options: (props) => {
-    return {
-      variables: {
-        id: props.params.id
+      toc {
+        ...tocRecursive
       }
     }
   }
-})(BookDetail)
+  ${BOOK_TOC_FRAG}
+`, {
+    options: (props) => {
+      return {
+        variables: {
+          id: props.params.id
+        }
+      }
+    }
+  })(BookDetail)
 
 const mapStateToProps = (state, ownProps) => ({})
 

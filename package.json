@@ -54,6 +54,7 @@
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "graphql": "^0.9.6",
     "graphql-relay": "^0.5.1",
+    "graphql-tag": "^2.2.1",
     "history": "^4.6.0",
     "html-to-react": "^0.1.2",
     "humps": "^1.1.0",
