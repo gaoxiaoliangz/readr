@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import _ from 'lodash'
 import AppDoc from '../../../app/components/AppDoc'
 import HTMLObjectsRenderer from '../../../app/components/HTMLObjectsRenderer'
-import evaluate from '../../../renderers/evaluate'
+import evaluate from '../../helpers/evaluate'
 import { getCssLinks } from '../../middleware/render/render-view'
 const debug = require('debug')('readr:api:calcHeights')
 

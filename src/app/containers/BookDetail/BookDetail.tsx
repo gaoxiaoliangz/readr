@@ -49,7 +49,7 @@ class BookDetail extends Component<Props, {}> {
       isFetching
         ? <Loading useNProgress />
         : (
-          <DocContainer bodyClass="book-info" title={bookInfo.title}>
+          <DocContainer bodyClass="page-book-info" title={bookInfo.title}>
             <Branding />
             <Container>
               <article styleName="book-info-container">

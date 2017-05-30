@@ -1,5 +1,3 @@
-import * as VIEWER_DEFS from './viewerDefs'
-
 // global vars
 export const ENABLE_SERVER_ROUTING = '__ENABLE_SERVER_ROUTING__'
 export const INITIAL_STATE = '__INITIAL_STATE__'
@@ -23,6 +21,15 @@ export const FETCH_STATUS = {
   FAILED: 'failed'
 }
 
-export { VIEWER_DEFS }
+export const VIEWER_DEFS = {
+  THEMES: {
+    WHITE: 'WHITE',
+    NIGHT: 'NIGHT',
+    SEPIA: 'SEPIA'
+  },
+  MOBILE_BREAK_POINT: 700,
+  DEFAULT_PAGE_HEIGHT: 900,
+  DEFAULT_FONT_SIZE: 16
+}
 
 export const PAGE_LIMIT = 10

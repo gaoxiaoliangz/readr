@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../../actions/viewer'
 import * as selectors from '../../../selectors'
 import classnames from 'classnames'
-import { THEMES as THEME_DEFS } from '../../../../constants/viewerDefs'
+import { VIEWER_DEFS } from '../../../../constants'
 import styles from './VPreference.scss'
 import { Slide } from '../../../components/animations'
 import Backdrop from '../../../components/Backdrop'
@@ -114,7 +114,7 @@ class VPreference extends Component<OtherProps & OwnProps, {}> {
                 </li>*/}
                 <li styleName="option-theme">
                   {
-                    _.keys(THEME_DEFS).map((key, index) => {
+                    _.keys(VIEWER_DEFS.THEMES).map((key, index) => {
                       const className = key.toLowerCase() + (theme === key ? '--active' : '')
 
                       return (

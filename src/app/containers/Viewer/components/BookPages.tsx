@@ -7,7 +7,7 @@ import classnames from 'classnames'
 import * as selectors from '../../../selectors'
 import _ from 'lodash'
 import styles from './BookPages.scss'
-import { MOBILE_BREAK_POINT } from '../../../../constants/viewerDefs'
+import { VIEWER_DEFS } from '../../../../constants'
 
 interface OwnProps {
   startPageIndex?: number
@@ -67,7 +67,7 @@ class BookPages extends Component<OwnProps & StateProps, {}> {
 
     const ulStyle: React.CSSProperties = { 
       height: ulHeight,
-      width: fluid ? width : MOBILE_BREAK_POINT
+      width: fluid ? width : VIEWER_DEFS.MOBILE_BREAK_POINT
     }
     const pagesToRender = pages.slice(startPageIndex, startPageIndex + (limit || pages.length))
 

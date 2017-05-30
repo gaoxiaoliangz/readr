@@ -4,7 +4,7 @@ import * as ACTION_TYPES from '../actions/actionTypes'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 import calcBook from './effects/calcBook'
-import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../../constants/viewerDefs'
+import { VIEWER_DEFS } from '../../constants'
 import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
 import schemas from '../schemas'
 import getScreenInfo from '../utils/browser/getScreenInfo'
@@ -26,8 +26,8 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
       fluid,
       isScrollMode: true,
       isTouchMode: fluid,
-      pageHeight: DEFAULT_PAGE_HEIGHT,
-      fontSize: DEFAULT_FONT_SIZE,
+      pageHeight: VIEWER_DEFS.DEFAULT_PAGE_HEIGHT,
+      fontSize: VIEWER_DEFS.DEFAULT_FONT_SIZE,
       theme: 'WHITE' as Viewer.Themes,
 
       // width of viewer is exactly the width here when in fluid mode

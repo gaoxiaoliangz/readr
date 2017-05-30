@@ -4,6 +4,10 @@
 $padding-v: 30px;
 $padding-h: 30px;
 
+:global .page-book-info {
+  background: $bg-gray;
+}
+
 .book-detail {
   background: #fff;
   box-shadow: $shadow-x1;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-import { THEMES as THEME_DEFS } from '../../../../constants/viewerDefs'
+import { VIEWER_DEFS } from '../../../../constants'
 import styles from './Viewer2Pref.scss'
 
 const MAX_FONT_SIZE = 20
@@ -71,7 +71,7 @@ class Viewer2Pref extends Component<OwnProps, void> {
           </li>
           <li styleName="option-theme">
             {
-              _.keys(THEME_DEFS).map((key, index) => {
+              _.keys(VIEWER_DEFS.THEMES).map((key, index) => {
                 const className = key.toLowerCase() + (theme === key ? '--active' : '')
 
                 return (

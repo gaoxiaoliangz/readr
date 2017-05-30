@@ -1,7 +1,7 @@
 import _ from 'lodash'
+import epubParser from '@gxl/epub-parser'
 import dataProvider from '../../models/data-provider'
 import { saveFileIfNotExsit } from '../file'
-import parsers from '../../../parsers'
 import { getAuthorId, getBookMetaByTitle } from './helpers'
 
 // todo: should file be in object?
@@ -31,10 +31,10 @@ export default async function addBook(options) {
 
   // resolve file to get book meta
   if (file.mimetype === 'application/epub+zip') {
-    const epub = await parsers.epub(buffer)
-    const { metadata } = epub
-    const authorName = metadata.author
-    const title = metadata.title
+    const epub = await epubParser(buffer)
+    const { info } = epub
+    const authorName = info.author
+    const title = info.title
 
     return doSave({ title, authorName, fileId })
   } else if (file.mimetype === 'text/plain') {

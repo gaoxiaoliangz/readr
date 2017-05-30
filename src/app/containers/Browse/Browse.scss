@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+:global .page-browse {
+  background: $bg-gray;
+}
+
 .hero-image {
   text-align: center;
   height: 500px;

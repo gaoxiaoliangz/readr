@@ -1,7 +1,7 @@
 import phantom from 'phantom'
 import os from 'os'
 import path from 'path'
-import getCurrentTime from '../utils/getCurrentTime'
+import getCurrentTime from '../../utils/getCurrentTime'
 
 const debug = require('debug')('readr:evaluate')
 const dir = os.tmpdir()

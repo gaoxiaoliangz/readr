@@ -48,7 +48,7 @@ class Browse extends Component<Props, IState> {
     const images = [pic1, pic2, pic3]
 
     return (
-      <DocContainer bodyClass="home" title="首页">
+      <DocContainer bodyClass="page-browse" title="首页">
         <div className="header">
           <Branding
             bgColor="rgba(0,0,0,0.2)"
