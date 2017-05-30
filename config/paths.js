@@ -80,7 +80,6 @@ module.exports = {
   servedPath: getServedPath(resolveApp('package.json')),
   buildStatic: resolveApp('build/static'),
   buildNode: resolveApp('build/node'),
-  vendorModules: resolveApp('vendor_modules'),
 
   // for webpack use only
   publicPath: '/static/',

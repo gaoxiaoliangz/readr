@@ -18,5 +18,5 @@ fetch('http://localhost:8090/gql', {
   .then(res => res.json())
   .then(res => {
     const schemaString = printSchema(buildClientSchema(res.data))
-    fs.writeFileSync('build/gql/schema.gql', schemaString)
+    fs.writeFileSync('build/schema.gql', schemaString)
   })

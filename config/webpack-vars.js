@@ -37,8 +37,7 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      styles: paths.appStyles,
-      vendor: paths.vendorModules
+      styles: paths.appStyles
     },
     modules: [
       'node_modules'

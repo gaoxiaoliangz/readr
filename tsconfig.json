@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "allowJs": false,
+    "allowJs": true,
     "target": "es2015",
     "jsx": "react",
     "outDir": "build/es",

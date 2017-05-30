@@ -3,8 +3,7 @@ import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import styles from './Loading.scss'
 import loadingGif from './loading.gif'
-import NProgress from 'vendor/nprogress'
-import 'vendor/nprogress/nprogress.global.scss'
+import NProgress from './nprogress'
 
 interface Props {
   backdrop?: boolean
