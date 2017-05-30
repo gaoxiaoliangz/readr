@@ -26,9 +26,7 @@ const config = ({ port }) => ({
       'babel-polyfill',
       paths.appIndex
     ],
-    'vendor.global': path.join(paths.appStyles, 'vendor.global.scss'),
-    'base.global': path.join(paths.appStyles, 'base.global.scss'),
-    'modifiers.global': path.join(paths.appStyles, 'modifiers.global.scss')
+    'frameworks.global': path.join(paths.appStyles, 'frameworks.global.scss')
   },
   output: {
     path: paths.build,
