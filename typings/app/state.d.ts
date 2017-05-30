@@ -94,4 +94,16 @@ declare namespace State {
     fetchMore: any
     loading: boolean
   } & T
+
+  interface Routing {
+    action: string
+    hash: string
+    key: string
+    pathname: string
+    query: {
+      [key: string]: any
+    }
+    search: string
+    state: any
+  }
 }

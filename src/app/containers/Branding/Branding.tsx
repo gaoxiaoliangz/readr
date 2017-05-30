@@ -12,6 +12,7 @@ import * as selectors from '../../selectors'
 import { loadShelf } from '../../actions/api'
 import Button from '../../components/Button/Button'
 import Icon from '../../components/Icon/Icon'
+import cx from 'classnames'
 
 interface OwnProps {
   className?: string
@@ -30,6 +31,7 @@ interface OtherProps {
     title: string
     id: string
   }[]
+  routing: State.Routing
 }
 
 interface IState {
@@ -50,11 +52,14 @@ const mapStateToProps = (state, ownProps) => {
     isAdmin: session.role === 'admin',
     username: session.username,
     recentReading,
-    session
+    session,
+    routing: selectors.routing(state)
   }
 }
 
-@CSSModules(styles)
+@CSSModules(styles, {
+  allowMultiple: true
+})
 class Branding extends Component<OwnProps & OtherProps, IState> {
 
   constructor(props) {
@@ -99,6 +104,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
       ...style,
       background: bgColor
     }
+    const path = this.props.routing.pathname
 
     return (
       <div style={brandingStyle} styleName={`branding ${this.props.className ? this.props.className : ''}`}>
@@ -109,15 +115,15 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             </div>
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
-                <li styleName="nav-item">
+                <li styleName={cx({'nav-item': true, 'active': path === '/browse'})}>
                   <Link className="light-link" styleName="nav-link" to="/browse"><Icon size={20} name="view" /> 浏览</Link>
                 </li>
-                <li styleName="nav-item">
+                <li styleName={cx({'nav-item': true, 'active': path === '/search'})}>
                   <Link className="light-link" styleName="nav-link" to="/search"><Icon size={18} name="search" /> 搜索</Link>
                 </li>
                 {
                   isLoggedIn && (
-                    <li styleName="nav-item">
+                    <li styleName={cx({'nav-item': true, 'active': path === '/user/shelf'})}>
                       <Link className="light-link" styleName="nav-link" to="/user/shelf"><Icon size={18} name="menu" /> 我的书架</Link>
                     </li>
                   )
@@ -125,7 +131,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
               </ul>
             </div>
             {
-              username
+              isLoggedIn
                 ? (
                   <div styleName="nav--user">
                     {
@@ -185,4 +191,4 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
 export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   { logout, loadShelf }
-)(Branding)
+)(Branding as any)

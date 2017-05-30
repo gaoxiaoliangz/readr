@@ -33,6 +33,10 @@
 .nav--user {
   @extend .nav;
   float: right;
+
+  .nav-item {
+    margin-left: 15px;
+  }
 }
 
 .nav-link {
@@ -46,6 +50,17 @@
 .nav-item {
   display: inline-block;
   margin-left: 35px;
+}
+
+.active {
+  opacity: .5 !important;
+  cursor: default;
+
+  a {
+    cursor: inherit;
+    opacity: 1 !important;
+    color: #fff !important;
+  }
 }
 
 .recent-reading {
