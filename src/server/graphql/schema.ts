@@ -93,9 +93,20 @@ const Query = new GraphQLObjectType({
     },
     books: makeNodeConnectionField({
       type: GQLBookConnection,
-      listAllFn: () => {
+      extendedArgs: {
+        query: {
+          type: GraphQLString
+        }
+      },
+      listAllFn: async (upper, args) => {
+        const query = args.query
         // tood: max
-        return api.books.list({ includeToc: true, limit: 99999 }).then(data => data.list)
+        const allResults = await api.books.list({ includeToc: true, limit: 99999 }).then(data => data.list)
+        return query
+          ? allResults.filter((r) => {
+            return r.title.indexOf(query) !== -1
+          })
+          : allResults
       }
     })
   }
