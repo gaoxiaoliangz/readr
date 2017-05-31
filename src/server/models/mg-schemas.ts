@@ -161,12 +161,18 @@ export const userFields = {
     min: [6, i18n('errors.validation.valueLimit.minLength', 'password')],
     max: [20, i18n('errors.validation.valueLimit.maxLength', 'password')]
   },
+  display_name: {
+    type: String,
+    min: [1, i18n('errors.validation.valueLimit.minLength', 'name')],
+    max: [30, i18n('errors.validation.valueLimit.maxLength', 'name')]
+  },
   email: {
     required: true,
     type: String,
     unique: true,
     validate: {
-      validator: validator.isEmail,
+      // mongoose deprecated valiators that take 2 args
+      validator: (str) => validator.isEmail(str),
       message: i18n('errors.validation.valueLimit.invalidFormat', 'email')
     }
   },

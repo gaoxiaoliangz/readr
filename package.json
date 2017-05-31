@@ -62,7 +62,7 @@
     "graphql-tag": "^2.2.1",
     "history": "^4.6.0",
     "html-to-react": "^0.1.2",
-    "humps": "^1.1.0",
+    "humps": "^2.0.0",
     "immutable": "^3.7.6",
     "install": "^0.8.7",
     "isomorphic-fetch": "^2.2.1",
