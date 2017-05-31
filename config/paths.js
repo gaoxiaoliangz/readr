@@ -72,6 +72,7 @@ module.exports = {
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appStyles: resolveApp('src/app/styles'),
+  graphqlQueries: resolveApp('src/app/graphql'),
   packageJson: resolveApp('package.json'),
   yarnLockFile: resolveApp('yarn.lock'),
   testsSetup: resolveApp('src/setupTests.js'),

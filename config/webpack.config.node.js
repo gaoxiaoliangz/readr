@@ -5,6 +5,8 @@ const paths = require('./paths')
 const rules = require('./webpack-rules')
 const vars = require('./webpack-vars')
 
+console.log(vars.resolve)
+
 module.exports = {
   entry: {
     // index: ['babel-polyfill', paths.serverSrc]

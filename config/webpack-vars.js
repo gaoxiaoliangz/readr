@@ -37,7 +37,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      styles: paths.appStyles
+      styles: paths.appStyles,
+      graphql: paths.graphqlQueries,
     },
     modules: [
       'node_modules'

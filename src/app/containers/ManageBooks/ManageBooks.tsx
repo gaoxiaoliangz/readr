@@ -13,13 +13,14 @@ import { Button } from '../../components/form'
 import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
+import BOOKS_QUERY from '../../graphql/BooksQuery.gql'
 
 const PAGE_LIMIT = 10
 
 type Data = State.Apollo<{
   books: Schema.Connection<{
     id: string
-    dbId: string
+    objectId: string
     title: string
     authors: {
       name: string
@@ -113,14 +114,14 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 
   render() {
     if (this.props.data.loading) {
-      return <Loading center />
+      return <Loading center useNProgress />
     }
 
     const entities = this.props.data.books.edges.map(edge => edge.node)
     const rows = entities
       .map((row, index) => {
         return [
-          row.dbId,
+          row.objectId,
           row.title,
           moment(new Date(row.createdAt).valueOf()).format('YYYY年MM月DD日'),
           row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
@@ -172,45 +173,21 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
   }
 }
 
-const ManageBooksWithData = graphql(gql`
-  query queryBooks($offset: Int) {
-    books(first: ${PAGE_LIMIT}, offset: $offset) {
-      totalCount
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        cursor
-        node {
-          id
-          dbId
-          title
-          cover
-          description
-          createdAt
-          authors {
-            name
-          }
-        }
-      }
+const ManageBooksWithData = graphql(BOOKS_QUERY, {
+  options: (props) => {
+    return {
+      variables: {
+        offset: ((Number(props.routing.query.page) || 1) - 1) * PAGE_LIMIT,
+        first: PAGE_LIMIT
+      },
+
+      // if not specified as 'network-only' fetch status will always be loading, when
+      // refetching somthing with previously used query, seems to be a bug
+      // using this option when render on the server, requests will not be made
+      fetchPolicy: 'network-only'
     }
   }
-`, {
-    options: (props) => {
-      return {
-        variables: {
-          offset: ((Number(props.routing.query.page) || 1) - 1) * PAGE_LIMIT
-        },
-
-        // if not specified as 'network-only' fetch status will always be loading, when
-        // refetching somthing with previously used query, seems to be a bug
-        fetchPolicy: 'network-only'
-      }
-    }
-  })(ManageBooks)
+})(ManageBooks)
 
 function mapStateToProps(state, ownProps) {
   return {
