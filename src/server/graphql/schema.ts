@@ -11,7 +11,14 @@ import {
 } from 'graphql-relay'
 import _ from 'lodash'
 import dataProvider from '../models/data-provider'
-import { GQLAuthorConnection, GQLFileConnection, GQLBookConnection, GQLBook, GQLReadingProgress } from './types'
+import {
+  GQLAuthorConnection,
+  GQLFileConnection,
+  GQLBookConnection,
+  GQLBook,
+  GQLReadingProgress,
+  GQLReadingHistoryEntryConnection,
+} from './types'
 import { nodeInterface, nodeField } from './node'
 import { makeNodeConnectionField } from './utils'
 import { getReadingProgressCore } from '../api/user'
@@ -49,7 +56,14 @@ const viewerField = {
           const { user: { _id: userId } } = req
           return getReadingProgressCore({ bookId, userId })
         }
-      }
+      },
+      readingHistory: makeNodeConnectionField({
+        type: GQLReadingHistoryEntryConnection,
+        listAllFn: async (upper, args, req) => {
+          const { user: { _id } } = req
+          return api.user.listShelfBooks({ context: { user: { _id } } })
+        }
+      })
     }),
     interfaces: [nodeInterface]
   }),

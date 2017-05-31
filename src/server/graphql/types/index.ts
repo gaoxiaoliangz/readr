@@ -5,6 +5,7 @@ import { GQLBook, GQLBookConnection } from './GQLBook'
 import { GQLAuthor, GQLAuthorConnection } from './GQLAuthor'
 import { GQLTag, GQLTagConnection } from './GQLTag'
 import { GQLFile, GQLFileConnection } from './GQLFile'
+import { GQLReadingHistoryEntry, GQLReadingHistoryEntryConnection } from './GQLReadingHistoryEntry'
 
 export {
   GQLAuthor,
@@ -18,5 +19,7 @@ export {
   GQLBook,
   GQLBookConnection,
   GQLTocItem,
-  GQLReadingProgress
+  GQLReadingProgress,
+  GQLReadingHistoryEntry,
+  GQLReadingHistoryEntryConnection
 }
