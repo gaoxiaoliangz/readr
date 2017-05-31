@@ -125,3 +125,9 @@ export const validateNonNullOptions = (options, nonNullFieldList) => {
   }
   return
 }
+
+export const sortByNewest = (key = 'updated_at') => {
+  return (a, b) => {
+    return new Date(b[key]).valueOf() - new Date(a[key]).valueOf()
+  }
+}

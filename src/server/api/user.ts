@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import humps from 'humps'
 import dataProvider from '../models/data-provider'
+import { sortByNewest } from './utils'
 
-export function getReadingProgressCore({bookId, userId}) {
+export function getReadingProgressCore({ bookId, userId }) {
   if (!userId) {
     return Promise.reject(new Error('Sign-in required!'))
   }
@@ -14,7 +15,7 @@ export function getReadingProgressCore({bookId, userId}) {
 export function getReadingProgress(options) {
   const { bookId } = options
   const { user: { _id: userId } } = options.context
-  return getReadingProgressCore({bookId, userId})
+  return getReadingProgressCore({ bookId, userId })
 }
 
 export const setReadingProgressCore = async ({ bookId, userId, percentage }) => {
@@ -45,13 +46,17 @@ export function listShelfBooks(options) {
   return dataProvider.Progress.find({ user_id }).exec().then(docs => {
     return Promise
       .all(docs
+        .sort(sortByNewest())
         .map(doc => {
           return dataProvider.Book.findById(doc['book_id']).exec().then(bookDoc => {
             // todo: outputEmpty, in case book is removed
             // if (!bookDoc) {
             //   return bookModel.outputEmpty(result.book_id)
             // }
-            return bookDoc
+            return {
+              ...bookDoc.toObject(),
+              ..._.pick(doc.toObject(), ['updated_at', 'created_at'])
+            }
           })
         })
       )
