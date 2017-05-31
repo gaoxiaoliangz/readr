@@ -12,7 +12,7 @@ import render from './middleware/render'
 import bootServer from './bootstrap'
 import apiApp from './api/app'
 import * as CONSTANTS from '../constants'
-import getMongoStoreUrl from './helpers/getMongoStoreUrl'
+import getMongoDBUrl from './helpers/getMongoDBUrl'
 import middleware from './middleware'
 import schema from './graphql/schema'
 import {
@@ -33,7 +33,6 @@ const PUBLIC_DIR = 'build/static'
 const PUBLIC_URL = '/static'
 const SESSION_SECRET = 'key'
 const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = getMongoStoreUrl()
 
 interface InitConfig {
   basePath: string
@@ -50,7 +49,7 @@ export default function initialize(config: InitConfig) {
     secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ url: MONGO_STORE_URL })
+    store: new MongoStore({ url: getMongoDBUrl() })
   }))
   app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))

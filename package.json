@@ -25,8 +25,9 @@
     "test": "jest --no-cache --watchAll --config=.jestrc",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
     "get-schema": "node scripts/get-schema.js",
-    "dev": "concurrently \"npm start\" \"npm run debug\"",
-    "dev2": "concurrently \"npm start\" \"npm run debug\" \"npm run watch:node\""
+    "dev:fe": "concurrently \"npm start\" \"npm run debug\"",
+    "dev:server": "concurrently \"npm run watch:node\" \"npm run debug\"",
+    "dev:all": "concurrently \"npm start\" \"npm run debug\" \"npm run watch:node\""
   },
   "dependencies": {
     "@gxl/epub-parser": "^1.0.1",
@@ -118,6 +119,7 @@
     "@playlyfe/gql": "^2.2.4",
     "@types/bluebird": "^3.5.4",
     "@types/classnames": "0.0.32",
+    "@types/connect-mongo": "^0.0.32",
     "@types/expect.js": "^0.3.28",
     "@types/express": "^4.0.34",
     "@types/express-session": "0.0.32",

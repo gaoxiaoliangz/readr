@@ -95,6 +95,15 @@
   version "0.0.32"
   resolved "http://registry.npm.taobao.org/@types/classnames/download/@types/classnames-0.0.32.tgz#449abcd9a826807811ef101e58df9f83cfc61713"
 
+"@types/connect-mongo@^0.0.32":
+  version "0.0.32"
+  resolved "http://registry.npm.taobao.org/@types/connect-mongo/download/@types/connect-mongo-0.0.32.tgz#939ca708513482c7d3f32a38c637d49d2ac7d090"
+  dependencies:
+    "@types/express" "*"
+    "@types/express-session" "*"
+    "@types/mongodb" "*"
+    "@types/mongoose" "*"
+
 "@types/expect.js@^0.3.28":
   version "0.3.29"
   resolved "http://registry.npm.taobao.org/@types/expect.js/download/@types/expect.js-0.3.29.tgz#28dd359155b84b8ecb094afc3f4b74c3222dca3b"
@@ -111,7 +120,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/express-session@0.0.32":
+"@types/express-session@*", "@types/express-session@0.0.32":
   version "0.0.32"
   resolved "http://registry.npm.taobao.org/@types/express-session/download/@types/express-session-0.0.32.tgz#82f9e6a028eb6125a412db95f0e61a97d1945ee0"
   dependencies:
@@ -195,7 +204,7 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@^4.7.13":
+"@types/mongoose@*", "@types/mongoose@^4.7.13":
   version "4.7.13"
   resolved "http://registry.npm.taobao.org/@types/mongoose/download/@types/mongoose-4.7.13.tgz#397649c994fd0158c6621c6521d2ea0768528596"
   dependencies:
