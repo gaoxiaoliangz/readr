@@ -60,7 +60,7 @@ class Books extends Component<Props, {}> {
       })
 
     if (this.props.data.loading) {
-      return <Loading center />
+      return <Loading useNProgress />
     }
 
     return (

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
-// import { graphql } from 'react-apollo'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
 import DocContainer from '../../components/DocContainer'
 import { Container } from '../../components/layout'
 import styles from './Browse.scss'
-// import homeQuery from './query.gql'
 import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import Books from '../Books/Books'
@@ -70,8 +68,6 @@ class Browse extends Component<Props, IState> {
     )
   }
 }
-
-// const AppHomeWithData = graphql(homeQuery)(AppHome)
 
 function mapStateToProps(state, ownProps) {
   return {

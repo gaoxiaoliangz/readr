@@ -13,6 +13,7 @@ import Container from '../../components/Container/Container'
 import { Tab, Tabs } from '../../components/Tab'
 import BOOK_TOC_FRAG from '../../graphql/fragments/BookToc.gql'
 import BookToc from '../../components/BookToc'
+import helpers from '../../helpers'
 
 type Data = State.Apollo<{
   book: {
@@ -71,7 +72,7 @@ class BookDetail extends Component<Props, {}> {
                           <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
                         </div>
                         <div>
-                          <Button styleName="btn-read" to={`/viewer/v2/book/${bookInfo.id}`} color="green">阅读</Button>
+                          <Button styleName="btn-read" to={helpers.getReaderUri(bookInfo.id)} color="green">阅读</Button>
                         </div>
                       </div>
                     </div>
@@ -85,7 +86,7 @@ class BookDetail extends Component<Props, {}> {
                         <BookToc
                           toc={bookInfo.toc}
                           linkTpl={(sectionId, hash) => {
-                            return `/viewer/v2/book/${bookInfo.id}#${sectionId},${hash}`
+                            return helpers.getReaderUri(`${bookInfo.id}#${sectionId},${hash}`)
                           }}
                         />
                       </Tab>

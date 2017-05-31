@@ -13,6 +13,7 @@ import { loadShelf } from '../../actions/api'
 import Button from '../../components/Button/Button'
 import Icon from '../../components/Icon/Icon'
 import cx from 'classnames'
+import helpers from '../../helpers'
 
 interface OwnProps {
   className?: string
@@ -139,9 +140,10 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                         <Dropdown className="dropdown-recent-reading" styleName="dropdown-recent-reading" title="最近阅读">
                           {
                             recentReading.slice(0, 5).map((book, index) => {
+                              // todo: use graphql
                               return (
                                 <DropdownItem key={index}>
-                                  <Link to={`/viewer/book/${book.id}`}>{book.title}</Link>
+                                  <Link to={helpers.getReaderUri(book.id)}>{book.title}</Link>
                                 </DropdownItem>
                               )
                             })
