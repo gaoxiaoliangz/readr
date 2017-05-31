@@ -3073,6 +3073,12 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
+dotenv-safe@^4.0.4:
+  version "4.0.4"
+  resolved "http://registry.npm.taobao.org/dotenv-safe/download/dotenv-safe-4.0.4.tgz#8b0e7ced8e70b1d3c5d874ef9420e406f39425b3"
+  dependencies:
+    dotenv "^4.0.0"
+
 dotenv@^4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/dotenv/download/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"

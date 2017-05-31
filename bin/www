@@ -4,7 +4,12 @@
  * args
  * -p, --production
  */
+const paths = require('../config/paths')
+
 require('dotenv').config()
+require('dotenv-safe').load({
+  sample: paths.resolveApp('.env-sample')
+})
 
 const minimist = require('minimist') // eslint-disable-line
 const argv = minimist(process.argv.slice(2))
