@@ -39,7 +39,7 @@ export const modelToGQLFields = (model, refTypes?) => {
       fields = {
         ...fields,
         id: globalIdField(model.modelName, (obj) => obj[path]),
-        dbId: {
+        objectId: {
           type: new GraphQLNonNull(GraphQLString),
           resolve: (obj) => obj[path]
         }
