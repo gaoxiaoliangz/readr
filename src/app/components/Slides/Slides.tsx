@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Slider from 'react-slick'
-import './Slides.scss'
+import styles from './Slides.scss'
+import PrevArrow from './PrevArrow'
+import NextArrow from './NextArrow'
+import helpers from '../../helpers'
+
+type Props = {
+  images: any[]
+}
+
+class LeftNavButton extends Component<any, any> {
+  render() {
+    return <button {...this.props}>Next</button>
+  }
+}
 
 const settings = {
   dots: true,
@@ -10,29 +23,33 @@ const settings = {
   slidesToScroll: 1,
   autoplay: false,
   autoplaySpeed: 3000,
-  arrows: true
-}
-
-type Props = {
-  images: any[]
+  arrows: true,
+  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrow />
 }
 
 const Slides = ({ images }: Props) => {
+  const isServerEnv = helpers.isServerEnv()
   return (
-    <div>
+    <div style={{ maxHeight: 420, overflow: isServerEnv ? 'hidden' : 'initial', paddingBottom: 50 }}>
       {
         images.length !== 0 && (
-          <Slider {...settings}>
+          <Slider
+            {...settings}
+          >
             {
               images.map((image, index) => {
                 const slideStyle: React.CSSProperties = {
                   background: `url(${image})`,
                   backgroundSize: 'cover',
-                  height: 420
+                  height: 420,
+                  width: '100%'
                 }
 
                 return (
-                  <div className="img-wrap" key={index} style={slideStyle} />
+                  <div className={styles['img-wrap']} key={index} >
+                    <div style={slideStyle} />
+                  </div>
                 )
               })
             }

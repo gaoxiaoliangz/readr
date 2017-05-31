@@ -287,6 +287,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-slick@^0.0.8":
+  version "0.0.8"
+  resolved "http://registry.npm.taobao.org/@types/react-slick/download/@types/react-slick-0.0.8.tgz#f7a17ffee40b3d0cc2c7b8fda9688f2457a6e995"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^15.0.16":
   version "15.0.23"
   resolved "http://registry.npm.taobao.org/@types/react/download/@types/react-15.0.23.tgz#f3facbef5290610f54242f00308759d3a3c27346"

@@ -1,7 +1,8 @@
 import React from 'react'
 import path from 'path'
 import _ from 'lodash'
-import { renderToStaticMarkup, renderToString } from 'react-dom/server'
+import { renderToStringWithData } from 'react-apollo'
+import { renderToStaticMarkup } from 'react-dom/server'
 import DocContainer from '../../../app/components/DocContainer'
 import AppProvider from '../../../app/containers/AppProvider'
 import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
@@ -57,10 +58,10 @@ function renderView(isProduction) {
   }
 
 
-  return (req, res) => {
+  return async (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
     const useServerRendering = process.env.ENABLE_SERVER_RENDERING === '1'
-    const appRootMarkup = renderToString(
+    const appRootMarkup = await renderToStringWithData(
       <AppProvider
         renderPageContent={useServerRendering}
         renderProps={renderProps}

@@ -1,9 +1,34 @@
 .img-wrap {
-  // height: 334px !important;
   overflow: hidden;
+  width: 100%;
 
   & img {
     max-width: 100%;
     height: auto;
   }
+}
+
+:global .slick-arrow.slick-prev,
+:global .slick-arrow.slick-next {
+  left: 20px;
+  color: #fff;
+  z-index: 999;
+  opacity: 0.8;
+  height: 200px;
+  line-height: 200px;
+  width: 30px;
+  text-align: center;
+
+  .icon {
+    color: #fff;
+  }
+
+  &:before {
+    display: none;
+  }
+}
+
+:global .slick-arrow.slick-next {
+  left: auto;
+  right: 20px;
 }
