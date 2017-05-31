@@ -1,25 +1,23 @@
 import {
   GraphQLID,
-  GraphQLInt,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
-  GraphQLFloat
 } from 'graphql'
 import {
   fromGlobalId,
-  globalIdField,
-  mutationWithClientMutationId,
+  globalIdField
 } from 'graphql-relay'
 import _ from 'lodash'
 import dataProvider from '../models/data-provider'
 import { GQLAuthorConnection, GQLFileConnection, GQLBookConnection, GQLBook, GQLReadingProgress } from './types'
 import { nodeInterface, nodeField } from './node'
 import { makeNodeConnectionField } from './utils'
-import { setReadingProgressCore, getReadingProgressCore } from '../api/user'
+import { getReadingProgressCore } from '../api/user'
 import bookPagesField from './fields/bookPagesField'
 import api from '../api'
+import Mutation from './mutations'
 
 const viewerField = {
   type: new GraphQLObjectType({
@@ -90,46 +88,6 @@ const Query = new GraphQLObjectType({
         return api.books.list({ includeToc: true, limit: 99999 }).then(data => data.list)
       }
     })
-  }
-})
-
-const GQLUpdateReadingProgressMutation = mutationWithClientMutationId({
-  name: 'UpdateReadingProgress',
-  inputFields: {
-    bookId: {
-      type: new GraphQLNonNull(GraphQLID)
-    },
-    percentage: {
-      type: new GraphQLNonNull(GraphQLFloat)
-    },
-  },
-  outputFields: {
-    ok: {
-      type: GraphQLInt
-    },
-    n: {
-      type: GraphQLInt
-    },
-    nModified: {
-      type: GraphQLInt
-    }
-  },
-  mutateAndGetPayload: async (args, req) => {
-    const { user: { _id: userId } } = req
-    const bookId = fromGlobalId(args.bookId).id
-    const result = await setReadingProgressCore({
-      ...args,
-      userId,
-      bookId
-    })
-    return result
-  }
-})
-
-const Mutation = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: {
-    updateReadingProgress: GQLUpdateReadingProgressMutation
   }
 })
 

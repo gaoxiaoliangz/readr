@@ -18,6 +18,11 @@ export function getReadingProgress(options) {
   return getReadingProgressCore({ bookId, userId })
 }
 
+export const removeReadingProgress = ({ bookId, userId }) => {
+  const query = humps.decamelizeKeys({ userId, bookId })
+  return dataProvider.Progress.findOne(query).remove().exec()
+}
+
 export const setReadingProgressCore = async ({ bookId, userId, percentage }) => {
   if (!userId) {
     return Promise.reject(new Error('Sign-in required!'))
