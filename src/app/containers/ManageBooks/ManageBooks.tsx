@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
-import webAPI from '../../webAPI'
+import * as restAPI from '../../restAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
 import { gql, graphql } from 'react-apollo'
@@ -54,7 +54,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       title: '确认删除',
       content: `将删除《${bookName}》`,
       onConfirm: () => {
-        webAPI.deleteBook(id).then(res => {
+        restAPI.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
           cb()
@@ -74,7 +74,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         <BookMetaForm
           onSave={data => {
             const _data = _.omit(data, 'authors')
-            webAPI.editBookMeta(bookMeta.id, _data).then(result => {
+            restAPI.editBookMeta(bookMeta.id, _data).then(result => {
               this.loadBooks()
               this.props.closeModal()
               this.props.sendNotification('修改成功！', 'success')

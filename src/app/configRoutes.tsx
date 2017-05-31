@@ -3,7 +3,7 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router'
 import RootRoute from './containers/RootRoute'
 import UserApp from './containers/UserApp'
 import AdminApp from './containers/AdminApp'
-import restAPI from './webAPI'
+import * as restAPI from './restAPI'
 import { ROLES } from '../constants'
 
 const configRoutes = (context = {}) => {

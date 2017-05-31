@@ -1,7 +1,7 @@
 import _ from 'lodash'
-import helpers from '../helpers'
-import { DOUBAN_API_ROOT } from '../../constants'
-import request from '../../utils/network/request'
+import helpers from './helpers'
+import { DOUBAN_API_ROOT } from './../constants'
+import request from './../utils/network/request'
 
 const API_ROOT = helpers.getApiRoot()
 
