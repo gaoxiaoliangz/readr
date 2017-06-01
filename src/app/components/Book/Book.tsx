@@ -13,6 +13,7 @@ interface IProps {
   cover: string
   disablePopup?: boolean
   showDesc?: boolean
+  percentage?: number
 }
 
 interface IState {
@@ -46,14 +47,14 @@ export default class Book extends Component<IProps, IState> {
   }
 
   render() {
-    const { showDesc, description, cover } = this.props
+    const { showDesc, description, cover, percentage } = this.props
 
     return (
       <div onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book--card">
         <Link to={'/book/' + this.props.id} >
           {
             cover && (
-              <div styleName="book-cover"><img src={this.props.cover}/></div>
+              <div styleName="book-cover"><img src={this.props.cover} /></div>
             )
           }
           <div styleName="book-meta">
@@ -62,6 +63,11 @@ export default class Book extends Component<IProps, IState> {
             {
               showDesc && (
                 <span styleName="book-desc">{description || '空'}</span>
+              )
+            }
+            {
+              percentage && (
+                <span>已读 {(percentage * 100).toFixed(1)}%</span>
               )
             }
           </div>
@@ -73,7 +79,7 @@ export default class Book extends Component<IProps, IState> {
               title={this.props.title}
               author={this.props.authors}
               description={this.props.description}
-              />
+            />
           )
         }
       </div>

@@ -10,6 +10,7 @@ export interface Props {
     authors: any
     description: string
     cover: string
+    percentage?: number
   }[]
 }
 
@@ -33,6 +34,7 @@ class BookList extends Component<Props, {}> {
                       description={description}
                       cover={cover}
                       disablePopup
+                      percentage={book.percentage}
                       />
                   </li>
                 )
