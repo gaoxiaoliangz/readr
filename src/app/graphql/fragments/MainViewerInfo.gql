@@ -1,0 +1,6 @@
+fragment MainViewerInfo on User {
+  email
+  displayName
+  username
+  id
+}

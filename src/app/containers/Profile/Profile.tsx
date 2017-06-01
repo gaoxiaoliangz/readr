@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { graphql } from 'react-apollo'
+import { graphql, compose, gql } from 'react-apollo'
 import { sendNotification } from '../../actions'
-import { Button } from '../../components/form'
 import { Tab, Tabs } from '../../components/Tab'
 import { Container } from '../../components/layout'
 import CSSModules from 'react-css-modules'
@@ -12,15 +11,24 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import DocContainer from '../../components/DocContainer'
 import defaultAvatar from './default-avatar.png'
-import VIEWER_QUERY from '../../graphql/ViewerQuery.gql'
-import DataRenderer from '../../components/DataRenderer/DataRenderer'
+import MAIN_VIEWER_INFO from '../../graphql/fragments/MainViewerInfo.gql'
+import VIEWER_READING_HISTORY from '../../graphql/fragments/ViewerReadingHistory.gql'
 import withIndicator from '../../helpers/withIndicator'
+import BookList from '../../components/BookList/BookList'
 
 type Data = State.Apollo<{
   viewer: {
     email: string
     username: string
     displayName: string
+    readingHistory: Schema.Connection<{
+      id: string
+      title: string
+      description: string
+      percentage: number
+      authors: any[]
+      cover: string
+    }>
   }
 }>
 
@@ -29,12 +37,10 @@ interface IProps {
   data: Data
 }
 
-@CSSModules(styles)
 class Profile extends Component<IProps, {}> {
 
   constructor(props) {
     super(props)
-    // this.renderContent = this.renderContent.bind(this)
   }
 
   render() {
@@ -51,11 +57,14 @@ class Profile extends Component<IProps, {}> {
               </div>
               <span styleName="username">{displayName}</span>
               <span styleName="tagline">暂无签名</span>
-              <Button onClick={() => { this.props.sendNotification('该功能尚不可用', 'warning') }} styleName="edit">编辑</Button>
             </div>
             <Tabs>
               <Tab title="最近阅读">
-                暂无数据
+                <BookList
+                  bookEntities={this.props.data.viewer.readingHistory.edges.map(edge => {
+                    return edge.node
+                  })}
+                />
               </Tab>
               <Tab title="我的收藏">
                 该功能仍在开发中，敬请期待！
@@ -67,22 +76,28 @@ class Profile extends Component<IProps, {}> {
       </DocContainer>
     )
   }
-
-  // render() {
-  //   return (
-  //     <DataRenderer data={this.props.data} render={this.renderContent} />
-  //   )
-  // }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-  }
+  return {}
 }
 
-const withData = graphql(VIEWER_QUERY)
+const withData = graphql(gql`
+  query ProfileQuery {
+    viewer {
+      ...MainViewerInfo
+      readingHistory {
+        ...ViewerReadingHistory
+      }
+    }
+  }
+  ${MAIN_VIEWER_INFO}
+  ${VIEWER_READING_HISTORY}
+`)
 
-export default withData(withIndicator()(connect(
-  mapStateToProps,
-  { sendNotification }
-)(Profile as any)) as any)
+export default compose(
+  withData,
+  withIndicator(),
+  connect(mapStateToProps, { sendNotification }),
+  CSSModules(styles)
+)(Profile)

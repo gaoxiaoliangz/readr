@@ -13,6 +13,7 @@ const DataRenderer = (props: Props) => {
   }
 
   if (props.data.error) {
+    // todo
     return (
       <div>{props.data.error.message}</div>
     )

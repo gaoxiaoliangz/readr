@@ -1,0 +1,12 @@
+fragment ViewerReadingHistory on ReadingHistoryEntryConnection {
+  totalCount
+  edges {
+    node {
+      id
+      title
+      percentage
+      description
+      cover
+    }
+  }
+}
