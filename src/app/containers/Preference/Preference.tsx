@@ -11,6 +11,8 @@ import { Container } from '../../components/layout'
 import VIEWER_QUERY from '../../graphql/ViewerQuery.gql'
 import Loading from '../../components/Loading/Loading'
 import UPDATE_PROFILE from '../../graphql/mutations/UpdateProfile.gql'
+import { openModal } from '../../actions'
+import ChangePWForm from './ChangePWForm'
 
 type Data = State.Apollo<{
   viewer: {
@@ -24,6 +26,7 @@ interface IAllProps {
   data: Data
   profile?: any
   mutate: any
+  openModal: typeof openModal
 }
 
 interface IState {
@@ -48,6 +51,8 @@ class Preference extends Component<IAllProps, IState> {
       refetchQueries: [{
         query: VIEWER_QUERY
       }]
+    }).catch((err) => {
+      alert(err.message)
     })
   }
 
@@ -63,10 +68,23 @@ class Preference extends Component<IAllProps, IState> {
         <Branding />
         <Container>
           <PreferenceList
+            displayName={displayName}
             username={username}
             email={email}
             showFav
             onSave={this._handleSave}
+            onRequestChangePW={() => {
+              this.props.openModal({
+                title: '修改密码',
+                content: (
+                  <ChangePWForm
+                    onSave={(data) => {
+                      console.log(data)
+                    }}
+                  />
+                )
+              })
+            }}
           />
         </Container>
         <Colophon />
@@ -84,4 +102,5 @@ export default withMutation(withData(connect(
       profile: selectors.profile(state)
     }
   },
+  { openModal }
 )(Preference as any)))
