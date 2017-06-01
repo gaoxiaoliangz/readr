@@ -47,7 +47,7 @@ class PreferenceList extends Component<IProps, IState> {
             <li styleName="option">
               <EditableField
                 label="用户名"
-                display={<span styleName="option-input">readrweb.com/@<strong>{username}</strong></span>}
+                display={<span>readrweb.com/@<strong>{username}</strong></span>}
                 initialValue={username}
                 onSave={(val) => {
                   this._handleSave({

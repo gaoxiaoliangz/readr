@@ -19,8 +19,15 @@ export interface Props {
   allowMultiple: true
 })
 class Input extends Component<Props, any> {
+
+  input: any
+
   constructor(props) {
     super(props)
+  }
+
+  focus() {
+    this.input.focus()
   }
 
   render() {
@@ -31,8 +38,9 @@ class Input extends Component<Props, any> {
     const showError = error && touched
 
     return (
-      <div styleName={classnames({'input-wrap': !showError, 'input-wrap--error': showError})} className={this.props.className || ''}>
+      <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={this.props.className || ''}>
         <input
+          ref={ref => this.input = ref}
           styleName="input"
           placeholder={this.props.placeholder}
           value={this.props.value}

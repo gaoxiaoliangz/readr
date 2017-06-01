@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
+import CSSModules from 'react-css-modules'
+import styles from './EditableField.scss'
 
 interface Props {
   label?: string
@@ -14,7 +16,10 @@ interface State {
   inputVal: string
 }
 
+@CSSModules(styles)
 class EditableField extends Component<Props, State> {
+
+  input: any
 
   constructor(props) {
     super(props)
@@ -35,6 +40,10 @@ class EditableField extends Component<Props, State> {
   _handleEditClick() {
     this.setState({
       isEdit: !this.state.isEdit
+    }, () => {
+      if (this.state.isEdit) {
+        this.input.focus()
+      }
     })
     if (this.state.isEdit === true && this.props.onSave) {
       this.props.onSave(this.state.inputVal)
@@ -52,34 +61,40 @@ class EditableField extends Component<Props, State> {
     const { display } = this.props
 
     return (
-      <div>
-        {
-          this.props.label && <h2>{this.props.label}</h2>
-        }
-        {
-          this.state.isEdit
-            ? <Input
-              value={this.state.inputVal}
-              onChange={(e) => {
-                this.setState({
-                  inputVal: e.target.value
-                })
-              }}
-            />
-            : display || this.props.initialValue
-        }
-        <Button onClick={this._handleEditClick}>
+      <div styleName="editable-field" className="clearfix">
+        <div className="left">
+          {
+            this.props.label && <h2>{this.props.label}</h2>
+          }
           {
             this.state.isEdit
-              ? '保存'
-              : '编辑'
+              ? <Input
+                ref={ref => this.input = ref}
+                className={styles['input']}
+                value={this.state.inputVal}
+                onChange={(e) => {
+                  this.setState({
+                    inputVal: e.target.value
+                  })
+                }}
+              />
+              : <span styleName="input-normal">{display || this.props.initialValue}</span>
           }
-        </Button>
-        {
-          this.state.isEdit && (
-            <Button color="white" onClick={this._handleCancelClick}>取消</Button>
-          )
-        }
+        </div>
+        <div styleName="right">
+          <Button color={this.state.isEdit ? 'green' : 'white'} styleName="btn" onClick={this._handleEditClick}>
+            {
+              this.state.isEdit
+                ? '保存'
+                : '编辑'
+            }
+          </Button>
+          {
+            this.state.isEdit && (
+              <Button styleName="btn" color="white" onClick={this._handleCancelClick}>取消</Button>
+            )
+          }
+        </div>
       </div>
     )
   }
