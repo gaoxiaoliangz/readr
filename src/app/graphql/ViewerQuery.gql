@@ -1,0 +1,8 @@
+query ViewerProfile {
+  viewer {
+    email
+    displayName
+    username
+    id
+  }
+}

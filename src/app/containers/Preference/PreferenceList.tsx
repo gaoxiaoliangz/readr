@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import Switcher from '../../../components/Switcher'
 import CSSModules from 'react-css-modules'
-const styles = require('./PreferenceList.scss')
+import _ from 'lodash'
+import Switcher from '../../components/Switcher'
+import EditableField from '../../components/EditableField/EditableField'
+import styles from './PreferenceList.scss'
 
 interface IProps {
   username: string
   email: string
-  encriptedPassword: string
   showFav: boolean
+  onSave: (data: any) => void
 }
 
 interface IState {
@@ -25,26 +27,45 @@ class PreferenceList extends Component<IProps, IState> {
   componentDidMount() {
   }
 
+  _handleSave(data) {
+    this.props.onSave({
+      ..._.pick(this.props, ['username', 'email']),
+      ...data
+    })
+  }
+
   render() {
-    const { username, email, encriptedPassword, showFav } = this.props
+    const { username, email, showFav } = this.props
 
     return (
       <div styleName="settings">
         <div className="page-content">
           <div className="page-header">
-            <h1 style={{marginBottom: 0}} className="page-title">设置</h1>
-            <span>功能开发中，暂为只读</span>
+            <h1 style={{ marginBottom: 0 }} className="page-title">设置</h1>
           </div>
           <ul styleName="options">
             <li styleName="option">
-              <h2>用户名</h2>
-              <span styleName="option-input">readrweb.com/@<strong>{username}</strong></span>
-              <span styleName="edit">编辑</span>
+              <EditableField
+                label="用户名"
+                display={<span styleName="option-input">readrweb.com/@<strong>{username}</strong></span>}
+                initialValue={username}
+                onSave={(val) => {
+                  this._handleSave({
+                    username: val
+                  })
+                }}
+              />
             </li>
             <li styleName="option">
-              <h2>邮箱</h2>
-              <span styleName="option-input">{email}</span>
-              <span styleName="edit">编辑</span>
+              <EditableField
+                label="邮箱"
+                initialValue={email}
+                onSave={(val) => {
+                  this._handleSave({
+                    email: val
+                  })
+                }}
+              />
             </li>
             <li styleName="option">
               <h2>密码</h2>
