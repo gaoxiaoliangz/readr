@@ -13,6 +13,7 @@ export interface Props {
   name?: string
   error?: any
   touched?: boolean
+  onKeyDown?: any
 }
 
 @CSSModules(styles, {
@@ -36,10 +37,12 @@ class Input extends Component<Props, any> {
     const { error, touched } = this.props
 
     const showError = error && touched
+    const inputProps = _.omit(props, ['error', 'touched'])
 
     return (
       <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={this.props.className || ''}>
         <input
+          {...inputProps}
           ref={ref => this.input = ref}
           styleName="input"
           placeholder={this.props.placeholder}

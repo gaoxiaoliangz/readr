@@ -61,7 +61,9 @@ class Browse extends Component<Props, IState> {
           <Slides images={images} />
         </div>
         <Container>
-          <Books />
+          <Books
+            sectionTitle="新书速递"
+          />
         </Container>
         <Colophon />
       </DocContainer>

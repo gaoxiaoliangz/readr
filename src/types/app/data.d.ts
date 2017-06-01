@@ -23,3 +23,14 @@ interface PaginationLink {
   page: string
   url: string
 }
+
+interface RLocation {
+  action: string
+  hash: string
+  key: string
+  pathname: string
+  query: {
+    [key: string]: string
+  }
+  search: string
+}

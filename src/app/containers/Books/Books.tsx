@@ -11,6 +11,11 @@ import styles from './Books.scss'
 import { gql, graphql } from 'react-apollo'
 import Loading from '../../components/Loading'
 
+interface OwnProps {
+  sectionTitle?: string
+  keyword?: string
+}
+
 type Data = State.Apollo<{
   books: Schema.Connection<{
     id: string
@@ -29,7 +34,7 @@ interface Props {
 }
 
 @CSSModules(styles)
-class Books extends Component<Props, {}> {
+class Books extends Component<Props & OwnProps, {}> {
 
   constructor(props) {
     super(props)
@@ -66,7 +71,7 @@ class Books extends Component<Props, {}> {
     return (
       <Container>
         <BookListSection
-          title="新书速递"
+          title={this.props.sectionTitle}
           bookEntities={bookEntities}
           isFetching={this.props.data.loading}
         />
@@ -87,8 +92,8 @@ class Books extends Component<Props, {}> {
 }
 
 const BooksWithData = graphql(gql`
-  query queryBooks($after: String) {
-    books(first: 6, after: $after) {
+  query queryBooks($after: String, $query: String) {
+    books(first: 6, after: $after, query: $query) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -109,15 +114,23 @@ const BooksWithData = graphql(gql`
       }
     }
   }
-`)(Books)
+`, {
+    options: (props) => {
+      return {
+        variables: {
+          query: props.keyword
+        }
+      }
+    }
+  })(Books)
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   return {
     bookList: selectors.pagination.bookList(state)
   }
 }
 
-export default connect(
+export default connect<{}, {}, OwnProps>(
   mapStateToProps,
   { loadBooks }
 )(BooksWithData)
