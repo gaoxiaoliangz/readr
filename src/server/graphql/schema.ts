@@ -69,13 +69,14 @@ const viewerField = {
   }),
   async resolve(obj, args, req) {
     const { user } = req
-    const { email, display_name: displayName } = await api.users.find({ id: user._id }) as any
+    const { email, display_name: displayName, username } = await api.users.find({ id: user._id }) as any
 
     return {
       ...user,
       id: user._id,
       email,
-      displayName
+      displayName,
+      username
     }
   }
 }

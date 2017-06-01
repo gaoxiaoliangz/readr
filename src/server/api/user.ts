@@ -53,14 +53,17 @@ export function listShelfBooks(options) {
       .all(docs
         .sort(sortByNewest())
         .map(doc => {
-          return dataProvider.Book.findById(doc['book_id']).exec().then(bookDoc => {
+          return dataProvider.Book.findById(doc['book_id'])
+          .populate('authors file')
+          .exec().then(bookDoc => {
             // todo: outputEmpty, in case book is removed
             // if (!bookDoc) {
             //   return bookModel.outputEmpty(result.book_id)
             // }
             return {
               ...bookDoc.toObject(),
-              ..._.pick(doc.toObject(), ['updated_at', 'created_at', '_id', 'percentage'])
+              ..._.pick(doc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
+              book_id: bookDoc._id
             }
           })
         })

@@ -11,7 +11,6 @@ import {
   fromGlobalId,
   mutationWithClientMutationId,
 } from 'graphql-relay'
-import humps from 'humps'
 import { setReadingProgressCore, removeReadingProgress } from '../../api/user'
 import api from '../../api'
 
