@@ -43,7 +43,7 @@ class BookSearch extends Component<Props, State> {
     return (
       <DocContainer title="搜索">
         <Branding />
-        <Container>
+        <Container style={{ color: 'red' }} id="wtf">
           <Input
             value={this.state.inputVal}
             placeholder="搜索"
@@ -72,7 +72,7 @@ class BookSearch extends Component<Props, State> {
           }
         </Container>
         <Colophon />
-      </DocContainer>
+      </DocContainer >
     )
   }
 }

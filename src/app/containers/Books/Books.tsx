@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
-import { loadBooks } from '../../actions/api'
 import Container from '../../components/Container'
 import _ from 'lodash'
-import * as selectors from '../../selectors'
 import CSSModules from 'react-css-modules'
 import styles from './Books.scss'
-import { gql, graphql } from 'react-apollo'
-import Loading from '../../components/Loading'
+import { gql, graphql, compose } from 'react-apollo'
+import withIndicator from '../../helpers/withIndicator'
 
 interface OwnProps {
   sectionTitle?: string
@@ -30,7 +28,6 @@ type Data = State.Apollo<{
 
 interface Props {
   data: Data
-  loadBooks: typeof loadBooks
 }
 
 @CSSModules(styles)
@@ -64,10 +61,6 @@ class Books extends Component<Props & OwnProps, {}> {
         return edge.node
       })
 
-    if (this.props.data.loading) {
-      return <Loading useNProgress />
-    }
-
     return (
       <Container>
         <BookListSection
@@ -91,7 +84,7 @@ class Books extends Component<Props & OwnProps, {}> {
   }
 }
 
-const BooksWithData = graphql(gql`
+const withData = graphql(gql`
   query queryBooks($after: String, $query: String) {
     books(first: 6, after: $after, query: $query) {
       pageInfo {
@@ -122,15 +115,14 @@ const BooksWithData = graphql(gql`
         }
       }
     }
-  })(Books)
+  })
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    bookList: selectors.pagination.bookList(state)
-  }
+  return {}
 }
 
-export default connect<{}, {}, OwnProps>(
-  mapStateToProps,
-  { loadBooks }
-)(BooksWithData)
+export default compose<{}, {}, {}, React.ComponentClass<OwnProps>>(
+  connect(mapStateToProps),
+  withData,
+  withIndicator()
+)(Books)

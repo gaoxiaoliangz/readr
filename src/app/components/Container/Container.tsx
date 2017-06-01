@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 
-interface Props {
+interface Props extends HTMLProps {
   maxWidth?: number | string
   isFluid?: boolean
-  className?: string
 }
 
 class Container extends Component<Props, void> {
@@ -17,7 +17,14 @@ class Container extends Component<Props, void> {
     const className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ` ${this.props.className}` : '')
 
     return (
-      <div style={{ maxWidth: this.props.maxWidth, margin: '0 auto' }}>
+      <div
+        {..._.omit(this.props, ['maxWidth', 'isFluid']) }
+        style={{
+          ...this.props.style,
+          maxWidth: this.props.maxWidth,
+          margin: '0 auto'
+        }}
+      >
         <div className={className}>
           {this.props.children}
         </div>

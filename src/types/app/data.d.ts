@@ -34,3 +34,7 @@ interface RLocation {
   }
   search: string
 }
+
+type HTMLProps = React.HTMLAttributes<{ 
+  styleName?: string 
+}>
