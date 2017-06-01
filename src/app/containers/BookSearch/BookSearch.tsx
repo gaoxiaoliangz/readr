@@ -37,13 +37,28 @@ class BookSearch extends Component<Props, State> {
         inputVal: keyword
       })
     }
+    if (!nextProps.location.query.q) {
+      this.setState({
+        keyword: ''
+      })
+    }
+  }
+
+  componentDidMount() {
+    const keyword = this.props.location.query.q
+    this.setState({
+      keyword,
+      inputVal: keyword
+    })
   }
 
   render() {
     return (
       <DocContainer title="搜索">
         <Branding />
-        <Container style={{ color: 'red' }} id="wtf">
+        <Container style={{
+          minHeight: 400
+        }}>
           <Input
             value={this.state.inputVal}
             placeholder="搜索"
