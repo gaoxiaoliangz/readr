@@ -60,7 +60,7 @@ export function listShelfBooks(options) {
             // }
             return {
               ...bookDoc.toObject(),
-              ..._.pick(doc.toObject(), ['updated_at', 'created_at'])
+              ..._.pick(doc.toObject(), ['updated_at', 'created_at', '_id', 'percentage'])
             }
           })
         })

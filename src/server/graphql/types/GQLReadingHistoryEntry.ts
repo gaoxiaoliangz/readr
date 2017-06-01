@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { GraphQLList } from 'graphql'
+import { GraphQLList, GraphQLFloat } from 'graphql'
 import makeUtils from '../utils'
 import { nodeInterface } from '../node'
 import dataProvider from '../../models/data-provider'
@@ -18,6 +18,9 @@ export const { nodeType: GQLReadingHistoryEntry, connectionType: GQLReadingHisto
   fields: {
     toc: {
       type: new GraphQLList(GQLTocItem)
+    },
+    percentage: {
+      type: GraphQLFloat
     }
   }
 })
