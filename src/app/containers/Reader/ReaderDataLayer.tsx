@@ -31,6 +31,7 @@ interface StateProps {
   params: any
   mutate: any
   routing: State.Routing
+  localProgress: Viewer.LocalProgress[]
 }
 
 interface OwnProps {
@@ -62,7 +63,6 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   componentWillReceiveProps(nextProps, nextState) {
     // const isPagesLoaded = this.props.data.loading && !nextProps.data.loading && !nextProps.data.error
     const hasRouteChanged = !_.isEqual(this.props.routing, nextProps.routing)
-
     // if (isPagesLoaded && this.state.isInitialRender) {
     //   this.setState({
     //     isInitialRender: false
@@ -85,10 +85,11 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   }
 
   componentDidMount() {
+    const startPage = (((_.last(this.props.localProgress) || {})['page']) || this.props.data.viewer.bookPages.startPage) - 1
     this.setState({
       isInitialRender: false
     })
-    const scrollTop = (this.props.data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
+    const scrollTop = startPage * this.props.config.pageHeight
     setTimeout(function () {
       document.body.scrollTop = scrollTop
     }, 100)
@@ -232,9 +233,12 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
 const mapStateToProps = (state, ownProps) => {
   const components = selectors.viewer.components(state)
+  const id = selectors.viewer.id(state)
+  const localProgress = selectors.viewer.localProgress(id)(state)
   return {
     components,
-    routing: selectors.routing(state)
+    routing: selectors.routing(state),
+    localProgress
   }
 }
 

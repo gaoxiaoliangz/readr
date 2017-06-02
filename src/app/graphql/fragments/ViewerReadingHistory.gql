@@ -8,6 +8,9 @@ fragment ViewerReadingHistory on ReadingHistoryEntryConnection {
       percentage
       description
       cover
+      authors {
+        name
+      }
     }
   }
 }

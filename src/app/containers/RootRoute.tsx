@@ -30,16 +30,16 @@ class Master extends Component<Props, {}> {
 
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
-    const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
+    // const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
     }
 
-    if (routerChanged) {
-      // back to top when route changed
-      window.document.body.scrollTop = 0
-    }
+    // if (routerChanged) {
+    //   // back to top when route changed
+    //   window.document.body.scrollTop = 0
+    // }
   }
 
   componentWillMount() {
