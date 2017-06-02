@@ -3,7 +3,7 @@ import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
 import { VIEWER_DEFS } from '../../../../constants'
-import styles from './Viewer2Pref.scss'
+import styles from './ReaderPreference.scss'
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12

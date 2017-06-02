@@ -7,7 +7,7 @@ import DocContainer from '../../components/DocContainer'
 import * as selectors from '../../selectors'
 import { initializeViewer, destroy } from '../../actions/viewer'
 import VContainer from './components/VContainer'
-import styles from './Viewer.scss'
+import styles from './ReaderL.scss'
 import schemas from '../../schemas'
 
 interface AllProps {

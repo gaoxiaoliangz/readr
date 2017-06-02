@@ -1,2 +1,2 @@
-import Viewer2 from './Viewer2'
-export default Viewer2
+import Reader from './Reader'
+export default Reader

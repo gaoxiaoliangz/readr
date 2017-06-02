@@ -44,10 +44,10 @@ const configRoutes = (context = {}) => {
 
   return (
     <Route path="/" component={RootRoute}>
-      <Route path="viewer/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer').default)} />
-      <Route path="viewer/v2/book/:id" getComponent={() => require.ensure([], require => require('./containers/Viewer2').default)} />
-      <Route path="authors" getComponent={() => require.ensure([], require => require('./containers/Authors/Authors').default)} />
       <Route component={UserApp}>
+        <Route path="reader/v1/book/:id" getComponent={() => require.ensure([], require => require('./containers/ReaderL').default)} />
+        <Route path="reader/v2/book/:id" getComponent={() => require.ensure([], require => require('./containers/Reader').default)} />
+        <Route path="authors" getComponent={() => require.ensure([], require => require('./containers/Authors/Authors').default)} />
         <IndexRoute onEnter={handleAppHomeEnter} getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="welcome" getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />

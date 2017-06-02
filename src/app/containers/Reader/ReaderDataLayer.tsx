@@ -4,7 +4,7 @@ import { graphql, compose } from 'react-apollo'
 import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
-import Viewer2Container from './Viewer2Container/Viewer2Container'
+import ReaderComponentsLayer from './ReaderComponentsLayer/ReaderComponentsLayer'
 import READER_QUERY from '../../graphql/ReaderQuery.gql'
 import updateReadingProgressMutation from '../../graphql/mutations/UpdateReadingProgress.gql'
 import * as selectors from '../../selectors'
@@ -200,8 +200,8 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
     const { data: { bookInfo, viewer }, config } = this.props
 
     return (
-      <DocContainer bodyClass="page-viewer-v2">
-        <Viewer2Container
+      <DocContainer bodyClass="page-reader-v2">
+        <ReaderComponentsLayer
           bookPages={viewer.bookPages}
           bookInfo={bookInfo}
           onReachBottom={() => {

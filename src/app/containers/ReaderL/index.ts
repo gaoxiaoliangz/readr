@@ -1,2 +1,2 @@
-import Viewer from './Viewer'
-export default Viewer
+import ReaderL from './ReaderL'
+export default ReaderL

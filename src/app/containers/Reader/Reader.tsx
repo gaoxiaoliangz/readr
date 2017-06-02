@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
-import Viewer2WithData from './Viewer2WithData'
+import ReaderDataLayer from './ReaderDataLayer'
 import * as selectors from '../../selectors'
 import Loading from '../../components/Loading/Loading'
 
@@ -52,7 +52,7 @@ class Viewer2 extends Component<Props, {}> {
     }
 
     return (
-      <Viewer2WithData
+      <ReaderDataLayer
         params={this.props.params}
         config={config}
         fromHistory

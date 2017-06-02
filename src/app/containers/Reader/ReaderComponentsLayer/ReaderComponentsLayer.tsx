@@ -8,13 +8,13 @@ import BookContainer from '../BookContainer/BookContainer'
 import Panel from '../../../components/Panel'
 import Logo from '../../../components/Logo'
 import Icon from '../../../components/Icon'
-import styles from './Viewer2Container.scss'
+import styles from './ReaderComponentsLayer.scss'
 import LeftPanel from '../../../components/LeftPanel'
 import PopBox from '../../../components/PopBox'
 import * as selectors from '../../../selectors'
 import BookToc from '../../../components/BookToc'
 import BookProgress from '../BookProgress/BookProgress'
-import Viewer2Pref from '../Viewer2Pref/Viewer2Pref'
+import ReaderPreference from '../ReaderPreference/ReaderPreference'
 
 interface OwnProps {
   bookPages: Schema.BookPages
@@ -179,7 +179,7 @@ class Viewer2Container extends Component<StateProps & OwnProps, {}> {
                     right: 0
                   }}
                 >
-                  <Viewer2Pref
+                  <ReaderPreference
                     fontSize={viewerConfig.fontSize}
                     theme={viewerConfig.theme}
                     onChangeFontSizeRequest={(fontSize) => {
