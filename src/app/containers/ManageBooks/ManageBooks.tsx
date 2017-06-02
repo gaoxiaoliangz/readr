@@ -6,14 +6,14 @@ import InfoTable from '../../components/InfoTable'
 import * as restAPI from '../../restAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
-import { gql, graphql } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
 import { Button } from '../../components/form'
 import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
-import BOOKS_QUERY from '../../graphql/BooksQuery.gql'
+import BOOKS_QUERY from '../../graphql/Books.gql'
 
 const PAGE_LIMIT = 10
 

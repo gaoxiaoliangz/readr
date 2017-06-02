@@ -45,7 +45,7 @@ class RecentReadingMenu extends Component<Props, void> {
 }
 
 const withData = graphql(gql`
-  query Branding_readingHistory {
+  query RecentReadingMenu {
     viewer {
       readingHistory {
         ...ViewerReadingHistory

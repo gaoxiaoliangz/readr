@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import Button from '../../components/Button'
 import BookListSection from '../../components/BookListSection'
 import Container from '../../components/Container'
+import BOOKS_QUERY from '../../graphql/Books.gql'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import styles from './Books.scss'
-import { gql, graphql, compose } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import withIndicator from '../../helpers/withIndicator'
 
 interface OwnProps {
@@ -84,38 +85,16 @@ class Books extends Component<Props & OwnProps, {}> {
   }
 }
 
-const withData = graphql(gql`
-  query queryBooks($after: String, $query: String) {
-    books(first: 6, after: $after, query: $query) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        cursor
-        node {
-          id
-          title
-          cover
-          description
-          authors {
-            name
-          }
-        }
+const withData = graphql(BOOKS_QUERY, {
+  options: (props) => {
+    return {
+      variables: {
+        query: props.keyword,
+        first: 6
       }
     }
   }
-`, {
-    options: (props) => {
-      return {
-        variables: {
-          query: props.keyword
-        }
-      }
-    }
-  })
+})
 
 const mapStateToProps = (state, ownProps) => {
   return {}

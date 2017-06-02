@@ -1,7 +1,8 @@
 #import './fragments/BookInfo.gql'
-#import './fragments/BookRecursiveElements.gql'
+#import './fragments/BookRecursiveToc.gql'
+#import './fragments/BookPages.gql'
 
-query ReaderQuery(
+query ReaderInit(
     $bookId: ID!,
     $before: String,
     $after: String,
@@ -18,12 +19,12 @@ query ReaderQuery(
   bookInfo: node(id: $bookId) {
     ...on Book {
       ...BookInfo
+      toc {
+        ...BookRecursiveToc
+      }
     }
   }
   viewer {
-    readingProgress(bookId: $bookId) {
-      percentage
-    }
     bookPages(
       offset: $offset,
       pageHeight: $pageHeight,
@@ -38,23 +39,7 @@ query ReaderQuery(
       fromHistory: $fromHistory,
       fromLocation: $fromLocation
     ) {
-      totalCount
-      fromHistory
-      fromLocation
-      startPage
-      offset
-      edges {
-        cursor
-        node {
-          meta {
-            pageNo
-            offset
-          }
-          elements {
-            ...BookRecursiveElements
-          }
-        }
-      }
+      ...BookPages
     }
   }
 }

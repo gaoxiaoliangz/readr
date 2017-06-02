@@ -1,5 +1,5 @@
-query queryBooks($offset: Int, $first: Int) {
-  books(first: $first, offset: $offset) {
+query Books($offset: Int, $first: Int, $after: String, $query: String) {
+  books(first: $first, offset: $offset, after: $after, query: $query) {
     totalCount
     pageInfo {
       hasNextPage

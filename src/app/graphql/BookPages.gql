@@ -1,0 +1,35 @@
+#import './fragments/BookPages.gql'
+
+query ReaderInit(
+    $bookId: ID!,
+    $before: String,
+    $after: String,
+    $first: Int,
+    $last: Int,
+    $pageHeight: Int!,
+    $width: Int!,
+    $lineHeight: Float!,
+    $fontSize: Float!, 
+    $offset: Int,
+    $fromHistory: Boolean
+    $fromLocation: String
+  ) {
+  viewer {
+    bookPages(
+      offset: $offset,
+      pageHeight: $pageHeight,
+      width: $width,
+      lineHeight: $lineHeight,
+      fontSize: $fontSize,
+      bookId: $bookId,
+      first: $first,
+      last: $last,
+      before: $before,
+      after: $after,
+      fromHistory: $fromHistory,
+      fromLocation: $fromLocation
+    ) {
+      ...BookPages
+    }
+  }
+}

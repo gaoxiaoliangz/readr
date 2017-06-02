@@ -8,7 +8,7 @@ import * as selectors from '../../selectors'
 import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import { Container } from '../../components/layout'
-import VIEWER_QUERY from '../../graphql/ViewerQuery.gql'
+import PROFILE_QUERY from '../../graphql/Profile.gql'
 import UPDATE_PROFILE from '../../graphql/mutations/UpdateProfile.gql'
 import CHANGE_PASSWORD from '../../graphql/mutations/ChangePassword.gql'
 import Loading from '../../components/Loading/Loading'
@@ -54,7 +54,7 @@ class Preference extends Component<IAllProps, IState> {
 
       // todo: http://dev.apollodata.com/react/cache-updates.html#automatic-updates
       refetchQueries: [{
-        query: VIEWER_QUERY
+        query: PROFILE_QUERY
       }]
     }).catch((err) => {
       this.props.sendNotification(err.message, 'error')
@@ -108,7 +108,7 @@ class Preference extends Component<IAllProps, IState> {
   }
 }
 
-const withData = graphql(VIEWER_QUERY)
+const withData = graphql(PROFILE_QUERY)
 const withMutation = graphql(UPDATE_PROFILE, {
   name: 'updateProfile'
 })

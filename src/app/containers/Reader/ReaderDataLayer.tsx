@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import ReaderComponentsLayer from './ReaderComponentsLayer/ReaderComponentsLayer'
-import READER_QUERY from '../../graphql/ReaderQuery.gql'
-import updateReadingProgressMutation from '../../graphql/mutations/UpdateReadingProgress.gql'
+import READER_INIT_QUERY from '../../graphql/ReaderInit.gql'
+import BOOK_PAGES_QUERY from '../../graphql/BookPages.gql'
+import UPDATE_READING_PROGRESS_MUTATION from '../../graphql/mutations/UpdateReadingProgress.gql'
 import * as selectors from '../../selectors'
 import withIndicator from '../../helpers/withIndicator'
 import DocContainer from '../../components/DocContainer'
@@ -88,6 +89,7 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
     const offset = pageNo ? pageNo - 1 : 0
     const { data: { fetchMore } } = this.props
     fetchMore({
+      query: BOOK_PAGES_QUERY,
       variables: {
         offset,
         first: first || LOAD_PAGE_LIMIT,
@@ -224,8 +226,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
-  graphql(updateReadingProgressMutation),
-  graphql(READER_QUERY, {
+  graphql(UPDATE_READING_PROGRESS_MUTATION),
+  graphql(READER_INIT_QUERY, {
     options: (props: OwnProps) => {
       const { config: { pageHeight, fontSize, lineHeight, width }, fromHistory } = props
 
