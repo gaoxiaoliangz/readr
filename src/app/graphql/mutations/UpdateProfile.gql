@@ -1,7 +1,8 @@
-mutation updateProfile($displayName: String, $email: String) {
+mutation updateProfile($displayName: String, $email: String, $username: String) {
   updateProfile(input: {
     displayName: $displayName
     email: $email
+    username: $username
   }) {
     n
     nModified

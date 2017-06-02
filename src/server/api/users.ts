@@ -21,6 +21,12 @@ const userAPI = {
       return dataProvider.User.findById(id).exec(res => {
         return makeResult(_.omit(res, ['password']))
       })
+    },
+    async update(object, options) {
+      const { id } = options
+      const result = await dataProvider.User.utils.updateById(id, object)
+
+      return result
     }
   }
 }

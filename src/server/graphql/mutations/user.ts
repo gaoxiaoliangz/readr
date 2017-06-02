@@ -112,6 +112,8 @@ export const GQLUpdateProfileMutation = mutationWithClientMutationId({
     }, {
       id
     })
+    // update session
+    req.session.user.username = username
     return result
   }
 })

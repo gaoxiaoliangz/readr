@@ -54,21 +54,28 @@ export function listShelfBooks(options) {
         .sort(sortByNewest())
         .map(doc => {
           return dataProvider.Book.findById(doc['book_id'])
-          .populate('authors file')
-          .exec().then(bookDoc => {
-            // todo: outputEmpty, in case book is removed
-            // if (!bookDoc) {
-            //   return bookModel.outputEmpty(result.book_id)
-            // }
-            return {
-              ...bookDoc.toObject(),
-              ..._.pick(doc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
-              book_id: bookDoc._id
-            }
-          })
+            .populate('authors file')
+            .exec().then(bookDoc => {
+              // todo: outputEmpty, in case book is removed
+              // if (!bookDoc) {
+              //   return bookModel.outputEmpty(result.book_id)
+              // }
+              return {
+                ...bookDoc.toObject(),
+                ..._.pick(doc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
+                book_id: bookDoc._id
+              }
+            })
         })
       )
   })
+}
+
+export const updateProfile = async (object, options) => {
+  const { user: { _id: id } } = options.context
+  const result = await dataProvider.User.utils.updateById(id, object)
+
+  return result
 }
 
 export default {
