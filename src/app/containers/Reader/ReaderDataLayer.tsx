@@ -60,18 +60,18 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const isPagesLoaded = this.props.data.loading && !nextProps.data.loading && !nextProps.data.error
+    // const isPagesLoaded = this.props.data.loading && !nextProps.data.loading && !nextProps.data.error
     const hasRouteChanged = !_.isEqual(this.props.routing, nextProps.routing)
 
-    if (isPagesLoaded && this.state.isInitialRender) {
-      this.setState({
-        isInitialRender: false
-      })
-      const scrollTop = (nextProps.data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
-      setTimeout(function () {
-        document.body.scrollTop = scrollTop
-      }, 500)
-    }
+    // if (isPagesLoaded && this.state.isInitialRender) {
+    //   this.setState({
+    //     isInitialRender: false
+    //   })
+    //   const scrollTop = (nextProps.data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
+    //   setTimeout(function () {
+    //     document.body.scrollTop = scrollTop
+    //   }, 500)
+    // }
 
     if (hasRouteChanged && !this.state.isInitialRender) {
       const fromLocation = nextProps.routing.hash.substr(1)
@@ -82,6 +82,16 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
         isInitialRender: true
       })
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      isInitialRender: false
+    })
+    const scrollTop = (this.props.data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
+    setTimeout(function () {
+      document.body.scrollTop = scrollTop
+    }, 100)
   }
 
   _loadPage(config: { pageNo?, first?, fromLocation?}) {
@@ -105,10 +115,11 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
         })
         edges = edges.sort((a, b) => a.node.meta.pageNo - b.node.meta.pageNo)
 
-        const merged = _.merge({}, fetchMoreResult, {
+        const merged = _.merge({}, previousResult, {
           viewer: {
             bookPages: {
-              edges
+              edges,
+              startPage: fetchMoreResult.viewer.bookPages.startPage
             }
           }
         })

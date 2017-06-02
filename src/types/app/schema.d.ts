@@ -23,6 +23,10 @@ declare namespace Schema {
 
   interface BookPages {
     totalCount: number
+    startPage: number
+    fromHistory: boolean
+    fromLocation: string
+    offset: number
     edges: {
       cursor: string
       node: {
