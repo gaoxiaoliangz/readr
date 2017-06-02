@@ -52,7 +52,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class Viewer2Container extends Component<StateProps & OwnProps, {}> {
+class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
   _handleResizeDebounced: any
   _handleScrollDebounced: any
   _handleScroll: any
@@ -241,4 +241,4 @@ export default connect<{}, {}, OwnProps>(
       viewer: bindActionCreators(actions.viewer as {}, dispatch)
     }
   })
-)(Viewer2Container)
+)(ReaderComponentsLayer)

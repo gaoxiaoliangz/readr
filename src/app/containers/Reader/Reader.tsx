@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-class Viewer2 extends Component<Props, {}> {
+class Reader extends Component<Props, {}> {
 
   componentDidMount() {
     this.props.actions.viewer.setViewerId(this.props.params.id)
@@ -68,4 +68,4 @@ export default connect(
       viewer: bindActionCreators(actions.viewer as {}, dispatch)
     }
   })
-)(Viewer2)
+)(Reader)

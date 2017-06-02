@@ -1,6 +1,6 @@
 #import './fragments/BookPages.gql'
 
-query ReaderInit(
+query BookPages(
     $bookId: ID!,
     $before: String,
     $after: String,

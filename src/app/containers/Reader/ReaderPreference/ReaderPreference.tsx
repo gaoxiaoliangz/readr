@@ -18,7 +18,7 @@ interface OwnProps {
 }
 
 @CSSModules(styles)
-class Viewer2Pref extends Component<OwnProps, void> {
+class ReaderPreference extends Component<OwnProps, void> {
 
   constructor(props) {
     super(props)
@@ -92,4 +92,4 @@ class Viewer2Pref extends Component<OwnProps, void> {
   }
 }
 
-export default Viewer2Pref
+export default ReaderPreference

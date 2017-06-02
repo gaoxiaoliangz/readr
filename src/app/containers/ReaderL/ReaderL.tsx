@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 @CSSModules(styles)
-class Viewer extends Component<AllProps, void> {
+class ReaderL extends Component<AllProps, void> {
 
   bookId: string
 
@@ -61,4 +61,4 @@ class Viewer extends Component<AllProps, void> {
 export default connect(
   mapStateToProps,
   { initializeViewer, destroy }
-)(Viewer as any)
+)(ReaderL as any)

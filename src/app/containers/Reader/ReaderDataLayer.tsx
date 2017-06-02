@@ -48,7 +48,7 @@ interface State {
   isInitialRender: boolean
 }
 
-class Viewer2WithData extends Component<StateProps & OwnProps, State> {
+class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
   constructor(props) {
     super(props)
@@ -91,6 +91,8 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
     fetchMore({
       query: BOOK_PAGES_QUERY,
       variables: {
+        ...this.props.config,
+        bookId: this.props.params.id,
         offset,
         first: first || LOAD_PAGE_LIMIT,
         fromHistory: false,
@@ -253,4 +255,4 @@ export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
       }
     })
   )
-)(Viewer2WithData)
+)(ReaderDataLayer)
