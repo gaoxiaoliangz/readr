@@ -9,11 +9,27 @@ import styles from './Branding.scss'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/api'
 import * as selectors from '../../selectors'
-import { loadShelf } from '../../actions/api'
 import Button from '../../components/Button/Button'
 import Icon from '../../components/Icon/Icon'
 import cx from 'classnames'
 import helpers from '../../helpers'
+import { graphql, compose, gql } from 'react-apollo'
+import withIndicator from '../../helpers/withIndicator'
+import VIEWER_READING_HISTORY from '../../graphql/fragments/ViewerReadingHistory.gql'
+
+type Data = State.Apollo<{
+  viewer: {
+    readingHistory: Schema.Connection<{
+      id: string
+      bookId: string
+      title: string
+      description: string
+      percentage: number
+      authors: any[]
+      cover: string
+    }>
+  }
+}>
 
 interface OwnProps {
   className?: string
@@ -22,17 +38,13 @@ interface OwnProps {
 }
 
 interface OtherProps {
+  data: Data
   logout: typeof logout
-  loadShelf: typeof loadShelf
   config: Viewer.Config
   session: State.Session
   username: string
   displayName: string
   isAdmin?: boolean
-  recentReading?: {
-    title: string
-    id: string
-  }[]
   routing: State.Routing
 }
 
@@ -73,20 +85,14 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const userLoggedIn = this.props.session.role === 'visitor'
-      && nextProps.session.role !== 'visitor'
+  // componentWillReceiveProps(nextProps) {
+  //   const userLoggedIn = this.props.session.role === 'visitor'
+  //     && nextProps.session.role !== 'visitor'
 
-    if (userLoggedIn) {
-      this.props.loadShelf()
-    }
-  }
-
-  componentWillMount() {
-    if (this.props.session.role !== 'visitor') {
-      this.props.loadShelf()
-    }
-  }
+  //   if (userLoggedIn) {
+  //     this.props.loadShelf()
+  //   }
+  // }
 
   toggleDropdownMenu() {
     this.setState({
@@ -102,7 +108,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   render() {
     const isAdmin = this.props.isAdmin
     const isLoggedIn = this.props.session.role !== 'visitor'
-    const { username, recentReading, config: { fluid }, bgColor, style, displayName } = this.props
+    const { username, bgColor, style, displayName } = this.props
     const brandingStyle = {
       ...style,
       background: bgColor
@@ -118,15 +124,15 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             </div>
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
-                <li styleName={cx({'nav-item': true, 'active': path === '/browse'})}>
+                <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
                   <Link className="light-link" styleName="nav-link" to="/browse"><Icon size={20} name="view" /> 浏览</Link>
                 </li>
-                <li styleName={cx({'nav-item': true, 'active': path === '/search'})}>
+                <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
                   <Link className="light-link" styleName="nav-link" to="/search"><Icon size={18} name="search" /> 搜索</Link>
                 </li>
                 {
                   isLoggedIn && (
-                    <li styleName={cx({'nav-item': true, 'active': path === '/user/shelf'})}>
+                    <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
                       <Link className="light-link" styleName="nav-link" to="/user/shelf"><Icon size={18} name="menu" /> 我的书架</Link>
                     </li>
                   )
@@ -138,14 +144,13 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                 ? (
                   <div styleName="nav--user">
                     {
-                      recentReading.length !== 0 && (
+                      this.props.data.viewer.readingHistory.edges.length !== 0 && (
                         <Dropdown className="dropdown-recent-reading" styleName="dropdown-recent-reading" title="最近阅读">
                           {
-                            recentReading.slice(0, 5).map((book, index) => {
-                              // todo: use graphql
+                            this.props.data.viewer.readingHistory.edges.slice(0, 5).map((edge, index) => {
                               return (
                                 <DropdownItem key={index}>
-                                  <Link to={helpers.getReaderUri(book.id)}>{book.title}</Link>
+                                  <Link to={helpers.getReaderUri(edge.node.bookId)}>{edge.node.title}</Link>
                                 </DropdownItem>
                               )
                             })
@@ -192,7 +197,24 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 }
 
-export default connect<{}, {}, OwnProps>(
-  mapStateToProps,
-  { logout, loadShelf }
-)(Branding as any)
+
+const withData = graphql(gql`
+  query ProfileQuery {
+    viewer {
+      readingHistory {
+        ...ViewerReadingHistory
+      }
+    }
+  }
+  ${VIEWER_READING_HISTORY}
+`)
+
+export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
+  withData,
+  withIndicator(),
+  connect(
+    mapStateToProps,
+    { logout }
+  ),
+  CSSModules(styles)
+)(Branding)
