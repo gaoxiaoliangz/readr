@@ -36,7 +36,6 @@ class AppProvider extends Component<Props, {}> {
   render() {
     const { store, renderProps, renderPageContent } = this.props
 
-    // <ApolloProvider store={store} client={apolloClient}>
     return (
       <ApolloProvider client={apolloClient}>
         <Provider store={store}>

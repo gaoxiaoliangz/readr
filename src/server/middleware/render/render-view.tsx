@@ -61,13 +61,16 @@ function renderView(isProduction) {
   return async (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
     const useServerRendering = process.env.ENABLE_SERVER_RENDERING === '1'
-    const appRootMarkup = await renderToStringWithData(
+    const appMarkup = (
       <AppProvider
         renderPageContent={useServerRendering}
         renderProps={renderProps}
         store={req.locals.store}
       />
     )
+    const appMarkupString = useServerRendering
+      ? await renderToStringWithData(appMarkup)
+      : renderToStaticMarkup(appMarkup)
 
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏
@@ -79,7 +82,7 @@ function renderView(isProduction) {
     // todo: global var name
     const html = renderToStaticMarkup(
       <AppDoc
-        appMarkup={appRootMarkup}
+        appMarkup={appMarkupString}
         helmetHeadObject={head}
         bodyClass={bodyClass}
         initialState={initialState}
