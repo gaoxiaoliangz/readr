@@ -13,6 +13,7 @@ import withIndicator from '../../helpers/withIndicator'
 import DocContainer from '../../components/DocContainer'
 
 const LOAD_PAGE_LIMIT = 8
+const SCROLL_DELAY = 100
 
 type Data = {
   viewer: {
@@ -92,7 +93,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     const scrollTop = startPage * this.props.config.pageHeight
     setTimeout(function () {
       document.body.scrollTop = scrollTop
-    }, 100)
+    }, SCROLL_DELAY)
   }
 
   _loadPage(config: { pageNo?, first?, fromLocation?}) {

@@ -30,16 +30,19 @@ class Master extends Component<Props, {}> {
 
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
-    // const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
+    const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
     }
 
-    // if (routerChanged) {
-    //   // back to top when route changed
-    //   window.document.body.scrollTop = 0
-    // }
+    if (routerChanged) {
+      // back to top when route changed
+      setTimeout(() => {
+        window.document.body.scrollTop = 0
+        // must be less than SCROLL_DELAY(100ms) defined in Reader component
+      }, 50)
+    }
   }
 
   componentWillMount() {
