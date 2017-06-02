@@ -12,24 +12,8 @@ import * as selectors from '../../selectors'
 import Button from '../../components/Button/Button'
 import Icon from '../../components/Icon/Icon'
 import cx from 'classnames'
-import helpers from '../../helpers'
-import { graphql, compose, gql } from 'react-apollo'
-import withIndicator from '../../helpers/withIndicator'
-import VIEWER_READING_HISTORY from '../../graphql/fragments/ViewerReadingHistory.gql'
-
-type Data = State.Apollo<{
-  viewer: {
-    readingHistory: Schema.Connection<{
-      id: string
-      bookId: string
-      title: string
-      description: string
-      percentage: number
-      authors: any[]
-      cover: string
-    }>
-  }
-}>
+import { compose } from 'redux'
+import RecentReadingMenu from './RecentReadingMenu'
 
 interface OwnProps {
   className?: string
@@ -38,7 +22,6 @@ interface OwnProps {
 }
 
 interface OtherProps {
-  data: Data
   logout: typeof logout
   config: Viewer.Config
   session: State.Session
@@ -84,15 +67,6 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
     }
     this.handleLogoutClick = this.handleLogoutClick.bind(this)
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   const userLoggedIn = this.props.session.role === 'visitor'
-  //     && nextProps.session.role !== 'visitor'
-
-  //   if (userLoggedIn) {
-  //     this.props.loadShelf()
-  //   }
-  // }
 
   toggleDropdownMenu() {
     this.setState({
@@ -143,23 +117,9 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
               isLoggedIn
                 ? (
                   <div styleName="nav--user">
-                    {
-                      this.props.data.viewer.readingHistory.edges.length !== 0 && (
-                        <Dropdown className="dropdown-recent-reading" styleName="dropdown-recent-reading" title="最近阅读">
-                          {
-                            this.props.data.viewer.readingHistory.edges.slice(0, 5).map((edge, index) => {
-                              return (
-                                <DropdownItem key={index}>
-                                  <Link to={helpers.getReaderUri(edge.node.bookId)}>{edge.node.title}</Link>
-                                </DropdownItem>
-                              )
-                            })
-                          }
-                          <DropdownItemSep />
-                          <DropdownItem><Link to={`/user/shelf`}>查看全部</Link></DropdownItem>
-                        </Dropdown>
-                      )
-                    }
+                    <div styleName="dropdown-recent-reading">
+                      <RecentReadingMenu />
+                    </div>
                     <Dropdown
                       title={(
                         <div style={{ display: 'inline-block' }}>{displayName || username}{isAdmin && <span className="badge">管理员</span>}</div>
@@ -197,21 +157,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 }
 
-
-const withData = graphql(gql`
-  query ProfileQuery {
-    viewer {
-      readingHistory {
-        ...ViewerReadingHistory
-      }
-    }
-  }
-  ${VIEWER_READING_HISTORY}
-`)
-
-export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
-  withData,
-  withIndicator(),
+export default compose<{}, {}, React.ComponentClass<OwnProps>>(
   connect(
     mapStateToProps,
     { logout }
