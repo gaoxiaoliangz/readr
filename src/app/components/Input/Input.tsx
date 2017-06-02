@@ -31,6 +31,11 @@ class Input extends Component<Props, void> {
     const { error, touched, className, ...rest } = this.props
     const showError = error && touched
 
+    // delete @gxl/redux-form field props
+    delete this.props['get']
+    delete this.props['set']
+    delete this.props['events']
+
     return (
       <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={className || ''}>
         <input

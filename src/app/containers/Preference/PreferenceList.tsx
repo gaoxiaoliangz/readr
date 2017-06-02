@@ -13,7 +13,7 @@ interface IProps {
   bio: string
   showFav: boolean
   onSave: (data: any) => void
-  onRequestChangePW: () => void
+  onRequestChangePW: (data) => void
 }
 
 interface IState {
@@ -24,11 +24,6 @@ interface IState {
 })
 class PreferenceList extends Component<IProps, IState> {
 
-  constructor(props) {
-    super(props)
-    this._handleChangePWClick = this._handleChangePWClick.bind(this)
-  }
-
   _handleSave(key) {
     return (val) => {
       this.props.onSave({
@@ -36,10 +31,6 @@ class PreferenceList extends Component<IProps, IState> {
         [key]: val
       })
     }
-  }
-
-  _handleChangePWClick() {
-    this.props.onRequestChangePW()
   }
 
   render() {
@@ -87,7 +78,7 @@ class PreferenceList extends Component<IProps, IState> {
                 <span styleName="option-input">• • • • • • • •</span>
               </div>
               <div className="right">
-                <Button color="white" onClick={this._handleChangePWClick}>修改密码</Button>
+                <Button color="white" onClick={this.props.onRequestChangePW}>修改密码</Button>
               </div>
             </li>
             <li styleName="option">

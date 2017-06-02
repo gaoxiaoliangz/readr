@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import PreferenceList from './PreferenceList'
 import DocContainer from '../../components/DocContainer'
 import * as selectors from '../../selectors'
@@ -9,9 +9,10 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import { Container } from '../../components/layout'
 import VIEWER_QUERY from '../../graphql/ViewerQuery.gql'
-import Loading from '../../components/Loading/Loading'
 import UPDATE_PROFILE from '../../graphql/mutations/UpdateProfile.gql'
-import { openModal } from '../../actions'
+import CHANGE_PASSWORD from '../../graphql/mutations/ChangePassword.gql'
+import Loading from '../../components/Loading/Loading'
+import { openModal, closeModal, sendNotification } from '../../actions'
 import ChangePWForm from './ChangePWForm'
 
 type Data = State.Apollo<{
@@ -26,8 +27,11 @@ type Data = State.Apollo<{
 interface IAllProps {
   data: Data
   profile?: any
-  mutate: any
+  updateProfile: any
+  changePassword: any
   openModal: typeof openModal
+  closeModal: typeof closeModal
+  sendNotification: typeof sendNotification
 }
 
 interface IState {
@@ -45,7 +49,7 @@ class Preference extends Component<IAllProps, IState> {
   }
 
   _handleSave(data) {
-    this.props.mutate({
+    this.props.updateProfile({
       variables: data,
 
       // todo: http://dev.apollodata.com/react/cache-updates.html#automatic-updates
@@ -53,7 +57,7 @@ class Preference extends Component<IAllProps, IState> {
         query: VIEWER_QUERY
       }]
     }).catch((err) => {
-      alert(err.message)
+      this.props.sendNotification(err.message, 'error')
     })
   }
 
@@ -81,7 +85,16 @@ class Preference extends Component<IAllProps, IState> {
                 content: (
                   <ChangePWForm
                     onSave={(data) => {
-                      console.log(data)
+                      this.props.changePassword({
+                        variables: data
+                      })
+                        .then(() => {
+                          this.props.sendNotification('密码修改成功')
+                          this.props.closeModal()
+                        })
+                        .catch((err) => {
+                          this.props.sendNotification(err.message, 'error')
+                        })
                     }}
                   />
                 )
@@ -96,13 +109,23 @@ class Preference extends Component<IAllProps, IState> {
 }
 
 const withData = graphql(VIEWER_QUERY)
-const withMutation = graphql(UPDATE_PROFILE)
+const withMutation = graphql(UPDATE_PROFILE, {
+  name: 'updateProfile'
+})
+const withMutation2 = graphql(CHANGE_PASSWORD, {
+  name: 'changePassword'
+})
 
-export default withMutation(withData(connect(
-  state => {
-    return {
-      profile: selectors.profile(state)
-    }
-  },
-  { openModal }
-)(Preference as any)))
+export default compose(
+  withMutation2,
+  withMutation,
+  withData,
+  connect(
+    state => {
+      return {
+        profile: selectors.profile(state)
+      }
+    },
+    { openModal, closeModal, sendNotification }
+  )
+)(Preference as any)

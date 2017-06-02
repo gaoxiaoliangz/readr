@@ -61,7 +61,10 @@ class ChangePWForm extends Component<OwnProps & StateProps & DispatchProps, {}> 
         <Input type="password" placeholder="重复新密码" {...newPwAgain} />
         <ModalFooter
           onConfirm={handleSubmit(data => {
-            onSave(data)
+            onSave({
+              oldPassword: old.value,
+              newPassword: newPw.value
+            })
           })}
           onCancel={closeModal}
           />
