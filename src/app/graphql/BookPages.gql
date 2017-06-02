@@ -15,6 +15,7 @@ query BookPages(
     $fromLocation: String
   ) {
   viewer {
+    id
     bookPages(
       offset: $offset,
       pageHeight: $pageHeight,

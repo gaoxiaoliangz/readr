@@ -90,6 +90,7 @@ const mapStateToProps = (state, ownProps) => {
 const withData = graphql(gql`
   query ProfileQuery {
     viewer {
+      id
       ...MainViewerInfo
       readingHistory {
         ...ViewerReadingHistory

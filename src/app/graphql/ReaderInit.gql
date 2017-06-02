@@ -25,6 +25,7 @@ query ReaderInit(
     }
   }
   viewer {
+    id
     bookPages(
       offset: $offset,
       pageHeight: $pageHeight,

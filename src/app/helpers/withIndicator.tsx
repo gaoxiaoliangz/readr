@@ -1,7 +1,13 @@
 import React from 'react'
 import DataRenderer from '../components/DataRenderer/DataRenderer'
 
-const withIndicator = () => {
+type Config = {
+  renderError?: boolean
+}
+
+const withIndicator = (config: Config = {}) => {
+  const { renderError } = config
+
   return (WrappedComponent) => {
     const ComponentWithIndicator = (props) => (
       <DataRenderer
@@ -9,6 +15,7 @@ const withIndicator = () => {
         render={() => {
           return <WrappedComponent {...props} />
         }}
+        renderError={renderError}
       />
     )
 
