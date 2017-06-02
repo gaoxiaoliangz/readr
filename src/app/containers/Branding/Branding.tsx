@@ -27,6 +27,7 @@ interface OtherProps {
   config: Viewer.Config
   session: State.Session
   username: string
+  displayName: string
   isAdmin?: boolean
   recentReading?: {
     title: string
@@ -54,7 +55,8 @@ const mapStateToProps = (state, ownProps) => {
     username: session.username,
     recentReading,
     session,
-    routing: selectors.routing(state)
+    routing: selectors.routing(state),
+    displayName: session.displayName
   }
 }
 
@@ -100,7 +102,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   render() {
     const isAdmin = this.props.isAdmin
     const isLoggedIn = this.props.session.role !== 'visitor'
-    const { username, recentReading, config: { fluid }, bgColor, style } = this.props
+    const { username, recentReading, config: { fluid }, bgColor, style, displayName } = this.props
     const brandingStyle = {
       ...style,
       background: bgColor
@@ -155,7 +157,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                     }
                     <Dropdown
                       title={(
-                        <div style={{ display: 'inline-block' }}>{username}{isAdmin && <span className="badge">管理员</span>}</div>
+                        <div style={{ display: 'inline-block' }}>{displayName || username}{isAdmin && <span className="badge">管理员</span>}</div>
                       )}
                     >
                       {

@@ -64,6 +64,7 @@ declare namespace State {
   type Session = {
     role: Roles
     username: string
+    displayName: string
     fetchStatus: FetchStatus
     id: string
   }

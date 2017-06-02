@@ -112,8 +112,11 @@ export const GQLUpdateProfileMutation = mutationWithClientMutationId({
     }, {
       id
     })
+    // todo: a better way? what if a key has changed its name
+    // or I forget to update one of thoses keys
     // update session
     req.session.user.username = username
+    req.session.user.display_name = display_name
     return result
   }
 })

@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import humps from 'humps'
 import { FETCH_STATUS } from '../../../constants'
 
 const receiveData = (types: RequestTypes, defaultData = {}, parser?) => {
@@ -24,12 +25,13 @@ const receiveData = (types: RequestTypes, defaultData = {}, parser?) => {
         }
 
       case types.SUCCESS:
+        const camelizedJson = humps.camelizeKeys(response.json)
         return {
           ...state,
           ...{
             fetchStatus: FETCH_STATUS.LOADED,
           },
-          ...((parser ? parser(response.json) : response.json))
+          ...((parser ? parser(camelizedJson) : camelizedJson))
         }
 
       case types.FAILURE:

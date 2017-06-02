@@ -27,8 +27,8 @@ class EditableField extends Component<Props, State> {
       isEdit: false,
       inputVal: ''
     }
-    this._handleEditClick = this._handleEditClick.bind(this)
-    this._handleCancelClick = this._handleCancelClick.bind(this)
+    this._edit = this._edit.bind(this)
+    this._cancel = this._cancel.bind(this)
   }
 
   componentDidMount() {
@@ -37,7 +37,7 @@ class EditableField extends Component<Props, State> {
     })
   }
 
-  _handleEditClick() {
+  _edit() {
     this.setState({
       isEdit: !this.state.isEdit
     }, () => {
@@ -50,7 +50,7 @@ class EditableField extends Component<Props, State> {
     }
   }
 
-  _handleCancelClick() {
+  _cancel() {
     this.setState({
       isEdit: false,
       inputVal: this.props.initialValue
@@ -72,6 +72,11 @@ class EditableField extends Component<Props, State> {
                 ref={ref => this.input = ref}
                 className={styles['input']}
                 value={this.state.inputVal}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    this._edit()
+                  }
+                }}
                 onChange={(e) => {
                   this.setState({
                     inputVal: e.target.value
@@ -82,7 +87,7 @@ class EditableField extends Component<Props, State> {
           }
         </div>
         <div styleName="right">
-          <Button color={this.state.isEdit ? 'green' : 'white'} styleName="btn" onClick={this._handleEditClick}>
+          <Button color={this.state.isEdit ? 'green' : 'white'} styleName="btn" onClick={this._edit}>
             {
               this.state.isEdit
                 ? '保存'
@@ -91,7 +96,7 @@ class EditableField extends Component<Props, State> {
           </Button>
           {
             this.state.isEdit && (
-              <Button styleName="btn" color="white" onClick={this._handleCancelClick}>取消</Button>
+              <Button styleName="btn" color="white" onClick={this._cancel}>取消</Button>
             )
           }
         </div>
