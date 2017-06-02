@@ -34,6 +34,9 @@ const viewerField = {
       role: {
         type: GraphQLString
       },
+      bio: {
+        type: GraphQLString
+      },
       email: {
         type: GraphQLString
       },
@@ -69,14 +72,12 @@ const viewerField = {
   }),
   async resolve(obj, args, req) {
     const { user } = req
-    const { email, display_name: displayName, username } = await api.users.find({ id: user._id }) as any
-
+    const result = await api.users.find({ id: user._id })
+    const { display_name: displayName, ...rest } = result.toObject() as any
     return {
-      ...user,
+      ...rest,
       id: user._id,
-      email,
-      displayName,
-      username
+      displayName
     }
   }
 }

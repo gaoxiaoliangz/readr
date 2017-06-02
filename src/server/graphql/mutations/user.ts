@@ -82,6 +82,9 @@ export const GQLUpdateProfileMutation = mutationWithClientMutationId({
     displayName: {
       type: GraphQLString
     },
+    bio: {
+      type: GraphQLString
+    },
     username: {
       type: GraphQLString
     },
@@ -102,13 +105,14 @@ export const GQLUpdateProfileMutation = mutationWithClientMutationId({
   },
   mutateAndGetPayload: async (args, req) => {
     const { user: { _id: id } } = req
-    const { displayName: display_name, username, email } = args || {} as any
+    const { displayName: display_name, username, email, bio } = args || {} as any
     // todo: seems to have a bug
     // const object = humps.decamelizeKeys(args)
     const result = await api.users.update({
       display_name,
       username,
-      email
+      email,
+      bio
     }, {
       id
     })

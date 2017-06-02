@@ -5,7 +5,7 @@ import validator from 'validator'
 const ObjectId = Schema.Types.ObjectId
 
 const additionalSchemaOptions = {
-  timestamps: { 
+  timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
   }
@@ -160,6 +160,9 @@ export const userFields = {
     required: true,
     min: [6, i18n('errors.validation.valueLimit.minLength', 'password')],
     max: [20, i18n('errors.validation.valueLimit.maxLength', 'password')]
+  },
+  bio: {
+    type: String
   },
   display_name: {
     type: String,
