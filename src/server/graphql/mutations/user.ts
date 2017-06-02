@@ -14,7 +14,7 @@ import {
 import { setReadingProgressCore, removeReadingProgress } from '../../api/user'
 import api from '../../api'
 
-export const GQLUpdateReadingProgressMutation = mutationWithClientMutationId({
+export const UpdateReadingProgressMutation = mutationWithClientMutationId({
   name: 'UpdateReadingProgress',
   inputFields: {
     bookId: {
@@ -47,7 +47,7 @@ export const GQLUpdateReadingProgressMutation = mutationWithClientMutationId({
   }
 })
 
-export const GQLRemoveReadingProgressMutation = mutationWithClientMutationId({
+export const RemoveReadingProgressMutation = mutationWithClientMutationId({
   name: 'RemoveReadingProgress',
   inputFields: {
     bookId: {
@@ -76,7 +76,7 @@ export const GQLRemoveReadingProgressMutation = mutationWithClientMutationId({
   }
 })
 
-export const GQLUpdateProfileMutation = mutationWithClientMutationId({
+export const UpdateProfileMutation = mutationWithClientMutationId({
   name: 'UpdateProfile',
   inputFields: {
     displayName: {

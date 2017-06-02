@@ -1,17 +1,17 @@
 import { GraphQLObjectType } from 'graphql'
 
 import {
-  GQLUpdateReadingProgressMutation,
-  GQLRemoveReadingProgressMutation,
-  GQLUpdateProfileMutation
+  UpdateReadingProgressMutation,
+  RemoveReadingProgressMutation,
+  UpdateProfileMutation
 } from './user'
 
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    updateReadingProgress: GQLUpdateReadingProgressMutation,
-    removeReadingProgress: GQLRemoveReadingProgressMutation,
-    updateProfile: GQLUpdateProfileMutation
+    updateReadingProgress: UpdateReadingProgressMutation,
+    removeReadingProgress: RemoveReadingProgressMutation,
+    updateProfile: UpdateProfileMutation
   }
 })
 
