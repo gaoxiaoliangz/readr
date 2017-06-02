@@ -4,5 +4,6 @@ query ViewerProfile {
     displayName
     username
     id
+    bio
   }
 }

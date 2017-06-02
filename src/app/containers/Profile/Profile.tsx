@@ -21,6 +21,7 @@ type Data = State.Apollo<{
     email: string
     username: string
     displayName: string
+    bio: string
     readingHistory: Schema.Connection<{
       id: string
       title: string
@@ -44,7 +45,7 @@ class Profile extends Component<IProps, {}> {
   }
 
   render() {
-    const { data: { viewer: { displayName } } } = this.props
+    const { data: { viewer: { displayName, bio } } } = this.props
 
     return (
       <DocContainer title="个人资料">
@@ -56,7 +57,7 @@ class Profile extends Component<IProps, {}> {
                 <img src={defaultAvatar} alt="user avatar" />
               </div>
               <span styleName="username">{displayName}</span>
-              <span styleName="tagline">暂无签名</span>
+              <span styleName="tagline">{bio}</span>
             </div>
             <Tabs>
               <Tab title="最近阅读">

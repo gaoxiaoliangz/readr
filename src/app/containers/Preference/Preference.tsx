@@ -19,6 +19,7 @@ type Data = State.Apollo<{
     email: string
     username: string
     displayName: string
+    bio: string
   }
 }>
 
@@ -61,7 +62,7 @@ class Preference extends Component<IAllProps, IState> {
       return <Loading useNProgress />
     }
 
-    const { username, displayName, email } = this.props.data.viewer
+    const { username, displayName, email, bio } = this.props.data.viewer
 
     return (
       <DocContainer title="设置">
@@ -71,6 +72,7 @@ class Preference extends Component<IAllProps, IState> {
             displayName={displayName}
             username={username}
             email={email}
+            bio={bio}
             showFav
             onSave={this._handleSave}
             onRequestChangePW={() => {

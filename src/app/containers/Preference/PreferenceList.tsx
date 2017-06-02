@@ -10,6 +10,7 @@ interface IProps {
   displayName: string
   username: string
   email: string
+  bio: string
   showFav: boolean
   onSave: (data: any) => void
   onRequestChangePW: () => void
@@ -31,7 +32,7 @@ class PreferenceList extends Component<IProps, IState> {
   _handleSave(key) {
     return (val) => {
       this.props.onSave({
-        ..._.pick(this.props, ['username', 'email']),
+        // ..._.pick(this.props, ['username', 'email']),
         [key]: val
       })
     }
@@ -42,7 +43,7 @@ class PreferenceList extends Component<IProps, IState> {
   }
 
   render() {
-    const { username, email, showFav, displayName } = this.props
+    const { username, email, showFav, displayName, bio } = this.props
 
     return (
       <div styleName="settings">
@@ -56,6 +57,13 @@ class PreferenceList extends Component<IProps, IState> {
                 label="昵称"
                 initialValue={displayName}
                 onSave={this._handleSave('displayName')}
+              />
+            </li>
+            <li styleName="option">
+              <EditableField
+                label="签名"
+                initialValue={bio}
+                onSave={this._handleSave('bio')}
               />
             </li>
             <li styleName="option">
