@@ -15,7 +15,14 @@ import _ from 'lodash'
 import humps from 'humps'
 const debug = require('debug')('readr:gql-utils')
 
-export const modelToGQLFields = (model, refTypes?) => {
+type ModelToGQLFieldsConfig = {
+  refTypes?: any[]
+  // fields to omit
+  omit?: string[]
+}
+export const modelToGQLFields = (model, config?: ModelToGQLFieldsConfig) => {
+  const { refTypes, omit } = config
+
   if (!model) {
     return {}
   }
@@ -35,21 +42,23 @@ export const modelToGQLFields = (model, refTypes?) => {
 
   model.schema.eachPath((path, type) => {
     const gqlType = mapMgSchemaTypeToGqlType(type)
-    if (path === '_id') {
-      fields = {
-        ...fields,
-        id: globalIdField(model.modelName, (obj) => obj[path]),
-        objectId: {
-          type: new GraphQLNonNull(GraphQLString),
-          resolve: (obj) => obj[path]
+    if ((omit || []).indexOf(path) === -1) {
+      if (path === '_id') {
+        fields = {
+          ...fields,
+          id: globalIdField(model.modelName, (obj) => obj[path]),
+          objectId: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: (obj) => obj[path]
+          }
         }
-      }
-    } else if (path !== '__v') {
-      fields = {
-        ...fields,
-        [humps.camelize(path)]: {
-          type: gqlType,
-          resolve: (obj) => obj[path]
+      } else if (path !== '__v') {
+        fields = {
+          ...fields,
+          [humps.camelize(path)]: {
+            type: gqlType,
+            resolve: (obj) => obj[path]
+          }
         }
       }
     }
@@ -63,13 +72,17 @@ type MakeGQLNodeTypeConfig = {
   description: string
   model?: any
   fields?: {
-    [key: string]: any
+    [key: string]: {
+      type: any
+      resolve?: (obj, args, req, arg) => any
+    }
   },
   refTypes?: any[]
+  omit?: string[]
 }
-const makeGQLNodeType = nodeInterface => ({ name, model, description, fields, refTypes }: MakeGQLNodeTypeConfig) => {
+const makeGQLNodeType = nodeInterface => ({ name, model, description, fields, refTypes, omit }: MakeGQLNodeTypeConfig) => {
   const _fields = {
-    ...modelToGQLFields(model, refTypes),
+    ...modelToGQLFields(model, { refTypes, omit }),
     id: globalIdField(name, (obj) => {
       return obj._id
     }),

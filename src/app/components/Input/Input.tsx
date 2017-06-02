@@ -19,30 +19,22 @@ export interface Props {
 @CSSModules(styles, {
   allowMultiple: true
 })
-class Input extends Component<Props, any> {
+class Input extends Component<Props, void> {
 
   input: any
-
-  constructor(props) {
-    super(props)
-  }
 
   focus() {
     this.input.focus()
   }
 
   render() {
-    let props = Object.assign({}, this.props)
-    props = _.omit(props, 'className')
-    const { error, touched } = this.props
-
+    const { error, touched, className, ...rest } = this.props
     const showError = error && touched
-    const inputProps = _.omit(props, ['error', 'touched'])
 
     return (
-      <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={this.props.className || ''}>
+      <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={className || ''}>
         <input
-          {...inputProps}
+          {...rest}
           ref={ref => this.input = ref}
           styleName="input"
           placeholder={this.props.placeholder}

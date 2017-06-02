@@ -20,12 +20,9 @@ interface State {
 
 class BookSearch extends Component<Props, State> {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      keyword: '',
-      inputVal: ''
-    }
+  state = {
+    keyword: '',
+    inputVal: ''
   }
 
   componentWillReceiveProps(nextProps, nextState) {

@@ -52,8 +52,8 @@ export function listShelfBooks(options) {
     return Promise
       .all(docs
         .sort(sortByNewest())
-        .map(doc => {
-          return dataProvider.Book.findById(doc['book_id'])
+        .map(progressDoc => {
+          return dataProvider.Book.findById(progressDoc['book_id'])
             .populate('authors file')
             .exec().then(bookDoc => {
               // todo: outputEmpty, in case book is removed
@@ -61,8 +61,8 @@ export function listShelfBooks(options) {
               //   return bookModel.outputEmpty(result.book_id)
               // }
               return {
-                ...bookDoc.toObject(),
-                ..._.pick(doc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
+                ..._.omit(bookDoc.toObject(), ['file']),
+                ..._.pick(progressDoc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
                 book_id: bookDoc._id
               }
             })

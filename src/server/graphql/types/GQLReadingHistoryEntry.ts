@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { GraphQLList, GraphQLFloat } from 'graphql'
+import { globalIdField } from 'graphql-relay'
 import makeUtils from '../utils'
 import { nodeInterface } from '../node'
 import dataProvider from '../../models/data-provider'
@@ -21,8 +22,12 @@ export const { nodeType: GQLReadingHistoryEntry, connectionType: GQLReadingHisto
     },
     percentage: {
       type: GraphQLFloat
-    }
-  }
+    },
+    bookId: globalIdField('Book', (obj) => {
+      return obj.book_id
+    })
+  },
+  omit: ['file']
 })
 
 export default GQLReadingHistoryEntry
