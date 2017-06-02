@@ -13,6 +13,7 @@ import {
 } from 'graphql-relay'
 import { setReadingProgressCore, removeReadingProgress } from '../../api/user'
 import api from '../../api'
+import dataProvider from '../../models/data-provider'
 
 export const UpdateReadingProgressMutation = mutationWithClientMutationId({
   name: 'UpdateReadingProgress',
@@ -122,5 +123,47 @@ export const UpdateProfileMutation = mutationWithClientMutationId({
     req.session.user.username = username
     req.session.user.display_name = display_name
     return result
+  }
+})
+
+
+export const ChangePasswordMutation = mutationWithClientMutationId({
+  name: 'ChangePassword',
+  inputFields: {
+    oldPassword: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    newPassword: {
+      type: new GraphQLNonNull(GraphQLString)
+    }
+  },
+  outputFields: {
+    ok: {
+      type: GraphQLInt
+    },
+    n: {
+      type: GraphQLInt
+    },
+    nModified: {
+      type: GraphQLInt
+    }
+  },
+  mutateAndGetPayload: async (args, req) => {
+    const { user: { _id: id } } = req
+    const { oldPassword, newPassword } = args || {} as any
+    // todo: seems to have a bug
+    // const object = humps.decamelizeKeys(args)
+    const profileDoc = await dataProvider.User.findById(id).exec()
+    const { password } = profileDoc.toObject() as any
+
+    if (oldPassword === password) {
+      const result = await api.users.update({
+        password: newPassword
+      }, {
+        id
+      })
+      return result
+    }
+    return Promise.reject(new Error('Wrong old password provided!'))
   }
 })
