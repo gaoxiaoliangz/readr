@@ -10,7 +10,8 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import Container from '../../components/Container/Container'
 import { Tab, Tabs } from '../../components/Tab'
-import BOOK_TOC_FRAG from '../../graphql/fragments/BookToc.gql'
+import BOOK_RECURSIVE_TOC from '../../graphql/fragments/BookRecursiveToc.gql'
+import BOOK_INFO from '../../graphql/fragments/BookInfo.gql'
 import BookToc from '../../components/BookToc'
 import helpers from '../../helpers'
 import withIndicator from '../../helpers/withIndicator'
@@ -99,19 +100,14 @@ class BookDetail extends Component<Props, {}> {
 const withData = graphql(gql`
   query queryBooks($id: ID!) {
     book(id: $id) {
-      id
-      title
-      cover
-      description
-      authors {
-        name
-      }
+      ...BookInfo
       toc {
-        ...tocRecursive
+        ...BookRecursiveToc
       }
     }
   }
-  ${BOOK_TOC_FRAG}
+  ${BOOK_INFO}
+  ${BOOK_RECURSIVE_TOC}
 `, {
     options: (props) => {
       return {

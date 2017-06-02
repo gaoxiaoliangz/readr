@@ -34,6 +34,7 @@ declare namespace Viewer {
     fontSize?: number
     theme?: Themes
     width?: number
+    lineHeight?: number
   }
 
   interface Status {

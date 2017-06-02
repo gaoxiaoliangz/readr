@@ -1,4 +1,7 @@
-query Viewer2(
+#import './fragments/BookInfo.gql'
+#import './fragments/BookRecursiveElements.gql'
+
+query ReaderQuery(
     $bookId: ID!,
     $before: String,
     $after: String,
@@ -14,10 +17,7 @@ query Viewer2(
   ) {
   bookInfo: node(id: $bookId) {
     ...on Book {
-      title
-      toc {
-        ...tocRecursive
-      }
+      ...BookInfo
     }
   }
   viewer {
@@ -51,58 +51,8 @@ query Viewer2(
             offset
           }
           elements {
-            ...elementsRecursive
+            ...BookRecursiveElements
           }
-        }
-      }
-    }
-  }
-}
-
-fragment elementFields on HTMLElementObject {
-  tag
-  type
-  text
-  attrs {
-    tagId
-    href
-    src
-  }
-}
-
-fragment elementsRecursive on HTMLElementObject {
-  ...elementFields
-  children {
-    ...elementFields
-    children {
-      ...elementFields
-      children {
-        ...elementFields
-        children {
-          ...elementFields
-        }
-      }
-    }
-  }
-}
-
-fragment tocFields on TocItem {
-  name
-  playOrder
-  sectionId
-  hash
-}
-
-fragment tocRecursive on TocItem {
-  ...tocFields
-  children {
-    ...tocFields
-    children {
-      ...tocFields
-      children {
-        ...tocFields
-        children {
-          ...tocFields
         }
       }
     }

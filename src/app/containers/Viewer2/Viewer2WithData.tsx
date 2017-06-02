@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import Viewer2Container from './Viewer2Container/Viewer2Container'
-import viewerQuery from './viewer2Query.gql'
+import READER_QUERY from '../../graphql/ReaderQuery.gql'
 import updateReadingProgressMutation from '../../graphql/mutations/UpdateReadingProgress.gql'
 import * as selectors from '../../selectors'
 import withIndicator from '../../helpers/withIndicator'
@@ -16,7 +16,6 @@ const LOAD_PAGE_LIMIT = 8
 type Data = {
   viewer: {
     bookPages: Schema.BookPages
-    readingProgress: Schema.ReadingProgress
   }
   error: Error
   bookInfo: Schema.BookInfo
@@ -226,7 +225,7 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
   graphql(updateReadingProgressMutation),
-  graphql(viewerQuery, {
+  graphql(READER_QUERY, {
     options: (props: OwnProps) => {
       const { config: { pageHeight, fontSize, lineHeight, width }, fromHistory } = props
 
