@@ -1,5 +1,6 @@
 import React from 'react'
 import Loading from '../Loading/Loading'
+import AppError from '../AppError/AppError'
 
 type Props = {
   data: State.Apollo<object>
@@ -13,9 +14,16 @@ const DataRenderer = (props: Props) => {
   }
 
   if (props.data.error) {
-    // todo
     return (
-      <div>{props.data.error.message}</div>
+      <AppError
+        title="发生错误！"
+        message={(
+          <div>
+            <p>{props.data.error.message}</p>
+            <p>你可以尝试刷新页面重试</p>
+          </div>
+        )}
+      />
     )
   }
 
