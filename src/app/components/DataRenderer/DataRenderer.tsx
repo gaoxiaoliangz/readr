@@ -9,10 +9,6 @@ type Props = {
 }
 
 const DataRenderer = (props: Props) => {
-  if (props.data.loading) {
-    return <Loading useNProgress />
-  }
-
   if (props.data.error) {
     return (
       <AppError
@@ -20,11 +16,15 @@ const DataRenderer = (props: Props) => {
         message={(
           <div>
             <p>{props.data.error.message}</p>
-            <p>你可以尝试刷新页面重试</p>
+            <p><small>你可以尝试刷新页面重试</small></p>
           </div>
         )}
       />
     )
+  }
+
+  if (props.data.loading) {
+    return <Loading useNProgress />
   }
 
   return props.render()

@@ -6,9 +6,9 @@ import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import Viewer2Container from './Viewer2Container/Viewer2Container'
 import viewerQuery from './viewer2Query.gql'
-import updateReadingProgressMutation from './updateReadingProgress.gql'
+import updateReadingProgressMutation from '../../graphql/mutations/UpdateReadingProgress.gql'
 import * as selectors from '../../selectors'
-import Loading from '../../components/Loading'
+import withIndicator from '../../helpers/withIndicator'
 import DocContainer from '../../components/DocContainer'
 
 const LOAD_PAGE_LIMIT = 8
@@ -84,7 +84,7 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
     }
   }
 
-  _loadPage(config: { pageNo?, first?, fromLocation? }) {
+  _loadPage(config: { pageNo?, first?, fromLocation?}) {
     const { first, fromLocation, pageNo } = config
     const offset = pageNo ? pageNo - 1 : 0
     const { data: { fetchMore } } = this.props
@@ -198,33 +198,14 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
   }
 
   render() {
-    const { data: { loading, error, bookInfo, viewer }, config } = this.props
-    const hasDataMounted = _.get(viewer, 'bookPages.edges', []).length !== 0
-
-    if (error) {
-      return (
-        <div>{error.message}</div>
-      )
-    }
-
-    if (!hasDataMounted) {
-      return (
-        <Loading useNProgress />
-      )
-    }
+    const { data: { bookInfo, viewer }, config } = this.props
 
     return (
       <DocContainer bodyClass="page-viewer-v2">
-        {
-          loading && (
-            <Loading useNProgress />
-          )
-        }
         <Viewer2Container
           bookPages={viewer.bookPages}
           bookInfo={bookInfo}
           onReachBottom={() => {
-
           }}
           onDebuncedScroll={this.handleDebouncedScroll}
           onScroll={this.handleScroll}
@@ -235,7 +216,15 @@ class Viewer2WithData extends Component<StateProps & OwnProps, State> {
   }
 }
 
-const _Viewer2WithData = compose(
+const mapStateToProps = (state, ownProps) => {
+  const components = selectors.viewer.components(state)
+  return {
+    components,
+    routing: selectors.routing(state)
+  }
+}
+
+export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
   graphql(updateReadingProgressMutation),
   graphql(viewerQuery, {
     options: (props: OwnProps) => {
@@ -253,22 +242,14 @@ const _Viewer2WithData = compose(
         }
       }
     }
-  })
+  }),
+  withIndicator(),
+  connect(
+    mapStateToProps,
+    dispatch => ({
+      actions: {
+        viewer: bindActionCreators(actions.viewer as {}, dispatch)
+      }
+    })
+  )
 )(Viewer2WithData)
-
-const mapStateToProps = (state, ownProps) => {
-  const components = selectors.viewer.components(state)
-  return {
-    components,
-    routing: selectors.routing(state)
-  }
-}
-
-export default connect<{}, {}, OwnProps>(
-  mapStateToProps,
-  dispatch => ({
-    actions: {
-      viewer: bindActionCreators(actions.viewer as {}, dispatch)
-    }
-  })
-)(_Viewer2WithData as any)
