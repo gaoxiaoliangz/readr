@@ -3,6 +3,7 @@ fragment ViewerReadingHistory on ReadingHistoryEntryConnection {
   edges {
     node {
       id
+      bookId
       title
       percentage
       description

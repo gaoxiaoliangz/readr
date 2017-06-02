@@ -24,6 +24,7 @@ type Data = State.Apollo<{
     bio: string
     readingHistory: Schema.Connection<{
       id: string
+      bookId: string
       title: string
       description: string
       percentage: number
@@ -63,7 +64,10 @@ class Profile extends Component<IProps, {}> {
               <Tab title="最近阅读">
                 <BookList
                   bookEntities={this.props.data.viewer.readingHistory.edges.map(edge => {
-                    return edge.node
+                    return {
+                      ...edge.node,
+                      id: edge.node.bookId
+                    }
                   })}
                 />
               </Tab>
