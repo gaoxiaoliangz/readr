@@ -3408,6 +3408,13 @@ eslint-plugin-flowtype@^2.21.0:
   dependencies:
     lodash "^4.15.0"
 
+eslint-plugin-graphql@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-graphql/download/eslint-plugin-graphql-1.0.0.tgz#0eb4608411b9875b0c2033b44a2e4d1897186087"
+  dependencies:
+    graphql "^0.10.1"
+    lodash "^4.11.1"
+
 eslint-plugin-import@^2.2.0:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/eslint-plugin-import/download/eslint-plugin-import-2.2.0.tgz#72ba306fad305d67c4816348a4699a4229ac8b4e"
@@ -4430,7 +4437,7 @@ graphql@0.9.3:
   dependencies:
     iterall "1.0.3"
 
-graphql@^0.10.0:
+graphql@^0.10.0, graphql@^0.10.1:
   version "0.10.1"
   resolved "http://registry.npm.taobao.org/graphql/download/graphql-0.10.1.tgz#75c93c2ce73aeb5bae2eefb555a8e9e39c36027d"
   dependencies:
@@ -6154,7 +6161,7 @@ lodash.without@~4.4.0:
   version "4.4.0"
   resolved "http://registry.npm.taobao.org/lodash.without/download/lodash.without-4.4.0.tgz#3cd4574a00b67bae373a94b748772640507b7aac"
 
-lodash@4.17.4, "lodash@>=3.5 <5", lodash@^4, lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.1, lodash@^4.16.6, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.6.1:
+lodash@4.17.4, "lodash@>=3.5 <5", lodash@^4, lodash@^4.0.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.1, lodash@^4.16.6, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.6.1:
   version "4.17.4"
   resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
