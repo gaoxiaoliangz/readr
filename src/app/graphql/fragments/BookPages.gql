@@ -9,6 +9,7 @@ fragment BookPages on BookPageConnection {
   edges {
     cursor
     node {
+      id
       meta {
         pageNo
         offset

@@ -10014,9 +10014,9 @@ typescript@^2.1.4, typescript@^2.3.3:
   version "2.3.3"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.3.tgz#9639f3c3b40148e8ca97fe08a51dd1891bb6be22"
 
-typescript@^2.2.2:
-  version "2.3.2"
-  resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.2.tgz#f0f045e196f69a72f06b25fd3bd39d01c3ce9984"
+typescript@^2.3.4:
+  version "2.3.4"
+  resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 ua-parser-js@^0.7.9:
   version "0.7.12"

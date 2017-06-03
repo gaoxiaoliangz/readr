@@ -40,13 +40,6 @@ export default class BookContainer extends Component<Props, void> {
       width: config.width
     }
 
-    let pageStyle: React.CSSProperties = {
-      overflow: 'hidden',
-      height,
-      position: 'absolute',
-      width: '100%'
-    }
-
     const containerStyle: React.CSSProperties = {
       height: totalCount * height,
       position: 'relative'
@@ -58,18 +51,28 @@ export default class BookContainer extends Component<Props, void> {
       <div style={containerStyle} styleName={containerClass}>
         {
           edges.map((edge, index) => {
-            const innerStyle: React.CSSProperties = {
-              marginTop: edge.node.meta.offset || 0
-            }
             const page = edge.node.meta.pageNo
-            pageStyle = {
-              ...pageStyle,
-              top: (page - 1) * height
+            const pagePadding = 60
+            const pageWidth = rendererConfig.width + pagePadding * 2
+            const pageStyle: React.CSSProperties = {
+              overflow: 'hidden',
+              height,
+              position: 'absolute',
+              width: pageWidth,
+              top: (page - 1) * height,
+              padding: `0 ${pagePadding}px`,
+              left: '50%',
+              marginLeft: - pageWidth / 2
             }
+
             return (
               <div key={index} style={pageStyle} className={`book-page book-page-${edge.node.meta.pageNo}`}>
-                <div style={innerStyle}>
-                  <div styleName="page-no">{edge.node.meta.pageNo}</div>
+                <div styleName="page-no">{edge.node.meta.pageNo}</div>
+                <div
+                  style={{
+                    marginTop: edge.node.meta.offset || 0,
+                  }}
+                >
                   <HTMLObjectsRenderer
                     htmlObjects={edge.node.elements || []}
                     {...rendererConfig}

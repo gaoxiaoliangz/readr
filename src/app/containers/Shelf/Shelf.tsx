@@ -10,6 +10,8 @@ import DocContainer from '../../components/DocContainer'
 import VIEWER_READING_HISTORY from '../../graphql/fragments/ViewerReadingHistory.gql'
 import { graphql, compose, gql } from 'react-apollo'
 import withIndicator from '../../helpers/withIndicator'
+import CSSModules from 'react-css-modules'
+import styles from './Shelf.scss'
 
 type Data = State.Apollo<{
   viewer: {
@@ -32,9 +34,13 @@ interface IProps {
 class Shelf extends Component<IProps, {}> {
   render() {
     return (
-      <DocContainer title="我的书架">
+      <DocContainer title="我的书架" bodyClass="page-shelf">
         <Branding />
-        <Container>
+        <Container
+          style={{
+            minHeight: 400
+          }}
+        >
           <Tabs style={{ marginTop: 20 }}>
             <Tab title="全部">
               <BookList
@@ -79,5 +85,5 @@ export default compose(
   connect(
     mapStateToProps
   ),
-  // CSSModules(styles)
+  CSSModules(styles)
 )(Shelf)
