@@ -11,7 +11,12 @@ import path from 'path'
 import webpack from 'webpack'
 import AssetsPlugin from 'assets-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import WebpackMd5Hash from 'webpack-md5-hash' // eslint-disable-line
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import pkg from '../package.json'
+import rules from '../config/webpack-rules'
+import vars from '../config/webpack-vars'
+import paths from '../config/paths'
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
@@ -199,7 +204,8 @@ const clientConfig = {
   target: 'web',
 
   entry: {
-    client: ['babel-polyfill', './src/client.js'],
+    // client: ['babel-polyfill', './src/client.js'],
+    app: ['babel-polyfill', paths.appIndex]
   },
 
   output: {
@@ -217,20 +223,29 @@ const clientConfig = {
       __DEV__: isDebug,
     }),
 
+    // prints more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin(),
+
     // Emit a file with assets paths
     // https://github.com/sporto/assets-webpack-plugin#options
-    new AssetsPlugin({
-      path: path.resolve(__dirname, '../build'),
-      filename: 'assets.json',
-      prettyPrint: true,
+    // new AssetsPlugin({
+    //   path: path.resolve(__dirname, '../build'),
+    //   filename: 'assets.json',
+    //   prettyPrint: true,
+    // }),
+
+    new ExtractTextPlugin({
+      filename: 'css/[name].css',
+      disable: false,
+      allChunks: true
     }),
 
     // Move modules that occur in multiple entry chunks to a new entry chunk (the commons chunk).
     // http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: module => /node_modules/.test(module.resource),
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   minChunks: module => /node_modules/.test(module.resource),
+    // }),
 
     ...isDebug ? [] : [
       // Minimize all JavaScript output of chunks
@@ -255,7 +270,7 @@ const clientConfig = {
 
     // Webpack Bundle Analyzer
     // https://github.com/th0r/webpack-bundle-analyzer
-    ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
+    // ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
   ],
 
   // Choose a developer tool to enhance debugging
@@ -271,6 +286,20 @@ const clientConfig = {
     net: 'empty',
     tls: 'empty',
   },
+
+  module: {
+    rules: [
+      rules.img(),
+      rules.scssLocal({ extract: true, isomorphic: false, sourceMap: true }),
+      rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: true }),
+      rules.css({ extract: true, global: false, isomorphic: false }),
+      // rules.lint(),
+      // rules.js(),
+      rules.ts({ officialLoader: false }),
+      rules.gql()
+    ]
+  },
+  resolve: vars.resolve
 }
 
 //
@@ -284,7 +313,7 @@ const serverConfig = {
   target: 'node',
 
   entry: {
-    server: ['babel-polyfill', './src/server.js'],
+    server: ['babel-polyfill', './src/server'],
   },
 
   output: {
@@ -297,20 +326,28 @@ const serverConfig = {
     ...config.module,
 
     // Override babel-preset-env configuration for Node.js
-    rules: config.module.rules.map(rule => (rule.loader !== 'babel-loader' ? rule : {
-      ...rule,
-      query: {
-        ...rule.query,
-        presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
-          targets: {
-            node: pkg.engines.node.match(/(\d+\.?)+/)[0],
-          },
-          modules: false,
-          useBuiltIns: false,
-          debug: false,
-        }])),
-      },
-    })),
+    // rules: config.module.rules.map(rule => (rule.loader !== 'babel-loader' ? rule : {
+    //   ...rule,
+    //   query: {
+    //     ...rule.query,
+    //     presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
+    //       targets: {
+    //         node: pkg.engines.node.match(/(\d+\.?)+/)[0],
+    //       },
+    //       modules: false,
+    //       useBuiltIns: false,
+    //       debug: false,
+    //     }])),
+    //   },
+    // })),
+    rules: [
+      rules.img({ emitFile: false }),
+      rules.ts({ officialLoader: false }),
+      rules.scssLocal({ isomorphic: true, extract: false }),
+      rules.scssGlobal({ isomorphic: true, extract: false }),
+      rules.css({ isomorphic: true }),
+      rules.gql()
+    ]
   },
 
   externals: [
@@ -343,6 +380,8 @@ const serverConfig = {
       raw: true,
       entryOnly: false,
     }),
+
+    new WebpackMd5Hash()
   ],
 
   node: {
@@ -353,6 +392,8 @@ const serverConfig = {
     __filename: false,
     __dirname: false,
   },
+
+  resolve: vars.resolve,
 
   devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
 }

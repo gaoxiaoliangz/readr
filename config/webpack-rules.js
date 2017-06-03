@@ -52,7 +52,11 @@ module.exports = {
         //   }
         // },
         {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            plugins: ['babel-plugin-transform-es2015-classes']
+          }
         },
         {
           loader: tsLoader

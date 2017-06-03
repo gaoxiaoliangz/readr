@@ -34,7 +34,8 @@
     "dev:server": "concurrently \"npm run watch:node\" \"npm run debug\"",
     "dev:all": "concurrently \"npm start\" \"npm run debug\" \"npm run watch:node\"",
     "start": "babel-node tools/run start",
-    "serve": "babel-node tools/run runServer"
+    "serve": "babel-node tools/run runServer",
+    "bundle": "babel-node tools/run bundle"
   },
   "dependencies": {
     "@gxl/epub-parser": "^1.0.1",
@@ -239,7 +240,7 @@
     "tslint-eslint-rules": "^3.4.0",
     "typescript": "^2.3.4",
     "vrsource-tslint-rules": "^4.0.1",
-    "webpack": "^2.2.1",
+    "webpack": "^2.6.1",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.1",
