@@ -7,15 +7,15 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import path from 'path';
-import webpack from 'webpack';
-import AssetsPlugin from 'assets-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import pkg from '../package.json';
+import path from 'path'
+import webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import pkg from '../package.json'
 
-const isDebug = !process.argv.includes('--release');
-const isVerbose = process.argv.includes('--verbose');
-const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse');
+const isDebug = !process.argv.includes('--release')
+const isVerbose = process.argv.includes('--verbose')
+const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
 //
 // Common configuration chunk to be used for both
@@ -186,7 +186,7 @@ const config = {
     cached: isVerbose,
     cachedAssets: isVerbose,
   },
-};
+}
 
 //
 // Configuration for the client-side bundle (client.js)
@@ -271,7 +271,7 @@ const clientConfig = {
     net: 'empty',
     tls: 'empty',
   },
-};
+}
 
 //
 // Configuration for the server-side bundle (server.js)
@@ -318,8 +318,8 @@ const serverConfig = {
     (context, request, callback) => {
       const isExternal =
         request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
-        !request.match(/\.(css|less|scss|sss)$/i);
-      callback(null, Boolean(isExternal));
+        !request.match(/\.(css|less|scss|sss)$/i)
+      callback(null, Boolean(isExternal))
     },
   ],
 
@@ -355,6 +355,6 @@ const serverConfig = {
   },
 
   devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
-};
+}
 
-export default [clientConfig, serverConfig];
+export default [clientConfig, serverConfig]
