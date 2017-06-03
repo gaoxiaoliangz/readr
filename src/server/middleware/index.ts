@@ -5,7 +5,7 @@ import handleError from './handle-error'
 import logFile from './log-file'
 import prepareApi from './prepare-api'
 import handleAPINotFound from './handle-api-not-found'
-import setHeader from './set-header'
+import cors from './cors'
 
 export default {
   parseContext,
@@ -15,5 +15,5 @@ export default {
   logFile,
   prepareApi,
   handleAPINotFound,
-  setHeader
+  cors
 }

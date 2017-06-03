@@ -267,6 +267,10 @@ function runDevServer(host, port, protocol) {
     setup(app) {
       // todo: use a variable
       app.use('/static', express.static(paths.buildStatic))
+      app.use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', '*')
+        next()
+      })
     }
   })
 
