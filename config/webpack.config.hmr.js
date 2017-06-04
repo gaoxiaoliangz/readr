@@ -32,7 +32,7 @@ const config = ({ port }) => ({
     path: paths.build,
     filename: 'js/[name].js',
     // todo: url join
-    publicPath: `http://${HOST}:${port}${paths.publicPath}`
+    publicPath: paths.publicPath
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

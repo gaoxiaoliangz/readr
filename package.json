@@ -71,6 +71,7 @@
     "graphql-tag": "^2.2.1",
     "history": "^4.6.0",
     "html-to-react": "^0.1.2",
+    "http-proxy": "^1.16.2",
     "humps": "^2.0.0",
     "immutable": "^3.7.6",
     "install": "^0.8.7",

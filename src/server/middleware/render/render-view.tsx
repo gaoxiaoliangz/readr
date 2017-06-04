@@ -7,16 +7,16 @@ import DocContainer from '../../../app/components/DocContainer'
 import AppProvider from '../../../app/containers/AppProvider'
 import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
-import getIP from '../../../app/helpers/getIP'
+// import getIP from '../../../app/helpers/getIP'
 
 const debug = require('debug')('readr:renderView')
 
 const CLIENT_ENV_VARS = ['PORT']
-const LOCAL_IP = getIP()
+// const LOCAL_IP = getIP()
 const prefix = '/static'
 
 const resolveDevAssets = (assetName) => {
-  const assetUrl = `http://${LOCAL_IP}:${process.env.WEBPACK_PORT}/static/`
+  const assetUrl = `/static/`
 
   return assetUrl + assetName
 }
@@ -52,9 +52,9 @@ function renderView(isProduction) {
 
   const clientEnv = {
     ..._.pick(process.env, CLIENT_ENV_VARS),
-    ...{
-      HOST: LOCAL_IP
-    }
+    // ...{
+    //   HOST: LOCAL_IP
+    // }
   }
 
 

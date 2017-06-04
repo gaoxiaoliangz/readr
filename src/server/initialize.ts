@@ -55,7 +55,14 @@ export default function initialize(config: InitConfig) {
   app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))
   app.use(cookieParser())
-  app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
+
+  // handle assets
+  if (process.env.USE_LOCAL_ASSETS === '1') {
+    app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
+  } else {
+    app.use(middleware.assetsProxy(`http://localhost:${process.env.WEBPACK_PORT}`))
+  }
+
   app.use(middleware.parseContext)
 
   // graphql api

@@ -6,6 +6,7 @@ import logFile from './log-file'
 import prepareApi from './prepare-api'
 import handleAPINotFound from './handle-api-not-found'
 import cors from './cors'
+import assetsProxy from './assetsProxy'
 
 export default {
   parseContext,
@@ -15,5 +16,6 @@ export default {
   logFile,
   prepareApi,
   handleAPINotFound,
-  cors
+  cors,
+  assetsProxy
 }
