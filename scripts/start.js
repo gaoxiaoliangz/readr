@@ -263,6 +263,10 @@ function runDevServer(host, port, protocol) {
     https: protocol === 'https',
     host,
 
+    // https://github.com/webpack/webpack-dev-server/releases/tag/v2.4.3
+    // insecure, but works fine when in dev
+    disableHostCheck: true,
+
     // access to express
     setup(app) {
       // todo: use a variable

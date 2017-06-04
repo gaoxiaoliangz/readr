@@ -43,7 +43,7 @@ module.exports = {
       minChunks: Infinity
     }),
 
-    new webpack.optimize.UglifyJsPlugin(),
+    // new webpack.optimize.UglifyJsPlugin(),
 
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
