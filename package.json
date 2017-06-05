@@ -22,7 +22,7 @@
     "watch:node": "npm run build:node -- --watch",
     "build:es5": "BABEL_ENV=es5 babel build/es --out-dir build/es5 --source-maps inline",
     "watch:es": "tsc --watch",
-    "clean": "node scripts/clean.js -f=build",
+    "clean-old": "node scripts/clean.js -f=build",
     "clean:node": "node scripts/clean.js -f=build/node",
     "clean:es": "node scripts/clean.js -f=build/es",
     "clean:static": "node scripts/clean.js -f=build/static",
@@ -30,7 +30,6 @@
     "tsc": "tsc",
     "test": "jest --no-cache --watchAll --config=.jestrc",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
-    "getSchema": "node scripts/get-schema.js",
     "dev:fe": "concurrently \"npm start\" \"npm run debug\"",
     "dev:server": "concurrently \"npm run watch:node\" \"npm run debug\"",
     "dev:all": "concurrently \"npm start\" \"npm run debug\" \"npm run watch:node\"",
@@ -38,10 +37,12 @@
     "serve": "babel-node tools/run runServer",
     "task": "babel-node tools/runTask",
     "bundle": "npm run task -- bundle",
-    "bundle:dll": "npm run bundle -- --target=dll",
-    "bundle:node": "npm run bundle -- --target=node",
-    "bundle:static": "npm run bundle -- --target=static",
-    "build": "npm run task -- build --taskName=build"
+    "bundle:dll": "npm run bundle -- --target=dll --name=bundle\\ dll",
+    "bundle:node": "npm run bundle -- --target=node --name=bundle\\ node",
+    "bundle:static": "npm run bundle -- --target=static --name=bundle\\ static",
+    "getSchema": "npm run task -- getSchema",
+    "build": "npm run task -- build --name=build",
+    "clean": "npm run task -- clean"
   },
   "dependencies": {
     "@gxl/epub-parser": "^1.0.1",

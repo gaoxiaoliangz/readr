@@ -1,6 +1,7 @@
 /**
- * args
- * --target=dll | node | static
+ * args read from command line
+ * --watch
+ * --target=string
  */
 import webpack from 'webpack'
 import minimist from 'minimist'
@@ -8,14 +9,16 @@ import Observable from '../Observable'
 import * as webpackConfig from '../webpack.config'
 
 const argv = minimist(process.argv.slice(2))
-const argTarget = argv.target
+const targetArg = argv.target
 const isWatching = argv.w || argv.watch
+
 const configMap = {
   dll: 'dllConfig',
   node: 'serverConfig',
   static: 'clientConfig'
 }
-function bundle(target = argTarget) {
+
+function bundle(target = targetArg) {
   const wpConfigName = configMap[target]
   const wpConfig = webpackConfig[wpConfigName]
   const allowedTargets = Object.keys(configMap).join(', ')

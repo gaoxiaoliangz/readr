@@ -1,6 +1,6 @@
 /**
- * args
- * --taskName=string
+ * args read from command line
+ * --name=string
  * --watch
  */
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
@@ -11,7 +11,7 @@ const argv = minimist(process.argv.slice(2))
 const format = (time) => {
   return time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
 }
-const taskName = argv.taskName || ''
+const taskName = argv.name || ''
 const isWatching = argv.watch
 
 function run(fn, options) {

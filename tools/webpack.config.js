@@ -1,3 +1,9 @@
+/**
+ * args read from command line
+ * --release
+ * --verbose
+ * --analyze
+ */
 import path from 'path'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import _ from 'lodash'
