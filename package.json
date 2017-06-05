@@ -12,8 +12,8 @@
     "debug:legacy": "DEBUG=readr:* nodemon --debug=5858 bin/www",
     "debug": "DEBUG=app:* nodemon --debug=9229 --inspect bin/www",
     "debug:no-reload": "DEBUG=app:* node --debug=9229 --inspect bin/www",
-    "prebuild": "npm run clean",
-    "build": "node scripts/build.js",
+    "prebuild--old": "npm run clean",
+    "build--old": "node scripts/build.js",
     "build:node": "node scripts/build.js node",
     "wp-build:node": "webpack --config config/webpack.config.node.js --progress",
     "wp-build:static": "webpack --config config/webpack.config.static.js --progress",
@@ -30,13 +30,15 @@
     "tsc": "tsc",
     "test": "jest --no-cache --watchAll --config=.jestrc",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql",
-    "get-schema": "node scripts/get-schema.js",
+    "getSchema": "node scripts/get-schema.js",
     "dev:fe": "concurrently \"npm start\" \"npm run debug\"",
     "dev:server": "concurrently \"npm run watch:node\" \"npm run debug\"",
     "dev:all": "concurrently \"npm start\" \"npm run debug\" \"npm run watch:node\"",
     "start": "babel-node tools/run start",
     "serve": "babel-node tools/run runServer",
-    "bundle": "babel-node tools/run bundle"
+    "task": "babel-node tools/runTask",
+    "bundle": "npm run task -- bundle",
+    "build": "npm run task -- build --taskName=build"
   },
   "dependencies": {
     "@gxl/epub-parser": "^1.0.1",
