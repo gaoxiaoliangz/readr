@@ -42,7 +42,7 @@
     "bundle:static": "npm run bundle -- --target=static --name=bundle\\ static",
     "getSchema": "npm run task -- getSchema",
     "build": "npm run task -- build --name=build",
-    "clean": "npm run task -- clean"
+    "clean": "npm run task -- clean --targets=build --name=clean\\ build"
   },
   "dependencies": {
     "@gxl/epub-parser": "^1.0.1",

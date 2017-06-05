@@ -7,7 +7,7 @@ const rimraf = require('rimraf') // eslint-disable-line
 const minimist = require('minimist')
 
 const argv = minimist(process.argv.slice(2))
-const targets = argv.targets.split(',')
+const targets = (argv.targets || '').split(',')
 
 function clean() {
   return Promise
