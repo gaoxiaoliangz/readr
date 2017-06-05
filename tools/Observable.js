@@ -5,7 +5,22 @@ class Observable {
     this.connector = connector
     this.observer = {
       onNext: (val) => {
-        this.handler(val)
+        if (this.handler) {
+          this.handler(val)
+        }
+      },
+      onCompleted: (val) => {
+        if (this.handler) {
+          this.handler(val)
+        }
+        if (this.doneHandler) {
+          this.doneHandler(val)
+        }
+      },
+      onError: (err) => {
+        if (this.errorHandler) {
+          this.errorHandler(err)
+        }
       }
     }
     this.connector(this.observer)
@@ -13,7 +28,17 @@ class Observable {
 
   subscribe(handler) {
     this.handler = handler
-    return Promise.resolve()
+    return this
+  }
+
+  done(doneHandler) {
+    this.doneHandler = doneHandler
+    return this
+  }
+
+  catch(errorHandler) {
+    this.errorHandler = errorHandler
+    return this
   }
 }
 

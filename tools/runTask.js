@@ -1,7 +1,7 @@
 /**
  * args
  * --taskName=string
- * --watchTask
+ * --watch
  */
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import minimist from 'minimist'
@@ -12,37 +12,61 @@ const format = (time) => {
   return time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
 }
 const taskName = argv.taskName || ''
-const isWatching = argv.watchTask
+const isWatching = argv.watch
 
-const run = (fn, options) => {
+function run(fn, options) {
+  let start
   const task = typeof fn.default === 'undefined' ? fn : fn.default
-  const start = new Date()
   const taskNameStr = taskName ? (' ' + taskName) : ''
   const taskInfoStr = `'${task.name}${options ? `(${JSON.stringify(options)})` : ''}'`
 
-  const processResult = (resolution) => {
-    const end = new Date()
-    const time = end.getTime() - start.getTime()
+  const printStartInfo = () => {
+    start = new Date()
     console.info(
-      `[${format(end)}${taskNameStr}] Finished ${taskInfoStr} after ${time} ms`,
+      `[${format(start)}${taskNameStr}] Running ${taskInfoStr}...`,
     )
-    return resolution
   }
 
-  console.info(
-    `[${format(start)}${taskNameStr}] Running ${taskInfoStr}...`,
-  )
+  const printEndInfo = () => {
+    const end = new Date()
+    const time = ((end.getTime() - start.getTime()) / 1000).toFixed(2)
+    console.info(
+      `[${format(end)}${taskNameStr}] Finished ${taskInfoStr} after ${time}s`,
+    )
+  }
+
+  const handleError = (err) => {
+    const end = new Date()
+    console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
+  }
+
+  printStartInfo()
 
   if (isWatching) {
-    return task(options).subscribe(processResult)
+    return Promise.resolve(
+      task(options)
+        .subscribe((state) => {
+          switch (state) {
+            case 'invalid':
+              printStartInfo()
+              break
+
+            case 'done':
+              printEndInfo()
+              break
+
+            default:
+              console.error('Invalid state!')
+              break
+          }
+        })
+        .catch(handleError)
+    )
   }
 
   return task(options)
-    .then(processResult)
-    .catch((err) => {
-      const end = new Date()
-      console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
-    })
+    .then(printEndInfo)
+    .catch(handleError)
 }
 
 if (require.main === module && process.argv.length > 2) {

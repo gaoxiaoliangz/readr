@@ -109,7 +109,7 @@ function seq() {
 
   return new Observable((observer) => {
     mockCompiler((val) => {
-      observer.onNext(val)
+      observer.onNext()
     })
   })
 }
