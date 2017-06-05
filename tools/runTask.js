@@ -14,19 +14,6 @@ const format = (time) => {
 const taskName = argv.taskName || ''
 const isWatching = argv.watchTask
 
-// const iterate = (iterable, callback) => {
-//   const next = iterable.next()
-
-//   if (next.done) {
-//     return Promise.resolve()
-//   }
-//   return next.value
-//     .then((val) => {
-//       callback(val)
-//       return iterate(iterable, callback)
-//     })
-// }
-
 const run = (fn, options) => {
   const task = typeof fn.default === 'undefined' ? fn : fn.default
   const start = new Date()
@@ -47,38 +34,15 @@ const run = (fn, options) => {
   )
 
   if (isWatching) {
-    // let previousValue
-    // let next
-    // const iterable = task(options)
-    // while (true) { // eslint-disable-line
-    //   previousValue = next && next.value
-    //   next = iterable.next()
-    //   if (next.done) {
-    //     return previousValue
-    //   } else { // eslint-disable-line
-    //     console.log('wtf', next.value)
-    //   }
-    // }
-
-    // return iterate(task(options), (val) => {
-    //   console.log('handle', val)
-    // })
-    //   .catch((err) => {
-    //     const end = new Date()
-    //     console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
-    //   })
-
-    return task(options).subscribe(data => {
-      console.log('subed', data)
-    })
-  } else {
-    return task(options)
-      .then(processResult)
-      .catch((err) => {
-        const end = new Date()
-        console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
-      })
+    return task(options).subscribe(processResult)
   }
+
+  return task(options)
+    .then(processResult)
+    .catch((err) => {
+      const end = new Date()
+      console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
+    })
 }
 
 if (require.main === module && process.argv.length > 2) {
