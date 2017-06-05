@@ -38,6 +38,9 @@
     "serve": "babel-node tools/run runServer",
     "task": "babel-node tools/runTask",
     "bundle": "npm run task -- bundle",
+    "bundle:dll": "npm run bundle -- --target=dll",
+    "bundle:node": "npm run bundle -- --target=node",
+    "bundle:static": "npm run bundle -- --target=static",
     "build": "npm run task -- build --taskName=build"
   },
   "dependencies": {

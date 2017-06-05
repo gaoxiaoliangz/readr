@@ -4,6 +4,7 @@ import _ from 'lodash'
 import nodeExternals from 'webpack-node-externals'
 import WebpackMd5Hash from 'webpack-md5-hash'
 import webpack from 'webpack'
+import ManifestPlugin from 'webpack-manifest-plugin'
 import paths from './paths'
 
 const isDebug = !process.argv.includes('--release')
@@ -347,7 +348,7 @@ export const clientConfig = {
   },
   output: {
     ...baseConfig.output,
-    path: paths.build,
+    path: paths.buildStatic,
     filename: 'js/[name].js'
   },
   plugins: [
@@ -365,6 +366,10 @@ export const clientConfig = {
       filename: 'css/[name].css',
       disable: false,
       allChunks: true
+    }),
+
+    new ManifestPlugin({
+      fileName: 'assets.manifest.json'
     }),
 
     // new webpack.DllReferencePlugin({

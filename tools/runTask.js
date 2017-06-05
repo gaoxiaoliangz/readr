@@ -1,5 +1,7 @@
 /**
+ * args
  * --taskName=string
+ * --watchTask
  */
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import minimist from 'minimist'
@@ -10,6 +12,20 @@ const format = (time) => {
   return time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
 }
 const taskName = argv.taskName || ''
+const isWatching = argv.watchTask
+
+// const iterate = (iterable, callback) => {
+//   const next = iterable.next()
+
+//   if (next.done) {
+//     return Promise.resolve()
+//   }
+//   return next.value
+//     .then((val) => {
+//       callback(val)
+//       return iterate(iterable, callback)
+//     })
+// }
 
 const run = (fn, options) => {
   const task = typeof fn.default === 'undefined' ? fn : fn.default
@@ -17,22 +33,52 @@ const run = (fn, options) => {
   const taskNameStr = taskName ? (' ' + taskName) : ''
   const taskInfoStr = `'${task.name}${options ? `(${JSON.stringify(options)})` : ''}'`
 
+  const processResult = (resolution) => {
+    const end = new Date()
+    const time = end.getTime() - start.getTime()
+    console.info(
+      `[${format(end)}${taskNameStr}] Finished ${taskInfoStr} after ${time} ms`,
+    )
+    return resolution
+  }
+
   console.info(
     `[${format(start)}${taskNameStr}] Running ${taskInfoStr}...`,
   )
-  return task(options)
-    .then((resolution) => {
-      const end = new Date()
-      const time = end.getTime() - start.getTime()
-      console.info(
-        `[${format(end)}${taskNameStr}] Finished ${taskInfoStr} after ${time} ms`,
-      )
-      return resolution
+
+  if (isWatching) {
+    // let previousValue
+    // let next
+    // const iterable = task(options)
+    // while (true) { // eslint-disable-line
+    //   previousValue = next && next.value
+    //   next = iterable.next()
+    //   if (next.done) {
+    //     return previousValue
+    //   } else { // eslint-disable-line
+    //     console.log('wtf', next.value)
+    //   }
+    // }
+
+    // return iterate(task(options), (val) => {
+    //   console.log('handle', val)
+    // })
+    //   .catch((err) => {
+    //     const end = new Date()
+    //     console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
+    //   })
+
+    return task(options).subscribe(data => {
+      console.log('subed', data)
     })
-    .catch((err) => {
-      const end = new Date()
-      console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
-    })
+  } else {
+    return task(options)
+      .then(processResult)
+      .catch((err) => {
+        const end = new Date()
+        console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
+      })
+  }
 }
 
 if (require.main === module && process.argv.length > 2) {

@@ -14,7 +14,8 @@ const configMap = {
   node: 'serverConfig',
   static: 'clientConfig'
 }
-async function bundle(target = argTarget) {
+
+function* bundle(target = argTarget) {
   return new Promise((resolve, reject) => {
     const wpConfigName = configMap[target]
     const wpConfig = webpackConfig[wpConfigName]
