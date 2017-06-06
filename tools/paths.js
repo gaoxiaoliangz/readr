@@ -69,6 +69,7 @@ module.exports = {
   config: resolveApp('config'),
   build: resolveApp('build'),
   clientIndex: resolveApp('src/app/index.tsx'),
+  clientTestIndex: resolveApp('src/app/testIndex.tsx'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appStyles: resolveApp('src/app/styles'),

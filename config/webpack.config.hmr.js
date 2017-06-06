@@ -51,10 +51,10 @@ const config = ({ port }) => ({
       allChunks: true
     }),
 
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: dllVendorManifest
-    })
+    // new webpack.DllReferencePlugin({
+    //   context: '.',
+    //   manifest: dllVendorManifest
+    // })
   ],
   devtool: 'inline-source-map',
   module: {

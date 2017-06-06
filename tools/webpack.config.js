@@ -336,19 +336,20 @@ export const clientConfig = {
   ...baseConfig,
   entry: {
     app: [
-      // // activate HMR for React
-      // 'react-hot-loader/patch',
+      // activate HMR for React
+      'react-hot-loader/patch',
 
-      // // bundle the client for webpack-dev-server
-      // // and connect to the provided endpoint
-      // `webpack-dev-server/client?http://${HOST}:${port}`,
+      // ?http://localhost:4001 cannot be left out
+      // bundle the client for webpack-dev-server
+      // and connect to the provided endpoint
+      `webpack-dev-server/client?http://localhost:4001`,
 
-      // // bundle the client for hot reloading
-      // // only- means to only hot reload for successful updates
-      // 'webpack/hot/only-dev-server',
+      // bundle the client for hot reloading
+      // only- means to only hot reload for successful updates
+      'webpack/hot/only-dev-server',
 
       'babel-polyfill',
-      paths.clientIndex
+      paths.clientTestIndex
     ],
     'frameworks.global': path.join(paths.appStyles, 'frameworks.global.scss')
   },
@@ -359,7 +360,7 @@ export const clientConfig = {
   },
   plugins: [
     // // enable HMR globally
-    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
 
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
@@ -388,9 +389,9 @@ export const clientConfig = {
   module: {
     rules: [
       rules.img(),
-      rules.scssLocal({ extract: true, isomorphic: false, sourceMap: true }),
+      rules.scssLocal({ extract: false, isomorphic: false, sourceMap: true }),
       rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: true }),
-      rules.css({ extract: true, global: false, isomorphic: false }),
+      rules.css({ extract: false, global: false, isomorphic: false }),
       rules.typescript({ officialLoader: false }),
       rules.graphql()
     ]

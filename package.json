@@ -40,6 +40,7 @@
     "bundle:dll": "npm run bundle -- --target=dll --name=bundle\\ dll",
     "bundle:node": "npm run bundle -- --target=node --name=bundle\\ node",
     "bundle:static": "npm run bundle -- --target=static --name=bundle\\ static",
+    "devServer": "npm run task -- devServer --watch --name=run\\ dev\\ server",
     "getSchema": "npm run task -- getSchema",
     "build": "npm run task -- build --name=build",
     "clean": "npm run task -- clean --targets=build --name=clean\\ build"
@@ -71,7 +72,7 @@
     "express": "~4.13.1",
     "express-graphql": "^0.6.4",
     "express-session": "^1.12.1",
-    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "extract-text-webpack-plugin": "^2.1.0",
     "graphql": "^0.9.6",
     "graphql-relay": "^0.5.1",
     "graphql-tag": "^2.2.1",

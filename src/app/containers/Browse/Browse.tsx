@@ -14,6 +14,7 @@ import pic1 from './jordan-sanchez-5216.jpg'
 import pic2 from './mountain.jpg'
 import pic3 from './peter-kent-25187.jpg'
 
+
 interface Props {
   session: State.Session
   data: State.Apollo<{
@@ -62,7 +63,7 @@ class Browse extends Component<Props, IState> {
         </div>
         <Container>
           <Books
-            sectionTitle="新书速递"
+            sectionTitle="新书速递2"
           />
         </Container>
         <Colophon />

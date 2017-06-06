@@ -14,5 +14,7 @@ export default function getApiRoot() {
   if (isServerEnv()) {
     return `http://localhost:${PORT}/api`
   }
-  return '/api'
+  return `http://localhost:8090/api`
+  // return '/api'
 }
+
