@@ -119,10 +119,7 @@ const rules = {
     }
   },
 
-  typescript({ officialLoader } = {}) {
-    // todo: remove officialLoader
-    const tsLoader = officialLoader ? 'ts-loader' : 'awesome-typescript-loader'
-
+  typescript() {
     return {
       test: /\.tsx?$/,
       use: [
@@ -142,7 +139,7 @@ const rules = {
           }
         },
         {
-          loader: tsLoader
+          loader: 'awesome-typescript-loader'
         }
       ]
     }
@@ -281,7 +278,7 @@ export const dllConfig = {
 export const serverConfig = {
   ...baseConfig,
   entry: {
-    // index: ['babel-polyfill', paths.serverSrc]
+    // babel-polyfill will make debugging less pleasant, worse mapping something
     index: [paths.serverSrc]
   },
   output: {
@@ -302,12 +299,16 @@ export const serverConfig = {
       entryOnly: true
     }),
 
+    // Do not create separate chunks of the server bundle
+    // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+
     new WebpackMd5Hash(),
   ],
   module: {
     rules: [
       rules.img({ emitFile: false }),
-      rules.typescript({ officialLoader: false }),
+      rules.typescript(),
       rules.scssLocal({ isomorphic: true, extract: false }),
       rules.scssGlobal({ isomorphic: true, extract: false }),
       rules.css({ isomorphic: true }),
@@ -392,7 +393,7 @@ export const clientConfig = {
       rules.scssLocal({ extract: false, isomorphic: false, sourceMap: true }),
       rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: true }),
       rules.css({ extract: false, global: false, isomorphic: false }),
-      rules.typescript({ officialLoader: false }),
+      rules.typescript(),
       rules.graphql()
     ]
   }

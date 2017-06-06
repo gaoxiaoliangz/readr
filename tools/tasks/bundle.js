@@ -25,6 +25,7 @@ function bundle(target = targetArg) {
   if (!wpConfigName) {
     throw new Error(`No config for ${target} found, allowed targets are: ${allowedTargets}`)
   }
+  // todo: if tar is node, check 'build/static/assets.manifest.json' existence
 
   const compiler = webpack(wpConfig)
 
