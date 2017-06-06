@@ -14,7 +14,6 @@ import apiApp from './api/app'
 import * as CONSTANTS from '../constants'
 import getMongoDBUrl from './helpers/getMongoDBUri'
 import middleware from './middleware'
-import { hmrProxy } from './middleware/assetsProxy'
 import schema from './graphql/schema'
 import {
   Author,
@@ -59,12 +58,6 @@ export default function initialize(config: InitConfig) {
 
   // handle assets
   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
-  // if (process.env.USE_LOCAL_ASSETS === '1') {
-  //   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
-  // } else {
-  //   // app.use(middleware.assetsProxy(`http://localhost:${process.env.WEBPACK_PORT}`))
-  //   // app.use(hmrProxy(`http://localhost:${process.env.WEBPACK_PORT}`))
-  // }
 
   app.use(middleware.parseContext)
 
