@@ -24,16 +24,12 @@ import {
   Tag,
   User
 } from './models/dataProvider'
+import { SESSION_SECRET, REQ_SIZE_LIMIT, PUBLIC_URL, PUBLIC_DIR } from './constants'
 
 const debug = require('debug')('readr:init')
 
 const MongoStore = connectMongo(session)
 const app = express()
-
-const PUBLIC_DIR = 'build/static'
-const PUBLIC_URL = '/static'
-const SESSION_SECRET = 'key'
-const REQ_SIZE_LIMIT = '5mb'
 
 interface InitConfig {
   basePath: string

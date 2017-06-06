@@ -7,23 +7,21 @@ import DocContainer from '../../../app/components/DocContainer'
 import AppProvider from '../../../app/containers/AppProvider'
 import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
+import { PUBLIC_URL } from '../../constants'
 
 const debug = require('debug')('readr:renderView')
 
 const CLIENT_ENV_VARS = ['PORT']
-const prefix = '/static'
 
 const resolveDevAssets = (assetName) => {
-  const assetUrl = `/static/`
-
-  return assetUrl + assetName
+  return path.join(PUBLIC_URL, assetName)
 }
 
-export const getCssLinks = (isProduction = false) => {
+export const getCSSUri = (isProduction = false) => {
   if (isProduction) {
     return [
-      path.join(prefix, manifest['frameworks.global.css']),
-      path.join(prefix, manifest['app.css'])
+      path.join(PUBLIC_URL, manifest['frameworks.global.css']),
+      path.join(PUBLIC_URL, manifest['app.css'])
     ]
   }
   return [
@@ -32,14 +30,13 @@ export const getCssLinks = (isProduction = false) => {
   ]
 }
 
-function renderView(isProduction) {
-  const cssAssets = getCssLinks(isProduction)
+export function getJSUri(isProduction = false) {
   let jsAssets
 
   if (isProduction) {
     jsAssets = [
-      path.join(prefix, manifest['vendor.js']),
-      path.join(prefix, manifest['app.js'])
+      path.join(PUBLIC_URL, manifest['vendor.js']),
+      path.join(PUBLIC_URL, manifest['app.js'])
     ]
   } else {
     jsAssets = [
@@ -47,6 +44,12 @@ function renderView(isProduction) {
       resolveDevAssets('js/app.js')
     ]
   }
+  return jsAssets
+}
+
+export function renderView(isProduction) {
+  const cssAssets = getCSSUri(isProduction)
+  const jsAssets = getJSUri(isProduction)
 
   const clientEnv = {
     ..._.pick(process.env, CLIENT_ENV_VARS),
@@ -54,7 +57,6 @@ function renderView(isProduction) {
     //   HOST: LOCAL_IP
     // }
   }
-
 
   return async (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults

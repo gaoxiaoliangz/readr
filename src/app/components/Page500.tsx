@@ -1,45 +1,14 @@
 import React, { Component } from 'react'
 import AppDoc from './AppDoc'
 import AppError from './AppError'
-import path from 'path'
+import { getCSSUri } from '../../server/middleware/render/renderView'
 
-import manifest from '../../../build/static/assets.manifest.json'
-
-const resolveDevAssets = (assetName) => {
-  const assetUrl = `http://localhost:${process.env.WEBPACK_PORT}/static/`
-
-  return assetUrl + assetName
-}
-
-let cssAssets
-// let jsAssets
-
-if (process.env.NODE_ENV === 'production') {
-  const prefix = '/static'
-  cssAssets = [
-    path.join(prefix, manifest['frameworks.global.css']),
-    path.join(prefix, manifest['app.css'])
-  ]
-  // jsAssets = [
-  //   path.join(prefix, manifest['vendor.js']),
-  //   path.join(prefix, manifest['app.js'])
-  // ]
-} else {
-  cssAssets = [
-    resolveDevAssets('css/frameworks.global.css'),
-    resolveDevAssets('css/app.css')
-  ]
-  // jsAssets = [
-  //   resolveDevAssets('js/vendor.dll.js'),
-  //   resolveDevAssets('js/app.js')
-  // ]
-}
+const cssAssets = getCSSUri(process.env.NODE_ENV === 'production')
 
 interface Props {
   error: Error
 }
 
-// todo: print error stack in dev mode
 export default class Page500 extends Component<Props, void> {
   render() {
     const { error } = this.props
