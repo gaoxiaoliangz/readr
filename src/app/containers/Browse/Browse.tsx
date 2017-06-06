@@ -14,7 +14,6 @@ import pic1 from './jordan-sanchez-5216.jpg'
 import pic2 from './mountain.jpg'
 import pic3 from './peter-kent-25187.jpg'
 
-
 interface Props {
   session: State.Session
   data: State.Apollo<{
@@ -45,6 +44,8 @@ class Browse extends Component<Props, IState> {
 
   render() {
     const images = [pic1, pic2, pic3]
+    console.log(READR_APP_PORT)
+    console.log(process.env.PUBLIC_URL)
 
     return (
       <DocContainer bodyClass="page-browse" title="首页">

@@ -17,6 +17,9 @@ const isProduction = argv.p || argv.production || process.env.NODE_ENV === 'prod
 
 process.env.NODE_ENV = isProduction ? 'production' : 'development'
 
+console.log(Object.keys(process.env))
+
+
 const initialize = require('../build/node').default // eslint-disable-line
 const basePath = process.cwd()
 

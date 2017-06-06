@@ -217,9 +217,13 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node@*", "@types/node@^6.0.45":
+"@types/node@*":
   version "6.0.71"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-6.0.71.tgz#aa49e0109e35f1457867b45822caf7f4883ca248"
+
+"@types/node@^7.0.28":
+  version "7.0.28"
+  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-7.0.28.tgz#3a8c62b718a73bbb89ede4aba5ab12c8f822c36e"
 
 "@types/phantom@^3.2.1":
   version "3.2.1"

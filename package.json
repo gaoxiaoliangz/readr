@@ -135,7 +135,7 @@
     "@types/mongodb": "^2.1.36",
     "@types/mongoose": "^4.7.13",
     "@types/multer": "0.0.32",
-    "@types/node": "^6.0.45",
+    "@types/node": "^7.0.28",
     "@types/phantom": "^3.2.1",
     "@types/react": "^15.0.16",
     "@types/react-addons-css-transition-group": "^15.0.1",

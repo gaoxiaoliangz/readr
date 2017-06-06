@@ -13,9 +13,11 @@ import webpack from 'webpack'
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import paths from './paths'
+import getClientEnvironment from './env'
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
+const env = getClientEnvironment(isDebug ? `http://localhost:${process.env.WEBPACK_PORT}` : 'http://readrweb.com/')
 // const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
 const vars = {
@@ -379,11 +381,12 @@ export const clientConfig = {
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-      'process.env.BROWSER': true,
-      __DEV__: isDebug,
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+    //   'process.env.BROWSER': true,
+    //   __DEV__: isDebug,
+    // }),
+    new webpack.DefinePlugin(env.stringified),
 
     new ExtractTextPlugin({
       filename: 'css/[name].css',
