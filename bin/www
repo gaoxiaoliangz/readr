@@ -4,7 +4,7 @@
  * args
  * -p, --production
  */
-const paths = require('../config/paths')
+const paths = require('../tools/paths')
 
 require('dotenv').config()
 require('dotenv-safe').load({

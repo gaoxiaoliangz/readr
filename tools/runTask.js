@@ -6,6 +6,12 @@
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import minimist from 'minimist'
 import path from 'path'
+import paths from './paths'
+
+require('dotenv').config()
+require('dotenv-safe').load({
+  sample: paths.resolveApp('.env-sample')
+})
 
 const argv = minimist(process.argv.slice(2))
 const format = (time) => {

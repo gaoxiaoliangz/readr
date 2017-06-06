@@ -72,8 +72,7 @@ function runDevServer(host, port, protocol) {
 }
 
 function devServer() {
-  // todo
-  const port = 4001
+  const port = process.env.WEBPACK_PORT
   // hmr required config is added here, webpack.config.js doesn't contain any
   clientConfig.entry.app = [...new Set([
     // activate HMR for React
@@ -82,7 +81,7 @@ function devServer() {
     // ?http://localhost:4001 cannot be left out
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
-    `webpack-dev-server/client?http://localhost:4001`,
+    `webpack-dev-server/client?http://localhost:${port}`,
 
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
