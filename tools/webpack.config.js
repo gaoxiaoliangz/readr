@@ -264,7 +264,7 @@ const baseConfig = {
     chunks: isVerbose,
     chunkModules: isVerbose,
     cached: isVerbose,
-    cachedAssets: isVerbose,
+    cachedAssets: isVerbose
   }
 }
 
