@@ -17,9 +17,7 @@ let cssAssets
 if (process.env.NODE_ENV === 'production') {
   const prefix = '/static'
   cssAssets = [
-    path.join(prefix, manifest['base.global.css']),
-    path.join(prefix, manifest['vendor.global.css']),
-    path.join(prefix, manifest['modifiers.global.css']),
+    path.join(prefix, manifest['frameworks.global.css']),
     path.join(prefix, manifest['app.css'])
   ]
   // jsAssets = [
@@ -28,9 +26,7 @@ if (process.env.NODE_ENV === 'production') {
   // ]
 } else {
   cssAssets = [
-    resolveDevAssets('css/base.global.css'),
-    resolveDevAssets('css/vendor.global.css'),
-    resolveDevAssets('css/modifiers.global.css'),
+    resolveDevAssets('css/frameworks.global.css'),
     resolveDevAssets('css/app.css')
   ]
   // jsAssets = [

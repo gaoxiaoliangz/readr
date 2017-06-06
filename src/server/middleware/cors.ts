@@ -1,4 +1,4 @@
-const debug = require('debug')('app:setHeader')
+const debug = require('debug')('readr:setHeader')
 
 const cors = (allowedOrigins: string[]) => (req, res, next) => {
   const origin = req.headers.origin

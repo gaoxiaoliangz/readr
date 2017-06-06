@@ -10,12 +10,13 @@ import _ from 'lodash'
 import nodeExternals from 'webpack-node-externals'
 import WebpackMd5Hash from 'webpack-md5-hash'
 import webpack from 'webpack'
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import paths from './paths'
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
-const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
+// const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
 const vars = {
   cssLocalIdentName: '[local]_[hash:base64:5]',
@@ -119,7 +120,25 @@ const rules = {
     }
   },
 
-  typescript() {
+  typescript({ babelConfig } = {}) {
+    const _babelConfig = isDebug
+      ? {
+        plugins: [
+          'babel-plugin-transform-es2015-classes',
+          'babel-plugin-transform-es2015-classes'
+        ]
+      }
+      : {
+        presets: [
+          ['es2015', {
+            modules: false
+          }]
+        ],
+        plugins: [
+          'lodash'
+        ]
+      }
+
     return {
       test: /\.tsx?$/,
       use: [
@@ -135,7 +154,7 @@ const rules = {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            plugins: ['babel-plugin-transform-es2015-classes']
+            ...(babelConfig || _babelConfig)
           }
         },
         {
@@ -308,7 +327,14 @@ export const serverConfig = {
   module: {
     rules: [
       rules.img({ emitFile: false }),
-      rules.typescript(),
+      rules.typescript({
+        babelConfig: {
+          plugins: [
+            // tsc target es2015 won't compile es6 to es5, and causing exsiting es5 code to fail
+            'babel-plugin-transform-es2015-classes'
+          ]
+        }
+      }),
       rules.scssLocal({ isomorphic: true, extract: false }),
       rules.scssGlobal({ isomorphic: true, extract: false }),
       rules.css({ isomorphic: true }),
@@ -336,38 +362,27 @@ export const serverConfig = {
 export const clientConfig = {
   ...baseConfig,
   entry: {
-    app: [
-      // activate HMR for React
-      'react-hot-loader/patch',
-
-      // ?http://localhost:4001 cannot be left out
-      // bundle the client for webpack-dev-server
-      // and connect to the provided endpoint
-      `webpack-dev-server/client?http://localhost:4001`,
-
-      // bundle the client for hot reloading
-      // only- means to only hot reload for successful updates
-      'webpack/hot/only-dev-server',
-
-      'babel-polyfill',
-      paths.clientTestIndex
-    ],
-    'frameworks.global': path.join(paths.appStyles, 'frameworks.global.scss')
+    'app': ['babel-polyfill', paths.clientIndex],
+    'frameworks.global': path.join(paths.appStyles, 'frameworks.global.scss'),
+    // if using fn to test minChunks then comment this out
+    // ...isDebug ? {} : {
+    //   'vendor': vars.vendorLibs
+    // }
   },
   output: {
     ...baseConfig.output,
     path: paths.buildStatic,
-    filename: 'js/[name].js'
+    filename: isDebug ? 'js/[name].js' : 'js/[name].[chunkhash:10].js',
+    chunkFilename: isDebug ? 'js/chunk.[id].js' : 'js/chunk.[chunkhash:10].[id].js',
   },
   plugins: [
-    // // enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
-
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `"development"`,
+      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+      'process.env.BROWSER': true,
+      __DEV__: isDebug,
     }),
 
     new ExtractTextPlugin({
@@ -376,23 +391,63 @@ export const clientConfig = {
       allChunks: true
     }),
 
-    new ManifestPlugin({
-      fileName: 'assets.manifest.json'
-    }),
+    ...isDebug
+      ? [
+        new webpack.DllReferencePlugin({
+          context: '.',
+          manifest: require('../build/static/dll.vendor.manifest.json')
+        })
+      ]
+      : [
+        // Minimize all JavaScript output of chunks
+        // https://github.com/mishoo/UglifyJS2#compressor-options
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true,
+          compress: {
+            screw_ie8: true, // React doesn't support IE8
+            warnings: isVerbose,
+            unused: true,
+            dead_code: true,
+          },
+          mangle: {
+            screw_ie8: true,
+          },
+          output: {
+            comments: false,
+            screw_ie8: true,
+          },
+        }),
 
-    // new webpack.DllReferencePlugin({
-    //   context: '.',
-    //   manifest: require('../build/static/dll.vendor.manifest.json')
-    // })
+        new OptimizeCssAssetsPlugin({
+          assetNameRegExp: /\.css$/g,
+          cssProcessor: require('cssnano'), // eslint-disable-line
+          cssProcessorOptions: { discardComments: { removeAll: true } },
+          canPrint: true
+        }),
+
+        new ManifestPlugin({
+          fileName: 'assets.manifest.json'
+        }),
+
+        new WebpackMd5Hash(),
+
+        // Move modules that occur in multiple entry chunks to a new entry chunk (the commons chunk).
+        // http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'vendor',
+          // minChunks: Infinity
+          minChunks: module => /node_modules/.test(module.resource),
+        }),
+      ],
   ],
-  // devtool: 'inline-source-map',
+  // or maybe 'inline-source-map',
   devtool: isDebug ? 'cheap-module-source-map' : false,
   module: {
     rules: [
       rules.img(),
-      rules.scssLocal({ extract: false, isomorphic: false, sourceMap: true }),
-      rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: true }),
-      rules.css({ extract: false, global: false, isomorphic: false }),
+      rules.scssLocal({ extract: true, isomorphic: false, sourceMap: isDebug }),
+      rules.scssGlobal({ extract: true, isomorphic: false, sourceMap: isDebug }),
+      rules.css({ extract: true, global: true, isomorphic: false }),
       rules.typescript(),
       rules.graphql()
     ]

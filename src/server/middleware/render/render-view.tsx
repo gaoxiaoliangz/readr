@@ -7,12 +7,10 @@ import DocContainer from '../../../app/components/DocContainer'
 import AppProvider from '../../../app/containers/AppProvider'
 import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
 import manifest from '../../../../build/static/assets.manifest.json'
-// import getIP from '../../../app/helpers/getIP'
 
 const debug = require('debug')('readr:renderView')
 
 const CLIENT_ENV_VARS = ['PORT']
-// const LOCAL_IP = getIP()
 const prefix = '/static'
 
 const resolveDevAssets = (assetName) => {

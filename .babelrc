@@ -10,43 +10,11 @@
     "transform-async-to-generator"
   ],
   "env": {
-    "node": {
-      "plugins": [
-        "babel-plugin-transform-es2015-classes"
-        // tsc target es2015 won't compile es6 to es5, and causing exsiting es5 code to fail
-      ]
-    },
     "es5": {
       "presets": [
         [
           "es2015"
         ]
-      ]
-    },
-    "development": {
-      "plugins": [
-        "react-hot-loader/babel",
-        // Enables React code to work with HMR.
-        "babel-plugin-transform-es2015-classes"
-      ]
-    },
-    "production": {
-      "presets": [
-        [
-          "es2015",
-          {
-            "modules": false
-          }
-        ]
-        // webpack understands the native import syntax, and uses it for tree shaking
-      ],
-      "plugins": [
-        "lodash"
-      ]
-    },
-    "test": {
-      "presets": [
-        "es2015"
       ]
     }
   }

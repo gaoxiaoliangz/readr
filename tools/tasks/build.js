@@ -3,8 +3,8 @@ import bundle from './bundle'
 
 async function build() {
   await run(bundle, 'dll')
-  await run(bundle, 'node')
   await run(bundle, 'static')
+  await run(bundle, 'node')
 }
 
 export default build

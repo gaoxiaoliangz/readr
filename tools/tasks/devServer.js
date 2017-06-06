@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
+import _ from 'lodash'
 import paths from '../paths'
 import { clientConfig } from '../webpack.config'
 import Observable from '../Observable'
@@ -34,11 +35,12 @@ function runDevServer(host, port, protocol) {
       proxy: {
         '*': {
           target: 'http://localhost:8090',
-          bypass: (req, /* res, proxyOptions */) => { // eslint-disable-line consistent-return
-            if (req.url.indexOf('app.js') !== -1) {
-              return false
-            }
-          }
+          // doesn't seem to be needed, but juest keep it here as a reference
+          // bypass: (req, /* res, proxyOptions */) => { // eslint-disable-line consistent-return
+          //   if (req.url.indexOf('app.js') !== -1) {
+          //     return false
+          //   }
+          // }
         }
       },
       // Enable HTTPS if the HTTPS environment variable is set to 'true'
@@ -70,20 +72,37 @@ function runDevServer(host, port, protocol) {
 }
 
 function devServer() {
+  // todo
   const port = 4001
-  // add hmr config
-  // clientConfig.entry.app = [...new Set([
-  //   'babel-polyfill',
-  //   'react-hot-loader/patch',
-  //   // `webpack-hot-middleware/client?http://localhost:4001`,
-  // ].concat(clientConfig.entry.app))]
+  // hmr required config is added here, webpack.config.js doesn't contain any
+  clientConfig.entry.app = [...new Set([
+    // activate HMR for React
+    'react-hot-loader/patch',
 
-  // clientConfig.output.filename = clientConfig.output.filename.replace('[chunkhash', '[hash')
-  // clientConfig.output.chunkFilename = clientConfig.output.chunkFilename.replace('[chunkhash', '[hash')
-  // const { query } = clientConfig.module.rules.find(x => x.loader === 'babel-loader')
-  // query.plugins = ['react-hot-loader/babel'].concat(query.plugins || [])
-  // clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
-  // clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())
+    // ?http://localhost:4001 cannot be left out
+    // bundle the client for webpack-dev-server
+    // and connect to the provided endpoint
+    `webpack-dev-server/client?http://localhost:4001`,
+
+    // bundle the client for hot reloading
+    // only- means to only hot reload for successful updates
+    'webpack/hot/only-dev-server',
+  ].concat(clientConfig.entry.app))]
+
+  clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+  clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())
+
+  // the shape of the object may change, when it does, remember to update it here
+  // find 'babel-loader' and add 'react-hot-loader/babel' into 'options.plugins'
+  for (const rule of clientConfig.module.rules) { // eslint-disable-line no-restricted-syntax
+    if (rule.use) {
+      const loader = _.find(rule.use, x => x.loader === 'babel-loader')
+      if (loader) {
+        loader.options.plugins = ['react-hot-loader/babel'].concat(loader.options.plugins || [])
+        break
+      }
+    }
+  }
 
   const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
   const host = process.env.HOST || 'localhost'

@@ -63,7 +63,7 @@ class Browse extends Component<Props, IState> {
         </div>
         <Container>
           <Books
-            sectionTitle="新书速递2"
+            sectionTitle="新书速递"
           />
         </Container>
         <Colophon />
