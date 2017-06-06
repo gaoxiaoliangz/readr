@@ -1,5 +1,5 @@
 import { makeBasicAPIMethods } from '../utils'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 import addBook from './addBook'
 import findBook from './findBook'
 import listBooks from './listBooks'

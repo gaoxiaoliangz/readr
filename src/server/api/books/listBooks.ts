@@ -1,5 +1,5 @@
 import pipeline from '../../../utils/pipeline'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 import _ from 'lodash'
 import {
   validateOptions,

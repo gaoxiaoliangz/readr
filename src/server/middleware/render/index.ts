@@ -1,8 +1,8 @@
 import init from './init'
-import matchRoute from './match-route'
-import fetchData from './fetch-data'
-import renderView from './render-view'
-import handleError from './handle-error'
+import matchRoute from './matchRoute'
+import fetchData from './fetchData'
+import renderView from './renderView'
+import handleError from './handleError'
 
 const render = (isProduction) => {
   return [init, matchRoute, fetchData, renderView(isProduction), handleError]

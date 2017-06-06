@@ -1,14 +1,14 @@
 import mongoose from 'mongoose'
 import Debug from 'debug'
 import _ from 'lodash'
-import getMongoDBUrl from '../helpers/getMongoDBUrl'
+import getMongoDBUrl from '../helpers/getMongoDBUri'
 import { addUitlMethods } from './utils'
-import * as schemas from './mg-schemas'
+import * as schemas from './mgSchemas'
 
 mongoose.Promise = global.Promise
 mongoose.connect(getMongoDBUrl())
 
-const debug = Debug('readr:data-provider')
+const debug = Debug('readr:dataProvider')
 const db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'))

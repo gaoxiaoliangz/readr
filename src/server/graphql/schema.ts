@@ -10,7 +10,7 @@ import {
   globalIdField
 } from 'graphql-relay'
 import _ from 'lodash'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 import {
   GQLAuthorConnection,
   GQLFileConnection,

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import request from '../../../utils/network/request'
+import request from '../../utils/network/request'
 
 export function searchBook(keyword: string, config: { count?: number } = {}) {
   const { count } = config

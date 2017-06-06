@@ -2,7 +2,7 @@ import _ from 'lodash'
 import errors from '../errors'
 import i18n from '../utils/i18n'
 import humps from 'humps'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 
 export function basicAuth(req, res, next) {
   const login = req.body.login ? req.body.login.toLowerCase() : undefined

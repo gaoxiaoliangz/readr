@@ -12,7 +12,7 @@ import render from './middleware/render'
 import bootServer from './bootstrap'
 import apiApp from './api/app'
 import * as CONSTANTS from '../constants'
-import getMongoDBUrl from './helpers/getMongoDBUrl'
+import getMongoDBUrl from './helpers/getMongoDBUri'
 import middleware from './middleware'
 import { hmrProxy } from './middleware/assetsProxy'
 import schema from './graphql/schema'
@@ -24,7 +24,7 @@ import {
   Progress,
   Tag,
   User
-} from './models/data-provider'
+} from './models/dataProvider'
 
 const debug = require('debug')('readr:init')
 

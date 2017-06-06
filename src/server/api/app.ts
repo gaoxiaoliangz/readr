@@ -3,7 +3,7 @@ import _ from 'lodash'
 import multer from 'multer'
 import os from 'os'
 import middleware from '../middleware'
-import httpDecorator from './http-decorator'
+import httpDecorator from './httpDecorator'
 import api from '../api'
 import ALLOWED_ORIGINS from '../allowedOrigins'
 

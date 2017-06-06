@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ROLES } from '../../constants'
 import { makeBasicAPIMethods, makeResult } from './utils'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 
 const userBasicAPI = makeBasicAPIMethods(dataProvider.User)
 

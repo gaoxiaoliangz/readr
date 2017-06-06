@@ -13,7 +13,7 @@ import {
 } from 'graphql-relay'
 import { setReadingProgressCore, removeReadingProgress } from '../../api/user'
 import api from '../../api'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 
 export const UpdateReadingProgressMutation = mutationWithClientMutationId({
   name: 'UpdateReadingProgress',

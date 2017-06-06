@@ -1,4 +1,4 @@
-import GenericError from './generic-error'
+import GenericError from './GenericError'
 
 export default class UnsupportedFileTypeError extends GenericError {
   constructor(message) {

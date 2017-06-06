@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import parseUrlencoded from '../../utils/parseUrlencoded'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 
 export class APIResult {
   _data: any

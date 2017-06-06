@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import * as helpers from '../helpers'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 
 // @req#loggedFileId
 export default function logFile(req, res, next) {

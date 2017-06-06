@@ -1,6 +1,6 @@
 import fs from 'fs'
 import _ from 'lodash'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 import * as helpers from '../helpers'
 
 // import Model from '../models/model'

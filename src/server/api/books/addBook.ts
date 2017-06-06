@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import epubParser from '@gxl/epub-parser'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 import { saveFileIfNotExsit } from '../file'
 import { getAuthorId, getBookMetaByTitle } from './helpers'
 

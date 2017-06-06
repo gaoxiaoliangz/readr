@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import humps from 'humps'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 import { sortByNewest } from './utils'
 
 export function getReadingProgressCore({ bookId, userId }) {

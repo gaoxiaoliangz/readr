@@ -1,4 +1,4 @@
-import GenericError from './generic-error'
+import GenericError from './GenericError'
 
 export default class MethodNotAllowedError extends GenericError {
   constructor(message) {

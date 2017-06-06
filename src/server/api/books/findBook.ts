@@ -1,5 +1,5 @@
 import { compose } from 'redux'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 import genPages from './genPages'
 import parseBookFile from './parseBookFile'
 import { queryBoolean, validateNonNullOptions } from '../utils'
