@@ -16,7 +16,7 @@ const defaultOptions = {
 }
 
 export default function paginate(results, options?: ListingOptions) {
-  let { page, limit, order } = Object.assign({}, defaultOptions, options)
+  let { page, limit } = Object.assign({}, defaultOptions, options)
   // query 里面传过来的都是 string
   page = parseInt(page as any, 10)
   // 如果 page 小于 0 则当做 1 来处理，大于最大页面则不管

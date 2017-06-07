@@ -22,10 +22,10 @@ const taskName = argv.name || ''
 
 function run(fn, options) {
   let start
+  let result
   const task = typeof fn.default === 'undefined' ? fn : fn.default
   const taskNameStr = taskName ? (' ' + taskName) : ''
   const taskInfoStr = `'${task.name}${options ? `(${JSON.stringify(options)})` : ''}'`
-  const result = task(options)
 
   const printStartInfo = () => {
     start = new Date()
@@ -45,9 +45,16 @@ function run(fn, options) {
   const handleError = (err) => {
     const end = new Date()
     console.info(`[${format(end)}${taskNameStr}] Error ${taskInfoStr}: ${err.message}`)
+    return err
   }
 
   printStartInfo()
+
+  try {
+    result = task(options)
+  } catch (error) {
+    return Promise.reject(handleError(error))
+  }
 
   if (Object.prototype.isPrototypeOf.call(Observable.prototype, result)) {
     return Promise.resolve(

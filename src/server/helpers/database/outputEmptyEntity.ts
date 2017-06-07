@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Field } from './define-schema'
+import { Field } from './defineSchema'
 
 export default function outputEmptyEntity(fields: Field[], idObjOrIdString = {}) {
   // id 可以为对象，此时会直接被扩展到输出结果里面

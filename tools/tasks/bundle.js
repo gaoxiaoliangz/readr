@@ -22,10 +22,12 @@ function bundle(target = targetArg) {
   const wpConfigName = configMap[target]
   const wpConfig = webpackConfig[wpConfigName]
   const allowedTargets = Object.keys(configMap).join(', ')
-  if (!wpConfigName) {
-    throw new Error(`No config for ${target} found, allowed targets are: ${allowedTargets}`)
-  }
+  
   // todo: if tar is node, check 'build/static/assets.manifest.json' existence
+  if (!wpConfig) {
+    const noConfigError = new Error(`No config for ${target} found, allowed targets are: ${allowedTargets}`)
+    throw noConfigError
+  }
 
   const compiler = webpack(wpConfig)
 

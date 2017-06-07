@@ -1,7 +1,7 @@
-import utils from '../utils'
-import errors from '../errors'
+import utils from '../../utils'
+import errors from '../../errors'
 import _ from 'lodash'
-import Schema, { Validators } from './define-schema'
+import Schema, { Validators } from './defineSchema'
 
 const reduceTasks = utils.reduceTasks
 const i18n = utils.i18n

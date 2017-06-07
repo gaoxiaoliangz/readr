@@ -1,13 +1,13 @@
 import _ from 'lodash'
 import db, { embedRef, connect } from './database'
-import errors from '../errors'
-import i18n from '../utils/i18n'
-import utils from '../utils'
+import errors from '../../errors'
+import i18n from '../../utils/i18n'
+import utils from '../../utils'
 import validate from './validate'
-import Schema from './define-schema'
-import outputEmptyEntity from './output-empty-entity'
+import Schema from './defineSchema'
+import outputEmptyEntity from './outputEmptyEntity'
 import paginate from './paginate'
-import { notFoundIn } from '../helpers'
+import { notFoundIn } from '../../helpers'
 
 interface ListRawOptions {
   filter?: (entity, index: number) => boolean

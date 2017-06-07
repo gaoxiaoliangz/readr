@@ -1,8 +1,8 @@
 import mongodb from 'mongodb'
 import _ from 'lodash'
-import Schema, { Field } from './define-schema'
-import outputEmptyEntity from './output-empty-entity'
-import getMongoDBUrl from '../helpers/getMongoDBUri'
+import Schema, { Field } from './defineSchema'
+import outputEmptyEntity from './outputEmptyEntity'
+import getMongoDBUrl from '../getMongoDBUri'
 
 const MongoClient = mongodb.MongoClient
 
