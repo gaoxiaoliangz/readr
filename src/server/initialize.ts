@@ -33,11 +33,10 @@ const app = express()
 
 interface InitConfig {
   basePath: string
-  isProduction: boolean
 }
 
 export default function initialize(config: InitConfig) {
-  const { basePath, isProduction } = config
+  const { basePath } = config
 
   // locals
   app.locals.basePath = basePath
@@ -58,7 +57,7 @@ export default function initialize(config: InitConfig) {
   app.use(middleware.parseContext)
 
   // graphql api
-  app.use('/gql', graphQLHTTP({
+  app.use(process.env.READR_APP_GRAPHQL_PATH, graphQLHTTP({
     schema,
     graphiql: true,
     pretty: true,
@@ -86,17 +85,15 @@ export default function initialize(config: InitConfig) {
   }))
 
   // rest api routing
-  app.use(`/${CONSTANTS.API_PREFIX}`, apiApp())
+  app.use(process.env.READR_APP_REST_PATH, apiApp())
 
   // render view
-  app.use(render(isProduction))
+  app.use(render())
 
   // log error info
   app.use(morgan('dev', {
     skip(req, res) { return res.statusCode < 400 }
   }))
 
-  return bootServer(app, {
-    isProduction
-  })
+  return bootServer(app)
 }

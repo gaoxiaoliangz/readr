@@ -1,15 +1,10 @@
 import http from 'http'
 import print from './utils/print'
 
-interface BootstrapConfig {
-  port?: number
-  isProduction: boolean
-}
-
-export default function bootstrap(app, config: BootstrapConfig) {
-  const { port: overidePort, isProduction } = config
+export default function bootstrap(app) {
   const server = http.createServer(app)
-  const port = overidePort || Number(process.env.PORT)
+  const port = Number(process.env.PORT)
+  const isProduction = process.env.NODE_ENV === 'production'
 
   app.set('port', port)
   server.listen(port)

@@ -47,7 +47,8 @@ export function getJSUri(isProduction = false) {
   return jsAssets
 }
 
-export function renderView(isProduction) {
+export function renderView() {
+  const isProduction = process.env.NODE_ENV === 'production'
   const cssAssets = getCSSUri(isProduction)
   const jsAssets = getJSUri(isProduction)
 

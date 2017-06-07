@@ -7,7 +7,8 @@
     "npm": ">=3.10"
   },
   "scripts": {
-    "start": "concurrently \"npm run devServer\" \"npm run debug\" \"npm run watch:node\"",
+    "start": "npm run devServer",
+    "all": "concurrently \"npm run devServer\" \"npm run debug\" \"npm run watch:node\"",
     "debug": "DEBUG=readr:* nodemon --debug=9229 --inspect bin/www",
     "debug:noReload": "DEBUG=readr:* node --debug=9229 --inspect bin/www",
     "debug:legacy": "DEBUG=readr:* nodemon --debug=5858 bin/www",

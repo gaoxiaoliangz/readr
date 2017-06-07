@@ -4,8 +4,9 @@ import fetchData from './fetchData'
 import renderView from './renderView'
 import handleError from './handleError'
 
-const render = (isProduction) => {
-  return [init, matchRoute, fetchData, renderView(isProduction), handleError]
+function render() {
+  // renderView may have parameters later
+  return [init, matchRoute, fetchData, renderView(), handleError]
 }
 
 export default render

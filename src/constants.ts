@@ -3,7 +3,7 @@ export const ENABLE_SERVER_ROUTING = '__ENABLE_SERVER_ROUTING__'
 export const INITIAL_STATE = '__INITIAL_STATE__'
 
 // api
-export const API_PREFIX = 'api'
+// export const API_PREFIX = 'api'
 export const DOUBAN_API_ROOT = 'https://api.douban.com/v2'
 export const GITHUB_API_ROOT = 'https://api.github.com'
 
@@ -31,5 +31,13 @@ export const VIEWER_DEFS = {
   DEFAULT_PAGE_HEIGHT: 900,
   DEFAULT_FONT_SIZE: 16
 }
+
+// enum So {
+//   HEHE,
+//   WTF
+// }
+
+// const b = So.HEHE
+
 
 export const PAGE_LIMIT = 10

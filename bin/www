@@ -1,26 +1,13 @@
 #!/usr/bin/env node
 
-/**
- * args
- * -p, --production
- */
-const paths = require('../tools/paths')
 
+const paths = require('../tools/paths')
 require('dotenv').config()
 require('dotenv-safe').load({
   sample: paths.resolveApp('.env-sample')
 })
 
-const minimist = require('minimist') // eslint-disable-line
-const argv = minimist(process.argv.slice(2))
-const isProduction = argv.p || argv.production || process.env.NODE_ENV === 'production'
-
-process.env.NODE_ENV = isProduction ? 'production' : 'development'
-
-console.log(Object.keys(process.env))
-
-
 const initialize = require('../build/node').default // eslint-disable-line
 const basePath = process.cwd()
 
-initialize({ basePath, isProduction })
+initialize({ basePath })

@@ -31,23 +31,19 @@ function bundle(target = targetArg) {
 
   if (isWatching) {
     return new Observable((observer) => {
-      compiler.watch(
-        {
-          aggregateTimeout: 300,
-          poll: false
-        },
-        (err, stats) => {
-          if (err) {
-            console.info(stats.toString(wpConfig.stats))
-            observer.onError(err)
-          } else {
-            if (stats.hasErrors()) {
-              console.info(stats.toString(wpConfig.stats))
-            }
-            observer.onNext('done')
-          }
+      compiler.watch({
+        aggregateTimeout: 300,
+        poll: false
+      }, (err, stats) => {
+        if (err) {
+          console.info(stats.toString(wpConfig.stats))
+          observer.onError(err)
+        } else if (stats.hasErrors()) {
+          console.info(stats.toString(wpConfig.stats))
+        } else {
+          observer.onNext('done')
         }
-      )
+      })
 
       compiler.plugin('invalid', () => {
         observer.onNext('invalid')

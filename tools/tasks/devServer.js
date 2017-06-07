@@ -2,9 +2,13 @@ import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
 import _ from 'lodash'
+import openBrowser from 'react-dev-utils/openBrowser'
 import paths from '../paths'
 import { clientConfig } from '../webpack.config'
 import Observable from '../Observable'
+import getLocalIP from '../getLocalIP'
+
+let isFirstCompile = true
 
 function runDevServer(host, port, protocol) {
   return new Observable((observer) => {
@@ -14,11 +18,24 @@ function runDevServer(host, port, protocol) {
       observer.onNext('invalid')
     })
 
-    compiler.plugin('done', () => {
-      const serverAddr = protocol + '://' + host + ':' + port + '/'
-      console.info(chalk.cyan(`Server running at ${serverAddr}`))
-      // openBrowser(serverAddr)
-      observer.onNext('done')
+    compiler.plugin('done', (stats) => {
+      if (stats.hasErrors()) {
+        console.info(stats.toString(clientConfig.stats))
+      } else {
+        const serverAddr = `${protocol}://${host}:${port}/`
+        const localIP = getLocalIP()
+        console.info(chalk.cyan(`Server running at ${serverAddr}`))
+        if (localIP) {
+          console.info(chalk.cyan(`Also available at http://${localIP}:${port}/`))
+        } else {
+          console.info(chalk.red('No network available, we cannot access via IP address!'))
+        }
+        observer.onNext('done')
+        if (isFirstCompile) {
+          isFirstCompile = false
+          openBrowser(serverAddr)
+        }
+      }
     })
 
     const devServerInstance = new WebpackDevServer(compiler, {
@@ -53,8 +70,6 @@ function runDevServer(host, port, protocol) {
 
       // access to express
       setup(app) {
-        // todo: use a variable
-        // app.use('/static', express.static(paths.buildStatic))
         app.use((req, res, next) => {
           res.setHeader('Access-Control-Allow-Origin', '*')
           next()
@@ -78,7 +93,7 @@ function devServer() {
     // activate HMR for React
     'react-hot-loader/patch',
 
-    // ?http://localhost:4001 cannot be left out
+    // ?http://localhost:port cannot be left out
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
     `webpack-dev-server/client?http://localhost:${port}`,
@@ -89,7 +104,7 @@ function devServer() {
   ].concat(clientConfig.entry.app))]
 
   clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
-  clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())
+  // clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())
 
   // the shape of the object may change, when it does, remember to update it here
   // find 'babel-loader' and add 'react-hot-loader/babel' into 'options.plugins'
