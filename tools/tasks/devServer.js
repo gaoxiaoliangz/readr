@@ -41,7 +41,6 @@ function runDevServer(host, port, protocol) {
     const devServerInstance = new WebpackDevServer(compiler, {
       compress: true,
       clientLogLevel: 'none',
-      contentBase: paths.appPublic,
       hot: true,
       publicPath: clientConfig.output.publicPath,
       quiet: true,

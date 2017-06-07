@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 const paths = require('../tools/paths')
 require('dotenv').config()
 require('dotenv-safe').load({
