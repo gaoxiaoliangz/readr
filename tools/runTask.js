@@ -1,13 +1,13 @@
 /**
  * args read from command line
  * --name=string
- * --watch
  */
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import minimist from 'minimist'
 import path from 'path'
 import chalk from 'chalk'
 import paths from './paths'
+import Observable from './Observable'
 
 require('dotenv').config()
 require('dotenv-safe').load({
@@ -19,13 +19,13 @@ const format = (time) => {
   return time.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, '$1')
 }
 const taskName = argv.name || ''
-const isWatching = argv.watch
 
 function run(fn, options) {
   let start
   const task = typeof fn.default === 'undefined' ? fn : fn.default
   const taskNameStr = taskName ? (' ' + taskName) : ''
   const taskInfoStr = `'${task.name}${options ? `(${JSON.stringify(options)})` : ''}'`
+  const result = task(options)
 
   const printStartInfo = () => {
     start = new Date()
@@ -49,9 +49,9 @@ function run(fn, options) {
 
   printStartInfo()
 
-  if (isWatching) {
+  if (Object.prototype.isPrototypeOf.call(Observable.prototype, result)) {
     return Promise.resolve(
-      task(options)
+      result
         .subscribe((state) => {
           switch (state) {
             case 'invalid':
@@ -71,7 +71,7 @@ function run(fn, options) {
     )
   }
 
-  return task(options)
+  return result
     .then(printEndInfo)
     .catch(handleError)
 }

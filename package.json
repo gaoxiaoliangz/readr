@@ -15,7 +15,7 @@
     "prebuild": "npm run clean",
     "build": "npm run task -- build --name=build --release",
     "build:es5": "BABEL_ENV=es5 babel build/es --out-dir build/es5 --source-maps inline",
-    "devServer": "npm run task -- devServer --watch --name=run\\ dev\\ server",
+    "devServer": "npm run task -- devServer --name=run\\ dev\\ server",
     "getSchema": "npm run task -- getSchema",
     "bundle": "npm run task -- bundle",
     "bundle:dll": "npm run bundle -- --target=dll --name=bundle\\ dll",
