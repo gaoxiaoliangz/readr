@@ -1,13 +1,20 @@
+/**
+ * ReaderL saga watcher
+ */
 import { take, put, select, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
 import * as ACTION_TYPES from '../actions/actionTypes'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 import calcBook from './effects/calcBook'
-import { VIEWER_DEFS } from '../../constants'
-import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
+import { VIEWER_DEFS } from '../containers/ReaderL/ReaderLConstants'
 import schemas from '../schemas'
 import getScreenInfo from '../utils/browser/getScreenInfo'
+
+export const shouldViewerBeFluid = () => {
+  const viewerWidth = getScreenInfo().width
+  return viewerWidth < VIEWER_DEFS.MOBILE_BREAK_POINT
+}
 
 async function pause(t = 1) {
   return new Promise(resolve => {

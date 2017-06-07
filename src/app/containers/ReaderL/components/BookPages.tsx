@@ -7,7 +7,7 @@ import classnames from 'classnames'
 import * as selectors from '../../../selectors'
 import _ from 'lodash'
 import styles from './BookPages.scss'
-import { VIEWER_DEFS } from '../../../../constants'
+import { VIEWER_DEFS } from '../ReaderLConstants'
 
 interface OwnProps {
   startPageIndex?: number

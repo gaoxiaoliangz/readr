@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import classnames from 'classnames'
-import { VIEWER_DEFS } from '../../../../constants'
 import styles from './ReaderPreference.scss'
 
 const MAX_FONT_SIZE = 20
 const MIN_FONT_SIZE = 12
 const SIZE_STEP = 2
+
+const THEMES = {
+  WHITE: 'white',
+  NIGHT: 'night',
+  SEPIA: 'sepia'
+}
 
 interface OwnProps {
   fontSize: number
@@ -71,8 +76,8 @@ class ReaderPreference extends Component<OwnProps, void> {
           </li>
           <li styleName="option-theme">
             {
-              _.keys(VIEWER_DEFS.THEMES).map((key, index) => {
-                const className = key.toLowerCase() + (theme === key ? '--active' : '')
+              _.keys(THEMES).map((key, index) => {
+                const className = key + (theme === key ? '--active' : '')
 
                 return (
                   <span

@@ -4,7 +4,6 @@ import RootRoute from './containers/RootRoute'
 import UserApp from './containers/UserApp'
 import AdminApp from './containers/AdminApp'
 import * as restAPI from './restAPI'
-// import { ROLES } from '../constants'
 
 const configRoutes = (context = {}) => {
   // server side needs injected cookie
@@ -25,8 +24,8 @@ const configRoutes = (context = {}) => {
   }
 
   const handleAppHomeEnter = (nextState, replace, callback?) => {
-    restAPI.auth(cookie).then(res => {
-      if (res.json.role !== ROLES.VISITOR) {
+    restAPI.auth(cookie).then((res: { json: { role: Roles } }) => {
+      if (res.json.role !== 'visitor') {
         replace('/browse')
       }
       callback()

@@ -8,7 +8,7 @@ import VPanel from './VPanel'
 import _ from 'lodash'
 import getScreenInfo from '../../../utils/browser/getScreenInfo'
 import ProgressBar from './ProgressBar'
-import shouldViewerBeFluid from '../../../helpers/shouldViewerBeFluid'
+import { shouldViewerBeFluid } from '../../../sagas/watchViewer'
 import VNav from './VNav'
 
 interface Props { }

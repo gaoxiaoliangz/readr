@@ -1,11 +1,3 @@
-
-
-// export const ROLES = {
-//   USER: 'user',
-//   ADMIN: 'admin',
-//   VISITOR: 'visitor'
-// }
-
 export const VIEWER_DEFS = {
   THEMES: {
     WHITE: 'WHITE',
@@ -16,5 +8,3 @@ export const VIEWER_DEFS = {
   DEFAULT_PAGE_HEIGHT: 900,
   DEFAULT_FONT_SIZE: 16
 }
-
-export const PAGE_LIMIT = 10

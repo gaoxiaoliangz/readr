@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ROLES } from '../../constants'
+import { ROLES } from '../../app/constants'
 import { makeBasicAPIMethods, makeResult } from './utils'
 import dataProvider from '../models/dataProvider'
 
