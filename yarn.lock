@@ -217,11 +217,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node@*":
-  version "6.0.71"
-  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-6.0.71.tgz#aa49e0109e35f1457867b45822caf7f4883ca248"
-
-"@types/node@^7.0.28":
+"@types/node@*", "@types/node@^7.0.28":
   version "7.0.28"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-7.0.28.tgz#3a8c62b718a73bbb89ede4aba5ab12c8f822c36e"
 
@@ -993,14 +989,13 @@ babel-jest@^19.0.0:
     babel-plugin-istanbul "^4.0.0"
     babel-preset-jest "^19.0.0"
 
-babel-loader@^6.3.2:
-  version "6.4.1"
-  resolved "http://registry.npm.taobao.org/babel-loader/download/babel-loader-6.4.1.tgz#0b34112d5b0748a8dcdbf51acf6f9bd42d50b8ca"
+babel-loader@^7.0.0:
+  version "7.0.0"
+  resolved "http://registry.npm.taobao.org/babel-loader/download/babel-loader-7.0.0.tgz#2e43a66bee1fff4470533d0402c8a4532fafbaf7"
   dependencies:
     find-cache-dir "^0.1.1"
-    loader-utils "^0.2.16"
+    loader-utils "^1.0.2"
     mkdirp "^0.5.1"
-    object-assign "^4.0.1"
 
 babel-messages@^6.23.0:
   version "6.23.0"
