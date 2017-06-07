@@ -3,7 +3,7 @@ declare var __DEV__
 // declare var READR_APP_PORT: string
 // declare var READR_APP_ENV: 'browser' | 'server'
 
-declare var APP_CONFIG: {
+declare var APP_ENV: {
   APP_NAME: string
   APP_DESC: string
   SITE_URL: string

@@ -2,11 +2,11 @@
 // injected into the application via DefinePlugin in Webpack configuration.
 // It's for client usage only, node env variables are read from .env file directly
 
-import APP_CONFIG from '../app.config'
+import APP_ENV from '../app.env'
 
-function getClientEnvironment(isDebug, isBrowser) {
+function getAppEnvironment(isDebug, isBrowser) {
   const raw = {
-    ...isDebug ? APP_CONFIG.development : APP_CONFIG.production,
+    ...isDebug ? APP_ENV.development : APP_ENV.production,
     BROWSER: isBrowser
   }
 
@@ -15,7 +15,7 @@ function getClientEnvironment(isDebug, isBrowser) {
   }
 
   const stringified = {
-    APP_CONFIG: Object.keys(raw)
+    APP_ENV: Object.keys(raw)
       .reduce((config, key) => {
         config[key] = JSON.stringify(raw[key]) // eslint-disable-line
         return config
@@ -25,4 +25,4 @@ function getClientEnvironment(isDebug, isBrowser) {
   return { raw, stringified }
 }
 
-export default getClientEnvironment
+export default getAppEnvironment

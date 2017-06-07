@@ -13,7 +13,7 @@ import webpack from 'webpack'
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import paths from './paths'
-import getClientEnvironment from './env'
+import getAppEnvironment from './env'
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
@@ -319,7 +319,7 @@ export const serverConfig = {
       entryOnly: true
     }),
 
-    new webpack.DefinePlugin(getClientEnvironment(isDebug, false).stringified),
+    new webpack.DefinePlugin(getAppEnvironment(isDebug, false).stringified),
 
     // Do not create separate chunks of the server bundle
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
@@ -387,7 +387,7 @@ export const clientConfig = {
     //   'process.env.BROWSER': true,
     //   __DEV__: isDebug,
     // }),
-    new webpack.DefinePlugin(getClientEnvironment(isDebug, true).stringified),
+    new webpack.DefinePlugin(getAppEnvironment(isDebug, true).stringified),
 
     new ExtractTextPlugin({
       filename: 'css/[name].css',
