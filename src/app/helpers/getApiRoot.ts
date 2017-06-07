@@ -1,6 +1,6 @@
-export default function getApiRoot() {
-  if (APP_CONFIG.BROWSER) {
-    return `http://localhost:${process.env.PORT}/api`
+export default function getAPIRoot() {
+  if (!APP_CONFIG.BROWSER) {
+    return `http://localhost:${process.env.PORT}${APP_CONFIG.REST_API_PATH}`
   }
-  return '/api'
+  return APP_CONFIG.REST_API_PATH
 }

@@ -32,7 +32,7 @@ class RecentReadingMenu extends Component<Props, void> {
           this.props.data.viewer.readingHistory.edges.slice(0, 5).map((edge, index) => {
             return (
               <DropdownItem key={index}>
-                <Link to={helpers.getReaderUri(edge.node.bookId)}>{edge.node.title}</Link>
+                <Link to={helpers.getReaderURI(edge.node.bookId)}>{edge.node.title}</Link>
               </DropdownItem>
             )
           })

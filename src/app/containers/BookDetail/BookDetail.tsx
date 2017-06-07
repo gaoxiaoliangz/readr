@@ -68,7 +68,7 @@ class BookDetail extends Component<Props, {}> {
                       <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
                     </div>
                     <div>
-                      <Button styleName="btn-read" to={helpers.getReaderUri(bookInfo.id)} color="green">阅读</Button>
+                      <Button styleName="btn-read" to={helpers.getReaderURI(bookInfo.id)} color="green">阅读</Button>
                     </div>
                   </div>
                 </div>
@@ -82,7 +82,7 @@ class BookDetail extends Component<Props, {}> {
                     <BookToc
                       toc={bookInfo.toc}
                       linkTpl={(sectionId, hash) => {
-                        return helpers.getReaderUri(`${bookInfo.id}#${sectionId},${hash}`)
+                        return helpers.getReaderURI(`${bookInfo.id}#${sectionId},${hash}`)
                       }}
                     />
                   </Tab>

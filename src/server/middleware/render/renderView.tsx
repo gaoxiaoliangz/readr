@@ -11,8 +11,6 @@ import { PUBLIC_URL } from '../../constants'
 
 const debug = require('debug')('readr:renderView')
 
-const CLIENT_ENV_VARS = ['PORT']
-
 const resolveDevAssets = (assetName) => {
   return path.join(PUBLIC_URL, assetName)
 }
@@ -52,13 +50,6 @@ export function renderView() {
   const cssAssets = getCSSUri(isProduction)
   const jsAssets = getJSUri(isProduction)
 
-  const clientEnv = {
-    ..._.pick(process.env, CLIENT_ENV_VARS),
-    // ...{
-    //   HOST: LOCAL_IP
-    // }
-  }
-
   return async (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
     const useServerRendering = process.env.READR_APP_ENABLE_SSR
@@ -76,11 +67,10 @@ export function renderView() {
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏
     const { bodyClass, head } = DocContainer.rewind()
-    const initialState = process.env.ENABLE_INITIAL_STATE
+    const initialState = process.env.ENABLE_INITIAL_STATE === '1'
       ? req.locals.store.getState()
       : {}
 
-    // todo: global var name
     const html = renderToStaticMarkup(
       <AppDoc
         appMarkup={appMarkupString}
@@ -88,10 +78,7 @@ export function renderView() {
         bodyClass={bodyClass}
         initialState={initialState}
         link={cssAssets}
-        script={[
-          { innerHTML: 'var __ENABLE_SERVER_ROUTING__ = true;' },
-          { innerHTML: `var __ENV__ = ${JSON.stringify(clientEnv)}` }
-        ].concat(jsAssets)}
+        script={jsAssets}
       />
     )
     if (process.env.NODE_ENV !== 'production') {

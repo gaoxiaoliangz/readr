@@ -31,7 +31,7 @@ export default function configureStore(cookies?) {
     if (process.env.NODE_ENV === 'production') {
       // nothing here
     } else {
-      if (process.env.ENABLE_SERVER_ACTION_LOG) {
+      if (process.env.ENABLE_SERVER_ACTION_LOG === '1') {
         baseMiddlewares.push(logActionTypes)
       }
     }

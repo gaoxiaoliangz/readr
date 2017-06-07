@@ -6,14 +6,22 @@
 
 const APP_CONFIG = {
   production: {
+    APP_NAME: 'Readr',
+    APP_DESC: 'A reading app',
+    SITE_URL: 'http://readrweb.com/',
     REST_API_PATH: '/api',
     SERVER_SIDE_RENDERING: true,
-    BROWSER: null // set by compiler
+    BROWSER: null, // set by compiler
+    ENABLE_ENTITY_CACHE: true
   },
   development: {
+    APP_NAME: 'Readr',
+    APP_DESC: 'A reading app',
+    SITE_URL: 'http://localhost:4002/',
     REST_API_PATH: '/api',
     SERVER_SIDE_RENDERING: true,
-    BROWSER: null
+    BROWSER: null,
+    ENABLE_ENTITY_CACHE: false
   }
 }
 
