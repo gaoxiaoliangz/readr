@@ -6,6 +6,7 @@
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import minimist from 'minimist'
 import path from 'path'
+import chalk from 'chalk'
 import paths from './paths'
 
 require('dotenv').config()
@@ -29,7 +30,7 @@ function run(fn, options) {
   const printStartInfo = () => {
     start = new Date()
     console.info(
-      `[${format(start)}${taskNameStr}] Running ${taskInfoStr}...`,
+      `${chalk.white.bgBlack(` ${format(start)}${taskNameStr}> `.toUpperCase())} Running ${taskInfoStr}...`,
     )
   }
 
@@ -37,7 +38,7 @@ function run(fn, options) {
     const end = new Date()
     const time = ((end.getTime() - start.getTime()) / 1000).toFixed(2)
     console.info(
-      `[${format(end)}${taskNameStr}] Finished ${taskInfoStr} after ${time}s`,
+      `${chalk.white.bgBlack(` ${format(end)}${taskNameStr}> `.toUpperCase())} Finished ${taskInfoStr} after ${time}s`,
     )
   }
 
