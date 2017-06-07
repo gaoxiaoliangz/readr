@@ -1,15 +1,9 @@
-/**
- * args read from command line
- * --targets=tar1,tar2
- */
-
 const rimraf = require('rimraf') // eslint-disable-line
-const minimist = require('minimist')
 
-const argv = minimist(process.argv.slice(2))
-const targets = (argv.targets || '').split(',')
-
-function clean() {
+/**
+ * @param targets string[]
+ */
+function clean(targets) {
   return Promise
     .all(targets.map((target) => {
       return new Promise((resolve) => {
