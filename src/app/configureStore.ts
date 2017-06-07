@@ -5,14 +5,14 @@ import createSagaMiddleware, { END } from 'redux-saga'
 import rootReducer from './reducers'
 import { cache, injectCookie, handleServerStore, logActionTypes } from './middleware'
 import helpers from './helpers'
-import { INITIAL_STATE } from '../constants'
+import { INITIAL_STATE_VAR_NAME } from './components/AppDoc'
 // import apolloClient from './apolloClient'
 
 function getInitialState() {
   if (typeof window === 'undefined') {
     return {}
   }
-  return window[INITIAL_STATE] || {}
+  return window[INITIAL_STATE_VAR_NAME] || {}
 }
 
 export default function configureStore(cookies?) {

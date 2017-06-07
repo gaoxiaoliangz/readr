@@ -4,7 +4,7 @@ import RootRoute from './containers/RootRoute'
 import UserApp from './containers/UserApp'
 import AdminApp from './containers/AdminApp'
 import * as restAPI from './restAPI'
-import { ROLES } from '../constants'
+// import { ROLES } from '../constants'
 
 const configRoutes = (context = {}) => {
   // server side needs injected cookie

@@ -4,7 +4,7 @@ import _ from 'lodash'
 import getAPIRoot from '../helpers/getApiRoot'
 import { createActionEntity } from '../actions/utils'
 import $request from '../../utils/network/request'
-import { FETCH_STATUS } from '../../constants'
+import { FETCH_STATUS } from '../constants'
 import { expandEntities, normalizeJSON } from '../utils/entity'
 
 const API_ROOT = getAPIRoot()

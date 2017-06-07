@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import humps from 'humps'
-import { FETCH_STATUS } from '../../../constants'
+import { FETCH_STATUS } from '../../constants'
 
 const receiveData = (types: RequestTypes, defaultData = {}, parser?) => {
   const _defaultData = {

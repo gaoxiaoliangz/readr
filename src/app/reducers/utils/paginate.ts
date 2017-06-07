@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { FETCH_STATUS } from '../../../constants'
+import { FETCH_STATUS } from '../../constants'
 
 export const DEFAULT_PAGINATION_STATE = {
   fetchStatus: FETCH_STATUS.NONE,
