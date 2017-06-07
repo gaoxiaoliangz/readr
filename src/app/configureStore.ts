@@ -25,7 +25,7 @@ export default function configureStore(cookies?) {
     thunk
   ]
 
-  if (helpers.isServerEnv()) {
+  if (!APP_ENV.BROWSER) {
     // server side
     baseMiddlewares.push(handleServerStore)
     if (process.env.NODE_ENV === 'production') {
@@ -47,7 +47,7 @@ export default function configureStore(cookies?) {
     }
   }
 
-  const composeEnhancers = (!helpers.isServerEnv() && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose
+  const composeEnhancers = (APP_ENV.BROWSER && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose
   const store = createStore(
     rootReducer,
     getInitialState(),

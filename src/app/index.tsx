@@ -5,10 +5,9 @@ import configRoutes from './configRoutes'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './configureStore'
 import rootSaga from './sagas'
-import helpers from './helpers'
 import AppProvider from './containers/AppProvider'
 
-const routerHistory = helpers.isServerRoutingEnabled()
+const routerHistory = APP_ENV.SERVER_SIDE_RENDERING
   ? browserHistory
   : hashHistory
 

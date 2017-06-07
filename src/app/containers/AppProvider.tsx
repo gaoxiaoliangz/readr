@@ -3,7 +3,6 @@ import { Provider } from 'react-redux'
 import { Router, RouterContext } from 'react-router'
 import _ from 'lodash'
 import { ApolloProvider } from 'react-apollo'
-import helpers from '../helpers'
 import apolloClient from '../apolloClient'
 import Loading from '../components/Loading/Loading'
 
@@ -20,7 +19,7 @@ class AppProvider extends Component<Props, {}> {
   }
 
   renderRouter(renderProps) {
-    return helpers.isServerEnv()
+    return !APP_ENV.BROWSER
       ? (
         <RouterContext {...renderProps} />
       )

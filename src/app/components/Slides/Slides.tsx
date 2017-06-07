@@ -3,7 +3,6 @@ import Slider from 'react-slick'
 import styles from './Slides.scss'
 import PrevArrow from './PrevArrow'
 import NextArrow from './NextArrow'
-import helpers from '../../helpers'
 
 type Props = {
   images: any[]
@@ -29,7 +28,7 @@ const settings = {
 }
 
 const Slides = ({ images }: Props) => {
-  const isServerEnv = helpers.isServerEnv()
+  const isServerEnv = !APP_ENV.BROWSER
   return (
     <div style={{ maxHeight: 420, overflow: isServerEnv ? 'hidden' : 'initial', paddingBottom: 50 }}>
       {
