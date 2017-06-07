@@ -1,5 +1,5 @@
 // global vars
-export const ENABLE_SERVER_ROUTING = '__ENABLE_SERVER_ROUTING__'
+// export const ENABLE_SERVER_ROUTING = '__ENABLE_SERVER_ROUTING__'
 export const INITIAL_STATE = '__INITIAL_STATE__'
 
 // api

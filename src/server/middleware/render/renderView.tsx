@@ -61,7 +61,7 @@ export function renderView() {
 
   return async (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
-    const useServerRendering = process.env.ENABLE_SERVER_RENDERING === '1'
+    const useServerRendering = process.env.READR_APP_ENABLE_SSR
     const appMarkup = (
       <AppProvider
         renderPageContent={useServerRendering}
@@ -76,7 +76,7 @@ export function renderView() {
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏
     const { bodyClass, head } = DocContainer.rewind()
-    const initialState = process.env.ENABLE_INITIAL_STATE === '1'
+    const initialState = process.env.ENABLE_INITIAL_STATE
       ? req.locals.store.getState()
       : {}
 

@@ -17,7 +17,6 @@ import getClientEnvironment from './env'
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
-const env = getClientEnvironment(isDebug ? `http://localhost:${process.env.WEBPACK_PORT}` : 'http://readrweb.com/')
 // const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
 const vars = {
@@ -320,6 +319,8 @@ export const serverConfig = {
       entryOnly: true
     }),
 
+    new webpack.DefinePlugin(getClientEnvironment(isDebug, false).stringified),
+
     // Do not create separate chunks of the server bundle
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
@@ -386,7 +387,7 @@ export const clientConfig = {
     //   'process.env.BROWSER': true,
     //   __DEV__: isDebug,
     // }),
-    new webpack.DefinePlugin(env.stringified),
+    new webpack.DefinePlugin(getClientEnvironment(isDebug, true).stringified),
 
     new ExtractTextPlugin({
       filename: 'css/[name].css',

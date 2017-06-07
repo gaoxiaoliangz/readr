@@ -57,7 +57,7 @@ export default function initialize(config: InitConfig) {
   app.use(middleware.parseContext)
 
   // graphql api
-  app.use(process.env.READR_APP_GRAPHQL_PATH, graphQLHTTP({
+  app.use('/gql', graphQLHTTP({
     schema,
     graphiql: true,
     pretty: true,
@@ -85,7 +85,7 @@ export default function initialize(config: InitConfig) {
   }))
 
   // rest api routing
-  app.use(process.env.READR_APP_REST_PATH, apiApp())
+  app.use(process.env.REST_API_PATH, apiApp())
 
   // render view
   app.use(render())

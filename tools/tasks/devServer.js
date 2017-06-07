@@ -118,8 +118,8 @@ function devServer() {
     }
   }
 
-  const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
-  const host = process.env.HOST || 'localhost'
+  const protocol = 'http'
+  const host = 'localhost'
 
   return runDevServer(host, port, protocol)
 }

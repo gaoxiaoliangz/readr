@@ -1,13 +1,6 @@
-import getEnv from './getEnv'
-import isServerEnv from './isServerEnv'
-
-const env = getEnv()
-
 export default function getApiRoot() {
-  const { PORT } = env
-
-  if (isServerEnv()) {
-    return `http://localhost:${PORT}/api`
+  if (APP_CONFIG.BROWSER) {
+    return `http://localhost:${process.env.PORT}/api`
   }
   return '/api'
 }
