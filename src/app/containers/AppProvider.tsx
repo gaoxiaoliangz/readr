@@ -19,7 +19,7 @@ class AppProvider extends Component<Props, {}> {
   }
 
   renderRouter(renderProps) {
-    return !APP_ENV.BROWSER
+    return !__BROWSER__
       ? (
         <RouterContext {...renderProps} />
       )

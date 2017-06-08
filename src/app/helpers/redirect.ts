@@ -1,9 +1,10 @@
-import { hashHistory, browserHistory } from 'react-router'
+import { browserHistory, hashHistory } from 'react-router'
+import { USE_HASH_HISTORY } from '../config'
 
 export default function redirect(url: string) {
-  if (APP_ENV.SERVER_SIDE_RENDERING) {
-    browserHistory.push(url)
-  } else {
+  if (USE_HASH_HISTORY) {
     hashHistory.push(url)
+  } else {
+    browserHistory.push(url)
   }
 }

@@ -6,13 +6,14 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './configureStore'
 import rootSaga from './sagas'
 import AppProvider from './containers/AppProvider'
+import { USE_HASH_HISTORY } from './config'
 
-const routerHistory = APP_ENV.SERVER_SIDE_RENDERING
+const routerHistory = !USE_HASH_HISTORY
   ? browserHistory
   : hashHistory
 
 const store = configureStore()
-const history = syncHistoryWithStore(routerHistory as any, store) as any
+const history = syncHistoryWithStore(routerHistory, store)
 const rootEle = document.getElementById('root')
 
 store.runSaga(rootSaga)

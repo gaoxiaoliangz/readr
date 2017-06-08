@@ -2,7 +2,7 @@ import * as cache from '../utils/browser/cache'
 import { put, call } from 'redux-saga/effects'
 import _ from 'lodash'
 
-const { ENABLE_ENTITY_CACHE } = APP_ENV
+const ENABLE_ENTITY_CACHE = true
 
 const OPTIONS = 'options'
 const ID = 'id'

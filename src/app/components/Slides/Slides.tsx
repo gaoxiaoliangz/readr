@@ -28,7 +28,8 @@ const settings = {
 }
 
 const Slides = ({ images }: Props) => {
-  const isServerEnv = !APP_ENV.BROWSER
+  const isServerEnv = !__BROWSER__
+  
   return (
     <div style={{ maxHeight: 420, overflow: isServerEnv ? 'hidden' : 'initial', paddingBottom: 50 }}>
       {

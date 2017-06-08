@@ -15,7 +15,7 @@ function fetchData(req, res, next) {
     />
   )
 
-  const useServerRendering = process.env.READR_APP_ENABLE_SSR
+  const useServerRendering = process.env.ENABLE_SSR === '1'
   if (useServerRendering) {
     // if child components not rendered in the initial renderToString
     // componentWillMount hook will not be triggered

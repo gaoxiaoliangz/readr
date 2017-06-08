@@ -1,6 +1,8 @@
+import { API_PATH } from '../config'
+
 export default function getAPIRoot() {
-  if (!APP_ENV.BROWSER) {
-    return `http://localhost:${process.env.PORT}${APP_ENV.REST_API_PATH}`
+  if (!__BROWSER__) {
+    return `http://localhost:${process.env.PORT}${API_PATH}`
   }
-  return APP_ENV.REST_API_PATH
+  return API_PATH
 }
