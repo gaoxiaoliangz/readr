@@ -6,7 +6,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import DocContainer from '../../../app/components/DocContainer'
 import AppProvider from '../../../app/containers/AppProvider'
 import AppDoc, { DOCTYPE } from '../../../app/components/AppDoc'
-import manifest from '../../../../build/static/assets.manifest.json'
+import manifest from '../../../../build/assets/assets.manifest.json'
 import { PUBLIC_URL } from '../../constants'
 
 const debug = require('debug')('readr:renderView')

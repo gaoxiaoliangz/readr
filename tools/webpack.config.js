@@ -341,6 +341,10 @@ export const serverConfig = {
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
 
     new WebpackMd5Hash(),
+
+    // Webpack Bundle Analyzer
+    // https://github.com/th0r/webpack-bundle-analyzer
+    ...isAnalyze ? [new BundleAnalyzerPlugin()] : []
   ],
   module: {
     rules: [

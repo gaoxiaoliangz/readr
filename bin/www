@@ -6,7 +6,7 @@ require('dotenv-safe').load({
   sample: paths.resolveApp('.env-sample')
 })
 
-const initialize = require('../build/node').default // eslint-disable-line
+const initialize = require('../build/server').default // eslint-disable-line
 const basePath = process.cwd()
 
 initialize({ basePath })
