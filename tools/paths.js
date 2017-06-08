@@ -84,5 +84,5 @@ module.exports = {
   buildAssets: resolveApp('build/assets'),
 
   // for webpack use only
-  publicPath: '/static/',
+  publicPath: '/assets/',
 }

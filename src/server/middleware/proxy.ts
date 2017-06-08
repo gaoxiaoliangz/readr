@@ -5,9 +5,9 @@ const proxy = httpProxy.createProxyServer({})
 /**
  * @param target the url
  */
-function proxyMid(target: string) {
+function proxyMid(target: string, fn: (req, res) => boolean) {
   return (req, res, next) => {
-    if ((req.url.indexOf('/static') !== -1) || (req.url.indexOf('/sockjs-node') !== -1)) {
+    if (fn(req, res)) {
       proxy.web(req, res, { target })
     } else {
       next()

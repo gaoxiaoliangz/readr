@@ -229,8 +229,7 @@ const rules = {
         ? ExtractTextPlugin.extract({
           fallback: styleLoader,
           use: loaders,
-          // TODO
-          publicPath: '/static'
+          publicPath: paths.publicPath
         })
         : [styleLoader].concat(loaders)
     }

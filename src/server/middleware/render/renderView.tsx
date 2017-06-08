@@ -38,7 +38,7 @@ export function getJSUri(isProduction = false) {
     ]
   } else {
     jsAssets = [
-      resolveDevAssets('js/vendor.dll.js'),
+      resolveDevAssets('js/dll.js'),
       resolveDevAssets('js/app.js')
     ]
   }

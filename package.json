@@ -22,7 +22,7 @@
     "bundle:assets": "yarn run task -- bundle --target=assets --name=bundle\\ assets --release",
     "clean": "yarn run task -- cleanBuild --name=clean\\ build",
     "lint": "eslint src",
-    "watch:node": "yarn run bundle:node -- --watch",
+    "watch:server": "npm run task -- bundle --target=server --watch --name=watch\\ server",
     "watch:es": "tsc --watch",
     "watch:test": "yarn test -- --watch",
     "test": "jest --no-cache",
