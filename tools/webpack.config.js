@@ -465,6 +465,19 @@ export const clientConfig = {
         new webpack.optimize.CommonsChunkPlugin({
           name: 'manifest',
           minChunks: Infinity
+        }),
+
+        // From https://medium.com/webpack/webpack-bits-getting-the-most-out-of-the-commonschunkplugin-ab389e5f318
+        // new webpack.optimize.CommonsChunkPlugin({
+        //   children: true,
+        //   minChunks: 6
+        // })
+
+        // https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
+        // doesn't seem to work, but just keep it here
+        new webpack.optimize.CommonsChunkPlugin({
+          async: true,
+          children: true
         })
       ],
   ],
