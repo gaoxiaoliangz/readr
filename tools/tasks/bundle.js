@@ -14,15 +14,15 @@ const isWatching = argv.w || argv.watch
 
 const configMap = {
   dll: 'dllConfig',
-  node: 'serverConfig',
-  static: 'clientConfig'
+  server: 'serverConfig',
+  assets: 'clientConfig'
 }
 
 function bundle(target = targetArg) {
   const wpConfigName = configMap[target]
   const wpConfig = webpackConfig[wpConfigName]
-  const allowedTargets = Object.keys(configMap).join(', ')
-  
+  const allowedTargets = Object.keys(configMap).join(', ')  
+
   // todo: if tar is node, check 'build/static/assets.manifest.json' existence
   if (!wpConfig) {
     const noConfigError = new Error(`No config for ${target} found, allowed targets are: ${allowedTargets}`)

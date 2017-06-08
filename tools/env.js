@@ -7,7 +7,8 @@ import APP_ENV from '../app.env'
 function getAppEnvironment(isDebug, isBrowser) {
   const raw = {
     ...isDebug ? APP_ENV.development : APP_ENV.production,
-    BROWSER: isBrowser
+    BROWSER: isBrowser,
+    DEV: isDebug
   }
 
   if (isBrowser) {

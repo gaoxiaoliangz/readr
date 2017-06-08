@@ -12,18 +12,19 @@ import WebpackMd5Hash from 'webpack-md5-hash'
 import webpack from 'webpack'
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import paths from './paths'
 import getAppEnvironment from './env'
 
 const isDebug = !process.argv.includes('--release')
 const isVerbose = process.argv.includes('--verbose')
-// const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
+const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
 const vars = {
   cssLocalIdentName: '[local]_[hash:base64:5]',
   mediaFilename: 'media/[name].[hash:10].[ext]',
   vendorLibs: [
-    // react
+    // react tools
     'react',
     'react-dom',
     'react-addons-css-transition-group',
@@ -38,17 +39,26 @@ const vars = {
     'reselect',
     'redux-saga',
     'react-apollo',
+    'react-slick',
+    'react-helmet',
+    'react-markdown',
+    '@gxl/redux-form',
 
     // utils
     // lodash has corresponding plugin to cut down the build size
     // if defined here, it will bundle the whole lodash package
-    'jquery',
+    'babel-polyfill',
+    'debug', // shouldn't be here
+    'jquery', // todo: remove
     'normalizr',
     'humps',
     'isomorphic-fetch',
     'classnames',
     'marked',
-    'moment'
+    'moment',
+
+    // lib dependencies
+    'core-js', // todo: figure out which
   ],
   devLibs: [
     'redux-devtools-log-monitor',
@@ -256,6 +266,12 @@ const baseConfig = {
     ],
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
+
+  // Don't attempt to continue if there are any errors.
+  bail: !isDebug,
+
+  cache: isDebug,
+
   stats: {
     colors: true,
     reasons: isDebug,
@@ -275,18 +291,18 @@ const baseConfig = {
 // -----------------------------------------------------------------------------
 export const dllConfig = {
   entry: {
-    vendor: vars.vendorLibs
+    dll: vars.vendorLibs
   },
   output: {
-    path: paths.buildStatic,
-    filename: 'js/[name].dll.js',
-    library: '__dll_[name]__'
+    path: paths.buildAssets,
+    filename: 'js/[name].js',
+    library: '__dll__'
   },
   devtool: 'inline-source-map',
   plugins: [
     new webpack.DllPlugin({
-      path: path.join(paths.buildStatic, 'dll.[name].manifest.json'),
-      name: '__dll_[name]__'
+      path: path.join(paths.buildAssets, 'dll.manifest.json'),
+      name: '__dll__'
     })
   ]
 }
@@ -299,17 +315,16 @@ export const serverConfig = {
   ...baseConfig,
   entry: {
     // babel-polyfill will make debugging less pleasant, worse mapping something
-    index: [paths.serverSrc]
+    server: [paths.serverSrc]
   },
   output: {
     ...baseConfig.output,
-    path: paths.buildNode,
+    path: paths.build,
     filename: '[name].js',
     libraryTarget: 'commonjs2',
-    chunkFilename: 'chunk.[id].js',
 
     // editor break point support
-    devtoolModuleFilenameTemplate: '../../[resource-path]'
+    devtoolModuleFilenameTemplate: '../[resource-path]'
   },
   plugins: [
     // add support for node source map
@@ -367,14 +382,13 @@ export const clientConfig = {
   entry: {
     'app': ['babel-polyfill', paths.clientIndex],
     'frameworks.global': path.join(paths.appStyles, 'frameworks.global.scss'),
-    // if using fn to test minChunks then comment this out
-    // ...isDebug ? {} : {
-    //   'vendor': vars.vendorLibs
-    // }
+    ...isDebug ? {} : {
+      'vendor': vars.vendorLibs
+    }
   },
   output: {
     ...baseConfig.output,
-    path: paths.buildStatic,
+    path: paths.buildAssets,
     filename: isDebug ? 'js/[name].js' : 'js/[name].[chunkhash:10].js',
     chunkFilename: isDebug ? 'js/chunk.[id].js' : 'js/chunk.[chunkhash:10].[id].js',
   },
@@ -382,11 +396,6 @@ export const clientConfig = {
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
 
-    // new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-    //   'process.env.BROWSER': true,
-    //   __DEV__: isDebug,
-    // }),
     new webpack.DefinePlugin(getAppEnvironment(isDebug, true).stringified),
 
     new ExtractTextPlugin({
@@ -395,11 +404,22 @@ export const clientConfig = {
       allChunks: true
     }),
 
+    // Webpack Bundle Analyzer
+    // https://github.com/th0r/webpack-bundle-analyzer
+    ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
+
     ...isDebug
       ? [
         new webpack.DllReferencePlugin({
           context: '.',
-          manifest: require('../build/static/dll.vendor.manifest.json')
+          manifest: (() => {
+            try {
+              return require('../build/assets/dll.manifest.json')
+            } catch (error) {
+              console.warn('WARNING: dll.manifest.json not found!')
+              return {}
+            }
+          })()
         })
       ]
       : [
@@ -439,9 +459,13 @@ export const clientConfig = {
         // http://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
         new webpack.optimize.CommonsChunkPlugin({
           name: 'vendor',
-          // minChunks: Infinity
-          minChunks: module => /node_modules/.test(module.resource),
+          minChunks: Infinity
         }),
+
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'manifest',
+          minChunks: Infinity
+        })
       ],
   ],
   // or maybe 'inline-source-map',
