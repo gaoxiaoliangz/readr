@@ -24,7 +24,8 @@
     "lint": "eslint src",
     "watch:node": "npm run bundle:node -- --watch",
     "watch:es": "tsc --watch",
-    "test": "jest --no-cache --watchAll --config=.jestrc",
+    "watch:test": "npm test -- --watch",
+    "test": "jest --no-cache",
     "task": "babel-node tools/runTask",
     "tsc": "tsc"
   },
@@ -202,7 +203,7 @@
     "gulp-typescript": "^3.1.6",
     "image-webpack-loader": "^2.0.0",
     "isomorphic-style-loader": "^1.0.0",
-    "jest": "^19.0.2",
+    "jest": "^20.0.4",
     "mocha": "^3.2.0",
     "node-sass": "^4.3.0",
     "optimize-css-assets-webpack-plugin": "^1.3.0",
@@ -226,6 +227,7 @@
     "string-replace-loader": "^1.1.0",
     "style-loader": "^0.13.0",
     "supertest": "^1.2.0",
+    "ts-jest": "^20.0.4",
     "ts-loader": "^2.0.1",
     "ts-node": "^2.1.0",
     "tslint": "^4.5.1",
@@ -241,5 +243,28 @@
     "webpack-md5-hash": "0.0.5",
     "webpack-node-externals": "^1.5.4",
     "write-file-webpack-plugin": "^4.0.2"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "setupFiles": [
+      "<rootDir>/tools/polyfills.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>[/\\\\](build|bin|node_modules|tools)[/\\\\]"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+    "modulePaths": [
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   }
 }
