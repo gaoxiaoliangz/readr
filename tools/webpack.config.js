@@ -269,7 +269,7 @@ const baseConfig = {
   // Don't attempt to continue if there are any errors.
   bail: !isDebug,
 
-  cache: false,
+  cache: isDebug,
 
   stats: {
     colors: true,
@@ -339,7 +339,7 @@ export const serverConfig = {
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
     // new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
 
-    new WebpackMd5Hash(),
+    // new WebpackMd5Hash(),
 
     // Webpack Bundle Analyzer
     // https://github.com/th0r/webpack-bundle-analyzer
@@ -485,7 +485,8 @@ export const clientConfig = {
       ],
   ],
   // or maybe 'inline-source-map',
-  devtool: isDebug ? 'cheap-module-source-map' : false,
+  // devtool: isDebug ? 'cheap-module-source-map' : false,
+  devtool: isDebug ? 'eval-cheap-module-source-map' : false,
   module: {
     rules: [
       rules.img(),
