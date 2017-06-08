@@ -269,7 +269,7 @@ const baseConfig = {
   // Don't attempt to continue if there are any errors.
   bail: !isDebug,
 
-  cache: isDebug,
+  cache: false,
 
   stats: {
     colors: true,
@@ -337,7 +337,7 @@ export const serverConfig = {
 
     // Do not create separate chunks of the server bundle
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    // new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
 
     new WebpackMd5Hash(),
 

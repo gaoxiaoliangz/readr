@@ -1,13 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import urlJoin from 'url-join'
 import _ from 'lodash'
-import getAPIRoot from '../helpers/getApiRoot'
+import getAPIRoot from '../helpers/getAPIRoot'
 import { createActionEntity } from '../actions/utils'
 import $request from '../../utils/network/request'
 import { FETCH_STATUS } from '../constants'
 import { expandEntities, normalizeJSON } from '../utils/entity'
 
-const API_ROOT = getAPIRoot()
+const API_ROOT = getAPIRoot().rest
 
 function* handleLoad(action: LoaderAction) {
   const { meta, payload } = action

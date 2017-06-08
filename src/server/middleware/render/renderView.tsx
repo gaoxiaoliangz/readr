@@ -60,9 +60,20 @@ export function renderView() {
         store={req.locals.store}
       />
     )
-    const appMarkupString = useServerRendering
-      ? await renderToStringWithData(appMarkup)
-      : renderToStaticMarkup(appMarkup)
+    let appMarkupString
+    try {
+      if (useServerRendering) {
+        appMarkupString = await renderToStringWithData(appMarkup)
+          .catch(err => {
+            // todo: better way to handle error
+            console.error(err)
+          })
+      } else {
+        appMarkupString = renderToStaticMarkup(appMarkup)
+      }
+    } catch (error) {
+      throw error
+    }
 
     // 需要在 render 之后调用
     // 不调用 rewind 会造成内存泄漏

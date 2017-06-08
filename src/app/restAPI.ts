@@ -3,7 +3,7 @@ import helpers from './helpers'
 import request from './../utils/network/request'
 import { DOUBAN_API_ROOT } from './constants'
 
-const API_ROOT = helpers.getAPIRoot()
+const API_ROOT = helpers.getAPIRoot().rest
 
 // resolve endpoint
 const re = endpoint => {

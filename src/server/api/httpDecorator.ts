@@ -3,7 +3,7 @@ import { parseLinks } from './utils'
 import helpers from '../../app/helpers'
 import { QueryResult } from '../models/queryResult'
 
-const API_ROOT = helpers.getAPIRoot()
+const { rest: API_ROOT } = helpers.getAPIRoot()
 
 const addHeader = (req, res, result: QueryResult<any>) => {
   if (QueryResult.prototype.isPrototypeOf(result)) {

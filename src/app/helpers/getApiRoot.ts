@@ -1,8 +1,10 @@
-import { API_PATH } from '../config'
+import { REST_API_PATH, GRAPHQL_API_PATH } from '../config'
 
-export default function getAPIRoot() {
-  if (!__BROWSER__) {
-    return `http://localhost:${process.env.PORT}${API_PATH}`
+function getAPIRoot() {
+  return {
+    rest: __BROWSER__ ? REST_API_PATH : `http://localhost:${process.env.PORT}${REST_API_PATH}`,
+    graphql: __BROWSER__ ? GRAPHQL_API_PATH : `http://localhost:${process.env.PORT}${GRAPHQL_API_PATH}`
   }
-  return API_PATH
 }
+
+export default getAPIRoot

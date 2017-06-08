@@ -1,4 +1,4 @@
-import getAPIRoot from './getApiRoot'
+import getAPIRoot from './getAPIRoot'
 import redirect from './redirect'
 import getReaderURI from './getReaderUri'
 
