@@ -1,6 +1,6 @@
 {
   "name": "readr",
-  "version": "0.11.0",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": ">=6.5",
@@ -9,6 +9,7 @@
   "scripts": {
     "start": "yarn run devServer",
     "all": "concurrently \"npm run devServer\" \"npm run debug\" \"npm run watch:node\"",
+    "serve": "node bin/www",
     "debug": "DEBUG=readr:* nodemon --debug=9229 --inspect bin/www",
     "debug:noReload": "DEBUG=readr:* node --debug=9229 --inspect bin/www",
     "debug:legacy": "DEBUG=readr:* nodemon --debug=5858 bin/www",

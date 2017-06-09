@@ -33,6 +33,7 @@ export function getJSUri(isProduction = false) {
 
   if (isProduction) {
     jsAssets = [
+      path.join(PUBLIC_URL, manifest['manifest.js']),
       path.join(PUBLIC_URL, manifest['vendor.js']),
       path.join(PUBLIC_URL, manifest['app.js'])
     ]
