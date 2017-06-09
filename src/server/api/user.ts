@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import humps from 'humps'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
+import { sortByNewest } from './utils'
 
-export function getReadingProgressCore({bookId, userId}) {
+export function getReadingProgressCore({ bookId, userId }) {
   if (!userId) {
     return Promise.reject(new Error('Sign-in required!'))
   }
@@ -14,7 +15,12 @@ export function getReadingProgressCore({bookId, userId}) {
 export function getReadingProgress(options) {
   const { bookId } = options
   const { user: { _id: userId } } = options.context
-  return getReadingProgressCore({bookId, userId})
+  return getReadingProgressCore({ bookId, userId })
+}
+
+export const removeReadingProgress = ({ bookId, userId }) => {
+  const query = humps.decamelizeKeys({ userId, bookId })
+  return dataProvider.Progress.findOne(query).remove().exec()
 }
 
 export const setReadingProgressCore = async ({ bookId, userId, percentage }) => {
@@ -45,17 +51,31 @@ export function listShelfBooks(options) {
   return dataProvider.Progress.find({ user_id }).exec().then(docs => {
     return Promise
       .all(docs
-        .map(doc => {
-          return dataProvider.Book.findById(doc['book_id']).exec().then(bookDoc => {
-            // todo: outputEmpty, in case book is removed
-            // if (!bookDoc) {
-            //   return bookModel.outputEmpty(result.book_id)
-            // }
-            return bookDoc
-          })
+        .sort(sortByNewest())
+        .map(progressDoc => {
+          return dataProvider.Book.findById(progressDoc['book_id'])
+            .populate('authors file')
+            .exec().then(bookDoc => {
+              // todo: outputEmpty, in case book is removed
+              // if (!bookDoc) {
+              //   return bookModel.outputEmpty(result.book_id)
+              // }
+              return {
+                ..._.omit(bookDoc.toObject(), ['file']),
+                ..._.pick(progressDoc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
+                book_id: bookDoc._id
+              }
+            })
         })
       )
   })
+}
+
+export const updateProfile = async (object, options) => {
+  const { user: { _id: id } } = options.context
+  const result = await dataProvider.User.utils.updateById(id, object)
+
+  return result
 }
 
 export default {

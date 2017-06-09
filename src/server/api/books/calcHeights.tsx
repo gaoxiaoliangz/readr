@@ -3,8 +3,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import _ from 'lodash'
 import AppDoc from '../../../app/components/AppDoc'
 import HTMLObjectsRenderer from '../../../app/components/HTMLObjectsRenderer'
-import evaluate from '../../../renderers/evaluate'
-import { getCssLinks } from '../../middleware/render/render-view'
+import evaluate from '../../helpers/evaluate'
+import { getCSSUri } from '../../middleware/render/renderView'
 const debug = require('debug')('readr:api:calcHeights')
 
 type MappedSection = {
@@ -21,7 +21,7 @@ const calcHeights = async (sections: MappedSection[], rendererConfig: RenderConf
   // get node heights in sections
   const htmlString = renderToStaticMarkup(
     <AppDoc
-      link={getCssLinks()}
+      link={getCSSUri()}
       appMarkup={
         <div className="sections">
           {

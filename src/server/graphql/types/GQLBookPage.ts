@@ -5,6 +5,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql'
+import md5 from 'md5'
 import { extendedConnectionDefinitions } from '../utils'
 
 const GQLHTMLElementObject = new GraphQLObjectType({
@@ -46,11 +47,15 @@ export const GQLBookPage = new GraphQLObjectType({
   name: 'BookPage',
   description: 'Computed bookpage',
   fields: {
-    elements: {
-      type: new GraphQLList(GQLHTMLElementObject),
+    id: {
+      type: GraphQLString,
       resolve(bookPage) {
-        return bookPage.elements
-      }
+        return md5(JSON.stringify(bookPage))
+      },
+      description: 'md5 of bookPage, apollo needs this to normalize data'
+    },
+    elements: {
+      type: new GraphQLList(GQLHTMLElementObject)
     },
     meta: {
       type: new GraphQLObjectType({
@@ -66,10 +71,7 @@ export const GQLBookPage = new GraphQLObjectType({
             type: GraphQLString
           }
         }
-      }),
-      resolve(bookPage) {
-        return bookPage.meta
-      }
+      })
     }
   }
 })

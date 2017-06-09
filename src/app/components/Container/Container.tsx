@@ -1,12 +1,33 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 
-class Container extends Component<any, any> {
+interface Props extends HTMLProps {
+  maxWidth?: number | string
+  isFluid?: boolean
+}
+
+class Container extends Component<Props, void> {
+
+  static defaultProps: Props = {
+    maxWidth: '100%',
+    isFluid: false
+  }
+
   render() {
-    let className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ` ${this.props.className}` : '')
+    const className = (this.props.isFluid ? 'container-fluid' : 'container') + (this.props.className ? ` ${this.props.className}` : '')
 
     return (
-      <div className={className}>
-        {this.props.children}
+      <div
+        {..._.omit(this.props, ['maxWidth', 'isFluid']) }
+        style={{
+          ...this.props.style,
+          maxWidth: this.props.maxWidth,
+          margin: '0 auto'
+        }}
+      >
+        <div className={className}>
+          {this.props.children}
+        </div>
       </div>
     )
   }

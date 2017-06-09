@@ -1,7 +1,7 @@
 import pinyin from 'pinyin'
 import _ from 'lodash'
-import dataProvider from '../../models/data-provider'
-import { searchBook } from '../vendor/douban'
+import dataProvider from '../../models/dataProvider'
+import { searchBook } from '../doubanAPI'
 import validator from 'validator'
 
 export async function getAuthorId(authorName, description?) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import form from 'better-redux-form'
+import form from '@gxl/redux-form'
 import { sendNotification } from '../../../actions'
 import { Input, Button } from '../../../components/form'
 import validation from '../../../utils/validation'

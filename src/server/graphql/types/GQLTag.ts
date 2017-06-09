@@ -1,5 +1,5 @@
 import makeUtils from '../utils'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 import { nodeInterface } from '../node'
 
 const utils = makeUtils({ nodeInterface })

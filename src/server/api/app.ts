@@ -3,8 +3,9 @@ import _ from 'lodash'
 import multer from 'multer'
 import os from 'os'
 import middleware from '../middleware'
-import httpDecorator from './http-decorator'
+import httpDecorator from './httpDecorator'
 import api from '../api'
+import ALLOWED_ORIGINS from '../allowedOrigins'
 
 const upload = multer({
   dest: os.tmpdir()
@@ -91,7 +92,7 @@ function apiRoutes() {
 export default function setupApiApp() {
   const apiApp = express()
 
-  apiApp.use(middleware.setHeader)
+  apiApp.use(middleware.cors(ALLOWED_ORIGINS))
   apiApp.use(apiRoutes())
   apiApp.use(middleware.handleAPINotFound)
   apiApp.use(middleware.handleError)

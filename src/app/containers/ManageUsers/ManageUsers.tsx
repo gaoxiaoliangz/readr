@@ -10,8 +10,8 @@ import ContentPage from '../../components/ContentPage'
 
 interface Props {
   loadUsers: typeof loadUsers
-  users: SelectedPagination
-  routing: SelectedRouting
+  users: State.Pagination
+  routing: State.Routing
 }
 
 class ManageUsers extends Component<Props, {}> {

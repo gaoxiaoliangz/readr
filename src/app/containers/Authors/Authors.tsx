@@ -26,8 +26,6 @@ const loadData = (props) => {
         after: (_.last(props.data.viewer.authors.edges) as any).cursor
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        console.log(previousResult);
-        
         return Object.assign({}, previousResult, {
           viewer: {
             authors: {

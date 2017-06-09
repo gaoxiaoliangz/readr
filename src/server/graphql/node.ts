@@ -3,7 +3,7 @@ import {
   nodeDefinitions
 } from 'graphql-relay'
 import _ from 'lodash'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 import * as GQLTypes from './types'
 import api from '../api'
 const debug = require('debug')('readr:gql-node')

@@ -6,6 +6,8 @@ import { signup } from '../../actions/api'
 import DocContainer from '../../components/DocContainer'
 import SignupForm from './components/SignupForm'
 import { Container } from '../../components/layout'
+import Branding from '../Branding/Branding'
+import Colophon from '../../components/Colophon/Colophon'
 
 interface Props {
   sendNotification?: any
@@ -26,13 +28,15 @@ class Signup extends Component<Props, {}> {
   render() {
     return (
       <DocContainer title="注册">
-        <Container>
-          <h1 className="page-title">加入 Readr</h1>
+        <Branding />
+        <Container maxWidth={600}>
+          <h1 className="page-title">注册</h1>
           <SignupForm
             onSave={this.handleSignup}
-            />
+          />
           <p className="hint">已有账号？<Link to="/signin">登录</Link></p>
         </Container>
+        <Colophon />
       </DocContainer>
     )
   }

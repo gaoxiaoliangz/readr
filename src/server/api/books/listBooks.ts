@@ -1,5 +1,5 @@
 import pipeline from '../../../utils/pipeline'
-import dataProvider from '../../models/data-provider'
+import dataProvider from '../../models/dataProvider'
 import _ from 'lodash'
 import {
   validateOptions,
@@ -9,7 +9,8 @@ import {
   Book
 } from './findBook'
 import { QueryResult } from '../../models/queryResult'
-import { PAGE_LIMIT } from '../../../constants'
+
+const PAGE_LIMIT = 10
 
 interface ListBooksOptions extends BookOptions {
   page?: number

@@ -1,0 +1,30 @@
+@import "~styles/variables";
+
+.editable-field {
+  position: relative;
+}
+
+.btn {
+  margin: 0 5px;
+}
+
+.input-normal {
+  color: $text;
+  line-height: 25px;
+  margin: 0;
+  width: 400px;
+}
+
+.input {
+  composes: input-normal;
+  input {
+    color: $text;
+    padding: 0;
+    border: none;
+  }
+}
+
+.right {
+  float: right;
+  margin-top: 10px;
+}

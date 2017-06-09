@@ -15,8 +15,8 @@ interface Props {
   sendNotification: typeof sendNotification
   confirmModal: any
   closeConfirmModal: typeof closeConfirmModal
-  routing: any
-  session: Session
+  routing: State.Routing
+  session: State.Session
   modal: any
   closeModal: typeof closeModal
   loadSession: typeof loadSession
@@ -30,7 +30,7 @@ class Master extends Component<Props, {}> {
 
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
-    const routerChanged = nextProps.routing.locationBeforeTransitions.pathname !== this.props.routing.locationBeforeTransitions.pathname
+    const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
@@ -38,7 +38,10 @@ class Master extends Component<Props, {}> {
 
     if (routerChanged) {
       // back to top when route changed
-      window.document.body.scrollTop = 0
+      setTimeout(() => {
+        window.document.body.scrollTop = 0
+        // must be less than SCROLL_DELAY(100ms) defined in Reader component
+      }, 50)
     }
   }
 
@@ -93,7 +96,7 @@ export default connect<{}, {}, Props>(
     errorMessage: state.errorMessage,
     confirmModal: state.components.confirmModal,
     modal: state.components.modal,
-    routing: state.routing,
+    routing: selectors.routing(state),
     session: selectors.session(state)
   }),
   { sendNotification, hideNotification, closeConfirmModal, closeModal, loadSession }

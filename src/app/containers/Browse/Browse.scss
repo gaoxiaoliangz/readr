@@ -1,4 +1,25 @@
-.btn-load-more {
-  margin: 20px auto;
-  display: block;
+@import "~styles/variables";
+
+:global .page-browse {
+  background: $bg-gray;
+}
+
+.hero-image {
+  text-align: center;
+  height: 500px;
+}
+
+.logo {
+  text-align: center;
+  padding-top: 150px;
+  font-size: 1.2rem;
+}
+
+.btn {
+  margin: 0 auto;
+}
+
+.page-title {
+  margin: 10px 0 20px;
+  font-size: 2rem;
 }

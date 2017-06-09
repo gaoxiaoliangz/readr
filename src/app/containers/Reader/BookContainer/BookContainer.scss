@@ -1,0 +1,23 @@
+@import "~styles/variables";
+
+.page-no {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 10px;
+  color: $gray;
+  font-size: 1.1rem;
+}
+
+.page-container--white {
+  background: #fff;
+}
+
+.page-container--night {
+  background: #333;
+  color: #fff;
+}
+
+.page-container--sepia {
+  background: #fbf7f1;
+}

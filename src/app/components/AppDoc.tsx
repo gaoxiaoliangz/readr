@@ -1,6 +1,6 @@
 import React from 'react'
-import { INITIAL_STATE } from '../../constants'
 
+export const INITIAL_STATE_VAR_NAME = '__INITIAL_STATE__'
 export const DOCTYPE = '<!DOCTYPE html>'
 
 interface Props {
@@ -102,7 +102,7 @@ const AppDoc = (props: Props) => {
         {
           initialState && (
             <script
-              dangerouslySetInnerHTML={{ __html: `var ${INITIAL_STATE} = ${JSON.stringify(initialState || {})};` }}
+              dangerouslySetInnerHTML={{ __html: `var ${INITIAL_STATE_VAR_NAME} = ${JSON.stringify(initialState || {})};` }}
             />
           )
         }

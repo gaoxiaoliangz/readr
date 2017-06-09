@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Loading from '../../components/Loading'
 import { Button } from '../../components/form'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import CSSModules from 'react-css-modules'
 import styles from './BookDetail.scss'
-import { gql, graphql } from 'react-apollo'
+import { gql, graphql, compose } from 'react-apollo'
+import Branding from '../Branding/Branding'
+import Colophon from '../../components/Colophon/Colophon'
+import Container from '../../components/Container/Container'
+import { Tab, Tabs } from '../../components/Tab'
+import BOOK_RECURSIVE_TOC from '../../graphql/fragments/BookRecursiveToc.gql'
+import BOOK_INFO from '../../graphql/fragments/BookInfo.gql'
+import BookToc from '../../components/BookToc'
+import helpers from '../../helpers'
+import withIndicator from '../../helpers/withIndicator'
 
 type Data = State.Apollo<{
   book: {
@@ -17,6 +25,7 @@ type Data = State.Apollo<{
     }[]
     description: string
     cover: string
+    toc: Schema.TocItem[]
   }
 }>
 
@@ -24,7 +33,6 @@ interface Props {
   data: Data
 }
 
-@CSSModules(styles)
 class BookDetail extends Component<Props, {}> {
 
   bookId: string
@@ -35,82 +43,88 @@ class BookDetail extends Component<Props, {}> {
   }
 
   render() {
-    const isFetching = this.props.data.loading
-    const bookInfo = this.props.data.book || {} as any
+    const bookInfo = this.props.data.book
 
     return (
-      <DocContainer bodyClass="book-info" title={bookInfo.title}>
-        <div className="container">
+      <DocContainer bodyClass="page-book-info" title={bookInfo.title}>
+        <Branding />
+        <Container>
           <article styleName="book-info-container">
             <div styleName="book-detail">
               <header styleName="header">
-                {
-                  isFetching
-                    ? <Loading />
-                    : (
-                      <div>
-                        <div styleName="left-col">
-                          {
-                            bookInfo.cover && (
-                              <div styleName="book-cover">
-                                <img styleName="img" src={bookInfo.cover} />
-                              </div>
-                            )
-                          }
+                <div>
+                  <div styleName="left-col">
+                    {
+                      bookInfo.cover && (
+                        <div styleName="book-cover">
+                          <img styleName="img" src={bookInfo.cover} />
                         </div>
-                        <div styleName="right-col">
-                          <h1 styleName="book-name">{bookInfo.title || '无标题'}</h1>
-                          <div styleName="book-author">
-                            <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
-                          </div>
-                          <div>
-                            <Button styleName="btn-read" to={`/viewer/v2/book/${bookInfo.id}`} color="blue">阅读</Button>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                }
-              </header>
-              {
-                bookInfo.description && (
-                  <div styleName="content">
-                    <h2 styleName="desc">内容简介</h2>
-                    <p>{bookInfo.description}</p>
+                      )
+                    }
                   </div>
-                )
-              }
+                  <div styleName="right-col">
+                    <h1 styleName="book-name">{bookInfo.title || '无标题'}</h1>
+                    <div styleName="book-author">
+                      <strong>作者：{bookInfo.authors && bookInfo.authors.map(a => a.name).join(', ') || '未知'}</strong>
+                    </div>
+                    <div>
+                      <Button styleName="btn-read" to={helpers.getReaderURI(bookInfo.id)} color="green">阅读</Button>
+                    </div>
+                  </div>
+                </div>
+              </header>
+              <div styleName="content">
+                <Tabs>
+                  <Tab title="内容简介">
+                    <p>{bookInfo.description}</p>
+                  </Tab>
+                  <Tab title="目录">
+                    <BookToc
+                      toc={bookInfo.toc}
+                      linkTpl={(sectionId, hash) => {
+                        return helpers.getReaderURI(`${bookInfo.id}#${sectionId},${hash}`)
+                      }}
+                    />
+                  </Tab>
+                </Tabs>
+              </div>
             </div>
           </article>
-        </div>
+        </Container>
+        <Colophon />
       </DocContainer>
     )
   }
 }
 
-const BookDetailWithData = graphql(gql`
+const withData = graphql(gql`
   query queryBooks($id: ID!) {
     book(id: $id) {
-      id
-      title
-      cover
-      description
-      authors {
-        name
+      ...BookInfo
+      toc {
+        ...BookRecursiveToc
       }
     }
   }
+  ${BOOK_INFO}
+  ${BOOK_RECURSIVE_TOC}
 `, {
-  options: (props) => {
-    return {
-      variables: {
-        id: props.params.id
+    options: (props) => {
+      return {
+        variables: {
+          id: props.params.id
+        }
       }
     }
-  }
-})(BookDetail)
+  })
 
 const mapStateToProps = (state, ownProps) => ({})
 
-export default connect<{}, {}, Props>(
-  mapStateToProps
-)(BookDetailWithData)
+export default compose(
+  withData,
+  withIndicator(),
+  connect(
+    mapStateToProps
+  ),
+  CSSModules(styles)
+)(BookDetail)

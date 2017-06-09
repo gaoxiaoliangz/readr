@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import parseUrlencoded from '../../utils/parseUrlencoded'
-import dataProvider from '../models/data-provider'
+import dataProvider from '../models/dataProvider'
 
 export class APIResult {
   _data: any
@@ -124,4 +124,10 @@ export const validateNonNullOptions = (options, nonNullFieldList) => {
     }
   }
   return
+}
+
+export const sortByNewest = (key = 'updated_at') => {
+  return (a, b) => {
+    return new Date(b[key]).valueOf() - new Date(a[key]).valueOf()
+  }
 }

@@ -1,13 +1,20 @@
+/**
+ * ReaderL saga watcher
+ */
 import { take, put, select, fork } from 'redux-saga/effects'
 import * as actions from '../actions'
 import * as ACTION_TYPES from '../actions/actionTypes'
 import _ from 'lodash'
 import * as selectors from '../selectors'
 import calcBook from './effects/calcBook'
-import { DEFAULT_FONT_SIZE, DEFAULT_PAGE_HEIGHT } from '../../constants/viewerDefs'
-import shouldViewerBeFluid from '../helpers/shouldViewerBeFluid'
+import { VIEWER_DEFS } from '../containers/ReaderL/ReaderLConstants'
 import schemas from '../schemas'
 import getScreenInfo from '../utils/browser/getScreenInfo'
+
+export const shouldViewerBeFluid = () => {
+  const viewerWidth = getScreenInfo().width
+  return viewerWidth < VIEWER_DEFS.MOBILE_BREAK_POINT
+}
 
 async function pause(t = 1) {
   return new Promise(resolve => {
@@ -26,8 +33,8 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
       fluid,
       isScrollMode: true,
       isTouchMode: fluid,
-      pageHeight: DEFAULT_PAGE_HEIGHT,
-      fontSize: DEFAULT_FONT_SIZE,
+      pageHeight: VIEWER_DEFS.DEFAULT_PAGE_HEIGHT,
+      fontSize: VIEWER_DEFS.DEFAULT_FONT_SIZE,
       theme: 'WHITE' as Viewer.Themes,
 
       // width of viewer is exactly the width here when in fluid mode
@@ -39,7 +46,7 @@ const getDefaultConfig = (override: Viewer.Config = {}): Viewer.Config => {
 }
 
 function* loadProgressAndGo(bookId) {
-  const session: Session = yield select(selectors.session)
+  const session: State.Session = yield select(selectors.session)
   if (session.role !== 'visitor') {
     yield put(actions.api.loadBookProgress(bookId))
     yield take(ACTION_TYPES.BOOK_PROGRESS.SUCCESS)

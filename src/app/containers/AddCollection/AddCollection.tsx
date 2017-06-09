@@ -5,7 +5,7 @@ import { sendNotification, resetForm } from '../../actions'
 import { loadBooks } from '../../actions/api'
 import _ from 'lodash'
 import AddCollectionForm from './components/AddCollectionForm'
-import webAPI from '../../webAPI'
+import * as restAPI from '../../restAPI'
 import DocContainer from '../../components/DocContainer'
 
 interface Props {
@@ -30,7 +30,7 @@ class AddCollection extends Component<Props, {}> {
       creator
     })
 
-    webAPI.addCollection(postData).then(result => {
+    restAPI.addCollection(postData).then(result => {
       this.props.sendNotification('添加成功！')
       this.props.resetForm('addCollection')
     }, error => {

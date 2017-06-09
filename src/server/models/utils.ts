@@ -59,8 +59,18 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
     },
 
     updateById: async (id, data) => {
+      const omitUndefined = () => {
+        const _data = {} as any
+        Object.keys(data).forEach(key => {
+          if (typeof data[key] !== 'undefined') {
+            _data[key] = data[key]
+          }
+        })
+        return _data
+      }
+
       return Model
-        .update({ _id: id }, data, { runValidators: true })
+        .update({ _id: id }, omitUndefined(), { runValidators: true })
         .exec()
     },
 

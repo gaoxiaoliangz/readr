@@ -1,0 +1,25 @@
+query Books($offset: Int, $first: Int, $after: String, $query: String) {
+  books(first: $first, offset: $offset, after: $after, query: $query) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        id
+        objectId
+        title
+        cover
+        description
+        createdAt
+        authors {
+          name
+        }
+      }
+    }
+  }
+}

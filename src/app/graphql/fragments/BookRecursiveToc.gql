@@ -1,0 +1,22 @@
+fragment TocFields on TocItem {
+  name
+  playOrder
+  sectionId
+  hash
+}
+
+fragment BookRecursiveToc on TocItem {
+  ...TocFields
+  children {
+    ...TocFields
+    children {
+      ...TocFields
+      children {
+        ...TocFields
+        children {
+          ...TocFields
+        }
+      }
+    }
+  }
+}

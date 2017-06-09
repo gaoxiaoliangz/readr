@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import md5 from 'vendor/md5'
+import md5 from 'md5'
 
 const debug = require('debug')('readr:memoize')
 

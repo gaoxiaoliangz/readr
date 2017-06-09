@@ -4,15 +4,14 @@ import createSagaMiddleware, { END } from 'redux-saga'
 // import createLogger from 'redux-logger'
 import rootReducer from './reducers'
 import { cache, injectCookie, handleServerStore, logActionTypes } from './middleware'
-import helpers from './helpers'
-import { INITIAL_STATE } from '../constants'
+import { INITIAL_STATE_VAR_NAME } from './components/AppDoc'
 // import apolloClient from './apolloClient'
 
 function getInitialState() {
-  if (typeof window === 'undefined') {
+  if (!__BROWSER__) {
     return {}
   }
-  return window[INITIAL_STATE] || {}
+  return window[INITIAL_STATE_VAR_NAME] || {}
 }
 
 export default function configureStore(cookies?) {
@@ -22,11 +21,10 @@ export default function configureStore(cookies?) {
     injectCookie(cookies),
     sagaMiddleware,
     cache,
-    // modifyResponse,
     thunk
   ]
 
-  if (helpers.isServerEnv()) {
+  if (!__BROWSER__) {
     // server side
     baseMiddlewares.push(handleServerStore)
     if (process.env.NODE_ENV === 'production') {
@@ -48,7 +46,7 @@ export default function configureStore(cookies?) {
     }
   }
 
-  const composeEnhancers = (!helpers.isServerEnv() && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose
+  const composeEnhancers = (__BROWSER__ && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) || compose
   const store = createStore(
     rootReducer,
     getInitialState(),

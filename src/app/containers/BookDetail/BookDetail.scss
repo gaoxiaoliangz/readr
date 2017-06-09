@@ -1,13 +1,19 @@
 @import "~styles/variables";
 @import "~styles/mixins/screens";
 
-$padding-v: 40px;
-$padding-h: 40px;
+$padding-v: 30px;
+$padding-h: 30px;
+
+:global .page-book-info {
+  background: $bg-gray;
+}
 
 .book-detail {
   background: #fff;
-  box-shadow: $shadow-z1;
+  box-shadow: $shadow-x1;
+  border: 1px solid $border-corlor-x1;
   margin-top: 40px;
+  border-radius: 3px;
 }
 
 .book-info-container {
@@ -17,7 +23,7 @@ $padding-h: 40px;
 
 .header {
   overflow: hidden;
-  padding: $padding-v $padding-h;
+  padding: $padding-v $padding-h $padding-v/2;
   position: relative;
 
   @include phone {
@@ -26,8 +32,8 @@ $padding-h: 40px;
 }
 
 .content {
-  padding: $padding-v $padding-h;
-  border-top: 1px solid $gray;
+  padding: 0 $padding-h $padding-v $padding-h;
+  // border-top: 1px solid $gray;
   line-height: 1.7;
 
   @include phone {

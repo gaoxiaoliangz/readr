@@ -11,8 +11,7 @@ import { getSchema } from '@risingstack/graffiti-mongoose'
 import render from './middleware/render'
 import bootServer from './bootstrap'
 import apiApp from './api/app'
-import * as CONSTANTS from '../constants'
-import getMongoStoreUrl from './helpers/getMongoStoreUrl'
+import getMongoDBUrl from './helpers/getMongoDBUri'
 import middleware from './middleware'
 import schema from './graphql/schema'
 import {
@@ -23,25 +22,20 @@ import {
   Progress,
   Tag,
   User
-} from './models/data-provider'
+} from './models/dataProvider'
+import { SESSION_SECRET, REQ_SIZE_LIMIT, PUBLIC_URL, PUBLIC_DIR } from './constants'
+
 const debug = require('debug')('readr:init')
 
 const MongoStore = connectMongo(session)
 const app = express()
 
-const PUBLIC_DIR = 'build/static'
-const PUBLIC_URL = '/static'
-const SESSION_SECRET = 'key'
-const REQ_SIZE_LIMIT = '5mb'
-const MONGO_STORE_URL = getMongoStoreUrl()
-
 interface InitConfig {
   basePath: string
-  isProduction: boolean
 }
 
 export default function initialize(config: InitConfig) {
-  const { basePath, isProduction } = config
+  const { basePath } = config
 
   // locals
   app.locals.basePath = basePath
@@ -50,12 +44,15 @@ export default function initialize(config: InitConfig) {
     secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ url: MONGO_STORE_URL })
+    store: new MongoStore({ url: getMongoDBUrl() })
   }))
   app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))
   app.use(cookieParser())
+
+  // handle assets
   app.use(PUBLIC_URL, express.static(path.join(basePath, PUBLIC_DIR)))
+
   app.use(middleware.parseContext)
 
   // graphql api
@@ -87,17 +84,15 @@ export default function initialize(config: InitConfig) {
   }))
 
   // rest api routing
-  app.use(`/${CONSTANTS.API_PREFIX}`, apiApp())
+  app.use(process.env.REST_API_PATH, apiApp())
 
   // render view
-  app.use(render(isProduction))
+  app.use(render())
 
   // log error info
   app.use(morgan('dev', {
     skip(req, res) { return res.statusCode < 400 }
   }))
 
-  return bootServer(app, {
-    isProduction
-  })
+  return bootServer(app)
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { sendNotification, openModal, closeModal, resetForm, initializeForm } from '../../actions'
 import { searchDoubanBooks, loadAuthors } from '../../actions/api'
-import webAPI from '../../webAPI'
+import * as restAPI from '../../restAPI'
 import DocContainer from '../../components/DocContainer'
 import AddBookForm from './components/AddBookForm'
 
@@ -41,7 +41,7 @@ class AddBook extends Component<Props, {}> {
   }
 
   addBook(data) {
-    webAPI.addBook(data).then(result => {
+    restAPI.addBook(data).then(result => {
       this.props.sendNotification('添加成功')
       this.props.resetForm('addBook')
     }, error => {
@@ -50,7 +50,7 @@ class AddBook extends Component<Props, {}> {
   }
 
   addAuthor(data) {
-    webAPI.addAuthor(data).then(result => {
+    restAPI.addAuthor(data).then(result => {
       this.props.sendNotification('添加成功')
       const id = result.json.ops[0]._id
       const name = result.json.ops[0].name

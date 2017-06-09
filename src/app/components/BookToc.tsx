@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 interface Props {
   toc: Schema.TocItem[]
   onLinkClick?: (href: string) => void
+  linkTpl?: (sectionId: string, hash: string) => string
 }
 
 export default class BookToc extends Component<Props, void> {
@@ -19,9 +20,13 @@ export default class BookToc extends Component<Props, void> {
   }
 
   renderLink(sectionId, hash, label) {
-    const href = hash
-      ? `#${sectionId},${hash}`
-      : `#${sectionId}`
+    const defaultLinkTpl = () => {
+      return hash
+        ? `#${sectionId},${hash}`
+        : `#${sectionId}`
+    }
+    const linkTpl = this.props.linkTpl || defaultLinkTpl
+    const href = linkTpl(sectionId, hash)
 
     return <a onClick={this._handleLinkClick(href)} className="text-link" href={href}>{label}</a>
   }

@@ -1,10 +1,10 @@
-import { selectors as form } from 'better-redux-form'
+import { selectors as form } from '@gxl/redux-form'
 import _ from 'lodash'
 import * as viewer from './viewer'
 import * as utils from './utils'
 import * as pagination from './pagination'
 
-export const session = state => _.get(state, 'session', {}) as Session
+export const session = state => _.get(state, 'session', {}) as State.Session
 export const routing = state => _.get(state, 'routing.locationBeforeTransitions', {})
 export const profile = state => _.get(state, 'profile', {})
 

@@ -1,6 +1,6 @@
 import { parseHTML } from '@gxl/epub-parser'
 import calcHeights from './calcHeights'
-import { groupNodesByPage } from '../../../renderers/paging'
+import { groupNodesByPage } from './paging'
 
 type Section = {
   id: string

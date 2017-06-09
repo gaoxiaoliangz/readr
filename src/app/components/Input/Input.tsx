@@ -13,26 +13,34 @@ export interface Props {
   name?: string
   error?: any
   touched?: boolean
+  onKeyDown?: any
 }
 
 @CSSModules(styles, {
   allowMultiple: true
 })
-class Input extends Component<Props, any> {
-  constructor(props) {
-    super(props)
+class Input extends Component<Props, void> {
+
+  input: any
+
+  focus() {
+    this.input.focus()
   }
 
   render() {
-    let props = Object.assign({}, this.props)
-    props = _.omit(props, 'className')
-    const { error, touched } = this.props
-
+    const { error, touched, className, ...rest } = this.props
     const showError = error && touched
 
+    // delete @gxl/redux-form field props
+    delete this.props['get']
+    delete this.props['set']
+    delete this.props['events']
+
     return (
-      <div styleName={classnames({'input-wrap': !showError, 'input-wrap--error': showError})} className={this.props.className || ''}>
+      <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={className || ''}>
         <input
+          {...rest}
+          ref={ref => this.input = ref}
           styleName="input"
           placeholder={this.props.placeholder}
           value={this.props.value}

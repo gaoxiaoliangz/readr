@@ -1,11 +1,9 @@
-import getApiRoot from './getApiRoot'
-import isServerRoutingEnabled from './isServerRoutingEnabled'
+import getAPIRoot from './getAPIRoot'
 import redirect from './redirect'
-import isServerEnv from './isServerEnv'
+import getReaderURI from './getReaderUri'
 
 export default {
-  getApiRoot,
-  isServerRoutingEnabled,
+  getAPIRoot,
   redirect,
-  isServerEnv,
+  getReaderURI
 }

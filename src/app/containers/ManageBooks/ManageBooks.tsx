@@ -3,23 +3,24 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
-import webAPI from '../../webAPI'
+import * as restAPI from '../../restAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
-import { gql, graphql } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
 import { Button } from '../../components/form'
 import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
+import BOOKS_QUERY from '../../graphql/Books.gql'
 
 const PAGE_LIMIT = 10
 
 type Data = State.Apollo<{
   books: Schema.Connection<{
     id: string
-    dbId: string
+    objectId: string
     title: string
     authors: {
       name: string
@@ -35,7 +36,7 @@ interface Props {
   sendNotification?: typeof sendNotification
   openConfirmModal: typeof openConfirmModal
   closeConfirmModal: any
-  routing: SelectedRouting
+  routing: State.Routing
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
@@ -54,7 +55,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       title: '确认删除',
       content: `将删除《${bookName}》`,
       onConfirm: () => {
-        webAPI.deleteBook(id).then(res => {
+        restAPI.deleteBook(id).then(res => {
           this.props.closeConfirmModal()
           this.props.sendNotification('删除成功！')
           cb()
@@ -74,7 +75,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         <BookMetaForm
           onSave={data => {
             const _data = _.omit(data, 'authors')
-            webAPI.editBookMeta(bookMeta.id, _data).then(result => {
+            restAPI.editBookMeta(bookMeta.id, _data).then(result => {
               this.loadBooks()
               this.props.closeModal()
               this.props.sendNotification('修改成功！', 'success')
@@ -113,14 +114,14 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
 
   render() {
     if (this.props.data.loading) {
-      return <Loading center />
+      return <Loading center useNProgress />
     }
 
     const entities = this.props.data.books.edges.map(edge => edge.node)
     const rows = entities
       .map((row, index) => {
         return [
-          row.dbId,
+          row.objectId,
           row.title,
           moment(new Date(row.createdAt).valueOf()).format('YYYY年MM月DD日'),
           row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
@@ -172,45 +173,21 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
   }
 }
 
-const ManageBooksWithData = graphql(gql`
-  query queryBooks($offset: Int) {
-    books(first: ${PAGE_LIMIT}, offset: $offset) {
-      totalCount
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        cursor
-        node {
-          id
-          dbId
-          title
-          cover
-          description
-          createdAt
-          authors {
-            name
-          }
-        }
-      }
+const ManageBooksWithData = graphql(BOOKS_QUERY, {
+  options: (props) => {
+    return {
+      variables: {
+        offset: ((Number(props.routing.query.page) || 1) - 1) * PAGE_LIMIT,
+        first: PAGE_LIMIT
+      },
+
+      // if not specified as 'network-only' fetch status will always be loading, when
+      // refetching somthing with previously used query, seems to be a bug
+      // using this option when render on the server, requests will not be made
+      fetchPolicy: 'network-only'
     }
   }
-`, {
-    options: (props) => {
-      return {
-        variables: {
-          offset: ((Number(props.routing.query.page) || 1) - 1) * PAGE_LIMIT
-        },
-
-        // if not specified as 'network-only' fetch status will always be loading, when
-        // refetching somthing with previously used query, seems to be a bug
-        fetchPolicy: 'network-only'
-      }
-    }
-  })(ManageBooks)
+})(ManageBooks)
 
 function mapStateToProps(state, ownProps) {
   return {

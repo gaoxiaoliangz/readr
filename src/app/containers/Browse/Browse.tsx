@@ -1,122 +1,82 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Button from '../../components/Button'
-import BookListSection from '../../components/BookListSection'
-import { loadBooks } from '../../actions/api'
-import Container from '../../components/Container'
+import CSSModules from 'react-css-modules'
 import _ from 'lodash'
 import * as selectors from '../../selectors'
-import CSSModules from 'react-css-modules'
+import DocContainer from '../../components/DocContainer'
+import { Container } from '../../components/layout'
 import styles from './Browse.scss'
-import { gql, graphql } from 'react-apollo'
-import Loading from '../../components/Loading'
-
-type Data = State.Apollo<{
-  books: Schema.Connection<{
-    id: string
-    title: string
-    authors: {
-      name: string
-    }[]
-    description: string
-    cover: string
-  }>
-}>
+import Branding from '../Branding/Branding'
+import Colophon from '../../components/Colophon/Colophon'
+import Books from '../Books/Books'
+import Slides from '../../components/Slides/Slides'
+import pic1 from './jordan-sanchez-5216.jpg'
+import pic2 from './mountain.jpg'
+import pic3 from './peter-kent-25187.jpg'
 
 interface Props {
-  data: Data
-  loadBooks: typeof loadBooks
+  session: State.Session
+  data: State.Apollo<{
+    books: Schema.Connection<{
+      id: string
+      title: string
+      authors: {
+        name: string
+      }[]
+      description: string
+      cover: string
+    }>
+  }>
+}
+
+interface IState {
 }
 
 @CSSModules(styles)
-class Browse extends Component<Props, {}> {
+class Browse extends Component<Props, IState> {
 
   constructor(props) {
     super(props)
-  }
-
-  loadMore() {
-    const lastCursor = _.last(this.props.data.books.edges).cursor
-    this.props.data.fetchMore({
-      variables: {
-        after: lastCursor
-      },
-      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
-        const edges = [...previousResult.books.edges, ...fetchMoreResult.books.edges]
-        return _.merge({}, fetchMoreResult, {
-          books: {
-            edges
-          }
-        })
-      }
-    })
+    this.state = {
+      showRecentReading: false
+    }
   }
 
   render() {
-    const bookEntities = this.props.data.loading
-      ? []
-      : this.props.data.books.edges.map(edge => {
-        return edge.node
-      })
-
-    if (this.props.data.loading) {
-      return <Loading center />
-    }
+    const images = [pic1, pic2, pic3]
 
     return (
-      <Container className="archive">
-        <BookListSection
-          title="所有书籍"
-          bookEntities={bookEntities}
-          isFetching={this.props.data.loading}
-        />
-        {
-          this.props.data.books.pageInfo.hasNextPage && (
-            <Button
-              onClick={() => { this.loadMore() }}
-              styleName="btn-load-more"
-              width={200}
-              color="white"
-            >{this.props.data.loading ? '加载中 ...' : '加载更多'}</Button>
-          )
-        }
-      </Container>
+      <DocContainer bodyClass="page-browse" title="首页">
+        <div className="header">
+          <Branding
+            bgColor="rgba(0,0,0,0.2)"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              zIndex: 999
+            }}
+          />
+          <Slides images={images} />
+        </div>
+        <Container>
+          <Books
+            sectionTitle="新书速递"
+          />
+        </Container>
+        <Colophon />
+      </DocContainer>
     )
   }
 }
 
-const BrowseWithData = graphql(gql`
-  query queryBooks($after: String) {
-    books(first: 6, after: $after) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        cursor
-        node {
-          id
-          title
-          cover
-          description
-          authors {
-            name
-          }
-        }
-      }
-    }
-  }
-`)(Browse)
-
 function mapStateToProps(state, ownProps) {
   return {
-    bookList: selectors.pagination.bookList(state)
+    session: selectors.session(state)
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { loadBooks }
-)(BrowseWithData)
+export default connect<{}, {}, {}>(
+  mapStateToProps
+)(Browse)

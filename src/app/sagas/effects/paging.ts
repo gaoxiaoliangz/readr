@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import styles from '../../containers/Viewer/components/BookPage.scss'
+import styles from '../../containers/ReaderL/components/BookPage.scss'
 
 // 暂不支持包含图片的计算
 // 计算没有等待图片加载完成，所以结果是不正确的

@@ -1,7 +1,10 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo'
+import getAPIRoot from './helpers/getAPIRoot'
+
+const graphqlURI = getAPIRoot().graphql
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:8090/gql',
+  uri: graphqlURI,
   opts: {
     credentials: 'same-origin'
   }

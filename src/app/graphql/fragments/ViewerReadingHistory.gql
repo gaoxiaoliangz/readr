@@ -1,0 +1,16 @@
+fragment ViewerReadingHistory on ReadingHistoryEntryConnection {
+  totalCount
+  edges {
+    node {
+      id
+      bookId
+      title
+      percentage
+      description
+      cover
+      authors {
+        name
+      }
+    }
+  }
+}

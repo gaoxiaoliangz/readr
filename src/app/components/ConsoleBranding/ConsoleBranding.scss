@@ -44,5 +44,5 @@
   color: #fff;
   line-height: $branding-height;
   height: $branding-height;
-  composes: nav from '../Branding/Branding.scss'
+  composes: nav from '../../containers/Branding/Branding.scss'
 }
