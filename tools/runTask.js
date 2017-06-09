@@ -6,13 +6,9 @@ import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import minimist from 'minimist'
 import path from 'path'
 import chalk from 'chalk'
-import paths from './paths'
 import Observable from './Observable'
 
 require('dotenv').config()
-require('dotenv-safe').load({
-  sample: paths.resolveApp('.env-sample')
-})
 
 const argv = minimist(process.argv.slice(2))
 const format = (time) => {
