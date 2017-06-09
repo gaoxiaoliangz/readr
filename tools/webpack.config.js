@@ -169,7 +169,8 @@ const rules = {
           }
         },
         {
-          loader: 'awesome-typescript-loader'
+          // loader: 'awesome-typescript-loader'
+          loader: 'ts-loader'
         }
       ]
     }

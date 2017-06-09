@@ -10756,9 +10756,9 @@ ts-jest@^20.0.4:
     tsconfig "^6.0.0"
     yargs "^8.0.1"
 
-ts-loader@^2.0.1:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/ts-loader/download/ts-loader-2.0.3.tgz#89b8c87598f048df065766e07e1538f0eaeb1165"
+ts-loader@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/ts-loader/download/ts-loader-2.1.0.tgz#5a8efcc5c72c06fc49d69bad69c85617c6194f77"
   dependencies:
     colors "^1.0.3"
     enhanced-resolve "^3.0.0"
