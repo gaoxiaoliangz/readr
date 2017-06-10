@@ -1,5 +1,7 @@
 # FROM node:7.9.0-alpine
 FROM node:6.9.2
+# Install fonts, phantom needs this to render
+RUN apt-get update && apt-get install -y --force-yes --no-install-recommends fonts-wqy-microhei ttf-wqy-zenhei
 
 # Set a working directory
 WORKDIR /usr/readr_app
@@ -9,9 +11,6 @@ COPY . /usr/readr_app
 
 RUN npm install
 RUN npm run build
-
-# Install fonts, phantom needs this to render
-RUN apt-get update && apt-get install -y --force-yes --no-install-recommends fonts-wqy-microhei ttf-wqy-zenhei
 
 # Exec
 CMD [ "node", "bin/www" ]
