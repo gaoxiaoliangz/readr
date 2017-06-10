@@ -41,7 +41,7 @@ const calcHeights = async (sections: MappedSection[], rendererConfig: RenderConf
   )
 
   const heights = evaluate(htmlString, {
-    saveShotAsPng: false,
+    saveShotAsPng: process.env.SAVE_PHANTOM_RENDER_IMAGE === '1',
     evalCallback: `
       var sections = document.querySelector('.sections').childNodes
       var heights = []
