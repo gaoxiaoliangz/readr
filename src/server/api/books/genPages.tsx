@@ -2,6 +2,8 @@ import { parseHTML } from '@gxl/epub-parser'
 import calcHeights from './calcHeights'
 import { groupNodesByPage } from './paging'
 
+// const debug = require('debug')('readr:genPages')
+
 type Section = {
   id: string
   htmlString: string
@@ -37,6 +39,8 @@ const genPages = async (config: Config) => {
     lineHeight: config.lineHeight,
     width: config.width
   })
+
+  // debug(heights)
 
   let pageSum = 0
   const pages = _sections
