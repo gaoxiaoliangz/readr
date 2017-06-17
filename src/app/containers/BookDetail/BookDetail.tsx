@@ -82,7 +82,10 @@ class BookDetail extends Component<Props, {}> {
                     <BookToc
                       toc={bookInfo.toc}
                       linkTpl={(sectionId, hash) => {
-                        return helpers.getReaderURI(`${bookInfo.id}#${sectionId},${hash}`)
+                        if (hash) {
+                          return helpers.getReaderURI(`${bookInfo.id}#${sectionId},${hash}`)
+                        }
+                        return helpers.getReaderURI(`${bookInfo.id}#${sectionId}`)
                       }}
                     />
                   </Tab>

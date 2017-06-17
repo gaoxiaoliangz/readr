@@ -65,25 +65,38 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
     if (hasRouteChanged && !this.state.isInitialRender) {
       const fromLocation = nextProps.routing.hash.substr(1)
-      this._loadPage({ fromLocation })
-        .then(({ data }) => {
-          const scrollTop = (data.viewer.bookPages.startPage - 1) * nextProps.config.pageHeight
-          setTimeout(function () {
-            document.body.scrollTop = scrollTop
-          }, 500)
-        })
+      this._gotoLocation(fromLocation)
     }
   }
 
   componentDidMount() {
     const startPage = (((_.last(this.props.localProgress) || {})['page']) || this.props.data.viewer.bookPages.startPage) - 1
     const scrollTop = startPage * this.props.config.pageHeight
-    setTimeout(() => {
-      document.body.scrollTop = scrollTop
-      this.setState({
-        isInitialRender: false
+    const fromLocation = this.props.routing.hash.substr(1)
+    if (fromLocation) {
+      console.log('from location', fromLocation)
+      this._gotoLocation(fromLocation)
+    } else {
+      console.log('not fromthat')
+      // todo: need delay?
+      setTimeout(() => {
+        document.body.scrollTop = scrollTop
+        this.setState({
+          isInitialRender: false
+        })
+      }, SCROLL_DELAY)
+    }
+  }
+
+  // fetch needed pages and then scroll to that location
+  _gotoLocation(location: string) {
+    this._loadPage({ fromLocation: location })
+      .then(({ data }) => {
+        const scrollTop = (data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
+        setTimeout(function () {
+          document.body.scrollTop = scrollTop
+        }, 500)
       })
-    }, SCROLL_DELAY)
   }
 
   _loadPage(config: { pageNo?, first?, fromLocation?}) {
