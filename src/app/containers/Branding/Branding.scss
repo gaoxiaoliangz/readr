@@ -1,9 +1,24 @@
 @import "~styles/variables";
+@import "~styles/mixins/screens";
 
 .branding {
   min-height: $branding-height;
   background: $dark;
   font-weight: bold;
+
+  @include phone {
+    .nav-label {
+      display: none;
+    }
+
+    .nav-item {
+      margin-left: 15px;
+    }
+
+    .dropdown-recent-reading {
+      display: none;
+    }
+  }
 }
 
 .dropdown-menu {
