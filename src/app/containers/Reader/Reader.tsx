@@ -6,19 +6,12 @@ import { bindActionCreators } from 'redux'
 import ReaderDataLayer from './ReaderDataLayer'
 import * as selectors from '../../selectors'
 import Loading from '../../components/Loading/Loading'
+import getScreenInfo from '../../utils/browser/getScreenInfo'
 
 interface Props {
   params: any
   actions: typeof actions
   viewerConfig: Viewer.Config
-}
-
-// todo
-const initialViewerConfig = {
-  pageHeight: 900,
-  fontSize: 18,
-  lineHeight: 1.6,
-  width: 600
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -30,9 +23,20 @@ const mapStateToProps = (state, ownProps) => {
 
 class Reader extends Component<Props, {}> {
 
+  determineConfig() {
+    const windowWidth = getScreenInfo().width
+    return {
+      pageHeight: 900,
+      fontSize: 18,
+      lineHeight: 1.6,
+      // todo
+      width: windowWidth > 700 ? 600 : windowWidth - 120
+    }
+  }
+
   componentDidMount() {
     this.props.actions.viewer.setViewerId(this.props.params.id)
-    this.props.actions.viewer.configViewer(initialViewerConfig)
+    this.props.actions.viewer.configViewer(this.determineConfig())
   }
 
   render() {

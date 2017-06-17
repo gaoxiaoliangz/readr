@@ -10,7 +10,7 @@ const getFlag = (reset, currentFlag) => {
 }
 
 const DEFAULT_CONFIG: Viewer.Config = {
-  theme: 'WHITE'
+  theme: 'white'
 }
 const config = (state = DEFAULT_CONFIG, action) => {
   switch (action.type) {

@@ -99,15 +99,24 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
-                  <Link className="light-link" styleName="nav-link" to="/browse"><Icon size={20} name="view" /> 浏览</Link>
+                  <Link className="light-link" styleName="nav-link" to="/browse">
+                    <Icon size={20} name="view" />
+                    <span styleName="nav-label">浏览</span>
+                  </Link>
                 </li>
                 <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
-                  <Link className="light-link" styleName="nav-link" to="/search"><Icon size={18} name="search" /> 搜索</Link>
+                  <Link className="light-link" styleName="nav-link" to="/search">
+                    <Icon size={18} name="search" />
+                    <span styleName="nav-label">搜索</span>
+                  </Link>
                 </li>
                 {
                   isLoggedIn && (
                     <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
-                      <Link className="light-link" styleName="nav-link" to="/user/shelf"><Icon size={18} name="menu" /> 我的书架</Link>
+                      <Link className="light-link" styleName="nav-link" to="/user/shelf">
+                        <Icon size={18} name="menu" />
+                        <span styleName="nav-label">我的书架</span>
+                      </Link>
                     </li>
                   )
                 }
