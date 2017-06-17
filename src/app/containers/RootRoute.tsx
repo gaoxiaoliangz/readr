@@ -7,6 +7,7 @@ import _ from 'lodash'
 import { ConfirmModal } from '../components/Modal'
 import { ModalPlus } from '../components/Modal'
 import * as selectors from '../selectors'
+import helpers from '../helpers'
 
 interface Props {
   notifications: any
@@ -31,17 +32,21 @@ class Master extends Component<Props, {}> {
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
     const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
+    const ignoredRoute = [/reader\/v2/]
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
     }
 
+    const isRouteIgnored = (pathname) => ignoredRoute.some((rule) => {
+      return rule.test(pathname)
+    })
+
     if (routerChanged) {
-      // back to top when route changed
-      setTimeout(() => {
-        window.document.body.scrollTop = 0
-        // must be less than SCROLL_DELAY(100ms) defined in Reader component
-      }, 50)
+      if (isRouteIgnored(this.props.routing.pathname) || isRouteIgnored(nextProps.routing.pathname)) {
+        return false
+      }
+      window.document.body.scrollTop = 0
     }
   }
 
@@ -49,8 +54,14 @@ class Master extends Component<Props, {}> {
     this.props.loadSession()
   }
 
+  componentDidMount() {
+    if (__DEV__) {
+      window['__redirect__'] = helpers.redirect
+    }
+  }
+
   render() {
-    const { confirmModal, closeConfirmModal, modal, closeModal, session } = this.props
+    const { confirmModal, closeConfirmModal, modal, closeModal } = this.props
 
     return (
       <div className="app-root">

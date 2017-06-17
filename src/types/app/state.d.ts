@@ -44,11 +44,11 @@ declare namespace Viewer {
 }
 
 declare namespace State {
-  type Apollo<T> = {
+  type Apollo<Data> = {
     error: Error
-    fetchMore: any
+    fetchMore: (config) => ApolloFetchMoreResult<Data>
     loading: boolean
-  } & T
+  } & Data
 
   interface Routing {
     action: string

@@ -15,15 +15,14 @@ import DocContainer from '../../components/DocContainer'
 const LOAD_PAGE_LIMIT = 8
 const SCROLL_DELAY = 100
 
-type Data = {
+type Data = State.Apollo<{
   viewer: {
     bookPages: Schema.BookPages
   }
   error: Error
   bookInfo: Schema.BookInfo
-  fetchMore: any
   loading: boolean
-}
+}>
 
 interface StateProps {
   actions: typeof actions
@@ -62,37 +61,28 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    // const isPagesLoaded = this.props.data.loading && !nextProps.data.loading && !nextProps.data.error
     const hasRouteChanged = !_.isEqual(this.props.routing, nextProps.routing)
-    // if (isPagesLoaded && this.state.isInitialRender) {
-    //   this.setState({
-    //     isInitialRender: false
-    //   })
-    //   const scrollTop = (nextProps.data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
-    //   setTimeout(function () {
-    //     document.body.scrollTop = scrollTop
-    //   }, 500)
-    // }
 
     if (hasRouteChanged && !this.state.isInitialRender) {
       const fromLocation = nextProps.routing.hash.substr(1)
-      this._loadPage({
-        fromLocation
-      })
-      this.setState({
-        isInitialRender: true
-      })
+      this._loadPage({ fromLocation })
+        .then(({ data }) => {
+          const scrollTop = (data.viewer.bookPages.startPage - 1) * nextProps.config.pageHeight
+          setTimeout(function () {
+            document.body.scrollTop = scrollTop
+          }, 500)
+        })
     }
   }
 
   componentDidMount() {
     const startPage = (((_.last(this.props.localProgress) || {})['page']) || this.props.data.viewer.bookPages.startPage) - 1
-    this.setState({
-      isInitialRender: false
-    })
     const scrollTop = startPage * this.props.config.pageHeight
-    setTimeout(function () {
+    setTimeout(() => {
       document.body.scrollTop = scrollTop
+      this.setState({
+        isInitialRender: false
+      })
     }, SCROLL_DELAY)
   }
 
@@ -100,7 +90,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     const { first, fromLocation, pageNo } = config
     const offset = pageNo ? pageNo - 1 : 0
     const { data: { fetchMore } } = this.props
-    fetchMore({
+    return fetchMore({
       query: BOOK_PAGES_QUERY,
       variables: {
         ...this.props.config,

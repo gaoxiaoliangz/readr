@@ -205,7 +205,7 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
             this.props.actions.viewer.toggleViewerNavigation(false)
           }}
         >
-          <div>目录</div>
+          <div styleName="contents-label">目录</div>
           <BookToc
             toc={this.props.bookInfo.toc}
             onLinkClick={() => {

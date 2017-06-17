@@ -35,6 +35,13 @@ interface RLocation {
   search: string
 }
 
-type HTMLProps = React.HTMLAttributes<{ 
-  styleName?: string 
+type HTMLProps = React.HTMLAttributes<{
+  styleName?: string
+}>
+
+type ApolloFetchMoreResult<T> = Promise<{
+  data: T
+  loading: boolean
+  networkStatus: number
+  stale: boolean
 }>
