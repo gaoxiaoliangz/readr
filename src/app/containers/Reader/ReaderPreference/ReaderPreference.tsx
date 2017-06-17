@@ -76,16 +76,16 @@ class ReaderPreference extends Component<OwnProps, void> {
           </li>
           <li styleName="option-theme">
             {
-              _.keys(THEMES).map((key, index) => {
-                const className = key + (theme === key ? '--active' : '')
+              _.map(THEMES, (val, index) => {
+                const className = val + (theme === val ? '--active' : '')
 
                 return (
                   <span
                     key={index}
                     className={styles[className]}
-                    onClick={this.handleChangeThemeClick(key)}
+                    onClick={this.handleChangeThemeClick(val)}
                   >
-                    {key}
+                    {val}
                   </span>
                 )
               })

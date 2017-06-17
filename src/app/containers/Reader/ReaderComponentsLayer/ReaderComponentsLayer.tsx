@@ -224,10 +224,16 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
           show={showPanel}
           position="bottom"
         >
-          <BookProgress
-            current={(_.last(localProgress) || {})['page']}
-            total={totalCount}
-          />
+          <div
+            style={{
+              marginTop: 10
+            }}
+          >
+            <BookProgress
+              current={(_.last(localProgress) || {})['page']}
+              total={totalCount}
+            />
+          </div>
         </Panel>
       </div>
     )

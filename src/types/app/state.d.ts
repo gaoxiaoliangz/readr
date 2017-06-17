@@ -4,7 +4,7 @@
  */
 
 declare namespace Viewer {
-  type Themes = 'WHITE' | 'NIGHT' | 'SEPIA'
+  type Themes = 'white' | 'night' | 'sepia'
 
   type Computed = TBookPage[]
 
