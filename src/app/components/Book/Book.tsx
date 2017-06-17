@@ -58,7 +58,7 @@ export default class Book extends Component<IProps, IState> {
             )
           }
           <div styleName="book-meta">
-            <span title={this.props.title} styleName="book-name">{this.props.title || '无标题'}</span>
+            <span title={this.props.title} className="text-overflow" styleName="book-name">{this.props.title || '无标题'}</span>
             <span styleName="book-author">{this.props.authors || '作者不详'}</span>
             {
               showDesc && (
