@@ -11,6 +11,9 @@ import UPDATE_READING_PROGRESS_MUTATION from '../../graphql/mutations/UpdateRead
 import * as selectors from '../../selectors'
 import withIndicator from '../../helpers/withIndicator'
 import DocContainer from '../../components/DocContainer'
+import routerHistory from '../../helpers/routerHistory'
+
+window['routerHistory'] = routerHistory
 
 const LOAD_PAGE_LIMIT = 8
 const SCROLL_DELAY = 100
@@ -75,7 +78,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     const fromLocation = this.props.routing.hash.substr(1)
     if (fromLocation) {
       console.log('from location', fromLocation)
-      this._gotoLocation(fromLocation)
+
+      // this._gotoLocation(fromLocation)
     } else {
       console.log('not fromthat')
       // todo: need delay?
@@ -96,6 +100,10 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
         setTimeout(function () {
           document.body.scrollTop = scrollTop
         }, 500)
+      })
+      .catch(err => {
+        console.log(err)
+        console.log('fucked')
       })
   }
 
@@ -148,6 +156,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
       pageCount: totalCount,
       percentage: pageNo / totalCount
     })
+
+    // routerHistory().replace(`${this.props.routing.pathname}#${pageNo}`)
   }
 
   handleDebouncedScroll(e, direction) {

@@ -48,17 +48,6 @@ const bookPagesField = makeNodeConnectionField({
       return 0
     }
 
-    if (args.fromHistory) {
-      try {
-        const progress = (await getReadingProgressCore({ bookId, userId }) || {})
-        const percentage = progress['percentage'] || 0
-        const pageNo = Math.floor(list.length * percentage) + 1
-        return offset + pageNo
-      } catch (error) {
-        return offset
-      }
-    }
-
     if (args.fromLocation) {
       const loc = args.fromLocation.split(',')
       const sectionId = loc[0]
@@ -93,12 +82,24 @@ const bookPagesField = makeNodeConnectionField({
       const pageNo = result[0].meta.pageNo - 1
       return offset + pageNo
     }
+
+    if (args.fromHistory) {
+      try {
+        const progress = (await getReadingProgressCore({ bookId, userId }) || {})
+        const percentage = progress['percentage'] || 0
+        const pageNo = Math.floor(list.length * percentage) + 1
+        return offset + pageNo
+      } catch (error) {
+        return offset
+      }
+    }
+
     return offset
   },
   extendedFields: ({ sliceStart, connection }) => (parent, args, req) => {
     const offset = args.offset || 0
     const base = {
-      fromHistory: req.user.role !== 'visitor' && args.fromHistory,
+      fromHistory: !args.fromLocation && req.user.role !== 'visitor' && args.fromHistory,
       fromLocation: args.fromLocation
     }
 
