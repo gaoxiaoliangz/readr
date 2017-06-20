@@ -118,15 +118,18 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
         })
         edges = edges.sort((a, b) => a.node.meta.pageNo - b.node.meta.pageNo)
 
-        const merged = _.merge({}, previousResult, {
+        const merged = {
+          ...previousResult,
           viewer: {
+            ...previousResult.viewer,
             bookPages: {
+              ...previousResult.viewer.bookPages,
               edges,
               startPage: fetchMoreResult.viewer.bookPages.startPage,
               offset: fetchMoreResult.viewer.bookPages.offset
             }
           }
-        })
+        }
 
         return merged
       }
