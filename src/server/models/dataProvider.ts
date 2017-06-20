@@ -21,6 +21,7 @@ export const Book = mongoose.model('Book', schemas.bookSchema)
 export const Collection = mongoose.model('Collection', schemas.collectionSchema)
 export const File = mongoose.model('File', schemas.fileSchema)
 export const Progress = mongoose.model('Progress', schemas.progressSchema)
+export const Slide = mongoose.model('Slide', schemas.slideSchema)
 export const Tag = mongoose.model('Tag', schemas.tagSchema)
 export const User = mongoose.model('User', schemas.userSchema)
 
@@ -30,6 +31,7 @@ export default {
   Collection: addUitlMethods(Collection),
   File: addUitlMethods(File),
   Progress: addUitlMethods(Progress),
+  Slide: addUitlMethods(Slide),
   Tag: addUitlMethods(Tag),
   User: addUitlMethods(User),
 }

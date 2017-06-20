@@ -18,6 +18,7 @@ import {
   GQLBook,
   GQLReadingProgress,
   GQLReadingHistoryEntryConnection,
+  GQLSlideConnection
 } from './types'
 import { nodeInterface, nodeField } from './node'
 import { makeNodeConnectionField } from './utils'
@@ -95,6 +96,10 @@ const Query = new GraphQLObjectType({
     authors: makeNodeConnectionField({
       type: GQLAuthorConnection,
       listAllFn: () => dataProvider.Author.find().exec()
+    }),
+    slides: makeNodeConnectionField({
+      type: GQLSlideConnection,
+      listAllFn: () => dataProvider.Slide.find().exec()
     }),
     files: makeNodeConnectionField({
       type: GQLFileConnection,
