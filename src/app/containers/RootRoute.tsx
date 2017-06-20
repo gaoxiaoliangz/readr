@@ -35,7 +35,7 @@ class Master extends Component<Props, {}> {
     const ignoredRoute = [/reader\/v2/]
 
     if (hasNewErrorMsg) {
-      this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error', 0)
+      this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error')
     }
 
     const isRouteIgnored = (pathname) => ignoredRoute.some((rule) => {

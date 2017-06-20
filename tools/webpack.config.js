@@ -449,7 +449,10 @@ export const clientConfig = {
         new OptimizeCssAssetsPlugin({
           assetNameRegExp: /\.css$/g,
           cssProcessor: require('cssnano'), // eslint-disable-line
-          cssProcessorOptions: { discardComments: { removeAll: true } },
+          cssProcessorOptions: {
+            discardComments: { removeAll: true },
+            zindex: false
+          },
           canPrint: true
         }),
 

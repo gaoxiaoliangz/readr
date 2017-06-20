@@ -31,24 +31,37 @@ class SigninForm extends Component<AllProps, State> {
 
   constructor(props) {
     super(props)
+    this._submit = this._submit.bind(this)
+    this._handleKeyDown = this._handleKeyDown.bind(this)
   }
 
-  render() {
+  _submit() {
     const {
-      fields: { login, password },
       handleSubmit,
       onSave
     } = this.props
 
+    handleSubmit(onSave)()
+  }
+
+  _handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      this._submit()
+    }
+  }
+
+  render() {
+    const {
+      fields: { login, password }
+    } = this.props
+
     return (
       <div>
-        <Input placeholder="用户名/邮箱" {...login} />
-        <Input placeholder="密码" type="password" {...password} />
+        <Input onKeyDown={this._handleKeyDown} placeholder="用户名/邮箱" {...login} />
+        <Input onKeyDown={this._handleKeyDown} placeholder="密码" type="password" {...password} />
         <Button
           color="blue"
-          onClick={handleSubmit(data => {
-            onSave(data)
-          })}>登录</Button>
+          onClick={this._submit}>登录</Button>
       </div>
     )
   }
