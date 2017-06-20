@@ -36,10 +36,11 @@ const renderObjects = (objects: ParsedNode[], isRoot = false) => {
 
 function HTMLObjectsRenderer(props: Props) {
   const { htmlObjects, width, lineHeight, fontSize } = props
-  const sectionStyle = {
+  const sectionStyle: React.CSSProperties = {
     width,
-    lineHeight,
-    fontSize
+    lineHeight: lineHeight > 2 ? `${lineHeight}px` : lineHeight,
+    fontSize,
+    fontFamily: 'Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Noto Sans CJK SC,WenQuanYi Micro Hei,Arial,sans-serif'
   }
 
   return (
