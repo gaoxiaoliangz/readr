@@ -50,7 +50,7 @@ class Reader extends Component<Props, State> {
     return {
       pageHeight: 900,
       fontSize: 18,
-      lineHeight: 1.6,
+      lineHeight: 25,
       // todo
       width: windowWidth > 700 ? 600 : windowWidth - 120
     }

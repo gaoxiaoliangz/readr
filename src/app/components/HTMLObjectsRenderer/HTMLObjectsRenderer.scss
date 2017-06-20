@@ -1,7 +1,6 @@
 .h-tags {
   color: #333;
   font-weight: normal;
-  line-height: 2;
 }
 
 .section {
@@ -31,16 +30,19 @@
   h1 {
     @extend .h-tags;
     font-size: 2em;
+    line-height: 50px;
   }
 
   h2 {
     @extend .h-tags;
     font-size: 1.5em;
+    line-height: 40px;
   }
 
   h3 {
     @extend .h-tags;
     font-size: 1.2em;
+    line-height: 30px;
   }
 
   h4, h5, h6 {
