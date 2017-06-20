@@ -16,7 +16,7 @@ $alert-warning-text: darken(orange, 50%);
   left: 50%;
   z-index: 9999;
   width: $alert-width;
-  margin-left:  - $alert-width / 2;
+  margin-left: - $alert-width / 2;
 
   @include tablet {
     width: 100%;

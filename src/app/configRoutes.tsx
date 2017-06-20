@@ -32,15 +32,6 @@ const configRoutes = (context = {}) => {
     })
   }
 
-  // const getHomeComponent = () => {
-  //   return restAPI.auth(cookie).then(res => {
-  //     if (res.json.role === ROLES.VISITOR) {
-  //       return require.ensure([], require => require('./containers/Welcome/Welcome').default)
-  //     }
-  //     return require.ensure([], require => require('./containers/AppHome').default)
-  //   })
-  // }
-
   return (
     <Route path="/" component={RootRoute}>
       <Route component={UserApp}>
