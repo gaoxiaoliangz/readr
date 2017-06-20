@@ -23,7 +23,7 @@ import {
   Tag,
   User
 } from './models/dataProvider'
-import { SESSION_SECRET, REQ_SIZE_LIMIT, PUBLIC_URL, PUBLIC_DIR } from './constants'
+import { SESSION_SECRET, REQ_SIZE_LIMIT, PUBLIC_URL, PUBLIC_DIR, COOKIE_MAX_AGE } from './constants'
 
 const debug = require('debug')('readr:init')
 
@@ -44,7 +44,10 @@ export default function initialize(config: InitConfig) {
     secret: SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ url: getMongoDBUrl() })
+    store: new MongoStore({ url: getMongoDBUrl() }),
+    cookie: {
+      maxAge: COOKIE_MAX_AGE
+    }
   }))
   app.use(bodyParser.urlencoded({ limit: REQ_SIZE_LIMIT, extended: false }))
   app.use(bodyParser.json({ limit: REQ_SIZE_LIMIT }))

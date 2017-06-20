@@ -73,7 +73,9 @@ const viewerField = {
   async resolve(obj, args, req) {
     const { user } = req
     if (!user._id) {
-      return Promise.reject(new Error('Login required!'))
+      return {
+        role: 'visitor'
+      }
     }
     const result = await api.users.find({ id: user._id })
     const { display_name: displayName, ...rest } = result.toObject() as any

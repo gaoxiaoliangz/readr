@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+// todo
+import { browserHistory } from 'react-router'
 
 interface Props {
   toc: Schema.TocItem[]
@@ -15,7 +17,12 @@ export default class BookToc extends Component<Props, void> {
 
   _handleLinkClick(href) {
     return (e) => {
-      if (this.props.onLinkClick) this.props.onLinkClick(href)
+      if (this.props.onLinkClick) {
+        this.props.onLinkClick(href)
+      } else {
+        browserHistory.push(href)
+      }
+      return false
     }
   }
 

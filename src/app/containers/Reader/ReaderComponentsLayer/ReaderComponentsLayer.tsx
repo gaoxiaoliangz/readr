@@ -94,7 +94,7 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
 
   _onScroll() {
     const direction = this._judgeScrollDirection()
-    if (this.props.onScroll && direction) this.props.onScroll(direction)
+    if (this.props.onScroll) this.props.onScroll(direction)
 
     // check if page reached bottom
     if (document.body.scrollTop + window.innerHeight === document.body.clientHeight) {
@@ -132,7 +132,7 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
     } = this.props
 
     return (
-      <div>
+      <div styleName="wrap">
         <Panel
           show={showPanel}
           position="top"
