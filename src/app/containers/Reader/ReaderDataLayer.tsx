@@ -13,8 +13,6 @@ import withIndicator from '../../helpers/withIndicator'
 import DocContainer from '../../components/DocContainer'
 import routerHistory from '../../helpers/routerHistory'
 
-window['routerHistory'] = routerHistory
-
 const LOAD_PAGE_LIMIT = 8
 const SCROLL_DELAY = 100
 
@@ -40,6 +38,7 @@ interface StateProps {
 interface OwnProps {
   params: any
   fromHistory: boolean
+  fromLocation: string
   config: {
     fontSize: number
     width: number
@@ -49,7 +48,6 @@ interface OwnProps {
 }
 
 interface State {
-  isInitialRender: boolean
 }
 
 class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
@@ -66,48 +64,40 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   componentWillReceiveProps(nextProps, nextState) {
     const hasRouteChanged = !_.isEqual(this.props.routing, nextProps.routing)
 
-    if (hasRouteChanged && !this.state.isInitialRender) {
+    if (hasRouteChanged && nextProps.routing.hash) {
       const fromLocation = nextProps.routing.hash.substr(1)
-      this._gotoLocation(fromLocation)
+      const { pageNo } = this._getCurrentProgress()
+
+      this._loadPage({ fromLocation })
+        .catch(err => {
+          this.props.actions.sendNotification('位置未找到！', 'warning')
+          setTimeout(() => {
+            this._loadPage({ pageNo })
+          }, 500)
+        })
     }
   }
 
   componentDidMount() {
-    const startPage = (((_.last(this.props.localProgress) || {})['page']) || this.props.data.viewer.bookPages.startPage) - 1
-    const scrollTop = startPage * this.props.config.pageHeight
-    const fromLocation = this.props.routing.hash.substr(1)
-    if (fromLocation) {
-      console.log('from location', fromLocation)
-
-      // this._gotoLocation(fromLocation)
+    let startPage
+    if (!this.props.routing.hash) {
+      startPage = (((_.last(this.props.localProgress) || {})['page']) || this.props.data.viewer.bookPages.startPage) - 1
     } else {
-      console.log('not fromthat')
-      // todo: need delay?
-      setTimeout(() => {
-        document.body.scrollTop = scrollTop
-        this.setState({
-          isInitialRender: false
-        })
-      }, SCROLL_DELAY)
+      startPage = this.props.data.viewer.bookPages.startPage + this.props.data.viewer.bookPages.offset - 1
+      routerHistory().replace(this.props.routing.pathname)
     }
+
+    const scrollTop = startPage * this.props.config.pageHeight
+
+    setTimeout(() => {
+      document.body.scrollTop = scrollTop
+      this.setState({
+        isInitialRender: false
+      })
+    }, SCROLL_DELAY)
   }
 
-  // fetch needed pages and then scroll to that location
-  _gotoLocation(location: string) {
-    this._loadPage({ fromLocation: location })
-      .then(({ data }) => {
-        const scrollTop = (data.viewer.bookPages.startPage - 1) * this.props.config.pageHeight
-        setTimeout(function () {
-          document.body.scrollTop = scrollTop
-        }, 500)
-      })
-      .catch(err => {
-        console.log(err)
-        console.log('fucked')
-      })
-  }
-
-  _loadPage(config: { pageNo?, first?, fromLocation?}) {
+  _loadPage(config: { pageNo?, first?, fromLocation?} = {}) {
     const { first, fromLocation, pageNo } = config
     const offset = pageNo ? pageNo - 1 : 0
     const { data: { fetchMore } } = this.props
@@ -132,7 +122,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
           viewer: {
             bookPages: {
               edges,
-              startPage: fetchMoreResult.viewer.bookPages.startPage
+              startPage: fetchMoreResult.viewer.bookPages.startPage,
+              offset: fetchMoreResult.viewer.bookPages.offset
             }
           }
         })
@@ -144,20 +135,22 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
   handleScroll(direction) {
     const { components: { showPreference, showPanel } } = this.props
-    if (direction === 'up' && showPanel === false) {
+    const reachingPageTop = document.body.scrollTop < this.props.config.pageHeight
+
+    if ((direction === 'up' && showPanel === false) || reachingPageTop) {
       this.props.actions.viewer.toggleViewerPanel(true)
     }
-    if (direction === 'down' && !showPreference && showPanel === true) {
+    // if direction is undefined, it's probably that it's performing a in-book navigation
+    if ((direction === 'down' && !showPreference && showPanel === true && !reachingPageTop) || !direction) {
       this.props.actions.viewer.toggleViewerPanel(false)
     }
+
     const { pageNo, totalCount } = this._getCurrentProgress()
     this.props.actions.viewer.updateLocalProgress(this.props.params.id, {
       page: pageNo,
       pageCount: totalCount,
       percentage: pageNo / totalCount
     })
-
-    // routerHistory().replace(`${this.props.routing.pathname}#${pageNo}`)
   }
 
   handleDebouncedScroll(e, direction) {
@@ -260,7 +253,7 @@ export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
   graphql(UPDATE_READING_PROGRESS_MUTATION),
   graphql(READER_INIT_QUERY, {
     options: (props: OwnProps) => {
-      const { config: { pageHeight, fontSize, lineHeight, width }, fromHistory } = props
+      const { config: { pageHeight, fontSize, lineHeight, width }, fromHistory, fromLocation } = props
 
       return {
         variables: {
@@ -270,7 +263,8 @@ export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
           fontSize,
           lineHeight,
           width,
-          fromHistory
+          fromHistory,
+          fromLocation
         }
       }
     }
@@ -280,6 +274,7 @@ export default compose<{}, {}, {}, {}, React.ComponentClass<OwnProps>>(
     mapStateToProps,
     dispatch => ({
       actions: {
+        ...bindActionCreators(actions as {}, dispatch),
         viewer: bindActionCreators(actions.viewer as {}, dispatch)
       }
     })

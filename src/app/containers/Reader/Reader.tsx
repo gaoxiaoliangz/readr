@@ -12,16 +12,38 @@ interface Props {
   params: any
   actions: typeof actions
   viewerConfig: Viewer.Config
+  routing: State.Routing
+}
+
+interface State {
+  initialLocation?: string
 }
 
 const mapStateToProps = (state, ownProps) => {
   const config = selectors.viewer.config(state)
   return {
-    viewerConfig: config
+    viewerConfig: config,
+    routing: selectors.routing(state),
   }
 }
 
-class Reader extends Component<Props, {}> {
+class Reader extends Component<Props, State> {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      initialLocation: ''
+    }
+  }
+
+  componentDidMount() {
+    this.props.actions.viewer.setViewerId(this.props.params.id)
+    this.props.actions.viewer.configViewer(this.determineConfig())
+    const fromLocation = this.props.routing.hash.substr(1)
+    this.setState({
+      initialLocation: fromLocation
+    })
+  }
 
   determineConfig() {
     const windowWidth = getScreenInfo().width
@@ -32,11 +54,6 @@ class Reader extends Component<Props, {}> {
       // todo
       width: windowWidth > 700 ? 600 : windowWidth - 120
     }
-  }
-
-  componentDidMount() {
-    this.props.actions.viewer.setViewerId(this.props.params.id)
-    this.props.actions.viewer.configViewer(this.determineConfig())
   }
 
   render() {
@@ -60,6 +77,7 @@ class Reader extends Component<Props, {}> {
         params={this.props.params}
         config={config}
         fromHistory
+        fromLocation={this.state.initialLocation}
       />
     )
   }
