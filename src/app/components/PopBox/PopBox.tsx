@@ -10,11 +10,12 @@ interface OwnProps {
   onRequestClose: () => void
   fixed?: boolean
   position?: {
-    top?: number
-    left?: number
-    right?: number
-    bottom?: number
+    top?: number | string
+    left?: number | string
+    right?: number | string
+    bottom?: number | string
   }
+  style?: React.CSSProperties
   width?: number | '100%'
   height?: number | 'auto' | '100%'
 }
@@ -34,8 +35,9 @@ class PopBox extends Component<OwnProps, {}> {
   }
 
   render() {
-    const { show, fixed, width, height, position } = this.props
+    const { show, fixed, width, height, position, style } = this.props
     const popBoxStyle: React.CSSProperties = {
+      ...style,
       width,
       height,
       position: fixed ? 'fixed' : 'absolute',

@@ -58,10 +58,28 @@ const data = (state = {}, action) => {
       })
 
     case ACTION_TYPES.VIEWER.UPDATE_LOCAL_PROGRESS:
+      const latestProgress = payload.progress
+      const progressArrBeforeUpdate = _.get(state, [payload.bookId, 'progress', 'local'], [])
+      const prevProgress = _.last(progressArrBeforeUpdate)
+      let progressArr
+
+      if (progressArrBeforeUpdate.length === 0) {
+        progressArr = [latestProgress]
+      } else if (Math.abs(prevProgress.percentage - latestProgress.percentage) > .05) {
+        progressArr = progressArrBeforeUpdate.concat(latestProgress)
+      } else {
+        progressArr = progressArrBeforeUpdate.map((progress, index) => {
+          if (progressArrBeforeUpdate.length - 1 === index) {
+            return latestProgress
+          }
+          return progress
+        })
+      }
+
       return _.merge({}, state, {
         [payload.bookId]: {
           progress: {
-            local: _.get(state, [payload.bookId, 'progress', 'local'], []).concat(payload.progress)
+            local: progressArr
           }
         }
       })

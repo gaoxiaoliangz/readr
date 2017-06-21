@@ -135,6 +135,15 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     })
   }
 
+  _updateLocalProgress() {
+    const { pageNo, totalCount, percentage } = this._getCurrentProgress()
+    this.props.actions.viewer.updateLocalProgress(this.props.params.id, {
+      page: pageNo,
+      pageCount: totalCount,
+      percentage
+    })
+  }
+
   _handleScroll(direction) {
     const { components: { showPreference, showPanel } } = this.props
     const reachingPageTop = document.body.scrollTop < this.props.config.pageHeight
@@ -146,16 +155,10 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     if ((direction === 'down' && !showPreference && showPanel === true && !reachingPageTop) || !direction) {
       this.props.actions.viewer.toggleViewerPanel(false)
     }
-
-    const { pageNo, totalCount } = this._getCurrentProgress()
-    this.props.actions.viewer.updateLocalProgress(this.props.params.id, {
-      page: pageNo,
-      pageCount: totalCount,
-      percentage: pageNo / totalCount
-    })
   }
 
   _handleDebouncedScroll(e, direction) {
+    this._updateLocalProgress()
     this._checkToLoadPage()
     const { percentage } = this._getCurrentProgress()
     this.props.mutate({

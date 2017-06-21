@@ -230,8 +230,7 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
             }}
           >
             <BookProgress
-              current={(_.last(localProgress) || {})['page']}
-              total={totalCount}
+              localProgress={localProgress}
             />
           </div>
         </Panel>
