@@ -5,6 +5,7 @@ fragment BookPages on BookPageConnection {
   fromHistory
   fromLocation
   startPage
+  lastProgress
   offset
   edges {
     cursor

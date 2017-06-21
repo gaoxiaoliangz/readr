@@ -105,7 +105,7 @@ const bookPagesField = makeNodeConnectionField({
     const base = {
       fromHistory: !args.fromLocation && req.user.role !== 'visitor' && args.fromHistory,
       fromLocation: args.fromLocation,
-      startPercentage: args.fromHistory ? percentage : null
+      lastProgress: percentage
     }
 
     if (args.before || args.after) {

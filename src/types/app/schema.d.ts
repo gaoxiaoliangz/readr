@@ -24,6 +24,7 @@ declare namespace Schema {
   interface BookPages {
     totalCount: number
     startPage: number
+    lastProgress: number
     fromHistory: boolean
     fromLocation: string
     offset: number

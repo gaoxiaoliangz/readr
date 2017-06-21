@@ -84,11 +84,12 @@ export const { connectionType: GQLBookPageConnection } = extendedConnectionDefin
     startPage: {
       type: GraphQLInt
     },
-    startPercentage: {
+    lastProgress: {
       type: GraphQLFloat
     },
     offset: {
-      type: GraphQLInt
+      type: GraphQLInt,
+      deprecationReason: 'not seems to be useful'
     },
     fromHistory: {
       type: GraphQLBoolean
