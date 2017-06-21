@@ -31,9 +31,7 @@ const Slides = ({ images, disableSwipe, ...rest }: Props) => {
   return (
     <div
       style={{ overflow: isServerEnv ? 'hidden' : 'initial' }}
-      {...{
-        onTouchMoveCapture: disableSwipe && disableTouch
-      }}
+      onTouchMoveCapture={disableSwipe && disableTouch}
     >
       {
         images.length !== 0 && (

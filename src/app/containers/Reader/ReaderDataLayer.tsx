@@ -54,8 +54,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
   constructor(props) {
     super(props)
-    this.handleScroll = this.handleScroll.bind(this)
-    this.handleDebouncedScroll = this.handleDebouncedScroll.bind(this)
+    this._handleScroll = this._handleScroll.bind(this)
+    this._handleDebouncedScroll = this._handleDebouncedScroll.bind(this)
     this.state = {
       isInitialRender: true
     }
@@ -136,14 +136,14 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     })
   }
 
-  handleScroll(direction) {
+  _handleScroll(direction) {
     const { components: { showPreference, showPanel } } = this.props
     const reachingPageTop = document.body.scrollTop < this.props.config.pageHeight
 
     if ((direction === 'up' && showPanel === false) || reachingPageTop) {
       this.props.actions.viewer.toggleViewerPanel(true)
     }
-    // if direction is undefined, it's probably that it's performing a in-book navigation
+    // if direction is undefined, it's probably that it's performing an in-book navigation
     if ((direction === 'down' && !showPreference && showPanel === true && !reachingPageTop) || !direction) {
       this.props.actions.viewer.toggleViewerPanel(false)
     }
@@ -156,7 +156,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     })
   }
 
-  handleDebouncedScroll(e, direction) {
+  _handleDebouncedScroll(e, direction) {
     this._checkToLoadPage()
     const { pageNo, totalCount } = this._getCurrentProgress()
     this.props.mutate({
@@ -232,8 +232,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
           bookInfo={bookInfo}
           onReachBottom={() => {
           }}
-          onDebuncedScroll={this.handleDebouncedScroll}
-          onScroll={this.handleScroll}
+          onDebuncedScroll={this._handleDebouncedScroll}
+          onScroll={this._handleScroll}
           renderConfig={config}
         />
       </DocContainer>

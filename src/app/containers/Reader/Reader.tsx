@@ -38,14 +38,14 @@ class Reader extends Component<Props, State> {
 
   componentDidMount() {
     this.props.actions.viewer.setViewerId(this.props.params.id)
-    this.props.actions.viewer.configViewer(this.determineConfig())
+    this.props.actions.viewer.configViewer(this._determineConfig())
     const fromLocation = this.props.routing.hash.substr(1)
     this.setState({
       initialLocation: fromLocation
     })
   }
 
-  determineConfig() {
+  _determineConfig() {
     const windowWidth = getScreenInfo().width
     return {
       pageHeight: 900,
