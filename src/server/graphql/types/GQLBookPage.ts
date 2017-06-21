@@ -4,6 +4,7 @@ import {
   GraphQLList,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLFloat
 } from 'graphql'
 import md5 from 'md5'
 import { extendedConnectionDefinitions } from '../utils'
@@ -82,6 +83,9 @@ export const { connectionType: GQLBookPageConnection } = extendedConnectionDefin
   connectionFields: {
     startPage: {
       type: GraphQLInt
+    },
+    startPercentage: {
+      type: GraphQLFloat
     },
     offset: {
       type: GraphQLInt
