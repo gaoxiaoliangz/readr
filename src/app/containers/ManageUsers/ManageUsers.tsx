@@ -46,7 +46,7 @@ class ManageUsers extends Component<Props, {}> {
           row.password,
           row.role,
           row.id,
-          moment(new Date(row.dateCreated).valueOf()).format('YYYY年MM月DD日')
+          moment(new Date(row.createdAt).valueOf()).format('YYYY年MM月DD日')
         ]
       })
 

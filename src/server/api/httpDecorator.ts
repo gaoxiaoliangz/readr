@@ -7,11 +7,12 @@ const { rest: API_ROOT } = helpers.getAPIRoot()
 
 const addHeader = (req, res, result: QueryResult<any>) => {
   if (QueryResult.prototype.isPrototypeOf(result)) {
+    // todo: fullPath?
     const links = parseLinks({
       fullPath: API_ROOT + req.path,
       query: req.query,
       entityPagination: {
-        current: Math.ceil(result.offset / result.limit),
+        current: Math.ceil(result.offset / result.limit) + 1,
         all: Math.ceil(result.totalCount / result.limit)
       }
     })
