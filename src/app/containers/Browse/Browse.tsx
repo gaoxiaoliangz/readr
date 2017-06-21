@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
+import { graphql, compose } from 'react-apollo'
 import * as selectors from '../../selectors'
 import DocContainer from '../../components/DocContainer'
 import { Container } from '../../components/layout'
@@ -10,21 +11,18 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import Books from '../Books/Books'
 import Slides from '../../components/Slides/Slides'
-import pic1 from './jordan-sanchez-5216.jpg'
-import pic2 from './mountain.jpg'
-import pic3 from './peter-kent-25187.jpg'
+import SLIDES_QUERY from '../../graphql/Slides.gql'
+import withIndicator from '../../helpers/withIndicator'
 
 interface Props {
   session: State.Session
   data: State.Apollo<{
-    books: Schema.Connection<{
+    slides: Schema.Connection<{
       id: string
-      title: string
-      authors: {
-        name: string
-      }[]
+      url: string
+      picture: string
       description: string
-      cover: string
+      createdAt: string
     }>
   }>
 }
@@ -35,16 +33,7 @@ interface IState {
 @CSSModules(styles)
 class Browse extends Component<Props, IState> {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      showRecentReading: false
-    }
-  }
-
   render() {
-    const images = [pic1, pic2, pic3]
-
     return (
       <DocContainer bodyClass="page-browse" title="首页">
         <div className="header">
@@ -58,7 +47,14 @@ class Browse extends Component<Props, IState> {
               zIndex: 999
             }}
           />
-          <Slides images={images} />
+          <Slides
+            images={this.props.data.slides.edges.map(edge => edge.node.picture)}
+            draggable={false}
+            infinite={false}
+            arrows={false}
+            dots={false}
+            disableSwipe={true}
+          />
         </div>
         <Container>
           <Books
@@ -77,6 +73,18 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect<{}, {}, {}>(
-  mapStateToProps
+const withData = graphql(SLIDES_QUERY, {
+  options: () => {
+    return {
+      variables: {
+        first: 3
+      }
+    }
+  }
+})
+
+export default compose(
+  withData,
+  withIndicator(),
+  connect(mapStateToProps)
 )(Browse)
