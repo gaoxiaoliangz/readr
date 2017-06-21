@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules'
 import _ from 'lodash'
 import styles from './BookProgress.scss'
 import PopBox from '../../../components/PopBox'
+import reverse from '../../../../utils/reverse'
 
 interface Props {
   localProgress: Viewer.LocalProgress[]
@@ -57,7 +58,7 @@ class BookProgress extends Component<Props, State> {
               }}
             >
               {
-                localProgress.slice(localProgress.length - 5, localProgress.length).map((progress, index) => {
+                reverse(localProgress).slice(0, 5).map((progress, index) => {
                   return (
                     <div key={index}>{(progress.percentage * 100).toFixed(2)}%</div>
                   )
