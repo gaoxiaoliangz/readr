@@ -4,6 +4,7 @@ query Slides($first: Int) {
       node {
         id
         picture
+        url
         updatedAt
         createdAt
         description

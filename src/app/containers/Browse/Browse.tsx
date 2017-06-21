@@ -48,7 +48,10 @@ class Browse extends Component<Props, IState> {
             }}
           />
           <Slides
-            images={this.props.data.slides.edges.map(edge => edge.node.picture)}
+            images={this.props.data.slides.edges.map(edge => ({
+              src: edge.node.picture,
+              to: edge.node.url
+            }))}
             draggable={false}
             infinite={false}
             arrows={false}

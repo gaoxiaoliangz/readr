@@ -6,7 +6,7 @@
   background: $dark;
   font-weight: bold;
 
-  @include phone {
+  @include tablet {
     .nav-label {
       display: none;
     }

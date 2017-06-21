@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import Slider from 'react-slick'
 import styles from './Slides.scss'
 import PrevArrow from './PrevArrow'
 import NextArrow from './NextArrow'
 
 interface Props extends __config {
-  images: any[]
+  images: {
+    src: string
+    to?: string
+  }[]
   disableSwipe?: boolean
 }
 
@@ -26,7 +30,7 @@ const Slides = ({ images, disableSwipe, ...rest }: Props) => {
 
   return (
     <div
-      style={{ maxHeight: 420, overflow: isServerEnv ? 'hidden' : 'initial', paddingBottom: 50 }}
+      style={{ overflow: isServerEnv ? 'hidden' : 'initial' }}
       {...{
         onTouchMoveCapture: disableSwipe && disableTouch
       }}
@@ -39,15 +43,14 @@ const Slides = ({ images, disableSwipe, ...rest }: Props) => {
             {
               images.map((image, index) => {
                 const slideStyle: React.CSSProperties = {
-                  background: `url(${image})`,
-                  backgroundSize: 'cover',
-                  height: 420,
-                  width: '100%'
+                  background: `url(${image.src})`
                 }
 
                 return (
-                  <div className={styles['img-wrap']} key={index} >
-                    <div style={slideStyle} />
+                  <div className={styles['img-wrap']}>
+                    <Link to={image.to} key={index}>
+                      <div className={styles['img-inner']} style={slideStyle} />
+                    </Link>
                   </div>
                 )
               })
