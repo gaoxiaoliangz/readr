@@ -90,7 +90,7 @@ const withData = graphql(BOOKS_QUERY, {
     return {
       variables: {
         query: props.keyword,
-        first: 6
+        first: 9
       }
     }
   }

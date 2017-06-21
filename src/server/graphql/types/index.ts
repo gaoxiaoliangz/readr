@@ -4,6 +4,7 @@ import { GQLBookPage, GQLBookPageConnection } from './GQLBookPage'
 import { GQLBook, GQLBookConnection } from './GQLBook'
 import { GQLAuthor, GQLAuthorConnection } from './GQLAuthor'
 import { GQLTag, GQLTagConnection } from './GQLTag'
+import { GQLSlide, GQLSlideConnection } from './GQLSlide'
 import { GQLFile, GQLFileConnection } from './GQLFile'
 import { GQLReadingHistoryEntry, GQLReadingHistoryEntryConnection } from './GQLReadingHistoryEntry'
 
@@ -21,5 +22,7 @@ export {
   GQLTocItem,
   GQLReadingProgress,
   GQLReadingHistoryEntry,
-  GQLReadingHistoryEntryConnection
+  GQLReadingHistoryEntryConnection,
+  GQLSlide,
+  GQLSlideConnection
 }

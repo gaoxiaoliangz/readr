@@ -11,6 +11,7 @@ const additionalSchemaOptions = {
   }
 }
 
+// authors
 export const authorFields = {
   name: {
     type: String,
@@ -29,6 +30,7 @@ export const authorFields = {
 
 export const authorSchema = new Schema(authorFields, additionalSchemaOptions)
 
+// books
 export const bookFields = {
   title: {
     required: true,
@@ -68,6 +70,7 @@ export const bookSchema = new Schema(bookFields, additionalSchemaOptions)
 //   next()
 // })
 
+// collections
 export const collectionFields = {
   name: {
     required: true,
@@ -88,6 +91,7 @@ export const collectionFields = {
 
 export const collectionSchema = new Schema(collectionFields, additionalSchemaOptions)
 
+// files
 export const fileFields = {
   filename: {
     required: true,
@@ -114,6 +118,7 @@ export const fileFields = {
 
 export const fileSchema = new Schema(fileFields, additionalSchemaOptions)
 
+// progresses
 export const progressFields = {
   percentage: {
     required: true,
@@ -131,6 +136,28 @@ export const progressFields = {
 
 export const progressSchema = new Schema(progressFields, additionalSchemaOptions)
 
+// slides
+export const slideFields = {
+  url: {
+    required: true,
+    type: String,
+  },
+  picture: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  },
+  editor: {
+    type: String,
+    required: true
+  }
+}
+
+export const slideSchema = new Schema(slideFields, additionalSchemaOptions)
+
+// tags
 export const tagFields = {
   name: {
     required: true,
@@ -147,6 +174,7 @@ export const tagFields = {
 
 export const tagSchema = new Schema(tagFields, additionalSchemaOptions)
 
+// users
 export const userFields = {
   username: {
     type: String,

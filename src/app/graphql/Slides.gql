@@ -1,0 +1,14 @@
+query Slides($first: Int) {
+  slides(first: $first) {
+    edges {
+      node {
+        id
+        picture
+        url
+        updatedAt
+        createdAt
+        description
+      }
+    }
+  }
+}

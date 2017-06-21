@@ -1,4 +1,6 @@
-# Readr - a modern web reading app
+# Readr
+
+> a modern web reading app
 
 [http://readrweb.com](http://readrweb.com)
 
@@ -6,11 +8,19 @@
 
 ### Frontend
 
-react, redux, graphql(using apollo), reselect, redux-thunk, redux-saga, webpack, babel
+react, redux, graphql(apollo), reselect, redux-thunk, redux-saga, webpack, babel
 
 ### Backend
 
 node.js, express.js, graphql(with relay standard), mongodb, moongoose, multer, phantomjs
+
+### Testing
+
+jest
+
+### Deploy
+
+Docker
 
 ### Language
 

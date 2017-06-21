@@ -59,11 +59,15 @@ export default function initialize(config: InitConfig) {
   app.use(middleware.parseContext)
 
   // graphql api
-  app.use('/gql', graphQLHTTP({
-    schema,
-    graphiql: true,
-    pretty: true,
-  }))
+  app.use('/gql', (req, res) => {
+    const useGraphiql = req['user'].role === 'admin'
+
+    graphQLHTTP({
+      schema,
+      graphiql: useGraphiql,
+      pretty: true,
+    })(req, res)
+  })
 
   // graffiti graphql
   const schemaArr = [Author, Book, Collection, File, Progress, Tag, User]
