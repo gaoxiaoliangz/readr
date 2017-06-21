@@ -87,7 +87,7 @@ const bookPagesField = makeNodeConnectionField({
       try {
         const progress = (await getReadingProgressCore({ bookId, userId }) || {})
         const percentage = progress['percentage'] || 0
-        const pageNo = Math.floor(list.length * percentage) + 1
+        const pageNo = Math.floor(list.length * percentage)
         return offset + pageNo
       } catch (error) {
         return offset

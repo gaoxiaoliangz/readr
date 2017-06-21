@@ -26,8 +26,8 @@ class BookProgress extends Component<Props, State> {
 
   render() {
     const { localProgress, onGoToRequest } = this.props
-    const lastProgress = _.last(localProgress)
-    const percentage = (lastProgress.percentage * 100).toFixed(2) + '%'
+    const lastProgress = _.last(localProgress) || {} as any
+    const percentage = ((lastProgress.percentage || 0) * 100).toFixed(2) + '%'
 
     return (
       <div styleName="loc-info">

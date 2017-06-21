@@ -45,8 +45,8 @@ const Slides = ({ images, disableSwipe, ...rest }: Props) => {
                 }
 
                 return (
-                  <div className={styles['img-wrap']}>
-                    <Link to={image.to} key={index}>
+                  <div className={styles['img-wrap']} key={index}>
+                    <Link to={image.to}>
                       <div className={styles['img-inner']} style={slideStyle} />
                     </Link>
                   </div>

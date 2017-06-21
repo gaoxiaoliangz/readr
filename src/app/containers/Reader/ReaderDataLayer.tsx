@@ -167,6 +167,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     this._updateLocalProgress()
     this._checkToLoadPage()
     const { percentage } = this._getCurrentProgress()
+
     this.props.mutate({
       variables: {
         percentage,
