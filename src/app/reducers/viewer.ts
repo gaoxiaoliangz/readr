@@ -66,7 +66,11 @@ const data = (state = {}, action) => {
       if (progressArrBeforeUpdate.length === 0) {
         progressArr = [latestProgress]
       } else if (Math.abs(prevProgress.percentage - latestProgress.percentage) > .05) {
-        progressArr = progressArrBeforeUpdate.concat(latestProgress)
+        progressArr = progressArrBeforeUpdate
+          .filter(item => {
+            return item.percentage.toFixed(4) !== latestProgress.percentage.toFixed(4)
+          })
+          .concat(latestProgress)
       } else {
         progressArr = progressArrBeforeUpdate.map((progress, index) => {
           if (progressArrBeforeUpdate.length - 1 === index) {
@@ -79,6 +83,7 @@ const data = (state = {}, action) => {
       return _.merge({}, state, {
         [payload.bookId]: {
           progress: {
+            // local: _.unionBy(progressArr, obj => obj['percentage'].toFixed(4))
             local: progressArr
           }
         }

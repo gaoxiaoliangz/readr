@@ -56,6 +56,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     super(props)
     this._handleScroll = this._handleScroll.bind(this)
     this._handleDebouncedScroll = this._handleDebouncedScroll.bind(this)
+    this._handleGoToRequest = this._handleGoToRequest.bind(this)
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -95,7 +96,12 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
     setTimeout(() => {
       document.body.scrollTop = scrollTop
+      this._updateLocalProgress()
     }, SCROLL_DELAY)
+  }
+
+  _handleGoToRequest(percentage) {
+    document.body.scrollTop = percentage * this.props.config.pageHeight * this.props.data.viewer.bookPages.totalCount
   }
 
   _loadPage(config: { pageNo?, first?, fromLocation?} = {}) {
@@ -238,6 +244,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
           onDebuncedScroll={this._handleDebouncedScroll}
           onScroll={this._handleScroll}
           renderConfig={config}
+          onGoToRequest={this._handleGoToRequest}
         />
       </DocContainer>
     )

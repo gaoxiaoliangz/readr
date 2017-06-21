@@ -7,6 +7,7 @@ import reverse from '../../../../utils/reverse'
 
 interface Props {
   localProgress: Viewer.LocalProgress[]
+  onGoToRequest: (percentage: number) => void
 }
 
 interface State {
@@ -24,7 +25,7 @@ class BookProgress extends Component<Props, State> {
   }
 
   render() {
-    const { localProgress } = this.props
+    const { localProgress, onGoToRequest } = this.props
     const lastProgress = _.last(localProgress)
     const percentage = (lastProgress.percentage * 100).toFixed(2) + '%'
 
@@ -36,6 +37,9 @@ class BookProgress extends Component<Props, State> {
               this.setState({
                 showPopBox: true
               })
+            }}
+            style={{
+              cursor: 'pointer'
             }}
           >
             <div>{lastProgress.page}<span styleName="sep">/</span>{lastProgress.pageCount}</div>
@@ -57,13 +61,23 @@ class BookProgress extends Component<Props, State> {
                 padding: 20
               }}
             >
-              {
-                reverse(localProgress).slice(0, 5).map((progress, index) => {
-                  return (
-                    <div key={index}>{(progress.percentage * 100).toFixed(2)}%</div>
-                  )
-                })
-              }
+              <div>
+                <h3 styleName="recent-title">最近位置</h3>
+                {
+                  reverse(localProgress).slice(0, 5).map((progress, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          onGoToRequest(progress.percentage)
+                        }}
+                      >
+                        {(progress.percentage * 100).toFixed(2)}%
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </PopBox>
           </div>
         </div>

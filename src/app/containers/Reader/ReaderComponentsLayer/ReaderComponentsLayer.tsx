@@ -30,6 +30,7 @@ interface OwnProps {
     lineHeight: number
     pageHeight: number
   }
+  onGoToRequest: (percentage: number) => void
 }
 
 interface StateProps {
@@ -128,7 +129,8 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
       components: { showNavigation, showPanel, showPreference }, bookInfo, bookPages: { totalCount },
       renderConfig,
       viewerConfig,
-      localProgress
+      localProgress,
+      onGoToRequest
     } = this.props
 
     return (
@@ -231,6 +233,7 @@ class ReaderComponentsLayer extends Component<StateProps & OwnProps, {}> {
           >
             <BookProgress
               localProgress={localProgress}
+              onGoToRequest={onGoToRequest}
             />
           </div>
         </Panel>
