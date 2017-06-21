@@ -39,7 +39,7 @@ function apiRoutes() {
   router.get('/books/:id', authenticatePublic, httpDecorator(api.books.find))
   // router.get('/books/:id/content', authenticatePublic, httpDecorator(api.books.resolveContent))
   router.get('/books', authenticatePublic, httpDecorator(api.books.list))
-  router.post('/books', authenticateAdmin, upload.single('bookfile'), httpDecorator(api.books.add))
+  router.post('/books', authenticatePrivate, upload.single('bookfile'), httpDecorator(api.books.add))
   router.put('/books/:id', authenticateAdmin, httpDecorator(api.books.update))
   router.delete('/books/:id', authenticateAdmin, httpDecorator(api.books.del))
 

@@ -12,6 +12,7 @@ import { graphql, compose, gql } from 'react-apollo'
 import withIndicator from '../../helpers/withIndicator'
 import CSSModules from 'react-css-modules'
 import styles from './Shelf.scss'
+import FileUploader from '../../components/FileUploader'
 
 type Data = State.Apollo<{
   viewer: {
@@ -53,7 +54,22 @@ class Shelf extends Component<IProps, {}> {
               />
             </Tab>
             <Tab title="我的上传">
-              该功能仍在开发中，敬请期待！
+              <FileUploader
+                style={{ marginTop: 20 }}
+                url="/api/books"
+                accept=".txt,.epub"
+                name="book-file"
+                onSuccess={result => {
+                  //this.props.sendNotification(`${result.title} 添加成功`)
+                  //this.loadBooks()
+                }}
+                onError={error => {
+                  //this.props.sendNotification(error.message, 'error')
+                }}
+                fileFieldName="bookfile"
+              >
+                add
+              </FileUploader>
             </Tab>
           </Tabs>
         </Container>
