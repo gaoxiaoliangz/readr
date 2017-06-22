@@ -45,17 +45,18 @@ const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> =
 
     if (_options.providedBy) {
       query = query.where('provided_by').equals(_options.providedBy)
-    }
-
-    if (!_.isUndefined(_options.published)) {
-      query = query.where('published').equals(_options.published)
     } else {
+      // by default unpublished is not listed when provider is not present
       query = query.find({
         $or: [
           { published: true },
           { published: null }
         ]
       })
+    }
+
+    if (!_.isUndefined(_options.published)) {
+      query = query.where('published').equals(_options.published)
     }
 
     return query

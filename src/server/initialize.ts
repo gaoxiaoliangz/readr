@@ -60,7 +60,13 @@ export default function initialize(config: InitConfig) {
 
   // graphql api
   app.use('/gql', (req, res) => {
-    const useGraphiql = req['user'].role === 'admin'
+    const useGraphiql = process.env.NODE_ENV !== 'production' || req['user'].role === 'admin'
+    const query = req.query.query || req.body.query
+    if (query && query.length > 2000) {
+      // None of our app's queries are this long
+      // Probably indicates someone trying to send an overly expensive query
+      throw new Error('Query too large.')
+    }
 
     graphQLHTTP({
       schema,

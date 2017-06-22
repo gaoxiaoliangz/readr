@@ -47,6 +47,34 @@ const viewerField = {
       username: {
         type: GraphQLString
       },
+      books: makeNodeConnectionField({
+        type: GQLBookConnection,
+        extendedArgs: {
+          query: {
+            type: GraphQLString
+          }
+        },
+        listAllFn: async (upper, args, req) => {
+          const userId = _.get(req, ['user', '_id'], '')
+          if (!userId) {
+            return Promise.reject(new Error('需要登录！'))
+          }
+          const query = args.query
+          // tood: max
+          const allResults = await api.books
+            .list({
+              includeToc: true,
+              limit: 99999,
+              providedBy: userId
+            })
+            .then(data => data.list)
+          return query
+            ? allResults.filter((r) => {
+              return r.title.indexOf(query) !== -1
+            })
+            : allResults
+        }
+      }),
       bookPages: bookPagesField,
       readingProgress: {
         type: GQLReadingProgress,
