@@ -5,7 +5,7 @@ import { sortByNewest } from './utils'
 
 export function getReadingProgressCore({ bookId, userId }) {
   if (!userId) {
-    return Promise.reject(new Error('Sign-in required!'))
+    return null
   }
   const query = humps.decamelizeKeys({ userId, bookId })
 

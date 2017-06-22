@@ -84,14 +84,10 @@ const bookPagesField = makeNodeConnectionField({
     }
 
     if (args.fromHistory) {
-      try {
-        const progress = (await getReadingProgressCore({ bookId, userId }) || {})
-        const percentage = progress['percentage'] || 0
-        const pageNo = Math.floor(list.length * percentage)
-        return offset + pageNo
-      } catch (error) {
-        return offset
-      }
+      const progress = (await getReadingProgressCore({ bookId, userId }) || {})
+      const percentage = progress['percentage'] || 0
+      const pageNo = Math.floor(list.length * percentage)
+      return offset + pageNo
     }
 
     return offset
