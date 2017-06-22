@@ -32,7 +32,7 @@ const DataRenderer = (props: Props) => {
         title="发生错误！"
         message={(
           <div>
-            <p>{props.data.error.message}</p>
+            <p>{props.data.error.message.replace(/GraphQL error: /, '')}</p>
             <p><small>你可以尝试刷新页面重试</small></p>
           </div>
         )}

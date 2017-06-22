@@ -6,6 +6,8 @@ import { getAuthorId, getBookMetaByTitle } from './helpers'
 
 // todo: should file be in object?
 export default async function addBook(options) {
+  const { role, _id } = options.context.user
+
   async function doSave({ title, authorName, fileId }) {
     const bookMeta = await getBookMetaByTitle(title)
     const authorId = await getAuthorId(authorName, bookMeta.authorInfo)
@@ -13,7 +15,9 @@ export default async function addBook(options) {
       ...bookMeta,
       ...{
         file: fileId,
-        authors: [authorId]
+        authors: [authorId],
+        published: role === 'admin',
+        provided_by: _id
       }
     }
 

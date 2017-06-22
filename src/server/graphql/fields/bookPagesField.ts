@@ -87,7 +87,7 @@ const bookPagesField = makeNodeConnectionField({
       try {
         const progress = (await getReadingProgressCore({ bookId, userId }) || {})
         const percentage = progress['percentage'] || 0
-        const pageNo = Math.floor(list.length * percentage) + 1
+        const pageNo = Math.floor(list.length * percentage)
         return offset + pageNo
       } catch (error) {
         return offset
@@ -96,11 +96,16 @@ const bookPagesField = makeNodeConnectionField({
 
     return offset
   },
-  extendedFields: ({ sliceStart, connection }) => (parent, args, req) => {
+  extendedFields: ({ sliceStart, connection }) => async (parent, args, req) => {
     const offset = args.offset || 0
+    const bookId = fromGlobalId(args.bookId).id
+    const { user: { _id: userId } } = req
+    const progress = (await getReadingProgressCore({ bookId, userId }) || {})
+    const percentage = progress['percentage'] || 0
     const base = {
       fromHistory: !args.fromLocation && req.user.role !== 'visitor' && args.fromHistory,
-      fromLocation: args.fromLocation
+      fromLocation: args.fromLocation,
+      lastProgress: percentage
     }
 
     if (args.before || args.after) {

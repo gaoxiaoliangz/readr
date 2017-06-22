@@ -12,6 +12,10 @@ import { graphql, compose, gql } from 'react-apollo'
 import withIndicator from '../../helpers/withIndicator'
 import CSSModules from 'react-css-modules'
 import styles from './Shelf.scss'
+import FileUploader from '../../components/FileUploader'
+import UserUploadedBooks from '../UserUploadedBooks/UserUploadedBooks'
+import { sendNotification } from '../../actions'
+import Loading from '../../components/Loading/Loading'
 
 type Data = State.Apollo<{
   viewer: {
@@ -29,13 +33,36 @@ type Data = State.Apollo<{
 
 interface IProps {
   data: Data
+  sendNotification: typeof sendNotification
 }
 
-class Shelf extends Component<IProps, {}> {
+interface State {
+  isUploading?: boolean
+  showUploads?: boolean
+}
+
+class Shelf extends Component<IProps, State> {
+
+  uploadComp: any
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      isUploading: false,
+      showUploads: true
+    }
+  }
+
   render() {
+    // console.log(this.uploadComp)
     return (
       <DocContainer title="我的书架" bodyClass="page-shelf">
         <Branding />
+        {
+          this.state.isUploading && (
+            <Loading useNProgress />
+          )
+        }
         <Container
           style={{
             minHeight: 400
@@ -53,7 +80,51 @@ class Shelf extends Component<IProps, {}> {
               />
             </Tab>
             <Tab title="我的上传">
-              该功能仍在开发中，敬请期待！
+              <FileUploader
+                style={{
+                  marginTop: 20,
+                  display: 'block'
+                }}
+                url="/api/books"
+                accept=".txt,.epub"
+                name="book-file"
+                onStart={() => {
+                  this.setState({
+                    isUploading: true
+                  })
+                }}
+                onSuccess={result => {
+                  this.props.sendNotification(`${result.title} 添加成功`)
+                  this.setState({
+                    isUploading: false,
+                    showUploads: false
+                  }, () => {
+                    // very hacky, not recommended!
+                    this.setState({
+                      showUploads: true
+                    })
+                  })
+                }}
+                onError={error => {
+                  this.props.sendNotification(error.message, 'error')
+                  this.setState({
+                    isUploading: false
+                  })
+                }}
+                fileFieldName="bookfile"
+              >
+                <Container>
+                  <div styleName="uploader">
+                    <h2>点击选择要上传的 epub 文件</h2>
+                    <p>你上传的书籍仅对你自己可见</p>
+                  </div>
+                </Container>
+              </FileUploader>
+              {
+                this.state.showUploads && (
+                  <UserUploadedBooks ref={ref => this.uploadComp = ref} />
+                )
+              }
             </Tab>
           </Tabs>
         </Container>
@@ -83,7 +154,8 @@ export default compose(
   withData,
   withIndicator(),
   connect(
-    mapStateToProps
+    mapStateToProps,
+    { sendNotification }
   ),
   CSSModules(styles)
 )(Shelf)

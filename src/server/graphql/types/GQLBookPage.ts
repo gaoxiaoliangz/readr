@@ -4,6 +4,7 @@ import {
   GraphQLList,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLFloat
 } from 'graphql'
 import md5 from 'md5'
 import { extendedConnectionDefinitions } from '../utils'
@@ -83,8 +84,12 @@ export const { connectionType: GQLBookPageConnection } = extendedConnectionDefin
     startPage: {
       type: GraphQLInt
     },
+    lastProgress: {
+      type: GraphQLFloat
+    },
     offset: {
-      type: GraphQLInt
+      type: GraphQLInt,
+      deprecationReason: 'not seems to be useful'
     },
     fromHistory: {
       type: GraphQLBoolean

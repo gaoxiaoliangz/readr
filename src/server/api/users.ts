@@ -12,7 +12,8 @@ const userAPI = {
       return dataProvider.User.utils.save({
         ...object,
         ...{
-          role: ROLES.USER
+          role: ROLES.USER,
+          display_name: object.username
         }
       })
     },

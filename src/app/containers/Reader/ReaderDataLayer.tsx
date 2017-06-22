@@ -54,11 +54,9 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
   constructor(props) {
     super(props)
-    this.handleScroll = this.handleScroll.bind(this)
-    this.handleDebouncedScroll = this.handleDebouncedScroll.bind(this)
-    this.state = {
-      isInitialRender: true
-    }
+    this._handleScroll = this._handleScroll.bind(this)
+    this._handleDebouncedScroll = this._handleDebouncedScroll.bind(this)
+    this._handleGoToRequest = this._handleGoToRequest.bind(this)
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -79,22 +77,31 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   }
 
   componentDidMount() {
-    let startPage
-    if (!this.props.routing.hash) {
-      startPage = (((_.last(this.props.localProgress) || {})['page']) || this.props.data.viewer.bookPages.startPage) - 1
+    // todo:
+    // when percentage is changed somewhere else and current client has cache
+    // then entering that book again would override the newest progress
+    // perform a check first?
+    let lastProgress = this.props.data.viewer.bookPages.lastProgress
+    let scrollTop
+    if (this.props.data.viewer.bookPages.fromLocation) {
+      const startPage = this.props.data.viewer.bookPages.startPage + this.props.data.viewer.bookPages.offset - 1
+      scrollTop = startPage * this.props.config.pageHeight
     } else {
-      startPage = this.props.data.viewer.bookPages.startPage + this.props.data.viewer.bookPages.offset - 1
+      scrollTop = lastProgress * this.props.config.pageHeight * this.props.data.viewer.bookPages.totalCount
+    }
+
+    if (this.props.routing.hash) {
       routerHistory().replace(this.props.routing.pathname)
     }
 
-    const scrollTop = startPage * this.props.config.pageHeight
-
     setTimeout(() => {
       document.body.scrollTop = scrollTop
-      this.setState({
-        isInitialRender: false
-      })
+      this._updateLocalProgress()
     }, SCROLL_DELAY)
+  }
+
+  _handleGoToRequest(percentage) {
+    document.body.scrollTop = percentage * this.props.config.pageHeight * this.props.data.viewer.bookPages.totalCount
   }
 
   _loadPage(config: { pageNo?, first?, fromLocation?} = {}) {
@@ -123,10 +130,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
           viewer: {
             ...previousResult.viewer,
             bookPages: {
-              ...previousResult.viewer.bookPages,
-              edges,
-              startPage: fetchMoreResult.viewer.bookPages.startPage,
-              offset: fetchMoreResult.viewer.bookPages.offset
+              ...fetchMoreResult.viewer.bookPages,
+              edges
             }
           }
         }
@@ -136,32 +141,36 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     })
   }
 
-  handleScroll(direction) {
+  _updateLocalProgress() {
+    const { pageNo, totalCount, percentage } = this._getCurrentProgress()
+    this.props.actions.viewer.updateLocalProgress(this.props.params.id, {
+      page: pageNo,
+      pageCount: totalCount,
+      percentage
+    })
+  }
+
+  _handleScroll(direction) {
     const { components: { showPreference, showPanel } } = this.props
     const reachingPageTop = document.body.scrollTop < this.props.config.pageHeight
 
     if ((direction === 'up' && showPanel === false) || reachingPageTop) {
       this.props.actions.viewer.toggleViewerPanel(true)
     }
-    // if direction is undefined, it's probably that it's performing a in-book navigation
+    // if direction is undefined, it's probably that it's performing an in-book navigation
     if ((direction === 'down' && !showPreference && showPanel === true && !reachingPageTop) || !direction) {
       this.props.actions.viewer.toggleViewerPanel(false)
     }
-
-    const { pageNo, totalCount } = this._getCurrentProgress()
-    this.props.actions.viewer.updateLocalProgress(this.props.params.id, {
-      page: pageNo,
-      pageCount: totalCount,
-      percentage: pageNo / totalCount
-    })
   }
 
-  handleDebouncedScroll(e, direction) {
+  _handleDebouncedScroll(e, direction) {
+    this._updateLocalProgress()
     this._checkToLoadPage()
-    const { pageNo, totalCount } = this._getCurrentProgress()
+    const { percentage } = this._getCurrentProgress()
+
     this.props.mutate({
       variables: {
-        percentage: pageNo / totalCount,
+        percentage,
         bookId: this.props.params.id
       }
     })
@@ -176,7 +185,8 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
 
     const currentPageIndex = Math.floor(scrollTop / pageHeight)
     const pageNo = currentPageIndex + 1
-    return { pageNo, totalCount }
+    const percentage = scrollTop / (this.props.data.viewer.bookPages.totalCount * pageHeight)
+    return { pageNo, totalCount, percentage }
   }
 
   _checkToLoadPage() {
@@ -232,9 +242,10 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
           bookInfo={bookInfo}
           onReachBottom={() => {
           }}
-          onDebuncedScroll={this.handleDebouncedScroll}
-          onScroll={this.handleScroll}
+          onDebuncedScroll={this._handleDebouncedScroll}
+          onScroll={this._handleScroll}
           renderConfig={config}
+          onGoToRequest={this._handleGoToRequest}
         />
       </DocContainer>
     )

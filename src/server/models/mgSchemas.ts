@@ -47,6 +47,15 @@ export const bookFields = {
     required: true,
     type: ObjectId
   },
+  provided_by: {
+    type: ObjectId,
+    required: true,
+    ref: 'User'
+  },
+  published: {
+    type: Boolean,
+    required: true
+  },
   content: {
     type: Object,
     hooks: {

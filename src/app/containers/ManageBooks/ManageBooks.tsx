@@ -55,11 +55,16 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       title: '确认删除',
       content: `将删除《${bookName}》`,
       onConfirm: () => {
-        restAPI.deleteBook(id).then(res => {
-          this.props.closeConfirmModal()
-          this.props.sendNotification('删除成功！')
-          cb()
-        })
+        restAPI.deleteBook(id)
+          .then(res => {
+            this.props.closeConfirmModal()
+            this.props.sendNotification('删除成功！')
+            cb()
+          })
+          .catch(err => {
+            this.props.closeConfirmModal()
+            this.props.sendNotification(err.message, 'error')
+          })
       }
     })
   }
@@ -75,12 +80,17 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         <BookMetaForm
           onSave={data => {
             const _data = _.omit(data, 'authors')
-            restAPI.editBookMeta(bookMeta.id, _data).then(result => {
-              this.loadBooks()
-              this.props.closeModal()
-              this.props.sendNotification('修改成功！', 'success')
-              cb()
-            })
+            restAPI.editBookMeta(bookMeta.objectId, _data)
+              .then(result => {
+                this.loadBooks()
+                this.props.closeModal()
+                this.props.sendNotification('修改成功！', 'success')
+                cb()
+              })
+              .catch(err => {
+                this.props.closeConfirmModal()
+                this.props.sendNotification(err.message, 'error')
+              })
           }}
         />
       )
@@ -112,6 +122,10 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     }
   }
 
+  _getCurrentPage() {
+    return Number(this.props.routing.query.page) || 1
+  }
+
   render() {
     if (this.props.data.loading) {
       return <Loading center useNProgress />
@@ -128,10 +142,10 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           (
             <div>
               <span className="dark-link" onClick={() => {
-                this.editBookMeta(entities[index], this.loadBooks.bind(this))
+                this.editBookMeta(entities[index], this.loadBooks.bind(this, this._getCurrentPage()))
               }}>编辑</span>
               <span className="dark-link" onClick={() => {
-                this.deleteBook(row.id, row.title, this.loadBooks.bind(this))
+                this.deleteBook(row.objectId, row.title, this.loadBooks.bind(this, this._getCurrentPage()))
               }}>删除</span>
             </div>
           )
@@ -162,7 +176,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         />
         <Paginator
           all={Math.ceil(this.props.data.books.totalCount / PAGE_LIMIT)}
-          current={Number(this.props.routing.query.page) || 1}
+          current={this._getCurrentPage()}
           url={{
             pathname: this.props.routing.pathname,
             query: this.props.routing.query || {}

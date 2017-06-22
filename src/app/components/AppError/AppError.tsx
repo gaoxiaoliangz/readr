@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import Logo from '../../components/Logo'
-const styles = require('./AppError.scss')
+import styles from './AppError.scss'
+import Container from '../Container/Container'
 
 interface IProps {
   title: string
@@ -19,13 +20,15 @@ class AppError extends Component<IProps, {}> {
         <div styleName="header">
           <Logo dark />
         </div>
-        <div styleName="body">
-          <h1 styleName="title">{title}</h1>
-          <div>{message}</div>
-          {
-            process.env.NODE_ENV !== 'production' && stack
-          }
-        </div>
+        <Container>
+          <div styleName="body">
+            <h1 styleName="title">{title}</h1>
+            <div>{message}</div>
+            {
+              process.env.NODE_ENV !== 'production' && stack
+            }
+          </div>
+        </Container>
       </div>
     )
   }

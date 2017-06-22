@@ -10,9 +10,13 @@
 
   & li {
     float: left;
-    width: 33%;
+    width: 33.33%;
     padding: 10px;
     box-sizing: border-box;
+
+    @include tablet {
+      width: 50%;
+    }
 
     @include phone {
       width: 100%;

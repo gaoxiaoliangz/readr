@@ -110,7 +110,10 @@ export const makeBasicAPIMethods = (Model: typeof dataProvider.Author) => {
 }
 
 export const queryBoolean = (input) => {
-  const consideredFalse = ['0', 'false', 'null', 'undefined']
+  if (_.isUndefined(input) || input === 'undefined' || input === '') {
+    return undefined
+  }
+  const consideredFalse = ['0', 'false', 'null']
   if (consideredFalse.indexOf(input) !== -1) {
     return false
   }

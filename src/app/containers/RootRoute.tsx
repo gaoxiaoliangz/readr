@@ -46,7 +46,12 @@ class Master extends Component<Props, {}> {
       if (isRouteIgnored(this.props.routing.pathname) || isRouteIgnored(nextProps.routing.pathname)) {
         return false
       }
-      window.document.body.scrollTop = 0
+
+      // should delay here or reader progress will be reset to 0 in some cases
+      // when book is directly opened and then return to home
+      setTimeout(() => {
+        window.document.body.scrollTop = 0
+      }, 50)
     }
   }
 

@@ -132,9 +132,9 @@ type makeNodeConnectionFieldConfig = {
   extendedArgs?: {
     [key: string]: any
   },
-  extendedFields?: (config: { list: any[], sliceStart: number, connection: any }) => (...args: any[]) => {
+  extendedFields?: (config: { list: any[], sliceStart: number, connection: any }) => (...args: any[]) => Promisable<{
     [key: string]: any
-  }
+  }>
 }
 export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) => {
   const { type, listAllFn, extendedArgs, extendedFields: extendedFieldsFn, sliceStart: sliceStartFn } = config
@@ -162,7 +162,7 @@ export const makeNodeConnectionField = (config: makeNodeConnectionFieldConfig) =
         sliceStart,
         arrayLength: list.length,
       })
-      const extendedFields = extendedFieldsFn && extendedFieldsFn({ list, sliceStart, connection })(...args)
+      const extendedFields = extendedFieldsFn && await extendedFieldsFn({ list, sliceStart, connection })(...args)
 
       return {
         ...extendedFields,

@@ -66,7 +66,7 @@ export default class Book extends Component<IProps, IState> {
               )
             }
             {
-              percentage && (
+              Boolean(percentage) && (
                 <span>已读 {(percentage * 100).toFixed(1)}%</span>
               )
             }
