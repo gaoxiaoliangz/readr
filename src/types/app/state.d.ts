@@ -47,6 +47,7 @@ declare namespace State {
   type Apollo<Data> = {
     error: Error
     fetchMore: (config) => ApolloFetchMoreResult<Data>
+    refetch: (variables?: any) => any
     loading: boolean
   } & Data
 

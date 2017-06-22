@@ -8,6 +8,7 @@ interface Callback {
 interface Props {
   url: string
   noAjax?: boolean
+  onStart?: Callback
   onSuccess?: Callback
   onError?: Callback
   onComplete?: Callback
@@ -39,7 +40,7 @@ class FileUploader extends Component<Props, State> {
   }
 
   handleFileChange(e) {
-    const { url, onComplete, onSuccess, onError, fileFieldName } = this.props
+    const { url, onComplete, onSuccess, onError, fileFieldName, onStart } = this.props
 
     const files = e.target.files
     const data = new FormData()
@@ -50,6 +51,10 @@ class FileUploader extends Component<Props, State> {
       })
     } else {
       data.append(fileFieldName, files[0])
+    }
+
+    if (onStart) {
+      onStart(data)
     }
 
     $.ajax({

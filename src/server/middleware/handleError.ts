@@ -1,6 +1,6 @@
 import i18n from '../utils/i18n'
 import _ from 'lodash'
-import errors from '../errors'
+// import errors from '../errors'
 
 const debug = require('debug')('readr:handleError')
 
