@@ -1,4 +1,5 @@
 @import "~styles/variables";
+@import "~styles/mixins/screens";
 
 .page-no {
   position: absolute;
@@ -7,6 +8,10 @@
   padding: 0 10px;
   color: $gray;
   font-size: 1.1rem;
+  @include phone {
+    padding: 0 2px;
+    font-size: 0.8rem;
+  }
 }
 
 .page-container--white {

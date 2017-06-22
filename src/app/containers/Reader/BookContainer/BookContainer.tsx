@@ -3,6 +3,7 @@ import _ from 'lodash'
 import HTMLObjectsRenderer from '../../../components/HTMLObjectsRenderer/HTMLObjectsRenderer'
 import CSSModules from 'react-css-modules'
 import styles from './BookContainer.scss'
+import * as readerConfig from '../readerConfig'
 
 interface Props {
   bookPages: Schema.BookPages
@@ -18,9 +19,6 @@ interface Props {
 
 @CSSModules(styles)
 export default class BookContainer extends Component<Props, void> {
-  constructor(props) {
-    super(props)
-  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(this.state, nextState) || !_.isEqual(this.props, nextProps)
@@ -31,35 +29,34 @@ export default class BookContainer extends Component<Props, void> {
       bookPages: { totalCount, edges },
       config
     } = this.props
-
     const height = config.pageHeight
     const rendererConfig = {
       lineHeight: config.lineHeight,
       fontSize: config.fontSize,
       width: config.width
     }
-
     const containerStyle: React.CSSProperties = {
       height: totalCount * height,
       position: 'relative'
     }
-
     const containerClass = `page-container--${config.theme.toLocaleLowerCase()}`
+    const isMobile = readerConfig.desktop.layout.width > config.width
+    const getConfig = readerConfig.getLayoutConfig(isMobile)
+    const contentMargin = getConfig('margin')
 
     return (
       <div style={containerStyle} styleName={containerClass}>
         {
           edges.map((edge, index) => {
             const page = edge.node.meta.pageNo
-            const pagePadding = 60
-            const pageWidth = rendererConfig.width + pagePadding * 2
+            const pageWidth = rendererConfig.width + contentMargin * 2
             const pageStyle: React.CSSProperties = {
               overflow: 'hidden',
               height,
               position: 'absolute',
               width: pageWidth,
               top: (page - 1) * height,
-              padding: `0 ${pagePadding}px`,
+              padding: `0 ${contentMargin}px`,
               left: '50%',
               marginLeft: - pageWidth / 2
             }

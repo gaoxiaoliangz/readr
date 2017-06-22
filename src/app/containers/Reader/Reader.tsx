@@ -7,6 +7,7 @@ import ReaderDataLayer from './ReaderDataLayer'
 import * as selectors from '../../selectors'
 import Loading from '../../components/Loading/Loading'
 import getScreenInfo from '../../utils/browser/getScreenInfo'
+import * as readerConfig from './readerConfig'
 
 interface Props {
   params: any
@@ -47,12 +48,18 @@ class Reader extends Component<Props, State> {
 
   _determineConfig() {
     const windowWidth = getScreenInfo().width
+    const isMobile = windowWidth < readerConfig.desktop.layout.width
+    const getConfig = readerConfig.getLayoutConfig(isMobile)
+    const contentWidth = isMobile
+      ? windowWidth - readerConfig.mobile.layout.margin * 2
+      : readerConfig.desktop.layout.width
+    const aspectRatio = getConfig('aspectRatio')
+
     return {
-      pageHeight: 900,
-      fontSize: 18,
-      lineHeight: 25,
-      // todo
-      width: windowWidth > 700 ? 600 : windowWidth - 120
+      fontSize: getConfig('fontSize'),
+      lineHeight: getConfig('lineHeight'),
+      pageHeight: contentWidth * aspectRatio,
+      width: contentWidth
     }
   }
 
