@@ -27,7 +27,6 @@ class PreferenceList extends Component<IProps, IState> {
   _handleSave(key) {
     return (val) => {
       this.props.onSave({
-        // ..._.pick(this.props, ['username', 'email']),
         [key]: val
       })
     }

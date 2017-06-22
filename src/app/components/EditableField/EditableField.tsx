@@ -29,23 +29,23 @@ class EditableField extends Component<Props, State> {
     }
     this._edit = this._edit.bind(this)
     this._cancel = this._cancel.bind(this)
-  }
-
-  componentDidMount() {
-    this.setState({
-      inputVal: this.props.initialValue
-    })
+    this._save = this._save.bind(this)
   }
 
   _edit() {
     this.setState({
-      isEdit: !this.state.isEdit
+      isEdit: true,
+      inputVal: this.props.initialValue
     }, () => {
-      if (this.state.isEdit) {
-        this.input.focus()
-      }
+      this.input.focus()
     })
-    if (this.state.isEdit === true && this.props.onSave) {
+  }
+
+  _save() {
+    this.setState({
+      isEdit: false
+    })
+    if (this.props.onSave) {
       this.props.onSave(this.state.inputVal)
     }
   }
@@ -74,7 +74,7 @@ class EditableField extends Component<Props, State> {
                 value={this.state.inputVal}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    this._edit()
+                    this._save()
                   }
                 }}
                 onChange={(e) => {
@@ -87,13 +87,15 @@ class EditableField extends Component<Props, State> {
           }
         </div>
         <div styleName="right">
-          <Button color={this.state.isEdit ? 'green' : 'white'} styleName="btn" onClick={this._edit}>
-            {
-              this.state.isEdit
-                ? '保存'
-                : '编辑'
-            }
-          </Button>
+          {
+            this.state.isEdit
+              ? (
+                <Button color="green" styleName="btn" onClick={this._save}>保存</Button>
+              )
+              : (
+                <Button color="white" styleName="btn" onClick={this._edit}>编辑</Button>
+              )
+          }
           {
             this.state.isEdit && (
               <Button styleName="btn" color="white" onClick={this._cancel}>取消</Button>

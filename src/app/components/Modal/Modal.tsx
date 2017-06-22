@@ -4,6 +4,7 @@ import Fade from '../Fade'
 import _ from 'lodash'
 import styles from './Modal.scss'
 import { lockScroll, unlockScroll } from '../../utils/browser/scroll'
+import getScreenInfo from '../../utils/browser/getScreenInfo'
 
 export interface Props {
   width: number
@@ -89,13 +90,15 @@ class Modal extends Component<Props, State> {
 
   render() {
     const { open } = this.props
+    const windowWidth = getScreenInfo().width
 
     const defaultClass = 'modal'
     const modalId = `modal-${(new Date()).valueOf()}`
 
     let className = this.props.className ? `${defaultClass} ${this.props.className}` : defaultClass
 
-    let width = this.props.width ? this.props.width : 500
+    const _width = (this.props.width ? this.props.width : 500)
+    const width = _width + 40 < windowWidth ? _width : windowWidth - 40
     let height = this.state.modalHeight
     let style = {
       backdrop: {},
