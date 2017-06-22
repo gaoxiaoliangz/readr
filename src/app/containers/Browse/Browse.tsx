@@ -35,7 +35,7 @@ class Browse extends Component<Props, IState> {
 
   render() {
     return (
-      <DocContainer bodyClass="page-browse" title="首页">
+      <DocContainer bodyClass="page-browse" title="浏览">
         <div className="header">
           <Branding
             bgColor="rgba(0,0,0,0.2)"

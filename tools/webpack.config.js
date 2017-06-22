@@ -134,9 +134,10 @@ const rules = {
   typescript({ babelConfig } = {}) {
     const _babelConfig = isDebug
       ? {
-        plugins: [
-          'babel-plugin-transform-es2015-classes',
-          'babel-plugin-transform-es2015-classes'
+        presets: [
+          ['es2015', {
+            modules: false
+          }]
         ]
       }
       : {

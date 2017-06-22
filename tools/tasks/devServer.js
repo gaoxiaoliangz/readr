@@ -3,11 +3,11 @@ import WebpackDevServer from 'webpack-dev-server'
 import chalk from 'chalk'
 import _ from 'lodash'
 import openBrowser from 'react-dev-utils/openBrowser'
-import paths from '../paths'
 import { clientConfig } from '../webpack.config'
 import Observable from '../Observable'
 import getLocalIP from '../getLocalIP'
 
+const localIP = getLocalIP()
 let isFirstCompile = true
 
 function runDevServer(host, port, protocol) {
@@ -23,7 +23,6 @@ function runDevServer(host, port, protocol) {
         console.info(stats.toString(clientConfig.stats))
       } else {
         const serverAddr = `${protocol}://${host}:${port}/`
-        const localIP = getLocalIP()
         console.info(chalk.cyan(`Server running at ${serverAddr}`))
         if (localIP) {
           console.info(chalk.cyan(`Also available at http://${localIP}:${port}/`))
@@ -95,7 +94,7 @@ function devServer() {
     // ?http://localhost:port cannot be left out
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
-    `webpack-dev-server/client?http://localhost:${port}`,
+    `webpack-dev-server/client?http://${localIP}:${port}`,
 
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates

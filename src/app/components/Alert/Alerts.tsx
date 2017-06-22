@@ -1,6 +1,6 @@
 import React from 'react'
 import Alert from './Alert'
-const styles: any = require('./Alert.scss')
+import styles from './Alert.scss'
 
 type TProps = {
   children?: any

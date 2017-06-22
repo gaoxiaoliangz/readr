@@ -45,3 +45,15 @@ type ApolloFetchMoreResult<T> = Promise<{
   networkStatus: number
   stale: boolean
 }>
+
+type ReaderConfig = {
+  layout: {
+    margin: number
+    lineHeight: number
+    fontSize: number
+    aspectRatio: number
+
+    // 0 means 100%
+    width: number
+  }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Icon from '../Icon'
 import CSSModules from 'react-css-modules'
-const styles = require('./Alert.scss')
+import styles from './Alert.scss'
 
 interface Props {
   message: string
