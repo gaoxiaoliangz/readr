@@ -5,12 +5,12 @@
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0 10px;
+  width: 35px;
   color: $gray;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  text-align: center;
   @include phone {
-    padding: 0 2px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 

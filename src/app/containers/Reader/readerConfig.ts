@@ -1,6 +1,6 @@
 const mobile: ReaderConfig = {
   layout: {
-    margin: 30,
+    margin: 35,
     lineHeight: 26,
     fontSize: 20,
     aspectRatio: 16 / 9,
@@ -10,7 +10,7 @@ const mobile: ReaderConfig = {
 
 const desktop: ReaderConfig = {
   layout: {
-    margin: 60,
+    margin: 40,
     lineHeight: 26,
     fontSize: 18,
     aspectRatio: 16 / 9,
