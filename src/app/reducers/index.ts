@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import { reducer as form } from '@gxl/redux-form'
+import { reducer as formReducer } from 'redux-form'
 // import { ApolloClient } from 'react-apollo'
 import components from './components'
 import { entities } from './entities'
@@ -31,7 +32,8 @@ const rootReducer = combineReducers({
   entities,
   errorMessage,
   routing,
-  form,
+  // form,
+  form: formReducer,
   viewer,
   // it's true that define pagination in reducers is much better
   pagination: combineReducers({

@@ -31,7 +31,7 @@ const mapGQLTypeToResolver = type => {
         throw new Error('type not defined in dataProvider')
       }
 
-      return (id) => dataProvider[type].findById(id).exec().then(result => result.toObject())
+      return (id) => dataProvider[type].findById(id).exec().then(_result => _result.toObject())
   }
 }
 
