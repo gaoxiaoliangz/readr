@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 // import { compose } from 'redux'
-import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
-// import withIndicator from '../../helpers/withIndicator'
 import { Field, reduxForm } from 'redux-form'
 import Input from '../../components/Input/Input'
+import Textarea from '../../components/Textarea/Textarea'
 
-type Data = State.Apollo<{
-}>
 
 interface OwnProps {
   onSubmit: any
@@ -16,46 +13,69 @@ interface OwnProps {
 
 interface StateProps {
   sendNotification: typeof sendNotification
-  data: Data
   handleSubmit: any
 }
 
-const renderInput = ({ input: { value, onChange } }) => {
+const renderInput = ({ input: { value, onChange }, ...rest }) => {
   return (
     <Input value={value} onChange={onChange} />
   )
 }
 
+const renderTextarea = ({ input: { value, onChange } }) => {
+  return (
+    <Textarea value={value} onChange={onChange} />
+  )
+}
+
 class AddPostForm extends Component<OwnProps & StateProps, {}> {
-
-  constructor(props) {
-    super(props)
-    this._handleSubmit = this._handleSubmit.bind(this)
-  }
-
-  _handleSubmit(values) {
-    // this.props.data.
-    console.log(values)
-    return false
-  }
-
   render() {
     const { handleSubmit } = this.props
     return (
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstName">First Name</label>
-          <Field name="firstName" component={renderInput} type="text" />
+          <label>标题</label>
+          <Field placeholder="输入标题..." name="title" component={renderInput} type="text" />
         </div>
         <div>
-          <label htmlFor="lastName">Last Name</label>
-          <Field name="lastName" component={renderInput} type="text" />
+          <label>地址</label>
+          <Field name="slug" component={renderInput} type="text" />
         </div>
         <div>
-          <label htmlFor="email">Email</label>
-          <Field name="email" component={renderInput} type="email" />
+          <label>可见性</label>
+          <Field name="visibility" component="select">
+            <option>请选择...</option>
+            <option value="PRIVATE">私有</option>
+            <option value="PUBLIC">公开</option>
+          </Field>
         </div>
-        <button type="submit">Submit</button>
+        <div>
+          <label>状态</label>
+          <Field name="status" component="select">
+            <option>请选择...</option>
+            <option value="DRAFT">草稿</option>
+            <option value="PUBLISHED">已发布</option>
+            <option value="UNPUBLISHED">未发布</option>
+          </Field>
+        </div>
+        <div>
+          <label>分类</label>
+          <Field name="category" component="select">
+            <option>请选择...</option>
+            <option value="BLOG">博客</option>
+            <option value="BOOK_WEEKLY">书籍周刊</option>
+            <option value="PAGES">页面</option>
+          </Field>
+        </div>
+        <div>
+          <label>图片</label>
+          <Field name="image" component={renderInput} type="text" />
+        </div>
+        <div>
+          <label htmlFor="markdown">内容</label>
+          <Field name="markdown" component={renderTextarea} type="text" />
+        </div>
+        <button type="submit">保存</button>
       </form>
     )
   }

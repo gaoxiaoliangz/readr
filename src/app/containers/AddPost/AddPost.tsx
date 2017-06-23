@@ -4,8 +4,6 @@ import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
 import ADD_POST_MUTATION from '../../graphql/mutations/AddPost.gql'
 // import withIndicator from '../../helpers/withIndicator'
-import { Field, reduxForm } from 'redux-form'
-import Input from '../../components/Input/Input'
 import AddPostForm from './AddPostForm'
 
 type Data = State.Apollo<{
@@ -18,6 +16,7 @@ interface StateProps {
   sendNotification: typeof sendNotification
   data: Data
   handleSubmit: any
+  mutate: any
 }
 
 class AddPost extends Component<OwnProps & StateProps, {}> {
@@ -28,9 +27,10 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
   }
 
   _handleSubmit(values) {
-    // this.props.data.
     console.log(values)
-    return false
+    this.props.mutate({
+      variables: values
+    })
   }
 
   render() {
@@ -40,29 +40,13 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
   }
 }
 
-const withMut = graphql(ADD_POST_MUTATION, {
-  options: (props: OwnProps) => {
-    return {
-      variables: {}
-    }
-  }
-})
-
-// export default compose<{}, {}, OwnProps>(
-//   // withMut,
-//   connect(
-//     (state, ownProps) => {
-//       return {}
-//     },
-//     { sendNotification }
-//   ),
-//   reduxForm({
-//     // a unique name for the form
-//     form: 'addPost'
-//   })
-//   // withIndicator()
-// )(AddPost)
-
-export default reduxForm({
-  form: 'addPost'
-})(AddPost)
+export default compose<{}, {}, OwnProps>(
+  graphql(ADD_POST_MUTATION),
+  connect(
+    (state, ownProps) => {
+      return {}
+    },
+    { sendNotification }
+  )
+  // withIndicator()
+)(AddPost)
