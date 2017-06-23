@@ -14,7 +14,7 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
     list: async (config?: ListConfig) => {
       const defaultConfig = {
         offset: 0,
-        limit: Infinity
+        limit: 9999999999
       }
       const { offset, limit, populate, parser } = {
         ...defaultConfig,

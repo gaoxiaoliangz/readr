@@ -127,6 +127,46 @@ export const fileFields = {
 
 export const fileSchema = new Schema(fileFields, additionalSchemaOptions)
 
+// posts
+export const postFields = {
+  slug: {
+    type: String,
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  },
+  author: {
+    ref: 'Author',
+    required: true,
+    type: ObjectId
+  },
+  tags: [{
+    ref: 'Tag',
+    type: ObjectId
+  }],
+  markdown: {
+    type: String,
+    required: true
+  },
+  visibility: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String
+  }
+}
+
+export const postSchema = new Schema(postFields, additionalSchemaOptions)
+
 // progresses
 export const progressFields = {
   percentage: {

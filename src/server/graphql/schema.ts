@@ -24,6 +24,7 @@ import { nodeInterface, nodeField } from './node'
 import { makeNodeConnectionField } from './utils'
 import { getReadingProgressCore } from '../api/user'
 import bookPagesField from './fields/bookPagesField'
+import postsField from './fields/postsField'
 import api from '../api'
 import Mutation from './mutations'
 
@@ -162,7 +163,8 @@ const Query = new GraphQLObjectType({
           })
           : allResults
       }
-    })
+    }),
+    posts: postsField
   }
 })
 
