@@ -3,12 +3,12 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLID,
-  GraphQLEnumType,
   GraphQLInt
 } from 'graphql'
 import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
 import dataProvider from '../../models/dataProvider'
-import { PostVisibility, PostStatus, PostCategories } from '../../api/enums'
+import { PostVisibilityType, PostStatusType, PostCategoryType } from '../types/GQLPost'
+import { checkPermissionsOf } from '../../middleware/requirePermissionsOf'
 
 const postInputFields = {
   slug: {
@@ -27,36 +27,13 @@ const postInputFields = {
     type: new GraphQLNonNull(GraphQLString)
   },
   visibility: {
-    type: new GraphQLNonNull(new GraphQLEnumType({
-      name: 'PostVisibility',
-      values: {
-        PUBLIC: { value: PostVisibility.Public },
-        PRIVATE: { value: PostVisibility.Private }
-      }
-    }))
+    type: new GraphQLNonNull(PostVisibilityType)
   },
   status: {
-    type: new GraphQLNonNull(new GraphQLEnumType({
-      name: 'PostStatus',
-      values: {
-        DRAFT: { value: PostStatus.Draft },
-        PUBLISHED: { value: PostStatus.Published },
-        UNPUBLISHED: { value: PostStatus.Unpublished }
-      }
-    }))
+    type: new GraphQLNonNull(PostStatusType)
   },
   category: {
-    type: new GraphQLNonNull(new GraphQLEnumType({
-      name: 'PostCategory',
-      values: {
-        BLOG: {
-          value: PostCategories.Blog,
-          description: 'site log'
-        },
-        BOOK_WEEKLY: { value: PostCategories.BookWeekly },
-        PAGES: { value: PostCategories.Pages }
-      }
-    }))
+    type: new GraphQLNonNull(PostCategoryType)
   },
   image: {
     type: GraphQLString
@@ -72,8 +49,9 @@ export const AddPostMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async (args, req) => {
-    if (req.user.role !== 'admin') {
-      return Promise.reject(new Error('Require admin permission!'))
+    const error = checkPermissionsOf(req, 'admin')
+    if (error) {
+      return Promise.reject(error)
     }
     return dataProvider.Post.utils.save({
       ...args,
@@ -104,8 +82,9 @@ export const UpdatePostMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async (args, req) => {
-    if (req.user.role !== 'admin') {
-      return Promise.reject(new Error('Require admin permission!'))
+    const error = checkPermissionsOf(req, 'admin')
+    if (error) {
+      return Promise.reject(error)
     }
     const postId = fromGlobalId(args.id).id
     return dataProvider.Post.utils.updateById(postId, {
@@ -127,8 +106,9 @@ export const DelPostMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async (args, req) => {
-    if (req.user.role !== 'admin') {
-      return Promise.reject(new Error('Require admin permission!'))
+    const error = checkPermissionsOf(req, 'admin')
+    if (error) {
+      return Promise.reject(error)
     }
     const postId = fromGlobalId(args.id).id
     const result = await dataProvider.Post.utils.removeById(postId)

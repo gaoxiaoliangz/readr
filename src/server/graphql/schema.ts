@@ -155,7 +155,6 @@ const Query = new GraphQLObjectType({
       },
       listAllFn: async (upper, args) => {
         const query = args.query
-        // tood: max
         const allResults = await api.books.list({ includeToc: true, limit: 99999 }).then(data => data.list)
         return query
           ? allResults.filter((r) => {
