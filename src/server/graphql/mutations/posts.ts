@@ -113,3 +113,25 @@ export const UpdatePostMutation = mutationWithClientMutationId({
     })
   }
 })
+
+export const DelPostMutation = mutationWithClientMutationId({
+  name: 'DelPost',
+  inputFields: {
+    id: {
+      type: new GraphQLNonNull(GraphQLID)
+    }
+  },
+  outputFields: {
+    id: {
+      type: GraphQLString
+    }
+  },
+  mutateAndGetPayload: async (args, req) => {
+    if (req.user.role !== 'admin') {
+      return Promise.reject(new Error('Require admin permission!'))
+    }
+    const postId = fromGlobalId(args.id).id
+    const result = await dataProvider.Post.utils.removeById(postId)
+    return result
+  }
+})
