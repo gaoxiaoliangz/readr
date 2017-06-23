@@ -3,7 +3,8 @@ import {
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLList
+  GraphQLList,
+  GraphQLFloat
 } from 'graphql'
 import {
   connectionArgs,
@@ -29,8 +30,9 @@ export const modelToGQLFields = (model, config?: ModelToGQLFieldsConfig) => {
   let fields = {}
   const mapMgSchemaTypeToGqlType = (type) => {
     const ref = (_.get(type, 'caster.options.ref') || _.get(type, 'options.ref')) as string
+    // seems thant when type is array, it has caster prop
 
-    let gqlType: any = GraphQLString
+    let gqlType: any = type.instance === 'Number' ? GraphQLFloat : GraphQLString
     gqlType = ref
       ? (_.find(refTypes, { name: ref }) || GraphQLString)
       : gqlType

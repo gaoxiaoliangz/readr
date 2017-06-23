@@ -153,11 +153,11 @@ export const postFields = {
     required: true
   },
   visibility: {
-    type: String,
+    type: Number,
     required: true
   },
   status: {
-    type: String,
+    type: Number,
     required: true
   },
   image: {
