@@ -9,7 +9,7 @@ import { PostVisibility, PostStatus, PostCategories } from '../../api/enums'
 
 const utils = makeUtils({ nodeInterface })
 
-export const PostVisibilityType = new GraphQLEnumType({
+export const GQLPostVisibility = new GraphQLEnumType({
   name: 'PostVisibility',
   values: {
     PUBLIC: { value: PostVisibility.Public },
@@ -17,7 +17,7 @@ export const PostVisibilityType = new GraphQLEnumType({
   }
 })
 
-export const PostStatusType = new GraphQLEnumType({
+export const GQLPostStatus = new GraphQLEnumType({
   name: 'PostStatus',
   values: {
     DRAFT: { value: PostStatus.Draft },
@@ -26,7 +26,7 @@ export const PostStatusType = new GraphQLEnumType({
   }
 })
 
-export const PostCategoryType = new GraphQLEnumType({
+export const GQLPostCategory = new GraphQLEnumType({
   name: 'PostCategory',
   values: {
     BLOG: {
@@ -45,13 +45,13 @@ export const { nodeType: GQLPost, connectionType: GQLPostConnection } = utils.ma
   refTypes: [GQLAuthor, GQLTag],
   fields: {
     visibility: {
-      type: new GraphQLNonNull(PostVisibilityType)
+      type: new GraphQLNonNull(GQLPostVisibility)
     },
     category: {
-      type: new GraphQLNonNull(PostCategoryType)
+      type: new GraphQLNonNull(GQLPostCategory)
     },
     status: {
-      type: new GraphQLNonNull(PostStatusType)
+      type: new GraphQLNonNull(GQLPostStatus)
     }
   }
 })

@@ -7,7 +7,7 @@ import _ from 'lodash'
 import { makeNodeConnectionField } from '../utils'
 import { GQLPostConnection, GQLPost } from '../types/GQLPost'
 import dataProvider from '../../models/dataProvider'
-import { PostStatusType, PostVisibilityType, PostCategoryType } from '../types/GQLPost'
+import { GQLPostStatus, GQLPostVisibility, GQLPostCategory } from '../types/GQLPost'
 import { PostStatus, PostCategories, PostVisibility } from '../../api/enums'
 
 interface ListPostsConfig {
@@ -39,13 +39,13 @@ export const postsField = makeNodeConnectionField({
   type: GQLPostConnection,
   extendedArgs: {
     status: {
-      type: PostStatusType
+      type: GQLPostStatus
     },
     visibility: {
-      type: PostVisibilityType
+      type: GQLPostVisibility
     },
     category: {
-      type: PostCategoryType
+      type: GQLPostCategory
     },
   },
   listAllFn: async (upper, args, req) => {

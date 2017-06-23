@@ -7,7 +7,7 @@ import {
 } from 'graphql'
 import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
 import dataProvider from '../../models/dataProvider'
-import { PostVisibilityType, PostStatusType, PostCategoryType } from '../types/GQLPost'
+import { GQLPostVisibility, GQLPostStatus, GQLPostCategory } from '../types/GQLPost'
 import { checkPermissionsOf } from '../../middleware/requirePermissionsOf'
 
 const postInputFields = {
@@ -27,13 +27,13 @@ const postInputFields = {
     type: new GraphQLNonNull(GraphQLString)
   },
   visibility: {
-    type: new GraphQLNonNull(PostVisibilityType)
+    type: new GraphQLNonNull(GQLPostVisibility)
   },
   status: {
-    type: new GraphQLNonNull(PostStatusType)
+    type: new GraphQLNonNull(GQLPostStatus)
   },
   category: {
-    type: new GraphQLNonNull(PostCategoryType)
+    type: new GraphQLNonNull(GQLPostCategory)
   },
   image: {
     type: GraphQLString
