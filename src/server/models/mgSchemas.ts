@@ -162,6 +162,10 @@ export const postFields = {
   },
   image: {
     type: String
+  },
+  category: {
+    type: Number,
+    required: true
   }
 }
 

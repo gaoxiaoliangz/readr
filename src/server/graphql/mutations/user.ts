@@ -124,7 +124,6 @@ export const UpdateProfileMutation = mutationWithClientMutationId({
   }
 })
 
-
 export const ChangePasswordMutation = mutationWithClientMutationId({
   name: 'ChangePassword',
   inputFields: {

@@ -8,7 +8,7 @@ import {
 } from 'graphql'
 import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
 import dataProvider from '../../models/dataProvider'
-import { PostVisibility, PostStatus } from '../../api/enums'
+import { PostVisibility, PostStatus, PostCategories } from '../../api/enums'
 
 const postInputFields = {
   slug: {
@@ -42,6 +42,19 @@ const postInputFields = {
         DRAFT: { value: PostStatus.Draft },
         PUBLISHED: { value: PostStatus.Published },
         UNPUBLISHED: { value: PostStatus.Unpublished }
+      }
+    }))
+  },
+  category: {
+    type: new GraphQLNonNull(new GraphQLEnumType({
+      name: 'PostCategory',
+      values: {
+        BLOG: {
+          value: PostCategories.Blog,
+          description: 'site log'
+        },
+        BOOK_WEEKLY: { value: PostCategories.BookWeekly },
+        PAGES: { value: PostCategories.Pages }
       }
     }))
   },
