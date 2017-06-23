@@ -131,6 +131,7 @@ export const fileSchema = new Schema(fileFields, additionalSchemaOptions)
 export const postFields = {
   slug: {
     type: String,
+    unique: true
   },
   title: {
     type: String,

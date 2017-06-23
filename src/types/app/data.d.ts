@@ -57,3 +57,17 @@ type ReaderConfig = {
     width: number
   }
 }
+
+interface GQLField {
+  type: any
+  args?: {
+    [argName: string]: {
+      type: any
+      defaultValue?: any
+      description?: string
+    }
+  }
+  resolve?: any
+  deprecationReason?: string;
+  description?: string;
+}

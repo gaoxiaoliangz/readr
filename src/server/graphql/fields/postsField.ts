@@ -1,15 +1,11 @@
 import {
-  GraphQLBoolean,
   GraphQLID,
-  GraphQLInt,
-  GraphQLNonNull,
-  GraphQLString,
-  GraphQLFloat
+  GraphQLString
 } from 'graphql'
 import { fromGlobalId } from 'graphql-relay'
 import _ from 'lodash'
 import { makeNodeConnectionField } from '../utils'
-import { GQLPostConnection } from '../types/GQLPost'
+import { GQLPostConnection, GQLPost } from '../types/GQLPost'
 import dataProvider from '../../models/dataProvider'
 import { PostStatusType, PostVisibilityType, PostCategoryType } from '../types/GQLPost'
 import { PostStatus, PostCategories, PostVisibility } from '../../api/enums'
@@ -39,7 +35,7 @@ const listPosts = (config: ListPostsConfig = {}) => {
   return query.exec()
 }
 
-const postsField = makeNodeConnectionField({
+export const postsField = makeNodeConnectionField({
   type: GQLPostConnection,
   extendedArgs: {
     status: {
@@ -56,5 +52,39 @@ const postsField = makeNodeConnectionField({
     return listPosts(args)
   }
 })
+
+export const postField: GQLField = {
+  type: GQLPost,
+  args: {
+    slug: {
+      type: GraphQLString
+    },
+    id: {
+      type: GraphQLID
+    }
+  },
+  resolve: (source, context) => {
+    let query
+    const { slug, id } = context
+    if (!slug && !id) {
+      return Promise.reject(new Error('slug 或 id 至少提供其一！'))
+    }
+    if (slug && id) {
+      return Promise.reject(new Error('slug 和 id 不能同时提供！'))
+    }
+    if (id) {
+      const _id = fromGlobalId(id).id
+      query = dataProvider.Post.findById(id)
+    }
+    if (slug) {
+      query = dataProvider.Post.findOne({
+        slug
+      })
+    }
+    return query
+      .exec()
+      .then(res => res.toObject())
+  }
+}
 
 export default postsField
