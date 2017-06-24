@@ -27,10 +27,15 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
   }
 
   _handleSubmit(values) {
-    console.log(values)
     this.props.mutate({
       variables: values
     })
+      .then(data => {
+        this.props.sendNotification('done')
+      })
+      .catch((err) => {
+        this.props.sendNotification(err.message, 'error')
+      })
   }
 
   render() {

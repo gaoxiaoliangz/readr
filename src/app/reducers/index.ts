@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
-import { reducer as form } from '@gxl/redux-form'
+// import { reducer as form } from '@gxl/redux-form'
 import { reducer as formReducer } from 'redux-form'
 // import { ApolloClient } from 'react-apollo'
 import components from './components'
@@ -18,7 +18,7 @@ import viewer from './viewer'
 function errorMessage(state = [], action) {
   const { error, type } = action
 
-  if (error) {
+  if (error && action.payload) {
     const message = _.get(action, 'payload.message', 'Unknown error occurred!')
     console.error(`${type}: ${message}`)
     return [...state, message]

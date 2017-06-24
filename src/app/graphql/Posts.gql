@@ -1,0 +1,48 @@
+query Posts(
+  $after: String
+  $first: Int
+  $before: String
+  $last: Int
+  $status: PostStatus
+  $visibility: PostVisibility
+  $category: PostCategory
+  $offset: Int
+) {
+  posts(
+    after: $after
+    first: $first
+    before: $before
+    last: $last
+    status: $status
+    visibility: $visibility
+    category: $category
+    offset: $offset
+  ) {
+    edges {
+      node {
+        slug
+        title
+        description
+        # author {
+        #   name
+        #   id
+        # }
+        # tags {
+        #   slug
+        #   name
+        #   id
+        # }
+        markdown
+        visibility
+        status
+        image
+        category
+        id
+        objectId
+        createdAt
+        updatedAt
+      }
+    }
+    totalCount
+  }
+}

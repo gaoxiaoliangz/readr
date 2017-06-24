@@ -15,6 +15,7 @@ interface IProps {
   onClick?: any
   width?: number | string
   bordered?: boolean
+  type?: string
 }
 
 interface IState {
@@ -33,7 +34,7 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, className, color, size, isFluid, width, to, bordered } = this.props
+    let { onClick, className, color, size, isFluid, width, to, bordered, ...rest } = this.props
     let style = {}
 
     const styleName = classnames({
@@ -68,7 +69,8 @@ class Button extends Component<IProps, IState> {
     props = _.assign({}, props, {
       className: className || '',
       onClick,
-      style
+      style,
+      ...rest
     })
 
     return (

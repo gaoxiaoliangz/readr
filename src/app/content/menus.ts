@@ -13,6 +13,10 @@ const menus = [
         path: '/console/posts/new'
       },
       {
+        displayName: '页面管理',
+        path: '/console/posts'
+      },
+      {
         displayName: '添加合集',
         path: '/console/collections/new'
       }

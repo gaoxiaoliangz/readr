@@ -58,6 +58,7 @@ const configRoutes = (context = {}) => {
         <IndexRedirect to="/console/books" />
         <Route path="books" getComponent={() => require.ensure([], require => require('./containers/ManageBooks').default)} />
         <Route path="users" getComponent={() => require.ensure([], require => require('./containers/ManageUsers').default)} />
+        <Route path="posts" getComponent={() => require.ensure([], require => require('./containers/ManagePosts/ManagePosts').default)} />
         <Route path="posts/new" getComponent={() => require.ensure([], require => require('./containers/AddPost/AddPost').default)} />
         <Route path="books/new" getComponent={() => require.ensure([], require => require('./containers/AddBook').default)} />
         <Route path="collections/new" getComponent={() => require.ensure([], require => require('./containers/AddCollection').default)} />

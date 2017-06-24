@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import form from '@gxl/redux-form'
+import { compose } from 'redux'
+import { reduxForm, Field } from 'redux-form'
 import { sendNotification } from '../../../actions'
 import { Input, Button } from '../../../components/form'
-import validation from '../../../utils/validation'
 
-interface Props {
+interface OwnProps {
   initialValues?: any
   onSave: (data: any) => void
 }
 
-interface AllProps extends Props {
+interface StateProps {
   routing: any
   sendNotification: any
   handleSubmit: any
@@ -20,14 +20,25 @@ interface AllProps extends Props {
 interface State {
 }
 
-@form({
-  form: 'signin',
-  fields: ['login', 'password'],
-  validate: values => {
-    return validation(values)
-  }
-})
-class SigninForm extends Component<AllProps, State> {
+const required = value => (value ? undefined : '必填')
+const maxLength = max => value =>
+  value && value.length > max ? `不能超过 ${max} 个字符` : undefined
+const minLength = min => value =>
+  value && value.length < min ? `不能少于 ${min} 个字符` : undefined
+
+const renderInput = ({ input: { value, onChange }, meta: { touched, error }, ...rest }) => {
+  return (
+    <Input
+      {...rest}
+      touched={touched}
+      error={error}
+      value={value}
+      onChange={onChange}
+    />
+  )
+}
+
+class SigninForm extends Component<StateProps & OwnProps, State> {
 
   constructor(props) {
     super(props)
@@ -52,27 +63,47 @@ class SigninForm extends Component<AllProps, State> {
 
   render() {
     const {
-      fields: { login, password }
+      handleSubmit
     } = this.props
 
     return (
-      <div>
-        <Input onKeyDown={this._handleKeyDown} placeholder="用户名/邮箱" {...login} />
-        <Input onKeyDown={this._handleKeyDown} placeholder="密码" type="password" {...password} />
+      <form onSubmit={handleSubmit}>
+        <Field
+          placeholder="用户名/邮箱"
+          name="login"
+          component={renderInput}
+          type="text"
+          validate={[required, maxLength(20), minLength(5)]}
+          onKeydown={this._handleKeyDown}
+        />
+        <Field
+          placeholder="密码"
+          name="password"
+          type="password"
+          component={renderInput}
+          validate={[required, maxLength(30), minLength(6)]}
+          onKeydown={this._handleKeyDown}
+        />
         <Button
           color="blue"
+          type="submit"
           onClick={this._submit}>登录</Button>
-      </div>
+      </form>
     )
   }
 }
 
-export default connect<{}, {}, Props>(
-  (state, ownProps) => {
-    return {
-      initialValues: ownProps.initialValues,
-      routing: state.routing.locationBeforeTransitions
-    }
-  },
-  { sendNotification }
-)(SigninForm)
+export default compose(
+  reduxForm({
+    form: 'signin'
+  }),
+  connect(
+    (state, ownProps: OwnProps) => {
+      return {
+        initialValues: ownProps.initialValues,
+        routing: state.routing.locationBeforeTransitions
+      }
+    },
+    { sendNotification }
+  ),
+)(SigninForm as any) as React.ComponentClass<OwnProps>
