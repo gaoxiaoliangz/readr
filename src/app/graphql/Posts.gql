@@ -19,6 +19,7 @@ query Posts(
     offset: $offset
   ) {
     edges {
+      cursor
       node {
         slug
         title
@@ -44,5 +45,8 @@ query Posts(
       }
     }
     totalCount
+    pageInfo {
+      hasNextPage
+    }
   }
 }
