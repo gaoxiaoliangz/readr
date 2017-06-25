@@ -3,6 +3,13 @@
  * used between functions, describe data structures
  */
 
+
+type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
+type PostStatus = 'PUBLISHED' | 'UNPUBLISHED' | 'DRAFT' | ''
+type PostVisibility = 'PUBLIC' | 'PRIVATE' | ''
+type PostCategory = 'BLOG' | 'BOOK_WEEKLY' | 'PAGES' | ''
+type Roles = 'admin' | 'user' | 'visitor'
+
 interface ParsedNode {
   tag?: string
   type: 1 | 3
@@ -14,10 +21,6 @@ interface ParsedNode {
     src: string
   }
 }
-
-type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
-
-type Roles = 'admin' | 'user' | 'visitor'
 
 interface PaginationLink {
   page: string

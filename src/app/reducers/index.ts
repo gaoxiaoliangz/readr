@@ -11,6 +11,8 @@ import { ROLES } from '../constants'
 import receiveData from './utils/receiveData'
 import paginate from './utils/paginate'
 import viewer from './viewer'
+import managePosts from '../containers/ManagePosts/ManagePostsDuck'
+
 // import apolloClient from '../apolloClient'
 
 // const apoClient = new ApolloClient()
@@ -46,6 +48,7 @@ const rootReducer = combineReducers({
   }),
   profile: receiveData(TYPES.PROFILE),
   // apollo: apolloClient.reducer(),
+  managePosts
 })
 
 export default rootReducer

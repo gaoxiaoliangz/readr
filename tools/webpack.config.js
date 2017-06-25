@@ -490,8 +490,8 @@ export const clientConfig = {
       ],
   ],
   // or maybe 'inline-source-map',
-  // devtool: isDebug ? 'cheap-module-source-map' : false,
-  devtool: isDebug ? 'eval-cheap-module-source-map' : false,
+  devtool: isDebug ? 'cheap-module-source-map' : false,
+  // devtool: isDebug ? 'eval-cheap-module-source-map' : false,
   module: {
     rules: [
       rules.img(),
