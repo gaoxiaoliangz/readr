@@ -25,7 +25,10 @@ const listPosts = (config: ListPostsConfig = {}) => {
   }
 
   if (visibility) {
-    query = query.where('visibility').equals(visibility)
+    // query = query.where('visibility').equals(visibility)
+    query = query.find({
+      visibility
+    })
   }
 
   if (category) {
