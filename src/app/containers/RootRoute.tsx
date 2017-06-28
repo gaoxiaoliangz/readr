@@ -73,7 +73,9 @@ class Master extends Component<Props, {}> {
         <ConfirmModal
           open={confirmModal.open}
           title={confirmModal.title}
-          onConfirm={confirmModal.onConfirm}
+          onConfirm={() => {
+            confirmModal.onConfirm(closeConfirmModal)
+          }}
           onRequestClose={closeConfirmModal}
           width={500}
         >

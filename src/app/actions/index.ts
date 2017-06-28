@@ -40,7 +40,7 @@ export function hideNotification(id: string) {
 type openConfirmModal = {
   title?: string
   content: string
-  onConfirm: () => void
+  onConfirm: (closeModalCb: () => void) => void
 }
 export function openConfirmModal(data: openConfirmModal) {
   return {

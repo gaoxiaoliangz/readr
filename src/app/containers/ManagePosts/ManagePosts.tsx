@@ -4,8 +4,9 @@ import { compose, graphql } from 'react-apollo'
 import _ from 'lodash'
 import moment from 'moment'
 import CSSModules from 'react-css-modules'
-import { sendNotification } from '../../actions'
+import { sendNotification, openConfirmModal } from '../../actions'
 import POSTS_QUERY from '../../graphql/Posts.gql'
+import DEL_POST_MUTATION from '../../graphql/mutations/DelPost.gql'
 import withIndicator from '../../helpers/withIndicator'
 import InfoTable from '../../components/InfoTable'
 import Button from '../../components/Button/Button'
@@ -65,6 +66,8 @@ interface StateProps {
     postVisilibity: PostVisibility
     postCategory: PostCategory
   }
+  delPost: typeof ApolloMutation
+  openConfirmModal: typeof openConfirmModal
 }
 
 class ManagePosts extends Component<OwnProps & StateProps, State> {
@@ -74,6 +77,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
     this._handleStatusChange = this._handleStatusChange.bind(this)
     this._handleVisibilityChange = this._handleVisibilityChange.bind(this)
     this._handleCategoryChange = this._handleCategoryChange.bind(this)
+    this._handleDelClick = this._handleDelClick.bind(this)
   }
 
   _handleStatusChange(e) {
@@ -86,6 +90,27 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
 
   _handleCategoryChange(e) {
     this.props.filterPostCategory(e.target.value || null)
+  }
+
+  _handleDelClick(id) {
+    return (e) => {
+      this.props.openConfirmModal({
+        title: `提示`,
+        content: `确定删除${id}？`,
+        onConfirm: (close) => {
+          this.props
+            .delPost({
+              variables: {
+                id
+              }
+            })
+            .then(() => {
+              this.props.data.refetch()
+              close()
+            })
+        }
+      })
+    }
   }
 
   _loadMore() {
@@ -115,7 +140,10 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
         node.slug,
         node.status,
         node.visibility,
-        moment(new Date(node.createdAt).valueOf()).format('YYYY年MM月DD日')
+        moment(new Date(node.createdAt).valueOf()).format('YYYY年MM月DD日'),
+        (
+          <span onClick={this._handleDelClick(node.id)}>删除</span>
+        )
       ]
     })
 
@@ -139,7 +167,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
           />
         </div>
         <InfoTable
-          header={['标题', '分类', '路径', '状态', '可见性', '创建时间']}
+          header={['标题', '分类', '路径', '状态', '可见性', '创建时间', '操作']}
           rows={rows}
         />
         {
@@ -169,18 +197,23 @@ const withData = graphql(POSTS_QUERY, {
   }
 })
 
+const withMutation = graphql(DEL_POST_MUTATION, {
+  name: 'delPost'
+})
+
 const withState = connect(
   (state: StateProps, ownProps) => {
     return {
       managePosts: state.managePosts
     }
   },
-  { sendNotification, filterPostStatus, filterPostVisilibity, filterPostCategory }
+  { sendNotification, filterPostStatus, filterPostVisilibity, filterPostCategory, openConfirmModal }
 )
 
 export default compose<{}, {}, {}, OwnProps>(
   withState,
   withData,
+  withMutation,
   withIndicator(),
   CSSModules(styles)
 )(ManagePosts)

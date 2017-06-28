@@ -74,3 +74,15 @@ interface GQLField {
   deprecationReason?: string;
   description?: string;
 }
+
+
+type ApolloMutationConfig = {
+  variables?: {
+    [key: string]: any
+  }
+  refetchQueries?: {
+    [key: string]: any
+    query?: any
+  }[]
+}
+declare function ApolloMutation(config?: ApolloMutationConfig): Promise<any>
