@@ -6,9 +6,9 @@ import { Field, reduxForm } from 'redux-form'
 import Input from '../../components/Input/Input'
 import Textarea from '../../components/Textarea/Textarea'
 
-
 interface OwnProps {
   onSubmit: any
+  initialValues?: any
 }
 
 interface StateProps {
@@ -83,7 +83,7 @@ class AddPostForm extends Component<OwnProps & StateProps, {}> {
 
 export default reduxForm<{}, OwnProps, {}>({
   form: 'addPost'
-})(AddPostForm) as any
+})(AddPostForm) as React.ComponentClass<OwnProps>
 
 // export default compose<{}, OwnProps>(
 //   connect(

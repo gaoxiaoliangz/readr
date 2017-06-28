@@ -1,0 +1,25 @@
+query Post($id: ID!) {
+  post(id: $id) {
+    slug
+    title
+    description
+    # author {
+    #   name
+    #   id
+    # }
+    # tags {
+    #   slug
+    #   name
+    #   id
+    # }
+    markdown
+    visibility
+    status
+    image
+    category
+    id
+    objectId
+    createdAt
+    updatedAt
+  }
+}

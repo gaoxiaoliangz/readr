@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
 import ADD_POST_MUTATION from '../../graphql/mutations/AddPost.gql'
-// import withIndicator from '../../helpers/withIndicator'
 import POSTS_QUERY from '../../graphql/Posts.gql'
-import AddPostForm from './AddPostForm'
+import PostForm from './PostForm'
 
 type Data = State.Apollo<{
 }>
@@ -34,13 +33,13 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
         {
           query: POSTS_QUERY,
           variables: {
-            first: 6
+            first: 5
           }
         }
       ]
     })
       .then(data => {
-        this.props.sendNotification('done')
+        this.props.sendNotification('添加成功！')
       })
       .catch((err) => {
         this.props.sendNotification(err.message, 'error')
@@ -49,7 +48,7 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
 
   render() {
     return (
-      <AddPostForm onSubmit={this._handleSubmit} />
+      <PostForm onSubmit={this._handleSubmit} />
     )
   }
 }
@@ -62,5 +61,4 @@ export default compose<{}, {}, OwnProps>(
     },
     { sendNotification }
   )
-  // withIndicator()
 )(AddPost)

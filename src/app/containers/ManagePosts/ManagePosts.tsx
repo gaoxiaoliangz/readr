@@ -14,6 +14,7 @@ import { filterPostStatus, filterPostVisilibity, filterPostCategory } from './Ma
 import Select from '../../components/Select/Select'
 import { POST_STATUS, POST_VISIBILITY, POST_CATEGORY } from '../../constants'
 import styles from './ManagePosts.scss'
+import helpers from '../../helpers'
 
 const mapOptions = val => {
   return {
@@ -78,6 +79,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
     this._handleVisibilityChange = this._handleVisibilityChange.bind(this)
     this._handleCategoryChange = this._handleCategoryChange.bind(this)
     this._handleDelClick = this._handleDelClick.bind(this)
+    this._handleModClick = this._handleModClick.bind(this)
   }
 
   _handleStatusChange(e) {
@@ -90,6 +92,12 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
 
   _handleCategoryChange(e) {
     this.props.filterPostCategory(e.target.value || null)
+  }
+
+  _handleModClick(id) {
+    return () => {
+      helpers.redirect(`/console/posts/${id}`)
+    }
   }
 
   _handleDelClick(id) {
@@ -142,7 +150,10 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
         node.visibility,
         moment(new Date(node.createdAt).valueOf()).format('YYYY年MM月DD日'),
         (
-          <span onClick={this._handleDelClick(node.id)}>删除</span>
+          <div>
+            <span onClick={this._handleModClick(node.id)}>编辑</span>
+            <span onClick={this._handleDelClick(node.id)}>删除</span>
+          </div>
         )
       ]
     })

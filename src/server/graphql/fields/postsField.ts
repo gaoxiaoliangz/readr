@@ -77,7 +77,7 @@ export const postField: GQLField = {
     }
     if (id) {
       const _id = fromGlobalId(id).id
-      query = dataProvider.Post.findById(id)
+      query = dataProvider.Post.findById(_id)
     }
     if (slug) {
       query = dataProvider.Post.findOne({
