@@ -4,6 +4,7 @@ import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
 import ADD_POST_MUTATION from '../../graphql/mutations/AddPost.gql'
 // import withIndicator from '../../helpers/withIndicator'
+import POSTS_QUERY from '../../graphql/Posts.gql'
 import AddPostForm from './AddPostForm'
 
 type Data = State.Apollo<{
@@ -16,7 +17,7 @@ interface StateProps {
   sendNotification: typeof sendNotification
   data: Data
   handleSubmit: any
-  mutate: any
+  mutate: typeof ApolloMutation
 }
 
 class AddPost extends Component<OwnProps & StateProps, {}> {
@@ -28,7 +29,15 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
 
   _handleSubmit(values) {
     this.props.mutate({
-      variables: values
+      variables: values,
+      refetchQueries: [
+        {
+          query: POSTS_QUERY,
+          variables: {
+            first: 6
+          }
+        }
+      ]
     })
       .then(data => {
         this.props.sendNotification('done')

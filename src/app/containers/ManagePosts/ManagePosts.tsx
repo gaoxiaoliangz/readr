@@ -165,6 +165,11 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
             options={postCategoryOptions}
             onChange={this._handleCategoryChange}
           />
+          <Button
+            onClick={() => {
+              this.props.data.refetch()
+            }}
+          >刷新</Button>
         </div>
         <InfoTable
           header={['标题', '分类', '路径', '状态', '可见性', '创建时间', '操作']}
