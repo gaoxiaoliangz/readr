@@ -32,6 +32,9 @@ type Data = State.Apollo<{
 }>
 
 interface OwnProps {
+  id?: string
+  slug?: string
+  getComponent: (data: Data) => any
 }
 
 interface StateProps {
@@ -43,19 +46,20 @@ interface StateProps {
 
 class PostRenderer extends Component<OwnProps & StateProps, {}> {
   render() {
-    const { post } = this.props.data
+    const { getComponent } = this.props
+    // const _children = typeof children === 'function'
+    //   ? children(this.props)
+    //   : children
+
     return (
       <div>
-        <h1>{post.title}</h1>
-        <div className="content">
-          {post.markdown}
-        </div>
+        {getComponent(this.props.data)}
       </div>
     )
   }
 }
 
-export default compose<{}, {}, {}, OwnProps>(
+export default compose(
   connect(
     (state, ownProps) => {
       return {}
@@ -66,11 +70,11 @@ export default compose<{}, {}, {}, OwnProps>(
     options: (props) => {
       return {
         variables: {
-          id: props.params.id || null,
-          slug: props.params.slug || null
+          id: props.id || null,
+          slug: props.slug || null
         }
       }
     }
   }),
   withIndicator()
-)(PostRenderer)
+)(PostRenderer) as React.ComponentClass<OwnProps>
