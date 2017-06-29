@@ -22,7 +22,7 @@ interface StateProps {
   mutate: typeof ApolloMutation
 }
 
-class AddPost extends Component<OwnProps & StateProps, {}> {
+class EditPost extends Component<OwnProps & StateProps, {}> {
 
   constructor(props) {
     super(props)
@@ -77,4 +77,4 @@ export default compose<{}, {}, {}, {}, OwnProps>(
     }
   }),
   withIndicator()
-)(AddPost)
+)(EditPost)
