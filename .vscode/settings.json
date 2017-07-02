@@ -13,5 +13,6 @@
     ".env-sample": "yaml",
     ".env-example": "yaml",
     ".jestrc": "json"
-  }
+  },
+  "typescript.check.tscVersion": false
 }
