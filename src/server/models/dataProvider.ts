@@ -18,6 +18,7 @@ db.once('open', () => {
 
 export const Author = mongoose.model('Author', schemas.authorSchema)
 export const Book = mongoose.model('Book', schemas.bookSchema)
+export const Category = mongoose.model('Category', schemas.categorySchema)
 export const Collection = mongoose.model('Collection', schemas.collectionSchema)
 export const File = mongoose.model('File', schemas.fileSchema)
 export const Post = mongoose.model('Post', schemas.postSchema)
@@ -29,6 +30,7 @@ export const User = mongoose.model('User', schemas.userSchema)
 export default {
   Author: addUitlMethods(Author),
   Book: addUitlMethods(Book),
+  Category: addUitlMethods(Category),
   Collection: addUitlMethods(Collection),
   File: addUitlMethods(File),
   Post: addUitlMethods(Post),

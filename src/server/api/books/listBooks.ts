@@ -62,7 +62,7 @@ const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> =
     return query
       .skip(offset)
       .limit(limit)
-      .populate('file authors')
+      .populate('file authors categories')
       .exec()
       .then(_handleResult)
   }

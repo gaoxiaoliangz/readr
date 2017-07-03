@@ -5,6 +5,7 @@ import { nodeInterface } from '../node'
 import dataProvider from '../../models/dataProvider'
 import GQLTocItem from './GQLTocItem'
 import GQLAuthor from './GQLAuthor'
+import GQLCategory from './GQLCategory'
 import GQLFile from './GQLFile'
 
 const utils = makeUtils({ nodeInterface })
@@ -13,7 +14,7 @@ export const { nodeType: GQLBook, connectionType: GQLBookConnection } = utils.ma
   name: 'Book',
   description: 'Book ...',
   model: dataProvider.Book,
-  refTypes: [GQLAuthor, GQLFile],
+  refTypes: [GQLAuthor, GQLFile, GQLCategory],
   fields: {
     toc: {
       type: new GraphQLList(GQLTocItem)

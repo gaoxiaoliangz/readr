@@ -86,7 +86,7 @@ export const validateOptions = (_options: BookOptions) => {
 export const doQuery = (_options: BookOptions) => {
   return dataProvider.Book
     .findById(_options.id)
-    .populate('file authors')
+    .populate('file authors categories')
     .then(async result => {
       // todo: notfound
       if (!result) {
