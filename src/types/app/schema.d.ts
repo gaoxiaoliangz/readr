@@ -40,6 +40,30 @@ declare namespace Schema {
     }[]
   }
 
+  interface Post {
+    slug: string
+    title: string
+    description: string
+    // # author {
+    // #   name
+    // #   id
+    // # }
+    // # tags {
+    // #   slug
+    // #   name
+    // #   id
+    // # }
+    markdown: string
+    visibility: string
+    status: string
+    image: string
+    category: string
+    id: string
+    objectId: string
+    createdAt: string
+    updatedAt: string
+  }
+
   interface Connection<T> {
     totalCount: number
     pageInfo: {

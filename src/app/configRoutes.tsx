@@ -43,6 +43,7 @@ const configRoutes = (context = {}) => {
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
         <Route path="search" getComponent={() => require.ensure([], require => require('./containers/BookSearch/BookSearch').default)} />
         <Route path="about" getComponent={() => require.ensure([], require => require('./containers/About/About').default)} />
+        <Route path="page/:slug" getComponent={() => require.ensure([], require => require('./containers/Page/Page').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
         <Route path="collections" getComponent={() => require.ensure([], require => require('./containers/Collections').default)} />
         <Route path="collections/:id" getComponent={() => require.ensure([], require => require('./containers/CollectionDetail').default)} />

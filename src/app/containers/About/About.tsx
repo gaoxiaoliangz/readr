@@ -8,6 +8,7 @@ import styles from './About.scss'
 import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import PostRenderer from '../Post/PostRenderer'
+import Markdown from '../../components/Markdown/Markdown'
 
 interface Props {
 }
@@ -28,8 +29,10 @@ class About extends Component<Props, State> {
             getComponent={(data) => {
               return (
                 <div>
-                  <h1>{data.post.title}</h1>
-                  <div>{data.post.markdown}</div>
+                  <h1 className="page-title">{data.post.title}</h1>
+                  <Markdown
+                    input={data.post.markdown}
+                  />
                 </div>
               )
             }}

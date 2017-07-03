@@ -6,29 +6,7 @@ import withIndicator from '../../helpers/withIndicator'
 import POST_QUERY from '../../graphql/Post.gql'
 
 type Data = State.Apollo<{
-  post: {
-    slug: string
-    title: string
-    description: string
-    // # author {
-    // #   name
-    // #   id
-    // # }
-    // # tags {
-    // #   slug
-    // #   name
-    // #   id
-    // # }
-    markdown: string
-    visibility: string
-    status: string
-    image: string
-    category: string
-    id: string
-    objectId: string
-    createdAt: string
-    updatedAt: string
-  }
+  post: Schema.Post
 }>
 
 interface OwnProps {
