@@ -196,6 +196,10 @@ export const slideFields = {
     required: true,
     type: String,
   },
+  published: {
+    required: true,
+    type: Boolean
+  },
   picture: {
     type: String,
     required: true

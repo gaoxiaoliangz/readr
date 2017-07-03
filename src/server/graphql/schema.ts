@@ -35,7 +35,11 @@ const Query = new GraphQLObjectType({
     }),
     slides: makeNodeConnectionField({
       type: GQLSlideConnection,
-      listAllFn: () => dataProvider.Slide.find().exec()
+      listAllFn: () => dataProvider.Slide
+        .find({
+          published: true
+        })
+        .exec()
     }),
     files: makeNodeConnectionField({
       type: GQLFileConnection,

@@ -4,7 +4,8 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLFloat
+  GraphQLFloat,
+  GraphQLBoolean
 } from 'graphql'
 import {
   connectionArgs,
@@ -31,8 +32,21 @@ export const modelToGQLFields = (model, config?: ModelToGQLFieldsConfig) => {
   const mapMgSchemaTypeToGqlType = (type) => {
     const ref = (_.get(type, 'caster.options.ref') || _.get(type, 'options.ref')) as string
     // seems thant when type is array, it has caster prop
+    let gqlType
 
-    let gqlType: any = type.instance === 'Number' ? GraphQLFloat : GraphQLString
+    switch (type.instance) {
+      case 'Boolean':
+        gqlType = GraphQLBoolean
+        break
+      case 'Number':
+        gqlType = GraphQLFloat
+        break
+        // todo: other types
+      default:
+        gqlType = GraphQLString
+        break
+    }
+
     gqlType = ref
       ? (_.find(refTypes, { name: ref }) || GraphQLString)
       : gqlType

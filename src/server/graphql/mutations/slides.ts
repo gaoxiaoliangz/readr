@@ -1,6 +1,7 @@
 import {
   GraphQLNonNull,
-  GraphQLString
+  GraphQLString,
+  GraphQLBoolean
 } from 'graphql'
 import { mutationWithClientMutationId } from 'graphql-relay'
 import dataProvider from '../../models/dataProvider'
@@ -16,6 +17,9 @@ export const AddSlideMutation = mutationWithClientMutationId({
     },
     description: {
       type: GraphQLString
+    },
+    published: {
+      type: new GraphQLNonNull(GraphQLBoolean)
     }
   },
   outputFields: {
