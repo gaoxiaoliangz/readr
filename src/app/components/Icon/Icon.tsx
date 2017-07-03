@@ -11,6 +11,7 @@ interface IProps {
   className?: string
   styleName?: string
   style?: React.CSSProperties
+  svgPathProps?: any
 }
 
 @CSSModules(styles, {
@@ -22,7 +23,7 @@ class Icon extends Component<IProps, {}> {
   }
 
   render() {
-    let { name, onClick, size, style } = this.props
+    let { name, onClick, size, style, svgPathProps } = this.props
     let className = classnames('icon', `icon-${name}`, this.props.className)
 
     if (typeof svgIcons[name] === 'undefined') {
@@ -60,9 +61,10 @@ class Icon extends Component<IProps, {}> {
                   {...svgIcons[name].viewBox && { viewBox: svgIcons[name].viewBox }}
                   width={size}
                   height={size}
+                  xmlns="http://www.w3.org/2000/svg"
                   {...{ styleName: 'svg-shape' } as any}
                 >
-                  <path d={svgIcons[name].path} />
+                  <path {...svgPathProps} d={svgIcons[name].path} />
                 </svg>
               )
               : `Icon ${name} not found!`
