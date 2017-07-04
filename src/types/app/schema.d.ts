@@ -8,9 +8,27 @@ declare namespace Schema {
     percentage: number
   }
 
+  // deprecated
   type BookInfo = {
     title: string
     toc: TocItem[]
+  }
+
+  interface Book {
+    id: string
+    title: string
+    authors: {
+      name: string
+    }[]
+    description: string
+    cover: string
+  }
+
+  interface Category {
+    id: string
+    name: string
+    slug: string
+    description: string
   }
 
   interface TocItem {
@@ -38,6 +56,14 @@ declare namespace Schema {
         }
       }
     }[]
+  }
+
+  interface Slide {
+    id: string
+    url: string
+    picture: string
+    description: string
+    createdAt: string
   }
 
   interface Post {

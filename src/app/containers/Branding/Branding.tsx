@@ -37,18 +37,11 @@ interface IState {
 
 const mapStateToProps = (state, ownProps) => {
   const session = selectors.session(state)
-  // const bookShelf = selectors.pagination.shelf(state)
-  // const recentReading = _.get(bookShelf, ['pages', '1'], [])
-  //   .map(book => ({
-  //     title: book.title,
-  //     id: book.id
-  //   }))
 
   return {
     config: selectors.viewer.config(state),
     isAdmin: session.role === 'admin',
     username: session.username,
-    // recentReading,
     session,
     routing: selectors.routing(state),
     displayName: session.displayName

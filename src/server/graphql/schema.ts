@@ -4,7 +4,8 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
-  GraphQLList
+  GraphQLList,
+  GraphQLBoolean
 } from 'graphql'
 import {
   fromGlobalId
@@ -77,6 +78,9 @@ const Query = new GraphQLObjectType({
         },
         categories: {
           type: new GraphQLList(GraphQLID)
+        },
+        isFeatured: {
+          type: GraphQLBoolean
         }
       },
       listAllFn: (upper, args) => listBooks(args)

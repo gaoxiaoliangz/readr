@@ -7,6 +7,7 @@ import dataProvider from '../../models/dataProvider'
 interface ListBooksArgs {
   query?: string
   categories?: string[]
+  isFeatured?: boolean
 }
 const listBooks = async (args: ListBooksArgs) => {
   const searchQuery = args.query
@@ -20,6 +21,19 @@ const listBooks = async (args: ListBooksArgs) => {
     cateIds = args.categories.map(gqlId => {
       return fromGlobalId(gqlId).id
     })
+  }
+
+  if (!_.isUndefined(args.isFeatured)) {
+    if (args.isFeatured === true) {
+      query = query.where('featured').equals(args.isFeatured)
+    } else {
+      query = query.find({
+        $or: [
+          { featured: args.isFeatured },
+          { featured: null},
+        ]
+      })
+    }
   }
 
   let list = await query
