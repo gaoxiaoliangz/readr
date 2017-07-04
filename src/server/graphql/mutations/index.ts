@@ -6,7 +6,7 @@ import {
   UpdateProfileMutation,
   ChangePasswordMutation
 } from './user'
-import { AddSlideMutation } from './slides'
+import { AddSlideMutation, UpdateSlideMutation } from './slides'
 import { AddCategoryMutation } from './categories'
 import { UpdateBookMutation, DelBookMutation } from './books'
 import { AddPostMutation, UpdatePostMutation, DelPostMutation } from './posts'
@@ -20,6 +20,7 @@ const Mutation = new GraphQLObjectType({
     changePassword: ChangePasswordMutation,
     addCategory: AddCategoryMutation,
     addSlide: AddSlideMutation,
+    updateSlide: UpdateSlideMutation,
     addPost: AddPostMutation,
     updatePost: UpdatePostMutation,
     delPost: DelPostMutation,
