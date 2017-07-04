@@ -77,6 +77,9 @@ const Query = new GraphQLObjectType({
         const searchQuery = args.query
         let cateIds = []
         let query = dataProvider.Book.find({})
+          .sort({
+            created_at: -1
+          })
 
         if (args.categories) {
           cateIds = args.categories.map(gqlId => {
