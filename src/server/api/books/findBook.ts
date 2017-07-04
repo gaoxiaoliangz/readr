@@ -16,7 +16,7 @@ import _ from 'lodash'
  * parseResult      | document -> finalResult
  */
 
-const mapMimetypeToFileType = (mimetype) => {
+export const mapMimetypeToFileType = (mimetype) => {
   if (mimetype === 'application/epub+zip') {
     return 'epub'
   } else if (mimetype === 'text/plain') {
@@ -46,8 +46,8 @@ export type Book = {
   pages?
 }
 
-const parseBookFileMemoized = _.memoize(parseBookFile, (bookId) => bookId)
-const genPagesMemoized = _.memoize(genPages, (config) => md5(JSON.stringify(_.omit(config, ['sections']))))
+export const parseBookFileMemoized = _.memoize(parseBookFile, (bookId) => bookId)
+export const genPagesMemoized = _.memoize(genPages, (config) => md5(JSON.stringify(_.omit(config, ['sections']))))
 
 export const convert = (_options: BookOptions) => {
   return {
@@ -96,7 +96,7 @@ export const doQuery = (_options: BookOptions) => {
     })
 }
 
-export const handleResult = async ({ result, options: _options }: { result; options: BookOptions }) => {
+export const processBook = async ({ result, options: _options }: { result; options: BookOptions }) => {
   const _result = result.toObject()
   const file = _result['file'] || {}
   const fileType = mapMimetypeToFileType(file.mimetype)
@@ -149,7 +149,7 @@ export default async function findBook(options: BookOptions): Promise<Book> {
     (_options) => validateId(_options.id).then(() => _options),
     validateOptions,
     doQuery,
-    handleResult
+    processBook
   ]
 
   return compose(

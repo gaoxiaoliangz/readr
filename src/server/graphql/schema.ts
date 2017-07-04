@@ -71,10 +71,13 @@ const Query = new GraphQLObjectType({
       },
       listAllFn: async (upper, args) => {
         const query = args.query
-        const allResults = await api.books.list({ includeToc: true, limit: 99999 }).then(data => data.list)
+        const allResults = await dataProvider.Book.find({})
+          .populate('file authors categories')
+          .exec()
+
         return query
           ? allResults.filter((r) => {
-            return r.title.indexOf(query) !== -1
+            return r['title'].indexOf(query) !== -1
           })
           : allResults
       }

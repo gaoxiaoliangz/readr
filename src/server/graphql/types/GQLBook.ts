@@ -7,6 +7,7 @@ import GQLTocItem from './GQLTocItem'
 import GQLAuthor from './GQLAuthor'
 import GQLCategory from './GQLCategory'
 import GQLFile from './GQLFile'
+import { parseBookFileMemoized, mapMimetypeToFileType } from '../../api/books/findBook'
 
 const utils = makeUtils({ nodeInterface })
 
@@ -17,7 +18,14 @@ export const { nodeType: GQLBook, connectionType: GQLBookConnection } = utils.ma
   refTypes: [GQLAuthor, GQLFile, GQLCategory],
   fields: {
     toc: {
-      type: new GraphQLList(GQLTocItem)
+      type: new GraphQLList(GQLTocItem),
+      resolve: async (upper, args) => {
+        const parsedFile = await parseBookFileMemoized(upper._id, {
+          buffer: upper.file.content.buffer,
+          fileType: mapMimetypeToFileType(upper.file.mimetype)
+        })
+        return parsedFile.structure
+      }
     }
   }
 })
