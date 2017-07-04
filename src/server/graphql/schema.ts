@@ -4,6 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
+  GraphQLList
 } from 'graphql'
 import {
   fromGlobalId
@@ -67,19 +68,44 @@ const Query = new GraphQLObjectType({
       extendedArgs: {
         query: {
           type: GraphQLString
+        },
+        categories: {
+          type: new GraphQLList(GraphQLID)
         }
       },
       listAllFn: async (upper, args) => {
-        const query = args.query
-        const allResults = await dataProvider.Book.find({})
+        const searchQuery = args.query
+        let cateIds = []
+        let query = dataProvider.Book.find({})
+
+        if (args.categories) {
+          cateIds = args.categories.map(gqlId => {
+            return fromGlobalId(gqlId).id
+          })
+        }
+
+        let list = await query
           .populate('file authors categories')
           .exec()
 
-        return query
-          ? allResults.filter((r) => {
-            return r['title'].indexOf(query) !== -1
+        if (searchQuery) {
+          list = list.filter(item => {
+            return item['title'].indexOf(searchQuery) !== -1
           })
-          : allResults
+        }
+
+        if (cateIds.length !== 0) {
+          list = list.filter(item => {
+            const itemCateIds = item['categories'].map(cat => cat._id.toString()) || []
+            const diffResult = _.difference(cateIds, itemCateIds)
+            if (diffResult.length === cateIds.length) {
+              return false
+            }
+            return true
+          })
+        }
+
+        return list
       }
     }),
     posts: postsField,
