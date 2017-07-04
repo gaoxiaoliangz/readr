@@ -30,6 +30,8 @@ class Icon extends Component<IProps, {}> {
       console.error('Icon name (%s) not found! ', name)
     }
 
+    const pathAttrs = svgIcons[name].pathAttrs
+
     size = size || 30
 
     const svgWrapStyle = {
@@ -64,7 +66,10 @@ class Icon extends Component<IProps, {}> {
                   xmlns="http://www.w3.org/2000/svg"
                   {...{ styleName: 'svg-shape' } as any}
                 >
-                  <path {...svgPathProps} d={svgIcons[name].path} />
+                  <path
+                    {...{ ...pathAttrs, ...svgPathProps }}
+                    d={svgIcons[name].path}
+                  />
                 </svg>
               )
               : `Icon ${name} not found!`

@@ -22,9 +22,9 @@ import {
 import { nodeField } from './node'
 import { makeNodeConnectionField } from './utils'
 import postsField, { postField } from './fields/postsField'
-import api from '../api'
 import Mutation from './mutations'
 import userField from './fields/userField'
+import listBooks from './listAllFns/listBooks'
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -45,6 +45,9 @@ const Query = new GraphQLObjectType({
         .find({
           published: true
         })
+        .sort({
+          created_at: -1
+        })
         .exec()
     }),
     files: makeNodeConnectionField({
@@ -60,7 +63,10 @@ const Query = new GraphQLObjectType({
       },
       resolve: async (parent, args) => {
         const { id } = fromGlobalId(args.id)
-        return api.books.find({ id, includeToc: true })
+        return dataProvider.Book.findById(id)
+          .populate('file authors categories')
+          .exec()
+          .then(res => res.toObject())
       }
     },
     books: makeNodeConnectionField({
@@ -73,43 +79,7 @@ const Query = new GraphQLObjectType({
           type: new GraphQLList(GraphQLID)
         }
       },
-      listAllFn: async (upper, args) => {
-        const searchQuery = args.query
-        let cateIds = []
-        let query = dataProvider.Book.find({})
-          .sort({
-            created_at: -1
-          })
-
-        if (args.categories) {
-          cateIds = args.categories.map(gqlId => {
-            return fromGlobalId(gqlId).id
-          })
-        }
-
-        let list = await query
-          .populate('file authors categories')
-          .exec()
-
-        if (searchQuery) {
-          list = list.filter(item => {
-            return item['title'].indexOf(searchQuery) !== -1
-          })
-        }
-
-        if (cateIds.length !== 0) {
-          list = list.filter(item => {
-            const itemCateIds = item['categories'].map(cat => cat._id.toString()) || []
-            const diffResult = _.difference(cateIds, itemCateIds)
-            if (diffResult.length === cateIds.length) {
-              return false
-            }
-            return true
-          })
-        }
-
-        return list
-      }
+      listAllFn: (upper, args) => listBooks(args)
     }),
     posts: postsField,
     post: postField

@@ -7,10 +7,9 @@ import * as selectors from '../../selectors'
 import DocContainer from '../../components/DocContainer'
 import { Container } from '../../components/layout'
 import styles from './Browse.scss'
-import Branding from '../Branding/Branding'
+import BrandingWithImage from '../Branding/BrandingWithImage'
 import Colophon from '../../components/Colophon/Colophon'
 import Books from '../Books/Books'
-import Slides from '../../components/Slides/Slides'
 import SLIDES_QUERY from '../../graphql/Slides.gql'
 import withIndicator from '../../helpers/withIndicator'
 
@@ -34,9 +33,16 @@ interface IState {
 class Browse extends Component<Props, IState> {
 
   render() {
+    const slideNode = (_.first(this.props.data.slides.edges) || {})['node']
+    const onlyImage = slideNode && {
+      src: slideNode.picture,
+      to: slideNode.url
+    }
+
     return (
       <DocContainer bodyClass="page-browse" title="浏览">
-        <div className="header">
+        <BrandingWithImage onlyImage={onlyImage} />
+        {/*<div className="header">
           <Branding
             bgColor="transparent"
             style={{
@@ -58,7 +64,7 @@ class Browse extends Component<Props, IState> {
             dots={false}
             disableSwipe={true}
           />
-        </div>
+        </div>*/}
         <Container>
           <Books
             sectionTitle="新书速递"

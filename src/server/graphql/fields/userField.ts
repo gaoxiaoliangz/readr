@@ -19,6 +19,7 @@ import { makeNodeConnectionField } from '../utils'
 import { getReadingProgressCore } from '../../api/user'
 import bookPagesField from '../fields/bookPagesField'
 import api from '../../api'
+import listBooks from '../listAllFns/listBooks'
 
 const userField = {
   type: new GraphQLObjectType({
@@ -52,19 +53,7 @@ const userField = {
           if (!userId) {
             return Promise.reject(new Error('需要登录！'))
           }
-          const query = args.query
-          const allResults = await api.books
-            .list({
-              includeToc: true,
-              limit: 99999,
-              providedBy: userId
-            })
-            .then(data => data.list)
-          return query
-            ? allResults.filter((r) => {
-              return r.title.indexOf(query) !== -1
-            })
-            : allResults
+          return listBooks(args)
         }
       }),
       bookPages: bookPagesField,
@@ -85,7 +74,8 @@ const userField = {
         type: GQLReadingHistoryEntryConnection,
         listAllFn: async (upper, args, req) => {
           const { user: { _id } } = req
-          return api.user.listShelfBooks({ context: { user: { _id } } })
+          const result = await api.user.listShelfBooks({ context: { user: { _id } } })
+          return result
         }
       })
     }),

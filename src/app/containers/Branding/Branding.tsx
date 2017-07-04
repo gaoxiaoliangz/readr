@@ -37,18 +37,18 @@ interface IState {
 
 const mapStateToProps = (state, ownProps) => {
   const session = selectors.session(state)
-  const bookShelf = selectors.pagination.shelf(state)
-  const recentReading = _.get(bookShelf, ['pages', '1'], [])
-    .map(book => ({
-      title: book.title,
-      id: book.id
-    }))
+  // const bookShelf = selectors.pagination.shelf(state)
+  // const recentReading = _.get(bookShelf, ['pages', '1'], [])
+  //   .map(book => ({
+  //     title: book.title,
+  //     id: book.id
+  //   }))
 
   return {
     config: selectors.viewer.config(state),
     isAdmin: session.role === 'admin',
     username: session.username,
-    recentReading,
+    // recentReading,
     session,
     routing: selectors.routing(state),
     displayName: session.displayName
@@ -131,7 +131,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                     </div>
                     <Dropdown
                       title={(
-                        <div style={{ display: 'inline-block' }}>{displayName || username}{isAdmin && <span className="badge">管理员</span>}</div>
+                        <div style={{ display: 'inline-block' }}>{displayName || username || '无名'}{isAdmin && <span className="badge">S</span>}</div>
                       )}
                     >
                       {

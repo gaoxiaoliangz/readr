@@ -57,14 +57,6 @@ class Dropdown extends Component<IProps, IState> {
               marginLeft: 3
             }}
             name="arrowDown"
-            svgPathProps={{
-              strokeWidth: 3,
-              stroke: 'currentColor',
-              fill: 'none',
-              fillRule: 'evenodd',
-              strokeLinecap: 'round',
-              strokeLinejoin: 'round'
-            }}
             size={10}
           />
         </div>
