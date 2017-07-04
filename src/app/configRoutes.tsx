@@ -41,6 +41,7 @@ const configRoutes = (context = {}) => {
         <IndexRoute onEnter={handleAppHomeEnter} getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="welcome" getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
+        <Route path="browse/category/:category" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
         <Route path="search" getComponent={() => require.ensure([], require => require('./containers/BookSearch/BookSearch').default)} />
         <Route path="about" getComponent={() => require.ensure([], require => require('./containers/About/About').default)} />
         <Route path="page/:slug" getComponent={() => require.ensure([], require => require('./containers/Page/Page').default)} />

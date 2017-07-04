@@ -14,6 +14,7 @@ import BROWSE_QUERY from '../../graphql/Browse.gql'
 import withIndicator from '../../helpers/withIndicator'
 import { Tab, Tabs } from '../../components/Tab'
 import BookList from '../../components/BookList/BookList'
+import helpers from '../../helpers'
 
 interface Props {
   data: State.Apollo<{
@@ -22,6 +23,9 @@ interface Props {
     books: Schema.Connection<Schema.Book>
     categories: Schema.Connection<Schema.Category>
   }>
+  params: {
+    category: string
+  }
 }
 
 @CSSModules(styles)
@@ -51,14 +55,26 @@ class Browse extends Component<Props, void> {
             bookEntities={_.map(this.props.data.featuredBooks.edges, 'node')}
             isFetching={this.props.data.loading}
           />
-          <Tabs style={{ marginTop: 20 }}>
-            <Tab title="全部">
+          <Tabs
+            style={{ marginTop: 20 }}
+            controlled
+            active={this.props.params.category || 'all'}
+            onTabSwitch={tabKey => {
+              if (tabKey === 0) {
+                helpers.redirect(`/browse`)  
+              } else {
+                // const cateId = this.props.data.categories.edges[tabKey - 1].node.id
+                helpers.redirect(`/browse/category/${tabKey}`)
+              }
+            }}
+          >
+            <Tab title="全部" tabKey="all">
               {this.renderCateBooks()}
             </Tab>
             {
               this.props.data.categories.edges.map(cateEdge => {
                 return (
-                  <Tab key={cateEdge.node.id} title={cateEdge.node.name}>
+                  <Tab tabKey={cateEdge.node.id} key={cateEdge.node.id} title={cateEdge.node.name}>
                     {this.renderCateBooks()}
                   </Tab>
                 )
