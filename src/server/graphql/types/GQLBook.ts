@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { GraphQLList } from 'graphql'
+import { GraphQLList, GraphQLNonNull, GraphQLBoolean } from 'graphql'
 import makeUtils from '../utils'
 import { nodeInterface } from '../node'
 import dataProvider from '../../models/dataProvider'
@@ -25,6 +25,12 @@ export const { nodeType: GQLBook, connectionType: GQLBookConnection } = utils.ma
           fileType: mapMimetypeToFileType(upper.file.mimetype)
         })
         return parsedFile.structure
+      }
+    },
+    published: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: (upper) => {
+        return _.isUndefined(upper.published) ? true : upper.published
       }
     }
   }

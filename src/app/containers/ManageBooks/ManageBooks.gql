@@ -30,6 +30,8 @@ query Books(
         cover
         description
         createdAt
+        featured
+        published
         authors {
           name
           id

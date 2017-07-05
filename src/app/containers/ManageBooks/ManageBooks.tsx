@@ -80,11 +80,9 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           authors={this.props.data.authors}
           categories={this.props.data.categories}
           initialValues={{
-            title: bookMeta.title,
+            ...bookMeta,
             authors: bookMeta.authors && bookMeta.authors.map(item => item.id),
-            categories: bookMeta.categories && bookMeta.categories.map(item => item.id),
-            description: bookMeta.description,
-            cover: bookMeta.cover
+            categories: bookMeta.categories && bookMeta.categories.map(item => item.id)
           }}
           onSubmit={data => {
             this.props.updateBook({

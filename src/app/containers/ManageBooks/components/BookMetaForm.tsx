@@ -7,6 +7,7 @@ import { renderInput } from '../../../components/Input/Input'
 import { renderTextarea } from '../../../components/Textarea/Textarea'
 import ModalFooter from '../../../components/Modal/ModalFooter'
 import SelectizeInput from '../../../components/SelectizeInput/SelectizeInput'
+import Switcher from '../../../components/Switcher/Switcher'
 
 interface OwnProps {
   onSubmit: any
@@ -39,6 +40,16 @@ export const renderSeInput = (options) => ({ input: { value, onChange }, meta, .
   )
 }
 
+const renderSwitcher = ({ input: { value, onChange }, meta, ...rest }) => {
+  return (
+    <Switcher
+      {...rest}
+      value={value}
+      onChange={onChange}
+    />
+  )
+}
+
 const mapOptions = edge => {
   return {
     name: edge.node.name,
@@ -59,6 +70,8 @@ class BookMetaForm extends Component<OwnProps & StateProps & DispatchProps, {}> 
         <Field placeholder="书名" name="title" component={renderInput} />
         <Field placeholder="作者" name="authors" component={renderSeInput(authorOptions)} />
         <Field placeholder="封面" name="cover" component={renderInput} />
+        <Field title="推荐" name="featured" component={renderSwitcher} />
+        <Field title="发布" name="published" component={renderSwitcher} />
         <Field placeholder="分类" name="categories" component={renderSeInput(categoriesOptions)} />
         <Field placeholder="描述" name="description" component={renderTextarea} />
         <ModalFooter
