@@ -1,0 +1,65 @@
+query Books(
+  $offset: Int,
+  $first: Int,
+  $after: String,
+  $query: String,
+  $isFeatured: Boolean,
+  $categories: [ID]
+) {
+  books(
+    first: $first, 
+    offset: $offset, 
+    after: $after, 
+    query: $query,
+    isFeatured: $isFeatured,
+    categories: $categories
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        id
+        objectId
+        title
+        cover
+        description
+        createdAt
+        authors {
+          name
+          id
+        }
+        categories {
+          name
+          slug
+          id
+        }
+      }
+    }
+  }
+  categories {
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+      }
+    }
+  }
+  authors {
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+      }
+    }
+  }
+}

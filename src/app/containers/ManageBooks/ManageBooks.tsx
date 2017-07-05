@@ -12,7 +12,7 @@ import { Button } from '../../components/form'
 import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
-import BOOKS_QUERY from '../../graphql/Books.gql'
+import MANAGE_BOOKS_QUERY from './ManageBooks.gql'
 import UPDATE_BOOK from '../../graphql/mutations/updateBook.gql'
 import DEL_BOOK from '../../graphql/mutations/delBook.gql'
 
@@ -20,6 +20,8 @@ const PAGE_LIMIT = 10
 
 type Data = State.Apollo<{
   books: Schema.Connection<Schema.Book>
+  authors: Schema.Connection<Schema.Author>
+  categories: Schema.Connection<Schema.Category>
 }>
 
 interface Props {
@@ -75,9 +77,12 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       title: '编辑书籍信息',
       content: (
         <BookMetaForm
+          authors={this.props.data.authors}
+          categories={this.props.data.categories}
           initialValues={{
             title: bookMeta.title,
-            authors: bookMeta.authors && bookMeta.authors.map(item => item.name).join(', '),
+            authors: bookMeta.authors && bookMeta.authors.map(item => item.id),
+            categories: bookMeta.categories && bookMeta.categories.map(item => item.id),
             description: bookMeta.description,
             cover: bookMeta.cover
           }}
@@ -85,8 +90,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
             this.props.updateBook({
               variables: {
                 ...data,
-                id: bookMeta.id,
-                authors: null
+                id: bookMeta.id
               }
             })
               .then(() => {
@@ -188,7 +192,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
   }
 }
 
-const withData = graphql(BOOKS_QUERY, {
+const withData = graphql(MANAGE_BOOKS_QUERY, {
   options: (props) => {
     return {
       variables: {

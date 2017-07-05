@@ -14,6 +14,16 @@ declare namespace Schema {
     toc: TocItem[]
   }
 
+  interface Author {
+    name: string
+    slug: string
+    description: string
+    id: string
+    objectId: string
+    createdAt: string
+    updatedAt: string
+  }
+
   interface Book {
     id: string
     objectId: string
