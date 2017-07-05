@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
-import * as restAPI from '../../restAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
 import { graphql, compose } from 'react-apollo'
@@ -15,6 +14,7 @@ import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
 import BOOKS_QUERY from '../../graphql/Books.gql'
 import UPDATE_BOOK from '../../graphql/mutations/updateBook.gql'
+import DEL_BOOK from '../../graphql/mutations/delBook.gql'
 
 const PAGE_LIMIT = 10
 
@@ -32,6 +32,7 @@ interface Props {
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
   updateBook: typeof ApolloMutation
+  delBook: typeof ApolloMutation
 }
 
 class ManageBooks extends Component<Props, { showModal: boolean }> {
@@ -42,16 +43,20 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     }
   }
 
-  deleteBook(id, bookName, cb) {
+  deleteBook(row) {
     this.props.openConfirmModal({
       title: '确认删除',
-      content: `将删除《${bookName}》`,
+      content: `将删除《${row.title}》`,
       onConfirm: () => {
-        restAPI.deleteBook(id)
+        this.props.delBook({
+          variables: {
+            id: row.id
+          }
+        })
           .then(res => {
             this.props.closeConfirmModal()
             this.props.sendNotification('删除成功！')
-            cb()
+            this.props.data.refetch()
           })
           .catch(err => {
             this.props.closeConfirmModal()
@@ -82,16 +87,12 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
                 ...data,
                 id: bookMeta.id,
                 authors: null
-              },
-              refetchQueries: [
-                {
-                  query: BOOKS_QUERY
-                }
-              ]
+              }
             })
               .then(() => {
                 this.props.sendNotification('更新成功！')
                 this.props.closeModal()
+                this.props.data.refetch()
               })
               .catch((err) => {
                 this.props.closeModal()
@@ -142,10 +143,10 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           (
             <div>
               <span className="dark-link" onClick={() => {
-                this.editBookMeta(entities[index])
+                this.editBookMeta(row)
               }}>编辑</span>
               <span className="dark-link" onClick={() => {
-                this.deleteBook(row.objectId, row.title, this.loadBooks.bind(this, this._getCurrentPage()))
+                this.deleteBook(row)
               }}>删除</span>
             </div>
           )
@@ -203,10 +204,6 @@ const withData = graphql(BOOKS_QUERY, {
   }
 })
 
-const withUpdateBook = graphql(UPDATE_BOOK, {
-  name: 'updateBook'
-})
-
 function mapStateToProps(state, ownProps) {
   return {
     routing: selectors.routing(state)
@@ -219,5 +216,10 @@ export default compose(
     { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
   ),
   withData,
-  withUpdateBook,
+  graphql(UPDATE_BOOK, {
+    name: 'updateBook'
+  }),
+  graphql(DEL_BOOK, {
+    name: 'delBook'
+  })
 )(ManageBooks)
