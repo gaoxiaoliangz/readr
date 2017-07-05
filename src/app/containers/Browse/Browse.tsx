@@ -45,6 +45,7 @@ class Browse extends Component<Props, void> {
       src: slideNode.picture,
       to: slideNode.url
     }
+    const renderedBooks = this.renderCateBooks()
 
     return (
       <DocContainer bodyClass="page-browse" title="浏览">
@@ -60,22 +61,21 @@ class Browse extends Component<Props, void> {
             controlled
             active={this.props.params.category || 'all'}
             onTabSwitch={tabKey => {
-              if (tabKey === 0) {
+              if (tabKey === 'all') {
                 helpers.redirect(`/browse`)  
               } else {
-                // const cateId = this.props.data.categories.edges[tabKey - 1].node.id
                 helpers.redirect(`/browse/category/${tabKey}`)
               }
             }}
           >
             <Tab title="全部" tabKey="all">
-              {this.renderCateBooks()}
+              {renderedBooks}
             </Tab>
             {
               this.props.data.categories.edges.map(cateEdge => {
                 return (
                   <Tab tabKey={cateEdge.node.id} key={cateEdge.node.id} title={cateEdge.node.name}>
-                    {this.renderCateBooks()}
+                    {renderedBooks}
                   </Tab>
                 )
               })

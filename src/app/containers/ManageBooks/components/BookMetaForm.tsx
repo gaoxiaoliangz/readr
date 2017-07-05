@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import form from '@gxl/redux-form'
+import { compose } from 'redux'
+import { Field, reduxForm } from 'redux-form'
 import { sendNotification, closeModal } from '../../../actions'
-import { Input, Textarea } from '../../../components/form'
+import { renderInput } from '../../../components/Input/Input'
+import { renderTextarea } from '../../../components/Textarea/Textarea'
 import ModalFooter from '../../../components/Modal/ModalFooter'
 
 interface OwnProps {
-  onSave: (data: any) => void
+  onSubmit: any
+  initialValues?: any
 }
 
 interface StateProps {
@@ -19,40 +22,32 @@ interface DispatchProps {
   closeModal?: typeof closeModal
 }
 
-@form({
-  form: 'bookMeta',
-  fields: ['title', 'authors', 'description', 'cover']
-})
 class BookMetaForm extends Component<OwnProps & StateProps & DispatchProps, {}> {
-
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const {
-      fields: { title, authors, description, cover },
-      handleSubmit, closeModal, onSave
+      handleSubmit, closeModal
     } = this.props
 
     return (
-      <div>
-        <Input placeholder="书名" {...title} />
-        <Input placeholder="作者" {...authors} />
-        <Textarea placeholder="描述" {...description} />
-        <Input placeholder="封面" {...cover} />
+      <form onSubmit={handleSubmit}>
+        <Field placeholder="书名" name="title" component={renderInput} />
+        <Field placeholder="作者" name="authors" component={renderInput} />
+        <Field placeholder="封面" name="cover" component={renderInput} />
+        <Field placeholder="描述" name="description" component={renderTextarea} />
         <ModalFooter
-          onConfirm={handleSubmit(data => {
-            onSave(data)
-          })}
           onCancel={closeModal}
-          />
-      </div>
+        />
+      </form>
     )
   }
 }
 
-export default connect<StateProps, DispatchProps, OwnProps> (
-  state => state,
-  { sendNotification, closeModal }
-)(BookMetaForm)
+export default compose(
+  connect(
+    null,
+    { sendNotification, closeModal }
+  ),
+  reduxForm({
+    form: 'bookMeta'
+  })
+)(BookMetaForm) as React.ComponentClass<OwnProps>

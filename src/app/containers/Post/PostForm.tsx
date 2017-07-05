@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
-// import { compose } from 'redux'
 import { sendNotification } from '../../actions'
 import { Field, reduxForm } from 'redux-form'
-import Input from '../../components/Input/Input'
-import Textarea from '../../components/Textarea/Textarea'
+import { renderInput } from '../../components/Input/Input'
+import { renderTextarea } from '../../components/Textarea/Textarea'
 
 interface OwnProps {
   onSubmit: any
@@ -14,18 +12,6 @@ interface OwnProps {
 interface StateProps {
   sendNotification: typeof sendNotification
   handleSubmit: any
-}
-
-const renderInput = ({ input: { value, onChange }, ...rest }) => {
-  return (
-    <Input value={value} onChange={onChange} />
-  )
-}
-
-const renderTextarea = ({ input: { value, onChange } }) => {
-  return (
-    <Textarea value={value} onChange={onChange} />
-  )
 }
 
 class AddPostForm extends Component<OwnProps & StateProps, {}> {
@@ -84,12 +70,3 @@ class AddPostForm extends Component<OwnProps & StateProps, {}> {
 export default reduxForm<{}, OwnProps, {}>({
   form: 'addPost'
 })(AddPostForm) as React.ComponentClass<OwnProps>
-
-// export default compose<{}, OwnProps>(
-//   connect(
-//     () => ({})
-//   ),
-//   reduxForm({
-//     form: 'addPost'
-//   })
-// )(AddPostForm)

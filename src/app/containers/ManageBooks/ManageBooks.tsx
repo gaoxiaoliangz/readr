@@ -6,7 +6,7 @@ import InfoTable from '../../components/InfoTable'
 import * as restAPI from '../../restAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
 import { Button } from '../../components/form'
@@ -14,21 +14,12 @@ import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
 import BOOKS_QUERY from '../../graphql/Books.gql'
+import UPDATE_BOOK from '../../graphql/mutations/updateBook.gql'
 
 const PAGE_LIMIT = 10
 
 type Data = State.Apollo<{
-  books: Schema.Connection<{
-    id: string
-    objectId: string
-    title: string
-    authors: {
-      name: string
-    }[]
-    description: string
-    cover: string
-    createdAt: string
-  }>
+  books: Schema.Connection<Schema.Book>
 }>
 
 interface Props {
@@ -40,6 +31,7 @@ interface Props {
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
+  updateBook: typeof ApolloMutation
 }
 
 class ManageBooks extends Component<Props, { showModal: boolean }> {
@@ -69,7 +61,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     })
   }
 
-  editBookMeta(bookMeta, cb) {
+  editBookMeta(bookMeta) {
     this.setState({
       showModal: true
     })
@@ -78,28 +70,36 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       title: '编辑书籍信息',
       content: (
         <BookMetaForm
-          onSave={data => {
-            const _data = _.omit(data, 'authors')
-            restAPI.editBookMeta(bookMeta.objectId, _data)
-              .then(result => {
-                this.loadBooks()
+          initialValues={{
+            title: bookMeta.title,
+            authors: bookMeta.authors && bookMeta.authors.map(item => item.name).join(', '),
+            description: bookMeta.description,
+            cover: bookMeta.cover
+          }}
+          onSubmit={data => {
+            this.props.updateBook({
+              variables: {
+                ...data,
+                id: bookMeta.id,
+                authors: null
+              },
+              refetchQueries: [
+                {
+                  query: BOOKS_QUERY
+                }
+              ]
+            })
+              .then(() => {
+                this.props.sendNotification('更新成功！')
                 this.props.closeModal()
-                this.props.sendNotification('修改成功！', 'success')
-                cb()
               })
-              .catch(err => {
-                this.props.closeConfirmModal()
+              .catch((err) => {
+                this.props.closeModal()
                 this.props.sendNotification(err.message, 'error')
               })
           }}
         />
       )
-    })
-    this.props.initializeForm('bookMeta', {
-      title: bookMeta.title,
-      authors: bookMeta.authors.map(item => item.name).join(', '),
-      description: bookMeta.description,
-      cover: bookMeta.cover
     })
   }
 
@@ -142,7 +142,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           (
             <div>
               <span className="dark-link" onClick={() => {
-                this.editBookMeta(entities[index], this.loadBooks.bind(this, this._getCurrentPage()))
+                this.editBookMeta(entities[index])
               }}>编辑</span>
               <span className="dark-link" onClick={() => {
                 this.deleteBook(row.objectId, row.title, this.loadBooks.bind(this, this._getCurrentPage()))
@@ -187,7 +187,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
   }
 }
 
-const ManageBooksWithData = graphql(BOOKS_QUERY, {
+const withData = graphql(BOOKS_QUERY, {
   options: (props) => {
     return {
       variables: {
@@ -201,7 +201,11 @@ const ManageBooksWithData = graphql(BOOKS_QUERY, {
       fetchPolicy: 'network-only'
     }
   }
-})(ManageBooks)
+})
+
+const withUpdateBook = graphql(UPDATE_BOOK, {
+  name: 'updateBook'
+})
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -209,7 +213,11 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
-)(ManageBooksWithData)
+export default compose(
+  connect(
+    mapStateToProps,
+    { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
+  ),
+  withData,
+  withUpdateBook,
+)(ManageBooks)

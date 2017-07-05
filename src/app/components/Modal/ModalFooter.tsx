@@ -4,7 +4,7 @@ const styles = require('./ModalFooter.scss')
 
 type Props = {
   children?: any
-  onConfirm: () => void
+  onConfirm?: () => void
   onCancel?: () => void
 }
 
@@ -13,7 +13,7 @@ function ModalFooter(props: Props) {
 
   return (
     <div className={styles['modal-footer']}>
-      <Button color="blue" onClick={onConfirm}>确认</Button>
+      <Button type="submit" color="blue" onClick={onConfirm}>确认</Button>
       {
         onCancel && (
           <Button color="white" onClick={onCancel}>取消</Button>

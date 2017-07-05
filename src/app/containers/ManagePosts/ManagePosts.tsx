@@ -28,26 +28,7 @@ const postVisibilityOptions = _.map(POST_VISIBILITY, mapOptions)
 const postCategoryOptions = _.map(POST_CATEGORY, mapOptions)
 
 type Data = State.Apollo<{
-  posts: Schema.Connection<{
-    slug: string
-    title: string
-    description: string
-    author: string
-    tags: {
-      id: string
-      name: string
-      slug: string
-    }[]
-    markdown: string
-    visibility: PostVisibility // keyof PostVisibility
-    status: PostStatus // keyof PostStatus
-    category: PostCategory // keyof PostCategories
-    image: string
-    id: string
-    objectId: string
-    createdAt: string
-    updatedAt: string
-  }>
+  posts: Schema.Connection<Schema.Post>
 }>
 
 interface OwnProps {

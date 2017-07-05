@@ -16,6 +16,8 @@ interface IProps {
   width?: number | string
   bordered?: boolean
   type?: string
+  preventDefault?: boolean
+  style?: React.CSSProperties
 }
 
 interface IState {
@@ -26,6 +28,12 @@ interface IState {
   allowMultiple: true
 })
 class Button extends Component<IProps, IState> {
+
+  static defaultProps = {
+    preventDefault: false,
+    color: 'blue'
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -34,8 +42,7 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, className, color, size, isFluid, width, to, bordered, ...rest } = this.props
-    let style = {}
+    let { onClick, color, size, isFluid, width, to, bordered, preventDefault, style, ...rest } = this.props
 
     const styleName = classnames({
       'btn': true,
@@ -45,6 +52,7 @@ class Button extends Component<IProps, IState> {
       [`btn--${color}`]: Boolean(color) && !bordered,
       [`btn--${size}`]: Boolean(size)
     })
+
     if (this.props.to) {
       onClick = e => {
         e.preventDefault()
@@ -52,30 +60,24 @@ class Button extends Component<IProps, IState> {
       }
     } else {
       onClick = e => {
-        e.preventDefault()
+        if (preventDefault) {
+          e.preventDefault()
+        }
         if (this.props.onClick) {
+          e.preventDefault()
           this.props.onClick(e)
         }
       }
     }
 
-    if (typeof width !== 'undefined') {
-      style = {
-        width
-      }
-    }
-
-    let props = _.omit(this.props, ['to', 'color', 'size', 'isFluid', 'width', 'styles', 'bordered'])
-    props = _.assign({}, props, {
-      className: className || '',
-      onClick,
-      style,
-      ...rest
-    })
-
     return (
       <button
-        {...props}
+        {...rest}
+        style={{
+          ...style,
+          width
+        }}
+        onClick={onClick}
         styleName={styleName}
         onMouseOver={() => {
           this.setState({
@@ -92,10 +94,6 @@ class Button extends Component<IProps, IState> {
       </button>
     )
   }
-}
-
-(Button as any).defaultProps = {
-  color: 'blue'
 }
 
 export default Button

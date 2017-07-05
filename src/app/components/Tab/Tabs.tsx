@@ -5,7 +5,7 @@ import _ from 'lodash'
 const styles = require('./_tab.scss')
 
 interface IProps {
-  onTabSwitch?: (activeTabIndex: number) => void
+  onTabSwitch?: (activeTabIndex: number | string) => void
   defaultActive?: number
   style?: any
   controlled?: boolean
