@@ -60,4 +60,10 @@ class Input extends Component<Props, void> {
   }
 }
 
+export const renderInput = ({ input: { value, onChange }, meta, ...rest }) => {
+  return (
+    <Input {...rest} value={value} onChange={onChange} />
+  )
+}
+
 export default Input

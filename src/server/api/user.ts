@@ -55,11 +55,11 @@ export function listShelfBooks(options) {
         .map(progressDoc => {
           return dataProvider.Book.findById(progressDoc['book_id'])
             .populate('authors file')
-            .exec().then(bookDoc => {
-              // todo: outputEmpty, in case book is removed
-              // if (!bookDoc) {
-              //   return bookModel.outputEmpty(result.book_id)
-              // }
+            .exec()
+            .then(bookDoc => {
+              if (!bookDoc) {
+                return null
+              }
               return {
                 ..._.omit(bookDoc.toObject(), ['file']),
                 ..._.pick(progressDoc.toObject(), ['updated_at', 'created_at', '_id', 'percentage']),
@@ -68,6 +68,11 @@ export function listShelfBooks(options) {
             })
         })
       )
+      .then(result => {
+        return result.filter(item => {
+          return !_.isEmpty(item)
+        })
+      })
   })
 }
 

@@ -69,7 +69,7 @@ class Preference extends Component<IAllProps, IState> {
     const { username, displayName, email, bio } = this.props.data.viewer
 
     return (
-      <DocContainer title="设置">
+      <DocContainer title="设置" bodyClass="page-preference">
         <Branding />
         <Container>
           <PreferenceList

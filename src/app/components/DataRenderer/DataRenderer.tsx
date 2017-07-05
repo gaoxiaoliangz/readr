@@ -22,11 +22,17 @@ const DataRenderer = (props: Props) => {
 
   const { renderError } = _props
 
+  if (!props.data) {
+    return (
+      <div>No data</div>
+    )
+  }
+
   if (props.data.error) {
     console.error(props.data.error)
   }
 
-  if (props.data.error && renderError) {
+  if (props.data && props.data.error && renderError) {
     return (
       <AppError
         title="发生错误！"

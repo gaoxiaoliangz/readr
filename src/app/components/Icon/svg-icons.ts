@@ -34,6 +34,18 @@ export default {
     path: 'M-290.9,430.1l-0.7-0.7l8.2-8.6l-8.2-8.2l0.7-0.7l8.9,8.9L-290.9,430.1z',
     viewBox: '-292 411.9 11 18'
   },
+  arrowDown: {
+    path: 'M1.469 2.18l11.5 13.143 11.5-13.143',
+    viewBox: '0 0 26 17',
+    pathAttrs: {
+      strokeWidth: 3,
+      stroke: 'currentColor',
+      fill: 'none',
+      fillRule: 'evenodd',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round'
+    }
+  },
   menu: {
     path: 'M-233,378.9c-2.2,0-4,1.8-4,4s1.8,4,4,4h72c2.2,0,4-1.8,4-4s-1.8-4-4-4H-233z M-233,404.9c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4 h72c2.2,0,4-1.8,4-4c0-2.2-1.8-4-4-4H-233z M-233,430.9c-2.2,0-4,1.8-4,4s1.8,4,4,4h72c2.2,0,4-1.8,4-4s-1.8-4-4-4H-233z',
     viewBox: '-239 376.1 84 65.3'

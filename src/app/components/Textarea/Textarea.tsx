@@ -32,4 +32,10 @@ class Textarea extends Component<Props, any> {
   }
 }
 
+export const renderTextarea = ({ input: { value, onChange }, meta, ...rest }) => {
+  return (
+    <Textarea {...rest} value={value} onChange={onChange} />
+  )
+}
+
 export default Textarea

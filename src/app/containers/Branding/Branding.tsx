@@ -37,18 +37,11 @@ interface IState {
 
 const mapStateToProps = (state, ownProps) => {
   const session = selectors.session(state)
-  const bookShelf = selectors.pagination.shelf(state)
-  const recentReading = _.get(bookShelf, ['pages', '1'], [])
-    .map(book => ({
-      title: book.title,
-      id: book.id
-    }))
 
   return {
     config: selectors.viewer.config(state),
     isAdmin: session.role === 'admin',
     username: session.username,
-    recentReading,
     session,
     routing: selectors.routing(state),
     displayName: session.displayName
@@ -94,18 +87,18 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
         <Container className="clearfix">
           <div>
             <div className="left">
-              <Logo />
+              <Logo dark />
             </div>
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
-                  <Link className="light-link" styleName="nav-link" to="/browse">
+                  <Link className="dark-link" styleName="nav-link" to="/browse">
                     <Icon size={20} name="view" />
                     <span styleName="nav-label">浏览</span>
                   </Link>
                 </li>
                 <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
-                  <Link className="light-link" styleName="nav-link" to="/search">
+                  <Link className="dark-link" styleName="nav-link" to="/search">
                     <Icon size={18} name="search" />
                     <span styleName="nav-label">搜索</span>
                   </Link>
@@ -113,7 +106,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                 {
                   isLoggedIn && (
                     <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
-                      <Link className="light-link" styleName="nav-link" to="/user/shelf">
+                      <Link className="dark-link" styleName="nav-link" to="/user/shelf">
                         <Icon size={18} name="menu" />
                         <span styleName="nav-label">我的书架</span>
                       </Link>
@@ -131,7 +124,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                     </div>
                     <Dropdown
                       title={(
-                        <div style={{ display: 'inline-block' }}>{displayName || username}{isAdmin && <span className="badge">管理员</span>}</div>
+                        <div style={{ display: 'inline-block' }}>{displayName || username || '无名'}{isAdmin && <span className="badge">S</span>}</div>
                       )}
                     >
                       {

@@ -6,7 +6,7 @@ const utils = makeUtils({ nodeInterface })
 
 export const { nodeType: GQLTag, connectionType: GQLTagConnection } = utils.makeGQLNodeTypeAndConnectionType({
   name: 'Tag',
-  description: 'Book tag.',
+  description: 'Tag.',
   model: dataProvider.Tag
 })
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import CSSModules from 'react-css-modules'
 import styles from './Dropdown.scss'
 import Backdrop from '../Backdrop'
+import Icon from '../Icon/Icon'
 
 interface IProps {
   title: string | JSX.Element
@@ -50,7 +51,14 @@ class Dropdown extends Component<IProps, IState> {
       <div ref={ref => { this.dropdown = ref }} styleName="dropdown" className={className || ''}>
         <div onClick={this.handleToggleClick} styleName="dropdown-toggle">
           <span>{this.props.title}</span>
-          <span styleName="dropdown-caret" />
+          {/*<span styleName="dropdown-caret" />*/}
+          <Icon
+            style={{
+              marginLeft: 3
+            }}
+            name="arrowDown"
+            size={10}
+          />
         </div>
         {
           showMenu && (

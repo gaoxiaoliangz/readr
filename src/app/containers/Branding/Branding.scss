@@ -3,8 +3,10 @@
 
 .branding {
   min-height: $branding-height;
-  background: $dark;
-  font-weight: bold;
+  background: #fff;
+  font-weight: normal;
+  box-shadow: $shadow-x1;
+  border-bottom: 1px solid $border-color-x2;
 
   @include tablet {
     .nav-label {
@@ -35,7 +37,7 @@
 
 .nav {
   position: relative;
-  color: #fff;
+  color: $text;
   line-height: $branding-height;
   display: inline-block;
 }
@@ -74,7 +76,7 @@
   a {
     cursor: inherit;
     opacity: 1 !important;
-    color: #fff !important;
+    color: $text !important;
   }
 }
 

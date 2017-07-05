@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import mongoose from 'mongoose'
 import { modifyObject } from '../../utils'
 import queryResult from './queryResult'
@@ -9,12 +10,22 @@ type ListConfig = {
   parser?: any
 }
 
+function handleValidationError(error) {
+  if (error.name === 'ValidationError' && error.errors) {
+    const errAll = new Error(_.map(error.errors, (err: Error) => {
+      return err.message
+    }).join('. '))
+    return Promise.reject(errAll)
+  }
+  return Promise.reject(error)
+}
+
 export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
   const utils = {
     list: async (config?: ListConfig) => {
       const defaultConfig = {
         offset: 0,
-        limit: Infinity
+        limit: 9999999999
       }
       const { offset, limit, populate, parser } = {
         ...defaultConfig,
@@ -55,7 +66,7 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
 
     save: async (data) => {
       const model = new Model(data)
-      return model.save()
+      return model.save().catch(handleValidationError)
     },
 
     updateById: async (id, data) => {
@@ -72,6 +83,7 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
       return Model
         .update({ _id: id }, omitUndefined(), { runValidators: true })
         .exec()
+        .catch(handleValidationError)
     },
 
     findById: async (id) => {
@@ -79,7 +91,7 @@ export const addUitlMethods = (Model: mongoose.Model<mongoose.Document>) => {
     },
 
     removeById: async (id) => {
-      return Model.findByIdAndRemove(id)
+      return Model.findByIdAndRemove(id).catch(handleValidationError)
     }
   }
 

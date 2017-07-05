@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+:global body.page-preference {
+  background: $bg-gray;
+}
+
 .settings {
   .options {
     margin-top: -35px;
@@ -12,9 +16,10 @@
 
     h2 {
       color: $text-dark;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin: 0;
       margin-bottom: 5px;
+      font-weight: normal;
     }
 
     &:last-child {

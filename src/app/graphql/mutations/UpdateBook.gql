@@ -1,0 +1,31 @@
+mutation updateBook(
+  $title: String
+  $featured: Boolean
+  $categories: [ID]
+  $authors: [ID]
+  $description: String
+  $cover: String
+  $file: ID
+  $providedBy: ID
+  $published: Boolean
+  $id: ID!
+  $clientMutationId: String
+) {
+  updateBook(input: {
+    title: $title
+    featured: $featured
+    categories: $categories
+    authors: $authors
+    description: $description
+    cover: $cover
+    file: $file
+    providedBy: $providedBy
+    published: $published
+    id: $id
+    clientMutationId: $clientMutationId
+  }) {
+    n
+    nModified
+    ok
+  }
+}

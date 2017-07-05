@@ -41,7 +41,10 @@ const configRoutes = (context = {}) => {
         <IndexRoute onEnter={handleAppHomeEnter} getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="welcome" getComponent={() => require.ensure([], require => require('./containers/Welcome/Welcome').default)} />
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
+        <Route path="browse/category/:category" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
         <Route path="search" getComponent={() => require.ensure([], require => require('./containers/BookSearch/BookSearch').default)} />
+        <Route path="about" getComponent={() => require.ensure([], require => require('./containers/About/About').default)} />
+        <Route path="page/:slug" getComponent={() => require.ensure([], require => require('./containers/Page/Page').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
         <Route path="collections" getComponent={() => require.ensure([], require => require('./containers/Collections').default)} />
         <Route path="collections/:id" getComponent={() => require.ensure([], require => require('./containers/CollectionDetail').default)} />
@@ -58,6 +61,9 @@ const configRoutes = (context = {}) => {
         <IndexRedirect to="/console/books" />
         <Route path="books" getComponent={() => require.ensure([], require => require('./containers/ManageBooks').default)} />
         <Route path="users" getComponent={() => require.ensure([], require => require('./containers/ManageUsers').default)} />
+        <Route path="posts" getComponent={() => require.ensure([], require => require('./containers/ManagePosts/ManagePosts').default)} />
+        <Route path="posts/new" getComponent={() => require.ensure([], require => require('./containers/Post/AddPost').default)} />
+        <Route path="posts/:id" getComponent={() => require.ensure([], require => require('./containers/Post/EditPost').default)} />
         <Route path="books/new" getComponent={() => require.ensure([], require => require('./containers/AddBook').default)} />
         <Route path="collections/new" getComponent={() => require.ensure([], require => require('./containers/AddCollection').default)} />
       </Route>

@@ -1,4 +1,3 @@
-// import { ROLES } from '../../constants'
 import errors from '../errors'
 import i18n from '../utils/i18n'
 
@@ -7,32 +6,30 @@ import i18n from '../utils/i18n'
  * admin | user | visitor | none
  */
 
+export function checkPermissionsOf(req: { user: { role: Roles } }, userRole: Roles) {
+  switch (userRole) {
+    case 'admin':
+      if (req.user.role !== 'admin') {
+        return new errors.NoPermissionError(i18n('errors.api.auth.needPermissionsOf', 'admin'))
+      }
+      break
+
+    case 'user':
+      if (req.user.role !== 'user' && req.user.role !== 'admin') {
+        return new errors.NoPermissionError(i18n('errors.api.auth.loginRequired'))
+      }
+      break
+
+    default:
+      if (userRole !== 'visitor') {
+        return new Error('Undefined role!')
+      }
+      break
+  }
+}
+
 export default function requirePermissionsOf(userRole: Roles) {
   return (req: { user: { role: Roles } }, res, next) => {
-    switch (userRole) {
-      case 'admin':
-        if (req.user.role === 'admin') {
-          next()
-          break
-        }
-
-        next(new errors.NoPermissionError(i18n('errors.api.auth.needPermissionsOf', 'admin')))
-        break
-
-      case 'user':
-        if (req.user.role === 'user' || req.user.role === 'admin') {
-          next()
-          break
-        }
-        next(new errors.NoPermissionError(i18n('errors.api.auth.loginRequired')))
-        break
-
-      default:
-        if (userRole !== 'visitor') {
-          next(new Error('Undefined role!'))
-          break
-        }
-        next()
-    }
+    next(checkPermissionsOf(req, userRole))
   }
 }

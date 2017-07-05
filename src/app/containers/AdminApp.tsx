@@ -49,7 +49,7 @@ class AdminApp extends Component<Props, {}> {
 
     const contentStyle = {
       marginLeft: 320,
-      paddingTop: 60
+      paddingTop: 70
     }
 
     return (

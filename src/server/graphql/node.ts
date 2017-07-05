@@ -5,7 +5,7 @@ import {
 import _ from 'lodash'
 import dataProvider from '../models/dataProvider'
 import * as GQLTypes from './types'
-import api from '../api'
+
 const debug = require('debug')('readr:gql-node')
 
 const mapGQLTypeToResolver = type => {
@@ -23,7 +23,10 @@ const mapGQLTypeToResolver = type => {
   switch (type) {
     case 'Book':
       return (id) => {
-        return api.books.find({ id, includeToc: true })
+        return dataProvider.Book.findById(id)
+          .populate('file authors categories')
+          .exec()
+          .then(res => res.toObject())
       }
 
     default:
@@ -31,7 +34,7 @@ const mapGQLTypeToResolver = type => {
         throw new Error('type not defined in dataProvider')
       }
 
-      return (id) => dataProvider[type].findById(id).exec().then(result => result.toObject())
+      return (id) => dataProvider[type].findById(id).exec().then(_result => _result.toObject())
   }
 }
 

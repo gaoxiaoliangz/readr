@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Icon from '../../components/Icon'
 import CSSModules from 'react-css-modules'
-const styles = require('./ConsoleSidebar.scss')
+import styles from './ConsoleSidebar.scss'
 
 interface IProps {
   currentPath?: any
@@ -16,14 +16,6 @@ interface IState {
   allowMultiple: true
 })
 class ConsoleSidebar extends Component<IProps, IState> {
-
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
-  }
-
   render() {
     const { menuMapping, currentPath } = this.props
 
@@ -55,7 +47,7 @@ class ConsoleSidebar extends Component<IProps, IState> {
             return (
               <li key={index} styleName={index !== currentMenu.rootIndex ? 'root-item' : 'root-item--current'}>
                 <Link to={menu.path}>
-                  <Icon size={25} styleName="icon" name={menu.component} />
+                  <Icon size={25} styleName="icon" name={menu.icon} />
                 </Link>
               </li>
             )

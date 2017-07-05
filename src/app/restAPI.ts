@@ -5,6 +5,10 @@ import { DOUBAN_API_ROOT } from './constants'
 
 const API_ROOT = helpers.getAPIRoot().rest
 
+const callREST = (endpoint, config: RequestConfig = {}) => {
+  return request(`${API_ROOT}/${endpoint}`, config)
+}
+
 // resolve endpoint
 const re = endpoint => {
   return `${API_ROOT}/${endpoint}`
@@ -60,12 +64,13 @@ export function addBook(data: AddBookData) {
 
 export interface BookMeta {
   title?: string
-  authors?: string
+  authors?: string[]
+  categories?: string[]
   description?: string
   cover?: string
 }
 export function editBookMeta(bookId: string, data: BookMeta) {
-  return request(`${API_ROOT}/books/${bookId}`, { method: 'PUT', data })
+  return callREST(`books/${bookId}`, { method: 'PUT', data })
 }
 
 export interface AddAuthorData {

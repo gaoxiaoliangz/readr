@@ -3,6 +3,13 @@
  * used between functions, describe data structures
  */
 
+
+type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
+type PostStatus = 'PUBLISHED' | 'UNPUBLISHED' | 'DRAFT' | ''
+type PostVisibility = 'PUBLIC' | 'PRIVATE' | ''
+type PostCategory = 'BLOG' | 'BOOK_WEEKLY' | 'PAGES' | ''
+type Roles = 'admin' | 'user' | 'visitor'
+
 interface ParsedNode {
   tag?: string
   type: 1 | 3
@@ -14,10 +21,6 @@ interface ParsedNode {
     src: string
   }
 }
-
-type FetchStatus = 'loading' | 'none' | 'loaded' | 'failed'
-
-type Roles = 'admin' | 'user' | 'visitor'
 
 interface PaginationLink {
   page: string
@@ -57,3 +60,29 @@ type ReaderConfig = {
     width: number
   }
 }
+
+interface GQLField {
+  type: any
+  args?: {
+    [argName: string]: {
+      type: any
+      defaultValue?: any
+      description?: string
+    }
+  }
+  resolve?: any
+  deprecationReason?: string;
+  description?: string;
+}
+
+
+type ApolloMutationConfig = {
+  variables?: {
+    [key: string]: any
+  }
+  refetchQueries?: {
+    [key: string]: any
+    query?: any
+  }[]
+}
+declare function ApolloMutation(config?: ApolloMutationConfig): Promise<any>

@@ -3,32 +3,25 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
-import * as restAPI from '../../restAPI'
 import * as selectors from '../../selectors'
 import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
 import { Button } from '../../components/form'
 import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
-import BOOKS_QUERY from '../../graphql/Books.gql'
+import MANAGE_BOOKS_QUERY from './ManageBooks.gql'
+import UPDATE_BOOK from '../../graphql/mutations/updateBook.gql'
+import DEL_BOOK from '../../graphql/mutations/delBook.gql'
 
 const PAGE_LIMIT = 10
 
 type Data = State.Apollo<{
-  books: Schema.Connection<{
-    id: string
-    objectId: string
-    title: string
-    authors: {
-      name: string
-    }[]
-    description: string
-    cover: string
-    createdAt: string
-  }>
+  books: Schema.Connection<Schema.Book>
+  authors: Schema.Connection<Schema.Author>
+  categories: Schema.Connection<Schema.Category>
 }>
 
 interface Props {
@@ -40,6 +33,8 @@ interface Props {
   openModal: typeof openModal
   closeModal: typeof closeModal
   initializeForm: typeof initializeForm
+  updateBook: typeof ApolloMutation
+  delBook: typeof ApolloMutation
 }
 
 class ManageBooks extends Component<Props, { showModal: boolean }> {
@@ -50,16 +45,20 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     }
   }
 
-  deleteBook(id, bookName, cb) {
+  deleteBook(row) {
     this.props.openConfirmModal({
       title: '确认删除',
-      content: `将删除《${bookName}》`,
+      content: `将删除《${row.title}》`,
       onConfirm: () => {
-        restAPI.deleteBook(id)
+        this.props.delBook({
+          variables: {
+            id: row.id
+          }
+        })
           .then(res => {
             this.props.closeConfirmModal()
             this.props.sendNotification('删除成功！')
-            cb()
+            this.props.data.refetch()
           })
           .catch(err => {
             this.props.closeConfirmModal()
@@ -69,7 +68,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     })
   }
 
-  editBookMeta(bookMeta, cb) {
+  editBookMeta(bookMeta) {
     this.setState({
       showModal: true
     })
@@ -78,28 +77,32 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
       title: '编辑书籍信息',
       content: (
         <BookMetaForm
-          onSave={data => {
-            const _data = _.omit(data, 'authors')
-            restAPI.editBookMeta(bookMeta.objectId, _data)
-              .then(result => {
-                this.loadBooks()
+          authors={this.props.data.authors}
+          categories={this.props.data.categories}
+          initialValues={{
+            ...bookMeta,
+            authors: bookMeta.authors && bookMeta.authors.map(item => item.id),
+            categories: bookMeta.categories && bookMeta.categories.map(item => item.id)
+          }}
+          onSubmit={data => {
+            this.props.updateBook({
+              variables: {
+                ...data,
+                id: bookMeta.id
+              }
+            })
+              .then(() => {
+                this.props.sendNotification('更新成功！')
                 this.props.closeModal()
-                this.props.sendNotification('修改成功！', 'success')
-                cb()
+                this.props.data.refetch()
               })
-              .catch(err => {
-                this.props.closeConfirmModal()
+              .catch((err) => {
+                this.props.closeModal()
                 this.props.sendNotification(err.message, 'error')
               })
           }}
         />
       )
-    })
-    this.props.initializeForm('bookMeta', {
-      title: bookMeta.title,
-      authors: bookMeta.authors.map(item => item.name).join(', '),
-      description: bookMeta.description,
-      cover: bookMeta.cover
     })
   }
 
@@ -142,10 +145,10 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
           (
             <div>
               <span className="dark-link" onClick={() => {
-                this.editBookMeta(entities[index], this.loadBooks.bind(this, this._getCurrentPage()))
+                this.editBookMeta(row)
               }}>编辑</span>
               <span className="dark-link" onClick={() => {
-                this.deleteBook(row.objectId, row.title, this.loadBooks.bind(this, this._getCurrentPage()))
+                this.deleteBook(row)
               }}>删除</span>
             </div>
           )
@@ -187,7 +190,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
   }
 }
 
-const ManageBooksWithData = graphql(BOOKS_QUERY, {
+const withData = graphql(MANAGE_BOOKS_QUERY, {
   options: (props) => {
     return {
       variables: {
@@ -201,7 +204,7 @@ const ManageBooksWithData = graphql(BOOKS_QUERY, {
       fetchPolicy: 'network-only'
     }
   }
-})(ManageBooks)
+})
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -209,7 +212,16 @@ function mapStateToProps(state, ownProps) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
-)(ManageBooksWithData)
+export default compose(
+  connect(
+    mapStateToProps,
+    { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
+  ),
+  withData,
+  graphql(UPDATE_BOOK, {
+    name: 'updateBook'
+  }),
+  graphql(DEL_BOOK, {
+    name: 'delBook'
+  })
+)(ManageBooks)

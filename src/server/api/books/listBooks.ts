@@ -4,7 +4,7 @@ import _ from 'lodash'
 import {
   validateOptions as validateRenderOptions,
   convert as convertRenderOptions,
-  handleResult,
+  processBook,
   BookOptions,
   Book
 } from './findBook'
@@ -28,21 +28,6 @@ const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> =
     const offset = ((options.page || 1) - 1) * limit
     const totalCount = await dataProvider.Book.count({})
 
-    const _handleResult = data => {
-      const _data = data.map((result) => {
-        return handleResult({ result, options: _options })
-      }) as any[]
-
-      return Promise.all(_data).then(finalData => {
-        return queryResult({
-          limit,
-          offset,
-          list: finalData,
-          totalCount
-        })
-      })
-    }
-
     if (_options.providedBy) {
       query = query.where('provided_by').equals(_options.providedBy)
     } else {
@@ -62,9 +47,22 @@ const listBooks = (options: ListBooksOptions = {}): Promise<QueryResult<Book>> =
     return query
       .skip(offset)
       .limit(limit)
-      .populate('file authors')
+      .populate('file authors categories')
       .exec()
-      .then(_handleResult)
+      .then(data => {
+        const _data = data.map((result) => {
+          return processBook({ result, options: _options })
+        }) as any[]
+
+        return Promise.all(_data).then(finalData => {
+          return queryResult({
+            limit,
+            offset,
+            list: finalData,
+            totalCount
+          })
+        })
+      })
   }
 
   const validateOptionsLogic = (_options: ListBooksOptions) => {

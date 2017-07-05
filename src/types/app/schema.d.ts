@@ -8,9 +8,61 @@ declare namespace Schema {
     percentage: number
   }
 
+  // deprecated
   type BookInfo = {
     title: string
     toc: TocItem[]
+  }
+
+  interface Author {
+    name: string
+    slug: string
+    description: string
+    id: string
+    objectId: string
+    createdAt: string
+    updatedAt: string
+  }
+
+  interface Book {
+    id: string
+    objectId: string
+    title: string
+    authors: {
+      name: string
+    }[]
+    description: string
+    cover: string
+    createdAt: string
+    updatedAt: string
+  }
+
+  interface Category {
+    id: string
+    name: string
+    slug: string
+    description: string
+  }
+
+  interface Post {
+    slug: string
+    title: string
+    description: string
+    author: string
+    tags: {
+      id: string
+      name: string
+      slug: string
+    }[]
+    markdown: string
+    visibility: PostVisibility // keyof PostVisibility
+    status: PostStatus // keyof PostStatus
+    category: PostCategory // keyof PostCategories
+    image: string
+    id: string
+    objectId: string
+    createdAt: string
+    updatedAt: string
   }
 
   interface TocItem {
@@ -38,6 +90,14 @@ declare namespace Schema {
         }
       }
     }[]
+  }
+
+  interface Slide {
+    id: string
+    url: string
+    picture: string
+    description: string
+    createdAt: string
   }
 
   interface Connection<T> {

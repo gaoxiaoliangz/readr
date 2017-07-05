@@ -16,15 +16,7 @@ interface OwnProps {
 }
 
 type Data = State.Apollo<{
-  books: Schema.Connection<{
-    id: string
-    title: string
-    authors: {
-      name: string
-    }[]
-    description: string
-    cover: string
-  }>
+  books: Schema.Connection<Schema.Book>
 }>
 
 interface Props {

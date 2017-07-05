@@ -30,12 +30,36 @@ export const authorFields = {
 
 export const authorSchema = new Schema(authorFields, additionalSchemaOptions)
 
+// categories
+export const categoryFields = {
+  name: {
+    required: true,
+    type: String,
+  },
+  slug: {
+    unique: true,
+    type: String,
+  },
+  description: {
+    type: String
+  }
+}
+
+export const categorySchema = new Schema(categoryFields, additionalSchemaOptions)
+
 // books
 export const bookFields = {
   title: {
     required: true,
     type: String,
   },
+  featured: {
+    type: Boolean
+  },
+  categories: [{
+    ref: 'Category',
+    type: ObjectId
+  }],
   authors: [{
     ref: 'Author',
     type: ObjectId
@@ -57,27 +81,11 @@ export const bookFields = {
     required: true
   },
   content: {
-    type: Object,
-    hooks: {
-      pre: (next, root, args, request) => {
-        // todo
-        // authorize the logged in user based on the request
-        // throws error if the user has no right to request the user names
-        next('pre')
-      },
-      // manipulate response
-      post: [
-        (next, name) => next(`${name} first hook`),
-        (next, name) => next(`${name} & second hook`)
-      ]
-    }
+    type: Object
   }
 }
 
 export const bookSchema = new Schema(bookFields, additionalSchemaOptions)
-// bookSchema.pre('findOne', function(next) {
-//   next()
-// })
 
 // collections
 export const collectionFields = {
@@ -127,6 +135,51 @@ export const fileFields = {
 
 export const fileSchema = new Schema(fileFields, additionalSchemaOptions)
 
+// posts
+export const postFields = {
+  slug: {
+    type: String,
+    unique: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  },
+  author: {
+    ref: 'Author',
+    required: true,
+    type: ObjectId
+  },
+  tags: [{
+    ref: 'Tag',
+    type: ObjectId
+  }],
+  markdown: {
+    type: String,
+    required: true
+  },
+  visibility: {
+    type: Number,
+    required: true
+  },
+  status: {
+    type: Number,
+    required: true
+  },
+  image: {
+    type: String
+  },
+  category: {
+    type: Number,
+    required: true
+  }
+}
+
+export const postSchema = new Schema(postFields, additionalSchemaOptions)
+
 // progresses
 export const progressFields = {
   percentage: {
@@ -150,6 +203,10 @@ export const slideFields = {
   url: {
     required: true,
     type: String,
+  },
+  published: {
+    required: true,
+    type: Boolean
   },
   picture: {
     type: String,

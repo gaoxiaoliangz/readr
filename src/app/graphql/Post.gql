@@ -1,0 +1,25 @@
+query Post($id: ID, $slug: String) {
+  post(id: $id, slug: $slug) {
+    slug
+    title
+    description
+    # author {
+    #   name
+    #   id
+    # }
+    # tags {
+    #   slug
+    #   name
+    #   id
+    # }
+    markdown
+    visibility
+    status
+    image
+    category
+    id
+    objectId
+    createdAt
+    updatedAt
+  }
+}

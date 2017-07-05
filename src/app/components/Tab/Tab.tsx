@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 interface IProps {
   title: string
+  tabKey?: string
 }
 
 interface IState {

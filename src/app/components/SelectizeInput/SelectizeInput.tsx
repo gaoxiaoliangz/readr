@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import CSSModules from 'react-css-modules'
 import isDescendant from '../../utils/dom/isDescendant'
 import _ from 'lodash'
-const styles = require('./SelectizeInput.scss')
+import styles from './SelectizeInput.scss'
 
 type TypeOption = {
   value: string
@@ -34,8 +34,8 @@ interface IProps {
   options: Array<TypeOption>
   onOptionsChange?: (newValues: Array<TypeOption>) => void
 
-  values: Array<TypeValue>
-  onValuesChange?: (newValues: Array<TypeValue>) => void
+  values: string[]
+  onValuesChange?: (newValues: string[]) => void
 
   // 额外功能
   onAddNewValue?: (newValue: string) => void
@@ -112,11 +112,11 @@ class SelectizeInput extends Component<IProps, IState> {
 
     if (index === -1) {
       newValues = this.props.values.slice(0, this.props.values.length - 1)
-      removedValue = this.props.values[this.props.values.length - 1].value
+      removedValue = this.props.values[this.props.values.length - 1]
     } else {
       newValues = this.props.values
         .filter((v, i) => {
-          removedValue = v.value
+          removedValue = v
           return i !== index
         })
     }
@@ -215,7 +215,7 @@ class SelectizeInput extends Component<IProps, IState> {
             values.map((v, index) => {
               return (
                 <span key={index} styleName="selectize-tag">
-                  {v.name}
+                  {_.find(options, { value: v }).name}
                   <Icon
                     styleName="icon-remove"
                     size={20}
@@ -258,7 +258,7 @@ class SelectizeInput extends Component<IProps, IState> {
                       <li
                         key={index}
                         onClick={e => {
-                          this.addValue(option)
+                          this.addValue(option.value)
                           if (this.props.onOptionClick) {
                             this.props.onOptionClick(option)
                           }

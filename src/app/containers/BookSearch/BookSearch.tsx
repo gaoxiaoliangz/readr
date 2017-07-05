@@ -8,6 +8,7 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import DocContainer from '../../components/DocContainer'
 import Container from '../../components/Container/Container'
+import styles from './BookSearch.scss'
 
 interface Props {
   location: RLocation
@@ -58,6 +59,7 @@ class BookSearch extends Component<Props, State> {
         }}>
           <Input
             value={this.state.inputVal}
+            className={styles.searchInput}
             placeholder="搜索"
             onChange={(e) => {
               this.setState({

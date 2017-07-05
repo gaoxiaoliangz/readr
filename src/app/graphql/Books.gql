@@ -1,5 +1,19 @@
-query Books($offset: Int, $first: Int, $after: String, $query: String) {
-  books(first: $first, offset: $offset, after: $after, query: $query) {
+query Books(
+  $offset: Int,
+  $first: Int,
+  $after: String,
+  $query: String,
+  $isFeatured: Boolean,
+  $categories: [ID]
+) {
+  books(
+    first: $first, 
+    offset: $offset, 
+    after: $after, 
+    query: $query,
+    isFeatured: $isFeatured,
+    categories: $categories
+  ) {
     totalCount
     pageInfo {
       hasNextPage

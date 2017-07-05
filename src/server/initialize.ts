@@ -21,7 +21,8 @@ import {
   File,
   Progress,
   Tag,
-  User
+  User,
+  Category
 } from './models/dataProvider'
 import { SESSION_SECRET, REQ_SIZE_LIMIT, PUBLIC_URL, PUBLIC_DIR, COOKIE_MAX_AGE } from './constants'
 
@@ -81,7 +82,7 @@ export default function initialize(config: InitConfig) {
   })
 
   // graffiti graphql
-  const schemaArr = [Author, Book, Collection, File, Progress, Tag, User]
+  const schemaArr = [Author, Book, Collection, File, Progress, Tag, User, Category]
   const hooks = {
     viewer: {
       pre: (next, root, args, request) => {

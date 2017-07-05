@@ -60,7 +60,7 @@ class ConsoleBranding extends Component<Props, State> {
                   <Dropdown
                     style="dark"
                     title={(
-                      <span>{username}{ isAdmin && <span className="badge badge--dark">管理员</span> }</span>
+                      <span>{username || '无名'}{ isAdmin && <span className="badge badge--dark">S</span> }</span>
                     ) }
                     >
                     <DropdownItem><Link to="/">回到 Readr</Link></DropdownItem>
