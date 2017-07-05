@@ -2,18 +2,19 @@
 $text: #666;
 $text-dark: #333;
 $text-light: #999;
-$blue: #1B267F;
+$blue: #01a8fe;
 $shiny-blue: #1B267F;
 $dark-blue: #04082E;
 $gray: #ddd;
-$bg-gray: #fafafa;
+$bg-gray: #fcfcfc;
 $dark: #222;
 $red: #cc0000;
 $border-corlor-x1: rgba(0,0,0,.09); // from medium
+$border-color-x2: rgba(30,35,42,.06); // from zhihu
 
 // layout
 $root-font-size: 16px;
-$branding-height: 70px;
+$branding-height: 58px;
 $sidebar-width: 300px;
 $input-line-height: 25px;
 $input-padding: 5px;
@@ -27,6 +28,7 @@ $serif-font: "Droid serif", georgia, serif;
 
 // shadow
 $shadow-x1: 0 1px 4px rgba(0,0,0,.04); // from medium
+$shadow-x2: 0 1px 3px 0 rgba(0,34,77,.05); // from zhihu
 $shadow-x2: 0 0 1px rgba(0,0,0,.44); // for panel
 $shadow-y1: 0 2px 12px rgba(0, 0, 0, 0.32); // custom
 $shadow-y2: 0 12px 63px rgba(0, 0, 0, 0.15); // large soft shadow for popups

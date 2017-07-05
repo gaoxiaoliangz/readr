@@ -49,7 +49,7 @@ class Profile extends Component<IProps, {}> {
     const { data: { viewer: { displayName, bio } } } = this.props
 
     return (
-      <DocContainer title="个人资料">
+      <DocContainer title="个人资料" bodyClass="page-profile">
         <Branding />
         <Container>
           <div styleName="profile">

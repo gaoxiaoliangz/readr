@@ -1,5 +1,9 @@
 @import "~styles/variables";
 
+:global body.page-profile {
+  background: $bg-gray;
+}
+
 .profile {
   min-height: 500px;
   position: relative;
