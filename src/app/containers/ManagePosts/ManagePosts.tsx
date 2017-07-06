@@ -81,16 +81,16 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
     }
   }
 
-  _handleDelClick(id) {
+  _handleDelClick(node) {
     return (e) => {
       this.props.openConfirmModal({
         title: `提示`,
-        content: `确定删除${id}？`,
+        content: `确定删除${node.title}？`,
         onConfirm: (close) => {
           this.props
             .delPost({
               variables: {
-                id
+                id: node.id
               }
             })
             .then(() => {
@@ -106,7 +106,8 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
     const lastCursor = _.last(this.props.data.posts.edges).cursor
     this.props.data.fetchMore({
       variables: {
-        after: lastCursor
+        after: lastCursor,
+        first: 10
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
         const edges = [...previousResult.posts.edges, ...fetchMoreResult.posts.edges]
@@ -133,7 +134,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
         (
           <div>
             <span className="dark-link" onClick={this._handleModClick(node.id)}>编辑</span>
-            <span className="dark-link" onClick={this._handleDelClick(node.id)}>删除</span>
+            <span className="dark-link" onClick={this._handleDelClick(node)}>删除</span>
           </div>
         )
       ]
@@ -180,7 +181,7 @@ const withData = graphql(POSTS_QUERY, {
   options: (props: OwnProps & StateProps) => {
     return {
       variables: {
-        first: 5,
+        first: 10,
         status: props.managePosts.postStatus,
         visibility: props.managePosts.postVisilibity,
         category: props.managePosts.postCategory

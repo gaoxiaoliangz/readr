@@ -28,6 +28,10 @@ class ConsoleSidebar extends Component<IProps, IState> {
       let subIndex
 
       let result = menu.subMenu.filter((item, index) => {
+        if (item.match && item.match.test(currentPath)) {
+          subIndex = index
+          return true
+        }
         if (item.path === currentPath) {
           subIndex = index
           return true

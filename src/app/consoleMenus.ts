@@ -1,3 +1,8 @@
+/**
+ * path is the link, on the menu. It's also used to match current selecting menu,
+ * when match reg is not specified
+ */
+
 const menus = [
   {
     icon: 'book',
@@ -25,7 +30,8 @@ const menus = [
       },
       {
         displayName: '页面管理',
-        path: '/console/posts'
+        path: '/console/posts',
+        match: /(?!\/console\/posts\/new)\/console\/posts/
       },
     ]
   },
