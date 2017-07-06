@@ -12,10 +12,6 @@ const menus = [
       {
         displayName: '书籍管理',
         path: '/console/books'
-      },
-      {
-        displayName: '添加合集',
-        path: '/console/collections/new'
       }
     ]
   },

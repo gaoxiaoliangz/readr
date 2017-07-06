@@ -57,13 +57,6 @@ function apiRoutes() {
   router.put('/users/:id', authenticateAdmin, httpDecorator(api.users.update))
   router.delete('/users/:id', authenticateAdmin, httpDecorator(api.users.del))
 
-  // collections
-  router.get('/collections/:id', authenticatePublic, httpDecorator(api.collections.find))
-  router.get('/collections', authenticatePublic, httpDecorator(api.collections.list))
-  router.post('/collections', authenticatePublic, httpDecorator(api.collections.add))
-  router.put('/collections/:id', authenticatePublic, httpDecorator(api.collections.update))
-  router.delete('/collections/:id', authenticatePublic, httpDecorator(api.collections.del))
-
   // tags
   router.get('/tags/:id', authenticatePublic, httpDecorator(api.tags.find))
   router.get('/tags', authenticatePublic, httpDecorator(api.tags.list))
