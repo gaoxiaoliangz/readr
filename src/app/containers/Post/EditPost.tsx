@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
-import UPDATE_POST_MUTATION from '../../graphql/mutations/updatePost.gql'
+// import UPDATE_POST_MUTATION from '../../graphql/mutations/updatePost.gql'
 import withIndicator from '../../helpers/withIndicator'
 import POSTS_QUERY from '../../graphql/Posts.gql'
 import POST_QUERY from '../../graphql/Post.gql'
@@ -59,14 +59,14 @@ class EditPost extends Component<OwnProps & StateProps, {}> {
   }
 }
 
-export default compose<{}, {}, {}, {}, OwnProps>(
+export default compose<{}, {}, {}, OwnProps>(
   connect(
     (state, ownProps) => {
       return {}
     },
     { sendNotification }
   ),
-  graphql(UPDATE_POST_MUTATION),
+  // graphql(UPDATE_POST_MUTATION),
   graphql(POST_QUERY, {
     options: (props) => {
       return {
