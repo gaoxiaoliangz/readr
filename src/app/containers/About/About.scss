@@ -1,0 +1,12 @@
+@import "~styles/variables";
+
+.content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: $text-dark;
+  }
+}

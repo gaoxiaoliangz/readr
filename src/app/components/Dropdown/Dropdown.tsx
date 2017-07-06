@@ -3,12 +3,14 @@ import CSSModules from 'react-css-modules'
 import styles from './Dropdown.scss'
 import Backdrop from '../Backdrop'
 import Icon from '../Icon/Icon'
+import DropdownItem from './DropdownItem'
+import DropdownItemSep from './DropdownItemSep'
 
 interface IProps {
   title: string | JSX.Element
   className?: string
   styleName?: string
-  style?: 'blue' | 'dark'
+  color?: 'dark' | 'light'
 }
 
 interface IState {
@@ -22,36 +24,39 @@ class Dropdown extends Component<IProps, IState> {
 
   dropdown: any
 
+  static Item = DropdownItem
+  static Sep = DropdownItemSep
+  static defaultProps = {
+    color: 'light'
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       showMenu: false
     }
-    this.handleToggleClick = this.handleToggleClick.bind(this)
-    this.handleMenuClick = this.handleMenuClick.bind(this)
   }
 
-  handleToggleClick() {
+  handleToggleClick = () => {
     this.setState({
       showMenu: !this.state.showMenu
     })
   }
 
-  handleMenuClick() {
+  handleMenuClick = () => {
     this.setState({
       showMenu: false
     })
   }
 
   render() {
-    const { className, style } = this.props
+    const { className, color } = this.props
     const showMenu = this.state.showMenu
 
     return (
       <div ref={ref => { this.dropdown = ref }} styleName="dropdown" className={className || ''}>
         <div onClick={this.handleToggleClick} styleName="dropdown-toggle">
           <span>{this.props.title}</span>
-          {/*<span styleName="dropdown-caret" />*/}
           <Icon
             style={{
               marginLeft: 3
@@ -66,9 +71,10 @@ class Dropdown extends Component<IProps, IState> {
               style={{
                 zIndex: 1200
               }}
-              styleName={style === 'dark' ? 'dropdown-menu--dark' : 'dropdown-menu'}
+              styleName={`dropdown-menu--${color} dropdown-menu`}
               onClick={this.handleMenuClick}
             >
+              <div styleName="popover-arrow"></div>
               <ul>
                 {this.props.children}
               </ul>

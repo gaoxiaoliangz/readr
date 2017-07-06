@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Container from '../../components/Container'
-import { Dropdown, DropdownItem, DropdownItemSep } from '../../components/Dropdown'
+import Dropdown from '../../components/Dropdown'
 import CSSModules from 'react-css-modules'
 import Logo from '../Logo'
-const styles = require('./ConsoleBranding.scss')
+import styles from './ConsoleBranding.scss'
 
 interface Props {
   username: string
@@ -58,16 +58,15 @@ class ConsoleBranding extends Component<Props, State> {
               {
                 username && (
                   <Dropdown
-                    style="dark"
                     title={(
-                      <span>{username || '无名'}{ isAdmin && <span className="badge badge--dark">S</span> }</span>
+                      <span>{username || '无名'}{ isAdmin && <span className="badge">S</span> }</span>
                     ) }
                     >
-                    <DropdownItem><Link to="/">回到 Readr</Link></DropdownItem>
-                    <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
-                    <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
-                    <DropdownItemSep />
-                    <DropdownItem><a onClick={this.handleLogoutClick} href="#">退出</a></DropdownItem>
+                    <Dropdown.Item><Link to="/">回到 Readr</Link></Dropdown.Item>
+                    <Dropdown.Item><Link to={`/user/profile`}>个人主页</Link></Dropdown.Item>
+                    <Dropdown.Item><Link to={`/user/preference`}>设置</Link></Dropdown.Item>
+                    <Dropdown.Sep />
+                    <Dropdown.Item><a onClick={this.handleLogoutClick} href="#">退出</a></Dropdown.Item>
                   </Dropdown>
                 )
               }

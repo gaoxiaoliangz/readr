@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import { Container } from '../../components/layout'
-import { Dropdown, DropdownItem, DropdownItemSep } from '../../components/Dropdown'
+import Dropdown from '../../components/Dropdown'
 import Logo from '../../components/Logo'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
@@ -129,13 +129,13 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                     >
                       {
                         isAdmin === true && (
-                          <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
+                          <Dropdown.Item><Link to="/console">控制台</Link></Dropdown.Item>
                         )
                       }
-                      <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
-                      <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
-                      <DropdownItemSep />
-                      <DropdownItem><a onClick={this.handleLogoutClick} href="#">退出</a></DropdownItem>
+                      <Dropdown.Item><Link to={`/user/profile`}>个人主页</Link></Dropdown.Item>
+                      <Dropdown.Item><Link to={`/user/preference`}>设置</Link></Dropdown.Item>
+                      <Dropdown.Sep />
+                      <Dropdown.Item><a onClick={this.handleLogoutClick} href="#">退出</a></Dropdown.Item>
                     </Dropdown>
                   </div>
                 )

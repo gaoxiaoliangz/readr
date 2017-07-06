@@ -1,35 +1,20 @@
 import _ from 'lodash'
 import React from 'react'
-import { graphql, gql } from 'react-apollo'
-
-const query = gql`
-  query Authors($after: String) {
-    viewer {
-      authors(first: 1, after: $after) {
-        edges {
-          cursor
-          node {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`
+import { graphql } from 'react-apollo'
+import AUTHORS_QUERY from './Authors.gql'
 
 const loadData = (props) => {
   return () => {
     props.data.fetchMore({
-      query,
       variables: {
-        after: (_.last(props.data.viewer.authors.edges) as any).cursor
+        after: (_.last(props.data.authors.edges) as any).cursor
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         return Object.assign({}, previousResult, {
-          viewer: {
-            authors: {
-              edges: [...previousResult.viewer.authors.edges, ...fetchMoreResult.viewer.authors.edges],
+          authors: {
+            ...fetchMoreResult.authors,
+            ...{
+              edges: [...previousResult.authors.edges, ...fetchMoreResult.authors.edges],
             }
           }
         })
@@ -45,7 +30,7 @@ const Authors = props => {
   return (
     <div>
       {
-        props.data.viewer.authors.edges.map(edge => {
+        props.data.authors.edges.map(edge => {
           return (
             <div key={edge.node.id}>{edge.node.name}</div>
           )
@@ -56,6 +41,6 @@ const Authors = props => {
   )
 }
 
-const AuthorsWithData = graphql(query)(Authors)
+const withData = graphql(AUTHORS_QUERY)
 
-export default AuthorsWithData
+export default withData(Authors)

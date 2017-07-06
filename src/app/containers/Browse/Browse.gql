@@ -1,8 +1,8 @@
 query Browse($after: String, $categories: [ID]) {
-  featuredBooks: books(first: 5, isFeatured: true) {
+  featuredBooks: books(first: 6, isFeatured: true) {
     ...Books
   }
-  books(first: 10, isFeatured: false, after: $after, categories: $categories) {
+  books(first: 9, isFeatured: false, after: $after, categories: $categories) {
     ...Books
   }
   categories {

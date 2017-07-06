@@ -7,6 +7,7 @@ import Icon from '../../components/Icon'
 import styles from './BookListSection.scss'
 
 interface IProps {
+  prependList?: any[]
   bookEntities: {
     id: string
     title: string
@@ -24,7 +25,7 @@ interface IProps {
 })
 class BookListSection extends Component<IProps, {}> {
   render() {
-    const {isFetching, title, moreLink, bookEntities} = this.props
+    const {isFetching, title, moreLink, bookEntities, prependList} = this.props
 
     return (
       <div styleName="book-list-section">
@@ -44,7 +45,7 @@ class BookListSection extends Component<IProps, {}> {
         {
           isFetching && bookEntities.length === 0
             ? <Loading useNProgress />
-            : <BookList bookEntities={bookEntities} />
+            : <BookList prependList={prependList} bookEntities={bookEntities} />
         }
       </div>
     )

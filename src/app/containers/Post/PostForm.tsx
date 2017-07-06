@@ -107,9 +107,9 @@ class AddPostForm extends Component<OwnProps & StateProps, {}> {
                 options={categoryOptions}
               />
             </div>
+            <Button type="submit">保存</Button>
           </div>
         </div>
-        <Button type="submit">保存</Button>
       </form>
     )
   }

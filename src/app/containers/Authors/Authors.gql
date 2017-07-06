@@ -1,0 +1,11 @@
+query Authors($after: String) {
+  authors(first: 10, after: $after) {
+    edges {
+      cursor
+      node {
+        id
+        name
+      }
+    }
+  }
+}

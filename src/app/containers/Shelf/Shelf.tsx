@@ -54,7 +54,6 @@ class Shelf extends Component<IProps, State> {
   }
 
   render() {
-    // console.log(this.uploadComp)
     return (
       <DocContainer title="我的书架" bodyClass="page-shelf">
         <Branding />
@@ -113,16 +112,19 @@ class Shelf extends Component<IProps, State> {
                 }}
                 fileFieldName="bookfile"
               >
-                <Container>
-                  <div styleName="uploader">
-                    <h2>点击选择要上传的 epub 文件</h2>
-                    <p>你上传的书籍仅对你自己可见</p>
-                  </div>
-                </Container>
+
               </FileUploader>
               {
                 this.state.showUploads && (
-                  <UserUploadedBooks ref={ref => this.uploadComp = ref} />
+                  <UserUploadedBooks
+                    ref={ref => this.uploadComp = ref}
+                    prependList={[(
+                      <div className={styles.uploader}>
+                        <h2>选择书籍（.epub 文件）</h2>
+                        <p>你上传的书籍仅对你自己可见</p>
+                      </div>
+                    )]}
+                  />
                 )
               }
             </Tab>
