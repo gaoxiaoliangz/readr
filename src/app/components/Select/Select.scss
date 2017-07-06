@@ -1,0 +1,29 @@
+@import "~styles/variables";
+
+.select {
+  display: inline-block;
+  margin: 0 5px;
+
+  select {
+    -webkit-appearance: none;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    width: 100%;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    background: transparent;
+    outline: none;
+    background-size: 7px;
+    box-sizing: border-box;
+    height: 32px;
+    background: #fff;
+    
+    &:focus {
+      border-color: darken($gray, 30%);
+    }
+    
+    option {
+      display: block;
+    }
+  }
+}

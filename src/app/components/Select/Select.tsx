@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './Select.scss'
 
 const EMPTY_OPTION = {
   name: '请选择...',
@@ -30,7 +31,7 @@ class Select extends Component<IProps, {}> {
     let label = this.props.label ? this.props.label : null
     let customClassName = this.props.className ? this.props.className : ''
     let method = this.props.onClick
-    let className = `select-wrap ${customClassName}`.trim()
+    let className = `select-wrap ${customClassName} ${styles.select}`.trim()
     let style = {} as any
 
     if (this.props.width) {

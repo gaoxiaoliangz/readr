@@ -14,7 +14,7 @@ import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
 import MANAGE_BOOKS_QUERY from './ManageBooks.gql'
 import UPDATE_BOOK from '../../graphql/mutations/UpdateBook.gql'
-import DEL_BOOK from '../../graphql/mutations/delBook.gql'
+import DEL_BOOK from '../../graphql/mutations/DelBook.gql'
 
 const PAGE_LIMIT = 10
 
