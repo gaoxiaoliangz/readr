@@ -1,20 +1,12 @@
 const menus = [
   {
-    icon: 'books',
+    icon: 'book',
     displayName: '',
     path: '/console/books',
     subMenu: [
       {
         displayName: '书籍管理',
         path: '/console/books'
-      },
-      {
-        displayName: '添加页面',
-        path: '/console/posts/new'
-      },
-      {
-        displayName: '页面管理',
-        path: '/console/posts'
       },
       {
         displayName: '添加合集',
@@ -33,18 +25,21 @@ const menus = [
       }
     ]
   },
-  // {
-  //   icon: 'database',
-  //   displayName: '',
-  //   path: '/console/db',
-  //   subMenu: []
-  // },
-  // {
-  //   icon: 'statistics',
-  //   displayName: '',
-  //   path: '/console/statistics',
-  //   subMenu: []
-  // }
+  {
+    icon: 'doc',
+    displayName: '',
+    path: '/console/posts',
+    subMenu: [
+      {
+        displayName: '添加页面',
+        path: '/console/posts/new'
+      },
+      {
+        displayName: '页面管理',
+        path: '/console/posts'
+      },
+    ]
+  }
 ]
 
 export default menus

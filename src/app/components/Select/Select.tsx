@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './Select.scss'
+import Icon from '../Icon/Icon'
 
 const EMPTY_OPTION = {
   name: '请选择...',
@@ -57,6 +58,7 @@ class Select extends Component<IProps, {}> {
             )
           }
         </select>
+        <Icon size={10} className={styles.icon} name="arrowDown" />
       </div>
     )
   }

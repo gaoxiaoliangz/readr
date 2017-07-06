@@ -3,6 +3,7 @@
 .select {
   display: inline-block;
   margin: 0 5px;
+  position: relative;
 
   select {
     -webkit-appearance: none;
@@ -26,4 +27,10 @@
       display: block;
     }
   }
+}
+
+.icon {
+  position: absolute;
+  right: 8px;
+  top: 7px;
 }

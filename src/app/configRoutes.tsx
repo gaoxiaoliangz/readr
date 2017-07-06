@@ -57,6 +57,7 @@ const configRoutes = (context = {}) => {
           <Route path="profile" getComponent={() => require.ensure([], require => require('./containers/Profile').default)} />
         </Route>
       </Route>
+      <Route path="icons" getComponent={() => require.ensure([], require => require('./containers/ListIcons/ListIcons').default)} />
       <Route onEnter={authorize(['admin'])} path="console" component={AdminApp}>
         <IndexRedirect to="/console/books" />
         <Route path="books" getComponent={() => require.ensure([], require => require('./containers/ManageBooks').default)} />
