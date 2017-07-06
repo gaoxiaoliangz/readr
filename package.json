@@ -238,7 +238,7 @@
     "tslint-eslint-rules": "^3.4.0",
     "typescript": "2.3.4",
     "vrsource-tslint-rules": "^4.0.1",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5",
