@@ -14,18 +14,7 @@ const menus = [
       }
     ]
   },
-  {
-    icon: 'users',
-    displayName: '',
-    path: '/console/users',
-    subMenu: [
-      {
-        displayName: '用户管理',
-        path: '/console/users'
-      }
-    ]
-  },
-  {
+    {
     icon: 'doc',
     displayName: '',
     path: '/console/posts',
@@ -38,6 +27,17 @@ const menus = [
         displayName: '页面管理',
         path: '/console/posts'
       },
+    ]
+  },
+  {
+    icon: 'users',
+    displayName: '',
+    path: '/console/users',
+    subMenu: [
+      {
+        displayName: '用户管理',
+        path: '/console/users'
+      }
     ]
   }
 ]

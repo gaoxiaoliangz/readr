@@ -64,4 +64,10 @@ class Select extends Component<IProps, {}> {
   }
 }
 
+export const SelectField = ({ input: { value, onChange }, meta, options, ...rest }) => {
+  return (
+    <Select {...rest} value={value} onChange={onChange} options={options} />
+  )
+}
+
 export default Select

@@ -132,8 +132,8 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
         moment(new Date(node.createdAt).valueOf()).format('YYYY年MM月DD日'),
         (
           <div>
-            <span onClick={this._handleModClick(node.id)}>编辑</span>
-            <span onClick={this._handleDelClick(node.id)}>删除</span>
+            <span className="dark-link" onClick={this._handleModClick(node.id)}>编辑</span>
+            <span className="dark-link" onClick={this._handleDelClick(node.id)}>删除</span>
           </div>
         )
       ]
@@ -157,11 +157,6 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
             options={postCategoryOptions}
             onChange={this._handleCategoryChange}
           />
-          <Button
-            onClick={() => {
-              this.props.data.refetch()
-            }}
-          >刷新</Button>
         </div>
         <InfoTable
           header={['标题', '分类', '路径', '状态', '可见性', '创建时间', '操作']}

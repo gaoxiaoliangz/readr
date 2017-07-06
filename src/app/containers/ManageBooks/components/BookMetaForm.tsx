@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { Field, reduxForm } from 'redux-form'
 import { sendNotification, closeModal } from '../../../actions'
-import { renderInput } from '../../../components/Input/Input'
+import { InputField } from '../../../components/Input/Input'
 import { renderTextarea } from '../../../components/Textarea/Textarea'
 import ModalFooter from '../../../components/Modal/ModalFooter'
 import SelectizeInput from '../../../components/SelectizeInput/SelectizeInput'
@@ -67,9 +67,9 @@ class BookMetaForm extends Component<OwnProps & StateProps & DispatchProps, {}> 
 
     return (
       <form onSubmit={handleSubmit}>
-        <Field placeholder="书名" name="title" component={renderInput} />
+        <Field placeholder="书名" name="title" component={InputField} />
         <Field placeholder="作者" name="authors" component={renderSeInput(authorOptions)} />
-        <Field placeholder="封面" name="cover" component={renderInput} />
+        <Field placeholder="封面" name="cover" component={InputField} />
         <Field title="推荐" name="featured" component={renderSwitcher} />
         <Field title="发布" name="published" component={renderSwitcher} />
         <Field placeholder="分类" name="categories" component={renderSeInput(categoriesOptions)} />
