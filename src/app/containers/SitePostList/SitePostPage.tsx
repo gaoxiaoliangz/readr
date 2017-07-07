@@ -7,7 +7,7 @@ import POST_QUERY from '../../graphql/Post.gql'
 import Markdown from '../../components/Markdown/Markdown'
 import DocContainer from '../../components/DocContainer'
 import { Container } from '../../components/layout'
-import styles from './Page.scss'
+import styles from './SitePosts.scss'
 import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import CSSModules from 'react-css-modules'
@@ -22,10 +22,12 @@ interface OwnProps {
 interface StateProps {
   sendNotification: typeof sendNotification
   data: Data
+  handleSubmit: any
+  mutate: typeof ApolloMutation
 }
 
 @CSSModules(styles)
-class Page extends Component<OwnProps & StateProps, {}> {
+class SitePostPage extends Component<OwnProps & StateProps, {}> {
   render() {
     const { data } = this.props
 
@@ -55,10 +57,10 @@ export default compose(
     options: (props) => {
       return {
         variables: {
-          slug: props.params.slug || null
+          id: props.params.post
         }
       }
     }
   }),
   withIndicator()
-)(Page) as React.ComponentClass<OwnProps>
+)(SitePostPage) as React.ComponentClass<OwnProps>
