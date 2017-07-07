@@ -12,8 +12,10 @@
   outline: none;
   height: 100px;
   transition: border-color .3s;
+  border-radius: $border-radius;
 }
 
 .textarea:focus {
   border-color: $blue;
+  box-shadow: $shadow-input-border;
 }

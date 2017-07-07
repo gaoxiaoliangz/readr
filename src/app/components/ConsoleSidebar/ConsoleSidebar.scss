@@ -10,6 +10,7 @@ $item-line-height: 50px;
   height: 100%;
   width: $sidebar-width;
   background: #E4E4E4;
+  z-index: $z-console-sidebar;
 }
 
 .nav-side {
@@ -57,13 +58,16 @@ $item-line-height: 50px;
   text-align: center;
 
   & a:hover {
-    background: darken($dark-blue, 10%);
+    background: lighten($dark-blue, 10%);
   }
 }
 
 .root-item--current {
   composes: root-item;
   background: $blue;
+  & a:hover {
+    background: $blue;
+  }
 }
 
 .sub-item {

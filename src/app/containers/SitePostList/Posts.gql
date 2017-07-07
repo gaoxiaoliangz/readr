@@ -1,0 +1,26 @@
+query Posts {
+  posts(
+    category: BLOG
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        id
+        objectId
+        title
+        createdAt
+        updatedAt
+        author {
+          id
+          slug
+        }
+        markdown
+        category
+      }
+    }
+  }
+}

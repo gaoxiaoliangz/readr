@@ -24,7 +24,7 @@ function runDevServer(host, port, protocol) {
       } else {
         const serverAddr = `${protocol}://${host}:${port}/`
         console.info(chalk.cyan(`Server running at ${serverAddr}`))
-        if (localIP) {
+        if (localIP !== 'localhost') {
           console.info(chalk.cyan(`Also available at http://${localIP}:${port}/`))
         } else {
           console.info(chalk.red('No network available, we cannot access via IP address!'))

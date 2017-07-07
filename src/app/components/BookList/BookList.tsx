@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules'
 const styles = require('./BookList.scss')
 
 export interface Props {
+  prependList?: any[]
   bookEntities: {
     id: string
     title: string
@@ -15,10 +16,20 @@ export interface Props {
 }
 
 @CSSModules(styles)
-class BookList extends Component<Props, {}> {
+class BookList extends Component<Props, void> {
   render() {
+    const { prependList } = this.props
     return (
       <ul styleName="book-list" className="clearfix">
+        {
+          prependList && (
+            prependList.map((item, index) => {
+              return (
+                <li key={index}>{item}</li>
+              )
+            })
+          )
+        }
         {
           this.props.bookEntities && this.props.bookEntities.length !== 0
             ? (
@@ -35,7 +46,7 @@ class BookList extends Component<Props, {}> {
                       cover={cover}
                       disablePopup
                       percentage={book.percentage}
-                      />
+                    />
                   </li>
                 )
               })

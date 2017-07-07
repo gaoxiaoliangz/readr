@@ -17,16 +17,7 @@ import helpers from '../../helpers'
 import withIndicator from '../../helpers/withIndicator'
 
 type Data = State.Apollo<{
-  book: {
-    id: string
-    title: string
-    authors: {
-      name: string
-    }[]
-    description: string
-    cover: string
-    toc: Schema.TocItem[]
-  }
+  book: Schema.Book
 }>
 
 interface Props {

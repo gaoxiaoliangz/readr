@@ -9,6 +9,7 @@ import {
   fromGlobalId,
   mutationWithClientMutationId,
 } from 'graphql-relay'
+import _ from 'lodash'
 import { setReadingProgressCore, removeReadingProgress } from '../../api/user'
 import api from '../../api'
 import dataProvider from '../../models/dataProvider'
@@ -113,13 +114,18 @@ export const UpdateProfileMutation = mutationWithClientMutationId({
       email,
       bio
     }, {
-      id
-    })
-    // todo: a better way? what if a key has changed its name
-    // or I forget to update one of thoses keys
-    // update session
-    req.session.user.username = username
-    req.session.user.display_name = display_name
+        id
+      })
+
+    req.session.user = {
+      ...req.session.user,
+      ..._.omitBy({
+        display_name,
+        username,
+        email
+      }, _.isEmpty)
+    }
+
     return result
   }
 })
@@ -157,8 +163,8 @@ export const ChangePasswordMutation = mutationWithClientMutationId({
       const result = await api.users.update({
         password: newPassword
       }, {
-        id
-      })
+          id
+        })
       return result
     }
     return Promise.reject(new Error('Wrong old password provided!'))

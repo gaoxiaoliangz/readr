@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import { Container } from '../../components/layout'
-import { Dropdown, DropdownItem, DropdownItemSep } from '../../components/Dropdown'
+import Dropdown from '../../components/Dropdown'
 import Logo from '../../components/Logo'
 import CSSModules from 'react-css-modules'
 import { Link } from 'react-router'
@@ -14,11 +14,15 @@ import Icon from '../../components/Icon/Icon'
 import cx from 'classnames'
 import { compose } from 'redux'
 import RecentReadingMenu from './RecentReadingMenu'
+import classnames from 'classnames'
 
 interface OwnProps {
   className?: string
   bgColor?: string
   style?: React.CSSProperties
+  light?: boolean
+  hideNav?: boolean
+  subTitle?: any
 }
 
 interface OtherProps {
@@ -53,6 +57,10 @@ const mapStateToProps = (state, ownProps) => {
 })
 class Branding extends Component<OwnProps & OtherProps, IState> {
 
+  static defaultProps = {
+    light: false
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -73,48 +81,61 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 
   render() {
-    const isAdmin = this.props.isAdmin
+    const { isAdmin, hideNav, subTitle } = this.props
     const isLoggedIn = this.props.session.role !== 'visitor'
-    const { username, bgColor, style, displayName } = this.props
+    const { username, bgColor, style, displayName, light } = this.props
     const brandingStyle = {
       ...style,
       background: bgColor
     }
     const path = this.props.routing.pathname
+    const navLinkClassName = classnames({
+      'light-link': light,
+      'dark-link': !light,
+    })
 
     return (
       <div style={brandingStyle} styleName={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
             <div className="left">
-              <Logo dark />
+              <Logo
+                dark={!light}
+              />
             </div>
-            <div className="left" styleName="nav">
-              <ul styleName="nav-links">
-                <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
-                  <Link className="dark-link" styleName="nav-link" to="/browse">
-                    <Icon size={20} name="view" />
-                    <span styleName="nav-label">浏览</span>
-                  </Link>
-                </li>
-                <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
-                  <Link className="dark-link" styleName="nav-link" to="/search">
-                    <Icon size={18} name="search" />
-                    <span styleName="nav-label">搜索</span>
-                  </Link>
-                </li>
-                {
-                  isLoggedIn && (
-                    <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
-                      <Link className="dark-link" styleName="nav-link" to="/user/shelf">
-                        <Icon size={18} name="menu" />
-                        <span styleName="nav-label">我的书架</span>
+            <div styleName="sub-name">
+              {subTitle}
+            </div>
+            {
+              !hideNav && (
+                <div className="left" styleName="nav">
+                  <ul styleName="nav-links">
+                    <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
+                      <Link className={navLinkClassName} styleName="nav-link" to="/browse">
+                        <Icon size={20} name="view" />
+                        <span styleName="nav-label">浏览</span>
                       </Link>
                     </li>
-                  )
-                }
-              </ul>
-            </div>
+                    <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
+                      <Link className={navLinkClassName} styleName="nav-link" to="/search">
+                        <Icon size={18} name="search" />
+                        <span styleName="nav-label">搜索</span>
+                      </Link>
+                    </li>
+                    {
+                      isLoggedIn && (
+                        <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
+                          <Link className={navLinkClassName} styleName="nav-link" to="/user/shelf">
+                            <Icon size={18} name="menu" />
+                            <span styleName="nav-label">我的书架</span>
+                          </Link>
+                        </li>
+                      )
+                    }
+                  </ul>
+                </div>
+              )
+            }
             {
               isLoggedIn
                 ? (
@@ -129,13 +150,13 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                     >
                       {
                         isAdmin === true && (
-                          <DropdownItem><Link to="/console">控制台</Link></DropdownItem>
+                          <Dropdown.Item><Link to="/console">控制台</Link></Dropdown.Item>
                         )
                       }
-                      <DropdownItem><Link to={`/user/profile`}>个人主页</Link></DropdownItem>
-                      <DropdownItem><Link to={`/user/preference`}>设置</Link></DropdownItem>
-                      <DropdownItemSep />
-                      <DropdownItem><a onClick={this.handleLogoutClick} href="#">退出</a></DropdownItem>
+                      <Dropdown.Item><Link to={`/user/profile`}>个人主页</Link></Dropdown.Item>
+                      <Dropdown.Item><Link to={`/user/preference`}>设置</Link></Dropdown.Item>
+                      <Dropdown.Sep />
+                      <Dropdown.Item><a onClick={this.handleLogoutClick} href="#">退出</a></Dropdown.Item>
                     </Dropdown>
                   </div>
                 )
@@ -143,10 +164,16 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                   <div styleName="nav--user">
                     <ul styleName="nav-links">
                       <li styleName="nav-item">
-                        <Link className="light-link" styleName="nav-link" to="/signin">登录</Link>
+                        <Link className={navLinkClassName} styleName="nav-link" to="/signin">登录</Link>
                       </li>
                       <li styleName="nav-item">
-                        <Button bordered color="white" to="/signup">注册</Button>
+                        <Button
+                          {...{
+                            darkBordered: !light,
+                            bordered: light
+                          }}
+                          to="/signup"
+                        >注册</Button>
                       </li>
                     </ul>
                   </div>
@@ -154,7 +181,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             }
           </div>
         </Container>
-      </div>
+      </div >
     )
   }
 }

@@ -24,6 +24,7 @@ interface IProps {
   label?: string
   stayFocused?: boolean // default true
   omitSelectedValuesFromOptions?: boolean
+  size?: number
 
   value: string
   onInputChange: (newValue: string) => void
@@ -56,6 +57,11 @@ class SelectizeInput extends Component<IProps, IState> {
 
   input: HTMLInputElement
   inputWrap: HTMLDivElement
+
+  static defaultProps = {
+    omitSelectedValuesFromOptions: true,
+    size: 6
+  }
 
   constructor(props) {
     super(props)
@@ -176,15 +182,16 @@ class SelectizeInput extends Component<IProps, IState> {
   }
 
   render() {
-    const { label, values, onAddNewValue, omitSelectedValuesFromOptions } = this.props
-
-    let value = this.props.value || ''
-    let options = this.props.options || []
-
-    let inputWidth = values.length > 0 ? (value.length === 0 ? 16 : value.length * 16) : '100%'
-    let placeholder = values.length > 0 ? '' : this.props.placeholder
-
-    let filteredOptions = options
+    const { label, values, onAddNewValue, omitSelectedValuesFromOptions, size } = this.props
+    const resultListStyle: React.CSSProperties = {
+      maxHeight: size * 32 + 10,
+      overflowY: 'scroll'
+    }
+    const value = this.props.value || ''
+    const options = this.props.options || []
+    const inputWidth = values.length > 0 ? (value.length === 0 ? 16 : value.length * 16) : '100%'
+    const placeholder = values.length > 0 ? '' : this.props.placeholder
+    const filteredOptions = options
       .filter(option => {
         if (omitSelectedValuesFromOptions) {
           const valueOfValues = _.map(values, 'value')
@@ -247,7 +254,7 @@ class SelectizeInput extends Component<IProps, IState> {
         </div>
         {
           this.state.showOptions && (filteredOptions.length !== 0 || onAddNewValue) ? (
-            <ul styleName="query-results">
+            <ul styleName="query-results" style={resultListStyle}>
               {
                 filteredOptions
                   .map((option, index) => {
@@ -284,10 +291,6 @@ class SelectizeInput extends Component<IProps, IState> {
       </div>
     )
   }
-}
-
-SelectizeInput['defaultProps'] = {
-  omitSelectedValuesFromOptions: true
 }
 
 export default SelectizeInput

@@ -23,12 +23,12 @@ class About extends Component<Props, State> {
     return (
       <DocContainer bodyClass="page-about" title="关于">
         <Branding />
-        <Container>
+        <Container maxWidth={600}>
           <PostRenderer
             slug="about"
             getComponent={(data) => {
               return (
-                <div>
+                <div className={styles.content}>
                   <h1 className="page-title">{data.post.title}</h1>
                   <Markdown
                     input={data.post.markdown}

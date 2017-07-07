@@ -1,66 +1,62 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import form from '@gxl/redux-form'
-import { sendNotification } from '../../../actions'
+import { reduxForm, Field } from 'redux-form'
 import { Input, Button } from '../../../components/form'
-import validation from '../../../utils/validation'
+import { required, maxLength, minLength, isValidEmail } from '../../../utils/validators'
 
-interface Props {
+interface OwnProps {
   initialValues?: any
   onSave: (data: any) => void
 }
 
-interface AllProps extends Props {
-  routing: any
-  sendNotification: any
+interface OtherProps {
   handleSubmit: any
-  fields: any
 }
 
-interface State {
-}
-
-@form({
-  form: 'signup',
-  fields: ['username', 'email', 'password'],
-  validate: values => {
-    return validation(values)
-  }
-})
-class SignupForm extends Component<AllProps, State> {
-
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
+class SignupForm extends Component<OwnProps & OtherProps, void> {
+  _submit = () => {
     const {
-      fields: { username, email, password },
       handleSubmit,
       onSave
     } = this.props
 
+    handleSubmit(onSave)()
+  }
+
+  _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      this._submit()
+    }
+  }
+
+  render() {
     return (
-      <div>
-        <Input placeholder="用户名" {...username} />
-        <Input placeholder="邮箱" {...email} />
-        <Input placeholder="密码" type="password" {...password} />
+      <form>
+        <Field
+          placeholder="邮箱"
+          name="email"
+          component={Input.Field}
+          type="text"
+          validate={[required, maxLength(50), minLength(5), isValidEmail]}
+          onKeyDown={this._handleKeyDown}
+        />
+        <Field
+          placeholder="密码"
+          name="password"
+          type="password"
+          component={Input.Field}
+          validate={[required, maxLength(30), minLength(6)]}
+          onKeyDown={this._handleKeyDown}
+        />
         <Button
           color="blue"
-          onClick={handleSubmit(data => {
-            onSave(data)
-          })}>注册</Button>
-      </div>
+          onClick={this._submit}>注册</Button>
+      </form>
     )
   }
 }
 
-export default connect<{}, {}, Props>(
-  (state, ownProps) => {
-    return {
-      initialValues: ownProps.initialValues,
-      routing: state.routing.locationBeforeTransitions
-    }
-  },
-  { sendNotification }
-)(SignupForm)
+const withForm = reduxForm({
+  form: 'signup'
+})
+
+export default withForm(SignupForm) as React.ComponentClass<OwnProps>

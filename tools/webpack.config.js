@@ -42,7 +42,6 @@ const vars = {
     'react-slick',
     'react-helmet',
     'react-markdown',
-    '@gxl/redux-form',
 
     // utils
     // lodash has corresponding plugin to cut down the build size

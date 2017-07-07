@@ -23,8 +23,8 @@ export default function* watchLoginFlow() {
     }
 
     if (type === ACTION_TYPES.USER_LOGOUT.SUCCESS) {
-      yield put(actions.api.loadSession())
-      helpers.redirect('/signin')
+      // the most efficient way to destroy current user data
+      window.location.reload()
     }
   }
 }

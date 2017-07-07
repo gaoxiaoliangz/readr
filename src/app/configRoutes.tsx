@@ -43,11 +43,11 @@ const configRoutes = (context = {}) => {
         <Route path="browse" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
         <Route path="browse/category/:category" getComponent={() => require.ensure([], require => require('./containers/Browse/Browse').default)} />
         <Route path="search" getComponent={() => require.ensure([], require => require('./containers/BookSearch/BookSearch').default)} />
+        <Route path="blog" getComponent={() => require.ensure([], require => require('./containers/SitePostList/SitePostList').default)} />
+        <Route path="blog/posts/:post" getComponent={() => require.ensure([], require => require('./containers/SitePostList/SitePostPage').default)} />
         <Route path="about" getComponent={() => require.ensure([], require => require('./containers/About/About').default)} />
         <Route path="page/:slug" getComponent={() => require.ensure([], require => require('./containers/Page/Page').default)} />
         <Route path="book/:id" getComponent={() => require.ensure([], require => require('./containers/BookDetail').default)} />
-        <Route path="collections" getComponent={() => require.ensure([], require => require('./containers/Collections').default)} />
-        <Route path="collections/:id" getComponent={() => require.ensure([], require => require('./containers/CollectionDetail').default)} />
         <Route path="signin" getComponent={() => require.ensure([], require => require('./containers/Signin').default)} />
         <Route path="signup" getComponent={() => require.ensure([], require => require('./containers/Signup').default)} />
         <Route onEnter={authorize(['user', 'admin'])} path="user">
@@ -57,15 +57,15 @@ const configRoutes = (context = {}) => {
           <Route path="profile" getComponent={() => require.ensure([], require => require('./containers/Profile').default)} />
         </Route>
       </Route>
+      <Route path="icons" getComponent={() => require.ensure([], require => require('./containers/ListIcons/ListIcons').default)} />
       <Route onEnter={authorize(['admin'])} path="console" component={AdminApp}>
         <IndexRedirect to="/console/books" />
         <Route path="books" getComponent={() => require.ensure([], require => require('./containers/ManageBooks').default)} />
         <Route path="users" getComponent={() => require.ensure([], require => require('./containers/ManageUsers').default)} />
         <Route path="posts" getComponent={() => require.ensure([], require => require('./containers/ManagePosts/ManagePosts').default)} />
+        <Route path="categories" getComponent={() => require.ensure([], require => require('./containers/ManageCategories/ManageCategories').default)} />
         <Route path="posts/new" getComponent={() => require.ensure([], require => require('./containers/Post/AddPost').default)} />
         <Route path="posts/:id" getComponent={() => require.ensure([], require => require('./containers/Post/EditPost').default)} />
-        <Route path="books/new" getComponent={() => require.ensure([], require => require('./containers/AddBook').default)} />
-        <Route path="collections/new" getComponent={() => require.ensure([], require => require('./containers/AddCollection').default)} />
       </Route>
       <Route path="*" getComponent={() => require.ensure([], require => require('./containers/NoMatch').default)} />
     </Route>

@@ -23,13 +23,15 @@ $base-color: $blue;
   height: $size;
   position: absolute;
   top: 0;
-  box-shadow: $shadow-y1;
+  box-shadow: $shadow-z1;
+  transition: all .1s ease-in;
 }
 
 .switcher-track {
   height: $size/2;
   margin-top: $size/4;
   border-radius: 50px;
+  transition: all .1s ease-in;
 }
 
 .switcher--off {
@@ -47,6 +49,7 @@ $base-color: $blue;
   @extend .switcher;
   .switcher-button {
     left: $size;
+    box-shadow: $shadow-y1;
   }
 
   .switcher-track {

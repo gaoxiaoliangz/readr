@@ -29,7 +29,7 @@ class InfoTable extends Component<IProps, {}> {
       <table styleName={className} style={style || {}}>
         <tbody>
           <tr>
-            {header.map((item, index) => <th key={index}>{item}</th>)}
+            {header.map((item, index) => <th className="text-overflow" key={index}>{item}</th>)}
           </tr>
           {
             rows.map((row, index) => {
@@ -39,7 +39,7 @@ class InfoTable extends Component<IProps, {}> {
 
               return (
                 <tr key={index}>
-                  {_.map(row, (item, key) => <td key={key}>{item}</td>)}
+                  {_.map(row, (item, key) => <td className="text-overflow" key={key}>{item}</td>)}
                 </tr>
               )
             })

@@ -1,70 +1,36 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import form from '@gxl/redux-form'
 import _ from 'lodash'
-import { sendNotification, closeModal } from '../../actions'
 import { Input } from '../../components/form'
 import ModalFooter from '../../components/Modal/ModalFooter'
-import validation from '../../utils/validation'
+import { reduxForm, Field } from 'redux-form'
+import { required, maxLength, minLength } from '../../utils/validators'
 
 interface OwnProps {
   onSave: (data: any) => void
+  closeModal: any
 }
 
-interface StateProps {
+interface OtherProps {
   fields?: any
   handleSubmit?: any
 }
 
-interface DispatchProps {
-  sendNotification?: typeof sendNotification
-  closeModal?: typeof closeModal
-}
-
-@form({
-  form: 'changePw',
-  fields: ['old', 'newPw', 'newPwAgain'],
-  validate: (values) => {
-    const errors = validation(values)
-    if (!_.isEmpty(errors)) {
-      return errors
-    }
-    if (values.newPw !== values.newPwAgain) {
-      return {
-        newPwAgain: '两次输入密码不一致！'
-      }
-    }
-    if (values.newPw === values.old) {
-      return {
-        newPw: '新密码不能和旧密码一样！'
-      }
-    }
-    return {}
-  }
-})
-class ChangePWForm extends Component<OwnProps & StateProps & DispatchProps, {}> {
-
-  constructor(props) {
-    super(props)
-  }
-
+class ChangePWForm extends Component<OwnProps & OtherProps, {}> {
   render() {
     const {
-      fields: { old, newPw, newPwAgain },
       handleSubmit, closeModal, onSave
     } = this.props
 
+    const pwValidators = [required, maxLength(30), minLength(6)]
+
     return (
       <div>
-        <Input type="password" placeholder="原密码" {...old} />
-        <Input type="password" placeholder="新密码" {...newPw} />
-        <Input type="password" placeholder="重复新密码" {...newPwAgain} />
+        <Field validate={[required]} name="oldPassword" component={Input.Field} type="password" placeholder="原密码" />
+        <Field validate={pwValidators} name="newPassword" component={Input.Field} type="password" placeholder="新密码" />
+        <Field validate={pwValidators} name="newPasswordAgain" component={Input.Field} type="password" placeholder="重复新密码" />
         <ModalFooter
           onConfirm={handleSubmit(data => {
-            onSave({
-              oldPassword: old.value,
-              newPassword: newPw.value
-            })
+            onSave(data)
           })}
           onCancel={closeModal}
           />
@@ -73,7 +39,19 @@ class ChangePWForm extends Component<OwnProps & StateProps & DispatchProps, {}> 
   }
 }
 
-export default connect<StateProps, DispatchProps, OwnProps> (
-  state => state,
-  { sendNotification, closeModal }
-)(ChangePWForm)
+export default reduxForm({
+  form: 'changePw',
+  validate: (values: any) => {
+    if (values.newPassword !== values.newPasswordAgain) {
+      return {
+        newPasswordAgain: '两次输入密码不一致！'
+      }
+    }
+    if (values.newPassword === values.oldPassword) {
+      return {
+        newPassword: '新密码不能和旧密码一样！'
+      }
+    }
+    return {}
+  }
+})(ChangePWForm) as React.ComponentClass<OwnProps>

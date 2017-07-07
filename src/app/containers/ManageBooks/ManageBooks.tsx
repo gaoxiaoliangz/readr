@@ -4,7 +4,7 @@ import _ from 'lodash'
 import DocContainer from '../../components/DocContainer'
 import InfoTable from '../../components/InfoTable'
 import * as selectors from '../../selectors'
-import { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal } from '../../actions'
+import { sendNotification, openConfirmModal, closeConfirmModal, openModal, closeModal } from '../../actions'
 import { graphql, compose } from 'react-apollo'
 import moment from 'moment'
 import FileUploader from '../../components/FileUploader'
@@ -13,8 +13,8 @@ import BookMetaForm from './components/BookMetaForm'
 import Loading from '../../components/Loading'
 import Paginator from '../../components/Paginator'
 import MANAGE_BOOKS_QUERY from './ManageBooks.gql'
-import UPDATE_BOOK from '../../graphql/mutations/updateBook.gql'
-import DEL_BOOK from '../../graphql/mutations/delBook.gql'
+import UPDATE_BOOK from '../../graphql/mutations/UpdateBook.gql'
+import DEL_BOOK from '../../graphql/mutations/DelBook.gql'
 
 const PAGE_LIMIT = 10
 
@@ -32,7 +32,6 @@ interface Props {
   routing: State.Routing
   openModal: typeof openModal
   closeModal: typeof closeModal
-  initializeForm: typeof initializeForm
   updateBook: typeof ApolloMutation
   delBook: typeof ApolloMutation
 }
@@ -215,7 +214,7 @@ function mapStateToProps(state, ownProps) {
 export default compose(
   connect(
     mapStateToProps,
-    { sendNotification, openConfirmModal, closeConfirmModal, openModal, initializeForm, closeModal }
+    { sendNotification, openConfirmModal, closeConfirmModal, openModal, closeModal }
   ),
   withData,
   graphql(UPDATE_BOOK, {

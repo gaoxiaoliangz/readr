@@ -22,8 +22,6 @@ interface OwnProps {
 interface StateProps {
   sendNotification: typeof sendNotification
   data: Data
-  handleSubmit: any
-  mutate: typeof ApolloMutation
 }
 
 @CSSModules(styles)

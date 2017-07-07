@@ -21,7 +21,7 @@ type Data = State.Apollo<{
     bookPages: Schema.BookPages
   }
   error: Error
-  bookInfo: Schema.BookInfo
+  bookInfo: Schema.Book
   loading: boolean
 }>
 

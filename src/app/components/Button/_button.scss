@@ -66,6 +66,10 @@ $btn_border_radius: 3px;
   padding: 10px 30px;
 }
 
-.btn-bordered {
+.btn--bordered {
   @include button-variant(#fff, transparent, #fff);
+}
+
+.btn--dark-bordered {
+  @include button-variant($text-dark, transparent, $text);
 }

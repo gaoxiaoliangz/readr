@@ -1,26 +1,40 @@
-const menus = [
+/**
+ * path is the link, on the menu. It's also used to match current selecting menu,
+ * when match reg is not specified
+ */
+
+const menus: ConsoleMenus = [
   {
-    icon: 'books',
+    icon: 'book',
     displayName: '',
     path: '/console/books',
     subMenu: [
       {
         displayName: '书籍管理',
         path: '/console/books'
-      },
+      }
+    ]
+  },
+  {
+    icon: 'doc',
+    displayName: '',
+    path: '/console/posts',
+    subMenu: [
       {
         displayName: '添加页面',
         path: '/console/posts/new'
       },
       {
         displayName: '页面管理',
-        path: '/console/posts'
+        path: '/console/posts',
+        match: /(?!\/console\/posts\/new)\/console\/posts/
       },
-      {
-        displayName: '添加合集',
-        path: '/console/collections/new'
-      }
     ]
+  },
+  {
+    icon: 'folder',
+    displayName: '',
+    path: '/console/categories'
   },
   {
     icon: 'users',
@@ -32,19 +46,7 @@ const menus = [
         path: '/console/users'
       }
     ]
-  },
-  // {
-  //   icon: 'database',
-  //   displayName: '',
-  //   path: '/console/db',
-  //   subMenu: []
-  // },
-  // {
-  //   icon: 'statistics',
-  //   displayName: '',
-  //   path: '/console/statistics',
-  //   subMenu: []
-  // }
+  }
 ]
 
 export default menus

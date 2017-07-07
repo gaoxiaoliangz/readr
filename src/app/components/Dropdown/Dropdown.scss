@@ -12,7 +12,6 @@ $background: $dark;
 
 .dropdown {
   display: inline-block;
-  // cursor: pointer;
   position: relative;
   height: inherit;
 }
@@ -26,7 +25,7 @@ $background: $dark;
 }
 
 .dropdown-menu {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
+  box-shadow: $shadow-x12;
   line-height: 2.2;
   font-size: 1rem;
   text-align: left;
@@ -34,9 +33,10 @@ $background: $dark;
   position: absolute;
   right: 0;
   width: 150px;
-  overflow: hidden;
   padding: 5px 0;
-  // z-index: $z-dropdown-menu;
+  margin-top: 14px;
+  border-radius: 3px;
+  z-index: $z-dropdown-menu;
 }
 
 .dropdown-caret {
@@ -73,17 +73,57 @@ $background: $dark;
   background: lighten($background, 10%);
 }
 
+.popover-arrow {
+  top: -14px;
+  clip: rect(0 18px 14px -4px);
+  position: absolute;
+  // todo
+  right: 34px;
+  &:after {
+    transform: rotate(45deg) translate(6px,6px);
+    box-shadow: -1px -1px 1px -1px rgba(0,0,0,.44);
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+  }
+}
+
 .dropdown-menu--dark {
   composes: dropdown-menu;
-  background: $blue;
+  background: $dark-blue;
+
+  .popover-arrow {
+    &:after {
+      background: $dark-blue;
+    }
+  }
 
   & .sep {
-    background: lighten($blue, 5%);
+    background: lighten($dark-blue, 5%);
   }
 
   & .dropdown-item {
     &:hover {
-      background: lighten($blue, 5%);
+      background: $blue;
+    }
+  }
+}
+
+.dropdown-menu--light {
+  composes: dropdown-menu;
+  background: #fff;
+
+  & .sep {
+    background: $gray;
+  }
+
+  & .dropdown-item {
+    color: $text;
+    &:hover {
+      background: $blue;
+      color: #fff;
     }
   }
 }

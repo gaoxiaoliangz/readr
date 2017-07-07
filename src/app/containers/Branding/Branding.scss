@@ -23,6 +23,15 @@
   }
 }
 
+.sub-name {
+  float: left;
+  margin-left: 5px;
+  display: inline-block;
+  line-height: $branding-height;
+  height: $branding-height;
+  position: relative;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 60px;

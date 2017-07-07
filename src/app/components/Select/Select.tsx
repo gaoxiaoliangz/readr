@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import styles from './Select.scss'
+import Icon from '../Icon/Icon'
 
 const EMPTY_OPTION = {
   name: '请选择...',
@@ -30,7 +32,7 @@ class Select extends Component<IProps, {}> {
     let label = this.props.label ? this.props.label : null
     let customClassName = this.props.className ? this.props.className : ''
     let method = this.props.onClick
-    let className = `select-wrap ${customClassName}`.trim()
+    let className = `select-wrap ${customClassName} ${styles.select}`.trim()
     let style = {} as any
 
     if (this.props.width) {
@@ -56,9 +58,16 @@ class Select extends Component<IProps, {}> {
             )
           }
         </select>
+        <Icon size={10} className={styles.icon} name="arrowDown" />
       </div>
     )
   }
+}
+
+export const SelectField = ({ input: { value, onChange }, meta, options, ...rest }) => {
+  return (
+    <Select {...rest} value={value} onChange={onChange} options={options} />
+  )
 }
 
 export default Select

@@ -16,12 +16,7 @@ interface Props {
 }
 
 class Signup extends Component<Props, {}> {
-  constructor(props) {
-    super(props)
-    this.handleSignup = this.handleSignup.bind(this)
-  }
-
-  handleSignup(data) {
+  handleSignup = (data) => {
     this.props.signup(data)
   }
 

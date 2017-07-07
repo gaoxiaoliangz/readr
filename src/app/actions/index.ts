@@ -1,4 +1,3 @@
-import { actions as form } from '@gxl/redux-form'
 import * as api from './api'
 import * as viewer from './viewer'
 import * as ActionTypes from './actionTypes'
@@ -72,8 +71,4 @@ export function closeModal() {
   }
 }
 
-
-export const initializeForm = form.initialize
-export const resetForm = form.reset
-
-export { api, viewer, form }
+export { api, viewer }

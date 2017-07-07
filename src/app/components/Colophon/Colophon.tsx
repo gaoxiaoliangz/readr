@@ -12,7 +12,14 @@ class Colophon extends Component<any, any> {
     return (
       <div className="colophon" styleName="colophon">
         <Container>
-          <p>© 2015－2016 readrweb.com, all rights reserved. <span className="sep">|</span><Link className="dark-link" to="/about">关于</Link></p>
+          <div>
+            <span>© 2015－2016 readrweb.com, all rights reserved.</span>
+            <div styleName="links">
+              <Link className="dark-link" to="/blog">博客</Link>
+              <span className="sep">|</span>
+              <Link className="dark-link" to="/about">关于</Link>
+            </div>
+          </div>
         </Container>
       </div>
     )

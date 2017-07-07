@@ -70,7 +70,7 @@ class EditableField extends Component<Props, State> {
             this.state.isEdit
               ? <Input
                 ref={ref => this.input = ref}
-                className={styles['input']}
+                className={styles.input}
                 value={this.state.inputVal}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {

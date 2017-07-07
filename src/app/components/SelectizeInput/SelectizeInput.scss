@@ -15,6 +15,7 @@ $input-padding: 5px;
   transition: all 0s;
   cursor: text;
   background: #fff;
+  border-radius: $border-radius;
 
   input {
     background: transparent;
@@ -24,6 +25,7 @@ $input-padding: 5px;
 
 .selectize-input--focus {
   border-color: $blue;
+  box-shadow: $shadow-input-border;
 }
 .selectize-input--empty {
   background: #fff;

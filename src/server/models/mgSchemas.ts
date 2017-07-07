@@ -253,7 +253,7 @@ export const userFields = {
     type: String,
     required: true,
     min: [6, i18n('errors.validation.valueLimit.minLength', 'password')],
-    max: [20, i18n('errors.validation.valueLimit.maxLength', 'password')]
+    max: [30, i18n('errors.validation.valueLimit.maxLength', 'password')]
   },
   bio: {
     type: String
@@ -268,7 +268,7 @@ export const userFields = {
     type: String,
     unique: true,
     validate: {
-      // mongoose deprecated valiators that take 2 args
+      // mongoose deprecates valiators that take 2 args
       validator: (str) => validator.isEmail(str),
       message: i18n('errors.validation.valueLimit.invalidFormat', 'email')
     }

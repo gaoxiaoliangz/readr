@@ -1,4 +1,4 @@
-const validator = require('validator')
+import validator from 'validator'
 
 const additionalValidators = {
   lengthMin(len) {

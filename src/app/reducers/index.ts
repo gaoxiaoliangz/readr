@@ -1,9 +1,7 @@
 import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
-// import { reducer as form } from '@gxl/redux-form'
 import { reducer as formReducer } from 'redux-form'
-// import { ApolloClient } from 'react-apollo'
 import components from './components'
 import { entities } from './entities'
 import * as TYPES from '../actions/actionTypes'
@@ -13,15 +11,11 @@ import paginate from './utils/paginate'
 import viewer from './viewer'
 import managePosts from '../containers/ManagePosts/ManagePostsDuck'
 
-// import apolloClient from '../apolloClient'
-
-// const apoClient = new ApolloClient()
-
 function errorMessage(state = [], action) {
   const { error, type } = action
 
   if (error && action.payload) {
-    const message = _.get(action, 'payload.message', 'Unknown error occurred!')
+    const message = action.payload && (action.payload.message || action.payload.errmsg) || 'Unknown error occurred!'
     console.error(`${type}: ${message}`)
     return [...state, message]
   }
@@ -34,7 +28,6 @@ const rootReducer = combineReducers({
   entities,
   errorMessage,
   routing,
-  // form,
   form: formReducer,
   viewer,
   // it's true that define pagination in reducers is much better
@@ -47,7 +40,6 @@ const rootReducer = combineReducers({
     role: ROLES.VISITOR
   }),
   profile: receiveData(TYPES.PROFILE),
-  // apollo: apolloClient.reducer(),
   managePosts
 })
 

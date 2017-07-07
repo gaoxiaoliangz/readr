@@ -5,8 +5,9 @@ import CSSModules from 'react-css-modules'
 import styles from './ConsoleSidebar.scss'
 
 interface IProps {
-  currentPath?: any
-  menuMapping?: any
+  rootIndex: number
+  subIndex: number
+  menus: ConsoleMenus
 }
 
 interface IState {
@@ -17,35 +18,14 @@ interface IState {
 })
 class ConsoleSidebar extends Component<IProps, IState> {
   render() {
-    const { menuMapping, currentPath } = this.props
+    const { rootIndex, subIndex, menus } = this.props
 
-    let currentMenu = {
-      rootIndex: 0,
-      subIndex: 0
-    }
-
-    menuMapping.forEach((menu, rootIndex) => {
-      let subIndex
-
-      let result = menu.subMenu.filter((item, index) => {
-        if (item.path === currentPath) {
-          subIndex = index
-          return true
-        }
-      })
-
-      if (result.length > 0) {
-        currentMenu.rootIndex = rootIndex
-        currentMenu.subIndex = subIndex
-      }
-    })
-
-    let rootMenu = (
+    const rootMenu = (
       <ul styleName="nav-side-root">
         {
-          menuMapping.map((menu, index) => {
+          menus.map((menu, index) => {
             return (
-              <li key={index} styleName={index !== currentMenu.rootIndex ? 'root-item' : 'root-item--current'}>
+              <li key={index} styleName={index !== rootIndex ? 'root-item' : 'root-item--current'}>
                 <Link to={menu.path}>
                   <Icon size={25} styleName="icon" name={menu.icon} />
                 </Link>
@@ -56,12 +36,12 @@ class ConsoleSidebar extends Component<IProps, IState> {
       </ul>
     )
 
-    let subMenu = (
+    const subMenu = subIndex !== -1 && (
       <ul styleName="nav-side-sub">
         {
-          menuMapping[currentMenu.rootIndex].subMenu.map((menu, index) => {
+          menus[rootIndex].subMenu.map((menu, index) => {
             return (
-              <li key={index} styleName={index !== currentMenu.subIndex ? 'sub-item' : 'sub-item--current'}>
+              <li key={index} styleName={index !== subIndex ? 'sub-item' : 'sub-item--current'}>
                 <Link to={menu.path}>{menu.displayName}</Link>
               </li>
             )
@@ -70,8 +50,12 @@ class ConsoleSidebar extends Component<IProps, IState> {
       </ul>
     )
 
+    const sidebarStyle = {
+      width: subIndex !== -1 ? 300 : 80
+    }
+
     return (
-      <div styleName="sidebar-left">
+      <div styleName="sidebar-left" style={sidebarStyle}>
         {rootMenu}
         {subMenu}
       </div>

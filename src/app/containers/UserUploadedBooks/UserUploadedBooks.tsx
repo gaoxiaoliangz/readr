@@ -13,6 +13,7 @@ import withIndicator from '../../helpers/withIndicator'
 interface OwnProps {
   sectionTitle?: string
   keyword?: string
+  prependList?: any[]
 }
 
 type Data = State.Apollo<{
@@ -62,6 +63,7 @@ class UserUploadedBooks extends Component<Props & OwnProps, {}> {
   }
 
   render() {
+    const {prependList} = this.props
     const bookEntities = this.props.data.loading
       ? []
       : this.props.data.viewer.books.edges.map(edge => {
@@ -69,11 +71,12 @@ class UserUploadedBooks extends Component<Props & OwnProps, {}> {
       })
 
     return (
-      <Container>
+      <div>
         <BookListSection
           title={this.props.sectionTitle}
           bookEntities={bookEntities}
           isFetching={this.props.data.loading}
+          prependList={prependList}
         />
         {
           this.props.data.viewer.books.pageInfo.hasNextPage && (
@@ -86,7 +89,7 @@ class UserUploadedBooks extends Component<Props & OwnProps, {}> {
             >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
           )
         }
-      </Container>
+      </div>
     )
   }
 }

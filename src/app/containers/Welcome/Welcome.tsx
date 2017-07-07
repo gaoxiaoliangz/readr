@@ -30,6 +30,7 @@ class Welcome extends Component<Props, State> {
         <div styleName="hero-image">
           <Branding
             bgColor="transparent"
+            light
             style={{
               position: 'absolute',
               top: 0,

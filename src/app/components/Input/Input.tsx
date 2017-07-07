@@ -16,12 +16,20 @@ export interface Props {
   onKeyDown?: any
 }
 
+export const InputField = ({ input: { value, onChange }, meta: { touched, error }, ...rest }) => {
+  return (
+    <Input {...rest} touched={touched} error={error} value={value} onChange={onChange} />
+  )
+}
+
 @CSSModules(styles, {
   allowMultiple: true
 })
 class Input extends Component<Props, void> {
 
   input: any
+
+  static Field = InputField
 
   focus() {
     this.input.focus()
@@ -30,11 +38,6 @@ class Input extends Component<Props, void> {
   render() {
     const { error, touched, className, ...rest } = this.props
     const showError = error && touched
-
-    // delete @gxl/redux-form field props
-    delete this.props['get']
-    delete this.props['set']
-    delete this.props['events']
 
     return (
       <div styleName={classnames({ 'input-wrap': !showError, 'input-wrap--error': showError })} className={className || ''}>
@@ -58,12 +61,6 @@ class Input extends Component<Props, void> {
       </div>
     )
   }
-}
-
-export const renderInput = ({ input: { value, onChange }, meta, ...rest }) => {
-  return (
-    <Input {...rest} value={value} onChange={onChange} />
-  )
 }
 
 export default Input

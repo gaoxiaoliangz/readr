@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import CSSModules from 'react-css-modules'
 import _ from 'lodash'
-const styles = require('./_tab.scss')
+import styles from './Tab.scss'
+import Tab from './Tab'
 
 interface IProps {
   onTabSwitch?: (activeTabIndex: number | string) => void
@@ -21,6 +22,7 @@ interface IState {
 })
 class Tabs extends Component<IProps, IState> {
 
+  static Tab = Tab
   static defaultProps = {
     defaultActive: 0
   }
@@ -30,10 +32,9 @@ class Tabs extends Component<IProps, IState> {
     this.state = {
       active: this.props.defaultActive
     }
-    this.handleTabClick = this.handleTabClick.bind(this)
   }
 
-  handleTabClick(index) {
+  handleTabClick = (index) => {
     if (!this.props.controlled) {
       this.setState({
         active: index
