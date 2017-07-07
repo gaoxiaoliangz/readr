@@ -14,11 +14,13 @@ import Icon from '../../components/Icon/Icon'
 import cx from 'classnames'
 import { compose } from 'redux'
 import RecentReadingMenu from './RecentReadingMenu'
+import classnames from 'classnames'
 
 interface OwnProps {
   className?: string
   bgColor?: string
   style?: React.CSSProperties
+  light?: boolean
 }
 
 interface OtherProps {
@@ -53,6 +55,10 @@ const mapStateToProps = (state, ownProps) => {
 })
 class Branding extends Component<OwnProps & OtherProps, IState> {
 
+  static defaultProps = {
+    light: false
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -75,30 +81,36 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   render() {
     const isAdmin = this.props.isAdmin
     const isLoggedIn = this.props.session.role !== 'visitor'
-    const { username, bgColor, style, displayName } = this.props
+    const { username, bgColor, style, displayName, light } = this.props
     const brandingStyle = {
       ...style,
       background: bgColor
     }
     const path = this.props.routing.pathname
+    const navLinkClassName = classnames({
+      'light-link': light,
+      'dark-link': !light,
+    })
 
     return (
       <div style={brandingStyle} styleName={`branding ${this.props.className ? this.props.className : ''}`}>
         <Container className="clearfix">
           <div>
             <div className="left">
-              <Logo dark />
+              <Logo
+                dark={!light}
+              />
             </div>
             <div className="left" styleName="nav">
               <ul styleName="nav-links">
                 <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
-                  <Link className="dark-link" styleName="nav-link" to="/browse">
+                  <Link className={navLinkClassName} styleName="nav-link" to="/browse">
                     <Icon size={20} name="view" />
                     <span styleName="nav-label">浏览</span>
                   </Link>
                 </li>
                 <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
-                  <Link className="dark-link" styleName="nav-link" to="/search">
+                  <Link className={navLinkClassName} styleName="nav-link" to="/search">
                     <Icon size={18} name="search" />
                     <span styleName="nav-label">搜索</span>
                   </Link>
@@ -106,7 +118,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                 {
                   isLoggedIn && (
                     <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
-                      <Link className="dark-link" styleName="nav-link" to="/user/shelf">
+                      <Link className={navLinkClassName} styleName="nav-link" to="/user/shelf">
                         <Icon size={18} name="menu" />
                         <span styleName="nav-label">我的书架</span>
                       </Link>
@@ -143,10 +155,16 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                   <div styleName="nav--user">
                     <ul styleName="nav-links">
                       <li styleName="nav-item">
-                        <Link className="dark-link" styleName="nav-link" to="/signin">登录</Link>
+                        <Link className={navLinkClassName} styleName="nav-link" to="/signin">登录</Link>
                       </li>
                       <li styleName="nav-item">
-                        <Button darkBordered to="/signup">注册</Button>
+                        <Button
+                          {...{
+                            darkBordered: !light,
+                            bordered: light
+                          }}
+                          to="/signup"
+                        >注册</Button>
                       </li>
                     </ul>
                   </div>
