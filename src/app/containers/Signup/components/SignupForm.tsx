@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { Input, Button } from '../../../components/form'
-import { required, maxLength, minLength } from '../../../utils/validators'
+import { required, maxLength, minLength, isValidEmail } from '../../../utils/validators'
 
 interface OwnProps {
   initialValues?: any
@@ -29,16 +29,14 @@ class SignupForm extends Component<OwnProps & OtherProps, void> {
   }
 
   render() {
-    const { handleSubmit } = this.props
-
     return (
-      <form onSubmit={handleSubmit}>
+      <form>
         <Field
-          placeholder="用户名/邮箱"
-          name="login"
+          placeholder="邮箱"
+          name="email"
           component={Input.Field}
           type="text"
-          validate={[required, maxLength(70), minLength(5)]}
+          validate={[required, maxLength(50), minLength(5), isValidEmail]}
           onKeyDown={this._handleKeyDown}
         />
         <Field
@@ -46,12 +44,11 @@ class SignupForm extends Component<OwnProps & OtherProps, void> {
           name="password"
           type="password"
           component={Input.Field}
-          validate={[required, maxLength(70), minLength(6)]}
+          validate={[required, maxLength(30), minLength(6)]}
           onKeyDown={this._handleKeyDown}
         />
         <Button
           color="blue"
-          type="submit"
           onClick={this._submit}>注册</Button>
       </form>
     )

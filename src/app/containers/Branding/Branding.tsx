@@ -143,10 +143,10 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                   <div styleName="nav--user">
                     <ul styleName="nav-links">
                       <li styleName="nav-item">
-                        <Link className="light-link" styleName="nav-link" to="/signin">登录</Link>
+                        <Link className="dark-link" styleName="nav-link" to="/signin">登录</Link>
                       </li>
                       <li styleName="nav-item">
-                        <Button bordered color="white" to="/signup">注册</Button>
+                        <Button darkBordered to="/signup">注册</Button>
                       </li>
                     </ul>
                   </div>

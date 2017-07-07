@@ -8,12 +8,6 @@ declare namespace Schema {
     percentage: number
   }
 
-  // deprecated
-  type BookInfo = {
-    title: string
-    toc: TocItem[]
-  }
-
   interface Author {
     name: string
     slug: string
@@ -45,6 +39,7 @@ declare namespace Schema {
     cover: string
     createdAt: string
     updatedAt: string
+    toc: TocItem[]
   }
 
   interface Category {

@@ -9,17 +9,18 @@
   width: 100%;
   padding: $input-padding 5px;
   border: 1px solid $gray;
+  border-radius: $border-radius;
   transition: border-color .3s;
   line-height: $input-line-height;
   outline: none;
   box-shadow: none;
   -webkit-appearance: none;
-  border-radius: 0;
   background: transparent;
 }
 
 .input:focus {
   border-color: $blue;
+  box-shadow: $shadow-input-border;
 }
 
 .input-wrap--error {

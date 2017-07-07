@@ -14,7 +14,9 @@ interface IProps {
   to?: string
   onClick?: any
   width?: number | string
+  // when bordered is set color is ignored
   bordered?: boolean
+  darkBordered?: boolean
   type?: string
   preventDefault?: boolean
   style?: React.CSSProperties
@@ -42,14 +44,15 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, color, size, isFluid, width, to, bordered, preventDefault, style, ...rest } = this.props
+    let { onClick, color, size, isFluid, width, to, bordered, darkBordered, preventDefault, style, ...rest } = this.props
 
     const styleName = classnames({
       'btn': true,
       'btn--hover': this.state.isMouseOver,
       'btn--fluid': isFluid,
-      'btn-bordered': bordered,
-      [`btn--${color}`]: Boolean(color) && !bordered,
+      'btn--bordered': bordered,
+      'btn--dark-bordered': darkBordered,
+      [`btn--${color}`]: Boolean(color) && !bordered && !darkBordered,
       [`btn--${size}`]: Boolean(size)
     })
 

@@ -7,7 +7,7 @@ import { authSuccess } from './watchLoginFlow'
 export default function* watchSignup() {
   while (true) {
     const { payload } = yield take(ACTION_TYPES.SIGNUP.REQUEST)
-    const login = _.get(payload, 'request.data.username')
+    const login = _.get(payload, 'request.data.email')
     const password = _.get(payload, 'request.data.password')
 
     // have to define failure here

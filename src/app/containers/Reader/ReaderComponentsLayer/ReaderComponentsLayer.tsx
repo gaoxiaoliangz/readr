@@ -18,7 +18,7 @@ import ReaderPreference from '../ReaderPreference/ReaderPreference'
 
 interface OwnProps {
   bookPages: Schema.BookPages
-  bookInfo: Schema.BookInfo
+  bookInfo: Schema.Book
   // onLoadPage: (direction: 'prev' | 'next') => any
   onScroll?: (direction: 'up' | 'down') => void
   onDebuncedScroll?: (e: Event, direction: 'up' | 'down') => void

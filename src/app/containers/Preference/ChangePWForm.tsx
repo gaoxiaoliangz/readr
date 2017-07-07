@@ -21,7 +21,7 @@ class ChangePWForm extends Component<OwnProps & OtherProps, {}> {
       handleSubmit, closeModal, onSave
     } = this.props
 
-    const pwValidators = [required, maxLength(70), minLength(5)]
+    const pwValidators = [required, maxLength(30), minLength(6)]
 
     return (
       <div>

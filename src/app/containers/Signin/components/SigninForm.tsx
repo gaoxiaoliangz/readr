@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { reduxForm, Field } from 'redux-form'
 import { Button } from '../../../components/form'
 import Input from '../../../components/Input/Input'
-import { required, maxLength, minLength } from '../../../utils/validators'
+import { required } from '../../../utils/validators'
 
 interface OwnProps {
   initialValues?: any
@@ -31,16 +31,14 @@ class SigninForm extends Component<OtherProps & OwnProps, void> {
   }
 
   render() {
-    const { handleSubmit } = this.props
-
     return (
-      <form onSubmit={handleSubmit}>
+      <form>
         <Field
           placeholder="用户名/邮箱"
           name="login"
           component={Input.Field}
           type="text"
-          validate={[required, maxLength(70), minLength(5)]}
+          validate={[required]}
           onKeyDown={this._handleKeyDown}
         />
         <Field
@@ -48,12 +46,11 @@ class SigninForm extends Component<OtherProps & OwnProps, void> {
           name="password"
           type="password"
           component={Input.Field}
-          validate={[required, maxLength(70), minLength(6)]}
+          validate={[required]}
           onKeyDown={this._handleKeyDown}
         />
         <Button
           color="blue"
-          type="submit"
           onClick={this._submit}>登录</Button>
       </form>
     )

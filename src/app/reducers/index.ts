@@ -15,7 +15,7 @@ function errorMessage(state = [], action) {
   const { error, type } = action
 
   if (error && action.payload) {
-    const message = _.get(action, 'payload.message', 'Unknown error occurred!')
+    const message = action.payload && (action.payload.message || action.payload.errmsg) || 'Unknown error occurred!'
     console.error(`${type}: ${message}`)
     return [...state, message]
   }

@@ -9,11 +9,13 @@ const userAPI = {
   ...userBasicAPI,
   ...{
     add(object, options) {
+      const defaultName = object.email.split('@')[0]
       return dataProvider.User.utils.save({
         ...object,
         ...{
           role: ROLES.USER,
-          display_name: object.username
+          username: defaultName,
+          display_name: defaultName
         }
       })
     },
