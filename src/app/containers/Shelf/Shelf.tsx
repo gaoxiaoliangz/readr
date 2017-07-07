@@ -141,7 +141,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const withData = graphql(gql`
-  query ProfileQuery {
+  query Shelf {
     viewer {
       id
       readingHistory {

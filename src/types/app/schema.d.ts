@@ -24,6 +24,16 @@ declare namespace Schema {
     updatedAt: string
   }
 
+  interface ReadingHistoryEntry {
+    id: string
+    bookId: string
+    title: string
+    description: string
+    percentage: number
+    authors: any[]
+    cover: string
+  }
+
   interface Book {
     id: string
     objectId: string

@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { reduxForm, Field } from 'redux-form'
 import { sendNotification } from '../../../actions'
-import { Input, Button } from '../../../components/form'
+import { Button } from '../../../components/form'
+import Input from '../../../components/Input/Input'
+import { required, maxLength, minLength } from '../../../utils/validators'
 
 interface OwnProps {
   initialValues?: any
@@ -17,36 +19,8 @@ interface StateProps {
   fields: any
 }
 
-interface State {
-}
-
-const required = value => (value ? undefined : '必填')
-const maxLength = max => value =>
-  value && value.length > max ? `不能超过 ${max} 个字符` : undefined
-const minLength = min => value =>
-  value && value.length < min ? `不能少于 ${min} 个字符` : undefined
-
-const renderInput = ({ input: { value, onChange }, meta: { touched, error }, ...rest }) => {
-  return (
-    <Input
-      {...rest}
-      touched={touched}
-      error={error}
-      value={value}
-      onChange={onChange}
-    />
-  )
-}
-
-class SigninForm extends Component<StateProps & OwnProps, State> {
-
-  constructor(props) {
-    super(props)
-    this._submit = this._submit.bind(this)
-    this._handleKeyDown = this._handleKeyDown.bind(this)
-  }
-
-  _submit() {
+class SigninForm extends Component<StateProps & OwnProps, void> {
+  _submit = () => {
     const {
       handleSubmit,
       onSave
@@ -55,7 +29,7 @@ class SigninForm extends Component<StateProps & OwnProps, State> {
     handleSubmit(onSave)()
   }
 
-  _handleKeyDown(e) {
+  _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       this._submit()
     }
@@ -71,18 +45,18 @@ class SigninForm extends Component<StateProps & OwnProps, State> {
         <Field
           placeholder="用户名/邮箱"
           name="login"
-          component={renderInput}
+          component={Input.Field}
           type="text"
-          validate={[required, maxLength(20), minLength(5)]}
-          onKeydown={this._handleKeyDown}
+          validate={[required, maxLength(70), minLength(5)]}
+          onKeyDown={this._handleKeyDown}
         />
         <Field
           placeholder="密码"
           name="password"
           type="password"
-          component={renderInput}
-          validate={[required, maxLength(30), minLength(6)]}
-          onKeydown={this._handleKeyDown}
+          component={Input.Field}
+          validate={[required, maxLength(70), minLength(6)]}
+          onKeyDown={this._handleKeyDown}
         />
         <Button
           color="blue"

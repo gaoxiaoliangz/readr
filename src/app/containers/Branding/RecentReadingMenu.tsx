@@ -8,15 +8,7 @@ import VIEWER_READING_HISTORY from '../../graphql/fragments/ViewerReadingHistory
 
 type Data = State.Apollo<{
   viewer: {
-    readingHistory: Schema.Connection<{
-      id: string
-      bookId: string
-      title: string
-      description: string
-      percentage: number
-      authors: any[]
-      cover: string
-    }>
+    readingHistory: Schema.Connection<Schema.ReadingHistoryEntry>
   }
 }>
 
