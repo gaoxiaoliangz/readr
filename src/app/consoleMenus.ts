@@ -15,7 +15,7 @@ const menus = [
       }
     ]
   },
-    {
+  {
     icon: 'doc',
     displayName: '',
     path: '/console/posts',
@@ -30,6 +30,11 @@ const menus = [
         match: /(?!\/console\/posts\/new)\/console\/posts/
       },
     ]
+  },
+  {
+    icon: 'folder',
+    displayName: '',
+    path: '/console/categories'
   },
   {
     icon: 'users',

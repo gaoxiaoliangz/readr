@@ -47,6 +47,8 @@ declare namespace Schema {
     name: string
     slug: string
     description: string
+    createdAt?: string
+    updatedAt: string
   }
 
   interface Post {

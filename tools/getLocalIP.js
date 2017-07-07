@@ -5,7 +5,7 @@ const getLocalIP = () => {
   const network = os.networkInterfaces()
 
   if (!network.en0) {
-    return null
+    return 'localhost'
   }
 
   for (let i = 0; i < network.en0.length; i++) {

@@ -1,0 +1,17 @@
+query Categories {
+  categories {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    totalCount
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+      }
+    }
+  }
+}

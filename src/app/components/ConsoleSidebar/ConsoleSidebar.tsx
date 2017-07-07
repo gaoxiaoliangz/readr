@@ -19,7 +19,7 @@ class ConsoleSidebar extends Component<IProps, IState> {
   render() {
     const { menuMapping, currentPath } = this.props
 
-    let currentMenu = {
+    const currentMenu = {
       rootIndex: 0,
       subIndex: 0
     }
@@ -27,7 +27,7 @@ class ConsoleSidebar extends Component<IProps, IState> {
     menuMapping.forEach((menu, rootIndex) => {
       let subIndex
 
-      let result = menu.subMenu.filter((item, index) => {
+      let result = menu.subMenu && menu.subMenu.filter((item, index) => {
         if (item.match && item.match.test(currentPath)) {
           subIndex = index
           return true
@@ -38,13 +38,18 @@ class ConsoleSidebar extends Component<IProps, IState> {
         }
       })
 
-      if (result.length > 0) {
+      if (!result) {
+        if (menu.path === currentPath) {
+          currentMenu.rootIndex = rootIndex
+          currentMenu.subIndex = -1
+        }
+      } else if (result.length > 0) {
         currentMenu.rootIndex = rootIndex
         currentMenu.subIndex = subIndex
       }
     })
 
-    let rootMenu = (
+    const rootMenu = (
       <ul styleName="nav-side-root">
         {
           menuMapping.map((menu, index) => {
@@ -60,7 +65,7 @@ class ConsoleSidebar extends Component<IProps, IState> {
       </ul>
     )
 
-    let subMenu = (
+    const subMenu = currentMenu.subIndex !== -1 && (
       <ul styleName="nav-side-sub">
         {
           menuMapping[currentMenu.rootIndex].subMenu.map((menu, index) => {

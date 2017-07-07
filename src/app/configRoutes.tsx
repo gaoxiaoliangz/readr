@@ -61,6 +61,7 @@ const configRoutes = (context = {}) => {
         <Route path="books" getComponent={() => require.ensure([], require => require('./containers/ManageBooks').default)} />
         <Route path="users" getComponent={() => require.ensure([], require => require('./containers/ManageUsers').default)} />
         <Route path="posts" getComponent={() => require.ensure([], require => require('./containers/ManagePosts/ManagePosts').default)} />
+        <Route path="categories" getComponent={() => require.ensure([], require => require('./containers/ManageCategories/ManageCategories').default)} />
         <Route path="posts/new" getComponent={() => require.ensure([], require => require('./containers/Post/AddPost').default)} />
         <Route path="posts/:id" getComponent={() => require.ensure([], require => require('./containers/Post/EditPost').default)} />
       </Route>
