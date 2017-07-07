@@ -63,7 +63,6 @@ const configRoutes = (context = {}) => {
         <Route path="posts" getComponent={() => require.ensure([], require => require('./containers/ManagePosts/ManagePosts').default)} />
         <Route path="posts/new" getComponent={() => require.ensure([], require => require('./containers/Post/AddPost').default)} />
         <Route path="posts/:id" getComponent={() => require.ensure([], require => require('./containers/Post/EditPost').default)} />
-        <Route path="books/new" getComponent={() => require.ensure([], require => require('./containers/AddBook').default)} />
       </Route>
       <Route path="*" getComponent={() => require.ensure([], require => require('./containers/NoMatch').default)} />
     </Route>

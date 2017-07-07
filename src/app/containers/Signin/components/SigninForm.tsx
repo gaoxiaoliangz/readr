@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { reduxForm, Field } from 'redux-form'
-import { sendNotification } from '../../../actions'
 import { Button } from '../../../components/form'
 import Input from '../../../components/Input/Input'
 import { required, maxLength, minLength } from '../../../utils/validators'
@@ -12,14 +10,11 @@ interface OwnProps {
   onSave: (data: any) => void
 }
 
-interface StateProps {
-  routing: any
-  sendNotification: any
+interface OtherProps {
   handleSubmit: any
-  fields: any
 }
 
-class SigninForm extends Component<StateProps & OwnProps, void> {
+class SigninForm extends Component<OtherProps & OwnProps, void> {
   _submit = () => {
     const {
       handleSubmit,
@@ -36,9 +31,7 @@ class SigninForm extends Component<StateProps & OwnProps, void> {
   }
 
   render() {
-    const {
-      handleSubmit
-    } = this.props
+    const { handleSubmit } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -70,14 +63,5 @@ class SigninForm extends Component<StateProps & OwnProps, void> {
 export default compose(
   reduxForm({
     form: 'signin'
-  }),
-  connect(
-    (state, ownProps: OwnProps) => {
-      return {
-        initialValues: ownProps.initialValues,
-        routing: state.routing.locationBeforeTransitions
-      }
-    },
-    { sendNotification }
-  ),
-)(SigninForm as any) as React.ComponentClass<OwnProps>
+  })
+)(SigninForm) as React.ComponentClass<OwnProps>

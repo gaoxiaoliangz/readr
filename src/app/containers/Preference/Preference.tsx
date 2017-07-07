@@ -84,6 +84,7 @@ class Preference extends Component<IAllProps, IState> {
                 title: '修改密码',
                 content: (
                   <ChangePWForm
+                    closeModal={this.props.closeModal}
                     onSave={(data) => {
                       this.props.changePassword({
                         variables: data
