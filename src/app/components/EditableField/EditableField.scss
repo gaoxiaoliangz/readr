@@ -21,6 +21,9 @@
     color: $text;
     padding: 0;
     border: none;
+    &:focus {
+      box-shadow: none;
+    }
   }
 }
 
