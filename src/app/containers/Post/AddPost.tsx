@@ -5,6 +5,7 @@ import { sendNotification } from '../../actions'
 import ADD_POST_MUTATION from '../../graphql/mutations/AddPost.gql'
 import POSTS_QUERY from '../../graphql/Posts.gql'
 import PostForm from './PostForm'
+import DocContainer from '../../components/DocContainer'
 
 type Data = State.Apollo<{
 }>
@@ -48,7 +49,9 @@ class AddPost extends Component<OwnProps & StateProps, {}> {
 
   render() {
     return (
-      <PostForm onSubmit={this._handleSubmit} />
+      <DocContainer title="添加页面/日志" bodyClass="page-add-post">
+        <PostForm onSubmit={this._handleSubmit} />
+      </DocContainer>
     )
   }
 }

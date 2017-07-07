@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
 import withIndicator from '../../helpers/withIndicator'
 import POST_QUERY from '../../graphql/Post.gql'
-import Markdown from '../../components/Markdown/Markdown'
+import Post from './Post'
 import DocContainer from '../../components/DocContainer'
 import { Container } from '../../components/layout'
 import styles from './SitePosts.scss'
@@ -32,13 +33,17 @@ class SitePostPage extends Component<OwnProps & StateProps, {}> {
     const { data } = this.props
 
     return (
-      <DocContainer bodyClass="page-about" title={data.post.title}>
-        <Branding />
-        <Container>
-          <h1 className="page-title">{data.post.title}</h1>
-          <Markdown
-            input={data.post.markdown}
-          />
+      <DocContainer bodyClass="page-post" title={data.post.title}>
+        <Branding
+          hideNav
+          subTitle={(
+            <Link className={styles.sub} to="/blog">
+              <span>博客</span>
+            </Link>
+          )}
+        />
+        <Container maxWidth={600}>
+          <Post post={data.post} titleWithLink={false} />
         </Container>
         <Colophon />
       </DocContainer>

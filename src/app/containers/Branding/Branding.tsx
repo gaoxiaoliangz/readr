@@ -21,6 +21,8 @@ interface OwnProps {
   bgColor?: string
   style?: React.CSSProperties
   light?: boolean
+  hideNav?: boolean
+  subTitle?: any
 }
 
 interface OtherProps {
@@ -79,7 +81,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
   }
 
   render() {
-    const isAdmin = this.props.isAdmin
+    const { isAdmin, hideNav, subTitle } = this.props
     const isLoggedIn = this.props.session.role !== 'visitor'
     const { username, bgColor, style, displayName, light } = this.props
     const brandingStyle = {
@@ -101,32 +103,39 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
                 dark={!light}
               />
             </div>
-            <div className="left" styleName="nav">
-              <ul styleName="nav-links">
-                <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
-                  <Link className={navLinkClassName} styleName="nav-link" to="/browse">
-                    <Icon size={20} name="view" />
-                    <span styleName="nav-label">浏览</span>
-                  </Link>
-                </li>
-                <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
-                  <Link className={navLinkClassName} styleName="nav-link" to="/search">
-                    <Icon size={18} name="search" />
-                    <span styleName="nav-label">搜索</span>
-                  </Link>
-                </li>
-                {
-                  isLoggedIn && (
-                    <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
-                      <Link className={navLinkClassName} styleName="nav-link" to="/user/shelf">
-                        <Icon size={18} name="menu" />
-                        <span styleName="nav-label">我的书架</span>
+            <div styleName="sub-name">
+              {subTitle}
+            </div>
+            {
+              !hideNav && (
+                <div className="left" styleName="nav">
+                  <ul styleName="nav-links">
+                    <li styleName={cx({ 'nav-item': true, 'active': path === '/browse' })}>
+                      <Link className={navLinkClassName} styleName="nav-link" to="/browse">
+                        <Icon size={20} name="view" />
+                        <span styleName="nav-label">浏览</span>
                       </Link>
                     </li>
-                  )
-                }
-              </ul>
-            </div>
+                    <li styleName={cx({ 'nav-item': true, 'active': path === '/search' })}>
+                      <Link className={navLinkClassName} styleName="nav-link" to="/search">
+                        <Icon size={18} name="search" />
+                        <span styleName="nav-label">搜索</span>
+                      </Link>
+                    </li>
+                    {
+                      isLoggedIn && (
+                        <li styleName={cx({ 'nav-item': true, 'active': path === '/user/shelf' })}>
+                          <Link className={navLinkClassName} styleName="nav-link" to="/user/shelf">
+                            <Icon size={18} name="menu" />
+                            <span styleName="nav-label">我的书架</span>
+                          </Link>
+                        </li>
+                      )
+                    }
+                  </ul>
+                </div>
+              )
+            }
             {
               isLoggedIn
                 ? (
@@ -172,7 +181,7 @@ class Branding extends Component<OwnProps & OtherProps, IState> {
             }
           </div>
         </Container>
-      </div>
+      </div >
     )
   }
 }

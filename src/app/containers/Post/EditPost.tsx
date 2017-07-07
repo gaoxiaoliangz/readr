@@ -7,6 +7,7 @@ import withIndicator from '../../helpers/withIndicator'
 import POSTS_QUERY from '../../graphql/Posts.gql'
 import POST_QUERY from '../../graphql/Post.gql'
 import PostForm from './PostForm'
+import DocContainer from '../../components/DocContainer'
 
 type Data = State.Apollo<{
   post: any
@@ -51,10 +52,12 @@ class EditPost extends Component<OwnProps & StateProps, {}> {
 
   render() {
     return (
-      <PostForm
-        onSubmit={this._handleSubmit}
-        initialValues={this.props.data.post}
-      />
+      <DocContainer title="编辑页面/日志" bodyClass="page-edit-post">
+        <PostForm
+          onSubmit={this._handleSubmit}
+          initialValues={this.props.data.post}
+        />
+      </DocContainer>
     )
   }
 }

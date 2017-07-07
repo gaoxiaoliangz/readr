@@ -82,7 +82,7 @@ class AdminApp extends Component<Props, {}> {
     }
 
     return (
-      <DocContainer bodyClass="console">
+      <DocContainer bodyClass="console" titleTemplate="%s - Readr Console">
         <ConsoleBranding isAdmin username={username} onLogout={this._handleLogout} />
         <Container isFluid={true}>
           <ConsoleSidebar

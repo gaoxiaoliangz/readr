@@ -15,6 +15,7 @@ import Select from '../../components/Select/Select'
 import { POST_STATUS, POST_VISIBILITY, POST_CATEGORY } from '../../constants'
 import styles from './ManagePosts.scss'
 import helpers from '../../helpers'
+import DocContainer from '../../components/DocContainer'
 
 const mapOptions = val => {
   return {
@@ -141,7 +142,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
     })
 
     return (
-      <div>
+      <DocContainer title="页面管理">
         <div styleName="query-section">
           <Select
             value={postStatus}
@@ -172,7 +173,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
             >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
           )
         }
-      </div>
+      </DocContainer>
     )
   }
 }

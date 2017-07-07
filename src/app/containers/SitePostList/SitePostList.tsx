@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
 import withIndicator from '../../helpers/withIndicator'
-import Markdown from '../../components/Markdown/Markdown'
 import DocContainer from '../../components/DocContainer'
 import { Container } from '../../components/layout'
 import styles from './SitePosts.scss'
@@ -12,6 +11,7 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import CSSModules from 'react-css-modules'
 import POSTS_QUERY from './Posts.gql'
+import Post from './Post'
 
 type Data = State.Apollo<{
   posts: Schema.Connection<Schema.Post>
@@ -32,23 +32,26 @@ class SitePostList extends Component<OwnProps & StateProps, {}> {
 
     return (
       <DocContainer bodyClass="page-posts" title="博客">
-        <Branding />
-        <Container>
-          <h1 className="page-title">博客</h1>
-          {
-            data.posts.edges.map((edge, index) => {
-              const post = edge.node
-              return (
-                <div className="post" key={index}>
-                  <Link to={`/blog/posts/${post.id}`}>{post.title}</Link>
-                  <div className="time">{post.createdAt}</div>
-                  <Markdown
-                    input={post.markdown}
-                  />
-                </div>
-              )
-            })
-          }
+        <Branding
+          hideNav
+          subTitle={(
+            <Link className={styles.sub} to="/blog">
+              <span>博客</span>
+            </Link>
+          )}
+        />
+        <Container maxWidth={600}>
+          <div styleName="posts">
+            {
+              data.posts.edges.map((edge) => {
+                const post = edge.node
+
+                return (
+                  <Post titleWithLink useDigest post={post} key={edge.node.id} />
+                )
+              })
+            }
+          </div>
         </Container>
         <Colophon />
       </DocContainer>
