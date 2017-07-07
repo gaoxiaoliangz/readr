@@ -1,5 +1,4 @@
 import { GraphQLObjectType } from 'graphql'
-
 import {
   UpdateReadingProgressMutation,
   RemoveReadingProgressMutation,
@@ -7,7 +6,7 @@ import {
   ChangePasswordMutation
 } from './user'
 import { AddSlideMutation, UpdateSlideMutation } from './slides'
-import { AddCategoryMutation } from './categories'
+import { AddCategoryMutation, UpdateCategoryMutation, DelCategoryMutation } from './categories'
 import { UpdateBookMutation, DelBookMutation } from './books'
 import { AddPostMutation, UpdatePostMutation, DelPostMutation } from './posts'
 
@@ -25,7 +24,9 @@ const Mutation = new GraphQLObjectType({
     updatePost: UpdatePostMutation,
     delPost: DelPostMutation,
     updateBook: UpdateBookMutation,
-    delBook: DelBookMutation
+    delBook: DelBookMutation,
+    updateCategory: UpdateCategoryMutation,
+    delCategory: DelCategoryMutation
   }
 })
 

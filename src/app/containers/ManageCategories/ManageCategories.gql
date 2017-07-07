@@ -11,6 +11,8 @@ query Categories {
         name
         slug
         description
+        createdAt
+        updatedAt
       }
     }
   }

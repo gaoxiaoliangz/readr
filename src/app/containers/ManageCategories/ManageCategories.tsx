@@ -12,8 +12,8 @@ import CategoryForm from './components/CategoryForm'
 import Loading from '../../components/Loading'
 import MANAGE_BOOKS_QUERY from './ManageCategories.gql'
 import ADD_CATEGORY from '../../graphql/mutations/AddCategory.gql'
-// import UPDATE_CATEGORY from '../../graphql/mutations/UpdateCategory.gql'
-// import DEL_CATEGORY from '../../graphql/mutations/DelCategory.gql'
+import UPDATE_CATEGORY from '../../graphql/mutations/UpdateCategory.gql'
+import DEL_CATEGORY from '../../graphql/mutations/DelCategory.gql'
 
 type Data = State.Apollo<{
   categories: Schema.Connection<Schema.Category>
@@ -174,10 +174,10 @@ export default compose(
   graphql(ADD_CATEGORY, {
     name: 'addCategory'
   }),
-  // graphql(UPDATE_CATEGORY, {
-  //   name: 'updateCategory'
-  // }),
-  // graphql(DEL_CATEGORY, {
-  //   name: 'delCategory'
-  // })
+  graphql(UPDATE_CATEGORY, {
+    name: 'updateCategory'
+  }),
+  graphql(DEL_CATEGORY, {
+    name: 'delCategory'
+  })
 )(ManageCategories)
