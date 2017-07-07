@@ -55,21 +55,17 @@ class ConsoleBranding extends Component<Props, State> {
               <span styleName="sub">控制台</span>
             </div>
             <div styleName="nav right">
-              {
-                username && (
-                  <Dropdown
-                    title={(
-                      <span>{username || '无名'}{ isAdmin && <span className="badge">S</span> }</span>
-                    ) }
-                    >
-                    <Dropdown.Item><Link to="/">回到 Readr</Link></Dropdown.Item>
-                    <Dropdown.Item><Link to={`/user/profile`}>个人主页</Link></Dropdown.Item>
-                    <Dropdown.Item><Link to={`/user/preference`}>设置</Link></Dropdown.Item>
-                    <Dropdown.Sep />
-                    <Dropdown.Item><a onClick={this.handleLogoutClick} href="#">退出</a></Dropdown.Item>
-                  </Dropdown>
-                )
-              }
+              <Dropdown
+                title={(
+                  <span>{username || '无名'}{isAdmin && <span className="badge">S</span>}</span>
+                )}
+              >
+                <Dropdown.Item><Link to="/">回到 Readr</Link></Dropdown.Item>
+                <Dropdown.Item><Link to={`/user/profile`}>个人主页</Link></Dropdown.Item>
+                <Dropdown.Item><Link to={`/user/preference`}>设置</Link></Dropdown.Item>
+                <Dropdown.Sep />
+                <Dropdown.Item><a onClick={this.handleLogoutClick} href="#">退出</a></Dropdown.Item>
+              </Dropdown>
             </div>
           </div>
         </Container>
