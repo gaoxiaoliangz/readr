@@ -3,7 +3,7 @@
  * when match reg is not specified
  */
 
-const menus = [
+const menus: ConsoleMenus = [
   {
     icon: 'book',
     displayName: '',

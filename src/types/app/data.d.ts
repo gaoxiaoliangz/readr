@@ -22,6 +22,19 @@ interface ParsedNode {
   }
 }
 
+type ConsoleMenus = {
+  icon: string
+  displayName: string
+  path: string
+  subMenu?: [
+    {
+      displayName: string
+      path: string
+      match?: RegExp
+    }
+  ]
+}[]
+
 interface PaginationLink {
   page: string
   url: string

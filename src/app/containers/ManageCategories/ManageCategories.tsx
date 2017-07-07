@@ -11,8 +11,9 @@ import { Button } from '../../components/form'
 import CategoryForm from './components/CategoryForm'
 import Loading from '../../components/Loading'
 import MANAGE_BOOKS_QUERY from './ManageCategories.gql'
-// import UPDATE_CATEGORY from '../../graphql/mutations/UpdateBook.gql'
-// import DEL_CATEGORY from '../../graphql/mutations/DelBook.gql'
+import ADD_CATEGORY from '../../graphql/mutations/AddCategory.gql'
+// import UPDATE_CATEGORY from '../../graphql/mutations/UpdateCategory.gql'
+// import DEL_CATEGORY from '../../graphql/mutations/DelCategory.gql'
 
 type Data = State.Apollo<{
   categories: Schema.Connection<Schema.Category>
@@ -25,6 +26,7 @@ interface Props {
   routing: State.Routing
   openModal: typeof openModal
   closeModal: typeof closeModal
+  addCategory: typeof ApolloMutation
   updateCategory: typeof ApolloMutation
   delCategory: typeof ApolloMutation
 }
@@ -61,7 +63,7 @@ class ManageCategories extends Component<Props, void> {
           closeModal={this.props.closeModal}
           initialValues={itemData || {}}
           onSubmit={data => {
-            this.props.updateCategory({
+            this.props[isEdit ? 'updateCategory' : 'addCategory']({
               variables: {
                 ...data,
                 id: isEdit && itemData.id
@@ -169,6 +171,9 @@ export default compose(
     { sendNotification, openConfirmModal, closeConfirmModal, openModal, closeModal }
   ),
   withData,
+  graphql(ADD_CATEGORY, {
+    name: 'addCategory'
+  }),
   // graphql(UPDATE_CATEGORY, {
   //   name: 'updateCategory'
   // }),
