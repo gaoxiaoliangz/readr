@@ -6,24 +6,12 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import connectMongo from 'connect-mongo'
 import graphQLHTTP from 'express-graphql'
-import graffiti from '@risingstack/graffiti'
-import { getSchema } from '@risingstack/graffiti-mongoose'
 import render from './middleware/render'
 import bootServer from './bootstrap'
 import apiApp from './api/app'
 import getMongoDBUrl from './helpers/getMongoDBUri'
 import middleware from './middleware'
 import schema from './graphql/schema'
-import {
-  Author,
-  Book,
-  Collection,
-  File,
-  Progress,
-  Tag,
-  User,
-  Category
-} from './models/dataProvider'
 import { SESSION_SECRET, REQ_SIZE_LIMIT, PUBLIC_URL, PUBLIC_DIR, COOKIE_MAX_AGE } from './constants'
 
 const debug = require('debug')('readr:init')
@@ -36,6 +24,7 @@ interface InitConfig {
 }
 
 export default function initialize(config: InitConfig) {
+  debug('app init')
   const { basePath } = config
 
   // locals
@@ -80,27 +69,6 @@ export default function initialize(config: InitConfig) {
       pretty: true,
     })(req, res)
   })
-
-  // graffiti graphql
-  const schemaArr = [Author, Book, Collection, File, Progress, Tag, User, Category]
-  const hooks = {
-    viewer: {
-      pre: (next, root, args, request) => {
-        // authorize the logged in user based on the request
-        debug('hooks pre')
-        next()
-      },
-      post: (next, value) => {
-        debug('hooks post')
-        next()
-      }
-    }
-  }
-  const graffitiSchema = getSchema(schemaArr, { hooks })
-  app.use(graffiti.express({
-    schema: graffitiSchema,
-    context: {} // custom context
-  }))
 
   // rest api routing
   app.use(process.env.REST_API_PATH, apiApp())

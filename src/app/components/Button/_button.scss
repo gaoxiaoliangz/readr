@@ -41,23 +41,27 @@ $btn_border_radius: 3px;
   box-shadow: $shadow-z1;
 }
 
-.btn.btn--blue {
+.btn--blue {
   @include button-variant(#fff, $btn_blue, $btn_blue);
 }
 
-.btn.btn--orange {
+.btn--orange {
   @include button-variant(#fff, $btn_orange, $btn_orange);
 }
 
-.btn.btn--red {
+.btn--red {
   @include button-variant(#fff, $btn_red, $btn_red);
 }
 
-.btn.btn--green {
+.btn--green {
   @include button-variant(#fff, $btn_green, $btn_green);
 }
 
-.btn.btn--white {
+.btn--white {
+  @include button-variant(#333, $bg-gray, $gray);
+}
+
+.btn--transparent {
   @include button-variant(#333, #fff, #fff);
 }
 
@@ -72,4 +76,8 @@ $btn_border_radius: 3px;
 
 .btn--dark-bordered {
   @include button-variant($text-dark, transparent, $text);
+}
+
+.btn--fluid {
+  width: 100%;
 }

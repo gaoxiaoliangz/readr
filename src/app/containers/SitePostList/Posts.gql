@@ -1,6 +1,10 @@
-query Posts {
-  posts(
+query Posts($first: Int, $after: String) {
+  posts (
     category: BLOG
+    status: PUBLISHED
+    visibility: PUBLIC
+    first: $first
+    after: $after
   ) {
     totalCount
     pageInfo {
@@ -8,6 +12,7 @@ query Posts {
       hasPreviousPage
     }
     edges {
+      cursor
       node {
         id
         objectId

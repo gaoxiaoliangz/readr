@@ -9,6 +9,8 @@ import { GQLPostConnection, GQLPost } from '../types/GQLPost'
 import dataProvider from '../../models/dataProvider'
 import { GQLPostStatus, GQLPostVisibility, GQLPostCategory } from '../types/GQLPost'
 import { PostStatus, PostCategories, PostVisibility } from '../../api/enums'
+import { checkPermissionsOf } from '../../middleware/requirePermissionsOf'
+import errors from '../../errors'
 
 interface ListPostsConfig {
   status?: PostStatus
@@ -25,7 +27,6 @@ const listPosts = (config: ListPostsConfig = {}) => {
   }
 
   if (visibility) {
-    // query = query.where('visibility').equals(visibility)
     query = query.find({
       visibility
     })
@@ -52,7 +53,28 @@ export const postsField = makeNodeConnectionField({
     },
   },
   listAllFn: async (upper, args, req) => {
-    return listPosts(args)
+    const permissionError = checkPermissionsOf(req, 'admin')
+    let status = args.status
+    let visibility = args.visibility
+    if (permissionError) {
+      if (args.status && args.status !== PostStatus.Published) {
+        return Promise.reject(new errors.NoPermissionError('非管理员权限只能查看已发布 Post！'))
+      }
+      if (args.visibility && args.visibility !== PostVisibility.Public) {
+        return Promise.reject(new errors.NoPermissionError('非管理员权限只能查看公开的 Post！'))
+      }
+      if (!status) {
+        status = PostStatus.Published
+      }
+      if (!visibility) {
+        visibility = PostVisibility.Public
+      }
+    }
+    return listPosts({
+      ...args,
+      status,
+      visibility
+    })
   }
 })
 

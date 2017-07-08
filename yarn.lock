@@ -32,14 +32,6 @@
     typescript "^2.3.3"
     xml2js "^0.4.17"
 
-"@gxl/redux-form@^0.2.3":
-  version "0.2.3"
-  resolved "http://registry.npm.taobao.org/@gxl/redux-form/download/@gxl/redux-form-0.2.3.tgz#0c9ae165c3b8d4e6013bd126b534d804a351de34"
-  dependencies:
-    react "^15.4.1"
-    reselect "^2.5.4"
-    typescript "^2.1.4"
-
 "@playlyfe/gql@^2.2.4":
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/@playlyfe/gql/-/gql-2.2.4.tgz#cc93dfbcfdc99b422551bf2d80d85e521be05fda"
@@ -61,21 +53,6 @@
     node-ipc "9.0.1"
     parse-glob "3.0.4"
     promise-retry "1.1.1"
-
-"@risingstack/graffiti-mongoose@^6.0.0":
-  version "6.0.0"
-  resolved "http://registry.npm.taobao.org/@risingstack/graffiti-mongoose/download/@risingstack/graffiti-mongoose-6.0.0.tgz#e45b5e8f20efb3a7beb92d6b4d2116439909dc58"
-  dependencies:
-    babel-runtime "6.22.0"
-    graphql-relay "0.5.1"
-    lodash "4.17.4"
-
-"@risingstack/graffiti@^3.3.0":
-  version "3.3.0"
-  resolved "http://registry.npm.taobao.org/@risingstack/graffiti/download/@risingstack/graffiti-3.3.0.tgz#3d309659a88b96749cb106b3e410f75f2f2e1826"
-  dependencies:
-    babel-runtime "6.11.6"
-    boom "4.0.0"
 
 "@types/async@^2.0.31":
   version "2.0.40"
@@ -1574,23 +1551,16 @@ babel-register@^6.24.1, babel-register@^6.8.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@6.11.6:
-  version "6.11.6"
-  resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.11.6.tgz#6db707fef2d49c49bfa3cb64efdb436b518b8222"
-  dependencies:
-    core-js "^2.4.0"
-    regenerator-runtime "^0.9.5"
-
-babel-runtime@6.22.0, babel-runtime@^6.22.0:
-  version "6.22.0"
-  resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.22.0.tgz#1cf8b4ac67c77a4ddb0db2ae1f74de52ac4ca611"
+babel-runtime@6.23.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.20.0, babel-runtime@^6.23.0, babel-runtime@^6.6.1:
+  version "6.23.0"
+  resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-runtime@6.23.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.20.0, babel-runtime@^6.23.0, babel-runtime@^6.6.1:
-  version "6.23.0"
-  resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
+babel-runtime@^6.22.0:
+  version "6.22.0"
+  resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.22.0.tgz#1cf8b4ac67c77a4ddb0db2ae1f74de52ac4ca611"
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
@@ -1823,12 +1793,6 @@ boom@2.x.x:
   resolved "http://registry.npm.taobao.org/boom/download/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
-
-boom@4.0.0:
-  version "4.0.0"
-  resolved "http://registry.npm.taobao.org/boom/download/boom-4.0.0.tgz#7e59469264eaddb74fedfbc1b16524d69a694577"
-  dependencies:
-    hoek "4.x.x"
 
 boxen@^1.0.0:
   version "1.0.0"
@@ -4813,7 +4777,7 @@ graphql-anywhere@^3.0.0, graphql-anywhere@^3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/graphql-anywhere/download/graphql-anywhere-3.0.1.tgz#73531db861174c8f212eafb9f8e84944b38b4e5a"
 
-graphql-relay@0.5.1, graphql-relay@^0.5.1:
+graphql-relay@^0.5.1:
   version "0.5.1"
   resolved "http://registry.npm.taobao.org/graphql-relay/download/graphql-relay-0.5.1.tgz#3b3e44430a24c0f636e713f43f65bd542fe02ac9"
 
@@ -5101,10 +5065,6 @@ hmac-drbg@^1.0.0:
 hoek@2.x.x:
   version "2.16.3"
   resolved "http://registry.npm.taobao.org/hoek/download/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
-
-hoek@4.x.x:
-  version "4.1.1"
-  resolved "http://registry.npm.taobao.org/hoek/download/hoek-4.1.1.tgz#9cc573ffba2b7b408fb5e9c2a13796be94cddce9"
 
 hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
@@ -9025,7 +8985,7 @@ react@^0.13.3:
   dependencies:
     envify "^3.0.0"
 
-react@^15.3.2, react@^15.4.1:
+react@^15.3.2:
   version "15.5.4"
   resolved "http://registry.npm.taobao.org/react/download/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
@@ -9621,7 +9581,7 @@ requires-port@1.0.x, requires-port@1.x.x:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
 
-reselect@^2.5.3, reselect@^2.5.4:
+reselect@^2.5.3:
   version "2.5.4"
   resolved "http://registry.npm.taobao.org/reselect/download/reselect-2.5.4.tgz#b7d23fdf00b83fa7ad0279546f8dbbbd765c7047"
 
@@ -10904,7 +10864,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@2.3.4, typescript@^2.1.4, typescript@^2.3.3:
+typescript@2.3.4, typescript@^2.3.3:
   version "2.3.4"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
@@ -10912,16 +10872,7 @@ ua-parser-js@0.7.12, ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "http://registry.npm.taobao.org/ua-parser-js/download/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@^2.6:
-  version "2.8.28"
-  resolved "http://registry.npm.taobao.org/uglify-js/download/uglify-js-2.8.28.tgz#e335032df9bb20dcb918f164589d5af47f38834a"
-  dependencies:
-    source-map "~0.5.1"
-    yargs "~3.10.0"
-  optionalDependencies:
-    uglify-to-browserify "~1.0.0"
-
-uglify-js@^2.8.29:
+uglify-js@^2.6, uglify-js@^2.8.29:
   version "2.8.29"
   resolved "http://registry.npm.taobao.org/uglify-js/download/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
   dependencies:

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { Link } from 'react-router'
 import { compose, graphql } from 'react-apollo'
 import { sendNotification } from '../../actions'
 import withIndicator from '../../helpers/withIndicator'
 import DocContainer from '../../components/DocContainer'
+import Button from '../../components/Button/Button'
 import { Container } from '../../components/layout'
 import styles from './SitePosts.scss'
 import Branding from '../Branding/Branding'
@@ -27,6 +29,24 @@ interface StateProps {
 
 @CSSModules(styles)
 class SitePostList extends Component<OwnProps & StateProps, {}> {
+
+  _loadMore() {
+    const lastCursor = _.last(this.props.data.posts.edges).cursor
+    this.props.data.fetchMore({
+      variables: {
+        after: lastCursor,
+      },
+      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
+        const edges = [...previousResult.posts.edges, ...fetchMoreResult.posts.edges]
+        return _.merge({}, fetchMoreResult, {
+          posts: {
+            edges
+          }
+        })
+      }
+    })
+  }
+
   render() {
     const { data } = this.props
 
@@ -40,7 +60,7 @@ class SitePostList extends Component<OwnProps & StateProps, {}> {
             </Link>
           )}
         />
-        <Container maxWidth={600}>
+        <Container maxWidth={700}>
           <div styleName="posts">
             {
               data.posts.edges.map((edge) => {
@@ -50,6 +70,15 @@ class SitePostList extends Component<OwnProps & StateProps, {}> {
                   <Post titleWithLink useDigest post={post} key={edge.node.id} />
                 )
               })
+            }
+            {
+              this.props.data.posts.pageInfo.hasNextPage && (
+                <Button
+                  onClick={() => { this._loadMore() }}
+                  color="white"
+                  isFluid
+                >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
+              )
             }
           </div>
         </Container>
@@ -67,13 +96,13 @@ export default compose(
     { sendNotification }
   ),
   graphql(POSTS_QUERY, {
-    // options: (props) => {
-    //   return {
-    //     variables: {
-    //       slug: props.params.slug || null
-    //     }
-    //   }
-    // }
+    options: (props) => {
+      return {
+        variables: {
+          first: 5
+        }
+      }
+    }
   }),
   withIndicator()
 )(SitePostList) as React.ComponentClass<OwnProps>
