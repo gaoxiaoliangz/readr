@@ -1,6 +1,7 @@
 import {
   GraphQLID,
-  GraphQLString
+  GraphQLString,
+  GraphQLNonNull
 } from 'graphql'
 import { fromGlobalId } from 'graphql-relay'
 import _ from 'lodash'
@@ -9,6 +10,8 @@ import { GQLPostConnection, GQLPost } from '../types/GQLPost'
 import dataProvider from '../../models/dataProvider'
 import { GQLPostStatus, GQLPostVisibility, GQLPostCategory } from '../types/GQLPost'
 import { PostStatus, PostCategories, PostVisibility } from '../../api/enums'
+import { checkPermissionsOf } from '../../middleware/requirePermissionsOf'
+import errors from '../../errors'
 
 interface ListPostsConfig {
   status?: PostStatus
@@ -25,7 +28,6 @@ const listPosts = (config: ListPostsConfig = {}) => {
   }
 
   if (visibility) {
-    // query = query.where('visibility').equals(visibility)
     query = query.find({
       visibility
     })
@@ -42,16 +44,25 @@ export const postsField = makeNodeConnectionField({
   type: GQLPostConnection,
   extendedArgs: {
     status: {
-      type: GQLPostStatus
+      type: new GraphQLNonNull(GQLPostStatus)
     },
     visibility: {
-      type: GQLPostVisibility
+      type: new GraphQLNonNull(GQLPostVisibility)
     },
     category: {
       type: GQLPostCategory
     },
   },
   listAllFn: async (upper, args, req) => {
+    const permissionError = checkPermissionsOf(req, 'admin')
+    if (permissionError) {
+      if (args.status && args.status !== PostStatus.Published) {
+        return Promise.reject(new errors.NoPermissionError('非管理员权限只能查看已发布 Post！'))
+      }
+      if (args.visibility && args.visibility !== PostVisibility.Public) {
+        return Promise.reject(new errors.NoPermissionError('非管理员权限只能查看公开的 Post！'))
+      }
+    }
     return listPosts(args)
   }
 })
