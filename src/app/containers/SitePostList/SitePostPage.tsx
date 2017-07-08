@@ -42,7 +42,7 @@ class SitePostPage extends Component<OwnProps & StateProps, {}> {
             </Link>
           )}
         />
-        <Container maxWidth={600}>
+        <Container maxWidth={700}>
           <Post post={data.post} titleWithLink={false} />
         </Container>
         <Colophon />

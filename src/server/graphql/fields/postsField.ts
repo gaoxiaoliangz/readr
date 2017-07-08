@@ -1,7 +1,6 @@
 import {
   GraphQLID,
-  GraphQLString,
-  GraphQLNonNull
+  GraphQLString
 } from 'graphql'
 import { fromGlobalId } from 'graphql-relay'
 import _ from 'lodash'

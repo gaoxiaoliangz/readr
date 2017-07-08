@@ -30,11 +30,13 @@ class Signin extends Component<Props, {}> {
       <DocContainer title="登录">
         <Branding />
         <Container maxWidth={600}>
-          <h1 className="page-title">欢迎回来</h1>
-          <SigninForm
-            onSave={this.handleSubmit}
-          />
-          <p className="hint">没有账号？<Link to="/signup">注册</Link></p>
+          <div style={{margin: '100px 0'}}>
+            <h1 className="page-title">欢迎回来</h1>
+            <SigninForm
+              onSave={this.handleSubmit}
+            />
+            <p className="hint">没有账号？<Link to="/signup">注册</Link></p>
+          </div>
         </Container>
         <Colophon />
       </DocContainer>

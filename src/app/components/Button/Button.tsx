@@ -10,7 +10,7 @@ interface IProps {
   styleName?: any
   size?: 'small' | 'medium' | 'large'
   isFluid?: boolean
-  color?: 'red' | 'blue' | 'green' | 'orange' | 'white'
+  color?: 'red' | 'blue' | 'green' | 'orange' | 'white' | 'transparent'
   to?: string
   onClick?: any
   width?: number | string
