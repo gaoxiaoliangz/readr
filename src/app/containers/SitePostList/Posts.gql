@@ -1,6 +1,8 @@
 query Posts {
-  posts(
+  posts (
     category: BLOG
+    status: PUBLISHED
+    visibility: PUBLIC
   ) {
     totalCount
     pageInfo {

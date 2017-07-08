@@ -44,10 +44,10 @@ export const postsField = makeNodeConnectionField({
   type: GQLPostConnection,
   extendedArgs: {
     status: {
-      type: new GraphQLNonNull(GQLPostStatus)
+      type: GQLPostStatus
     },
     visibility: {
-      type: new GraphQLNonNull(GQLPostVisibility)
+      type: GQLPostVisibility
     },
     category: {
       type: GQLPostCategory
@@ -55,6 +55,8 @@ export const postsField = makeNodeConnectionField({
   },
   listAllFn: async (upper, args, req) => {
     const permissionError = checkPermissionsOf(req, 'admin')
+    let status = args.status
+    let visibility = args.visibility
     if (permissionError) {
       if (args.status && args.status !== PostStatus.Published) {
         return Promise.reject(new errors.NoPermissionError('非管理员权限只能查看已发布 Post！'))
@@ -62,8 +64,18 @@ export const postsField = makeNodeConnectionField({
       if (args.visibility && args.visibility !== PostVisibility.Public) {
         return Promise.reject(new errors.NoPermissionError('非管理员权限只能查看公开的 Post！'))
       }
+      if (!status) {
+        status = PostStatus.Published
+      }
+      if (!visibility) {
+        visibility = PostVisibility.Public
+      }
     }
-    return listPosts(args)
+    return listPosts({
+      ...args,
+      status,
+      visibility
+    })
   }
 })
 
