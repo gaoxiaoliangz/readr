@@ -1,5 +1,5 @@
 import { parseHTML } from '@gxl/epub-parser'
-import calcHeights from './calcHeights'
+import render from './render'
 import { groupNodesByPage } from './paging'
 
 // const debug = require('debug')('readr:genPages')
@@ -34,7 +34,7 @@ const genPages = async (config: Config) => {
       id: section.id
     }
   })
-  const heights = await calcHeights(_sections, {
+  const heights = await render(_sections, {
     fontSize: config.fontSize,
     lineHeight: config.lineHeight,
     width: config.width

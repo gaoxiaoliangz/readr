@@ -5,7 +5,8 @@ import AppDoc from '../../../app/components/AppDoc'
 import HTMLObjectsRenderer from '../../../app/components/HTMLObjectsRenderer'
 import evaluate from '../../helpers/evaluate'
 import { getCSSUri } from '../../middleware/render/renderView'
-const debug = require('debug')('readr:api:calcHeights')
+
+const debug = require('debug')('readr:bookapi:render')
 
 type MappedSection = {
   id: string
@@ -16,7 +17,7 @@ type RenderConfig = {
   width: number
   lineHeight: number
 }
-const calcHeights = async (sections: MappedSection[], rendererConfig: RenderConfig) => {
+const render = async (sections: MappedSection[], rendererConfig: RenderConfig) => {
   debug('start')
   // get node heights in sections
   const htmlString = renderToStaticMarkup(
@@ -40,7 +41,7 @@ const calcHeights = async (sections: MappedSection[], rendererConfig: RenderConf
     />
   )
 
-  const heights = evaluate(htmlString, {
+  const heights = await evaluate(htmlString, {
     saveShotAsPng: process.env.SAVE_PHANTOM_RENDER_IMAGE === '1',
     evalCallback: `
       var sections = document.querySelector('.sections').childNodes
@@ -64,4 +65,4 @@ const calcHeights = async (sections: MappedSection[], rendererConfig: RenderConf
   return heights
 }
 
-export default calcHeights
+export default render

@@ -29,14 +29,14 @@ function getPageOffset({pageIndex, pageHeight, nodeHeights}: {
 
 function getNodesOfPage({pageIndex, nodes, pageHeight, nodeHeights}: {
   pageIndex: number
-  nodes: any
+  nodes: ParsedNode[]
   pageHeight: number
   nodeHeights: number[]
 }) {
   let { offset, nodeStartIndex } = getPageOffset({ pageIndex, pageHeight, nodeHeights })
   let nodeIndex = nodeStartIndex
   let nodeEndIndex
-  let pageNodes = []
+  let pageNodes: ParsedNode[] = []
 
   let nodeHeightSum = offset + nodeHeights[nodeStartIndex]
 
@@ -59,17 +59,23 @@ function getNodesOfPage({pageIndex, nodes, pageHeight, nodeHeights}: {
 }
 
 export type TPage = {
-  elements: string[]
-  meta: any
+  elements: ParsedNode[]
+  meta: {
+    [key: string]: any
+    pageNo: number
+    offset: number
+  }
 }
 export type TPageList = TPage[]
 type GroupNodesByPageConfig = {
    nodeHeights: number[]
    pageHeight: number
    pageStartFrom: number
-   meta?: object
+   meta?: {
+     [key: string]: any
+   }
 }
-export function groupNodesByPage(elements: any, config: GroupNodesByPageConfig): TPageList {
+export function groupNodesByPage(elements: ParsedNode[], config: GroupNodesByPageConfig): TPageList {
   const { nodeHeights, pageHeight, pageStartFrom, meta } = config
   let pages = []
   let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
@@ -101,19 +107,3 @@ export function groupNodesByPage(elements: any, config: GroupNodesByPageConfig):
 
   return pages
 }
-
-// export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeightsOfChapters: {
-//   id: string
-//   nodeHeights: number[]
-// }[], pageHeight: number) {
-//   let pageStartFrom = 0
-//   let allPages = []
-
-//   contentOfChapters.forEach((chapter, index) => {
-//     const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
-//     allPages = allPages.concat(pages)
-//     pageStartFrom = pageStartFrom + pages.length
-//   })
-
-//   return allPages
-// }
