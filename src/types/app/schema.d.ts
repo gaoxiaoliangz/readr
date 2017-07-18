@@ -90,7 +90,7 @@ declare namespace Schema {
     edges: {
       cursor: string
       node: {
-        elements: ParsedNode[]
+        elements: HtmlNodeObject[]
         meta: {
           pageNo: number
           offset: number

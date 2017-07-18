@@ -126,7 +126,8 @@ export const processBook = async ({ result, options: _options }: { result; optio
         <br/>
         <h1>${parsedFile.info.title}</h1>
         <p>${parsedFile.info.author}</p>
-      `
+      `,
+      sectionGapLines: 5
     })
     return {
       ..._.omit(_result, 'file'),

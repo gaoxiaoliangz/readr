@@ -10,7 +10,7 @@ const debug = require('debug')('readr:bookapi:render')
 
 type MappedSection = {
   id: string
-  htmlObject: ParsedNode[]
+  htmlObjects: HtmlNodeObject[]
 }
 type RenderConfig = {
   fontSize: number
@@ -30,7 +30,7 @@ const render = async (sections: MappedSection[], rendererConfig: RenderConfig) =
               return (
                 <HTMLObjectsRenderer
                   key={index}
-                  htmlObjects={section.htmlObject}
+                  htmlObjects={section.htmlObjects}
                   {...rendererConfig}
                 />
               )
@@ -62,7 +62,7 @@ const render = async (sections: MappedSection[], rendererConfig: RenderConfig) =
     })
 
   debug('end')
-  return heights
+  return heights as number[][]
 }
 
 export default render
