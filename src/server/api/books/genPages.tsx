@@ -22,7 +22,7 @@ const genPages = async (config: Config) => {
   const sections = rawSections
     .map((section, index) => {
       let htmlObjects = section.htmlObjects
-      if (section.htmlObjects) {
+      if (!htmlObjects) {
         htmlObjects = section.toHtmlObjects()
       }
 

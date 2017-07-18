@@ -32,7 +32,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@gxl/epub-parser": "^1.0.1",
+    "@gxl/epub-parser": "^1.0.4",
     "@types/express-graphql": "^0.0.33",
     "@types/graphql": "^0.9.1",
     "@types/graphql-relay": "^0.4.2",

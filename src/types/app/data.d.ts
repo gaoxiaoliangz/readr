@@ -103,6 +103,6 @@ declare function ApolloMutation(config?: ApolloMutationConfig): Promise<any>
 type Section = {
   id: string
   htmlString: string
-  toHtmlObjects: () => HtmlNodeObject[]
-  htmlObjects: HtmlNodeObject[]
+  toHtmlObjects?: () => HtmlNodeObject[]
+  htmlObjects?: HtmlNodeObject[]
 }
