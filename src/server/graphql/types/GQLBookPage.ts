@@ -9,8 +9,8 @@ import {
 import md5 from 'md5'
 import { extendedConnectionDefinitions } from '../utils'
 
-const GQLHTMLElementObject = new GraphQLObjectType({
-  name: 'HTMLElementObject',
+const GQLHTMLNodeObject = new GraphQLObjectType({
+  name: 'HTMLNodeObject',
   fields: () => ({
     tag: {
       type: GraphQLString
@@ -25,9 +25,11 @@ const GQLHTMLElementObject = new GraphQLObjectType({
       type: new GraphQLObjectType({
         name: 'HTMLAttrObject',
         fields: {
-          tagId: {
+          nodeId: {
             type: GraphQLString,
-            resolve: obj => obj.id
+            resolve: obj => {
+              return obj.id
+            }
           },
           href: {
             type: GraphQLString
@@ -39,7 +41,7 @@ const GQLHTMLElementObject = new GraphQLObjectType({
       })
     },
     children: {
-      type: new GraphQLList(GQLHTMLElementObject)
+      type: new GraphQLList(GQLHTMLNodeObject)
     }
   })
 })
@@ -55,24 +57,20 @@ export const GQLBookPage = new GraphQLObjectType({
       },
       description: 'md5 of bookPage, apollo needs this to normalize data'
     },
-    elements: {
-      type: new GraphQLList(GQLHTMLElementObject)
+    nodes: {
+      type: new GraphQLList(GQLHTMLNodeObject)
     },
-    meta: {
-      type: new GraphQLObjectType({
-        name: 'BookPageMeta',
-        fields: {
-          pageNo: {
-            type: GraphQLInt
-          },
-          offset: {
-            type: GraphQLInt
-          },
-          sectionId: {
-            type: GraphQLString
-          }
-        }
-      })
+    pageNo: {
+      type: GraphQLInt
+    },
+    offset: {
+      type: GraphQLInt
+    },
+    sectionId: {
+      type: GraphQLString
+    },
+    sectionIds: {
+      type: new GraphQLList(GraphQLString)
     }
   }
 })
