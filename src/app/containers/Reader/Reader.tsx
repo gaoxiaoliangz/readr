@@ -58,7 +58,7 @@ class Reader extends Component<Props, State> {
     return {
       fontSize: getConfig('fontSize'),
       lineHeight: getConfig('lineHeight'),
-      pageHeight: contentWidth * aspectRatio,
+      pageHeight: Math.round(contentWidth * aspectRatio),
       width: contentWidth
     }
   }

@@ -231,7 +231,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     const { data: { bookInfo, bookPages }, config } = this.props
 
     return (
-      <DocContainer bodyClass="page-reader-v2">
+      <DocContainer bodyClass="page-reader-v2" title={bookInfo.title}>
         <ReaderComponentsLayer
           bookPages={bookPages}
           bookInfo={bookInfo}
