@@ -158,7 +158,7 @@ export function sectionsToPages(config: SectionsToPagesConfig) {
   })
     .map((page, index) => {
       let sectionIds = []
-      const nodes = page.nodes.map((_node, nodeIndex) => {
+      const nodes = page.nodes.map((nodeIndex) => {
         const { sectionId, node } = resolveNode(nodeIndex)
         sectionIds.push(sectionId)
         return node
