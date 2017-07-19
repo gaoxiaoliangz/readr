@@ -17,7 +17,6 @@ import {
 import { nodeInterface } from '../node'
 import { makeNodeConnectionField } from '../utils'
 import { getReadingProgressCore } from '../../api/user'
-import bookPagesField from '../fields/bookPagesField'
 import api from '../../api'
 import listBooks from '../listAllFns/listBooks'
 
@@ -56,7 +55,6 @@ const userField = {
           return listBooks(args)
         }
       }),
-      bookPages: bookPagesField,
       readingProgress: {
         type: GQLReadingProgress,
         args: {

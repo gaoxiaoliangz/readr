@@ -1,15 +1,15 @@
-fragment ElementFields on HTMLElementObject {
+fragment ElementFields on HTMLNodeObject {
   tag
   type
   text
   attrs {
-    tagId
+    nodeId
     href
     src
   }
 }
 
-fragment BookRecursiveElements on HTMLElementObject {
+fragment BookRecursiveElements on HTMLNodeObject {
   ...ElementFields
   children {
     ...ElementFields

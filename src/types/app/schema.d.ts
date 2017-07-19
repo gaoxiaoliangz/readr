@@ -90,11 +90,11 @@ declare namespace Schema {
     edges: {
       cursor: string
       node: {
-        elements: HtmlNodeObject[]
-        meta: {
-          pageNo: number
-          offset: number
-        }
+        nodes: HtmlNodeObject[]
+        pageNo: number
+        offset: number
+        sectionId: string
+        sectionIds: string[]
       }
     }[]
   }

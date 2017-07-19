@@ -26,6 +26,7 @@ import postsField, { postField } from './fields/postsField'
 import Mutation from './mutations'
 import userField from './fields/userField'
 import listBooks from './listAllFns/listBooks'
+import bookPagesField from './fields/bookPagesField'
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -85,6 +86,7 @@ const Query = new GraphQLObjectType({
       },
       listAllFn: (upper, args) => listBooks(args)
     }),
+    bookPages: bookPagesField,
     posts: postsField,
     post: postField
   }

@@ -1,6 +1,8 @@
-#import './fragments/BookPages.gql'
+#import '../../graphql/fragments/BookInfo.gql'
+#import '../../graphql/fragments/BookRecursiveToc.gql'
+#import '../../graphql/fragments/BookPages.gql'
 
-query BookPages(
+query ReaderInit(
     $bookId: ID!,
     $before: String,
     $after: String,
@@ -14,6 +16,14 @@ query BookPages(
     $fromHistory: Boolean
     $fromLocation: String
   ) {
+  bookInfo: node(id: $bookId) {
+    ...on Book {
+      ...BookInfo
+      toc {
+        ...BookRecursiveToc
+      }
+    }
+  }
   bookPages(
     offset: $offset,
     pageHeight: $pageHeight,
