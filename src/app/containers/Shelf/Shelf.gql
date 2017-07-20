@@ -1,7 +1,15 @@
-query UserUploadedBooks($offset: Int, $first: Int, $after: String, $query: String) {
+#import '../../graphql/fragments/ViewerReadingHistory.gql'
+
+query Shelf(
+  $booksFirst: Int,
+  $booksAfter: String
+) {
   viewer{
     id
-    books(first: $first, offset: $offset, after: $after, query: $query) {
+    readingHistory {
+      ...ViewerReadingHistory
+    }
+    books(first: $booksFirst, after: $booksAfter) {
       totalCount
       pageInfo {
         hasNextPage

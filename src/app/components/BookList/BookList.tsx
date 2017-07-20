@@ -44,9 +44,9 @@ class BookList extends Component<Props, void> {
                       disablePopup
                       percentage={book.percentage}
                       to={to}
-                      onDelBook={() => {
+                      onDelBook={onDelBook && (() => {
                         onDelBook(book)
-                      }}
+                      })}
                     />
                   </li>
                 )
