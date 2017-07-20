@@ -14,6 +14,7 @@ interface IProps {
   disablePopup?: boolean
   showDesc?: boolean
   percentage?: number
+  to?: string
 }
 
 interface IState {
@@ -47,11 +48,12 @@ export default class Book extends Component<IProps, IState> {
   }
 
   render() {
-    const { showDesc, description, cover, percentage } = this.props
+    const { showDesc, description, cover, percentage, to } = this.props
+    const defaultTo = '/book/' + this.props.id
 
     return (
       <div onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book--card">
-        <Link to={'/book/' + this.props.id} >
+        <Link to={to || defaultTo} >
           {
             cover && (
               <div styleName="book-cover"><img src={this.props.cover} /></div>

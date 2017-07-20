@@ -12,6 +12,7 @@ export interface Props {
     description: string
     cover: string
     percentage?: number
+    to?: string
   }[]
 }
 
@@ -34,7 +35,7 @@ class BookList extends Component<Props, void> {
           this.props.bookEntities && this.props.bookEntities.length !== 0
             ? (
               this.props.bookEntities.map((book, index) => {
-                const { title, authors, description, cover } = book
+                const { title, authors, description, cover, to } = book
                 const _authors = authors && authors.map(author => author.name).join(', ') || '未知作者'
                 return (
                   <li key={index}>
@@ -46,6 +47,7 @@ class BookList extends Component<Props, void> {
                       cover={cover}
                       disablePopup
                       percentage={book.percentage}
+                      to={to}
                     />
                   </li>
                 )

@@ -16,6 +16,7 @@ import FileUploader from '../../components/FileUploader'
 import UserUploadedBooks from '../UserUploadedBooks/UserUploadedBooks'
 import { sendNotification } from '../../actions'
 import Loading from '../../components/Loading/Loading'
+import helpers from '../../helpers'
 
 type Data = State.Apollo<{
   viewer: {
@@ -53,6 +54,48 @@ class Shelf extends Component<IProps, State> {
     }
   }
 
+  _renderUploader() {
+    return (
+      <FileUploader
+        style={{
+          display: 'block'
+        }}
+        url="/api/books"
+        accept=".txt,.epub"
+        name="book-file"
+        onStart={() => {
+          this.setState({
+            isUploading: true
+          })
+        }}
+        onSuccess={result => {
+          this.props.sendNotification(`${result.title} 添加成功`)
+          this.setState({
+            isUploading: false,
+            showUploads: false
+          }, () => {
+            // very hacky, not recommended!
+            this.setState({
+              showUploads: true
+            })
+          })
+        }}
+        onError={error => {
+          this.props.sendNotification(error.message, 'error')
+          this.setState({
+            isUploading: false
+          })
+        }}
+        fileFieldName="bookfile"
+      >
+        <div className={styles.uploader}>
+          <h2>选择书籍（.epub 文件）</h2>
+          <p>你上传的书籍仅对你自己可见</p>
+        </div>
+      </FileUploader>
+    )
+  }
+
   render() {
     return (
       <DocContainer title="我的书架" bodyClass="page-shelf">
@@ -68,62 +111,23 @@ class Shelf extends Component<IProps, State> {
           }}
         >
           <Tabs style={{ marginTop: 20 }}>
-            <Tab title="全部">
+            <Tab title="最近阅读">
               <BookList
                 bookEntities={this.props.data.viewer.readingHistory.edges.map(edge => {
                   return {
                     ...edge.node,
-                    id: edge.node.bookId
+                    id: edge.node.bookId,
+                    to: helpers.getReaderURI(edge.node.bookId)
                   }
                 })}
               />
             </Tab>
             <Tab title="我的上传">
-              <FileUploader
-                style={{
-                  marginTop: 20,
-                  display: 'block'
-                }}
-                url="/api/books"
-                accept=".txt,.epub"
-                name="book-file"
-                onStart={() => {
-                  this.setState({
-                    isUploading: true
-                  })
-                }}
-                onSuccess={result => {
-                  this.props.sendNotification(`${result.title} 添加成功`)
-                  this.setState({
-                    isUploading: false,
-                    showUploads: false
-                  }, () => {
-                    // very hacky, not recommended!
-                    this.setState({
-                      showUploads: true
-                    })
-                  })
-                }}
-                onError={error => {
-                  this.props.sendNotification(error.message, 'error')
-                  this.setState({
-                    isUploading: false
-                  })
-                }}
-                fileFieldName="bookfile"
-              >
-
-              </FileUploader>
               {
                 this.state.showUploads && (
                   <UserUploadedBooks
                     ref={ref => this.uploadComp = ref}
-                    prependList={[(
-                      <div className={styles.uploader}>
-                        <h2>选择书籍（.epub 文件）</h2>
-                        <p>你上传的书籍仅对你自己可见</p>
-                      </div>
-                    )]}
+                    prependList={[this._renderUploader()]}
                   />
                 )
               }
