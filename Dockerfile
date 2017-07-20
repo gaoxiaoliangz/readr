@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --force-yes --no-install-recommends fon
 
 RUN node -v
 RUN npm -v
-RUN yarn -v
+# RUN yarn -v
 
 # Set a working directory
 WORKDIR /usr/readr_app
