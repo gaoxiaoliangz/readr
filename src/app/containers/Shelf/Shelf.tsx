@@ -8,7 +8,6 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import DocContainer from '../../components/DocContainer'
 import { graphql, compose } from 'react-apollo'
-import withIndicator from '../../helpers/withIndicator'
 import CSSModules from 'react-css-modules'
 import styles from './Shelf.scss'
 import FileUploader from '../../components/FileUploader'
@@ -152,9 +151,55 @@ class Shelf extends Component<IProps, State> {
     )
   }
 
-  render() {
+  _renderContent() {
     const { data: { viewer: { books } } } = this.props
+    return (
+      <Container
+        style={{
+          minHeight: 400
+        }}
+      >
+        <Tabs style={{ marginTop: 20 }}>
+          <Tab title="最近阅读">
+            <BookList
+              onDelBook={this._handleDelProgress}
+              bookEntities={this.props.data.viewer.readingHistory.edges.map(edge => {
+                return {
+                  ...edge.node,
+                  id: edge.node.bookId,
+                  to: helpers.getReaderURI(edge.node.bookId),
+                  progressId: edge.node.id
+                }
+              })}
+            />
+          </Tab>
+          <Tab title="我的上传">
+            <div>
+              <BookList
+                bookEntities={books.edges.map(edge => {
+                  return edge.node
+                })}
+                prependList={[this._renderUploader()]}
+                onDelBook={this._handleDelUploadedBook}
+              />
+              {
+                this.props.data.viewer.books.pageInfo.hasNextPage && (
+                  <Button
+                    onClick={this._handleUploadedLoadMore}
+                    width={200}
+                    color="green"
+                    size="large"
+                  >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
+                )
+              }
+            </div>
+          </Tab>
+        </Tabs>
+      </Container>
+    )
+  }
 
+  render() {
     return (
       <DocContainer title="我的书架" bodyClass="page-shelf">
         <Branding />
@@ -163,48 +208,13 @@ class Shelf extends Component<IProps, State> {
             <Loading useNProgress />
           )
         }
-        <Container
-          style={{
-            minHeight: 400
-          }}
-        >
-          <Tabs style={{ marginTop: 20 }}>
-            <Tab title="最近阅读">
-              <BookList
-                onDelBook={this._handleDelProgress}
-                bookEntities={this.props.data.viewer.readingHistory.edges.map(edge => {
-                  return {
-                    ...edge.node,
-                    id: edge.node.bookId,
-                    to: helpers.getReaderURI(edge.node.bookId),
-                    progressId: edge.node.id
-                  }
-                })}
-              />
-            </Tab>
-            <Tab title="我的上传">
-              <div>
-                <BookList
-                  bookEntities={books.edges.map(edge => {
-                    return edge.node
-                  })}
-                  prependList={[this._renderUploader()]}
-                  onDelBook={this._handleDelUploadedBook}
-                />
-                {
-                  this.props.data.viewer.books.pageInfo.hasNextPage && (
-                    <Button
-                      onClick={this._handleUploadedLoadMore}
-                      width={200}
-                      color="green"
-                      size="large"
-                    >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
-                  )
-                }
-              </div>
-            </Tab>
-          </Tabs>
-        </Container>
+        {
+          this.props.data.loading
+            ? (
+              <Loading showPlaceholder />
+            )
+            : this._renderContent()
+        }
         <Colophon />
       </DocContainer>
     )
@@ -227,7 +237,6 @@ export default compose(
   graphql(DEL_BOOK_MUTATION, {
     name: 'delBook'
   }),
-  withIndicator(),
   connect(
     null,
     { sendNotification, openConfirmModal }

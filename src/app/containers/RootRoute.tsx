@@ -32,7 +32,7 @@ class Master extends Component<Props, {}> {
   componentWillReceiveProps(nextProps) {
     const hasNewErrorMsg = this.props.errorMessage.length !== nextProps.errorMessage.length
     const routerChanged = nextProps.routing.pathname !== this.props.routing.pathname
-    const ignoredRoute = [/reader\/v2/]
+    const ignoredRoute = [/reader\/v2/, /browse/]
 
     if (hasNewErrorMsg) {
       this.props.sendNotification(_.last(nextProps.errorMessage).toString(), 'error')
