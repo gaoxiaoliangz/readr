@@ -103,7 +103,7 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
     }
   }
 
-  _loadMore() {
+  _loadMore = () => {
     const lastCursor = _.last(this.props.data.posts.edges).cursor
     this.props.data.fetchMore({
       variables: {
@@ -129,8 +129,6 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
         node.title,
         node.category,
         node.slug,
-        node.status,
-        node.visibility,
         moment(new Date(node.createdAt).valueOf()).format('YYYY年MM月DD日'),
         (
           <div>
@@ -161,15 +159,16 @@ class ManagePosts extends Component<OwnProps & StateProps, State> {
           />
         </div>
         <InfoTable
-          header={['标题', '分类', '路径', '状态', '可见性', '创建时间', '操作']}
+          header={['标题', '分类', '路径', '创建时间', '操作']}
           rows={rows}
         />
         {
           this.props.data.posts.pageInfo.hasNextPage && (
             <Button
-              onClick={() => { this._loadMore() }}
-              width={200}
-              color="blue"
+              onClick={this._loadMore}
+              style={{ maxWidth: 200, marginBottom: 30 }}
+              isFluid
+              color="white"
             >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
           )
         }

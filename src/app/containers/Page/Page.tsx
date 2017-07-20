@@ -32,11 +32,15 @@ class Page extends Component<OwnProps & StateProps, {}> {
     return (
       <DocContainer bodyClass="page-about" title={data.post.title}>
         <Branding />
-        <Container>
-          <h1 className="page-title">{data.post.title}</h1>
-          <Markdown
-            input={data.post.markdown}
-          />
+        <Container maxWidth={600}>
+          <div styleName="post">
+            <h1 className="page-title">{data.post.title}</h1>
+            <div styleName="content">
+              <Markdown
+                input={data.post.markdown}
+              />
+            </div>
+          </div>
         </Container>
         <Colophon />
       </DocContainer>

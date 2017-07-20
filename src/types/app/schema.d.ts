@@ -32,9 +32,8 @@ declare namespace Schema {
     id: string
     objectId: string
     title: string
-    authors: {
-      name: string
-    }[]
+    authors: Author[]
+    categories: Category[]
     description: string
     cover: string
     createdAt: string

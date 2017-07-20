@@ -44,9 +44,16 @@ declare namespace Viewer {
 }
 
 declare namespace State {
+
+  type FetchMoreConfig = {
+    variables?: any
+    query?: any
+    updateQuery?: (previousResult, { fetchMoreResult }) => any
+  }
+
   type Apollo<Data> = {
     error: Error
-    fetchMore: (config) => ApolloFetchMoreResult<Data>
+    fetchMore: (config: FetchMoreConfig) => ApolloFetchMoreResult<Data>
     refetch: (variables?: any) => any
     loading: boolean
   } & Data

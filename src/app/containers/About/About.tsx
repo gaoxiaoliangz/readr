@@ -28,11 +28,13 @@ class About extends Component<Props, State> {
             slug="about"
             getComponent={(data) => {
               return (
-                <div className={styles.content}>
+                <div className={styles.post}>
                   <h1 className="page-title">{data.post.title}</h1>
-                  <Markdown
-                    input={data.post.markdown}
-                  />
+                  <div className={styles.content}>
+                    <Markdown
+                      input={data.post.markdown}
+                    />
+                  </div>
                 </div>
               )
             }}

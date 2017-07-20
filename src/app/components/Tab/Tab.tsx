@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 interface IProps {
   title: string
   tabKey?: string
+  hide?: boolean
 }
 
 interface IState {
@@ -10,11 +11,8 @@ interface IState {
 
 class Tab extends Component<IProps, IState> {
 
-  constructor(props) {
-    super(props)
-  }
-
-  componentDidMount() {
+  static defaultProps = {
+    hide: false
   }
 
   render() {

@@ -12,8 +12,15 @@ $padding-h: 30px;
   background: #fff;
   box-shadow: $shadow-x1;
   border: 1px solid $border-color-x1;
-  margin-top: 40px;
+  margin-top: 30px;
   border-radius: 3px;
+
+  @include phone {
+    border: none;
+    margin-top: 15px;
+    background: transparent;
+    box-shadow: none;
+  }
 }
 
 .book-info-container {
@@ -27,17 +34,16 @@ $padding-h: 30px;
   position: relative;
 
   @include phone {
-    padding: 20px;
+    padding: 0;
   }
 }
 
 .content {
   padding: 0 $padding-h $padding-v $padding-h;
-  // border-top: 1px solid $gray;
   line-height: 1.7;
 
   @include phone {
-    padding: 20px;
+    padding: 0;
   }
 }
 
@@ -54,6 +60,11 @@ $padding-h: 30px;
 .right-col {
   width: 100%;
   min-height: 140px;
+
+  @include phone {
+    position: relative;
+    top: 10px;
+  }
 }
 
 .book-name {
