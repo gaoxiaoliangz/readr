@@ -5,16 +5,22 @@ import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import styles from './Book.scss'
 
-interface IProps {
+export interface BookEntity {
   title: string
-  authors: string
+  authors: {
+    name: string
+  }[]
   description: string
   id: string
   cover: string
   disablePopup?: boolean
   showDesc?: boolean
   percentage?: number
+}
+
+interface IProps extends BookEntity {
   to?: string
+  onDelBook?: () => void
 }
 
 interface IState {
@@ -48,8 +54,9 @@ export default class Book extends Component<IProps, IState> {
   }
 
   render() {
-    const { showDesc, description, cover, percentage, to } = this.props
+    const { showDesc, description, cover, percentage, to, authors, onDelBook } = this.props
     const defaultTo = '/book/' + this.props.id
+    const _authors = authors && authors.map(author => author.name).join(', ') || '未知作者'
 
     return (
       <div onMouseEnter={this.showPopup} onMouseLeave={this.hidePopup} styleName="book--card">
@@ -61,7 +68,7 @@ export default class Book extends Component<IProps, IState> {
           }
           <div styleName="book-meta">
             <span title={this.props.title} className="text-overflow" styleName="book-name">{this.props.title || '无标题'}</span>
-            <span styleName="book-author">{this.props.authors || '作者不详'}</span>
+            <span styleName="book-author">{_authors || '作者不详'}</span>
             {
               showDesc && (
                 <span styleName="book-desc">{description || '空'}</span>
@@ -75,11 +82,21 @@ export default class Book extends Component<IProps, IState> {
           </div>
         </Link>
         {
+          onDelBook && (
+            <div
+              styleName="book-opt"
+              onClick={onDelBook}
+            >
+              del
+              </div>
+          )
+        }
+        {
           this.state.showPopup && !this.props.disablePopup && (
             <BookInfoPopup
               bookId={this.props.id}
               title={this.props.title}
-              author={this.props.authors}
+              author={_authors}
               description={this.props.description}
             />
           )

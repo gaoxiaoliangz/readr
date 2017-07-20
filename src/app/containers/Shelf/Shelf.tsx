@@ -8,13 +8,14 @@ import Branding from '../Branding/Branding'
 import Colophon from '../../components/Colophon/Colophon'
 import DocContainer from '../../components/DocContainer'
 import VIEWER_READING_HISTORY from '../../graphql/fragments/ViewerReadingHistory.gql'
+import REMOVE_READING_PROGRESS_MUTATION from '../../graphql/mutations/RemoveReadingProgress.gql'
 import { graphql, compose, gql } from 'react-apollo'
 import withIndicator from '../../helpers/withIndicator'
 import CSSModules from 'react-css-modules'
 import styles from './Shelf.scss'
 import FileUploader from '../../components/FileUploader'
 import UserUploadedBooks from '../UserUploadedBooks/UserUploadedBooks'
-import { sendNotification } from '../../actions'
+import { sendNotification, openConfirmModal } from '../../actions'
 import Loading from '../../components/Loading/Loading'
 import helpers from '../../helpers'
 
@@ -35,6 +36,8 @@ type Data = State.Apollo<{
 interface IProps {
   data: Data
   sendNotification: typeof sendNotification
+  openConfirmModal: typeof openConfirmModal
+  removeReadingProgress: typeof ApolloMutation
 }
 
 interface State {
@@ -52,6 +55,29 @@ class Shelf extends Component<IProps, State> {
       isUploading: false,
       showUploads: true
     }
+  }
+
+  _handleDelBook = (book) => {
+    this.props.openConfirmModal({
+      title: '确定删除',
+      content: `确定从“最近阅读”中删除《${book.title}》吗？`,
+      onConfirm: (close) => {
+        this.props.removeReadingProgress({
+          variables: {
+            bookId: book.id
+          }
+        })
+          .then(() => {
+            this.props.data.refetch()
+            this.props.sendNotification('删除成功！')
+            close()
+          })
+          .catch(err => {
+            close()
+            this.props.sendNotification(err.message, 'error')
+          })
+      }
+    })
   }
 
   _renderUploader() {
@@ -113,11 +139,13 @@ class Shelf extends Component<IProps, State> {
           <Tabs style={{ marginTop: 20 }}>
             <Tab title="最近阅读">
               <BookList
+                onDelBook={this._handleDelBook}
                 bookEntities={this.props.data.viewer.readingHistory.edges.map(edge => {
                   return {
                     ...edge.node,
                     id: edge.node.bookId,
-                    to: helpers.getReaderURI(edge.node.bookId)
+                    to: helpers.getReaderURI(edge.node.bookId),
+                    progressId: edge.node.id
                   }
                 })}
               />
@@ -158,10 +186,13 @@ const withData = graphql(gql`
 
 export default compose(
   withData,
+  graphql(REMOVE_READING_PROGRESS_MUTATION, {
+    name: 'removeReadingProgress'
+  }),
   withIndicator(),
   connect(
     mapStateToProps,
-    { sendNotification }
+    { sendNotification, openConfirmModal }
   ),
   CSSModules(styles)
 )(Shelf)
