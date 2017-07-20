@@ -4,6 +4,7 @@ import BookInfoPopup from '../BookInfoPopup'
 import _ from 'lodash'
 import CSSModules from 'react-css-modules'
 import styles from './Book.scss'
+import Icon from '../Icon'
 
 export interface BookEntity {
   title: string
@@ -87,8 +88,8 @@ export default class Book extends Component<IProps, IState> {
               styleName="book-opt"
               onClick={onDelBook}
             >
-              del
-              </div>
+              <Icon name="trash" />
+            </div>
           )
         }
         {
