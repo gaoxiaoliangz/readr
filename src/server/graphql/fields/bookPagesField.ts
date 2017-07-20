@@ -58,20 +58,20 @@ const bookPagesField = makeNodeConnectionField({
       })
 
       if (nodeId) {
-        const hasTagIdInElements = elements => {
-          return elements.some(e => {
+        const hasNodeIdInNodes = nodes => {
+          return nodes.some(e => {
             // attrs#id is the original key, tagId is renamed in graphql
             // because of some issue in apollo
             const hasNodeId = _.get(e, 'attrs.id', '') === nodeId
             if (e.children && !hasNodeId) {
-              return hasTagIdInElements(e.children)
+              return hasNodeIdInNodes(e.children)
             }
             return hasNodeId
           })
         }
 
-        result = result.filter(r => {
-          return hasTagIdInElements(r.elements)
+        result = result.filter(item => {
+          return hasNodeIdInNodes(item.nodes)
         })
       }
 
