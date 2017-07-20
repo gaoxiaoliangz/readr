@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../actions'
 import { bindActionCreators } from 'redux'
 import ReaderComponentsLayer from './ReaderComponentsLayer/ReaderComponentsLayer'
-import READER_INIT_QUERY from '../../graphql/ReaderInit.gql'
+import READER_INIT_QUERY from './ReaderInit.gql'
 import BOOK_PAGES_QUERY from '../../graphql/BookPages.gql'
 import UPDATE_READING_PROGRESS_MUTATION from '../../graphql/mutations/UpdateReadingProgress.gql'
 import * as selectors from '../../selectors'
@@ -17,9 +17,7 @@ const LOAD_PAGE_LIMIT = 8
 const SCROLL_DELAY = 100
 
 type Data = State.Apollo<{
-  viewer: {
-    bookPages: Schema.BookPages
-  }
+  bookPages: Schema.BookPages
   error: Error
   bookInfo: Schema.Book
   loading: boolean
@@ -81,13 +79,13 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     // when percentage is changed somewhere else and current client has cache
     // then entering that book again would override the newest progress
     // perform a check first?
-    let lastProgress = this.props.data.viewer.bookPages.lastProgress
+    let lastProgress = this.props.data.bookPages.lastProgress
     let scrollTop
-    if (this.props.data.viewer.bookPages.fromLocation) {
-      const startPage = this.props.data.viewer.bookPages.startPage + this.props.data.viewer.bookPages.offset - 1
+    if (this.props.data.bookPages.fromLocation) {
+      const startPage = this.props.data.bookPages.startPage + this.props.data.bookPages.offset - 1
       scrollTop = startPage * this.props.config.pageHeight
     } else {
-      scrollTop = lastProgress * this.props.config.pageHeight * this.props.data.viewer.bookPages.totalCount
+      scrollTop = lastProgress * this.props.config.pageHeight * this.props.data.bookPages.totalCount
     }
 
     if (this.props.routing.hash) {
@@ -101,7 +99,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   }
 
   _handleGoToRequest(percentage) {
-    document.body.scrollTop = percentage * this.props.config.pageHeight * this.props.data.viewer.bookPages.totalCount
+    document.body.scrollTop = percentage * this.props.config.pageHeight * this.props.data.bookPages.totalCount
   }
 
   _loadPage(config: { pageNo?, first?, fromLocation?} = {}) {
@@ -119,20 +117,17 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
         fromLocation: fromLocation || null
       },
       updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
-        let edges = [...previousResult.viewer.bookPages.edges, ...fetchMoreResult.viewer.bookPages.edges]
+        let edges = [...previousResult.bookPages.edges, ...fetchMoreResult.bookPages.edges]
         edges = _.unionBy(edges, node => {
           return node.cursor
         })
-        edges = edges.sort((a, b) => a.node.meta.pageNo - b.node.meta.pageNo)
+        edges = edges.sort((a, b) => a.node.pageNo - b.node.pageNo)
 
         const merged = {
           ...previousResult,
-          viewer: {
-            ...previousResult.viewer,
-            bookPages: {
-              ...fetchMoreResult.viewer.bookPages,
-              edges
-            }
+          bookPages: {
+            ...fetchMoreResult.bookPages,
+            edges
           }
         }
 
@@ -180,18 +175,18 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     const scrollTop = document.body.scrollTop
     const {
       config: { pageHeight },
-      data: { viewer: { bookPages: { totalCount } } }
+      data: { bookPages: { totalCount } }
     } = this.props
 
     const currentPageIndex = Math.floor(scrollTop / pageHeight)
     const pageNo = currentPageIndex + 1
-    const percentage = scrollTop / (this.props.data.viewer.bookPages.totalCount * pageHeight)
+    const percentage = scrollTop / (this.props.data.bookPages.totalCount * pageHeight)
     return { pageNo, totalCount, percentage }
   }
 
   _checkToLoadPage() {
     const {
-      data: { viewer: { bookPages: { edges } } }
+      data: { bookPages: { edges } }
     } = this.props
 
     const { pageNo } = this._getCurrentProgress()
@@ -208,7 +203,7 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
     let range = missings
     const getStartPos = () => {
       _.forEach(edges, edge => {
-        const _pageNo = edge.node.meta.pageNo
+        const _pageNo = edge.node.pageNo
         const foundIndex = missings.indexOf(_pageNo)
         if (foundIndex !== -1) {
           missings = missings.filter((m, index) => {
@@ -233,12 +228,12 @@ class ReaderDataLayer extends Component<StateProps & OwnProps, State> {
   }
 
   render() {
-    const { data: { bookInfo, viewer }, config } = this.props
+    const { data: { bookInfo, bookPages }, config } = this.props
 
     return (
-      <DocContainer bodyClass="page-reader-v2">
+      <DocContainer bodyClass="page-reader-v2" title={bookInfo.title}>
         <ReaderComponentsLayer
-          bookPages={viewer.bookPages}
+          bookPages={bookPages}
           bookInfo={bookInfo}
           onReachBottom={() => {
           }}

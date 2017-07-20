@@ -19,17 +19,15 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@gxl/epub-parser@^1.0.1":
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/@gxl/epub-parser/download/@gxl/epub-parser-1.0.1.tgz#3416c307b0147549517cdf069500e8ea961f5964"
+"@gxl/epub-parser@^1.0.5":
+  version "1.0.5"
+  resolved "http://registry.npm.taobao.org/@gxl/epub-parser/download/@gxl/epub-parser-1.0.5.tgz#0ec629c651b3690d86ebd2269b0d3147788377d4"
   dependencies:
-    "@types/md5" "^2.1.32"
     jsdom "9.12.0"
     lodash "^4.17.2"
-    md5 "^2.2.1"
     node-zip "^1.1.1"
     to-markdown "^3.0.3"
-    typescript "^2.3.3"
+    typescript "2.3.4"
     xml2js "^0.4.17"
 
 "@playlyfe/gql@^2.2.4":
@@ -10864,7 +10862,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@2.3.4, typescript@^2.3.3:
+typescript@2.3.4:
   version "2.3.4"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 

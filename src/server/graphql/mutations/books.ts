@@ -8,7 +8,6 @@ import {
 } from 'graphql'
 import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay'
 import dataProvider from '../../models/dataProvider'
-// import { GQLPostVisibility, GQLPostStatus, GQLPostCategory } from '../types/GQLPost'
 import { checkPermissionsOf } from '../../middleware/requirePermissionsOf'
 
 const bookInputFields = {
@@ -93,12 +92,32 @@ export const DelBookMutation = mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async (args, req) => {
-    const error = checkPermissionsOf(req, 'admin')
-    if (error) {
-      return Promise.reject(error)
-    }
     const bookId = fromGlobalId(args.id).id
-    const result = await dataProvider.Book.utils.removeById(bookId)
-    return result
+
+    const doDel = () => {
+      return dataProvider.Book.utils.removeById(bookId)
+    }
+
+    const error = checkPermissionsOf(req, 'admin')
+    const book = await dataProvider.Book.findById(bookId)
+
+    if (!book) {
+      return Promise.reject(new Error('书籍不存在！'))
+    }
+
+    if (!error) {
+      return doDel()
+    }
+
+    const currentUser = req.user._id
+
+    if (!currentUser) {
+      return Promise.reject(new Error('需要登录！'))
+    }
+
+    if ((book['provided_by'] && book['provided_by'].toString()) === currentUser) {
+      return doDel()
+    }
+    return Promise.reject(new Error('没有删除该书籍的权限！'))
   }
 })

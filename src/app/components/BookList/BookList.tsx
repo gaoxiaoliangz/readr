@@ -1,24 +1,22 @@
 import React, { Component } from 'react'
-import Book from '../Book'
+import Book, { BookEntity } from '../Book/Book'
 import CSSModules from 'react-css-modules'
-const styles = require('./BookList.scss')
+import styles from './BookList.scss'
+
+interface IBook extends BookEntity {
+  to?: string
+}
 
 export interface Props {
   prependList?: any[]
-  bookEntities: {
-    id: string
-    title: string
-    authors: any
-    description: string
-    cover: string
-    percentage?: number
-  }[]
+  bookEntities: IBook[]
+  onDelBook?: (bookEntity: BookEntity) => void
 }
 
 @CSSModules(styles)
 class BookList extends Component<Props, void> {
   render() {
-    const { prependList } = this.props
+    const { prependList, onDelBook } = this.props
     return (
       <ul styleName="book-list" className="clearfix">
         {
@@ -34,18 +32,21 @@ class BookList extends Component<Props, void> {
           this.props.bookEntities && this.props.bookEntities.length !== 0
             ? (
               this.props.bookEntities.map((book, index) => {
-                const { title, authors, description, cover } = book
-                const _authors = authors && authors.map(author => author.name).join(', ') || '未知作者'
+                const { title, authors, description, cover, to } = book
                 return (
                   <li key={index}>
                     <Book
                       id={book.id}
                       title={title || '无标题'}
-                      authors={_authors}
+                      authors={authors}
                       description={description}
                       cover={cover}
                       disablePopup
                       percentage={book.percentage}
+                      to={to}
+                      onDelBook={onDelBook && (() => {
+                        onDelBook(book)
+                      })}
                     />
                   </li>
                 )

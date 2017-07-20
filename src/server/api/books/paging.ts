@@ -3,7 +3,7 @@ import _ from 'lodash'
 // long paragraph situation doesn't seem to affect this function
 // offset distance is always negtive or zero
 // the index will be of the paragraph with this offset at the end
-function getPageOffset({pageIndex, pageHeight, nodeHeights}: {
+function getPageOffset({ pageIndex, pageHeight, nodeHeights }: {
   pageIndex: number
   pageHeight: number
   nodeHeights: number[]
@@ -27,22 +27,20 @@ function getPageOffset({pageIndex, pageHeight, nodeHeights}: {
   return { offset, nodeStartIndex }
 }
 
-function getNodesOfPage({pageIndex, nodes, pageHeight, nodeHeights}: {
+function getNodesOfPage({ pageIndex, pageHeight, nodeHeights }: {
   pageIndex: number
-  nodes: any
   pageHeight: number
   nodeHeights: number[]
 }) {
-  let { offset, nodeStartIndex } = getPageOffset({ pageIndex, pageHeight, nodeHeights })
+  const { offset, nodeStartIndex } = getPageOffset({ pageIndex, pageHeight, nodeHeights })
+  const nodes: number[] = []
   let nodeIndex = nodeStartIndex
   let nodeEndIndex
-  let pageNodes = []
-
   let nodeHeightSum = offset + nodeHeights[nodeStartIndex]
 
   nodeIndex++
   if (nodeHeightSum < pageHeight) {
-    while (nodeHeightSum <= pageHeight && nodeIndex !== nodes.length) {
+    while (nodeHeightSum <= pageHeight && nodeIndex !== nodeHeights.length) {
       nodeHeightSum += nodeHeights[nodeIndex]
       nodeIndex++
     }
@@ -51,69 +49,128 @@ function getNodesOfPage({pageIndex, nodes, pageHeight, nodeHeights}: {
     nodeEndIndex = nodeStartIndex
   }
 
-  for (let i = nodeStartIndex; i <= nodeEndIndex && i <= nodes.length - 1; i++) {
-    pageNodes.push(nodes[i])
+  for (let i = nodeStartIndex; i <= nodeEndIndex && i <= nodeHeights.length - 1; i++) {
+    nodes.push(i)
   }
 
-  return { pageNodes, offset }
+  return { nodes, offset }
 }
 
-export type TPage = {
-  elements: string[]
-  meta: any
+export type Page = {
+  offset: number
+  nodes: number[]
 }
-export type TPageList = TPage[]
 type GroupNodesByPageConfig = {
-   nodeHeights: number[]
-   pageHeight: number
-   pageStartFrom: number
-   meta?: object
+  nodeHeights: number[]
+  pageHeight: number
 }
-export function groupNodesByPage(elements: any, config: GroupNodesByPageConfig): TPageList {
-  const { nodeHeights, pageHeight, pageStartFrom, meta } = config
-  let pages = []
-  let pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
-  let pageSum = Math.ceil(pageHeightSum / pageHeight)
+export function groupNodesIntoPages(config: GroupNodesByPageConfig): Page[] {
+  const { nodeHeights, pageHeight } = config
+  const pageHeightSum = nodeHeights.reduce((a, b) => (a + b), 0)
+  const pageSum = Math.ceil(pageHeightSum / pageHeight)
 
   if (nodeHeights.length === 0) {
     return [{
-      elements,
-      meta: {
-        pageNo: 1 + pageStartFrom,
-        offset: 0,
-        ...meta
-      }
+      nodes: [],
+      offset: 0
     }]
   }
 
-  // finally
-  for (let i = 0; i < pageSum; i++) {
-    const { pageNodes, offset } = getNodesOfPage({ pageIndex: i, nodes: elements, nodeHeights, pageHeight })
-    pages.push({
-      elements: pageNodes,
-      meta: {
-        pageNo: pageStartFrom + i + 1,
-        offset,
-        ...meta
-      },
-    })
-  }
-
-  return pages
+  return _.times(pageSum, i => {
+    return getNodesOfPage({ pageIndex: i, nodeHeights, pageHeight })
+  })
 }
 
-// export function groupPageFromChapters(contentOfChapters: TBookFlesh, nodeHeightsOfChapters: {
-//   id: string
-//   nodeHeights: number[]
-// }[], pageHeight: number) {
-//   let pageStartFrom = 0
-//   let allPages = []
+type SectionsToPagesConfig = {
+  sections: Section[]
+  sectionsOfNodeHeights: number[][]
+  newPageAfterSection: boolean
+  pageHeight: number
+}
 
-//   contentOfChapters.forEach((chapter, index) => {
-//     const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
-//     allPages = allPages.concat(pages)
-//     pageStartFrom = pageStartFrom + pages.length
-//   })
+export function sectionsToPages(config: SectionsToPagesConfig) {
+  const { sections, sectionsOfNodeHeights, newPageAfterSection, pageHeight } = config
 
-//   return allPages
-// }
+  if (newPageAfterSection) {
+    return sections
+      .map((section, sectionIndex) => {
+        const nodeHeights = sectionsOfNodeHeights[sectionIndex]
+        const pages = groupNodesIntoPages({
+          nodeHeights,
+          pageHeight
+        })
+        return {
+          ...section,
+          pages: pages.map(page => {
+            return {
+              ...page,
+              nodes: page.nodes.map(nodeIndex => {
+                return section.htmlObjects[nodeIndex]
+              }),
+              sectionId: section.id,
+              sectionIds: [section.id]
+            }
+          })
+        }
+      })
+      .reduce((result, section, index) => {
+        return result.concat(section.pages)
+      }, [])
+      .map((page, index) => {
+        return {
+          ...page,
+          pageNo: index + 1
+        }
+      })
+  }
+
+  // scroll mode paging
+  const nodeHeights = sectionsOfNodeHeights.reduce((allHeights, sectionHeights) => {
+    return allHeights.concat(sectionHeights)
+  }, [])
+
+  const sectionNodeCounts = sections.map(section => {
+    return section.htmlObjects.length
+  })
+
+  const resolveNode = (globalNodeIndex) => {
+    let pointer = 0
+    let sum = sectionNodeCounts[pointer]
+    while (globalNodeIndex + 1 > sum) {
+      pointer++
+      sum += sectionNodeCounts[pointer]
+    }
+
+    // from here pointer is the current section index
+    const localNodeIndex = globalNodeIndex - sectionNodeCounts.slice(0, pointer).reduce((total, current) => {
+      return total + current
+    }, 0)
+
+    return {
+      node: sections[pointer].htmlObjects[localNodeIndex],
+      sectionId: sections[pointer].id
+    }
+  }
+
+  return groupNodesIntoPages({
+    nodeHeights,
+    pageHeight
+  })
+    .map((page, index) => {
+      let sectionIds = []
+      const nodes = page.nodes.map((nodeIndex) => {
+        const { sectionId, node } = resolveNode(nodeIndex)
+        sectionIds.push(sectionId)
+        return node
+      })
+      sectionIds = _.union(sectionIds)
+
+      return {
+        pageNo: index + 1,
+        offset: page.offset,
+        nodes,
+        sectionId: _.first(sectionIds),
+        sectionIds
+      }
+    })
+}

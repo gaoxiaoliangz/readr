@@ -10,13 +10,13 @@ type PostVisibility = 'PUBLIC' | 'PRIVATE' | ''
 type PostCategory = 'BLOG' | 'BOOK_WEEKLY' | 'PAGES' | ''
 type Roles = 'admin' | 'user' | 'visitor'
 
-interface ParsedNode {
+interface HtmlNodeObject {
   tag?: string
   type: 1 | 3
   text?: string
-  children?: ParsedNode[]
+  children?: HtmlNodeObject[]
   attrs: {
-    tagId: string
+    nodeId: string
     href: string
     src: string
   }
@@ -99,3 +99,10 @@ type ApolloMutationConfig = {
   }[]
 }
 declare function ApolloMutation(config?: ApolloMutationConfig): Promise<any>
+
+type Section = {
+  id: string
+  htmlString: string
+  toHtmlObjects?: () => HtmlNodeObject[]
+  htmlObjects?: HtmlNodeObject[]
+}

@@ -11,11 +11,11 @@ fragment BookPages on BookPageConnection {
     cursor
     node {
       id
-      meta {
-        pageNo
-        offset
-      }
-      elements {
+      pageNo
+      offset
+      sectionId
+      sectionIds
+      nodes {
         ...BookRecursiveElements
       }
     }

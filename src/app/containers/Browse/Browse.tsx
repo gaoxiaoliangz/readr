@@ -11,10 +11,10 @@ import BrandingWithImage from '../Branding/BrandingWithImage'
 import Colophon from '../../components/Colophon/Colophon'
 import BookListSection from '../../components/BookListSection'
 import BROWSE_QUERY from './Browse.gql'
-import withIndicator from '../../helpers/withIndicator'
 import { Tab, Tabs } from '../../components/Tab'
 import BookList from '../../components/BookList/BookList'
 import helpers from '../../helpers'
+import Loading from '../../components/Loading/Loading'
 
 interface Props {
   data: State.Apollo<{
@@ -39,49 +39,69 @@ class Browse extends Component<Props, void> {
     )
   }
 
+  _renderMain() {
+    const renderedBooks = this.renderCateBooks()
+
+    return (
+      <Container>
+        <BookListSection
+          title="精选推荐"
+          bookEntities={_.map(this.props.data.featuredBooks.edges, 'node')}
+          isFetching={this.props.data.loading}
+        />
+        <Tabs
+          style={{ marginTop: 20 }}
+          controlled
+          active={this.props.params.category || 'all'}
+          onTabSwitch={tabKey => {
+            if (tabKey === 'all') {
+              helpers.redirect(`/browse`)
+            } else {
+              helpers.redirect(`/browse/category/${tabKey}`)
+            }
+          }}
+        >
+          <Tab title="全部" tabKey="all">
+            {renderedBooks}
+          </Tab>
+          {
+            this.props.data.categories.edges.map(cateEdge => {
+              return (
+                <Tab tabKey={cateEdge.node.id} key={cateEdge.node.id} title={cateEdge.node.name}>
+                  {renderedBooks}
+                </Tab>
+              )
+            })
+          }
+        </Tabs>
+      </Container>
+    )
+  }
+
   render() {
-    const slideNode = (_.first(this.props.data.slides.edges) || {})['node']
+    const slideNode = (_.first(_.get(this, 'props.data.slides.edges', [])) || {})['node']
     const onlyImage = slideNode && {
       src: slideNode.picture,
       to: slideNode.url
     }
-    const renderedBooks = this.renderCateBooks()
 
     return (
       <DocContainer bodyClass="page-browse" title="浏览">
         <BrandingWithImage onlyImage={onlyImage} />
-        <Container>
-          <BookListSection
-            title="精选推荐"
-            bookEntities={_.map(this.props.data.featuredBooks.edges, 'node')}
-            isFetching={this.props.data.loading}
-          />
-          <Tabs
-            style={{ marginTop: 20 }}
-            controlled
-            active={this.props.params.category || 'all'}
-            onTabSwitch={tabKey => {
-              if (tabKey === 'all') {
-                helpers.redirect(`/browse`)  
-              } else {
-                helpers.redirect(`/browse/category/${tabKey}`)
-              }
-            }}
-          >
-            <Tab title="全部" tabKey="all">
-              {renderedBooks}
-            </Tab>
-            {
-              this.props.data.categories.edges.map(cateEdge => {
-                return (
-                  <Tab tabKey={cateEdge.node.id} key={cateEdge.node.id} title={cateEdge.node.name}>
-                    {renderedBooks}
-                  </Tab>
-                )
-              })
-            }
-          </Tabs>
-        </Container>
+        {
+          this.props.data.loading && (
+            <Loading />
+          )
+        }
+        {
+          this.props.data.books
+            ? (
+              this._renderMain()
+            )
+            : (
+              <Loading showPlaceholder />
+            )
+        }
         <Colophon />
       </DocContainer>
     )
@@ -106,6 +126,5 @@ const withData = graphql(BROWSE_QUERY, {
 
 export default compose(
   withData,
-  withIndicator(),
   connect(mapStateToProps)
 )(Browse)

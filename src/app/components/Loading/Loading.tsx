@@ -11,6 +11,8 @@ interface Props {
   center?: boolean
   useDynamicDots?: boolean
   useNProgress?: boolean
+  showPlaceholder?: boolean
+  paddingBottom?: number
 }
 
 interface State {
@@ -21,6 +23,15 @@ interface State {
 class Loading extends Component<Props, State> {
 
   intervalId: any
+
+  static defaultProps = {
+    text: '加载中',
+    useDynamicDots: false,
+    showPlaceholder: false,
+    useNProgress: true,
+    center: true,
+    paddingBottom: 200
+  }
 
   constructor(props) {
     super(props)
@@ -53,21 +64,15 @@ class Loading extends Component<Props, State> {
     }
   }
 
-  render() {
-    const { text, center, useDynamicDots, useNProgress } = this.props
+  _renderPlaceholder() {
+    const { text, center, useDynamicDots, paddingBottom } = this.props
     const { dynamicDots } = this.state
-
     const wrapClass = classnames({
       'loading-wrap--center': center,
       'loading-wrap': !center
     })
-
-    if (useNProgress) {
-      return <div></div>
-    }
-
     return (
-      <div styleName={wrapClass}>
+      <div styleName={wrapClass} style={{ paddingBottom }}>
         <p styleName="text-loading">
           <img styleName="gif" src={loadingGif} />
           <span>{text + (useDynamicDots ? dynamicDots : '...')}</span>
@@ -75,11 +80,18 @@ class Loading extends Component<Props, State> {
       </div>
     )
   }
-}
 
-Loading['defaultProps'] = {
-  text: '加载中',
-  useDynamicDots: false
+  render() {
+    const { useNProgress, showPlaceholder } = this.props
+
+    if (useNProgress) {
+      if (showPlaceholder) {
+        return this._renderPlaceholder()
+      }
+      return <div></div>
+    }
+    return this._renderPlaceholder()
+  }
 }
 
 export default Loading

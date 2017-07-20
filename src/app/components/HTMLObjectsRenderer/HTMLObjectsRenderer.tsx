@@ -7,10 +7,10 @@ type Props = {
   fontSize: number
   width: number
   lineHeight: number
-  htmlObjects: ParsedNode[]
+  htmlObjects: HtmlNodeObject[]
 }
 
-const renderObjects = (objects: ParsedNode[], isRoot = false) => {
+const renderObjects = (objects: HtmlNodeObject[], isRoot = false) => {
   return objects.map((object, index) => {
     const { tag, type, text, children, attrs } = object
 
@@ -19,8 +19,8 @@ const renderObjects = (objects: ParsedNode[], isRoot = false) => {
         key: index,
         className: isRoot ? styles['line'] : ''
       },
-      ..._.omit(attrs, ['__typename', 'tagId']),
-      id: attrs && attrs.tagId
+      ..._.omit(attrs, ['__typename', 'nodeId']),
+      id: attrs && attrs.nodeId
     }
 
     if (type === 3) {

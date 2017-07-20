@@ -51,27 +51,27 @@ const bookPagesField = makeNodeConnectionField({
     if (args.fromLocation) {
       const loc = args.fromLocation.split(',')
       const sectionId = loc[0]
-      const tagId = loc[1]
+      const nodeId = loc[1]
 
       let result = list.filter(d => {
-        return d.meta.sectionId === sectionId
+        return d.sectionId === sectionId
       })
 
-      if (tagId) {
-        const hasTagIdInElements = elements => {
-          return elements.some(e => {
+      if (nodeId) {
+        const hasNodeIdInNodes = nodes => {
+          return nodes.some(e => {
             // attrs#id is the original key, tagId is renamed in graphql
             // because of some issue in apollo
-            const hasTagId = _.get(e, 'attrs.id', '') === tagId
-            if (e.children && !hasTagId) {
-              return hasTagIdInElements(e.children)
+            const hasNodeId = _.get(e, 'attrs.id', '') === nodeId
+            if (e.children && !hasNodeId) {
+              return hasNodeIdInNodes(e.children)
             }
-            return hasTagId
+            return hasNodeId
           })
         }
 
-        result = result.filter(r => {
-          return hasTagIdInElements(r.elements)
+        result = result.filter(item => {
+          return hasNodeIdInNodes(item.nodes)
         })
       }
 
@@ -79,7 +79,7 @@ const bookPagesField = makeNodeConnectionField({
         return Promise.reject(new Error('Location not found!'))
       }
 
-      const pageNo = result[0].meta.pageNo - 1
+      const pageNo = result[0].pageNo - 1
       return offset + pageNo
     }
 
@@ -112,7 +112,7 @@ const bookPagesField = makeNodeConnectionField({
       return {
         ...base,
         offset: 0,
-        startPage: _.get(connection, 'edges[0].node.meta.pageNo', null)
+        startPage: _.get(connection, 'edges[0].node.pageNo', null)
       }
     }
 

@@ -17,7 +17,6 @@ import {
 import { nodeInterface } from '../node'
 import { makeNodeConnectionField } from '../utils'
 import { getReadingProgressCore } from '../../api/user'
-import bookPagesField from '../fields/bookPagesField'
 import api from '../../api'
 import listBooks from '../listAllFns/listBooks'
 
@@ -53,10 +52,15 @@ const userField = {
           if (!userId) {
             return Promise.reject(new Error('需要登录！'))
           }
-          return listBooks(args)
+          const allBooks = await listBooks(args)
+          const uploaded = allBooks.filter(book => {
+            const bookOwner = book['provided_by'] && book['provided_by'].toString()
+            return userId === bookOwner
+          })
+
+          return uploaded
         }
       }),
-      bookPages: bookPagesField,
       readingProgress: {
         type: GQLReadingProgress,
         args: {
