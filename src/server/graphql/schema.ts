@@ -10,6 +10,7 @@ import {
 import {
   fromGlobalId
 } from 'graphql-relay'
+import mongodb from 'mongodb'
 import _ from 'lodash'
 import dataProvider from '../models/dataProvider'
 import {
@@ -65,10 +66,21 @@ const Query = new GraphQLObjectType({
       },
       resolve: async (parent, args) => {
         const { id } = fromGlobalId(args.id)
+
+        if (!mongodb.ObjectID.isValid(id)) {
+          return Promise.reject(new Error('书籍未找到！'))
+        }
+
         return dataProvider.Book.findById(id)
           .populate('file authors categories')
           .exec()
-          .then(res => res.toObject())
+          .then(res => {
+            if (!res) {
+              return Promise.reject(new Error('书籍未找到！'))
+            }
+            return res.toObject()
+          }
+          )
       }
     },
     books: makeNodeConnectionField({
