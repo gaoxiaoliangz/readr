@@ -15,14 +15,17 @@ import { Tab, Tabs } from '../../components/Tab'
 import BookList from '../../components/BookList/BookList'
 import helpers from '../../helpers'
 import Loading from '../../components/Loading/Loading'
+import Button from '../../components/Button/Button'
+
+type Data = State.Apollo<{
+  slides: Schema.Connection<Schema.Slide>
+  featuredBooks: Schema.Connection<Schema.Book>
+  books: Schema.Connection<Schema.Book>
+  categories: Schema.Connection<Schema.Category>
+}>
 
 interface Props {
-  data: State.Apollo<{
-    slides: Schema.Connection<Schema.Slide>
-    featuredBooks: Schema.Connection<Schema.Book>
-    books: Schema.Connection<Schema.Book>
-    categories: Schema.Connection<Schema.Category>
-  }>
+  data: Data
   params: {
     category: string
   }
@@ -31,16 +34,39 @@ interface Props {
 @CSSModules(styles)
 class Browse extends Component<Props, void> {
 
-  renderCateBooks() {
+  _renderCateBooks() {
     return (
-      <BookList
-        bookEntities={_.map(this.props.data.books.edges, 'node')}
-      />
+      <div>
+        <BookList
+          bookEntities={_.map(this.props.data.books.edges, 'node')}
+        />
+        {
+          this.props.data.books.pageInfo.hasNextPage && (
+            <Button color="white" style={{ maxWidth: 200 }} isFluid onClick={this._loadMore}>更多</Button>
+          )
+        }
+      </div>
     )
   }
 
+  _loadMore = () => {
+    const lastCursor = _.last(this.props.data.books.edges).cursor
+    this.props.data.fetchMore({
+      variables: {
+        after: lastCursor
+      },
+      updateQuery: (previousResult: Data, { fetchMoreResult }: { fetchMoreResult: Data }) => {
+        const edges = [...previousResult.books.edges, ...fetchMoreResult.books.edges]
+        const cloned = _.cloneDeep(previousResult)
+        cloned.books = fetchMoreResult.books
+        cloned.books.edges = edges
+        return cloned
+      }
+    })
+  }
+
   _renderMain() {
-    const renderedBooks = this.renderCateBooks()
+    const renderedBooks = this._renderCateBooks()
 
     return (
       <Container>
@@ -53,6 +79,7 @@ class Browse extends Component<Props, void> {
           style={{ marginTop: 20 }}
           controlled
           active={this.props.params.category || 'all'}
+          title="书籍分类"
           onTabSwitch={tabKey => {
             if (tabKey === 'all') {
               helpers.redirect(`/browse`)

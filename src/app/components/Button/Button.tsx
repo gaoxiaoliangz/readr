@@ -14,6 +14,7 @@ interface IProps {
   to?: string
   onClick?: any
   width?: number | string
+  maxWidth?: number
   // when bordered is set color is ignored
   bordered?: boolean
   darkBordered?: boolean
@@ -44,7 +45,7 @@ class Button extends Component<IProps, IState> {
   }
 
   render() {
-    let { onClick, color, size, isFluid, width, to, bordered, darkBordered, preventDefault, style, ...rest } = this.props
+    let { onClick, color, size, isFluid, width, to, bordered, darkBordered, preventDefault, style, maxWidth, ...rest } = this.props
 
     const styleName = classnames({
       'btn': true,
@@ -77,8 +78,9 @@ class Button extends Component<IProps, IState> {
       <button
         {...rest}
         style={{
+          width,
+          maxWidth,
           ...style,
-          width
         }}
         onClick={onClick}
         styleName={styleName}

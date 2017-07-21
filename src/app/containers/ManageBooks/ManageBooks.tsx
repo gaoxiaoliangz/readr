@@ -137,8 +137,8 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
     const rows = entities
       .map((row, index) => {
         return [
-          row.objectId,
           row.title,
+          row.categories.map(cate => cate.name).join(', '),
           moment(new Date(row.createdAt).valueOf()).format('YYYY年MM月DD日'),
           row.authors ? row.authors.map(author => author.name).join(', ') : '未知作者',
           (
@@ -174,7 +174,7 @@ class ManageBooks extends Component<Props, { showModal: boolean }> {
         </FileUploader>
         <InfoTable
           rows={rows}
-          header={['ID', '书名', '创建日期', '作者', '操作']}
+          header={['书名', '分类', '创建日期', '作者', '操作']}
         />
         <Paginator
           all={Math.ceil(this.props.data.books.totalCount / PAGE_LIMIT)}

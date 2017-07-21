@@ -77,6 +77,7 @@ class SitePostList extends Component<OwnProps & StateProps, {}> {
                   onClick={() => { this._loadMore() }}
                   color="white"
                   isFluid
+                  maxWidth={200}
                 >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
               )
             }

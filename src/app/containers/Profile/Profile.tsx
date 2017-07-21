@@ -64,9 +64,9 @@ class Profile extends Component<IProps, {}> {
                 })}
               />
             </Tab>
-            <Tab title="我的收藏">
+            <Tab hide title="我的收藏">
               该功能仍在开发中，敬请期待！
-              </Tab>
+            </Tab>
           </Tabs>
         </div>
       </Container>

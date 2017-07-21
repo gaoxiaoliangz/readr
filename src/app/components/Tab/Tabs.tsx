@@ -11,6 +11,7 @@ interface IProps {
   style?: any
   controlled?: boolean
   active?: number | string
+  title?: string
 }
 
 interface IState {
@@ -46,7 +47,7 @@ class Tabs extends Component<IProps, IState> {
   }
 
   render() {
-    const { style, controlled } = this.props
+    const { style, controlled, title } = this.props
     const active = controlled ? (this.props.active || 0) : this.state.active
 
     if (this.props.controlled && _.isUndefined(this.props.active)) {
@@ -57,20 +58,30 @@ class Tabs extends Component<IProps, IState> {
       <div className="tabs" {...style ? { style } : null}>
         <div styleName="tabs-header">
           <ul>
-            {(this.props.children as any).map((child, index) => {
-              const tabKey = child.props.tabKey || index
-              return (
-                <li
-                  styleName={classNames({
-                    'active': tabKey === active
-                  })}
-                  key={index}
-                  onClick={this.handleTabClick.bind(this, tabKey)}
-                >
-                  {child.props.title}
-                </li>
+            {
+              title && (
+                <li styleName="tab-title">{title}</li>
               )
-            })}
+            }
+            {
+              _.filter(this.props.children as any[], child => {
+                return !child.props.hide
+              })
+                .map((child, index) => {
+                  const tabKey = child.props.tabKey || index
+                  return (
+                    <li
+                      styleName={classNames({
+                        active: tabKey === active,
+                        tab: true
+                      })}
+                      key={index}
+                      onClick={this.handleTabClick.bind(this, tabKey)}
+                    >
+                      {child.props.title}
+                    </li>
+                  )
+                })}
           </ul>
         </div>
         {

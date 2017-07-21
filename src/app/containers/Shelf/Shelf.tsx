@@ -159,7 +159,7 @@ class Shelf extends Component<IProps, State> {
           minHeight: 400
         }}
       >
-        <Tabs style={{ marginTop: 20 }}>
+        <Tabs style={{ marginTop: 20 }} title="我的书架">
           <Tab title="最近阅读">
             <BookList
               onDelBook={this._handleDelProgress}
@@ -184,12 +184,9 @@ class Shelf extends Component<IProps, State> {
               />
               {
                 this.props.data.viewer.books.pageInfo.hasNextPage && (
-                  <Button
-                    onClick={this._handleUploadedLoadMore}
-                    width={200}
-                    color="green"
-                    size="large"
-                  >{this.props.data.loading ? '加载中 ...' : '更多'}</Button>
+                  <Button color="white" style={{ maxWidth: 200 }} isFluid onClick={this._handleUploadedLoadMore}>
+                    {this.props.data.loading ? '加载中 ...' : '更多'}
+                  </Button>
                 )
               }
             </div>
