@@ -3,6 +3,12 @@ import React from 'react'
 export const INITIAL_STATE_VAR_NAME = '__INITIAL_STATE__'
 export const DOCTYPE = '<!DOCTYPE html>'
 
+type Script = ({
+  src?: string
+  type?: string
+  innerHTML?: string
+} | string)[]
+
 interface Props {
   bodyClass?: string
   appMarkup: string | JSX.Element
@@ -22,11 +28,8 @@ interface Props {
   // override title in helmetHeadObject
   title?: string
 
-  script?: ({
-    src?: string
-    type?: string
-    innerHTML?: string
-  } | string)[]
+  headScript?: Script
+  script?: Script
 
   link?: ({
     rel?: string
@@ -36,13 +39,35 @@ interface Props {
   children?: Object
 }
 
+const renderScript = (_script: Script) => {
+  return _script.map((script, index) => {
+    if (typeof script === 'string') {
+      return (
+        <script key={index} src={script} />
+      )
+    }
+
+    const { src, type, innerHTML } = script
+
+    return (
+      <script
+        key={index}
+        src={src}
+        type={type || 'text/javascript'}
+        dangerouslySetInnerHTML={{ __html: innerHTML }}
+      />
+    )
+  })
+}
+
 const AppDoc = (props: Props) => {
   const {
     script: bodyScript,
+    headScript,
     link: otherLink,
     bodyClass, appMarkup, initialState, style,
     helmetHeadObject: {
-      title, meta, link: helmetLink, script: headScript
+      title, meta, link: helmetLink, script: helmetHeadScript
     },
     title: masterTitle
   } = props
@@ -90,7 +115,8 @@ const AppDoc = (props: Props) => {
             })
           )
         }
-        {headScript && headScript.toComponent()}
+        {helmetHeadScript && helmetHeadScript.toComponent()}
+        {headScript && renderScript(headScript)}
       </head>
       <body {...bodyClass && { className: bodyClass }}>
         {props.children}
@@ -106,28 +132,7 @@ const AppDoc = (props: Props) => {
             />
           )
         }
-        {
-          bodyScript && (
-            bodyScript.map((script, index) => {
-              if (typeof script === 'string') {
-                return (
-                  <script key={index} src={script} />
-                )
-              }
-
-              const { src, type, innerHTML } = script
-
-              return (
-                <script
-                  key={index}
-                  src={src}
-                  type={type || 'text/javascript'}
-                  dangerouslySetInnerHTML={{ __html: innerHTML }}
-                />
-              )
-            })
-          )
-        }
+        {bodyScript && renderScript(bodyScript)}
       </body>
     </html>
   )
