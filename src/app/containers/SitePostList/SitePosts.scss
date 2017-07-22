@@ -43,6 +43,14 @@
   p {
     margin: 0 0 15px 0;
   }
+  ul {
+    li {
+      list-style: none;
+      &:before {
+        content: '- '
+      }
+    }
+  }
 }
 
 .title-link {
