@@ -19,7 +19,9 @@ interface ListPostsConfig {
 }
 
 const listPosts = (config: ListPostsConfig = {}) => {
-  let query = dataProvider.Post.find({})
+  let query = dataProvider.Post.find({}).sort({
+    created_at: -1
+  })
   const { status, visibility, category } = config
 
   if (status) {
