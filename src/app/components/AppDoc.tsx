@@ -4,6 +4,7 @@ export const INITIAL_STATE_VAR_NAME = '__INITIAL_STATE__'
 export const DOCTYPE = '<!DOCTYPE html>'
 
 type Script = ({
+  async?: boolean
   src?: string
   type?: string
   innerHTML?: string
@@ -47,10 +48,11 @@ const renderScript = (_script: Script) => {
       )
     }
 
-    const { src, type, innerHTML } = script
+    const { src, type, innerHTML, async } = script
 
     return (
       <script
+        {...async && { async }}
         key={index}
         src={src}
         type={type || 'text/javascript'}

@@ -11,16 +11,6 @@ import { PUBLIC_URL } from '../../constants'
 
 const debug = require('debug')('readr:renderView')
 
-const anaCode = `
-  var _hmt = _hmt || [];
-  (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?d16c533053b2d1229b591554207de4c7";
-    var s = document.getElementsByTagName("script")[0]; 
-    s.parentNode.insertBefore(hm, s);
-  })();
-`
-
 const resolveDevAssets = (assetName) => {
   return path.join(PUBLIC_URL, assetName)
 }
@@ -60,9 +50,33 @@ export function renderView() {
   const isProduction = process.env.NODE_ENV === 'production'
   const cssAssets = getCSSUri(isProduction)
   const jsAssets = getJSUri(isProduction)
-  const headScript = isProduction && [{
-    innerHTML: anaCode
-  }]
+  const headScript = isProduction && [
+    // 百度统计
+    {
+      innerHTML: `
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?d16c533053b2d1229b591554207de4c7";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+      `
+    },
+    // Google Analytics
+    {
+      src: 'https://www.googletagmanager.com/gtag/js?id=UA-106141307-3',
+      async: true,
+    },
+    {
+      innerHTML: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments)};
+        gtag('js', new Date());
+        gtag('config', 'UA-106141307-3');
+      `
+    }
+  ]
 
   return async (req, res) => {
     const { renderProps, statusCode } = req.locals.matchedResults
