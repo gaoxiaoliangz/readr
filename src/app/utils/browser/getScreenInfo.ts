@@ -7,7 +7,7 @@ interface ScreenInfo {
 
 export default function getScreenInfo(): ScreenInfo {
   if (typeof window === 'undefined') {
-    console.error('window is undefined, empty info object will be returned!')
+    // console.error('window is undefined, empty info object will be returned!')
 
     return {
       _screen: {} as any
