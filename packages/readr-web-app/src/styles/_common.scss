@@ -1,0 +1,177 @@
+// commonly used global styles, do not import this file in components
+// it will expose all the classes in the module unexpectedly
+
+// links
+.light-link {
+  color: #fff;
+
+  &:hover {
+    color: #ddd;
+  }
+}
+
+.text-link {
+  color: $text;
+
+  &:hover {
+   color: $blue;
+  }
+}
+
+.dark-link { 
+  color: $text-dark;
+  cursor: pointer; margin: 0 5px; display: inline-block;
+  &:hover {
+   color: $text;
+  }
+}
+
+.border-link {
+  color: $text-dark;
+  border-bottom: 1px solid $text-dark;
+  cursor: pointer; margin: 0 5px; display: inline-block;
+  &:hover {
+   color: $text-light;
+   border-color: $text-light
+  }
+}
+
+// page
+.page-title {
+  margin: 35px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.page-header {
+  margin: 35px 0;
+  position: relative;
+}
+
+.page-header > .page-title {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  line-height: 46px;
+}
+
+.page-content {
+  max-width: 700px;
+  margin: 0 auto;
+
+  @include phone {
+    max-width: 100%;
+  }
+}
+
+// layout
+.sep {
+  margin: 0 5px;
+  color: $gray;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.clearfix {
+  &:after {
+    content: " ";
+    clear: both;
+    display: table;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+}
+
+.content-container {
+  width: $reading-width;
+  margin: 0 auto;
+
+  @include phone {
+    width: 100%;
+  }
+}
+
+.text-overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+// styled
+.badge {
+  background: $blue;
+  border-radius: 3px;
+  padding: 3px 4px;
+  font-size: 0.8rem;
+  color: #fff;
+  margin: 0 5px;
+}
+
+.badge--dark {
+  composes: badge;
+  background: black;
+}
+
+.tag {
+  background: $blue;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: 0 5px 5px 0;
+  color: #fff;
+  display: inline-block;
+}
+
+.tag-l {
+  background: #b7c0c7;
+  border-radius: 3px;
+  padding: 6px 20px;
+  margin: 0 15px 15px 0;
+  color: #fff;
+  display: inline-block;
+  
+  .icon {
+    margin: 0 5px;
+  }
+}
+
+.circled {
+  min-width: 19px;
+  height: 19px;
+  box-sizing: border-box;
+  padding: 1px 4px 0;
+  line-height: 19px;
+  background: #00bcd5;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+.text-loading {
+  text-align: center;
+  margin: 50px 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: $text-light;
+}

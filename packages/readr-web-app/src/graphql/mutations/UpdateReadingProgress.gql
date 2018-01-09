@@ -1,0 +1,8 @@
+mutation updateReadingProgress($bookId: ID!, $percentage: Float!) {
+  updateReadingProgress(input: { bookId: $bookId, percentage: $percentage }) {
+    ok
+    n
+    nModified
+    clientMutationId
+  }
+}

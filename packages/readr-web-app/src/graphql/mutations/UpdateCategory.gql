@@ -1,0 +1,17 @@
+mutation updateCategory(
+  $id: ID!
+  $slug: String!
+  $name: String!
+  $description: String
+) {
+  updateCategory(input: {
+    id: $id
+    slug: $slug
+    name: $name
+    description: $description
+  }) {
+    n
+    nModified
+    ok
+  }
+}

@@ -1,0 +1,54 @@
+@import "~styles/variables";
+
+.info-table--no-header {
+  position: relative;
+}
+
+.info-table {
+  margin: 20px 0;
+  width: 100%;
+  line-height: 2.5;
+  font-size: 1rem;
+  position: relative;
+
+  >tbody {
+    >tr:first-child {
+      border-bottom: 2px solid $text;
+      font-weight: bold;
+      line-height: 2.5
+    }
+
+    >tr {
+      border-bottom: 1px solid $gray;
+
+      >th {
+        text-align: left;
+        border-bottom: 1px solid $gray;
+      }
+
+      >td, th {
+        padding: 0 10px;
+        max-width: 250px;
+      }
+    }
+  }
+}
+
+.actions {
+  min-width: 80px;
+
+  .action {
+    cursor: pointer;
+    color: $blue;
+    display: inline-block;
+    margin-right: 5px;
+
+    &:hover {
+      color: lighten($blue, 20%);
+    }
+
+    &:active {
+      color: darken($blue, 20%);
+    }
+  }
+}

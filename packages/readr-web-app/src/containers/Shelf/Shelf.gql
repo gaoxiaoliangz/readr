@@ -1,0 +1,36 @@
+#import '../../graphql/fragments/ViewerReadingHistory.gql'
+
+query Shelf(
+  $booksFirst: Int,
+  $booksAfter: String
+) {
+  viewer{
+    id
+    readingHistory {
+      ...ViewerReadingHistory
+    }
+    books(first: $booksFirst, after: $booksAfter) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          objectId
+          title
+          cover
+          description
+          createdAt
+          authors {
+            name
+          }
+        }
+      }
+    }
+  }
+}

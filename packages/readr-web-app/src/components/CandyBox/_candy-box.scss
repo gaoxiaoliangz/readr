@@ -1,0 +1,19 @@
+.candy-box {
+  h3.box-title {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: $text_d;
+  }
+  ul {
+    li {
+      border-top: 1px solid $gray_l;
+      a {
+        color: $text_n;
+        line-height: 2.5;
+        &:hover {
+          color: $link_n;
+        }
+      }
+    }
+  }
+}

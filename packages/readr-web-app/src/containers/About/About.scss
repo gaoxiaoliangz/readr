@@ -1,0 +1,16 @@
+@import "~styles/variables";
+
+.post {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  min-height: 400px;
+  margin-top: 20px;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  .content {
+    font-size: 1rem;
+  }
+}

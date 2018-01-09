@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  font-size: $root-font-size;
+}
+body {
+  font-size: 1rem;
+  font-family: $sans-font;
+  color: $text;
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: rgba(47, 141, 246, .3);
+  color: $text;
+  text-shadow: none;
+}
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+a {
+  color: $blue;
+  transition: all .2s ease-in;
+}
+a:hover {
+  color: $text;
+}
+a:active {
+  color: $text-dark;
+  transition: all 0s;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+}

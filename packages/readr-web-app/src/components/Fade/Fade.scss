@@ -1,0 +1,21 @@
+:root {
+  --time: .3s;
+}
+
+.enter {
+  opacity: 0.01;
+  transition: opacity var(--time) ease-in;
+}
+
+.enterActive {
+  opacity: 1;
+}
+
+.leave {
+  opacity: 1;
+  transition: opacity var(--time) ease-in;
+}
+
+.leaveActive {
+  opacity: 0;
+}

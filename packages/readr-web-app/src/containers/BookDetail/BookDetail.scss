@@ -1,0 +1,102 @@
+@import "~styles/variables";
+@import "~styles/mixins/screens";
+
+$padding-v: 30px;
+$padding-h: 30px;
+
+:global .page-book-info {
+  background: $bg-gray;
+}
+
+.book-detail {
+  background: #fff;
+  box-shadow: $shadow-x1;
+  border: 1px solid $border-color-x1;
+  margin-top: 30px;
+  border-radius: 3px;
+
+  @include phone {
+    border: none;
+    margin-top: 15px;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+.book-info-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.header {
+  overflow: hidden;
+  padding: $padding-v $padding-h $padding-v/2;
+  position: relative;
+
+  @include phone {
+    padding: 0;
+  }
+}
+
+.content {
+  padding: 0 $padding-h $padding-v $padding-h;
+  line-height: 1.7;
+
+  @include phone {
+    padding: 0;
+  }
+}
+
+.btn-read {
+  position: absolute;
+  bottom: $padding-v;
+}
+
+.left-col {
+  float: left;
+  margin-right: 30px;
+}
+
+.right-col {
+  width: 100%;
+  min-height: 140px;
+
+  @include phone {
+    position: relative;
+    top: 10px;
+  }
+}
+
+.book-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: $text-dark;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+.book-author {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.book-cover {
+  margin: 0;
+  top: 0;
+  position: relative;
+  box-shadow: $shadow-z1;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.img {
+  width: 100px;
+  height: auto;
+  display: block;
+}
+
+.desc {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $text-dark;
+}

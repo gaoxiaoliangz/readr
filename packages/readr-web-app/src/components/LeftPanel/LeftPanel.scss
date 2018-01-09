@@ -1,0 +1,29 @@
+@import "~styles/variables";
+@import "~styles/mixins/screens";
+
+$height: $branding-height;
+
+.viewer-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 300px;
+  background: #fff;
+  overflow-y: scroll;
+  z-index: $z-vnav;
+  box-shadow: $shadow-y2;
+  font-size: 1.2rem;
+  @include phone {
+    width: 70%;
+  }
+
+  ul {
+    text-align: left;
+    line-height: 2.2;
+  }
+}
+
+.wrap {
+  padding: 0 20px;
+}

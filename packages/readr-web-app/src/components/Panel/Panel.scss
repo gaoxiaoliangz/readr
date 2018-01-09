@@ -1,0 +1,32 @@
+@import "~styles/variables";
+
+$panel_background: #fff;
+$panel_text: $text;
+$height: $branding-height;
+
+.panel {
+  width: 100%;
+  position: fixed;
+  z-index: 990;
+  background: $panel_background;
+  color: $panel_text;
+  box-shadow: $shadow-x2;
+  height: $height;
+}
+
+.panel--top {
+  composes: panel;
+  top: 0;
+}
+
+.panel--bottom {
+  composes: panel;
+  bottom: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: $height;
+  position: relative;
+}

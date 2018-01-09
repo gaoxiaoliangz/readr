@@ -1,0 +1,47 @@
+@import "~styles/variables";
+
+.branding {
+  background: $dark-blue;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-console-branding;
+  height: $branding-height;
+}
+
+.sep {
+  margin: 0 10px;
+  opacity: .6;
+  font-size: 1rem;
+}
+
+.sub {
+  opacity: .8;
+  font-size: 1rem;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.right {
+  float: right;
+} 
+
+.sub-name {
+  float: left;
+  margin-left: 15px;
+  
+  span {
+    display: inline-block;
+    line-height: $branding-height;
+    height: $branding-height;
+    color: #fff;
+  }
+}
+
+.nav {
+  color: #fff;
+  line-height: $branding-height;
+  height: $branding-height;
+  composes: nav from '../../containers/Branding/Branding.scss'
+}

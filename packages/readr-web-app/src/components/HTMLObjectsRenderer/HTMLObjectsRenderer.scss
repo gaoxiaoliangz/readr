@@ -1,0 +1,56 @@
+.h-tags {
+  font-weight: normal;
+}
+
+.section {
+  margin: 0 auto;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  br {
+    line-height: 20px;
+  }
+
+  p {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    min-height: 20px;
+    display: block;
+  }
+
+  h1 {
+    @extend .h-tags;
+    font-size: 2em;
+    line-height: 50px;
+  }
+
+  h2 {
+    @extend .h-tags;
+    font-size: 1.5em;
+    line-height: 40px;
+  }
+
+  h3 {
+    @extend .h-tags;
+    font-size: 1.2em;
+    line-height: 30px;
+  }
+
+  h4, h5, h6 {
+    @extend .h-tags;
+    font-size: 1em;
+    font-weight: bold;
+  }
+}
+
+.line {
+  margin: 0;
+}

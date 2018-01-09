@@ -1,0 +1,81 @@
+@import "~styles/variables";
+
+// $size: 20px;
+
+// .scrollbar {
+//   width: 2px;
+//   min-height: 400px;
+//   position: fixed;
+//   right: 40px;
+//   top: 100px;
+
+//   &:hover {
+//     .button {
+//       display: block;
+//     }
+//   }
+// }
+
+// .track {
+//   width: 2px;
+//   background: darken($color: $gray, $amount: 10%);
+//   border-radius: 3px;
+//   position: absolute;
+//   left: 8px;
+//   top: 0;
+//   z-index: 1;
+// }
+
+// .track--past {
+//   composes: track;
+//   background: lighten($color: $blue, $amount: 30%);
+//   z-index: 2;
+// }
+
+// .button {
+//   width: $size;
+//   height: $size;
+//   background: $blue;
+//   box-shadow: $shadow-y1;
+//   position: absolute;
+//   left: 0;
+//   top: 84px;
+//   cursor: pointer;
+//   border-radius: 50%;
+//   z-index: 3;
+//   display: none;
+// }
+
+.loc-info {
+  text-align: center;
+  color: $dark;
+  padding: 7px 15px;
+  width: 100%;
+  background: #fff;
+
+  // blur
+  // -webkit-backdrop-filter: saturate(180%) blur(10px);
+  // backdrop-filter: saturate(180%) blur(10px);
+  // background-color: rgba(255, 255, 255, 0.8);
+
+  .sep {
+    margin: 0 3px;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.sub-info {
+  font-size: 0.8rem;
+  color: $text-light;
+}
+
+.recent-title {
+  font-weight: normal;
+  margin: 0 0 10px 0;
+  font-size: 22px;
+}

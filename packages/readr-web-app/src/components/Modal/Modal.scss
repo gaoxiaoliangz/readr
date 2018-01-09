@@ -1,0 +1,65 @@
+@import "~styles/variables";
+
+.modal {
+  background: #fff;
+  padding: 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  
+  .icon-close {
+    cursor: pointer;
+  }
+}
+
+.modal-backdrop {
+  z-index: $z-modal-backdrop;
+}
+
+.modal-body {
+  margin: 10px 0 0;
+}
+
+.modal-header {
+  margin: 10px 0;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: normal;
+  color: $text-dark;
+  margin: 5px 0;
+}
+
+.modal-footer {
+  border-top: 3px solid #e9ebf2;
+  text-align: right;
+  overflow: hidden;
+  
+  .btn-red {
+    float: left;
+    margin-left: 0;
+  }
+
+  button {
+    margin: 5px 0 5px 10px;
+  }
+}
+
+.modal-content {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+// wrap
+.confirm-modal {
+  background: #fff;
+  padding: 20px 30px;
+
+  p {
+    font-size: 1.2rem;
+  }
+}
+
+.modal-plus {
+  padding: 20px 30px;
+}

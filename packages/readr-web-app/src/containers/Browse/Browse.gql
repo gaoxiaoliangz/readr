@@ -1,0 +1,54 @@
+query Browse($after: String, $categories: [ID]) {
+  featuredBooks: books(first: 6, isFeatured: true) {
+    ...Books
+  }
+  books(first: 9, isFeatured: false, after: $after, categories: $categories) {
+    ...Books
+  }
+  categories {
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+      }
+    }
+  }
+  slides(first: 1) {
+    edges {
+      node {
+        id
+        picture
+        url
+        updatedAt
+        createdAt
+        description
+      }
+    }
+  }
+}
+
+fragment Books on BookConnection {
+  totalCount
+  pageInfo {
+    hasNextPage
+    hasPreviousPage
+    startCursor
+    endCursor
+  }
+  edges {
+    cursor
+    node {
+      id
+      objectId
+      title
+      cover
+      description
+      createdAt
+      authors {
+        name
+      }
+    }
+  }
+}

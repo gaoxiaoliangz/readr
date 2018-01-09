@@ -1,0 +1,9 @@
+fragment BookInfo on Book {
+  id
+  title
+  cover
+  description
+  authors {
+    name
+  }
+}

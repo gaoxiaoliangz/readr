@@ -1,0 +1,40 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "target": "es2015",
+    "jsx": "react",
+    "outDir": "build/es",
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    // FIX
+    // ERROR in /Users/liang/Projects/readr-api/node_modules/@types/graphql/subscription/subscribe.d.ts
+    // (17,12): error TS2304: Cannot find name 'AsyncIterator'.
+    // https://github.com/apollographql/graphql-subscriptions/issues/83
+    "lib": [
+      "es5",
+      "es6",
+      "dom",
+      "es2015.core",
+      "es2015.collection",
+      "es2015.generator",
+      "es2015.iterable",
+      "es2015.promise",
+      "es2015.proxy",
+      "es2015.reflect",
+      "es2015.symbol",
+      "es2015.symbol.wellknown",
+      "esnext.asynciterable"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src",
+    "typings"
+  ]
+}

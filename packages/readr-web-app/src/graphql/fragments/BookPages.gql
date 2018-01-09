@@ -1,0 +1,23 @@
+#import './BookRecursiveElements.gql'
+
+fragment BookPages on BookPageConnection {
+  totalCount
+  fromHistory
+  fromLocation
+  startPage
+  lastProgress
+  offset
+  edges {
+    cursor
+    node {
+      id
+      pageNo
+      offset
+      sectionId
+      sectionIds
+      nodes {
+        ...BookRecursiveElements
+      }
+    }
+  }
+}

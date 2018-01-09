@@ -1,0 +1,22 @@
+.pages {
+  position: relative;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.pages--fluid {
+  composes: pages;
+}
+
+// themes
+.white {
+  background: #fff;
+}
+
+.night {
+  background: #333;
+}
+
+.sepia {
+  background: #fbf7f1;
+}

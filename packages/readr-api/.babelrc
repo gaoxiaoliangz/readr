@@ -1,0 +1,21 @@
+{
+  "presets": [
+    [
+      "es2015",
+      "stage-2"
+    ]
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-async-to-generator"
+  ],
+  "env": {
+    "es5": {
+      "presets": [
+        [
+          "es2015"
+        ]
+      ]
+    }
+  }
+}

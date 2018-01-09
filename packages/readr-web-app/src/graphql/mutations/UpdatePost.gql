@@ -1,0 +1,29 @@
+mutation updatePost(
+  $id: ID!
+  $slug: String!
+  $title: String!
+  $description: String
+  $tags: [ID]
+  $markdown: String!
+  $visibility: PostVisibility!
+  $status: PostStatus!
+  $category: PostCategory!
+  $image: String
+) {
+  updatePost(input: {
+    id: $id
+    slug: $slug
+    title: $title
+    description: $description
+    tags: $tags
+    markdown: $markdown
+    visibility: $visibility
+    status: $status
+    category: $category
+    image: $image
+  }) {
+    ok
+    n
+    nModified
+  }
+}

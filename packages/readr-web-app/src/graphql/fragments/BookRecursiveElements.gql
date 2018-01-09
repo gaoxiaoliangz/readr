@@ -1,0 +1,26 @@
+fragment ElementFields on HTMLNodeObject {
+  tag
+  type
+  text
+  attrs {
+    nodeId
+    href
+    src
+  }
+}
+
+fragment BookRecursiveElements on HTMLNodeObject {
+  ...ElementFields
+  children {
+    ...ElementFields
+    children {
+      ...ElementFields
+      children {
+        ...ElementFields
+        children {
+          ...ElementFields
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import "~styles/variables";
+
+.hero-image {
+  .inner {
+    text-align: center;
+    height: 500px;
+    background: $dark-blue url(./tim-marshall-82948.jpg) no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.btn {
+  margin: 0 auto;
+}
+
+.page-title {
+  margin: 10px 0 20px;
+  font-size: 40px;
+  font-weight: normal;
+  color: #fff;
+}
+
+.feature-section {
+  height: 400px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-size: 30px;
+    font-weight: normal;
+    color: $text-dark;
+  }
+
+  p {
+    font-size: 20px;
+  }
+}
+
+.sections {
+  section:nth-child(even) {
+    background: darken($bg-gray, 2%);
+  }
+
+  section:last-child {
+    height: auto;
+    display: block;
+    padding: 30px 0;
+  }
+}

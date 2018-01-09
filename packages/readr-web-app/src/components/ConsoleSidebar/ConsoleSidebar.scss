@@ -1,0 +1,92 @@
+@import "~styles/variables";
+
+$nav-root-width: 80px;
+$item-line-height: 50px;
+
+.sidebar-left {
+  position: fixed;
+  left: 0;
+  top: $branding-height;
+  height: 100%;
+  width: $sidebar-width;
+  background: #E4E4E4;
+  z-index: $z-console-sidebar;
+}
+
+.nav-side {
+  position: fixed;
+  left: 0;
+  height: 100%;
+}
+
+.nav-side-root {
+  composes: nav-side;
+  width: $nav-root-width;
+  background: #04082E;
+}
+
+.nav-side-root--current {
+  composes: nav-side-root;
+  background: red;
+}
+
+.nav-side-sub {
+  composes: nav-side;
+  width: $sidebar-width - $nav-root-width;
+  left: $nav-root-width;
+}
+
+/* item */
+.nav-item {
+  height: $item-line-height;
+  line-height: $item-line-height;
+
+  & a {
+    display: block;
+    padding: 0 15px;
+    color: #fff;
+    height: $item-line-height;
+  }
+}
+
+.icon {
+  margin-top: 12px;
+}
+
+.root-item {
+  composes: nav-item;
+  text-align: center;
+
+  & a:hover {
+    background: lighten($dark-blue, 10%);
+  }
+}
+
+.root-item--current {
+  composes: root-item;
+  background: $blue;
+  & a:hover {
+    background: $blue;
+  }
+}
+
+.sub-item {
+  composes: nav-item;
+
+  a {
+    color: $text;
+  }
+  a:hover {
+    background: gray(200);
+  }
+}
+
+.sub-item--current {
+  composes: sub-item;
+
+  a,
+  a:hover {
+    color: $blue;
+    background: #fff;
+  }
+}
