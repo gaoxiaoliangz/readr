@@ -1,3 +1,6 @@
 [submodule "packages/readr-api"]
 	path = packages/readr-api
 	url = git@github.com:gaoxiaoliangz/readr-api.git
+[submodule "packages/readr-web-app"]
+	path = packages/readr-web-app
+	url = git@github.com:gaoxiaoliangz/readr-web-app.git
