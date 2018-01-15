@@ -14,5 +14,6 @@
     ".env-example": "yaml",
     ".jestrc": "json"
   },
-  "typescript.check.tscVersion": false
+  "typescript.check.tscVersion": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
