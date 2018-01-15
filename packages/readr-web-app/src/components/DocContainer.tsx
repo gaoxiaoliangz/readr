@@ -28,7 +28,7 @@ interface Props {
   }
 }
 
-class DocContainer extends Component<Props, void> {
+class DocContainer extends Component<Props, {}> {
 
   static rewind: () => {
     bodyClass: string

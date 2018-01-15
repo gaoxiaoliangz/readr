@@ -6,7 +6,7 @@ interface Props extends HTMLProps {
   isFluid?: boolean
 }
 
-class Container extends Component<Props, void> {
+class Container extends Component<Props, {}> {
 
   static defaultProps: Props = {
     maxWidth: '100%',

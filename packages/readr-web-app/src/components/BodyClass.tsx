@@ -11,7 +11,7 @@ interface Props {
   reducePropsToState,
   handleStateChangeOnClient
 )
-class BodyClass extends Component<Props, void> { // eslint-disable-line
+class BodyClass extends Component<Props, {}> { // eslint-disable-line
 
   static rewind: () => string
 
