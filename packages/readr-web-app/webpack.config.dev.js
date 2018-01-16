@@ -1,11 +1,7 @@
 const { configWebpack, resolveProject } = require('jellyweb')
 
 module.exports = configWebpack({
-  // Here are the features that have been enabled
-  babel: {
-    react: true,
-  },
-  typescript: true,
+  babel: true,
   sass: {
     extract: false
   },
@@ -14,7 +10,7 @@ module.exports = configWebpack({
   }
 }, {
   entry: {
-    main: resolveProject('src/index.tsx'),
+    main: resolveProject('src/index.jsx'),
   },
   output: {
     path: resolveProject('build'),

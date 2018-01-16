@@ -1,17 +1,10 @@
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-
-// const App = () => {
-//   return <div>ok</div>
-// }
-
-// export default App
 import React from 'react'
 import {
-  BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  HashRouter as Router
 } from 'react-router-dom'
+import DynamicComponent from './DynamicComponent'
 
 const Home = () => (
   <div>
@@ -22,11 +15,13 @@ const Home = () => (
 const About = () => (
   <div>
     <h2>About</h2>
+    <DynamicComponent
+      loader={() => import('./Comp1')}
+    />
   </div>
 )
 
 const Topic = ({ match, label }) => {
-  console.log('topic', match)
   import('./Comp1').then(module => {
     console.log(module)
   })
@@ -62,9 +57,12 @@ const Topics = ({ match }) => {
 
       <Route path={`${match.url}/:topicId`} component={Topic} />
       <Route label="pvs" path={`/props-v-state`} component={Topic} />
-      <Route exact path={match.url} render={() => (
-        <h3>Please select a topic.</h3>
-      )} />
+      <Route
+        exact
+        path={match.url} render={() => (
+          <h3>Please select a topic.</h3>
+        )}
+      />
     </div>
   )
 }
@@ -86,4 +84,5 @@ const BasicExample = () => (
     </div>
   </Router>
 )
+
 export default BasicExample

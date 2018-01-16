@@ -7,6 +7,7 @@
     "describe": true,
     "it": true
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
@@ -40,7 +41,6 @@
     "no-useless-constructor": [0],
     "arrow-parens": [0],
     "no-plusplus": [0],
-    "import/prefer-default-export": [0],
     "import/no-extraneous-dependencies": [0]
   }
 }
