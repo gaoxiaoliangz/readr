@@ -1,14 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import styles from './Logo.scss'
 
-type TProps = {
-  children?: any
-  to?: string
-  dark?: boolean
-}
+// type TProps = {
+//   children?: any
+//   to?: string
+//   dark?: boolean
+// }
 
-function Logo(props: TProps) {
+function Logo(props) {
   const { dark, to } = props
   const styleName = dark ? 'logo--dark' : 'logo'
 
@@ -19,7 +19,7 @@ function Logo(props: TProps) {
   )
 }
 
-Logo['defaultProps'] = {
+Logo.defaultProps = {
   to: '/'
 }
 

@@ -1,11 +1,13 @@
 @import "~styles/variables";
 
 .colophon {
-  margin-top: 20px;
   font-size: 1rem;
   padding: 10px 0 30px;
   color: $text-light;
   line-height: 1.5;
+  &--dark {
+    background: $dark;
+  }
 }
 
 .links {

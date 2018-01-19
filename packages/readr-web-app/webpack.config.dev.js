@@ -2,12 +2,12 @@ const { configWebpack, resolveProject } = require('jellyweb')
 
 module.exports = configWebpack({
   babel: true,
-  sass: {
-    extract: false
-  },
+  css: true,
+  sass: true,
   media: {
     dataUrl: true,
-  }
+  },
+  typescript: true
 }, {
   entry: {
     main: resolveProject('src/index.jsx'),

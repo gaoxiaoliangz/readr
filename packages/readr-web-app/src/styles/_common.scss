@@ -2,23 +2,21 @@
 // it will expose all the classes in the module unexpectedly
 
 // links
-.light-link {
+.link--light {
   color: #fff;
-
   &:hover {
     color: #ddd;
   }
 }
 
-.text-link {
+.link--text {
   color: $text;
-
   &:hover {
    color: $blue;
   }
 }
 
-.dark-link { 
+.link--dark { 
   color: $text-dark;
   cursor: pointer; margin: 0 5px; display: inline-block;
   &:hover {
@@ -26,7 +24,7 @@
   }
 }
 
-.border-link {
+.link--bordered {
   color: $text-dark;
   border-bottom: 1px solid $text-dark;
   cursor: pointer; margin: 0 5px; display: inline-block;
@@ -101,6 +99,11 @@
   box-sizing: border-box;
   margin: 0 auto;
   position: relative;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1000px;
 }
 
 .content-container {

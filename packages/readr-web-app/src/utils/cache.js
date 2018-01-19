@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import md5 from 'md5'
 
-export function createCacheId(identifier: any) {
+export function createCacheId(identifier) {
   if (_.isEmpty(identifier)) {
     throw new Error('缓存标识符不能为空！')
   }

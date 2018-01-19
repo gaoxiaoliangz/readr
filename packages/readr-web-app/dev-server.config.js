@@ -5,8 +5,7 @@
 module.exports = {
   compress: true,
   clientLogLevel: 'none',
-  // HMR
-  // hot: true,
+  hot: true,
   quiet: true,
   watchOptions: {
     ignored: /node_modules/,
@@ -20,7 +19,6 @@ module.exports = {
   // },
 
   // https://github.com/webpack/webpack-dev-server/releases/tag/v2.4.3
-  // insecure, but works fine when in dev
   disableHostCheck: true,
 
   // cors

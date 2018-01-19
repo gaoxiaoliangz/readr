@@ -31,7 +31,8 @@ class DynamicComponent extends React.Component {
     return (
       <div className="dynamic-component">
         {
-          this.state.compState === 'loading' && 'loading'
+          this.state.compState === 'loading' &&
+            <div className="text-loading">loading</div>
         }
         {
           this.state.compState === 'failed' && this.errMsg
