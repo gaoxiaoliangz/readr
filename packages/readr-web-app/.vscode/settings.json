@@ -7,7 +7,6 @@
   },
   "files.associations": {
     ".env": "yaml",
-    ".env-sample": "yaml",
     ".jestrc": "json"
   }
 }

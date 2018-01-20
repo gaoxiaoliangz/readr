@@ -6,4 +6,4 @@ before_install:
   - npm run build
 
 node_js:
-  - "6"
+  - "8"

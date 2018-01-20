@@ -1,9 +1,0 @@
-query Profile {
-  viewer {
-    email
-    displayName
-    username
-    id
-    bio
-  }
-}
