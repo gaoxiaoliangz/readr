@@ -5,14 +5,11 @@
   ],
   "globals": {
     "describe": true,
-    "it": true
+    "it": true,
+    "document": true,
+    "firebase": true
   },
   "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
-  },
   "rules": {
     "semi": [2, "never"],
     "strict": [0],

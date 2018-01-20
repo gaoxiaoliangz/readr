@@ -4,7 +4,7 @@ import Branding from '../components/Branding/Branding'
 function writeUserData(userId, name, email, imageUrl) {
   firebase.database().ref('users/' + userId).set({
     username: name,
-    email: email,
+    email,
     profile_picture: imageUrl
   })
 }
@@ -19,14 +19,8 @@ export default class BrandingContainer extends React.Component {
     this.currentUID = null
   }
 
-  handleSignInClick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(provider)
-    return false
-  }
-
-  handleSignOutClick = () => {
-    firebase.auth().signOut()
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(this.onAuthStateChanged)
   }
 
   onAuthStateChanged = user => {
@@ -53,8 +47,14 @@ export default class BrandingContainer extends React.Component {
     }
   }
 
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged)
+  handleSignOutClick = () => {
+    firebase.auth().signOut()
+  }
+
+  handleSignInClick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(provider)
+    return false
   }
 
   render() {
