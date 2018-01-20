@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import Logo from '../Logo/Logo'
 import './Branding.scss'
 
-const Branding = ({ dark }) => {
+const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) => {
   return (
     <div className={classNames('branding', dark && 'branding--dark')}>
       <div className="clearfix">
@@ -11,7 +11,18 @@ const Branding = ({ dark }) => {
           <Logo dark={!dark} />
         </div>
         <div className="right">
-          <a className="link link--light" href="#">Sign In</a>
+          {
+            signedIn
+              ? username
+              : (
+                <a className="link link--light" href="#" onClick={onSignInClick}>Sign In</a>
+              )
+          }
+          {
+            signedIn && (
+              <a className="link link--light" href="#" onClick={onSignOutClick}>Sign Out</a>
+            )
+          }
         </div>
       </div>
     </div>
