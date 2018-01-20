@@ -6,8 +6,7 @@ module.exports = configWebpack({
   sass: true,
   media: {
     dataUrl: true,
-  },
-  typescript: true
+  }
 }, {
   entry: {
     main: resolveProject('src/index.jsx'),
