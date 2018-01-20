@@ -1,9 +1,0 @@
-mutation delPost(
-  $id: ID!
-) {
-  delPost(input: {
-    id: $id
-  }) {
-    id
-  }
-}

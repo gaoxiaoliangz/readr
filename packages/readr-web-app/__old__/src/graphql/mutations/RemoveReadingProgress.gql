@@ -1,9 +1,0 @@
-mutation removeReadingProgress($bookId: ID!) {
-  removeReadingProgress(input: {
-    bookId: $bookId
-  }) {
-    ok
-    n
-    nModified
-  }
-}

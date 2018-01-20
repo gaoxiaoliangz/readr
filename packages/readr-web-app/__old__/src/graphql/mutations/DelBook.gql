@@ -1,9 +1,0 @@
-mutation delBook(
-  $id: ID!
-) {
-  delBook(input: {
-    id: $id
-  }) {
-    id
-  }
-}

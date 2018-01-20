@@ -1,9 +1,0 @@
-mutation delCategory(
-  $id: ID!
-) {
-  delCategory(input: {
-    id: $id
-  }) {
-    id
-  }
-}
