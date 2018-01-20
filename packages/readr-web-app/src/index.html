@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Readr</title>
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+  <% } %>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCjNJdMYKMszb-7cJy4ywq-8ScFczzEols",
+      authDomain: "readr-7498c.firebaseapp.com",
+      databaseURL: "https://readr-7498c.firebaseio.com",
+      projectId: "readr-7498c",
+      storageBucket: "readr-7498c.appspot.com",
+      messagingSenderId: "958755222786"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+  <% } %>
+</body>
+</html>

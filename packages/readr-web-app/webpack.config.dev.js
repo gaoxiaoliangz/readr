@@ -1,7 +1,13 @@
 const { configWebpack, resolveProject } = require('jellyweb')
 
 module.exports = configWebpack({
-  babel: true,
+  babel: {
+    babelrc: {
+      plugins: [
+        ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }]
+      ]
+    }
+  },
   css: true,
   sass: true,
   media: {

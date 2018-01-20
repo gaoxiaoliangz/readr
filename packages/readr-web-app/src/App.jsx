@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  Route,
-  Link,
-  HashRouter as Router
-} from 'react-router-dom'
+import { Route, HashRouter as Router } from 'react-router-dom'
 import DynamicComponent from './components/DynamicComponent'
 
 const Shelf = () => <DynamicComponent
