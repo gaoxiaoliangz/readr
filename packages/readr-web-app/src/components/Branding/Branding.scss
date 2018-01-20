@@ -2,9 +2,11 @@
   height: 70px;
   line-height: 70px;
   padding: 0 20px;
-  .link {
+  .item {
     font-size: 12px;
     text-transform: uppercase;
+    display: inline-block;
+    margin: 0 5px;
   }
 }
 .branding--dark {

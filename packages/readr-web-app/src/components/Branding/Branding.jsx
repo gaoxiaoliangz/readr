@@ -13,15 +13,11 @@ const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) =
         <div className="right">
           {
             signedIn
-              ? username
-              : (
-                <a className="link link--light" href="#" onClick={onSignInClick}>Sign In</a>
-              )
+              ? <span className="item">{username}</span>
+              : <a className="item link--light" href="#" onClick={onSignInClick}>Sign in with Google</a>
           }
           {
-            signedIn && (
-              <a className="link link--light" href="#" onClick={onSignOutClick}>Sign Out</a>
-            )
+            signedIn && <a className="item link--light" href="#" onClick={onSignOutClick}>Sign out</a>
           }
         </div>
       </div>

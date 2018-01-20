@@ -11,6 +11,12 @@ class Welcome extends Component {
     super(props)
   }
 
+  handleSignInClick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(provider)
+    return false
+  }
+
   render() {
     return (
       <div className="page-welcome">
@@ -42,7 +48,7 @@ class Welcome extends Component {
         <section className="section section--join">
           <div className="section__content clearfix">
             <h1 className="section__title section__title--small section__title--light">Start Using Readr Today</h1>
-            <Button>Sign Up</Button>
+            <Button onClick={this.handleSignInClick}>Sign in with Google</Button>
           </div>
         </section>
         <Colophon dark />
