@@ -31,7 +31,7 @@ class Welcome extends Component {
         </div>
         <section className="section section--quote">
           <div className="section__content">
-            <div className="quote">We believe having a place to truly focus on what you read is important. That's why we built readr.</div>
+            <div className="quote">We believe having a place to truly focus on what you read is important. That is why we built readr.</div>
           </div>
         </section>
         <section className="section section--access">
