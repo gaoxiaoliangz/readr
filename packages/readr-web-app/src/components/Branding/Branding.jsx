@@ -1,11 +1,11 @@
 import React from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
 import Logo from '../Logo/Logo'
-import './Branding.scss?global'
+import './Branding.scss'
 
 const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) => {
   return (
-    <div className={classNames('branding', dark && 'branding--dark')}>
+    <div styleName={cx('branding', dark && 'branding--dark')}>
       <div className="clearfix">
         <div className="left">
           <Logo dark={!dark} />
@@ -13,11 +13,11 @@ const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) =
         <div className="right">
           {
             signedIn
-              ? <span className="item">{username}</span>
-              : <a className="item link--light" href="#" onClick={onSignInClick}>Sign in with Google</a>
+              ? <span styleName="item">{username}</span>
+              : <a styleName="item" className="link--light" href="#" onClick={onSignInClick}>Sign in with Google</a>
           }
           {
-            signedIn && <a className="item link--light" href="#" onClick={onSignOutClick}>Sign out</a>
+            signedIn && <a styleName="item" className="link--light" href="#" onClick={onSignOutClick}>Sign out</a>
           }
         </div>
       </div>

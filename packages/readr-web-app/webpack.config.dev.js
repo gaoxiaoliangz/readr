@@ -4,7 +4,7 @@ const { configWebpack, resolveProject } = require('jellyweb')
 module.exports = configWebpack({
   features: [
     ['babel', {
-      options: () => ({
+      options: {
         presets: [
           'react',
           ['es2015', { modules: false }],
@@ -16,7 +16,7 @@ module.exports = configWebpack({
           'react-hot-loader/babel',
           ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }],
         ]
-      })
+      }
     }],
     'css',
     ['sass', {
