@@ -1,26 +1,26 @@
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { configWebpack, resolveProject } = require('jellyweb')
 
 module.exports = configWebpack({
-  babel: {
-    babelrc: {
-      plugins: [
-        ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }]
-      ]
-    }
-  },
-  css: {
-    extract: true
-  },
-  sass: {
-    extract: true
-  },
-  media: {
-    dataUrl: true,
-  },
-  production: true,
-  env: {}
+  features: [
+    ['babel', {
+      options: {
+        plugins: [
+          ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }]
+        ]
+      }
+    }],
+    'css',
+    'sass',
+    ['media', {
+      dataUrl: true
+    }],
+    'extract-css',
+    'split-vendor'
+  ],
+  presets: [
+    'production'
+  ]
 }, {
   entry: {
     main: resolveProject('src/index.jsx'),
@@ -50,21 +50,6 @@ module.exports = configWebpack({
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(resolveProject('node_modules')) === 0
-        )
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      chunks: ['vendor']
     }),
   ]
 })

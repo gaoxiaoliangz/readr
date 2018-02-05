@@ -1,18 +1,20 @@
 const { configWebpack, resolveProject } = require('jellyweb')
 
 module.exports = configWebpack({
-  babel: {
-    babelrc: {
-      plugins: [
-        ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }]
-      ]
-    }
-  },
-  css: true,
-  sass: true,
-  media: {
-    dataUrl: true,
-  }
+  features: [
+    ['babel', {
+      options: {
+        plugins: [
+          ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }]
+        ]
+      }
+    }],
+    'css',
+    'sass',
+    ['media', {
+      dataUrl: true
+    }]
+  ]
 }, {
   entry: {
     main: resolveProject('src/index.jsx'),
