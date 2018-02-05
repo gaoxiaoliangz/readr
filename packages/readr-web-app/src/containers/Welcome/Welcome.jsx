@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Layout } from 'antd'
+import { Button } from 'antd'
 import _ from 'lodash'
 import BrandingContainer from '../../containers/BrandingContainer'
-import './Welcome.scss?global'
+import './Welcome.scss?global' // eslint-disable-line
 import mobilePic from './mobile.png'
 import Colophon from '../../components/Colophon/Colophon'
 
