@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from './Logo.scss'
+import styles from './Logo.scss?global'
 
 // type TProps = {
 //   children?: any

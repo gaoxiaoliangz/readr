@@ -11,16 +11,18 @@ module.exports = configWebpack({
       }
     }],
     'css',
-    'sass',
+    ['sass', {
+      scoped: true
+    }],
     ['media', {
       dataUrl: true
     }],
-    'extract-css',
-    'split-vendor'
+    'split-vendor',
   ],
   presets: [
     'production'
-  ]
+  ],
+  scopedClassName: '[hash:base64:8]',
 }, {
   entry: {
     main: resolveProject('src/index.jsx'),

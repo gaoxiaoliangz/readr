@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import './Colophon.scss'
+import './Colophon.scss?global'
 
 const Colophon = ({ dark }) => {
   const linkClass = classNames(!dark ? 'link--dark' : 'link--light')

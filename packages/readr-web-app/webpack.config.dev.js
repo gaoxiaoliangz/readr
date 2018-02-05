@@ -10,7 +10,9 @@ module.exports = configWebpack({
       }
     }],
     'css',
-    'sass',
+    ['sass', {
+      scoped: true
+    }],
     ['media', {
       dataUrl: true
     }]

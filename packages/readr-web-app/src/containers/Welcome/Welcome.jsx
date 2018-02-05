@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Layout } from 'antd'
 import _ from 'lodash'
 import BrandingContainer from '../../containers/BrandingContainer'
-import './Welcome.scss'
+import './Welcome.scss?global'
 import mobilePic from './mobile.png'
 import Colophon from '../../components/Colophon/Colophon'
 
@@ -37,7 +37,7 @@ class Welcome extends Component {
         <section className="section section--access">
           <div className="section__content clearfix">
             <div className="section__mobile-pic left">
-              <img src={mobilePic} />
+              <img src={mobilePic} alt="mobile" />
             </div>
             <div className="right">
               <h1 className="section__title">随时随地阅读</h1>

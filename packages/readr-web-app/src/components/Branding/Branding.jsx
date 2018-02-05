@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import Logo from '../Logo/Logo'
-import './Branding.scss'
+import './Branding.scss?global'
 
 const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) => {
   return (
