@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import cx from 'classnames'
 import Logo from '../Logo/Logo'
 import './Branding.scss'
@@ -13,7 +14,12 @@ const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) =
         <div className="right">
           {
             signedIn
-              ? <span styleName="item">{username}</span>
+              ? (
+                <React.Fragment>
+                  <span styleName="item">{username}</span>
+                  <Link styleName="item" className="link--light" to="/shelf">Shelf</Link>
+                </React.Fragment>
+              )
               : <a styleName="item" className="link--light" href="#" onClick={onSignInClick}>Sign in with Google</a>
           }
           {
