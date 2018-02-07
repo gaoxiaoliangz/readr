@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
-import _ from 'lodash'
 import BrandingContainer from '../../containers/BrandingContainer'
 import './Welcome.scss?global' // eslint-disable-line
 import mobilePic from './mobile.png'

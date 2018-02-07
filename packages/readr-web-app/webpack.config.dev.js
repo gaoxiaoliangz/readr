@@ -6,13 +6,11 @@ module.exports = configWebpack({
     ['babel', {
       options: {
         presets: [
-          'react',
-          ['es2015', { modules: false }],
+          ['env', {
+            modules: false,
+          }],
         ],
         plugins: [
-          'transform-class-properties',
-          'transform-object-rest-spread',
-          'syntax-dynamic-import',
           'react-hot-loader/babel',
           ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }],
         ]
@@ -24,6 +22,9 @@ module.exports = configWebpack({
     }],
     ['media', {
       dataUrl: true
+    }],
+    ['define', {
+      __DEV__: true
     }]
   ]
 }, {

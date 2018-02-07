@@ -3781,9 +3781,9 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jellyweb@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/jellyweb/-/jellyweb-0.4.0.tgz#8b90d820edf9918ffe67cea0faf799d09cd0820e"
+jellyweb@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/jellyweb/-/jellyweb-0.4.2.tgz#20df77d2cd04d3d7b069332aa8c94a94dadbf2d9"
   dependencies:
     chalk "^2.3.0"
     colors "^1.1.2"
