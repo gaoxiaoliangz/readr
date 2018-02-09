@@ -24,7 +24,7 @@ class Welcome extends Component {
           <section className="section">
             <div className="section__content">
               <h1 className="section__title section__title--light section__title--hero">You deserve a better reading experience.</h1>
-              <h2 className="sub-title">An elegant web reader created for you.</h2>
+              <h2 className="sub-title">An elegant web reader created for you</h2>
             </div>
           </section>
         </div>

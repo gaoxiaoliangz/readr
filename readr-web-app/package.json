@@ -5,7 +5,6 @@
     "start": "NODE_ENV=development jellyweb serve",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production jellyweb build",
-    "deploy": "firebase deploy",
     "clean": "rm -rf build"
   },
   "main": "index.js",
