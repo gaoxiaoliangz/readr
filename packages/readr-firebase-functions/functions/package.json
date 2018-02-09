@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-    "serve": "firebase serve --only functions"
-  },
   "dependencies": {
     "express": "^4.16.2",
     "firebase-admin": "^5.8.2",

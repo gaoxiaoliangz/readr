@@ -23,7 +23,7 @@ app.use(cors('*'));
 const Widgets = {
   list() {
     return [{
-      data: 2
+      data: 4
     }]
   }
 }
