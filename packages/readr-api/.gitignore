@@ -1,9 +1,0 @@
-node_modules
-bower_components
-.sass-cache
-.idea
-.DS_Store
-.env
-npm-debug.log
-build/es
-build
