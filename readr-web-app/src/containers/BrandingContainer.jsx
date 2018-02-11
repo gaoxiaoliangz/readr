@@ -1,13 +1,8 @@
 import React from 'react'
 import Branding from '../components/Branding/Branding'
+import { createUser } from '../service'
 
-function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email,
-    profile_picture: imageUrl
-  })
-}
+const { firebase } = window
 
 export default class BrandingContainer extends React.Component {
   constructor(props) {
@@ -35,7 +30,7 @@ export default class BrandingContainer extends React.Component {
         username: user.displayName,
         signedIn: true
       })
-      writeUserData(user.uid, user.displayName, user.email, user.photoURL)
+      createUser(user.uid, user.displayName, user.email, user.photoURL)
       // startDatabaseQueries()
     } else {
       // Set currentUID to null.

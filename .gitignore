@@ -4,5 +4,6 @@ node_modules
 .DS_Store
 .env
 npm-debug.log
+yarn-error.log
 firebase-debug.log
 build

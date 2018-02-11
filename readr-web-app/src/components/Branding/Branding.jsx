@@ -16,7 +16,7 @@ const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) =
             signedIn
               ? (
                 <React.Fragment>
-                  <span styleName="item">{username}</span>
+                  <span styleName="item item--text">{username}</span>
                   <Link styleName="item" className="link--light" to="/shelf">Shelf</Link>
                 </React.Fragment>
               )

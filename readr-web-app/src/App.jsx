@@ -10,10 +10,15 @@ const Shelf = asyncComponent({
   resolve: () => import('./containers/Welcome/Welcome')
 })
 
+const Book = asyncComponent({
+  resolve: () => import('./containers/Book/Book')
+})
+
 const App = () => (
   <Router>
     <div>
       <Route exact path="/" component={Shelf} />
+      <Route path="/book/:id" component={Book} />
       <Route path="/shelf" component={Welcome} />
     </div>
   </Router>

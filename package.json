@@ -5,8 +5,10 @@
   "author": "Liang <gaoxiaoliangz@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "deploy": "firebase deploy",
-    "deploy:functions": "firebase deploy --only functions",
-    "deploy:hosting": "firebase deploy --only hosting"
+    "s:f": "firebase serve --only functions",
+    "d": "firebase deploy",
+    "d:f": "firebase deploy --only functions",
+    "d:h": "firebase deploy --only hosting",
+    "start": "cd readr-web-app && npm start"
   }
 }
