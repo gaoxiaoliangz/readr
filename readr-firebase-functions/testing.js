@@ -1,0 +1,1 @@
+// const myFunctions = require('../index')

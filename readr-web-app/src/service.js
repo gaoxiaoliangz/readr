@@ -1,7 +1,7 @@
 const { firebase } = window
 
 const FUNCTIONS_APP_ROOT = __DEV__
-  ? 'http://localhost:5000/readr-7498c/us-central1/app/'
+  ? 'http://localhost:5001/readr-7498c/us-central1/app/'
   : 'https://us-central1-readr-7498c.cloudfunctions.net/app/'
 
 export function createUser(userId, name, email, imageUrl) {

@@ -1,12 +1,16 @@
 const express = require('express')
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-// const gcs = require('@google-cloud/storage')()
+const gcs = require('@google-cloud/storage')()
+// const spawn = require('child-process-promise').spawn
 const mkdirp = require('mkdirp-promise')
 const os = require('os')
 const path = require('path')
 const _ = require('lodash')
 const epubParser = require('@gxl/epub-parser').default
+const fs = require('fs')
+const guid = require('./utils/guid')
+const omitUndefinedDeep = require('./utils/omit-undefined-deep')
 
 const app = express()
 
@@ -75,6 +79,49 @@ exports.app = functions.https.onRequest((req, res) => {
   return app(req, res)
 })
 
-// exports.epubToBook = functions.storage.object().onChange(event => {
+const BOOK_VERSION = '0.1.0'
 
-// })
+exports.epubToBook = functions.storage.object().onChange(event => {
+  const object = event.data
+  const filePath = object.name
+  const tempLocalFile = path.join(os.tmpdir(), filePath)
+  const tempLocalDir = path.dirname(tempLocalFile)
+
+  // Exit if this is triggered on a file that is not an image.
+  if (!object.contentType.startsWith('application/epub+zip')) {
+    console.log('This is not an epub file.')
+    return
+  }
+
+  // Exit if this is a move or deletion event.
+  if (object.resourceState === 'not_exists') {
+    console.log('This is a deletion event.')
+    return
+  }
+
+  const bucket = gcs.bucket(object.bucket)
+  // Create the temp directory where the storage file will be downloaded.
+  return mkdirp(tempLocalDir).then(() => {
+    // Download file from bucket.
+    return bucket.file(filePath).download({destination: tempLocalFile})
+  }).then(() => {
+    console.log('The file has been downloaded to', tempLocalFile)
+    return epubParser(tempLocalFile).then(epub => {
+      const book = {
+        filename: filePath,
+        structure: omitUndefinedDeep(epub.structure),
+        info: omitUndefinedDeep(epub.info),
+        sections: omitUndefinedDeep(epub.sections),
+        created_at: new Date().valueOf(),
+        version: BOOK_VERSION
+      }
+      return admin.database().ref('books/' + guid()).set(book)
+    })
+  }).then(() => {
+    // Once the image has been converted delete the local files to free up disk space.
+    fs.unlinkSync(tempLocalFile)
+    return {
+      ok: 1
+    }
+  })
+})

@@ -6,10 +6,12 @@
   "dependencies": {
     "@google-cloud/storage": "^1.5.2",
     "@gxl/epub-parser": "^1.0.6",
+    "child-process-promise": "^2.2.1",
     "debug": "^3.1.0",
     "express": "^4.16.2",
     "firebase-admin": "^5.8.2",
     "firebase-functions": "^0.8.1",
+    "lodash": "^4.17.5",
     "mkdirp-promise": "^5.0.1",
     "source-map-support": "^0.5.3"
   },
@@ -19,6 +21,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.2.2"
   }
 }

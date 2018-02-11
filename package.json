@@ -9,6 +9,11 @@
     "d": "firebase deploy",
     "d:f": "firebase deploy --only functions",
     "d:h": "firebase deploy --only hosting",
-    "start": "cd readr-web-app && npm start"
+    "start": "cd readr-web-app && npm start",
+    "shell": "firebase experimental:functions:shell",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^22.2.2"
   }
 }
