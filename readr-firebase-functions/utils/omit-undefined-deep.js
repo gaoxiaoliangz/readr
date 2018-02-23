@@ -1,18 +1,34 @@
 const _ = require('lodash')
 
+const getType = val => {
+  if (val === null) {
+    return 'null'
+  }
+  if (val instanceof RegExp) {
+    return 'regExp'
+  }
+  if (typeof val === 'string') {
+    return 'string'
+  }
+  if (Array.isArray(val)) {
+    return 'array'
+  }
+  if (typeof val === 'function') {
+    return 'function'
+  }
+  return typeof val
+}
+
 const omitUndefinedDeep = (input, config = {}) => {
   const { replaceUndefinedWith = null } = config
-  const inputType = Array.isArray(input)
-    ? 'array'
-    : typeof input
+  const inputType = getType(input)
+
   switch (inputType) {
     case 'object': {
       const output = {}
-      Object.keys(input).map(key => {
+      Object.keys(input).forEach(key => {
         const value = input[key]
-        const type = Array.isArray(value)
-          ? 'array'
-          : typeof value
+        const type = getType(value)
         switch (type) {
           case 'undefined':
             if (!_.isUndefined(replaceUndefinedWith)) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import pts from 'prop-types'
-import { fetchBookFile } from '../../service'
+import { fetchBookMeta, fetchBookSections } from '../../service'
 
 class Book extends Component {
   static propTypes = {
@@ -14,23 +14,24 @@ class Book extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      book: {},
+      meta: {},
+      sections: [],
       loading: true
     }
   }
 
   componentDidMount() {
     const { id } = this.props.match.params
-    fetchBookFile(id).then(book => {
+    fetchBookMeta(id).then(meta => {
       this.setState({
-        book,
+        meta,
         loading: false
       })
     })
   }
 
   render() {
-    const { book, loading } = this.state
+    const { meta, loading } = this.state
     return (
       <div>
         {
@@ -38,8 +39,8 @@ class Book extends Component {
             ? 'loading'
             : (
               <div>
-                {book.info.title}
-                {book.info.author}
+                {meta.title}
+                {meta.author}
               </div>
             )
         }

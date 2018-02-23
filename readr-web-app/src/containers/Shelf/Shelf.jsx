@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
+import { Spin, Icon } from 'antd'
 import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
 import guid from '../../utils/guid'
-import { logUploaded } from '../../service'
+import { logUploaded, fetchBookList } from '../../service'
 
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 const { firebase } = window
 
 const store = firebase.storage()
@@ -15,15 +17,28 @@ class Shelf extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      books: {}
+      books: {},
+      loading: true,
     }
   }
 
   componentDidMount() {
-    firebase.database().ref('files').limitToLast(100).orderByChild('created_at')
-      .on('value', data => {
+    firebase.database().ref('books')
+      .limitToLast(100)
+      .on('value', () => {
+        this.fetchBookList()
+      })
+  }
+
+  fetchBookList = () => {
+    this.setState({
+      loading: true,
+    })
+    fetchBookList()
+      .then(books => {
         this.setState({
-          books: data.val()
+          loading: false,
+          books
         })
       })
   }
@@ -37,19 +52,22 @@ class Shelf extends Component {
   }
 
   render() {
+    const { loading } = this.state
     return (
       <div className="page-shelf">
         <BrandingContainer innerProps={{ dark: true }} />
         <div styleName="content">
           <input type="file" onChange={this.handleChange} />
           {
-            _.map(this.state.books, (book, id) => {
-              return (
-                <div key={id}>
-                  <Link to={'/book/' + id}>{book.filename}</Link>
-                </div>
-              )
-            })
+            loading
+              ? <Spin indicator={antIcon} />
+              : _.map(this.state.books, (book) => {
+                return (
+                  <div key={book.id}>
+                    <Link to={'/book/' + book.id}>{book.title}</Link>
+                  </div>
+                )
+              })
           }
         </div>
         <Colophon dark />

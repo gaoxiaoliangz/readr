@@ -12,9 +12,10 @@ const fs = require('fs')
 const guid = require('./utils/guid')
 const omitUndefinedDeep = require('./utils/omit-undefined-deep')
 
-const app = express()
-
 admin.initializeApp(functions.config().firebase)
+
+const database = admin.database()
+const app = express()
 
 const cors = (allowedOrigins) => (req, res, next) => {
   const origin = req.headers.origin
@@ -36,7 +37,7 @@ const handleNotFound = (req, res, next) => {
 app.use(cors('*'))
 
 const getBookFileById = (id) => {
-  return admin.database().ref('files/' + id)
+  return database.ref('files/' + id)
     .once('value')
     .then(data => {
       const { filename } = data.val()
@@ -51,11 +52,27 @@ const getBookFileById = (id) => {
         .then(() => {
           console.log('The file has been downloaded to', tempLocalFile)
           // Delete the file
-          // fs.unlinkSync(tempLocalFile);
+          fs.unlinkSync(tempLocalFile)
           return epubParser(tempLocalFile).then(epub => {
             return _.pick(epub, ['structure', 'info', 'sections'])
           })
         })
+    })
+}
+
+const getBookById = id => {
+  return database.ref('books/' + id).once('value')
+    .then(data => data.val())
+}
+
+const listBooks = () => {
+  return database.ref('books').once('value')
+    .then(data => {
+      return _.map(data.val(), (item, id) => {
+        return _.omit(_.assign({}, item, {
+          id,
+        }), ['sections'])
+      })
     })
 }
 
@@ -64,7 +81,15 @@ const createRouter = () => {
   router.get('/book-files/:id', (req, res) => getBookFileById(req.params.id).then(json => {
     res.send(json)
   }))
-
+  router.get('/books/:id/meta', (req, res) => getBookById(req.params.id).then(json => {
+    res.send(_.omit(json, ['sections']))
+  }))
+  router.get('/books/:id/sections', (req, res) => getBookById(req.params.id).then(json => {
+    res.send(_.pick(json, ['sections']))
+  }))
+  router.get('/books', (req, res) => listBooks().then(json => {
+    res.send(json)
+  }))
   router.use(handleNotFound)
   return router
 }
@@ -107,15 +132,14 @@ exports.epubToBook = functions.storage.object().onChange(event => {
   }).then(() => {
     console.log('The file has been downloaded to', tempLocalFile)
     return epubParser(tempLocalFile).then(epub => {
-      const book = {
+      const book = omitUndefinedDeep(_.assign({}, epub.info, {
         filename: filePath,
-        structure: omitUndefinedDeep(epub.structure),
-        info: omitUndefinedDeep(epub.info),
-        sections: omitUndefinedDeep(epub.sections),
-        created_at: new Date().valueOf(),
-        version: BOOK_VERSION
-      }
-      return admin.database().ref('books/' + guid()).set(book)
+        structure: epub.structure,
+        sections: epub.sections,
+        version: BOOK_VERSION,
+        createdAt: new Date().valueOf(),
+      }))
+      return database.ref('books/' + guid()).set(book)
     })
   }).then(() => {
     // Once the image has been converted delete the local files to free up disk space.
