@@ -1,33 +1,7 @@
 const webpack = require('webpack')
-const { configWebpack, resolveProject } = require('jellyweb')
+const { resolveProject } = require('jellyweb')
 
-module.exports = configWebpack({
-  features: [
-    ['babel', {
-      options: {
-        presets: [
-          ['env', {
-            modules: false,
-          }],
-        ],
-        plugins: [
-          'react-hot-loader/babel',
-          ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }],
-        ]
-      }
-    }],
-    'css',
-    ['sass', {
-      scoped: true
-    }],
-    ['media', {
-      dataUrl: true
-    }],
-    ['define', {
-      __DEV__: true
-    }]
-  ]
-}, {
+module.exports = {
   entry: {
     main: [
       'react-hot-loader/patch',
@@ -51,4 +25,29 @@ module.exports = configWebpack({
     },
   },
   devtool: 'sourcemap',
-})
+  features: {
+    babel: {
+      options: {
+        presets: [
+          ['env', {
+            modules: false,
+          }],
+        ],
+        plugins: [
+          'react-hot-loader/babel',
+          ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }],
+        ]
+      }
+    },
+    css: true,
+    sass: {
+      scoped: true
+    },
+    media: {
+      dataUrl: true
+    },
+    define: {
+      __DEV__: true
+    }
+  }
+}

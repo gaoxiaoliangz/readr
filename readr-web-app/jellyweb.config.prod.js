@@ -1,32 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { configWebpack, resolveProject } = require('jellyweb')
+const { resolveProject, presets } = require('jellyweb')
 
-module.exports = configWebpack({
-  features: [
-    ['babel', {
-      options: {
-        plugins: [
-          ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }]
-        ]
-      }
-    }],
-    'css',
-    ['sass', {
-      scoped: true
-    }],
-    ['media', {
-      dataUrl: true
-    }],
-    'split-vendor',
-    ['define', {
-      __DEV__: false
-    }]
-  ],
-  presets: [
-    'production'
-  ],
-  scopedClassName: '[hash:base64:8]',
-}, {
+module.exports = {
   entry: {
     main: resolveProject('src/index.jsx'),
   },
@@ -56,5 +31,32 @@ module.exports = configWebpack({
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-  ]
-})
+  ],
+  features: Object.assign({}, presets.production, {
+    babel: {
+      options: {
+        presets: [
+          ['env', {
+            modules: false,
+          }],
+        ],
+        plugins: [
+          'react-hot-loader/babel',
+          ['import', { 'libraryName': 'antd', 'libraryDirectory': 'es', 'style': 'css' }],
+        ]
+      }
+    },
+    css: true,
+    sass: {
+      scoped: true
+    },
+    media: {
+      dataUrl: true
+    },
+    splitVendor: true,
+    define: {
+      __DEV__: true
+    },
+    scopedClassName: '[hash:base64:8]',
+  })
+}
