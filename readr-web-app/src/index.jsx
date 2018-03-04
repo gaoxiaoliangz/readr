@@ -1,13 +1,17 @@
 import React from 'react'
 import { AppContainer } from 'react-hot-loader'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import App from './App'
 import './styles/main.scss?global' // eslint-disable-line
+import store from './store'
 
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider store={store}>
+        <Component />
+      </Provider>
     </AppContainer>,
     document.getElementById('root'),
   )

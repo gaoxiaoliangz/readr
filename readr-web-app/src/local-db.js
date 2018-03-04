@@ -62,7 +62,7 @@ class Model {
 
   add = object => {
     return this.getStore().then(store => {
-      store.put({ id: uuid(), ...object })
+      store.put({ id: object.id || uuid(), ...object })
     })
   }
 

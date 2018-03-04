@@ -6,7 +6,11 @@ import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
 import uuid from '../../utils/uuid'
-import { logUploaded, fetchBookList } from '../../service'
+import { logUploaded, fetchBookList, fetchBookSections } from '../../service'
+import createDbModel from '../../local-db'
+import model from './shelfModel'
+
+const dbModel = createDbModel('books')
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 const { firebase } = window
@@ -19,6 +23,7 @@ class Shelf extends Component {
     this.state = {
       books: {},
       loading: true,
+      downloading: null,
     }
   }
 
@@ -65,6 +70,26 @@ class Shelf extends Component {
                 return (
                   <div key={book.id}>
                     <Link to={'/book/' + book.id}>{book.title}</Link>
+                    {
+                      this.state.downloading === book.id && 'downloading'
+                    }
+                    <div onClick={() => {
+                      if (this.state.downloading) {
+                        return
+                      }
+                      this.setState({
+                        downloading: book.id
+                      })
+                      fetchBookSections(book.id).then(sections => {
+                        this.setState({
+                          downloading: null
+                        })
+                        dbModel.add({
+                          id: book.id,
+                          sections
+                        })
+                      })
+                    }}>download book</div>
                   </div>
                 )
               })
@@ -76,4 +101,4 @@ class Shelf extends Component {
   }
 }
 
-export default Shelf
+export default model.connect(Shelf)

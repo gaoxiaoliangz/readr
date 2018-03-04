@@ -3,7 +3,10 @@ const { resolveProject, presets } = require('jellyweb')
 
 module.exports = {
   entry: {
-    main: resolveProject('src/index.jsx'),
+    main: [
+      'babel-polyfill',
+      resolveProject('src/index.jsx')
+    ],
   },
   output: {
     path: resolveProject('build'),

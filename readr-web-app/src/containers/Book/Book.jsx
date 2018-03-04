@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import pts from 'prop-types'
-import { fetchBookMeta, fetchBookSections } from '../../service'
+import { fetchBookMeta } from '../../service'
 
 class Book extends Component {
   static propTypes = {
@@ -24,7 +24,7 @@ class Book extends Component {
     const { id } = this.props.match.params
     fetchBookMeta(id).then(meta => {
       this.setState({
-        meta,
+        meta, 
         loading: false
       })
     })

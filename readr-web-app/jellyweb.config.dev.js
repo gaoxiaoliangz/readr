@@ -4,6 +4,7 @@ const { resolveProject } = require('jellyweb')
 module.exports = {
   entry: {
     main: [
+      'babel-polyfill',
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4006', // WebpackDevServer host and port
       'webpack/hot/only-dev-server',
