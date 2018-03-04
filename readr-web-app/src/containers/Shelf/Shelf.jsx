@@ -5,7 +5,7 @@ import { Spin, Icon } from 'antd'
 import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
-import guid from '../../utils/guid'
+import uuid from '../../utils/uuid'
 import { logUploaded, fetchBookList } from '../../service'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
@@ -47,7 +47,7 @@ class Shelf extends Component {
     const file = e.target.files[0]
     store.ref().child(file.name).put(file)
       .then(() => {
-        logUploaded(guid(), file.name, file.type)
+        logUploaded(uuid(), file.name, file.type)
       })
   }
 
