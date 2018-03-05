@@ -46,6 +46,8 @@
     "import/prefer-default-export": [0],
     "prefer-destructuring": [0],
     "react/require-default-props": [0],
-    "jsx-a11y/click-events-have-key-events": [0]
+    "jsx-a11y/click-events-have-key-events": [0],
+    "generator-star-spacing": [0],
+    "no-nested-ternary": [0]
   }
 }

@@ -1,95 +1,84 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
-import { Spin, Icon } from 'antd'
+import { createSelector } from 'reselect'
+import { Spin, Icon, Modal } from 'antd'
+import PT from 'prop-types'
 import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
-import uuid from '../../utils/uuid'
-import { logUploaded, fetchBookList, fetchBookSections } from '../../service'
-import createDbModel from '../../local-db'
 import model from './shelfModel'
-
-const dbModel = createDbModel('books')
+import { FETCH_STATUS } from '../../constants'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 const { firebase } = window
-
-const store = firebase.storage()
+const confirm = Modal.confirm
 
 class Shelf extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      books: {},
-      loading: true,
-      downloading: null,
-    }
+  static propTypes = {
+    booksStatus: PT.string.isRequired,
+    shelfBooks: PT.array.isRequired,
+    downloadStatus: PT.object.isRequired,
+    isUploadingBook: PT.bool.isRequired,
+    books: PT.object.isRequired
   }
 
   componentDidMount() {
     firebase.database().ref('books')
       .limitToLast(100)
       .on('value', () => {
-        this.fetchBookList()
+        model.fetchBooks()
       })
-  }
-
-  fetchBookList = () => {
-    this.setState({
-      loading: true,
-    })
-    fetchBookList()
-      .then(books => {
-        this.setState({
-          loading: false,
-          books
-        })
-      })
+    model.getLocalBooks()
   }
 
   handleChange = e => {
     const file = e.target.files[0]
-    store.ref().child(file.name).put(file)
-      .then(() => {
-        logUploaded(uuid(), file.name, file.type)
-      })
+    model.uploadBook(file)
+  }
+
+  delBook = id => {
+    confirm({
+      title: `Are you sure to delete book ${this.props.books[id].title}`,
+      onOk: () => {
+        model.delBook(id)
+      }
+    })
   }
 
   render() {
-    const { loading } = this.state
+    const { booksStatus, shelfBooks, downloadStatus, isUploadingBook } = this.props
+    const loading = booksStatus === FETCH_STATUS.FETCHING
     return (
       <div className="page-shelf">
         <BrandingContainer innerProps={{ dark: true }} />
         <div styleName="content">
           <input type="file" onChange={this.handleChange} />
           {
+            isUploadingBook && 'uploading...'
+          }
+          {
             loading
               ? <Spin indicator={antIcon} />
-              : _.map(this.state.books, (book) => {
+              : _.map(shelfBooks, (book) => {
                 return (
                   <div key={book.id}>
                     <Link to={'/book/' + book.id}>{book.title}</Link>
+                    <div onClick={() => this.delBook(book.id)}>delete</div>
                     {
-                      this.state.downloading === book.id && 'downloading'
+                      downloadStatus[book.id] === FETCH_STATUS.FETCHING
+                        ? 'downloading'
+                        : (book.downloaded
+                          ? 'downloaded'
+                          : (
+                            <div onClick={() => {
+                              model.downloadBook(book.id)
+                            }}>
+                              download book
+                            </div>
+                          )
+                        )
                     }
-                    <div onClick={() => {
-                      if (this.state.downloading) {
-                        return
-                      }
-                      this.setState({
-                        downloading: book.id
-                      })
-                      fetchBookSections(book.id).then(sections => {
-                        this.setState({
-                          downloading: null
-                        })
-                        dbModel.add({
-                          id: book.id,
-                          sections
-                        })
-                      })
-                    }}>download book</div>
                   </div>
                 )
               })
@@ -101,4 +90,22 @@ class Shelf extends Component {
   }
 }
 
-export default model.connect(Shelf)
+export default model.connect(Shelf, state => {
+  const shelfBooks = createSelector(
+    s => s.bookPagination.entries,
+    s => s.books,
+    s => s.localBooks,
+    (entries = [], books = {}, localBooks = {}) => {
+      return entries.map(id => {
+        return {
+          ...books[id],
+          downloaded: Boolean(localBooks[id])
+        }
+      })
+    }
+  )
+  return {
+    ...state.shelf,
+    shelfBooks: shelfBooks(state.shelf)
+  }
+})

@@ -77,6 +77,23 @@ class Model {
     })
   }
 
+  listAll = () => {
+    return this.getStore().then(store => {
+      return new Promise(resolve => {
+        const results = {}
+        store.openCursor().onsuccess = (event) => { // eslint-disable-line
+          const cursor = event.target.result
+          if (cursor) {
+            results[cursor.value.id] = cursor.value
+            cursor.continue()
+          } else {
+            resolve(results)
+          }
+        }
+      })
+    })
+  }
+
   update = (id, object) => {
     return this.getStore().then(store => {
       return new Promise(resolve => {
