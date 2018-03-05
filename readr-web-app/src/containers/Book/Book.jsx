@@ -1,40 +1,47 @@
 import React, { Component } from 'react'
-import pts from 'prop-types'
+import _ from 'lodash'
+import PT from 'prop-types'
 import { fetchBookMeta } from '../../service'
+import model from './bookModel'
 
 class Book extends Component {
   static propTypes = {
-    match: pts.shape({
-      params: pts.shape({
-        id: pts.string
+    bookSections: PT.array.isRequired,
+    match: PT.shape({
+      params: PT.shape({
+        id: PT.string
       })
     })
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      meta: {},
-      sections: [],
-      loading: true
-    }
-  }
+  // constructor(props) {
+  //   super(props)
+  //   // this.state = {
+  //   //   meta: {},
+  //   //   sections: [],
+  //   //   loading: true
+  //   // }
+  // }
 
   componentDidMount() {
     const { id } = this.props.match.params
-    fetchBookMeta(id).then(meta => {
-      this.setState({
-        meta, 
-        loading: false
-      })
-    })
+    if (_.isEmpty(this.props.bookSections)) {
+      console.log('fetch sections')
+    } else {
+      console.log(this.props.bookSections)
+    }
+    // fetchBookMeta(id).then(meta => {
+    //   this.setState({
+    //     meta, 
+    //     loading: false
+    //   })
+    // })
   }
 
   render() {
-    const { meta, loading } = this.state
     return (
       <div>
-        {
+        {/* {
           loading
             ? 'loading'
             : (
@@ -43,10 +50,15 @@ class Book extends Component {
                 {meta.author}
               </div>
             )
-        }
+        } */}
       </div>
     )
   }
 }
 
-export default Book
+export default model.connect(Book, (state, props) => {
+  return {
+    ...state.book,
+    bookSections: _.get(state, ['shelf', 'localBooks', props.match.params.id], [])
+  }
+})

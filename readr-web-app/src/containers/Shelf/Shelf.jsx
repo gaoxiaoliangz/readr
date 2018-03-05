@@ -24,7 +24,7 @@ class Shelf extends Component {
   }
 
   componentDidMount() {
-    firebase.database().ref('books')
+    firebase.database().ref('bookInfo')
       .limitToLast(100)
       .on('value', () => {
         model.fetchBooks()

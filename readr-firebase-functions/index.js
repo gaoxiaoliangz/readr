@@ -9,7 +9,6 @@ const path = require('path')
 const _ = require('lodash')
 const epubParser = require('@gxl/epub-parser').default
 const fs = require('fs')
-const guid = require('./utils/guid')
 const omitUndefinedDeep = require('./utils/omit-undefined-deep')
 
 admin.initializeApp(functions.config().firebase)
@@ -128,18 +127,27 @@ exports.epubToBook = functions.storage.object().onChange(event => {
   // Create the temp directory where the storage file will be downloaded.
   return mkdirp(tempLocalDir).then(() => {
     // Download file from bucket.
-    return bucket.file(filePath).download({destination: tempLocalFile})
+    return bucket.file(filePath).download({ destination: tempLocalFile })
   }).then(() => {
     console.log('The file has been downloaded to', tempLocalFile)
     return epubParser(tempLocalFile).then(epub => {
-      const book = omitUndefinedDeep(_.assign({}, epub.info, {
+      const book = omitUndefinedDeep({
         filename: filePath,
         structure: epub.structure,
-        sections: epub.sections,
+        content: epub.sections,
+        version: BOOK_VERSION,
+        createdAt: new Date().valueOf(),
+      })
+      const bookInfo = omitUndefinedDeep(_.assign({}, epub.info, {
+        structure: epub.structure,
         version: BOOK_VERSION,
         createdAt: new Date().valueOf(),
       }))
-      return database.ref('books/' + guid()).set(book)
+      const bookRef = database.ref('books').push()
+
+      return Promise.all([bookRef.set(book), database.ref('bookInfo').update({
+        [bookRef.key]: bookInfo
+      })])
     })
   }).then(() => {
     // Once the image has been converted delete the local files to free up disk space.

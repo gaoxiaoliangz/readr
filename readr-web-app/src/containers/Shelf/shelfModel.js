@@ -5,6 +5,7 @@ import { logUploaded, fetchBookList, fetchBookSections } from '../../service'
 import { FETCH_STATUS } from '../../constants'
 import createDbModel from '../../local-db'
 import uuid from '../../utils/uuid'
+import { toArray } from '../utils'
 
 const { firebase } = window
 const db = firebase.database()
@@ -28,10 +29,15 @@ const model = createModel({
     *fetchBooks() {
       this.$set('booksStatus', FETCH_STATUS.FETCHING)
       try {
-        const books = yield fetchBookList()
+        const books = yield db.ref('bookInfo')
+          .once('value')
+          .then(data => {
+            return toArray(data.val())
+          })
         this.$set('booksStatus', FETCH_STATUS.SUCCESS)
         this.putBooks(books)
       } catch (error) {
+        console.error(error)
         this.$set('booksStatus', FETCH_STATUS.FAILURE)
       }
     },
@@ -48,10 +54,10 @@ const model = createModel({
     *downloadBook(id) {
       this.$set(['downloadStatus', id], FETCH_STATUS.FETCHING)
       try {
-        const sections = yield fetchBookSections(id)
+        const book = yield db.ref('books').child(id).once('value').then(data => data.val())
         yield dbModel.add({
           id,
-          sections
+          ...book
         })
         this.$set(['downloadStatus', id], FETCH_STATUS.SUCCESS)
         this.getLocalBooks()
