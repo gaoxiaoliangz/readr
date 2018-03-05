@@ -17,10 +17,11 @@ export function createUser(userId, name, email, imageUrl) {
   })
 }
 
-export function logUploaded(id, filename, type) {
-  firebase.database().ref('files/' + id).set({
+export function logUploaded(filename, type) {
+  firebase.database().ref('files').push({
     filename,
     type,
+    // todo
     createdAt: new Date().valueOf()
   })
 }

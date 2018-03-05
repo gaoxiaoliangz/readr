@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
-import { fetchBookMeta } from '../../service'
 import model from './bookModel'
+import { FETCH_STATUS } from '../../constants'
+import ContentRenderer from './ContentRenderer'
 
 class Book extends Component {
   static propTypes = {
-    bookSections: PT.array.isRequired,
+    book: PT.object.isRequired,
+    bookStatus: PT.string.isRequired,
     match: PT.shape({
       params: PT.shape({
         id: PT.string
@@ -14,43 +16,27 @@ class Book extends Component {
     })
   }
 
-  // constructor(props) {
-  //   super(props)
-  //   // this.state = {
-  //   //   meta: {},
-  //   //   sections: [],
-  //   //   loading: true
-  //   // }
-  // }
-
   componentDidMount() {
     const { id } = this.props.match.params
-    if (_.isEmpty(this.props.bookSections)) {
-      console.log('fetch sections')
-    } else {
-      console.log(this.props.bookSections)
-    }
-    // fetchBookMeta(id).then(meta => {
-    //   this.setState({
-    //     meta, 
-    //     loading: false
-    //   })
-    // })
+    model.loadBook(id)
   }
 
   render() {
+    const { book, bookStatus } = this.props
+    const isFetching = bookStatus === FETCH_STATUS.FETCHING
     return (
       <div>
-        {/* {
-          loading
+        {
+          isFetching
             ? 'loading'
             : (
               <div>
-                {meta.title}
-                {meta.author}
+                {book.title}
+                {book.author}
+                <ContentRenderer htmlString={_.get(book, 'content[0].htmlString')} />
               </div>
             )
-        } */}
+        }
       </div>
     )
   }
@@ -59,6 +45,8 @@ class Book extends Component {
 export default model.connect(Book, (state, props) => {
   return {
     ...state.book,
-    bookSections: _.get(state, ['shelf', 'localBooks', props.match.params.id], [])
+    book: _.get(state, ['shelf', 'localBooks', props.match.params.id], {
+      content: []
+    })
   }
 })

@@ -1,10 +1,7 @@
-// import _ from 'lodash'
-// import { select } from 'redux-saga/effects'
 import { createModel } from '@gxl/redux-model'
-import { logUploaded, fetchBookList, fetchBookSections } from '../../service'
+import { logUploaded } from '../../service'
 import { FETCH_STATUS } from '../../constants'
 import createDbModel from '../../local-db'
-import uuid from '../../utils/uuid'
 import { toArray } from '../utils'
 
 const { firebase } = window
@@ -43,9 +40,14 @@ const model = createModel({
     },
     *delBook(id) {
       try {
-        yield db.ref('books')
-          .child(id)
-          .remove()
+        yield Promise.all([
+          db.ref('books')
+            .child(id)
+            .remove(),
+          db.ref('bookInfo')
+            .child(id)
+            .remove()
+        ])
         yield dbModel.remove(id)
       } catch (error) {
         console.error(error)
@@ -54,10 +56,14 @@ const model = createModel({
     *downloadBook(id) {
       this.$set(['downloadStatus', id], FETCH_STATUS.FETCHING)
       try {
-        const book = yield db.ref('books').child(id).once('value').then(data => data.val())
+        const [book, bookInfo] = yield Promise.all([
+          db.ref('books').child(id).once('value').then(data => data.val()),
+          db.ref('bookInfo').child(id).once('value').then(data => data.val()),
+        ])
         yield dbModel.add({
           id,
-          ...book
+          ...book,
+          ...bookInfo
         })
         this.$set(['downloadStatus', id], FETCH_STATUS.SUCCESS)
         this.getLocalBooks()
@@ -74,7 +80,7 @@ const model = createModel({
       yield store.ref().child(file.name)
         .put(file)
         .then(() => {
-          logUploaded(uuid(), file.name, file.type)
+          logUploaded(file.name, file.type)
         })
       this.$set('isUploadingBook', false)
     }
