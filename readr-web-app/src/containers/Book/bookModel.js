@@ -1,14 +1,14 @@
 import { createModel } from '@gxl/redux-model'
 import { select, take } from 'redux-saga/effects'
 import { FETCH_STATUS } from '../../constants'
-import createDbModel from '../../local-db'
-import uuid from '../../utils/uuid'
+// import createDbModel from '../../local-db'
+// import uuid from '../../utils/uuid'
 import shelfModel from '../Shelf/shelfModel'
 
-const { firebase } = window
-const db = firebase.database()
-const store = firebase.storage()
-const dbModel = createDbModel('books')
+// const { firebase } = window
+// const db = firebase.database()
+// const store = firebase.storage()
+// const dbModel = createDbModel('books')
 const NAMESPACE = 'book'
 
 const model = createModel({
