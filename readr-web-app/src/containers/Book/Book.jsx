@@ -33,7 +33,7 @@ class Book extends Component {
               <div>
                 {book.title}
                 {book.author}
-                <ContentRenderer htmlString={_.get(book, 'content[5].htmlString', '')} />
+                <ContentRenderer htmlString={_.get(book, 'content[9].htmlString', '')} />
               </div>
             )
         }

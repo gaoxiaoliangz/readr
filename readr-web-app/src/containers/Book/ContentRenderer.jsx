@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import PT from 'prop-types'
+import './ContentRenderer.scss'
 
 const OMIT_TAGS = ['meta', 'title', 'html', 'body', 'link', 'script']
+const UNWRAP_TAGS = ['div', 'span']
 
 const htmlStringToReactElement = (htmlString) => {
   const content = document.createElement('div')
@@ -17,7 +20,14 @@ const htmlStringToReactElement = (htmlString) => {
         if (OMIT_TAGS.includes(type)) {
           return null
         }
-        return React.createElement(type, props, ...Array.from(node.childNodes).map(createReactElement).filter(ele => ele !== null))
+        const children = Array
+          .from(node.childNodes)
+          .map((child, index) => createReactElement(child, { key: index }))
+          .filter(ele => ele !== null)
+        if (UNWRAP_TAGS.includes(type)) {
+          return children
+        }
+        return React.createElement(type, props, _.flatMapDeep(children))
       }
       return null
     } catch (error) {
@@ -39,8 +49,8 @@ class ContentRenderer extends Component {
     const Element = htmlStringToReactElement(htmlString)
 
     return (
-      <div className="renderer-wrap">
-        <Element className="inner" />
+      <div styleName="renderer-wrap">
+        <Element />
       </div>
     )
   }
