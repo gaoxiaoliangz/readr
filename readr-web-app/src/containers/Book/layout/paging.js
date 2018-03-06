@@ -90,11 +90,10 @@ export function groupNodesByPage(nodes, nodeHeights, pageHeight, pageStartFrom =
   if (nodeHeights.length === 0) {
     return [{
       nodes,
-      meta: {
-        pageNo: 1 + pageStartFrom,
-        offset: 0,
-        chapterId
-      }
+      pageNo: 1 + pageStartFrom,
+      offset: 0,
+      chapterId,
+      pageHeight
     }]
   }
 
@@ -116,20 +115,19 @@ export function groupNodesByPage(nodes, nodeHeights, pageHeight, pageStartFrom =
       return null
     }
 
-    const hash = pageNodes
-      .map(node => {
-        return findIdOfHTags(node)
-      })
-      .filter(id => Boolean(id))
+    // const hash = pageNodes
+    //   .map(node => {
+    //     return findIdOfHTags(node)
+    //   })
+    //   .filter(id => Boolean(id))
 
     pages.push({
       nodes: pageNodes,
-      meta: {
-        pageNo: pageStartFrom + i + 1,
-        offset,
-        chapterId,
-        hash
-      },
+      pageNo: pageStartFrom + i + 1,
+      offset,
+      chapterId,
+      pageHeight
+      // hash
     })
   }
 
@@ -138,24 +136,38 @@ export function groupNodesByPage(nodes, nodeHeights, pageHeight, pageStartFrom =
 
 /**
  * 
- * @param {TBookFlesh} contentOfChapters 
- * @param {{id: string, nodeHeights: number[]}[]} nodeHeightsOfChapters 
+ * @param {TBookFlesh} sections 
+ * @param {{id: string, nodeHeights: number[]}[]} layoutInfo 
  * @param {number} pageHeight 
  */
-export function groupPageFromChapters(contentOfChapters, nodeHeightsOfChapters, pageHeight) {
+export function groupPageFromChapters(sections, layoutInfo, pageHeight) {
   let pageStartFrom = 0
-  let allPages = []
-  const t0 = new Date().valueOf()
+  // let allPages = []
+  // const t0 = new Date().valueOf()
 
-  contentOfChapters.forEach((chapter, index) => {
-    const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
-    allPages = allPages.concat(pages)
-    pageStartFrom += pages.length
-  })
+  // contentOfChapters.forEach((chapter, index) => {
+  //   const pages = groupNodesByPage(chapter.markdown.split('\n\n'), nodeHeightsOfChapters[index].nodeHeights, pageHeight, pageStartFrom, chapter.id)
+  //   allPages = allPages.concat(pages)
+  //   pageStartFrom += pages.length
+  // })
 
-  const t1 = new Date().valueOf()
-  // todo
-  console.log(`Grouping nodes takes ${t1 - t0}ms`)
+  // const t1 = new Date().valueOf()
+  // // todo
+  // console.log(`Grouping nodes takes ${t1 - t0}ms`)
 
-  return allPages
+  // return allPages
+
+  return sections
+    .map((section, index) => {
+      const pages = groupNodesByPage(section.nodes, layoutInfo[index].nodeHeights, pageHeight, pageStartFrom, section.sectionId)
+      const section2 = {
+        pages,
+        sectionId: section.sectionId
+      }
+      pageStartFrom += pages.length
+      return section2
+    })
+    .reduce((pages, page) => {
+      return pages.concat(page.pages)
+    }, [])
 }

@@ -5,6 +5,7 @@ import { FETCH_STATUS } from '../../constants'
 // import uuid from '../../utils/uuid'
 import shelfModel from '../Shelf/shelfModel'
 import { htmlStringToNodes } from './utils'
+import { groupPageFromChapters } from './layout/paging'
 
 // const { firebase } = window
 // const db = firebase.database()
@@ -16,18 +17,37 @@ const model = createModel({
   namespace: NAMESPACE,
   state: {
     currBookId: null,
+    bookReady: false,
     bookStatus: FETCH_STATUS.NONE,
     bookNodes: {},
     bookLayouts: {},
+    bookPages: {},
     isEstimatingLayout: false,
+    clientCurrPage: 1,
+    clientProgress: 0,
+    remoteProgress: 0,
   },
   effects: {
     *initBook(id) {
-      this.$set('currBookId', id)
-      this.loadBook(id)
-      yield take('book/loadBook@end')
-      this.getLayoutInfo(id)
-      yield take('book/getLayoutInfo@end')
+      try {
+        this.$set('currBookId', id)
+        this.loadBook(id)
+        yield take('book/loadBook@end')
+        this.getLayoutInfo(id)
+        yield take('book/getLayoutInfo@end')
+        const { book } = yield select()
+        const bookNodes = book.bookNodes[id]
+        const bookLayoutInfo = book.bookLayouts[id]
+        const result = groupPageFromChapters(bookNodes, bookLayoutInfo, 700)
+        this.putBookPages(result)
+        yield take('book/putBookPages')
+        this.getProgress()
+        yield take('book/getProgress@end')
+        this.$set('clientCurrPage', 11)
+        this.$set('bookReady', true)
+      } catch (error) {
+        console.error(error)
+      }
     },
     *loadBook(id) {
       this.$set('bookStatus', FETCH_STATUS.FETCHING)
@@ -61,7 +81,8 @@ const model = createModel({
       this.$set('isEstimatingLayout', false)
     },
     *getProgress(id) {
-
+      this.putRemoteProgress()
+      yield
     },
     *updateProgress(id) {
 
@@ -69,9 +90,12 @@ const model = createModel({
     *goToPage() {
 
     },
-    *goToProgress() {
+    // *goToProgress(progress) {
+    //   if (progress) {
 
-    }
+    //   }
+
+    // }
   },
   computations: {
     putLayoutInfo(state, result) {
@@ -81,6 +105,21 @@ const model = createModel({
           ...state.bookLayouts,
           [state.currBookId]: result
         }
+      }
+    },
+    putBookPages(state, result) {
+      return {
+        ...state,
+        bookPages: {
+          ...state.bookPages,
+          [state.currBookId]: result
+        }
+      }
+    },
+    putRemoteProgress(state, remoteProgress = 0) {
+      return {
+        ...state,
+        remoteProgress
       }
     }
   }

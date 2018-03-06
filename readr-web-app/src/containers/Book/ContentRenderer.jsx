@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import './ContentRenderer.scss'
+import './ContentRenderer.scss?global' // eslint-disable-line
 import { nodesToReactElement } from './utils'
 
 class ContentRenderer extends Component {
@@ -13,7 +13,7 @@ class ContentRenderer extends Component {
     const Element = nodesToReactElement(nodes)
 
     return (
-      <Element {...rest} />
+      <Element className="renderer-wrap" {...rest} />
     )
   }
 }

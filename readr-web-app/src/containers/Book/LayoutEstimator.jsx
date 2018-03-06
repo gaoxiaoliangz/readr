@@ -23,7 +23,7 @@ class LayoutEstimator extends Component {
       <div className="layout-estimator" ref={ref => { this.estimator = ref }}>
         {
           sections.map(section => {
-            return <ContentRenderer id={section.sectionId} className="layout-estimator__section" key={section.sectionId} nodes={section.nodes} />
+            return <ContentRenderer id={section.sectionId} key={section.sectionId} nodes={section.nodes} />
           })
         }
       </div>

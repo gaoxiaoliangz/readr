@@ -57,7 +57,10 @@ export const nodesToReactElement = nodes => {
         return node
       }
       const children = node.children.map(createReactElement)
-      return React.createElement(node.type, node.props, ..._.flatMapDeep(children))
+      return React.createElement(node.type, {
+        ...node.props,
+        className: 'page__line'
+      }, ..._.flatMapDeep(children))
     } catch (error) {
       console.error(error)
       return null
