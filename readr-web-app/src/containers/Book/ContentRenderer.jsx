@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import './ContentRenderer.scss'
-import { nodesToReactElement, htmlStringToNodes } from './utils'
+import { nodesToReactElement } from './utils'
 
 class ContentRenderer extends Component {
   static propTypes = {
-    htmlString: PT.string.isRequired
+    nodes: PT.array.isRequired
   }
 
   render() {
-    const { htmlString } = this.props
-    const nodes = htmlStringToNodes(htmlString)
+    const { nodes, ...rest } = this.props
     const Element = nodesToReactElement(nodes)
 
     return (
-      <div styleName="renderer-wrap">
-        <Element />
-      </div>
+      <Element {...rest} />
     )
   }
 }

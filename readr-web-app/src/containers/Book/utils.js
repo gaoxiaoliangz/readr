@@ -56,7 +56,7 @@ export const nodesToReactElement = nodes => {
       if (typeof node === 'string') {
         return node
       }
-      const children = node.children.map((child, index) => createReactElement(child))
+      const children = node.children.map(createReactElement)
       return React.createElement(node.type, node.props, ..._.flatMapDeep(children))
     } catch (error) {
       console.error(error)
