@@ -1,0 +1,115 @@
+@import "~styles/variables";
+@import "~styles/mixins/screens";
+
+$panel_background: #fff;
+$panel_text: $text;
+$height: $branding-height;
+// $icons_size: 30px;
+
+.viewer-panel {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 990;
+  background: $panel_background;
+  color: $panel_text;
+  box-shadow: $shadow-x2;
+  height: $height;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: $height;
+  position: relative;
+}
+
+// .panel-item {
+//   display: inline-block;
+//   cursor: pointer;
+//   line-height: $height;
+//   padding: 0 15px;
+//   color: $text-dark;
+// }
+.left, .right, .center {
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+  text-align: right;
+}
+
+.center {
+  position: relative;
+  // text-align: center;
+  // padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+  // margin: 0 auto;
+  // float: none;
+  // display: block;
+  // position: relative;
+  // @include phone {
+  //   // display: inline-block;
+  //   // position: absolute;
+  //   // left: 50px;
+  //   // top: 0;
+  // }
+}
+
+// .menu {
+//   composes: panel-item;
+//   left: 0;
+
+//   :global .icon {
+//     position: relative;
+//     top: 5px;
+//   }
+// }
+
+// .logo {
+//   position: relative;
+//   top: 2px;
+//   display: inline-block;
+//   :global .icon {
+//     position: relative;
+//     top: 5px;
+//   }
+// }
+
+// .sep {
+//   position: relative;
+//   top: 3px;
+//   width: 1px;
+//   height: 20px;
+//   background: #ddd;
+//   display: inline-block;
+//   margin: 0 15px;
+
+//   @include phone {
+//     display: inline-block;
+//   }
+// }
+
+// .title {
+//   font-size: 1.1rem;
+//   line-height: $height;
+//   color: $text-dark;
+// }
+
+// .preference {
+//   composes: panel-item;
+//   right: 0;
+
+//   :global .icon {
+//     position: relative;
+//     top: 5px;
+//   }
+// }

@@ -26,6 +26,7 @@ const model = createModel({
     clientCurrPage: 1,
     clientProgress: 0,
     remoteProgress: 0,
+    showTopPanel: false,
   },
   effects: {
     *initBook(id) {

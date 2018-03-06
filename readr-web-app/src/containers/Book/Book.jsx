@@ -5,6 +5,8 @@ import model from './bookModel'
 import { FETCH_STATUS } from '../../constants'
 import LayoutEstimator from './LayoutEstimator'
 import BookPage from './BookPage'
+import TopPanel from './TopPanel'
+import './Book.scss'
 
 class Book extends Component {
   static propTypes = {
@@ -15,24 +17,81 @@ class Book extends Component {
     bookStatus: PT.string.isRequired,
     isEstimatingLayout: PT.bool.isRequired,
     bookReady: PT.bool.isRequired,
+    showTopPanel: PT.bool.isRequired,
     match: PT.shape({
       params: PT.shape({
         id: PT.string
       })
     })
   }
+  lastScrollTop = 0
 
   componentDidMount() {
     const { id } = this.props.match.params
     model.initBook(id)
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('mousemove', this.handleMousemove)
+    window.addEventListener('keydown', this.handleKeydown)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('mousemove', this.handleMousemove)
   }
 
   handleCalcDone = result => {
     model.putLayoutInfo(result)
   }
+  
+  handleKeydown = e => {
+    switch (e.keyCode) {
+      case 39:
+        this.nextPage()
+        break
+
+      case 37:
+        this.prevPage()
+        break
+    
+      default:
+        break
+    }
+  }
+
+  nextPage = () => {
+    model.$set('clientCurrPage', this.props.clientCurrPage + 1)
+  }
+
+  prevPage = () => {
+    model.$set('clientCurrPage', this.props.clientCurrPage - 1)
+  }
+
+  // todo: debounce
+  handleMousemove = e => {
+    const show = e.pageY < 70
+    if (show !== this.props.showTopPanel) {
+      model.$set('showTopPanel', show)
+    }
+  }
+
+  handleScroll = e => {
+    // this.lastScrollTop
+  }
+
+  renderHeaderCenter() {
+    const { book } = this.props
+    return (
+      <div styleName="header-center">
+        <div styleName="header-inner">
+          <div styleName="title">{book.title}</div>
+          <div styleName="author">{book.author}</div>
+        </div>
+      </div>
+    )
+  }
 
   render() {
-    const { book, bookStatus, bookNodes, isEstimatingLayout, clientCurrPage, bookReady, pages } = this.props
+    const { bookStatus, bookNodes, isEstimatingLayout, clientCurrPage, bookReady, pages, showTopPanel } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
     const currentPage = pages[clientCurrPage - 1]
     return (
@@ -42,8 +101,6 @@ class Book extends Component {
             ? 'loading'
             : (
               <div>
-                {book.title}
-                {book.author}
                 {
                   isEstimatingLayout && (
                     <LayoutEstimator
@@ -52,8 +109,16 @@ class Book extends Component {
                     />
                   )
                 }
-                <div onClick={() => { model.$set('clientCurrPage', clientCurrPage - 1) }}>prev</div>
-                <div onClick={() => { model.$set('clientCurrPage', clientCurrPage + 1) }}>Next</div>
+                <TopPanel
+                  center={this.renderHeaderCenter()}
+                  show={showTopPanel || true}
+                />
+                <div styleName="nav-wrap">
+                  <div styleName="nav-inner">
+                    <div styleName="prev" onClick={this.prevPage} />
+                    <div styleName="next" onClick={this.nextPage} />
+                  </div>
+                </div>
                 {
                   bookReady && (
                     <BookPage page={currentPage} />
