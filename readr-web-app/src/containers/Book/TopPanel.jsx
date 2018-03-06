@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-// import Icon from '../../components/Icon/Icon'
 // import { Slide } from '../../components/animations'
 // import VPreference from './VPreference'
 // import Logo from '../../../components/Logo'

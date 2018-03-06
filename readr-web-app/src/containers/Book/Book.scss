@@ -61,3 +61,15 @@ $arrow-color: rgba(0, 0, 0, 0.3);
   font-size: 12px;
   color: #666
 }
+.menu {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+.contents-label {
+  font-weight: bold;
+  margin: 25px 0 5px;
+}

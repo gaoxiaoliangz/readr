@@ -27,6 +27,8 @@ const model = createModel({
     clientProgress: 0,
     remoteProgress: 0,
     showTopPanel: false,
+    showToc: false,
+    showPref: false,
   },
   effects: {
     *initBook(id) {

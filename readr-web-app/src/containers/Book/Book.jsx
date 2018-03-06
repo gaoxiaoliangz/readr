@@ -7,6 +7,9 @@ import LayoutEstimator from './LayoutEstimator'
 import BookPage from './BookPage'
 import TopPanel from './TopPanel'
 import './Book.scss'
+import Icon from '../../components/Icon/Icon'
+import LeftPanel from '../../components/LeftPanel/LeftPanel'
+import Toc from './Toc'
 
 class Book extends Component {
   static propTypes = {
@@ -18,6 +21,7 @@ class Book extends Component {
     isEstimatingLayout: PT.bool.isRequired,
     bookReady: PT.bool.isRequired,
     showTopPanel: PT.bool.isRequired,
+    showToc: PT.bool.isRequired,
     match: PT.shape({
       params: PT.shape({
         id: PT.string
@@ -42,7 +46,7 @@ class Book extends Component {
   handleCalcDone = result => {
     model.putLayoutInfo(result)
   }
-  
+
   handleKeydown = e => {
     switch (e.keyCode) {
       case 39:
@@ -52,7 +56,7 @@ class Book extends Component {
       case 37:
         this.prevPage()
         break
-    
+
       default:
         break
     }
@@ -74,8 +78,21 @@ class Book extends Component {
     }
   }
 
-  handleScroll = e => {
+  handleScroll = () => {
     // this.lastScrollTop
+  }
+
+  renderMenuIcon() {
+    return (
+      <div
+        styleName="menu"
+        onClick={() => {
+          model.$set('showToc', true)
+        }}
+      >
+        <Icon name="menu" size={20} />
+      </div>
+    )
   }
 
   renderHeaderCenter() {
@@ -91,7 +108,7 @@ class Book extends Component {
   }
 
   render() {
-    const { bookStatus, bookNodes, isEstimatingLayout, clientCurrPage, bookReady, pages, showTopPanel } = this.props
+    const { book, bookStatus, bookNodes, isEstimatingLayout, clientCurrPage, bookReady, pages, showTopPanel, showToc } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
     const currentPage = pages[clientCurrPage - 1]
     return (
@@ -110,9 +127,24 @@ class Book extends Component {
                   )
                 }
                 <TopPanel
+                  left={this.renderMenuIcon()}
                   center={this.renderHeaderCenter()}
                   show={showTopPanel || true}
                 />
+                <LeftPanel
+                  show={showToc}
+                  onRequestClose={() => {
+                    model.$set('showToc', false)
+                  }}
+                >
+                  <div styleName="contents-label">目录</div>
+                  <Toc
+                    toc={book.structure}
+                    // onLinkClick={() => {
+                    //   this.props.actions.viewer.toggleViewerNavigation(false)
+                    // }}
+                  />
+                </LeftPanel>
                 <div styleName="nav-wrap">
                   <div styleName="nav-inner">
                     <div styleName="prev" onClick={this.prevPage} />

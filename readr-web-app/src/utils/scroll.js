@@ -1,10 +1,9 @@
+import $ from 'jquery'
+
 /**
  * 阻止 selector 以外的元素滚动
  * http://stackoverflow.com/questions/5802467/prevent-scrolling-of-parent-element
  */
-
-import $ from 'jquery'
-
 function scrollHandler(ev) {
   const $this = $(this)
   const scrollTop = this.scrollTop
@@ -34,10 +33,10 @@ function scrollHandler(ev) {
 }
 
 export const preventScroll = {
-  init: (selector: string) => {
+  init: (selector) => {
     $(document).on('DOMMouseScroll mousewheel', selector, scrollHandler)
   },
-  destroy: (selector: string) => {
+  destroy: (selector) => {
     $(document).off('DOMMouseScroll mousewheel', selector, scrollHandler)
   }
 }

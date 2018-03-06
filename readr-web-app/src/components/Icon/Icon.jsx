@@ -58,7 +58,7 @@ class Icon extends Component {
                   width={size}
                   height={size}
                   xmlns="http://www.w3.org/2000/svg"
-                  {...{ styleName: 'svg-shape' }}
+                  styleName="svg-shape"
                 >
                   <path
                     {...{ ...pathAttrs, ...svgPathProps }}
