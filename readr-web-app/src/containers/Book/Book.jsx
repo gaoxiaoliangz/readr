@@ -9,7 +9,9 @@ import TopPanel from './TopPanel'
 import './Book.scss'
 import Icon from '../../components/Icon/Icon'
 import LeftPanel from '../../components/LeftPanel/LeftPanel'
+import PopBox from '../../components/PopBox/PopBox'
 import Toc from './Toc'
+import Pref from './Pref'
 
 class Book extends Component {
   static propTypes = {
@@ -22,6 +24,8 @@ class Book extends Component {
     bookReady: PT.bool.isRequired,
     showTopPanel: PT.bool.isRequired,
     showToc: PT.bool.isRequired,
+    showPref: PT.bool.isRequired,
+    preferences: PT.object.isRequired,
     match: PT.shape({
       params: PT.shape({
         id: PT.string
@@ -85,12 +89,47 @@ class Book extends Component {
   renderMenuIcon() {
     return (
       <div
-        styleName="menu"
+        styleName="menu-icon"
         onClick={() => {
           model.$set('showToc', true)
         }}
       >
         <Icon name="menu" size={20} />
+      </div>
+    )
+  }
+
+  renderPref() {
+    const { showPref, preferences } = this.props
+    return (
+      <div styleName="preference-icon">
+        <Icon
+          name="font"
+          size={20}
+          onClick={() => {
+            model.$set('showPref', !showPref)
+          }}
+        />
+        <PopBox
+          show={showPref}
+          onRequestClose={() => {
+            model.$set('showPref', false)
+          }}
+          position={{
+            right: 0
+          }}
+        >
+          <Pref
+            fontSize={preferences.fontSize}
+            theme={preferences.theme}
+            onChangeFontSizeRequest={(fontSize) => {
+              model.$set('preferences.fontSize', fontSize)
+            }}
+            onChangeThemeRequest={(theme) => {
+              model.$set('preferences.theme', theme)
+            }}
+          />
+        </PopBox>
       </div>
     )
   }
@@ -129,6 +168,7 @@ class Book extends Component {
                 <TopPanel
                   left={this.renderMenuIcon()}
                   center={this.renderHeaderCenter()}
+                  right={this.renderPref()}
                   show={showTopPanel || true}
                 />
                 <LeftPanel
@@ -139,10 +179,10 @@ class Book extends Component {
                 >
                   <div styleName="contents-label">目录</div>
                   <Toc
-                    toc={book.structure}
-                    // onLinkClick={() => {
-                    //   this.props.actions.viewer.toggleViewerNavigation(false)
-                    // }}
+                    toc={book.structure || []}
+                  // onLinkClick={() => {
+                  //   this.props.actions.viewer.toggleViewerNavigation(false)
+                  // }}
                   />
                 </LeftPanel>
                 <div styleName="nav-wrap">

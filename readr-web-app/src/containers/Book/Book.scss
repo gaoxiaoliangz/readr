@@ -61,13 +61,16 @@ $arrow-color: rgba(0, 0, 0, 0.3);
   font-size: 12px;
   color: #666
 }
-.menu {
+.menu-icon {
   display: flex;
   align-items: center;
   height: 100%;
   flex-direction: row;
   flex-wrap: wrap;
   cursor: pointer;
+}
+.preference-icon {
+  composes: menu-icon;
 }
 .contents-label {
   font-weight: bold;

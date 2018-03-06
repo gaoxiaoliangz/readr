@@ -29,6 +29,10 @@ const model = createModel({
     showTopPanel: false,
     showToc: false,
     showPref: false,
+    preferences: {
+      fontSize: 15,
+      theme: 'WHITE'
+    }
   },
   effects: {
     *initBook(id) {
