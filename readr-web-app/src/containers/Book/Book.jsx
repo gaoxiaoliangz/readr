@@ -32,6 +32,7 @@ class Book extends Component {
       })
     })
   }
+
   lastScrollTop = 0
 
   componentDidMount() {
@@ -66,12 +67,19 @@ class Book extends Component {
     }
   }
 
+  goToPage = pageNo => {
+    model.$set('clientCurrPage', pageNo)
+    if (!this.props.preferences.scrollMode) {
+      document.documentElement.scrollTop = 0
+    }
+  }
+
   nextPage = () => {
-    model.$set('clientCurrPage', this.props.clientCurrPage + 1)
+    this.goToPage(this.props.clientCurrPage + 1)
   }
 
   prevPage = () => {
-    model.$set('clientCurrPage', this.props.clientCurrPage - 1)
+    this.goToPage(this.props.clientCurrPage - 1)
   }
 
   // todo: debounce
@@ -147,7 +155,18 @@ class Book extends Component {
   }
 
   render() {
-    const { book, bookStatus, bookNodes, isEstimatingLayout, clientCurrPage, bookReady, pages, showTopPanel, showToc } = this.props
+    const {
+      book,
+      bookStatus,
+      bookNodes,
+      isEstimatingLayout,
+      clientCurrPage,
+      bookReady,
+      pages,
+      showTopPanel,
+      showToc,
+      showPref
+    } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
     const currentPage = pages[clientCurrPage - 1]
     return (
@@ -169,7 +188,7 @@ class Book extends Component {
                   left={this.renderMenuIcon()}
                   center={this.renderHeaderCenter()}
                   right={this.renderPref()}
-                  show={showTopPanel || true}
+                  show={showTopPanel || showToc || showPref}
                 />
                 <LeftPanel
                   show={showToc}

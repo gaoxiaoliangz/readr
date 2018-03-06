@@ -31,7 +31,8 @@ const model = createModel({
     showPref: false,
     preferences: {
       fontSize: 15,
-      theme: 'WHITE'
+      theme: 'white',
+      scrollMode: false,
     }
   },
   effects: {
