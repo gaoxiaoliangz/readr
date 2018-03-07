@@ -189,6 +189,7 @@ class Book extends Component {
     } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
     const currentPage = pages[clientCurrPage - 1]
+    const bookInfo = _.pick(book, ['title', 'author'])
     return (
       <div className={`${styles['book']} ${styles[`book--${preferences.theme}`]}`}>
         {
@@ -241,6 +242,7 @@ class Book extends Component {
                       )
                       : (
                         <FlippableBookPage
+                          bookInfo={bookInfo}
                           page={currentPage}
                           config={preferences}
                         />

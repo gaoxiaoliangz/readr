@@ -2,13 +2,16 @@
 @import "~styles/mixins/screens";
 
 .pages {
-
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  box-sizing: content-box;
 }
 
 .page-no {
   position: absolute;
-  left: 0;
-  bottom: 15px;
+  left: -35px;
+  top: 15px;
   width: 35px;
   color: $gray;
   font-size: 1rem;

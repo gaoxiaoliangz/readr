@@ -16,7 +16,12 @@
 
 .page--flip {
   position: relative;
-  width: 700px;
   margin: 0 auto;
   padding-bottom: 50px;
+}
+
+.title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.233);
+  padding: 20px 0 10px;
+  margin-bottom: 10px;
 }

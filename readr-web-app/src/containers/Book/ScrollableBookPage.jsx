@@ -42,11 +42,11 @@ class ScrollableBookPage extends Component {
 
   render() {
     console.log('render')
-    const { pages, config: { pageHeight }, progress } = this.props
+    const { pages, config: { pageHeight, contentWidth }, progress } = this.props
     const totalHeight = pages.length * pageHeight
     const wrapStyle = {
       height: totalHeight,
-      position: 'relative'
+      maxWidth: contentWidth
     }
     this.totalHeight = totalHeight
     const currPage = Math.round(progress * pages.length)
@@ -55,17 +55,17 @@ class ScrollableBookPage extends Component {
     start = start >= 0 ? start : 0
     const pagesToRender = pages.slice(start, currPage + gap)
     this.currPage = currPage
-    const pageWrapStyle = pageNo => ({
-      position: 'absolute',
-      top: (pageNo - 1) * pageHeight
-    })
     return (
       <div style={wrapStyle} styleName="pages">
         {
           pagesToRender.map(page => {
             const pageNo = page.pageNo
+            const pageWrapStyle = {
+              position: 'absolute',
+              top: (pageNo - 1) * pageHeight
+            }
             return (
-              <div key={page.pageNo} style={pageWrapStyle(pageNo)}>
+              <div key={page.pageNo} style={pageWrapStyle}>
                 <BookPage page={page} config={this.props.config} />
                 <div styleName="page-no">{pageNo}</div>
               </div>

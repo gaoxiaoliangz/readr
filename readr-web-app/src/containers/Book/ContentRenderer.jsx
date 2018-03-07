@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import styles from './ContentRenderer.scss'
@@ -20,13 +21,13 @@ class ContentRenderer extends Component {
 
     return (
       <Element
-        styleName="renderer-wrap"
+        styleName="renderer"
+        {..._.omit(rest, ['style'])}
         style={{
           maxWidth: contentWidth || 'auto',
           fontSize,
-          
         }}
-        {...rest} />
+      />
     )
   }
 }
