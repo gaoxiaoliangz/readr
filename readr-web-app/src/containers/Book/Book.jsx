@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
+// import classNames from 'classnames'
 import PT from 'prop-types'
 import model from './bookModel'
 import { FETCH_STATUS } from '../../constants'
 import LayoutEstimator from './LayoutEstimator'
 import BookPage from './BookPage'
 import TopPanel from './TopPanel'
-import './Book.scss'
+import styles from './Book.scss'
 import Icon from '../../components/Icon/Icon'
 import LeftPanel from '../../components/LeftPanel/LeftPanel'
 import PopBox from '../../components/PopBox/PopBox'
@@ -124,12 +125,17 @@ class Book extends Component {
             model.$set('showPref', false)
           }}
           position={{
-            right: 0
+            right: 0,
+            top: 68
           }}
         >
           <Pref
             fontSize={preferences.fontSize}
             theme={preferences.theme}
+            scrollMode={preferences.scrollMode}
+            onChangeScrollModeRequest={status => {
+              model.$set('preferences.scrollMode', status)
+            }}
             onChangeFontSizeRequest={(fontSize) => {
               model.$set('preferences.fontSize', fontSize)
             }}
@@ -154,6 +160,17 @@ class Book extends Component {
     )
   }
 
+  renderNav() {
+    return (
+      <div styleName="nav-wrap">
+        <div styleName="nav-inner">
+          <div styleName="prev" onClick={this.prevPage} />
+          <div styleName="next" onClick={this.nextPage} />
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const {
       book,
@@ -165,12 +182,13 @@ class Book extends Component {
       pages,
       showTopPanel,
       showToc,
-      showPref
+      showPref,
+      preferences
     } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
     const currentPage = pages[clientCurrPage - 1]
     return (
-      <div>
+      <div className={`${styles['book']} ${styles[`book--${preferences.theme}`]}`}>
         {
           isFetching
             ? 'loading'
@@ -181,6 +199,7 @@ class Book extends Component {
                     <LayoutEstimator
                       onCalcDone={this.handleCalcDone}
                       sections={bookNodes}
+                      config={preferences}
                     />
                   )
                 }
@@ -204,15 +223,10 @@ class Book extends Component {
                   // }}
                   />
                 </LeftPanel>
-                <div styleName="nav-wrap">
-                  <div styleName="nav-inner">
-                    <div styleName="prev" onClick={this.prevPage} />
-                    <div styleName="next" onClick={this.nextPage} />
-                  </div>
-                </div>
+                {this.renderNav()}
                 {
                   bookReady && (
-                    <BookPage page={currentPage} />
+                    <BookPage page={currentPage} config={preferences} />
                   )
                 }
               </div>

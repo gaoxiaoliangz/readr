@@ -54,6 +54,7 @@
     "react/sort-comp": [0],
     "class-methods-use-this": [0],
     "react/prop-types": [2, { "ignore": ["children"] }],
-    "react/no-array-index-key": [0]
+    "react/no-array-index-key": [0],
+    "dot-notation": [0]
   }
 }

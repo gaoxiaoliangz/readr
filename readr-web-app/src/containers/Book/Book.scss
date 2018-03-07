@@ -76,3 +76,21 @@ $arrow-color: rgba(0, 0, 0, 0.3);
   font-weight: bold;
   margin: 25px 0 5px;
 }
+
+.book {
+}
+
+.book--white {
+  background: #fff;
+  color: #333;
+}
+
+.book--night {
+  background: #333;
+  color: #fff;
+}
+
+.book--sepia {
+  background: rgb(241, 239, 236);
+  color: rgb(41, 25, 7);
+}

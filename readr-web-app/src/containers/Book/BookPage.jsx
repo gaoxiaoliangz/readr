@@ -4,7 +4,7 @@ import ContentRenderer from './ContentRenderer'
 import './BookPage.scss'
 
 const BookPage = props => {
-  const { page: { nodes, pageNo, offset, pageHeight } } = props
+  const { page: { nodes, pageNo, offset, pageHeight }, config } = props
   return (
     <div styleName="page">
       <div
@@ -17,6 +17,7 @@ const BookPage = props => {
             marginTop: offset
           }}
           nodes={nodes}
+          config={config}
         />
         <div styleName="page-no">{pageNo}</div>
       </div>
@@ -25,7 +26,8 @@ const BookPage = props => {
 }
 
 BookPage.propTypes = {
-  page: PT.object.isRequired
+  page: PT.object.isRequired,
+  config: PT.object.isRequired,
 }
 
 export default BookPage

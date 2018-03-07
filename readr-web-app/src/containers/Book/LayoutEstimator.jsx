@@ -8,7 +8,8 @@ import './LayoutEstimator.scss?global' // eslint-disable-line
 class LayoutEstimator extends Component {
   static propTypes = {
     sections: PT.array.isRequired,
-    onCalcDone: PT.func
+    onCalcDone: PT.func,
+    config: PT.object.isRequired,
   }
 
   componentDidMount() {
@@ -18,12 +19,12 @@ class LayoutEstimator extends Component {
   }
 
   renderContent() {
-    const { sections } = this.props
+    const { sections, config } = this.props
     return (
       <div className="layout-estimator" ref={ref => { this.estimator = ref }}>
         {
           sections.map(section => {
-            return <ContentRenderer id={section.sectionId} key={section.sectionId} nodes={section.nodes} />
+            return <ContentRenderer config={config} id={section.sectionId} key={section.sectionId} nodes={section.nodes} />
           })
         }
       </div>

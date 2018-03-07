@@ -49,8 +49,9 @@ export const htmlStringToNodes = htmlString => {
 /**
  * convert nodeObject to ReactElement
  * @param {{type, props, children}[]} nodes 
+ * @param {string} nodeClassName
  */
-export const nodesToReactElement = nodes => {
+export const nodesToReactElement = (nodes, nodeClassName) => {
   const createReactElement = node => {
     try {
       if (typeof node === 'string') {
@@ -59,7 +60,7 @@ export const nodesToReactElement = nodes => {
       const children = node.children.map(createReactElement)
       return React.createElement(node.type, {
         ...node.props,
-        className: 'page__line'
+        className: nodeClassName
       }, ..._.flatMapDeep(children))
     } catch (error) {
       console.error(error)

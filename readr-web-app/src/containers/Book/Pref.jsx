@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Switch } from 'antd'
 import _ from 'lodash'
 import classNames from 'classnames'
 import PT from 'prop-types'
@@ -14,20 +15,13 @@ const THEMES = {
   SEPIA: 'sepia'
 }
 
-// interface OwnProps {
-//   fontSize: number
-//   isScrollMode: boolean
-//   theme: Viewer.Themes
-//   onChangeFontSizeRequest: (fontSize: number) => void
-//   onChangeThemeRequest: (themeName: Viewer.Themes) => void
-// }
-
 class Pref extends Component {
   static propTypes = {
     onChangeFontSizeRequest: PT.func.isRequired,
     onChangeThemeRequest: PT.func.isRequired,
+    onChangeScrollModeRequest: PT.func.isRequired,
     fontSize: PT.number.isRequired,
-    // isScrollMode: PT.bool.isRequired,
+    scrollMode: PT.bool.isRequired,
     theme: PT.string.isRequired,
   }
 
@@ -55,7 +49,7 @@ class Pref extends Component {
 
   render() {
     const { isDecDisabled, isIncDisabled } = this.getBtnStatus()
-    const { theme, fontSize } = this.props
+    const { theme, fontSize, scrollMode, onChangeScrollModeRequest } = this.props
 
     const btnDecClass = classNames({
       'btn': !isDecDisabled,
@@ -90,6 +84,10 @@ class Pref extends Component {
                 )
               })
             }
+          </li>
+          <li>
+            Enable scroll mode
+            <Switch checked={scrollMode} onChange={onChangeScrollModeRequest} />
           </li>
         </ul>
       </div>
