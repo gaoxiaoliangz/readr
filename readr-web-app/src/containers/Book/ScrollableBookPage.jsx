@@ -3,6 +3,12 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import BookPage from './BookPage'
 import './ScrollableBookPage.scss'
+import { progressToPage, scrollTopToProgress, progressToScrollTop } from './progress'
+
+const getScreenHeight = () => window.innerHeight
+const scrollTo = scrollTop => {
+  document.documentElement.scrollTop = scrollTop
+}
 
 class ScrollableBookPage extends Component {
   static propTypes = {
@@ -10,6 +16,7 @@ class ScrollableBookPage extends Component {
     pages: PT.array.isRequired,
     config: PT.object.isRequired,
     onProgressChange: PT.func.isRequired,
+    disableScrollListener: PT.bool.isRequired
   }
 
   constructor(props) {
@@ -20,6 +27,7 @@ class ScrollableBookPage extends Component {
   shouldComponentUpdate(nextProps) {
     const { pages, progress } = nextProps
     const currPage = Math.round(progress * pages.length)
+    // todo: config update
     console.log(currPage, this.currPage)
     return this.currPage !== currPage
   }
@@ -32,12 +40,25 @@ class ScrollableBookPage extends Component {
     window.removeEventListener('scroll', this.handleScroll)
   }
 
-  // todo: debounce
+  componentWillReceiveProps(nextProps) {
+    if (this.props.disableScrollListener && nextProps.progress !== this.props.progress) {
+      const totalHeight = nextProps.pages.length * nextProps.config.pageHeight
+      const scrollTop = progressToScrollTop(nextProps.progress, getScreenHeight(), totalHeight)
+      console.log('now scroll', scrollTop, 'this.props.disableScrollListener', this.props.disableScrollListener)
+      scrollTo(scrollTop)
+    }
+  }
+
   handleScroll() {
-    const scrollTop = window.document.documentElement.scrollTop
-    // todo: more accurate
-    const progress = scrollTop / this.totalHeight
-    this.props.onProgressChange(progress)
+    if (!this.props.disableScrollListener) {
+      const scrollTop = window.document.documentElement.scrollTop
+      // const progress = scrollTop / this.totalHeight
+      const progress = scrollTopToProgress(scrollTop, getScreenHeight(), this.totalHeight)
+      this.props.onProgressChange(progress)
+      console.log('onProgressChange')
+    } else {
+      console.log('onProgressChange scroll disabled')
+    }
   }
 
   render() {
@@ -48,12 +69,15 @@ class ScrollableBookPage extends Component {
       height: totalHeight,
       maxWidth: contentWidth
     }
+    // todo: use getter
     this.totalHeight = totalHeight
-    const currPage = Math.round(progress * pages.length)
+    this.pageHeight = pageHeight
+    const currPage = progressToPage(progress, pages.length)
     const gap = 5
     let start = currPage - gap
     start = start >= 0 ? start : 0
     const pagesToRender = pages.slice(start, currPage + gap)
+    // todo
     this.currPage = currPage
     return (
       <div style={wrapStyle} styleName="pages">

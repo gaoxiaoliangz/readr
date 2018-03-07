@@ -16,7 +16,7 @@ import Pref from './Pref'
 
 class Book extends Component {
   static propTypes = {
-    clientCurrPage: PT.number.isRequired,
+    // progress: PT.number.isRequired,
     book: PT.object.isRequired,
     pages: PT.array.isRequired,
     bookNodes: PT.array.isRequired,
@@ -26,8 +26,9 @@ class Book extends Component {
     showTopPanel: PT.bool.isRequired,
     showToc: PT.bool.isRequired,
     showPref: PT.bool.isRequired,
-    preferences: PT.object.isRequired,
+    config: PT.object.isRequired,
     clientProgress: PT.number.isRequired,
+    disableScrollListener: PT.bool.isRequired,
     match: PT.shape({
       params: PT.shape({
         id: PT.string
@@ -40,48 +41,15 @@ class Book extends Component {
   componentDidMount() {
     const { id } = this.props.match.params
     model.initBook(id)
-    window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('mousemove', this.handleMousemove)
-    window.addEventListener('keydown', this.handleKeydown)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('mousemove', this.handleMousemove)
   }
 
   handleCalcDone = result => {
     model.putLayoutInfo(result)
-  }
-
-  handleKeydown = e => {
-    switch (e.keyCode) {
-      case 39:
-        this.nextPage()
-        break
-
-      case 37:
-        this.prevPage()
-        break
-
-      default:
-        break
-    }
-  }
-
-  goToPage = pageNo => {
-    model.$set('clientCurrPage', pageNo)
-    if (!this.props.preferences.scrollMode) {
-      document.documentElement.scrollTop = 0
-    }
-  }
-
-  nextPage = () => {
-    this.goToPage(this.props.clientCurrPage + 1)
-  }
-
-  prevPage = () => {
-    this.goToPage(this.props.clientCurrPage - 1)
   }
 
   // todo: debounce
@@ -92,8 +60,14 @@ class Book extends Component {
     }
   }
 
-  handleScroll = () => {
-    // this.lastScrollTop
+  handleTocLinkClick = item => {
+    console.log(item)
+  }
+
+  handleProgressChange = progress => {
+    // todo
+    model.$set('clientProgress', progress)
+    console.log(progress)
   }
 
   renderMenuIcon() {
@@ -110,7 +84,7 @@ class Book extends Component {
   }
 
   renderPref() {
-    const { showPref, preferences } = this.props
+    const { showPref, config } = this.props
     return (
       <div styleName="preference-icon">
         <Icon
@@ -131,17 +105,17 @@ class Book extends Component {
           }}
         >
           <Pref
-            fontSize={preferences.fontSize}
-            theme={preferences.theme}
-            scrollMode={preferences.scrollMode}
+            fontSize={config.fontSize}
+            theme={config.theme}
+            scrollMode={config.scrollMode}
             onChangeScrollModeRequest={status => {
-              model.$set('preferences.scrollMode', status)
+              model.$set('config.scrollMode', status)
             }}
             onChangeFontSizeRequest={(fontSize) => {
-              model.$set('preferences.fontSize', fontSize)
+              model.$set('config.fontSize', fontSize)
             }}
             onChangeThemeRequest={(theme) => {
-              model.$set('preferences.theme', theme)
+              model.$set('config.theme', theme)
             }}
           />
         </PopBox>
@@ -161,37 +135,28 @@ class Book extends Component {
     )
   }
 
-  renderNav() {
-    return (
-      <div styleName="nav-wrap">
-        <div styleName="nav-inner">
-          <div styleName="prev" onClick={this.prevPage} />
-          <div styleName="next" onClick={this.nextPage} />
-        </div>
-      </div>
-    )
-  }
-
   render() {
     const {
       book,
       bookStatus,
       bookNodes,
       isEstimatingLayout,
-      clientCurrPage,
+      // clientCurrPage,
+      // progress,
       bookReady,
       pages,
       showTopPanel,
       showToc,
       showPref,
-      preferences,
-      clientProgress
+      config,
+      clientProgress,
+      disableScrollListener
     } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
-    const currentPage = pages[clientCurrPage - 1]
+    // const currentPage = pages[clientCurrPage - 1]
     const bookInfo = _.pick(book, ['title', 'author'])
     return (
-      <div className={`${styles['book']} ${styles[`book--${preferences.theme}`]}`}>
+      <div className={`${styles['book']} ${styles[`book--${config.theme}`]}`}>
         {
           isFetching
             ? 'loading'
@@ -202,7 +167,7 @@ class Book extends Component {
                     <LayoutEstimator
                       onCalcDone={this.handleCalcDone}
                       sections={bookNodes}
-                      config={preferences}
+                      config={config}
                     />
                   )
                 }
@@ -221,30 +186,28 @@ class Book extends Component {
                   <div styleName="contents-label">目录</div>
                   <Toc
                     toc={book.structure || []}
-                  // onLinkClick={() => {
-                  //   this.props.actions.viewer.toggleViewerNavigation(false)
-                  // }}
+                    onLinkClick={this.handleTocLinkClick}
                   />
                 </LeftPanel>
-                {this.renderNav()}
                 {
                   bookReady && (
-                    preferences.scrollMode
+                    config.scrollMode
                       ? (
                         <ScrollableBookPage
+                          disableScrollListener={disableScrollListener}
                           progress={clientProgress}
                           pages={pages}
-                          config={preferences}
-                          onProgressChange={progress => {
-                            model.$set('clientProgress', progress)
-                          }}
+                          config={config}
+                          onProgressChange={this.handleProgressChange}
                         />
                       )
                       : (
                         <FlippableBookPage
                           bookInfo={bookInfo}
-                          page={currentPage}
-                          config={preferences}
+                          progress={clientProgress}
+                          pages={pages}
+                          config={config}
+                          onProgressChange={this.handleProgressChange}
                         />
                       )
                   )

@@ -9,7 +9,7 @@ import PT from 'prop-types'
 //   linkTpl?: (sectionId: string, hash: string) => string
 // }
 
-export default class BookToc extends Component {
+export default class Toc extends Component {
   static propTypes = {
     onLinkClick: PT.func,
     linkTpl: PT.func,
@@ -18,6 +18,7 @@ export default class BookToc extends Component {
 
   _handleLinkClick(href) {
     return (e) => {
+      e.preventDefault()
       if (this.props.onLinkClick) {
         this.props.onLinkClick(href)
       } else {

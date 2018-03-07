@@ -23,13 +23,14 @@ const model = createModel({
     bookLayouts: {},
     bookPages: {},
     isEstimatingLayout: false,
-    clientCurrPage: 1,
+    // clientCurrPage: 1,
     clientProgress: 0,
     remoteProgress: 0,
     showTopPanel: false,
     showToc: false,
     showPref: false,
-    preferences: {
+    disableScrollListener: false,
+    config: {
       fontSize: 15,
       pageHeight: 700,
       theme: 'white',
@@ -54,8 +55,9 @@ const model = createModel({
         yield take('book/putBookPages')
         this.getProgress()
         yield take('book/getProgress@end')
-        this.$set('clientCurrPage', 11)
+        // this.$set('clientCurrPage', 11)
         this.$set('bookReady', true)
+        this.goToProgress(0.5)
       } catch (error) {
         console.error(error)
       }
@@ -98,17 +100,42 @@ const model = createModel({
     *updateProgress(id) {
 
     },
-    *goToPage() {
-
+    *goToProgress(progress) {
+      try {
+        const { book } = yield select()
+        if (book.config.scrollMode) {
+          this.$set('disableScrollListener', true)
+          yield take('book/$set:disableScrollListener')
+        }
+        this.setClientProgress(progress)
+        yield take('book/setClientProgress')
+        console.log('unlock')
+        if (book.config.scrollMode) {
+          this.$set('disableScrollListener', false)
+          // setTimeout(() => {
+          // }, 1000)
+        }
+      } catch (error) {
+        console.error(error)
+      }
     },
-    // *goToProgress(progress) {
-    //   if (progress) {
-
-    //   }
-
-    // }
   },
   computations: {
+    setClientProgress(state, clientProgress) {
+      // let pageNo = progress
+      // let clientProgress = progress
+      // const bookId = state.book.currBookId
+      // const totalPages = state.book.bookPages[bookId].length
+      // if (progress > 0 && progress < 1) {
+      //   pageNo = Math.round(totalPages * progress)
+      // } else {
+      //   clientProgress = progress / totalPages
+      // }
+      return {
+        ...state,
+        clientProgress
+      }
+    },
     putLayoutInfo(state, result) {
       return {
         ...state,
