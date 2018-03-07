@@ -1,8 +1,30 @@
 import React from 'react'
 import _ from 'lodash'
 
-const OMIT_TAGS = ['meta', 'title', 'html', 'body', 'link', 'script']
+const OMIT_TAGS = ['meta', 'title', 'html', 'body', 'link', 'script', 'svg']
 const UNWRAP_TAGS = ['div', 'span']
+const OMIT_ATTRS = ['style']
+
+const getNodeAttributes = node => {
+  return Array.from(node.attributes)
+    .reduce((obj, attr) => {
+      return {
+        ...obj,
+        [attr.nodeName]: attr.nodeValue
+      }
+    }, {})
+}
+
+const toReactProps = attrs => {
+  const keyMap = {
+    class: 'className',
+    'xlink:href': 'xlinkHref',
+    'xmlns:xlink': 'xmlnsXlink'
+  }
+  return _.mapKeys(attrs, (v, k) => {
+    return keyMap[k] || k
+  })
+}
 
 export const htmlStringToNodes = htmlString => {
   const content = document.createElement('div')
@@ -27,6 +49,7 @@ export const htmlStringToNodes = htmlString => {
         if (OMIT_TAGS.includes(type)) {
           return null
         }
+        const attrs = _.omit(toReactProps(getNodeAttributes(node)), OMIT_ATTRS)
         const children = Array
           .from(node.childNodes)
           .map(createNode)
@@ -34,7 +57,7 @@ export const htmlStringToNodes = htmlString => {
         if (UNWRAP_TAGS.includes(type)) {
           return children
         }
-        return createNodeObject(type, props, ..._.flatMapDeep(children))
+        return createNodeObject(type, { ...props, ...attrs }, ..._.flatMapDeep(children))
       }
       return null
     } catch (error) {

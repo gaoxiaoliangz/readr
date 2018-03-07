@@ -31,11 +31,11 @@ const model = createModel({
     showPref: false,
     preferences: {
       fontSize: 15,
-      // todo
       pageHeight: 700,
       theme: 'white',
       scrollMode: true,
-      contentWidth: 600
+      contentWidth: 600,
+      lineHeight: 24,
     }
   },
   effects: {

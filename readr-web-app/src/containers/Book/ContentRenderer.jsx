@@ -12,7 +12,7 @@ class ContentRenderer extends Component {
   }
 
   render() {
-    const { nodes, config: { theme, contentWidth, fontSize }, ...rest } = this.props
+    const { nodes, config: { theme, contentWidth, fontSize, lineHeight }, ...rest } = this.props
     const Element = nodesToReactElement(nodes, classNames({
       [styles['node']]: true,
       [styles['node--white']]: theme === 'white',
@@ -26,6 +26,7 @@ class ContentRenderer extends Component {
         style={{
           maxWidth: contentWidth || 'auto',
           fontSize,
+          lineHeight: lineHeight + 'px'
         }}
       />
     )
