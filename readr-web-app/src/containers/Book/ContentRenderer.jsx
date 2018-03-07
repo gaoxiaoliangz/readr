@@ -11,7 +11,7 @@ class ContentRenderer extends Component {
   }
 
   render() {
-    const { nodes, config: { theme }, ...rest } = this.props
+    const { nodes, config: { theme, contentWidth, fontSize }, ...rest } = this.props
     const Element = nodesToReactElement(nodes, classNames({
       [styles['node']]: true,
       [styles['node--white']]: theme === 'white',
@@ -19,7 +19,14 @@ class ContentRenderer extends Component {
     }))
 
     return (
-      <Element styleName="renderer-wrap" {...rest} />
+      <Element
+        styleName="renderer-wrap"
+        style={{
+          maxWidth: contentWidth || 'auto',
+          fontSize,
+          
+        }}
+        {...rest} />
     )
   }
 }

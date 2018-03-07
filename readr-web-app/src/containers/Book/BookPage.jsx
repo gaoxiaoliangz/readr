@@ -6,7 +6,7 @@ import './BookPage.scss'
 const BookPage = props => {
   const { page: { nodes, pageNo, offset, pageHeight }, config } = props
   return (
-    <div styleName="page">
+    <div styleName="page" id={`page-${pageNo}`}>
       <div
         style={{
           height: pageHeight,
@@ -19,7 +19,6 @@ const BookPage = props => {
           nodes={nodes}
           config={config}
         />
-        <div styleName="page-no">{pageNo}</div>
       </div>
     </div>
   )

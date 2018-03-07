@@ -1,0 +1,19 @@
+@import "~styles/variables";
+@import "~styles/mixins/screens";
+
+.pages {
+
+}
+
+.page-no {
+  position: absolute;
+  left: 0;
+  bottom: 15px;
+  width: 35px;
+  color: $gray;
+  font-size: 1rem;
+  text-align: left;
+  @include phone {
+    font-size: 0.9rem;
+  }
+}

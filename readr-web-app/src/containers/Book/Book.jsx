@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-// import classNames from 'classnames'
 import PT from 'prop-types'
 import model from './bookModel'
 import { FETCH_STATUS } from '../../constants'
 import LayoutEstimator from './LayoutEstimator'
-import BookPage from './BookPage'
+import FlippableBookPage from './FlippableBookPage'
 import TopPanel from './TopPanel'
 import styles from './Book.scss'
 import Icon from '../../components/Icon/Icon'
 import LeftPanel from '../../components/LeftPanel/LeftPanel'
 import PopBox from '../../components/PopBox/PopBox'
+import ScrollableBookPage from './ScrollableBookPage'
 import Toc from './Toc'
 import Pref from './Pref'
 
@@ -27,6 +27,7 @@ class Book extends Component {
     showToc: PT.bool.isRequired,
     showPref: PT.bool.isRequired,
     preferences: PT.object.isRequired,
+    clientProgress: PT.number.isRequired,
     match: PT.shape({
       params: PT.shape({
         id: PT.string
@@ -85,7 +86,7 @@ class Book extends Component {
 
   // todo: debounce
   handleMousemove = e => {
-    const show = e.pageY < 70
+    const show = e.clientY < 70
     if (show !== this.props.showTopPanel) {
       model.$set('showTopPanel', show)
     }
@@ -183,7 +184,8 @@ class Book extends Component {
       showTopPanel,
       showToc,
       showPref,
-      preferences
+      preferences,
+      clientProgress
     } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
     const currentPage = pages[clientCurrPage - 1]
@@ -226,7 +228,23 @@ class Book extends Component {
                 {this.renderNav()}
                 {
                   bookReady && (
-                    <BookPage page={currentPage} config={preferences} />
+                    preferences.scrollMode
+                      ? (
+                        <ScrollableBookPage
+                          progress={clientProgress}
+                          pages={pages}
+                          config={preferences}
+                          onProgressChange={progress => {
+                            model.$set('clientProgress', progress)
+                          }}
+                        />
+                      )
+                      : (
+                        <FlippableBookPage
+                          page={currentPage}
+                          config={preferences}
+                        />
+                      )
                   )
                 }
               </div>

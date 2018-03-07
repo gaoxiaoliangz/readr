@@ -31,8 +31,11 @@ const model = createModel({
     showPref: false,
     preferences: {
       fontSize: 15,
+      // todo
+      pageHeight: 700,
       theme: 'white',
-      scrollMode: false,
+      scrollMode: true,
+      contentWidth: 600
     }
   },
   effects: {
