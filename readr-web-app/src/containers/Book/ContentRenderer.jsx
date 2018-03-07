@@ -3,7 +3,7 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import styles from './ContentRenderer.scss'
-import { nodesToReactElement } from './utils'
+import { nodesToReactElement } from './layout/nodes'
 
 class ContentRenderer extends Component {
   static propTypes = {

@@ -4,7 +4,7 @@ import { FETCH_STATUS } from '../../constants'
 // import createDbModel from '../../local-db'
 // import uuid from '../../utils/uuid'
 import shelfModel from '../Shelf/shelfModel'
-import { htmlStringToNodes } from './utils'
+import { htmlStringToNodes } from './layout/nodes'
 import { groupPageFromChapters } from './layout/paging'
 
 // const { firebase } = window
