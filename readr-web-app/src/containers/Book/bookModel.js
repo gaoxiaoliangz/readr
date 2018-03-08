@@ -1,17 +1,108 @@
 import { createModel } from '@gxl/redux-model'
-import { select, take } from 'redux-saga/effects'
+import { select, take, put } from 'redux-saga/effects'
 import { FETCH_STATUS } from '../../constants'
 // import createDbModel from '../../local-db'
-// import uuid from '../../utils/uuid'
-import shelfModel from '../Shelf/shelfModel'
+import { getLocalBooks } from '../Shelf/shelfModel'
 import { htmlStringToNodes } from './layout/nodes'
 import { groupPageFromChapters } from './layout/paging'
 
-// const { firebase } = window
-// const db = firebase.database()
-// const store = firebase.storage()
+const { firebase } = window
+const db = firebase.database()
 // const dbModel = createDbModel('books')
 const NAMESPACE = 'book'
+
+export function* getBookId() {
+  const { book } = yield select()
+  return book.currBookId
+}
+
+export function* getRemoteProgress() {
+  const bookId = yield getBookId()
+  const progress = yield db.ref('progress')
+    .child(bookId)
+    .once('value')
+    .then(data => data.val().progress || 0)
+    .catch(err => {
+      console.error(err)
+      return 0
+    })
+  model.putRemoteProgress(progress)
+  return progress
+}
+
+export function* initBook(id) {
+  try {
+    model.$set('currBookId', id)
+    model.loadBook(id)
+    yield take('book/loadBook@end')
+    model.getLayoutInfo(id)
+    yield take('book/getLayoutInfo@end')
+    const { book } = yield select()
+    const bookNodes = book.bookNodes[id]
+    const bookLayoutInfo = book.bookLayouts[id]
+    const result = groupPageFromChapters(bookNodes, bookLayoutInfo, 700)
+    model.putBookPages(result)
+    const progress = yield getRemoteProgress()
+    model.$set('bookReady', true)
+    model.goToProgress(progress)
+    yield take('book/goToProgress@end')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export function* loadBook(id) {
+  model.$set('bookStatus', FETCH_STATUS.FETCHING)
+  try {
+    yield getLocalBooks()
+    const state = yield select()
+    const book = state.shelf.localBooks[id]
+    const sectionsOfNodes = book.content.map(section => {
+      return {
+        sectionId: section.id,
+        nodes: htmlStringToNodes(section.htmlString)
+      }
+    })
+    model.$set(['bookNodes', id], sectionsOfNodes)
+    model.$set('bookStatus', FETCH_STATUS.SUCCESS)
+  } catch (error) {
+    console.error(error)
+    model.$set('bookStatus', FETCH_STATUS.FAILURE)
+  }
+}
+
+export function* getLayoutInfo() {
+  model.$set('isEstimatingLayout', true)
+  yield take('book/putLayoutInfo')
+  model.$set('isEstimatingLayout', false)
+}
+
+export function* updateRemoteProgress(progress) {
+  const bookId = yield getBookId()
+  yield db.ref('progress')
+    .child(bookId)
+    .update({
+      progress,
+      updatedAt: new Date().valueOf()
+    })
+}
+
+export function* goToProgress(progress) {
+  try {
+    const { book } = yield select()
+    if (book.config.scrollMode) {
+      model.$set('disableScrollListener', true)
+      yield take('book/$set:disableScrollListener')
+    }
+    model.setClientProgress(progress)
+    yield take('book/setClientProgress')
+    if (book.config.scrollMode) {
+      model.$set('disableScrollListener', false)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 const model = createModel({
   namespace: NAMESPACE,
@@ -23,7 +114,6 @@ const model = createModel({
     bookLayouts: {},
     bookPages: {},
     isEstimatingLayout: false,
-    // clientCurrPage: 1,
     clientProgress: 0,
     remoteProgress: 0,
     showTopPanel: false,
@@ -40,97 +130,15 @@ const model = createModel({
     }
   },
   effects: {
-    *initBook(id) {
-      try {
-        this.$set('currBookId', id)
-        this.loadBook(id)
-        yield take('book/loadBook@end')
-        this.getLayoutInfo(id)
-        yield take('book/getLayoutInfo@end')
-        const { book } = yield select()
-        const bookNodes = book.bookNodes[id]
-        const bookLayoutInfo = book.bookLayouts[id]
-        const result = groupPageFromChapters(bookNodes, bookLayoutInfo, 700)
-        this.putBookPages(result)
-        yield take('book/putBookPages')
-        this.getProgress()
-        yield take('book/getProgress@end')
-        // this.$set('clientCurrPage', 11)
-        this.$set('bookReady', true)
-        this.goToProgress(0.5)
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    *loadBook(id) {
-      this.$set('bookStatus', FETCH_STATUS.FETCHING)
-      try {
-        shelfModel.getLocalBooks()
-        yield take('shelf/getLocalBooks@end')
-        const state = yield select()
-        if (!state.shelf.localBooks[id]) {
-          shelfModel.downloadBook(id)
-          yield take('shelf/downloadBook@end')
-          yield take('shelf/getLocalBooks@end')
-        }
-        const state2 = yield select()
-        const book = state2.shelf.localBooks[id]
-        const sectionsOfNodes = book.content.map(section => {
-          return {
-            sectionId: section.id,
-            nodes: htmlStringToNodes(section.htmlString)
-          }
-        })
-        this.$set(['bookNodes', id], sectionsOfNodes)
-        this.$set('bookStatus', FETCH_STATUS.SUCCESS)
-      } catch (error) {
-        console.error(error)
-        this.$set('bookStatus', FETCH_STATUS.FAILURE)
-      }
-    },
-    *getLayoutInfo() {
-      this.$set('isEstimatingLayout', true)
-      yield take('book/putLayoutInfo')
-      this.$set('isEstimatingLayout', false)
-    },
-    *getProgress(id) {
-      this.putRemoteProgress()
-      yield
-    },
-    *updateProgress(id) {
-
-    },
-    *goToProgress(progress) {
-      try {
-        const { book } = yield select()
-        if (book.config.scrollMode) {
-          this.$set('disableScrollListener', true)
-          yield take('book/$set:disableScrollListener')
-        }
-        this.setClientProgress(progress)
-        yield take('book/setClientProgress')
-        console.log('unlock')
-        if (book.config.scrollMode) {
-          this.$set('disableScrollListener', false)
-          // setTimeout(() => {
-          // }, 1000)
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    },
+    initBook,
+    loadBook,
+    getLayoutInfo,
+    getRemoteProgress,
+    updateRemoteProgress,
+    goToProgress
   },
   computations: {
     setClientProgress(state, clientProgress) {
-      // let pageNo = progress
-      // let clientProgress = progress
-      // const bookId = state.book.currBookId
-      // const totalPages = state.book.bookPages[bookId].length
-      // if (progress > 0 && progress < 1) {
-      //   pageNo = Math.round(totalPages * progress)
-      // } else {
-      //   clientProgress = progress / totalPages
-      // }
       return {
         ...state,
         clientProgress

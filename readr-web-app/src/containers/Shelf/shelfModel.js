@@ -10,6 +10,72 @@ const store = firebase.storage()
 const dbModel = createDbModel('books')
 const NAMESPACE = 'shelf'
 
+export function* fetchBooks() {
+  model.$set('booksStatus', FETCH_STATUS.FETCHING)
+  try {
+    const books = yield db.ref('bookInfo')
+      .once('value')
+      .then(data => {
+        return toArray(data.val())
+      })
+    model.$set('booksStatus', FETCH_STATUS.SUCCESS)
+    model.putBooks(books)
+  } catch (error) {
+    console.error(error)
+    model.$set('booksStatus', FETCH_STATUS.FAILURE)
+  }
+}
+
+export function* delBook(id) {
+  try {
+    yield Promise.all([
+      db.ref('books')
+        .child(id)
+        .remove(),
+      db.ref('bookInfo')
+        .child(id)
+        .remove()
+    ])
+    yield dbModel.remove(id)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export function* downloadBook(id) {
+  model.$set(['downloadStatus', id], FETCH_STATUS.FETCHING)
+  try {
+    const [book, bookInfo] = yield Promise.all([
+      db.ref('books').child(id).once('value').then(data => data.val()),
+      db.ref('bookInfo').child(id).once('value').then(data => data.val()),
+    ])
+    yield dbModel.add({
+      id,
+      ...book,
+      ...bookInfo
+    })
+    model.$set(['downloadStatus', id], FETCH_STATUS.SUCCESS)
+    yield getLocalBooks()
+  } catch (error) {
+    model.$set(['downloadStatus', id], FETCH_STATUS.FAILURE)
+  }
+}
+
+export function* getLocalBooks() {
+  const books = yield dbModel.listAll()
+  model.putLocalBooks(books)
+}
+
+export function* uploadBook(file) {
+  model.$set('isUploadingBook', true)
+  yield store.ref().child(file.name)
+    .put(file)
+    .then(() => {
+      logUploaded(file.name, file.type)
+    })
+  model.$set('isUploadingBook', false)
+}
+
 const model = createModel({
   namespace: NAMESPACE,
   state: {
@@ -23,67 +89,11 @@ const model = createModel({
     isUploadingBook: false,
   },
   effects: {
-    *fetchBooks() {
-      this.$set('booksStatus', FETCH_STATUS.FETCHING)
-      try {
-        const books = yield db.ref('bookInfo')
-          .once('value')
-          .then(data => {
-            return toArray(data.val())
-          })
-        this.$set('booksStatus', FETCH_STATUS.SUCCESS)
-        this.putBooks(books)
-      } catch (error) {
-        console.error(error)
-        this.$set('booksStatus', FETCH_STATUS.FAILURE)
-      }
-    },
-    *delBook(id) {
-      try {
-        yield Promise.all([
-          db.ref('books')
-            .child(id)
-            .remove(),
-          db.ref('bookInfo')
-            .child(id)
-            .remove()
-        ])
-        yield dbModel.remove(id)
-      } catch (error) {
-        console.error(error)
-      }
-    },
-    *downloadBook(id) {
-      this.$set(['downloadStatus', id], FETCH_STATUS.FETCHING)
-      try {
-        const [book, bookInfo] = yield Promise.all([
-          db.ref('books').child(id).once('value').then(data => data.val()),
-          db.ref('bookInfo').child(id).once('value').then(data => data.val()),
-        ])
-        yield dbModel.add({
-          id,
-          ...book,
-          ...bookInfo
-        })
-        this.$set(['downloadStatus', id], FETCH_STATUS.SUCCESS)
-        this.getLocalBooks()
-      } catch (error) {
-        this.$set(['downloadStatus', id], FETCH_STATUS.FAILURE)
-      }
-    },
-    *getLocalBooks() {
-      const books = yield dbModel.listAll()
-      this.putLocalBooks(books)
-    },
-    *uploadBook(file) {
-      this.$set('isUploadingBook', true)
-      yield store.ref().child(file.name)
-        .put(file)
-        .then(() => {
-          logUploaded(file.name, file.type)
-        })
-      this.$set('isUploadingBook', false)
-    }
+    fetchBooks,
+    delBook,
+    downloadBook,
+    getLocalBooks,
+    uploadBook,
   },
   computations: {
     putLocalBooks(state, localBooks) {

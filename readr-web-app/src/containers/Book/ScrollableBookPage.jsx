@@ -16,7 +16,11 @@ class ScrollableBookPage extends Component {
     pages: PT.array.isRequired,
     config: PT.object.isRequired,
     onProgressChange: PT.func.isRequired,
-    disableScrollListener: PT.bool.isRequired
+    disableScrollListener: PT.bool
+  }
+
+  static defaultProps = {
+    disableScrollListener: false
   }
 
   constructor(props) {
@@ -28,7 +32,6 @@ class ScrollableBookPage extends Component {
     const { pages, progress } = nextProps
     const currPage = Math.round(progress * pages.length)
     // todo: config update
-    console.log(currPage, this.currPage)
     return this.currPage !== currPage
   }
 
@@ -41,10 +44,9 @@ class ScrollableBookPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.disableScrollListener && nextProps.progress !== this.props.progress) {
+    if (nextProps.progress !== this.props.progress) {
       const totalHeight = nextProps.pages.length * nextProps.config.pageHeight
       const scrollTop = progressToScrollTop(nextProps.progress, getScreenHeight(), totalHeight)
-      console.log('now scroll', scrollTop, 'this.props.disableScrollListener', this.props.disableScrollListener)
       scrollTo(scrollTop)
     }
   }
@@ -52,33 +54,38 @@ class ScrollableBookPage extends Component {
   handleScroll() {
     if (!this.props.disableScrollListener) {
       const scrollTop = window.document.documentElement.scrollTop
-      // const progress = scrollTop / this.totalHeight
       const progress = scrollTopToProgress(scrollTop, getScreenHeight(), this.totalHeight)
       this.props.onProgressChange(progress)
-      console.log('onProgressChange')
     } else {
-      console.log('onProgressChange scroll disabled')
+      // maybe
+      // https://stackoverflow.com/questions/4770025/how-to-disable-scrolling-temporarily
     }
   }
 
+  get totalHeight() {
+    const { pages, config: { pageHeight } } = this.props
+    return pages.length * pageHeight
+  }
+
+  get pageHeight() {
+    return this.props.config.pageHeight
+  }
+
+  get currPage() {
+    return progressToPage(this.props.progress, this.props.pages.length)
+  }
+
   render() {
-    console.log('render')
-    const { pages, config: { pageHeight, contentWidth }, progress } = this.props
-    const totalHeight = pages.length * pageHeight
+    const { pages, config: { pageHeight, contentWidth } } = this.props
     const wrapStyle = {
-      height: totalHeight,
+      height: this.totalHeight,
       maxWidth: contentWidth
     }
-    // todo: use getter
-    this.totalHeight = totalHeight
-    this.pageHeight = pageHeight
-    const currPage = progressToPage(progress, pages.length)
     const gap = 5
+    const currPage = this.currPage
     let start = currPage - gap
     start = start >= 0 ? start : 0
     const pagesToRender = pages.slice(start, currPage + gap)
-    // todo
-    this.currPage = currPage
     return (
       <div style={wrapStyle} styleName="pages">
         {

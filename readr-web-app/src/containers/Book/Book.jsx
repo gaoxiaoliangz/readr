@@ -42,10 +42,15 @@ class Book extends Component {
     const { id } = this.props.match.params
     model.initBook(id)
     window.addEventListener('mousemove', this.handleMousemove)
+    window.goTo = this.goTo
   }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMousemove)
+  }
+
+  goTo(progress) {
+    model.$set('clientProgress', progress)
   }
 
   handleCalcDone = result => {
@@ -65,9 +70,8 @@ class Book extends Component {
   }
 
   handleProgressChange = progress => {
-    // todo
     model.$set('clientProgress', progress)
-    console.log(progress)
+    model.updateRemoteProgress(progress)
   }
 
   renderMenuIcon() {
