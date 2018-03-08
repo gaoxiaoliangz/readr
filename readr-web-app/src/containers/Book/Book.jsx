@@ -16,7 +16,6 @@ import Pref from './Pref'
 
 class Book extends Component {
   static propTypes = {
-    // progress: PT.number.isRequired,
     book: PT.object.isRequired,
     pages: PT.array.isRequired,
     bookNodes: PT.array.isRequired,
@@ -40,7 +39,7 @@ class Book extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params
-    model.initBook(id)
+    model.initBook(id) // eslint-disable-line
     window.addEventListener('mousemove', this.handleMousemove)
     window.goTo = this.goTo
   }
@@ -57,7 +56,6 @@ class Book extends Component {
     model.putLayoutInfo(result)
   }
 
-  // todo: debounce
   handleMousemove = e => {
     const show = e.clientY < 70
     if (show !== this.props.showTopPanel) {
@@ -65,13 +63,12 @@ class Book extends Component {
     }
   }
 
-  handleTocLinkClick = item => {
-    console.log(item)
+  handleTocLinkClick = () => {
   }
 
   handleProgressChange = progress => {
     model.$set('clientProgress', progress)
-    model.updateRemoteProgress(progress)
+    model.updateRemoteProgress(progress) // eslint-disable-line
   }
 
   renderMenuIcon() {
@@ -145,8 +142,6 @@ class Book extends Component {
       bookStatus,
       bookNodes,
       isEstimatingLayout,
-      // clientCurrPage,
-      // progress,
       bookReady,
       pages,
       showTopPanel,
@@ -157,7 +152,6 @@ class Book extends Component {
       disableScrollListener
     } = this.props
     const isFetching = bookStatus === FETCH_STATUS.FETCHING
-    // const currentPage = pages[clientCurrPage - 1]
     const bookInfo = _.pick(book, ['title', 'author'])
     return (
       <div className={`${styles['book']} ${styles[`book--${config.theme}`]}`}>
@@ -187,7 +181,7 @@ class Book extends Component {
                     model.$set('showToc', false)
                   }}
                 >
-                  <div styleName="contents-label">目录</div>
+                  <div styleName="contents-label">Contents</div>
                   <Toc
                     toc={book.structure || []}
                     onLinkClick={this.handleTocLinkClick}
