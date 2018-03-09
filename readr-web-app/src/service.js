@@ -1,16 +1,13 @@
 const { firebase } = window
+const db = firebase.database()
+const auth = firebase.auth()
 
-const FUNCTIONS_APP_ROOT = __DEV__
-  ? 'http://localhost:5000/readr-7498c/us-central1/app/'
-  : 'https://us-central1-readr-7498c.cloudfunctions.net/app/'
+// const FUNCTIONS_APP_ROOT = __DEV__
+//   ? 'http://localhost:5000/readr-7498c/us-central1/app/'
+//   : 'https://us-central1-readr-7498c.cloudfunctions.net/app/'
 
-const callApi = () => {
-  // return 
-}
-
-// not create user?
-export function createUser(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
+export function updateUser(userId, name, email, imageUrl) {
+  return db.ref('users').child(userId).update({
     name,
     email,
     profilePicture: imageUrl
@@ -18,7 +15,7 @@ export function createUser(userId, name, email, imageUrl) {
 }
 
 export function logUploaded(filename, type) {
-  firebase.database().ref('files').push({
+  return db.ref('files').push({
     filename,
     type,
     // todo
@@ -26,26 +23,39 @@ export function logUploaded(filename, type) {
   })
 }
 
-export const fetchBookList = () => fetch(`${FUNCTIONS_APP_ROOT}books`).then(res => {
-  return res.json().then(data => {
-    return data
-  })
-})
+export const signIn = () => {
+  const provider = new firebase.auth.GoogleAuthProvider()
+  return firebase.auth().signInWithPopup(provider)
+}
 
-export const fetchBookFile = id => fetch(`${FUNCTIONS_APP_ROOT}book-files/${id}`).then(res => {
-  return res.json().then(data => {
-    return data
-  })
-})
+export const signOut = () => {
+  return auth.signOut()
+}
 
-export const fetchBookMeta = id => fetch(`${FUNCTIONS_APP_ROOT}books/${id}/meta`).then(res => {
-  return res.json().then(data => {
-    return data
-  })
-})
+export const subscriptions = {
+  onAuthStateChanged: auth.onAuthStateChanged.bind(auth)
+}
 
-export const fetchBookSections = id => fetch(`${FUNCTIONS_APP_ROOT}books/${id}/sections`).then(res => {
-  return res.json().then(data => {
-    return data
-  })
-})
+// export const fetchBookList = () => fetch(`${FUNCTIONS_APP_ROOT}books`).then(res => {
+//   return res.json().then(data => {
+//     return data
+//   })
+// })
+
+// export const fetchBookFile = id => fetch(`${FUNCTIONS_APP_ROOT}book-files/${id}`).then(res => {
+//   return res.json().then(data => {
+//     return data
+//   })
+// })
+
+// export const fetchBookMeta = id => fetch(`${FUNCTIONS_APP_ROOT}books/${id}/meta`).then(res => {
+//   return res.json().then(data => {
+//     return data
+//   })
+// })
+
+// export const fetchBookSections = id => fetch(`${FUNCTIONS_APP_ROOT}books/${id}/sections`).then(res => {
+//   return res.json().then(data => {
+//     return data
+//   })
+// })

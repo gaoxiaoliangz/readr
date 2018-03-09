@@ -1,68 +1,43 @@
 import React from 'react'
+import PT from 'prop-types'
+import _ from 'lodash'
 import Branding from '../components/Branding/Branding'
-import { createUser } from '../service'
+import { subscriptions, signIn, signOut } from '../service'
+import appModel from './appModel'
 
-const { firebase } = window
-
-export default class BrandingContainer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: null,
-      signedIn: false,
-    }
-    this.currentUID = null
+class BrandingContainer extends React.Component {
+  static propTypes = {
+    innerProps: PT.object,
+    user: PT.object.isRequired
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged)
-  }
-
-  onAuthStateChanged = user => {
-    // We ignore token refresh events.
-    if (user && this.currentUID === user.uid) {
-      return
-    }
-
-    if (user) {
-      this.currentUID = user.uid
-      this.setState({
-        username: user.displayName,
-        signedIn: true
-      })
-      createUser(user.uid, user.displayName, user.email, user.photoURL)
-      // startDatabaseQueries()
-    } else {
-      // Set currentUID to null.
-      this.currentUID = null
-      this.setState({
-        username: null,
-        signedIn: false
-      })
-    }
+    subscriptions.onAuthStateChanged(appModel.handleUserStateChange)
   }
 
   handleSignOutClick = () => {
-    firebase.auth().signOut()
+    signOut()
   }
 
   handleSignInClick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(provider)
+    signIn()
     return false
   }
 
   render() {
     const { innerProps } = this.props
-    const { signedIn, username } = this.state
+    const { displayName } = this.props.user
+    const signedIn = !_.isEmpty(this.props.user)
     return (
       <Branding
         onSignInClick={this.handleSignInClick}
         onSignOutClick={this.handleSignOutClick}
         signedIn={signedIn}
-        username={username}
+        username={displayName}
         {...innerProps}
       />
     )
   }
 }
+
+export default appModel.connect(BrandingContainer)

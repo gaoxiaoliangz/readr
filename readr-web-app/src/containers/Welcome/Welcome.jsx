@@ -3,6 +3,7 @@ import { Button } from 'antd'
 import BrandingContainer from '../../containers/BrandingContainer'
 import './Welcome.scss?global' // eslint-disable-line
 import mobilePic from './mobile.png'
+import { signIn } from '../../service'
 import Colophon from '../../components/Colophon/Colophon'
 
 class Welcome extends Component {
@@ -11,8 +12,7 @@ class Welcome extends Component {
   }
 
   handleSignInClick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(provider)
+    signIn()
     return false
   }
 

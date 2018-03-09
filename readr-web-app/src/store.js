@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { extractReducer, feedStore, extractSaga } from '@gxl/redux-model'
 import createSagaMiddleware from 'redux-saga'
+import appModel from './containers/appModel'
 import shelfModel from './containers/Shelf/shelfModel'
 import bookModel from './containers/Book/bookModel'
 
-const models = [shelfModel, bookModel]
+const models = [appModel, shelfModel, bookModel]
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = [sagaMiddleware]
 const enhancers = [
