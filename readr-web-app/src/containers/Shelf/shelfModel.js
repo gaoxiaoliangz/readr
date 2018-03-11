@@ -1,23 +1,16 @@
 import { createModel } from '@gxl/redux-model'
-import { logUploaded } from '../../service'
+import { uploadBook, fetchUserOwnedBooks, delBook, fetchBook } from '../../service'
 import { FETCH_STATUS } from '../../constants'
 import createDbModel from '../../local-db'
 import { toArray } from '../utils'
 
-const { firebase } = window
-const db = firebase.database()
-const store = firebase.storage()
 const dbModel = createDbModel('books')
 const NAMESPACE = 'shelf'
 
 export function* fetchBooks() {
   model.$set('booksStatus', FETCH_STATUS.FETCHING)
   try {
-    const books = yield db.ref('bookInfo')
-      .once('value')
-      .then(data => {
-        return toArray(data.val())
-      })
+    const books = yield fetchUserOwnedBooks().then(toArray)
     model.$set('booksStatus', FETCH_STATUS.SUCCESS)
     model.putBooks(books)
   } catch (error) {
@@ -26,34 +19,11 @@ export function* fetchBooks() {
   }
 }
 
-export function* delBook(id) {
-  try {
-    yield Promise.all([
-      db.ref('books')
-        .child(id)
-        .remove(),
-      db.ref('bookInfo')
-        .child(id)
-        .remove()
-    ])
-    yield dbModel.remove(id)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 export function* downloadBook(id) {
   model.$set(['downloadStatus', id], FETCH_STATUS.FETCHING)
   try {
-    const [book, bookInfo] = yield Promise.all([
-      db.ref('books').child(id).once('value').then(data => data.val()),
-      db.ref('bookInfo').child(id).once('value').then(data => data.val()),
-    ])
-    yield dbModel.add({
-      id,
-      ...book,
-      ...bookInfo
-    })
+    const book = yield fetchBook(id, true)
+    yield dbModel.add(book)
     model.$set(['downloadStatus', id], FETCH_STATUS.SUCCESS)
     yield getLocalBooks()
   } catch (error) {
@@ -64,16 +34,6 @@ export function* downloadBook(id) {
 export function* getLocalBooks() {
   const books = yield dbModel.listAll()
   model.putLocalBooks(books)
-}
-
-export function* uploadBook(file) {
-  model.$set('isUploadingBook', true)
-  yield store.ref().child(file.name)
-    .put(file)
-    .then(() => {
-      logUploaded(file.name, file.type)
-    })
-  model.$set('isUploadingBook', false)
 }
 
 const model = createModel({
@@ -90,10 +50,21 @@ const model = createModel({
   },
   effects: {
     fetchBooks,
-    delBook,
+    *delBook(id) {
+      try {
+        yield delBook(id)
+        yield dbModel.remove(id)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     downloadBook,
     getLocalBooks,
-    uploadBook,
+    *uploadBook(file) {
+      model.$set('isUploadingBook', true)
+      yield uploadBook(file)
+      model.$set('isUploadingBook', false)
+    }
   },
   computations: {
     putLocalBooks(state, localBooks) {

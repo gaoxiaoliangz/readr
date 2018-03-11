@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
+import { Link } from 'react-router-dom'
 import model from './bookModel'
 import { FETCH_STATUS } from '../../constants'
 import LayoutEstimator from './LayoutEstimator'
@@ -181,6 +182,9 @@ class Book extends Component {
                     model.$set('showToc', false)
                   }}
                 >
+                  <div styleName="contents-label">
+                    <Link to="/">Back to shelf</Link>
+                  </div>
                   <div styleName="contents-label">Contents</div>
                   <Toc
                     toc={book.structure || []}

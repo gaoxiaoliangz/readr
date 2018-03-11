@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PT from 'prop-types'
 import cx from 'classnames'
 import Logo from '../Logo/Logo'
 import './Branding.scss'
@@ -29,6 +30,14 @@ const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) =
       </div>
     </div>
   )
+}
+
+Branding.propTypes = {
+  dark: PT.bool,
+  signedIn: PT.bool.isRequired,
+  username: PT.string,
+  onSignInClick: PT.func.isRequired,
+  onSignOutClick: PT.func.isRequired
 }
 
 export default Branding

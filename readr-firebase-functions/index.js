@@ -109,6 +109,7 @@ exports.epubToBook = functions.storage.object().onChange(event => {
   const filePath = object.name
   const tempLocalFile = path.join(os.tmpdir(), filePath)
   const tempLocalDir = path.dirname(tempLocalFile)
+  console.log('Change triggered...')
 
   // Exit if this is triggered on a file that is not an image.
   if (!object.contentType.startsWith('application/epub+zip')) {
@@ -124,35 +125,55 @@ exports.epubToBook = functions.storage.object().onChange(event => {
 
   const bucket = gcs.bucket(object.bucket)
   // Create the temp directory where the storage file will be downloaded.
-  return mkdirp(tempLocalDir).then(() => {
-    // Download file from bucket.
-    return bucket.file(filePath).download({ destination: tempLocalFile })
-  }).then(() => {
-    console.log('The file has been downloaded to', tempLocalFile)
-    return epubParser(tempLocalFile).then(epub => {
-      const book = omitUndefinedDeep({
-        filename: filePath,
-        structure: epub.structure,
-        content: epub.sections,
-        version: BOOK_VERSION,
-        createdAt: new Date().valueOf(),
-      })
-      const bookInfo = omitUndefinedDeep(_.assign({}, epub.info, {
-        structure: epub.structure,
-        version: BOOK_VERSION,
-        createdAt: new Date().valueOf(),
-      }))
-      const bookRef = database.ref('books').push()
-
-      return Promise.all([bookRef.set(book), database.ref('bookInfo').update({
-        [bookRef.key]: bookInfo
-      })])
+  return mkdirp(tempLocalDir)
+    .then(() => {
+      // Download file from bucket.
+      return bucket.file(filePath).download({ destination: tempLocalFile })
     })
-  }).then(() => {
-    // Once the image has been converted delete the local files to free up disk space.
-    fs.unlinkSync(tempLocalFile)
-    return {
-      ok: 1
-    }
-  })
+    .then(() => {
+      console.log('The file has been downloaded to', tempLocalFile)
+      return epubParser(tempLocalFile)
+        .then(epub => {
+          const contentRef = database.ref('bookContent').push()
+          const setContent = contentRef.set(omitUndefinedDeep({
+            content: epub.sections,
+            createdAt: new Date().valueOf(),
+          }))
+
+          const updateBook = database.ref('books')
+            .orderByChild('file')
+            .equalTo(filePath)
+            .once('child_added', snapshot => {
+              snapshot.ref.update(omitUndefinedDeep(_.assign({}, epub.info, {
+                content: contentRef.key,
+                structure: epub.structure,
+                version: BOOK_VERSION,
+                status: 'SUCCESS',
+                createdAt: new Date().valueOf(),
+              })))
+            })
+
+          return Promise.all([
+            setContent,
+            updateBook
+          ])
+        })
+    })
+    .then(() => {
+      // Once the image has been converted delete the local files to free up disk space.
+      fs.unlinkSync(tempLocalFile)
+      console.log('Done', filePath)
+    })
+    .catch(err => {
+      console.error(err)
+      return database.ref('books')
+        .orderByChild('file')
+        .equalTo(filePath)
+        .once('child_added', snapshot => {
+          snapshot.ref.update({
+            status: 'FAILURE',
+            createdAt: new Date().valueOf(),
+          })
+        })
+    })
 })
