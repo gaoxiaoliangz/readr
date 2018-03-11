@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import _ from 'lodash'
 import { createSelector } from 'reselect'
 import { Spin, Icon, Modal } from 'antd'
 import PT from 'prop-types'
@@ -9,6 +7,7 @@ import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
 import model from './shelfModel'
 import { FETCH_STATUS } from '../../constants'
+import BookList from './BookList'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 const { firebase } = window
@@ -18,7 +17,6 @@ class Shelf extends Component {
   static propTypes = {
     booksStatus: PT.string.isRequired,
     shelfBooks: PT.array.isRequired,
-    downloadStatus: PT.object.isRequired,
     isUploadingBook: PT.bool.isRequired,
     books: PT.object.isRequired
   }
@@ -46,7 +44,7 @@ class Shelf extends Component {
   }
 
   render() {
-    const { booksStatus, shelfBooks, downloadStatus, isUploadingBook } = this.props
+    const { booksStatus, shelfBooks, isUploadingBook } = this.props
     const loading = booksStatus === FETCH_STATUS.FETCHING
     return (
       <div className="page-shelf">
@@ -59,28 +57,17 @@ class Shelf extends Component {
           {
             loading
               ? <Spin indicator={antIcon} />
-              : _.map(shelfBooks, (book) => {
-                return (
-                  <div key={book.id}>
-                    <Link to={'/book/' + book.id}>{book.title}</Link>
-                    <div onClick={() => this.delBook(book.id)}>delete</div>
-                    {
-                      downloadStatus[book.id] === FETCH_STATUS.FETCHING
-                        ? 'downloading'
-                        : (book.downloaded
-                          ? 'downloaded'
-                          : (
-                            <div onClick={() => {
-                              model.downloadBook(book.id)
-                            }}>
-                              download book
-                            </div>
-                          )
-                        )
-                    }
-                  </div>
-                )
-              })
+              : (
+                <BookList
+                  books={shelfBooks}
+                  onDelBook={book => {
+                    this.delBook(book.id)
+                  }}
+                  onDownloadBook={book => {
+                    model.downloadBook(book.id)
+                  }}
+                />
+              )
           }
         </div>
         <Colophon dark />
@@ -94,11 +81,13 @@ export default model.connect(Shelf, state => {
     s => s.bookPagination.entries,
     s => s.books,
     s => s.localBooks,
-    (entries = [], books = {}, localBooks = {}) => {
+    s => s.downloadStatus,
+    (entries = [], books = {}, localBooks = {}, downloadStatus = {}) => {
       return entries.map(id => {
         return {
           ...books[id],
-          downloaded: Boolean(localBooks[id])
+          downloaded: Boolean(localBooks[id]),
+          downloadStatus: downloadStatus[id]
         }
       })
     }
