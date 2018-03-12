@@ -141,16 +141,23 @@ $width: 134px;
   color: $text-light;
 }
 
+.processing {
+  position: absolute;
+  top: 9px;
+  right: 5px;
+}
+
 .book-opt {
   position: absolute;
   top: 9px;
   cursor: pointer;
-  color: $gray;
   &__del {
+    color: $red;
     right: 5px;
   }
   &__download {
-    right: 15px;
+    color: $blue;
+    right: 25px;
   }
 }
 

@@ -2,15 +2,9 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import PT from 'prop-types'
+import { Icon } from 'antd'
 import './Book.scss'
-import Icon from '../../components/Icon/Icon'
 import { BOOK_STATUS, FETCH_STATUS } from '../../constants'
-
-const statusMap = {
-  [BOOK_STATUS.PROCESSING]: 'Processing',
-  [BOOK_STATUS.SUCCESS]: null,
-  [BOOK_STATUS.FAILURE]: 'Failure',
-}
 
 export default class Book extends Component {
   static propTypes = {
@@ -27,9 +21,51 @@ export default class Book extends Component {
     status: PT.string.isRequired
   }
 
+  handleDownload = () => {
+    this.props.onDownloadBook(this.props)
+  }
+
+  renderDownload() {
+    const { downloaded, downloadStatus } = this.props
+
+    const renderIcon = () => {
+      switch (downloadStatus) {
+        case FETCH_STATUS.FETCHING:
+          return <Icon type="loading" spin style={{ fontSize: 16 }} />
+
+        case FETCH_STATUS.FAILURE:
+          return <Icon type="close-circle" style={{ fontSize: 16 }} onClick={this.handleDownload} />
+
+        case FETCH_STATUS.SUCCESS:
+          return <Icon type="check" style={{ fontSize: 16 }} />
+
+        case undefined:
+        case FETCH_STATUS.NONE:
+        default:
+          return <Icon type="download" style={{ fontSize: 16 }} onClick={this.handleDownload} />
+      }
+    }
+
+    return (
+      <div
+        styleName="book-opt book-opt__download"
+        onClick={() => {
+
+        }}
+      >
+        {
+          downloaded
+            ? <Icon type="check" style={{ fontSize: 16 }} />
+            : renderIcon()
+        }
+      </div>
+    )
+  }
+
   render() {
-    const { title, cover, percentage, to, author, onDelBook, id, onDownloadBook, status, downloaded, downloadStatus } = this.props
+    const { title, cover, percentage, to, author, onDelBook, id, status } = this.props
     const defaultTo = '/book/' + id
+    const isCloudProcessing = status === BOOK_STATUS.PROCESSING
     return (
       <div styleName="book--card">
         <Link to={to || defaultTo} >
@@ -51,39 +87,25 @@ export default class Book extends Component {
           </div>
         </Link>
         {
-          onDelBook && (
+          !isCloudProcessing && onDelBook && (
             <div
               styleName="book-opt book-opt__del"
               onClick={() => {
                 onDelBook(this.props)
               }}
             >
-              <Icon name="trash" />
+              <Icon type="delete" style={{ fontSize: 16 }} />
             </div>
           )
         }
         {
-          !downloaded && downloadStatus !== FETCH_STATUS.FETCHING && onDownloadBook && (
-            <div
-              styleName="book-opt book-opt__download"
-              onClick={() => {
-                onDownloadBook(this.props)
-              }}
-            >
-              Download
-              {/* <Icon name="trash" /> */}
-            </div>
-          )
-        }
-        {
-          downloadStatus && (
-            <div>{downloadStatus}</div>
-          )
-        }
-        {
-          statusMap[status] && (
-            <div styleName="status">{statusMap[status]}</div>
-          )
+          isCloudProcessing
+            ? (
+              <div styleName="processing">
+                <Icon type="loading" spin style={{ fontSize: 16 }} />
+              </div>
+            )
+            : this.renderDownload()
         }
       </div>
     )
