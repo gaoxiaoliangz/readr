@@ -85,8 +85,8 @@ class Pref extends Component {
               })
             }
           </li>
-          <li>
-            Enable scroll mode
+          <li styleName="sc-mode">
+            <span styleName="text">Enable scroll mode</span>
             <Switch checked={scrollMode} onChange={onChangeScrollModeRequest} />
           </li>
         </ul>

@@ -1,8 +1,9 @@
 import { createModel } from '@gxl/redux-model'
+import _ from 'lodash'
 import { select, take } from 'redux-saga/effects'
 import { FETCH_STATUS } from '../../constants'
-// import createDbModel from '../../local-db'
 import { getLocalBooks } from '../Shelf/shelfModel'
+import createDbModel from '../../local-db'
 import appModel from '../appModel'
 import { htmlStringToNodes } from './layout/nodes'
 import { groupPageFromChapters } from './layout/paging'
@@ -10,6 +11,7 @@ import { updateBookProgress, getBookProgress } from '../../service'
 import { pageToProgress } from './progress'
 
 const NAMESPACE = 'book'
+const userDbModel = createDbModel('users')
 
 export function* getBookId() {
   const { book } = yield select()
@@ -35,14 +37,12 @@ export function* initBook(id) {
     const { book } = yield select()
     const bookNodes = book.bookNodes[id]
     const bookLayoutInfo = book.bookLayouts[id]
-    const result = groupPageFromChapters(bookNodes, bookLayoutInfo, 700)
+    const result = groupPageFromChapters(bookNodes, bookLayoutInfo, book.config.pageHeight)
     model.putBookPages(result)
     const progress = yield getRemoteProgress()
     model.$set('bookReady', true)
     appModel.stopLoading('book')
     model.goToProgress(progress)
-    yield take('book/goToProgress@end')
-    yield
   } catch (error) {
     console.error(error)
   }
@@ -116,7 +116,7 @@ const model = createModel({
       fontSize: 15,
       pageHeight: 700,
       theme: 'white',
-      scrollMode: true,
+      scrollMode: false,
       contentWidth: 600,
       lineHeight: 24,
     }
@@ -128,6 +128,16 @@ const model = createModel({
     getRemoteProgress,
     updateRemoteProgress,
     goToProgress,
+    *initConfig(config) {
+      const { app: { user } } = yield select()
+      if (user.uid) {
+        const localConfig = yield userDbModel.get(user.uid)
+        model.putConfig({
+          ...localConfig,
+          ...config
+        })
+      }
+    },
     *goToChapter(chapterId) {
       const { book } = yield select()
       const pages = book.bookPages[book.currBookId]
@@ -144,9 +154,60 @@ const model = createModel({
       } else {
         console.error(chapterId, 'not found!')
       }
+    },
+    *changeFontSize(newSize) {
+      this.$set('config.fontSize', newSize)
+      const id = yield getBookId()
+      this.$set('disableScrollListener', true)
+      this.getLayoutInfo(id)
+      yield take('book/getLayoutInfo@end')
+      const { book } = yield select()
+      const bookNodes = book.bookNodes[id]
+      const bookLayoutInfo = book.bookLayouts[id]
+      const result = groupPageFromChapters(bookNodes, bookLayoutInfo, book.config.pageHeight)
+      model.putBookPages(result)
+      model.goToProgress(book.clientProgress)
+      this.$set('disableScrollListener', false)
+    },
+    *toggleScrollMode(status) {
+      const { book } = yield select()
+      if (status) {
+        this.$set('disableScrollListener', true)
+        model.$set('config.scrollMode', status)
+        model.goToProgress(book.clientProgress)
+        this.$set('disableScrollListener', false)
+      } else {
+        model.$set('config.scrollMode', status)
+      }
+    }
+  },
+  watch: {
+    config({ value, state }) {
+      const uid = _.get(state, 'app.user.uid')
+      if (uid) {
+        userDbModel.get(uid).then(config => {
+          if (config) {
+            userDbModel.update(uid, value)
+          } else {
+            userDbModel.add({
+              id: uid,
+              config: value
+            })
+          }
+        })
+      }
     }
   },
   computations: {
+    putConfig(state, config) {
+      return {
+        ...state,
+        config: {
+          ...state.config,
+          ...config
+        }
+      }
+    },
     setClientProgress(state, clientProgress) {
       return {
         ...state,

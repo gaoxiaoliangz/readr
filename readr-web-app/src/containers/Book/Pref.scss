@@ -114,3 +114,10 @@
   background: #f9f1e5;
   border-color: $blue;
 }
+.sc-mode {
+  padding: 15px 0;
+  .text {
+    margin-right: 5px;
+    display: inline-block;
+  }
+}

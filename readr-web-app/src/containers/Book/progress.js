@@ -1,4 +1,4 @@
-export const progressToPage = (progress, totalPages) => Math.round(progress * totalPages)
+export const progressToPage = (progress, totalPages) => Math.round(progress * totalPages) || 1
 
 export const pageToProgress = (page, totalPages) => page / totalPages
 

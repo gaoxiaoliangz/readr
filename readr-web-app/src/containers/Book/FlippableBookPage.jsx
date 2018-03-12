@@ -69,13 +69,14 @@ class FlippableBookPage extends Component {
     }
     const clientCurrPage = progressToPage(progress, pages.length)
     this.clientCurrPage = clientCurrPage
+    const page = pages[clientCurrPage - 1]
 
     return (
       <div styleName="page--flip" style={wrapStyle}>
         {this.renderNav()}
         <div styleName="title">{title}</div>
         <BookPage
-          page={pages[clientCurrPage - 1]}
+          page={page}
           config={this.props.config}
         />
         <div styleName="page-no">{clientCurrPage}</div>

@@ -29,10 +29,12 @@ class ScrollableBookPage extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    if (this.props.disableScrollListener) {
+      return true
+    }
     const { pages, progress } = nextProps
     const currPage = Math.round(progress * pages.length)
-    // todo: config update
-    return this.currPage !== currPage
+    return this.currPage !== currPage || !_.isEqual(this.props.config, nextProps.config)
   }
 
   componentDidMount() {
@@ -44,7 +46,7 @@ class ScrollableBookPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.progress !== this.props.progress) {
+    if ((nextProps.progress !== this.props.progress) || this.props.disableScrollListener) {
       const totalHeight = nextProps.pages.length * nextProps.config.pageHeight
       const scrollTop = progressToScrollTop(nextProps.progress, getScreenHeight(), totalHeight)
       scrollTo(scrollTop)

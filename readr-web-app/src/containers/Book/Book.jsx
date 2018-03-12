@@ -38,6 +38,15 @@ class Book extends Component {
 
   lastScrollTop = 0
 
+  componentWillMount() {
+    let pageHeight = window.innerHeight - 120
+    const rest = pageHeight % this.props.config.lineHeight
+    pageHeight -= rest
+    model.initConfig({
+      pageHeight
+    })
+  }
+
   componentDidMount() {
     const { id } = this.props.match.params
     model.initBook(id) // eslint-disable-line
@@ -114,10 +123,12 @@ class Book extends Component {
             theme={config.theme}
             scrollMode={config.scrollMode}
             onChangeScrollModeRequest={status => {
-              model.$set('config.scrollMode', status)
+              if (status !== config.scrollMode) {
+                model.toggleScrollMode(status)
+              }
             }}
             onChangeFontSizeRequest={(fontSize) => {
-              model.$set('config.fontSize', fontSize)
+              model.changeFontSize(fontSize)
             }}
             onChangeThemeRequest={(theme) => {
               model.$set('config.theme', theme)
