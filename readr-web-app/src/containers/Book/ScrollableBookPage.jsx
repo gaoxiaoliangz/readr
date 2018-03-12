@@ -16,7 +16,8 @@ class ScrollableBookPage extends Component {
     pages: PT.array.isRequired,
     config: PT.object.isRequired,
     onProgressChange: PT.func.isRequired,
-    disableScrollListener: PT.bool
+    disableScrollListener: PT.bool,
+    onLinkClick: PT.func,
   }
 
   static defaultProps = {
@@ -78,7 +79,7 @@ class ScrollableBookPage extends Component {
   }
 
   render() {
-    const { pages, config: { pageHeight, contentWidth } } = this.props
+    const { pages, config: { pageHeight, contentWidth }, onLinkClick } = this.props
     const wrapStyle = {
       height: this.totalHeight,
       maxWidth: contentWidth
@@ -99,7 +100,7 @@ class ScrollableBookPage extends Component {
             }
             return (
               <div key={page.pageNo} style={pageWrapStyle}>
-                <BookPage page={page} config={this.props.config} />
+                <BookPage page={page} config={this.props.config} onLinkClick={onLinkClick} />
                 <div styleName="page-no">{pageNo}</div>
               </div>
             )

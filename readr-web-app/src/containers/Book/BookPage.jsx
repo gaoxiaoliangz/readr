@@ -4,7 +4,7 @@ import ContentRenderer from './ContentRenderer'
 import './BookPage.scss'
 
 const BookPage = props => {
-  const { page: { nodes, pageNo, offset, pageHeight }, config } = props
+  const { page: { nodes, pageNo, offset, pageHeight }, config, onLinkClick } = props
   return (
     <div styleName="page" id={`page-${pageNo}`}>
       <div
@@ -18,6 +18,7 @@ const BookPage = props => {
           }}
           nodes={nodes}
           config={config}
+          onLinkClick={onLinkClick}
         />
       </div>
     </div>
@@ -27,6 +28,7 @@ const BookPage = props => {
 BookPage.propTypes = {
   page: PT.object.isRequired,
   config: PT.object.isRequired,
+  onLinkClick: PT.func,
 }
 
 export default BookPage

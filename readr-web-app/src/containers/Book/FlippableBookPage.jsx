@@ -11,6 +11,7 @@ class FlippableBookPage extends Component {
     config: PT.object.isRequired,
     bookInfo: PT.object.isRequired,
     onProgressChange: PT.func.isRequired,
+    onLinkClick: PT.func,
   }
 
   componentDidMount() {
@@ -63,7 +64,7 @@ class FlippableBookPage extends Component {
   }
 
   render() {
-    const { pages, config: { contentWidth }, bookInfo: { title }, progress } = this.props
+    const { pages, config: { contentWidth }, bookInfo: { title }, progress, onLinkClick } = this.props
     const wrapStyle = {
       maxWidth: contentWidth || 'auto'
     }
@@ -78,6 +79,7 @@ class FlippableBookPage extends Component {
         <BookPage
           page={page}
           config={this.props.config}
+          onLinkClick={onLinkClick}
         />
         <div styleName="page-no">{clientCurrPage}</div>
       </div>

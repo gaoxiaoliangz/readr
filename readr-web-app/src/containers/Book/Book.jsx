@@ -75,8 +75,17 @@ class Book extends Component {
   }
 
   handleTocLinkClick = item => {
-    model.goToChapter(item.substr(1))
+    const chapter = item.substr(1)
+    model.goToChapter(chapter)
     model.$set('showToc', false)
+  }
+
+  handleLinkClick = link => {
+    // TODO
+    let chapter = link.split('#')[0]
+    chapter = _.last(chapter.split('/'))
+    chapter = chapter.split('.')[0]
+    model.goToChapter(chapter)
   }
 
   handleProgressChange = progress => {
@@ -214,6 +223,7 @@ class Book extends Component {
                           pages={pages}
                           config={config}
                           onProgressChange={this.handleProgressChange}
+                          onLinkClick={this.handleLinkClick}
                         />
                       )
                       : (
@@ -223,6 +233,7 @@ class Book extends Component {
                           pages={pages}
                           config={config}
                           onProgressChange={this.handleProgressChange}
+                          onLinkClick={this.handleLinkClick}
                         />
                       )
                   )

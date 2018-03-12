@@ -74,17 +74,26 @@ export const htmlStringToNodes = htmlString => {
  * @param {{type, props, children}[]} nodes 
  * @param {string} nodeClassName
  */
-export const nodesToReactElement = (nodes, nodeClassName) => {
+export const nodesToReactElement = (nodes, nodeClassName, onLinkClick) => {
   const createReactElement = node => {
     try {
       if (typeof node === 'string') {
         return node
       }
       const children = node.children.map(createReactElement)
-      return React.createElement(node.type, {
+      let nodeProps = {
         ...node.props,
         className: nodeClassName
-      }, ..._.flatMapDeep(children))
+      }
+      if (node.type === 'a' && node.props.href) {
+        nodeProps = {
+          ...nodeProps,
+          onClick: e => {
+            return onLinkClick(e, node.props.href)
+          }
+        }
+      }
+      return React.createElement(node.type, nodeProps, ..._.flatMapDeep(children))
     } catch (error) {
       console.error(error)
       return null
