@@ -33,6 +33,48 @@ export function fetchItems(parentRef, ids) {
     })
 }
 
+export const getBookProgress = bookId => {
+  const user = firebase.auth().currentUser
+  if (!user) {
+    return Promise.reject(new Error('Not signed in!'))
+  }
+  const uid = user.uid
+  return db.ref('users')
+    .child(uid)
+    .child('progress')
+    .child(bookId)
+    .once('value')
+    .then(data => {
+      const result = data.val()
+      if (result) {
+        return data.val().progress
+      }
+      return null
+    })
+    .catch(err => {
+      console.error(err)
+      return 0
+    })
+}
+
+export const updateBookProgress = (bookId, progress) => {
+  const user = firebase.auth().currentUser
+  if (!user) {
+    return Promise.reject(new Error('Not signed in!'))
+  }
+  const uid = user.uid
+  return db.ref('users')
+    .child(uid)
+    .child('progress')
+    .child(bookId)
+    .update({
+      progress,
+      updatedAt: new Date().valueOf(),
+      user: uid,
+      book: bookId
+    })
+}
+
 export const updateUser = (userId, name, email, imageUrl) => {
   return db.ref('users').child(userId).update({
     name,

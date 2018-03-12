@@ -1,9 +1,11 @@
 import React from 'react'
+import _ from 'lodash'
 import { Route, HashRouter as Router } from 'react-router-dom'
 import { asyncComponent } from 'react-async-component'
 import PT from 'prop-types'
 import { subscriptions } from '../service'
 import appModel from './appModel'
+import Loading from '../components/Loading/Loading'
 
 const Shelf = asyncComponent({
   resolve: () => import('./Shelf/Shelf')
@@ -19,10 +21,12 @@ const Book = asyncComponent({
 
 class App extends React.Component {
   static propTypes = {
-    user: PT.object.isRequired
+    authStatus: PT.number.isRequired,
+    isLoading: PT.bool.isRequired
   }
 
   componentDidMount() {
+    appModel.$set('authStatus', 2)
     subscriptions.onAuthStateChanged(appModel.handleUserStateChange)
   }
 
@@ -30,28 +34,44 @@ class App extends React.Component {
     console.error(err)
   }
 
+  renderRoutes() {
+    switch (this.props.authStatus) {
+      case 1:
+        return (
+          <div>
+            <Route exact path="/" component={Shelf} />
+            <Route path="/book/:id" component={Book} />
+          </div>
+        )
+      case 2:
+        return <Loading useNProgress={false} text="Authenticating" />
+      case 0:
+      default:
+        return <Route path="/" component={Welcome} />
+    }
+  }
+
   render() {
-    const signedIn = this.props.user.uid
     // todo: not found
+    const { isLoading } = this.props
     return (
       <Router>
         <div>
-          {
-            signedIn
-              ? (
-                <div>
-                  <Route exact path="/" component={Shelf} />
-                  <Route path="/book/:id" component={Book} />
-                </div>
-              )
-              : (
-                <Route path="/" component={Welcome} />
-              )
-          }
+          {isLoading && <Loading useNProgress />}
+          {this.renderRoutes()}
         </div>
       </Router>
     )
   }
 }
 
-export default appModel.connect(App)
+export default appModel.connect(App, state => {
+  const isLoading = _.some(state.app.loading, value => {
+    return value.isLoading
+  })
+  
+  return {
+    ...state.app,
+    isLoading
+  }
+})

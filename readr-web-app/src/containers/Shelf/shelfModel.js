@@ -3,12 +3,14 @@ import { uploadBook, fetchUserOwnedBooks, delBook, fetchBook } from '../../servi
 import { FETCH_STATUS } from '../../constants'
 import createDbModel from '../../local-db'
 import { toArray } from '../utils'
+import appModel from '../appModel'
 
 const dbModel = createDbModel('books')
 const NAMESPACE = 'shelf'
 
 export function* fetchBooks() {
   model.$set('booksStatus', FETCH_STATUS.FETCHING)
+  appModel.startLoading('books')
   try {
     const books = yield fetchUserOwnedBooks().then(toArray)
     model.$set('booksStatus', FETCH_STATUS.SUCCESS)
@@ -16,6 +18,8 @@ export function* fetchBooks() {
   } catch (error) {
     console.error(error)
     model.$set('booksStatus', FETCH_STATUS.FAILURE)
+  } finally {
+    appModel.stopLoading('books')
   }
 }
 

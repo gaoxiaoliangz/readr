@@ -1,14 +1,13 @@
 import { createModel } from '@gxl/redux-model'
-import { select, take, put } from 'redux-saga/effects'
+import { select, take } from 'redux-saga/effects'
 import { FETCH_STATUS } from '../../constants'
 // import createDbModel from '../../local-db'
 import { getLocalBooks } from '../Shelf/shelfModel'
+import appModel from '../appModel'
 import { htmlStringToNodes } from './layout/nodes'
 import { groupPageFromChapters } from './layout/paging'
+import { updateBookProgress, getBookProgress } from '../../service'
 
-const { firebase } = window
-const db = firebase.database()
-// const dbModel = createDbModel('books')
 const NAMESPACE = 'book'
 
 export function* getBookId() {
@@ -18,20 +17,15 @@ export function* getBookId() {
 
 export function* getRemoteProgress() {
   const bookId = yield getBookId()
-  const progress = yield db.ref('progress')
-    .child(bookId)
-    .once('value')
-    .then(data => data.val().progress || 0)
-    .catch(err => {
-      console.error(err)
-      return 0
-    })
-  model.putRemoteProgress(progress)
-  return progress
+  const progress = yield getBookProgress(bookId)
+  const progress2 = progress || 0
+  model.putRemoteProgress(progress2)
+  return progress2
 }
 
 export function* initBook(id) {
   try {
+    appModel.startLoading('book')
     model.$set('currBookId', id)
     model.loadBook(id)
     yield take('book/loadBook@end')
@@ -44,8 +38,10 @@ export function* initBook(id) {
     model.putBookPages(result)
     const progress = yield getRemoteProgress()
     model.$set('bookReady', true)
+    appModel.stopLoading('book')
     model.goToProgress(progress)
     yield take('book/goToProgress@end')
+    yield
   } catch (error) {
     console.error(error)
   }
@@ -79,12 +75,7 @@ export function* getLayoutInfo() {
 
 export function* updateRemoteProgress(progress) {
   const bookId = yield getBookId()
-  yield db.ref('progress')
-    .child(bookId)
-    .update({
-      progress,
-      updatedAt: new Date().valueOf()
-    })
+  yield updateBookProgress(bookId, progress)
 }
 
 export function* goToProgress(progress) {

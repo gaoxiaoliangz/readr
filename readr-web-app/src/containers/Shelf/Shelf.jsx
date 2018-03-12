@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
 import { createSelector } from 'reselect'
-import { Spin, Icon, Modal } from 'antd'
+import { Modal } from 'antd'
 import PT from 'prop-types'
 import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
 import model from './shelfModel'
-import { FETCH_STATUS } from '../../constants'
 import BookList from './BookList'
 import FileUploader from '../../components/FileUploader/FileUploader'
 
-const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 const { firebase } = window
 const confirm = Modal.confirm
 
 class Shelf extends Component {
   static propTypes = {
-    booksStatus: PT.string.isRequired,
     shelfBooks: PT.array.isRequired,
     isUploadingBook: PT.bool.isRequired,
     books: PT.object.isRequired
@@ -62,8 +59,7 @@ class Shelf extends Component {
   }
 
   render() {
-    const { booksStatus, shelfBooks, isUploadingBook } = this.props
-    const loading = booksStatus === FETCH_STATUS.FETCHING
+    const { shelfBooks, isUploadingBook } = this.props
     return (
       <div className="page-shelf">
         <BrandingContainer dark={false} />
@@ -71,22 +67,16 @@ class Shelf extends Component {
           {
             isUploadingBook && 'uploading...'
           }
-          {
-            loading
-              ? <Spin indicator={antIcon} />
-              : (
-                <BookList
-                  prependList={[this.renderUploader()]}
-                  books={shelfBooks}
-                  onDelBook={book => {
-                    this.delBook(book.id)
-                  }}
-                  onDownloadBook={book => {
-                    model.downloadBook(book.id)
-                  }}
-                />
-              )
-          }
+          <BookList
+            prependList={[this.renderUploader()]}
+            books={shelfBooks}
+            onDelBook={book => {
+              this.delBook(book.id)
+            }}
+            onDownloadBook={book => {
+              model.downloadBook(book.id)
+            }}
+          />
         </div>
         <Colophon />
       </div>

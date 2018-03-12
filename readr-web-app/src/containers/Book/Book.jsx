@@ -158,9 +158,8 @@ class Book extends Component {
     return (
       <div className={`${styles['book']} ${styles[`book--${config.theme}`]}`}>
         {
-          isFetching
-            ? 'loading'
-            : (
+          !isFetching
+            && (
               <div>
                 {
                   isEstimatingLayout && (

@@ -27,7 +27,7 @@ class BookList extends Component {
           }
           {
             books && books.length !== 0
-              ? (
+              && (
                 books.map((book, index) => {
                   return (
                     <li key={index}>
@@ -39,9 +39,6 @@ class BookList extends Component {
                     </li>
                   )
                 })
-              )
-              : (
-                <li>Empty</li>
               )
           }
         </ul>
