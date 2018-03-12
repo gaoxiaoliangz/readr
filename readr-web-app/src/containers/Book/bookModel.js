@@ -167,6 +167,20 @@ const model = createModel({
         ...state,
         remoteProgress
       }
+    },
+    destroy(state) {
+      return {
+        ...state,
+        currBookId: null,
+        bookReady: false,
+        bookStatus: FETCH_STATUS.NONE,
+        isEstimatingLayout: false,
+        clientProgress: 0,
+        showTopPanel: false,
+        showToc: false,
+        showPref: false,
+        disableScrollListener: false,
+      }
     }
   }
 })

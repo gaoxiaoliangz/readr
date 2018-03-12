@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 
-const OMIT_TAGS = ['meta', 'title', 'html', 'body', 'link', 'script', 'svg']
+const OMIT_TAGS = ['meta', 'title', 'html', 'body', 'link', 'script', 'svg', 'img']
 const UNWRAP_TAGS = ['div', 'span']
 const OMIT_ATTRS = ['style']
 

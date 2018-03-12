@@ -47,6 +47,7 @@ class Book extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMousemove)
+    model.destroy()
   }
 
   goTo(progress) {
