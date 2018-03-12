@@ -7,8 +7,8 @@ import appModel from './appModel'
 
 class BrandingContainer extends React.Component {
   static propTypes = {
-    innerProps: PT.object,
-    user: PT.object.isRequired
+    user: PT.object.isRequired,
+    dark: PT.bool,
   }
 
   componentDidMount() {
@@ -25,8 +25,7 @@ class BrandingContainer extends React.Component {
   }
 
   render() {
-    const { innerProps } = this.props
-    const { displayName } = this.props.user
+    const { user: { displayName }, ...rest } = this.props
     const signedIn = !_.isEmpty(this.props.user)
     return (
       <Branding
@@ -34,7 +33,7 @@ class BrandingContainer extends React.Component {
         onSignOutClick={this.handleSignOutClick}
         signedIn={signedIn}
         username={displayName}
-        {...innerProps}
+        {...rest}
       />
     )
   }

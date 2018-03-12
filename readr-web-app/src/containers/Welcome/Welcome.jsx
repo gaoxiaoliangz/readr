@@ -20,7 +20,7 @@ class Welcome extends Component {
     return (
       <div className="page-welcome">
         <div className="hero-header">
-          <BrandingContainer innerProps={{ dark: true }} />
+          <BrandingContainer dark />
           <section className="section">
             <div className="section__content">
               <h1 className="section__title section__title--light section__title--hero">You deserve a better reading experience.</h1>

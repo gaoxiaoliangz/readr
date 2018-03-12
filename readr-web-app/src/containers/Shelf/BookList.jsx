@@ -14,36 +14,38 @@ class BookList extends Component {
   render() {
     const { prependList, onDelBook, books, onDownloadBook } = this.props
     return (
-      <ul styleName="book-list" className="clearfix">
-        {
-          prependList && (
-            prependList.map((item, index) => {
-              return (
-                <li key={index}>{item}</li>
-              )
-            })
-          )
-        }
-        {
-          books && books.length !== 0
-            ? (
-              books.map((book, index) => {
+      <div>
+        <ul styleName="book-list" className="clearfix">
+          {
+            prependList && (
+              prependList.map((item, index) => {
                 return (
-                  <li key={index}>
-                    <Book
-                      {...book}
-                      onDelBook={onDelBook}
-                      onDownloadBook={onDownloadBook}
-                    />
-                  </li>
+                  <li key={index}>{item}</li>
                 )
               })
             )
-            : (
-              <li>Empty</li>
-            )
-        }
-      </ul>
+          }
+          {
+            books && books.length !== 0
+              ? (
+                books.map((book, index) => {
+                  return (
+                    <li key={index}>
+                      <Book
+                        {...book}
+                        onDelBook={onDelBook}
+                        onDownloadBook={onDownloadBook}
+                      />
+                    </li>
+                  )
+                })
+              )
+              : (
+                <li>Empty</li>
+              )
+          }
+        </ul>
+      </div>
     )
   }
 }

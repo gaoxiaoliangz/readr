@@ -31,14 +31,10 @@ class FileUploader extends Component {
         onClick={() => {
           $(this.fileInput).click()
         }}
-        style={
-          {
-            ...{
-              display: 'inline-block'
-            },
-            ...style
-          }
-        }
+        style={{
+          display: 'inline-block',
+          ...style
+        }}
       >
         <form method="post" encType="multipart/form-data" style={{ display: 'none' }}>
           <input

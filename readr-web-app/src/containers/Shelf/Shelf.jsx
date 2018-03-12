@@ -49,6 +49,9 @@ class Shelf extends Component {
       <FileUploader
         accept=".epub"
         onChange={this.handleChange}
+        style={{
+          display: 'block'
+        }}
       >
         <div styleName="uploader">
           <h2>选择书籍（.epub 文件）</h2>
@@ -63,8 +66,8 @@ class Shelf extends Component {
     const loading = booksStatus === FETCH_STATUS.FETCHING
     return (
       <div className="page-shelf">
-        <BrandingContainer innerProps={{ dark: true }} />
-        <div styleName="content">
+        <BrandingContainer dark={false} />
+        <div styleName="content" className="container">
           {
             isUploadingBook && 'uploading...'
           }
@@ -85,7 +88,7 @@ class Shelf extends Component {
               )
           }
         </div>
-        <Colophon dark />
+        <Colophon />
       </div>
     )
   }
