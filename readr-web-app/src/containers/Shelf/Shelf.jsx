@@ -8,6 +8,7 @@ import './Shelf.scss'
 import model from './shelfModel'
 import { FETCH_STATUS } from '../../constants'
 import BookList from './BookList'
+import FileUploader from '../../components/FileUploader/FileUploader'
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />
 const { firebase } = window
@@ -43,6 +44,20 @@ class Shelf extends Component {
     })
   }
 
+  renderUploader() {
+    return (
+      <FileUploader
+        accept=".epub"
+        onChange={this.handleChange}
+      >
+        <div styleName="uploader">
+          <h2>选择书籍（.epub 文件）</h2>
+          <p>你上传的书籍仅对你自己可见</p>
+        </div>
+      </FileUploader>
+    )
+  }
+
   render() {
     const { booksStatus, shelfBooks, isUploadingBook } = this.props
     const loading = booksStatus === FETCH_STATUS.FETCHING
@@ -50,7 +65,6 @@ class Shelf extends Component {
       <div className="page-shelf">
         <BrandingContainer innerProps={{ dark: true }} />
         <div styleName="content">
-          <input type="file" onChange={this.handleChange} />
           {
             isUploadingBook && 'uploading...'
           }
@@ -59,6 +73,7 @@ class Shelf extends Component {
               ? <Spin indicator={antIcon} />
               : (
                 <BookList
+                  prependList={[this.renderUploader()]}
                   books={shelfBooks}
                   onDelBook={book => {
                     this.delBook(book.id)
