@@ -149,15 +149,15 @@ $width: 134px;
 
 .book-opt {
   position: absolute;
-  top: 9px;
+  top: 15px;
   cursor: pointer;
   &__del {
     color: $red;
-    right: 5px;
+    right: 10px;
   }
   &__download {
     color: $blue;
-    right: 25px;
+    right: 35px;
   }
 }
 

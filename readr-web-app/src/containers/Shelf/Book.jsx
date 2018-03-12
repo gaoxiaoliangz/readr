@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import PT from 'prop-types'
-import { Icon } from 'antd'
+import { Icon, Tooltip } from 'antd'
 import './Book.scss'
 import { BOOK_STATUS, FETCH_STATUS } from '../../constants'
 
@@ -27,22 +27,29 @@ export default class Book extends Component {
 
   renderDownload() {
     const { downloaded, downloadStatus } = this.props
+    const iconStyle = {
+      fontSize: 20
+    }
 
     const renderIcon = () => {
       switch (downloadStatus) {
         case FETCH_STATUS.FETCHING:
-          return <Icon type="loading" spin style={{ fontSize: 16 }} />
+          return <Icon type="loading" spin style={iconStyle} />
 
         case FETCH_STATUS.FAILURE:
-          return <Icon type="close-circle" style={{ fontSize: 16 }} onClick={this.handleDownload} />
+          return <Icon type="close-circle" style={iconStyle} onClick={this.handleDownload} />
 
         case FETCH_STATUS.SUCCESS:
-          return <Icon type="check" style={{ fontSize: 16 }} />
+          return <Icon type="check" style={iconStyle} />
 
         case undefined:
         case FETCH_STATUS.NONE:
         default:
-          return <Icon type="download" style={{ fontSize: 16 }} onClick={this.handleDownload} />
+          return (
+            <Tooltip placement="top" title="Download">
+              <Icon type="download" style={iconStyle} onClick={this.handleDownload} />
+            </Tooltip>
+          )
       }
     }
 
@@ -53,11 +60,7 @@ export default class Book extends Component {
 
         }}
       >
-        {
-          downloaded
-            ? <Icon type="check" style={{ fontSize: 16 }} />
-            : renderIcon()
-        }
+        {!downloaded && renderIcon()}
       </div>
     )
   }
@@ -94,7 +97,9 @@ export default class Book extends Component {
                 onDelBook(this.props)
               }}
             >
-              <Icon type="delete" style={{ fontSize: 16 }} />
+              <Tooltip placement="top" title="Delete">
+                <Icon type="delete" style={{ fontSize: 20 }} />
+              </Tooltip>
             </div>
           )
         }
@@ -102,7 +107,8 @@ export default class Book extends Component {
           isCloudProcessing
             ? (
               <div styleName="processing">
-                <Icon type="loading" spin style={{ fontSize: 16 }} />
+                <Icon type="loading" spin style={{ fontSize: 16, marginRight: 5 }} />
+                Cloud processing...
               </div>
             )
             : this.renderDownload()
