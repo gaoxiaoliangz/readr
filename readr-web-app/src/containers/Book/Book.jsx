@@ -65,7 +65,9 @@ class Book extends Component {
     }
   }
 
-  handleTocLinkClick = () => {
+  handleTocLinkClick = item => {
+    model.goToChapter(item.substr(1))
+    model.$set('showToc', false)
   }
 
   handleProgressChange = progress => {

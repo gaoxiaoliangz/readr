@@ -7,6 +7,7 @@ import appModel from '../appModel'
 import { htmlStringToNodes } from './layout/nodes'
 import { groupPageFromChapters } from './layout/paging'
 import { updateBookProgress, getBookProgress } from '../../service'
+import { pageToProgress } from './progress'
 
 const NAMESPACE = 'book'
 
@@ -126,7 +127,24 @@ const model = createModel({
     getLayoutInfo,
     getRemoteProgress,
     updateRemoteProgress,
-    goToProgress
+    goToProgress,
+    *goToChapter(chapterId) {
+      const { book } = yield select()
+      const pages = book.bookPages[book.currBookId]
+      let found
+      for (let i = 0; i < pages.length; i++) {
+        if (pages[i].chapterId === chapterId) {
+          found = i + 1
+          break
+        }
+      }
+      if (found) {
+        const progress = pageToProgress(found, pages.length)
+        model.goToProgress(progress)
+      } else {
+        console.error(chapterId, 'not found!')
+      }
+    }
   },
   computations: {
     setClientProgress(state, clientProgress) {
