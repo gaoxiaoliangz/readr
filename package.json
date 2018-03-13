@@ -9,6 +9,7 @@
     "pred": "cd readr-web-app && yarn build",
     "d": "firebase deploy",
     "d:f": "firebase deploy --only functions",
+    "pred:h": "yarn pred",
     "d:h": "firebase deploy --only hosting",
     "start": "cd readr-web-app && npm start",
     "shell": "firebase experimental:functions:shell",

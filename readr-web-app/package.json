@@ -4,7 +4,7 @@
   "scripts": {
     "start": "jellyweb serve",
     "prebuild": "npm run clean",
-    "build": "jellyweb",
+    "build": "NODE_ENV=production jellyweb",
     "clean": "rm -rf build"
   },
   "main": "index.js",

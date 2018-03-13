@@ -58,8 +58,9 @@ module.exports = {
     },
     splitVendor: true,
     define: {
-      __DEV__: true
+      __DEV__: false
     },
+    production: true,
     scopedClassName: '[hash:base64:8]',
   })
 }
