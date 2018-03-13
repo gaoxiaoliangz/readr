@@ -2,7 +2,7 @@ import { createModel } from '@gxl/redux-model'
 import _ from 'lodash'
 import { select, take } from 'redux-saga/effects'
 import { FETCH_STATUS } from '../../constants'
-import { getLocalBooks } from '../Shelf/shelfModel'
+import shelfModel, { getLocalBooks } from '../Shelf/shelfModel'
 import createDbModel from '../../local-db'
 import appModel from '../appModel'
 import { htmlStringToNodes } from './layout/nodes'
@@ -52,8 +52,15 @@ export function* loadBook(id) {
   model.$set('bookStatus', FETCH_STATUS.FETCHING)
   try {
     yield getLocalBooks()
-    const state = yield select()
-    const book = state.shelf.localBooks[id]
+    let state = yield select()
+    let book = state.shelf.localBooks[id]
+    if (!book) {
+      shelfModel.downloadBook(id)
+      yield take('shelf/downloadBook@end')
+      yield getLocalBooks()
+      state = yield select()
+      book = state.shelf.localBooks[id]
+    }
     const sectionsOfNodes = book.content.map(section => {
       return {
         sectionId: section.id,
