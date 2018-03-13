@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "s:f": "firebase serve --only functions",
+    "pred": "cd readr-web-app && yarn build",
     "d": "firebase deploy",
     "d:f": "firebase deploy --only functions",
     "d:h": "firebase deploy --only hosting",

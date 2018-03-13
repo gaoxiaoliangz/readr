@@ -11,10 +11,8 @@ const open = indexedDB.open(DB_NAME, 1)
 
 // Create the schema
 open.onupgradeneeded = () => {
-  console.log('???')
   const db = open.result
-  const store = db.createObjectStore('books', { keyPath: 'id' })
-  console.log(store)
+  db.createObjectStore('books', { keyPath: 'id' })
   db.createObjectStore('users', { keyPath: 'id' })
   // todo
   // var index = store.createIndex("NameIndex", ["name.last", "name.first"]);
