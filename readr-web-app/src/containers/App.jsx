@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import { Route, HashRouter as Router } from 'react-router-dom'
+import { Route, HashRouter as Router, Switch } from 'react-router-dom'
 import { asyncComponent } from 'react-async-component'
 import PT from 'prop-types'
 import { subscriptions } from '../service'
@@ -17,6 +17,10 @@ const Welcome = asyncComponent({
 
 const Book = asyncComponent({
   resolve: () => import('./Book/Book')
+})
+
+const NotFound = asyncComponent({
+  resolve: () => import('./NotFound/NotFound')
 })
 
 class App extends React.Component {
@@ -38,28 +42,38 @@ class App extends React.Component {
     switch (this.props.authStatus) {
       case 1:
         return (
-          <div>
+          <Switch>
             <Route exact path="/" component={Shelf} />
             <Route path="/book/:id" component={Book} />
-          </div>
+            <Route component={NotFound} />
+          </Switch>
         )
       case 2:
-        return <Loading useNProgress={false} text="Authenticating" />
+        return (
+          <Switch>
+            <Loading useNProgress={false} text="Authenticating" />
+            <Route component={NotFound} />
+          </Switch>
+        )
       case 0:
       default:
-        return <Route path="/" component={Welcome} />
+        return (
+          <Switch>
+            <Route exact path="/" component={Welcome} />
+            <Route component={NotFound} />
+          </Switch>
+        )
     }
   }
 
   render() {
-    // todo: not found
     const { isLoading } = this.props
     return (
       <Router>
-        <div>
+        <React.Fragment>
           {isLoading && <Loading useNProgress />}
           {this.renderRoutes()}
-        </div>
+        </React.Fragment>
       </Router>
     )
   }
@@ -69,7 +83,7 @@ export default appModel.connect(App, state => {
   const isLoading = _.some(state.app.loading, value => {
     return value.isLoading
   })
-  
+
   return {
     ...state.app,
     isLoading

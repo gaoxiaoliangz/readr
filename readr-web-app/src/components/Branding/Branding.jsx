@@ -21,7 +21,7 @@ const Branding = ({ dark, signedIn, username, onSignInClick, onSignOutClick }) =
                   {/* <Link styleName="item" className="link--light" to="/path">Name</Link> */}
                 </React.Fragment>
               )
-              : <a styleName="item" className="link--light" href="#" onClick={onSignInClick}>Sign in with Google</a>
+              : <a styleName="item" className={!dark ? 'link--dark' : 'link--light'} href="#" onClick={onSignInClick}>Sign in with Google</a>
           }
           {
             signedIn && <a styleName="item" className={!dark ? 'link--dark' : 'link--light'} href="#" onClick={onSignOutClick}>Sign out</a>
