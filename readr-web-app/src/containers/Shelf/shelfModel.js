@@ -1,5 +1,7 @@
 import { createModel } from '@gxl/redux-model'
-import { uploadBook, fetchUserOwnedBooks, delBook, fetchBook } from '../../service'
+import _ from 'lodash'
+// import { select } from 'redux-saga/effects'
+import { uploadBook, fetchUserOwnedBooks, delBook, fetchBook, SubscriptionManager, subscriptions } from '../../service'
 import { FETCH_STATUS } from '../../constants'
 import createDbModel from '../../local-db'
 import { toArray } from '../utils'
@@ -7,6 +9,7 @@ import appModel from '../appModel'
 
 const dbModel = createDbModel('books')
 const NAMESPACE = 'shelf'
+const subs = new SubscriptionManager()
 
 export function* fetchBooks() {
   model.$set('booksStatus', FETCH_STATUS.FETCHING)
@@ -15,6 +18,13 @@ export function* fetchBooks() {
     const books = yield fetchUserOwnedBooks().then(toArray)
     model.$set('booksStatus', FETCH_STATUS.SUCCESS)
     model.putBooks(books)
+    books.forEach(book => {
+      subs.add(`books/${book.id}`, (data, first) => {
+        if (!first) {
+          this.fetchBooks()
+        }
+      })
+    })
   } catch (error) {
     console.error(error)
     model.$set('booksStatus', FETCH_STATUS.FAILURE)
@@ -54,6 +64,23 @@ const model = createModel({
   },
   effects: {
     fetchBooks,
+    *regWatcher() {
+      let isReg = true
+      subscriptions.onUserOwnedBooksChanged(snapshot => {
+        const books = snapshot.val()
+        if (!isReg) {
+          _.keys(books).forEach(id => {
+            subs.add(`books/${id}`, () => {
+              if (!isReg) {
+                this.fetchBooks()
+              }
+            })
+          })
+        }
+        isReg = false
+      })
+      yield
+    },
     *delBook(id) {
       try {
         yield delBook(id)

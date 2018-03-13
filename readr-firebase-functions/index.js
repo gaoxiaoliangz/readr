@@ -134,16 +134,17 @@ exports.epubToBook = functions.storage.object().onChange(event => {
       console.log('The file has been downloaded to', tempLocalFile)
       return epubParser(tempLocalFile)
         .then(epub => {
-          const contentRef = database.ref('bookContent').push()
-          const setContent = contentRef.set(omitUndefinedDeep({
-            content: epub.sections,
-            createdAt: new Date().valueOf(),
-          }))
-
-          const updateBook = database.ref('books')
+          return database.ref('books')
             .orderByChild('file')
             .equalTo(filePath)
             .once('child_added', snapshot => {
+              const book = snapshot.val()
+              const contentRef = database.ref('bookContent').push()
+              contentRef.set(omitUndefinedDeep({
+                content: epub.sections,
+                createdAt: new Date().valueOf(),
+                owner: book.owner
+              }))
               snapshot.ref.update(omitUndefinedDeep(_.assign({}, epub.info, {
                 content: contentRef.key,
                 structure: epub.structure,
@@ -152,11 +153,6 @@ exports.epubToBook = functions.storage.object().onChange(event => {
                 createdAt: new Date().valueOf(),
               })))
             })
-
-          return Promise.all([
-            setContent,
-            updateBook
-          ])
         })
     })
     .then(() => {

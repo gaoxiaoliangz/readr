@@ -9,7 +9,6 @@ import model from './shelfModel'
 import BookList from './BookList'
 import FileUploader from '../../components/FileUploader/FileUploader'
 
-const { firebase } = window
 const confirm = Modal.confirm
 
 class Shelf extends Component {
@@ -20,10 +19,8 @@ class Shelf extends Component {
   }
 
   componentDidMount() {
-    firebase.database().ref('books')
-      .on('value', () => {
-        model.fetchBooks()
-      })
+    model.regWatcher()
+    model.fetchBooks()
     model.getLocalBooks()
   }
 

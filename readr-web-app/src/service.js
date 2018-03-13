@@ -10,6 +10,29 @@ const auth = firebase.auth()
 //   ? 'http://localhost:5000/readr-7498c/us-central1/app/'
 //   : 'https://us-central1-readr-7498c.cloudfunctions.net/app/'
 
+export class SubscriptionManager {
+  constructor() {
+    this._subs = {}
+  }
+
+  add(path, cb) {
+    let first = true
+    if (!this._subs[path]) {
+      const sub = db.ref(path)
+        .on('value', data => {
+          cb(data, first)
+          first = false
+        })
+      this._subs[path] = sub
+    }
+  }
+
+  remove(path) {
+    delete this._subs(path)
+    // todo: remove listener
+  }
+}
+
 export function fetchItems(parentRef, ids) {
   return Promise.all(ids.map(id => {
     return parentRef
@@ -169,7 +192,7 @@ export const delBook = bookId => {
     })
 }
 
-export const fetchUserOwnedBooks = () => {
+export const userOwnedBooks = () => {
   const user = firebase.auth().currentUser
   if (!user) {
     return Promise.reject(new Error('Not signed in!'))
@@ -180,6 +203,10 @@ export const fetchUserOwnedBooks = () => {
     .child('ownedBooks')
     .once('value')
     .then(data => data.val())
+}
+
+export const fetchUserOwnedBooks = () => {
+  return userOwnedBooks()
     .then(ownedBooks => {
       return fetchItems(db.ref('books'), _.keys(ownedBooks))
     })
@@ -216,8 +243,32 @@ export const uploadBook = file => {
     })
 }
 
+const regOwnedBooksWatcher = cb => {
+  const user = firebase.auth().currentUser
+  if (!user) {
+    throw new Error('Not signed in!')
+  }
+  const uid = user.uid
+  db.ref('users')
+    .child(uid)
+    .child('ownedBooks')
+    .on('value', cb)
+}
+
+const registerBookWatcher = (id, cb) => {
+  const user = firebase.auth().currentUser
+  if (!user) {
+    throw new Error('Not signed in!')
+  }
+  db.ref('books')
+    .child(id)
+    .on('value', cb)
+}
+
 export const subscriptions = {
-  onAuthStateChanged: auth.onAuthStateChanged.bind(auth)
+  onAuthStateChanged: auth.onAuthStateChanged.bind(auth),
+  onUserOwnedBooksChanged: regOwnedBooksWatcher,
+  onBookChanged: registerBookWatcher
 }
 
 // export const fetchBookList = () => fetch(`${FUNCTIONS_APP_ROOT}books`).then(res => {

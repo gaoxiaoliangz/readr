@@ -37,7 +37,11 @@ export default class Book extends Component {
           return <Icon type="loading" spin style={iconStyle} />
 
         case FETCH_STATUS.FAILURE:
-          return <Icon type="close-circle" style={iconStyle} onClick={this.handleDownload} />
+          return (
+            <Tooltip placement="top" title="Download failed">
+              <Icon type="close-circle" style={{ ...iconStyle, ...{ color: '#cc0000' } }} onClick={this.handleDownload} />
+            </Tooltip>
+          )
 
         case FETCH_STATUS.SUCCESS:
           return <Icon type="check" style={iconStyle} />
@@ -54,12 +58,7 @@ export default class Book extends Component {
     }
 
     return (
-      <div
-        styleName="book-opt book-opt__download"
-        onClick={() => {
-
-        }}
-      >
+      <div styleName="book-opt book-opt__download">
         {!downloaded && renderIcon()}
       </div>
     )
