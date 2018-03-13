@@ -4,7 +4,7 @@
   "scripts": {
     "start": "jellyweb serve",
     "prebuild": "npm run clean",
-    "build": "NODE_ENV=production jellyweb",
+    "build": "jellyweb",
     "clean": "rm -rf build"
   },
   "main": "index.js",
@@ -31,7 +31,7 @@
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^2.30.1",
     "isomorphic-style-loader": "^4.0.0",
-    "jellyweb": "^0.6.1",
+    "jellyweb": "^0.6.2",
     "node-sass": "^4.7.2",
     "postcss-nested": "^3.0.0",
     "postcss-scss": "^1.0.3",
