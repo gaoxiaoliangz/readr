@@ -129,6 +129,7 @@ export const fetchBook = (bookId, withContent = false) => {
 }
 
 export const delBook = bookId => {
+  // TODO: 事务
   const user = firebase.auth().currentUser
   if (!user) {
     return Promise.reject(new Error('Not signed in!'))
@@ -136,10 +137,10 @@ export const delBook = bookId => {
   const uid = user.uid
   return db.ref('books')
     .child(bookId)
-    .child('content')
     .once('value')
     .then(data => data.val())
-    .then(contentId => {
+    .then(book => {
+      const contentId = book.content
       return Promise.all([
         db.ref('books')
           .child(bookId)
@@ -151,8 +152,20 @@ export const delBook = bookId => {
           .child(uid)
           .child('ownedBooks')
           .child(bookId)
-          .remove()
+          .remove(),
+        db.ref('users')
+          .child(uid)
+          .child('progress')
+          .child(bookId)
+          .remove(),
+        store.ref()
+          .child(book.file)
+          .delete()
       ])
+    })
+    .catch(err => {
+      console.error(err)
+      return Promise.reject(err)
     })
 }
 
