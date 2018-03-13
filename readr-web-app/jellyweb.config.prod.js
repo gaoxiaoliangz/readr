@@ -60,7 +60,6 @@ module.exports = {
     define: {
       __DEV__: false
     },
-    production: true,
     scopedClassName: '[hash:base64:8]',
   })
 }
