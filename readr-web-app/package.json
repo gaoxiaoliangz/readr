@@ -1,6 +1,6 @@
 {
   "name": "readr-web-app",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "scripts": {
     "start": "jellyweb serve",
     "prebuild": "npm run clean",
