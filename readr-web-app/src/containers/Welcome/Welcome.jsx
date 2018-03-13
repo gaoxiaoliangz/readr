@@ -39,8 +39,8 @@ class Welcome extends Component {
               <img src={mobilePic} alt="mobile" />
             </div>
             <div className="right">
-              <h1 className="section__title">随时随地阅读</h1>
-              <p>使用最前沿的 web 技术，支持桌面浏览器，iPhone 安卓设备登录，阅读进度自动同步</p>
+              <h1 className="section__title">Read anywhere</h1>
+              <p>Powered by newest web tech, readr supports desktop and mobile devices. Reading progress is automatically synced.</p>
             </div>
           </div>
         </section>

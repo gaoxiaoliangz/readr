@@ -38,13 +38,15 @@ $bg: $dark;
     &__mobile-pic {
       width: 50%;
       padding-right: 50px;
+      margin-bottom: -333px;
       img {
         max-width: 100%;
         height: auto;
       }
     }
     &--access {
-      padding: 100px 0;
+      overflow: hidden;
+      padding: 70px 0;
       .right {
         width: 50%;
       }
@@ -52,13 +54,14 @@ $bg: $dark;
         font-size: 41px;
         font-weight: bold;
         line-height: 1.3;
-        margin-top: 250px;
+        margin-top: 170px;
         margin-bottom: 10px;
       }
       p {
         margin: 0;
         font-size: 18px;
       }
+
     }
     &--quote {
       padding: 100px 0;
