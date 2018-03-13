@@ -41,13 +41,22 @@ export function fetchItems(parentRef, ids) {
       .then(data => {
         const val = data.val()
         if (!val) {
-          return Promise.reject(new Error(`${id} Not found!`))
+          return Promise.reject(null) // eslint-disable-line
         }
         return [id, val]
+      })
+      .catch(err => {
+        if (err === null) {
+          return null
+        }
+        return Promise.reject(err)
       })
   }))
     .then(resultArr => {
       return resultArr.reduce((obj, item) => {
+        if (!item) {
+          return obj
+        }
         return {
           ...obj,
           [item[0]]: item[1]
