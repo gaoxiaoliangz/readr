@@ -12,25 +12,26 @@ const NAMESPACE = 'shelf'
 const subs = new SubscriptionManager()
 
 export function* fetchBooks() {
-  model.$set('booksStatus', FETCH_STATUS.FETCHING)
-  appModel.startLoading('books')
-  try {
-    const books = yield fetchUserOwnedBooks().then(toArray)
-    model.$set('booksStatus', FETCH_STATUS.SUCCESS)
-    model.putBooks(books)
-    books.forEach(book => {
-      subs.add(`books/${book.id}`, (data, first) => {
-        if (!first) {
-          this.fetchBooks()
-        }
-      })
-    })
-  } catch (error) {
-    console.error(error)
-    model.$set('booksStatus', FETCH_STATUS.FAILURE)
-  } finally {
-    appModel.stopLoading('books')
-  }
+  yield
+  // model.$set('booksStatus', FETCH_STATUS.FETCHING)
+  // appModel.startLoading('books')
+  // try {
+  //   const books = yield fetchUserOwnedBooks().then(toArray)
+  //   model.$set('booksStatus', FETCH_STATUS.SUCCESS)
+  //   model.putBooks(books)
+  //   books.forEach(book => {
+  //     subs.add(`books/${book.id}`, (data, first) => {
+  //       if (!first) {
+  //         this.fetchBooks()
+  //       }
+  //     })
+  //   })
+  // } catch (error) {
+  //   console.error(error)
+  //   model.$set('booksStatus', FETCH_STATUS.FAILURE)
+  // } finally {
+  //   appModel.stopLoading('books')
+  // }
 }
 
 export function* downloadBook(id) {
