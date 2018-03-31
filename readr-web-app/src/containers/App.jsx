@@ -6,7 +6,6 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { subscriptions } from '../service'
 import { setAuthStatus, handleUserStateChange } from '../actions'
-// import appModel from './appModel'
 import Loading from '../components/Loading/Loading'
 
 const Shelf = asyncComponent({

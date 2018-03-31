@@ -6,9 +6,11 @@ import { connect } from 'react-redux'
 import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
-// import model from './shelfModel'
 import BookList from './BookList'
-import { fetchBooks } from '../../actions'
+import {
+  fetchBooks, downloadBook, getLocalBooks,
+  uploadBook, registerOwnedBooksWatcher, delBook
+} from '../../actions'
 import FileUploader from '../../components/FileUploader/FileUploader'
 
 const confirm = Modal.confirm
@@ -18,26 +20,30 @@ class Shelf extends Component {
     shelfBooks: PT.array.isRequired,
     isUploadingBook: PT.bool.isRequired,
     books: PT.object.isRequired,
-    fetchBooks: PT.func.isRequired
+    fetchBooks: PT.func.isRequired,
+    downloadBook: PT.func.isRequired,
+    getLocalBooks: PT.func.isRequired,
+    uploadBook: PT.func.isRequired,
+    registerOwnedBooksWatcher: PT.func.isRequired,
+    delBook: PT.func.isRequired
   }
 
   componentDidMount() {
     this.props.fetchBooks()
-    // model.regWatcher()
-    // model.fetchBooks()
-    // model.getLocalBooks()
+    this.props.getLocalBooks()
+    this.props.registerOwnedBooksWatcher()
   }
 
   handleChange = e => {
     const file = e.target.files[0]
-    model.uploadBook(file)
+    this.props.uploadBook(file)
   }
 
   delBook = id => {
     confirm({
-      title: `Are you sure to delete book ${this.props.books[id].title}`,
+      title: `Are you sure to delete book ${this.props.books.entries[id].title}`,
       onOk: () => {
-        model.delBook(id)
+        this.props.delBook(id)
       }
     })
   }
@@ -75,7 +81,7 @@ class Shelf extends Component {
               this.delBook(book.id)
             }}
             onDownloadBook={book => {
-              model.downloadBook(book.id)
+              this.props.downloadBook(book.id)
             }}
           />
         </div>
@@ -85,29 +91,36 @@ class Shelf extends Component {
   }
 }
 
+const shelfBooksSelector = createSelector(
+  state => state.shelf.books.pagination.entries,
+  state => state.shelf.books.entries,
+  state => state.localBooks,
+  state => state.shelf.downloadStatus,
+  (entries = [], books = {}, localBooks = {}, downloadStatus = {}) => {
+    return entries.map(id => {
+      return {
+        ...books[id],
+        downloaded: Boolean(localBooks[id]),
+        downloadStatus: downloadStatus[id]
+      }
+    })
+  }
+)
+
 export default connect(
   state => {
-    const shelfBooks = createSelector(
-      s => s.bookPagination.entries,
-      s => s.books,
-      s => s.localBooks,
-      s => s.downloadStatus,
-      (entries = [], books = {}, localBooks = {}, downloadStatus = {}) => {
-        return entries.map(id => {
-          return {
-            ...books[id],
-            downloaded: Boolean(localBooks[id]),
-            downloadStatus: downloadStatus[id]
-          }
-        })
-      }
-    )
     return {
       ...state.shelf,
-      shelfBooks: shelfBooks(state.shelf)
+      shelfBooks: shelfBooksSelector(state),
+      isUploadingBook: state.isUploadingBook
     }
   },
   {
-    fetchBooks
+    fetchBooks,
+    downloadBook,
+    getLocalBooks,
+    uploadBook,
+    registerOwnedBooksWatcher,
+    delBook
   }
 )(Shelf)

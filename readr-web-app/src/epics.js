@@ -1,7 +1,6 @@
 import _ from 'lodash'
-import { Observable } from 'rxjs/Observable'
 import { combineEpics } from 'redux-observable'
-import { mergeMap, concat, filter, mapTo, mergeAll, tap, map } from 'rxjs/operators'
+import { mergeMap, filter, mapTo, mergeAll, tap, map } from 'rxjs/operators'
 import { fromPromise } from 'rxjs/observable/fromPromise'
 import { merge } from 'rxjs/observable/merge'
 import { of } from 'rxjs/observable/of'
@@ -12,10 +11,19 @@ import {
 } from './service'
 import { toArray } from './containers/utils'
 import {
-  HANDLE_USER_STATE_CHANGE, FETCH_BOOKS, updateUser,
+  HANDLE_USER_STATE_CHANGE, FETCH_BOOKS, DOWNLOAD_BOOK, updateUser,
   setAuthStatus, setShelfBookStatus, putBooks, startLoadingTask,
-  stopLoadingTask
+  stopLoadingTask, fetchBooks, updateDownloadStatus, GET_LOCAL_BOOKS,
+  putLocalBooks, setUploadingStatus, UPLOAD_BOOK,
+  REGISTER_OWNED_BOOKS_WATCHER, registerOwnedBooksWatcherSuccess, DEL_BOOK, delBookSuccess
 } from './actions'
+import createDbModel from './local-db'
+
+const dbModel = createDbModel('books')
+const subs = new SubscriptionManager()
+
+const filterAction = (type, fn) => action$ =>
+  fn(filter(action => action.type === type)(action$))
 
 const handleUserStateChangeEpic = (action$, store) =>
   action$
@@ -47,7 +55,7 @@ const handleUserStateChangeEpic = (action$, store) =>
       mergeAll()
     )
 
-const fetchBooksEpic = action$ =>
+const fetchBooksEpic = (action$, store) =>
   merge(
     action$
       .pipe(
@@ -63,9 +71,17 @@ const fetchBooksEpic = action$ =>
         filter(action => action.type === FETCH_BOOKS),
         mergeMap(() => {
           return fromPromise(fetchUserOwnedBooks())
-        }, (valueFromSource, valueFromPromise) => {
+        }, (vfs, booksObj) => {
+          const books = toArray(booksObj)
+          books.forEach(book => {
+            subs.add(`books/${book.id}`, (data, first) => {
+              if (!first) {
+                store.dispatch(fetchBooks())
+              }
+            })
+          })
           return of(
-            putBooks(toArray(valueFromPromise)),
+            putBooks(books),
             setShelfBookStatus(FETCH_STATUS.SUCCESS),
             stopLoadingTask('books')
           )
@@ -74,7 +90,84 @@ const fetchBooksEpic = action$ =>
       )
   )
 
+const downloadBookEpic = action$ =>
+  merge(
+    action$
+      .pipe(
+        filter(action => action.type === DOWNLOAD_BOOK),
+        map(({ payload }) => updateDownloadStatus(payload, FETCH_STATUS.FETCHING))
+      ),
+    action$
+      // TODO: error handling
+      .pipe(
+        filter(action => action.type === DOWNLOAD_BOOK),
+        mergeMap(
+          ({ payload }) => fromPromise(fetchBook(payload, FETCH_STATUS.FETCHING)),
+          (vfs, book) => {
+            dbModel.add(book)
+            return updateDownloadStatus(vfs.payload, FETCH_STATUS.SUCCESS)
+          }
+        )
+      ),
+  )
+
+const getLocalBooksEpic = action$ =>
+  action$.pipe(
+    filter(action => action.type === GET_LOCAL_BOOKS),
+    mergeMap(() => fromPromise(dbModel.listAll())),
+    map(books => putLocalBooks(books))
+  )
+
+const uploadBookEpic = action$ => {
+  const uploadAction$ = filter(action => action.type === UPLOAD_BOOK)(action$)
+  return merge(
+    mapTo(setUploadingStatus(true))(uploadAction$),
+    uploadAction$.pipe(
+      mergeMap(({ payload }) => fromPromise(uploadBook(payload))),
+      // TODO: error handling
+      mapTo(setUploadingStatus(false))
+    )
+  )
+}
+
+const registerOwnedBooksWatcherEpic = (action$, store) =>
+  action$.pipe(
+    filter(action => action.type === REGISTER_OWNED_BOOKS_WATCHER),
+    tap(() => {
+      let isReg = true
+      subscriptions.onUserOwnedBooksChanged(snapshot => {
+        const books = snapshot.val()
+        if (!isReg) {
+          _.keys(books).forEach(id => {
+            subs.add(`books/${id}`, () => {
+              if (!isReg) {
+                store.dispatch(fetchBooks())
+              }
+            })
+          })
+        }
+        isReg = false
+      })
+    }),
+    mapTo(registerOwnedBooksWatcherSuccess())
+  )
+
+const delBookEpic = filterAction(DEL_BOOK, action$ =>
+  action$.pipe(
+    mergeMap(({ payload: id }) => of(
+      fromPromise(delBook(id)),
+      fromPromise(dbModel.remove(id))
+    )),
+    // TODO: error handling
+    mapTo(delBookSuccess())
+  ))
+
 export default combineEpics(
   handleUserStateChangeEpic,
-  fetchBooksEpic
+  fetchBooksEpic,
+  downloadBookEpic,
+  getLocalBooksEpic,
+  uploadBookEpic,
+  registerOwnedBooksWatcherEpic,
+  delBookEpic
 )

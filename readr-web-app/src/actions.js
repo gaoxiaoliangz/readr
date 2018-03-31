@@ -9,6 +9,17 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const FETCH_BOOKS = 'FETCH_BOOKS'
 export const SET_SHELF_STATUS = 'SET_SHELF_STATUS'
 export const SET_UPLOADING_STATUS = 'SET_UPLOADING_STATUS'
+export const UPDATE_DOWNLOAD_STATUS = 'UPDATE_DOWNLOAD_STATUS'
+export const DOWNLOAD_BOOK = 'DOWNLOAD_BOOK'
+export const GET_LOCAL_BOOKS = 'GET_LOCAL_BOOKS'
+export const PUT_LOCAL_BOOKS = 'PUT_LOCAL_BOOKS'
+export const UPLOAD_BOOK = 'UPLOAD_BOOK'
+export const REGISTER_OWNED_BOOKS_WATCHER = 'REGISTER_OWNED_BOOKS_WATCHER'
+export const REGISTER_OWNED_BOOKS_WATCHER_SUCCESS = 'REGISTER_OWNED_BOOKS_WATCHER_SUCCESS'
+export const DEL_BOOK = 'DEL_BOOK'
+export const DEL_BOOK_SUCCESS = 'DEL_BOOK_SUCCESS'
+
+const makeAction = type => () => ({ type })
 
 export const startLoadingTask = task => ({
   type: START_LOADING_TASK,
@@ -59,3 +70,38 @@ export const setUploadingStatus = status => ({
   type: SET_UPLOADING_STATUS,
   payload: status
 })
+
+export const updateDownloadStatus = (id, status) => ({
+  type: UPDATE_DOWNLOAD_STATUS,
+  payload: { id, status }
+})
+
+export const downloadBook = id => ({
+  type: DOWNLOAD_BOOK,
+  payload: id
+})
+
+export const getLocalBooks = () => ({
+  type: GET_LOCAL_BOOKS
+})
+
+export const putLocalBooks = books => ({
+  type: PUT_LOCAL_BOOKS,
+  payload: books
+})
+
+export const uploadBook = file => ({
+  type: UPLOAD_BOOK,
+  payload: file
+})
+
+export const registerOwnedBooksWatcher = makeAction(REGISTER_OWNED_BOOKS_WATCHER)
+
+export const registerOwnedBooksWatcherSuccess = makeAction(REGISTER_OWNED_BOOKS_WATCHER_SUCCESS)
+
+export const delBook = id => ({
+  type: DEL_BOOK,
+  payload: id
+})
+
+export const delBookSuccess = makeAction(DEL_BOOK_SUCCESS)
