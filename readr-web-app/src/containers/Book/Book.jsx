@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
 import { Link } from 'react-router-dom'
-// import model from './bookModel'
+import { connect } from 'react-redux'
 import { FETCH_STATUS } from '../../constants'
 import LayoutEstimator from './LayoutEstimator'
 import FlippableBookPage from './FlippableBookPage'
@@ -14,13 +14,14 @@ import PopBox from '../../components/PopBox/PopBox'
 import ScrollableBookPage from './ScrollableBookPage'
 import Toc from './Toc'
 import Pref from './Pref'
+import { initBookConfig, loadBook } from '../../actions'
 
 class Book extends Component {
   static propTypes = {
     book: PT.object.isRequired,
     pages: PT.array.isRequired,
     bookNodes: PT.array.isRequired,
-    bookStatus: PT.string.isRequired,
+    fetchStatus: PT.string.isRequired,
     isEstimatingLayout: PT.bool.isRequired,
     bookReady: PT.bool.isRequired,
     showTopPanel: PT.bool.isRequired,
@@ -33,25 +34,27 @@ class Book extends Component {
       params: PT.shape({
         id: PT.string
       })
-    })
+    }),
+    initBookConfig: PT.func.isRequired,
+    loadBook: PT.func.isRequired
   }
 
   lastScrollTop = 0
 
-  componentWillMount() {
+  componentDidMount() {
+    const { id } = this.props.match.params
+    // model.initBook(id) // eslint-disable-line
+    window.addEventListener('mousemove', this.handleMousemove)
+    // window.goTo = this.goTo
+
+    console.log('mount')
     let pageHeight = window.innerHeight - 120
     const rest = pageHeight % this.props.config.lineHeight
     pageHeight -= rest
-    model.initConfig({
+    this.props.initBookConfig({
       pageHeight
     })
-  }
-
-  componentDidMount() {
-    const { id } = this.props.match.params
-    model.initBook(id) // eslint-disable-line
-    window.addEventListener('mousemove', this.handleMousemove)
-    window.goTo = this.goTo
+    this.props.loadBook(id)
   }
 
   componentWillUnmount() {
@@ -163,7 +166,7 @@ class Book extends Component {
   render() {
     const {
       book,
-      bookStatus,
+      fetchStatus,
       bookNodes,
       isEstimatingLayout,
       bookReady,
@@ -175,85 +178,91 @@ class Book extends Component {
       clientProgress,
       disableScrollListener
     } = this.props
-    const isFetching = bookStatus === FETCH_STATUS.FETCHING
+    const isFetching = fetchStatus === FETCH_STATUS.FETCHING
     const bookInfo = _.pick(book, ['title', 'author'])
     return (
       <div className={`${styles['book']} ${styles[`book--${config.theme}`]}`}>
         {
           !isFetching
-            && (
-              <div>
-                {
-                  isEstimatingLayout && (
-                    <LayoutEstimator
-                      onCalcDone={this.handleCalcDone}
-                      sections={bookNodes}
-                      config={config}
-                    />
-                  )
-                }
-                <TopPanel
-                  left={this.renderMenuIcon()}
-                  center={this.renderHeaderCenter()}
-                  right={this.renderPref()}
-                  show={showTopPanel || showToc || showPref}
-                />
-                <LeftPanel
-                  show={showToc}
-                  onRequestClose={() => {
-                    model.$set('showToc', false)
-                  }}
-                >
-                  <div styleName="contents-label">
-                    <Link to="/">Back to shelf</Link>
-                  </div>
-                  <div styleName="contents-label">Contents</div>
-                  <Toc
-                    toc={book.structure || []}
-                    onLinkClick={this.handleTocLinkClick}
+          && (
+            <div>
+              {
+                isEstimatingLayout && (
+                  <LayoutEstimator
+                    onCalcDone={this.handleCalcDone}
+                    sections={bookNodes}
+                    config={config}
                   />
-                </LeftPanel>
-                {
-                  bookReady && (
-                    config.scrollMode
-                      ? (
-                        <ScrollableBookPage
-                          disableScrollListener={disableScrollListener}
-                          progress={clientProgress}
-                          pages={pages}
-                          config={config}
-                          onProgressChange={this.handleProgressChange}
-                          onLinkClick={this.handleLinkClick}
-                        />
-                      )
-                      : (
-                        <FlippableBookPage
-                          bookInfo={bookInfo}
-                          progress={clientProgress}
-                          pages={pages}
-                          config={config}
-                          onProgressChange={this.handleProgressChange}
-                          onLinkClick={this.handleLinkClick}
-                        />
-                      )
-                  )
-                }
-              </div>
-            )
+                )
+              }
+              <TopPanel
+                left={this.renderMenuIcon()}
+                center={this.renderHeaderCenter()}
+                right={this.renderPref()}
+                show={showTopPanel || showToc || showPref}
+              />
+              <LeftPanel
+                show={showToc}
+                onRequestClose={() => {
+                  model.$set('showToc', false)
+                }}
+              >
+                <div styleName="contents-label">
+                  <Link to="/">Back to shelf</Link>
+                </div>
+                <div styleName="contents-label">Contents</div>
+                <Toc
+                  toc={book.structure || []}
+                  onLinkClick={this.handleTocLinkClick}
+                />
+              </LeftPanel>
+              {
+                bookReady && (
+                  config.scrollMode
+                    ? (
+                      <ScrollableBookPage
+                        disableScrollListener={disableScrollListener}
+                        progress={clientProgress}
+                        pages={pages}
+                        config={config}
+                        onProgressChange={this.handleProgressChange}
+                        onLinkClick={this.handleLinkClick}
+                      />
+                    )
+                    : (
+                      <FlippableBookPage
+                        bookInfo={bookInfo}
+                        progress={clientProgress}
+                        pages={pages}
+                        config={config}
+                        onProgressChange={this.handleProgressChange}
+                        onLinkClick={this.handleLinkClick}
+                      />
+                    )
+                )
+              }
+            </div>
+          )
         }
       </div>
     )
   }
 }
 
-export default model.connect(Book, (state, props) => {
-  const bookId = props.match.params.id
-  return {
-    ...state.book,
-    bookNodes: _.get(state, ['book', 'bookNodes', bookId], []),
-    book: _.get(state, ['shelf', 'localBooks', bookId], {
-      content: []
-    }),
-    pages: _.get(state, ['book', 'bookPages', bookId], [])
+export default connect(
+  (state, props) => {
+    const bookId = props.match.params.id
+    return {
+      ...state.book,
+      bookNodes: _.get(state, ['book', 'bookNodes', bookId], []),
+      book: _.get(state, ['shelf', 'localBooks', bookId], {
+        content: []
+      }),
+      pages: _.get(state, ['book', 'bookPages', bookId], [])
+    }
+  },
+  {
+    initBookConfig,
+    loadBook
   }
-})
+)(Book)

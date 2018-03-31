@@ -15,15 +15,27 @@ import {
   setAuthStatus, setShelfBookStatus, putBooks, startLoadingTask,
   stopLoadingTask, fetchBooks, updateDownloadStatus, GET_LOCAL_BOOKS,
   putLocalBooks, setUploadingStatus, UPLOAD_BOOK,
-  REGISTER_OWNED_BOOKS_WATCHER, registerOwnedBooksWatcherSuccess, DEL_BOOK, delBookSuccess
+  REGISTER_OWNED_BOOKS_WATCHER, registerOwnedBooksWatcherSuccess,
+  DEL_BOOK, delBookSuccess, INIT_BOOK_CONFIG, putBookConfig,
+  INIT_BOOK,
+  setCurrBookId,
+  LOAD_BOOK,
+  setBookFetchStatus,
+  getLocalBooks,
+  PUT_LOCAL_BOOKS,
+  downloadBook,
+  setBookNodes,
+  UPDATE_DOWNLOAD_STATUS
 } from './actions'
 import createDbModel from './local-db'
+import { htmlStringToNodes } from './containers/Book/layout/nodes'
 
-const dbModel = createDbModel('books')
+const bookDbModel = createDbModel('books')
+const userDbModel = createDbModel('users')
 const subs = new SubscriptionManager()
 
-const filterAction = (type, fn) => action$ =>
-  fn(filter(action => action.type === type)(action$))
+const filterAction = (type, fn) => (action$, store) =>
+  fn(filter(action => action.type === type)(action$), store, action$)
 
 const handleUserStateChangeEpic = (action$, store) =>
   action$
@@ -104,7 +116,7 @@ const downloadBookEpic = action$ =>
         mergeMap(
           ({ payload }) => fromPromise(fetchBook(payload, FETCH_STATUS.FETCHING)),
           (vfs, book) => {
-            dbModel.add(book)
+            bookDbModel.add(book)
             return updateDownloadStatus(vfs.payload, FETCH_STATUS.SUCCESS)
           }
         )
@@ -114,7 +126,7 @@ const downloadBookEpic = action$ =>
 const getLocalBooksEpic = action$ =>
   action$.pipe(
     filter(action => action.type === GET_LOCAL_BOOKS),
-    mergeMap(() => fromPromise(dbModel.listAll())),
+    mergeMap(() => fromPromise(bookDbModel.listAll())),
     map(books => putLocalBooks(books))
   )
 
@@ -156,11 +168,102 @@ const delBookEpic = filterAction(DEL_BOOK, action$ =>
   action$.pipe(
     mergeMap(({ payload: id }) => of(
       fromPromise(delBook(id)),
-      fromPromise(dbModel.remove(id))
+      fromPromise(bookDbModel.remove(id))
     )),
     // TODO: error handling
     mapTo(delBookSuccess())
   ))
+
+const initBookConfigEpic = filterAction(INIT_BOOK_CONFIG, (action$, store) =>
+  action$.pipe(
+    filter(() => {
+      const state = store.getState()
+      return state.user.uid
+    }),
+    mergeMap(() => {
+      // TODO: 只获取一次 state
+      const state = store.getState()
+      return fromPromise(userDbModel.get(state.user.uid))
+    }, (action, localUser) => {
+      return {
+        ...localUser.config,
+        ...action.payload
+      }
+    }),
+    map(putBookConfig)
+  ))
+
+// const initBookEpic = filterAction(INIT_BOOK, action$ =>
+//   merge(
+//     action$.pipe(
+//       map(({ payload: id }) => of(
+//         startLoadingTask('book'),
+//         setCurrBookId(id)
+//       ))
+//     )),
+//   action$.pipe(
+//     mergeMap
+//   ))
+//   )
+
+const loadBookEpic = filterAction(LOAD_BOOK, (action$, store, rawAction$) => {
+  const finishLoadBook = book => {
+    const sectionsOfNodes = book.content.map(section => {
+      return {
+        sectionId: section.id,
+        nodes: htmlStringToNodes(section.htmlString)
+      }
+    })
+    return of(
+      setBookNodes({
+        id: book.id,
+        nodes: sectionsOfNodes
+      }),
+      setBookFetchStatus(FETCH_STATUS.SUCCESS)
+    )
+  }
+  return merge(
+    action$.pipe(
+      map(() => of(
+        setBookFetchStatus(FETCH_STATUS.FETCHING),
+        getLocalBooks()
+      )),
+      mergeAll()
+    ),
+    rawAction$.pipe(
+      filter(action => action.type === LOAD_BOOK),
+      mergeMap(() => {
+        return rawAction$.pipe(filter(action => action.type === PUT_LOCAL_BOOKS))
+      }, loadBookAction => {
+        const id = loadBookAction.payload
+        const state = store.getState()
+        const book = state.localBooks[id]
+        if (!book) {
+          console.log('download')
+          return store.dispatch(downloadBook(id))
+        }
+        console.log('already local')
+        return finishLoadBook(book)
+      }),
+      filter(action => action.type !== DOWNLOAD_BOOK),
+      // tap(console.log)
+      mergeAll()
+    ),
+    rawAction$.pipe(
+      filter(action => action.type === LOAD_BOOK),
+      mergeMap(() => {
+        return rawAction$.pipe(filter(action =>
+          action.type === UPDATE_DOWNLOAD_STATUS && action.payload === FETCH_STATUS.SUCCESS))
+      }, loadBookAction => {
+        console.log('download handle')
+        const id = loadBookAction.payload
+        const state = store.getState()
+        const book = state.localBooks[id]
+        return finishLoadBook(book)
+      })
+    )
+  )
+})
 
 export default combineEpics(
   handleUserStateChangeEpic,
@@ -169,5 +272,8 @@ export default combineEpics(
   getLocalBooksEpic,
   uploadBookEpic,
   registerOwnedBooksWatcherEpic,
-  delBookEpic
+  delBookEpic,
+  initBookConfigEpic,
+  // initBookEpic,
+  loadBookEpic
 )

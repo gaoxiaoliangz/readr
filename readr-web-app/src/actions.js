@@ -18,8 +18,14 @@ export const REGISTER_OWNED_BOOKS_WATCHER = 'REGISTER_OWNED_BOOKS_WATCHER'
 export const REGISTER_OWNED_BOOKS_WATCHER_SUCCESS = 'REGISTER_OWNED_BOOKS_WATCHER_SUCCESS'
 export const DEL_BOOK = 'DEL_BOOK'
 export const DEL_BOOK_SUCCESS = 'DEL_BOOK_SUCCESS'
+export const INIT_BOOK_CONFIG = 'INIT_BOOK_CONFIG'
+export const PUT_BOOK_CONFIG = 'PUT_BOOK_CONFIG'
+export const SET_BOOK_FETCH_STATUS = 'SET_BOOK_FETCH_STATUS'
 
-const makeAction = type => () => ({ type })
+export const makeAction = (type, payload, meta, error) =>
+  ({ type, payload, meta, error })
+
+export const makeActionCreator = type => () => makeAction(type)
 
 export const startLoadingTask = task => ({
   type: START_LOADING_TASK,
@@ -95,13 +101,72 @@ export const uploadBook = file => ({
   payload: file
 })
 
-export const registerOwnedBooksWatcher = makeAction(REGISTER_OWNED_BOOKS_WATCHER)
+export const registerOwnedBooksWatcher = makeActionCreator(REGISTER_OWNED_BOOKS_WATCHER)
 
-export const registerOwnedBooksWatcherSuccess = makeAction(REGISTER_OWNED_BOOKS_WATCHER_SUCCESS)
+export const registerOwnedBooksWatcherSuccess = makeActionCreator(REGISTER_OWNED_BOOKS_WATCHER_SUCCESS)
 
-export const delBook = id => ({
-  type: DEL_BOOK,
-  payload: id
-})
+export const delBook = id => makeAction(DEL_BOOK, id)
 
-export const delBookSuccess = makeAction(DEL_BOOK_SUCCESS)
+export const delBookSuccess = makeActionCreator(DEL_BOOK_SUCCESS)
+
+export const initBookConfig = config => makeAction(INIT_BOOK_CONFIG, config)
+
+export const putBookConfig = config => makeAction(PUT_BOOK_CONFIG, config)
+
+export const setBookFetchStatus = status => makeAction(SET_BOOK_FETCH_STATUS, status)
+
+export const UPDATE_BOOK_ESTIMATING_STATE = 'UPDATE_BOOK_ESTIMATING_STATE'
+export const updateBookEstimatingState = state =>
+  makeAction(UPDATE_BOOK_ESTIMATING_STATE, state)
+
+export const UPDATE_BOOK_READY_STATE = 'UPDATE_BOOK_READY_STATE'
+export const updateBookReadyState = state =>
+  makeAction(UPDATE_BOOK_READY_STATE, state)
+
+export const SET_CURR_BOOK_ID = 'SET_CURR_BOOK_ID'
+export const setCurrBookId = state =>
+  makeAction(SET_CURR_BOOK_ID, state)
+
+export const SET_BOOK_NODES = 'SET_BOOK_NODES'
+export const setBookNodes = state =>
+  makeAction(SET_BOOK_NODES, state)
+
+export const SET_BOOK_LAYOUTS = 'SET_BOOK_LAYOUTS'
+export const setBookLayouts = state =>
+  makeAction(SET_BOOK_LAYOUTS, state)
+
+export const SET_BOOK_PAGES = 'SET_BOOK_PAGES'
+export const setBookPages = payload =>
+  makeAction(SET_BOOK_PAGES, payload)
+
+export const SET_CLIENT_PROGRESS = 'SET_CLIENT_PROGRESS'
+export const setClientProgress = payload =>
+  makeAction(SET_CLIENT_PROGRESS, payload)
+
+export const SET_REMOTE_PROGRESS = 'SET_REMOTE_PROGRESS'
+export const setRemoteProgress = payload =>
+  makeAction(SET_REMOTE_PROGRESS, payload)
+
+export const SHOW_TOP_PANEL = 'SHOW_TOP_PANEL'
+export const setShowTopPanel = payload =>
+  makeAction(SHOW_TOP_PANEL, payload)
+
+export const SHOW_TOC = 'SHOW_TOC'
+export const setShowToc = payload =>
+  makeAction(SHOW_TOC, payload)
+
+export const SHOW_PREF = 'SHOW_PREF'
+export const setShowPref = payload =>
+  makeAction(SHOW_PREF, payload)
+
+export const SET_DISABLE_SCROLL_LISTENER = 'SET_DISABLE_SCROLL_LISTENER'
+export const setDisableScrollListener = payload =>
+  makeAction(SET_DISABLE_SCROLL_LISTENER, payload)
+
+export const INIT_BOOK = 'INIT_BOOK'
+export const initBook = payload =>
+  makeAction(INIT_BOOK, payload)
+
+export const LOAD_BOOK = 'LOAD_BOOK'
+export const loadBook = payload =>
+  makeAction(LOAD_BOOK, payload)
