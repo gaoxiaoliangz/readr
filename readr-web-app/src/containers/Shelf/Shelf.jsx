@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { createSelector } from 'reselect'
 import { Modal } from 'antd'
 import PT from 'prop-types'
+import { connect } from 'react-redux'
 import BrandingContainer from '../../containers/BrandingContainer'
 import Colophon from '../../components/Colophon/Colophon'
 import './Shelf.scss'
-import model from './shelfModel'
+// import model from './shelfModel'
 import BookList from './BookList'
+import { fetchBooks } from '../../actions'
 import FileUploader from '../../components/FileUploader/FileUploader'
 
 const confirm = Modal.confirm
@@ -15,13 +17,15 @@ class Shelf extends Component {
   static propTypes = {
     shelfBooks: PT.array.isRequired,
     isUploadingBook: PT.bool.isRequired,
-    books: PT.object.isRequired
+    books: PT.object.isRequired,
+    fetchBooks: PT.func.isRequired
   }
 
   componentDidMount() {
-    model.regWatcher()
-    model.fetchBooks()
-    model.getLocalBooks()
+    this.props.fetchBooks()
+    // model.regWatcher()
+    // model.fetchBooks()
+    // model.getLocalBooks()
   }
 
   handleChange = e => {
@@ -81,24 +85,29 @@ class Shelf extends Component {
   }
 }
 
-export default model.connect(Shelf, state => {
-  const shelfBooks = createSelector(
-    s => s.bookPagination.entries,
-    s => s.books,
-    s => s.localBooks,
-    s => s.downloadStatus,
-    (entries = [], books = {}, localBooks = {}, downloadStatus = {}) => {
-      return entries.map(id => {
-        return {
-          ...books[id],
-          downloaded: Boolean(localBooks[id]),
-          downloadStatus: downloadStatus[id]
-        }
-      })
+export default connect(
+  state => {
+    const shelfBooks = createSelector(
+      s => s.bookPagination.entries,
+      s => s.books,
+      s => s.localBooks,
+      s => s.downloadStatus,
+      (entries = [], books = {}, localBooks = {}, downloadStatus = {}) => {
+        return entries.map(id => {
+          return {
+            ...books[id],
+            downloaded: Boolean(localBooks[id]),
+            downloadStatus: downloadStatus[id]
+          }
+        })
+      }
+    )
+    return {
+      ...state.shelf,
+      shelfBooks: shelfBooks(state.shelf)
     }
-  )
-  return {
-    ...state.shelf,
-    shelfBooks: shelfBooks(state.shelf)
+  },
+  {
+    fetchBooks
   }
-})
+)(Shelf)

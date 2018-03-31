@@ -1,18 +1,21 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import { connect } from 'react-redux'
 import Branding from '../components/Branding/Branding'
 import { subscriptions, signIn, signOut } from '../service'
-import appModel from './appModel'
+import { handleUserStateChange } from '../actions'
+// import appModel from './appModel'
 
 class BrandingContainer extends React.Component {
   static propTypes = {
     user: PT.object.isRequired,
     dark: PT.bool,
+    handleUserStateChange: PT.func.isRequired
   }
 
   componentDidMount() {
-    subscriptions.onAuthStateChanged(appModel.handleUserStateChange)
+    subscriptions.onAuthStateChanged(this.props.handleUserStateChange)
   }
 
   handleSignOutClick = () => {
@@ -39,4 +42,13 @@ class BrandingContainer extends React.Component {
   }
 }
 
-export default appModel.connect(BrandingContainer)
+export default connect(
+  state => {
+    return {
+      user: state.user
+    }
+  },
+  {
+    handleUserStateChange
+  }
+)(BrandingContainer)
