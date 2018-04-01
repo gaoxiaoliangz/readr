@@ -19,20 +19,34 @@ import {
   SHOW_TOP_PANEL,
   SHOW_TOC,
   SHOW_PREF,
-  SET_DISABLE_SCROLL_LISTENER
+  SET_DISABLE_SCROLL_LISTENER,
+  LOAD_BOOK,
+  DOWNLOAD_BOOK
 } from './actions'
 import { FETCH_STATUS } from './constants'
 
-export const makeReducer = (type, initialState, fn = payload => payload) => (state = initialState, action) =>
+export const makeReducer = (type, initialState, fn = (state, payload) => payload) => (state = initialState, action) =>
   (action.type === type
     ? fn(state, action)
     : state)
 
 const downloadStatus = (state = {}, { type, payload }) => {
-  if (type === UPDATE_DOWNLOAD_STATUS) {
+  if (type === DOWNLOAD_BOOK.REQUEST) {
     return {
       ...state,
-      [payload.id]: payload.status
+      [payload]: FETCH_STATUS.FETCHING
+    }
+  }
+  if (type === DOWNLOAD_BOOK.SUCCESS) {
+    return {
+      ...state,
+      [payload]: FETCH_STATUS.SUCCESS
+    }
+  }
+  if (type === DOWNLOAD_BOOK.FAILURE) {
+    return {
+      ...state,
+      [payload.id]: FETCH_STATUS.FAILURE
     }
   }
   return state
@@ -122,14 +136,25 @@ export default combineReducers({
       contentWidth: 600,
       lineHeight: 24,
     }),
-    fetchStatus: makeReducer(SET_BOOK_FETCH_STATUS, FETCH_STATUS.NONE),
+    loadStatus: (state = FETCH_STATUS.NONE, { type }) => {
+      switch (type) {
+        case LOAD_BOOK.REQUEST:
+          return FETCH_STATUS.FETCHING
+        case LOAD_BOOK.SUCCESS:
+          return FETCH_STATUS.SUCCESS
+        case LOAD_BOOK.FAILURE:
+          return FETCH_STATUS.FAILURE
+        default:
+          return state
+      }
+    },
     isEstimatingLayout: makeReducer(UPDATE_BOOK_ESTIMATING_STATE, false),
     bookReady: makeReducer(UPDATE_BOOK_READY_STATE, false),
     currBookId: makeReducer(SET_CURR_BOOK_ID, null),
-    bookNodes: makeReducer(SET_BOOK_NODES, {}, (state, { id, nodes }) => {
+    bookNodes: makeReducer(LOAD_BOOK.SUCCESS, {}, (state, action) => {
       return {
         ...state,
-        [id]: nodes
+        [action.payload.id]: action.payload.nodes
       }
     }),
     bookLayouts: makeReducer(SET_BOOK_LAYOUTS, {}),

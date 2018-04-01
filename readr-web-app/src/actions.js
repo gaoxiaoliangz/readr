@@ -10,8 +10,6 @@ export const FETCH_BOOKS = 'FETCH_BOOKS'
 export const SET_SHELF_STATUS = 'SET_SHELF_STATUS'
 export const SET_UPLOADING_STATUS = 'SET_UPLOADING_STATUS'
 export const UPDATE_DOWNLOAD_STATUS = 'UPDATE_DOWNLOAD_STATUS'
-export const DOWNLOAD_BOOK = 'DOWNLOAD_BOOK'
-export const GET_LOCAL_BOOKS = 'GET_LOCAL_BOOKS'
 export const PUT_LOCAL_BOOKS = 'PUT_LOCAL_BOOKS'
 export const UPLOAD_BOOK = 'UPLOAD_BOOK'
 export const REGISTER_OWNED_BOOKS_WATCHER = 'REGISTER_OWNED_BOOKS_WATCHER'
@@ -22,8 +20,16 @@ export const INIT_BOOK_CONFIG = 'INIT_BOOK_CONFIG'
 export const PUT_BOOK_CONFIG = 'PUT_BOOK_CONFIG'
 export const SET_BOOK_FETCH_STATUS = 'SET_BOOK_FETCH_STATUS'
 
+export const makeAsyncActionTypes = type => ({
+  REQUEST: type + '_REQUEST',
+  SUCCESS: type + '_SUCCESS',
+  FAILURE: type + '_FAILURE',
+})
+
 export const makeAction = (type, payload, meta, error) =>
   ({ type, payload, meta, error })
+
+export const errorAction = (type, err) => makeAction(type, err, null, true)
 
 export const makeActionCreator = type => () => makeAction(type)
 
@@ -82,14 +88,14 @@ export const updateDownloadStatus = (id, status) => ({
   payload: { id, status }
 })
 
+export const DOWNLOAD_BOOK = makeAsyncActionTypes('DOWNLOAD_BOOK')
 export const downloadBook = id => ({
-  type: DOWNLOAD_BOOK,
+  type: DOWNLOAD_BOOK.REQUEST,
   payload: id
 })
 
-export const getLocalBooks = () => ({
-  type: GET_LOCAL_BOOKS
-})
+export const GET_LOCAL_BOOKS = makeAsyncActionTypes('GET_LOCAL_BOOKS')
+export const getLocalBooks = makeActionCreator(GET_LOCAL_BOOKS.REQUEST)
 
 export const putLocalBooks = books => ({
   type: PUT_LOCAL_BOOKS,
@@ -167,6 +173,6 @@ export const INIT_BOOK = 'INIT_BOOK'
 export const initBook = payload =>
   makeAction(INIT_BOOK, payload)
 
-export const LOAD_BOOK = 'LOAD_BOOK'
+export const LOAD_BOOK = makeAsyncActionTypes('LOAD_BOOK')
 export const loadBook = payload =>
-  makeAction(LOAD_BOOK, payload)
+  makeAction(LOAD_BOOK.REQUEST, payload)

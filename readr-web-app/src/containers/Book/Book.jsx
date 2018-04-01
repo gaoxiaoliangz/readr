@@ -21,7 +21,7 @@ class Book extends Component {
     book: PT.object.isRequired,
     pages: PT.array.isRequired,
     bookNodes: PT.array.isRequired,
-    fetchStatus: PT.string.isRequired,
+    loadStatus: PT.string.isRequired,
     isEstimatingLayout: PT.bool.isRequired,
     bookReady: PT.bool.isRequired,
     showTopPanel: PT.bool.isRequired,
@@ -166,7 +166,7 @@ class Book extends Component {
   render() {
     const {
       book,
-      fetchStatus,
+      loadStatus,
       bookNodes,
       isEstimatingLayout,
       bookReady,
@@ -178,7 +178,7 @@ class Book extends Component {
       clientProgress,
       disableScrollListener
     } = this.props
-    const isFetching = fetchStatus === FETCH_STATUS.FETCHING
+    const isFetching = loadStatus === FETCH_STATUS.FETCHING
     const bookInfo = _.pick(book, ['title', 'author'])
     return (
       <div className={`${styles['book']} ${styles[`book--${config.theme}`]}`}>

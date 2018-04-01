@@ -58,6 +58,7 @@
     "dot-notation": [0],
     "no-use-before-define": [0],
     "import/no-named-as-default-member": [0],
-    "jsx-a11y/alt-text": [0]
+    "jsx-a11y/alt-text": [0],
+    "function-paren-newline": [0]
   }
 }
