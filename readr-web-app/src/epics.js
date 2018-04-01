@@ -67,6 +67,49 @@ const handleUserStateChangeEpic = (action$, store) =>
       mergeAll()
     )
 
+// const fetchBooksEpic = (action$, store) =>
+//   // merge(
+//   //   action$
+//   //     .pipe(
+//   //       filter(action => action.type === FETCH_BOOKS),
+//   //       mapTo(of(
+//   //         setShelfBookStatus(FETCH_STATUS.FETCHING),
+//   //         startLoadingTask('books')
+//   //       )),
+//   //       mergeAll()
+//   //     ),
+//   action$
+//     .pipe(
+//       filter(action => action.type === FETCH_BOOKS),
+//       map(action => of(
+//         startLoadingTask('books'),
+//         action,
+//       )),
+//       mergeAll(),
+//       mergeMap(action => {
+//         if (action.type === FETCH_BOOKS) {
+//           return fromPromise(fetchUserOwnedBooks())
+//         }
+//         return action
+//       }, (vfs, booksObj) => {
+//         const books = toArray(booksObj)
+//         books.forEach(book => {
+//           subs.add(`books/${book.id}`, (data, first) => {
+//             if (!first) {
+//               store.dispatch(fetchBooks())
+//             }
+//           })
+//         })
+//         return of(
+//           putBooks(books),
+//           setShelfBookStatus(FETCH_STATUS.SUCCESS),
+//           stopLoadingTask('books')
+//         )
+//       }),
+//       mergeAll()
+//     )
+
+
 const fetchBooksEpic = (action$, store) =>
   merge(
     action$
