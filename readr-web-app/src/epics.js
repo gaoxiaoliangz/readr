@@ -11,15 +11,15 @@ import {
 } from './service'
 import { toArray } from './containers/utils'
 import {
-  HANDLE_USER_STATE_CHANGE, FETCH_BOOKS, DOWNLOAD_BOOK, updateUser,
+  HANDLE_USER_STATE_CHANGE, FETCH_BOOKS, DOWNLOAD_BOOK_REQUEST, updateUser,
   setAuthStatus, setShelfBookStatus, putBooks, startLoadingTask,
-  stopLoadingTask, fetchBooks, updateDownloadStatus, GET_LOCAL_BOOKS,
+  stopLoadingTask, fetchBooks, updateDownloadStatus, GET_LOCAL_BOOKS_REQUEST,
   putLocalBooks, setUploadingStatus, UPLOAD_BOOK,
   REGISTER_OWNED_BOOKS_WATCHER, registerOwnedBooksWatcherSuccess,
   DEL_BOOK, delBookSuccess, INIT_BOOK_CONFIG, putBookConfig,
   INIT_BOOK,
   setCurrBookId,
-  LOAD_BOOK,
+  LOAD_BOOK_REQUEST,
   setBookFetchStatus,
   getLocalBooks,
   PUT_LOCAL_BOOKS,
@@ -149,15 +149,15 @@ const downloadBookEpic = action$ =>
   merge(
     action$
       .pipe(
-        filter(action => action.type === DOWNLOAD_BOOK),
+        filter(action => action.type === DOWNLOAD_BOOK_REQUEST),
         map(({ payload }) => updateDownloadStatus(payload, FETCH_STATUS.FETCHING))
       ),
     action$
       // TODO: error handling
       .pipe(
-        filter(action => action.type === DOWNLOAD_BOOK),
+        filter(action => action.type === DOWNLOAD_BOOK_REQUEST),
         mergeMap(
-          ({ payload }) => fromPromise(fetchBook(payload, FETCH_STATUS.FETCHING)),
+          ({ payload }) => fromPromise(fetchBook(payload, true)),
           (vfs, book) => {
             bookDbModel.add(book)
             return updateDownloadStatus(vfs.payload, FETCH_STATUS.SUCCESS)
@@ -168,7 +168,7 @@ const downloadBookEpic = action$ =>
 
 const getLocalBooksEpic = action$ =>
   action$.pipe(
-    filter(action => action.type === GET_LOCAL_BOOKS),
+    filter(action => action.type === GET_LOCAL_BOOKS_REQUEST),
     mergeMap(() => fromPromise(bookDbModel.listAll())),
     map(books => putLocalBooks(books))
   )
@@ -249,7 +249,7 @@ const initBookConfigEpic = filterAction(INIT_BOOK_CONFIG, (action$, store) =>
 //   ))
 //   )
 
-const loadBookEpic = filterAction(LOAD_BOOK, (action$, store, rawAction$) => {
+const loadBookEpic = filterAction(LOAD_BOOK_REQUEST, (action$, store, rawAction$) => {
   const finishLoadBook = book => {
     const sectionsOfNodes = book.content.map(section => {
       return {
@@ -274,7 +274,7 @@ const loadBookEpic = filterAction(LOAD_BOOK, (action$, store, rawAction$) => {
       mergeAll()
     ),
     rawAction$.pipe(
-      filter(action => action.type === LOAD_BOOK),
+      filter(action => action.type === LOAD_BOOK_REQUEST),
       mergeMap(() => {
         return rawAction$.pipe(filter(action => action.type === PUT_LOCAL_BOOKS))
       }, loadBookAction => {
@@ -288,12 +288,12 @@ const loadBookEpic = filterAction(LOAD_BOOK, (action$, store, rawAction$) => {
         console.log('already local')
         return finishLoadBook(book)
       }),
-      filter(action => action.type !== DOWNLOAD_BOOK),
+      filter(action => action.type !== DOWNLOAD_BOOK_REQUEST),
       // tap(console.log)
       mergeAll()
     ),
     rawAction$.pipe(
-      filter(action => action.type === LOAD_BOOK),
+      filter(action => action.type === LOAD_BOOK_REQUEST),
       mergeMap(() => {
         return rawAction$.pipe(filter(action =>
           action.type === UPDATE_DOWNLOAD_STATUS && action.payload === FETCH_STATUS.SUCCESS))
@@ -311,12 +311,12 @@ const loadBookEpic = filterAction(LOAD_BOOK, (action$, store, rawAction$) => {
 export default combineEpics(
   handleUserStateChangeEpic,
   fetchBooksEpic,
-  downloadBookEpic,
-  getLocalBooksEpic,
+  // downloadBookEpic,
+  // getLocalBooksEpic,
   uploadBookEpic,
   registerOwnedBooksWatcherEpic,
   delBookEpic,
   initBookConfigEpic,
   // initBookEpic,
-  loadBookEpic
+  // loadBookEpic
 )

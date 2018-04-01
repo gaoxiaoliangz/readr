@@ -1,3 +1,12 @@
+import { FETCH_STATUS } from './constants'
+import { fetchBook, SubscriptionManager } from './service'
+import createDbModel from './local-db'
+import { htmlStringToNodes } from './containers/Book/layout/nodes'
+
+const bookDbModel = createDbModel('books')
+const userDbModel = createDbModel('users')
+const subs = new SubscriptionManager()
+
 export const START_LOADING_TASK = 'START_LOADING_TASK'
 export const STOP_LOADING_TASK = 'STOP_LOADING_TASK'
 export const CLEAR_ALL_LOADING_TASK = 'CLEAR_ALL_LOADING_TASK'
@@ -10,8 +19,6 @@ export const FETCH_BOOKS = 'FETCH_BOOKS'
 export const SET_SHELF_STATUS = 'SET_SHELF_STATUS'
 export const SET_UPLOADING_STATUS = 'SET_UPLOADING_STATUS'
 export const UPDATE_DOWNLOAD_STATUS = 'UPDATE_DOWNLOAD_STATUS'
-export const DOWNLOAD_BOOK = 'DOWNLOAD_BOOK'
-export const GET_LOCAL_BOOKS = 'GET_LOCAL_BOOKS'
 export const PUT_LOCAL_BOOKS = 'PUT_LOCAL_BOOKS'
 export const UPLOAD_BOOK = 'UPLOAD_BOOK'
 export const REGISTER_OWNED_BOOKS_WATCHER = 'REGISTER_OWNED_BOOKS_WATCHER'
@@ -82,14 +89,43 @@ export const updateDownloadStatus = (id, status) => ({
   payload: { id, status }
 })
 
-export const downloadBook = id => ({
-  type: DOWNLOAD_BOOK,
-  payload: id
-})
+export const DOWNLOAD_BOOK_REQUEST = 'DOWNLOAD_BOOK_REQUEST'
+export const DOWNLOAD_BOOK_SUCCESS = 'DOWNLOAD_BOOK_SUCCESS'
+export const DOWNLOAD_BOOK_FAILURE = 'DOWNLOAD_BOOK_FAILURE'
+// TODO: 使用 reducer 处理下载状态，而不是手动设置
+export const downloadBook = id => {
+  return dispatch => {
+    dispatch(updateDownloadStatus(id, FETCH_STATUS.FETCHING))
+    return fetchBook(id, true)
+      .then(book => {
+        bookDbModel.add(book)
+        dispatch(updateDownloadStatus(id, FETCH_STATUS.SUCCESS))
+        return dispatch(makeAction(DOWNLOAD_BOOK_SUCCESS, book))
+      })
+      .catch(() => {
+        dispatch(makeAction(DOWNLOAD_BOOK_FAILURE))
+        return dispatch(updateDownloadStatus(id, FETCH_STATUS.FAILURE))
+      })
+  }
+}
 
-export const getLocalBooks = () => ({
-  type: GET_LOCAL_BOOKS
-})
+export const GET_LOCAL_BOOKS_REQUEST = 'GET_LOCAL_BOOKS_REQUEST'
+export const GET_LOCAL_BOOKS_SUCCESS = 'GET_LOCAL_BOOKS_SUCCESS'
+export const GET_LOCAL_BOOKS_FAILURE = 'GET_LOCAL_BOOKS_FAILURE'
+export const getLocalBooks = () => {
+  return dispatch => {
+    dispatch(makeAction(GET_LOCAL_BOOKS_REQUEST))
+    return bookDbModel.listAll()
+      .then(books => {
+        dispatch(makeAction(GET_LOCAL_BOOKS_SUCCESS))
+        // TODO: 使用 success action
+        return dispatch(putLocalBooks(books))
+      })
+      .catch(err => {
+        return dispatch(makeAction(GET_LOCAL_BOOKS_SUCCESS, err, null, true))
+      })
+  }
+}
 
 export const putLocalBooks = books => ({
   type: PUT_LOCAL_BOOKS,
@@ -167,6 +203,42 @@ export const INIT_BOOK = 'INIT_BOOK'
 export const initBook = payload =>
   makeAction(INIT_BOOK, payload)
 
-export const LOAD_BOOK = 'LOAD_BOOK'
-export const loadBook = payload =>
-  makeAction(LOAD_BOOK, payload)
+export const LOAD_BOOK_REQUEST = 'LOAD_BOOK_REQUEST'
+export const LOAD_BOOK_SUCCESS = 'LOAD_BOOK_SUCCESS'
+export const LOAD_BOOK_FAILURE = 'LOAD_BOOK_FAILURE'
+export const loadBook = id => {
+  return (dispatch, getState) => {
+    const getLocalBook = () => {
+      const state = getState()
+      return state.localBooks[id]
+    }
+    dispatch(makeAction(LOAD_BOOK_REQUEST))
+    return dispatch(getLocalBooks())
+      .then(() => {
+        const book = getLocalBook()
+        if (!book) {
+          return dispatch(downloadBook(id))
+            .then(getLocalBook)
+        }
+        return book
+      })
+      .then(book => {
+        const sectionsOfNodes = book.content.map(section => {
+          return {
+            sectionId: section.id,
+            nodes: htmlStringToNodes(section.htmlString)
+          }
+        })
+        dispatch(setBookFetchStatus(FETCH_STATUS.SUCCESS))
+        dispatch(setBookNodes({
+          id,
+          nodes: sectionsOfNodes
+        }))
+        return dispatch(makeAction(LOAD_BOOK_SUCCESS))
+      })
+      .catch(err => {
+        console.log(err)
+        return dispatch(makeAction(LOAD_BOOK_FAILURE, err, null, true))
+      })
+  }
+}
