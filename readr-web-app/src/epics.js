@@ -27,7 +27,10 @@ import {
   setBookNodes,
   UPDATE_DOWNLOAD_STATUS,
   makeAction,
-  errorAction
+  errorAction,
+  CALC_BOOK_LAYOUT,
+  updateBookEstimatingState,
+  calcBookLayout
 } from './actions'
 import createDbModel from './local-db'
 import { htmlStringToNodes } from './containers/Book/layout/nodes'
@@ -198,19 +201,33 @@ const initBookConfigEpic = filterAction(INIT_BOOK_CONFIG, (action$, store) =>
     map(putBookConfig)
   ))
 
-// const initBookEpic = filterAction(INIT_BOOK, action$ =>
-//   merge(
-//     action$.pipe(
-//       map(({ payload: id }) => of(
-//         startLoadingTask('book'),
-//         setCurrBookId(id)
-//       ))
-//     )),
-//   action$.pipe(
-//     mergeMap
-//   ))
-//   )
+const initBookEpic = action$ =>
+  merge(
+    action$.ofType(INIT_BOOK.REQUEST).pipe(
+      map(({ payload: id }) => of(
+        startLoadingTask('book'),
+        setCurrBookId(id)
+      ))
+    ),
+    action$.ofType(INIT_BOOK.REQUEST).pipe(
+      mergeMap(action => {
+        forkEpic(layoutWatcherEpic, calcBookLayout(action.payload))
+      })
+    )
+  )
 
+const layoutWatcherEpic = action$ =>
+  merge(
+    action$.ofType(CALC_BOOK_LAYOUT.REQUEST).pipe(
+      mapTo(updateBookEstimatingState(true))
+    ),
+    // TODO
+    action$.ofType(CALC_BOOK_LAYOUT.SUCCESS).pipe(
+      mapTo(updateBookEstimatingState(false))
+    )
+  )
+
+// TODO: error handling
 const loadBookEpic = action$ => {
   return action$.ofType(LOAD_BOOK.REQUEST).pipe(
     mergeMap(action =>
@@ -262,6 +279,7 @@ export default combineEpics(
   registerOwnedBooksWatcherEpic,
   delBookEpic,
   initBookConfigEpic,
-  // initBookEpic,
-  loadBookEpic
+  initBookEpic,
+  loadBookEpic,
+  layoutWatcherEpic
 )

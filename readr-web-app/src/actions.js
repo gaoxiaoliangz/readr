@@ -137,9 +137,9 @@ export const SET_BOOK_NODES = 'SET_BOOK_NODES'
 export const setBookNodes = state =>
   makeAction(SET_BOOK_NODES, state)
 
-export const SET_BOOK_LAYOUTS = 'SET_BOOK_LAYOUTS'
-export const setBookLayouts = state =>
-  makeAction(SET_BOOK_LAYOUTS, state)
+export const CALC_BOOK_LAYOUT = makeAsyncActionTypes('CALC_BOOK_LAYOUT')
+export const calcBookLayout = bookId =>
+  makeAction(CALC_BOOK_LAYOUT.REQUEST, bookId)
 
 export const SET_BOOK_PAGES = 'SET_BOOK_PAGES'
 export const setBookPages = payload =>
@@ -169,9 +169,9 @@ export const SET_DISABLE_SCROLL_LISTENER = 'SET_DISABLE_SCROLL_LISTENER'
 export const setDisableScrollListener = payload =>
   makeAction(SET_DISABLE_SCROLL_LISTENER, payload)
 
-export const INIT_BOOK = 'INIT_BOOK'
-export const initBook = payload =>
-  makeAction(INIT_BOOK, payload)
+export const INIT_BOOK = makeAsyncActionTypes('INIT_BOOK')
+export const initBook = id =>
+  makeAction(INIT_BOOK.REQUEST, id)
 
 export const LOAD_BOOK = makeAsyncActionTypes('LOAD_BOOK')
 export const loadBook = payload =>

@@ -14,7 +14,7 @@ import PopBox from '../../components/PopBox/PopBox'
 import ScrollableBookPage from './ScrollableBookPage'
 import Toc from './Toc'
 import Pref from './Pref'
-import { initBookConfig, loadBook } from '../../actions'
+import { initBookConfig, loadBook, initBook } from '../../actions'
 
 class Book extends Component {
   static propTypes = {
@@ -36,7 +36,8 @@ class Book extends Component {
       })
     }),
     initBookConfig: PT.func.isRequired,
-    loadBook: PT.func.isRequired
+    // loadBook: PT.func.isRequired,
+    initBook: PT.func.isRequired
   }
 
   lastScrollTop = 0
@@ -44,17 +45,16 @@ class Book extends Component {
   componentDidMount() {
     const { id } = this.props.match.params
     // model.initBook(id) // eslint-disable-line
-    window.addEventListener('mousemove', this.handleMousemove)
+    // window.addEventListener('mousemove', this.handleMousemove)
     // window.goTo = this.goTo
 
-    console.log('mount')
     let pageHeight = window.innerHeight - 120
     const rest = pageHeight % this.props.config.lineHeight
     pageHeight -= rest
     this.props.initBookConfig({
       pageHeight
     })
-    this.props.loadBook(id)
+    this.props.initBook(id)
   }
 
   componentWillUnmount() {
@@ -263,6 +263,7 @@ export default connect(
   },
   {
     initBookConfig,
-    loadBook
+    loadBook,
+    initBook
   }
 )(Book)
