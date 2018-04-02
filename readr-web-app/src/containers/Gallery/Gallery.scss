@@ -1,0 +1,183 @@
+*, *:before, *:after {
+  position: relative;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FAFAFA;
+}
+
+@mixin shadow($color: rgba(black, 0.1)) {
+  box-shadow: 0 .2rem 1rem $color;
+}
+
+* {
+  transition: all .3s cubic-bezier(.2, 0, .4, 1);
+}
+
+.ui-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 40rem;
+  max-width: 90vw;
+  height: calc(100vh - 2rem);
+  
+  &[data-state="start"] {
+    justify-content: center;
+  }
+  
+  &[data-state="loading"] {
+    .ui-item {
+      opacity: .5;
+    }
+  }
+  
+  &[data-state="photo"] {
+    * {
+      opacity: 0.3;
+    }
+    
+    .ui-photo-detail, .ui-photo-detail * {
+      opacity: 1;
+    }
+    
+    .ui-items {
+      pointer-events: none;
+    }
+  }
+  
+  &:after {
+    content: 'current state: ' attr(data-state);
+    position: absolute;
+    bottom: .5rem;
+    color: white;
+    background-color: rgba(black, 0.4);
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: 0 0 .1rem black;
+    pointer-events: none;
+  }
+}
+
+.ui-form {
+  margin-bottom: 1rem;
+}
+
+.ui-input {
+  @include shadow();
+  display: block;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  border: none;
+  font-size: 2rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  
+  &::-webkit-input-placeholder {
+    color: #CDCDCD;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+.ui-buttons {
+  text-align: center;
+}
+
+.ui-button {
+  @include shadow();
+  display: inline-block;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background-color: #EB7452;
+  color: white;
+  height: 3rem;
+  padding: 0 3rem;
+  border-radius: 3rem;
+  margin: 0 1rem;
+  
+  &[disabled] {
+    opacity: 0.5;
+  }
+  
+  &[type="button"] {
+    background-color: #555;
+  }
+}
+
+.ui-items {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  flex-shrink: 1;
+  overflow-y: scroll;
+  margin: 0 -.25rem;
+  
+  &:hover > .ui-item {
+    opacity: 0.7;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.ui-item {
+  display: block;
+  height: 10rem;
+  width: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin: .25rem;
+  animation: item .5s calc(var(--i, 0) * .05s) cubic-bezier(.5, 0, .2, 1) both;
+  background-color: #EEE;
+  
+  @keyframes item {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+.ui-photo-detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui-photo {
+  height: auto;
+  width: auto;
+  min-height: 50vh;
+  min-width: 50vw;
+  max-height: 100%;
+  max-width: 100%;
+}

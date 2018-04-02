@@ -20,6 +20,10 @@ const Book = asyncComponent({
   resolve: () => import('./Book/Book')
 })
 
+const Gallery = asyncComponent({
+  resolve: () => import('./Gallery/Gallery')
+})
+
 const NotFound = asyncComponent({
   resolve: () => import('./NotFound/NotFound')
 })
@@ -48,6 +52,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Shelf} />
             <Route path="/book/:id" component={Book} />
+            <Route path="/gallery" component={Gallery} />
             <Route component={NotFound} />
           </Switch>
         )
