@@ -7,7 +7,7 @@ import { of } from 'rxjs/observable/of'
 import { FETCH_STATUS } from './constants'
 import {
   uploadBook, updateUser as updateFBUser, fetchUserOwnedBooks,
-  delBook, fetchBook, SubscriptionManager, subscriptions
+  delBook, fetchBook, SubscriptionManager, subscriptions, getBookProgress
 } from './service'
 import { toArray } from './containers/utils'
 import {
@@ -30,7 +30,17 @@ import {
   errorAction,
   CALC_BOOK_LAYOUT,
   updateBookEstimatingState,
-  calcBookLayout
+  calcBookLayout,
+  loadBook,
+  calcBookLayoutSuccess,
+  FETCH_REMOTE_PROGRESS,
+  fetchRemoteProgress,
+  updateBookReadyState,
+  setDisableScrollListener,
+  SET_DISABLE_SCROLL_LISTENER,
+  GOTO_PROGRESS,
+  setClientProgress,
+  gotoProgress
 } from './actions'
 import createDbModel from './local-db'
 import { htmlStringToNodes } from './containers/Book/layout/nodes'
@@ -207,28 +217,85 @@ const initBookEpic = action$ =>
       map(({ payload: id }) => of(
         startLoadingTask('book'),
         setCurrBookId(id)
-      ))
+      )),
+      mergeAll()
     ),
     action$.ofType(INIT_BOOK.REQUEST).pipe(
+      // mergeMap(action => {
+      //   const bookId = action.payload
+      //   return of(
+      //     forkEpic(loadBookEpic, loadBook(bookId)).pipe(
+      //       filter(loadBookAction => loadBookAction.type === LOAD_BOOK.SUCCESS),
+      //       map(loadBookAction => of(loadBookAction, calcBookLayout(bookId))),
+
+      //     ),
+      //     forkEpic(fetchRemoteProgressEpic, fetchRemoteProgress(bookId)).pipe(
+      //       map(fetchProgressAction => {
+      //         console.log(fetchProgressAction)
+      //         return of(fetchProgressAction, makeAction('ok!'))
+      //       }),
+      //       mergeAll()
+      //     )
+      //   ).pipe(
+      //     mergeAll(),
+      //   )
+      // }),
       mergeMap(action => {
-        forkEpic(layoutWatcherEpic, calcBookLayout(action.payload))
-      })
+        const bookId = action.payload
+        console.log(bookId)
+        return forkEpic(loadBookEpic, loadBook(bookId)).pipe(
+          filter(loadBookAction => loadBookAction.type === LOAD_BOOK.SUCCESS),
+          map(loadBookAction => of(loadBookAction, calcBookLayout(bookId))),
+          mergeAll(),
+          filter(action1 => action1.type === CALC_BOOK_LAYOUT.SUCCESS),
+          mergeMap(() => {
+            return forkEpic(fetchRemoteProgressEpic, fetchRemoteProgress(bookId)).pipe(
+              map(fetchProgressAction => {
+                return of(updateBookReadyState(true), setDisableScrollListener(true), fetchProgressAction)
+              }),
+              mergeAll(),
+              filter(action1 => action1.type === FETCH_REMOTE_PROGRESS.SUCCESS),
+              mergeMap(fetchProgressAction => {
+                return forkEpic(gotoProgressEpic, gotoProgress(fetchProgressAction.payload))
+                  .pipe(
+                    concat(makeAction(INIT_BOOK.SUCCESS))
+                  )
+              }),
+              mergeAll(),
+            )
+          })
+        )
+      }),
+      mergeAll()
     )
   )
 
-const layoutWatcherEpic = action$ =>
-  merge(
-    action$.ofType(CALC_BOOK_LAYOUT.REQUEST).pipe(
-      mapTo(updateBookEstimatingState(true))
-    ),
-    // TODO
-    action$.ofType(CALC_BOOK_LAYOUT.SUCCESS).pipe(
-      mapTo(updateBookEstimatingState(false))
-    )
+const gotoProgressEpic = action$ =>
+  action$.ofType(GOTO_PROGRESS.REQUEST).pipe(
+    map(action => {
+      return of(
+        action,
+        setClientProgress(action.payload),
+        setDisableScrollListener(false),
+        makeAction(GOTO_PROGRESS.SUCCESS)
+      )
+    })
+  )
+
+const fetchRemoteProgressEpic = action$ =>
+  action$.ofType(FETCH_REMOTE_PROGRESS.REQUEST).pipe(
+    mergeMap(action => {
+      console.log('here')
+      return fromPromise(getBookProgress(action.payload))
+    }, (action, progress) => {
+      // TODO: error handling
+      return makeAction(FETCH_REMOTE_PROGRESS.SUCCESS, progress)
+    }),
   )
 
 // TODO: error handling
 const loadBookEpic = action$ => {
+  console.log('loadbookepic')
   return action$.ofType(LOAD_BOOK.REQUEST).pipe(
     mergeMap(action =>
       forkEpic(getLocalBooksEpic, getLocalBooks()).pipe(
@@ -281,5 +348,6 @@ export default combineEpics(
   initBookConfigEpic,
   initBookEpic,
   loadBookEpic,
-  layoutWatcherEpic
+  fetchRemoteProgressEpic,
+  gotoProgressEpic
 )

@@ -14,7 +14,7 @@ import PopBox from '../../components/PopBox/PopBox'
 import ScrollableBookPage from './ScrollableBookPage'
 import Toc from './Toc'
 import Pref from './Pref'
-import { initBookConfig, loadBook, initBook } from '../../actions'
+import { initBookConfig, loadBook, initBook, calcBookLayoutSuccess } from '../../actions'
 
 class Book extends Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class Book extends Component {
       })
     }),
     initBookConfig: PT.func.isRequired,
-    // loadBook: PT.func.isRequired,
+    calcBookLayoutSuccess: PT.func.isRequired,
     initBook: PT.func.isRequired
   }
 
@@ -51,6 +51,7 @@ class Book extends Component {
     let pageHeight = window.innerHeight - 120
     const rest = pageHeight % this.props.config.lineHeight
     pageHeight -= rest
+    // TODO
     this.props.initBookConfig({
       pageHeight
     })
@@ -59,7 +60,6 @@ class Book extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMousemove)
-    model.destroy()
   }
 
   goTo(progress) {
@@ -67,7 +67,7 @@ class Book extends Component {
   }
 
   handleCalcDone = result => {
-    model.putLayoutInfo(result)
+    this.props.calcBookLayoutSuccess(this.props.match.params.id, result)
   }
 
   handleMousemove = e => {
@@ -264,6 +264,7 @@ export default connect(
   {
     initBookConfig,
     loadBook,
-    initBook
+    initBook,
+    calcBookLayoutSuccess
   }
 )(Book)

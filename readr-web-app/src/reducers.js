@@ -12,7 +12,7 @@ import {
   UPDATE_BOOK_READY_STATE,
   SET_CURR_BOOK_ID,
   SET_BOOK_NODES,
-  SET_BOOK_LAYOUTS,
+  // SET_BOOK_LAYOUTS,
   SET_BOOK_PAGES,
   SET_CLIENT_PROGRESS,
   SET_REMOTE_PROGRESS,
@@ -22,7 +22,10 @@ import {
   SET_DISABLE_SCROLL_LISTENER,
   LOAD_BOOK,
   DOWNLOAD_BOOK,
-  GET_LOCAL_BOOKS
+  GET_LOCAL_BOOKS,
+  CALC_BOOK_LAYOUT,
+  fetchRemoteProgress,
+  FETCH_REMOTE_PROGRESS
 } from './actions'
 import { FETCH_STATUS } from './constants'
 
@@ -131,6 +134,11 @@ export default combineReducers({
       scrollMode: false,
       contentWidth: 600,
       lineHeight: 24,
+    }, (state, { payload }) => {
+      return {
+        ...state,
+        ...payload
+      }
     }),
     loadStatus: (state = FETCH_STATUS.NONE, { type }) => {
       switch (type) {
@@ -144,7 +152,17 @@ export default combineReducers({
           return state
       }
     },
-    isEstimatingLayout: makeReducer(UPDATE_BOOK_ESTIMATING_STATE, false),
+    isEstimatingLayout: (state = false, { type }) => {
+      switch (type) {
+        case CALC_BOOK_LAYOUT.REQUEST:
+          return true
+        case CALC_BOOK_LAYOUT.SUCCESS:
+        case CALC_BOOK_LAYOUT.FAILURE:
+          return false
+        default:
+          return state
+      }
+    },
     bookReady: makeReducer(UPDATE_BOOK_READY_STATE, false),
     currBookId: makeReducer(SET_CURR_BOOK_ID, null),
     bookNodes: makeReducer(LOAD_BOOK.SUCCESS, {}, (state, action) => {
@@ -153,10 +171,15 @@ export default combineReducers({
         [action.payload.id]: action.payload.nodes
       }
     }),
-    bookLayouts: makeReducer(SET_BOOK_LAYOUTS, {}),
+    bookLayouts: makeReducer(CALC_BOOK_LAYOUT.SUCCESS, {}, (state, { payload: { id, layout } }) => {
+      return {
+        ...state,
+        [id]: layout
+      }
+    }),
     bookPages: makeReducer(SET_BOOK_PAGES, {}),
     clientProgress: makeReducer(SET_CLIENT_PROGRESS, 0),
-    remoteProgress: makeReducer(SET_REMOTE_PROGRESS, 0),
+    remoteProgress: makeReducer(FETCH_REMOTE_PROGRESS.SUCCESS, 0),
     showTopPanel: makeReducer(SHOW_TOP_PANEL, false),
     showToc: makeReducer(SHOW_TOC, false),
     showPref: makeReducer(SHOW_PREF, false),

@@ -121,9 +121,9 @@ export const putBookConfig = config => makeAction(PUT_BOOK_CONFIG, config)
 
 export const setBookFetchStatus = status => makeAction(SET_BOOK_FETCH_STATUS, status)
 
-export const UPDATE_BOOK_ESTIMATING_STATE = 'UPDATE_BOOK_ESTIMATING_STATE'
-export const updateBookEstimatingState = state =>
-  makeAction(UPDATE_BOOK_ESTIMATING_STATE, state)
+// export const UPDATE_BOOK_ESTIMATING_STATE = 'UPDATE_BOOK_ESTIMATING_STATE'
+// export const updateBookEstimatingState = state =>
+//   makeAction(UPDATE_BOOK_ESTIMATING_STATE, state)
 
 export const UPDATE_BOOK_READY_STATE = 'UPDATE_BOOK_READY_STATE'
 export const updateBookReadyState = state =>
@@ -140,6 +140,11 @@ export const setBookNodes = state =>
 export const CALC_BOOK_LAYOUT = makeAsyncActionTypes('CALC_BOOK_LAYOUT')
 export const calcBookLayout = bookId =>
   makeAction(CALC_BOOK_LAYOUT.REQUEST, bookId)
+export const calcBookLayoutSuccess = (bookId, layout) =>
+  makeAction(CALC_BOOK_LAYOUT.SUCCESS, {
+    id: bookId,
+    layout
+  })
 
 export const SET_BOOK_PAGES = 'SET_BOOK_PAGES'
 export const setBookPages = payload =>
@@ -176,3 +181,11 @@ export const initBook = id =>
 export const LOAD_BOOK = makeAsyncActionTypes('LOAD_BOOK')
 export const loadBook = payload =>
   makeAction(LOAD_BOOK.REQUEST, payload)
+
+export const FETCH_REMOTE_PROGRESS = makeAsyncActionTypes('FETCH_REMOTE_PROGRESS')
+export const fetchRemoteProgress = bookId =>
+  makeAction(FETCH_REMOTE_PROGRESS.REQUEST, bookId)
+
+export const GOTO_PROGRESS = makeAsyncActionTypes('GOTO_PROGRESS')
+export const gotoProgress = progress =>
+  makeAction(GOTO_PROGRESS.REQUEST, progress)
