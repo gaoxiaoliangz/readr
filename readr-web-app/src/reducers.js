@@ -21,14 +21,16 @@ import {
   SHOW_PREF,
   SET_DISABLE_SCROLL_LISTENER,
   LOAD_BOOK,
-  DOWNLOAD_BOOK
+  DOWNLOAD_BOOK,
+  GET_LOCAL_BOOKS
 } from './actions'
 import { FETCH_STATUS } from './constants'
 
-export const makeReducer = (type, initialState, fn = (state, payload) => payload) => (state = initialState, action) =>
-  (action.type === type
-    ? fn(state, action)
-    : state)
+export const makeReducer = (type, initialState, fn = (state, action) => action.payload) =>
+  (state = initialState, action) =>
+    (action.type === type
+      ? fn(state, action)
+      : state)
 
 const downloadStatus = (state = {}, { type, payload }) => {
   if (type === DOWNLOAD_BOOK.REQUEST) {
@@ -40,7 +42,7 @@ const downloadStatus = (state = {}, { type, payload }) => {
   if (type === DOWNLOAD_BOOK.SUCCESS) {
     return {
       ...state,
-      [payload]: FETCH_STATUS.SUCCESS
+      [payload.id]: FETCH_STATUS.SUCCESS
     }
   }
   if (type === DOWNLOAD_BOOK.FAILURE) {
@@ -73,13 +75,6 @@ const shelfBooks = (state = {
         entries
       }
     }
-  }
-  return state
-}
-
-const localBooks = (state = {}, { type, payload }) => {
-  if (type === PUT_LOCAL_BOOKS) {
-    return payload
   }
   return state
 }
@@ -124,6 +119,7 @@ const authStatus = (state = 0, { type, payload }) => {
 
 export default combineReducers({
   shelf: combineReducers({
+    // TODO: 放到外层
     downloadStatus,
     books: shelfBooks,
   }),
@@ -169,6 +165,6 @@ export default combineReducers({
   user: makeReducer(UPDATE_USER, {}),
   loadingTasks,
   authStatus,
-  localBooks,
+  localBooks: makeReducer(GET_LOCAL_BOOKS.SUCCESS, {}),
   isUploadingBook
 })
