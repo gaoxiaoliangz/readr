@@ -295,7 +295,6 @@ const fetchRemoteProgressEpic = action$ =>
 
 // TODO: error handling
 const loadBookEpic = action$ => {
-  console.log('loadbookepic')
   return action$.ofType(LOAD_BOOK.REQUEST).pipe(
     mergeMap(action =>
       forkEpic(getLocalBooksEpic, getLocalBooks()).pipe(

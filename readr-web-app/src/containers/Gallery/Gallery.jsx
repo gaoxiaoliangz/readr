@@ -56,6 +56,10 @@ class Gallery extends React.Component {
   }
 
   command(action, event) {
+    if (typeof action === 'function') {
+      action(event)
+      return
+    }
     switch (action) {
       case 'search':
         // execute the search command

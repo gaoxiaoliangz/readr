@@ -24,6 +24,10 @@ const Gallery = asyncComponent({
   resolve: () => import('./Gallery/Gallery')
 })
 
+const GalleryRedux = asyncComponent({
+  resolve: () => import('./Gallery/GalleryRedux')
+})
+
 const NotFound = asyncComponent({
   resolve: () => import('./NotFound/NotFound')
 })
@@ -53,6 +57,7 @@ class App extends React.Component {
             <Route exact path="/" component={Shelf} />
             <Route path="/book/:id" component={Book} />
             <Route path="/gallery" component={Gallery} />
+            <Route path="/gallery-redux" component={GalleryRedux} />
             <Route component={NotFound} />
           </Switch>
         )

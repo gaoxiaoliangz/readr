@@ -2,19 +2,25 @@ import { createStore, applyMiddleware, compose } from 'redux'
 // import { extractReducer, feedStore, extractSaga } from '@gxl/redux-model'
 import { createEpicMiddleware } from 'redux-observable'
 import createSagaMiddleware from 'redux-saga'
+import thunk from 'redux-thunk'
 // import appModel from './containers/appModel'
 // import shelfModel from './containers/Shelf/shelfModel'
 // import bookModel from './containers/Book/bookModel'
 // import shelfEpic from './containers/Shelf/shelfEpic'
 import rootReducer from './reducers'
 import rootEpic from './epics'
+import createXstateMiddleware from './xstateMiddleware'
+import galleryMachine from './containers/Gallery/machine'
 
 // const rootEpic = combineEpics(shelfEpic)
 const epicMiddleware = createEpicMiddleware(rootEpic)
+const xstateMiddleware = createXstateMiddleware({
+  gallery: galleryMachine
+})
 
 // const models = [appModel, shelfModel, bookModel]
 const sagaMiddleware = createSagaMiddleware()
-const middlewares = [sagaMiddleware, epicMiddleware]
+const middlewares = [thunk, xstateMiddleware, sagaMiddleware, epicMiddleware]
 const enhancers = [
   applyMiddleware(...middlewares)
 ]

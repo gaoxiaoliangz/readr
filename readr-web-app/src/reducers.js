@@ -28,6 +28,8 @@ import {
   FETCH_REMOTE_PROGRESS
 } from './actions'
 import { FETCH_STATUS } from './constants'
+import { createMachineReducer } from './xstateMiddleware'
+import galleryReducers from './containers/Gallery/reducer'
 
 export const makeReducer = (type, initialState, fn = (state, action) => action.payload) =>
   (state = initialState, action) =>
@@ -189,5 +191,7 @@ export default combineReducers({
   loadingTasks,
   authStatus,
   localBooks: makeReducer(GET_LOCAL_BOOKS.SUCCESS, {}),
-  isUploadingBook
+  isUploadingBook,
+  gallery: createMachineReducer('gallery', 'start'),
+  galleryStates: galleryReducers
 })
