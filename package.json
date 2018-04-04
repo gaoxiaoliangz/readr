@@ -1,6 +1,6 @@
 {
   "name": "readr",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "repository": "ssh://git@github.com/gaoxiaoliangz/readr.git",
   "author": "Liang <gaoxiaoliangz@users.noreply.github.com>",
   "license": "MIT",
