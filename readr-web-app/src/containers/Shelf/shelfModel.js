@@ -1,6 +1,6 @@
 import { createModel } from '@gxl/redux-model'
 import _ from 'lodash'
-// import { select } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects'
 import { uploadBook, fetchUserOwnedBooks, delBook, fetchBook, SubscriptionManager, subscriptions } from '../../service'
 import { FETCH_STATUS } from '../../constants'
 import createDbModel from '../../local-db'
@@ -10,45 +10,7 @@ import appModel from '../appModel'
 const dbModel = createDbModel('books')
 const NAMESPACE = 'shelf'
 const subs = new SubscriptionManager()
-
-export function* fetchBooks() {
-  model.$set('booksStatus', FETCH_STATUS.FETCHING)
-  appModel.startLoading('books')
-  try {
-    const books = yield fetchUserOwnedBooks().then(toArray)
-    model.$set('booksStatus', FETCH_STATUS.SUCCESS)
-    model.putBooks(books)
-    books.forEach(book => {
-      subs.add(`books/${book.id}`, (data, first) => {
-        if (!first) {
-          this.fetchBooks()
-        }
-      })
-    })
-  } catch (error) {
-    console.error(error)
-    model.$set('booksStatus', FETCH_STATUS.FAILURE)
-  } finally {
-    appModel.stopLoading('books')
-  }
-}
-
-export function* downloadBook(id) {
-  model.$set(['downloadStatus', id], FETCH_STATUS.FETCHING)
-  try {
-    const book = yield fetchBook(id, true)
-    yield dbModel.add(book)
-    model.$set(['downloadStatus', id], FETCH_STATUS.SUCCESS)
-    yield getLocalBooks()
-  } catch (error) {
-    model.$set(['downloadStatus', id], FETCH_STATUS.FAILURE)
-  }
-}
-
-export function* getLocalBooks() {
-  const books = yield dbModel.listAll()
-  model.putLocalBooks(books)
-}
+const { startLoading, stopLoading } = appModel.actionCreators
 
 const model = createModel({
   namespace: NAMESPACE,
@@ -63,7 +25,27 @@ const model = createModel({
     isUploadingBook: false,
   },
   effects: {
-    fetchBooks,
+    *fetchBooks() {
+      yield put($set('booksStatus', FETCH_STATUS.FETCHING))
+      yield put(startLoading('books'))
+      try {
+        const books = yield fetchUserOwnedBooks().then(toArray)
+        yield put($set('booksStatus', FETCH_STATUS.SUCCESS))
+        yield put(putBooks(books))
+        books.forEach(book => {
+          subs.add(`books/${book.id}`, (data, first) => {
+            if (!first) {
+              model.fetchBooks()
+            }
+          })
+        })
+      } catch (error) {
+        console.error(error)
+        yield put($set('booksStatus', FETCH_STATUS.FAILURE))
+      } finally {
+        yield put(stopLoading('books'))
+      }
+    },
     *regWatcher() {
       let isReg = true
       subscriptions.onUserOwnedBooksChanged(snapshot => {
@@ -72,7 +54,7 @@ const model = createModel({
           _.keys(books).forEach(id => {
             subs.add(`books/${id}`, () => {
               if (!isReg) {
-                this.fetchBooks()
+                model.fetchBooks()
               }
             })
           })
@@ -89,12 +71,25 @@ const model = createModel({
         console.error(error)
       }
     },
-    downloadBook,
-    getLocalBooks,
+    *downloadBook(id) {
+      yield put($set(['downloadStatus', id], FETCH_STATUS.FETCHING))
+      try {
+        const book = yield fetchBook(id, true)
+        yield dbModel.add(book)
+        yield put($set(['downloadStatus', id], FETCH_STATUS.SUCCESS))
+        yield put(getLocalBooks())
+      } catch (error) {
+        yield put($set(['downloadStatus', id], FETCH_STATUS.FAILURE))
+      }
+    },
+    *getLocalBooks() {
+      const books = yield dbModel.listAll()
+      yield put(putLocalBooks(books))
+    },
     *uploadBook(file) {
-      model.$set('isUploadingBook', true)
+      yield put($set('isUploadingBook', true))
       yield uploadBook(file)
-      model.$set('isUploadingBook', false)
+      yield put($set('isUploadingBook', false))
     }
   },
   computations: {
@@ -122,5 +117,7 @@ const model = createModel({
     }
   }
 })
+
+const { $set, putBooks, getLocalBooks, putLocalBooks } = model.actionCreators
 
 export default model

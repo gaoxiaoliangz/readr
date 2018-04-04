@@ -38,20 +38,10 @@ class Book extends Component {
 
   lastScrollTop = 0
 
-  componentWillMount() {
-    let pageHeight = window.innerHeight - 120
-    const rest = pageHeight % this.props.config.lineHeight
-    pageHeight -= rest
-    model.initConfig({
-      pageHeight
-    })
-  }
-
   componentDidMount() {
     const { id } = this.props.match.params
     model.initBook(id) // eslint-disable-line
     window.addEventListener('mousemove', this.handleMousemove)
-    window.goTo = this.goTo
   }
 
   componentWillUnmount() {

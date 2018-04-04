@@ -1,8 +1,8 @@
 import { createModel } from '@gxl/redux-model'
 import _ from 'lodash'
-import { select, take } from 'redux-saga/effects'
+import { select, take, put } from 'redux-saga/effects'
 import { FETCH_STATUS } from '../../constants'
-import shelfModel, { getLocalBooks } from '../Shelf/shelfModel'
+import shelfModel from '../Shelf/shelfModel'
 import createDbModel from '../../local-db'
 import appModel from '../appModel'
 import { htmlStringToNodes } from './layout/nodes'
@@ -12,95 +12,13 @@ import { pageToProgress } from './progress'
 
 const NAMESPACE = 'book'
 const userDbModel = createDbModel('users')
+const { getLocalBooks, downloadBook } = shelfModel.actionCreators
+const { startLoading, stopLoading } = appModel.actionCreators
+const { GET_LOCAL_BOOKS_END, DOWNLOAD_BOOK_END } = shelfModel.actionTypes
 
 export function* getBookId() {
   const { book } = yield select()
   return book.currBookId
-}
-
-export function* getRemoteProgress() {
-  const bookId = yield getBookId()
-  const progress = yield getBookProgress(bookId)
-  const progress2 = progress || 0
-  model.putRemoteProgress(progress2)
-  return progress2
-}
-
-export function* initBook(id) {
-  try {
-    appModel.startLoading('book')
-    model.$set('currBookId', id)
-    model.loadBook(id)
-    yield take('book/loadBook@end')
-    model.getLayoutInfo(id)
-    yield take('book/getLayoutInfo@end')
-    const { book } = yield select()
-    const bookNodes = book.bookNodes[id]
-    const bookLayoutInfo = book.bookLayouts[id]
-    const result = groupPageFromChapters(bookNodes, bookLayoutInfo, book.config.pageHeight)
-    model.putBookPages(result)
-    const progress = yield getRemoteProgress()
-    model.$set('bookReady', true)
-    appModel.stopLoading('book')
-    model.goToProgress(progress)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-export function* loadBook(id) {
-  model.$set('bookStatus', FETCH_STATUS.FETCHING)
-  try {
-    yield getLocalBooks()
-    let state = yield select()
-    let book = state.shelf.localBooks[id]
-    if (!book) {
-      shelfModel.downloadBook(id)
-      yield take('shelf/downloadBook@end')
-      yield getLocalBooks()
-      state = yield select()
-      book = state.shelf.localBooks[id]
-    }
-    const sectionsOfNodes = book.content.map(section => {
-      return {
-        sectionId: section.id,
-        nodes: htmlStringToNodes(section.htmlString)
-      }
-    })
-    model.$set(['bookNodes', id], sectionsOfNodes)
-    model.$set('bookStatus', FETCH_STATUS.SUCCESS)
-  } catch (error) {
-    console.error(error)
-    model.$set('bookStatus', FETCH_STATUS.FAILURE)
-  }
-}
-
-export function* getLayoutInfo() {
-  model.$set('isEstimatingLayout', true)
-  yield take('book/putLayoutInfo')
-  model.$set('isEstimatingLayout', false)
-}
-
-export function* updateRemoteProgress(progress) {
-  const bookId = yield getBookId()
-  yield updateBookProgress(bookId, progress)
-}
-
-export function* goToProgress(progress) {
-  try {
-    const { book } = yield select()
-    if (book.config.scrollMode) {
-      model.$set('disableScrollListener', true)
-      yield take('book/$set:disableScrollListener')
-    }
-    model.setClientProgress(progress)
-    yield take('book/setClientProgress')
-    if (book.config.scrollMode) {
-      model.$set('disableScrollListener', false)
-    }
-  } catch (error) {
-    console.error(error)
-  }
 }
 
 const model = createModel({
@@ -129,20 +47,105 @@ const model = createModel({
     }
   },
   effects: {
-    initBook,
-    loadBook,
-    getLayoutInfo,
-    getRemoteProgress,
-    updateRemoteProgress,
-    goToProgress,
-    *initConfig(config) {
-      const { app: { user } } = yield select()
+    *initBook(id) {
+      try {
+        yield put(startLoading('book'))
+        yield put($set('currBookId', id))
+        yield put(initConfig())
+        yield take(INIT_CONFIG_END)
+        yield put(loadBook(id))
+        yield take(LOAD_BOOK_END)
+        yield put(getLayoutInfo(id))
+        yield take(GET_LAYOUT_INFO_END)
+        const { book } = yield select()
+        const bookNodes = book.bookNodes[id]
+        const bookLayoutInfo = book.bookLayouts[id]
+        const result = groupPageFromChapters(bookNodes, bookLayoutInfo, book.config.pageHeight)
+        yield put(putBookPages(result))
+        yield put(getRemoteProgress())
+        yield take(GET_REMOTE_PROGRESS_END)
+        yield put($set('bookReady', true))
+        yield put(stopLoading('book'))
+        yield put(goToProgress())
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    *loadBook(id) {
+      yield put($set('bookStatus', FETCH_STATUS.FETCHING))
+      try {
+        yield put(getLocalBooks())
+        yield take(GET_LOCAL_BOOKS_END)
+        let state = yield select()
+        let book = state.shelf.localBooks[id]
+        if (!book) {
+          yield put(downloadBook(id))
+          yield take(DOWNLOAD_BOOK_END)
+          yield getLocalBooks()
+          yield take(GET_LOCAL_BOOKS_END)
+          state = yield select()
+          book = state.shelf.localBooks[id]
+        }
+        const sectionsOfNodes = book.content.map(section => {
+          return {
+            sectionId: section.id,
+            nodes: htmlStringToNodes(section.htmlString)
+          }
+        })
+        yield put($set(['bookNodes', id], sectionsOfNodes))
+        yield put($set('bookStatus', FETCH_STATUS.SUCCESS))
+      } catch (error) {
+        console.error(error)
+        yield put($set('bookStatus', FETCH_STATUS.FAILURE))
+      }
+    },
+    *getLayoutInfo() {
+      yield put($set('isEstimatingLayout', true))
+      yield take(PUT_LAYOUT_INFO)
+      yield put($set('isEstimatingLayout', false))
+    },
+    *getRemoteProgress() {
+      const bookId = yield getBookId()
+      const progress = yield getBookProgress(bookId)
+      const progress2 = progress || 0
+      yield put(putRemoteProgress(progress2))
+      return progress2
+    },
+    *updateRemoteProgress(progress) {
+      const bookId = yield getBookId()
+      yield updateBookProgress(bookId, progress)
+    },
+    *goToProgress(progress0) {
+      let progress = progress0
+      if (_.isUndefined(progress)) {
+        const { book: { remoteProgress } } = yield select()
+        progress = remoteProgress
+      }
+      try {
+        const { book } = yield select()
+        if (book.config.scrollMode) {
+          yield put($set('disableScrollListener', true))
+        }
+        yield put(setClientProgress(progress))
+        if (book.config.scrollMode) {
+          yield put($set('disableScrollListener', false))
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    *initConfig() {
+      const { app: { user }, book: { config } } = yield select()
+      let pageHeight = window.innerHeight - 120
+      const rest = pageHeight % config.lineHeight
+      pageHeight -= rest
+
       if (user.uid) {
         const localConfig = yield userDbModel.get(user.uid)
-        model.putConfig({
+        yield put(putConfig({
           ...localConfig,
-          ...config
-        })
+          pageHeight
+        }))
       }
     },
     *goToChapter(chapterId) {
@@ -157,34 +160,36 @@ const model = createModel({
       }
       if (found) {
         const progress = pageToProgress(found, pages.length)
-        model.goToProgress(progress)
+        yield put(goToProgress(progress))
       } else {
         console.error(chapterId, 'not found!')
       }
     },
     *changeFontSize(newSize) {
-      this.$set('config.fontSize', newSize)
+      yield put($set('config.fontSize', newSize))
       const id = yield getBookId()
-      this.$set('disableScrollListener', true)
-      this.getLayoutInfo(id)
-      yield take('book/getLayoutInfo@end')
+      yield put($set('disableScrollListener', true))
+      yield put(getLayoutInfo(id))
+      yield take(GET_LAYOUT_INFO_END)
       const { book } = yield select()
       const bookNodes = book.bookNodes[id]
       const bookLayoutInfo = book.bookLayouts[id]
       const result = groupPageFromChapters(bookNodes, bookLayoutInfo, book.config.pageHeight)
-      model.putBookPages(result)
-      model.goToProgress(book.clientProgress)
-      this.$set('disableScrollListener', false)
+      yield put(putBookPages(result))
+      yield put(goToProgress(book.clientProgress))
+      yield take(GO_TO_PROGRESS_END)
+      yield put($set('disableScrollListener', false))
     },
     *toggleScrollMode(status) {
       const { book } = yield select()
       if (status) {
-        this.$set('disableScrollListener', true)
-        model.$set('config.scrollMode', status)
-        model.goToProgress(book.clientProgress)
-        this.$set('disableScrollListener', false)
+        yield put($set('disableScrollListener', true))
+        yield put($set('config.scrollMode', status))
+        yield put(goToProgress(book.clientProgress))
+        yield take(GO_TO_PROGRESS_END)
+        yield put($set('disableScrollListener', false))
       } else {
-        model.$set('config.scrollMode', status)
+        yield put($set('config.scrollMode', status))
       }
     }
   },
@@ -261,5 +266,15 @@ const model = createModel({
     }
   }
 })
+
+const {
+  $set, setClientProgress, putBookPages, initConfig,
+  putConfig, loadBook, getLayoutInfo,
+  getRemoteProgress, goToProgress, putRemoteProgress
+} = model.actionCreators
+const {
+  LOAD_BOOK_END, GET_LAYOUT_INFO_END, INIT_CONFIG_END,
+  PUT_LAYOUT_INFO, GET_REMOTE_PROGRESS_END, GO_TO_PROGRESS_END
+} = model.actionTypes
 
 export default model

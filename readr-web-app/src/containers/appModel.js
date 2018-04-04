@@ -1,6 +1,6 @@
 import { createModel } from '@gxl/redux-model'
 import _ from 'lodash'
-import { select } from 'redux-saga/effects'
+import { select, put } from 'redux-saga/effects'
 import { updateUser } from '../service'
 
 const NAMESPACE = 'app'
@@ -26,12 +26,12 @@ const model = createModel({
   
         if (user) {
           selfState.user.uid = user.uid
-          this.$set('user', _.pick(user, ['uid', 'displayName']))
+          yield put($set('user', _.pick(user, ['uid', 'displayName'])))
           yield updateUser(user.uid, user.displayName, user.email, user.photoURL)
-          this.$set('authStatus', 1)
+          yield put($set('authStatus', 1))
         } else {
-          this.$set('user', {})
-          this.$set('authStatus', 0)
+          yield put($set('user', {}))
+          yield put($set('authStatus', 0))
         }
       } catch (error) {
         console.error(error)
@@ -71,5 +71,7 @@ const model = createModel({
     }
   }
 })
+
+const { $set } = model.actionCreators
 
 export default model
