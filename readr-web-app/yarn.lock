@@ -17,9 +17,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@gxl/redux-model@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@gxl/redux-model/-/redux-model-0.2.3.tgz#910db9458c79ddd6af70646193e14b17b41c0512"
+"@gxl/redux-model@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@gxl/redux-model/-/redux-model-0.2.5.tgz#9cd09c9aaa5567c8a2d212413f6fe2e8230215b6"
   dependencies:
     lodash "^4.17.5"
     react-redux "^5.0.7"

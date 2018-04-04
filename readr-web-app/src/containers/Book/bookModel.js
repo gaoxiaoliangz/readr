@@ -62,11 +62,10 @@ const model = createModel({
         const bookLayoutInfo = book.bookLayouts[id]
         const result = groupPageFromChapters(bookNodes, bookLayoutInfo, book.config.pageHeight)
         yield put(putBookPages(result))
-        yield put(getRemoteProgress())
-        yield take(GET_REMOTE_PROGRESS_END)
+        const progress = yield model.effects.getRemoteProgress()
         yield put($set('bookReady', true))
         yield put(stopLoading('book'))
-        yield put(goToProgress())
+        yield put(goToProgress(progress))
       } catch (error) {
         console.error(error)
       }
@@ -115,12 +114,7 @@ const model = createModel({
       const bookId = yield getBookId()
       yield updateBookProgress(bookId, progress)
     },
-    *goToProgress(progress0) {
-      let progress = progress0
-      if (_.isUndefined(progress)) {
-        const { book: { remoteProgress } } = yield select()
-        progress = remoteProgress
-      }
+    *goToProgress(progress) {
       try {
         const { book } = yield select()
         if (book.config.scrollMode) {
@@ -276,5 +270,7 @@ const {
   LOAD_BOOK_END, GET_LAYOUT_INFO_END, INIT_CONFIG_END,
   PUT_LAYOUT_INFO, GET_REMOTE_PROGRESS_END, GO_TO_PROGRESS_END
 } = model.actionTypes
+
+console.log(model)
 
 export default model
