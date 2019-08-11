@@ -1,6 +1,6 @@
 # Readr
 
-> This project is deprecated.
+> This project is no longer maintained
 
 A modern web reading app
 
